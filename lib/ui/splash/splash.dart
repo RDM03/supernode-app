@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/routes.dart';
+import 'package:supernodeapp/ui/login/login_route.dart';
 
+import '../../router_service.dart';
 import 'splash_logo_animation.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -65,6 +66,6 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   navigate() async {
-    Navigator.of(context).pushReplacementNamed(Routes.login);
+    RouterService.instance.navigateTo(LogInRoute.buildPath());
   }
 }
