@@ -65,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen>
     return Timer(_duration, navigate);
   }
 
-  navigate() async {
+  navigate()  {
     RouterService.instance.navigateTo(LogInRoute.buildPath());
   }
 }

@@ -1,11 +1,11 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/route.dart';
+import 'package:supernodeapp/ui/signup/welcome/sign_up_welcome_screen.dart';
 
-import 'login.dart';
 
-class LogInRoute extends ARoute {
-  static String _path = '/login';
+class SignUpWelcomeRoute extends ARoute {
+  static String _path = '/sign_up_welcome';
   static String buildPath() => _path;
 
   @override
@@ -15,5 +15,5 @@ class LogInRoute extends ARoute {
   final TransitionType transition = TransitionType.inFromRight;
 
   @override
-  Widget handlerFunc(BuildContext context, Map<String, dynamic> params) => LoginScreen();
+  Widget handlerFunc(BuildContext context, Map<String, dynamic> params) => SingUpWelcomeScreen();
 }

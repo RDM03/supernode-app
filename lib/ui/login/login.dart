@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/router_service.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/dimens.dart';
 import 'package:supernodeapp/theme/theme.dart';
+import 'package:supernodeapp/ui/signup/welcome/sign_up_welcome_route.dart';
 import 'package:supernodeapp/widgets/buttons/primary_button.dart';
 import 'package:supernodeapp/widgets/buttons/secondary_button.dart';
 import 'package:supernodeapp/widgets/buttons/supernode_button.dart';
@@ -89,7 +91,9 @@ class LoginScreen extends StatelessWidget {
                   constraints: const BoxConstraints(
                       minWidth: double.infinity, minHeight: 46),
                   child: PrimaryButton(
-                    onTap: () {},
+                    onTap: () {
+                      RouterService.instance.navigateTo(SignUpWelcomeRoute.buildPath());
+                    },
                     buttonTitle: "Login",
                   ),
                 ),
