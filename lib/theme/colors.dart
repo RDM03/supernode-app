@@ -13,3 +13,12 @@ const color10 = Color.fromARGB(255, 71, 217, 108);
 const color11 = Color.fromARGB(255, 237, 237, 245);
 const color12 = Color.fromARGB(64, 0, 0, 0);
 const color13 = Color.fromARGB(255, 16, 196, 105);
+
+
+const primaryColor = Color.fromARGB(255, 16, 196, 105);
+const scaffoldBackgroundColor = Color.fromARGB(255, 16, 196, 105);
+const cardBackgroundColor = Color.fromARGB(255, 255, 255, 255);
+const buttonPrimaryColor = Color.fromARGB(255, 28, 20, 120);
+const buttonSecondaryColor = Color.fromARGB(0, 0, 0, 0);
+
+
