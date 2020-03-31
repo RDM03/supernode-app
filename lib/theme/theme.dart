@@ -7,6 +7,12 @@ final appTheme = ThemeData(
 );
 
 //Text Styles
+const kTitleTextStyle = TextStyle(
+  color: Color.fromARGB(222, 0, 0, 0),
+  fontFamily: "Roboto",
+  fontWeight: FontWeight.w400,
+  fontSize: 16,
+);
 const kTitleTextStyle1 = TextStyle(
   color: Color.fromARGB(222, 0, 0, 0),
   fontFamily: "Roboto",
