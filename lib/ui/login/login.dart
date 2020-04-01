@@ -92,7 +92,6 @@ class LoginScreen extends StatelessWidget {
                       minWidth: double.infinity, minHeight: 46),
                   child: PrimaryButton(
                     onTap: () {
-                      RouterService.instance.navigateTo(SignUpWelcomeRoute.buildPath());
                     },
                     buttonTitle: "Login",
                   ),
@@ -104,7 +103,9 @@ class LoginScreen extends StatelessWidget {
                   constraints: const BoxConstraints(
                       minWidth: double.infinity, minHeight: 46),
                   child: SecondaryButton(
-                    onTap: () {},
+                    onTap: () {
+                      RouterService.instance.navigateTo(SignUpWelcomeRoute.buildPath());
+                    },
                     buttonTitle: "Sign up with email",
                   ),
                 )

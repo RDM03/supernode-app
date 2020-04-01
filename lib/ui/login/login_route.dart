@@ -12,7 +12,10 @@ class LogInRoute extends ARoute {
   String get path => _path;
 
   @override
-  final TransitionType transition = TransitionType.inFromRight;
+  final bool clearStack = true;
+
+  @override
+  final TransitionType transition = TransitionType.fadeIn;
 
   @override
   Widget handlerFunc(BuildContext context, Map<String, dynamic> params) => LoginScreen();

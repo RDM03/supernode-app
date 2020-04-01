@@ -2,12 +2,14 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/main.dart';
 import 'package:supernodeapp/ui/login/login_route.dart';
+import 'package:supernodeapp/ui/signup/code_verification/sign_up_verification_code_route.dart';
 import 'package:supernodeapp/ui/splash/splash_route.dart';
 import 'route.dart';
 import 'ui/signup/welcome/sign_up_welcome_route.dart';
 
 class RouterService {
   static RouterService get instance => RouterService();
+
   factory RouterService() => _singleton;
   static final RouterService _singleton = RouterService._init();
 
@@ -15,6 +17,7 @@ class RouterService {
     SplashRoute(),
     LogInRoute(),
     SignUpWelcomeRoute(),
+    SignUpVerificationRoute(),
   ];
 
   final Router _router = Router();
@@ -29,7 +32,8 @@ class RouterService {
     }
   }
 
-  Route<dynamic> generator(RouteSettings routeSettings) => _router.generator(routeSettings);
+  Route<dynamic> generator(RouteSettings routeSettings) =>
+      _router.generator(routeSettings);
 
   void pop(BuildContext context) => _router.pop(context);
 
@@ -58,7 +62,8 @@ class RouterService {
             transitionBuilder: transitionBuilder ?? route.transitionBuilder,
           );
         } else if (clearStack ?? route.clearStack) {
-          return MyApp.navigatorKey.currentState.pushNamedAndRemoveUntil(path, (check) => false);
+          return MyApp.navigatorKey.currentState
+              .pushNamedAndRemoveUntil(path, (check) => false);
         } else if (replace ?? route.replace) {
           return MyApp.navigatorKey.currentState.pushReplacementNamed(path);
         } else {

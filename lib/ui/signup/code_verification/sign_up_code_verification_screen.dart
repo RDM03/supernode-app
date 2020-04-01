@@ -1,17 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:supernodeapp/router_service.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/dimens.dart';
 import 'package:supernodeapp/theme/theme.dart';
-import 'package:supernodeapp/ui/signup/code_verification/sign_up_verification_code_route.dart';
 import 'package:supernodeapp/widgets/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/widgets/buttons/primary_button.dart';
-import 'package:supernodeapp/widgets/text_field/text_field_with_title.dart';
 
-class SingUpWelcomeScreen extends StatelessWidget {
-  void pop(context) {}
-
+class SignUpCodeVerificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,33 +28,34 @@ class SingUpWelcomeScreen extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 110),
               child: Text(
-                "Welcome",
+                "We have sent you a verification code to confirm",
                 style: kTitleTextStyle,
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 35),
-              child: TextFieldWithTitle(
-                title: "Email",
-                hint: "Enter your email address",
-                textInputAction: TextInputAction.done,
+              height: 60,
+              margin: EdgeInsets.only(top: 40),
+              child: PinCodeTextField(
+                textInputType: TextInputType.number,
+                autoFocus: true,
+                length: 6,
+                shape: PinCodeFieldShape.box,
+                borderWidth: 1,
+                inactiveColor: Color.fromARGB(26, 0, 0, 0),
+                activeColor: Color.fromARGB(100, 0, 0, 0),
+                selectedColor: Color.fromARGB(100, 0, 0, 0),
+                borderRadius: BorderRadius.circular(3),
+                onChanged: (String value) {},
               ),
             ),
             Spacer(),
-            Column(
-              children: <Widget>[
-                ConstrainedBox(
-                  constraints: const BoxConstraints(
-                      minWidth: double.infinity, minHeight: 46),
-                  child: PrimaryButton(
-                    onTap: () {
-                      RouterService.instance
-                          .navigateTo(SignUpVerificationRoute.buildPath());
-                    },
-                    buttonTitle: "Continue",
-                  ),
-                ),
-              ],
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                  minWidth: double.infinity, minHeight: 46),
+              child: PrimaryButton(
+                onTap: () {},
+                buttonTitle: "Confirm",
+              ),
             ),
             SizedBox(height: 64)
           ],

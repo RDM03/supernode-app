@@ -7,20 +7,26 @@ final appTheme = ThemeData(
 );
 
 //Text Styles
+const kHeadingTextStyle = TextStyle(
+  color: textColor1,
+  fontFamily: "Roboto",
+  fontWeight: FontWeight.w400,
+  fontSize: 24,
+);
 const kTitleTextStyle = TextStyle(
-  color: Color.fromARGB(222, 0, 0, 0),
+  color: textColor1,
   fontFamily: "Roboto",
   fontWeight: FontWeight.w400,
   fontSize: 16,
 );
 const kTitleTextStyle1 = TextStyle(
-  color: Color.fromARGB(222, 0, 0, 0),
+  color: textColor1,
   fontFamily: "Roboto",
   fontWeight: FontWeight.w400,
   fontSize: 14,
 );
 const kTitleTextStyle2 = TextStyle(
-  color: Color.fromARGB(255, 255, 255, 255),
+  color: textColor2,
   fontFamily: "Roboto",
   fontWeight: FontWeight.w400,
   fontSize: 14,
@@ -32,13 +38,13 @@ const kTitleTextStyle3 = TextStyle(
   fontSize: 14,
 );
 const kInputTextStyle = TextStyle(
-  color: Color.fromARGB(64, 0, 0, 0),
+  color: textColor3,
   fontFamily: "Roboto",
   fontWeight: FontWeight.w400,
   fontSize: 12,
 );
 const kForgotPasswordTextStyle = TextStyle(
-  color: Color.fromARGB(138, 0, 0, 0),
+  color: textColor4,
   fontFamily: "Roboto",
   fontWeight: FontWeight.w400,
   fontSize: 12,

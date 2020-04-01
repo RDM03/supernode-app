@@ -20,5 +20,9 @@ const scaffoldBackgroundColor = Color.fromARGB(255, 16, 196, 105);
 const cardBackgroundColor = Color.fromARGB(255, 255, 255, 255);
 const buttonPrimaryColor = Color.fromARGB(255, 28, 20, 120);
 const buttonSecondaryColor = Color.fromARGB(0, 0, 0, 0);
+const textColor1 = Color.fromARGB(222, 0, 0, 0);
+const textColor2 = Color.fromARGB(222, 255, 255, 255);
+const textColor3 = Color.fromARGB(64, 0, 0, 0);
+const textColor4 = Color.fromARGB(138, 0, 0, 0);
 
 
