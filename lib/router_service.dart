@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/main.dart';
 import 'package:supernodeapp/ui/login/login_route.dart';
 import 'package:supernodeapp/ui/signup/code_verification/sign_up_verification_code_route.dart';
+import 'package:supernodeapp/ui/signup/profile/sign_up_profile_route.dart';
 import 'package:supernodeapp/ui/splash/splash_route.dart';
 import 'route.dart';
 import 'ui/signup/welcome/sign_up_welcome_route.dart';
@@ -18,6 +19,7 @@ class RouterService {
     LogInRoute(),
     SignUpWelcomeRoute(),
     SignUpVerificationRoute(),
+    SignUpProfileRoute(),
   ];
 
   final Router _router = Router();

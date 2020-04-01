@@ -5,6 +5,7 @@ import 'package:supernodeapp/router_service.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/dimens.dart';
 import 'package:supernodeapp/theme/theme.dart';
+import 'package:supernodeapp/ui/signup/profile/sign_up_profile_route.dart';
 import 'package:supernodeapp/widgets/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/widgets/buttons/primary_button.dart';
 
@@ -53,7 +54,9 @@ class SignUpCodeVerificationScreen extends StatelessWidget {
               constraints: const BoxConstraints(
                   minWidth: double.infinity, minHeight: 46),
               child: PrimaryButton(
-                onTap: () {},
+                onTap: () {
+                  RouterService.instance.navigateTo(SignUpProfileRoute.buildPath());
+                },
                 buttonTitle: "Confirm",
               ),
             ),
