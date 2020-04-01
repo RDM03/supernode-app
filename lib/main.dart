@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/router_service.dart';
 import 'package:supernodeapp/theme/theme.dart';
-import 'package:supernodeapp/ui/splash/splash.dart';
+import 'package:supernodeapp/ui/splash/splash_screen.dart';
 
 void main() {
   RouterService();
