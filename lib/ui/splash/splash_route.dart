@@ -1,7 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/route.dart';
-import 'package:supernodeapp/ui/splash/splash.dart';
+import 'package:supernodeapp/ui/splash/splash_screen.dart';
 
 class SplashRoute extends ARoute {
   static String _path = '/splash';

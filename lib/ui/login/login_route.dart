@@ -2,7 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/route.dart';
 
-import 'login.dart';
+import 'login_screen.dart';
 
 class LogInRoute extends ARoute {
   static String _path = '/login';

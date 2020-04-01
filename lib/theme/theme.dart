@@ -37,6 +37,12 @@ const kTitleTextStyle3 = TextStyle(
   fontWeight: FontWeight.w400,
   fontSize: 14,
 );
+const kTitleTextStyle4 = TextStyle(
+  color: textColor4,
+  fontFamily: "Roboto",
+  fontWeight: FontWeight.w400,
+  fontSize: 14,
+);
 const kInputTextStyle = TextStyle(
   color: textColor3,
   fontFamily: "Roboto",
