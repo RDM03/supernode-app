@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/dimens.dart';
+import 'package:supernodeapp/ui/signup/mnemonics/sign_up_mnemonics_route.dart';
 import 'package:supernodeapp/widgets/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/widgets/buttons/primary_button.dart';
 import 'package:supernodeapp/widgets/buttons/radio_button_with_text.dart';
@@ -72,7 +73,10 @@ class SignUpProfileScreen extends StatelessWidget {
                 constraints: const BoxConstraints(
                     minWidth: double.infinity, minHeight: 46),
                 child: PrimaryButton(
-                  onTap: () {},
+                  onTap: () {
+                    RouterService.instance
+                        .navigateTo(SignUpMnemonicsRoute.buildPath());
+                  },
                   buttonTitle: "Next",
                 ),
               )
