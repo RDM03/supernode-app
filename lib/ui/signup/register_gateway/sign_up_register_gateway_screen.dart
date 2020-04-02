@@ -1,20 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/router_service.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/dimens.dart';
 import 'package:supernodeapp/theme/theme.dart';
-import 'package:supernodeapp/ui/signup/register_gateway/sign_up_register_gateway_route.dart';
 import 'package:supernodeapp/widgets/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/widgets/buttons/primary_button.dart';
-import 'package:supernodeapp/widgets/buttons/radio_button_with_text.dart';
 import 'package:supernodeapp/widgets/buttons/secondary_button.dart';
+import 'package:supernodeapp/widgets/text_field/primary_text_field.dart';
 
-import '../../../router_service.dart';
+import 'item_gateway.dart';
 
-class SignUp2faScreen extends StatelessWidget {
+class SignUpRegisterGatewayScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       appBar: AppBars.signUpSkipAppBar(onPress: () {
         RouterService.instance.pop(context);
@@ -31,56 +32,74 @@ class SignUp2faScreen extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 110),
               child: Text(
-                "Set 2FA",
+                "Register your Gateway",
                 style: kTitleTextStyle,
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              child: RadioButtonWithText(
-                  text: "Set up two-factor authentication using Google Authenticator."),
-            ),
-            SizedBox(height: 10,),
-            ConstrainedBox(
-              constraints: const BoxConstraints(
-                  minWidth: double.infinity, minHeight: 46),
-              child: SecondaryButton(
-                onTap: () {
-                },
-                buttonTitle: "Download Google Authenticator",
               ),
             ),
             Container(
               margin: EdgeInsets.only(top: 20),
               child: Text(
-                "Write down your mnemonic phrase. This phase can be used to reset your password and two-factor authentication. Keep it safe!\n",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 style: kTitleTextStyle4,
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                  minWidth: double.infinity, minHeight: 46),
+              child: SecondaryButton(
+                onTap: () {},
+                buttonTitle: "Scan the QR Code",
+              ),
+            ),
+            Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(top: 20),
+              child: Text(
+                "or you can manually input serial number",
+                style: kForgotPasswordTextStyle,
               ),
             ),
             Container(
               margin: EdgeInsets.only(top: 20),
-              child: RadioButtonWithText(
-                  text: "Login"),
+              child: PrimaryTextField(
+                hint: "Gateway Serial Number",
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                  minWidth: double.infinity, minHeight: 46),
+              child: SecondaryButton(
+                onTap: () {},
+                buttonTitle: "Add Gateway",
+              ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 10),
-              child: RadioButtonWithText(
-                  text: "Withdraw"),
+              margin: EdgeInsets.only(top: 20),
+              child: Text(
+                "Registered Gateway",
+                style: kTitleTextStyle,
+              ),
             ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              child: RadioButtonWithText(
-                  text: "Change Password"),
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.only(top: 20),
+                itemCount: 15,
+                itemBuilder: (context, index) => ItemGateway(),
+              ),
             ),
-            Spacer(),
+            SizedBox(height: 20,),
             ConstrainedBox(
               constraints: const BoxConstraints(
                   minWidth: double.infinity, minHeight: 46),
               child: PrimaryButton(
-                onTap: () {
-                  RouterService.instance.navigateTo(SignUpRegisterGatewayRoute.buildPath());
-                },
-                buttonTitle: "Next",
+                onTap: () {},
+                buttonTitle: "Complete",
               ),
             ),
             SizedBox(height: 64)
@@ -90,5 +109,3 @@ class SignUp2faScreen extends StatelessWidget {
     );
   }
 }
-
-
