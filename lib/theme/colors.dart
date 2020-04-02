@@ -25,5 +25,6 @@ const textColor1 = Color.fromARGB(222, 0, 0, 0);
 const textColor2 = Color.fromARGB(222, 255, 255, 255);
 const textColor3 = Color.fromARGB(64, 0, 0, 0);
 const textColor4 = Color.fromARGB(138, 0, 0, 0);
+  const iconCircularBackgroundColor = Color.fromARGB(51, 77, 137, 229);
 
 
