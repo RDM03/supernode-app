@@ -2,6 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/main.dart';
 import 'package:supernodeapp/ui/login/login_route.dart';
+import 'package:supernodeapp/ui/signup/2fa/sign_up_2fa_route.dart';
 import 'package:supernodeapp/ui/signup/code_verification/sign_up_verification_code_route.dart';
 import 'package:supernodeapp/ui/signup/mnemonics/sign_up_mnemonics_route.dart';
 import 'package:supernodeapp/ui/signup/profile/sign_up_profile_route.dart';
@@ -22,6 +23,7 @@ class RouterService {
     SignUpVerificationRoute(),
     SignUpProfileRoute(),
     SignUpMnemonicsRoute(),
+    SignUp2faRoute(),
   ];
 
   final Router _router = Router();
