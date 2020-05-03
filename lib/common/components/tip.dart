@@ -4,5 +4,5 @@ import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 
 void tip(context, text,{bool success: false}){
-   Toast.show(text.runtimeType == String ? text : text.toString(), context, duration: 3, gravity: Toast.BOTTOM, backgroundColor: success ? Colors.green : Colors.red[200]);
+   Toast.show(text.runtimeType == String ? text : text.toString(), context, duration: 5, gravity: Toast.BOTTOM, backgroundColor: success ? Colors.green : Colors.red[200]);
 }

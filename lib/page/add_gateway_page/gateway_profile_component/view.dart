@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
-import 'package:location/location.dart';
+// import 'package:mapbox_gl/mapbox_gl.dart';
+// import 'package:flutter_map/flutter_map.dart';
 import 'package:supernodeapp/common/components/map.dart';
 import 'package:supernodeapp/common/components/page/introduction.dart';
 import 'package:supernodeapp/common/components/page/link.dart';
@@ -169,18 +170,19 @@ Widget buildView(GatewayProfileState state, Dispatch dispatch, ViewService viewS
               FlutterI18n.translate(_ctx,'gateway_location'),
               suffixChild: link(
                 FlutterI18n.translate(_ctx,'set_location'),
-                onTap: () => _goToTheLcation(state.mapCtl,state.location,dispatch)
+                onTap: () => _changeMarker(state.mapCtl,state.location,dispatch)
               )
             ),
             map(
               context: _ctx,
               controller: state.mapCtl,
-              center: state.markerPoint ?? state.location,
+              center: state.markerPoint,
               markers: [Marker(
-                point: state.markerPoint ?? state.location,
+                point: state.markerPoint,
                 builder: (ctx) =>
                   Image.asset(AppImages.gateways),
               )],
+              callback: (point) => dispatch(GatewayProfileActionCreator.addLocation(location: point)),
               onTap: (point) => _changeMarker(state.mapCtl,point,dispatch)
             ),
           ]
@@ -199,20 +201,10 @@ Widget buildView(GatewayProfileState state, Dispatch dispatch, ViewService viewS
   );
 }
 
-Future<void> _changeMarker(MapController mapCtl,LatLng point,dispatch){
-  _moveMarker(mapCtl,point,dispatch);
-}
-
-Future<void> _goToTheLcation(MapController mapCtl,LatLng location,dispatch) async {
-  if(mapCtl.ready && location != null){
-    mapCtl.move(location,12);
-  }
-}
-
-void _moveMarker(MapController mapCtl,LatLng point, dispatch){
+void _changeMarker(MapController mapCtl,LatLng point,dispatch){
   if(mapCtl.ready){
     mapCtl.move(point,12);
   }
 
-  dispatch(GatewayProfileActionCreator.addLocation(point));
+  dispatch(GatewayProfileActionCreator.addLocation(location: point, type: 'marker'));
 }

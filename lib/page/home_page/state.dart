@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+// import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
@@ -57,27 +57,10 @@ class HomeState implements Cloneable<HomeState> {
   double gatewaysUSDRevenue = 0;
   List<Marker> gatewaysLocations = [];
 
-  //add gateway
-  GlobalKey addGatewaysFormKey = GlobalKey<FormState>();
-  TextEditingController networkCtl = TextEditingController();
-  TextEditingController gatewayProfileCtl = TextEditingController();
-  TextEditingController serialNumberCtl = TextEditingController();
-  // TextEditingController nameCtl = TextEditingController();
-  TextEditingController descriptionCtl = TextEditingController();
-  TextEditingController idCtl = TextEditingController();
-  TextEditingController altitudeCtl = TextEditingController();
-  String networkServerID = '';
-  String gatewayProfileID = '';
-
   //map
-  GlobalKey gatewayProfileFormKey = GlobalKey<FormState>();
-  List networkServerList = [];
-  List gatewayProfileList = [];
-  bool discoveryEnabled = true;
-  List<GatewayItemState> gatewaysList = [];
   MapController mapCtl = MapController();
+  List<GatewayItemState> gatewaysList = [];
   LatLng location;
-  LatLng markerPoint;
   
   //devices
   int devicesTotal = 0;
@@ -98,9 +81,6 @@ class HomeState implements Cloneable<HomeState> {
       ..isAdmin = isAdmin
       ..isActive = isActive
       ..organizations = organizations ?? []
-      ..gatewayProfileFormKey = gatewayProfileFormKey
-      ..location = location
-      ..markerPoint = markerPoint
       ..selectedOrganizationId = selectedOrganizationId
       ..superNode = superNode
       ..balance = balance
@@ -113,16 +93,9 @@ class HomeState implements Cloneable<HomeState> {
       ..devicesTotal = devicesTotal
       ..devicesRevenue = devicesRevenue
       ..devicesUSDRevenue = devicesUSDRevenue
-      // ..nameCtl = nameCtl
-      ..serialNumberCtl = serialNumberCtl
-      ..networkCtl = networkCtl
-      ..gatewayProfileCtl = gatewayProfileCtl
-      ..descriptionCtl = descriptionCtl
-      ..idCtl = idCtl
-      ..altitudeCtl = altitudeCtl 
-      ..mapCtl = mapCtl
       ..gatewaysLocations = gatewaysLocations
-      ..discoveryEnabled = discoveryEnabled
+      ..mapCtl = mapCtl
+      ..location = location
       ..gatewaysList = gatewaysList
       ..tabHeight = tabHeight
       ..walletTabIndex = walletTabIndex
@@ -130,10 +103,6 @@ class HomeState implements Cloneable<HomeState> {
       ..withdrawFee = withdrawFee
       ..firstTime = firstTime
       ..secondTime = secondTime
-      ..networkServerList = networkServerList
-      ..gatewayProfileList = gatewayProfileList
-      ..networkServerID = networkServerID
-      ..gatewayProfileID = gatewayProfileID
       ..isSetDate1 = isSetDate1
       ..isSetDate2 = isSetDate2
       ..selectedIndexBtn1 = selectedIndexBtn1
@@ -171,12 +140,14 @@ class UserConnector extends ConnOp<HomeState, UserState>{
       ..devicesRevenue = state.devicesRevenue
       ..devicesUSDRevenue = state.devicesUSDRevenue
       ..mapCtl = state.mapCtl
+      ..location = state.location
       ..gatewaysLocations = state.gatewaysLocations;
   }
 
   @override
   void set(HomeState state, UserState subState) {
     state
+      ..mapCtl = subState.mapCtl
       ..location = subState.location;
   }
 }
@@ -186,46 +157,15 @@ class GatewayConnector extends ConnOp<HomeState, GatewayState>{
   @override
   GatewayState get(HomeState state){
     return GatewayState()
-      ..gatewayProfileFormKey = state.gatewayProfileFormKey
       ..gatewaysTotal = state.gatewaysTotal
       ..gatewaysRevenue = state.gatewaysRevenue
       ..organizations = state.organizations
-      ..addFormKey = state.addGatewaysFormKey
-      ..serialNumberCtl = state.serialNumberCtl
-      ..networkCtl = state.networkCtl
-      ..gatewayProfileCtl = state.gatewayProfileCtl
-      // ..nameCtl = state.nameCtl
-      ..descriptionCtl = state.descriptionCtl
-      ..idCtl = state.idCtl
-      ..altitudeCtl = state.altitudeCtl
       ..list = state.gatewaysList
-      ..discoveryEnabled = state.discoveryEnabled
-      ..mapCtl = state.mapCtl
-      ..location = state.location
-      ..markerPoint = state.markerPoint
-      ..networkServerList = state.networkServerList
-      ..gatewayProfileList = state.gatewayProfileList
-      ..networkServerID = state.networkServerID
-      ..gatewayProfileID = state.gatewayProfileID;
+      ..location = state.location;
   }
 
   @override
   void set(HomeState state, GatewayState subState) {
-    state
-      ..serialNumberCtl = subState.serialNumberCtl
-      ..networkCtl = subState.networkCtl
-      ..gatewayProfileCtl = subState.gatewayProfileCtl
-      // ..nameCtl = subState.nameCtl
-      ..descriptionCtl = subState.descriptionCtl
-      ..idCtl = subState.idCtl
-      ..altitudeCtl = subState.altitudeCtl
-      ..discoveryEnabled = subState.discoveryEnabled
-      ..location = subState.location
-      ..markerPoint = subState.markerPoint
-      ..networkServerList = subState.networkServerList
-      ..gatewayProfileList = subState.gatewayProfileList
-      ..networkServerID = subState.networkServerID
-      ..gatewayProfileID = subState.gatewayProfileID;
 
   }
 }

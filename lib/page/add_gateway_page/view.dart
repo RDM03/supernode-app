@@ -78,7 +78,7 @@ List<Widget> _body({AddGatewayState state,BuildContext context,Dispatch dispatch
       Visibility(
         visible: state.fromPage == 'home',
         child: pageNavBar(
-          FlutterI18n.translate(context,'total_gateways'),
+          FlutterI18n.translate(context,'gateway'),
           onTap: () => Navigator.pop(context)
         ),
       ),

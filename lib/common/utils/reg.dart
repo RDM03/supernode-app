@@ -68,7 +68,7 @@ class Reg{
     String res = Reg.isEmpty(value);
     if(res != null) return FlutterI18n.translate(context, res); 
 
-    String  pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~.]).{8,}$';
+    String  pattern = r'^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!#$%&*+,-./<=>?@[\]^_`|~]).{8,}$';
 
     RegExp passwordRule = new RegExp(pattern);
 

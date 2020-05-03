@@ -1,9 +1,8 @@
-import 'dart:async';
-
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+// import 'package:mapbox_gl/mapbox_gl.dart';
 
 class GatewayProfileState implements Cloneable<GatewayProfileState> {
 

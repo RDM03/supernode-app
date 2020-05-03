@@ -11,15 +11,11 @@ import 'state.dart';
 
 Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
-  
+
   return Scaffold(
     body: Stack(
       children: <Widget>[
         viewService.buildComponent('user'),
-        // Visibility(
-        //   visible: item == 'Home'? true : Sys.mainMenus.indexOf(item) == state.tabIndex,
-        //   child: viewService.buildComponent(item == 'Home' ? 'user' : item.toLowerCase())
-        // ),
         Stack(
           children: Sys.mainMenus.map((String item) =>
             Visibility(

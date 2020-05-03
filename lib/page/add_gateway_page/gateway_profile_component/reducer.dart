@@ -1,6 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+// import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/page/home_page/gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
 
 import 'action.dart';
@@ -90,9 +90,17 @@ GatewayProfileState _discoveryEnabled(GatewayProfileState state, Action action) 
 }
 
 GatewayProfileState _addLocation(GatewayProfileState state, Action action) {
-  LatLng location = action.payload;
+  Map data = action.payload;
+  LatLng location = data['location'];
+  String type = data['type'];
   
   final GatewayProfileState newState = state.clone();
-  return newState
-    ..markerPoint = location;
+  if(type == 'user'){
+    return newState
+      ..location = location;
+  }else{
+    return newState
+      ..markerPoint = location;
+  }
+  
 }

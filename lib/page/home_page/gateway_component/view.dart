@@ -6,7 +6,6 @@ import 'package:supernodeapp/common/components/empty.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
-import 'package:supernodeapp/theme/font.dart';
 
 import '../action.dart';
 import 'action.dart';

@@ -115,28 +115,15 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
               price: '${Tools.priceFormat(state.devicesRevenue)} MXC (${Tools.priceFormat(state.devicesUSDRevenue)} USD)'
             )
           ),
-          FutureBuilder(
-            builder: (context, _){
-              if(state.gatewaysLocations.length > 0){
-                state.mapCtl.move(state.gatewaysLocations.first.point,12);
-              }
-
-              return map(
-                context: context,
-                userLocationSwitch: true,
-                center: state.gatewaysLocations.length > 0 ? state.gatewaysLocations.first.point : state.location,
-                markers: state.gatewaysLocations ?? [],
-                controller: state.mapCtl,
-                callback: (location){
-                  dispatch(UserActionCreator.addLocation(location));
-                },
-                onUserLocation: (){
-                  if(state.location != null){
-                    state.mapCtl.move(state.location,12);
-                  }
-                }
-              );
-            },
+          map(
+            context: _ctx,
+            userLocationSwitch: true,
+            center: state.gatewaysLocations.isNotEmpty ? state.gatewaysLocations.first.point : null,
+            markers: state.gatewaysLocations ?? [],
+            controller: state.mapCtl,
+            callback: (location){
+              dispatch(UserActionCreator.addLocation(location));
+            }
           ),
           
           smallColumnSpacer()

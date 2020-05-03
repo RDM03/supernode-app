@@ -31,7 +31,6 @@ dependencies:
   fluro: ^1.6.2
   fish_redux: ^0.3.1
   latlong: ^0.6.1
-  location: ^3.0.2
   majascan: ^0.3.7
   mobx: ^1.1.1
   mobx_codegen: ^1.0.3
@@ -41,6 +40,7 @@ dependencies:
   supernova_flutter_ui_toolkit: ^0.0.2
   qr_flutter: ^3.2.0
   url_launcher: ^5.4.5
+  user_location: any
   toast: ^0.1.5
 
 dev_dependencies:

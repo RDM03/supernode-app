@@ -24,4 +24,6 @@ class Sys {
 
 
   static const List<String> mainMenus = ['Home','Gateway','Device','Wallet'];
+
+  static const mapToken = 'pk.eyJ1IjoibXhjZGF0YWRhc2giLCJhIjoiY2s5bnc4dmh4MDBiMDNnbnczamRoN2ExeCJ9.sq0w8DGDXpA_6AMoejYaUw';
 }

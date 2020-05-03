@@ -2,6 +2,8 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/widgets.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:latlong/latlong.dart';
+// import 'package:mapbox_gl/mapbox_gl.dart';
+// import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/select_picker.dart';
 import 'package:supernodeapp/common/components/tip.dart';
@@ -123,7 +125,19 @@ void _update(Action action, Context<GatewayProfileState> ctx) {
   var curState = ctx.state;
 
   if(curState.networkServerID.isEmpty){
-    tip(ctx.context,FlutterI18n.translate(ctx.context,'Please select a network server'));
+    tip(ctx.context,FlutterI18n.translate(ctx.context,'reg_network_server'));
+    return;
+  }
+
+  if(curState.gatewayProfileID.isEmpty){
+    tip(ctx.context,FlutterI18n.translate(ctx.context,'reg_gateway_profile'));
+    return;
+  }
+
+  LatLng location = curState.markerPoint ?? curState.location;
+
+  if(location == null){
+    tip(ctx.context,FlutterI18n.translate(ctx.context,'reg_gateway_location'));
     return;
   }
 
@@ -134,8 +148,6 @@ void _update(Action action, Context<GatewayProfileState> ctx) {
 
     String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
     String serialNumber = curState.serialNumber;
-
-    LatLng location = curState.markerPoint ?? curState.location;
 
     Map data ={
       "gateway": {

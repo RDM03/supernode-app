@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/font.dart';
 
 Widget panelBody({String titleText,String subtitleText,String trailTitle, trailSubtitle,IconData icon,Function onPressed}){
   return ListTile(
@@ -19,24 +20,12 @@ Widget panelBody({String titleText,String subtitleText,String trailTitle, trailS
     title: Text(
       titleText,
       textAlign: TextAlign.left,
-      style: TextStyle(
-        color: Color.fromARGB(222, 0, 0, 0),
-        fontFamily: "Roboto",
-        fontWeight: FontWeight.w400,
-        fontSize: 16,
-        height: 1.5,
-      ),
+      style: kMiddleFontOfBlack,
     ),
     subtitle: Text(
       subtitleText,
       textAlign: TextAlign.left,
-      style: TextStyle(
-        color: Color.fromARGB(255, 77, 137, 229),
-        fontFamily: "Roboto",
-        fontWeight: FontWeight.w400,
-        fontSize: 16,
-        height: 1.5,
-      ),
+      style: kBigFontOfBlack,
     ),
     trailing: Container(
       margin: EdgeInsets.only(top: 10, right: 16),
@@ -45,23 +34,11 @@ Widget panelBody({String titleText,String subtitleText,String trailTitle, trailS
         children: [
           Text(
             trailTitle,
-            style: TextStyle(
-              color: Color.fromARGB(138, 0, 0, 0),
-              fontFamily: "Roboto",
-              fontWeight: FontWeight.w400,
-              fontSize: 12,
-              height: 1.33333,
-            ),
+            style: kSmallFontOfGrey
           ),
           Text(
             trailSubtitle,
-            style: TextStyle(
-              color: Color.fromARGB(222, 0, 0, 0),
-              fontFamily: "Roboto",
-              fontWeight: FontWeight.w400,
-              fontSize: 16,
-              height: 1.5,
-            ),
+            style: kMiddleFontOfBlack,
           )
         ]
       )

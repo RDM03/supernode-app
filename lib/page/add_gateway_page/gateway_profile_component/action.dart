@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_map/plugin_api.dart';
+// import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/page/home_page/gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
 
@@ -54,7 +55,7 @@ class GatewayProfileActionCreator {
     return const Action(GatewayProfileAction.discoveryEnabled);
   }
 
-  static Action addLocation(LatLng location) {
-    return Action(GatewayProfileAction.addLocation,payload: location);
+  static Action addLocation({LatLng location,String type = 'user'}) {
+    return Action(GatewayProfileAction.addLocation,payload: {'location': location, 'type': type});
   }
 }

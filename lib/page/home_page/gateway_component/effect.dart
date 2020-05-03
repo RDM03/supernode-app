@@ -16,7 +16,7 @@ void _initState(Action action, Context<GatewayState> ctx) {
 }
 
 void _onAddAction(Action action, Context<GatewayState> ctx) {
-  Navigator.of(ctx.context).pushNamed('add_gateway_page',arguments:{'fromPage': 'home'});
+  Navigator.of(ctx.context).pushNamed('add_gateway_page',arguments:{'fromPage': 'home','location':ctx.state.location});
 
   // Navigator.push(ctx.context,
   //   MaterialPageRoute(
