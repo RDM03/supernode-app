@@ -131,6 +131,7 @@ void _onRegistrationContinue(Action action, Context<SignUpState> ctx) {
       return;
     }
     
+    showLoading(ctx.context);
     UserDao dao = UserDao();
     Map data = {
       "organizationName": curState.orgCtl.text,

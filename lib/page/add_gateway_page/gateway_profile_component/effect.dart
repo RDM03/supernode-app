@@ -151,9 +151,9 @@ void _update(Action action, Context<GatewayProfileState> ctx) {
 
     Map data ={
       "gateway": {
-        "id": curState.idCtl.text,
-        "name": curState.nameCtl.text,
-        "description": curState.descriptionCtl.text,
+        "id": curState.idCtl.text.trim(),
+        "name": curState.nameCtl.text.trim(),
+        "description": curState.descriptionCtl.text.trim(),
         "location": {
           "latitude": location.latitude,
           "longitude": location.longitude,

@@ -2,9 +2,11 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:majascan/majascan.dart';
+import 'package:supernodeapp/common/daos/wallet_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/withdraw_dao.dart';
+import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/theme/colors.dart';
 // import 'package:qrscan/qrscan.dart' as Scanner;
@@ -14,8 +16,26 @@ import 'state.dart';
 
 Effect<WithdrawState> buildEffect() {
   return combineEffects(<Object, Effect<WithdrawState>>{
+    Lifecycle.initState: _initState,
     WithdrawAction.onQrScan: _onQrScan,
     WithdrawAction.onSubmit: _onSubmit,
+  });
+}
+
+void _initState(Action action, Context<WithdrawState> ctx) {
+  _withdrawFee(ctx);
+}
+
+void _withdrawFee(Context<WithdrawState> ctx){
+  WithdrawDao dao = WithdrawDao();
+  dao.fee().then((res){
+    log('WithdrawDao fee',res);
+
+    if((res as Map).containsKey('withdrawFee')){
+      ctx.dispatch(WithdrawActionCreator.fee(Tools.convertDouble(res['withdrawFee'])));
+    }
+  }).catchError((err){
+    tip(ctx.context,'WithdrawDao fee: $err');
   });
 }
 
@@ -29,21 +49,6 @@ void _onQrScan(Action action, Context<WithdrawState> ctx) async{
   );
   log('_onQrScan', qrResult);
   ctx.dispatch(WithdrawActionCreator.address(qrResult));
-  // return;
-
-  // Navigator.push(ctx.context,
-  //   MaterialPageRoute(
-  //     maintainState: false,
-  //     fullscreenDialog: true,
-  //     builder:(context){
-  //       return ctx.buildComponent('qrscan');
-  //     }
-  //   ),
-  // ).then((res){
-  //   if(res != null){
-  //     ctx.dispatch(WithdrawActionCreator.address(res));
-  //   }
-  // });
 }
 
 void _onSubmit(Action action, Context<WithdrawState> ctx) {
@@ -72,11 +77,39 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) {
       log('withdraw',res);
       if(res.containsKey('status') && res['status']){
         Navigator.pushNamed(ctx.context, 'confirm_page',arguments:{'title': 'withdraw','content': 'withdraw_submit_tip'});
+
+        _updateBalance(ctx);
+        ctx.dispatch(WithdrawActionCreator.status(true));
       }else{
+        ctx.dispatch(WithdrawActionCreator.status(false));
         tip(ctx.context,res);
       }
     }).catchError((err){
+      ctx.dispatch(WithdrawActionCreator.status(false));
       tip(ctx.context,'WithdrawDao withdraw: $err');
     });
   }
+}
+
+void _updateBalance(Context<WithdrawState> ctx){
+
+  WalletDao dao = WalletDao();
+  var settingsData = GlobalStore.store.getState().settings;
+  String userId = settingsData.userId;
+  String orgId = settingsData.selectedOrganizationId;
+
+  Map data = {
+    'userId': userId,
+    'orgId': orgId
+  };
+
+  dao.balance(data).then((res) {
+    log('balance',res);
+
+    double balance = Tools.convertDouble(res['balance']);
+    ctx.dispatch(WithdrawActionCreator.balance(balance));
+  }).catchError((err){
+    tip(ctx.context,'WalletDao balance: $err');
+  });
+
 }

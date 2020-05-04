@@ -14,7 +14,7 @@ class Dao{
   Dio dio = new Dio();
 
   Dao(){
-    dio.options.baseUrl = inProduction ? baseUrl : Sys.testBaseUrl; // Sys.buildBaseUrl
+    dio.options.baseUrl = !inProduction ? baseUrl : Sys.testBaseUrl; // Sys.buildBaseUrl
   }
 
   Future<dynamic> post({String url,dynamic data}) async{

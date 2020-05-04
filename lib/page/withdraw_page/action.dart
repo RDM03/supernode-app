@@ -1,8 +1,20 @@
 import 'package:fish_redux/fish_redux.dart';
 
-enum WithdrawAction { onQrScan, address, onSubmit }
+enum WithdrawAction { onQrScan, address, onSubmit, fee, balance, status }
 
 class WithdrawActionCreator {
+  static Action status(bool toogle) {
+    return Action(WithdrawAction.status,payload: toogle);
+  }
+
+  static Action fee(double fee) {
+    return Action(WithdrawAction.fee,payload: fee);
+  }
+
+  static Action balance(double balance) {
+    return Action(WithdrawAction.balance,payload: balance);
+  }
+
   static Action onQrScan() {
     return const Action(WithdrawAction.onQrScan);
   }

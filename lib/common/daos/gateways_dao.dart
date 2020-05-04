@@ -7,7 +7,7 @@ import 'mock.dart';
 class GatewaysApi {
   static final String list = '/api/gateways';
   static final String locations = '/api/gateways-loc';
-  static final String add = '/api/gateways/register';
+  static final String add = '/api/gateways';
   static final String update = '/api/gateways/{gateway.id}';
   static final String profile = '/api/gateway-profiles';
 }

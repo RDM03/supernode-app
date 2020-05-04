@@ -15,7 +15,7 @@ List<Marker> markers,MapController controller,Function(LatLng) onTap,Function ca
 
   StreamController<LatLng> markerlocationStream = StreamController();
   markerlocationStream.stream.listen((onData) {
-    print(onData.latitude);
+    //print(onData.latitude);
   });
 
   UserLocationOptions userLocationOptions = UserLocationOptions(

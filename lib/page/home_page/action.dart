@@ -2,7 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/page/home_page/user_component/state.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 
-enum HomeAction { loading, tabIndex, onProfile, profile, balance, stakedAmount, gateways, devices, gatewaysLocations, onOperate, onSettings, updateUsername, miningIncome, convertUSD }
+enum HomeAction { loading, tabIndex, onProfile, profile, balance, stakedAmount, gateways, onGateways, devices, gatewaysLocations, onOperate, onSettings, updateUsername, miningIncome, convertUSD }
 
 class HomeActionCreator {
   static Action loading(bool toogle) {
@@ -35,6 +35,10 @@ class HomeActionCreator {
 
   static Action gateways(int total,double value,List list) {
     return Action(HomeAction.gateways,payload: {'total': total,'value': value,'list': list});
+  }
+
+  static Action onGateways() {
+    return const Action(HomeAction.onGateways);
   }
 
   static Action gatewaysLocations(List data) {

@@ -23,7 +23,7 @@ Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService
     children: [
       pageNavBar(
         FlutterI18n.translate(_ctx, 'withdraw'),
-        onTap: () => Navigator.pop(viewService.context)
+        onTap: () => Navigator.pop(viewService.context,state.status)
       ),
       subtitle(FlutterI18n.translate(_ctx, 'current_balance')),
       paragraph('${Tools.priceFormat(state.balance)} MXC'),
@@ -55,7 +55,7 @@ Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService
         ),
       ),
       subtitle(FlutterI18n.translate(_ctx, 'current_transaction_fee')),
-      paragraph('20 MXC'),
+      paragraph('${state.fee} MXC'),
       submitButton(
         FlutterI18n.translate(_ctx, 'submit_request'),
         onPressed: () => dispatch(WithdrawActionCreator.onSubmit())

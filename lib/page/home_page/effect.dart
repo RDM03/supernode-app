@@ -23,6 +23,7 @@ Effect<HomeState> buildEffect() {
     HomeAction.onOperate: _onOperate,
     HomeAction.onSettings: _onSettings,
     HomeAction.onProfile: _onProfile,
+    HomeAction.onGateways: _onGateways,
   });
 }
 
@@ -32,6 +33,10 @@ void _initState(Action action, Context<HomeState> ctx) {
 
 void _onProfile(Action action, Context<HomeState> ctx) {
   _profile(ctx);
+}
+
+void _onGateways(Action action, Context<HomeState> ctx) {
+  _gateways(ctx);
 }
 
 void _profile(Context<HomeState> ctx){
@@ -252,7 +257,7 @@ void _onOperate(Action action, Context<HomeState> ctx) {
   }
 
   Navigator.pushNamed(ctx.context,page,arguments: {'balance': balance,'organizations':organizations,'type': act}).then((res){
-    if(page == 'stake_page' && res){
+    if((page == 'stake_page' || page == 'withdraw_page') && res){
       _profile(ctx);
     }
   });

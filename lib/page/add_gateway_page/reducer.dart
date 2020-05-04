@@ -26,5 +26,5 @@ AddGatewayState _serialNumber(AddGatewayState state, Action action) {
 
   return newState
     ..serialNumberCtl.text = number
-    ..idCtl.text = macAddress;
+    ..idCtl.text = macAddress.trim();
 }

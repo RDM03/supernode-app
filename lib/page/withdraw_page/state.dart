@@ -8,13 +8,17 @@ class WithdrawState implements Cloneable<WithdrawState> {
   TextEditingController amountCtl = TextEditingController();
   TextEditingController addressCtl = TextEditingController();
   
+  bool status = false;
   double balance = 0;
+  double fee = 20;
   List<OrganizationsState> organizations = [];
 
   @override
   WithdrawState clone() {
     return WithdrawState()
+      ..status = status
       ..balance = balance
+      ..fee = fee
       ..organizations = organizations;
   }
 }
