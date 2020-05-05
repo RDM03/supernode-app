@@ -35,7 +35,8 @@ List<Marker> markers,MapController controller,Function(LatLng) onTap,Function ca
   );
 
   if(center != null && controller != null && controller.ready) {
-    controller.move(center, zoom);
+    double currentZoom = controller.zoom;
+    controller.move(center, currentZoom);
   }
 
   return panelFrame(

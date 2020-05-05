@@ -203,7 +203,7 @@ Widget buildView(GatewayProfileState state, Dispatch dispatch, ViewService viewS
 
 void _changeMarker(MapController mapCtl,LatLng point,dispatch){
   if(mapCtl.ready){
-    mapCtl.move(point,12);
+    mapCtl.move(point,mapCtl.zoom);
   }
 
   dispatch(GatewayProfileActionCreator.addLocation(location: point, type: 'marker'));

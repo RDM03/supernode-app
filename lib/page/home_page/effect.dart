@@ -70,6 +70,7 @@ void _profile(Context<HomeState> ctx){
     _gatewaysLocations(ctx);
     // _devices(ctx,userData,settingsData.selectedOrganizationId);
     _balance(ctx,userData,settingsData.selectedOrganizationId);
+    _miningIncome(ctx,userData,settingsData.selectedOrganizationId);
     _stakeAmount(ctx,settingsData.selectedOrganizationId);
 
   }).catchError((err){
@@ -106,29 +107,36 @@ void _balance(Context<HomeState> ctx,UserState userData,String orgId){
     tip(ctx.context,'WalletDao balance: $err');
   });
 
-  // dao.miningIncome(data).then((res) async{
-  //   log('WalletDao miningInfo',res);
-  //   int value = 0;
-  //   if((res as Map).containsKey('miningIncome')){
-  //     value = Tools.convertDouble(res['miningIncome']);
-  //   }
+}
 
-  //   ctx.dispatch(HomeActionCreator.miningIncome(value));
+void _miningIncome(Context<HomeState> ctx,UserState userData,String orgId){
+  WalletDao dao = WalletDao();
 
-  //   // if(value == 0) return;
+  Map data = {
+    'userId': userData.id,
+    'orgId': orgId
+  };
 
-  //   Map priceData = {
-  //     'userId': userData.id,
-  //     'orgId': orgId,
-  //     'mxc_price': value.toString()
-  //   };
+  dao.miningIncome(data).then((res) async{
+    log('WalletDao miningInfo',res);
+    double value = 0;
+    if((res as Map).containsKey('miningIncome')){
+      value = Tools.convertDouble(res['miningIncome']);
+    }
 
-  //   var gatewaysUSDValue = await _convertUSD(ctx,priceData);
-  //   ctx.dispatch(HomeActionCreator.convertUSD('gateway', gatewaysUSDValue));
+    ctx.dispatch(HomeActionCreator.miningIncome(value));
 
-  // }).catchError((err){
-  //   tip(ctx.context,'WalletDao miningInfo: $err');
-  // });
+    // Map priceData = {
+    //   'userId': userData.id,
+    //   'orgId': orgId,
+    //   'mxc_price': '$value'
+    // };
+
+    // _convertUSD(ctx,priceData,'gateway');
+
+  }).catchError((err){
+    tip(ctx.context,'WalletDao miningInfo: $err');
+  });
 }
 
 void _stakeAmount(Context<HomeState> ctx,String orgId){
@@ -232,14 +240,14 @@ void _devices(Context<HomeState> ctx,UserState userData,String orgId){
 
     ctx.dispatch(HomeActionCreator.devices(total,allValues));
 
-    Map priceData = {
-      'userId': userData.id,
-      'orgId': orgId,
-      'mxc_price': allValues.toString()
-    };
+    // Map priceData = {
+    //   'userId': userData.id,
+    //   'orgId': orgId,
+    //   'mxc_price': allValues.toString()
+    // };
 
-    var devicesUSDValue = await _convertUSD(ctx,priceData);
-    ctx.dispatch(HomeActionCreator.convertUSD('device', devicesUSDValue));
+    // var devicesUSDValue = await _convertUSD(ctx,priceData);
+    // ctx.dispatch(HomeActionCreator.convertUSD('device', devicesUSDValue));
 
   }).catchError((err){
     tip(ctx.context,'DevicesDao list: $err');
@@ -284,13 +292,17 @@ void _onSettings(Action action, Context<HomeState> ctx) {
   });
 }
 
-Future<dynamic> _convertUSD(Context<HomeState> ctx,Map data){
+Future<dynamic> _convertUSD(Context<HomeState> ctx,Map data,String type){
   WalletDao dao = WalletDao();
 
   dao.convertUSD(data).then((res) async{
     log('WalletDao convertUSD',res);
     
-    return res;
+    if((res as Map).containsKey('mxcPrice')){
+      double value = Tools.convertDouble(res['mxcPrice']);
+      ctx.dispatch(HomeActionCreator.convertUSD(type, value));
+    }
+
 
   }).catchError((err){
     tip(ctx.context,'WalletDao convertUSD: $err');
