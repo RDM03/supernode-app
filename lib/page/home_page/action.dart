@@ -2,9 +2,14 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/page/home_page/user_component/state.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 
-enum HomeAction { loading, tabIndex, onProfile, profile, balance, stakedAmount, gateways, onGateways, devices, gatewaysLocations, onOperate, onSettings, updateUsername, miningIncome, convertUSD }
+enum HomeAction {relogin, loading, tabIndex, onProfile, profile, balance, stakedAmount, gateways, onGateways, devices, gatewaysLocations, onOperate, onSettings, updateUsername, miningIncome, convertUSD }
 
 class HomeActionCreator {
+
+  static Action onRelogin() {
+    return const Action(HomeAction.relogin);
+  }
+
   static Action loading(bool toogle) {
     return Action(HomeAction.loading,payload: toogle);
   }

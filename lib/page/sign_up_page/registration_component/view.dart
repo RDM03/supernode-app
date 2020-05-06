@@ -70,7 +70,9 @@ Widget buildView(RegistrationState state, Dispatch dispatch, ViewService viewSer
                       // hint: FlutterI18n.translate(_ctx, 'organization_name_hint'),
                       textInputAction: TextInputAction.next,
                       validator: (value) => Reg.onNotEmpty(_ctx,value),
-                      controller: state.orgCtl,
+                      controller:
+                      state.orgCtl..text=state.orgCtl.text==""?state.emailCtl.text.split('@')[0]:state.orgCtl.text,
+
                     ),
                   ),
                   Container(
@@ -80,7 +82,8 @@ Widget buildView(RegistrationState state, Dispatch dispatch, ViewService viewSer
                       // hint: FlutterI18n.translate(_ctx, 'display_name_hint'),
                       textInputAction: TextInputAction.done,
                       validator: (value) => Reg.onNotEmpty(_ctx,value),
-                      controller: state.displayCtl,
+                      controller:
+                      state.displayCtl..text=state.displayCtl.text==""?state.emailCtl.text.split('@')[0]:state.displayCtl.text,
                     ),
                   ),
                 ]

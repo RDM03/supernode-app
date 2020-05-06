@@ -2,11 +2,13 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
+import 'package:supernodeapp/common/configs/config.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/configs/sys.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
+import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/global_store/action.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/home_page/user_component/state.dart';
@@ -57,7 +59,14 @@ void _onLogin(Action action, Context<UserState> ctx) async{
       settingsData.token = res['jwt'];
       settingsData.username = data['username'];
       settingsData.superNode = curState.selectedSuperNode;
-      
+      List<String> users=StorageManager.sharedPreferences.getStringList(Config.USER_KEY)??[];
+      if(!users.contains(data['username'])){
+        users.add(data['username']);
+      }
+      StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
+      StorageManager.sharedPreferences.setString(Config.USERNAME_KEY, data['username']);
+      StorageManager.sharedPreferences.setString(Config.PASSWORD_KEY, data['password']);
+      StorageManager.sharedPreferences.setString(Config.API_ROOT, apiRoot);
       GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
 
       Navigator.pushNamedAndRemoveUntil(ctx.context,'home_page',(route) => false,arguments:{'superNode':curState.selectedSuperNode});
@@ -72,7 +81,6 @@ void _onLogin(Action action, Context<UserState> ctx) async{
 
 void _onSignUp(Action action, Context<UserState> ctx) {
   var curState = ctx.state;
-
   if(curState.selectedSuperNode.isEmpty){
     tip(ctx.context,FlutterI18n.translate(ctx.context,'reg_select_supernode'));
     return;

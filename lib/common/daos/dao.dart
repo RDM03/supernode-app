@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:supernodeapp/common/configs/sys.dart';
+import 'package:supernodeapp/common/daos/interceptors/log_interceptor.dart';
+import 'package:supernodeapp/common/daos/interceptors/token_interceptor.dart';
 
 class Dao{
   static String baseUrl = '';
@@ -15,6 +17,9 @@ class Dao{
 
   Dao(){
     dio.options.baseUrl = inProduction ? baseUrl : Sys.testBaseUrl; // Sys.buildBaseUrl
+    dio.interceptors.add(TokenInterceptors());
+    dio.interceptors.add(LogsInterceptors());
+
   }
 
   Future<dynamic> post({String url,dynamic data}) async{
@@ -22,11 +27,6 @@ class Dao{
       Response response = await dio.post(
         url,
         data: JsonEncoder().convert(data),
-        options: Options(
-          headers: {
-            'Grpc-Metadata-Authorization': token
-          }
-        )
       );
 
       if(response.statusCode == 200){
@@ -44,11 +44,6 @@ class Dao{
       Response response = await dio.get(
         url,
         queryParameters: data != null ? new Map<String, dynamic>.from(data) : null,
-        options: Options(
-          headers: {
-            'Grpc-Metadata-Authorization': token
-          }
-        )
       );
 
       if(response.statusCode == 200){
@@ -65,11 +60,6 @@ class Dao{
       Response response = await dio.put(
         url,
         data: JsonEncoder().convert(data),
-        options: Options(
-          headers: {
-            'Grpc-Metadata-Authorization': token
-          }
-        )
       );
 
       if(response.statusCode == 200){

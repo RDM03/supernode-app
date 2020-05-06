@@ -26,3 +26,4 @@ UserState _isObscureText(UserState state, Action action) {
   return newState
     ..isObscureText = !state.isObscureText;
 }
+

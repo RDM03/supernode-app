@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/sign_up_page/page.dart';
@@ -20,7 +21,9 @@ import 'page/splash_page/page.dart';
 
 import 'page/settings_page/page.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await StorageManager.init();
   runApp(mxcApp());
 }
 

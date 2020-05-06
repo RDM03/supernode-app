@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:supernodeapp/theme/colors.dart';
 
 bool isLoadingLarge = false;
 
@@ -34,10 +36,14 @@ Widget loadingView(){
       child: SizedBox(
         width: 50.0,
         height: 50.0,
-        child: CircularProgressIndicator(
-          // backgroundColor: Colors.black,
-          strokeWidth: 2,
+        child: SpinKitWave(
+          color: buttonPrimaryColor,
+          size: 50.0,
         )
+//        CircularProgressIndicator(
+          // backgroundColor: Colors.black,
+//          strokeWidth: 2,
+//        )
       ),
     )
   );

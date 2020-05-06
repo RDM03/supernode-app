@@ -17,7 +17,9 @@ import 'state.dart';
 
 Widget buildView(OrganizationsState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
-
+  if(state.selectedOrgId!=null){
+    dispatch(OrganizationsActionCreator.selectedItem(state.list[0].organizationID,state.list[0].organizationName));
+  }
   return pageFrame(
     context: viewService.context,
     children: [
@@ -33,7 +35,7 @@ Widget buildView(OrganizationsState state, Dispatch dispatch, ViewService viewSe
             TextFieldWithTitle(
               title: FlutterI18n.translate(_ctx,'organization_name'),
               validator: (value) => _validName(_ctx,value),
-              controller: state.orgNameCtl,
+              controller: state.orgNameCtl..text,
             ),
             smallColumnSpacer(),
             TextFieldWithTitle(
@@ -77,6 +79,7 @@ String _validName(BuildContext context,String value){
 
   return null;
 }
+
 
 void _selectItem(context,{List data,Function onSelected}){
   List idArr = [];

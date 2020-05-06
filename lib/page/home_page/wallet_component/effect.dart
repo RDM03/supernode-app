@@ -131,7 +131,7 @@ void _withdraw(Context<WalletState> ctx,String type,Map data){
   if(!type.contains('DEFAULT') && !type.contains('DATETIME')) {
     ctx.dispatch(WalletActionCreator.updateSelectedButton(1));
   }
-
+  data['moneyAbbr']="ETH_MXC";
   WithdrawDao dao = WithdrawDao();
   _requestHistory(ctx,dao,data,type,'withdrawHistory');  
 

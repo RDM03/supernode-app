@@ -3,11 +3,14 @@ import 'dart:async';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_map/flutter_map.dart';
+import 'package:supernodeapp/common/components/loading.dart';
+import 'package:supernodeapp/common/configs/config.dart';
 import 'package:supernodeapp/common/configs/images.dart';
 import 'package:supernodeapp/common/daos/app_dao.dart';
 
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/utils/log.dart';
+import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
@@ -24,6 +27,45 @@ Effect<HomeState> buildEffect() {
     HomeAction.onSettings: _onSettings,
     HomeAction.onProfile: _onProfile,
     HomeAction.onGateways: _onGateways,
+    HomeAction.relogin:_relogin
+  });
+}
+
+void _relogin(Action action, Context<HomeState> ctx) {
+  Map data = {
+    'username': StorageManager.sharedPreferences.getString(Config.USERNAME_KEY),
+    'password': StorageManager.sharedPreferences.getString(Config.PASSWORD_KEY)
+  };
+
+  String apiRoot = StorageManager.sharedPreferences.getString(Config.API_ROOT);
+  Dao.baseUrl = apiRoot;
+
+  UserDao dao = UserDao();
+  showLoading(ctx.context);
+  dao.login(data).then((res){
+    log('login',res);
+    hideLoading(ctx.context);
+
+    SettingsState settingsData = GlobalStore.store.getState().settings;
+
+    if(settingsData == null){
+      settingsData = SettingsState().clone();
+    }
+
+    Dao.token = res['jwt'];
+    settingsData.token = res['jwt'];
+    settingsData.username = data['username'];
+    _profile(ctx);
+  }).catchError((err){
+    hideLoading(ctx.context);
+    ctx.dispatch(HomeActionCreator.loading(false));
+    SettingsState settingsData = GlobalStore.store.getState().settings;
+    settingsData.userId = '';
+    settingsData.selectedOrganizationId = '';
+    settingsData.organizations = [];
+    SettingsDao.updateLocal(settingsData);
+    Navigator.of(ctx.context).pushReplacementNamed('login_page');
+    tip(ctx.context,'$err');
   });
 }
 
@@ -40,7 +82,6 @@ void _onGateways(Action action, Context<HomeState> ctx) {
 }
 
 void _profile(Context<HomeState> ctx){
-  // showLoading(ctx.context);
 
   UserDao dao = UserDao();
   
@@ -74,18 +115,7 @@ void _profile(Context<HomeState> ctx){
     _stakeAmount(ctx,settingsData.selectedOrganizationId);
 
   }).catchError((err){
-    ctx.dispatch(HomeActionCreator.loading(false));
-    
-    SettingsState settingsData = GlobalStore.store.getState().settings;
-    settingsData.userId = '';
-    settingsData.selectedOrganizationId = '';
-    settingsData.organizations = [];
-
-    SettingsDao.updateLocal(settingsData);
-
-    Navigator.of(ctx.context).pushReplacementNamed('login_page');
-    
-    // tip(ctx.context,' $err');
+    ctx.dispatch(HomeActionCreator.onRelogin());
   });
 }
 

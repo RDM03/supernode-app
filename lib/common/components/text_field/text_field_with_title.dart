@@ -78,7 +78,8 @@ class TextFieldWithTitle extends StatelessWidget {
                   visible: suffixChild != null,
                   child: suffixChild ?? Container()
                 )
-              )
+              ),
+
             ],
           ),
         )
