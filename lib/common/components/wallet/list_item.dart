@@ -8,7 +8,7 @@ import 'package:supernodeapp/theme/spacing.dart';
 
 import '../row_spacer.dart';
 
-Widget listItem({BuildContext context,String type = '',String datetime,String secondDateTime,double amount = 0,double fee = 0,String fromAddress,String toAddress,String txHashAddress,String status,bool isExpand = false,bool isLast = false,Function onTap}){
+Widget listItem({BuildContext context,String type = '',String datetime,String secondDateTime,double amount = 0,double fee = 0,String fromAddress,String toAddress,String txHashAddress,String status,bool isExpand = true,bool isLast = false,Function onTap}){
 
   return Column(
     children: <Widget>[
@@ -64,7 +64,7 @@ Widget listItem({BuildContext context,String type = '',String datetime,String se
         )
       ),
       Visibility(
-        visible: isExpand,
+        visible: true,
         child: Column(
           children: <Widget>[
             Visibility(
