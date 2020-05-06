@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/stake_dao.dart';
@@ -42,17 +43,23 @@ void _onConfirm(Action action, Context<StakeState> ctx) {
     }
 
     if(curState.type == 'stake'){
+      showLoading(ctx.context);
       dao.stake(data).then((res) async{
+        hideLoading(ctx.context);
         log(curState.type,res);
         resultPage('stake',res);
       }).catchError((err){
+        hideLoading(ctx.context);
         tip(ctx.context,'StakeDao stake: $err');
       });
     }else{
+      showLoading(ctx.context);
       dao.unstake(data).then((res) async{
+        hideLoading(ctx.context);
         log(curState.type,res);
         resultPage('unstake',res);
       }).catchError((err){
+        hideLoading(ctx.context);
         tip(ctx.context,'StakeDao stake: $err');
       });
     }

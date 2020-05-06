@@ -3,11 +3,13 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/configs/config.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
 import 'package:supernodeapp/common/daos/organization_dao.dart';
 import 'package:supernodeapp/common/daos/settings_dao.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
+import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/global_store/action.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
@@ -49,7 +51,10 @@ void _onEmailContinue(Action action, Context<SignUpState> ctx) {
       "email": curState.emailCtl.text,
       "language": languageCode
     };
-
+    List<String> users=StorageManager.sharedPreferences.getStringList(Config.USER_KEY)??[];
+    if(!users.contains( curState.emailCtl.text)){
+      users.add( curState.emailCtl.text);
+    }
     dao.register(data).then((res){
       hideLoading(ctx.context);
       log('register',res);

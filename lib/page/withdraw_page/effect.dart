@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:majascan/majascan.dart';
+import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/daos/wallet_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/components/tip.dart';
@@ -72,8 +73,9 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) {
       "ethAddress": address,
       "availableBalance": balance
     };
-
+    showLoading(ctx.context);
     dao.withdraw(data).then((res){
+      hideLoading(ctx.context);
       log('withdraw',res);
       if(res.containsKey('status') && res['status']){
         Navigator.pushNamed(ctx.context, 'confirm_page',arguments:{'title': 'withdraw','content': 'withdraw_submit_tip'});
@@ -85,6 +87,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) {
         tip(ctx.context,res);
       }
     }).catchError((err){
+      hideLoading(ctx.context);
       ctx.dispatch(WithdrawActionCreator.status(false));
       tip(ctx.context,'WithdrawDao withdraw: $err');
     });

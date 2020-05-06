@@ -53,7 +53,7 @@ Widget buildView(AboutState state, Dispatch dispatch, ViewService viewService) {
             trailing: Container(
               padding: kInnerRowRight10,
               child: Text(
-                'v0.0.1',
+                'v1.0.1',
                 style: kMiddleFontOfGrey,
               ),
             )
