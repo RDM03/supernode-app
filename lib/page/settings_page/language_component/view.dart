@@ -28,17 +28,25 @@ Widget buildView(LanguageState state, Dispatch dispatch, ViewService viewService
       ),
       Divider(),
       _item(
-        name: 'English',
-        type: AppLanguage.en,
-        value: state.language,
-        onTap: () => dispatch(LanguageActionCreator.onChange(AppLanguage.en))
+          name: 'English',
+          type: AppLanguage.en,
+          value: state.language,
+          onTap: () => dispatch(LanguageActionCreator.onChange(AppLanguage.en))
       ),
+
       Divider(),
       _item(
         name: '简体中文',
         type: AppLanguage.zh_Hans_CN,
         value: state.language,
         onTap: () => dispatch(LanguageActionCreator.onChange(AppLanguage.zh_Hans_CN))
+      ),
+      Divider(),
+      _item(
+          name: '繁体中文',
+          type: AppLanguage.zh_Hant_TW,
+          value: state.language,
+          onTap: () => dispatch(LanguageActionCreator.onChange(AppLanguage.zh_Hant_TW))
       ),
       Divider(),
       _item(
@@ -49,18 +57,40 @@ Widget buildView(LanguageState state, Dispatch dispatch, ViewService viewService
       ),
       Divider(),
       _item(
-          name: 'Việt Ngữ',
+          name: 'Türkçe',
           type: AppLanguage.tr,
           value: state.language,
           onTap: () => dispatch(LanguageActionCreator.onChange(AppLanguage.tr))
       ),
-      // _item(
-      //   name: '日本語',
-      //   type: AppLanguage.ja,
-      //   value: state.language,
-      //   onTap: () => dispatch(LanguageActionCreator.onChange(AppLanguage.ja))
-      // ),
-      // Divider(),
+      Divider(),
+      _item(
+          name: 'Deutsch',
+          type: AppLanguage.de,
+          value: state.language,
+          onTap: () => dispatch(LanguageActionCreator.onChange(AppLanguage.de))
+      ),
+      Divider(),
+      _item(
+          name: '日本語',
+          type: AppLanguage.ja,
+          value: state.language,
+          onTap: () => dispatch(LanguageActionCreator.onChange(AppLanguage.ja))
+      ),
+      Divider(),
+      _item(
+          name: 'Русский',
+          type: AppLanguage.ru,
+          value: state.language,
+          onTap: () => dispatch(LanguageActionCreator.onChange(AppLanguage.ru))
+      ),
+
+      Divider(),
+      _item(
+          name: 'Tiếng Việt',
+          type: AppLanguage.vi,
+          value: state.language,
+          onTap: () => dispatch(LanguageActionCreator.onChange(AppLanguage.vi))
+      ),
     ]
   );
 }

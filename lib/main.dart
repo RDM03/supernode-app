@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
@@ -24,7 +25,9 @@ import 'page/settings_page/page.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageManager.init();
+
   runApp(mxcApp());
+  FlutterBugly.init(androidAppId: "d5abff150e",iOSAppId: "");
 }
 
 Widget mxcApp() {

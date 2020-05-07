@@ -50,10 +50,6 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-//        ndk {
-//            //设置支持的SO库架构
-//            abiFilters 'armeabi-v7a'//, 'arm64-v8a', 'x86', 'x86_64'
-//        }
     }
 
 	 signingConfigs {
@@ -90,6 +86,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
-
+    implementation 'com.tencent.bugly:crashreport_upgrade:1.4.2'
 }

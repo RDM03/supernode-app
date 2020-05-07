@@ -1,4 +1,4 @@
-package com.mxc.supernodeapp
+package com.mxc.smartcity
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

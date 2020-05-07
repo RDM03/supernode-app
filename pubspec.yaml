@@ -45,7 +45,7 @@ dependencies:
   flutter_spinkit: "^2.1.0"
   localstorage: ^3.0.0
   shared_preferences: ^0.5.6+3
-
+  flutter_bugly:
 dev_dependencies:
   build_runner: ^1.8.0
   flutter_test:
