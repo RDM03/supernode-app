@@ -48,6 +48,12 @@ Widget buildView(LanguageState state, Dispatch dispatch, ViewService viewService
         onTap: () => dispatch(LanguageActionCreator.onChange(AppLanguage.ko))
       ),
       Divider(),
+      _item(
+          name: 'Việt Ngữ',
+          type: AppLanguage.tr,
+          value: state.language,
+          onTap: () => dispatch(LanguageActionCreator.onChange(AppLanguage.tr))
+      ),
       // _item(
       //   name: '日本語',
       //   type: AppLanguage.ja,

@@ -51,6 +51,7 @@ class WalletDao extends Dao{
     return get(
       url: WalletApi.convertUSD,
       data: data
-    ).then((res) => res);
+    ).then((
+        res) => res);
   }
 }

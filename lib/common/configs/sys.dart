@@ -5,6 +5,8 @@ class AppLanguage {
   static const String zh_Hant_TW = 'zh_TW';
   static const String ko = 'ko';
   static const String ja = 'ja';
+
+  static const String tr = 'tr';
 }
 
 class Sys {

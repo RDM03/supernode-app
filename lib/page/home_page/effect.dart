@@ -156,13 +156,13 @@ void _miningIncome(Context<HomeState> ctx,UserState userData,String orgId){
 
     ctx.dispatch(HomeActionCreator.miningIncome(value));
 
-    // Map priceData = {
-    //   'userId': userData.id,
-    //   'orgId': orgId,
-    //   'mxc_price': '$value'
-    // };
+     Map priceData = {
+       'userId': userData.id,
+       'orgId': orgId,
+       'mxcPrice': '$value'
+     };
 
-    // _convertUSD(ctx,priceData,'gateway');
+     _convertUSD(ctx,priceData,'gateway');
 
   }).catchError((err){
     tip(ctx.context,'WalletDao miningInfo: $err');
@@ -270,14 +270,14 @@ void _devices(Context<HomeState> ctx,UserState userData,String orgId){
 
     ctx.dispatch(HomeActionCreator.devices(total,allValues));
 
-    // Map priceData = {
-    //   'userId': userData.id,
-    //   'orgId': orgId,
-    //   'mxc_price': allValues.toString()
-    // };
+     Map priceData = {
+       'userId': userData.id,
+       'orgId': orgId,
+       'mxcPrice': allValues.toString()
+     };
 
-    // var devicesUSDValue = await _convertUSD(ctx,priceData);
-    // ctx.dispatch(HomeActionCreator.convertUSD('device', devicesUSDValue));
+     var devicesUSDValue = await _convertUSD(ctx,priceData,'device');
+//     ctx.dispatch(HomeActionCreator.convertUSD('device', devicesUSDValue));
 
   }).catchError((err){
     tip(ctx.context,'DevicesDao list: $err');

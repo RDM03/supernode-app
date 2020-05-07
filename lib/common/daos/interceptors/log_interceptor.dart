@@ -19,8 +19,12 @@ class LogsInterceptors extends InterceptorsWrapper {
     if (Config.DEBUG) {
       print("request url：${options.path}");
       print('headers: ' + options.headers.toString());
+      print('method: '+options.method);
       if (options.data != null) {
         print('params: ' + options.data.toString());
+      }
+      if(options.queryParameters!=null){
+        print('params: ' + options.queryParameters.toString());
       }
     }
 
