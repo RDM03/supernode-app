@@ -18,7 +18,7 @@ import 'action.dart';
 
 Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
-
+//  throw StateError('This is a Dart exception');
   return Scaffold(
     resizeToAvoidBottomInset: false,
     backgroundColor: cardBackgroundColor,
