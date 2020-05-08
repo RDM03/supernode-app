@@ -108,7 +108,7 @@ WalletState _updateList(WalletState state, Action action) {
     }
 
     if(type == 'DEPOSIT DATETIME' || type == 'WITHDRAW DATETIME'){
-      if(TimeDao.isInRange(item.txSentTime, state.firstTime, state.secondTime)){
+      if(TimeDao.isInRange(item.txSentTime!=null?item.txSentTime:item.createdAt, state.firstTime, state.secondTime)){
         list.add( item );
       }
 

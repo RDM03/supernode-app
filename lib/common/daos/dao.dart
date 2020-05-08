@@ -10,6 +10,7 @@ class Dao{
   static String token = '';
 
   bool inProduction = const bool.fromEnvironment('dart.vm.product');
+
   bool isMock = false;
    
   Response response;
