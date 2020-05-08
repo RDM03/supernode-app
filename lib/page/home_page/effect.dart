@@ -159,7 +159,7 @@ void _miningIncome(Context<HomeState> ctx,UserState userData,String orgId){
      Map priceData = {
        'userId': userData.id,
        'orgId': orgId,
-       'mxcPrice': '$value'
+       'mxcPrice': '${value==0.0?value.toInt():value}'
      };
 
      _convertUSD(ctx,priceData,'gateway');
@@ -273,7 +273,7 @@ void _devices(Context<HomeState> ctx,UserState userData,String orgId){
      Map priceData = {
        'userId': userData.id,
        'orgId': orgId,
-       'mxcPrice': allValues.toString()
+       'mxcPrice':'${allValues==0.0?allValues.toInt():allValues}'
      };
 
      var devicesUSDValue = await _convertUSD(ctx,priceData,'device');
@@ -329,7 +329,7 @@ Future<dynamic> _convertUSD(Context<HomeState> ctx,Map data,String type){
     log('WalletDao convertUSD',res);
     
     if((res as Map).containsKey('mxcPrice')){
-      double value = Tools.convertDouble(res['mxcPrice']);
+      double value = double.parse(res['mxcPrice']);
       ctx.dispatch(HomeActionCreator.convertUSD(type, value));
     }
 

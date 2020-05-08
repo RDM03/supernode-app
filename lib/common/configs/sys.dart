@@ -28,6 +28,7 @@ class Sys {
 
   static const impressum = 'https://www.mxc.org/imprint';
   static const privacyPolicy = 'https://www.mxc.org/privacy-policy';
+  static const AgreePolicy='https://www.mxc.org/terms-and-conditions';
   static const stakeMore = 'https://mxc.wiki';
 
 

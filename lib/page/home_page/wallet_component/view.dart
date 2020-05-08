@@ -124,7 +124,8 @@ Widget buildView(WalletState state, Dispatch dispatch, ViewService viewService) 
             itemCount: adapter.itemCount,
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-          ) :
+          )
+              :
           empty(_ctx)
         )
       ]

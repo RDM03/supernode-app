@@ -23,12 +23,12 @@ Widget listItem({BuildContext context,String type = '',String datetime,String se
             ),
             smallRowSpacer(),
             Visibility(
-              visible: !type.contains('SEARCH') && !type.contains('STAKE') && !type.contains('UNSTAKE'),
+              visible: !type?.contains('SEARCH') && !type?.contains('STAKE') && !type?.contains('UNSTAKE'),
               child: Expanded(
                 child: Text(
                   '(${FlutterI18n.translate(context,type)})',
                   overflow: TextOverflow.ellipsis,
-                  style: type.contains('DEPOSIT') ? kSmallFontOfGreen : kSmallFontOfRed
+                  style: type?.contains('DEPOSIT') ? kSmallFontOfGreen : kSmallFontOfRed
                 ),
               )
             ),
@@ -45,7 +45,7 @@ Widget listItem({BuildContext context,String type = '',String datetime,String se
             Container(
               padding: kRoundRow5,
               decoration: BoxDecoration(
-                color: amount <= 0 || type.contains('STAKE') ? null : depositColor,
+                color: amount <= 0 || type?.contains('STAKE') ? null : depositColor,
                 borderRadius: BorderRadius.all(Radius.circular(7)),
               ),
               child: Text(
@@ -68,7 +68,7 @@ Widget listItem({BuildContext context,String type = '',String datetime,String se
         child: Column(
           children: <Widget>[
             Visibility(
-              visible: type.contains('WITHDRAW'),
+              visible: type?.contains('WITHDRAW'),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 5),
                 child: Row(
@@ -150,8 +150,8 @@ Widget listItem({BuildContext context,String type = '',String datetime,String se
                   ),
                   Spacer(),
                   Text(
-                    status,
-                    style: status != null && status.toLowerCase().contains('success') ? kMiddleFontOfGreen :
+                      "${FlutterI18n.translate(context,status.toLowerCase())}",
+                    style: status != null && status.toLowerCase()?.contains('success') ? kMiddleFontOfGreen :
                     kMiddleFontOfRed
                   ),
                 ],

@@ -55,6 +55,7 @@ void _onEmailContinue(Action action, Context<SignUpState> ctx) {
     if(!users.contains( curState.emailCtl.text)){
       users.add( curState.emailCtl.text);
     }
+    StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
     dao.register(data).then((res){
       hideLoading(ctx.context);
       log('register',res);
