@@ -2,8 +2,13 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:majascan/majascan.dart';
+import 'package:supernodeapp/common/components/loading.dart';
+import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/daos/gateways_dao.dart';
 // import 'package:majascan/majascan.dart';
 import 'package:supernodeapp/common/utils/log.dart';
+import 'package:supernodeapp/common/utils/reg.dart';
+import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/theme/colors.dart';
 // import 'package:qrscan/qrscan.dart' as Scanner;
 
@@ -31,6 +36,30 @@ void _onQrScan(Action action, Context<AddGatewayState> ctx) async{
     qRScannerColor: buttonPrimaryColorAccent
   );
   ctx.dispatch(AddGatewayActionCreator.serialNumber(qrResult));
+
+  if(Reg.onValidSerialNumber(qrResult)){
+    String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
+    GatewaysDao dao = GatewaysDao();
+
+    Map data = {
+      "organizationId": orgId,
+      "sn": qrResult.trim()
+    };
+
+    showLoading(ctx.context);
+    dao.register(data).then((res){
+      hideLoading(ctx.context);
+      log('Gateway register',res);
+
+      if(res.containsKey('status')){
+        tip(ctx.context,res['status']);
+      }
+    }).catchError((err){
+      hideLoading(ctx.context);
+      tip(ctx.context,'Gateway register: $err');
+    });
+    return;
+  }
   
   Navigator.push(ctx.context,
     MaterialPageRoute(

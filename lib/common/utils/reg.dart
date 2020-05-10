@@ -111,4 +111,10 @@ class Reg{
 
     return null;
   }
+
+  static bool onValidSerialNumber(String value){
+    RegExp rule = new RegExp(r'^M\w{8}|M\w{10}$',caseSensitive: false);
+
+    return rule.hasMatch(value.trim());
+  }
 }
