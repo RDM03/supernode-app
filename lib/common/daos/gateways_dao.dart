@@ -8,6 +8,7 @@ class GatewaysApi {
   static final String list = '/api/gateways';
   static final String locations = '/api/gateways-loc';
   static final String add = '/api/gateways';
+  static final String register = '/api/gateways/register';
   static final String update = '/api/gateways/{gateway.id}';
   static final String profile = '/api/gateway-profiles';
 }
@@ -44,6 +45,13 @@ class GatewaysDao extends Dao{
   Future<dynamic> add(Map data){
     return post(
       url: GatewaysApi.add,
+      data: data
+    ).then((res) => res);
+  }
+
+  Future<dynamic> register(Map data){
+    return post(
+      url: GatewaysApi.register,
       data: data
     ).then((res) => res);
   }
