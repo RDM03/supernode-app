@@ -57,7 +57,7 @@ DEPENDENCIES:
   - user_location (from `.symlinks/plugins/user_location/ios`)
 
 SPEC REPOS:
-  trunk:
+  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
     - FMDB
 
 EXTERNAL SOURCES:
@@ -116,6 +116,6 @@ SPEC CHECKSUMS:
   url_launcher_web: e5527357f037c87560776e36436bf2b0288b965c
   user_location: ec382950d42014e9d796513cb4a83de2e643a477
 
-PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
+PODFILE CHECKSUM: 92b173eddd5002894ad0d871cbc7916b1bddcf5e
 
 COCOAPODS: 1.9.1

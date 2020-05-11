@@ -37,28 +37,17 @@ void _onQrScan(Action action, Context<AddGatewayState> ctx) async{
   );
   ctx.dispatch(AddGatewayActionCreator.serialNumber(qrResult));
 
-  if(Reg.onValidSerialNumber(qrResult)){
-    String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-    GatewaysDao dao = GatewaysDao();
+  try{
+    List itemData = qrResult.split(',');
+    List snData = itemData[0].split(':');
+    String number = snData[1];
 
-    Map data = {
-      "organizationId": orgId,
-      "sn": qrResult.trim()
-    };
-
-    showLoading(ctx.context);
-    dao.register(data).then((res){
-      hideLoading(ctx.context);
-      log('Gateway register',res);
-
-      if(res.containsKey('status')){
-        tip(ctx.context,res['status']);
-      }
-    }).catchError((err){
-      hideLoading(ctx.context);
-      tip(ctx.context,'Gateway register: $err');
-    });
-    return;
+    if(Reg.onValidSerialNumber(number)){
+      _register(ctx,number);
+      return;
+    }
+  }catch(err){
+    tip(ctx.context,'startScan: $err');
   }
   
   Navigator.push(ctx.context,
@@ -76,6 +65,13 @@ void _onProfile(Action action, Context<AddGatewayState> ctx) {
   var curState = ctx.state;
 
   if((curState.formKey.currentState as FormState).validate()){
+    String sn = curState.serialNumberCtl.text;
+    if(Reg.onValidSerialNumber(sn)){
+      _register(ctx,sn);
+
+      return;
+    }
+
     Navigator.push(ctx.context,
       MaterialPageRoute(
         maintainState: false,
@@ -86,4 +82,29 @@ void _onProfile(Action action, Context<AddGatewayState> ctx) {
       ),
     );
   }
+}
+
+void _register(Context<AddGatewayState> ctx,String serialNumber){
+  
+  String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
+  GatewaysDao dao = GatewaysDao();
+
+  Map data = {
+    "organizationId": orgId,
+    "sn": serialNumber.trim()
+  };
+
+  showLoading(ctx.context);
+  dao.register(data).then((res){
+    hideLoading(ctx.context);
+    log('Gateway register',res);
+
+    if(res.containsKey('status')){
+      tip(ctx.context,res['status']);
+    }
+  }).catchError((err){
+    hideLoading(ctx.context);
+    tip(ctx.context,'Gateway register: $err');
+  });
+  
 }

@@ -113,7 +113,7 @@ class Reg{
   }
 
   static bool onValidSerialNumber(String value){
-    RegExp rule = new RegExp(r'^M\w{8}|M\w{10}$',caseSensitive: false);
+    RegExp rule = new RegExp(r'^m\w{8}$|^m\w{10}$',caseSensitive: false);
 
     return rule.hasMatch(value.trim());
   }

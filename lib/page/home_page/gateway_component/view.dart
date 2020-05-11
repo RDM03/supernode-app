@@ -17,32 +17,40 @@ Widget buildView(GatewayState state, Dispatch dispatch, ViewService viewService)
 
   return Scaffold(
     appBar: homeBar(
-      FlutterI18n.translate(_ctx,'total_gateways'),
+      FlutterI18n.translate(_ctx,'gateway'),
       onPressed: () => dispatch(HomeActionCreator.onSettings()),
     ),
-    body: pageBody(
-      children: [
-        panelFrame(
-          child: panelBody(
-            icon: Icons.add_circle,
-            onPressed: () => dispatch(GatewayActionCreator.onAdd()),
-            titleText: FlutterI18n.translate(_ctx,'total_gateways'),
-            subtitleText: '${state.gatewaysTotal}',
-            trailTitle: FlutterI18n.translate(_ctx,'revenue'),
-            trailSubtitle: '${state.gatewaysRevenue} MXC (${state.gatewaysUSDRevenue} USD)'
+    body: RefreshIndicator(
+      displacement: 10,
+      onRefresh: () async{
+        await Future.delayed(Duration(seconds: 2), (){
+          dispatch(HomeActionCreator.onGateways());
+        });
+      },
+      child: pageBody(
+        children: [
+          panelFrame(
+            child: panelBody(
+              icon: Icons.add_circle,
+              onPressed: () => dispatch(GatewayActionCreator.onAdd()),
+              titleText: FlutterI18n.translate(_ctx,'total_gateways'),
+              subtitleText: '${state.gatewaysTotal}',
+              trailTitle: FlutterI18n.translate(_ctx,'revenue'),
+              trailSubtitle: '${state.gatewaysRevenue} MXC (${state.gatewaysUSDRevenue} USD)'
+            )
+          ),
+          panelFrame(
+            child: adapter.itemCount != 0 ? 
+            ListView.builder(
+              itemBuilder: adapter.itemBuilder,
+              itemCount: adapter.itemCount,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+            ) :
+            empty(_ctx)
           )
-        ),
-        panelFrame(
-          child: adapter.itemCount != 0 ? 
-          ListView.builder(
-            itemBuilder: adapter.itemBuilder,
-            itemCount: adapter.itemCount,
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-          ) :
-          empty(_ctx)
-        )
-      ]
+        ]
+      )
     )
   );
 }
