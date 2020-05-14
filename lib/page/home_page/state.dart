@@ -159,6 +159,7 @@ class GatewayConnector extends ConnOp<HomeState, GatewayState>{
     return GatewayState()
       ..gatewaysTotal = state.gatewaysTotal
       ..gatewaysRevenue = state.gatewaysRevenue
+      ..gatewaysUSDRevenue = state.gatewaysUSDRevenue
       ..organizations = state.organizations
       ..list = state.gatewaysList
       ..location = state.location;

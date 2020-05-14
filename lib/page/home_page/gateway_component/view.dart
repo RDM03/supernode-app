@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/components/empty.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
+import 'package:supernodeapp/common/utils/tools.dart';
 
 import '../action.dart';
 import 'action.dart';
@@ -36,7 +37,7 @@ Widget buildView(GatewayState state, Dispatch dispatch, ViewService viewService)
               titleText: FlutterI18n.translate(_ctx,'total_gateways'),
               subtitleText: '${state.gatewaysTotal}',
               trailTitle: FlutterI18n.translate(_ctx,'revenue'),
-              trailSubtitle: '${state.gatewaysRevenue} MXC (${state.gatewaysUSDRevenue} USD)'
+              trailSubtitle: '${Tools.priceFormat(state.gatewaysRevenue)} MXC (${Tools.priceFormat(state.gatewaysUSDRevenue)} USD)'
             )
           ),
           panelFrame(
