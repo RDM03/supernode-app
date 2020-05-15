@@ -10,8 +10,16 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>zh_TW</string>
+		<string>zh_CN</string>
+		<string>ko</string>
+		<string>ja</string>
+	</array>
 	<key>CFBundleName</key>
-	<string>supernodeapp</string>
+	<string>MXC DataDash</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -19,9 +27,38 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1IjoibXhjZGF0YWRhc2giLCJhIjoiY2s5bnc4dmh4MDBiMDNnbnczamRoN2ExeCJ9.sq0w8DGDXpA_6AMoejYaUw</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Would you allow MXC SmartCity to use the Media Library?</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Would you allow MXC SmartCity to use the Calendar?</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Would you allow MXC SmartCity to use the Camera?</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Would you allow MXC SmartCity to use the Contacts?</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Would you allow MXC SmartCity to use the Location Service?</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Would you allow MXC SmartCity to use the Location Service?</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Would you allow MXC SmartCity to use the Location Service?</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Would you allow MXC SmartCity to use the Motion?</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Would you allow MXC SmartCity to use the Photo?</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Would you allow MXC SmartCity to use the Album?</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Would you allow MXC SmartCity to use the Speech Recognition?</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -29,8 +66,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -41,5 +76,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
 </dict>
 </plist>
