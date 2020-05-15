@@ -4,19 +4,23 @@ on: [pull_request]
 
 jobs:
   test:
-    name: Test on ${{ matrix.os }}
+    name: Run on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
+      - name: Checkout
       - uses: actions/checkout@v1
+      - name: Set Java 12.x
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
+      - name: Set Flutter 1.12
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '1.12'
+      - name: flutter pub get
       - run: flutter pub get
-      - run: flutter test || exit 0 # no test files yet
+      - name: flutter build apk
       - run: flutter build apk
