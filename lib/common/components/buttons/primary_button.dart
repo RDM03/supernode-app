@@ -4,7 +4,11 @@ import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class PrimaryButton extends StatelessWidget {
-  PrimaryButton({@required this.onTap, @required this.buttonTitle,this.minHeight = 36});
+  PrimaryButton({
+    @required this.onTap,
+    @required this.buttonTitle,
+    this.minHeight = 36,
+  });
 
   final String buttonTitle;
   final Function onTap;
@@ -12,11 +16,9 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  ConstrainedBox(
-      constraints: BoxConstraints(
-        minHeight: minHeight
-      ),
-      child: FlatButton(
+    return ConstrainedBox(
+      constraints: BoxConstraints(minHeight: minHeight),
+      child: RaisedButton(
         onPressed: onTap,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(3)),
@@ -26,8 +28,8 @@ class PrimaryButton extends StatelessWidget {
           buttonTitle,
           textAlign: TextAlign.center,
           style: kMiddleFontOfWhite,
-        )
-      )
+        ),
+      ),
     );
   }
 }
