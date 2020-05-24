@@ -19,6 +19,7 @@ import 'page/withdraw_page/page.dart';
 import 'page/home_page/page.dart';
 import 'page/login_page/page.dart';
 import 'page/splash_page/page.dart';
+import 'page/mapbox_page//page.dart';
 
 import 'page/settings_page/page.dart';
 
@@ -47,7 +48,8 @@ Widget mxcApp() {
       'stake_page': StakePage(),
       'settings_page': SettingsPage(),
       'change_password_page': ChangePasswordPage(),
-      'add_gateway_page': AddGatewayPage()
+      'add_gateway_page': AddGatewayPage(),
+      'mapbox_page': mapboxPage(),
     },
     visitor: (String path, Page<Object, dynamic> page) {
       if (page.isTypeof<GlobalBaseState>()) {

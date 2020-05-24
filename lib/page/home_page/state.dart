@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong/latlong.dart';
 // import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';

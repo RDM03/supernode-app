@@ -1,4 +1,4 @@
-class AppLanguage { 
+class AppLanguage {
   static const String auto = 'auto';
   static const String en = 'en';
   static const String en_CN = 'en_CN';
@@ -10,10 +10,8 @@ class AppLanguage {
   static const String tr = 'tr';
   static const String de = 'de';
   static const String ru = 'ru';
-  static const String vi='vi';
+  static const String vi = 'vi';
 }
-
-
 
 class Sys {
   static const Map superNodes = {
@@ -28,11 +26,13 @@ class Sys {
 
   static const impressum = 'https://www.mxc.org/imprint';
   static const privacyPolicy = 'https://www.mxc.org/privacy-policy';
-  static const AgreePolicy='https://www.mxc.org/terms-and-conditions';
+  static const AgreePolicy = 'https://www.mxc.org/terms-and-conditions';
   static const stakeMore = 'https://mxc.wiki';
 
+  static const List<String> mainMenus = ['Home', 'Gateway', 'Device', 'Wallet'];
 
-  static const List<String> mainMenus = ['Home','Gateway','Device','Wallet'];
-
-  static const mapToken = 'pk.eyJ1IjoibXhjZGF0YWRhc2giLCJhIjoiY2s5bnc4dmh4MDBiMDNnbnczamRoN2ExeCJ9.sq0w8DGDXpA_6AMoejYaUw';
+  static const mapUrlTemplate =
+      'https://api.mapbox.com/styles/v1/mxcdatadash/ck9qr005y5xec1is8yu6i51kw/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}';
+  static const mapToken =
+      'pk.eyJ1IjoibXhjZGF0YWRhc2giLCJhIjoiY2s5bnc4dmh4MDBiMDNnbnczamRoN2ExeCJ9.sq0w8DGDXpA_6AMoejYaUw';
 }
