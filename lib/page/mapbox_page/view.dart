@@ -16,5 +16,6 @@ Widget buildView(mapboxState state, Dispatch dispatch, ViewService viewService) 
       controller: state.mapCtl,
       isFullScreen: true,
     ),
+    useSafeArea: false,
   );
 }

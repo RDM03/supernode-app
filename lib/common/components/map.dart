@@ -19,6 +19,7 @@ Widget map({
   bool isFullScreen = false,
 }) {
   final mediaQueryData = MediaQuery.of(context);
+  bool hasLocation = false;
 
   List<Marker> newMarkers = [];
   if (markers != null && markers.isNotEmpty) {
@@ -35,21 +36,25 @@ Widget map({
     if (userLocation != null) {
       newMarkers.add(userLocation);
     }
-
-    print('newMarkers = $newMarkers');
   }
 
-  List<Marker> list = newMarkers.isNotEmpty ? newMarkers : markers;
+  List<Marker> markerList = newMarkers.isNotEmpty ? newMarkers : markers;
+
   UserLocationOptions userLocationOptions = UserLocationOptions(
     context: context,
     mapController: controller,
-    fabBottom: isFullScreen ? 20 + mediaQueryData.padding.bottom : 205,
-    markers: list,
+    fabBottom: isFullScreen ? 20 + mediaQueryData.padding.bottom + 40 + 10 : 205,
+    markers: markerList,
     defaultZoom: 12,
+    updateMapLocationOnPositionChange: false,
     // zoomToCurrentLocationOnLoad: true,
     showMoveToCurrentLocationFloatingActionButton: userLocationSwitch,
     // markerWidget: Container(),
     onLocationUpdate: (LatLng location) {
+      if (!hasLocation) {
+        hasLocation = true;
+        controller.move(location, zoom);
+      }
       if (callback != null) {
         callback(location);
       }
@@ -59,16 +64,22 @@ Widget map({
   Widget _buildZoomOutIcon() {
     if (zoomOutCallback == null) return SizedBox();
     return Positioned(
-      top: 10,
-      left: 10,
-      width: 30,
-      height: 30,
-      child: IconButton(
-        onPressed: zoomOutCallback,
-        icon: Icon(
-          Icons.zoom_out_map,
-          color: Colors.blue,
-          size: 30,
+      bottom: 155,
+      right: 20,
+      width: 40,
+      height: 40,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.blueAccent,
+          borderRadius: BorderRadius.circular(20.0),
+          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
+        ),
+        child: IconButton(
+          onPressed: zoomOutCallback,
+          icon: Icon(
+            Icons.zoom_out_map,
+            color: Colors.white,
+          ),
         ),
       ),
     );
@@ -76,20 +87,26 @@ Widget map({
 
   Widget _buildCloseIcon() {
     return Positioned(
-      bottom: 60,
-      left: 10,
-      width: 30,
-      height: 30,
-      child: IconButton(
-        onPressed: () {
-          if (Navigator.of(context).canPop()) {
-            Navigator.of(context).pop();
-          }
-        },
-        icon: Icon(
-          Icons.close,
-          color: Colors.blue,
-          size: 30,
+      bottom: 20 + mediaQueryData.padding.bottom,
+      right: 20,
+      width: 40,
+      height: 40,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.blueAccent,
+          borderRadius: BorderRadius.circular(20.0),
+          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
+        ),
+        child: IconButton(
+          onPressed: () {
+            if (Navigator.of(context).canPop()) {
+              Navigator.of(context).pop();
+            }
+          },
+          icon: Icon(
+            Icons.close,
+            color: Colors.white,
+          ),
         ),
       ),
     );
@@ -115,8 +132,9 @@ Widget map({
                 'accessToken': Sys.mapToken,
                 'id': 'mapbox.streets',
               },
+              tileProvider: NonCachingNetworkTileProvider(),
             ),
-            MarkerLayerOptions(markers: list),
+            MarkerLayerOptions(markers: markerList),
             userLocationOptions,
           ],
         ),
@@ -127,7 +145,7 @@ Widget map({
 
   return isFullScreen
       ? Container(
-          height: mediaQueryData.size.height - mediaQueryData.padding.top,
+          height: mediaQueryData.size.height,
           child: _buildFlutterMap(),
         )
       : panelFrame(

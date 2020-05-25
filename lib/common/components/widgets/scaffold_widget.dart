@@ -12,6 +12,7 @@ class ScaffoldWidget extends StatelessWidget {
     this.useScrollViewContainer = true,
     this.padding,
     this.scrollController,
+    this.useSafeArea = true,
   })  : assert(body != null),
         super(key: key);
 
@@ -22,6 +23,7 @@ class ScaffoldWidget extends StatelessWidget {
   final Color backgroundColor;
   final bool useScrollViewContainer;
   final ScrollController scrollController;
+  final bool useSafeArea;
 
   EdgeInsets get _padding => this.padding ?? EdgeInsets.zero;
 
@@ -48,12 +50,14 @@ class ScaffoldWidget extends StatelessWidget {
       );
     }
 
-    return SafeArea(
-      child: Container(
+    Widget _buildContent() {
+      return Container(
         padding: useScrollViewContainer ? EdgeInsets.zero : _padding,
         child: _wrapWithScrollViewIfNeed(bodyBuilder(context)),
-      ),
-    );
+      );
+    }
+
+    return this.useSafeArea ? SafeArea(child: _buildContent()) : _buildContent();
   }
 
   Widget _buildFooter(BuildContext context, Widget footer) {
