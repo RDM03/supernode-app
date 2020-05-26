@@ -20,7 +20,7 @@ import 'action.dart';
 import 'state.dart';
 
 Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
-  var _ctx = viewService.context;
+  final _ctx = viewService.context;
 
   return Scaffold(
     appBar: AppBar(
@@ -42,8 +42,8 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
     ),
     body: RefreshIndicator(
       displacement: 10,
-      onRefresh: () async{
-        await Future.delayed(Duration(seconds: 2), (){
+      onRefresh: () async {
+        await Future.delayed(Duration(seconds: 2), () {
           dispatch(HomeActionCreator.onProfile());
         });
       },
@@ -53,68 +53,60 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
             child: Column(
               children: [
                 profile(
-                  name: '${FlutterI18n.translate(_ctx,'hi')}, ${state.username}',
-                  position: ( state.organizations.length > 0 && state.organizations.first.isAdmin )? FlutterI18n.translate(_ctx,'admin') : ''
+                  name: '${FlutterI18n.translate(_ctx, 'hi')}, ${state.username}',
+                  position: (state.organizations.length > 0 && state.organizations.first.isAdmin)
+                      ? FlutterI18n.translate(_ctx, 'admin')
+                      : '',
                 ),
-                rowRight(
-                  FlutterI18n.translate(_ctx,'current_balance'),
-                  style: kSmallFontOfGrey
-                ),
-                rowRight(
-                  '${Tools.priceFormat(state.balance)} MXC',
-                  style: kBigFontOfBlack
-                ),
-                rowRight(
-                  FlutterI18n.translate(_ctx,'staked_amount'),
-                  style: kSmallFontOfGrey
-                ),
-                rowRight(
-                  '${Tools.priceFormat(state.stakedAmount)} MXC',
-                  style: kBigFontOfBlack
-                ),
+                rowRight(FlutterI18n.translate(_ctx, 'current_balance'), style: kSmallFontOfGrey),
+                rowRight('${Tools.priceFormat(state.balance)} MXC', style: kBigFontOfBlack),
+                rowRight(FlutterI18n.translate(_ctx, 'staked_amount'), style: kSmallFontOfGrey),
+                rowRight('${Tools.priceFormat(state.stakedAmount)} MXC', style: kBigFontOfBlack),
                 Container(
                   margin: kRoundRow5,
                   child: Row(
                     children: <Widget>[
                       Spacer(),
                       PrimaryButton(
-                        buttonTitle: FlutterI18n.translate(_ctx,'deposit'),
+                        buttonTitle: FlutterI18n.translate(_ctx, 'deposit'),
                         onTap: () => dispatch(HomeActionCreator.onOperate('deposit')),
                       ),
                       Spacer(),
                       PrimaryButton(
-                        buttonTitle: FlutterI18n.translate(_ctx,'withdraw'),
-                        onTap: () => dispatch(HomeActionCreator.onOperate('withdraw'))
+                        buttonTitle: FlutterI18n.translate(_ctx, 'withdraw'),
+                        onTap: () => dispatch(HomeActionCreator.onOperate('withdraw')),
                       ),
                       Spacer(),
                       PrimaryButton(
-                        buttonTitle: FlutterI18n.translate(_ctx,'stake'),
-                        onTap: () => dispatch(HomeActionCreator.onOperate('stake'))
+                        buttonTitle: FlutterI18n.translate(_ctx, 'stake'),
+                        onTap: () => dispatch(HomeActionCreator.onOperate('stake')),
                       ),
                       Spacer(),
-                    ]
-                  )
+                    ],
+                  ),
                 ),
-              ]
-            )
+              ],
+            ),
           ),
           panelFrame(
             child: summaryRow(
               image: AppImages.gateways,
-              title: FlutterI18n.translate(_ctx,'total_gateways'),
+              title: FlutterI18n.translate(_ctx, 'total_gateways'),
               number: '${state.gatewaysTotal}',
-              subtitle: FlutterI18n.translate(_ctx,'revenue'),
-              price: '${Tools.priceFormat(state.gatewaysRevenue)} MXC (${Tools.priceFormat(state.gatewaysUSDRevenue)} USD)'
-            )
+              subtitle: FlutterI18n.translate(_ctx, 'revenue'),
+              price:
+                  '${Tools.priceFormat(state.gatewaysRevenue)} MXC (${Tools.priceFormat(state.gatewaysUSDRevenue)} USD)',
+            ),
           ),
           panelFrame(
             child: summaryRow(
               image: AppImages.devices,
-              title: FlutterI18n.translate(_ctx,'total_devices'),
+              title: FlutterI18n.translate(_ctx, 'total_devices'),
               number: '${state.devicesTotal}',
-              subtitle: FlutterI18n.translate(_ctx,'revenue'),
-              price: '${Tools.priceFormat(state.devicesRevenue)} MXC (${Tools.priceFormat(state.devicesUSDRevenue)} USD)'
-            )
+              subtitle: FlutterI18n.translate(_ctx, 'revenue'),
+              price:
+                  '${Tools.priceFormat(state.devicesRevenue)} MXC (${Tools.priceFormat(state.devicesUSDRevenue)} USD)',
+            ),
           ),
           map(
             context: _ctx,
@@ -122,14 +114,12 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
             center: state.gatewaysLocations.isNotEmpty ? state.gatewaysLocations.first.point : null,
             markers: state.gatewaysLocations ?? [],
             controller: state.mapCtl,
-            callback: (location){
-              dispatch(UserActionCreator.addLocation(location));
-            }
+            callback: (location) => dispatch(UserActionCreator.addLocation(location)),
+            zoomOutCallback: ()=> dispatch(HomeActionCreator.mapbox()),
           ),
-          
-          smallColumnSpacer()
-        ]
-      )
+          smallColumnSpacer(),
+        ],
+      ),
     ),
   );
 }

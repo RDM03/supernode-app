@@ -11,11 +11,10 @@ import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
-import 'action.dart';
 import 'state.dart';
 
 Widget buildView(AboutState state, Dispatch dispatch, ViewService viewService) {
-  var _ctx = viewService.context;
+  final _ctx = viewService.context;
 
   return Stack(
     children: <Widget>[
@@ -24,50 +23,46 @@ Widget buildView(AboutState state, Dispatch dispatch, ViewService viewService) {
         padding: EdgeInsets.zero,
         children: [
           pageNavBar(
-            FlutterI18n.translate(_ctx,'about'),
+            FlutterI18n.translate(_ctx, 'about'),
             padding: const EdgeInsets.all(20),
-            onTap: () => Navigator.of(viewService.context).pop()
+            onTap: () => Navigator.of(viewService.context).pop(),
           ),
           Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.only(top: 30, bottom: 50),
-            child: Image.asset(
-              AppImages.splashLogo,
-              height: 100,
-            ),
+            child: Image.asset(AppImages.splashLogo, height: 100),
           ),
           Divider(),
           listItem(
-            FlutterI18n.translate(_ctx,'impressum'),
-            onTap: () => Tools.launchURL(Sys.impressum)
+            FlutterI18n.translate(_ctx, 'impressum'),
+            onTap: () => Tools.launchURL(Sys.impressum),
           ),
           Divider(),
           listItem(
-            FlutterI18n.translate(_ctx,'privacy_policy'),
-            onTap: () => Tools.launchURL(Sys.privacyPolicy)
+            FlutterI18n.translate(_ctx, 'privacy_policy'),
+            onTap: () => Tools.launchURL(Sys.privacyPolicy),
           ),
           Divider(),
           listItem(
-            FlutterI18n.translate(_ctx,'version'),
+            FlutterI18n.translate(_ctx, 'version'),
             onTap: () {},
             trailing: Container(
               padding: kInnerRowRight10,
-              child: Text(
-                'v1.0.3',
-                style: kMiddleFontOfGrey,
-              ),
-            )
+              child: Text('v1.0.4', style: kMiddleFontOfGrey),
+            ),
           ),
           Divider(),
-        ]
+        ],
       ),
       Positioned(
         left: 0,
         right: 0,
         bottom: 30,
         child: Center(
-          child: subtitle('© 2020 ${FlutterI18n.translate(_ctx,'foundation')}. ${FlutterI18n.translate(_ctx, 'all_rights')}'),
-        )
+          child: subtitle(
+            '© 2020 ${FlutterI18n.translate(_ctx, 'foundation')}. ${FlutterI18n.translate(_ctx, 'all_rights')}',
+          ),
+        ),
       )
     ],
   );
