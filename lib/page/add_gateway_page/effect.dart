@@ -47,10 +47,7 @@ void _onQrScan(Action action, Context<AddGatewayState> ctx) async{
       return;
     }
   }catch(err){
-    tip(ctx.context,res['status'],success: true);
-    if(ctx.state.fromPage == 'home'){
-      Navigator.of(ctx.context).pop();
-    }
+    tip(ctx.context,'startScan: $err');
   }
   
   Navigator.push(ctx.context,
@@ -103,7 +100,10 @@ void _register(Context<AddGatewayState> ctx,String serialNumber){
     log('Gateway register',res);
 
     if(res.containsKey('status')){
-      tip(ctx.context,res['status']);
+      tip(ctx.context,res['status'],success: true);
+      if(ctx.state.fromPage == 'home'){
+        Navigator.of(ctx.context).pop();
+      }
     }
   }).catchError((err){
     hideLoading(ctx.context);
