@@ -47,7 +47,10 @@ void _onQrScan(Action action, Context<AddGatewayState> ctx) async{
       return;
     }
   }catch(err){
-    tip(ctx.context,'startScan: $err');
+    tip(ctx.context,res['status'],success: true);
+    if(ctx.state.fromPage == 'home'){
+      Navigator.of(ctx.context).pop();
+    }
   }
   
   Navigator.push(ctx.context,
