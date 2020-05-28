@@ -23,6 +23,7 @@ class SettingsState implements Cloneable<SettingsState> {
   int theme = 0;
 
   String token = '';
+  String otp_code = '';
   List<OrganizationsState> organizations = [];
   String selectedOrganizationId = '';
   String expire = '';

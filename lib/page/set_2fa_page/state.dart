@@ -1,27 +1,89 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'enter_securitycode_component/state.dart';
+import 'recovery_code_component/state.dart';
 
 class Set2FAState implements Cloneable<Set2FAState> {
 
   GlobalKey formKey = GlobalKey<FormState>();
+  GlobalKey codesFormKey = GlobalKey<FormState>();
   //TextEditingController oldPwdCtl = TextEditingController();
 
   bool isEnabled = true;
+  bool regenerate = false;
+  bool isAgreed = false;
+  String url = '';
+  String secret = '';
+  List<dynamic> recoveryCode = [];
+  String title = '';
+  String qrCode = '';
 
+
+  GlobalKey enterSecurityCodeFormKey = GlobalKey<FormState>();
+  List<TextEditingController> codeListCtls = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController()
+  ];
+
+  GlobalKey recoveryCodeFormKey = GlobalKey<FormState>();
 
   @override
   Set2FAState clone() {
     return Set2FAState()
       ..formKey = formKey
+      ..url = url
+      ..secret = secret
+      ..recoveryCode = recoveryCode
+      ..title = title
+      ..qrCode = qrCode
+      ..codeListCtls = codeListCtls
+      ..regenerate = regenerate
+      ..isAgreed = isAgreed
       ..isEnabled = isEnabled;
   }
 }
 
 Set2FAState initState(Map<String, dynamic> args) {
-  bool isEnabled = true;
-print('start');
-  print(args);
-  print('start');
+  bool isEnabled = args['isEnabled'];
   return Set2FAState()
     ..isEnabled = isEnabled;
+}
+
+class EnterSecurityCodeConnector extends ConnOp<Set2FAState, EnterSecurityCodeState>{
+
+  @override
+  EnterSecurityCodeState get(Set2FAState state){
+    return EnterSecurityCodeState()
+      ..formKey = state.enterSecurityCodeFormKey
+      ..isEnabled = state.isEnabled
+      ..listCtls = state.codeListCtls;
+  }
+
+  @override
+  void set(Set2FAState state, EnterSecurityCodeState subState) {
+    state
+      ..codeListCtls = subState.listCtls;
+  }
+}
+
+class RecoveryCodeConnector extends ConnOp<Set2FAState, RecoveryCodeState>{
+
+  @override
+  RecoveryCodeState get(Set2FAState state){
+    return RecoveryCodeState()
+      ..formKey = state.recoveryCodeFormKey
+      ..isAgreed = state.isAgreed
+      ..recoveryCode = state.recoveryCode;
+  }
+
+  @override
+  void set(Set2FAState state, RecoveryCodeState subState) {
+    state
+      ..isAgreed = subState.isAgreed
+      ..recoveryCode = subState.recoveryCode;
+  }
 }

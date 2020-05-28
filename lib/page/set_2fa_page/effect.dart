@@ -1,53 +1,172 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
+import 'package:supernodeapp/common/daos/dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/global_store/store.dart';
+import 'package:supernodeapp/common/daos/settings_dao.dart';
+import 'package:supernodeapp/page/settings_page/state.dart';
+
 import 'action.dart';
 import 'state.dart';
 
 Effect<Set2FAState> buildEffect() {
   return combineEffects(<Object, Effect<Set2FAState>>{
     Lifecycle.initState: _initState,
+    Set2FAAction.onEnterSecurityContinue: _onEnterSecurityContinue,
+    Set2FAAction.onSetEnable: _onSetEnable,
+    Set2FAAction.onSetDisable: _onSetDisable,
+    Set2FAAction.onRecoveryCodeContinue: _onRecoveryCodeContinue,
+    Set2FAAction.onGetTOTPConfig: _onGetTOTPConfig,
     Set2FAAction.onConfirm: _onConfirm,
   });
 }
 
 void _initState(Action action, Context<Set2FAState> ctx) {
   var curState = ctx.state;
-print(123);
-  //Map data = {
-  //  'username': curState.usernameCtl.text.trim(),
-  //  'password': curState.passwordCtl.text.trim()
-  //};
 
   UserDao dao = UserDao();
-  // var response = await dao.login(data);
 
+  Map data = {};
 
-
-  dao.getTOTPStatus().then((res){
+  dao.getTOTPStatus(data).then((res){
     log('totp',res);
-    print('start');
-    print(res);
-    print('start');
     //hideLoading(ctx.context);
 
-    if((res as Map).containsKey('isEnabled')){
-      ctx.dispatch(Set2FAActionCreator.isEnabled(res['enabled']));
+    if((res as Map).containsKey('enabled')){
+     ctx.dispatch(Set2FAActionCreator.isEnabled(res['enabled']));
     }
 
-    //Navigator.pushNamedAndRemoveUntil(ctx.context,'home_page',(route) => false,arguments:{'superNode':curState.selectedSuperNode});
-
   }).catchError((err){
-    hideLoading(ctx.context);
+    //hideLoading(ctx.context);
     tip(ctx.context,'$err');
   });
 
 }
 
+void _onEnterSecurityContinue(Action action, Context<Set2FAState> ctx) async{
+  //showLoading(ctx.context);
+
+  Navigator.push(ctx.context,
+    MaterialPageRoute(
+        maintainState: false,
+        fullscreenDialog: false,
+        builder:(context){
+          return ctx.buildComponent('enterSecurityCode');
+        }
+    ),
+  );
+}
+
+void _onRecoveryCodeContinue(Action action, Context<Set2FAState> ctx) async{
+  Navigator.of(ctx.context).pushNamed('set_2fa_page', arguments:{'isEnabled': false});
+}
+
+void _onGetTOTPConfig(Action action, Context<Set2FAState> ctx) {
+  var curState = ctx.state;
+
+  if(!(curState.formKey.currentState as FormState).validate()){
+    return;
+  }
+
+  int qrCodeSize = 240;
+
+  //showLoading(ctx.context);
+
+  Map data = {
+    "qrCodeSize": qrCodeSize,
+  };
+
+  UserDao dao = UserDao();
+
+  dao.getTOTPConfig(data).then((res){
+    log('changePassword',res);
+    //hideLoading(ctx.context);
+
+    ctx.dispatch(Set2FAActionCreator.getTOTPConfig({"url": res['url'],"secret": res['secret'], "recoveryCode": res['recoveryCode'], "title":res['title'], "qrCode": res['qrCode']}));
+
+  }).catchError((err){
+    //hideLoading(ctx.context);
+    tip(ctx.context,'UserDao getTOTPConfig: $err');
+  });
+}
+
+void _onSetEnable(Action action, Context<Set2FAState> ctx){
+  var curState = ctx.state;
+
+  UserDao dao = UserDao();
+
+  List<String> codes = curState.codeListCtls.map((code) => code.text).toList();
+  SettingsState settingsData = GlobalStore.store.getState().settings;
+
+  if(settingsData == null){
+    settingsData = SettingsState().clone();
+  }
+
+  settingsData.otp_code = codes.join();
+
+  Map data = {
+    "opt_code": codes.join()
+  };
+  //showLoading(ctx.context);
+  dao.setEnable(data).then((res){
+    //hideLoading(ctx.context);
+    log('setEnable status',res);
+    ctx.dispatch(Set2FAActionCreator.isEnabled(true));
+    Navigator.push(ctx.context,
+      MaterialPageRoute(
+          maintainState: false,
+          fullscreenDialog: false,
+          builder:(context){
+            return ctx.buildComponent('recoveryCode');
+          }
+      ),
+    );
+  }).catchError((err){
+    //hideLoading(ctx.context);
+    tip(ctx.context,'UserDao setEnable: $err');
+  });
+}
+
+void _onSetDisable(Action action, Context<Set2FAState> ctx){
+  var curState = ctx.state;
+
+  UserDao dao = UserDao();
+
+  List<String> codes = curState.codeListCtls.map((code) => code.text).toList();
+  SettingsState settingsData = GlobalStore.store.getState().settings;
+
+  if(settingsData == null){
+    settingsData = SettingsState().clone();
+  }
+
+  settingsData.otp_code = codes.join();
+
+  Map data = {
+    "opt_code": codes.join()
+  };
+  //showLoading(ctx.context);
+  dao.setDisable(data).then((res){
+    //hideLoading(ctx.context);
+    log('setDisable status',res);
+    Navigator.of(ctx.context).pushNamed('set_2fa_page', arguments:{'isEnabled': false});
+    /*Navigator.push(ctx.context,
+      MaterialPageRoute(
+          maintainState: false,
+          fullscreenDialog: false,
+          builder:(context){
+            return ctx.buildComponent('set_2fa_page');
+          }
+      ),
+    );*/
+  }).catchError((err){
+    //hideLoading(ctx.context);
+    tip(ctx.context,'UserDao setDisable: $err');
+  });
+}
 
 void _onConfirm(Action action, Context<Set2FAState> ctx) {
   var curState = ctx.state;
@@ -59,7 +178,7 @@ void _onConfirm(Action action, Context<Set2FAState> ctx) {
   String userId = GlobalStore.store.getState().settings.userId;
   bool isEnabled = curState.isEnabled;
 
-  showLoading(ctx.context);
+  //showLoading(ctx.context);
 
   Map data = {
     "userId": userId,
@@ -69,12 +188,12 @@ void _onConfirm(Action action, Context<Set2FAState> ctx) {
 
   dao.changePassword(data).then((res){
     log('changePassword',res);
-    hideLoading(ctx.context);
+    //hideLoading(ctx.context);
 
     tip(ctx.context,'Updated Successfully',success: true);
 
   }).catchError((err){
-    hideLoading(ctx.context);
+    //hideLoading(ctx.context);
     tip(ctx.context,'UserDao changePassword: $err');
   });
 }
