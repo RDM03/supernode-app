@@ -13,7 +13,12 @@ class UserApi {
 
   static const String update = '/api/users/{user.id}';
   static const String password = '/api/users/{userId}/password';
+
   static const String getTOTPStatus = '/api/internal/totp-status';
+  static const String getTOTPConfig = '/api/internal/totp-configuration';
+  static const String setEnable = '/api/internal/totp-enable'; //OTP code in Grpc-Metadata-X-OTP header
+  static const String setDisable = '/api/internal/totp-disable';
+
 }
 
 class UserDao extends Dao{
@@ -81,10 +86,31 @@ class UserDao extends Dao{
   }
 
   //get TOTP Status by Namgyeong
-  Future<dynamic> getTOTPStatus(){
-    return put(
-        url: Api.url(UserApi.getTOTPStatus, null),
-        data: ''
+  Future<dynamic> getTOTPStatus(Map data){
+    return get(
+        url: UserApi.getTOTPStatus,
+        data: data
+    ).then((res) => res);
+  }
+
+  Future<dynamic> getTOTPConfig(Map data){
+    return post(
+        url: UserApi.getTOTPConfig,
+        data: data
+    ).then((res) => res);
+  }
+
+  Future<dynamic> setEnable(Map data){
+    return post(
+        url: UserApi.setEnable,
+        data: data
+    ).then((res) => res);
+  }
+
+  Future<dynamic> setDisable(Map data){
+    return post(
+        url: UserApi.setDisable,
+        data: data
     ).then((res) => res);
   }
 }
