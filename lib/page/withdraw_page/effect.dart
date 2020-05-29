@@ -7,9 +7,11 @@ import 'package:supernodeapp/common/daos/wallet_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/withdraw_dao.dart';
+import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/theme/colors.dart';
+
 // import 'package:qrscan/qrscan.dart' as Scanner;
 
 import 'action.dart';
@@ -19,6 +21,7 @@ Effect<WithdrawState> buildEffect() {
   return combineEffects(<Object, Effect<WithdrawState>>{
     Lifecycle.initState: _initState,
     WithdrawAction.onQrScan: _onQrScan,
+    WithdrawAction.onEnterSecurityWithdrawContinue: _onEnterSecurityWithdrawContinue,
     WithdrawAction.onSubmit: _onSubmit,
   });
 }
@@ -52,6 +55,20 @@ void _onQrScan(Action action, Context<WithdrawState> ctx) async{
   ctx.dispatch(WithdrawActionCreator.address(qrResult));
 }
 
+void _onEnterSecurityWithdrawContinue(Action action, Context<WithdrawState> ctx) async{
+  //showLoading(ctx.context);
+
+  Navigator.push(ctx.context,
+    MaterialPageRoute(
+        maintainState: false,
+        fullscreenDialog: false,
+        builder:(context){
+          return ctx.buildComponent('enterSecurityCodeWithdraw');
+        }
+    ),
+  );
+}
+
 void _onSubmit(Action action, Context<WithdrawState> ctx) {
   var curState = ctx.state;
   double balance = curState.balance;
@@ -59,6 +76,8 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) {
   String address = curState.addressCtl.text;
   // OrganizationsState org = curState.organizations.first;
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
+
+  List<String> codes = curState.codeListCtls.map((code) => code.text).toList();
 
   if((curState.formKey.currentState as FormState).validate()){
     if(address.trim().isEmpty){
@@ -71,15 +90,16 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) {
       "orgId": orgId,
       "amount": int.parse(amount),
       "ethAddress": address,
-      "availableBalance": balance
+      "availableBalance": balance,
+      "otp_code": codes.join()
     };
     showLoading(ctx.context);
     dao.withdraw(data).then((res){
       hideLoading(ctx.context);
       log('withdraw',res);
+
       if(res.containsKey('status') && res['status']){
         Navigator.pushNamed(ctx.context, 'confirm_page',arguments:{'title': 'withdraw','content': 'withdraw_submit_tip'});
-
         _updateBalance(ctx);
         ctx.dispatch(WithdrawActionCreator.status(true));
       }else{

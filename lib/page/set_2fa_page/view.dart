@@ -53,6 +53,8 @@ Widget buildView(Set2FAState state, Dispatch dispatch, ViewService viewService) 
                     onChanged: (value) {
                       if(value){
                         dispatch(Set2FAActionCreator.onGetTOTPConfig(240));
+                        //dispatch(SettingsActionCreator.onSettings('security'))
+
                       }else{
                         dispatch(Set2FAActionCreator.onEnterSecurityContinue("enable"));
                       }
