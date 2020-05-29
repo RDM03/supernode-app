@@ -25,6 +25,7 @@ Effect<WithdrawState> buildEffect() {
     Lifecycle.initState: _initState,
     WithdrawAction.onQrScan: _onQrScan,
     WithdrawAction.onEnterSecurityWithdrawContinue: _onEnterSecurityWithdrawContinue,
+    WithdrawAction.onGotoSet2FA: _onGotoSet2FA,
     WithdrawAction.onSubmit: _onSubmit,
   });
 }
@@ -69,6 +70,11 @@ void _onEnterSecurityWithdrawContinue(Action action, Context<WithdrawState> ctx)
         }
     ),
   );
+}
+
+void _onGotoSet2FA(Action action, Context<WithdrawState> ctx) async{
+  Navigator.pushNamed(ctx.context, 'set_2fa_page',arguments:{'isEnabled': false});
+  //Navigator.of(viewService.context).pushNamed('set_2fa_page', arguments:{'isEnabled': false})
 }
 
 void _onSubmit(Action action, Context<WithdrawState> ctx) async {

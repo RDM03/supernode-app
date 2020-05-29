@@ -9,6 +9,7 @@ import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/common/daos/settings_dao.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
+import 'package:supernodeapp/global_store/action.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -152,6 +153,10 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx){
   dao.setDisable(data).then((res){
     //hideLoading(ctx.context);
     log('setDisable status',res);
+
+    settingsData.is2FAEnabled = false;
+    GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
+
     Navigator.of(ctx.context).pushNamed('set_2fa_page', arguments:{'isEnabled': false});
     /*Navigator.push(ctx.context,
       MaterialPageRoute(
