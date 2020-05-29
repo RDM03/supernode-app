@@ -61,13 +61,12 @@ Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService
       paragraph('${state.fee} MXC'),
       settingsData.is2FAEnabled?
       submitButton(
-        'auth',
-        onPressed: () => dispatch(WithdrawActionCreator.onEnterSecurityWithdrawContinue())
-      ):
-      submitButton(
           FlutterI18n.translate(_ctx, 'submit_request'),
-          onPressed: () => dispatch(WithdrawActionCreator.onSubmit())
-      )
+        onPressed: () => dispatch(WithdrawActionCreator.onEnterSecurityWithdrawContinue())
+      ):submitButton(
+          'Required 2FA for withdrawal',
+          onPressed: () => dispatch(WithdrawActionCreator.onGotoSet2FA())
+      ),
     ]
   );
 }
