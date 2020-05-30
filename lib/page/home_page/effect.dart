@@ -93,14 +93,16 @@ void _profile(Context<HomeState> ctx) {
 
     List<OrganizationsState> organizationsData = [];
     for (int index = 0; index < res['organizations'].length; index++) {
-      organizationsData.add(OrganizationsState.fromMap(res['organizations'][index]));
+      organizationsData
+          .add(OrganizationsState.fromMap(res['organizations'][index]));
     }
 
     SettingsState settingsData = GlobalStore.store.getState().settings;
     settingsData.userId = userData.id;
     settingsData.organizations = organizationsData;
     if (settingsData.selectedOrganizationId.isEmpty) {
-      settingsData.selectedOrganizationId = organizationsData.first.organizationID;
+      settingsData.selectedOrganizationId =
+          organizationsData.first.organizationID;
     }
 
     SettingsDao.updateLocal(settingsData);
@@ -190,6 +192,10 @@ void _gateways(Context<HomeState> ctx) {
   dao.list(data).then((res) async {
     log('GatewaysDao list', res);
 
+    // [0-9]\d{0,1}\.[0-9]\d{0,1}\.[0-9]\d{0,1}
+    // 用于匹配版本号 允许范围 0.0.0 -> 99.99.99
+    var reg = RegExp(r"[0-9]\d{0,1}\.[0-9]\d{0,1}\.[0-9]\d{0,1}");
+
     int total = int.parse(res['totalCount']);
     // int allValues = 0;
     List<GatewayItemState> list = [];
@@ -199,6 +205,14 @@ void _gateways(Context<HomeState> ctx) {
     if (tempList.length > 0) {
       for (int index = 0; index < tempList.length; index++) {
         // allValues += tempList[index]['location']['accuracy'];
+        Iterable<Match> matches =
+            reg.allMatches(tempList[index]['description']);
+        String description = '';
+        for (Match m in matches) {
+          description = m.group(0);
+        }
+
+        tempList[index]['description'] = description;
         list.add(GatewayItemState.fromMap(tempList[index]));
       }
     }
@@ -271,8 +285,11 @@ void _onOperate(Action action, Context<HomeState> ctx) {
     page = 'stake_page';
   }
 
-  Navigator.pushNamed(ctx.context, page,
-      arguments: {'balance': balance, 'organizations': organizations, 'type': act}).then((res) {
+  Navigator.pushNamed(ctx.context, page, arguments: {
+    'balance': balance,
+    'organizations': organizations,
+    'type': act
+  }).then((res) {
     if ((page == 'stake_page' || page == 'withdraw_page') && res) {
       _profile(ctx);
     }
