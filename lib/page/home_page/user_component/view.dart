@@ -93,7 +93,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
               image: AppImages.gateways,
               title: FlutterI18n.translate(_ctx, 'total_gateways'),
               number: '${state.gatewaysTotal}',
-              subtitle: FlutterI18n.translate(_ctx, 'cost'),
+              subtitle: FlutterI18n.translate(_ctx, 'profit'),
               price:
                   '${Tools.priceFormat(state.gatewaysRevenue)} MXC (${Tools.priceFormat(state.gatewaysUSDRevenue)} USD)',
             ),
