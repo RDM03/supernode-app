@@ -135,5 +135,6 @@
 	"version": "Version",
 	"unstake": "Unstake",
 	"profit": "Revenue",
-	"cost": "Fee"
+	"cost": "Fee",
+	"verify": "Verify Your Identity"
 }

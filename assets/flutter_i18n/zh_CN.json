@@ -135,5 +135,6 @@
 	"version": "版本",
 	"unstake": "解除质押",
 	"profit": "收益",
-	"cost": "费用"
+	"cost": "费用",
+	"verify": "请验证身份"
 }

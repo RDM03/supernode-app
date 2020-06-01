@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/stake_dao.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/common/components/security/biometrics.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -29,7 +30,6 @@ void _onConfirm(Action action, Context<StakeState> ctx) async {
     if (canCheckBiometrics) {
       Biometrics.authenticate(
         ctx.context,
-        localizedReason: 'biometric for mxc',
         authenticateCallback: () {
           StakeDao dao = StakeDao();
 

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:local_auth/error_codes.dart' as auth_error;
 
 class Biometrics {
   Biometrics._();
@@ -37,13 +38,13 @@ class Biometrics {
 
   static Future<void> authenticate(
     BuildContext context, {
-    @required String localizedReason,
+    String localizedReason,
     @required VoidCallback authenticateCallback,
     VoidCallback failAuthenticateCallBack,
   }) async {
     try {
       final didAuthenticate = await _localAuthentication.authenticateWithBiometrics(
-        localizedReason: localizedReason,
+        localizedReason: localizedReason ?? FlutterI18n.translate(context, 'verify'),
       );
       if (didAuthenticate) {
         authenticateCallback.call();
@@ -51,7 +52,18 @@ class Biometrics {
         failAuthenticateCallBack?.call();
       }
     } on PlatformException catch (e) {
-      log('PlatformException ', e);
+      switch (e.code) {
+        case auth_error.passcodeNotSet:
+        case auth_error.notAvailable:
+        case auth_error.lockedOut:
+        case auth_error.notEnrolled:
+        case auth_error.otherOperatingSystem:
+        case auth_error.permanentlyLockedOut:
+          authenticateCallback.call();
+          break;
+        default:
+          failAuthenticateCallBack?.call();
+      }
     }
   }
 }

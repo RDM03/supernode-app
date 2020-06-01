@@ -135,5 +135,6 @@
 	"version": "版本",
 	"unstake": "解除質押",
 	"profit": "收益",
-	"cost": "費用"
+	"cost": "費用",
+	"verify": "請證明你的身份"
 }

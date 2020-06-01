@@ -135,5 +135,6 @@
 	"version": "Version",
 	"unstake": "Staking-Betrag aufheben",
 	"profit": "Umsatz",
-	"cost": "Kosten"
+	"cost": "Kosten",
+	"verify": "Bestätigen Sie Ihre Identität"
 }

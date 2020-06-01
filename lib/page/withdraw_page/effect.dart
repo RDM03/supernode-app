@@ -70,7 +70,6 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
     if (canCheckBiometrics) {
       Biometrics.authenticate(
         ctx.context,
-        localizedReason: 'Verify your identity',
         authenticateCallback: () {
           WithdrawDao dao = WithdrawDao();
           Map data = {
