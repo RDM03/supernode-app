@@ -133,5 +133,7 @@
 	"all_rights": "Alle Rechte vorbehalten",
 	"foundation": "MXC Stiftung",
 	"version": "Version",
-	"unstake": "Staking-Betrag aufheben"
+	"unstake": "Staking-Betrag aufheben",
+	"profit": "Gewinn",
+	"cost": "Kosten"
 }

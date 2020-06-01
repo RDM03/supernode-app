@@ -43,7 +43,7 @@ Widget buildView(GatewayItemState state, Dispatch dispatch, ViewService viewServ
                       style: kSmallFontOfGrey,
                     ),
                     Text(
-                      '${FlutterI18n.translate(_ctx,'serial_number')}: ${state.networkServerID}',
+                      '${FlutterI18n.translate(_ctx,'version')}: ${state.description}',
                       style: kSmallFontOfGrey,
                     ),
                     Text(
