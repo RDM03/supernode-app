@@ -134,6 +134,6 @@
 	"foundation": "MXC Foundation",
 	"version": "Version",
 	"unstake": "Unstake",
-	"profit": "Profit",
-	"cost": "Cost"
+	"profit": "Revenue",
+	"cost": "Fee"
 }
