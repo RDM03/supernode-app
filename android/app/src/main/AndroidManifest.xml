@@ -135,6 +135,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.mxc.smartcity">
 
+<uses-permission android:name="android.permission.USE_FINGERPRINT"/>
 <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

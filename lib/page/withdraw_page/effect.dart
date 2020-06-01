@@ -1,17 +1,16 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:local_auth/local_auth.dart';
 import 'package:majascan/majascan.dart';
 import 'package:supernodeapp/common/components/loading.dart';
-import 'package:supernodeapp/common/daos/wallet_dao.dart';
-import 'package:supernodeapp/common/utils/log.dart';
+import 'package:supernodeapp/common/components/security/biometrics.dart';
 import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/daos/wallet_dao.dart';
 import 'package:supernodeapp/common/daos/withdraw_dao.dart';
+import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/common/components/security/biometrics.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -71,7 +70,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
     if (canCheckBiometrics) {
       Biometrics.authenticate(
         ctx.context,
-        localizedReason: 'biometric for mxc',
+        localizedReason: 'Verify your identity',
         authenticateCallback: () {
           WithdrawDao dao = WithdrawDao();
           Map data = {
@@ -102,7 +101,6 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
         },
         failAuthenticateCallBack: null,
       );
-
     }
   }
 }
