@@ -96,6 +96,7 @@ class QRCodeConnector extends ConnOp<Set2FAState, QRCodeState>{
   QRCodeState get(Set2FAState state){
     return QRCodeState()
       ..formKey = state.qrCodeFormKey
+      ..isEnabled = state.isEnabled
       ..url = state.url
       ..secret = state.secret
       ..recoveryCode = state.recoveryCode
@@ -107,6 +108,7 @@ class QRCodeConnector extends ConnOp<Set2FAState, QRCodeState>{
   void set(Set2FAState state, QRCodeState subState) {
     state
       ..url = subState.url
+      ..isEnabled = subState.isEnabled
       ..secret = subState.secret
       ..recoveryCode = subState.recoveryCode
       ..title = subState.title

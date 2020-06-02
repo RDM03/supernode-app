@@ -52,6 +52,7 @@ Widget buildView(Set2FAState state, Dispatch dispatch, ViewService viewService) 
                     value: state.isEnabled,
                     onChanged: (value) {
                       if(value){
+                        //dispatch(Set2FAActionCreator.onQRCodeContinue());
                         dispatch(Set2FAActionCreator.onGetTOTPConfig(240));
                         //dispatch(SettingsActionCreator.onSettings('security'))
 
@@ -94,7 +95,7 @@ Widget buildView(Set2FAState state, Dispatch dispatch, ViewService viewService) 
                         Text('Regenerate recovery code')
                       ],
                     ) :
-                    state.secret != '' ?
+                    /*state.secret != '' ?
                         Wrap(
                           runSpacing: 10.0,
                           children: <Widget>[
@@ -112,14 +113,15 @@ Widget buildView(Set2FAState state, Dispatch dispatch, ViewService viewService) 
                             ),
                             Center(
                               child: PrimaryButton(
-                                  onTap: () => dispatch(Set2FAActionCreator.onEnterSecurityContinue("disable")),
+                                  //onTap: () => dispatch(Set2FAActionCreator.onEnterSecurityContinue("disable")),
+                                  onTap: () => dispatch(Set2FAActionCreator.onQRCodeContinue()),
                                   buttonTitle: FlutterI18n.translate(_ctx, 'continue'),
                                   minHeight: 46
                               )
                             )
                           ],
                         )
-                    :Text(""),
+                    :*/Text(""),
                   ),
                   middleColumnSpacer(),
                   /*Text(
