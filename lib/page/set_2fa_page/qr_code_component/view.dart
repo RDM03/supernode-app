@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/page/paragraph.dart';
-import 'package:supernodeapp/common/components/text_field/text_field_with_codes.dart';
+import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -72,6 +72,14 @@ print('enter security');
                                   size: 240.0,
                                 ),
                               ),
+                              SizedBox(height: 10.0),
+                              Center(
+                                child: Text(
+                                  state.secret,
+                                  textAlign: TextAlign.center,
+                                  style: kMiddleFontOfGrey,
+                                )
+                              )
                             ],
                           ),
                         ]

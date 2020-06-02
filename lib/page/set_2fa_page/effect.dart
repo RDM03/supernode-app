@@ -139,18 +139,42 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx){
     //hideLoading(ctx.context);
     log('setEnable status',res);
     ctx.dispatch(Set2FAActionCreator.isEnabled(true));
-    Navigator.push(ctx.context,
-      MaterialPageRoute(
-          maintainState: false,
-          fullscreenDialog: false,
-          builder:(context){
-            return ctx.buildComponent('recoveryCode');
-          }
-      ),
-    );
-  }).catchError((err){
+  }).then((res){
+    print(res);
+    log('login saf',res);
+    UserDao dao = UserDao();
+
+    Map data = {};
+
+    dao.getTOTPStatus(data).then((res){
+      log('totp',res);
+      //hideLoading(ctx.context);
+      SettingsState settingsData = GlobalStore.store.getState().settings;
+
+      if(settingsData == null){
+        settingsData = SettingsState().clone();
+      }
+
+      settingsData.is2FAEnabled = res['enabled'];
+      if((res as Map).containsKey('enabled')){
+        GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
+      }
+      Navigator.push(ctx.context,
+        MaterialPageRoute(
+            maintainState: false,
+            fullscreenDialog: false,
+            builder:(context){
+              return ctx.buildComponent('recoveryCode');
+            }
+        ),
+      );
+    }).catchError((err){
+      //hideLoading(ctx.context);
+      tip(ctx.context,'$err');
+    });
+  })..catchError((err){
     //hideLoading(ctx.context);
-    tip(ctx.context,'UserDao setEnable: $err');
+    tip(ctx.context,'Setting setEnable: $err');
   });
 }
 
@@ -180,9 +204,34 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx){
     GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
 
     Navigator.pushReplacementNamed(ctx.context, 'set_2fa_page', arguments:{'isEnabled': curState.isEnabled});
-  }).catchError((err){
+  }).then((res){
+    print(res);
+    log('login saf',res);
+    UserDao dao = UserDao();
+
+    Map data = {};
+
+    dao.getTOTPStatus(data).then((res){
+      log('totp',res);
+      //hideLoading(ctx.context);
+      SettingsState settingsData = GlobalStore.store.getState().settings;
+
+      if(settingsData == null){
+        settingsData = SettingsState().clone();
+      }
+
+      settingsData.is2FAEnabled = res['enabled'];
+      if((res as Map).containsKey('enabled')){
+        GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
+      }
+      Navigator.pushReplacementNamed(ctx.context, 'set_2fa_page', arguments:{'isEnabled': curState.isEnabled});
+    }).catchError((err){
+      //hideLoading(ctx.context);
+      tip(ctx.context,'$err');
+    });
+  })..catchError((err){
     //hideLoading(ctx.context);
-    tip(ctx.context,'UserDao setDisable: $err');
+    tip(ctx.context,'Setting setDisable: $err');
   });
 }
 
