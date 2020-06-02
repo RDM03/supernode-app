@@ -4,8 +4,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/configs/sys.dart';
-
-import 'package:user_location/user_location.dart';
 import 'package:location/location.dart';
 
 Widget map({
@@ -21,7 +19,7 @@ Widget map({
   LocationData myLocationData,
 }) {
   final mediaQueryData = MediaQuery.of(context);
-  
+
   if (myLocationData != null && controller != null && !isFullScreen) {
     controller.move(LatLng(myLocationData?.latitude, myLocationData?.longitude), zoom);
   }
