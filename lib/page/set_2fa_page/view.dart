@@ -23,8 +23,7 @@ Widget buildView(Set2FAState state, Dispatch dispatch, ViewService viewService) 
     context: viewService.context,
     children: [
       pageNavBarBack(
-        //FlutterI18n.translate(_ctx,'change_password'),
-        '2FA Configuration',
+        FlutterI18n.translate(_ctx,'set_fa_01'),
         onTap: () => Navigator.of(viewService.context).pop()
       ),
       Form(
@@ -39,7 +38,7 @@ Widget buildView(Set2FAState state, Dispatch dispatch, ViewService viewService) 
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                      'Set 2FA',
+                      FlutterI18n.translate(_ctx,'set_fa_02'),
                       style: TextStyle(
                         //fontSize: 20.0,
                         fontWeight: FontWeight.bold,

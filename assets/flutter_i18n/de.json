@@ -135,5 +135,17 @@
 	"version": "Version",
 	"unstake": "Staking-Betrag aufheben",
 	"profit": "Umsatz",
-	"cost": "Kosten"
+	"cost": "Kosten",
+	"set_fa_01": "2FA-Konfiguration",
+	"set_fa_02": "Stellen Sie 2FA ein",
+	"qr_desc_01": "Mit Authenticator-Apps können Sie Sicherheitscodes auf Ihrem Mobilgerät generieren.",
+	"qr_desc_02": "So konfigurieren Sie die Authentifikator-App",
+	"qr_desc_03": "1. Öffnen Sie Ihre Authentifizierungs-App und fügen Sie ein neues zeitbasiertes Token hinzu.",
+	"qr_desc_04": "2. Scannen Sie den folgenden QR-Code.",
+	"qr_desc_05": "3. Klicken Sie auf die Schaltfläche Weiter.",
+	"enter_security_01": "3. Klicken Sie auf die Schaltfläche Weiter.",
+	"recovery_cd_desc_01": "Deine mnemonische Phrase",
+	"recovery_cd_desc_02": "Schreiben Sie diese mnemonische Phrase auf.",
+	"recovery_cd_desc_03": "Diese mnemonische Phrase kann verwendet werden, um Ihr Passwort und die Zwei-Faktor-Authentifizierung zurückzusetzen. sicher aufbewahren.",
+	"recovery_cd_desc_04": "Ich schrieb es auf und legte es an einen sicheren Ort"
 }
