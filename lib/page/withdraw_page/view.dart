@@ -46,7 +46,7 @@ Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService
             ),
             smallColumnSpacer(),
             textfieldWithButton(
-              readOnly: true,
+              //readOnly: true,
               inputLabel: FlutterI18n.translate(_ctx, 'to'),
               buttonLabel: FlutterI18n.translate(_ctx, 'qr_scan'),
               icon: Icons.center_focus_weak,
