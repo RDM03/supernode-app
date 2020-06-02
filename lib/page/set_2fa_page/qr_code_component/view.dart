@@ -39,13 +39,13 @@ print('enter security');
                           Wrap(
                             runSpacing: 10.0,
                             children: <Widget>[
-                              paragraph('Authenticator apps allow you to generate security codes on your mobile device.'),
-                              paragraph('To configure the authenticator app.'),
+                              paragraph(FlutterI18n.translate(_ctx,'qr_desc_01')),
+                              paragraph(FlutterI18n.translate(_ctx,'qr_desc_02')),
                               Column(
                                 children: <Widget>[
                                   Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                    child: Text('1. Open your authenticator app and add a new time-based token.'),
+                                    child: Text(FlutterI18n.translate(_ctx,'qr_desc_03')),
                                   )
                                 ],
                               ),
@@ -53,7 +53,7 @@ print('enter security');
                                 children: <Widget>[
                                   Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                    child: Text('2. Scan the QR code below.'),
+                                    child: Text(FlutterI18n.translate(_ctx,'qr_desc_04')),
                                   )
                                 ],
                               ),
@@ -61,7 +61,7 @@ print('enter security');
                                 children: <Widget>[
                                   Padding(
                                     padding: const EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 20.0),
-                                    child: Text('3. click continue button'),
+                                    child: Text(FlutterI18n.translate(_ctx,'qr_desc_05')),
                                   )
                                 ],
                               ),

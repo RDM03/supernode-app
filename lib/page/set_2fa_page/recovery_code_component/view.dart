@@ -33,17 +33,17 @@ Widget buildView(RecoveryCodeState state, Dispatch dispatch, ViewService viewSer
           children: <Widget>[
             //paragraph(FlutterI18n.translate(_ctx, 'send_email')),
             Text(
-              'Your mnemonic phrase',
+              FlutterI18n.translate(_ctx,'recovery_cd_desc_01'),
               style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold ,fontSize: 16.0),
             ),
             SizedBox(height: 10.0),
           Wrap(
             children: <Widget>[
               Text(
-                'Write down this mnemonic phrase, this mnemonic phrase can be used to reset your passoword and two-factor authentication.',
+                FlutterI18n.translate(_ctx,'recovery_cd_desc_02'),
               ),
               Text(
-                'keep it safe',
+                FlutterI18n.translate(_ctx,'recovery_cd_desc_03'),
                 style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold ,fontSize: 14.0),
               ),
             ]
@@ -67,7 +67,7 @@ Widget buildView(RecoveryCodeState state, Dispatch dispatch, ViewService viewSer
                       dispatch(RecoveryCodeActionCreator.isAgreed(value));
                     },
                 ),
-                Text('I wrote it down and put it in a safe place')
+                Text(FlutterI18n.translate(_ctx,'recovery_cd_desc_04'))
               ],
             ),
             state.isAgreed ?
