@@ -48,6 +48,7 @@ dependencies:
   flutter_bugly: ^0.2.8
   page_transition: ^1.1.5
   local_auth: 0.6.2+3
+  location: ^3.0.0
 #  open_file:
 
 dev_dependencies:
