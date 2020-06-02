@@ -4,6 +4,7 @@ enum Set2FAAction {
     initState
   , onSettings
   , onEnterSecurityContinue
+  , onQRCodeContinue
   , onSetEnable
   , onSetDisable
   , onRecoveryCodeContinue
@@ -23,6 +24,10 @@ class Set2FAActionCreator {
 
   static Action onEnterSecurityContinue(String origin) {
     return Action(Set2FAAction.onEnterSecurityContinue,payload: origin);
+  }
+
+  static Action onQRCodeContinue() {
+    return Action(Set2FAAction.onQRCodeContinue);
   }
 
   static Action onVerificationContinue() {

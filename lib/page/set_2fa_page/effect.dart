@@ -18,6 +18,7 @@ Effect<Set2FAState> buildEffect() {
   return combineEffects(<Object, Effect<Set2FAState>>{
     Lifecycle.initState: _initState,
     Set2FAAction.onEnterSecurityContinue: _onEnterSecurityContinue,
+    Set2FAAction.onQRCodeContinue: _onQRCodeContinue,
     Set2FAAction.onSetEnable: _onSetEnable,
     Set2FAAction.onSetDisable: _onSetDisable,
     Set2FAAction.onRecoveryCodeContinue: _onRecoveryCodeContinue,
@@ -48,6 +49,18 @@ void _initState(Action action, Context<Set2FAState> ctx) {
 
 }
 
+void _onQRCodeContinue(Action action, Context<Set2FAState> ctx) async{
+  Navigator.push(ctx.context,
+    MaterialPageRoute(
+        maintainState: false,
+        fullscreenDialog: false,
+        builder:(context){
+          return ctx.buildComponent('qrCode');
+        }
+    ),
+  );
+}
+
 void _onEnterSecurityContinue(Action action, Context<Set2FAState> ctx) async{
   //showLoading(ctx.context);
 
@@ -63,7 +76,8 @@ void _onEnterSecurityContinue(Action action, Context<Set2FAState> ctx) async{
 }
 
 void _onRecoveryCodeContinue(Action action, Context<Set2FAState> ctx) async{
-  Navigator.of(ctx.context).pushNamed('set_2fa_page', arguments:{'isEnabled': false});
+  var curState = ctx.state;
+  Navigator.pushReplacementNamed(ctx.context, 'set_2fa_page', arguments:{'isEnabled': curState.isEnabled});
 }
 
 void _onGetTOTPConfig(Action action, Context<Set2FAState> ctx) {
@@ -88,7 +102,15 @@ void _onGetTOTPConfig(Action action, Context<Set2FAState> ctx) {
     //hideLoading(ctx.context);
 
     ctx.dispatch(Set2FAActionCreator.getTOTPConfig({"url": res['url'],"secret": res['secret'], "recoveryCode": res['recoveryCode'], "title":res['title'], "qrCode": res['qrCode']}));
-
+    Navigator.push(ctx.context,
+      MaterialPageRoute(
+          maintainState: false,
+          fullscreenDialog: false,
+          builder:(context){
+            return ctx.buildComponent('qrCode');
+          }
+      ),
+    );
   }).catchError((err){
     //hideLoading(ctx.context);
     tip(ctx.context,'UserDao getTOTPConfig: $err');
@@ -157,16 +179,7 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx){
     settingsData.is2FAEnabled = false;
     GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
 
-    Navigator.of(ctx.context).pushNamed('set_2fa_page', arguments:{'isEnabled': false});
-    /*Navigator.push(ctx.context,
-      MaterialPageRoute(
-          maintainState: false,
-          fullscreenDialog: false,
-          builder:(context){
-            return ctx.buildComponent('set_2fa_page');
-          }
-      ),
-    );*/
+    Navigator.pushReplacementNamed(ctx.context, 'set_2fa_page', arguments:{'isEnabled': curState.isEnabled});
   }).catchError((err){
     //hideLoading(ctx.context);
     tip(ctx.context,'UserDao setDisable: $err');
