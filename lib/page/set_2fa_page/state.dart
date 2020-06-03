@@ -2,11 +2,13 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'enter_securitycode_component/state.dart';
 import 'recovery_code_component/state.dart';
+import 'qr_code_component/state.dart';
 
 class Set2FAState implements Cloneable<Set2FAState> {
 
   GlobalKey formKey = GlobalKey<FormState>();
   GlobalKey codesFormKey = GlobalKey<FormState>();
+  GlobalKey qrCodeFormKey = GlobalKey<FormState>();
   //TextEditingController oldPwdCtl = TextEditingController();
 
   bool isEnabled = true;
@@ -85,5 +87,29 @@ class RecoveryCodeConnector extends ConnOp<Set2FAState, RecoveryCodeState>{
     state
       ..isAgreed = subState.isAgreed
       ..recoveryCode = subState.recoveryCode;
+  }
+}
+
+class QRCodeConnector extends ConnOp<Set2FAState, QRCodeState>{
+
+  @override
+  QRCodeState get(Set2FAState state){
+    return QRCodeState()
+      ..formKey = state.qrCodeFormKey
+      ..url = state.url
+      ..secret = state.secret
+      ..recoveryCode = state.recoveryCode
+      ..title = state.title
+      ..qrCode = state.qrCode;
+  }
+
+  @override
+  void set(Set2FAState state, QRCodeState subState) {
+    state
+      ..url = subState.url
+      ..secret = subState.secret
+      ..recoveryCode = subState.recoveryCode
+      ..title = subState.title
+      ..qrCode = subState.qrCode;
   }
 }

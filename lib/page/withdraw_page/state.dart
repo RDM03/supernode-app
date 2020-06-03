@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
+import 'enter_securitycode_withdraw_component/state.dart';
 
 class WithdrawState implements Cloneable<WithdrawState> {
 
@@ -13,6 +14,16 @@ class WithdrawState implements Cloneable<WithdrawState> {
   double balance = 0;
   double fee = 20;
   List<OrganizationsState> organizations = [];
+
+  GlobalKey enterSecurityCodeWithdrawFormKey = GlobalKey<FormState>();
+  List<TextEditingController> codeListCtls = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController()
+  ];
 
   @override
   WithdrawState clone() {
@@ -31,4 +42,20 @@ WithdrawState initState(Map<String, dynamic> args) {
   return WithdrawState()
     ..balance = balance
     ..organizations = organizations;
+}
+
+class EnterSecurityCodeWithdrawConnector extends ConnOp<WithdrawState, EnterSecurityCodeWithdrawState>{
+
+  @override
+  EnterSecurityCodeWithdrawState get(WithdrawState state){
+    return EnterSecurityCodeWithdrawState()
+      ..formKey = state.enterSecurityCodeWithdrawFormKey
+      ..listCtls = state.codeListCtls;
+  }
+
+  @override
+  void set(WithdrawState state, EnterSecurityCodeWithdrawState subState) {
+    state
+      ..codeListCtls = subState.listCtls;
+  }
 }

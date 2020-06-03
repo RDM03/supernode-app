@@ -11,12 +11,15 @@ import 'package:supernodeapp/common/components/text_field/text_field_with_button
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/page/settings_page/state.dart';
+import 'package:supernodeapp/global_store/store.dart';
 
 import 'action.dart';
 import 'state.dart';
 
 Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
+  SettingsState settingsData = GlobalStore.store.getState().settings;
 
   return pageFrame(
     context: viewService.context,
@@ -56,9 +59,14 @@ Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService
       ),
       subtitle(FlutterI18n.translate(_ctx, 'current_transaction_fee')),
       paragraph('${state.fee} MXC'),
+      settingsData.is2FAEnabled?
       submitButton(
-        FlutterI18n.translate(_ctx, 'submit_request'),
-        onPressed: () => dispatch(WithdrawActionCreator.onSubmit())
+        'auth',
+        onPressed: () => dispatch(WithdrawActionCreator.onEnterSecurityWithdrawContinue())
+      ):
+      submitButton(
+          FlutterI18n.translate(_ctx, 'submit_request'),
+          onPressed: () => dispatch(WithdrawActionCreator.onSubmit())
       )
     ]
   );

@@ -27,6 +27,7 @@ class SettingsState implements Cloneable<SettingsState> {
   List<OrganizationsState> organizations = [];
   String selectedOrganizationId = '';
   String expire = '';
+  bool is2FAEnabled = false;
 
   //profile
   TextEditingController usernameCtl = TextEditingController();
