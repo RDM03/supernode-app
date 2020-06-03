@@ -8,6 +8,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.0"
+  amap_core_fluttify:
+    dependency: transitive
+    description:
+      name: amap_core_fluttify
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.9.1"
+  amap_location_fluttify:
+    dependency: "direct main"
+    description:
+      name: amap_location_fluttify
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.13.0"
   analyzer:
     dependency: transitive
     description:
@@ -162,6 +176,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.1"
+  core_location_fluttify:
+    dependency: transitive
+    description:
+      name: core_location_fluttify
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.0"
   crypto:
     dependency: transitive
     description:
@@ -315,6 +336,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  foundation_fluttify:
+    dependency: transitive
+    description:
+      name: foundation_fluttify
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.8.0"
   glob:
     dependency: transitive
     description:
@@ -413,27 +441,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.2+5"
-  location:
-    dependency: "direct main"
-    description:
-      name: location
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.0.2"
-  location_platform_interface:
-    dependency: transitive
-    description:
-      name: location_platform_interface
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.0"
-  location_web:
-    dependency: transitive
-    description:
-      name: location_web
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.0"
   logging:
     dependency: transitive
     description:
@@ -651,13 +658,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.23.1"
-  screen_ratio_adapter:
-    dependency: "direct main"
-    description:
-      name: screen_ratio_adapter
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.0.2"
   shared_preferences:
     dependency: "direct main"
     description:

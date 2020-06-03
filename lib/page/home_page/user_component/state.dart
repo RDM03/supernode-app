@@ -6,10 +6,8 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
-import 'package:location/location.dart';
 
 class UserState implements Cloneable<UserState> {
-
   GlobalKey formKey = GlobalKey<FormState>();
   TextEditingController usernameCtl = TextEditingController();
   TextEditingController passwordCtl = TextEditingController();
@@ -33,7 +31,7 @@ class UserState implements Cloneable<UserState> {
 
   //stake
   double stakedAmount = 0;
-  
+
   //gateways
   int gatewaysTotal = 0;
   double gatewaysRevenue = 0;
@@ -49,7 +47,6 @@ class UserState implements Cloneable<UserState> {
   MapController mapCtl = MapController();
   StreamController<LatLng> markerlocationStream = StreamController();
   LatLng location;
-  LocationData myLocationData;
 
   UserState();
 
@@ -81,22 +78,25 @@ class UserState implements Cloneable<UserState> {
       ..mapCtl = mapCtl
       ..markerlocationStream = markerlocationStream
       ..location = location
-      ..myLocationData = myLocationData
       ..gatewaysLocations = gatewaysLocations;
   }
 
-  UserState.fromMap(Map map,{String type = 'local'}) {
+  UserState.fromMap(Map map, {String type = 'local'}) {
     id = map[UserDao.id] as String;
     username = map[UserDao.username] as String;
     token = map[UserDao.token] as String;
-    isAdmin = type == 'local' ? ( map[UserDao.isAdmin] == 1 ? true : false ) : ( map[UserDao.isAdmin] as bool );
-    isActive = type == 'local' ? ( map[UserDao.isActive] == 1 ? true : false ) : ( map[UserDao.isActive] as bool );
+    isAdmin = type == 'local'
+        ? (map[UserDao.isAdmin] == 1 ? true : false)
+        : (map[UserDao.isAdmin] as bool);
+    isActive = type == 'local'
+        ? (map[UserDao.isActive] == 1 ? true : false)
+        : (map[UserDao.isActive] as bool);
     email = map[UserDao.email] as String;
     note = map[UserDao.note] as String;
   }
 
-  Map<String,dynamic> toMap() {
-    var map = <String,dynamic>{
+  Map<String, dynamic> toMap() {
+    var map = <String, dynamic>{
       UserDao.id: id,
       UserDao.username: username,
       UserDao.token: token,

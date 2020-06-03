@@ -3,19 +3,20 @@ import 'dart:async';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_map/flutter_map.dart';
-import 'package:location/location.dart';
-import 'package:supernodeapp/common/components/my_location.dart';
+import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/common/components/loading.dart';
+import 'package:supernodeapp/common/components/location_utils.dart';
+import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/configs/config.dart';
 import 'package:supernodeapp/common/configs/images.dart';
 import 'package:supernodeapp/common/daos/app_dao.dart';
-import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
+
 import 'action.dart';
 import 'gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
 import 'state.dart';
@@ -77,8 +78,10 @@ void _initState(Action action, Context<HomeState> ctx) {
 }
 
 Future<void> _getLocation(Context<HomeState> ctx) async {
-  await MyLocation.getLocation();
-  ctx.state.myLocationData = MyLocation.locationData;
+  if (await LocationUtils.requestPermission()) {
+    final _loc = await LocationUtils.getMyLocation();
+    ctx.state.location = LatLng(_loc.latLng.latitude, _loc.latLng.longitude);
+  }
 }
 
 void _onProfile(Action action, Context<HomeState> ctx) {

@@ -1,5 +1,19 @@
 PODS:
+  - amap_core_fluttify (0.0.1):
+    - AMapFoundation (~> 1.6)
+    - Flutter
+    - foundation_fluttify
+  - amap_location_fluttify (0.0.1):
+    - amap_core_fluttify
+    - AMapLocation (~> 2.6.3)
+    - Flutter
+    - foundation_fluttify
+  - AMapFoundation (1.6.3)
+  - AMapLocation (2.6.5):
+    - AMapFoundation (~> 1.6.3)
   - Bugly (2.5.4)
+  - core_location_fluttify (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
   - flutter_bugly (0.0.1):
     - Bugly
@@ -11,11 +25,9 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - foundation_fluttify (0.0.1):
+    - Flutter
   - local_auth (0.0.1):
-    - Flutter
-  - location (0.0.1):
-    - Flutter
-  - location_web (0.0.1):
     - Flutter
   - majascan (0.0.4):
     - Flutter
@@ -42,13 +54,15 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - amap_core_fluttify (from `.symlinks/plugins/amap_core_fluttify/ios`)
+  - amap_location_fluttify (from `.symlinks/plugins/amap_location_fluttify/ios`)
+  - core_location_fluttify (from `.symlinks/plugins/core_location_fluttify/ios`)
   - Flutter (from `Flutter`)
   - flutter_bugly (from `.symlinks/plugins/flutter_bugly/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_plugin_android_lifecycle (from `.symlinks/plugins/flutter_plugin_android_lifecycle/ios`)
+  - foundation_fluttify (from `.symlinks/plugins/foundation_fluttify/ios`)
   - local_auth (from `.symlinks/plugins/local_auth/ios`)
-  - location (from `.symlinks/plugins/location/ios`)
-  - location_web (from `.symlinks/plugins/location_web/ios`)
   - majascan (from `.symlinks/plugins/majascan/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - path_provider_macos (from `.symlinks/plugins/path_provider_macos/ios`)
@@ -63,10 +77,18 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AMapFoundation
+    - AMapLocation
     - Bugly
     - FMDB
 
 EXTERNAL SOURCES:
+  amap_core_fluttify:
+    :path: ".symlinks/plugins/amap_core_fluttify/ios"
+  amap_location_fluttify:
+    :path: ".symlinks/plugins/amap_location_fluttify/ios"
+  core_location_fluttify:
+    :path: ".symlinks/plugins/core_location_fluttify/ios"
   Flutter:
     :path: Flutter
   flutter_bugly:
@@ -75,12 +97,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_plugin_android_lifecycle:
     :path: ".symlinks/plugins/flutter_plugin_android_lifecycle/ios"
+  foundation_fluttify:
+    :path: ".symlinks/plugins/foundation_fluttify/ios"
   local_auth:
     :path: ".symlinks/plugins/local_auth/ios"
-  location:
-    :path: ".symlinks/plugins/location/ios"
-  location_web:
-    :path: ".symlinks/plugins/location_web/ios"
   majascan:
     :path: ".symlinks/plugins/majascan/ios"
   path_provider:
@@ -105,15 +125,19 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_web/ios"
 
 SPEC CHECKSUMS:
+  amap_core_fluttify: 3ecd5214273625acda9f810ef85bfc961c79537c
+  amap_location_fluttify: 487dc181dc7e5a33d50b662cf5a3f148fde42261
+  AMapFoundation: 9ed923193b357ebb30a073e9fe255d3c24054d5a
+  AMapLocation: c566d448285cd502c1e313063d9e2460bd4d7100
   Bugly: 4edda9bb0e3017fd453612189069757195fa23ca
+  core_location_fluttify: 24cc9dcd986ac7059916632d2cb3babb1568ff61
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_bugly: c9800f4d5bc5bdc27ffdde3417a26ba44266e0c3
   flutter_local_notifications: 9e4738ce2471c5af910d961a6b7eadcf57c50186
   flutter_plugin_android_lifecycle: dc0b544e129eebb77a6bfb1239d4d1c673a60a35
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  foundation_fluttify: 0c45145e3fad1fb99188e4979daed5b24cd9b278
   local_auth: 25938960984c3a7f6e3253e3f8d962fdd16852bd
-  location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
-  location_web: b94e7433cfe28c0f7c8923c2ee482824b32e55a7
   majascan: 6ad3804777ac93f1ca09160e5d38197e4387081d
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
@@ -128,4 +152,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: f3bac21afdb7b5c9732f535b44567b1f5009ad7c
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.2

@@ -4,7 +4,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/configs/sys.dart';
-import 'package:location/location.dart';
 
 Widget map({
   BuildContext context,
@@ -16,12 +15,12 @@ Widget map({
   bool userLocationSwitch = false,
   VoidCallback zoomOutCallback,
   bool isFullScreen = false,
-  LocationData myLocationData,
+  LatLng myLatLng,
 }) {
   final mediaQueryData = MediaQuery.of(context);
 
-  if (myLocationData != null && controller != null && !isFullScreen) {
-    controller.move(LatLng(myLocationData?.latitude, myLocationData?.longitude), zoom);
+  if (myLatLng != null && controller != null && !isFullScreen) {
+    controller.move(myLatLng, zoom);
   }
 
   Widget _buildMyLocationIcon() {
@@ -38,8 +37,8 @@ Widget map({
         ),
         child: IconButton(
           onPressed: () {
-            if (myLocationData != null) {
-              controller.move(LatLng(myLocationData?.latitude, myLocationData?.longitude), zoom);
+            if (myLatLng != null) {
+              controller.move(myLatLng, zoom);
             }
           },
           icon: Icon(
@@ -108,9 +107,7 @@ Widget map({
         FlutterMap(
           mapController: controller,
           options: MapOptions(
-            center: myLocationData == null
-                ? LatLng(0, 0)
-                : LatLng(myLocationData?.latitude, myLocationData?.longitude),
+            center: myLatLng ?? LatLng(0, 0),
             zoom: zoom,
             onTap: onTap,
             plugins: [
