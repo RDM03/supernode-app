@@ -13,8 +13,7 @@ import 'state.dart';
 
 Widget buildView(EnterSecurityCodeState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
-print('enter security');
-  print(state.isEnabled);
+
   return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: cardBackgroundColor,
@@ -29,7 +28,6 @@ print('enter security');
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  //paragraph(FlutterI18n.translate(_ctx, 'send_email')),
                   paragraph(FlutterI18n.translate(_ctx,'enter_security_01')),
                   Form(
                     key: state.formKey,
