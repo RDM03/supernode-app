@@ -136,6 +136,7 @@
 	"unstake": "Unstake",
 	"profit": "Revenue",
 	"cost": "Fee",
+	"verify": "Verify Your Identity"
 	"set_fa_01": "2FA Configuration",
 	"set_fa_02": "Set 2FA",
 	"qr_desc_01": "Authenticator apps allow you to generate security codes on your mobile device.",

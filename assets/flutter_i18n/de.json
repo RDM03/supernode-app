@@ -136,6 +136,8 @@
 	"unstake": "Staking-Betrag aufheben",
 	"profit": "Umsatz",
 	"cost": "Kosten",
+	"verify": "Bestätigen Sie Ihre Identität"
+	"cost": "Kosten",
 	"set_fa_01": "2FA-Konfiguration",
 	"set_fa_02": "Stellen Sie 2FA ein",
 	"qr_desc_01": "Mit Authenticator-Apps können Sie Sicherheitscodes auf Ihrem Mobilgerät generieren.",

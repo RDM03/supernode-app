@@ -5,6 +5,7 @@ import 'enter_securitycode_withdraw_component/state.dart';
 
 class WithdrawState implements Cloneable<WithdrawState> {
 
+  // why use GlobalKey ? it very expensive !
   GlobalKey formKey = GlobalKey<FormState>();
   TextEditingController amountCtl = TextEditingController();
   TextEditingController addressCtl = TextEditingController();

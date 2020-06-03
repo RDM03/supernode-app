@@ -111,11 +111,12 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
           map(
             context: _ctx,
             userLocationSwitch: true,
-            center: state.gatewaysLocations.isNotEmpty ? state.gatewaysLocations.first.point : null,
+//            center: state.gatewaysLocations.isNotEmpty ? state.gatewaysLocations.first.point : null,
             markers: state.gatewaysLocations ?? [],
             controller: state.mapCtl,
             callback: (location) => dispatch(UserActionCreator.addLocation(location)),
             zoomOutCallback: ()=> dispatch(HomeActionCreator.mapbox()),
+            myLocationData: state.myLocationData,
           ),
           smallColumnSpacer(),
         ],

@@ -4,12 +4,11 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong/latlong.dart';
-// import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
-
+import 'package:location/location.dart';
 import 'gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
 import 'gateway_component/state.dart';
 import 'user_component/state.dart';
@@ -62,6 +61,7 @@ class HomeState implements Cloneable<HomeState> {
   MapController mapCtl = MapController();
   List<GatewayItemState> gatewaysList = [];
   LatLng location;
+  LocationData myLocationData;
   
   //devices
   int devicesTotal = 0;
@@ -97,6 +97,7 @@ class HomeState implements Cloneable<HomeState> {
       ..gatewaysLocations = gatewaysLocations
       ..mapCtl = mapCtl
       ..location = location
+      ..myLocationData = myLocationData
       ..gatewaysList = gatewaysList
       ..tabHeight = tabHeight
       ..walletTabIndex = walletTabIndex
@@ -142,6 +143,7 @@ class UserConnector extends ConnOp<HomeState, UserState>{
       ..devicesUSDRevenue = state.devicesUSDRevenue
       ..mapCtl = state.mapCtl
       ..location = state.location
+      ..myLocationData = state.myLocationData
       ..gatewaysLocations = state.gatewaysLocations;
   }
 
