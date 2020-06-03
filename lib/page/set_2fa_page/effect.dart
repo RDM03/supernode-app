@@ -63,7 +63,6 @@ void _onQRCodeContinue(Action action, Context<Set2FAState> ctx) async{
 
 void _onEnterSecurityContinue(Action action, Context<Set2FAState> ctx) async{
   //showLoading(ctx.context);
-
   Navigator.push(ctx.context,
     MaterialPageRoute(
         maintainState: false,
@@ -77,7 +76,13 @@ void _onEnterSecurityContinue(Action action, Context<Set2FAState> ctx) async{
 
 void _onRecoveryCodeContinue(Action action, Context<Set2FAState> ctx) async{
   var curState = ctx.state;
-  Navigator.pushReplacementNamed(ctx.context, 'set_2fa_page', arguments:{'isEnabled': curState.isEnabled});
+  //Navigator.pushReplacementNamed(ctx.context, 'set_2fa_page', arguments:{'isEnabled': curState.isEnabled});
+  //Navigator.pushNamedAndRemoveUntil(ctx.context,'set_2fa_page',(route) => false,arguments:{'isEnabled': curState.isEnabled});
+  var count = 0;
+  Navigator.popUntil(ctx.context, (route) {
+    print(route);
+    return count++ == 4;
+  });
 }
 
 void _onGetTOTPConfig(Action action, Context<Set2FAState> ctx) {
@@ -102,6 +107,7 @@ void _onGetTOTPConfig(Action action, Context<Set2FAState> ctx) {
     //hideLoading(ctx.context);
 
     ctx.dispatch(Set2FAActionCreator.getTOTPConfig({"url": res['url'],"secret": res['secret'], "recoveryCode": res['recoveryCode'], "title":res['title'], "qrCode": res['qrCode']}));
+
     Navigator.push(ctx.context,
       MaterialPageRoute(
           maintainState: false,
@@ -159,6 +165,7 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx){
       if((res as Map).containsKey('enabled')){
         GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
       }
+      //Navigator.pushReplacementNamed(ctx.context, 'recoveryCode');
       Navigator.push(ctx.context,
         MaterialPageRoute(
             maintainState: false,
@@ -203,7 +210,7 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx){
     settingsData.is2FAEnabled = false;
     GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
 
-    Navigator.pushReplacementNamed(ctx.context, 'set_2fa_page', arguments:{'isEnabled': curState.isEnabled});
+    //Navigator.pushReplacementNamed(ctx.context, 'set_2fa_page', arguments:{'isEnabled': curState.isEnabled});
   }).then((res){
     print(res);
     log('login saf',res);

@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/page/paragraph.dart';
@@ -74,12 +75,11 @@ print('enter security');
                               ),
                               SizedBox(height: 10.0),
                               Center(
-                                child: Text(
-                                  state.secret,
+                                child: SelectableText(state.secret,
                                   textAlign: TextAlign.center,
                                   style: kMiddleFontOfGrey,
                                 )
-                              )
+                              ),
                             ],
                           ),
                         ]
