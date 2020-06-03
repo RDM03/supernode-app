@@ -7,15 +7,11 @@ import 'package:supernodeapp/common/components/security/biometrics.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/wallet_dao.dart';
 import 'package:supernodeapp/common/daos/withdraw_dao.dart';
-import 'package:supernodeapp/common/utils/log.dart';
-import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/daos/withdraw_dao.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
+import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/theme/colors.dart';
-
-// import 'package:qrscan/qrscan.dart' as Scanner;
 
 import 'action.dart';
 import 'state.dart';
