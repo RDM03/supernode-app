@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:local_auth/local_auth.dart';
-import 'package:supernodeapp/common/utils/log.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;
+import 'package:local_auth/local_auth.dart';
+import 'package:supernodeapp/common/utils/log.dart';
 
 class Biometrics {
   Biometrics._();
@@ -45,6 +45,7 @@ class Biometrics {
     try {
       final didAuthenticate = await _localAuthentication.authenticateWithBiometrics(
         localizedReason: localizedReason ?? FlutterI18n.translate(context, 'verify'),
+        useErrorDialogs: false,
       );
       if (didAuthenticate) {
         authenticateCallback.call();
@@ -56,9 +57,9 @@ class Biometrics {
         case auth_error.passcodeNotSet:
         case auth_error.notAvailable:
         case auth_error.lockedOut:
-        case auth_error.notEnrolled:
         case auth_error.otherOperatingSystem:
         case auth_error.permanentlyLockedOut:
+        case auth_error.notEnrolled:
           authenticateCallback.call();
           break;
         default:
