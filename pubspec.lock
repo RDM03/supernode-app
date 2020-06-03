@@ -244,13 +244,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.2"
-  flutter_compass:
-    dependency: transitive
-    description:
-      name: flutter_compass
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.3.7"
   flutter_i18n:
     dependency: "direct main"
     description:
@@ -298,6 +291,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.0"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.8"
   flutter_spinkit:
     dependency: "direct main"
     description:
@@ -399,6 +399,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.6.1"
+  local_auth:
+    dependency: "direct main"
+    description:
+      name: local_auth
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.6.2+3"
   localstorage:
     dependency: "direct main"
     description:
@@ -407,7 +414,7 @@ packages:
     source: hosted
     version: "3.0.2+5"
   location:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: location
       url: "https://pub.flutter-io.cn"
@@ -644,6 +651,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.23.1"
+  screen_ratio_adapter:
+    dependency: "direct main"
+    description:
+      name: screen_ratio_adapter
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.2"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -838,13 +852,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.1+6"
-  user_location:
-    dependency: "direct main"
-    description:
-      name: user_location
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.3"
   uuid:
     dependency: transitive
     description:

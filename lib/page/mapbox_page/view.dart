@@ -11,10 +11,10 @@ Widget buildView(mapboxState state, Dispatch dispatch, ViewService viewService) 
     body: map(
       context: _ctx,
       userLocationSwitch: true,
-      center: state.gatewaysLocations.isNotEmpty ? state.gatewaysLocations.first.point : null,
       markers: state.gatewaysLocations ?? [],
       controller: state.mapCtl,
       isFullScreen: true,
+      myLocationData: state.myLocationData,
     ),
     useSafeArea: false,
   );

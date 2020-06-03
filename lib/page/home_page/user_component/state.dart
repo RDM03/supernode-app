@@ -4,10 +4,9 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
-// import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
-
+import 'package:location/location.dart';
 
 class UserState implements Cloneable<UserState> {
 
@@ -50,6 +49,7 @@ class UserState implements Cloneable<UserState> {
   MapController mapCtl = MapController();
   StreamController<LatLng> markerlocationStream = StreamController();
   LatLng location;
+  LocationData myLocationData;
 
   UserState();
 
@@ -81,6 +81,7 @@ class UserState implements Cloneable<UserState> {
       ..mapCtl = mapCtl
       ..markerlocationStream = markerlocationStream
       ..location = location
+      ..myLocationData = myLocationData
       ..gatewaysLocations = gatewaysLocations;
   }
 

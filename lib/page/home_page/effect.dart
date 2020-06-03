@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_map/flutter_map.dart';
+import 'package:location/location.dart';
+import 'package:supernodeapp/common/components/my_location.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/configs/config.dart';
 import 'package:supernodeapp/common/configs/images.dart';
@@ -14,7 +16,6 @@ import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
-import 'package:page_transition/page_transition.dart';
 import 'action.dart';
 import 'gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
 import 'state.dart';
@@ -72,6 +73,12 @@ void _relogin(Action action, Context<HomeState> ctx) {
 
 void _initState(Action action, Context<HomeState> ctx) {
   _profile(ctx);
+  _getLocation(ctx);
+}
+
+Future<void> _getLocation(Context<HomeState> ctx) async {
+  await MyLocation.getLocation();
+  ctx.state.myLocationData = MyLocation.locationData;
 }
 
 void _onProfile(Action action, Context<HomeState> ctx) {
@@ -93,16 +100,14 @@ void _profile(Context<HomeState> ctx) {
 
     List<OrganizationsState> organizationsData = [];
     for (int index = 0; index < res['organizations'].length; index++) {
-      organizationsData
-          .add(OrganizationsState.fromMap(res['organizations'][index]));
+      organizationsData.add(OrganizationsState.fromMap(res['organizations'][index]));
     }
 
     SettingsState settingsData = GlobalStore.store.getState().settings;
     settingsData.userId = userData.id;
     settingsData.organizations = organizationsData;
     if (settingsData.selectedOrganizationId.isEmpty) {
-      settingsData.selectedOrganizationId =
-          organizationsData.first.organizationID;
+      settingsData.selectedOrganizationId = organizationsData.first.organizationID;
     }
 
     SettingsDao.updateLocal(settingsData);
@@ -205,8 +210,7 @@ void _gateways(Context<HomeState> ctx) {
     if (tempList.length > 0) {
       for (int index = 0; index < tempList.length; index++) {
         // allValues += tempList[index]['location']['accuracy'];
-        Iterable<Match> matches =
-            reg.allMatches(tempList[index]['description']);
+        Iterable<Match> matches = reg.allMatches(tempList[index]['description']);
         String description = '';
         for (Match m in matches) {
           description = m.group(0);
@@ -285,11 +289,8 @@ void _onOperate(Action action, Context<HomeState> ctx) {
     page = 'stake_page';
   }
 
-  Navigator.pushNamed(ctx.context, page, arguments: {
-    'balance': balance,
-    'organizations': organizations,
-    'type': act
-  }).then((res) {
+  Navigator.pushNamed(ctx.context, page,
+      arguments: {'balance': balance, 'organizations': organizations, 'type': act}).then((res) {
     if ((page == 'stake_page' || page == 'withdraw_page') && res) {
       _profile(ctx);
     }
@@ -300,7 +301,9 @@ void _mapbox(Action action, Context<HomeState> ctx) {
   Navigator.pushNamed(
     ctx.context,
     'mapbox_page',
-    arguments: {'markers': ctx.state.gatewaysLocations},
+    arguments: {
+      'markers': ctx.state.gatewaysLocations,
+    },
   );
 }
 

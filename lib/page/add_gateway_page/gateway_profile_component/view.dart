@@ -176,7 +176,7 @@ Widget buildView(GatewayProfileState state, Dispatch dispatch, ViewService viewS
             map(
               context: _ctx,
               controller: state.mapCtl,
-              center: state.markerPoint,
+//              center: state.markerPoint,
               markers: [Marker(
                 point: state.markerPoint,
                 builder: (ctx) =>
