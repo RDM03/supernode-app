@@ -17,7 +17,7 @@ class Dao{
   Dio dio = new Dio();
 
   Dao(){
-    dio.options.baseUrl = !inProduction ? baseUrl : Sys.testBaseUrl; // Sys.buildBaseUrl
+    dio.options.baseUrl = inProduction ? baseUrl : Sys.testBaseUrl; // Sys.buildBaseUrl
     dio.interceptors.add(TokenInterceptors());
     dio.interceptors.add(LogsInterceptors());
 
