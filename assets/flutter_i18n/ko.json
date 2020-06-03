@@ -148,5 +148,11 @@
 	"recovery_cd_desc_01": "연상단어목",
 	"recovery_cd_desc_02": "연상단어를 기록하세요. 암호와 인증앱의 초기화에 사용될 수 있습니다.",
 	"recovery_cd_desc_03": "안전한 곳에 보관하세요.",
-	"recovery_cd_desc_04": "나는 안전한 곳에 기록하였습니다."
+	"recovery_cd_desc_04": "나는 안전한 곳에 기록하였습니다.",
+	"wthdr_ent_code_01": "이중 인증",
+	"wthdr_ent_code_02": "Google에서 인증 코드를 받으십시오",
+	"wthdr_ent_code_03": "2FA 앱",
+	"wthdr_ent_code_04": "Google 인증 코드",
+	"enable_2FA": "이중 인증을 사용합니다",
+	"disable_2FA": "이중 인증을 비활성화합니다"
 }

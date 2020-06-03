@@ -148,5 +148,11 @@
 	"recovery_cd_desc_01": "您的助記詞",
 	"recovery_cd_desc_02": "記下該助記詞短語，此助記詞短語可用於重置密碼和二元身份驗證。",
 	"recovery_cd_desc_03": "保持安全。",
-	"recovery_cd_desc_04": "我把它寫下來並放在安全的地方。"
+	"recovery_cd_desc_04": "我把它寫下來並放在安全的地方。",
+	"wthdr_ent_code_01": "兩因素驗證",
+	"wthdr_ent_code_02": "從Google獲取驗證碼",
+	"wthdr_ent_code_03": "身份驗證器應用程序",
+	"wthdr_ent_code_04": "Google身份驗證器代碼",
+	"enable_2FA": "啟用兩因素身份驗證",
+	"disable_2FA": "禁用兩因素身份驗證"
 }

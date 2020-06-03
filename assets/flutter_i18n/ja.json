@@ -148,5 +148,11 @@
 	"recovery_cd_desc_01": "ニーモニックフレーズ",
 	"recovery_cd_desc_02": "このニーモニックフレーズを書き留めます。",
 	"recovery_cd_desc_03": "このニーモニックフレーズを使用して、パスワードと2要素認証をリセットできます。",
-	"recovery_cd_desc_04": "書き留めて安全な場所に置いた。"
+	"recovery_cd_desc_04": "書き留めて安全な場所に置いた。",
+	"wthdr_ent_code_01": "二要素認証",
+	"wthdr_ent_code_02": "Googleから確認コードを取得します",
+	"wthdr_ent_code_03": "オーセンティケーターアプリ",
+	"wthdr_ent_code_04": "Google Authenticator Code",
+	"enable_2FA": "二要素認証を有効にします",
+	"disable_2FA": "2要素認証を無効にします"
 }

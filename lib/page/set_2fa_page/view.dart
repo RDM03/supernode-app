@@ -53,7 +53,7 @@ Widget buildView(Set2FAState state, Dispatch dispatch, ViewService viewService) 
               ),
             ),
             smallColumnSpacer(),
-            Center(
+            /*Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -74,7 +74,7 @@ Widget buildView(Set2FAState state, Dispatch dispatch, ViewService viewService) 
                   middleColumnSpacer(),
                 ],
               ),
-            ),
+            ),*/
           ]
         )
       ),

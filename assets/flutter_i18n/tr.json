@@ -148,5 +148,11 @@
 	"recovery_cd_desc_01": "Anımsatıcı ifadeniz",
 	"recovery_cd_desc_02": "Bu anımsatıcı ifadeyi yazın, bu anımsatıcı ifade şifrenizi ve iki faktörlü kimlik doğrulamayı sıfırlamak için kullanılabilir.",
 	"recovery_cd_desc_03": "güvenli tutmak.",
-	"recovery_cd_desc_04": "Yazdım ve güvenli bir yere koydum."
+	"recovery_cd_desc_04": "Yazdım ve güvenli bir yere koydum.",
+	"wthdr_ent_code_01": "İki Faktörlü Kimlik Doğrulama",
+	"wthdr_ent_code_02": "Google'dan bir doğrulama kodu alın",
+	"wthdr_ent_code_03": "Authenticator uygulaması",
+	"wthdr_ent_code_04": "Google Şifrematik Kodu",
+	"enable_2FA": "İki Faktörlü Kimlik Doğrulamayı Etkinleştir",
+	"disable_2FA": "İki Faktörlü Kimlik Doğrulamayı devre dışı bırakın"
 }

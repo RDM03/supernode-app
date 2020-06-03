@@ -19,6 +19,13 @@ Widget buildView(EnterSecurityCodeState state, Dispatch dispatch, ViewService vi
       backgroundColor: cardBackgroundColor,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
+        title: Text(state.isEnabled?FlutterI18n.translate(_ctx,'disable_2FA'):FlutterI18n.translate(_ctx,'enable_2FA'),
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w400,
+              fontSize: 18,
+            )),
+        centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -28,14 +35,69 @@ Widget buildView(EnterSecurityCodeState state, Dispatch dispatch, ViewService vi
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  paragraph(FlutterI18n.translate(_ctx,'enter_security_01')),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                              FlutterI18n.translate(_ctx,'wthdr_ent_code_01'),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 24,
+                              )
+                          ),
+                        ]
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 5.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                              FlutterI18n.translate(_ctx,'wthdr_ent_code_02'),
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontWeight: FontWeight.w400,
+                              )
+                          ),
+                        ]
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 80.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                              FlutterI18n.translate(_ctx,'wthdr_ent_code_03'),
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontWeight: FontWeight.w400,
+                              )
+                          ),
+                        ]
+                    ),
+                  ),
                   Form(
                     key: state.formKey,
                     autovalidate: false,
                     child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
+                          Text(
+                              FlutterI18n.translate(_ctx,'wthdr_ent_code_04'),
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                              )
+                          ),
                           Container(
-                            margin: kOuterRowTop35,
+                            //margin: kOuterRowTop35,
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: state.listCtls.asMap().keys.map((index) => textfieldWithCodes(
