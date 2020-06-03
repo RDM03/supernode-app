@@ -15,8 +15,7 @@ import 'state.dart';
 
 Widget buildView(QRCodeState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
-print('enter security');
-  print(state.isEnabled);
+
   return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: cardBackgroundColor,
@@ -93,7 +92,6 @@ print('enter security');
                       minHeight: 46
                   ):
                   PrimaryButton(
-                      //onTap: () => dispatch(Set2FAActionCreator.onSetEnable()),
                       onTap: () => dispatch(Set2FAActionCreator.onEnterSecurityContinue('disable')),
                       buttonTitle: FlutterI18n.translate(_ctx, 'continue'),
                       minHeight: 46

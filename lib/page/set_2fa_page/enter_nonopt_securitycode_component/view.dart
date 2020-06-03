@@ -8,13 +8,11 @@ import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
 import '../action.dart';
-import 'action.dart';
 import 'state.dart';
 
 Widget buildView(EnterNonOTPSecurityCodeState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
-print('enter security');
-  print(state.isEnabled);
+
   return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: cardBackgroundColor,
@@ -29,7 +27,6 @@ print('enter security');
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  //paragraph(FlutterI18n.translate(_ctx, 'send_email')),
                   paragraph(FlutterI18n.translate(_ctx,'enter_security_01')),
                   Form(
                     key: state.formKey,
@@ -41,7 +38,6 @@ print('enter security');
                             child: TextFieldWithTitle(
                               title: FlutterI18n.translate(_ctx, 'withdraw_amount'),
                               textInputAction: TextInputAction.next,
-                              //validator: (value) => _onValidAmount(_ctx,value),
                               controller: state.secretCtl,
                             ),
                           ),
