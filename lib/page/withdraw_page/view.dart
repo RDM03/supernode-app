@@ -19,9 +19,7 @@ import 'state.dart';
 
 Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
-  SettingsState settingsData = GlobalStore.store.getState().settings;
-  print('settingsData.is2FAEnabled');
-  print(settingsData.is2FAEnabled);
+
   return pageFrame(
     context: viewService.context,
     children: [
@@ -60,7 +58,7 @@ Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService
       ),
       subtitle(FlutterI18n.translate(_ctx, 'current_transaction_fee')),
       paragraph('${state.fee} MXC'),
-      settingsData.is2FAEnabled?
+      state.isEnabled?
       submitButton(
           FlutterI18n.translate(_ctx, 'submit_request'),
         onPressed: () => dispatch(WithdrawActionCreator.onEnterSecurityWithdrawContinue())

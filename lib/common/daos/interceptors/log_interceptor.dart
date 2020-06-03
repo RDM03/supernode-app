@@ -68,7 +68,6 @@ class LogsInterceptors extends InterceptorsWrapper {
         var data = Map<String, dynamic>();
 
         data["data"] = response.data;
-        print("chocho data13"+ data["data"]);
         addLogic(sResponsesHttpUrl, response?.request?.uri.toString() ?? "");
         addLogic(sHttpResponses, data);
       } catch (e) {
