@@ -11,6 +11,7 @@ class WithdrawState implements Cloneable<WithdrawState> {
   TextEditingController addressCtl = TextEditingController();
   
   bool status = false;
+  bool isEnabled = false;
   double balance = 0;
   double fee = 20;
   List<OrganizationsState> organizations = [];
@@ -31,6 +32,7 @@ class WithdrawState implements Cloneable<WithdrawState> {
       ..status = status
       ..balance = balance
       ..fee = fee
+      ..isEnabled = isEnabled
       ..organizations = organizations;
   }
 }

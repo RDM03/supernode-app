@@ -32,6 +32,20 @@ Effect<WithdrawState> buildEffect() {
 
 void _initState(Action action, Context<WithdrawState> ctx) {
   _withdrawFee(ctx);
+  UserDao dao = UserDao();
+
+  Map data = {};
+
+  dao.getTOTPStatus(data).then((res){
+    log('totp',res);
+
+    if((res as Map).containsKey('enabled')){
+      ctx.dispatch(WithdrawActionCreator.isEnabled(res['enabled']));
+    }
+
+  }).catchError((err){
+    tip(ctx.context,'$err');
+  });
 }
 
 void _withdrawFee(Context<WithdrawState> ctx) {

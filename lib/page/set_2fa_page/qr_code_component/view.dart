@@ -15,7 +15,8 @@ import 'state.dart';
 
 Widget buildView(QRCodeState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
-
+  print('chocho state.secret');
+  print(state.secret);
   return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: cardBackgroundColor,

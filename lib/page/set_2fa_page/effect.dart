@@ -121,7 +121,7 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx){
   settingsData.otp_code = codes.join();
 
   Map data = {
-    "opt_code": codes.join()
+    "otp_code": codes.join()
   };
   dao.setEnable(data).then((res){
     log('setEnable status',res);
@@ -177,7 +177,7 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx){
   settingsData.otp_code = codes.join();
 
   Map data = {
-    "opt_code": codes.join()
+    "otp_code": codes.join()
   };
 
   dao.setDisable(data).then((res){
