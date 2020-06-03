@@ -13,6 +13,7 @@ class UserApi {
 
   static const String update = '/api/users/{user.id}';
   static const String password = '/api/users/{userId}/password';
+  static const String getTOTPStatus = '/api/internal/totp-status';
 }
 
 class UserDao extends Dao{
@@ -76,6 +77,14 @@ class UserDao extends Dao{
     return put(
       url: Api.url(UserApi.password, data['userId']),
       data: data
+    ).then((res) => res);
+  }
+
+  //get TOTP Status by Namgyeong
+  Future<dynamic> getTOTPStatus(){
+    return put(
+        url: Api.url(UserApi.getTOTPStatus, null),
+        data: ''
     ).then((res) => res);
   }
 }
