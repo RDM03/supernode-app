@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/components/text_field/text_field_with_codes.
 import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
+import 'package:supernodeapp/theme/spacing.dart';
 
 import '../action.dart';
 import 'action.dart';
@@ -72,17 +73,20 @@ Widget buildView(EnterSecurityCodeWithdrawState state, Dispatch dispatch, ViewSe
               ]
           ),
         ),
-        Text(
-            FlutterI18n.translate(_ctx,'wthdr_ent_code_04'),
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontWeight: FontWeight.w400,
-              fontSize: 12,
-            )
+        Container(
+          margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+          child: Text(
+              FlutterI18n.translate(_ctx,'wthdr_ent_code_04'),
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontWeight: FontWeight.w400,
+                fontSize: 12,
+              )
+          ),
         ),
         Container(
-          //margin: kOuterRowTop35,
+          margin: const EdgeInsets.only(left: 20.0, right: 20.0),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: state.listCtls.asMap().keys.map((index) => textfieldWithCodes(

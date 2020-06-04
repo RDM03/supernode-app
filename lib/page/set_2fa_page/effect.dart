@@ -67,7 +67,6 @@ void _onEnterSecurityContinue(Action action, Context<Set2FAState> ctx) async{
 void _onRecoveryCodeContinue(Action action, Context<Set2FAState> ctx) async{
   var count = 0;
   Navigator.popUntil(ctx.context, (route) {
-    print(route);
     return count++ == 4;
   });
 }
