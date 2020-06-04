@@ -24,7 +24,6 @@ import 'user_component/state.dart';
 Effect<HomeState> buildEffect() {
   return combineEffects(<Object, Effect<HomeState>>{
     Lifecycle.initState: _initState,
-    Lifecycle.build: _build,
     HomeAction.onOperate: _onOperate,
     HomeAction.onSettings: _onSettings,
     HomeAction.onProfile: _onProfile,
@@ -70,15 +69,6 @@ void _relogin(Action action, Context<HomeState> ctx) {
     Navigator.of(ctx.context).pushReplacementNamed('login_page');
     tip(ctx.context, '$err');
   });
-}
-
-void _build(Action action, Context<HomeState> ctx) {
-  if (LocationUtils.locationData != null) {
-    ctx.state.location =
-        LatLng(LocationUtils.locationData.latitude, LocationUtils.locationData.longitude);
-  } else {
-    _getUserLocation(ctx);
-  }
 }
 
 void _initState(Action action, Context<HomeState> ctx) {
