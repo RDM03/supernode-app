@@ -24,7 +24,7 @@ import 'user_component/state.dart';
 Effect<HomeState> buildEffect() {
   return combineEffects(<Object, Effect<HomeState>>{
     Lifecycle.initState: _initState,
-    Lifecycle.build: _build,
+    Lifecycle.build: _buildLife,
     HomeAction.onOperate: _onOperate,
     HomeAction.onSettings: _onSettings,
     HomeAction.onProfile: _onProfile,
@@ -72,7 +72,7 @@ void _relogin(Action action, Context<HomeState> ctx) {
   });
 }
 
-void _build(Action action, Context<HomeState> ctx) {
+void _buildLife(Action action, Context<HomeState> ctx) {
   if (LocationUtils.locationData != null) {
     ctx.state.location =
         LatLng(LocationUtils.locationData.latitude, LocationUtils.locationData.longitude);
