@@ -173,7 +173,7 @@ Widget buildView(GatewayProfileState state, Dispatch dispatch, ViewService viewS
                 onTap: () => _changeMarker(state.mapCtl,state.location,dispatch)
               )
             ),
-            map(
+            MapWidget(
               context: _ctx,
               controller: state.mapCtl,
 //              center: state.markerPoint,

@@ -9,7 +9,7 @@ Widget buildView(mapboxState state, Dispatch dispatch, ViewService viewService) 
   final _ctx = viewService.context;
 
   return ScaffoldWidget(
-    body: map(
+    body: MapWidget(
       context: _ctx,
       userLocationSwitch: true,
       markers: state.gatewaysLocations ?? [],
