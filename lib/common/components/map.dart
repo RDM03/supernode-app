@@ -4,8 +4,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/configs/sys.dart';
-import 'package:location/location.dart';
-import 'package:supernodeapp/common/components/location_utils.dart';
 
 Widget map({
   BuildContext context,
