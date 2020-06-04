@@ -29,7 +29,6 @@
         android:networkSecurityConfig="@xml/network_security_config"
         tools:ignore="GoogleAppIndexingWarning">
 
-    <service android:name="com.amap.api.location.APSService"></service>
     <provider
             android:name=".BuglyFileProvider"
             tools:replace="name,authorities,exported,grantUriPermissions"
