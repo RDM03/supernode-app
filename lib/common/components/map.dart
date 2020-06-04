@@ -5,7 +5,8 @@ import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/configs/sys.dart';
 
-class MapWidget extends StatefulWidget {
+
+class MapWidget extends StatelessWidget {
   MapWidget({
     this.context,
     this.zoom = 12.0,
@@ -21,7 +22,6 @@ class MapWidget extends StatefulWidget {
 
   final BuildContext context;
   final double zoom;
-
   final List<Marker> markers;
   final MapController controller;
   final ValueChanged<LatLng> onTap;
@@ -32,31 +32,18 @@ class MapWidget extends StatefulWidget {
   final LatLng myLatLng;
 
   @override
-  _MapWidgetState createState() => _MapWidgetState();
-}
-
-class _MapWidgetState extends State<MapWidget> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {});
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return _buildMap(
-      context: widget.context,
-      zoom: widget.zoom,
-      markers: widget.markers,
-      controller: widget.controller,
-      onTap: widget.onTap,
-      callback: widget.callback,
-      userLocationSwitch: widget.userLocationSwitch,
-      zoomOutCallback: widget.zoomOutCallback,
-      isFullScreen: widget.isFullScreen,
-      myLatLng: widget.myLatLng,
+      context: this.context,
+      zoom: this.zoom,
+      markers: this.markers,
+      controller: this.controller,
+      onTap: this.onTap,
+      callback: this.callback,
+      userLocationSwitch: this.userLocationSwitch,
+      zoomOutCallback: this.zoomOutCallback,
+      isFullScreen: this.isFullScreen,
+      myLatLng: this.myLatLng,
     );
   }
 
