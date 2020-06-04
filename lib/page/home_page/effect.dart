@@ -16,7 +16,6 @@ import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
-import 'package:location/location.dart';
 import 'action.dart';
 import 'gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
 import 'state.dart';
@@ -25,6 +24,7 @@ import 'user_component/state.dart';
 Effect<HomeState> buildEffect() {
   return combineEffects(<Object, Effect<HomeState>>{
     Lifecycle.initState: _initState,
+    Lifecycle.build: _build,
     HomeAction.onOperate: _onOperate,
     HomeAction.onSettings: _onSettings,
     HomeAction.onProfile: _onProfile,
@@ -72,12 +72,21 @@ void _relogin(Action action, Context<HomeState> ctx) {
   });
 }
 
-void _initState(Action action, Context<HomeState> ctx) {
-  _profile(ctx);
-  _getLocation(ctx);
+void _build(Action action, Context<HomeState> ctx) {
+  if (LocationUtils.locationData != null) {
+    ctx.state.location =
+        LatLng(LocationUtils.locationData.latitude, LocationUtils.locationData.longitude);
+  } else {
+    _getUserLocation(ctx);
+  }
 }
 
-Future<void> _getLocation(Context<HomeState> ctx) async {
+void _initState(Action action, Context<HomeState> ctx) {
+  _profile(ctx);
+  _getUserLocation(ctx);
+}
+
+Future<void> _getUserLocation(Context<HomeState> ctx) async {
   await LocationUtils.getLocation();
   ctx.state.location = LatLng(
     LocationUtils.locationData.latitude,
