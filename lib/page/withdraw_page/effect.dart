@@ -95,7 +95,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
   // OrganizationsState org = curState.organizations.first;
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
 
-  List<String> codes = curState.codeListCtls.map((code) => code.text).toList();
+  String codes = curState.otpCodeCtl.text;
 
   if((curState.formKey.currentState as FormState).validate()){
     if(address.trim().isEmpty){
@@ -115,7 +115,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
             "amount": int.parse(amount),
             "ethAddress": address,
             "availableBalance": balance,
-            "otp_code": codes.join()
+            "otp_code": codes
           };
     showLoading(ctx.context);
     dao.withdraw(data).then((res){

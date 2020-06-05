@@ -1,7 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'enter_securitycode_component/state.dart';
-import 'enter_recovery_code_component/state.dart';
 import 'recovery_code_component/state.dart';
 import 'qr_code_component/state.dart';
 
@@ -10,7 +9,6 @@ class Set2FAState implements Cloneable<Set2FAState> {
   GlobalKey formKey = GlobalKey<FormState>();
   GlobalKey codesFormKey = GlobalKey<FormState>();
   GlobalKey qrCodeFormKey = GlobalKey<FormState>();
-  //TextEditingController oldPwdCtl = TextEditingController();
 
   bool isEnabled = true;
   bool regenerate = false;
@@ -18,23 +16,14 @@ class Set2FAState implements Cloneable<Set2FAState> {
   String url = '';
   String secret = '';
   List<dynamic> recoveryCode = [];
-  TextEditingController recoveryCodeCtl = TextEditingController();
   String title = '';
   String qrCode = '';
 
 
   GlobalKey enterSecurityCodeFormKey = GlobalKey<FormState>();
-  List<TextEditingController> codeListCtls = [
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController()
-  ];
+  TextEditingController otpCodeCtl = TextEditingController();
 
   GlobalKey recoveryCodeFormKey = GlobalKey<FormState>();
-  GlobalKey enterRecoveryCodeFormKey = GlobalKey<FormState>();
 
   @override
   Set2FAState clone() {
@@ -43,10 +32,9 @@ class Set2FAState implements Cloneable<Set2FAState> {
       ..url = url
       ..secret = secret
       ..recoveryCode = recoveryCode
-      ..recoveryCodeCtl = recoveryCodeCtl
       ..title = title
       ..qrCode = qrCode
-      ..codeListCtls = codeListCtls
+      ..otpCodeCtl = otpCodeCtl
       ..regenerate = regenerate
       ..isAgreed = isAgreed
       ..isEnabled = isEnabled;
@@ -66,30 +54,13 @@ class EnterSecurityCodeConnector extends ConnOp<Set2FAState, EnterSecurityCodeSt
     return EnterSecurityCodeState()
       ..formKey = state.enterSecurityCodeFormKey
       ..isEnabled = state.isEnabled
-      ..listCtls = state.codeListCtls;
+      ..otpCodeCtl = state.otpCodeCtl;
   }
 
   @override
   void set(Set2FAState state, EnterSecurityCodeState subState) {
     state
-      ..codeListCtls = subState.listCtls;
-  }
-}
-
-class EnterRecoveryCodeConnector extends ConnOp<Set2FAState, EnterRecoveryCodeState>{
-
-  @override
-  EnterRecoveryCodeState get(Set2FAState state){
-    return EnterRecoveryCodeState()
-      ..formKey = state.enterSecurityCodeFormKey
-      ..isEnabled = state.isEnabled
-      ..recoveryCodeCtl = state.recoveryCodeCtl;
-  }
-
-  @override
-  void set(Set2FAState state, EnterRecoveryCodeState subState) {
-    state
-      ..recoveryCodeCtl = subState.recoveryCodeCtl;
+      ..otpCodeCtl = subState.otpCodeCtl;
   }
 }
 

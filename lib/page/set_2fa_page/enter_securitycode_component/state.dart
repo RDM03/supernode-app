@@ -6,21 +6,14 @@ class EnterSecurityCodeState implements Cloneable<EnterSecurityCodeState> {
 
   GlobalKey formKey = GlobalKey<FormState>();
   bool isEnabled;
-  List<TextEditingController> listCtls = [
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController()
-  ];
+  TextEditingController otpCodeCtl = TextEditingController();
 
   @override
   EnterSecurityCodeState clone() {
     return EnterSecurityCodeState()
       ..formKey = formKey
       ..isEnabled = isEnabled
-      ..listCtls = listCtls;
+      ..otpCodeCtl = otpCodeCtl;
   }
 }
 

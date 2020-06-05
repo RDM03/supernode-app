@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
-import 'package:supernodeapp/common/components/text_field/text_field_with_codes.dart';
-import 'package:supernodeapp/common/components/page/submit_button.dart';
+import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
-import 'package:supernodeapp/theme/spacing.dart';
 
 import '../action.dart';
 import 'action.dart';
@@ -74,27 +72,11 @@ Widget buildView(EnterSecurityCodeWithdrawState state, Dispatch dispatch, ViewSe
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-          child: Text(
-              FlutterI18n.translate(_ctx,'wthdr_ent_code_04'),
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                color: Colors.grey[600],
-                fontWeight: FontWeight.w400,
-                fontSize: 12,
-              )
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: state.listCtls.asMap().keys.map((index) => textfieldWithCodes(
-                  context: _ctx,
-                  controller: state.listCtls[index],
-                  isLast: index == state.listCtls.length - 1
-              )).toList(),
-
+          margin: const EdgeInsets.only(top: 0, left: 40,right: 40),
+          child: TextFieldWithTitle(
+            title: FlutterI18n.translate(_ctx,'wthdr_ent_code_04'),
+            textInputAction: TextInputAction.next,
+            controller: state.otpCodeCtl,
           ),
         ),
         Container(
