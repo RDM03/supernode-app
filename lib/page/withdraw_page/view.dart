@@ -58,6 +58,15 @@ Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService
       ),
       subtitle(FlutterI18n.translate(_ctx, 'current_transaction_fee')),
       paragraph('${state.fee} MXC'),
+      SizedBox(height: 40),
+      Text(
+          'Each withdrawal is subject to a security screening that can take up to 24 hours on business days.',
+          style: TextStyle(
+            color: Colors.grey[600],
+            fontWeight: FontWeight.w400,
+            fontSize: 14,
+          ),
+      ),
       state.isEnabled?
       submitButton(
           FlutterI18n.translate(_ctx, 'submit_request'),
