@@ -11,7 +11,6 @@ import 'package:supernodeapp/theme/colors.dart';
 import 'global_store/state.dart';
 import 'page/add_gateway_page/page.dart';
 import 'page/change_password_page/page.dart';
-import 'page/set_2fa_page/page.dart';
 import 'page/confirm_page/page.dart';
 import 'page/deposit_page/page.dart';
 import 'page/forgot_password_page/page.dart';
@@ -49,7 +48,6 @@ Widget mxcApp() {
       'stake_page': StakePage(),
       'settings_page': SettingsPage(),
       'change_password_page': ChangePasswordPage(),
-      'set_2fa_page': Set2FAPage(),
       'add_gateway_page': AddGatewayPage(),
       'mapbox_page': mapboxPage(),
     },

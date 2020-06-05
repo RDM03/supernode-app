@@ -11,8 +11,6 @@ import 'package:supernodeapp/common/components/text_field/text_field_with_button
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
-import 'package:supernodeapp/page/settings_page/state.dart';
-import 'package:supernodeapp/global_store/store.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -45,7 +43,7 @@ Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService
             ),
             smallColumnSpacer(),
             textfieldWithButton(
-              //readOnly: true,
+              readOnly: true,
               inputLabel: FlutterI18n.translate(_ctx, 'to'),
               buttonLabel: FlutterI18n.translate(_ctx, 'qr_scan'),
               icon: Icons.center_focus_weak,
@@ -58,23 +56,10 @@ Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService
       ),
       subtitle(FlutterI18n.translate(_ctx, 'current_transaction_fee')),
       paragraph('${state.fee} MXC'),
-      SizedBox(height: 40),
-      Text(
-          'Each withdrawal is subject to a security screening that can take up to 24 hours on business days.',
-          style: TextStyle(
-            color: Colors.grey[600],
-            fontWeight: FontWeight.w400,
-            fontSize: 14,
-          ),
-      ),
-      state.isEnabled?
       submitButton(
-          FlutterI18n.translate(_ctx, 'submit_request'),
-          onPressed: () => dispatch(WithdrawActionCreator.onEnterSecurityWithdrawContinue())
-      ):submitButton(
-          'Required 2FA for withdrawal',
-          onPressed: () => dispatch(WithdrawActionCreator.onGotoSet2FA())
-      ),
+        FlutterI18n.translate(_ctx, 'submit_request'),
+        onPressed: () => dispatch(WithdrawActionCreator.onSubmit())
+      )
     ]
   );
 }

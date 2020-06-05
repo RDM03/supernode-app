@@ -27,7 +27,6 @@ Widget buildView(DepositState state, Dispatch dispatch, ViewService viewService)
       smallColumnSpacer(),
       paragraph(FlutterI18n.translate(_ctx, 'address')),
       bigColumnSpacer(),
-
       Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
