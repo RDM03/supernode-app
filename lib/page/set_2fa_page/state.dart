@@ -22,14 +22,7 @@ class Set2FAState implements Cloneable<Set2FAState> {
 
 
   GlobalKey enterSecurityCodeFormKey = GlobalKey<FormState>();
-  List<TextEditingController> codeListCtls = [
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController()
-  ];
+  TextEditingController otpCodeCtl = TextEditingController();
 
   GlobalKey recoveryCodeFormKey = GlobalKey<FormState>();
 
@@ -42,7 +35,7 @@ class Set2FAState implements Cloneable<Set2FAState> {
       ..recoveryCode = recoveryCode
       ..title = title
       ..qrCode = qrCode
-      ..codeListCtls = codeListCtls
+      ..otpCodeCtl = otpCodeCtl
       ..regenerate = regenerate
       ..isAgreed = isAgreed
       ..isEnabled = isEnabled;
@@ -62,13 +55,13 @@ class EnterSecurityCodeConnector extends ConnOp<Set2FAState, EnterSecurityCodeSt
     return EnterSecurityCodeState()
       ..formKey = state.enterSecurityCodeFormKey
       ..isEnabled = state.isEnabled
-      ..listCtls = state.codeListCtls;
+      ..otpCodeCtl = state.otpCodeCtl;
   }
 
   @override
   void set(Set2FAState state, EnterSecurityCodeState subState) {
     state
-      ..codeListCtls = subState.listCtls;
+      ..otpCodeCtl = subState.otpCodeCtl;
   }
 }
 

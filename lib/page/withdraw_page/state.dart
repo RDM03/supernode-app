@@ -17,14 +17,7 @@ class WithdrawState implements Cloneable<WithdrawState> {
   List<OrganizationsState> organizations = [];
 
   GlobalKey enterSecurityCodeWithdrawFormKey = GlobalKey<FormState>();
-  List<TextEditingController> codeListCtls = [
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController()
-  ];
+  TextEditingController otpCodeCtl = TextEditingController();
 
   @override
   WithdrawState clone() {
@@ -52,12 +45,12 @@ class EnterSecurityCodeWithdrawConnector extends ConnOp<WithdrawState, EnterSecu
   EnterSecurityCodeWithdrawState get(WithdrawState state){
     return EnterSecurityCodeWithdrawState()
       ..formKey = state.enterSecurityCodeWithdrawFormKey
-      ..listCtls = state.codeListCtls;
+      ..otpCodeCtl = state.otpCodeCtl;
   }
 
   @override
   void set(WithdrawState state, EnterSecurityCodeWithdrawState subState) {
     state
-      ..codeListCtls = subState.listCtls;
+      ..otpCodeCtl = subState.otpCodeCtl;
   }
 }

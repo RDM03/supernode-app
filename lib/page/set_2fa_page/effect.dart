@@ -110,17 +110,17 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx){
 
   UserDao dao = UserDao();
 
-  List<String> codes = curState.codeListCtls.map((code) => code.text).toList();
+  String codes = curState.otpCodeCtl.text;
   SettingsState settingsData = GlobalStore.store.getState().settings;
 
   if(settingsData == null){
     settingsData = SettingsState().clone();
   }
 
-  settingsData.otp_code = codes.join();
+  settingsData.otp_code = codes;
 
   Map data = {
-    "otp_code": codes.join()
+    "otp_code": codes
   };
   dao.setEnable(data).then((res){
     log('setEnable status',res);
@@ -166,17 +166,17 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx){
 
   UserDao dao = UserDao();
 
-  List<String> codes = curState.codeListCtls.map((code) => code.text).toList();
+  String codes = curState.otpCodeCtl.text;
   SettingsState settingsData = GlobalStore.store.getState().settings;
 
   if(settingsData == null){
     settingsData = SettingsState().clone();
   }
 
-  settingsData.otp_code = codes.join();
+  settingsData.otp_code = codes;
 
   Map data = {
-    "otp_code": codes.join()
+    "otp_code": codes
   };
 
   dao.setDisable(data).then((res){
