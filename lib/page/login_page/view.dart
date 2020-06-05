@@ -19,6 +19,8 @@ import 'action.dart';
 Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
 //  throw StateError('This is a Dart exception');
+  String _currentSugars;
+
   return Scaffold(
     resizeToAvoidBottomInset: false,
     backgroundColor: cardBackgroundColor,
@@ -42,17 +44,18 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                 ),
               ),
               Container(
-                margin: kOuterRowTop10,
-                child: Wrap(
-                  children: Sys.superNodes.keys.map((node) => Container(
-                      child: SupernodeButton(
-                        onPress: () => dispatch(LoginActionCreator.selectedSuperNode(node)),
-                        selected: state.selectedSuperNode.contains(node),
-                        cardChild: Image.asset(AppImages.superNodes[node])),
-                    ),
-                  ).toList()
-                )
+                  margin: kOuterRowTop10,
+                  child: Wrap(
+                      children: Sys.superNodes.keys.map((node) => Container(
+                        child: SupernodeButton(
+                            onPress: () => dispatch(LoginActionCreator.selectedSuperNode(node)),
+                            selected: state.selectedSuperNode.contains(node),
+                            cardChild: Image.asset(AppImages.superNodes[node])),
+                      ),
+                      ).toList()
+                  )
               ),
+
               Form(
                 key: state.formKey,
                 autovalidate: false,

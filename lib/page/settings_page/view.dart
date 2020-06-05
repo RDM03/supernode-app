@@ -22,7 +22,7 @@ Widget buildView(SettingsState state, Dispatch dispatch, ViewService viewService
           Icons.arrow_back_ios,
           color: Colors.black,
         ), 
-        onPressed: () => Navigator.of(viewService.context).pop({'username': state.username,'email': state.email})
+        onPressed: () => {Navigator.of(viewService.context).pop({'username': state.username,'email': state.email})}
       ),
       backgroundColor: backgroundColor,
       elevation: 0,

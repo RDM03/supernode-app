@@ -22,7 +22,7 @@ Widget buildView(ConfirmState state, Dispatch dispatch, ViewService viewService)
         onTap: () => Navigator.pop(viewService.context)
       ),
       title(FlutterI18n.translate(_ctx,state.title)),
-      done(success: state.content.contains('successful') || state.title == 'withdraw'),
+      done(success: state.content.contains('successful') || state.title == 'confirmed'),
       pageContent(FlutterI18n.translate(_ctx,state.content)),
       submitButton(
         FlutterI18n.translate(_ctx,'done'),
