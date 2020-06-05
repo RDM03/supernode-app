@@ -13,6 +13,7 @@ Widget buildView(WalletItemState state, Dispatch dispatch, ViewService viewServi
     context: viewService.context,
     type: state.txType != null ? state.txType : state.type,
     amount: state.amount ?? state.stakeAmount,
+    revenue: state.revenue,
     fee: state.fee,
     datetime: state.createdAt ?? state.txSentTime ?? state.startStakeTime ?? state.start,
     secondDateTime: state.unstakeTime ?? state.end,

@@ -29,7 +29,7 @@ Widget buildView(DeviceState state, Dispatch dispatch, ViewService viewService) 
         decoration: BoxDecoration(
           color: Color.fromARGB(255, 255, 255, 255),
         ),
-        child: Column(
+        child: ListView(
           children: [
             Container(
               width: 282,
@@ -43,6 +43,7 @@ Widget buildView(DeviceState state, Dispatch dispatch, ViewService viewService) 
               margin: EdgeInsets.only(top: 50),
               child: Text(
                 FlutterI18n.translate(_ctx,'coming').toUpperCase(),
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color.fromARGB(255, 0, 0, 0),
                   fontFamily: "Roboto",
