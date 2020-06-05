@@ -124,7 +124,6 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx){
 
   UserDao dao = UserDao();
 
-
   String codes = curState.otpCodeCtl.text;
   SettingsState settingsData = GlobalStore.store.getState().settings;
 

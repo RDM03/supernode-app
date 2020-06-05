@@ -8,7 +8,6 @@ class EnterSecurityCodeWithdrawState implements Cloneable<EnterSecurityCodeWithd
   bool isEnabled;
   TextEditingController otpCodeCtl = TextEditingController();
 
-
   @override
   EnterSecurityCodeWithdrawState clone() {
     return EnterSecurityCodeWithdrawState()

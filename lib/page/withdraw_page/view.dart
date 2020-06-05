@@ -58,6 +58,7 @@ Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService
       ),
       subtitle(FlutterI18n.translate(_ctx, 'current_transaction_fee')),
       paragraph('${state.fee} MXC'),
+<<<<<<< HEAD
       SizedBox(height: 40),
       Text(
           'Each withdrawal is subject to a security screening that can take up to 24 hours on business days.',
@@ -66,6 +67,17 @@ Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService
             fontWeight: FontWeight.w400,
             fontSize: 14,
           ),
+=======
+      Container(
+        child: Text(
+            FlutterI18n.translate(_ctx,'wthdr_ent_code_01'),
+            style: TextStyle(
+              color: Colors.grey[600],
+              fontWeight: FontWeight.w400,
+              fontSize: 12,
+            )
+        ),
+>>>>>>> origin/nam/MMA-69/failedWithdrawWithOTP
       ),
       state.isEnabled?
       submitButton(
