@@ -5,7 +5,7 @@ import 'text_field_with_title.dart';
 
 Widget textfieldWithCodes({BuildContext context,TextEditingController controller,bool isLast = false}){
   return SizedBox(
-    width: 50,
+    width: 40,
     child: TextFieldWithTitle(
       title: '',
       // maxLength: 1,

@@ -24,6 +24,10 @@ Widget buildView(SecurityState state, Dispatch dispatch, ViewService viewService
         FlutterI18n.translate(_ctx,'change_password'),
         onTap: () => Navigator.of(viewService.context).pushNamed('change_password_page')
       ),
+      listItem(
+          FlutterI18n.translate(_ctx,'set_fa_02'),
+          onTap: () => Navigator.of(viewService.context).pushNamed('set_2fa_page', arguments:{'isEnabled': false})
+      ),
       Divider()
     ]
   );

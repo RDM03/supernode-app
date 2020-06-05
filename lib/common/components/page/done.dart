@@ -11,7 +11,7 @@ Widget done({bool success = true}){
         borderRadius: BorderRadius.all(Radius.circular(4)),
       ),
       child: Icon(
-        success ? Icons.done : Icons.info_outline,
+        success ? Icons.check_circle_outline : Icons.info_outline,
         color: success ? Colors.green : Colors.blue,
         size: 80,
       )
