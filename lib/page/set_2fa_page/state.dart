@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'enter_securitycode_component/state.dart';
+import 'enter_recoverycode_component/state.dart';
 import 'recovery_code_component/state.dart';
 import 'qr_code_component/state.dart';
 
@@ -21,6 +22,16 @@ class Set2FAState implements Cloneable<Set2FAState> {
 
 
   GlobalKey enterSecurityCodeFormKey = GlobalKey<FormState>();
+  List<TextEditingController> listCtls = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController()
+  ];
+
+  GlobalKey enterRecoveryCodeFormKey = GlobalKey<FormState>();
   TextEditingController otpCodeCtl = TextEditingController();
 
   GlobalKey recoveryCodeFormKey = GlobalKey<FormState>();
@@ -34,6 +45,7 @@ class Set2FAState implements Cloneable<Set2FAState> {
       ..recoveryCode = recoveryCode
       ..title = title
       ..qrCode = qrCode
+      ..listCtls = listCtls
       ..otpCodeCtl = otpCodeCtl
       ..regenerate = regenerate
       ..isAgreed = isAgreed
@@ -54,11 +66,28 @@ class EnterSecurityCodeConnector extends ConnOp<Set2FAState, EnterSecurityCodeSt
     return EnterSecurityCodeState()
       ..formKey = state.enterSecurityCodeFormKey
       ..isEnabled = state.isEnabled
-      ..otpCodeCtl = state.otpCodeCtl;
+      ..listCtls = state.listCtls;
   }
 
   @override
   void set(Set2FAState state, EnterSecurityCodeState subState) {
+    state
+      ..listCtls = subState.listCtls;
+  }
+}
+
+class EnterRecoveryCodeConnector extends ConnOp<Set2FAState, EnterRecoveryCodeState>{
+
+  @override
+  EnterRecoveryCodeState get(Set2FAState state){
+    return EnterRecoveryCodeState()
+      ..formKey = state.enterRecoveryCodeFormKey
+      ..isEnabled = state.isEnabled
+      ..otpCodeCtl = state.otpCodeCtl;
+  }
+
+  @override
+  void set(Set2FAState state, EnterRecoveryCodeState subState) {
     state
       ..otpCodeCtl = subState.otpCodeCtl;
   }

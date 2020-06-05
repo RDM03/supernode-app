@@ -101,8 +101,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
   // OrganizationsState org = curState.organizations.first;
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
 
-  String codes = curState.otpCodeCtl.text;
-
+  List<String> codes = curState.listCtls.map((code) => code.text).toList();
   if((curState.formKey.currentState as FormState).validate()){
     if(address.trim().isEmpty){
       tip(ctx.context, 'The field of "To" is required.');

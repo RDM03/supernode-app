@@ -124,17 +124,17 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx){
 
   UserDao dao = UserDao();
 
-  String codes = curState.otpCodeCtl.text;
+  List<String> codes = curState.listCtls.map((code) => code.text).toList();
   SettingsState settingsData = GlobalStore.store.getState().settings;
 
   if(settingsData == null){
     settingsData = SettingsState().clone();
   }
 
-  settingsData.otp_code = codes;
+  settingsData.otp_code = codes.join();
 
   Map data = {
-    "otp_code": codes
+    "otp_code": codes.join()
   };
   dao.setEnable(data).then((res){
     log('setEnable status',res);
@@ -201,7 +201,7 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx){
 
   }).then((res){
     print(res);
-    log('login saf',res);
+    log('get 2fa status ',res);
     UserDao dao = UserDao();
 
     Map data = {};

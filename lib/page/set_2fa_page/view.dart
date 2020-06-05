@@ -43,7 +43,7 @@ Widget buildView(Set2FAState state, Dispatch dispatch, ViewService viewService) 
                       if(value){
                         dispatch(Set2FAActionCreator.onGetTOTPConfig(240));
                       }else{
-                        dispatch(Set2FAActionCreator.onEnterSecurityContinue("enable"));
+                        dispatch(Set2FAActionCreator.onEnterRecoveryContinue());
                       }
                     },
                     activeTrackColor: Colors.lightGreenAccent,

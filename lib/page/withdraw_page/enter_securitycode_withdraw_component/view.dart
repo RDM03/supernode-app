@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
-import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
+import 'package:supernodeapp/common/components/text_field/text_field_with_codes.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 
 import '../action.dart';
-import 'action.dart';
 import 'state.dart';
 
 Widget buildView(EnterSecurityCodeWithdrawState state, Dispatch dispatch, ViewService viewService) {
@@ -72,11 +71,38 @@ Widget buildView(EnterSecurityCodeWithdrawState state, Dispatch dispatch, ViewSe
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(top: 0, left: 40,right: 40),
-          child: TextFieldWithTitle(
-            title: FlutterI18n.translate(_ctx,'wthdr_ent_code_04'),
-            textInputAction: TextInputAction.next,
-            controller: state.otpCodeCtl,
+          padding: EdgeInsets.fromLTRB(20.0, 40.0, 0.0, 00.0),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                    FlutterI18n.translate(_ctx,'wthdr_ent_code_04'),
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontWeight: FontWeight.w400,
+                    )
+                ),
+              ]
+          ),
+        ),
+        Form(
+          key: state.formKey,
+          autovalidate: false,
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 80.0),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: state.listCtls.asMap().keys.map((index) => textfieldWithCodes(
+                          context: _ctx,
+                          controller: state.listCtls[index],
+                          isLast: index == state.listCtls.length - 1
+                      )).toList()
+                  ),
+                ),
+              ]
           ),
         ),
         Container(
