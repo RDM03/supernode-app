@@ -77,7 +77,6 @@ WalletState _updateList(WalletState state, Action action) {
   String type = data['type'];
   List<WalletItemState> list = [];
   double totalRevenue = 0;
-
   for(int index = 0;index < data['list'].length;index ++){
     WalletItemState item = WalletItemState.fromMap(data['list'][index]);
 
@@ -87,7 +86,7 @@ WalletState _updateList(WalletState state, Action action) {
       item.type = type.split(' ')[0];
     }
 
-    if(type.contains('stake') && data['stakingHist'] != null && data['stakingHist'].length > 0){
+    if(type.contains('STAKE') && data['stakingHist'] != null && data['stakingHist'].length > 0){
       totalRevenue += Tools.convertDouble(data['stakingHist']['revenue']);
     }
     
