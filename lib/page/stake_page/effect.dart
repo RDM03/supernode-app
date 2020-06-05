@@ -1,12 +1,12 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/common/components/loading.dart';
-import 'package:supernodeapp/common/utils/log.dart';
+import 'package:supernodeapp/common/components/security/biometrics.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/stake_dao.dart';
+import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/global_store/store.dart';
-import 'package:supernodeapp/common/components/security/biometrics.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
+
 import 'action.dart';
 import 'state.dart';
 
@@ -26,49 +26,46 @@ void _onConfirm(Action action, Context<StakeState> ctx) async {
     String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
     int amount = int.parse(curState.amountCtl.text);
 
-    final canCheckBiometrics = await Biometrics.canCheckBiometrics();
-    if (canCheckBiometrics) {
-      Biometrics.authenticate(
-        ctx.context,
-        authenticateCallback: () {
-          StakeDao dao = StakeDao();
+    Biometrics.authenticate(
+      ctx.context,
+      authenticateCallback: () {
+        StakeDao dao = StakeDao();
 
-          Map data = {"orgId": orgId, "amount": amount};
+        Map data = {"orgId": orgId, "amount": amount};
 
-          void resultPage(String type, dynamic res) {
-            if (res.containsKey('status')) {
-              Navigator.pushNamed(ctx.context, 'confirm_page',
-                  arguments: {'title': type, 'content': res['status']});
+        void resultPage(String type, dynamic res) {
+          if (res.containsKey('status')) {
+            Navigator.pushNamed(ctx.context, 'confirm_page',
+                arguments: {'title': type, 'content': res['status']});
 
-              ctx.dispatch(StakeActionCreator.resSuccess(res['status'].contains('successful')));
-            } else {
-              tip(ctx.context, res);
-            }
-          }
-
-          if (curState.type == 'stake') {
-            showLoading(ctx.context);
-            dao.stake(data).then((res) async {
-              hideLoading(ctx.context);
-              log(curState.type, res);
-              resultPage('stake', res);
-            }).catchError((err) {
-              hideLoading(ctx.context);
-              tip(ctx.context, 'StakeDao stake: $err');
-            });
+            ctx.dispatch(StakeActionCreator.resSuccess(res['status'].contains('successful')));
           } else {
-            showLoading(ctx.context);
-            dao.unstake(data).then((res) async {
-              hideLoading(ctx.context);
-              log(curState.type, res);
-              resultPage('unstake', res);
-            }).catchError((err) {
-              hideLoading(ctx.context);
-              tip(ctx.context, 'StakeDao stake: $err');
-            });
+            tip(ctx.context, res);
           }
-        },
-      );
-    }
+        }
+
+        if (curState.type == 'stake') {
+          showLoading(ctx.context);
+          dao.stake(data).then((res) async {
+            hideLoading(ctx.context);
+            log(curState.type, res);
+            resultPage('stake', res);
+          }).catchError((err) {
+            hideLoading(ctx.context);
+            tip(ctx.context, 'StakeDao stake: $err');
+          });
+        } else {
+          showLoading(ctx.context);
+          dao.unstake(data).then((res) async {
+            hideLoading(ctx.context);
+            log(curState.type, res);
+            resultPage('unstake', res);
+          }).catchError((err) {
+            hideLoading(ctx.context);
+            tip(ctx.context, 'StakeDao stake: $err');
+          });
+        }
+      },
+    );
   }
 }
