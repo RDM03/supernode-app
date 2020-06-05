@@ -11,6 +11,7 @@ class WalletApi {
 
 class WalletDao extends Dao{
   static const String amount = 'amount';
+  static const String revenue = 'revenue';
   static const String createdAt = 'createdAt';
   static const String txHash = 'txHash';
   static const String txSentTime = 'txSentTime';

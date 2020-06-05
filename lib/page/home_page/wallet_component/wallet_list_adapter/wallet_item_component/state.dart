@@ -28,6 +28,7 @@ class WalletItemState implements Cloneable<WalletItemState> {
   String toAddress = '';
 
   //stake
+  double revenue = 0;
   String startStakeTime = '';
   String unstakeTime = '';
 
@@ -44,6 +45,7 @@ class WalletItemState implements Cloneable<WalletItemState> {
       ..type = type
       ..id = id
       ..amount = amount
+      ..revenue = revenue
       ..createdAt = createdAt
       ..txHash = txHash
       ..isExpand = isExpand
@@ -65,6 +67,7 @@ class WalletItemState implements Cloneable<WalletItemState> {
   WalletItemState.fromMap(Map map) {
     id = Uuid().generateV4();
     amount = Tools.convertDouble(map[WalletDao.amount]);
+    revenue = Tools.convertDouble(map[WalletDao.revenue]);
     createdAt = map[WalletDao.createdAt] as String;
     txHash = map[WalletDao.txHash] as String;
     txSentTime = map[WalletDao.txSentTime] as String;

@@ -8,7 +8,7 @@ import 'package:supernodeapp/theme/spacing.dart';
 
 import '../row_spacer.dart';
 
-Widget listItem({BuildContext context,String type = '',String datetime,String secondDateTime,double amount = 0,double fee = 0,String fromAddress,String toAddress,String txHashAddress,String status,bool isExpand = true,bool isLast = false,Function onTap}){
+Widget listItem({BuildContext context,String type = '',String datetime,String secondDateTime,double amount = 0,double revenue = 0,double fee = 0,String fromAddress,String toAddress,String txHashAddress,String status,bool isExpand = true,bool isLast = false,Function onTap}){
 
   return Column(
     children: <Widget>[
@@ -35,7 +35,7 @@ Widget listItem({BuildContext context,String type = '',String datetime,String se
           ],
         ),
         subtitle: Text(
-          TimeDao.getDatetime(datetime),
+         revenue != null ? '${Tools.priceFormat(revenue,range: 2)} MXC ${TimeDao.getDatetime(datetime)}' : TimeDao.getDatetime(datetime),
           style: kSmallFontOfGrey,
         ),
         trailing: Column(
