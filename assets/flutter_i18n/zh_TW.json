@@ -155,5 +155,6 @@
 	"wthdr_ent_code_04": "Google Authenticator 代碼",
 	"enable_2FA": "啟用兩步驗證",
 	"disable_2FA": "停用兩步驗證",
-	"24hours_warning": "每次提取通證在工作日最多需要24小時。"
+	"24hours_warning": "每次提取通證在工作日最多需要24小時。",
+	"required_2FA": "請求兩步驗證"
 }

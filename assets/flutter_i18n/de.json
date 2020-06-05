@@ -155,5 +155,6 @@
 	"wthdr_ent_code_04": "Google Authenticator-Code",
 	"enable_2FA": "Zweistufige Anmeldung",
 	"disable_2FA": "Zweistufige Anmeldung deaktivieren",
-	"24hours_warning": "Jeder Auszug unterliegt einer Sicherheitsprüfung, die an Werktagen bis zu 24 Stunden dauern kann."
+	"24hours_warning": "Jeder Auszug unterliegt einer Sicherheitsprüfung, die an Werktagen bis zu 24 Stunden dauern kann.",
+	"required_2FA": "Erforderliche 2FA für Auszahlung"
 }
