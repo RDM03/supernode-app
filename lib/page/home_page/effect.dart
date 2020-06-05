@@ -16,7 +16,6 @@ import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
-
 import 'action.dart';
 import 'gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
 import 'state.dart';
@@ -74,13 +73,17 @@ void _relogin(Action action, Context<HomeState> ctx) {
 
 void _initState(Action action, Context<HomeState> ctx) {
   _profile(ctx);
-  _getLocation(ctx);
+  _getUserLocation(ctx);
 }
 
-Future<void> _getLocation(Context<HomeState> ctx) async {
-  if (await LocationUtils.requestPermission()) {
-    final _loc = await LocationUtils.getMyLocation();
-    ctx.state.location = LatLng(_loc.latLng.latitude, _loc.latLng.longitude);
+Future<void> _getUserLocation(Context<HomeState> ctx) async {
+  await LocationUtils.getLocation();
+  if (LocationUtils.locationData != null) {
+    ctx.dispatch(
+      HomeActionCreator.onLocation(
+        LatLng(LocationUtils.locationData.latitude, LocationUtils.locationData.longitude),
+      ),
+    );
   }
 }
 

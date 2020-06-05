@@ -1,7 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/common/components/location_utils.dart';
-
+import 'package:location/location.dart';
+import 'package:supernodeapp/global_store/action.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -13,18 +14,19 @@ Effect<mapboxState> buildEffect() {
 }
 
 void _initState(Action action, Context<mapboxState> ctx) {
-  if (LocationUtils.loc != null) {
-    ctx.state.myLocation =
-        LatLng(LocationUtils.loc.latLng.latitude, LocationUtils.loc.latLng.longitude);
+  if (LocationUtils.locationData != null) {
+    final loc = LatLng(LocationUtils.locationData.latitude, LocationUtils.locationData.longitude);
+    ctx.dispatch(mapboxActionCreator.onLocation(loc));
   } else {
     _getLocation(ctx);
   }
 }
 
 Future<void> _getLocation(Context<mapboxState> ctx) async {
-  if (await LocationUtils.requestPermission()) {
-    final _loc = await LocationUtils.getMyLocation();
-    ctx.state.myLocation = LatLng(_loc.latLng.latitude, _loc.latLng.longitude);
+  await LocationUtils.getLocation();
+  if (LocationUtils.locationData != null) {
+    final loc = LatLng(LocationUtils.locationData.latitude, LocationUtils.locationData.longitude);
+    ctx.dispatch(mapboxActionCreator.onLocation(loc));
   }
 }
 

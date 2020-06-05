@@ -65,42 +65,38 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
       return;
     }
 
-    final canCheckBiometrics = await Biometrics.canCheckBiometrics();
+    Biometrics.authenticate(
+      ctx.context,
+      authenticateCallback: () {
+        WithdrawDao dao = WithdrawDao();
+        Map data = {
+          "orgId": orgId,
+          "amount": int.parse(amount),
+          "ethAddress": address,
+          "availableBalance": balance
+        };
+        showLoading(ctx.context);
+        dao.withdraw(data).then((res) {
+          hideLoading(ctx.context);
+          log('withdraw', res);
+          if (res.containsKey('status') && res['status']) {
+            Navigator.pushNamed(ctx.context, 'confirm_page',
+                arguments: {'title': 'withdraw', 'content': 'withdraw_submit_tip'});
 
-    if (canCheckBiometrics) {
-      Biometrics.authenticate(
-        ctx.context,
-        authenticateCallback: () {
-          WithdrawDao dao = WithdrawDao();
-          Map data = {
-            "orgId": orgId,
-            "amount": int.parse(amount),
-            "ethAddress": address,
-            "availableBalance": balance
-          };
-          showLoading(ctx.context);
-          dao.withdraw(data).then((res) {
-            hideLoading(ctx.context);
-            log('withdraw', res);
-            if (res.containsKey('status') && res['status']) {
-              Navigator.pushNamed(ctx.context, 'confirm_page',
-                  arguments: {'title': 'withdraw', 'content': 'withdraw_submit_tip'});
-
-              _updateBalance(ctx);
-              ctx.dispatch(WithdrawActionCreator.status(true));
-            } else {
-              ctx.dispatch(WithdrawActionCreator.status(false));
-              tip(ctx.context, res);
-            }
-          }).catchError((err) {
-            hideLoading(ctx.context);
+            _updateBalance(ctx);
+            ctx.dispatch(WithdrawActionCreator.status(true));
+          } else {
             ctx.dispatch(WithdrawActionCreator.status(false));
-            tip(ctx.context, 'WithdrawDao withdraw: $err');
-          });
-        },
-        failAuthenticateCallBack: null,
-      );
-    }
+            tip(ctx.context, res);
+          }
+        }).catchError((err) {
+          hideLoading(ctx.context);
+          ctx.dispatch(WithdrawActionCreator.status(false));
+          tip(ctx.context, 'WithdrawDao withdraw: $err');
+        });
+      },
+      failAuthenticateCallBack: null,
+    );
   }
 }
 

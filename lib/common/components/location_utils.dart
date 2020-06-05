@@ -1,5 +1,4 @@
-import 'package:amap_location_fluttify/amap_location_fluttify.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:location/location.dart';
 
 class LocationUtils {
   factory LocationUtils() => instance;
@@ -7,21 +6,27 @@ class LocationUtils {
   LocationUtils._();
 
   static final LocationUtils instance = LocationUtils._();
-  static Location _location;
-  static Location get loc => _location;
 
-  static Future<bool> requestPermission() async {
-    final permissions = await PermissionHandler().requestPermissions([PermissionGroup.location]);
-    if (permissions[PermissionGroup.location] == PermissionStatus.granted) {
-      return true;
-    } else {
-      return false;
+  static Location location =  Location();
+  static bool _serviceEnabled;
+  static PermissionStatus _permissionGranted;
+  static LocationData _locationData;
+
+  static LocationData get locationData=> _locationData;
+
+  static Future<void> getLocation() async {
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) return;
     }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) return;
+    }
+    _locationData = await location.getLocation();
   }
 
-  static Future<Location> getMyLocation() async {
-    await AmapCore.init('85fad6510f365f60aabc6adcf3f78ac8');
-    _location = await AmapLocation.fetchLocation();
-    return _location;
-  }
 }
