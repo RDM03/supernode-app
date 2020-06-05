@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'enter_securitycode_component/component.dart';
+import 'enter_recovery_code_component/component.dart';
 import 'recovery_code_component/component.dart';
 import 'qr_code_component/component.dart';
 
@@ -19,6 +20,7 @@ class Set2FAPage extends Page<Set2FAState, Map<String, dynamic>> {
                 adapter: null,
                 slots: <String, Dependent<Set2FAState>>{
                   'enterSecurityCode': EnterSecurityCodeConnector() + EnterSecurityCodeComponent(),
+                  'enterRecoveryCode': EnterRecoveryCodeConnector() + EnterRecoveryCodeComponent(),
                   'recoveryCode': RecoveryCodeConnector() + RecoveryCodeComponent(),
                   'qrCode': QRCodeConnector() + QRCodeComponent(),
                 }),

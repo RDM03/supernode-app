@@ -44,20 +44,6 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                 ),
               ),
               Container(
-                child: DropdownButtonFormField(
-
-                  value: state.selectedSuperNode.isEmpty ? 'xinyu' : state.selectedSuperNode,
-                  items: Sys.superNodes.keys.map((node) {
-                    return DropdownMenuItem(
-                      value: node,
-                      child: Image.asset(AppImages.superNodes[node], scale: 1.2),
-                    );
-                  }).toList(),
-                  onChanged: (value) => dispatch(LoginActionCreator.selectedSuperNode(value)),
-                ),
-              ),
-
-              /*Container(
                   margin: kOuterRowTop10,
                   child: Wrap(
                       children: Sys.superNodes.keys.map((node) => Container(
@@ -68,7 +54,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                       ),
                       ).toList()
                   )
-              ),*/
+              ),
 
               Form(
                 key: state.formKey,

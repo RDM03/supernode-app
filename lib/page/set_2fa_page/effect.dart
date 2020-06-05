@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 import 'package:supernodeapp/global_store/action.dart';
+import 'package:supernodeapp/page/home_page/action.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -14,9 +15,11 @@ Effect<Set2FAState> buildEffect() {
   return combineEffects(<Object, Effect<Set2FAState>>{
     Lifecycle.initState: _initState,
     Set2FAAction.onEnterSecurityContinue: _onEnterSecurityContinue,
+    Set2FAAction.onEnterRecoveryContinue: _onEnterRecoveryContinue,
     Set2FAAction.onQRCodeContinue: _onQRCodeContinue,
     Set2FAAction.onSetEnable: _onSetEnable,
     Set2FAAction.onSetDisable: _onSetDisable,
+    Set2FAAction.onSetDisableWithRecoveryCode: _onSetDisableWithRecoveryCode,
     Set2FAAction.onRecoveryCodeContinue: _onRecoveryCodeContinue,
     Set2FAAction.onGetTOTPConfig: _onGetTOTPConfig,
   });
@@ -59,6 +62,18 @@ void _onEnterSecurityContinue(Action action, Context<Set2FAState> ctx) async{
         fullscreenDialog: false,
         builder:(context){
           return ctx.buildComponent('enterSecurityCode');
+        }
+    ),
+  );
+}
+
+void _onEnterRecoveryContinue(Action action, Context<Set2FAState> ctx) async{
+  Navigator.push(ctx.context,
+    MaterialPageRoute(
+        maintainState: false,
+        fullscreenDialog: false,
+        builder:(context){
+          return ctx.buildComponent('enterRecoveryCode');
         }
     ),
   );
@@ -177,6 +192,62 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx){
 
   Map data = {
     "otp_code": codes.join()
+  };
+
+  dao.setDisable(data).then((res){
+    log('setDisable status',res);
+
+    settingsData.is2FAEnabled = false;
+    GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
+
+  }).then((res){
+    print(res);
+    log('login saf',res);
+    UserDao dao = UserDao();
+
+    Map data = {};
+
+    dao.getTOTPStatus(data).then((res){
+      log('totp',res);
+      SettingsState settingsData = GlobalStore.store.getState().settings;
+
+      if(settingsData == null){
+        settingsData = SettingsState().clone();
+      }
+
+      settingsData.is2FAEnabled = res['enabled'];
+      if((res as Map).containsKey('enabled')){
+        GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
+      }
+      var count = 0;
+      Navigator.popUntil(ctx.context, (route) {
+        print(route);
+        return count++ == 2;
+      });
+    }).catchError((err){
+      tip(ctx.context,'$err');
+    });
+  })..catchError((err){
+    tip(ctx.context,'Setting setDisable: $err');
+  });
+}
+
+void _onSetDisableWithRecoveryCode(Action action, Context<Set2FAState> ctx){
+  var curState = ctx.state;
+
+  UserDao dao = UserDao();
+
+  String codes = curState.recoveryCodeCtl.text;
+  SettingsState settingsData = GlobalStore.store.getState().settings;
+
+  if(settingsData == null){
+    settingsData = SettingsState().clone();
+  }
+
+  settingsData.otp_code = codes;
+
+  Map data = {
+    "otp_code": codes
   };
 
   dao.setDisable(data).then((res){

@@ -4,9 +4,11 @@ enum Set2FAAction {
     initState
   , onSettings
   , onEnterSecurityContinue
+  , onEnterRecoveryContinue
   , onQRCodeContinue
   , onSetEnable
   , onSetDisable
+  , onSetDisableWithRecoveryCode
   , onRecoveryCodeContinue
   , onVerificationContinue
   , isEnabled
@@ -24,6 +26,10 @@ class Set2FAActionCreator {
 
   static Action onEnterSecurityContinue(String origin) {
     return Action(Set2FAAction.onEnterSecurityContinue,payload: origin);
+  }
+
+  static Action onEnterRecoveryContinue() {
+    return Action(Set2FAAction.onEnterRecoveryContinue);
   }
 
   static Action onQRCodeContinue() {
@@ -66,6 +72,10 @@ class Set2FAActionCreator {
 
   static Action onSetDisable() {
     return Action(Set2FAAction.onSetDisable);
+  }
+
+  static Action onSetDisableWithRecoveryCode() {
+    return Action(Set2FAAction.onSetDisableWithRecoveryCode);
   }
 
 }
