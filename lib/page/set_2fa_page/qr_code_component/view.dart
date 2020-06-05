@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
+import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/page/paragraph.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/colors.dart';
@@ -28,8 +29,8 @@ Widget buildView(QRCodeState state, Dispatch dispatch, ViewService viewService) 
       body: SafeArea(
           child: Container(
               padding: kRoundRow202,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+              child: ListView(
+                // crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   //paragraph(FlutterI18n.translate(_ctx, 'send_email')),
                   Form(
@@ -85,7 +86,8 @@ Widget buildView(QRCodeState state, Dispatch dispatch, ViewService viewService) 
                         ]
                     ),
                   ),
-                  Spacer(),
+                  // Spacer(),
+                  smallColumnSpacer(),
                   state.isEnabled ?
                   PrimaryButton(
                       onTap: () => dispatch(Set2FAActionCreator.onSetDisable()),

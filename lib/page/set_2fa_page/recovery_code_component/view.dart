@@ -28,8 +28,8 @@ Widget buildView(RecoveryCodeState state, Dispatch dispatch, ViewService viewSer
       child: Container(
         padding: kRoundRow202,
         child: Center(
-          child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: ListView(
+          // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             //paragraph(FlutterI18n.translate(_ctx, 'send_email')),
             Text(
@@ -58,7 +58,7 @@ Widget buildView(RecoveryCodeState state, Dispatch dispatch, ViewService viewSer
               ).toList()
             ),
 
-            Spacer(),
+            // Spacer(),
             Row(
               children: <Widget>[
                 Checkbox(

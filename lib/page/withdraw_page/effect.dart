@@ -28,7 +28,11 @@ Effect<WithdrawState> buildEffect() {
 
 void _initState(Action action, Context<WithdrawState> ctx) {
   _withdrawFee(ctx);
-  UserDao dao = UserDao();
+  _requestTOTPStatus(ctx);
+}
+
+void _requestTOTPStatus(Context<WithdrawState> ctx){
+ UserDao dao = UserDao();
 
   Map data = {};
 
@@ -83,7 +87,9 @@ void _onEnterSecurityWithdrawContinue(Action action, Context<WithdrawState> ctx)
 }
 
 void _onGotoSet2FA(Action action, Context<WithdrawState> ctx) async{
-  Navigator.pushNamed(ctx.context, 'set_2fa_page',arguments:{'isEnabled': false});
+  Navigator.pushNamed(ctx.context, 'set_2fa_page',arguments:{'isEnabled': false}).then((_){
+    _requestTOTPStatus(ctx);
+  });
   //Navigator.of(viewService.context).pushNamed('set_2fa_page', arguments:{'isEnabled': false})
 }
 
