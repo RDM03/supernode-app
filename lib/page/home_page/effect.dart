@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_map/flutter_map.dart';
-import 'package:location/location.dart';
-import 'package:supernodeapp/common/components/my_location.dart';
+import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/common/components/loading.dart';
+import 'package:supernodeapp/common/components/location_utils.dart';
+import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/configs/config.dart';
 import 'package:supernodeapp/common/configs/images.dart';
 import 'package:supernodeapp/common/daos/app_dao.dart';
-import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
@@ -73,12 +73,18 @@ void _relogin(Action action, Context<HomeState> ctx) {
 
 void _initState(Action action, Context<HomeState> ctx) {
   _profile(ctx);
-  _getLocation(ctx);
+  _getUserLocation(ctx);
 }
 
-Future<void> _getLocation(Context<HomeState> ctx) async {
-  await MyLocation.getLocation();
-  ctx.state.myLocationData = MyLocation.locationData;
+Future<void> _getUserLocation(Context<HomeState> ctx) async {
+  await LocationUtils.getLocation();
+  if (LocationUtils.locationData != null) {
+    ctx.dispatch(
+      HomeActionCreator.onLocation(
+        LatLng(LocationUtils.locationData.latitude, LocationUtils.locationData.longitude),
+      ),
+    );
+  }
 }
 
 void _onProfile(Action action, Context<HomeState> ctx) {

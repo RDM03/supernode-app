@@ -1,20 +1,18 @@
-import 'dart:async';
-
 import 'package:location/location.dart';
 
-class MyLocation {
-  factory MyLocation() => instance;
+class LocationUtils {
+  factory LocationUtils() => instance;
 
-  MyLocation._();
+  LocationUtils._();
 
-  static final MyLocation instance = MyLocation._();
+  static final LocationUtils instance = LocationUtils._();
 
-  static Location location = new Location();
+  static Location location =  Location();
   static bool _serviceEnabled;
   static PermissionStatus _permissionGranted;
   static LocationData _locationData;
 
-  static LocationData get locationData => _locationData;
+  static LocationData get locationData=> _locationData;
 
   static Future<void> getLocation() async {
     _serviceEnabled = await location.serviceEnabled();
@@ -30,4 +28,5 @@ class MyLocation {
     }
     _locationData = await location.getLocation();
   }
+
 }
