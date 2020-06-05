@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:supernodeapp/common/configs/config.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
@@ -10,15 +10,6 @@ class TokenInterceptors extends InterceptorsWrapper {
 
   @override
   onRequest(RequestOptions options) async {
-
-    var json = jsonDecode(options.data.toString());
-
-    String otp_code = '';
-    if(json != null){
-      if(json['otp_code'] != null){
-        otp_code = json['otp_code'];
-      }
-    }
     //授权码
     if (_token == null) {
       var authorizationCode = await getAuthorization();
@@ -26,15 +17,9 @@ class TokenInterceptors extends InterceptorsWrapper {
         _token = authorizationCode;
         options.headers["Grpc-Metadata-Authorization"] = _token;
       }
-      if(otp_code != ''){
-        options.headers["Grpc-Metadata-X-OTP"] = otp_code;
-      }
     }
     else{
         options.headers["Grpc-Metadata-Authorization"] = '$_token';
-        if(otp_code != ''){
-          options.headers["Grpc-Metadata-X-OTP"] = otp_code;
-        }
     }
     return options;
   }

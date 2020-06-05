@@ -64,7 +64,6 @@ class LogsInterceptors extends InterceptorsWrapper {
     } else if (response.data is String) {
       try {
         var data = Map<String, dynamic>();
-
         data["data"] = response.data;
         addLogic(sResponsesHttpUrl, response?.request?.uri.toString() ?? "");
         addLogic(sHttpResponses, data);
@@ -74,14 +73,12 @@ class LogsInterceptors extends InterceptorsWrapper {
     } else if (response.data != null) {
       try {
         String data = response.data.toJson();
-
         addLogic(sResponsesHttpUrl, response?.request?.uri.toString() ?? "");
         addLogic(sHttpResponses, json.decode(data));
       } catch (e) {
         print(e);
       }
     }
-    print(response);
     return response; // continue
   }
 

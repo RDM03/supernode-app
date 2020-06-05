@@ -69,33 +69,8 @@ void _onLogin(Action action, Context<UserState> ctx) async{
       StorageManager.sharedPreferences.setString(Config.API_ROOT, apiRoot);
       GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
 
-      //Navigator.pushNamedAndRemoveUntil(ctx.context,'home_page',(route) => false,arguments:{'superNode':curState.selectedSuperNode});
+      Navigator.pushNamedAndRemoveUntil(ctx.context,'home_page',(route) => false,arguments:{'superNode':curState.selectedSuperNode});
 
-    }).then((res){
-      print(res);
-      log('login saf',res);
-      UserDao dao = UserDao();
-
-      Map data = {};
-
-      dao.getTOTPStatus(data).then((res){
-        log('totp',res);
-        //hideLoading(ctx.context);
-        SettingsState settingsData = GlobalStore.store.getState().settings;
-
-        if(settingsData == null){
-          settingsData = SettingsState().clone();
-        }
-
-        settingsData.is2FAEnabled = res['enabled'];
-        if((res as Map).containsKey('enabled')){
-          GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
-        }
-        Navigator.pushNamedAndRemoveUntil(ctx.context,'home_page',(route) => false,arguments:{'superNode':curState.selectedSuperNode});
-      }).catchError((err){
-        //hideLoading(ctx.context);
-        tip(ctx.context,'$err');
-      });
     }).catchError((err){
       hideLoading(ctx.context);
       tip(ctx.context,'$err');

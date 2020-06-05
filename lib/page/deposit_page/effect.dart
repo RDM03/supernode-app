@@ -18,7 +18,6 @@ Effect<DepositState> buildEffect() {
 }
 
 void _initState(Action action, Context<DepositState> ctx) {
-  print(324);
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
   if(orgId == null || orgId.isEmpty){
     orgId = ctx.state.organizations.first.organizationID;
