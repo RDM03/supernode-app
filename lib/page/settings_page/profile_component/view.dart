@@ -14,6 +14,7 @@ import 'state.dart';
 
 Widget buildView(ProfileState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
+
   return pageFrame(
     context: viewService.context,
     children: [
