@@ -59,17 +59,9 @@ Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService
       subtitle(FlutterI18n.translate(_ctx, 'current_transaction_fee')),
       paragraph('${state.fee} MXC'),
       SizedBox(height: 40),
-      Text(
-          'Each withdrawal is subject to a security screening that can take up to 24 hours on business days.',
-          style: TextStyle(
-            color: Colors.grey[600],
-            fontWeight: FontWeight.w400,
-            fontSize: 14,
-          ),
-      ),
       Container(
           child: Text(
-              FlutterI18n.translate(_ctx,'wthdr_ent_code_01'),
+              FlutterI18n.translate(_ctx,'24hours_warning'),
               style: TextStyle(
                 color: Colors.grey[600],
                 fontWeight: FontWeight.w400,
@@ -82,7 +74,7 @@ Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService
           FlutterI18n.translate(_ctx, 'submit_request'),
           onPressed: () => dispatch(WithdrawActionCreator.onEnterSecurityWithdrawContinue())
       ):submitButton(
-          'Required 2FA for withdrawal',
+          FlutterI18n.translate(_ctx,'required_2FA'),
           onPressed: () => dispatch(WithdrawActionCreator.onGotoSet2FA())
       ),
     ]

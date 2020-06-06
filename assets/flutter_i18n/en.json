@@ -156,5 +156,6 @@
   "wthdr_ent_code_04": "Google Authenticator Code",
   "enable_2FA": "Enable Two Factor Authentication",
   "disable_2FA": "Disable Two Factor Authentication",
-  "24hours_warning": "Each withdrawal is subject to a security screening that can take up to 24 hours on business days."
+  "24hours_warning": "Each withdrawal is subject to a security screening that can take up to 24 hours on business days.",
+  "required_2FA": "Required 2FA for withdrawal"
 }
