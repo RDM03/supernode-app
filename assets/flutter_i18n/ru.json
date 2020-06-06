@@ -17,6 +17,7 @@
 	"admin": "Администратор устройства",
 	"current_balance": "Текущий баланс",
 	"staked_amount": "Сумма депозита",
+	"staking_revenue": "Ставка дохода",
 	"deposit": "Внести",
 	"withdraw": "Снять",
 	"stake": "Ставка",

@@ -17,6 +17,7 @@
   "admin": "Device Admin",
   "current_balance": "Current Balance",
   "staked_amount": "Staked Amount",
+  "staking_revenue": "Staking Revenue",
   "deposit": "Deposit",
   "withdraw": "Withdraw",
   "stake": "Stake",

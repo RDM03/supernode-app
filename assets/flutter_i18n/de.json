@@ -17,6 +17,7 @@
 	"admin": "Geräte-Administrator",
 	"current_balance": "Aktueller Kontostand",
 	"staked_amount": "Staking Betrag",
+	"staking_revenue":"Staking Umsatz",
 	"deposit": "Einzahlen",
 	"withdraw": "Abheben",
 	"stake": "Einsatz",

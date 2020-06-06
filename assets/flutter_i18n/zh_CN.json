@@ -17,6 +17,7 @@
 	"admin": "设备管理员",
 	"current_balance": "当前余额",
 	"staked_amount": "质押数量",
+	"staking_revenue": "质押收益",
 	"deposit": "充值",
 	"withdraw": "提取燃料",
 	"stake": "质押",
