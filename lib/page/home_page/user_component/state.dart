@@ -31,6 +31,7 @@ class UserState implements Cloneable<UserState> {
 
   //stake
   double stakedAmount = 0;
+  double totalRevenue = 0;
 
   //gateways
   int gatewaysTotal = 0;
@@ -69,6 +70,7 @@ class UserState implements Cloneable<UserState> {
       ..organizations = organizations ?? []
       ..balance = balance
       ..stakedAmount = stakedAmount
+      ..totalRevenue = totalRevenue
       ..gatewaysTotal = gatewaysTotal
       ..gatewaysRevenue = gatewaysRevenue
       ..gatewaysUSDRevenue = gatewaysUSDRevenue

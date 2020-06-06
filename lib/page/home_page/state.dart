@@ -33,7 +33,7 @@ class HomeState implements Cloneable<HomeState> {
 
   //wallet
   double balance = 0;
-  double totalStaking = 0;
+  double totalRevenue = 0;
   int walletTabIndex = 0;
   double tabHeight = 100;
   bool isSetDate1 = false;
@@ -81,7 +81,7 @@ class HomeState implements Cloneable<HomeState> {
       ..selectedOrganizationId = selectedOrganizationId
       ..superNode = superNode
       ..balance = balance
-      ..totalStaking = totalStaking
+      ..totalRevenue = totalRevenue
       ..stakedAmount = stakedAmount
       ..stakedAmount = stakedAmount
       ..gatewaysTotal = gatewaysTotal
@@ -129,6 +129,7 @@ class UserConnector extends ConnOp<HomeState, UserState> {
       ..selectedSuperNode = state.superNode
       ..balance = state.balance
       ..stakedAmount = state.stakedAmount
+      ..totalRevenue = state.totalRevenue
       ..gatewaysTotal = state.gatewaysTotal
       ..gatewaysRevenue = state.gatewaysRevenue
       ..gatewaysUSDRevenue = state.gatewaysUSDRevenue
@@ -179,7 +180,7 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
   WalletState get(HomeState state) {
     return WalletState()
       ..balance = state.balance
-      ..totalStaking = state.totalStaking
+      ..totalRevenue = state.totalRevenue
       ..organizations = state.organizations
       ..stakedAmount = state.stakedAmount
       ..isSetDate1 = state.isSetDate1
@@ -197,7 +198,7 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
   @override
   void set(HomeState state, WalletState subState) {
     state
-      ..totalStaking = subState.totalStaking
+      ..totalRevenue = subState.totalRevenue
       ..isSetDate1 = subState.isSetDate1
       ..isSetDate2 = subState.isSetDate2
       ..selectedIndexBtn1 = subState.selectedIndexBtn1

@@ -64,7 +64,7 @@ Widget buildView(WalletState state, Dispatch dispatch, ViewService viewService) 
                 ),
                 titleDetailRow(
                   name: FlutterI18n.translate(_ctx,'total_revenue'),
-                  value: Tools.priceFormat(state.totalStaking,range: 2)
+                  value: Tools.priceFormat(state.totalRevenue,range: 2)
                 ),
                 primaryButtons(
                   buttonLabel1: FlutterI18n.translate(_ctx,'stake'),

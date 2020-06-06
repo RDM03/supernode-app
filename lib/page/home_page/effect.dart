@@ -14,6 +14,7 @@ import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
+import 'package:supernodeapp/page/home_page/wallet_component/wallet_list_adapter/wallet_item_component/state.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 import 'action.dart';
@@ -121,11 +122,20 @@ void _profile(Context<HomeState> ctx) {
     ctx.dispatch(HomeActionCreator.profile(userData, organizationsData));
 
     _gateways(ctx);
+
     _gatewaysLocations(ctx);
+
+    String orgId = settingsData.selectedOrganizationId;
+
     // _devices(ctx,userData,settingsData.selectedOrganizationId);
-    _balance(ctx, userData, settingsData.selectedOrganizationId);
-    _miningIncome(ctx, userData, settingsData.selectedOrganizationId);
-    _stakeAmount(ctx, settingsData.selectedOrganizationId);
+
+    _balance(ctx, userData, orgId);
+
+    _miningIncome(ctx, userData, orgId);
+
+    _stakeAmount(ctx, orgId);
+
+    _stakingRevenue(ctx, orgId);
   }).catchError((err) {
     ctx.dispatch(HomeActionCreator.onReLogin());
   });
@@ -347,5 +357,32 @@ Future<dynamic> _convertUSD(Context<HomeState> ctx, Map data, String type) {
     }
   }).catchError((err) {
     tip(ctx.context, 'WalletDao convertUSD: $err');
+  });
+}
+
+Future<dynamic> _stakingRevenue(Context<HomeState> ctx, String orgId) {
+  StakeDao dao = StakeDao();
+
+   Map data = {
+    'orgId': orgId,
+    'offset': 0,
+    'limit': 999
+  };
+
+  dao.history(data).then((res) async {
+    log('StakeDao history', res);
+    double totleRevenue = 0;
+
+    if((res as Map).containsKey('stakingHist') && res['stakingHist'].length > 0) {
+      List items = res['stakingHist'] as List;
+      items.forEach((item){
+        WalletItemState obj = WalletItemState.fromMap(item);
+        totleRevenue += obj.revenue;
+      });
+
+      ctx.dispatch(HomeActionCreator.totalRevenue(totleRevenue));
+    }
+  }).catchError((err) {
+    tip(ctx.context, 'StakeDao history: $err');
   });
 }

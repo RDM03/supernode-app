@@ -24,7 +24,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
 
   //stake
   double stakedAmount = 0;
-  double totalStaking = 0;
+  double totalRevenue = 0;
 
   //withdraw
   double withdrawFee = 0;
@@ -59,7 +59,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
       ..selectedIndexBtn2 = selectedIndexBtn2
       ..balance = balance
       ..stakedAmount = stakedAmount
-      ..totalStaking = totalStaking
+      ..totalRevenue = totalRevenue
       ..withdrawFee = withdrawFee
       ..firstTime = firstTime
       ..secondTime = secondTime;

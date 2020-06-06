@@ -21,6 +21,7 @@ Reducer<HomeState> buildReducer() {
       HomeAction.updateUsername: _updateUsername,
       HomeAction.convertUSD: _convertUSD,
       HomeAction.location: _location,
+      HomeAction.totalRevenue: _totalRevenue,
     },
   );
 }
@@ -133,4 +134,12 @@ HomeState _location(HomeState state, Action action) {
 
   final HomeState newState = state.clone();
   return newState..location = loc;
+}
+
+HomeState _totalRevenue(HomeState state, Action action) {
+  double data = action.payload;
+
+  final HomeState newState = state.clone();
+  return newState
+    ..totalRevenue = data;
 }

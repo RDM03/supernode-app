@@ -22,6 +22,7 @@ enum HomeAction {
   miningIncome,
   convertUSD,
   location,
+  totalRevenue,
 }
 
 class HomeActionCreator {
@@ -95,5 +96,9 @@ class HomeActionCreator {
 
   static Action onLocation(LatLng location){
     return Action(HomeAction.location, payload: location);
+  }
+
+  static Action totalRevenue(double data){
+    return Action(HomeAction.totalRevenue, payload: data);
   }
 }

@@ -134,7 +134,7 @@ WalletState _updateList(WalletState state, Action action) {
   final WalletState newState = state.clone();
 
   return newState 
-    ..totalStaking = totalRevenue
+    ..totalRevenue = totalRevenue
     ..list = list;
 }
 

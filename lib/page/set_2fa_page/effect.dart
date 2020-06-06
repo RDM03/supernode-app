@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
@@ -100,7 +101,9 @@ void _onGetTOTPConfig(Action action, Context<Set2FAState> ctx) {
 
   UserDao dao = UserDao();
 
+  showLoading(ctx.context);
   dao.getTOTPConfig(data).then((res){
+    hideLoading(ctx.context);
     log('changePassword',res);
 
     ctx.dispatch(Set2FAActionCreator.getTOTPConfig({"url": res['url'],"secret": res['secret'], "recoveryCode": res['recoveryCode'], "title":res['title'], "qrCode": res['qrCode']}));
@@ -115,6 +118,7 @@ void _onGetTOTPConfig(Action action, Context<Set2FAState> ctx) {
       ),
     );
   }).catchError((err){
+    hideLoading(ctx.context);
     tip(ctx.context,'UserDao getTOTPConfig: $err');
   });
 }
@@ -136,16 +140,22 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx){
   Map data = {
     "otp_code": codes.join()
   };
+
+  showLoading(ctx.context);
   dao.setEnable(data).then((res){
+    hideLoading(ctx.context);
     log('setEnable status',res);
     ctx.dispatch(Set2FAActionCreator.isEnabled(true));
   }).then((res){
+    hideLoading(ctx.context);
     log('login saf',res);
     UserDao dao = UserDao();
 
     Map data = {};
 
+    showLoading(ctx.context);
     dao.getTOTPStatus(data).then((res){
+      hideLoading(ctx.context);
       log('totp',res);
       SettingsState settingsData = GlobalStore.store.getState().settings;
 
@@ -168,9 +178,11 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx){
         ),
       );
     }).catchError((err){
+      hideLoading(ctx.context);
       tip(ctx.context,'$err');
     });
   })..catchError((err){
+    hideLoading(ctx.context);
     tip(ctx.context,'Setting setEnable: $err');
   });
 }
@@ -193,20 +205,25 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx){
     "otp_code": codes
   };
 
+  showLoading(ctx.context);
   dao.setDisable(data).then((res){
+    hideLoading(ctx.context);
     log('setDisable status',res);
 
     settingsData.is2FAEnabled = false;
     GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
 
   }).then((res){
+    hideLoading(ctx.context);
     print(res);
     log('get 2fa status ',res);
     UserDao dao = UserDao();
 
     Map data = {};
 
+    showLoading(ctx.context);
     dao.getTOTPStatus(data).then((res){
+      hideLoading(ctx.context);
       log('totp',res);
       SettingsState settingsData = GlobalStore.store.getState().settings;
 
@@ -224,9 +241,11 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx){
         return count++ == 2;
       });
     }).catchError((err){
+      hideLoading(ctx.context);
       tip(ctx.context,'$err');
     });
   })..catchError((err){
+    hideLoading(ctx.context);
     tip(ctx.context,'Setting setDisable: $err');
   });
 }
