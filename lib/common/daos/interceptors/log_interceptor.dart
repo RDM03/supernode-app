@@ -32,7 +32,7 @@ class LogsInterceptors extends InterceptorsWrapper {
       addLogic(sRequestHttpUrl, options.path ?? "");
       var data = options.data ?? Map<String, dynamic>();
       var map = {
-        "header:": {...options.headers},
+        "header:": options.headers,
       };
       if (options.method == "POST") {
         map["data"] = data;
