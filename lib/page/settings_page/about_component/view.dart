@@ -48,7 +48,7 @@ Widget buildView(AboutState state, Dispatch dispatch, ViewService viewService) {
             onTap: () {},
             trailing: Container(
               padding: kInnerRowRight10,
-              child: Text('v1.0.5', style: kMiddleFontOfGrey),
+              child: Text('v1.2.0', style: kMiddleFontOfGrey),
             ),
           ),
           Divider(),
