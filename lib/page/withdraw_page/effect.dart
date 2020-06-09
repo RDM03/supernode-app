@@ -120,7 +120,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
             "amount": int.parse(amount),
             "ethAddress": address,
             "availableBalance": balance,
-            "otp_code": codes
+            "otp_code": codes.join('')
           };
     showLoading(ctx.context);
     dao.withdraw(data).then((res){
