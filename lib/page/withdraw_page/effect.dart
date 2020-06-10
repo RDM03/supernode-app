@@ -31,20 +31,19 @@ void _initState(Action action, Context<WithdrawState> ctx) {
   _requestTOTPStatus(ctx);
 }
 
-void _requestTOTPStatus(Context<WithdrawState> ctx){
- UserDao dao = UserDao();
+void _requestTOTPStatus(Context<WithdrawState> ctx) {
+  UserDao dao = UserDao();
 
   Map data = {};
 
-  dao.getTOTPStatus(data).then((res){
-    log('totp',res);
+  dao.getTOTPStatus(data).then((res) {
+    log('totp', res);
 
-    if((res as Map).containsKey('enabled')){
+    if ((res as Map).containsKey('enabled')) {
       ctx.dispatch(WithdrawActionCreator.isEnabled(res['enabled']));
     }
-
-  }).catchError((err){
-    tip(ctx.context,'$err');
+  }).catchError((err) {
+    tip(ctx.context, '$err');
   });
 }
 
@@ -72,22 +71,22 @@ void _onQrScan(Action action, Context<WithdrawState> ctx) async {
   ctx.dispatch(WithdrawActionCreator.address(qrResult));
 }
 
-void _onEnterSecurityWithdrawContinue(Action action, Context<WithdrawState> ctx) async{
+void _onEnterSecurityWithdrawContinue(Action action, Context<WithdrawState> ctx) async {
   //showLoading(ctx.context);
 
-  Navigator.push(ctx.context,
+  Navigator.push(
+    ctx.context,
     MaterialPageRoute(
         maintainState: false,
         fullscreenDialog: false,
-        builder:(context){
+        builder: (context) {
           return ctx.buildComponent('enterSecurityCodeWithdraw');
-        }
-    ),
+        }),
   );
 }
 
-void _onGotoSet2FA(Action action, Context<WithdrawState> ctx) async{
-  Navigator.pushNamed(ctx.context, 'set_2fa_page',arguments:{'isEnabled': false}).then((_){
+void _onGotoSet2FA(Action action, Context<WithdrawState> ctx) async {
+  Navigator.pushNamed(ctx.context, 'set_2fa_page', arguments: {'isEnabled': false}).then((_) {
     _requestTOTPStatus(ctx);
   });
   //Navigator.of(viewService.context).pushNamed('set_2fa_page', arguments:{'isEnabled': false})
@@ -102,47 +101,44 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
 
   List<String> codes = curState.listCtls.map((code) => code.text).toList();
-  if((curState.formKey.currentState as FormState).validate()){
-    if(address.trim().isEmpty){
+  if ((curState.formKey.currentState as FormState).validate()) {
+    if (address.trim().isEmpty) {
       tip(ctx.context, 'The field of "To" is required.');
       return;
     }
 
-    final canCheckBiometrics = await Biometrics.canCheckBiometrics();
+    Biometrics.authenticate(
+      ctx.context,
+      authenticateCallback: () {
+        WithdrawDao dao = WithdrawDao();
+        Map data = {
+          "orgId": orgId,
+          "amount": int.parse(amount),
+          "ethAddress": address,
+          "availableBalance": balance,
+          "otp_code": codes.join('')
+        };
+        showLoading(ctx.context);
+        dao.withdraw(data).then((res) {
+          hideLoading(ctx.context);
+          log('withdraw', res);
 
-    if (canCheckBiometrics) {
-      Biometrics.authenticate(
-        ctx.context,
-        authenticateCallback: () {
-          WithdrawDao dao = WithdrawDao();
-          Map data = {
-            "orgId": orgId,
-            "amount": int.parse(amount),
-            "ethAddress": address,
-            "availableBalance": balance,
-            "otp_code": codes.join('')
-          };
-    showLoading(ctx.context);
-    dao.withdraw(data).then((res){
-      hideLoading(ctx.context);
-      log('withdraw',res);
-
-      if(res.containsKey('status') && res['status']){
-        Navigator.pushNamed(ctx.context, 'confirm_page',arguments:{'title': 'withdraw','content': 'withdraw_submit_tip'});
-        _updateBalance(ctx);
-        ctx.dispatch(WithdrawActionCreator.status(true));
-      }else{
-        ctx.dispatch(WithdrawActionCreator.status(false));
-        tip(ctx.context,res);
-      }
-    }).catchError((err){
-      hideLoading(ctx.context);
-      ctx.dispatch(WithdrawActionCreator.status(false));
-      tip(ctx.context,'WithdrawDao withdraw: $err');
-    });},
-        failAuthenticateCallBack: null,
-      );
-    }
+          if (res.containsKey('status') && res['status']) {
+            Navigator.pushNamed(ctx.context, 'confirm_page',
+                arguments: {'title': 'withdraw', 'content': 'withdraw_submit_tip'});
+            _updateBalance(ctx);
+            ctx.dispatch(WithdrawActionCreator.status(true));
+          } else {
+            ctx.dispatch(WithdrawActionCreator.status(false));
+            tip(ctx.context, res);
+          }
+        }).catchError((err) {
+          hideLoading(ctx.context);
+          ctx.dispatch(WithdrawActionCreator.status(false));
+          tip(ctx.context, 'WithdrawDao withdraw: $err');
+        });
+      },
+    );
   }
 }
 
