@@ -18,6 +18,7 @@ class UserState implements Cloneable<UserState> {
   String username = '';
   String password = '';
   String token = '';
+  bool loading = true;
   bool isObscureText = true;
   bool isAdmin = false;
   bool isActive = false;
@@ -55,6 +56,7 @@ class UserState implements Cloneable<UserState> {
   UserState clone() {
     return UserState()
       ..formKey = formKey
+      ..loading = loading
       ..usernameCtl = usernameCtl
       ..passwordCtl = passwordCtl
       ..isObscureText = isObscureText

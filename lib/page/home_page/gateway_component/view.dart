@@ -1,8 +1,10 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:supernodeapp/common/components/app_bars/home_bar.dart';
 import 'package:supernodeapp/common/components/empty.dart';
+import 'package:supernodeapp/common/components/loading_list.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
@@ -32,6 +34,7 @@ Widget buildView(GatewayState state, Dispatch dispatch, ViewService viewService)
         children: [
           panelFrame(
             child: panelBody(
+              loading: state.loading,
               icon: Icons.add_circle,
               onPressed: () => dispatch(GatewayActionCreator.onAdd()),
               titleText: FlutterI18n.translate(_ctx,'total_gateways'),
@@ -41,14 +44,15 @@ Widget buildView(GatewayState state, Dispatch dispatch, ViewService viewService)
             )
           ),
           panelFrame(
-            child: adapter.itemCount != 0 ? 
-            ListView.builder(
-              itemBuilder: adapter.itemBuilder,
-              itemCount: adapter.itemCount,
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-            ) :
-            empty(_ctx)
+            child: state.loading ? LoadingList() : (
+              adapter.itemCount != 0 ? 
+              ListView.builder(
+                itemBuilder: adapter.itemBuilder,
+                itemCount: adapter.itemCount,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+              ) : empty(_ctx)
+            )
           )
         ]
       )

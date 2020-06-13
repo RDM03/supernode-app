@@ -59,11 +59,11 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                       : '',
                 ),
                 rowRight(FlutterI18n.translate(_ctx, 'current_balance'), style: kSmallFontOfGrey),
-                rowRight('${Tools.priceFormat(state.balance)} MXC', style: kBigFontOfBlack),
+                rowRight('${Tools.priceFormat(state.balance)} MXC', style: kBigFontOfBlack, loading: state.loading),
                 rowRight(FlutterI18n.translate(_ctx, 'staked_amount'), style: kSmallFontOfGrey),
-                rowRight('${Tools.priceFormat(state.stakedAmount)} MXC', style: kBigFontOfBlack),
+                rowRight('${Tools.priceFormat(state.stakedAmount)} MXC', style: kBigFontOfBlack, loading: state.loading),
                 rowRight(FlutterI18n.translate(_ctx, 'staking_revenue'), style: kSmallFontOfGrey),
-                rowRight('${Tools.priceFormat(state.totalRevenue,range: 2)} MXC', style: kBigFontOfBlack),
+                rowRight('${Tools.priceFormat(state.totalRevenue,range: 2)} MXC', style: kBigFontOfBlack, loading: state.loading),
                 Container(
                   margin: kRoundRow5,
                   child: Row(
@@ -92,6 +92,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
           ),
           panelFrame(
             child: summaryRow(
+              loading: state.loading,
               image: AppImages.gateways,
               title: FlutterI18n.translate(_ctx, 'total_gateways'),
               number: '${state.gatewaysTotal}',
@@ -102,6 +103,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
           ),
           panelFrame(
             child: summaryRow(
+              loading: state.loading,
               image: AppImages.devices,
               title: FlutterI18n.translate(_ctx, 'total_devices'),
               number: '${state.devicesTotal}',

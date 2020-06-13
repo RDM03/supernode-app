@@ -26,7 +26,7 @@ Widget listItem({BuildContext context,String type = '',String datetime,String se
               visible: !type?.contains('SEARCH') && !type?.contains('STAKE') && !type?.contains('UNSTAKE'),
               child: Expanded(
                 child: Text(
-                  '(${FlutterI18n.translate(context,type)})',
+                  '(${FlutterI18n.translate(context,type.toLowerCase())})',
                   overflow: TextOverflow.ellipsis,
                   style: type?.contains('DEPOSIT') ? kSmallFontOfGreen : kSmallFontOfRed
                 ),
@@ -150,8 +150,8 @@ Widget listItem({BuildContext context,String type = '',String datetime,String se
                   ),
                   Spacer(),
                   Text(
-                      "${FlutterI18n.translate(context,status.toLowerCase())}",
-                    style: status != null && status.toLowerCase()?.contains('success') ? kMiddleFontOfGreen :
+                    "${FlutterI18n.translate(context,status.toLowerCase())}",
+                    style: status != null && status.toLowerCase().contains(RegExp('${FlutterI18n.translate(context,"success")}|success')) ? kMiddleFontOfGreen :
                     kMiddleFontOfRed
                   ),
                 ],

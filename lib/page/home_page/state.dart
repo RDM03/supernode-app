@@ -1,4 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong/latlong.dart';
@@ -32,6 +33,8 @@ class HomeState implements Cloneable<HomeState> {
   String selectedOrganizationId = '';
 
   //wallet
+  bool loadingHistory = true;
+  TabController tabController;
   double balance = 0;
   double totalRevenue = 0;
   int walletTabIndex = 0;
@@ -70,8 +73,10 @@ class HomeState implements Cloneable<HomeState> {
   @override
   HomeState clone() {
     return HomeState()
+      ..tabController = tabController
       ..tabIndex = tabIndex
       ..loading = loading
+      ..loadingHistory = loadingHistory
       ..userId = userId
       ..username = username
       ..email = email
@@ -121,6 +126,7 @@ class UserConnector extends ConnOp<HomeState, UserState> {
   @override
   UserState get(HomeState state) {
     return UserState()
+      ..loading = state.loading
       ..id = state.userId
       ..username = state.username
       ..isAdmin = state.isAdmin
@@ -153,6 +159,7 @@ class GatewayConnector extends ConnOp<HomeState, GatewayState> {
   @override
   GatewayState get(HomeState state) {
     return GatewayState()
+      ..loading = state.loading
       ..gatewaysTotal = state.gatewaysTotal
       ..gatewaysRevenue = state.gatewaysRevenue
       ..gatewaysUSDRevenue = state.gatewaysUSDRevenue
@@ -179,6 +186,9 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
   @override
   WalletState get(HomeState state) {
     return WalletState()
+      ..loading = state.loading
+      ..loadingHistory = state.loadingHistory
+      ..tabController = state.tabController
       ..balance = state.balance
       ..totalRevenue = state.totalRevenue
       ..organizations = state.organizations
@@ -198,6 +208,8 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
   @override
   void set(HomeState state, WalletState subState) {
     state
+      ..loadingHistory = subState.loadingHistory
+      ..tabController = subState.tabController
       ..totalRevenue = subState.totalRevenue
       ..isSetDate1 = subState.isSetDate1
       ..isSetDate2 = subState.isSetDate2

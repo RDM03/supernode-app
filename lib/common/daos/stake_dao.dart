@@ -12,10 +12,10 @@ class StakeApi {
 
 class StakeDao extends Dao{
   //remote
-  Future<dynamic> amount(String orgId){
-    return get(
+  Stream<dynamic> amount(String orgId){
+    return Stream.fromFuture(get(
       url: Api.url(StakeApi.amount,orgId),
-    ).then((res) => res);
+    ));
   }
 
   Future<dynamic> stake(Map data){
@@ -32,11 +32,11 @@ class StakeDao extends Dao{
     ).then((res) => res);
   }
 
-  Future<dynamic> history(Map data){
-    return get(
+  Stream<dynamic> history(Map data){
+    return Stream.fromFuture(get(
       url: Api.url(StakeApi.history,data['orgId']),
       data: data
-    ).then((res) => !isMock ? res : Mock.stakeHistory);
+    ));
   }
 
   Future<dynamic> activestakes(Map data){

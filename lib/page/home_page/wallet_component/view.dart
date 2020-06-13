@@ -1,9 +1,11 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/app_bars/home_bar.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/empty.dart';
+import 'package:supernodeapp/common/components/loading_list.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/wallet/date_buttons.dart';
@@ -36,6 +38,7 @@ Widget buildView(WalletState state, Dispatch dispatch, ViewService viewService) 
       children: [
         tabButtons(
           context: _ctx,
+          tabController: state.tabController,
           list: tabList,
           height: state.tabHeight,
           onTap: (tabIndex) => dispatch(WalletActionCreator.onTab(tabIndex)),
@@ -44,6 +47,7 @@ Widget buildView(WalletState state, Dispatch dispatch, ViewService viewService) 
               children:[
                 middleColumnSpacer(),
                 titleDetailRow(
+                  loading: state.loading,
                   name: FlutterI18n.translate(_ctx,'current_balance'),
                   value: Tools.priceFormat(state.balance)
                 ),
@@ -59,10 +63,12 @@ Widget buildView(WalletState state, Dispatch dispatch, ViewService viewService) 
               children:[
                 smallColumnSpacer(),
                 titleDetailRow(
+                  loading: state.loading,
                   name: FlutterI18n.translate(_ctx,'staked_amount'),
                   value: Tools.priceFormat(state.stakedAmount)
                 ),
                 titleDetailRow(
+                  loading: state.loading,
                   name: FlutterI18n.translate(_ctx,'total_revenue'),
                   value: Tools.priceFormat(state.totalRevenue,range: 2)
                 ),
@@ -118,15 +124,13 @@ Widget buildView(WalletState state, Dispatch dispatch, ViewService viewService) 
         ),
         panelFrame(
           rowTop: EdgeInsets.zero,
-          child: adapter.itemCount != 0 ? 
-          ListView.builder(
+          child: state.loadingHistory ? LoadingList() :
+          ( adapter.itemCount != 0 ? ListView.builder(
             itemBuilder: adapter.itemBuilder,
             itemCount: adapter.itemCount,
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-          )
-              :
-          empty(_ctx)
+          ) : empty(_ctx) )
         )
       ]
     )

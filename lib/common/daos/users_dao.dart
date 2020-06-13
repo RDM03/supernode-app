@@ -65,10 +65,10 @@ class UserDao extends Dao{
     // .catchError((err) => !isMock ? err : Mock.login);
   }
 
-  Future<dynamic> profile(){
-    return get(
+  Stream<dynamic> profile(){
+    return Stream.fromFuture(get(
       url: UserApi.profile,
-    ).then((res) => res);
+    ));
   }
 
   Future<dynamic> update(Map data){

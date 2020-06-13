@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
-Widget tabButtons({BuildContext context,List list,double height = 90,List<Widget> children,Function(int) onTap}){
+Widget tabButtons({BuildContext context,TabController tabController,List list,double height = 90,List<Widget> children,Function(int) onTap}){
+
   return DefaultTabController(
     length: list.length,
     child: Column(
       children: [
         TabBar(
+          controller: tabController,
           indicatorPadding: EdgeInsets.zero,
           indicatorColor: buttonPrimaryColor,
           labelColor: Colors.black,
@@ -51,6 +53,7 @@ Widget tabButtons({BuildContext context,List list,double height = 90,List<Widget
           child: OverflowBox(
             maxHeight: 140,
             child: TabBarView(
+              controller: tabController,
               children: children
             )
           ),

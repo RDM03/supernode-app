@@ -1,14 +1,22 @@
 import 'package:fish_redux/fish_redux.dart';
 
-enum WalletAction { tab, onTab, isSetDate, onFilter, updateSelectedButton, updateList, withdrawFee, firstTime, secondTime }
+enum WalletAction { loadingHistory, tab, onTab, tabController, isSetDate, onFilter, updateSelectedButton, updateList, withdrawFee, firstTime, secondTime }
 
 class WalletActionCreator {
+  static Action loadingHistory(bool toogle) {
+    return Action(WalletAction.loadingHistory,payload: toogle);
+  }
+
   static Action onTab(int index) {
     return Action(WalletAction.onTab,payload: index);
   }
 
   static Action tab(int index) {
     return Action(WalletAction.tab,payload: index);
+  }
+
+  static Action tabController(dynamic controller) {
+    return Action(WalletAction.tabController,payload: controller);
   }
 
   static Action isSetDate() {

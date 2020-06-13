@@ -29,13 +29,13 @@ void _initState(Action action, Context<DepositState> ctx) {
     "orgId": orgId
   };
 
-  dao.account(data).then((res) {
+  dao.account(data).listen((res) {
     log('account',res);
     
     if((res as Map).containsKey('activeAccount')){
       ctx.dispatch(DepositActionCreator.address(res['activeAccount']));
     }
-  }).catchError((err){
+  }).onError((err){
     tip(ctx.context,'TopupDao account: $err');
   });
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
-Widget titleDetailRow({String name = '',dynamic value}){
+Widget titleDetailRow({String name = '',dynamic value,bool loading = false}){
   return Container(
     padding: kRoundRow205,
     child: Row(
@@ -13,7 +15,13 @@ Widget titleDetailRow({String name = '',dynamic value}){
           style: kSmallFontOfGrey,
         ),
         Spacer(),
-        Text(
+        loading ? loadingFlash(
+          child: Text(
+            '${value} MXC',
+            textAlign: TextAlign.left,
+            style: kBigFontOfBlack,
+          )
+        ) : Text(
           '${value} MXC',
           textAlign: TextAlign.left,
           style: kBigFontOfBlack,

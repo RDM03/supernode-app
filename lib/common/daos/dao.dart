@@ -20,7 +20,6 @@ class Dao{
     dio.options.baseUrl = inProduction ? baseUrl : Sys.testBaseUrl; // Sys.buildBaseUrl
     dio.interceptors.add(TokenInterceptors());
     dio.interceptors.add(LogsInterceptors());
-
   }
 
   Future<dynamic> post({String url,dynamic data}) async{

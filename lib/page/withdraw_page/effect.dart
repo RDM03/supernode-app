@@ -150,12 +150,12 @@ void _updateBalance(Context<WithdrawState> ctx) {
 
   Map data = {'userId': userId, 'orgId': orgId};
 
-  dao.balance(data).then((res) {
+  dao.balance(data).listen((res) {
     log('balance', res);
 
     double balance = Tools.convertDouble(res['balance']);
     ctx.dispatch(WithdrawActionCreator.balance(balance));
-  }).catchError((err) {
+  }).onError((err) {
     tip(ctx.context, 'WalletDao balance: $err');
   });
 }
