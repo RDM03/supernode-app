@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong/latlong.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/location_utils.dart';
+import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/configs/config.dart';
 import 'package:supernodeapp/common/configs/images.dart';
@@ -81,11 +81,9 @@ void _initState(Action action, Context<HomeState> ctx) {
 Future<void> _getUserLocation(Context<HomeState> ctx) async {
   await LocationUtils.getLocation();
   if (LocationUtils.locationData != null) {
-    ctx.dispatch(
-      HomeActionCreator.onLocation(
-        LatLng(LocationUtils.locationData.latitude, LocationUtils.locationData.longitude),
-      ),
-    );
+    ctx.dispatch(HomeActionCreator.onLocation(LatLng(
+        LocationUtils.locationData.latitude,
+        LocationUtils.locationData.longitude)));
   }
 }
 
@@ -107,14 +105,16 @@ void _profile(Context<HomeState> ctx) {
 
     List<OrganizationsState> organizationsData = [];
     for (int index = 0; index < res['organizations'].length; index++) {
-      organizationsData.add(OrganizationsState.fromMap(res['organizations'][index]));
+      organizationsData
+          .add(OrganizationsState.fromMap(res['organizations'][index]));
     }
 
     SettingsState settingsData = GlobalStore.store.getState().settings;
     settingsData.userId = userData.id;
     settingsData.organizations = organizationsData;
     if (settingsData.selectedOrganizationId.isEmpty) {
-      settingsData.selectedOrganizationId = organizationsData.first.organizationID;
+      settingsData.selectedOrganizationId =
+          organizationsData.first.organizationID;
     }
 
     SettingsDao.updateLocal(settingsData);
@@ -127,7 +127,7 @@ void _profile(Context<HomeState> ctx) {
     _miningIncome(ctx, userData, orgId);
     _stakeAmount(ctx, orgId);
     _stakingRevenue(ctx, orgId);
-    
+
     //Request gateways' amount and location
     _gateways(ctx);
     _gatewaysLocations(ctx);
@@ -226,7 +226,8 @@ void _gateways(Context<HomeState> ctx) {
     if (tempList.length > 0) {
       for (int index = 0; index < tempList.length; index++) {
         // allValues += tempList[index]['location']['accuracy'];
-        Iterable<Match> matches = reg.allMatches(tempList[index]['description']);
+        Iterable<Match> matches =
+            reg.allMatches(tempList[index]['description']);
         String description = '';
         for (Match m in matches) {
           description = m.group(0);
@@ -251,12 +252,12 @@ void _gatewaysLocations(Context<HomeState> ctx) {
     log('GatewaysDao locations', res);
 
     if (res['result'].length > 0) {
-      List<Marker> locations = [];
+      List<MapMarker> locations = [];
       for (int index = 0; index < res['result'].length; index++) {
         var location = res['result'][index]['location'];
-        var marker = Marker(
+        var marker = MapMarker(
           point: Tools.convertLatLng(location),
-          builder: (ctx) => Image.asset(AppImages.gateways),
+          image: AppImages.gateways,
         );
 
         locations.add(marker);
@@ -306,8 +307,11 @@ void _onOperate(Action action, Context<HomeState> ctx) {
     page = 'stake_page';
   }
 
-  Navigator.pushNamed(ctx.context, page,
-      arguments: {'balance': balance, 'organizations': organizations, 'type': act}).then((res) {
+  Navigator.pushNamed(ctx.context, page, arguments: {
+    'balance': balance,
+    'organizations': organizations,
+    'type': act
+  }).then((res) {
     if ((page == 'stake_page' || page == 'withdraw_page') && res) {
       _profile(ctx);
     }
@@ -365,19 +369,16 @@ void _convertUSD(Context<HomeState> ctx, Map data, String type) {
 void _stakingRevenue(Context<HomeState> ctx, String orgId) {
   StakeDao dao = StakeDao();
 
-   Map data = {
-    'orgId': orgId,
-    'offset': 0,
-    'limit': 999
-  };
+  Map data = {'orgId': orgId, 'offset': 0, 'limit': 999};
 
   dao.history(data).listen((res) async {
     log('StakeDao history', res);
     double totleRevenue = 0;
 
-    if((res as Map).containsKey('stakingHist') && res['stakingHist'].length > 0) {
+    if ((res as Map).containsKey('stakingHist') &&
+        res['stakingHist'].length > 0) {
       List items = res['stakingHist'] as List;
-      items.forEach((item){
+      items.forEach((item) {
         WalletItemState obj = WalletItemState.fromMap(item);
         totleRevenue += obj.revenue;
       });

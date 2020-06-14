@@ -1,12 +1,11 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map/plugin_api.dart';
-import 'package:latlong/latlong.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:supernodeapp/common/components/map_box.dart';
 
 class mapboxState implements Cloneable<mapboxState> {
-  List<Marker> gatewaysLocations;
+  List<MapMarker> gatewaysLocations;
   LatLng myLocation;
-  MapController mapCtl = MapController();
+  MapboxMapController mapCtl;
 
   @override
   mapboxState clone() {

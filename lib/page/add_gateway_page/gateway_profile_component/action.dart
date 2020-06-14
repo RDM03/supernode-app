@@ -1,7 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter_map/plugin_api.dart';
-// import 'package:mapbox_gl/mapbox_gl.dart';
-import 'package:latlong/latlong.dart';
+ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/page/home_page/gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
 
 enum GatewayProfileAction { initState,onNetworkServerPicker, onGatewayProfilePicker, selectIdType, updateItem, onSetLocation, update, onNetworkServerList, networkServerList, gatewayProfileList,networkServerId, gatewayProfileId, discoveryEnabled, addLocation}

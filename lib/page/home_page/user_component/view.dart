@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
-import 'package:supernodeapp/common/components/map.dart';
+import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/profile.dart';
@@ -112,12 +112,11 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                   '${Tools.priceFormat(state.devicesRevenue)} MXC (${Tools.priceFormat(state.devicesUSDRevenue)} USD)',
             ),
           ),
-          MapWidget(
-            context: _ctx,
+          MapBoxWidget(
+            // TODO: controller reducer
+            onMapCreated: (ctl) => {},
             userLocationSwitch: true,
             markers: state.gatewaysLocations ?? [],
-            controller: state.mapCtl,
-            callback: (location) => dispatch(UserActionCreator.addLocation(location)),
             zoomOutCallback: () => dispatch(HomeActionCreator.mapbox()),
             myLatLng: state.location,
           ),

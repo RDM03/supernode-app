@@ -1,7 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong/latlong.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 // import 'package:mapbox_gl/mapbox_gl.dart';
 
 class GatewayProfileState implements Cloneable<GatewayProfileState> {
@@ -15,7 +14,7 @@ class GatewayProfileState implements Cloneable<GatewayProfileState> {
 
   //map
   GlobalKey formKey = GlobalKey<FormState>();
-  MapController mapCtl = MapController();
+  MapboxMapController mapCtl;
   bool isSelectIdType = true;
   // LatLng gatewayPosition;
 

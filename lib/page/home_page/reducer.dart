@@ -1,7 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
-import 'package:latlong/latlong.dart';
 import 'action.dart';
 import 'state.dart';
 import 'user_component/state.dart';

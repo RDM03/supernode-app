@@ -1,8 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map/plugin_api.dart';
-import 'package:latlong/latlong.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
@@ -55,10 +54,10 @@ class HomeState implements Cloneable<HomeState> {
   int gatewaysTotal = 0;
   double gatewaysRevenue = 0;
   double gatewaysUSDRevenue = 0;
-  List<Marker> gatewaysLocations = [];
+  List<MapMarker> gatewaysLocations = [];
 
   //map
-  MapController mapCtl = MapController();
+  MapboxMapController mapCtl;
   List<GatewayItemState> gatewaysList = [];
   LatLng location;
 
