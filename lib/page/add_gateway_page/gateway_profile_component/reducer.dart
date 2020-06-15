@@ -17,7 +17,7 @@ Reducer<GatewayProfileState> buildReducer() {
       GatewayProfileAction.gatewayProfileId: _gatewayProfileId,
       GatewayProfileAction.discoveryEnabled: _discoveryEnabled,
       GatewayProfileAction.addLocation: _addLocation,
-      
+      GatewayProfileAction.addMapController: _addMapController,
     },
   );
 }
@@ -102,5 +102,9 @@ GatewayProfileState _addLocation(GatewayProfileState state, Action action) {
     return newState
       ..markerPoint = location;
   }
-  
+}
+GatewayProfileState _addMapController(GatewayProfileState state, Action action) {
+  var newState = state.clone();
+  newState.mapCtl = action.payload;
+  return newState;
 }

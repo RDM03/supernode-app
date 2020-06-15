@@ -3,23 +3,23 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'action.dart';
 import 'state.dart';
 
-Reducer<mapboxState> buildReducer() {
+Reducer<MapBoxState> buildReducer() {
   return asReducer(
-    <Object, Reducer<mapboxState>>{
-      mapboxAction.action: _onAction,
-      mapboxAction.location: _onLocation,
+    <Object, Reducer<MapBoxState>>{
+      MapBoxAction.addLocation: _addLocation,
+      MapBoxAction.addMapController: _addMapController,
     },
   );
 }
 
-mapboxState _onAction(mapboxState state, Action action) {
-  final mapboxState newState = state.clone();
-  return newState;
-}
-
-mapboxState _onLocation(mapboxState state, Action action) {
+MapBoxState _addLocation(MapBoxState state, Action action) {
   LatLng loc = action.payload;
 
-  final mapboxState newState = state.clone();
+  final MapBoxState newState = state.clone();
   return newState..myLocation = loc;
+}
+
+MapBoxState _addMapController(MapBoxState state, Action action) {
+  final MapBoxState newState = state.clone();
+  return newState..mapCtl = action.payload;
 }

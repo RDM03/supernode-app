@@ -2,8 +2,6 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/widgets.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
-// import 'package:mapbox_gl/mapbox_gl.dart';
-// import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/select_picker.dart';
 import 'package:supernodeapp/common/components/tip.dart';

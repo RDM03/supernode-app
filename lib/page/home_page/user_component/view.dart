@@ -11,7 +11,9 @@ import 'package:supernodeapp/common/components/row_right.dart';
 import 'package:supernodeapp/common/components/summary_row.dart';
 import 'package:supernodeapp/common/configs/images.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/page/add_gateway_page/gateway_profile_component/action.dart';
 import 'package:supernodeapp/page/home_page/action.dart';
+import 'package:supernodeapp/page/home_page/user_component/component.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
@@ -113,8 +115,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
             ),
           ),
           MapBoxWidget(
-            // TODO: controller reducer
-            onMapCreated: (ctl) => {},
+            onMapCreated: (ctl) => dispatch(UserActionCreator.addMapController(ctl)),
             userLocationSwitch: true,
             markers: state.gatewaysLocations ?? [],
             zoomOutCallback: () => dispatch(HomeActionCreator.mapbox()),

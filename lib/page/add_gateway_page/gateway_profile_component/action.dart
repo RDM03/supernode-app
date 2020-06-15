@@ -1,8 +1,24 @@
 import 'package:fish_redux/fish_redux.dart';
- import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/page/home_page/gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
 
-enum GatewayProfileAction { initState,onNetworkServerPicker, onGatewayProfilePicker, selectIdType, updateItem, onSetLocation, update, onNetworkServerList, networkServerList, gatewayProfileList,networkServerId, gatewayProfileId, discoveryEnabled, addLocation}
+enum GatewayProfileAction {
+  initState,
+  onNetworkServerPicker,
+  onGatewayProfilePicker,
+  selectIdType,
+  updateItem,
+  onSetLocation,
+  update,
+  onNetworkServerList,
+  networkServerList,
+  gatewayProfileList,
+  networkServerId,
+  gatewayProfileId,
+  discoveryEnabled,
+  addLocation,
+  addMapController,
+}
 
 class GatewayProfileActionCreator {
   static Action initState() {
@@ -17,12 +33,12 @@ class GatewayProfileActionCreator {
     return const Action(GatewayProfileAction.onGatewayProfilePicker);
   }
 
-  static Action networkServerId(String id,String value) {
-    return Action(GatewayProfileAction.networkServerId,payload: {'id': id,'value': value});
+  static Action networkServerId(String id, String value) {
+    return Action(GatewayProfileAction.networkServerId, payload: {'id': id, 'value': value});
   }
 
-  static Action gatewayProfileId(String id,String value) {
-    return Action(GatewayProfileAction.gatewayProfileId,payload: {'id': id,'value': value});
+  static Action gatewayProfileId(String id, String value) {
+    return Action(GatewayProfileAction.gatewayProfileId, payload: {'id': id, 'value': value});
   }
 
   static Action selectIdType() {
@@ -30,7 +46,7 @@ class GatewayProfileActionCreator {
   }
 
   static Action updateItem(GatewayItemState data) {
-    return Action(GatewayProfileAction.updateItem,payload: data);
+    return Action(GatewayProfileAction.updateItem, payload: data);
   }
 
   static Action update() {
@@ -42,18 +58,22 @@ class GatewayProfileActionCreator {
   }
 
   static Action networkServerList(List data) {
-    return Action(GatewayProfileAction.networkServerList,payload: data);
+    return Action(GatewayProfileAction.networkServerList, payload: data);
   }
 
   static Action gatewayProfileList(List data) {
-    return Action(GatewayProfileAction.gatewayProfileList,payload: data);
+    return Action(GatewayProfileAction.gatewayProfileList, payload: data);
   }
 
   static Action discoveryEnabled() {
     return const Action(GatewayProfileAction.discoveryEnabled);
   }
 
-  static Action addLocation({LatLng location,String type = 'user'}) {
-    return Action(GatewayProfileAction.addLocation,payload: {'location': location, 'type': type});
+  static Action addLocation({LatLng location, String type = 'user'}) {
+    return Action(GatewayProfileAction.addLocation, payload: {'location': location, 'type': type});
+  }
+
+  static Action addMapController(MapboxMapController ctl) {
+    return Action(GatewayProfileAction.addLocation, payload: ctl);
   }
 }

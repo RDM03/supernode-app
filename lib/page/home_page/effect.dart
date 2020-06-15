@@ -79,11 +79,15 @@ void _initState(Action action, Context<HomeState> ctx) {
 }
 
 Future<void> _getUserLocation(Context<HomeState> ctx) async {
-  await LocationUtils.getLocation();
-  if (LocationUtils.locationData != null) {
-    ctx.dispatch(HomeActionCreator.onLocation(LatLng(
-        LocationUtils.locationData.latitude,
-        LocationUtils.locationData.longitude)));
+  try {
+    await LocationUtils.getLocation();
+    if (LocationUtils.locationData != null) {
+      ctx.dispatch(HomeActionCreator.onLocation(LatLng(
+          LocationUtils.locationData.latitude,
+          LocationUtils.locationData.longitude)));
+    }
+  } catch (e, stack) {
+    log("get user location", "$e $stack");
   }
 }
 

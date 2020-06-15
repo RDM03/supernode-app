@@ -174,7 +174,7 @@ Widget buildView(GatewayProfileState state, Dispatch dispatch, ViewService viewS
             ),
             MapBoxWidget(
               // TODO: controller reducer
-              onMapCreated: (ctl) => {},
+              onMapCreated: (ctl) => dispatch(GatewayProfileActionCreator.addMapController(ctl)),
               markers: [MapMarker(
                 point: state.markerPoint,
                 image: AppImages.gateways,
