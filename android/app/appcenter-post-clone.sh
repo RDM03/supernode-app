@@ -16,7 +16,7 @@ flutter clean
 yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
 
 flutter channel stable
-flutter doctor --android-licenses
+flutter doctor -v --android-licenses
 
 echo "Installed flutter to `pwd`/flutter"
 
