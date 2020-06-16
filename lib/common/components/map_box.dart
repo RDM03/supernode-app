@@ -94,12 +94,10 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
     return Stack(
       children: <Widget>[
         MapboxMap(
-          accessToken: Config.MAP_BOX_ACCESS_TOKEN,
           onMapClick: (point, coordinates) {
             widget.onTap(coordinates);
-            log("coordinates", "$coordinates");
           },
-          initialCameraPosition: CameraPosition(target: widget?.myLatLng ?? LatLng(52.31, 13.2), zoom: widget.zoom),
+          initialCameraPosition: CameraPosition(target: widget?.myLatLng ?? LatLng(52.516, 13.388), zoom: widget.zoom),
           onMapCreated: (controller) {
             widget.onMapCreated(controller);
             _mapCreated(controller);
