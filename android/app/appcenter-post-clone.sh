@@ -12,6 +12,9 @@ cd ..
 git clone -b beta https://github.com/flutter/flutter.git
 export PATH=`pwd`/flutter/bin:$PATH
 
+# accepting all licenses
+yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+
 flutter channel stable
 #flutter doctor
 flutter doctor --android-licenses
