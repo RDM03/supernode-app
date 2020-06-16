@@ -230,13 +230,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_bugly:
+  flutter_appcenter:
     dependency: "direct main"
     description:
-      name: flutter_bugly
+      name: flutter_appcenter
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.8"
+    version: "0.0.1"
   flutter_cache_manager:
     dependency: transitive
     description:
