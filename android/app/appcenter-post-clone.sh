@@ -16,7 +16,7 @@ export PATH=`pwd`/flutter/bin:$PATH
 yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
 
 flutter channel stable
-#flutter doctor
+flutter clean
 flutter doctor --android-licenses
 
 echo "Installed flutter to `pwd`/flutter"
