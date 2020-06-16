@@ -15,9 +15,10 @@ export PATH=`pwd`/flutter/bin:$PATH
 flutter channel stable
 flutter doctor
 flutter doctor --android-licenses
-echo yes
-echo yes
-echo yes
+echo y
+echo y
+echo y
+echo y
 
 echo "Installed flutter to `pwd`/flutter"
 
