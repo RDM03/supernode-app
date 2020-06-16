@@ -13,9 +13,7 @@ git clone -b beta https://github.com/flutter/flutter.git
 export PATH=`pwd`/flutter/bin:$PATH
 
 flutter channel stable
-flutter doctor
-flutter clean
-flutter pub get
+flutter doctor --android-licenses
 
 echo "Installed flutter to `pwd`/flutter"
 
