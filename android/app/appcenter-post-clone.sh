@@ -11,12 +11,11 @@ set -x
 cd ..
 git clone -b beta https://github.com/flutter/flutter.git
 export PATH=`pwd`/flutter/bin:$PATH
-
+flutter clean
 # accepting all licenses
 yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
 
 flutter channel stable
-flutter clean
 flutter doctor --android-licenses
 
 echo "Installed flutter to `pwd`/flutter"
