@@ -15,7 +15,18 @@ export PATH=`pwd`/flutter/bin:$PATH
 flutter channel stable
 flutter doctor
 flutter doctor --android-licenses
-echo y | command
+for {} {1} {} {
+    expect {           
+        \"yes/no)?\" {
+            send \"yes\r\"
+            set timeout -1
+        } timeout {
+            exit
+        } eof {
+            exit
+        }
+    }
+}
 
 echo "Installed flutter to `pwd`/flutter"
 
