@@ -34,9 +34,9 @@ if (keystorePropertiesFile.exists()) {
 android {
     compileSdkVersion 28
 
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
+    // sourceSets {
+    //     main.java.srcDirs += 'src/main/kotlin'
+    // }
 
     lintOptions {
         disable 'InvalidPackage'
@@ -73,7 +73,7 @@ android {
             useProguard true
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-	    signingConfig signingConfigs.releaseSigningConfig
+	        signingConfig signingConfigs.releaseSigningConfig
         }
     }
 }
