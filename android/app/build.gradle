@@ -47,6 +47,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
+        //test: it will be fail wether it has comment here
         release {
             storeFile rootProject.file("app/key.jks")
             storePassword keystoreProperties['storePassword']
