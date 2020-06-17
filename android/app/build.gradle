@@ -47,7 +47,7 @@ android {
         applicationId "com.mxc.smartcity"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode flutterVersionCode.toInteger()
+        versionCode System.getenv('APPCENTER_BUILD_ID').toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -86,5 +86,4 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.tencent.bugly:crashreport_upgrade:1.4.2'
 }
