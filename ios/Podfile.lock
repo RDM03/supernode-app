@@ -1,8 +1,15 @@
 PODS:
-  - Bugly (2.5.4)
+  - AppCenter (3.2.0):
+    - AppCenter/Analytics (= 3.2.0)
+    - AppCenter/Crashes (= 3.2.0)
+  - AppCenter/Analytics (3.2.0):
+    - AppCenter/Core
+  - AppCenter/Core (3.2.0)
+  - AppCenter/Crashes (3.2.0):
+    - AppCenter/Core
   - Flutter (1.0.0)
-  - flutter_bugly (0.0.1):
-    - Bugly
+  - flutter_appcenter (0.0.3):
+    - AppCenter (~> 3.2)
     - Flutter
   - flutter_local_notifications (0.0.1):
     - Flutter
@@ -45,7 +52,7 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - flutter_bugly (from `.symlinks/plugins/flutter_bugly/ios`)
+  - flutter_appcenter (from `.symlinks/plugins/flutter_appcenter/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_plugin_android_lifecycle (from `.symlinks/plugins/flutter_plugin_android_lifecycle/ios`)
   - local_auth (from `.symlinks/plugins/local_auth/ios`)
@@ -66,14 +73,14 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Bugly
+    - AppCenter
     - FMDB
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  flutter_bugly:
-    :path: ".symlinks/plugins/flutter_bugly/ios"
+  flutter_appcenter:
+    :path: ".symlinks/plugins/flutter_appcenter/ios"
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_plugin_android_lifecycle:
@@ -110,9 +117,9 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_web/ios"
 
 SPEC CHECKSUMS:
-  Bugly: 4edda9bb0e3017fd453612189069757195fa23ca
+  AppCenter: ca66175050d538b157959382dd43f1ab96cdab84
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  flutter_bugly: c9800f4d5bc5bdc27ffdde3417a26ba44266e0c3
+  flutter_appcenter: 31d44b4d5c483bca4ac54cc9fcd43f0a3f318e34
   flutter_local_notifications: 9e4738ce2471c5af910d961a6b7eadcf57c50186
   flutter_plugin_android_lifecycle: dc0b544e129eebb77a6bfb1239d4d1c673a60a35
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
@@ -132,6 +139,6 @@ SPEC CHECKSUMS:
   url_launcher_macos: fd7894421cd39320dce5f292fc99ea9270b2a313
   url_launcher_web: e5527357f037c87560776e36436bf2b0288b965c
 
-PODFILE CHECKSUM: f3bac21afdb7b5c9732f535b44567b1f5009ad7c
+PODFILE CHECKSUM: c7f44b5fc9d82f4b01d06a21b7e5fab5c2c6dfeb
 
 COCOAPODS: 1.9.3
