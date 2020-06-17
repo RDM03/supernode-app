@@ -29,22 +29,6 @@
         android:networkSecurityConfig="@xml/network_security_config"
         tools:ignore="GoogleAppIndexingWarning">
 
-    <provider
-            android:name=".BuglyFileProvider"
-            tools:replace="name,authorities,exported,grantUriPermissions"
-            android:authorities="com.mxc.smartcity.fileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-        <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                tools:replace="name,resource"
-                android:resource="@xml/provider_paths" />
-    </provider>
-
-    <activity
-            android:name="com.tencent.bugly.beta.ui.BetaActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|locale"
-            android:theme="@android:style/Theme.Translucent" />
     <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

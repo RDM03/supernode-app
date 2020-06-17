@@ -7,7 +7,6 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugins.GeneratedPluginRegistrant
 
 import android.os.Bundle
-import com.tencent.bugly.Bugly
 
 class MainActivity: FlutterFragmentActivity() {
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
@@ -15,6 +14,5 @@ class MainActivity: FlutterFragmentActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Bugly.init(applicationContext, "d5abff150e", false)
     }
 }
