@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
-import 'package:supernodeapp/common/configs/config.dart';
-import 'package:supernodeapp/common/utils/log.dart';
 
 class MapMarker {
   final LatLng point;
@@ -18,7 +16,6 @@ class MapMarker {
 class MapBoxWidget extends StatefulWidget {
   final bool isFullScreen;
   final double zoom;
-  final LatLng myLatLng;
   final List<MapMarker> markers;
   final VoidCallback zoomOutCallback;
   final ValueChanged<LatLng> onTap;
@@ -27,6 +24,8 @@ class MapBoxWidget extends StatefulWidget {
   // new field
   final Function clickLocation;
   final MapCreatedCallback onMapCreated;
+  final bool myLocationEnabled;
+  final MyLocationTrackingMode myLocationTrackingMode;
 
   // delete field
 //  final BuildContext context;
@@ -39,9 +38,10 @@ class MapBoxWidget extends StatefulWidget {
     this.onTap,
     this.zoomOutCallback,
     this.isFullScreen = false,
-    this.myLatLng = const LatLng(0, 0),
     this.clickLocation,
-    this.userLocationSwitch, // not use
+    this.userLocationSwitch,
+    this.myLocationEnabled = true,
+    this.myLocationTrackingMode = MyLocationTrackingMode.Tracking, // not use
   }) : super(key: key);
 
   @override
@@ -68,7 +68,6 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
 
   void _mapCreated(MapboxMapController controller) {
     _controller = controller;
-    if (widget.myLatLng != null) _controller.moveCamera(CameraUpdate.newLatLng(widget.myLatLng));
     for (MapMarker mark in widget?.markers ?? []) {
       _controller.addSymbol(SymbolOptions(
         iconImage: mark.image,
@@ -94,10 +93,13 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
     return Stack(
       children: <Widget>[
         MapboxMap(
+          initialCameraPosition: CameraPosition(target: LatLng(37.386, -122.083), zoom: widget.zoom),
+          myLocationEnabled: widget.myLocationEnabled,
+          myLocationRenderMode: MyLocationRenderMode.NORMAL,
+          myLocationTrackingMode: widget.myLocationTrackingMode,
           onMapClick: (point, coordinates) {
             widget.onTap(coordinates);
           },
-          initialCameraPosition: CameraPosition(target: widget?.myLatLng ?? LatLng(52.516, 13.388), zoom: widget.zoom),
           onMapCreated: (controller) {
             widget.onMapCreated(controller);
             _mapCreated(controller);
@@ -129,10 +131,9 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
           boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
         ),
         child: IconButton(
-          onPressed: () {
-            if (widget.myLatLng != null) {
-              _controller.moveCamera(CameraUpdate.newLatLng(widget.myLatLng));
-            }
+          onPressed: () async {
+            LatLng myLatLng = await _controller.requestMyLocationLatLng();
+            _controller.moveCamera(CameraUpdate.newLatLngZoom(myLatLng, widget.zoom));
           },
           icon: Icon(
             Icons.my_location,

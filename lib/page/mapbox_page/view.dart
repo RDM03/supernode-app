@@ -14,7 +14,6 @@ Widget buildView(MapBoxState state, Dispatch dispatch, ViewService viewService) 
       userLocationSwitch: true,
       markers: state.gatewaysLocations ?? [],
       isFullScreen: true,
-      myLatLng: state.myLocation,
     ),
     useSafeArea: false,
   );

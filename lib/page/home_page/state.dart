@@ -59,7 +59,6 @@ class HomeState implements Cloneable<HomeState> {
   //map
   MapboxMapController mapCtl;
   List<GatewayItemState> gatewaysList = [];
-  LatLng location;
 
   //devices
   int devicesTotal = 0;
@@ -96,7 +95,6 @@ class HomeState implements Cloneable<HomeState> {
       ..devicesUSDRevenue = devicesUSDRevenue
       ..gatewaysLocations = gatewaysLocations
       ..mapCtl = mapCtl
-      ..location = location
       ..gatewaysList = gatewaysList
       ..tabHeight = tabHeight
       ..walletTabIndex = walletTabIndex
@@ -142,15 +140,13 @@ class UserConnector extends ConnOp<HomeState, UserState> {
       ..devicesRevenue = state.devicesRevenue
       ..devicesUSDRevenue = state.devicesUSDRevenue
       ..mapCtl = state.mapCtl
-      ..location = state.location
       ..gatewaysLocations = state.gatewaysLocations;
   }
 
   @override
   void set(HomeState state, UserState subState) {
     state
-      ..mapCtl = subState.mapCtl
-      ..location = subState.location;
+      ..mapCtl = subState.mapCtl;
   }
 }
 
@@ -163,8 +159,7 @@ class GatewayConnector extends ConnOp<HomeState, GatewayState> {
       ..gatewaysRevenue = state.gatewaysRevenue
       ..gatewaysUSDRevenue = state.gatewaysUSDRevenue
       ..organizations = state.organizations
-      ..list = state.gatewaysList
-      ..location = state.location;
+      ..list = state.gatewaysList;
   }
 
   @override

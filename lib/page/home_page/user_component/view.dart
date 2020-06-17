@@ -119,7 +119,6 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
             userLocationSwitch: true,
             markers: state.gatewaysLocations ?? [],
             zoomOutCallback: () => dispatch(HomeActionCreator.mapbox()),
-            myLatLng: state.location,
           ),
           smallColumnSpacer(),
         ],

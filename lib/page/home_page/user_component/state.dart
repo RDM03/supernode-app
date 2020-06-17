@@ -48,7 +48,6 @@ class UserState implements Cloneable<UserState> {
   //map
   MapboxMapController mapCtl;
   StreamController<LatLng> markerlocationStream = StreamController();
-  LatLng location;
 
   UserState();
 
@@ -81,7 +80,6 @@ class UserState implements Cloneable<UserState> {
       ..devicesUSDRevenue = devicesUSDRevenue
       ..mapCtl = mapCtl
       ..markerlocationStream = markerlocationStream
-      ..location = location
       ..gatewaysLocations = gatewaysLocations;
   }
 
