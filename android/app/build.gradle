@@ -28,7 +28,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
-		keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+	keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
 android {
@@ -38,6 +38,10 @@ android {
         disable 'InvalidPackage'
     }
 
+    // sourceSets {
+    //     main.java.srcDirs += 'src/main/kotlin'
+    // }
+    
     defaultConfig {
         applicationId "com.mxc.smartcity"
         minSdkVersion 21
@@ -47,7 +51,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
-        //test: it will be fail wether it has comment here
         release {
             storeFile rootProject.file("app/key.jks")
             storePassword keystoreProperties['storePassword']
