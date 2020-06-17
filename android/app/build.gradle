@@ -53,7 +53,7 @@ android {
 
 
     signingConfigs {
-        releaseSigningConfig {
+        release {
             storeFile rootProject.file("app/key.jks")
             storePassword System.getenv("APPCENTER_KEYSTORE_PASSWORD")
             keyAlias System.getenv("APPCENTER_KEY_ALIAS")
@@ -70,7 +70,7 @@ android {
             // useProguard true
 
             // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-	        signingConfig signingConfigs.releaseSigningConfig
+	        signingConfig signingConfigs.release
         }
     }
 }
