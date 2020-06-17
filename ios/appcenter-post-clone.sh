@@ -17,8 +17,6 @@ cd ..
 git clone -b beta https://github.com/flutter/flutter.git
 export PATH=`pwd`/flutter/bin:$PATH
 
-flutter pub get
-pod install
 flutter channel stable
 flutter doctor
 
