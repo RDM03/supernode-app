@@ -46,7 +46,7 @@ android {
         applicationId "com.mxc.smartcity"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode flutterVersionCode.toInteger()
+        versionCode System.getenv('APPCENTER_BUILD_ID').toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
