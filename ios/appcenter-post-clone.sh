@@ -6,19 +6,19 @@ set -e
 # debug log
 set -x
 
-echo "print current folder"
-pwd
+echo "list current folder"
 ls -l
 
 echo "fix for https://github.com/flutter/flutter/issues/14161"
 rm -rf ios/Flutter/Flutter.framework
-pod install
 
 echo "doing normal stuff"
 cd ..
 git clone -b beta https://github.com/flutter/flutter.git
 export PATH=`pwd`/flutter/bin:$PATH
 
+flutter pub get
+pod install
 flutter channel stable
 flutter doctor
 
