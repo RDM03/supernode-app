@@ -29,17 +29,17 @@ class GatewaysDao extends Dao{
   static final String lastSeenAt = 'lastSeenAt';
 
   //remote
-  Future<dynamic> list(Map data){
-    return get(
+  Stream<dynamic> list(Map data){
+    return Stream.fromFuture(get(
       url: GatewaysApi.list,
       data: data
-    ).then((res) => !isMock ? res : Mock.gateways['list'] );
+    ));
   }
 
-  Future<dynamic> locations(){
-    return get(
+  Stream<dynamic> locations(){
+    return Stream.fromFuture(get(
       url: GatewaysApi.locations,
-    ).then((res) => res);
+    ));
   }
 
   Future<dynamic> add(Map data){

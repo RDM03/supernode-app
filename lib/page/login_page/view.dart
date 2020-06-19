@@ -107,7 +107,6 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
       onTap: (){
         FocusScope.of(_ctx).requestFocus(FocusNode());
       },
-
     )
   );
 }

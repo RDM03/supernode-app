@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/common/configs/images.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -9,7 +10,8 @@ Widget summaryRow(
     String title = '',
     String subtitle = '',
     String number = '',
-    String price = ''}) {
+    String price = '',
+    bool loading = false}) {
   var temp = price.split('(');
   String mxcPrice = temp[0].substring(0, temp[0].length - 1);
   print(mxcPrice);
@@ -31,7 +33,12 @@ Widget summaryRow(
       title,
       style: kMiddleFontOfBlack,
     ),
-    subtitle: Text(
+    subtitle: loading ? loadingFlash(
+      child: Text(
+        number,
+        style: kBigFontOfBlue,
+      ) 
+    ) : Text(
       number,
       style: kBigFontOfBlue,
     ),
@@ -44,7 +51,12 @@ Widget summaryRow(
             subtitle,
             style: kSmallFontOfGrey,
           ),
-          Text(
+          loading ? loadingFlash(
+            child: Text(
+              '≈ ' + usdPrice,
+              style: kMiddleFontOfBlack,
+            ) 
+          ) : Text(
             '≈ ' + usdPrice,
             style: kMiddleFontOfBlack,
           )

@@ -1,18 +1,12 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:latlong/latlong.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 
-//TODO replace with your own action
-enum mapboxAction {
-  action,
-  location,
+enum MapBoxAction {
+  addMapController,
 }
 
-class mapboxActionCreator {
-  static Action onAction() {
-    return const Action(mapboxAction.action);
-  }
-
-  static Action onLocation(LatLng location){
-    return Action(mapboxAction.location, payload: location);
+class MapBoxActionCreator {
+  static Action addMapController(MapboxMapController ctl) {
+    return Action(MapBoxAction.addMapController, payload: ctl);
   }
 }

@@ -8,17 +8,17 @@ class TopupApi {
 
 class TopupDao extends Dao{
   //remote
-  Future<dynamic> history(Map data){
-    return get(
+  Stream<dynamic> history(Map data){
+    return Stream.fromFuture(get(
       url: TopupApi.history,
       data: data
-    ).then((res) => !isMock ? res : Mock.topup['history'] );
+    ));
   }
 
-  Future<dynamic> account(Map data){
-    return get(
+  Stream<dynamic> account(Map data){
+    return Stream.fromFuture(get(
       url: TopupApi.account,
       data: data
-    ).then((res) => res);
+    ));
   }
 }

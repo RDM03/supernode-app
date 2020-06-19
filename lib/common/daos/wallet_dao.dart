@@ -27,31 +27,31 @@ class WalletDao extends Dao{
   static const String end = 'end';
 
   //remote
-  Future<dynamic> balance(Map data){
-    return get(
+  Stream<dynamic> balance(Map data){
+    return Stream.fromFuture(get(
       url: WalletApi.balance,
       data: data
-    ).then((res) => res);
+    ));
   }
 
-  Future<dynamic> history(Map data){
-    return get(
+  Stream<dynamic> history(Map data){
+    return Stream.fromFuture(get(
       url: Api.url( WalletApi.history, data['orgId'] ),
       data: data
-    ).then((res) => !isMock ? res : Mock.wallet['history'] );
+    ));
   }
 
-  Future<dynamic> miningIncome(Map data){
-    return get(
+  Stream<dynamic> miningIncome(Map data){
+    return Stream.fromFuture(get(
       url: WalletApi.miningIncome,
       data: data
-    ).then((res) => res);
+    ));
   }
 
-  Future<dynamic> convertUSD(Map data){
-    return get(
+  Stream<dynamic> convertUSD(Map data){
+    return Stream.fromFuture(get(
       url: WalletApi.convertUSD,
       data: data
-    ).then((res) => res);
+    ));
   }
 }

@@ -9,7 +9,9 @@ import 'wallet_list_adapter/wallet_item_component/state.dart';
 Reducer<WalletState> buildReducer() {
   return asReducer(
     <Object, Reducer<WalletState>>{
+      WalletAction.loadingHistory: _loadingHistory,
       WalletAction.tab: _tab,
+      WalletAction.tabController: _tabController,
       WalletAction.isSetDate: _isSetDate,
       WalletAction.updateSelectedButton: _updateSelectedButton,
       WalletAction.updateList: _updateList,
@@ -18,6 +20,15 @@ Reducer<WalletState> buildReducer() {
       WalletAction.secondTime: _secondTime,
     },
   );
+}
+
+WalletState _loadingHistory(WalletState state, Action action) {
+  bool toogle = action.payload;
+
+  final WalletState newState = state.clone();
+
+  return newState
+    ..loadingHistory = toogle;
 }
 
 WalletState _tab(WalletState state, Action action) {
@@ -36,6 +47,15 @@ WalletState _tab(WalletState state, Action action) {
     ..isSetDate1 = false
     ..isSetDate2 = false
     ..tabHeight = tabIndex == 0 ? 100 : 140;
+}
+
+WalletState _tabController(WalletState state, Action action) {
+  dynamic controller = action.payload;
+
+  final WalletState newState = state.clone();
+
+  return newState
+    ..tabController = controller;
 }
 
 WalletState _isSetDate(WalletState state, Action action) {

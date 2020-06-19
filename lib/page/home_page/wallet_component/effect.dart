@@ -1,16 +1,16 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:supernodeapp/common/components/loading.dart';
+import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/common/daos/stake_dao.dart';
-import 'package:supernodeapp/common/daos/wallet_dao.dart';
 import 'package:supernodeapp/common/daos/withdraw_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/topup_dao.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
-import 'package:supernodeapp/page/home_page/action.dart';
 import 'action.dart';
 import 'state.dart';
+
+bool initLoading = false;
 
 Effect<WalletState> buildEffect() {
   return combineEffects(<Object, Effect<WalletState>>{
@@ -22,10 +22,22 @@ Effect<WalletState> buildEffect() {
 }
 
 void _initState(Action action, Context<WalletState> ctx) {
-  ctx.dispatch(HomeActionCreator.loading(true));
+  if(initLoading) return;
+
+  final TickerProvider tickerProvider = ctx.stfState as TickerProvider;
+
+  TabController tabController = TabController(length: 2, vsync: tickerProvider);
+  
+  tabController.addListener(() { 
+    ctx.dispatch(WalletActionCreator.tab(tabController.index));
+  });
+
+  ctx.dispatch(WalletActionCreator.tabController(tabController));
+  
   Future.delayed(Duration(seconds: 2),(){
     ctx.dispatch(WalletActionCreator.tab(0));
     ctx.dispatch(WalletActionCreator.onFilter('SEARCH DEFUALT'));
+    initLoading = true;
   });
 }
 
@@ -36,6 +48,7 @@ void _dispose(Action action, Context<WalletState> ctx) {
 void _onTab(Action action, Context<WalletState> ctx) {
   int index = action.payload;
   ctx.dispatch(WalletActionCreator.tab(index));
+  ctx.state.tabController.animateTo(index);
 
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
   if(orgId.isEmpty) return;
@@ -64,7 +77,6 @@ void _onFilter(Action action, Context<WalletState> ctx) {
 
   _withdrawFee(ctx);
 
-  ctx.dispatch(HomeActionCreator.loading(true));
   switch (type) {
     case 'DEPOSIT':
       _deposit(ctx,type,data);
@@ -162,9 +174,9 @@ void _staking(Context<WalletState> ctx,String type,Map data){
 }
 
 void _requestHistory(Context<WalletState> ctx,dao,Map data,String type, String keyType){
-  // showLoading(ctx.context);
+  ctx.dispatch(WalletActionCreator.loadingHistory(true));
 
-  dao.history(data).then((res){
+  dao.history(data).listen((res){
     log('$type history',res);
     
     if((res as Map).containsKey(keyType)){
@@ -174,9 +186,9 @@ void _requestHistory(Context<WalletState> ctx,dao,Map data,String type, String k
       ctx.dispatch(WalletActionCreator.updateList(type, list));
     }
 
-    ctx.dispatch(HomeActionCreator.loading(false));
-  }).catchError((err){
-    ctx.dispatch(HomeActionCreator.loading(false));
+    ctx.dispatch(WalletActionCreator.loadingHistory(false));
+  }).onError((err){
+    ctx.dispatch(WalletActionCreator.loadingHistory(false));
     tip(ctx.context,'$type history: $err');
   });
 

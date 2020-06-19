@@ -1,4 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 
@@ -6,6 +7,9 @@ import 'wallet_list_adapter/wallet_item_component/state.dart';
 
 class WalletState extends MutableSource implements Cloneable<WalletState> {
 
+  bool loading = true;
+  bool loadingHistory = true;
+  TabController tabController;
   int tabIndex = 0;
   double tabHeight = 100;
   bool isSetDate1 = false;
@@ -49,6 +53,9 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   @override
   WalletState clone() {
     return WalletState()
+      ..loading = loading
+      ..loadingHistory= loadingHistory
+      ..tabController = tabController
       ..list = list ?? []
       ..organizations = organizations
       ..tabIndex = tabIndex

@@ -2,11 +2,10 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong/latlong.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 // import 'package:mapbox_gl/mapbox_gl.dart';
 // import 'package:flutter_map/flutter_map.dart';
-import 'package:supernodeapp/common/components/map.dart';
+import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/components/page/introduction.dart';
 import 'package:supernodeapp/common/components/page/link.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
@@ -127,7 +126,7 @@ Widget buildView(GatewayProfileState state, Dispatch dispatch, ViewService viewS
             //         TextSpan(
             //           text: 'LSB',
             //           style: !state.isSelectIdType ?
-            //             kMiddleFontOfBlue : kMiddleFontOfGrey,  
+            //             kMiddleFontOfBlue : kMiddleFontOfGrey,
             //           recognizer: _gIdTapRecognizer
             //         ),
             //       ]
@@ -173,16 +172,9 @@ Widget buildView(GatewayProfileState state, Dispatch dispatch, ViewService viewS
                 onTap: () => _changeMarker(state.mapCtl,state.location,dispatch)
               )
             ),
-            MapWidget(
-              context: _ctx,
-              controller: state.mapCtl,
-//              center: state.markerPoint,
-              markers: [Marker(
-                point: state.markerPoint,
-                builder: (ctx) =>
-                  Image.asset(AppImages.gateways),
-              )],
-              callback: (point) => dispatch(GatewayProfileActionCreator.addLocation(location: point)),
+            MapBoxWidget(
+              config: state.mapCtl,
+              clickLocation: (point) => dispatch(GatewayProfileActionCreator.addLocation(location: point)),
               onTap: (point) => _changeMarker(state.mapCtl,point,dispatch)
             ),
           ]
@@ -201,9 +193,9 @@ Widget buildView(GatewayProfileState state, Dispatch dispatch, ViewService viewS
   );
 }
 
-void _changeMarker(MapController mapCtl,LatLng point,dispatch){
-  if(mapCtl.ready){
-    mapCtl.move(point,mapCtl.zoom);
+void _changeMarker(MapViewController mapCtl,LatLng point, dispatch){
+  if(mapCtl != null){
+    mapCtl.ctl.moveCamera(CameraUpdate.newLatLng(point));
   }
 
   dispatch(GatewayProfileActionCreator.addLocation(location: point, type: 'marker'));

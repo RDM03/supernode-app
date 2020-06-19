@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:localstorage/localstorage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 class StorageManager {
   /// app全局配置 eg:theme token
   static SharedPreferences sharedPreferences;

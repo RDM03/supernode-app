@@ -1,5 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:latlong/latlong.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 
 import 'gateway_list_adapter/gateway_item_component/state.dart';
@@ -7,6 +7,7 @@ import 'gateway_list_adapter/gateway_item_component/state.dart';
 class GatewayState extends MutableSource implements Cloneable<GatewayState> {
   
   //gateways
+  bool loading = true;
   int gatewaysTotal = 0;
   double gatewaysRevenue = 0;
   double gatewaysUSDRevenue = 0;
@@ -31,6 +32,7 @@ class GatewayState extends MutableSource implements Cloneable<GatewayState> {
   @override
   GatewayState clone() {
     return GatewayState()
+      ..loading = loading
       ..gatewaysTotal = gatewaysTotal
       ..gatewaysRevenue = gatewaysRevenue
       ..gatewaysUSDRevenue = gatewaysUSDRevenue

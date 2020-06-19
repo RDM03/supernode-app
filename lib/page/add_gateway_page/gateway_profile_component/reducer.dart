@@ -1,5 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:latlong/latlong.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 // import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/page/home_page/gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
 
@@ -17,7 +17,7 @@ Reducer<GatewayProfileState> buildReducer() {
       GatewayProfileAction.gatewayProfileId: _gatewayProfileId,
       GatewayProfileAction.discoveryEnabled: _discoveryEnabled,
       GatewayProfileAction.addLocation: _addLocation,
-      
+      GatewayProfileAction.addMapController: _addMapController,
     },
   );
 }
@@ -102,5 +102,9 @@ GatewayProfileState _addLocation(GatewayProfileState state, Action action) {
     return newState
       ..markerPoint = location;
   }
-  
+}
+GatewayProfileState _addMapController(GatewayProfileState state, Action action) {
+  var newState = state.clone();
+  newState.mapCtl = action.payload;
+  return newState;
 }
