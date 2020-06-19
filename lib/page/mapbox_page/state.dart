@@ -1,10 +1,9 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
 
 class MapBoxState implements Cloneable<MapBoxState> {
   List<MapMarker> gatewaysLocations;
-  MapboxMapController mapCtl;
+  MapViewController mapCtl = MapViewController();
 
   @override
   MapBoxState clone() {
@@ -15,5 +14,7 @@ class MapBoxState implements Cloneable<MapBoxState> {
 }
 
 MapBoxState initState(Map<String, dynamic> args) {
-  return MapBoxState()..gatewaysLocations = args['markers'] ?? [];
+  return MapBoxState()
+    ..gatewaysLocations = args['markers'] ?? []
+    ..mapCtl = MapViewController(markers: args['markers'] ?? []);
 }

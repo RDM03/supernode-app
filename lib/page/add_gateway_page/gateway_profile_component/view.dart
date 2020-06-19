@@ -173,12 +173,7 @@ Widget buildView(GatewayProfileState state, Dispatch dispatch, ViewService viewS
               )
             ),
             MapBoxWidget(
-              // TODO: controller reducer
-              onMapCreated: (ctl) => dispatch(GatewayProfileActionCreator.addMapController(ctl)),
-              markers: [MapMarker(
-                point: state.markerPoint,
-                image: AppImages.gateways,
-              )],
+              config: state.mapCtl,
               clickLocation: (point) => dispatch(GatewayProfileActionCreator.addLocation(location: point)),
               onTap: (point) => _changeMarker(state.mapCtl,point,dispatch)
             ),
@@ -198,9 +193,9 @@ Widget buildView(GatewayProfileState state, Dispatch dispatch, ViewService viewS
   );
 }
 
-void _changeMarker(MapboxMapController mapCtl,LatLng point, dispatch){
+void _changeMarker(MapViewController mapCtl,LatLng point, dispatch){
   if(mapCtl != null){
-    mapCtl.moveCamera(CameraUpdate.newLatLng(point));
+    mapCtl.ctl.moveCamera(CameraUpdate.newLatLng(point));
   }
 
   dispatch(GatewayProfileActionCreator.addLocation(location: point, type: 'marker'));

@@ -1,6 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';
 import 'package:supernodeapp/global_store/store.dart';
@@ -57,7 +56,7 @@ class HomeState implements Cloneable<HomeState> {
   List<MapMarker> gatewaysLocations = [];
 
   //map
-  MapboxMapController mapCtl;
+  MapViewController mapCtl = MapViewController();
   List<GatewayItemState> gatewaysList = [];
 
   //devices
@@ -139,14 +138,13 @@ class UserConnector extends ConnOp<HomeState, UserState> {
       ..devicesTotal = state.devicesTotal
       ..devicesRevenue = state.devicesRevenue
       ..devicesUSDRevenue = state.devicesUSDRevenue
-      ..mapCtl = state.mapCtl
+      ..mapViewController = state.mapCtl
       ..gatewaysLocations = state.gatewaysLocations;
   }
 
   @override
   void set(HomeState state, UserState subState) {
-    state
-      ..mapCtl = subState.mapCtl;
+    state..mapCtl = subState.mapViewController;
   }
 }
 

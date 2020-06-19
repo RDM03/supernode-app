@@ -237,10 +237,10 @@ void _gatewaysLocations(Context<HomeState> ctx) {
           point: Tools.convertLatLng(location),
           image: AppImages.gateways,
         );
-
         locations.add(marker);
       }
       ctx.dispatch(HomeActionCreator.gatewaysLocations(locations));
+      ctx.state.mapCtl.addSymbols(locations);
     }
   }).onError((err) {
     tip(ctx.context, 'GatewaysDao locations: $err');
@@ -293,7 +293,7 @@ void _mapbox(Action action, Context<HomeState> ctx) {
     ctx.context,
     'mapbox_page',
     arguments: {
-      'markers': ctx.state.gatewaysLocations,
+      'markers': ctx.state.mapCtl.markers,
     },
   );
 }

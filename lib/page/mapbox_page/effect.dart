@@ -1,4 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'state.dart';
 

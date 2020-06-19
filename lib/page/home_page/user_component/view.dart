@@ -115,9 +115,8 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
             ),
           ),
           MapBoxWidget(
-            onMapCreated: (ctl) => dispatch(UserActionCreator.addMapController(ctl)),
+            config: state.mapViewController,
             userLocationSwitch: true,
-            markers: state.gatewaysLocations ?? [],
             zoomOutCallback: () => dispatch(HomeActionCreator.mapbox()),
           ),
           smallColumnSpacer(),

@@ -4,44 +4,75 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
+import 'package:supernodeapp/common/configs/sys.dart';
+
+class MapViewController {
+  List<MapMarker> markers;
+  MapboxMapController ctl;
+  LatLng myLatLng;
+  double zoom;
+
+  MapViewController({this.markers, this.zoom = 12});
+
+  void onMapCreated(MapboxMapController controller) {
+    this.ctl = controller;
+  }
+
+  void addSymbol(MapMarker marker) {
+    if (markers == null) markers = List<MapMarker>();
+    var result = markers.where((MapMarker item) => (item.point.latitude == marker.point.latitude) && (item.point.longitude == item.point.longitude));
+    if (result.isEmpty) {
+      markers.add(marker);
+    }
+    ctl?.addSymbol(SymbolOptions(
+      iconImage: marker.image,
+      geometry: marker.point,
+      iconSize: marker?.size ?? 1,
+    ));
+  }
+
+  void addSymbols(List<MapMarker> markers) {
+    for (MapMarker mark in markers ?? []) {
+      addSymbol(mark);
+    }
+  }
+
+  Future<void> moveToMyLatLng() async {
+    if (myLatLng == null) myLatLng = await ctl.requestMyLocationLatLng();
+    if (myLatLng != null) ctl.moveCamera(CameraUpdate.newLatLngZoom(myLatLng, zoom));
+  }
+}
 
 class MapMarker {
   final LatLng point;
   final double size;
   final String image;
+  bool onMap = false;
 
   MapMarker({this.point, this.size, this.image});
 }
 
 class MapBoxWidget extends StatefulWidget {
   final bool isFullScreen;
-  final double zoom;
-  final List<MapMarker> markers;
+  final bool userLocationSwitch;
   final VoidCallback zoomOutCallback;
   final ValueChanged<LatLng> onTap;
-  final bool userLocationSwitch;
 
   // new field
   final Function clickLocation;
-  final MapCreatedCallback onMapCreated;
-  final bool myLocationEnabled;
-  final MyLocationTrackingMode myLocationTrackingMode;
+  final MapViewController config;
 
   // delete field
 //  final BuildContext context;
 
   const MapBoxWidget({
     Key key,
-    @required this.onMapCreated,
-    this.zoom = 12.0,
-    this.markers,
+    @required this.config,
     this.onTap,
     this.zoomOutCallback,
-    this.isFullScreen = false,
     this.clickLocation,
     this.userLocationSwitch,
-    this.myLocationEnabled = true,
-    this.myLocationTrackingMode = MyLocationTrackingMode.Tracking, // not use
+    this.isFullScreen = false,
   }) : super(key: key);
 
   @override
@@ -51,29 +82,22 @@ class MapBoxWidget extends StatefulWidget {
 class _MapBoxWidgetState extends State<MapBoxWidget> {
   bool _screenInit = false;
   MediaQueryData _mediaData;
-  MapboxMapController _controller;
+
+  MapViewController get config => widget.config;
 
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) {});
+    SchedulerBinding.instance.addPostFrameCallback((_) async{
+      await Future.delayed(Duration(milliseconds: 200));
+      config.addSymbols(config.markers);
+    });
   }
 
   void _screenQuery() {
     if (!_screenInit || _mediaData == null) {
       _mediaData = MediaQuery.of(context);
       _screenInit = true;
-    }
-  }
-
-  void _mapCreated(MapboxMapController controller) {
-    _controller = controller;
-    for (MapMarker mark in widget?.markers ?? []) {
-      _controller.addSymbol(SymbolOptions(
-        iconImage: mark.image,
-        geometry: mark.point,
-        iconSize: mark.size,
-      ));
     }
   }
 
@@ -93,17 +117,16 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
     return Stack(
       children: <Widget>[
         MapboxMap(
-          initialCameraPosition: CameraPosition(target: LatLng(37.386, -122.083), zoom: widget.zoom),
-          myLocationEnabled: widget.myLocationEnabled,
+          initialCameraPosition: CameraPosition(target: LatLng(37.386, -122.083), zoom: config.zoom),
+          myLocationEnabled: true,
           myLocationRenderMode: MyLocationRenderMode.NORMAL,
-          myLocationTrackingMode: widget.myLocationTrackingMode,
+          myLocationTrackingMode: MyLocationTrackingMode.Tracking,
+          styleString: Sys.mapTileStyle,
+          compassEnabled: false,
           onMapClick: (point, coordinates) {
             widget.onTap(coordinates);
           },
-          onMapCreated: (controller) {
-            widget.onMapCreated(controller);
-            _mapCreated(controller);
-          },
+          onMapCreated: config.onMapCreated,
           gestureRecognizers: !widget.isFullScreen
               ? <Factory<OneSequenceGestureRecognizer>>[
                   Factory<OneSequenceGestureRecognizer>(
@@ -131,10 +154,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
           boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
         ),
         child: IconButton(
-          onPressed: () async {
-            LatLng myLatLng = await _controller.requestMyLocationLatLng();
-            _controller.moveCamera(CameraUpdate.newLatLngZoom(myLatLng, widget.zoom));
-          },
+          onPressed: config.moveToMyLatLng,
           icon: Icon(
             Icons.my_location,
             color: Colors.white,
