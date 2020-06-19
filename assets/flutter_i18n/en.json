@@ -4,6 +4,8 @@
   "email_hint": "Enter your email address",
   "password": "Password",
   "password_hint": "Enter your password",
+  "forgot_hint": "Forgot your password?",
+  "access_using": "or Access Using",
   "login": "Login",
   "reg_required": "This field is required",
   "reg_morethan": "This field must be at least 6 characters long",
