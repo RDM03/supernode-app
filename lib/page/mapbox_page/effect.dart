@@ -1,6 +1,4 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'state.dart';
 
 Effect<MapBoxState> buildEffect() {
@@ -9,7 +7,4 @@ Effect<MapBoxState> buildEffect() {
   });
 }
 
-void _initState(Action action, Context<MapBoxState> ctx) {
-  PermissionUtil.getLocation();
-}
-
+void _initState(Action action, Context<MapBoxState> ctx) {}

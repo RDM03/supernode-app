@@ -69,7 +69,6 @@ void _relogin(Action action, Context<HomeState> ctx) {
 
 void _initState(Action action, Context<HomeState> ctx) {
   _profile(ctx);
-  PermissionUtil.getLocation();
 }
 
 void _onProfile(Action action, Context<HomeState> ctx) {
