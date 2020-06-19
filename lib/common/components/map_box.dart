@@ -81,6 +81,7 @@ class MapBoxWidget extends StatefulWidget {
 
 class _MapBoxWidgetState extends State<MapBoxWidget> {
   bool _screenInit = false;
+  bool _myLocationEnable = true;
   MediaQueryData _mediaData;
 
   MapViewController get config => widget.config;
@@ -88,7 +89,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) async{
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(Duration(milliseconds: 200));
       config.addSymbols(config.markers);
     });
@@ -118,7 +119,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
       children: <Widget>[
         MapboxMap(
           initialCameraPosition: CameraPosition(target: LatLng(37.386, -122.083), zoom: config.zoom),
-          myLocationEnabled: true,
+          myLocationEnabled: _myLocationEnable,
           myLocationRenderMode: MyLocationRenderMode.NORMAL,
           myLocationTrackingMode: MyLocationTrackingMode.Tracking,
           styleString: Sys.mapTileStyle,
@@ -136,6 +137,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
               : null,
         ),
         _buildMyLocationIcon(),
+        _buildMyLocationStateChange(),
         widget.isFullScreen ? _buildCloseIcon() : _buildZoomOutIcon(),
       ],
     );
@@ -143,7 +145,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
 
   Widget _buildMyLocationIcon() {
     return Positioned(
-      bottom: widget.isFullScreen ? 20 + _mediaData.padding.bottom + 40 + 10 : 205,
+      bottom: widget.isFullScreen ? 40 + _mediaData.padding.bottom + 80 + 10 : 205,
       right: 20,
       width: 40,
       height: 40,
@@ -167,7 +169,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
   Widget _buildZoomOutIcon() {
     if (widget.zoomOutCallback == null) return SizedBox();
     return Positioned(
-      bottom: 155,
+      bottom: 105,
       right: 20,
       width: 40,
       height: 40,
@@ -188,9 +190,34 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
     );
   }
 
+  Widget _buildMyLocationStateChange() {
+    return Positioned(
+      bottom: widget.isFullScreen ? 80 + _mediaData.padding.bottom : 155,
+      right: 20,
+      width: 40,
+      height: 40,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.blueAccent,
+          borderRadius: BorderRadius.circular(20.0),
+          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
+        ),
+        child: IconButton(
+          onPressed: () => setState(() {
+            _myLocationEnable = !_myLocationEnable;
+          }),
+          icon: Icon(
+            _myLocationEnable ? Icons.location_on : Icons.location_off,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildCloseIcon() {
     return Positioned(
-      bottom: 20 + _mediaData.padding.bottom,
+      bottom: 30 + _mediaData.padding.bottom,
       right: 20,
       width: 40,
       height: 40,
