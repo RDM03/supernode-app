@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
+import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'package:supernodeapp/common/configs/sys.dart';
 
 class MapViewController {
@@ -90,8 +91,16 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await _myLocationMove();
       await Future.delayed(Duration(milliseconds: 200));
       config.addSymbols(config.markers);
+    });
+  }
+
+  Future<void> _myLocationMove({bool state}) async {
+    bool has = await PermissionUtil.getLocationPermission();
+    setState(() {
+      _myLocationEnable = has ? (state ?? true) : false;
     });
   }
 
@@ -156,7 +165,10 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
           boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
         ),
         child: IconButton(
-          onPressed: config.moveToMyLatLng,
+          onPressed: () async {
+            await _myLocationMove();
+            config.moveToMyLatLng();
+          },
           icon: Icon(
             Icons.my_location,
             color: Colors.white,
@@ -203,11 +215,11 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
           boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
         ),
         child: IconButton(
-          onPressed: () => setState(() {
-            _myLocationEnable = !_myLocationEnable;
-          }),
+          onPressed: () async {
+            _myLocationMove(state: !_myLocationEnable);
+          },
           icon: Icon(
-            _myLocationEnable ? Icons.location_on : Icons.location_off,
+            _myLocationEnable ? Icons.location_off : Icons.location_on,
             color: Colors.white,
           ),
         ),
