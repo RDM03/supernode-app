@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/configs/config.dart';
+import 'package:supernodeapp/common/daos/supernode_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/configs/sys.dart';
@@ -11,56 +12,69 @@ import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/global_store/action.dart';
 import 'package:supernodeapp/global_store/store.dart';
-import 'package:supernodeapp/page/home_page/user_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 import 'action.dart';
+import 'state.dart';
 
-Effect<UserState> buildEffect() {
-  return combineEffects(<Object, Effect<UserState>>{
+Effect<LoginState> buildEffect() {
+  return combineEffects(<Object, Effect<LoginState>>{
+    Lifecycle.initState: _initState,
     LoginAction.onLogin: _onLogin,
     LoginAction.onSignUp: _onSignUp,
     LoginAction.onForgotPassword: _onForgotPassword,
   });
 }
 
-void _onLogin(Action action, Context<UserState> ctx) async{
+void _initState(Action action, Context<LoginState> ctx) async {
+  var json = await SuperNodeDao().superNodes();
+  if (json is Map<String, dynamic>) {
+    var superNodes = Map<String, List<dynamic>>();
+    for (var key in json.keys) {
+      json[key]["name"] = key;
+      if (superNodes.containsKey(json[key]["region"]))
+        superNodes[json[key]["region"]].add(json[key]);
+      else
+        superNodes[json[key]["region"]] = [json[key]];
+    }
+    ctx.dispatch(LoginActionCreator.setSuperNodes(superNodes));
+  }
+}
+
+void _onLogin(Action action, Context<LoginState> ctx) async {
   var curState = ctx.state;
 
-  if(curState.selectedSuperNode.isEmpty){
-    tip(ctx.context,FlutterI18n.translate(ctx.context,'reg_select_supernode'));
+  if (curState.currentSuperNode.isEmpty) {
+    tip(ctx.context, FlutterI18n.translate(ctx.context, 'reg_select_supernode'));
     return;
   }
 
-  if((curState.formKey.currentState as FormState).validate()){
+  if ((curState.formKey.currentState as FormState).validate()) {
     showLoading(ctx.context);
-    
-    Map data = {
-      'username': curState.usernameCtl.text.trim(),
-      'password': curState.passwordCtl.text.trim()
-    };
 
-    String apiRoot = Sys.superNodes[curState.selectedSuperNode];
+    Map data = {'username': curState.usernameCtl.text.trim(), 'password': curState.passwordCtl.text.trim()};
+
+    String apiRoot = Sys.superNodes[curState.currentSuperNode];
     Dao.baseUrl = apiRoot;
 
     UserDao dao = UserDao();
     // var response = await dao.login(data);
 
-    dao.login(data).then((res){
-      log('login',res);
+    dao.login(data).then((res) {
+      log('login', res);
       hideLoading(ctx.context);
 
       SettingsState settingsData = GlobalStore.store.getState().settings;
 
-      if(settingsData == null){
+      if (settingsData == null) {
         settingsData = SettingsState().clone();
       }
 
       Dao.token = res['jwt'];
       settingsData.token = res['jwt'];
       settingsData.username = data['username'];
-      settingsData.superNode = curState.selectedSuperNode;
-      List<String> users=StorageManager.sharedPreferences.getStringList(Config.USER_KEY)??[];
-      if(!users.contains(data['username'])){
+      settingsData.superNode = curState.currentSuperNode["name"];
+      List<String> users = StorageManager.sharedPreferences.getStringList(Config.USER_KEY) ?? [];
+      if (!users.contains(data['username'])) {
         users.add(data['username']);
       }
       StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
@@ -70,63 +84,61 @@ void _onLogin(Action action, Context<UserState> ctx) async{
       GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
 
       //Navigator.pushNamedAndRemoveUntil(ctx.context,'home_page',(route) => false,arguments:{'superNode':curState.selectedSuperNode});
-
-    }).then((res){
+    }).then((res) {
       print(res);
-      log('login saf',res);
+      log('login saf', res);
       UserDao dao = UserDao();
 
       Map data = {};
 
-      dao.getTOTPStatus(data).then((res){
-        log('totp',res);
+      dao.getTOTPStatus(data).then((res) {
+        log('totp', res);
         //hideLoading(ctx.context);
         SettingsState settingsData = GlobalStore.store.getState().settings;
 
-        if(settingsData == null){
+        if (settingsData == null) {
           settingsData = SettingsState().clone();
         }
 
         settingsData.is2FAEnabled = res['enabled'];
-        if((res as Map).containsKey('enabled')){
+        if ((res as Map).containsKey('enabled')) {
           GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
         }
-        Navigator.pushNamedAndRemoveUntil(ctx.context,'home_page',(route) => false,arguments:{'superNode':curState.selectedSuperNode});
-      }).catchError((err){
+        Navigator.pushNamedAndRemoveUntil(ctx.context, 'home_page', (route) => false, arguments: {'superNode': curState.currentSuperNode["name"]});
+      }).catchError((err) {
         //hideLoading(ctx.context);
-        tip(ctx.context,'$err');
+        tip(ctx.context, '$err');
       });
-    }).catchError((err){
+    }).catchError((err) {
       hideLoading(ctx.context);
-      tip(ctx.context,'$err');
+      tip(ctx.context, '$err');
     });
-
   }
 }
 
-void _onSignUp(Action action, Context<UserState> ctx) {
+void _onSignUp(Action action, Context<LoginState> ctx) {
   var curState = ctx.state;
-  if(curState.selectedSuperNode.isEmpty){
-    tip(ctx.context,FlutterI18n.translate(ctx.context,'reg_select_supernode'));
+  if (curState.currentSuperNode.isEmpty) {
+    tip(ctx.context, FlutterI18n.translate(ctx.context, 'reg_select_supernode'));
     return;
   }
 
-  String apiRoot = Sys.superNodes[curState.selectedSuperNode];
+  String apiRoot = Sys.superNodes[curState.currentSuperNode];
   Dao.baseUrl = apiRoot;
 
   SettingsState settingsData = GlobalStore.store.getState().settings;
 
-  if(settingsData == null){
+  if (settingsData == null) {
     settingsData = SettingsState().clone();
   }
 
-  settingsData.superNode = curState.selectedSuperNode;
-  
+  settingsData.superNode = curState.currentSuperNode['name'];
+
   GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
 
   Navigator.pushNamed(ctx.context, 'sign_up_page');
 }
 
-void _onForgotPassword(Action action, Context<UserState> ctx) {
+void _onForgotPassword(Action action, Context<LoginState> ctx) {
   Navigator.pushNamed(ctx.context, 'forgot_password_page');
 }

@@ -8,10 +8,6 @@ import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 
 class UserState implements Cloneable<UserState> {
-  GlobalKey formKey = GlobalKey<FormState>();
-  TextEditingController usernameCtl = TextEditingController();
-  TextEditingController passwordCtl = TextEditingController();
-
   //profile
   String selectedSuperNode = '';
   String id = '';
@@ -19,7 +15,7 @@ class UserState implements Cloneable<UserState> {
   String password = '';
   String token = '';
   bool loading = true;
-  bool isObscureText = true;
+
   bool isAdmin = false;
   bool isActive = false;
   String email = '';
@@ -55,11 +51,7 @@ class UserState implements Cloneable<UserState> {
   @override
   UserState clone() {
     return UserState()
-      ..formKey = formKey
       ..loading = loading
-      ..usernameCtl = usernameCtl
-      ..passwordCtl = passwordCtl
-      ..isObscureText = isObscureText
       ..selectedSuperNode = selectedSuperNode
       ..id = id
       ..username = username
@@ -89,12 +81,8 @@ class UserState implements Cloneable<UserState> {
     id = map[UserDao.id] as String;
     username = map[UserDao.username] as String;
     token = map[UserDao.token] as String;
-    isAdmin = type == 'local'
-        ? (map[UserDao.isAdmin] == 1 ? true : false)
-        : (map[UserDao.isAdmin] as bool);
-    isActive = type == 'local'
-        ? (map[UserDao.isActive] == 1 ? true : false)
-        : (map[UserDao.isActive] as bool);
+    isAdmin = type == 'local' ? (map[UserDao.isAdmin] == 1 ? true : false) : (map[UserDao.isAdmin] as bool);
+    isActive = type == 'local' ? (map[UserDao.isActive] == 1 ? true : false) : (map[UserDao.isActive] as bool);
     email = map[UserDao.email] as String;
     note = map[UserDao.note] as String;
   }

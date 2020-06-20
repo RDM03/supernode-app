@@ -3,25 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/circle_button.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
-import 'package:supernodeapp/common/components/buttons/supernode_button.dart';
-import 'package:supernodeapp/common/components/column_spacer.dart';
+import 'package:supernodeapp/common/components/expansion_super_node_tile.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_list.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/configs/images.dart';
-import 'package:supernodeapp/common/configs/sys.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
-import 'package:supernodeapp/page/home_page/user_component/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
 import 'action.dart';
+import 'state.dart';
 
-Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
-//  throw StateError('This is a Dart exception');
-  String _currentSugars;
 
   return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -87,7 +82,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                         ),
                       ),
                       SizedBox(height: s(18)),
-                      PrimaryButton(onTap: () => dispatch(LoginActionCreator.onLogin()), buttonTitle: FlutterI18n.translate(_ctx, 'login'), minHeight: s(46)),
+                      PrimaryButton(onTap: () => dispatch(LoginActionCreator.onLogin()), buttonTitle: FlutterI18n.translate(_ctx, 'login'), minHeight: s(46), minWidget: double.infinity),
                       Container(
                         margin: EdgeInsets.only(top: s(28.5), bottom: s(17.5)),
                         height: s(1),
@@ -115,46 +110,106 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
             ),
             Positioned(
               top: s(133),
-              child: ClipOval(
-                child: Container(
-                  width: s(171),
-                  height: s(171),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
+              child: GestureDetector(
+                onTap: () => dispatch(LoginActionCreator.superNodeListVisible(true)),
+                child: ClipOval(
                   child: Container(
-                    width: s(134),
-                    height: s(134),
-                    decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle, boxShadow: [
-                      BoxShadow(
-                        color: darkBackground,
-                        offset: Offset(0, 2),
-                        blurRadius: 20,
-                        spreadRadius: 10,
-                      )
-                    ]),
-                    child: Icon(Icons.add, size: s(25)),
+                    width: s(171),
+                    height: s(171),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Container(
+                      width: s(134),
+                      height: s(134),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle, boxShadow: [
+                        BoxShadow(
+                          color: darkBackground,
+                          offset: Offset(0, 2),
+                          blurRadius: 20,
+                          spreadRadius: 10,
+                        )
+                      ]),
+                      child: (state.currentSuperNode != null)
+                          ? Image.network(
+                              state.currentSuperNode['logo'],
+                              width: s(100),
+                            )
+                          : Icon(Icons.add, size: s(25)),
+                    ),
                   ),
                 ),
               ),
             ),
+            if (state.showSuperNodeList)
+              GestureDetector(
+                onTap: () => dispatch(LoginActionCreator.superNodeListVisible(false)),
+                child: Container(
+                  color: Color(0x33000000),
+                ),
+              ),
             AnimatedPositioned(
               duration: Duration(milliseconds: 300),
-              left: true ? s(-304) : 0,
+              left: state.showSuperNodeList ? 0 : -ScreenUtil.instance.width,
               child: Container(
-                color: Colors.white,
                 height: ScreenUtil.instance.height,
                 width: s(304),
-                child: Column(
-                  children: Sys.superNodes.keys
-                      .map(
-                        (node) => Container(
-                      child: SupernodeButton(onPress: () => dispatch(LoginActionCreator.selectedSuperNode(node)), selected: state.selectedSuperNode.contains(node), cardChild: Image.asset(AppImages.superNodes[node])),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(s(10)),
+                    bottomRight: Radius.circular(s(10)),
+                  ),
+                ),
+                child: SingleChildScrollView(
+                  child: Column(children: <Widget>[
+                    SizedBox(
+                      height: s(114),
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            alignment: Alignment.center,
+                            width: s(272),
+                            child: Text(
+                              FlutterI18n.translate(_ctx, 'super_node'),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: s(16),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          Icon(Icons.close, size: s(16)),
+                        ],
+                      ),
                     ),
-                  )
-                      .toList(),
+                    Column(
+                      children: <Widget>[
+                        for (var key in state.superNodes?.keys ?? [])
+                          ExpansionSuperNodesTile(
+                            title: Text(key, style: TextStyle(color: Colors.black)),
+                            initiallyExpanded: true,
+                            backgroundColor: darkBackground,
+                            children: <Widget>[
+                              for (var item in state.superNodes[key])
+                                GestureDetector(
+                                  child: ListTile(
+                                    title: Container(
+                                      alignment: Alignment.center,
+                                      height: s(65),
+                                      child: Image.network("${item["logo"]}", height: s(30)),
+                                    ),
+                                  ),
+                                  onTap: () => dispatch(LoginActionCreator.selectedSuperNode(item)),
+                                ),
+                            ],
+                          ),
+                      ],
+                    ),
+                  ]),
                 ),
               ),
             )
@@ -166,11 +221,10 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
       ));
 }
 
-//Container
-//(
-//margin: kOuterRowTop10,child: Wrap
-//(
-//children: )
-//,
+//Sys.superNodes.keys
+//    .map(
+//(node) => Container(
+//child: SupernodeButton(onPress: () => dispatch(LoginActionCreator.selectedSuperNode(node)), selected: state.selectedSuperNode.contains(node), cardChild: Image.asset(AppImages.superNodes[node])),
+//),
 //)
-//,
+//.toList(),

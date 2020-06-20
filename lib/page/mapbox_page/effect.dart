@@ -1,8 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/common/components/location_utils.dart';
-import 'package:location/location.dart';
-import 'package:supernodeapp/global_store/action.dart';
 import 'action.dart';
 import 'state.dart';
 

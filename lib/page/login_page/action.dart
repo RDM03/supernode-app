@@ -1,12 +1,16 @@
 import 'package:fish_redux/fish_redux.dart';
 
-enum LoginAction { selectedSuperNode, onLogin, onSignUp, onForgotPassword, isObscureText }
+enum LoginAction {
+  isObscureText,
+  selectedSuperNode,
+  superNodeListVisible,
+  setSuperNodes,
+  onLogin,
+  onSignUp,
+  onForgotPassword,
+}
 
 class LoginActionCreator {
-  static Action selectedSuperNode(String node) {
-    return Action(LoginAction.selectedSuperNode,payload: node);
-  }
-
   static Action onLogin() {
     return const Action(LoginAction.onLogin);
   }
@@ -21,5 +25,17 @@ class LoginActionCreator {
 
   static Action isObscureText() {
     return const Action(LoginAction.isObscureText);
+  }
+
+  static Action selectedSuperNode(Map<String, dynamic> node) {
+    return Action(LoginAction.selectedSuperNode, payload: node);
+  }
+
+  static Action superNodeListVisible(bool state) {
+    return Action(LoginAction.superNodeListVisible, payload: state);
+  }
+
+  static Action setSuperNodes(Map<String, dynamic> data) {
+    return Action(LoginAction.setSuperNodes, payload: data);
   }
 }
