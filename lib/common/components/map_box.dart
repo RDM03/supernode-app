@@ -91,7 +91,6 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await _myLocationMove();
       await Future.delayed(Duration(milliseconds: 200));
       config.addSymbols(config.markers);
     });
