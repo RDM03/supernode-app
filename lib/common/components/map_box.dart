@@ -13,37 +13,28 @@ class MapViewController {
   LatLng myLatLng;
   double zoom;
 
-  bool _widgetInit = false;
-  bool _controllerInit = false;
   bool _symbolsAdd = false;
 
   MapViewController({this.markers, this.zoom = 12});
 
-  void widgetInit() {
-    this._widgetInit = true;
-    refresh();
-  }
-
-  void onMapCreated(MapboxMapController controller) {
-    this.ctl = controller;
-    this._controllerInit = true;
-    refresh();
-  }
-
-  void refresh() {
-    if (_controllerInit && _widgetInit && !_symbolsAdd && (markers?.isNotEmpty ?? false)) {
+  void onStyleLoadedInit() {
+    if (!_symbolsAdd && (markers?.isNotEmpty ?? false)) {
       addSymbols(markers);
       _symbolsAdd = true;
     }
   }
 
-  void addSymbol(MapMarker marker) {
+  void onMapCreated(MapboxMapController controller) {
+    this.ctl = controller;
+  }
+
+  Future<void> addSymbol(MapMarker marker) async {
     if (markers == null) markers = List<MapMarker>();
     var result = markers.where((MapMarker item) => (item.point.latitude == marker.point.latitude) && (item.point.longitude == item.point.longitude));
     if (result.isEmpty) {
       markers.add(marker);
     }
-    ctl?.addSymbol(SymbolOptions(
+    await ctl?.addSymbol(SymbolOptions(
       iconImage: marker.image,
       geometry: marker.point,
       iconSize: marker?.size ?? 1,
@@ -105,15 +96,6 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
 
   MapViewController get config => widget.config;
 
-  @override
-  void initState() {
-    super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(Duration(milliseconds: 200));
-      config.widgetInit();
-    });
-  }
-
   Future<void> _myLocationMove({bool state}) async {
     bool has = await PermissionUtil.getLocationPermission();
     setState(() {
@@ -154,6 +136,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
             widget.onTap(coordinates);
           },
           onMapCreated: config.onMapCreated,
+          onStyleLoadedCallback: widget.config.onStyleLoadedInit,
           gestureRecognizers: !widget.isFullScreen
               ? <Factory<OneSequenceGestureRecognizer>>[
                   Factory<OneSequenceGestureRecognizer>(
