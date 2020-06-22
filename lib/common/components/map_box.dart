@@ -13,10 +13,28 @@ class MapViewController {
   LatLng myLatLng;
   double zoom;
 
+  bool _widgetInit = false;
+  bool _controllerInit = false;
+  bool _symbolsAdd = false;
+
   MapViewController({this.markers, this.zoom = 12});
+
+  void widgetInit() {
+    this._widgetInit = true;
+    refresh();
+  }
 
   void onMapCreated(MapboxMapController controller) {
     this.ctl = controller;
+    this._controllerInit = true;
+    refresh();
+  }
+
+  void refresh() {
+    if (_controllerInit && _widgetInit && !_symbolsAdd && (markers?.isNotEmpty ?? false)) {
+      addSymbols(markers);
+      _symbolsAdd = true;
+    }
   }
 
   void addSymbol(MapMarker marker) {
@@ -92,7 +110,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(Duration(milliseconds: 200));
-      config.addSymbols(config.markers);
+      config.widgetInit();
     });
   }
 
