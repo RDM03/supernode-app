@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -6,7 +7,7 @@ import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/expansion_super_node_tile.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_list.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
-import 'package:supernodeapp/common/configs/images.dart';
+import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/theme/colors.dart';
@@ -75,8 +76,12 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                                   )
                                 ]),
                                 child: (state.currentSuperNode != null)
-                                    ? Image.network(
-                                        state.currentSuperNode['logo'],
+                                    ? CachedNetworkImage(
+                                        imageUrl: state.currentSuperNode.logo,
+                                        placeholder: (a, b) => Image.asset(
+                                          AppImages.placeholder,
+                                          width: s(100),
+                                        ),
                                         width: s(100),
                                       )
                                     : Icon(Icons.add, size: s(25)),
@@ -213,7 +218,14 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                                       padding: EdgeInsets.only(right: s(35)),
                                       alignment: Alignment.center,
                                       height: s(65),
-                                      child: Image.network("${item["logo"]}", height: s(30)),
+                                      child: CachedNetworkImage(
+                                        imageUrl: "${item.logo}",
+                                        placeholder: (a, b) => Image.asset(
+                                          AppImages.placeholder,
+                                          height: s(30),
+                                        ),
+                                        height: s(30),
+                                      ),
                                     ),
                                   ),
                                   onTap: () => dispatch(LoginActionCreator.selectedSuperNode(item)),

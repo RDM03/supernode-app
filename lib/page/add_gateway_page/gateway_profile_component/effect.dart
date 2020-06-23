@@ -110,7 +110,7 @@ void _gatewayProfile(Context<GatewayProfileState> ctx,String id){
   };
   
   dao.profile(data).then((res){
-    log('Gateway profile',res);
+    mLog('Gateway profile',res);
     if(res.containsKey('result') && res['result'].length > 0){
       ctx.dispatch(GatewayProfileActionCreator.gatewayProfileList(res['result']));
     }else{
@@ -176,7 +176,7 @@ void _update(Action action, Context<GatewayProfileState> ctx) {
 
     dao.add(data).then((res){
       hideLoading(ctx.context);
-      log('GatewaysDao add',res);
+      mLog('GatewaysDao add',res);
 
       tip(ctx.context,FlutterI18n.translate(ctx.context,'update_success'),success: true);
 
@@ -201,7 +201,7 @@ void _getOrganizations(Action action, Context<GatewayProfileState> ctx){
 
   dao.list(data).then((res){
     hideLoading(ctx.context);
-    log('OrganizationDao list',res);
+    mLog('OrganizationDao list',res);
 
     SettingsState settingsData = GlobalStore.store.getState().settings;
     settingsData.selectedOrganizationId = res['result'][0]['id'];
@@ -234,7 +234,7 @@ void _onNetworkServerList(Action action, Context<GatewayProfileState> ctx) async
 
   await dao.list(data).then((res){
     hideLoading(ctx.context);
-    log('NetworkServerDao list',res);
+    mLog('NetworkServerDao list',res);
 
     if((res as Map).containsKey('result') && res['result'].length > 0){
       // List nsList = [];

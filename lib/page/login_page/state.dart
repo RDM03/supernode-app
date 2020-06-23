@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/widgets.dart';
+import 'package:supernodeapp/data/super_node_bean.dart';
 
 class LoginState implements Cloneable<LoginState> {
   GlobalKey formKey = GlobalKey<FormState>();
@@ -7,8 +8,8 @@ class LoginState implements Cloneable<LoginState> {
   TextEditingController passwordCtl = TextEditingController();
   bool isObscureText = true;
   bool showSuperNodeList = false;
-  Map<String, List<dynamic>> superNodes;
-  Map<String, dynamic> currentSuperNode;
+  Map<String, List<SuperNodeBean>> superNodes;
+  SuperNodeBean currentSuperNode;
 
   @override
   LoginState clone() {

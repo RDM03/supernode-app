@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:supernodeapp/common/configs/config.dart';
+import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 
 

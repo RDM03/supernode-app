@@ -30,7 +30,7 @@ void _initState(Action action, Context<DepositState> ctx) {
   };
 
   dao.account(data).listen((res) {
-    log('account',res);
+    mLog('account',res);
     
     if((res as Map).containsKey('activeAccount')){
       ctx.dispatch(DepositActionCreator.address(res['activeAccount']));

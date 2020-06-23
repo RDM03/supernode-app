@@ -3,7 +3,7 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/configs/config.dart';
+import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
 import 'package:supernodeapp/common/daos/organization_dao.dart';
 import 'package:supernodeapp/common/daos/settings_dao.dart';
@@ -58,7 +58,7 @@ void _onEmailContinue(Action action, Context<SignUpState> ctx) {
     StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
     dao.register(data).then((res){
       hideLoading(ctx.context);
-      log('register',res);
+      mLog('register',res);
 
       Navigator.push(ctx.context,
         MaterialPageRoute(
@@ -92,7 +92,7 @@ void _onVerificationContinue(Action action, Context<SignUpState> ctx) {
 
     dao.registerConfirm(data).then((res){
       hideLoading(ctx.context);
-      log('registerConfirm',res);
+      mLog('registerConfirm',res);
 
       SettingsState settingsData = GlobalStore.store.getState().settings;
 
@@ -156,7 +156,7 @@ void _onRegistrationContinue(Action action, Context<SignUpState> ctx) {
 
     dao.registerFinish(data).then((res){
       hideLoading(ctx.context);
-      log('UserDao registerFinish',res);
+      mLog('UserDao registerFinish',res);
       Navigator.of(ctx.context).pushNamed('add_gateway_page',arguments:{'fromPage': 'registration'});
     }).catchError((err){
       hideLoading(ctx.context);

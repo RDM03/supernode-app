@@ -17,7 +17,6 @@ class SettingsDao extends DbDao{
   static const String token = 'token';
   static const String notification = 'notification';
   static const String expire = 'expire';
-  static const String superNode = 'superNode';
   static const String language = 'language';
   static const String theme = 'theme';
   
@@ -50,7 +49,7 @@ class SettingsDao extends DbDao{
   Future<SettingsState> getItem() async {
     List<Map> maps = await db.query(
       table,
-      columns: [cId, userId, username, organizationId, expire, token, notification, superNode, language, theme],
+      columns: [cId, userId, username, organizationId, expire, token, notification, language, theme],
       where: '$id = ?',
       whereArgs: [settingId]
     );

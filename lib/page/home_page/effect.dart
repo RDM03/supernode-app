@@ -7,8 +7,8 @@ import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/location_utils.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/configs/config.dart';
-import 'package:supernodeapp/common/configs/images.dart';
+import 'package:supernodeapp/configs/config.dart';
+import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/common/daos/app_dao.dart';
 import 'package:supernodeapp/common/daos/local_storage_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
@@ -47,7 +47,7 @@ void _relogin(Action action, Context<HomeState> ctx) {
   UserDao dao = UserDao();
   showLoading(ctx.context);
   dao.login(data).then((res) {
-    log('login', res);
+    mLog('login', res);
     hideLoading(ctx.context);
 
     SettingsState settingsData = GlobalStore.store.getState().settings;
@@ -102,7 +102,7 @@ void _profile(Context<HomeState> ctx) {
   UserDao dao = UserDao();
 
   dao.profile().listen((res) async {
-    log('profile', res);
+    mLog('profile', res);
     UserState userData = UserState.fromMap(res['user'], type: 'remote');
 
     List<OrganizationsState> organizationsData = [];
@@ -147,7 +147,7 @@ void _balance(Context<HomeState> ctx, UserState userData, String orgId) {
   Map data = {'userId': userData.id, 'orgId': orgId};
 
   dao.balance(data).listen((res) {
-    log('balance', res);
+    mLog('balance', res);
     double balance = Tools.convertDouble(res['balance']);
     LocalStorageDao.saveUserData('user_${userData.id}', {'balance': balance});
     ctx.dispatch(HomeActionCreator.balance(balance));
@@ -163,7 +163,7 @@ void _miningIncome(Context<HomeState> ctx, UserState userData, String orgId) {
   Map data = {'userId': userData.id, 'orgId': orgId};
 
   dao.miningIncome(data).listen((res) {
-    log('WalletDao miningInfo', res);
+    mLog('WalletDao miningInfo', res);
     double value = 0;
     if ((res as Map).containsKey('miningIncome')) {
       value = Tools.convertDouble(res['miningIncome']);
@@ -190,7 +190,7 @@ void _stakeAmount(Context<HomeState> ctx, String orgId) {
   StakeDao dao = StakeDao();
 
   dao.amount(orgId).listen((res) {
-    log('StakeDao amount', res);
+    mLog('StakeDao amount', res);
     double amount = 0;
     if (res.containsKey('actStake') && res['actStake'] != null) {
       amount = Tools.convertDouble(res['actStake']['Amount']);
@@ -211,7 +211,7 @@ void _gateways(Context<HomeState> ctx) {
   Map data = {"organizationID": orgId, "offset": 0, "limit": 999};
 
   dao.list(data).listen((res) {
-    log('GatewaysDao list', res);
+    mLog('GatewaysDao list', res);
 
     // [0-9]\d{0,1}\.[0-9]\d{0,1}\.[0-9]\d{0,1}
     // 用于匹配版本号 允许范围 0.0.0 -> 99.99.99
@@ -248,7 +248,7 @@ void _gatewaysLocations(Context<HomeState> ctx) {
   GatewaysDao dao = GatewaysDao();
 
   dao.locations().listen((res) async {
-    log('GatewaysDao locations', res);
+    mLog('GatewaysDao locations', res);
 
     if (res['result'].length > 0) {
       List<Marker> locations = [];
@@ -276,7 +276,7 @@ void _devices(Context<HomeState> ctx, UserState userData, String orgId) {
   Map data = {"organizationID": orgId, "offset": 0, "limit": 999};
 
   dao.list(data).then((res) async {
-    log('DevicesDao list', res);
+    mLog('DevicesDao list', res);
 
     int total = int.parse(res['totalCount']);
     double allValues = 0;
@@ -350,7 +350,7 @@ void _convertUSD(Context<HomeState> ctx, Map data, String type) {
   WalletDao dao = WalletDao();
 
   dao.convertUSD(data).listen((res) async {
-    log('WalletDao convertUSD', res);
+    mLog('WalletDao convertUSD', res);
 
     if ((res as Map).containsKey('mxcPrice')) {
       double value = double.parse(res['mxcPrice']);
@@ -372,7 +372,7 @@ void _stakingRevenue(Context<HomeState> ctx, String orgId) {
   };
 
   dao.history(data).listen((res) async {
-    log('StakeDao history', res);
+    mLog('StakeDao history', res);
     double totleRevenue = 0;
 
     if((res as Map).containsKey('stakingHist') && res['stakingHist'].length > 0) {

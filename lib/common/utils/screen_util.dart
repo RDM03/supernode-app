@@ -33,7 +33,7 @@ class ScreenUtil {
       _physicalSize = Size(_size.width * _pixelRatio, _size.height * _pixelRatio);
       _viewBoxSize = _getViewBoxSize(_size);
       _screenScale = _physicalSize.width / _physicalSize.height;
-      log("Screen Util", toString());
+      L.dTag("Screen Util", toString());
     } catch (e) {} finally {
       _onInit = false;
     }

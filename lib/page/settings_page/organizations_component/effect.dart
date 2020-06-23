@@ -76,7 +76,7 @@ void _updateData(Context<OrganizationsState> ctx){
   OrganizationDao dao = OrganizationDao();
 
   dao.update(data).then((res){
-    log('update',res);
+    mLog('update',res);
     hideLoading(ctx.context);
 
     tip(ctx.context,FlutterI18n.translate(ctx.context,'update_success'),success: true);

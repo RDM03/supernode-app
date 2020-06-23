@@ -1,4 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:supernodeapp/data/super_node_bean.dart';
 
 enum LoginAction {
   isObscureText,
@@ -27,7 +28,7 @@ class LoginActionCreator {
     return const Action(LoginAction.isObscureText);
   }
 
-  static Action selectedSuperNode(Map<String, dynamic> node) {
+  static Action selectedSuperNode(SuperNodeBean node) {
     return Action(LoginAction.selectedSuperNode, payload: node);
   }
 

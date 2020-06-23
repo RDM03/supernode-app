@@ -36,7 +36,7 @@ void _onConfirm(Action action, Context<ChangePasswordState> ctx) {
   UserDao dao = UserDao();
 
   dao.changePassword(data).then((res){
-    log('changePassword',res);
+    mLog('changePassword',res);
     hideLoading(ctx.context);
 
     tip(ctx.context,'Updated Successfully',success: true);

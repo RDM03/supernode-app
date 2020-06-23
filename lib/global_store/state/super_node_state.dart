@@ -1,6 +1,5 @@
-class SuperNodeState {
-  Map<String, List<dynamic>> superNodes;
-  Map<String, dynamic> currentSuperNode;
+import 'package:supernodeapp/module/super_node_model.dart';
 
-
+mixin SuperNodeStore {
+  SuperNodeModel superModel;
 }

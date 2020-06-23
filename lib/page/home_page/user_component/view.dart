@@ -9,8 +9,9 @@ import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/profile.dart';
 import 'package:supernodeapp/common/components/row_right.dart';
 import 'package:supernodeapp/common/components/summary_row.dart';
-import 'package:supernodeapp/common/configs/images.dart';
+import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/home_page/action.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -27,7 +28,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
       backgroundColor: backgroundColor,
       elevation: 0,
       title: Image.asset(
-        AppImages.superNodes[state.selectedSuperNode],
+        GlobalStore?.state?.superModel?.currentNode?.logo ?? '',
         height: 40,
       ),
       actions: [

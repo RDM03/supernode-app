@@ -57,7 +57,6 @@ class DbDao{
             ${SettingsDao.expire} text null,
             ${SettingsDao.token} text null,
             ${SettingsDao.notification} integer not null,
-            ${SettingsDao.superNode} text null,
             ${SettingsDao.language} text null,
             ${SettingsDao.theme} integer null)
           ''');

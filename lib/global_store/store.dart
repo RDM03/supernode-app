@@ -3,8 +3,9 @@ import 'reducer.dart';
 import 'state.dart';
 
 class GlobalStore {
+  static GlobalState get state => _globalStore.getState();
+
   static Store<GlobalState> _globalStore;
 
-  static Store<GlobalState> get store =>
-      _globalStore ??= createStore<GlobalState>(GlobalState(), buildReducer());
+  static Store<GlobalState> get store => _globalStore ??= createStore<GlobalState>(GlobalState(), buildReducer());
 }

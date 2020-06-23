@@ -14,13 +14,6 @@ class AppLanguage {
 }
 
 class Sys {
-  static const Map superNodes = {
-    'xinyu': 'https://mxcxy.com',
-    'huawei': 'https://lora.hunanhuaweikeji.com',
-    'matchx': 'https://lora.supernode.matchx.io',
-    'enlink': 'https://lora.rosanetworks.com',
-  };
-
   static const testBaseUrl = 'https://lora.test.cloud.mxc.org';
   static const buildBaseUrl = 'https://lora.build.cloud.mxc.org';
 
@@ -31,8 +24,6 @@ class Sys {
 
   static const List<String> mainMenus = ['Home', 'Gateway', 'Device', 'Wallet'];
 
-  static const mapUrlTemplate =
-      'https://api.mapbox.com/styles/v1/mxcdatadash/ck9qr005y5xec1is8yu6i51kw/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}';
-  static const mapToken =
-      'pk.eyJ1IjoibXhjZGF0YWRhc2giLCJhIjoiY2s5bnc4dmh4MDBiMDNnbnczamRoN2ExeCJ9.sq0w8DGDXpA_6AMoejYaUw';
+  static const mapUrlTemplate = 'https://api.mapbox.com/styles/v1/mxcdatadash/ck9qr005y5xec1is8yu6i51kw/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}';
+  static const mapToken = 'pk.eyJ1IjoibXhjZGF0YWRhc2giLCJhIjoiY2s5bnc4dmh4MDBiMDNnbnczamRoN2ExeCJ9.sq0w8DGDXpA_6AMoejYaUw';
 }

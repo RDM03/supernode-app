@@ -118,7 +118,6 @@ HomeState initState(Map<String, dynamic> args) {
   SettingsState settingsData = GlobalStore.store.getState().settings;
 
   return HomeState()
-    ..superNode = settingsData.superNode
     ..username = settingsData.username;
 }
 

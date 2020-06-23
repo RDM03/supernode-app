@@ -37,7 +37,7 @@ void _requestTOTPStatus(Context<WithdrawState> ctx) {
   Map data = {};
 
   dao.getTOTPStatus(data).then((res) {
-    log('totp', res);
+    mLog('totp', res);
 
     if ((res as Map).containsKey('enabled')) {
       ctx.dispatch(WithdrawActionCreator.isEnabled(res['enabled']));
@@ -50,7 +50,7 @@ void _requestTOTPStatus(Context<WithdrawState> ctx) {
 void _withdrawFee(Context<WithdrawState> ctx) {
   WithdrawDao dao = WithdrawDao();
   dao.fee().then((res) {
-    log('WithdrawDao fee', res);
+    mLog('WithdrawDao fee', res);
 
     if ((res as Map).containsKey('withdrawFee')) {
       ctx.dispatch(WithdrawActionCreator.fee(Tools.convertDouble(res['withdrawFee'])));
@@ -67,7 +67,7 @@ void _onQrScan(Action action, Context<WithdrawState> ctx) async {
       titleColor: backgroundColor,
       qRCornerColor: buttonPrimaryColor,
       qRScannerColor: buttonPrimaryColorAccent);
-  log('_onQrScan', qrResult);
+  mLog('_onQrScan', qrResult);
   ctx.dispatch(WithdrawActionCreator.address(qrResult));
 }
 
@@ -121,7 +121,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
         showLoading(ctx.context);
         dao.withdraw(data).then((res) {
           hideLoading(ctx.context);
-          log('withdraw', res);
+          mLog('withdraw', res);
 
           if (res.containsKey('status') && res['status']) {
             Navigator.pushNamed(ctx.context, 'confirm_page',
@@ -151,7 +151,7 @@ void _updateBalance(Context<WithdrawState> ctx) {
   Map data = {'userId': userId, 'orgId': orgId};
 
   dao.balance(data).listen((res) {
-    log('balance', res);
+    mLog('balance', res);
 
     double balance = Tools.convertDouble(res['balance']);
     ctx.dispatch(WithdrawActionCreator.balance(balance));

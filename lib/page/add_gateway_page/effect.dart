@@ -97,7 +97,7 @@ void _register(Context<AddGatewayState> ctx,String serialNumber){
   showLoading(ctx.context);
   dao.register(data).then((res){
     hideLoading(ctx.context);
-    log('Gateway register',res);
+    mLog('Gateway register',res);
 
     if(res.containsKey('status')){
       tip(ctx.context,res['status'],success: true);

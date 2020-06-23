@@ -2,11 +2,11 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
-import 'package:supernodeapp/common/configs/config.dart';
+import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/common/daos/supernode_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/configs/sys.dart';
+import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
@@ -43,7 +43,7 @@ void _initState(Action action, Context<LoginState> ctx) async {
 void _onLogin(Action action, Context<LoginState> ctx) async {
   var curState = ctx.state;
 
-  if (curState.currentSuperNode.isEmpty) {
+  if (curState.currentSuperNode != null) {
     tip(ctx.context, FlutterI18n.translate(ctx.context, 'reg_select_supernode'));
     return;
   }
@@ -53,14 +53,14 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
 
     Map data = {'username': curState.usernameCtl.text.trim(), 'password': curState.passwordCtl.text.trim()};
 
-    String apiRoot = Sys.superNodes[curState.currentSuperNode];
+    String apiRoot = curState.currentSuperNode.url;
     Dao.baseUrl = apiRoot;
 
     UserDao dao = UserDao();
     // var response = await dao.login(data);
 
     dao.login(data).then((res) {
-      log('login', res);
+      mLog('login', res);
       hideLoading(ctx.context);
 
       SettingsState settingsData = GlobalStore.store.getState().settings;
@@ -72,7 +72,6 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
       Dao.token = res['jwt'];
       settingsData.token = res['jwt'];
       settingsData.username = data['username'];
-      settingsData.superNode = curState.currentSuperNode["name"];
       List<String> users = StorageManager.sharedPreferences.getStringList(Config.USER_KEY) ?? [];
       if (!users.contains(data['username'])) {
         users.add(data['username']);
@@ -86,13 +85,13 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
       //Navigator.pushNamedAndRemoveUntil(ctx.context,'home_page',(route) => false,arguments:{'superNode':curState.selectedSuperNode});
     }).then((res) {
       print(res);
-      log('login saf', res);
+      mLog('login saf', res);
       UserDao dao = UserDao();
 
       Map data = {};
 
       dao.getTOTPStatus(data).then((res) {
-        log('totp', res);
+        mLog('totp', res);
         //hideLoading(ctx.context);
         SettingsState settingsData = GlobalStore.store.getState().settings;
 
@@ -104,7 +103,7 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
         if ((res as Map).containsKey('enabled')) {
           GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
         }
-        Navigator.pushNamedAndRemoveUntil(ctx.context, 'home_page', (route) => false, arguments: {'superNode': curState.currentSuperNode["name"]});
+        Navigator.pushNamedAndRemoveUntil(ctx.context, 'home_page', (route) => false, arguments: {'superNode': curState.currentSuperNode});
       }).catchError((err) {
         //hideLoading(ctx.context);
         tip(ctx.context, '$err');
@@ -118,12 +117,12 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
 
 void _onSignUp(Action action, Context<LoginState> ctx) {
   var curState = ctx.state;
-  if (curState.currentSuperNode.isEmpty) {
+  if (curState.currentSuperNode == null) {
     tip(ctx.context, FlutterI18n.translate(ctx.context, 'reg_select_supernode'));
     return;
   }
 
-  String apiRoot = Sys.superNodes[curState.currentSuperNode];
+  String apiRoot = curState.currentSuperNode.url;
   Dao.baseUrl = apiRoot;
 
   SettingsState settingsData = GlobalStore.store.getState().settings;
@@ -131,8 +130,6 @@ void _onSignUp(Action action, Context<LoginState> ctx) {
   if (settingsData == null) {
     settingsData = SettingsState().clone();
   }
-
-  settingsData.superNode = curState.currentSuperNode['name'];
 
   GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
 
