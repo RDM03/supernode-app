@@ -5,7 +5,6 @@ enum LoginAction {
   isObscureText,
   selectedSuperNode,
   superNodeListVisible,
-  setSuperNodes,
   onLogin,
   onSignUp,
   onForgotPassword,
@@ -34,9 +33,5 @@ class LoginActionCreator {
 
   static Action superNodeListVisible(bool state) {
     return Action(LoginAction.superNodeListVisible, payload: state);
-  }
-
-  static Action setSuperNodes(Map<String, dynamic> data) {
-    return Action(LoginAction.setSuperNodes, payload: data);
   }
 }

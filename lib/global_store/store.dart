@@ -3,7 +3,7 @@ import 'reducer.dart';
 import 'state.dart';
 
 class GlobalStore {
-  static GlobalState get state => _globalStore.getState();
+  static GlobalState get state => store.getState();
 
   static Store<GlobalState> _globalStore;
 

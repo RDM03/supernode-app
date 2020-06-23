@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -9,6 +10,7 @@ import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/profile.dart';
 import 'package:supernodeapp/common/components/row_right.dart';
 import 'package:supernodeapp/common/components/summary_row.dart';
+import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
@@ -27,9 +29,13 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
     appBar: AppBar(
       backgroundColor: backgroundColor,
       elevation: 0,
-      title: Image.asset(
-        GlobalStore?.state?.superModel?.currentNode?.logo ?? '',
-        height: 40,
+      title: CachedNetworkImage(
+        imageUrl: "${GlobalStore?.state?.superModel?.currentNode?.logo}",
+        placeholder: (a, b) => Image.asset(
+          AppImages.placeholder,
+          height: s(40),
+        ),
+        height: s(40),
       ),
       actions: [
         IconButton(
@@ -55,16 +61,14 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
               children: [
                 profile(
                   name: '${FlutterI18n.translate(_ctx, 'hi')}, ${state.username}',
-                  position: (state.organizations.length > 0 && state.organizations.first.isAdmin)
-                      ? FlutterI18n.translate(_ctx, 'admin')
-                      : '',
+                  position: (state.organizations.length > 0 && state.organizations.first.isAdmin) ? FlutterI18n.translate(_ctx, 'admin') : '',
                 ),
                 rowRight(FlutterI18n.translate(_ctx, 'current_balance'), style: kSmallFontOfGrey),
                 rowRight('${Tools.priceFormat(state.balance)} MXC', style: kBigFontOfBlack, loading: state.loading),
                 rowRight(FlutterI18n.translate(_ctx, 'staked_amount'), style: kSmallFontOfGrey),
                 rowRight('${Tools.priceFormat(state.stakedAmount)} MXC', style: kBigFontOfBlack, loading: state.loading),
                 rowRight(FlutterI18n.translate(_ctx, 'staking_revenue'), style: kSmallFontOfGrey),
-                rowRight('${Tools.priceFormat(state.totalRevenue,range: 2)} MXC', style: kBigFontOfBlack, loading: state.loading),
+                rowRight('${Tools.priceFormat(state.totalRevenue, range: 2)} MXC', style: kBigFontOfBlack, loading: state.loading),
                 Container(
                   margin: kRoundRow5,
                   child: Row(
@@ -98,8 +102,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
               title: FlutterI18n.translate(_ctx, 'total_gateways'),
               number: '${state.gatewaysTotal}',
               subtitle: FlutterI18n.translate(_ctx, 'profit'),
-              price:
-                  '${Tools.priceFormat(state.gatewaysRevenue)} MXC (${Tools.priceFormat(state.gatewaysUSDRevenue)} USD)',
+              price: '${Tools.priceFormat(state.gatewaysRevenue)} MXC (${Tools.priceFormat(state.gatewaysUSDRevenue)} USD)',
             ),
           ),
           panelFrame(
@@ -109,8 +112,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
               title: FlutterI18n.translate(_ctx, 'total_devices'),
               number: '${state.devicesTotal}',
               subtitle: FlutterI18n.translate(_ctx, 'cost'),
-              price:
-                  '${Tools.priceFormat(state.devicesRevenue)} MXC (${Tools.priceFormat(state.devicesUSDRevenue)} USD)',
+              price: '${Tools.priceFormat(state.devicesRevenue)} MXC (${Tools.priceFormat(state.devicesUSDRevenue)} USD)',
             ),
           ),
           MapWidget(

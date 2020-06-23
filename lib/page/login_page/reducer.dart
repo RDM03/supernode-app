@@ -8,7 +8,6 @@ Reducer<LoginState> buildReducer() {
       LoginAction.selectedSuperNode: _selectedSuperNode,
       LoginAction.isObscureText: _isObscureText,
       LoginAction.superNodeListVisible: _superNodeListVisible,
-      LoginAction.setSuperNodes: _setSuperNodes,
     },
   );
 }
@@ -28,9 +27,4 @@ LoginState _isObscureText(LoginState state, Action action) {
 LoginState _superNodeListVisible(LoginState state, Action action) {
   final LoginState newState = state.clone();
   return newState..showSuperNodeList = action.payload;
-}
-
-LoginState _setSuperNodes(LoginState state, Action action) {
-  final LoginState newState = state.clone();
-  return newState..superNodes = action.payload;
 }

@@ -20,7 +20,7 @@ Widget buildView(SplashState state, Dispatch dispatch, ViewService viewService) 
             height: 116,
             margin: const EdgeInsets.only(top: 282),
             child: SplashLogoAnimation(
-              animationController: state.logoAnimationController,
+              animationController: state.logoController,
               child: Image.asset(AppImages.splashLogo),
             ),
           ),

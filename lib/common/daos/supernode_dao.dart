@@ -1,7 +1,7 @@
 import 'package:supernodeapp/common/daos/app_dao.dart';
 
 class SuperNodeApi {
-  static final String superNodes = "https://datadash.oss-accelerate.aliyuncs.com/super_node.json";
+  static final String superNodes = "http://raw.githubusercontent.com/mxc-foundation/supernode-list/master/supernode.json";
 }
 
 class SuperNodeDao extends Dao {

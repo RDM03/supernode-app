@@ -1,6 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/widgets.dart';
 import 'package:supernodeapp/data/super_node_bean.dart';
+import 'package:supernodeapp/data/super_nodes_bean.dart';
+import 'package:supernodeapp/global_store/store.dart';
 
 class LoginState implements Cloneable<LoginState> {
   GlobalKey formKey = GlobalKey<FormState>();
@@ -25,5 +27,5 @@ class LoginState implements Cloneable<LoginState> {
 }
 
 LoginState initState(Map<String, dynamic> args) {
-  return LoginState();
+  return LoginState()..superNodes = GlobalStore.state.superModel.superNodesByCountry;
 }

@@ -3,10 +3,8 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/configs/config.dart';
-import 'package:supernodeapp/common/daos/supernode_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
@@ -25,25 +23,10 @@ Effect<LoginState> buildEffect() {
   });
 }
 
-void _initState(Action action, Context<LoginState> ctx) async {
-  var json = await SuperNodeDao().superNodes();
-  if (json is Map<String, dynamic>) {
-    var superNodes = Map<String, List<dynamic>>();
-    for (var key in json.keys) {
-      json[key]["name"] = key;
-      if (superNodes.containsKey(json[key]["region"]))
-        superNodes[json[key]["region"]].add(json[key]);
-      else
-        superNodes[json[key]["region"]] = [json[key]];
-    }
-    ctx.dispatch(LoginActionCreator.setSuperNodes(superNodes));
-  }
-}
-
 void _onLogin(Action action, Context<LoginState> ctx) async {
   var curState = ctx.state;
 
-  if (curState.currentSuperNode != null) {
+  if (curState.currentSuperNode == null) {
     tip(ctx.context, FlutterI18n.translate(ctx.context, 'reg_select_supernode'));
     return;
   }
@@ -81,6 +64,7 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
       StorageManager.sharedPreferences.setString(Config.PASSWORD_KEY, data['password']);
       StorageManager.sharedPreferences.setString(Config.API_ROOT, apiRoot);
       GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
+      GlobalStore.store.dispatch(GlobalActionCreator.choiceSuperNode(ctx.state.currentSuperNode));
 
       //Navigator.pushNamedAndRemoveUntil(ctx.context,'home_page',(route) => false,arguments:{'superNode':curState.selectedSuperNode});
     }).then((res) {
@@ -138,4 +122,9 @@ void _onSignUp(Action action, Context<LoginState> ctx) {
 
 void _onForgotPassword(Action action, Context<LoginState> ctx) {
   Navigator.pushNamed(ctx.context, 'forgot_password_page');
+}
+
+void _initState(Action action, Context<LoginState> ctx) {
+  ctx.state.passwordCtl?.dispose();
+  ctx.state.usernameCtl?.dispose();
 }

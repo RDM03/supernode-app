@@ -16,14 +16,25 @@ class SuperNodeModel extends BaseModel<SuperNodesBean> {
 
   set currentNode(SuperNodeBean node) {
     _currentNode = node;
-    sp.put(spCurrentNode, _currentNode);
+    sp.put(spCurrentNode, _currentNode.toJsonStr());
+  }
+
+  Map<String, List<SuperNodeBean>> get superNodesByCountry  {
+    var result = Map<String, List<SuperNodeBean>>();
+    for (SuperNodeBean item in data?.nodes?.values ?? []) {
+      if (result.containsKey(item.region))
+        result[item.region].add(item);
+      else
+        result[item.region] = [item];
+    }
+    return result;
   }
 
   @override
   Future<bool> localLoaded() async {
     var newData = data;
     if (data == null) newData = initData();
-    if (data.nodes?.isNotEmpty ?? true) {
+    if (data?.nodes?.isNotEmpty ?? true) {
       newData.nodes = {};
       Map<String, dynamic> nodes = jsonDecode(await rootBundle.loadString(SUPER_NODES));
       for (var k in nodes.keys) {
@@ -44,18 +55,21 @@ class SuperNodeModel extends BaseModel<SuperNodesBean> {
 
   @override
   Future<bool> networkLoad() async {
-    var newData = initData();
-    var nodes = await SuperNodeDao().superNodes();
-    newData.nodes = {};
-    for (var k in nodes.keys) {
-      newData.nodes[k] = SuperNodeBean(
-        name: k,
-        logo: nodes[k]["logo"],
-        region: nodes[k]["region"],
-        url: nodes[k]["url"],
-      );
-    }
-    return localUpdate(newData);
+    try {
+      var newData = initData();
+      var nodes = jsonDecode(await SuperNodeDao().superNodes());
+      newData.nodes = {};
+      for (var k in nodes.keys) {
+        newData.nodes[k] = SuperNodeBean(
+          name: k,
+          logo: nodes[k]["logo"],
+          region: nodes[k]["region"],
+          url: nodes[k]["url"],
+        );
+      }
+      return localUpdate(newData);
+    } catch(e) {}
+    return true;
   }
 
   String get spCurrentNode => "CURRENT_NODE";

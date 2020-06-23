@@ -10,7 +10,9 @@ class SuperNodesBean extends AbstractBaseData<SuperNodesBean> {
   @JsonKey(name: "nodes")
   Map<String, SuperNodeBean> nodes;
 
-  SuperNodesBean({this.nodes,});
+  SuperNodesBean({
+    this.nodes,
+  });
 
   static SuperNodesBean fromJsonStr(String jsonStr) {
     return SuperNodesBean.fromJson(jsonDecode(jsonStr));
@@ -22,8 +24,7 @@ class SuperNodesBean extends AbstractBaseData<SuperNodesBean> {
 
   @override
   SuperNodesBean clone() {
-    return SuperNodesBean()
-      ..nodes;
+    return SuperNodesBean()..nodes = nodes;
   }
 
   @override
@@ -32,6 +33,5 @@ class SuperNodesBean extends AbstractBaseData<SuperNodesBean> {
   }
 
   @override
-  jsonConvert(Map<String, dynamic> json) {
-  }
+  jsonConvert(Map<String, dynamic> json) {}
 }

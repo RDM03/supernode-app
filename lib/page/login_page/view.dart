@@ -10,6 +10,7 @@ import 'package:supernodeapp/common/components/text_field/text_field_with_title.
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
+import 'package:supernodeapp/data/super_node_bean.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
@@ -211,7 +212,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                             initiallyExpanded: true,
                             backgroundColor: darkBackground,
                             children: <Widget>[
-                              for (var item in state.superNodes[key])
+                              for (SuperNodeBean item in state.superNodes[key])
                                 GestureDetector(
                                   child: ListTile(
                                     title: Container(
