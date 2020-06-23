@@ -24,7 +24,7 @@ dependencies:
 
   cupertino_icons: ^0.1.2
   dio: ^3.0.9
-  flutter_appcenter: ^0.0.3
+  flutter_appcenter: ^1.0.1
   flutter_i18n: ^0.13.0
   flutter_local_notifications: ^1.4.1
   flutter_map: any

@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_appcenter/flutter_appcenter.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:supernodeapp/common/configs/sys.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 
 import 'package:supernodeapp/global_store/store.dart';
@@ -32,10 +33,18 @@ Future<void> main() async {
   await StorageManager.init();
 
   runApp(mxcApp());
-  FlutterAppCenter.init(
-    androidAppId: '85fbe3cf-0680-4024-b047-ae781c95bd9d',
-    iOSAppId: 'f69d3fff-c177-4cef-81bd-b306f910edd7'
-  );
+  Stream.fromFuture(FlutterAppCenter.init(
+    appSecretAndroid: Sys.androidAppIdAppCenter,
+    appSecretIOS: Sys.iOSAppIdAppCenter,
+    usePrivateTrack: false,
+      automaticCheckForUpdate: true,
+      updateDialog: {
+        'title': 'Update tip',
+        'subTitle:': 'The newest version',
+        'confirm': 'Now Update',
+        'cancel': 'Postpone'
+      }
+  ));
 
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);

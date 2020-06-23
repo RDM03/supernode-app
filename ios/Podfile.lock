@@ -7,9 +7,12 @@ PODS:
   - AppCenter/Core (3.2.0)
   - AppCenter/Crashes (3.2.0):
     - AppCenter/Core
+  - AppCenter/Distribute (3.2.0):
+    - AppCenter/Core
   - Flutter (1.0.0)
-  - flutter_appcenter (0.0.3):
-    - AppCenter (~> 3.2)
+  - flutter_appcenter (1.0.1):
+    - AppCenter (~> 3.2.0)
+    - AppCenter/Distribute (~> 3.2.0)
     - Flutter
   - flutter_local_notifications (0.0.1):
     - Flutter
@@ -119,7 +122,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AppCenter: ca66175050d538b157959382dd43f1ab96cdab84
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  flutter_appcenter: 31d44b4d5c483bca4ac54cc9fcd43f0a3f318e34
+  flutter_appcenter: f18083890fb21c00c351a0b76c97fb08ab6b96bb
   flutter_local_notifications: 9e4738ce2471c5af910d961a6b7eadcf57c50186
   flutter_plugin_android_lifecycle: dc0b544e129eebb77a6bfb1239d4d1c673a60a35
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
