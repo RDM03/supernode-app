@@ -92,9 +92,3 @@ String _onValidAmount(BuildContext context,String value){
   return null;
 }
 
-String _onValidAddress(BuildContext context,String value){
-  String res = Reg.isEmpty(value);
-  if(res != null) return FlutterI18n.translate(context, res); 
-
-  return null;
-}

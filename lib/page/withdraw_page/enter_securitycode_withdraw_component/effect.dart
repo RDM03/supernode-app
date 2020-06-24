@@ -6,4 +6,3 @@ Effect<EnterSecurityCodeWithdrawState> buildEffect() {
   return combineEffects(<Object, Effect<EnterSecurityCodeWithdrawState>>{
   });
 }
-

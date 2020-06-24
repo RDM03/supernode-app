@@ -146,7 +146,6 @@ void _update(Action action, Context<GatewayProfileState> ctx) {
     GatewaysDao dao = GatewaysDao();
 
     String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-    String serialNumber = curState.serialNumber;
 
     Map data ={
       "gateway": {

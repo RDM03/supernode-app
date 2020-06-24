@@ -45,6 +45,7 @@ class Biometrics {
           failAuthenticateCallBack?.call();
         }
       } on PlatformException catch (e) {
+        print(e);
         authenticateCallback.call();
       }
     } else {

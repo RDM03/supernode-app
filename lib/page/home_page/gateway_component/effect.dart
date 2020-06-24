@@ -33,14 +33,3 @@ void _onAddAction(Action action, Context<GatewayState> ctx) {
   });
 }
 
-void _onProfile(Action action, Context<GatewayState> ctx) {
-  Navigator.push(
-    ctx.context,
-    MaterialPageRoute(
-        maintainState: false,
-        fullscreenDialog: true,
-        builder: (context) {
-          return ctx.buildComponent('profile');
-        }),
-  );
-}

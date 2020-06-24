@@ -8,4 +8,3 @@ Reducer<EnterSecurityCodeState> buildReducer() {
     },
   );
 }
-

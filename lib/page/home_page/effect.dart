@@ -271,28 +271,6 @@ Future<void> _gatewaysLocations(Context<HomeState> ctx) async{
   }
 }
 
-Future<void> _devices(Context<HomeState> ctx, UserState userData, String orgId) async{
-  try{
-    DevicesDao dao = DevicesDao();
-    String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-    Map data = {"organizationID": orgId, "offset": 0, "limit": 999};
-
-    var res = await dao.list(data);
-    mLog('DevicesDao list', res);
-
-    int total = int.parse(res['totalCount']);
-    double allValues = 0;
-
-    ctx.dispatch(HomeActionCreator.devices(total, allValues));
-
-    Map priceData = {'userId': userData.id, 'orgId': orgId, 'mxcPrice': '${allValues == 0.0 ? allValues.toInt() : allValues}'};
-
-    await _convertUSD(ctx, priceData, 'device');
-  }catch(err){
-    tip(ctx.context, 'DevicesDao list: $err');
-  }
-}
-
 void _onOperate(Action action, Context<HomeState> ctx) {
   String act = action.payload;
   String page = '${act}_page';
