@@ -134,7 +134,7 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx){
     settingsData = SettingsState().clone();
   }
 
-  settingsData.otp_code = codes.join();
+  settingsData.otpCode = codes.join();
 
   Map data = {
     "otp_code": codes.join()
@@ -198,7 +198,7 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx){
     settingsData = SettingsState().clone();
   }
 
-  settingsData.otp_code = codes;
+  settingsData.otpCode = codes;
 
   Map data = {
     "otp_code": codes
