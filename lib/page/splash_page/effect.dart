@@ -1,13 +1,10 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/appliction/app.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
-import 'package:supernodeapp/common/daos/dao.dart';
 import 'package:supernodeapp/common/daos/settings_dao.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
-import 'package:supernodeapp/global_store/action.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 import 'package:supernodeapp/page/splash_page/action.dart';

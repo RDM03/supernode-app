@@ -1,12 +1,13 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/stake_dao.dart';
+import 'package:supernodeapp/common/daos/topup_dao.dart';
 import 'package:supernodeapp/common/daos/withdraw_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
-import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/daos/topup_dao.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
+
 import 'action.dart';
 import 'state.dart';
 

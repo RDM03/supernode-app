@@ -1,7 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'enter_securitycode_withdraw_component/component.dart';
 
 import 'effect.dart';
+import 'enter_securitycode_withdraw_component/component.dart';
 import 'reducer.dart';
 import 'state.dart';
 import 'view.dart';

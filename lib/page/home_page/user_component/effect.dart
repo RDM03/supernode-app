@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/page/home_page/action.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
+
 import 'state.dart';
 
 Effect<UserState> buildEffect() {

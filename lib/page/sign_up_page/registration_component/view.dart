@@ -6,11 +6,11 @@ import 'package:supernodeapp/common/components/checkbox_with_label.dart';
 import 'package:supernodeapp/common/components/page/link.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/configs/sys.dart';
+import 'package:supernodeapp/common/components/widgets/component_widgets.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
-import 'package:supernodeapp/common/components/widgets/component_widgets.dart';
 
 import '../action.dart';
 import 'action.dart';

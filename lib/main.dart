@@ -8,27 +8,24 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
-
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/app.dart';
 import 'package:supernodeapp/page/sign_up_page/page.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'appliction/app.dart';
 import 'global_store/state.dart';
 import 'page/add_gateway_page/page.dart';
 import 'page/change_password_page/page.dart';
-import 'page/set_2fa_page/page.dart';
 import 'page/confirm_page/page.dart';
 import 'page/deposit_page/page.dart';
 import 'page/forgot_password_page/page.dart';
-import 'page/stake_page/page.dart';
-import 'page/withdraw_page/page.dart';
 import 'page/home_page/page.dart';
 import 'page/login_page/page.dart';
-import 'page/splash_page/page.dart';
 import 'page/mapbox_page//page.dart';
-
+import 'page/set_2fa_page/page.dart';
 import 'page/settings_page/page.dart';
+import 'page/splash_page/page.dart';
+import 'page/stake_page/page.dart';
+import 'page/withdraw_page/page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

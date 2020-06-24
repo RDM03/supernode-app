@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
+
 import 'enter_securitycode_withdraw_component/state.dart';
 
 class WithdrawState implements Cloneable<WithdrawState> {

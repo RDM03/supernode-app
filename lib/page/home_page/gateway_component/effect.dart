@@ -1,7 +1,9 @@
-import 'package:fish_redux/fish_redux.dart';
 import 'dart:async';
+
+import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/page/home_page/action.dart';
+
 import 'action.dart';
 import 'state.dart';
 
