@@ -16,7 +16,7 @@ import 'state.dart';
 
 Effect<LoginState> buildEffect() {
   return combineEffects(<Object, Effect<LoginState>>{
-    Lifecycle.initState: _initState,
+    Lifecycle.dispose: _dispose,
     LoginAction.onLogin: _onLogin,
     LoginAction.onSignUp: _onSignUp,
     LoginAction.onForgotPassword: _onForgotPassword,
@@ -121,10 +121,25 @@ void _onSignUp(Action action, Context<LoginState> ctx) {
 }
 
 void _onForgotPassword(Action action, Context<LoginState> ctx) {
-  Navigator.pushNamed(ctx.context, 'forgot_password_page');
+  if (ctx.state.currentSuperNode == null) {
+    tip(ctx.context, FlutterI18n.translate(ctx.context, 'reg_select_supernode'));
+    return;
+  }
+
+  String apiRoot = ctx.state.currentSuperNode.url;
+  Dao.baseUrl = apiRoot;
+
+  SettingsState settingsData = GlobalStore.store.getState().settings;
+
+  if (settingsData == null) {
+    settingsData = SettingsState().clone();
+  }
+
+  GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
+  Navigator.of(ctx.context).pushNamed("forgot_password_page");
 }
 
-void _initState(Action action, Context<LoginState> ctx) {
+void _dispose(Action action, Context<LoginState> ctx) {
   ctx.state.passwordCtl?.dispose();
   ctx.state.usernameCtl?.dispose();
 }

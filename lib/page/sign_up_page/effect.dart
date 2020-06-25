@@ -25,15 +25,6 @@ Effect<SignUpState> buildEffect() {
 
 void _onEmailContinue(Action action, Context<SignUpState> ctx) {
   var curState = ctx.state;
-//  Navigator.push(ctx.context,
-//    MaterialPageRoute(
-//        maintainState: false,
-//        fullscreenDialog: false,
-//        builder:(context){
-//          return ctx.buildComponent('verification');
-//        }
-//    ),
-//  );
   if((curState.emailFormKey.currentState as FormState).validate()){
     showLoading(ctx.context);
 

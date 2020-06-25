@@ -7,6 +7,7 @@ import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/expansion_super_node_tile.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_list.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
+import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
@@ -125,11 +126,14 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                           ]),
                         ),
                         SizedBox(height: s(12)),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            FlutterI18n.translate(_ctx, 'forgot_hint'),
-                            style: TextStyle(fontSize: s(12), color: hintFont),
+                        GestureDetector(
+                          onTap: () => dispatch(LoginActionCreator.onForgotPasswordAction()),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              FlutterI18n.translate(_ctx, 'forgot_hint'),
+                              style: TextStyle(fontSize: s(12), color: hintFont),
+                            ),
                           ),
                         ),
                         SizedBox(height: s(18)),

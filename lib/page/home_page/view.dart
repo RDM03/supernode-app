@@ -23,10 +23,6 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
             )
           ).toList()
         ),
-        // Visibility(
-        //   visible: state.loading,
-        //   child: loading(),
-        // ),
       ],
     ),
     bottomNavigationBar: BottomNavigationBar(

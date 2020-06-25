@@ -32,7 +32,7 @@ Future<void> main() async {
   await StorageManager.init();
 
   runApp(mxcApp());
-  FlutterBugly.init(androidAppId: "d5abff150e",iOSAppId: "");
+  FlutterBugly.init(androidAppId: "d5abff150e", iOSAppId: "");
 
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
@@ -41,62 +41,57 @@ Future<void> main() async {
 }
 
 Widget mxcApp() {
-  final GlobalKey<NavigatorState> navigatorKey =
-      GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   final AbstractRoutes routes = PageRoutes(
-    pages: <String, Page<Object,dynamic>>{
-      'splash_page': SplashPage(),
-      'login_page': LoginPage(),
-      'sign_up_page': SignUpPage(),
-      'forgot_password_page': ForgotPasswordPage(),
-      'home_page': HomePage(),
-      'deposit_page': DepositPage(),
-      'withdraw_page': WithdrawPage(),
-      'confirm_page': ConfirmPage(),
-      'stake_page': StakePage(),
-      'settings_page': SettingsPage(),
-      'change_password_page': ChangePasswordPage(),
-      'set_2fa_page': Set2FAPage(),
-      'add_gateway_page': AddGatewayPage(),
-      'mapbox_page': MapBoxPage(),
-    },
-    visitor: (String path, Page<Object, dynamic> page) {
-      if (page.isTypeof<GlobalBaseState>()) {
-        page.connectExtraStore<GlobalState>(GlobalStore.store,
-            (Object pagestate, GlobalState appState) {
-          final GlobalBaseState p = pagestate;
-          
-          if(!(p.settings == appState.settings)){
-            if (pagestate is Cloneable) {
-              final Object copy = pagestate.clone();
-              final GlobalBaseState newState = copy;
+      pages: <String, Page<Object, dynamic>>{
+        'splash_page': SplashPage(),
+        'login_page': LoginPage(),
+        'sign_up_page': SignUpPage(),
+        'forgot_password_page': ForgotPasswordPage(),
+        'home_page': HomePage(),
+        'deposit_page': DepositPage(),
+        'withdraw_page': WithdrawPage(),
+        'confirm_page': ConfirmPage(),
+        'stake_page': StakePage(),
+        'settings_page': SettingsPage(),
+        'change_password_page': ChangePasswordPage(),
+        'set_2fa_page': Set2FAPage(),
+        'add_gateway_page': AddGatewayPage(),
+        'mapbox_page': MapBoxPage(),
+      },
+      visitor: (String path, Page<Object, dynamic> page) {
+        if (page.isTypeof<GlobalBaseState>()) {
+          page.connectExtraStore<GlobalState>(GlobalStore.store, (Object pagestate, GlobalState appState) {
+            final GlobalBaseState p = pagestate;
 
-              return newState
-                ..settings = appState.settings;
+            if (!(p.settings == appState.settings)) {
+              if (pagestate is Cloneable) {
+                final Object copy = pagestate.clone();
+                final GlobalBaseState newState = copy;
+
+                return newState..settings = appState.settings;
+              }
             }
-            
-          }
 
-          return pagestate;
-        });
-      }
-    }
-  );
+            return pagestate;
+          });
+        }
+      });
 
   return MaterialApp(
     navigatorKey: navigatorKey,
     localizationsDelegates: [
       FlutterI18nDelegate(
-        translationLoader: FileTranslationLoader(
-          useCountryCode: true,
-          // forcedLocale: Locale()
-        )
-        // translationLoader: NamespaceFileTranslationLoader(
-        //   useCountryCode: true,
-        //   namespaces: [ 'login' ]
-        // )
-      ),
+          translationLoader: FileTranslationLoader(
+        useCountryCode: true,
+        // forcedLocale: Locale()
+      )
+          // translationLoader: NamespaceFileTranslationLoader(
+          //   useCountryCode: true,
+          //   namespaces: [ 'login' ]
+          // )
+          ),
       GlobalMaterialLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
@@ -104,15 +99,18 @@ Widget mxcApp() {
     supportedLocales: [
       const Locale('en'),
       const Locale.fromSubtags(languageCode: 'zh'),
-      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans', countryCode:'CN'),
-      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode:'TW'),
+      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans', countryCode: 'CN'),
+      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
     ],
     theme: appTheme,
     home: routes.buildPage('splash_page', null),
-    onGenerateRoute: (RouteSettings settings){
-      return MaterialPageRoute(builder: (BuildContext context) {
-        return routes.buildPage(settings.name, settings.arguments);
-      });
+    onGenerateRoute: (RouteSettings settings) {
+      return MaterialPageRoute(
+        builder: (BuildContext context) {
+          return routes.buildPage(settings.name, settings.arguments);
+        },
+        settings: settings,
+      );
     },
   );
 }
