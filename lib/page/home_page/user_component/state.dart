@@ -33,7 +33,7 @@ class UserState implements Cloneable<UserState> {
   int gatewaysTotal = 0;
   double gatewaysRevenue = 0;
   double gatewaysUSDRevenue = 0;
-  List<Marker> gatewaysLocations = [];
+  List<MapMarker> gatewaysLocations = [];
 
   //devices
   int devicesTotal = 0;
@@ -41,9 +41,8 @@ class UserState implements Cloneable<UserState> {
   double devicesUSDRevenue = 0;
 
   //map
-  MapController mapCtl = MapController();
+  MapViewController mapViewController;
   StreamController<LatLng> markerlocationStream = StreamController();
-  LatLng location;
 
   UserState();
 
@@ -70,9 +69,8 @@ class UserState implements Cloneable<UserState> {
       ..devicesTotal = devicesTotal
       ..devicesRevenue = devicesRevenue
       ..devicesUSDRevenue = devicesUSDRevenue
-      ..mapCtl = mapCtl
+      ..mapViewController = mapViewController
       ..markerlocationStream = markerlocationStream
-      ..location = location
       ..gatewaysLocations = gatewaysLocations;
   }
 

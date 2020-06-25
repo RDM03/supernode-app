@@ -2,7 +2,8 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
-import 'package:supernodeapp/configs/config.dart';
+import 'package:supernodeapp/common/components/permission_utils.dart';
+import 'package:supernodeapp/common/configs/config.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
@@ -87,8 +88,8 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
         if ((res as Map).containsKey('enabled')) {
           GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
         }
-        Navigator.pushNamedAndRemoveUntil(ctx.context, 'home_page', (route) => false, arguments: {'superNode': curState.currentSuperNode});
-      }).catchError((err) {
+        Navigator.pushNamedAndRemoveUntil(ctx.context,'home_page',(route) => false,arguments:{'superNode':curState.selectedSuperNode});
+      }).catchError((err){
         //hideLoading(ctx.context);
         tip(ctx.context, '$err');
       });
@@ -115,6 +116,8 @@ void _onSignUp(Action action, Context<LoginState> ctx) {
     settingsData = SettingsState().clone();
   }
 
+  settingsData.superNode = curState.selectedSuperNode;
+  
   GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
 
   Navigator.pushNamed(ctx.context, 'sign_up_page');

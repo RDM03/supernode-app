@@ -1,11 +1,8 @@
-import 'dart:async';
-
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/common/components/loading.dart';
-import 'package:supernodeapp/common/components/location_utils.dart';
+import 'package:supernodeapp/common/components/permission_utils.dart';
+import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/configs/images.dart';
@@ -36,10 +33,7 @@ Effect<HomeState> buildEffect() {
 }
 
 void _relogin(Action action, Context<HomeState> ctx) {
-  Map data = {
-    'username': StorageManager.sharedPreferences.getString(Config.USERNAME_KEY),
-    'password': StorageManager.sharedPreferences.getString(Config.PASSWORD_KEY)
-  };
+  Map data = {'username': StorageManager.sharedPreferences.getString(Config.USERNAME_KEY), 'password': StorageManager.sharedPreferences.getString(Config.PASSWORD_KEY)};
 
   String apiRoot = StorageManager.sharedPreferences.getString(Config.API_ROOT);
   Dao.baseUrl = apiRoot;
@@ -75,18 +69,6 @@ void _relogin(Action action, Context<HomeState> ctx) {
 
 void _initState(Action action, Context<HomeState> ctx) {
   _profile(ctx);
-  _getUserLocation(ctx);
-}
-
-Future<void> _getUserLocation(Context<HomeState> ctx) async {
-  await LocationUtils.getLocation();
-  if (LocationUtils.locationData != null) {
-    ctx.dispatch(
-      HomeActionCreator.onLocation(
-        LatLng(LocationUtils.locationData.latitude, LocationUtils.locationData.longitude),
-      ),
-    );
-  }
 }
 
 void _onProfile(Action action, Context<HomeState> ctx) {
@@ -127,7 +109,7 @@ void _profile(Context<HomeState> ctx) {
     _miningIncome(ctx, userData, orgId);
     _stakeAmount(ctx, orgId);
     _stakingRevenue(ctx, orgId);
-    
+
     //Request gateways' amount and location
     _gateways(ctx);
     _gatewaysLocations(ctx);
@@ -171,11 +153,7 @@ void _miningIncome(Context<HomeState> ctx, UserState userData, String orgId) {
 
     ctx.dispatch(HomeActionCreator.miningIncome(value));
 
-    Map priceData = {
-      'userId': userData.id,
-      'orgId': orgId,
-      'mxcPrice': '${value == 0.0 ? value.toInt() : value}'
-    };
+    Map priceData = {'userId': userData.id, 'orgId': orgId, 'mxcPrice': '${value == 0.0 ? value.toInt() : value}'};
 
     _convertUSD(ctx, priceData, 'gateway');
   }).onError((err) {
@@ -251,17 +229,17 @@ void _gatewaysLocations(Context<HomeState> ctx) {
     mLog('GatewaysDao locations', res);
 
     if (res['result'].length > 0) {
-      List<Marker> locations = [];
+      List<MapMarker> locations = [];
       for (int index = 0; index < res['result'].length; index++) {
         var location = res['result'][index]['location'];
-        var marker = Marker(
+        var marker = MapMarker(
           point: Tools.convertLatLng(location),
-          builder: (ctx) => Image.asset(AppImages.gateways),
+          image: AppImages.gateways,
         );
-
         locations.add(marker);
       }
       ctx.dispatch(HomeActionCreator.gatewaysLocations(locations));
+      ctx.state.mapCtl.addSymbols(locations);
     }
   }).onError((err) {
     tip(ctx.context, 'GatewaysDao locations: $err');
@@ -283,11 +261,7 @@ void _devices(Context<HomeState> ctx, UserState userData, String orgId) {
 
     ctx.dispatch(HomeActionCreator.devices(total, allValues));
 
-    Map priceData = {
-      'userId': userData.id,
-      'orgId': orgId,
-      'mxcPrice': '${allValues == 0.0 ? allValues.toInt() : allValues}'
-    };
+    Map priceData = {'userId': userData.id, 'orgId': orgId, 'mxcPrice': '${allValues == 0.0 ? allValues.toInt() : allValues}'};
 
     var devicesUSDValue = _convertUSD(ctx, priceData, 'device');
 //     ctx.dispatch(HomeActionCreator.convertUSD('device', devicesUSDValue));
@@ -306,8 +280,7 @@ void _onOperate(Action action, Context<HomeState> ctx) {
     page = 'stake_page';
   }
 
-  Navigator.pushNamed(ctx.context, page,
-      arguments: {'balance': balance, 'organizations': organizations, 'type': act}).then((res) {
+  Navigator.pushNamed(ctx.context, page, arguments: {'balance': balance, 'organizations': organizations, 'type': act}).then((res) {
     if ((page == 'stake_page' || page == 'withdraw_page') && res) {
       _profile(ctx);
     }
@@ -319,7 +292,7 @@ void _mapbox(Action action, Context<HomeState> ctx) {
     ctx.context,
     'mapbox_page',
     arguments: {
-      'markers': ctx.state.gatewaysLocations,
+      'markers': ctx.state.mapCtl.markers,
     },
   );
 }
@@ -327,17 +300,11 @@ void _mapbox(Action action, Context<HomeState> ctx) {
 void _onSettings(Action action, Context<HomeState> ctx) {
   var curState = ctx.state;
 
-  Map user = {
-    'userId': curState.userId,
-    'username': curState.username,
-    'email': curState.email,
-    'isAdmin': curState.isAdmin
-  };
+  Map user = {'userId': curState.userId, 'username': curState.username, 'email': curState.email, 'isAdmin': curState.isAdmin};
 
   List<OrganizationsState> organizations = ctx.state.organizations;
 
-  Navigator.pushNamed(ctx.context, 'settings_page',
-      arguments: {'user': user, 'organizations': organizations}).then((res) {
+  Navigator.pushNamed(ctx.context, 'settings_page', arguments: {'user': user, 'organizations': organizations}).then((res) {
     if (res != null) {
       ctx.dispatch(HomeActionCreator.updateUsername(res));
     }
@@ -365,19 +332,15 @@ void _convertUSD(Context<HomeState> ctx, Map data, String type) {
 void _stakingRevenue(Context<HomeState> ctx, String orgId) {
   StakeDao dao = StakeDao();
 
-   Map data = {
-    'orgId': orgId,
-    'offset': 0,
-    'limit': 999
-  };
+  Map data = {'orgId': orgId, 'offset': 0, 'limit': 999};
 
   dao.history(data).listen((res) async {
     mLog('StakeDao history', res);
     double totleRevenue = 0;
 
-    if((res as Map).containsKey('stakingHist') && res['stakingHist'].length > 0) {
+    if ((res as Map).containsKey('stakingHist') && res['stakingHist'].length > 0) {
       List items = res['stakingHist'] as List;
-      items.forEach((item){
+      items.forEach((item) {
         WalletItemState obj = WalletItemState.fromMap(item);
         totleRevenue += obj.revenue;
       });

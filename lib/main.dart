@@ -83,15 +83,15 @@ Widget mxcApp() {
     navigatorKey: navigatorKey,
     localizationsDelegates: [
       FlutterI18nDelegate(
-          translationLoader: FileTranslationLoader(
-        useCountryCode: true,
-        // forcedLocale: Locale()
-      )
-          // translationLoader: NamespaceFileTranslationLoader(
-          //   useCountryCode: true,
-          //   namespaces: [ 'login' ]
-          // )
-          ),
+        translationLoader: FileTranslationLoader(
+          useCountryCode: true,
+          // forcedLocale: Locale()
+        ),
+        // translationLoader: NamespaceFileTranslationLoader(
+        //   useCountryCode: true,
+        //   namespaces: [ 'login' ]
+        // )
+      ),
       GlobalMaterialLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,

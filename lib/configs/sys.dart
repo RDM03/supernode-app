@@ -24,6 +24,7 @@ class Sys {
 
   static const List<String> mainMenus = ['Home', 'Gateway', 'Device', 'Wallet'];
 
+  static const mapTileStyle = "mapbox://styles/mxcdatadash/ck9qr005y5xec1is8yu6i51kw";
   static const mapUrlTemplate = 'https://api.mapbox.com/styles/v1/mxcdatadash/ck9qr005y5xec1is8yu6i51kw/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}';
   static const mapToken = 'pk.eyJ1IjoibXhjZGF0YWRhc2giLCJhIjoiY2s5bnc4dmh4MDBiMDNnbnczamRoN2ExeCJ9.sq0w8DGDXpA_6AMoejYaUw';
 }
