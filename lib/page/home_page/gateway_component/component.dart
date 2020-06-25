@@ -3,7 +3,6 @@ import 'package:fish_redux/fish_redux.dart';
 import 'effect.dart';
 import 'gateway_list_adapter/adapter.dart';
 
-import 'gateway_list_adapter/gateway_item_component/component.dart';
 import 'reducer.dart';
 import 'state.dart';
 import 'view.dart';

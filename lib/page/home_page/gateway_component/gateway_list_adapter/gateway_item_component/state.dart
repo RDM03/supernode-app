@@ -1,5 +1,4 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:supernodeapp/common/daos/gateways_dao.dart';
 
 class GatewayItemState implements Cloneable<GatewayItemState> {

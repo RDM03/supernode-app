@@ -3,23 +3,23 @@ import 'package:latlong/latlong.dart';
 import 'action.dart';
 import 'state.dart';
 
-Reducer<mapboxState> buildReducer() {
+Reducer<MapBoxState> buildReducer() {
   return asReducer(
-    <Object, Reducer<mapboxState>>{
-      mapboxAction.action: _onAction,
-      mapboxAction.location: _onLocation,
+    <Object, Reducer<MapBoxState>>{
+      MapBoxAction.action: _onAction,
+      MapBoxAction.location: _onLocation,
     },
   );
 }
 
-mapboxState _onAction(mapboxState state, Action action) {
-  final mapboxState newState = state.clone();
+MapBoxState _onAction(MapBoxState state, Action action) {
+  final MapBoxState newState = state.clone();
   return newState;
 }
 
-mapboxState _onLocation(mapboxState state, Action action) {
+MapBoxState _onLocation(MapBoxState state, Action action) {
   LatLng loc = action.payload;
 
-  final mapboxState newState = state.clone();
+  final MapBoxState newState = state.clone();
   return newState..myLocation = loc;
 }

@@ -65,7 +65,6 @@ void _onTab(Action action, Context<WalletState> ctx) {
 void _onFilter(Action action, Context<WalletState> ctx) {
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
   String type = action.payload;
-  var curState = ctx.state;
 
   if(orgId.isEmpty) return;
 

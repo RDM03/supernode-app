@@ -1,5 +1,4 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:supernodeapp/common/utils/log.dart';
 
 import 'action.dart';
 import 'state.dart';

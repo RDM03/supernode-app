@@ -4,28 +4,28 @@ import 'package:supernodeapp/common/components/location_utils.dart';
 import 'action.dart';
 import 'state.dart';
 
-Effect<mapboxState> buildEffect() {
-  return combineEffects(<Object, Effect<mapboxState>>{
+Effect<MapBoxState> buildEffect() {
+  return combineEffects(<Object, Effect<MapBoxState>>{
     Lifecycle.initState: _initState,
-    mapboxAction.action: _onAction,
+    MapBoxAction.action: _onAction,
   });
 }
 
-void _initState(Action action, Context<mapboxState> ctx) {
+void _initState(Action action, Context<MapBoxState> ctx) {
   if (LocationUtils.locationData != null) {
     final loc = LatLng(LocationUtils.locationData.latitude, LocationUtils.locationData.longitude);
-    ctx.dispatch(mapboxActionCreator.onLocation(loc));
+    ctx.dispatch(MapBoxActionCreator.onLocation(loc));
   } else {
     _getLocation(ctx);
   }
 }
 
-Future<void> _getLocation(Context<mapboxState> ctx) async {
+Future<void> _getLocation(Context<MapBoxState> ctx) async {
   await LocationUtils.getLocation();
   if (LocationUtils.locationData != null) {
     final loc = LatLng(LocationUtils.locationData.latitude, LocationUtils.locationData.longitude);
-    ctx.dispatch(mapboxActionCreator.onLocation(loc));
+    ctx.dispatch(MapBoxActionCreator.onLocation(loc));
   }
 }
 
-void _onAction(Action action, Context<mapboxState> ctx) {}
+void _onAction(Action action, Context<MapBoxState> ctx) {}

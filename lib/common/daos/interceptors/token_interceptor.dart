@@ -13,10 +13,10 @@ class TokenInterceptors extends InterceptorsWrapper {
 
     var json = jsonDecode(options.data.toString());
 
-    String otp_code = '';
+    String otpCode = '';
     if(json != null){
       if(json['otp_code'] != null){
-        otp_code = json['otp_code'];
+        otpCode = json['otp_code'];
       }
     }
     //授权码
@@ -26,14 +26,14 @@ class TokenInterceptors extends InterceptorsWrapper {
         _token = authorizationCode;
         options.headers["Grpc-Metadata-Authorization"] = _token;
       }
-      if(otp_code != ''){
-        options.headers["Grpc-Metadata-X-OTP"] = otp_code;
+      if(otpCode != ''){
+        options.headers["Grpc-Metadata-X-OTP"] = otpCode;
       }
     }
     else{
         options.headers["Grpc-Metadata-Authorization"] = '$_token';
-        if(otp_code != ''){
-          options.headers["Grpc-Metadata-X-OTP"] = otp_code;
+        if(otpCode != ''){
+          options.headers["Grpc-Metadata-X-OTP"] = otpCode;
         }
     }
     return options;

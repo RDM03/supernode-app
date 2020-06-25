@@ -2,7 +2,6 @@
 import 'package:supernodeapp/common/daos/dao.dart';
 
 import 'api.dart';
-import 'mock.dart';
 
 class UserApi {
   static const String login = '/api/internal/login';

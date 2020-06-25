@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/configs/images.dart';
 
 Widget done({bool success = true}){
   return Center(

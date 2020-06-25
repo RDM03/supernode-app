@@ -1,6 +1,5 @@
 import 'api.dart';
 import 'dao.dart';
-import 'mock.dart';
 
 class WalletApi {
   static const String balance = '/api/wallet/balance';

@@ -20,7 +20,6 @@ Effect<OrganizationsState> buildEffect() {
 
 void _onUpdate(Action action, Context<OrganizationsState> ctx) {
   var curState = ctx.state;
-  var context = ctx.context;
 
   if((curState.formKey.currentState as FormState).validate()){
 

@@ -5,7 +5,7 @@ import 'package:supernodeapp/common/components/widgets/component_widgets.dart';
 
 import 'state.dart';
 
-Widget buildView(mapboxState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(MapBoxState state, Dispatch dispatch, ViewService viewService) {
   final _ctx = viewService.context;
 
   return ScaffoldWidget(

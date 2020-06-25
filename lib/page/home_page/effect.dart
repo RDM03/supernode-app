@@ -289,7 +289,7 @@ void _devices(Context<HomeState> ctx, UserState userData, String orgId) {
       'mxcPrice': '${allValues == 0.0 ? allValues.toInt() : allValues}'
     };
 
-    var devicesUSDValue = await _convertUSD(ctx, priceData, 'device');
+    var devicesUSDValue = _convertUSD(ctx, priceData, 'device');
 //     ctx.dispatch(HomeActionCreator.convertUSD('device', devicesUSDValue));
   }).catchError((err) {
     tip(ctx.context, 'DevicesDao list: $err');

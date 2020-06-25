@@ -1,7 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/daos/settings_dao.dart';
-import 'package:supernodeapp/page/home_page/user_component/state.dart';
 
 import 'about_component/state.dart';
 import 'language_component/state.dart';
