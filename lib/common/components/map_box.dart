@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -13,19 +15,30 @@ class MapViewController {
   LatLng myLatLng;
   double zoom;
 
+  bool _symbolsAdd = false;
+
   MapViewController({this.markers, this.zoom = 12});
+
+  void onStyleLoadedInit() {
+    if (!_symbolsAdd && (markers?.isNotEmpty ?? false)) {
+      addSymbols(markers);
+      _symbolsAdd = true;
+    }
+  }
 
   void onMapCreated(MapboxMapController controller) {
     this.ctl = controller;
   }
 
-  void addSymbol(MapMarker marker) {
+  Future<void> addSymbol(MapMarker marker) async {
     if (markers == null) markers = List<MapMarker>();
-    var result = markers.where((MapMarker item) => (item.point.latitude == marker.point.latitude) && (item.point.longitude == item.point.longitude));
+    var result = markers.where((MapMarker item) =>
+        (item.point.latitude == marker.point.latitude) &&
+        (item.point.longitude == item.point.longitude));
     if (result.isEmpty) {
       markers.add(marker);
     }
-    ctl?.addSymbol(SymbolOptions(
+    await ctl?.addSymbol(SymbolOptions(
       iconImage: marker.image,
       geometry: marker.point,
       iconSize: marker?.size ?? 1,
@@ -40,7 +53,8 @@ class MapViewController {
 
   Future<void> moveToMyLatLng() async {
     if (myLatLng == null) myLatLng = await ctl.requestMyLocationLatLng();
-    if (myLatLng != null) ctl.moveCamera(CameraUpdate.newLatLngZoom(myLatLng, zoom));
+    if (myLatLng != null)
+      ctl.moveCamera(CameraUpdate.newLatLngZoom(myLatLng, zoom));
   }
 }
 
@@ -86,21 +100,27 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
   MediaQueryData _mediaData;
 
   MapViewController get config => widget.config;
-
-  @override
-  void initState() {
-    super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await _myLocationMove();
-      await Future.delayed(Duration(milliseconds: 200));
-      config.addSymbols(config.markers);
-    });
-  }
-
+  MyLocationTrackingMode _myLocationTrackingMode =
+      MyLocationTrackingMode.Tracking;
   Future<void> _myLocationMove({bool state}) async {
     bool has = await PermissionUtil.getLocationPermission();
     setState(() {
       _myLocationEnable = has ? (state ?? true) : false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initLocation();
+  }
+
+  void _initLocation() {
+    Future.delayed(new Duration(seconds: 1), () async {
+      bool has = await PermissionUtil.getLocationPermission();
+      if (mounted && has) {
+        _changeModeToLocation();
+      }
     });
   }
 
@@ -109,6 +129,28 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
       _mediaData = MediaQuery.of(context);
       _screenInit = true;
     }
+  }
+
+  //change TrackingMode to get the location
+  // delay milliseconds: 200 change to original model
+  void _changeModeToLocation() {
+    setState(() {
+      _myLocationTrackingMode =
+          _myLocationTrackingMode == MyLocationTrackingMode.Tracking
+              ? MyLocationTrackingMode.None
+              : MyLocationTrackingMode.Tracking;
+    });
+    Future.delayed(
+        Duration(
+          milliseconds: 200,
+        ), () {
+      setState(() {
+        _myLocationTrackingMode =
+            _myLocationTrackingMode == MyLocationTrackingMode.Tracking
+                ? MyLocationTrackingMode.None
+                : MyLocationTrackingMode.Tracking;
+      });
+    });
   }
 
   @override
@@ -127,16 +169,19 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
     return Stack(
       children: <Widget>[
         MapboxMap(
-          initialCameraPosition: CameraPosition(target: LatLng(37.386, -122.083), zoom: config.zoom),
+          attributionButtonMargins: Point(-50, -50),
+          initialCameraPosition: CameraPosition(
+              target: LatLng(37.386, -122.083), zoom: config.zoom),
           myLocationEnabled: _myLocationEnable,
           myLocationRenderMode: MyLocationRenderMode.NORMAL,
-          myLocationTrackingMode: MyLocationTrackingMode.Tracking,
+          myLocationTrackingMode: _myLocationTrackingMode,
           styleString: Sys.mapTileStyle,
           compassEnabled: false,
           onMapClick: (point, coordinates) {
             widget.onTap(coordinates);
           },
           onMapCreated: config.onMapCreated,
+          onStyleLoadedCallback: widget.config.onStyleLoadedInit,
           gestureRecognizers: !widget.isFullScreen
               ? <Factory<OneSequenceGestureRecognizer>>[
                   Factory<OneSequenceGestureRecognizer>(
@@ -154,7 +199,8 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
 
   Widget _buildMyLocationIcon() {
     return Positioned(
-      bottom: widget.isFullScreen ? 40 + _mediaData.padding.bottom + 80 + 10 : 205,
+      bottom:
+          widget.isFullScreen ? 40 + _mediaData.padding.bottom + 80 + 10 : 205,
       right: 20,
       width: 40,
       height: 40,
@@ -167,7 +213,8 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
         child: IconButton(
           onPressed: () async {
             await _myLocationMove();
-            config.moveToMyLatLng();
+//            config.moveToMyLatLng();
+            _changeModeToLocation();
           },
           icon: Icon(
             Icons.my_location,
