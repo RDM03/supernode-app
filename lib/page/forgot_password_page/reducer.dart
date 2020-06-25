@@ -6,7 +6,7 @@ import 'state.dart';
 Reducer<ForgotPasswordState> buildReducer() {
   return asReducer(
     <Object, Reducer<ForgotPasswordState>>{
-      ForgotPasswordActionCreator.setEmail: _setEmail,
+      ForgotPasswordAction.setEmail: _setEmail,
     },
   );
 }

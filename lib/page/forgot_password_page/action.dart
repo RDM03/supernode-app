@@ -17,6 +17,6 @@ class ForgotPasswordActionCreator {
   }
 
   static Action setEmail(String email) {
-    return Action(ForgotPasswordAction.onVerificationContinue, payload: email);
+    return Action(ForgotPasswordAction.setEmail, payload: email);
   }
 }

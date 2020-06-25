@@ -29,18 +29,18 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
     if (languageCode.contains('zh')) {
       languageCode = '$languageCode$countryCode';
     }
-
-    Map data = {"language": languageCode, "username": curState.emailCtl.text};
+    var email = curState.emailCtl.text;
+    Map data = {"language": languageCode, "username": email};
+    ctx.dispatch(ForgotPasswordActionCreator.setEmail(email));
     List<String> users = StorageManager.sharedPreferences.getStringList(Config.USER_KEY) ?? [];
-    if (!users.contains(curState.emailCtl.text)) {
-      users.add(curState.emailCtl.text);
+    if (!users.contains(email)) {
+      users.add(email);
     }
     StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
     try {
       var res = await dao.passwordReset(data);
       hideLoading(ctx.context);
       L.dTag('register', "$res");
-      ctx.dispatch(ForgotPasswordActionCreator.setEmail(curState.emailCtl.text));
       Navigator.push(
         ctx.context,
         MaterialPageRoute(
