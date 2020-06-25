@@ -118,6 +118,14 @@ Widget mxcApp() {
       const Locale.fromSubtags(languageCode: 'zh'),
       const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans', countryCode:'CN'),
       const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode:'TW'),
+      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode:'HK'),
+      const Locale.fromSubtags(languageCode: 'vi'), // Vietnam
+      const Locale.fromSubtags(languageCode: 'ja'), // Japan
+      const Locale.fromSubtags(languageCode: 'ko'), // Korea
+      const Locale.fromSubtags(languageCode: 'de'), // Germany
+      const Locale.fromSubtags(languageCode: 'ru'), // Russia
+      const Locale.fromSubtags(languageCode: 'ko'), // Korea
+      const Locale.fromSubtags(languageCode: 'tr'), // Turkey
     ],
     theme: appTheme,
     home: routes.buildPage('splash_page', null),

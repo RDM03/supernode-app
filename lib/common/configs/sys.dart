@@ -4,6 +4,7 @@ class AppLanguage {
   static const String en_CN = 'en_CN';
   static const String zh_Hans_CN = 'zh_CN';
   static const String zh_Hant_TW = 'zh_TW';
+  static const String zh_Hant_HK = 'zh_HK';
   static const String ko = 'ko';
   static const String ja = 'ja';
 
