@@ -3,12 +3,12 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
-import 'package:supernodeapp/common/configs/config.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
+import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/global_store/action.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
@@ -34,27 +34,24 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
 
   if ((curState.formKey.currentState as FormState).validate()) {
     showLoading(ctx.context);
-
-    Map data = {'username': curState.usernameCtl.text.trim(), 'password': curState.passwordCtl.text.trim()};
-
-    String apiRoot = curState.currentSuperNode.url;
-    Dao.baseUrl = apiRoot;
-
-    UserDao dao = UserDao();
-    // var response = await dao.login(data);
-
-    dao.login(data).then((res) {
-      mLog('login', res);
-      hideLoading(ctx.context);
-
+    try {
+      Map data = {'username': curState.usernameCtl.text.trim(), 'password': curState.passwordCtl.text.trim()};
       SettingsState settingsData = GlobalStore.store.getState().settings;
+      String apiRoot = curState.currentSuperNode.url;
+      Dao.baseUrl = apiRoot;
+      UserDao dao = UserDao();
+
+      // var response = await dao.login(data);
+
+      var loginResult = await dao.login(data);
+      mLog('login', loginResult);
 
       if (settingsData == null) {
         settingsData = SettingsState().clone();
       }
 
-      Dao.token = res['jwt'];
-      settingsData.token = res['jwt'];
+      Dao.token = loginResult['jwt'];
+      settingsData.token = loginResult['jwt'];
       settingsData.username = data['username'];
       List<String> users = StorageManager.sharedPreferences.getStringList(Config.USER_KEY) ?? [];
       if (!users.contains(data['username'])) {
@@ -67,36 +64,21 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
       GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
       GlobalStore.store.dispatch(GlobalActionCreator.choiceSuperNode(ctx.state.currentSuperNode));
 
-      //Navigator.pushNamedAndRemoveUntil(ctx.context,'home_page',(route) => false,arguments:{'superNode':curState.selectedSuperNode});
-    }).then((res) {
-      print(res);
-      mLog('login saf', res);
-      UserDao dao = UserDao();
+      var totpStatus = await dao.getTOTPStatus({});
+      mLog('totp', totpStatus);
 
-      Map data = {};
-
-      dao.getTOTPStatus(data).then((res) {
-        mLog('totp', res);
-        //hideLoading(ctx.context);
-        SettingsState settingsData = GlobalStore.store.getState().settings;
-
-        if (settingsData == null) {
-          settingsData = SettingsState().clone();
-        }
-
-        settingsData.is2FAEnabled = res['enabled'];
-        if ((res as Map).containsKey('enabled')) {
-          GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
-        }
-        Navigator.pushNamedAndRemoveUntil(ctx.context,'home_page',(route) => false,arguments:{'superNode':curState.selectedSuperNode});
-      }).catchError((err){
-        //hideLoading(ctx.context);
-        tip(ctx.context, '$err');
-      });
-    }).catchError((err) {
+      settingsData.is2FAEnabled = totpStatus['enabled'];
+      if ((totpStatus as Map).containsKey('enabled')) {
+        GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
+      }
+      await PermissionUtil.getLocationPermission();
       hideLoading(ctx.context);
+      Navigator.pushReplacementNamed(ctx.context, 'home_page');
+    } catch (err) {
       tip(ctx.context, '$err');
-    });
+    } finally {
+      hideLoading(ctx.context);
+    }
   }
 }
 
@@ -116,8 +98,6 @@ void _onSignUp(Action action, Context<LoginState> ctx) {
     settingsData = SettingsState().clone();
   }
 
-  settingsData.superNode = curState.selectedSuperNode;
-  
   GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
 
   Navigator.pushNamed(ctx.context, 'sign_up_page');

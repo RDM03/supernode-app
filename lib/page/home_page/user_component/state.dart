@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong/latlong.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 

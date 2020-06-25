@@ -7,7 +7,6 @@ import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/expansion_super_node_tile.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_list.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
-import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
@@ -154,11 +153,11 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            CircleButton(onTap: () => dispatch(LoginActionCreator.onSignUp())),
+                            CircleButton(onTap: () => dispatch(LoginActionCreator.onSignUp()), icon: Icon(Icons.email),),
                             SizedBox(width: s(30)),
-                            CircleButton(onTap: () => dispatch(LoginActionCreator.onSignUp())),
+                            CircleButton(icon: Icon(Icons.textsms),),
                             SizedBox(width: s(30)),
-                            CircleButton(onTap: () => dispatch(LoginActionCreator.onSignUp())),
+                            CircleButton(icon: Icon(Icons.ac_unit),),
                           ],
                         ),
                         SizedBox(height: s(20)),
@@ -207,7 +206,10 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                             ),
                           ),
                           SizedBox(width: s(10)),
-                          Icon(Icons.close, size: s(20)),
+                          GestureDetector(
+                            onTap: () => dispatch(LoginActionCreator.superNodeListVisible(false)),
+                            child: Icon(Icons.close, size: s(20)),
+                          ),
                         ],
                       ),
                     ),

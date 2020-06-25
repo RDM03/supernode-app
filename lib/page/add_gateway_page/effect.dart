@@ -6,15 +6,13 @@ import 'package:majascan/majascan.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/configs/images.dart';
 import 'package:supernodeapp/common/daos/gateways_dao.dart';
-
-// import 'package:majascan/majascan.dart';
 import 'package:supernodeapp/common/utils/log.dart';
+
 import 'package:supernodeapp/common/utils/reg.dart';
+import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/theme/colors.dart';
-// import 'package:qrscan/qrscan.dart' as Scanner;
 
 import 'action.dart';
 import 'state.dart';
@@ -97,7 +95,7 @@ void _register(Context<AddGatewayState> ctx, String serialNumber) {
   showLoading(ctx.context);
   dao.register(data).then((res) {
     hideLoading(ctx.context);
-    log('Gateway register', res);
+    mLog('Gateway register', res);
 
     if (res.containsKey('status')) {
       tip(ctx.context, res['status'], success: true);

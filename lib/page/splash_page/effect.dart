@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/appliction/app.dart';
+import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'package:supernodeapp/common/daos/settings_dao.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
@@ -47,6 +48,7 @@ void _goNextPage(Action action, Context<SplashState> ctx) async {
     SettingsState data = await settingsDao.getItem();
     await settingsDao.close();
     if (data != null && data.userId.isNotEmpty && GlobalStore.state.superModel.currentNode != null) {
+      await PermissionUtil.getLocationPermission();
       Navigator.pushReplacementNamed(ctx.context, "home_page");
     } else {
       Navigator.pushReplacementNamed(ctx.context, "login_page");

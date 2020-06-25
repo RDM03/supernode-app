@@ -7,7 +7,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
-import 'package:supernodeapp/common/configs/sys.dart';
+import 'package:supernodeapp/configs/sys.dart';
 
 class MapViewController {
   List<MapMarker> markers;

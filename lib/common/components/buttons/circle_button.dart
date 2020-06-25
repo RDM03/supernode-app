@@ -5,8 +5,9 @@ import 'package:supernodeapp/theme/colors.dart';
 
 class CircleButton extends StatelessWidget {
   final VoidCallback onTap;
+  final Widget icon;
 
-  const CircleButton({Key key, this.onTap}) : super(key: key);
+  const CircleButton({Key key, this.onTap, this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class CircleButton extends StatelessWidget {
             )
           ],
         ),
-        child: Icon(Icons.email),
+        child: icon,
       ),
     );
   }
