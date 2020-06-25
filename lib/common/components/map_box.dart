@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -150,6 +152,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
     return Stack(
       children: <Widget>[
         MapboxMap(
+          attributionButtonMargins: Point(-50, -50),
           initialCameraPosition: CameraPosition(
               target: LatLng(37.386, -122.083), zoom: config.zoom),
           myLocationEnabled: _myLocationEnable,
@@ -157,6 +160,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
           myLocationTrackingMode: _myLocationTrackingMode,
           styleString: Sys.mapTileStyle,
           compassEnabled: false,
+          rotateGesturesEnabled: false,
           onMapClick: (point, coordinates) {
             widget.onTap(coordinates);
           },
