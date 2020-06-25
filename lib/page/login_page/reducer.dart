@@ -1,4 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:supernodeapp/common/utils/utils.dart';
 import 'state.dart';
 import 'action.dart';
 
@@ -8,6 +9,7 @@ Reducer<LoginState> buildReducer() {
       LoginAction.selectedSuperNode: _selectedSuperNode,
       LoginAction.isObscureText: _isObscureText,
       LoginAction.superNodeListVisible: _superNodeListVisible,
+      LoginAction.clickLogo: _clickLogo,
     },
   );
 }
@@ -26,5 +28,15 @@ LoginState _isObscureText(LoginState state, Action action) {
 
 LoginState _superNodeListVisible(LoginState state, Action action) {
   final LoginState newState = state.clone();
-  return newState..showSuperNodeList = action.payload;
+  newState.showSuperNodeList = action.payload;
+  if (newState.count != 7)
+    newState.count = 0;
+  return newState;
+}
+
+LoginState _clickLogo(LoginState state, Action action) {
+  final LoginState newState = state.clone();
+  newState.count = state.count + 1;
+  mLog("count", "${newState.count}");
+  return newState..count;
 }

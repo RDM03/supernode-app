@@ -4,6 +4,7 @@ import 'package:supernodeapp/data/super_node_bean.dart';
 import 'package:supernodeapp/global_store/store.dart';
 
 class LoginState implements Cloneable<LoginState> {
+  int count = 0;
   GlobalKey formKey = GlobalKey<FormState>();
   TextEditingController usernameCtl = TextEditingController();
   TextEditingController passwordCtl = TextEditingController();
@@ -15,6 +16,7 @@ class LoginState implements Cloneable<LoginState> {
   @override
   LoginState clone() {
     return LoginState()
+      ..count = count
       ..superNodes = superNodes
       ..showSuperNodeList = showSuperNodeList
       ..isObscureText = isObscureText

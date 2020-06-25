@@ -36,12 +36,15 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-                          Container(
-                            color: darkBackground,
-                            height: s(218),
-                            padding: EdgeInsets.only(bottom: s(106)),
-                            alignment: Alignment.bottomCenter,
-                            child: Image.asset(AppImages.splashLogo, height: s(48)),
+                          GestureDetector(
+                            onTap: () => dispatch(LoginActionCreator.clickLogo()),
+                            child: Container(
+                              color: darkBackground,
+                              height: s(218),
+                              padding: EdgeInsets.only(bottom: s(106)),
+                              alignment: Alignment.bottomCenter,
+                              child: Image.asset(AppImages.splashLogo, height: s(48)),
+                            ),
                           ),
                           SizedBox(height: s(100)),
                           Center(
@@ -211,32 +214,33 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                     Column(
                       children: <Widget>[
                         for (var key in state.superNodes?.keys ?? [])
-                          ExpansionSuperNodesTile(
-                            title: Text(FlutterI18n.translate(_ctx, key), style: TextStyle(color: Colors.black)),
-                            initiallyExpanded: true,
-                            backgroundColor: darkBackground,
-                            children: <Widget>[
-                              for (SuperNodeBean item in state.superNodes[key])
-                                GestureDetector(
-                                  child: ListTile(
-                                    title: Container(
-                                      padding: EdgeInsets.only(right: s(35)),
-                                      alignment: Alignment.center,
-                                      height: s(65),
-                                      child: CachedNetworkImage(
-                                        imageUrl: "${item.logo}",
-                                        placeholder: (a, b) => Image.asset(
-                                          AppImages.placeholder,
+                          if (key != "Test" || state.count == 7)
+                            ExpansionSuperNodesTile(
+                              title: Text(FlutterI18n.translate(_ctx, key), style: TextStyle(color: Colors.black)),
+                              initiallyExpanded: true,
+                              backgroundColor: darkBackground,
+                              children: <Widget>[
+                                for (SuperNodeBean item in state.superNodes[key])
+                                  GestureDetector(
+                                    child: ListTile(
+                                      title: Container(
+                                        padding: EdgeInsets.only(right: s(35)),
+                                        alignment: Alignment.center,
+                                        height: s(65),
+                                        child: CachedNetworkImage(
+                                          imageUrl: "${item.logo}",
+                                          placeholder: (a, b) => Image.asset(
+                                            AppImages.placeholder,
+                                            height: s(30),
+                                          ),
                                           height: s(30),
                                         ),
-                                        height: s(30),
                                       ),
                                     ),
+                                    onTap: () => dispatch(LoginActionCreator.selectedSuperNode(item)),
                                   ),
-                                  onTap: () => dispatch(LoginActionCreator.selectedSuperNode(item)),
-                                ),
-                            ],
-                          ),
+                              ],
+                            ),
                       ],
                     ),
                   ]),

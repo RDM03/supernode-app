@@ -8,6 +8,7 @@ enum LoginAction {
   onLogin,
   onSignUp,
   onForgotPassword,
+  clickLogo,
 }
 
 class LoginActionCreator {
@@ -21,6 +22,10 @@ class LoginActionCreator {
 
   static Action onForgotPasswordAction() {
     return const Action(LoginAction.onForgotPassword);
+  }
+
+  static Action clickLogo() {
+    return const Action(LoginAction.clickLogo);
   }
 
   static Action isObscureText() {
