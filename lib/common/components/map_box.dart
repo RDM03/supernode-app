@@ -119,12 +119,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
     Future.delayed(new Duration(seconds: 1), () async {
       bool has = await PermissionUtil.getLocationPermission();
       if (mounted && has) {
-        setState(() {
-          _myLocationTrackingMode =
-              _myLocationTrackingMode == MyLocationTrackingMode.Tracking
-                  ? MyLocationTrackingMode.TrackingCompass
-                  : MyLocationTrackingMode.Tracking;
-        });
+        _changeModeToLocation();
       }
     });
   }
@@ -134,6 +129,28 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
       _mediaData = MediaQuery.of(context);
       _screenInit = true;
     }
+  }
+
+  //change TrackingMode to get the location
+  // delay milliseconds: 200 change to original model
+  void _changeModeToLocation() {
+    setState(() {
+      _myLocationTrackingMode =
+          _myLocationTrackingMode == MyLocationTrackingMode.Tracking
+              ? MyLocationTrackingMode.None
+              : MyLocationTrackingMode.Tracking;
+    });
+    Future.delayed(
+        Duration(
+          milliseconds: 200,
+        ), () {
+      setState(() {
+        _myLocationTrackingMode =
+            _myLocationTrackingMode == MyLocationTrackingMode.Tracking
+                ? MyLocationTrackingMode.None
+                : MyLocationTrackingMode.Tracking;
+      });
+    });
   }
 
   @override
@@ -160,7 +177,6 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
           myLocationTrackingMode: _myLocationTrackingMode,
           styleString: Sys.mapTileStyle,
           compassEnabled: false,
-          rotateGesturesEnabled: false,
           onMapClick: (point, coordinates) {
             widget.onTap(coordinates);
           },
@@ -198,12 +214,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
           onPressed: () async {
             await _myLocationMove();
 //            config.moveToMyLatLng();
-            setState(() {
-              _myLocationTrackingMode =
-                  _myLocationTrackingMode == MyLocationTrackingMode.Tracking
-                      ? MyLocationTrackingMode.TrackingCompass
-                      : MyLocationTrackingMode.Tracking;
-            });
+            _changeModeToLocation();
           },
           icon: Icon(
             Icons.my_location,
