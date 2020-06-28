@@ -56,15 +56,15 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>Would you allow MXC SmartCity to use the Calendar?</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Would you allow MXC SmartCity to use the Camera?</string>
+	<string>Enable MXC DataDash to access your camera roll to scan the QR code of your LPWAN devices</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Would you allow MXC SmartCity to use the Contacts?</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Would you allow MXC SmartCity to use the Biometric?</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Would you allow MXC SmartCity to use the Location Service?</string>
+	<string>Turn on location services to find LPWAN devices near you</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Would you allow MXC SmartCity to use the Location Service?</string>
+	<string>Turn on location services to find LPWAN devices near you</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Would you allow MXC SmartCity to use the Motion?</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
