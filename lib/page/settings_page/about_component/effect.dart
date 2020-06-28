@@ -26,9 +26,6 @@ void _onCheckForUpdate(Action action, Context<AboutState> ctx) {
 void _init(Action action, Context<AboutState> ctx) {
   PackageInfo.fromPlatform()
       .then((info){
-        println(info.version);
-        println(info.appName);
-        println(info.packageName);
         ctx.dispatch(AboutActionCreator.onInitPackageInfo(info));
       }
   );
