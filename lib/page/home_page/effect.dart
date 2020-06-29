@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_appcenter/flutter_appcenter.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:supernodeapp/common/components/loading.dart';
@@ -9,6 +11,7 @@ import 'package:supernodeapp/common/components/location_utils.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/configs/config.dart';
 import 'package:supernodeapp/common/configs/images.dart';
+import 'package:supernodeapp/common/configs/sys.dart';
 import 'package:supernodeapp/common/daos/app_dao.dart';
 import 'package:supernodeapp/common/daos/local_storage_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
@@ -74,8 +77,34 @@ void _relogin(Action action, Context<HomeState> ctx) {
 }
 
 void _initState(Action action, Context<HomeState> ctx) {
+  bool isUpdate = true;
+
   _profile(ctx);
   _getUserLocation(ctx);
+  ctx.listen(
+    onChange: (){
+      if(isUpdate) {
+        isUpdate = false;
+        _checkForUpdate(ctx);
+      }
+    }
+  );
+}
+
+Future<void> _checkForUpdate(Context<HomeState> ctx){
+  var _ctx = ctx.stfState.context;
+  Stream.fromFuture(FlutterAppCenter.checkForUpdate(
+    ctx.context,
+    downloadUrlAndroid: Sys.downloadUrlAndroid,
+    dialog: {
+      'title': FlutterI18n.translate(_ctx,'update_dialog_title'),
+      'subTitle': FlutterI18n.translate(_ctx,'update_dialog_subTitle'),
+      'content': FlutterI18n.translate(_ctx,'update_dialog_content'),
+      'confirm': FlutterI18n.translate(_ctx,'update_dialog_confirm'),
+      'cancel': FlutterI18n.translate(_ctx,'update_dialog_cancel'),
+      'downloading': FlutterI18n.translate(_ctx,'update_dialog_downloading')
+    }
+  ));
 }
 
 Future<void> _getUserLocation(Context<HomeState> ctx) async {
@@ -99,8 +128,9 @@ void _onGateways(Action action, Context<HomeState> ctx) {
 
 void _profile(Context<HomeState> ctx) {
   ctx.dispatch(HomeActionCreator.loading(true));
-  UserDao dao = UserDao();
+  Dao.context = ctx;
 
+  UserDao dao = UserDao();
   dao.profile().listen((res) async {
     log('profile', res);
     UserState userData = UserState.fromMap(res['user'], type: 'remote');
@@ -135,7 +165,6 @@ void _profile(Context<HomeState> ctx) {
     // _devices(ctx,userData,orgId);
   }).onError((err) {
     ctx.dispatch(HomeActionCreator.loading(false));
-    ctx.dispatch(HomeActionCreator.onReLogin());
   });
 }
 
@@ -383,8 +412,9 @@ void _stakingRevenue(Context<HomeState> ctx, String orgId) {
       });
 
       ctx.dispatch(HomeActionCreator.totalRevenue(totleRevenue));
-      ctx.dispatch(HomeActionCreator.loading(false));
     }
+
+    ctx.dispatch(HomeActionCreator.loading(false));
   }).onError((err) {
     ctx.dispatch(HomeActionCreator.loading(false));
     tip(ctx.context, 'StakeDao history: $err');

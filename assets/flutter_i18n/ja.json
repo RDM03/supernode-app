@@ -157,5 +157,11 @@
 	"enable_2FA": "2段階認証を有効にする",
 	"disable_2FA": "2段階認証を無効にする",
 	"24hours_warning": "各引き出しは、営業日に最大24時間かかる可能性のあるセキュリティ審査の対象となります。",
-	"required_2FA": "引き出しには2FAが必要です"
+	"required_2FA": "引き出しには2FAが必要です",
+	"update_dialog_title": "MXC 智慧城市App更新",
+	"update_dialog_subTitle": "享受最新版的顺滑体验",
+	"update_dialog_content": "现在有一个版本更新，提供了非常多的修复和新功能，请点击确认更新!'",
+	"update_dialog_confirm": "确认",
+	"update_dialog_cancel": "下次吧",
+	"update_dialog_downloading": "正在下载中..."
 }

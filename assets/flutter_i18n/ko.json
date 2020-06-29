@@ -157,5 +157,11 @@
 	"enable_2FA": "2단계 인증 활성화",
 	"disable_2FA": "2단계 인증 비활성화",
 	"24hours_warning": "모든 출금신청은 보안성을 위해 2차 확인이 되며, 주말을 제외한 주중에는 최대 24시간이 걸릴 수 있습니다.",
-	"required_2FA": "인출에 필요한 2FA"
+	"required_2FA": "인출에 필요한 2FA",
+	"update_dialog_title": "MXC 智慧城市App更新",
+	"update_dialog_subTitle": "享受最新版的顺滑体验",
+	"update_dialog_content": "现在有一个版本更新，提供了非常多的修复和新功能，请点击确认更新!'",
+	"update_dialog_confirm": "确认",
+	"update_dialog_cancel": "下次吧",
+	"update_dialog_downloading": "正在下载中..."
 }

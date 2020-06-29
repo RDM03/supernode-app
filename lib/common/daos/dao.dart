@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/daos/interceptors/token_interceptor.dart';
 class Dao{
   static String baseUrl = '';
   static String token = '';
+  static var context;
 
   bool inProduction = const bool.fromEnvironment('dart.vm.product');
 
@@ -17,7 +18,7 @@ class Dao{
   Dio dio = new Dio();
 
   Dao(){
-    dio.options.baseUrl = inProduction ? baseUrl : Sys.testBaseUrl; // Sys.buildBaseUrl
+    dio.options.baseUrl = !inProduction ? baseUrl : Sys.testBaseUrl; // Sys.buildBaseUrl
     dio.interceptors.add(TokenInterceptors());
     dio.interceptors.add(LogsInterceptors());
   }

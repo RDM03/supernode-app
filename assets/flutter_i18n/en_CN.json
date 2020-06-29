@@ -157,5 +157,11 @@
 	"enable_2FA": "Enable Two Factor Authentication",
 	"disable_2FA": "Disable Two Factor Authentication",
 	"24hours_warning": "Each withdrawal is subject to a security screening that can take up to 24 hours on business days.",
-	"required_2FA": "Required 2FA for withdrawal"
+	"required_2FA": "Required 2FA for withdrawal",
+	"update_dialog_title": "MXC DataDash update avaiable",
+	"update_dialog_subTitle": "Enjoy the lastest version",
+	"update_dialog_content": "There is a new version available with the most advanced features, please click confirm to upgrade!'",
+	"update_dialog_confirm": "Confirm",
+	"update_dialog_cancel": "Postpone",
+	"update_dialog_downloading": "Downloading File..."
 }

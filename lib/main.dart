@@ -34,16 +34,12 @@ Future<void> main() async {
 
   runApp(mxcApp());
   Stream.fromFuture(FlutterAppCenter.init(
-    appSecretAndroid: Sys.androidAppIdAppCenter,
-    appSecretIOS: Sys.iOSAppIdAppCenter,
+    appSecretAndroid: Sys.appIdAndroid,
+    appSecretIOS: Sys.appIdIOS,
+    tokenAndroid: Sys.tokenAndroid,
+    tokenIOS: Sys.tokenIOS,
+    betaUrlIOS: Sys.betaUrlIOS,
     usePrivateTrack: false,
-      automaticCheckForUpdate: true,
-      updateDialog: {
-        'title': 'Update tip',
-        'subTitle:': 'The newest version',
-        'confirm': 'Now Update',
-        'cancel': 'Postpone'
-      }
   ));
 
   if (Platform.isAndroid) {
