@@ -5,6 +5,7 @@
 	"password": "Mật khẩu",
 	"password_hint": "Nhập mật khẩu",
 
+	"change_password_hint": "For security reasons, your password may only be reset once / month!",
 	"forgot_hint": "Forgot your password?",
 	"access_using": "or Access Using",
 	"super_node": "Supernodes",

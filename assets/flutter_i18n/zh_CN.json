@@ -5,6 +5,7 @@
 	"password": "密码",
 	"password_hint": "输入您的密码",
 
+	"change_password_hint": "For security reasons, your password may only be reset once / month!",
 	"forgot_hint": "Forgot your password?",
 	"access_using": "or Access Using",
 	"super_node": "Supernodes",

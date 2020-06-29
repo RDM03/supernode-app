@@ -30,6 +30,7 @@ Widget buildView(ForgotPasswordState state, Dispatch dispatch, ViewService viewS
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 paragraph('${FlutterI18n.translate(_ctx, 'welcome')},'),
+                paragraph('${FlutterI18n.translate(_ctx, 'change_password_hint')}'),
                 Form(
                   key: state.emailFormKey,
                   autovalidate: false,

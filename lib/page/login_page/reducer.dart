@@ -1,5 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
+import 'package:supernodeapp/global_store/action.dart';
+import 'package:supernodeapp/global_store/store.dart';
 import 'state.dart';
 import 'action.dart';
 
@@ -16,6 +18,7 @@ Reducer<LoginState> buildReducer() {
 
 LoginState _selectedSuperNode(LoginState state, Action action) {
   final LoginState newState = state.clone();
+  GlobalStore.store.dispatch(GlobalActionCreator.choiceSuperNode(action.payload));
   return newState
     ..currentSuperNode = action.payload
     ..showSuperNodeList = false;

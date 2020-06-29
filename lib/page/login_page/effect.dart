@@ -62,7 +62,6 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
       StorageManager.sharedPreferences.setString(Config.PASSWORD_KEY, data['password']);
       StorageManager.sharedPreferences.setString(Config.API_ROOT, apiRoot);
       GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
-      GlobalStore.store.dispatch(GlobalActionCreator.choiceSuperNode(ctx.state.currentSuperNode));
 
       var totpStatus = await dao.getTOTPStatus({});
       mLog('totp', totpStatus);

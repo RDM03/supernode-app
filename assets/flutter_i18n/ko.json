@@ -5,6 +5,7 @@
 	"password": "비밀번호",
 	"password_hint": "비밀번호를 설정하세요",
 
+	"change_password_hint": "For security reasons, your password may only be reset once / month!",
 	"forgot_hint": "Forgot your password?",
 	"access_using": "or Access Using",
 	"super_node": "Supernodes",
