@@ -155,9 +155,9 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                           children: <Widget>[
                             CircleButton(onTap: () => dispatch(LoginActionCreator.onSignUp()), icon: Icon(Icons.email),),
                             SizedBox(width: s(30)),
-                            CircleButton(icon: Icon(Icons.textsms),),
+                            CircleButton(icon: null),
                             SizedBox(width: s(30)),
-                            CircleButton(icon: Icon(Icons.ac_unit),),
+                            CircleButton(icon: null),
                           ],
                         ),
                         SizedBox(height: s(20)),
@@ -193,6 +193,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                       height: s(114),
                       child: Row(
                         children: <Widget>[
+                          SizedBox(width: s(10)),
                           Container(
                             alignment: Alignment.center,
                             width: s(257),
