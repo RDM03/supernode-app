@@ -163,5 +163,6 @@
 	"update_dialog_content": "现在有一个版本更新，提供了非常多的修复和新功能，请点击确认更新!",
 	"update_dialog_confirm": "确认",
 	"update_dialog_cancel": "下次吧",
-	"update_dialog_downloading": "正在下载中..."
+	"update_dialog_downloading": "正在下载中...",
+	"tip_latest_version": "已经最新版本"
 }

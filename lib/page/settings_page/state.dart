@@ -42,6 +42,10 @@ class SettingsState implements Cloneable<SettingsState> {
   String selectedOrgName = '';
   String selectedOrgId = '';
 
+  //about
+  String version = '';
+  String buildNumber = '';
+
   SettingsState();
   
   @override
@@ -198,7 +202,9 @@ class AboutConnector extends ConnOp<SettingsState, AboutState>{
 
   @override
   AboutState get(SettingsState state){
-    return AboutState();
+    return AboutState()
+      ..version = state.version
+      ..buildNumber = state.buildNumber;
   }
 
   @override

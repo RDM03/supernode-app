@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:package_info/package_info.dart';
 import 'package:supernodeapp/common/daos/settings_dao.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'action.dart';
@@ -20,9 +21,18 @@ Future onDidReceiveLocalNotification(
 
 Effect<SettingsState> buildEffect() {
   return combineEffects(<Object, Effect<SettingsState>>{
+    Lifecycle.initState: _initState,
     Lifecycle.dispose: _onDispose,
     SettingsAction.onSettings: _onSettings,
   });
+}
+
+void _initState(Action action, Context<SettingsState> ctx) async{
+  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  String version = packageInfo.version;
+  String buildNumber = packageInfo.buildNumber;
+
+  ctx.dispatch(SettingsActionCreator.localVersion(version, buildNumber));
 }
 
 void _onSettings(Action action, Context<SettingsState> ctx) async{

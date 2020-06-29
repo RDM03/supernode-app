@@ -2,9 +2,14 @@ import 'package:fish_redux/fish_redux.dart';
 
 class AboutState implements Cloneable<AboutState> {
 
+  String version = '';
+  String buildNumber = '';
+
   @override
   AboutState clone() {
-    return AboutState();
+    return AboutState()
+      ..version = version
+      ..buildNumber = buildNumber;
   }
 }
 

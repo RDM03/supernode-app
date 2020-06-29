@@ -11,6 +11,7 @@ import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
+import 'action.dart';
 import 'state.dart';
 
 Widget buildView(AboutState state, Dispatch dispatch, ViewService viewService) {
@@ -45,10 +46,10 @@ Widget buildView(AboutState state, Dispatch dispatch, ViewService viewService) {
           Divider(),
           listItem(
             FlutterI18n.translate(_ctx, 'version'),
-            onTap: () {},
+            onTap: () => dispatch(AboutActionCreator.onCheckForUpdate()),
             trailing: Container(
               padding: kInnerRowRight10,
-              child: Text('v1.2.0', style: kMiddleFontOfGrey),
+              child: Text('v${state.version}+${state.buildNumber}', style: kMiddleFontOfGrey),
             ),
           ),
           Divider(),

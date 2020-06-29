@@ -163,5 +163,6 @@
 	"update_dialog_content": "There is a new version available with the most advanced features, please click confirm to upgrade!",
 	"update_dialog_confirm": "Confirm",
 	"update_dialog_cancel": "Postpone",
-	"update_dialog_downloading": "Downloading File..."
+	"update_dialog_downloading": "Downloading File...",
+	"tip_latest_version": "This is the latest version."
 }
