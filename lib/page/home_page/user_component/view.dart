@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_appcenter/flutter_appcenter.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
@@ -10,6 +11,7 @@ import 'package:supernodeapp/common/components/profile.dart';
 import 'package:supernodeapp/common/components/row_right.dart';
 import 'package:supernodeapp/common/components/summary_row.dart';
 import 'package:supernodeapp/common/configs/images.dart';
+import 'package:supernodeapp/common/configs/sys.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/page/home_page/action.dart';
 import 'package:supernodeapp/theme/colors.dart';
@@ -18,9 +20,32 @@ import 'package:supernodeapp/theme/spacing.dart';
 
 import 'action.dart';
 import 'state.dart';
+bool isUpdate = true;
 
 Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
   final _ctx = viewService.context;
+
+  // Future<void> _checkForUpdate(){
+
+  //   if(isUpdate) {
+  //     isUpdate = false;
+  //     FlutterAppCenter.checkForUpdate(
+  //       _ctx,
+  //       downloadUrlAndroid: Sys.downloadUrlAndroid,
+  //       dialog: {
+  //         'title': FlutterI18n.translate(_ctx,'update_dialog_title'),
+  //         'subTitle': FlutterI18n.translate(_ctx,'update_dialog_subTitle'),
+  //         'content': FlutterI18n.translate(_ctx,'update_dialog_content'),
+  //         'confirm': FlutterI18n.translate(_ctx,'update_dialog_confirm'),
+  //         'cancel': FlutterI18n.translate(_ctx,'update_dialog_cancel'),
+  //         'downloading': FlutterI18n.translate(_ctx,'update_dialog_downloading')
+  //       }
+  //     );
+  //   }
+    
+  // }
+
+  // _checkForUpdate();
 
   return Scaffold(
     appBar: AppBar(

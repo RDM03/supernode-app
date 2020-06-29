@@ -35,8 +35,6 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
             )
           ]
           
-          
-          
           // Sys.mainMenus.map((String item) =>
           //   Visibility(
           //     visible: item == 'Home'? false : Sys.mainMenus.indexOf(item) == state.tabIndex,

@@ -29,6 +29,7 @@ import 'user_component/state.dart';
 Effect<HomeState> buildEffect() {
   return combineEffects(<Object, Effect<HomeState>>{
     Lifecycle.initState: _initState,
+    Lifecycle.build: _build,
     HomeAction.onOperate: _onOperate,
     HomeAction.onSettings: _onSettings,
     HomeAction.onProfile: _onProfile,
@@ -77,24 +78,27 @@ void _relogin(Action action, Context<HomeState> ctx) {
 }
 
 void _initState(Action action, Context<HomeState> ctx) {
-  bool isUpdate = true;
 
   _profile(ctx);
   _getUserLocation(ctx);
-  ctx.listen(
-    onChange: (){
-      if(isUpdate) {
-        isUpdate = false;
-        _checkForUpdate(ctx);
-      }
-    }
-  );
+
+}
+
+bool isUpdate = true;
+void _build(Action action, Context<HomeState> ctx) {
+
+  if(isUpdate) {
+    isUpdate = false;
+    _checkForUpdate(ctx);
+  }
+
 }
 
 Future<void> _checkForUpdate(Context<HomeState> ctx){
-  var _ctx = ctx.stfState.context;
-  Stream.fromFuture(FlutterAppCenter.checkForUpdate(
-    ctx.context,
+  var _ctx = ctx.context;
+
+  FlutterAppCenter.checkForUpdate(
+    _ctx,
     downloadUrlAndroid: Sys.downloadUrlAndroid,
     dialog: {
       'title': FlutterI18n.translate(_ctx,'update_dialog_title'),
@@ -104,7 +108,7 @@ Future<void> _checkForUpdate(Context<HomeState> ctx){
       'cancel': FlutterI18n.translate(_ctx,'update_dialog_cancel'),
       'downloading': FlutterI18n.translate(_ctx,'update_dialog_downloading')
     }
-  ));
+  );
 }
 
 Future<void> _getUserLocation(Context<HomeState> ctx) async {
