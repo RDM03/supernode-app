@@ -4,6 +4,18 @@
 	"email_hint": "E-posta adresinizi girin",
 	"password": "Parola",
 	"password_hint": "Parolanızı girin",
+
+	"forgot_hint": "Forgot your password?",
+	"access_using": "or Access Using",
+	"super_node": "Supernodes",
+	"Korea": "Korea",
+	"China": "China",
+	"Europe": "Europe",
+	"Oceania": "Oceania",
+	"Asia": "Asia",
+	"America": "America",
+	"Test": "Test",
+
 	"login": "Giriş",
 	"reg_required": "Bu alan gereklidir",
 	"reg_morethan": "Bu alan en az 6 karakter içermelidir",

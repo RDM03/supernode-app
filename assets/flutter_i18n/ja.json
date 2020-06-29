@@ -4,6 +4,18 @@
 	"email_hint": "メールアドレスを入力してください",
 	"password": "パスワード",
 	"password_hint": "パスワードを入力してください。",
+
+	"forgot_hint": "Forgot your password?",
+	"access_using": "or Access Using",
+	"super_node": "Supernodes",
+	"Korea": "Korea",
+	"China": "China",
+	"Europe": "Europe",
+	"Oceania": "Oceania",
+	"Asia": "Asia",
+	"America": "America",
+	"Test": "Test",
+
 	"login": "ログイン",
 	"reg_required": "このフィールドは入力必須です",
 	"reg_morethan": "6文字以上である必要があります",

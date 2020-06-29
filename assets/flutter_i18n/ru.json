@@ -4,6 +4,18 @@
 	"email_hint": "Введите ваш email адрес",
 	"password": "Пароль",
 	"password_hint": "Введите ваш пароль",
+
+	"forgot_hint": "Forgot your password?",
+	"access_using": "or Access Using",
+	"super_node": "Supernodes",
+	"Korea": "Korea",
+	"China": "China",
+	"Europe": "Europe",
+	"Oceania": "Oceania",
+	"Asia": "Asia",
+	"America": "America",
+	"Test": "Test",
+
 	"login": "Войти",
 	"reg_required": "Поле обязательное для заполнения",
 	"reg_morethan": "Длина поля должна быть больше 6 символов",

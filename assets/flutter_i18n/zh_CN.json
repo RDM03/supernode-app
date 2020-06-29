@@ -4,6 +4,18 @@
 	"email_hint": "请输入您的电子邮件地址",
 	"password": "密码",
 	"password_hint": "输入您的密码",
+
+	"forgot_hint": "Forgot your password?",
+	"access_using": "or Access Using",
+	"super_node": "Supernodes",
+	"Korea": "Korea",
+	"China": "China",
+	"Europe": "Europe",
+	"Oceania": "Oceania",
+	"Asia": "Asia",
+	"America": "America",
+	"Test": "Test",
+
 	"login": "登录",
 	"reg_required": "此栏位必填",
 	"reg_morethan": "此字段长度必须大于6",
