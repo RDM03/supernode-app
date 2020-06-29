@@ -65,6 +65,8 @@
 	<string>Turn on location services to find LPWAN devices near you</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Turn on location services to find LPWAN devices near you</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Turn on location services to find LPWAN devices near you</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Would you allow MXC SmartCity to use the Motion?</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
