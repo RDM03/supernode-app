@@ -79,6 +79,7 @@ void _onVerificationContinue(Action action, Context<ForgotPasswordState> ctx) as
       hideLoading(ctx.context);
       mLog('passwordConfirm', res);
 
+      tip(ctx.context, FlutterI18n.translate(ctx.context, 'update_success'), success: true);
       Navigator.popUntil(ctx.context, ModalRoute.withName("login_page"));
     } catch (e) {
       hideLoading(ctx.context);
