@@ -8,7 +8,7 @@ if [ "$AGENT_JOBSTATUS" == "Succeeded" ]; then
      then
         rsync -e ssh \
         --progress \
-        android/app/build/outputs/apk/app-release.apk \
+        android/app/build/outputs/apk/app-dev-release.apk \
         SSH_USER@SSH_SERVER:reverse_proxy/apk
     else
         echo "Current branch is $APPCENTER_BRANCH"
