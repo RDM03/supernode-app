@@ -15,6 +15,7 @@ import 'wallet_component/wallet_list_adapter/wallet_item_component/state.dart';
 
 class HomeState implements Cloneable<HomeState> {
   //home
+  bool isUpdate = true;
   int tabIndex = 0;
   bool loading = true;
 
@@ -31,6 +32,7 @@ class HomeState implements Cloneable<HomeState> {
   String selectedOrganizationId = '';
 
   //wallet
+  bool isFirstRequest = true;
   bool loadingHistory = true;
   TabController tabController;
   double balance = 0;
@@ -70,6 +72,7 @@ class HomeState implements Cloneable<HomeState> {
   @override
   HomeState clone() {
     return HomeState()
+      ..isUpdate = isUpdate
       ..tabController = tabController
       ..tabIndex = tabIndex
       ..loading = loading
@@ -104,7 +107,8 @@ class HomeState implements Cloneable<HomeState> {
       ..isSetDate1 = isSetDate1
       ..isSetDate2 = isSetDate2
       ..selectedIndexBtn1 = selectedIndexBtn1
-      ..selectedIndexBtn2 = selectedIndexBtn2;
+      ..selectedIndexBtn2 = selectedIndexBtn2
+      ..isFirstRequest = isFirstRequest;
   }
 }
 
@@ -177,6 +181,7 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
   @override
   WalletState get(HomeState state) {
     return WalletState()
+      ..isFirstRequest = state.isFirstRequest
       ..loading = state.loading
       ..loadingHistory = state.loadingHistory
       ..tabController = state.tabController
@@ -199,6 +204,7 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
   @override
   void set(HomeState state, WalletState subState) {
     state
+      ..isFirstRequest = subState.isFirstRequest
       ..loadingHistory = subState.loadingHistory
       ..tabController = subState.tabController
       ..totalRevenue = subState.totalRevenue

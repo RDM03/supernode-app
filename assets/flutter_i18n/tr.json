@@ -170,5 +170,12 @@
 	"enable_2FA": "Enable Two Factor Authentication",
 	"disable_2FA": "Disable Two Factor Authentication",
 	"24hours_warning": "Each withdrawal is subject to a security screening that can take up to 24 hours on business days.",
-	"required_2FA": "Para çekmek için gerekli 2FA"
+	"required_2FA": "Para çekmek için gerekli 2FA",
+	"update_dialog_title": "MXC 智慧城市App更新",
+	"update_dialog_subTitle": "享受最新版的顺滑体验",
+	"update_dialog_content": "现在有一个版本更新，提供了非常多的修复和新功能，请点击确认更新!",
+	"update_dialog_confirm": "确认",
+	"update_dialog_cancel": "下次吧",
+	"update_dialog_downloading": "正在下载中...",
+	"tip_latest_version": "已经最新版本"
 }

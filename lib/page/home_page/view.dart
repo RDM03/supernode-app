@@ -22,7 +22,12 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
               child: item == 'Home'? Container() : viewService.buildComponent(item.toLowerCase())
             )
           ).toList()
+
         ),
+        // Visibility(
+        //   visible: state.loading,
+        //   child: loading(),
+        // ),
       ],
     ),
     bottomNavigationBar: BottomNavigationBar(

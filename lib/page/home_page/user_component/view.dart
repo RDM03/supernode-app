@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_appcenter/flutter_appcenter.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
@@ -20,6 +21,7 @@ import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
 import 'state.dart';
+bool isUpdate = true;
 
 Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
   final _ctx = viewService.context;

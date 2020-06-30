@@ -11,7 +11,7 @@ description: Mobile app used to interact with MXC Supernodes.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.2.0+18
+version: 1.2.1+29
 
 environment:
   sdk: ">=2.2.2 <3.0.0"
@@ -26,6 +26,7 @@ dependencies:
   # https://pub.dev/packages/dio
   dio: ^3.0.9
   # https://pub.dev/packages/flutter_i18n
+  flutter_appcenter: ^1.0.9
   flutter_i18n: ^0.13.0
   # https://pub.dev/packages/flutter_local_notifications
   flutter_local_notifications: ^1.4.1
@@ -39,8 +40,10 @@ dependencies:
   majascan: ^0.3.7
   # https://pub.dev/packages/pin_code_fields
   pin_code_fields: ^2.4.0
+  # https://pub.dev/packages/package_info
+  package_info: ^0.4.1
   # https://pub.dev/packages/permission_handler
-  permission_handler: ^4.2.0
+  permission_handler: ^5.0.1+1
   # https://pub.dev/packages/shared_preferences
   shared_preferences: ^0.5.6+3
   # https://pub.dev/packages/shimmer
@@ -59,8 +62,6 @@ dependencies:
   flutter_spinkit: "^2.1.0"
   # https://pub.dev/packages/localstorage
   localstorage: ^3.0.0
-  # https://pub.dev/packages/flutter_bugly
-  flutter_bugly: ^0.2.8
   # https://pub.dev/packages/page_transition
   page_transition: ^1.1.5
   # https://pub.dev/packages/local_auth

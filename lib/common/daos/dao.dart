@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/daos/interceptors/token_interceptor.dart';
 class Dao {
   static String baseUrl = '';
   static String token = '';
+  static var context;
 
   bool inProduction = const bool.fromEnvironment('dart.vm.product');
 

@@ -170,5 +170,12 @@
 	"enable_2FA": "启用二次验证",
 	"disable_2FA": "关闭双重身份验证",
 	"24hours_warning": "每次提取都要经过安全检查，在工作日最多需要24个小时。",
-	"required_2FA": "请求两步验证"
+	"required_2FA": "请求两步验证",
+	"update_dialog_title": "MXC 智慧城市App更新",
+	"update_dialog_subTitle": "享受最新版的顺滑体验",
+	"update_dialog_content": "现在有一个版本更新，提供了非常多的修复和新功能，请点击确认更新!",
+	"update_dialog_confirm": "确认",
+	"update_dialog_cancel": "下次吧",
+	"update_dialog_downloading": "正在下载中...",
+	"tip_latest_version": "已经最新版本"
 }

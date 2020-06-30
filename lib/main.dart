@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action, Page;
 import 'package:flutter/services.dart';
-import 'package:flutter_bugly/flutter_bugly.dart';
+import 'package:flutter_appcenter/flutter_appcenter.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 
 import 'package:supernodeapp/global_store/store.dart';
@@ -32,7 +33,14 @@ Future<void> main() async {
   await StorageManager.init();
 
   runApp(mxcApp());
-  FlutterBugly.init(androidAppId: "d5abff150e", iOSAppId: "");
+  Stream.fromFuture(FlutterAppCenter.init(
+    appSecretAndroid: Sys.appIdAndroid,
+    appSecretIOS: Sys.appIdIOS,
+    tokenAndroid: Sys.tokenAndroid,
+    tokenIOS: Sys.tokenIOS,
+    betaUrlIOS: Sys.betaUrlIOS,
+    usePrivateTrack: false,
+  ));
 
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
@@ -86,7 +94,7 @@ Widget mxcApp() {
         translationLoader: FileTranslationLoader(
           useCountryCode: true,
           // forcedLocale: Locale()
-        ),
+        )
         // translationLoader: NamespaceFileTranslationLoader(
         //   useCountryCode: true,
         //   namespaces: [ 'login' ]
@@ -99,8 +107,16 @@ Widget mxcApp() {
     supportedLocales: [
       const Locale('en'),
       const Locale.fromSubtags(languageCode: 'zh'),
-      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans', countryCode: 'CN'),
-      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
+      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans', countryCode:'CN'),
+      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode:'TW'),
+      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode:'HK'),
+      const Locale.fromSubtags(languageCode: 'vi'), // Vietnam
+      const Locale.fromSubtags(languageCode: 'ja'), // Japan
+      const Locale.fromSubtags(languageCode: 'ko'), // Korea
+      const Locale.fromSubtags(languageCode: 'de'), // Germany
+      const Locale.fromSubtags(languageCode: 'ru'), // Russia
+      const Locale.fromSubtags(languageCode: 'ko'), // Korea
+      const Locale.fromSubtags(languageCode: 'tr'), // Turkey
     ],
     theme: appTheme,
     home: routes.buildPage('splash_page', null),

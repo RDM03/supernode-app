@@ -28,46 +28,49 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
-		keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+	keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
 android {
     compileSdkVersion 28
 
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
-
     lintOptions {
         disable 'InvalidPackage'
     }
 
+    flavorDimensions "app"
+
+    productFlavors {
+        prod {}
+        play {}
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [CHANNEL: name]
+    }
+
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.mxc.smartcity"
-        minSdkVersion 20
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-	 signingConfigs {
-		release {
-			keyAlias keystoreProperties['keyAlias']
+    signingConfigs {
+        release {
+            storeFile rootProject.file("app/key.jks")
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
 			keyPassword keystoreProperties['keyPassword']
-			storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-			storePassword keystoreProperties['storePassword']
-		}
-   }
- 
+        }
+    }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
-
+            
             minifyEnabled true
             useProguard true
 
@@ -85,6 +88,10 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
+    def appCenterSdkVersion = '3.2.1'
+    implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
+    implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
+    implementation "com.microsoft.appcenter:appcenter-distribute:${appCenterSdkVersion}"
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.tencent.bugly:crashreport_upgrade:1.4.2'
 }

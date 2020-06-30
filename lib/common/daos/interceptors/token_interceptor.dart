@@ -1,8 +1,10 @@
 import 'dart:developer';
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:supernodeapp/common/daos/dao.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
+import 'package:supernodeapp/page/home_page/action.dart';
 
 
 class TokenInterceptors extends InterceptorsWrapper {
@@ -26,8 +28,8 @@ class TokenInterceptors extends InterceptorsWrapper {
         _token = authorizationCode;
         options.headers["Grpc-Metadata-Authorization"] = _token;
       }
-      if(otpCode != ''){
-        options.headers["Grpc-Metadata-X-OTP"] = otpCode;
+      if(otp_code != ''){
+        options.headers["Grpc-Metadata-X-OTP"] = otp_code;
       }
     }
     else{
@@ -51,6 +53,18 @@ class TokenInterceptors extends InterceptorsWrapper {
       print(e);
     }
     return response;
+  }
+
+  @override
+  onError(DioError err) async {
+    var errRes = err.response;
+
+    if(errRes != null && errRes.toString().contains(new RegExp(r'jwt'))){
+      /// when token is expired, it needs to start to login.
+      Dao.context.dispatch(HomeActionCreator.onReLogin());
+    }
+
+    return err;
   }
 
   ///清除授权

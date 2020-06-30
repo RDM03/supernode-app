@@ -20,8 +20,16 @@ Reducer<HomeState> buildReducer() {
       HomeAction.updateUsername: _updateUsername,
       HomeAction.convertUSD: _convertUSD,
       HomeAction.totalRevenue: _totalRevenue,
+      HomeAction.isUpdate: _isUpdate,
     },
   );
+}
+
+HomeState _isUpdate(HomeState state, Action action) {
+
+  final HomeState newState = state.clone();
+  return newState
+    ..isUpdate = false;
 }
 
 HomeState _loading(HomeState state, Action action) {

@@ -6,7 +6,7 @@ import 'state.dart';
 Reducer<AboutState> buildReducer() {
   return asReducer(
     <Object, Reducer<AboutState>>{
-      AboutAction.action: _onAction,
+      // AboutAction.action: _onAction,
     },
   );
 }

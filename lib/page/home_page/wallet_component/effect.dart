@@ -10,11 +10,10 @@ import 'package:supernodeapp/global_store/store.dart';
 import 'action.dart';
 import 'state.dart';
 
-bool initLoading = false;
-
 Effect<WalletState> buildEffect() {
   return combineEffects(<Object, Effect<WalletState>>{
     Lifecycle.initState: _initState,
+    Lifecycle.build: _build,
     Lifecycle.dispose: _dispose,
     WalletAction.onTab: _onTab,
     WalletAction.onFilter: _onFilter,
@@ -22,8 +21,8 @@ Effect<WalletState> buildEffect() {
 }
 
 void _initState(Action action, Context<WalletState> ctx) {
-  if(initLoading) return;
-
+   if(!ctx.state.isFirstRequest) return;
+   
   final TickerProvider tickerProvider = ctx.stfState as TickerProvider;
 
   TabController tabController = TabController(length: 2, vsync: tickerProvider);
@@ -37,8 +36,11 @@ void _initState(Action action, Context<WalletState> ctx) {
   Future.delayed(Duration(seconds: 2),(){
     ctx.dispatch(WalletActionCreator.tab(0));
     ctx.dispatch(WalletActionCreator.onFilter('SEARCH DEFUALT'));
-    initLoading = true;
   });
+}
+
+void _build(Action action, Context<WalletState> ctx) {
+
 }
 
 void _dispose(Action action, Context<WalletState> ctx) {
