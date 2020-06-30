@@ -191,12 +191,11 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                   child: Column(children: <Widget>[
                     SizedBox(
                       height: s(114),
-                      child: Row(
+                      child: Stack(
+                        alignment: Alignment.center,
                         children: <Widget>[
-                          SizedBox(width: s(10)),
                           Container(
                             alignment: Alignment.center,
-                            width: s(257),
                             child: Text(
                               FlutterI18n.translate(_ctx, 'super_node'),
                               style: TextStyle(
@@ -206,10 +205,12 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                               ),
                             ),
                           ),
-                          SizedBox(width: s(10)),
-                          GestureDetector(
-                            onTap: () => dispatch(LoginActionCreator.superNodeListVisible(false)),
-                            child: Icon(Icons.close, size: s(20)),
+                          Positioned(
+                            right: s(15),
+                            child: GestureDetector(
+                              onTap: () => dispatch(LoginActionCreator.superNodeListVisible(false)),
+                              child: Icon(Icons.close, size: 24),
+                            ),
                           ),
                         ],
                       ),
@@ -227,7 +228,6 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                                   GestureDetector(
                                     child: ListTile(
                                       title: Container(
-                                        padding: EdgeInsets.only(right: s(35)),
                                         alignment: Alignment.center,
                                         height: s(65),
                                         child: CachedNetworkImage(

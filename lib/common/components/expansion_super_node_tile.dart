@@ -146,7 +146,10 @@ class _ExpansionSuperNodesTileState extends State<ExpansionSuperNodesTile> with 
               child: ListTile(
                 onTap: _handleTap,
                 leading: widget.leading,
-                title: Center(child: widget.title),
+                title: Padding(
+                  padding: const EdgeInsets.only(left: 34),
+                  child: Center(child: widget.title),
+                ),
                 subtitle: widget.subtitle,
                 trailing: widget.trailing ??
                     RotationTransition(
