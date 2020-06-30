@@ -28,8 +28,8 @@ class TokenInterceptors extends InterceptorsWrapper {
         _token = authorizationCode;
         options.headers["Grpc-Metadata-Authorization"] = _token;
       }
-      if(otp_code != ''){
-        options.headers["Grpc-Metadata-X-OTP"] = otp_code;
+      if(otpCode != ''){
+        options.headers["Grpc-Metadata-X-OTP"] = otpCode;
       }
     }
     else{

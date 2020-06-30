@@ -285,7 +285,7 @@ void _devices(Context<HomeState> ctx, UserState userData, String orgId) {
   Map data = {"organizationID": orgId, "offset": 0, "limit": 999};
 
   dao.list(data).then((res) async {
-    log('DevicesDao list', res);
+    mLog('DevicesDao list', res);
 
     int total = int.parse(res['totalCount']);
     double allValues = 0;
