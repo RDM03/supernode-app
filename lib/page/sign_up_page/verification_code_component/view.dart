@@ -8,7 +8,6 @@ import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
 import '../action.dart';
-import 'action.dart';
 import 'state.dart';
 
 Widget buildView(VerificationCodeState state, Dispatch dispatch, ViewService viewService) {

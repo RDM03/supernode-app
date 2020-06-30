@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
@@ -17,12 +16,12 @@ Widget titleDetailRow({String name = '',dynamic value,bool loading = false}){
         Spacer(),
         loading ? loadingFlash(
           child: Text(
-            '${value} MXC',
+            '$value MXC',
             textAlign: TextAlign.left,
             style: kBigFontOfBlack,
           )
         ) : Text(
-          '${value} MXC',
+          '$value MXC',
           textAlign: TextAlign.left,
           style: kBigFontOfBlack,
         )

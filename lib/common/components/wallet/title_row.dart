@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/font.dart';
-import 'package:supernodeapp/theme/spacing.dart';
 
 Widget titleRow(String name){
   return ListTile(

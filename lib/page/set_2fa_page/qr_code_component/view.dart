@@ -1,6 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
@@ -11,7 +10,6 @@ import 'package:supernodeapp/theme/spacing.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../action.dart';
-import 'action.dart';
 import 'state.dart';
 
 Widget buildView(QRCodeState state, Dispatch dispatch, ViewService viewService) {

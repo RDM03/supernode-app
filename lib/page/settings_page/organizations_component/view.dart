@@ -92,7 +92,7 @@ void _selectItem(context,{List data,Function onSelected}){
     context,
     data: displayNameArr,
     onSelected: (index){
-      log('organizationName',index);
+      mLog('organizationName',index);
       onSelected(idArr[index],displayNameArr[index]);
     }
   );

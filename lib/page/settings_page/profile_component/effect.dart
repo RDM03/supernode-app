@@ -32,7 +32,7 @@ void _onUpdate(Action action, Context<ProfileState> ctx) {
     UserDao dao = UserDao();
 
     dao.update(data).then((res){
-      log('update',res);
+      mLog('update',res);
       hideLoading(ctx.context);
 
       ctx.dispatch(ProfileActionCreator.update(data));

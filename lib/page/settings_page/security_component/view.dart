@@ -5,7 +5,6 @@ import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
 
-import 'action.dart';
 import 'state.dart';
 
 Widget buildView(SecurityState state, Dispatch dispatch, ViewService viewService) {

@@ -14,7 +14,7 @@ class Biometrics {
     try {
       canCheckBiometric = await _localAuthentication.canCheckBiometrics;
     } on PlatformException catch (e) {
-      log('canCheckBiometric Exception ', e);
+      mLog('canCheckBiometric Exception ', e);
     }
     return canCheckBiometric;
   }

@@ -36,14 +36,6 @@ GatewayProfileState _updateItem(GatewayProfileState state, Action action) {
     // ..item = data;
 }
 
-GatewayProfileState _onSetLocation(GatewayProfileState state, Action action) {
-  // LatLng data = action.payload;
-
-  // final GatewayProfileState newState = state.clone();
-  // return newState
-  //   ..gatewayPosition = data;
-}
-
 GatewayProfileState _networkServerList(GatewayProfileState state, Action action) {
   List list = action.payload;
 

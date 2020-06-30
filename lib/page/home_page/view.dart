@@ -1,8 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/common/configs/images.dart';
-import 'package:supernodeapp/common/configs/sys.dart';
+import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 import 'action.dart';
@@ -22,7 +22,7 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
               child: item == 'Home'? Container() : viewService.buildComponent(item.toLowerCase())
             )
           ).toList()
-          
+
         ),
         // Visibility(
         //   visible: state.loading,

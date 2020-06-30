@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:supernodeapp/common/configs/config.dart';
+import 'package:supernodeapp/configs/config.dart';
 
 class LogsInterceptors extends InterceptorsWrapper {
   static List<Map> sHttpResponses = new List<Map>();

@@ -11,8 +11,6 @@ import 'package:supernodeapp/common/components/text_field/text_field_with_button
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
-import 'package:supernodeapp/page/settings_page/state.dart';
-import 'package:supernodeapp/global_store/store.dart';
 
 import 'action.dart';
 import 'state.dart';

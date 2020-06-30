@@ -1,7 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/topup_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
@@ -30,7 +29,7 @@ void _initState(Action action, Context<DepositState> ctx) {
   };
 
   dao.account(data).listen((res) {
-    log('account',res);
+    mLog('account',res);
     
     if((res as Map).containsKey('activeAccount')){
       ctx.dispatch(DepositActionCreator.address(res['activeAccount']));

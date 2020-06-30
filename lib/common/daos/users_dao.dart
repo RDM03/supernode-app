@@ -1,8 +1,6 @@
-
 import 'package:supernodeapp/common/daos/dao.dart';
 
 import 'api.dart';
-import 'mock.dart';
 
 class UserApi {
   static const String login = '/api/internal/login';
@@ -19,9 +17,11 @@ class UserApi {
   static const String setEnable = '/api/internal/totp-enable'; //OTP code in Grpc-Metadata-X-OTP header
   static const String setDisable = '/api/internal/totp-disable';
 
+  static const String passwordReset = "/api/internal/request-password-reset";
+  static const String passwordResetConfirm = "/api/internal/confirm-password-reset";
 }
 
-class UserDao extends Dao{
+class UserDao extends Dao {
   static const String table = 'users';
   static const String cId = 'cId';
   static const String id = 'id';
@@ -34,83 +34,73 @@ class UserDao extends Dao{
   static const String note = 'note';
 
   //remote
-  Future<dynamic> register(Map data){
+  Future<dynamic> register(Map data) {
     return post(
       url: UserApi.registration,
       data: data,
     );
   }
 
-  Future<dynamic> registerConfirm(Map data){
+  Future<dynamic> registerConfirm(Map data) {
     return post(
       url: UserApi.registrationConfirm,
       data: data,
     );
   }
 
-  Future<dynamic> registerFinish(Map data){
+  Future<dynamic> registerFinish(Map data) {
     return post(
       url: UserApi.registrationFinish,
       data: data,
     );
   }
 
-  Future<dynamic> login(Map data){
+  Future<dynamic> login(Map data) {
     return post(
       url: UserApi.login,
       data: data,
     );
-    
+
     //.then((res) => !isMock ? res : Mock.login)
     // .catchError((err) => !isMock ? err : Mock.login);
   }
 
-  Stream<dynamic> profile(){
+  Stream<dynamic> profile() {
     return Stream.fromFuture(get(
       url: UserApi.profile,
     ));
   }
 
-  Future<dynamic> update(Map data){
-    return put(
-      url: Api.url(UserApi.update, data['id']),
-      data: data
-    ).then((res) => res);
+  Future<dynamic> update(Map data) {
+    return put(url: Api.url(UserApi.update, data['id']), data: data).then((res) => res);
   }
 
-  Future<dynamic> changePassword(Map data){
-    return put(
-      url: Api.url(UserApi.password, data['userId']),
-      data: data
-    ).then((res) => res);
+  Future<dynamic> changePassword(Map data) {
+    return put(url: Api.url(UserApi.password, data['userId']), data: data).then((res) => res);
   }
 
   //get TOTP Status by Namgyeong
-  Future<dynamic> getTOTPStatus(Map data){
-    return get(
-        url: UserApi.getTOTPStatus,
-        data: data
-    ).then((res) => res);
+  Future<dynamic> getTOTPStatus(Map data) {
+    return get(url: UserApi.getTOTPStatus, data: data).then((res) => res);
   }
 
-  Future<dynamic> getTOTPConfig(Map data){
-    return post(
-        url: UserApi.getTOTPConfig,
-        data: data
-    ).then((res) => res);
+  Future<dynamic> getTOTPConfig(Map data) {
+    return post(url: UserApi.getTOTPConfig, data: data).then((res) => res);
   }
 
-  Future<dynamic> setEnable(Map data){
-    return post(
-        url: UserApi.setEnable,
-        data: data
-    ).then((res) => res);
+  Future<dynamic> setEnable(Map data) {
+    return post(url: UserApi.setEnable, data: data).then((res) => res);
   }
 
-  Future<dynamic> setDisable(Map data){
-    return post(
-        url: UserApi.setDisable,
-        data: data
-    ).then((res) => res);
+  Future<dynamic> setDisable(Map data) {
+    return post(url: UserApi.setDisable, data: data).then((res) => res);
+  }
+
+  Future<dynamic> passwordReset(Map data) {
+    return post(url: UserApi.passwordReset, data: data);
+  }
+
+  Future<dynamic> passwordResetConfirm(Map data) {
+    return post(url: UserApi.passwordResetConfirm, data: data);
   }
 }

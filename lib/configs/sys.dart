@@ -15,13 +15,6 @@ class AppLanguage {
 }
 
 class Sys {
-  static const Map superNodes = {
-    'xinyu': 'https://mxcxy.com',
-    'huawei': 'https://lora.hunanhuaweikeji.com',
-    'matchx': 'https://lora.supernode.matchx.io',
-    'enlink': 'https://lora.rosanetworks.com',
-  };
-
   static const testBaseUrl = 'https://lora.test.cloud.mxc.org';
   static const buildBaseUrl = 'https://lora.build.cloud.mxc.org';
 

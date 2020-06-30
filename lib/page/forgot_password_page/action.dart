@@ -1,10 +1,22 @@
 import 'package:fish_redux/fish_redux.dart';
 
 //TODO replace with your own action
-enum ForgotPasswordAction { action }
+enum ForgotPasswordAction {
+  onEmailContinue,
+  onVerificationContinue,
+  setEmail,
+}
 
 class ForgotPasswordActionCreator {
-  static Action onAction() {
-    return const Action(ForgotPasswordAction.action);
+  static Action onEmailContinue() {
+    return const Action(ForgotPasswordAction.onEmailContinue);
+  }
+
+  static Action onVerificationContinue() {
+    return const Action(ForgotPasswordAction.onVerificationContinue);
+  }
+
+  static Action setEmail(String email) {
+    return Action(ForgotPasswordAction.setEmail, payload: email);
   }
 }

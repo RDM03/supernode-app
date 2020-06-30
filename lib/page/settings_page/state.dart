@@ -1,7 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/daos/settings_dao.dart';
-import 'package:supernodeapp/page/home_page/user_component/state.dart';
 
 import 'about_component/state.dart';
 import 'language_component/state.dart';
@@ -14,7 +13,6 @@ class SettingsState implements Cloneable<SettingsState> {
   int cId;
   String id;
   bool notification = false;
-  String superNode = '';
   String language = '';
   String userId = '';
   String username = '';
@@ -57,7 +55,6 @@ class SettingsState implements Cloneable<SettingsState> {
       ..email = email
       ..isAdmin = isAdmin
       ..notification = notification
-      ..superNode = superNode
       ..language = language
       ..theme = theme
       ..token = token
@@ -80,7 +77,6 @@ class SettingsState implements Cloneable<SettingsState> {
   SettingsState.fromMap(Map map) {
     id = map[SettingsDao.id] as String;
     notification = map[SettingsDao.notification] == 1 ? true : false;
-    superNode = map[SettingsDao.superNode] as String;
     language = map[SettingsDao.language] as String;
     userId = map[SettingsDao.userId] as String;
     username = map[SettingsDao.username] as String;
@@ -93,8 +89,7 @@ class SettingsState implements Cloneable<SettingsState> {
   Map<String,dynamic> toMap() {
     var map = <String,dynamic>{
       SettingsDao.id: id,
-      SettingsDao.notification: notification ? 1 : 0, 
-      SettingsDao.superNode: superNode,
+      SettingsDao.notification: notification ? 1 : 0,
       SettingsDao.language: language,
       SettingsDao.userId: userId,
       SettingsDao.username: username,
