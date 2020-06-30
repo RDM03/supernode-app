@@ -4,7 +4,7 @@ import 'package:flutter_appcenter/flutter_appcenter.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
-import 'package:supernodeapp/common/components/map.dart';
+import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/profile.dart';
@@ -13,7 +13,9 @@ import 'package:supernodeapp/common/components/summary_row.dart';
 import 'package:supernodeapp/common/configs/images.dart';
 import 'package:supernodeapp/common/configs/sys.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/page/add_gateway_page/gateway_profile_component/action.dart';
 import 'package:supernodeapp/page/home_page/action.dart';
+import 'package:supernodeapp/page/home_page/user_component/component.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
@@ -115,14 +117,10 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                   '${Tools.priceFormat(state.devicesRevenue)} MXC (${Tools.priceFormat(state.devicesUSDRevenue)} USD)',
             ),
           ),
-          MapWidget(
-            context: _ctx,
+          MapBoxWidget(
+            config: state.mapViewController,
             userLocationSwitch: true,
-            markers: state.gatewaysLocations ?? [],
-            controller: state.mapCtl,
-            callback: (location) => dispatch(UserActionCreator.addLocation(location)),
             zoomOutCallback: () => dispatch(HomeActionCreator.mapbox()),
-            myLatLng: state.location,
           ),
           smallColumnSpacer(),
         ],

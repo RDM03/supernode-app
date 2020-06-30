@@ -1,7 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
-import 'package:latlong/latlong.dart';
 import 'action.dart';
 import 'state.dart';
 import 'user_component/state.dart';
@@ -20,10 +19,17 @@ Reducer<HomeState> buildReducer() {
       HomeAction.devices: _devices,
       HomeAction.updateUsername: _updateUsername,
       HomeAction.convertUSD: _convertUSD,
-      HomeAction.location: _location,
       HomeAction.totalRevenue: _totalRevenue,
+      HomeAction.isUpdate: _isUpdate,
     },
   );
+}
+
+HomeState _isUpdate(HomeState state, Action action) {
+
+  final HomeState newState = state.clone();
+  return newState
+    ..isUpdate = false;
 }
 
 HomeState _loading(HomeState state, Action action) {
@@ -127,13 +133,6 @@ HomeState _convertUSD(HomeState state, Action action) {
   }
 
   return state;
-}
-
-HomeState _location(HomeState state, Action action) {
-  LatLng loc = action.payload;
-
-  final HomeState newState = state.clone();
-  return newState..location = loc;
 }
 
 HomeState _totalRevenue(HomeState state, Action action) {

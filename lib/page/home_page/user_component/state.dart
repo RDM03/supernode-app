@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong/latlong.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 
@@ -38,7 +38,7 @@ class UserState implements Cloneable<UserState> {
   int gatewaysTotal = 0;
   double gatewaysRevenue = 0;
   double gatewaysUSDRevenue = 0;
-  List<Marker> gatewaysLocations = [];
+  List<MapMarker> gatewaysLocations = [];
 
   //devices
   int devicesTotal = 0;
@@ -46,9 +46,8 @@ class UserState implements Cloneable<UserState> {
   double devicesUSDRevenue = 0;
 
   //map
-  MapController mapCtl = MapController();
+  MapViewController mapViewController;
   StreamController<LatLng> markerlocationStream = StreamController();
-  LatLng location;
 
   UserState();
 
@@ -79,9 +78,8 @@ class UserState implements Cloneable<UserState> {
       ..devicesTotal = devicesTotal
       ..devicesRevenue = devicesRevenue
       ..devicesUSDRevenue = devicesUSDRevenue
-      ..mapCtl = mapCtl
+      ..mapViewController = mapViewController
       ..markerlocationStream = markerlocationStream
-      ..location = location
       ..gatewaysLocations = gatewaysLocations;
   }
 

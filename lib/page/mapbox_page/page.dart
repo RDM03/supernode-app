@@ -4,18 +4,18 @@ import 'reducer.dart';
 import 'view.dart';
 import 'state.dart';
 
-class mapboxPage extends Page<mapboxState, Map<String, dynamic>> {
-  mapboxPage()
+class MapBoxPage extends Page<MapBoxState, Map<String, dynamic>> {
+  MapBoxPage()
       : super(
             initState: initState,
             effect: buildEffect(),
             reducer: buildReducer(),
             view: buildView,
-            dependencies: Dependencies<mapboxState>(
+            dependencies: Dependencies<MapBoxState>(
                 adapter: null,
-                slots: <String, Dependent<mapboxState>>{
+                slots: <String, Dependent<MapBoxState>>{
                 }),
-            middleware: <Middleware<mapboxState>>[ ],
+            middleware: <Middleware<MapBoxState>>[ ],
             );
 
 

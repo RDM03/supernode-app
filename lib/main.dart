@@ -67,7 +67,7 @@ Widget mxcApp() {
       'change_password_page': ChangePasswordPage(),
       'set_2fa_page': Set2FAPage(),
       'add_gateway_page': AddGatewayPage(),
-      'mapbox_page': mapboxPage(),
+      'mapbox_page': MapBoxPage(),
     },
     visitor: (String path, Page<Object, dynamic> page) {
       if (page.isTypeof<GlobalBaseState>()) {

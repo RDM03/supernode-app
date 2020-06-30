@@ -32,15 +32,14 @@ class Sys {
 
   static const List<String> mainMenus = ['Home', 'Gateway', 'Device', 'Wallet'];
 
-  static const mapUrlTemplate =
-      'https://api.mapbox.com/styles/v1/mxcdatadash/ck9qr005y5xec1is8yu6i51kw/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}';
-  static const mapToken =
-      'pk.eyJ1IjoibXhjZGF0YWRhc2giLCJhIjoiY2s5bnc4dmh4MDBiMDNnbnczamRoN2ExeCJ9.sq0w8DGDXpA_6AMoejYaUw';
-
   static const appIdAndroid = '85fbe3cf-0680-4024-b047-ae781c95bd9d';
   static const appIdIOS = 'f69d3fff-c177-4cef-81bd-b306f910edd7';
   static const tokenAndroid = '46ace79c8ecee96614144c982707714ea385a1d1';
   static const tokenIOS = 'e7eb9a0389dd31bf39ee13fef12e7b8a5a62b130';
   static const betaUrlIOS = 'itms-beta://testflight.apple.com/join/NkXHEpf4';
   static const downloadUrlAndroid = 'https://datadash.oss-accelerate.aliyuncs.com/app-dev-release.apk';
+
+  static const mapTileStyle = "mapbox://styles/mxcdatadash/ck9qr005y5xec1is8yu6i51kw";
+  static const mapUrlTemplate = 'https://api.mapbox.com/styles/v1/mxcdatadash/ck9qr005y5xec1is8yu6i51kw/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}';
+  static const mapToken = 'pk.eyJ1IjoibXhjZGF0YWRhc2giLCJhIjoiY2s5bnc4dmh4MDBiMDNnbnczamRoN2ExeCJ9.sq0w8DGDXpA_6AMoejYaUw';
 }

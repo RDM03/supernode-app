@@ -1,8 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map/plugin_api.dart';
-import 'package:latlong/latlong.dart';
+import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
@@ -17,6 +15,7 @@ import 'wallet_component/wallet_list_adapter/wallet_item_component/state.dart';
 
 class HomeState implements Cloneable<HomeState> {
   //home
+  bool isUpdate = true;
   int tabIndex = 0;
   bool loading = true;
 
@@ -56,12 +55,11 @@ class HomeState implements Cloneable<HomeState> {
   int gatewaysTotal = 0;
   double gatewaysRevenue = 0;
   double gatewaysUSDRevenue = 0;
-  List<Marker> gatewaysLocations = [];
+  List<MapMarker> gatewaysLocations = [];
 
   //map
-  MapController mapCtl = MapController();
+  MapViewController mapCtl = MapViewController();
   List<GatewayItemState> gatewaysList = [];
-  LatLng location;
 
   //devices
   int devicesTotal = 0;
@@ -74,6 +72,7 @@ class HomeState implements Cloneable<HomeState> {
   @override
   HomeState clone() {
     return HomeState()
+      ..isUpdate = isUpdate
       ..tabController = tabController
       ..tabIndex = tabIndex
       ..loading = loading
@@ -98,7 +97,6 @@ class HomeState implements Cloneable<HomeState> {
       ..devicesUSDRevenue = devicesUSDRevenue
       ..gatewaysLocations = gatewaysLocations
       ..mapCtl = mapCtl
-      ..location = location
       ..gatewaysList = gatewaysList
       ..tabHeight = tabHeight
       ..walletTabIndex = walletTabIndex
@@ -144,16 +142,13 @@ class UserConnector extends ConnOp<HomeState, UserState> {
       ..devicesTotal = state.devicesTotal
       ..devicesRevenue = state.devicesRevenue
       ..devicesUSDRevenue = state.devicesUSDRevenue
-      ..mapCtl = state.mapCtl
-      ..location = state.location
+      ..mapViewController = state.mapCtl
       ..gatewaysLocations = state.gatewaysLocations;
   }
 
   @override
   void set(HomeState state, UserState subState) {
-    state
-      ..mapCtl = subState.mapCtl
-      ..location = subState.location;
+    state..mapCtl = subState.mapViewController;
   }
 }
 
@@ -166,8 +161,7 @@ class GatewayConnector extends ConnOp<HomeState, GatewayState> {
       ..gatewaysRevenue = state.gatewaysRevenue
       ..gatewaysUSDRevenue = state.gatewaysUSDRevenue
       ..organizations = state.organizations
-      ..list = state.gatewaysList
-      ..location = state.location;
+      ..list = state.gatewaysList;
   }
 
   @override
