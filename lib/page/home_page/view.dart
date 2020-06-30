@@ -16,31 +16,13 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
       children: <Widget>[
         viewService.buildComponent('user'),
         Stack(
-          children: [
+          children: Sys.mainMenus.map((String item) =>
             Visibility(
-              visible: Sys.mainMenus.indexOf('Home') == state.tabIndex,
-              child: viewService.buildComponent('user')
-            ),
-            Visibility(
-              visible: Sys.mainMenus.indexOf('Gateway') == state.tabIndex,
-              child: viewService.buildComponent('gateway')
-            ),
-            Visibility(
-              visible: Sys.mainMenus.indexOf('Device') == state.tabIndex,
-              child: viewService.buildComponent('device')
-            ),
-            Visibility(
-              visible: Sys.mainMenus.indexOf('Wallet') == state.tabIndex,
-              child: viewService.buildComponent('wallet')
+              visible: item == 'Home'? false : Sys.mainMenus.indexOf(item) == state.tabIndex,
+              child: item == 'Home'? Container() : viewService.buildComponent(item.toLowerCase())
             )
-          ]
+          ).toList()
           
-          // Sys.mainMenus.map((String item) =>
-          //   Visibility(
-          //     visible: item == 'Home'? false : Sys.mainMenus.indexOf(item) == state.tabIndex,
-          //     child: item == 'Home'? Container() : viewService.buildComponent(item.toLowerCase())
-          //   )
-          // ).toList()
         ),
         // Visibility(
         //   visible: state.loading,

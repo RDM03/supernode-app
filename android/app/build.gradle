@@ -38,7 +38,7 @@ android {
         disable 'InvalidPackage'
     }
 
-     flavorDimensions "app"
+    flavorDimensions "app"
 
     productFlavors {
         dev {}

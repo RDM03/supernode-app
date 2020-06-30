@@ -7,6 +7,7 @@ import 'wallet_list_adapter/wallet_item_component/state.dart';
 
 class WalletState extends MutableSource implements Cloneable<WalletState> {
 
+  bool isFirstRequest = true;
   bool loading = true;
   bool loadingHistory = true;
   TabController tabController;
@@ -53,6 +54,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   @override
   WalletState clone() {
     return WalletState()
+      ..isFirstRequest = isFirstRequest
       ..loading = loading
       ..loadingHistory= loadingHistory
       ..tabController = tabController

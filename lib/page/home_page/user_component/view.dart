@@ -25,28 +25,6 @@ bool isUpdate = true;
 Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
   final _ctx = viewService.context;
 
-  // Future<void> _checkForUpdate(){
-
-  //   if(isUpdate) {
-  //     isUpdate = false;
-  //     FlutterAppCenter.checkForUpdate(
-  //       _ctx,
-  //       downloadUrlAndroid: Sys.downloadUrlAndroid,
-  //       dialog: {
-  //         'title': FlutterI18n.translate(_ctx,'update_dialog_title'),
-  //         'subTitle': FlutterI18n.translate(_ctx,'update_dialog_subTitle'),
-  //         'content': FlutterI18n.translate(_ctx,'update_dialog_content'),
-  //         'confirm': FlutterI18n.translate(_ctx,'update_dialog_confirm'),
-  //         'cancel': FlutterI18n.translate(_ctx,'update_dialog_cancel'),
-  //         'downloading': FlutterI18n.translate(_ctx,'update_dialog_downloading')
-  //       }
-  //     );
-  //   }
-    
-  // }
-
-  // _checkForUpdate();
-
   return Scaffold(
     appBar: AppBar(
       backgroundColor: backgroundColor,
