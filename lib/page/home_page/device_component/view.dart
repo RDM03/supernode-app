@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/components/app_bars/home_bar.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
+import 'package:supernodeapp/configs/images.dart';
 
 import 'state.dart';
 

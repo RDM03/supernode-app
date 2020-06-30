@@ -2,7 +2,6 @@
 
 import 'api.dart';
 import 'dao.dart';
-import 'mock.dart';
 
 class GatewaysApi {
   static final String list = '/api/gateways';

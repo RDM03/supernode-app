@@ -8,16 +8,18 @@ class PrimaryButton extends StatelessWidget {
     @required this.onTap,
     @required this.buttonTitle,
     this.minHeight = 36,
+    this.minWidget = 0,
   });
 
   final String buttonTitle;
   final Function onTap;
   final double minHeight;
+  final double minWidget;
 
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: minHeight),
+      constraints: BoxConstraints(minHeight: minHeight, minWidth: minWidget),
       child: RaisedButton(
         onPressed: onTap,
         shape: RoundedRectangleBorder(

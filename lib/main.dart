@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter/material.dart' hide Page;
+import 'package:flutter/material.dart' hide Action, Page;
 import 'package:flutter/services.dart';
 import 'package:flutter_appcenter/flutter_appcenter.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:supernodeapp/common/configs/sys.dart';
+import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 
 import 'package:supernodeapp/global_store/store.dart';
@@ -49,48 +49,43 @@ Future<void> main() async {
 }
 
 Widget mxcApp() {
-  final GlobalKey<NavigatorState> navigatorKey =
-      GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   final AbstractRoutes routes = PageRoutes(
-    pages: <String, Page<Object,dynamic>>{
-      'splash_page': SplashPage(),
-      'login_page': LoginPage(),
-      'sign_up_page': SignUpPage(),
-      'forgot_password_page': ForgotPasswordPage(),
-      'home_page': HomePage(),
-      'deposit_page': DepositPage(),
-      'withdraw_page': WithdrawPage(),
-      'confirm_page': ConfirmPage(),
-      'stake_page': StakePage(),
-      'settings_page': SettingsPage(),
-      'change_password_page': ChangePasswordPage(),
-      'set_2fa_page': Set2FAPage(),
-      'add_gateway_page': AddGatewayPage(),
-      'mapbox_page': MapBoxPage(),
-    },
-    visitor: (String path, Page<Object, dynamic> page) {
-      if (page.isTypeof<GlobalBaseState>()) {
-        page.connectExtraStore<GlobalState>(GlobalStore.store,
-            (Object pagestate, GlobalState appState) {
-          final GlobalBaseState p = pagestate;
-          
-          if(!(p.settings == appState.settings)){
-            if (pagestate is Cloneable) {
-              final Object copy = pagestate.clone();
-              final GlobalBaseState newState = copy;
+      pages: <String, Page<Object, dynamic>>{
+        'splash_page': SplashPage(),
+        'login_page': LoginPage(),
+        'sign_up_page': SignUpPage(),
+        'forgot_password_page': ForgotPasswordPage(),
+        'home_page': HomePage(),
+        'deposit_page': DepositPage(),
+        'withdraw_page': WithdrawPage(),
+        'confirm_page': ConfirmPage(),
+        'stake_page': StakePage(),
+        'settings_page': SettingsPage(),
+        'change_password_page': ChangePasswordPage(),
+        'set_2fa_page': Set2FAPage(),
+        'add_gateway_page': AddGatewayPage(),
+        'mapbox_page': MapBoxPage(),
+      },
+      visitor: (String path, Page<Object, dynamic> page) {
+        if (page.isTypeof<GlobalBaseState>()) {
+          page.connectExtraStore<GlobalState>(GlobalStore.store, (Object pagestate, GlobalState appState) {
+            final GlobalBaseState p = pagestate;
 
-              return newState
-                ..settings = appState.settings;
+            if (!(p.settings == appState.settings)) {
+              if (pagestate is Cloneable) {
+                final Object copy = pagestate.clone();
+                final GlobalBaseState newState = copy;
+
+                return newState..settings = appState.settings;
+              }
             }
-            
-          }
 
-          return pagestate;
-        });
-      }
-    }
-  );
+            return pagestate;
+          });
+        }
+      });
 
   return MaterialApp(
     navigatorKey: navigatorKey,
@@ -125,10 +120,13 @@ Widget mxcApp() {
     ],
     theme: appTheme,
     home: routes.buildPage('splash_page', null),
-    onGenerateRoute: (RouteSettings settings){
-      return MaterialPageRoute(builder: (BuildContext context) {
-        return routes.buildPage(settings.name, settings.arguments);
-      });
+    onGenerateRoute: (RouteSettings settings) {
+      return MaterialPageRoute(
+        builder: (BuildContext context) {
+          return routes.buildPage(settings.name, settings.arguments);
+        },
+        settings: settings,
+      );
     },
   );
 }

@@ -67,7 +67,6 @@ void _onTab(Action action, Context<WalletState> ctx) {
 void _onFilter(Action action, Context<WalletState> ctx) {
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
   String type = action.payload;
-  var curState = ctx.state;
 
   if(orgId.isEmpty) return;
 
@@ -131,7 +130,7 @@ void _search(Context<WalletState> ctx,String type,Map data,{int index = -1}){
 void _withdrawFee(Context<WalletState> ctx){
   WithdrawDao dao = WithdrawDao();
   dao.fee().then((res){
-    log('WithdrawDao fee',res);
+    mLog('WithdrawDao fee',res);
 
     if((res as Map).containsKey('withdrawFee')){
       ctx.dispatch(WalletActionCreator.withdrawFee(Tools.convertDouble(res['withdrawFee'])));
@@ -164,7 +163,7 @@ void _staking(Context<WalletState> ctx,String type,Map data){
   StakeDao dao = StakeDao();
   
   dao.activestakes(data).then((res){
-    log('StakeDao activestakes',res);
+    mLog('StakeDao activestakes',res);
     
     if((res as Map).containsKey('actStake')){// && (res['actStake'] as List).isNotEmpty){
       List list = [res['actStake']];
@@ -179,7 +178,7 @@ void _requestHistory(Context<WalletState> ctx,dao,Map data,String type, String k
   ctx.dispatch(WalletActionCreator.loadingHistory(true));
 
   dao.history(data).listen((res){
-    log('$type history',res);
+    mLog('$type history',res);
     
     if((res as Map).containsKey(keyType)){
 

@@ -7,7 +7,6 @@ import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 import 'package:supernodeapp/global_store/action.dart';
-import 'package:supernodeapp/page/home_page/action.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -31,7 +30,7 @@ void _initState(Action action, Context<Set2FAState> ctx) {
   Map data = {};
 
   dao.getTOTPStatus(data).then((res){
-    log('totp',res);
+    mLog('totp',res);
 
     if((res as Map).containsKey('enabled')){
      ctx.dispatch(Set2FAActionCreator.isEnabled(res['enabled']));
@@ -104,7 +103,7 @@ void _onGetTOTPConfig(Action action, Context<Set2FAState> ctx) {
   showLoading(ctx.context);
   dao.getTOTPConfig(data).then((res){
     hideLoading(ctx.context);
-    log('changePassword',res);
+    mLog('changePassword',res);
 
     ctx.dispatch(Set2FAActionCreator.getTOTPConfig({"url": res['url'],"secret": res['secret'], "recoveryCode": res['recoveryCode'], "title":res['title'], "qrCode": res['qrCode']}));
 
@@ -144,11 +143,11 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx){
   showLoading(ctx.context);
   dao.setEnable(data).then((res){
     hideLoading(ctx.context);
-    log('setEnable status',res);
+    mLog('setEnable status',res);
     ctx.dispatch(Set2FAActionCreator.isEnabled(true));
   }).then((res){
     hideLoading(ctx.context);
-    log('login saf',res);
+    mLog('login saf',res);
     UserDao dao = UserDao();
 
     Map data = {};
@@ -156,7 +155,7 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx){
     showLoading(ctx.context);
     dao.getTOTPStatus(data).then((res){
       hideLoading(ctx.context);
-      log('totp',res);
+      mLog('totp',res);
       SettingsState settingsData = GlobalStore.store.getState().settings;
 
       if(settingsData == null){
@@ -208,7 +207,7 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx){
   showLoading(ctx.context);
   dao.setDisable(data).then((res){
     hideLoading(ctx.context);
-    log('setDisable status',res);
+    mLog('setDisable status',res);
 
     settingsData.is2FAEnabled = false;
     GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
@@ -216,7 +215,7 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx){
   }).then((res){
     hideLoading(ctx.context);
     print(res);
-    log('get 2fa status ',res);
+    mLog('get 2fa status ',res);
     UserDao dao = UserDao();
 
     Map data = {};
@@ -224,7 +223,7 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx){
     showLoading(ctx.context);
     dao.getTOTPStatus(data).then((res){
       hideLoading(ctx.context);
-      log('totp',res);
+      mLog('totp',res);
       SettingsState settingsData = GlobalStore.store.getState().settings;
 
       if(settingsData == null){

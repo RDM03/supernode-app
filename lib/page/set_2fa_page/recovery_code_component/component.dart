@@ -1,5 +1,4 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:supernodeapp/page/sign_up_page/registration_component/component.dart';
 
 import 'effect.dart';
 import 'reducer.dart';

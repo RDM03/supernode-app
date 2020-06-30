@@ -41,8 +41,8 @@ android {
     flavorDimensions "app"
 
     productFlavors {
-        dev {}
-        pr {}
+        prod {}
+        play {}
     }
 
     productFlavors.all { flavor ->

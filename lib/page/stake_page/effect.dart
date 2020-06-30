@@ -48,7 +48,7 @@ void _onConfirm(Action action, Context<StakeState> ctx) async {
           showLoading(ctx.context);
           dao.stake(data).then((res) async {
             hideLoading(ctx.context);
-            log(curState.type, res);
+            mLog(curState.type, res);
             resultPage('stake', res);
           }).catchError((err) {
             hideLoading(ctx.context);
@@ -58,7 +58,7 @@ void _onConfirm(Action action, Context<StakeState> ctx) async {
           showLoading(ctx.context);
           dao.unstake(data).then((res) async {
             hideLoading(ctx.context);
-            log(curState.type, res);
+            mLog(curState.type, res);
             resultPage('unstake', res);
           }).catchError((err) {
             hideLoading(ctx.context);

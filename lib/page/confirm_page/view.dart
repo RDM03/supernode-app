@@ -8,7 +8,6 @@ import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/page/title.dart';
 
-import 'action.dart';
 import 'state.dart';
 
 Widget buildView(ConfirmState state, Dispatch dispatch, ViewService viewService) {
