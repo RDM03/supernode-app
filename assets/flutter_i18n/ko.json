@@ -164,5 +164,7 @@
 	"update_dialog_confirm": "确认",
 	"update_dialog_cancel": "下次吧",
 	"update_dialog_downloading": "正在下载中...",
-	"tip_latest_version": "已经最新版本"
+	"tip_latest_version": "已经最新版本",
+	"total_device": "Total Device",
+	"downlink_fee": "Downlink Fee"
 }

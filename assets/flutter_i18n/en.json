@@ -164,5 +164,7 @@
 	"update_dialog_confirm": "Confirm",
 	"update_dialog_cancel": "Postpone",
 	"update_dialog_downloading": "Downloading File...",
-	"tip_latest_version": "This is the latest version."
+	"tip_latest_version": "This is the latest version.",
+  "total_device": "Total Device",
+  "downlink_fee": "Downlink Fee"
 }
