@@ -5,8 +5,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:supernodeapp/common/daos/settings_dao.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
 
-
-class DbDao{
+class DbDao {
   Database db;
   final String dataBase = 'mxc';
 
@@ -23,7 +22,7 @@ class DbDao{
         print(e);
       }
     }
-    
+
     return path;
   }
 
@@ -32,11 +31,10 @@ class DbDao{
 
     // await deleteDatabase(path);
 
-    db = await openDatabase(path, version: 1,
-        onCreate: (Database _db, int version) async {
-          await _db.execute('pragma foreign_keys = ON');
+    db = await openDatabase(path, version: 2, onCreate: (Database _db, int version) async {
+      await _db.execute('pragma foreign_keys = ON');
 
-          await _db.execute('''
+      await _db.execute('''
           create table if not exists ${UserDao.table} ( 
             ${UserDao.cId} integer primary key autoincrement,
             ${UserDao.id} text not null,
@@ -48,7 +46,7 @@ class DbDao{
             ${UserDao.note} text null)
           ''');
 
-          await _db.execute('''
+      await _db.execute('''
           create table if not exists ${SettingsDao.table} ( 
             ${SettingsDao.cId} integer primary key autoincrement,
             ${SettingsDao.id} text null,
@@ -60,8 +58,7 @@ class DbDao{
             ${SettingsDao.language} text null,
             ${SettingsDao.theme} integer null)
           ''');
-          
-        });
+    });
 
     //foreign key(${SettingsDao.userId}) references ${UserDao.table}(${UserDao.id}
     // await db.execute('drop table ${UserDao.table}');
