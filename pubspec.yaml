@@ -11,7 +11,7 @@ description: Mobile app used to interact with MXC Supernodes.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.2.1+28
+version: 1.2.1+29
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -24,7 +24,7 @@ dependencies:
 
   cupertino_icons: ^0.1.2
   dio: ^3.0.9
-  flutter_appcenter: ^1.0.8
+  flutter_appcenter: ^1.0.9
   flutter_i18n: ^0.13.0
   flutter_local_notifications: ^1.4.1
   #  flutter_map: any

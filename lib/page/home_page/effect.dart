@@ -90,6 +90,7 @@ Future<void> _checkForUpdate(Context<HomeState> ctx){
 
   FlutterAppCenter.checkForUpdate(
     _ctx,
+    channelGooglePlay: Sys.channelGooglePlay,
     downloadUrlAndroid: Sys.downloadUrlAndroid,
     dialog: {
       'title': FlutterI18n.translate(_ctx,'update_dialog_title'),
