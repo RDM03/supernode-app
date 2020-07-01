@@ -1,6 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/widgets.dart';
-import 'package:supernodeapp/page/sign_up_page/registration_component/state.dart';
 
 class RecoveryCodeState implements Cloneable<RecoveryCodeState> {
 

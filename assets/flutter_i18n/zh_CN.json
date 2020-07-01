@@ -4,6 +4,19 @@
 	"email_hint": "请输入您的电子邮件地址",
 	"password": "密码",
 	"password_hint": "输入您的密码",
+
+	"change_password_hint": "For security reasons, your password may only be reset once / month!",
+	"forgot_hint": "Forgot your password?",
+	"access_using": "or Access Using",
+	"super_node": "Supernodes",
+	"Korea": "Korea",
+	"China": "China",
+	"Europe": "Europe",
+	"Oceania": "Oceania",
+	"Asia": "Asia",
+	"America": "America",
+	"Test": "Test",
+
 	"login": "登录",
 	"reg_required": "此栏位必填",
 	"reg_morethan": "此字段长度必须大于6",
@@ -164,5 +177,7 @@
 	"update_dialog_confirm": "确认",
 	"update_dialog_cancel": "下次吧",
 	"update_dialog_downloading": "正在下载中...",
-	"tip_latest_version": "已经最新版本"
+	"tip_latest_version": "已经最新版本",
+	"total_device": "Total Device",
+	"downlink_fee": "Downlink Fee"
 }

@@ -11,11 +11,6 @@ Reducer<RecoveryCodeState> buildReducer() {
   );
 }
 
-RecoveryCodeState _onAction(RecoveryCodeState state, Action action) {
-  final RecoveryCodeState newState = state.clone();
-  return newState;
-}
-
 RecoveryCodeState _isAgreed(RecoveryCodeState state, Action action) {
   bool isAgreed = action.payload;
 

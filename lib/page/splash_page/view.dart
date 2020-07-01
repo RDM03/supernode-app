@@ -1,8 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/common/configs/images.dart';
+import 'package:supernodeapp/configs/images.dart';
 
-import 'action.dart';
 import 'state.dart';
 import 'animation.dart';
 
@@ -20,7 +19,7 @@ Widget buildView(SplashState state, Dispatch dispatch, ViewService viewService) 
             height: 116,
             margin: const EdgeInsets.only(top: 282),
             child: SplashLogoAnimation(
-              animationController: state.logoAnimationController,
+              animationController: state.logoController,
               child: Image.asset(AppImages.splashLogo),
             ),
           ),

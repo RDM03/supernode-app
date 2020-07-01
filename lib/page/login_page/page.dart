@@ -1,22 +1,22 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:supernodeapp/page/home_page/user_component/state.dart';
 
 import 'effect.dart';
 import 'reducer.dart';
 import 'view.dart';
+import 'state.dart';
 
-class LoginPage extends Page<UserState, Map<String, dynamic>> {
+class LoginPage extends Page<LoginState, Map<String, dynamic>> {
   LoginPage()
       : super(
             initState: initState,
             effect: buildEffect(),
             reducer: buildReducer(),
             view: buildView,
-            dependencies: Dependencies<UserState>(
+            dependencies: Dependencies<LoginState>(
                 adapter: null,
-                slots: <String, Dependent<UserState>>{
+                slots: <String, Dependent<LoginState>>{
                 }),
-            middleware: <Middleware<UserState>>[
+            middleware: <Middleware<LoginState>>[
             ],);
 
 }

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 
 class LocalStorageDao {
-  static Future<void> saveUserData(String name,Map data){
+  static void saveUserData(String name,Map data){
     String jsonData = jsonEncode(data);
     StorageManager.sharedPreferences.setString(name, jsonData);
   }

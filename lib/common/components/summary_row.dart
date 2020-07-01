@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/loading_flash.dart';
-import 'package:supernodeapp/common/configs/images.dart';
+import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';

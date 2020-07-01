@@ -20,7 +20,6 @@ Effect<OrganizationsState> buildEffect() {
 
 void _onUpdate(Action action, Context<OrganizationsState> ctx) {
   var curState = ctx.state;
-  var context = ctx.context;
 
   if((curState.formKey.currentState as FormState).validate()){
 
@@ -76,7 +75,7 @@ void _updateData(Context<OrganizationsState> ctx){
   OrganizationDao dao = OrganizationDao();
 
   dao.update(data).then((res){
-    log('update',res);
+    mLog('update',res);
     hideLoading(ctx.context);
 
     tip(ctx.context,FlutterI18n.translate(ctx.context,'update_success'),success: true);

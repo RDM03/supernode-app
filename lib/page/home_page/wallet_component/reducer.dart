@@ -1,6 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';
-import 'package:supernodeapp/common/utils/tools.dart';
 
 import 'action.dart';
 import 'state.dart';

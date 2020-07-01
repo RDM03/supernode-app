@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_appcenter/flutter_appcenter.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/common/configs/sys.dart';
+import 'package:supernodeapp/configs/sys.dart';
 
 Future<bool> updateDialog(BuildContext ctx){
   return FlutterAppCenter.checkForUpdate(

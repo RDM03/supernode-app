@@ -50,3 +50,7 @@ const iconCircularBackgroundColor = Color.fromARGB(51, 77, 137, 229);
 const selectedTabColor = Color.fromARGB(255, 77, 137, 229);
 
 
+// login
+const Color darkBackground =  Color(0xFFEBEFF2);
+const Color hintFont = Color(0xFF98A6AD);
+const Color tipFont = Color(0xDE000000);

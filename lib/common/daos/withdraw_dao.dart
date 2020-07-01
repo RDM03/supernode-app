@@ -1,6 +1,5 @@
 import 'package:supernodeapp/common/daos/dao.dart';
 
-import 'mock.dart';
 
 class WithdrawApi {
   static final String withdraw = '/api/withdraw/req';
