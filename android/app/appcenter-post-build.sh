@@ -2,7 +2,7 @@
 #Place this script in project/android/app/
 
 # fail if any command fails
-set -e
+# set -e #disabling to allow app bundle builds
 # debug log
 set -x
 
