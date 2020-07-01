@@ -34,10 +34,11 @@ Future<void> main() async {
 
   runApp(mxcApp());
   Stream.fromFuture(FlutterAppCenter.init(
-    appSecretAndroid: Sys.appIdAndroid,
-    appSecretIOS: Sys.appIdIOS,
+    appSecretAndroid: Sys.appSecretAndroid,
+    appSecretIOS: Sys.appSecretIOS,
     tokenAndroid: Sys.tokenAndroid,
     tokenIOS: Sys.tokenIOS,
+    appIdIOS: Sys.appIdIOS,
     betaUrlIOS: Sys.betaUrlIOS,
     usePrivateTrack: false,
   ));

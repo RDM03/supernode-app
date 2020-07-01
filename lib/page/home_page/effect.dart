@@ -1,13 +1,11 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
-import 'package:flutter_appcenter/flutter_appcenter.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/components/update_dialog.dart';
 import 'package:supernodeapp/common/configs/config.dart';
 import 'package:supernodeapp/common/configs/images.dart';
-import 'package:supernodeapp/common/configs/sys.dart';
 import 'package:supernodeapp/common/daos/app_dao.dart';
 import 'package:supernodeapp/common/daos/local_storage_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
@@ -88,19 +86,7 @@ void _build(Action action, Context<HomeState> ctx) {
 Future<void> _checkForUpdate(Context<HomeState> ctx){
   var _ctx = ctx.context;
 
-  FlutterAppCenter.checkForUpdate(
-    _ctx,
-    channelGooglePlay: Sys.channelGooglePlay,
-    downloadUrlAndroid: Sys.downloadUrlAndroid,
-    dialog: {
-      'title': FlutterI18n.translate(_ctx,'update_dialog_title'),
-      'subTitle': FlutterI18n.translate(_ctx,'update_dialog_subTitle'),
-      'content': FlutterI18n.translate(_ctx,'update_dialog_content'),
-      'confirm': FlutterI18n.translate(_ctx,'update_dialog_confirm'),
-      'cancel': FlutterI18n.translate(_ctx,'update_dialog_cancel'),
-      'downloading': FlutterI18n.translate(_ctx,'update_dialog_downloading')
-    }
-  );
+  updateDialog(_ctx);
 }
 
 void _onProfile(Action action, Context<HomeState> ctx) {
