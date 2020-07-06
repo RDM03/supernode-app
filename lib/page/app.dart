@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_appcenter/comment/dao.dart';
+import 'package:supernodeapp/common/daos/dao.dart';
 
 class AppPage extends StatefulWidget {
   final Widget child;
@@ -18,17 +18,14 @@ class _AppPageState extends State<AppPage> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print("-didChangeAppLifecycleState-" + state.toString());
     switch (state) {
       case AppLifecycleState.inactive: 
         break;
       case AppLifecycleState.resumed:
-        Dao().dio.unlock();
+        Dao.dio.unlock();
         break;
       case AppLifecycleState.paused:
-        Dao().dio.lock();
-        // Dao().dio.clear();
-        // Dao().dio.close(force: true);
+        Dao.dio.lock();
         break;
       case AppLifecycleState.detached:
         break;

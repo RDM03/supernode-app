@@ -7,17 +7,17 @@ class TopupApi {
 
 class TopupDao extends Dao{
   //remote
-  Stream<dynamic> history(Map data){
-    return Stream.fromFuture(get(
+  Future<dynamic> history(Map data){
+    return get(
       url: TopupApi.history,
       data: data
-    ));
+    );
   }
 
-  Stream<dynamic> account(Map data){
-    return Stream.fromFuture(get(
+  Future<dynamic> account(Map data){
+    return get(
       url: TopupApi.account,
       data: data
-    ));
+    );
   }
 }

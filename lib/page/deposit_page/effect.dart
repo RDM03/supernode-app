@@ -16,27 +16,27 @@ Effect<DepositState> buildEffect() {
   });
 }
 
-void _initState(Action action, Context<DepositState> ctx) {
-  print(324);
+void _initState(Action action, Context<DepositState> ctx) async{
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
   if(orgId == null || orgId.isEmpty){
     orgId = ctx.state.organizations.first.organizationID;
   }
 
-  TopupDao dao = TopupDao();
-  Map data = {
-    "orgId": orgId
-  };
+  try{
+    TopupDao dao = TopupDao();
+    Map data = {
+      "orgId": orgId
+    };
 
-  dao.account(data).listen((res) {
+    var res = await dao.account(data);
     mLog('account',res);
-    
+      
     if((res as Map).containsKey('activeAccount')){
       ctx.dispatch(DepositActionCreator.address(res['activeAccount']));
     }
-  }).onError((err){
+  }catch(err){
     tip(ctx.context,'TopupDao account: $err');
-  });
+  }
 }
 
 void _copy(Action action, Context<DepositState> ctx) {

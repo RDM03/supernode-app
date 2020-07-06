@@ -28,17 +28,17 @@ class GatewaysDao extends Dao{
   static final String lastSeenAt = 'lastSeenAt';
 
   //remote
-  Stream<dynamic> list(Map data){
-    return Stream.fromFuture(get(
+  Future<dynamic> list(Map data){
+    return get(
       url: GatewaysApi.list,
       data: data
-    ));
+    );
   }
 
-  Stream<dynamic> locations(){
-    return Stream.fromFuture(get(
+  Future<dynamic> locations(){
+    return get(
       url: GatewaysApi.locations,
-    ));
+    );
   }
 
   Future<dynamic> add(Map data){

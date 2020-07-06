@@ -16,11 +16,11 @@ class WithdrawDao extends Dao{
     ).then((res) => res);
   }
 
-  Stream<dynamic> history(Map data){
-    return Stream.fromFuture(get(
+  Future<dynamic> history(Map data){
+    return get(
       url: WithdrawApi.history,
       data: data
-    ));
+    );
   }
 
    Future<dynamic> fee(){

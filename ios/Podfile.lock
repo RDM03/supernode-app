@@ -40,6 +40,15 @@ PODS:
     - Flutter
   - majascan (0.0.4):
     - Flutter
+  - Mapbox-iOS-SDK (5.6.1):
+    - MapboxMobileEvents (= 0.10.2)
+  - mapbox_gl (0.0.1):
+    - Flutter
+    - Mapbox-iOS-SDK (~> 5.6.0)
+    - MapboxAnnotationExtension (~> 0.0.1-beta.1)
+  - MapboxAnnotationExtension (0.0.1-beta.1):
+    - Mapbox-iOS-SDK (~> 5.2)
+  - MapboxMobileEvents (0.10.2)
   - open_appstore (0.0.1):
     - Flutter
   - package_info (0.0.1):
@@ -83,6 +92,7 @@ DEPENDENCIES:
   - location (from `.symlinks/plugins/location/ios`)
   - location_web (from `.symlinks/plugins/location_web/ios`)
   - majascan (from `.symlinks/plugins/majascan/ios`)
+  - mapbox_gl (from `.symlinks/plugins/mapbox_gl/ios`)
   - open_appstore (from `.symlinks/plugins/open_appstore/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
@@ -98,6 +108,10 @@ DEPENDENCIES:
   - url_launcher_web (from `.symlinks/plugins/url_launcher_web/ios`)
 
 SPEC REPOS:
+  https://github.com/sheenhx/Specs.git:
+    - Mapbox-iOS-SDK
+    - MapboxAnnotationExtension
+    - MapboxMobileEvents
   trunk:
     - AppCenter
     - FMDB
@@ -130,6 +144,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/location_web/ios"
   majascan:
     :path: ".symlinks/plugins/majascan/ios"
+  mapbox_gl:
+    :path: ".symlinks/plugins/mapbox_gl/ios"
   open_appstore:
     :path: ".symlinks/plugins/open_appstore/ios"
   package_info:
@@ -173,6 +189,10 @@ SPEC CHECKSUMS:
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   location_web: b94e7433cfe28c0f7c8923c2ee482824b32e55a7
   majascan: 6ad3804777ac93f1ca09160e5d38197e4387081d
+  Mapbox-iOS-SDK: 7cd4e610c59d22a2b8789d82561a97d73ece9634
+  mapbox_gl: 48d261b93d7dfc2367c2f93b493ea8f43df5ba96
+  MapboxAnnotationExtension: d66de5561562c9d940153c0135725e671407b781
+  MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
   open_appstore: 4eddfae38848002fdde8d42e1734d16cb34439de
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
@@ -188,6 +208,6 @@ SPEC CHECKSUMS:
   url_launcher_macos: fd7894421cd39320dce5f292fc99ea9270b2a313
   url_launcher_web: e5527357f037c87560776e36436bf2b0288b965c
 
-PODFILE CHECKSUM: c7f44b5fc9d82f4b01d06a21b7e5fab5c2c6dfeb
+PODFILE CHECKSUM: 8d0e0a3367778acafcb530dad239629befa106bd
 
 COCOAPODS: 1.9.3

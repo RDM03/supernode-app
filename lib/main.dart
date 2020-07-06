@@ -88,28 +88,7 @@ Widget mxcApp() {
             return pagestate;
           });
         }
-
-      //   page.enhancer.append(
-      //     /// View AOP
-      //     viewMiddleware: <ViewMiddleware<dynamic>>[
-      //       safetyView<dynamic>(),
-      //     ],
-
-      //     /// Adapter AOP
-      //     adapterMiddleware: <AdapterMiddleware<dynamic>>[
-      //       safetyAdapter<dynamic>()
-      //     ],
-
-      //     /// Effect AOP
-      //     effectMiddleware: <EffectMiddleware<dynamic>>[
-      //       _pageAnalyticsMiddleware<dynamic>(),
-      //     ],
-
-      //     /// Store AOP
-      //     middleware: <Middleware<dynamic>>[
-      //       logMiddleware<dynamic>(tag: page.runtimeType.toString()),
-      //     ],
-      //   );
+      
       });
 
   return MaterialApp(

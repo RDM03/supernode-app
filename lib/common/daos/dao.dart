@@ -11,14 +11,13 @@ class Dao {
   static var context;
 
   bool inProduction = const bool.fromEnvironment('dart.vm.product');
-
   bool isMock = false;
 
   Response response;
-  Dio dio = new Dio();
+  static Dio dio = new Dio();
 
   Dao() {
-    dio.options.baseUrl = inProduction ? baseUrl : Sys.testBaseUrl; // Sys.buildBaseUrl
+    dio.options.baseUrl = baseUrl;//inProduction ? baseUrl : Sys.buildBaseUrl;
     dio.interceptors.add(TokenInterceptors());
     dio.interceptors.add(LogsInterceptors());
   }
