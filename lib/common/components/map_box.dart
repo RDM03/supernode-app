@@ -13,9 +13,14 @@ import 'package:supernodeapp/configs/sys.dart';
 
 class MapViewController {
   List<MapMarker> markers;
+  List<Symbol> realSymbolPoint;
+
   List<CircleOptions> markerCircleOptions;
   List<Circle> realCirclePoint;
-  List<Symbol> realSymbolPoint;
+
+  List<LineOptions> markerLineOptions;
+  List<Line> realLinePoint;
+
   MapboxMapController ctl;
   LatLng myLatLng;
   double zoom;
@@ -63,6 +68,7 @@ class MapViewController {
   }
 
   Future<void> removeAll() async {
+    //remove symbol
     if ((realSymbolPoint?.length ?? 0) > 0) {
       realSymbolPoint.forEach((item) {
         print(item.id);
@@ -71,6 +77,7 @@ class MapViewController {
       realSymbolPoint.clear();
       markers.clear();
     }
+    //remove circle
     if ((realCirclePoint?.length ?? 0) > 0) {
       realCirclePoint.forEach((item) {
         ctl?.removeCircle(item);
@@ -78,6 +85,18 @@ class MapViewController {
       realCirclePoint.clear();
       markerCircleOptions.clear();
     }
+    //remove line
+    if ((realLinePoint?.length ?? 0) > 0) {
+      realLinePoint.forEach((item) {
+        ctl?.removeLine(item);
+      });
+      realLinePoint.clear();
+      markerLineOptions.clear();
+    }
+  }
+
+  Future<void> updateCircle(Circle circle, CircleOptions changes) async {
+    await ctl?.updateCircle(circle, changes);
   }
 
   Future<void> addCircle(CircleOptions circleOption) async {
@@ -93,6 +112,31 @@ class MapViewController {
     if (realCirclePoint == null) realCirclePoint = new List<Circle>();
     if (circle != null) {
       realCirclePoint.add(circle);
+    }
+  }
+
+  Future<void> addLine(LineOptions lineOption) async {
+    if (markerLineOptions == null) markerLineOptions = List<LineOptions>();
+    var result = markerLineOptions.where((LineOptions item) {
+      bool isMatch = true;
+      if (item.geometry.length != lineOption.geometry.length) return false;
+      for (int i = 0; i < item.geometry.length; i++) {
+        if (item.geometry[i].latitude != lineOption.geometry[i].latitude ||
+            item.geometry[i].longitude != lineOption.geometry[i].longitude) {
+          isMatch = false;
+          return isMatch;
+        }
+      }
+      return isMatch;
+    });
+
+    if (result.isEmpty) {
+      markerLineOptions.add(lineOption);
+    }
+    var line = await ctl?.addLine(lineOption);
+    if (realLinePoint == null) realLinePoint = new List<Line>();
+    if (line != null) {
+      realLinePoint.add(line);
     }
   }
 

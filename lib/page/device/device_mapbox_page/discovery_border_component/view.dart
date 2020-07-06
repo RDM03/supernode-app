@@ -18,7 +18,8 @@ Widget buildView(
           padding: EdgeInsets.only(top: 18),
           margin: EdgeInsets.symmetric(horizontal: 16),
           child: Text(
-            FlutterI18n.translate(_ctx, 'border') + ": 2km",
+            FlutterI18n.translate(_ctx, 'border') +
+                ": ${state.gatewaySliderValue.toInt()}km",
             style: kMiddleFontOfGrey,
           ),
         ),
@@ -30,7 +31,7 @@ Widget buildView(
             dispatch(DeviceMapBoxActionCreator.changeGatewaySliderValue(value));
           },
           //进度条上显示多少个刻度点
-          max: 100,
+          max: 25,
           min: 0,
         ),
       ],

@@ -14,8 +14,24 @@ Effect<DeviceMapBoxState> buildEffect() {
     DeviceMapBoxAction.changeTabDetailName: _changeTabDetailName,
     DeviceMapBoxAction.onMapBoxTap: _onMapBoxTap,
     DeviceMapBoxAction.changeBottomTab: _changeBottomTab,
+    DeviceMapBoxAction.changeGatewaySliderValue: _changeGatewaySliderValue,
     Lifecycle.initState: _init,
   });
+}
+
+bool _changeGatewaySliderValue(Action action, Context<DeviceMapBoxState> ctx) {
+  //0-25
+  var sliderValue = action.payload;
+  var mapCtl = ctx.state.mapCtl;
+  if ((mapCtl?.realCirclePoint?.length ?? 0) > 0) {
+    mapCtl.updateCircle(
+      mapCtl.realCirclePoint[0],
+      CircleOptions(
+        circleRadius: sliderValue * 2 + 100,
+      ),
+    );
+  }
+  return false;
 }
 
 void _init(Action action, Context<DeviceMapBoxState> ctx) {
@@ -180,6 +196,8 @@ void _setButtonTabDetailMap(
   ctx.state.mapCtl.removeAll();
   if ((ctx.state?.mapCtl?.markerCircleOptions?.length ?? 0) == 0) {
     if (tabEnum == TabDetailPageEnum.Discovery) {
+      ctx.state.gatewaySliderValue = 0;
+      //add gatwary
       ctx.state.mapCtl.addSymbol(
         MapMarker(
           size: 1.5,
@@ -194,6 +212,7 @@ void _setButtonTabDetailMap(
           ),
         ),
       );
+      //add watch
       ctx.state.mapCtl.addSymbol(
         MapMarker(
           size: 1.5,
@@ -202,6 +221,35 @@ void _setButtonTabDetailMap(
             center.latitude + sin(1 * pi / 6.0) / 100.0,
             center.longitude + cos(1 * pi / 6.0) / 100.0,
           ),
+        ),
+      );
+      // add pin adn pin
+      var pinPoint = LatLng(
+        center.latitude + sin(6 * pi / 6.0) / 60.0,
+        center.longitude + cos(6 * pi / 6.0) / 60.0,
+      );
+      ctx.state.mapCtl.addCircle(
+        CircleOptions(
+          geometry: pinPoint,
+          circleColor: "#FF0000",
+          circleRadius: 3,
+        ),
+      );
+      ctx.state.mapCtl.addSymbol(
+        MapMarker(
+          size: 1.5,
+          image: 'assets/images/device/PIN.png',
+          point: pinPoint,
+          iconOffset: Offset(0, -10),
+        ),
+      );
+      //add line
+      ctx.state.mapCtl.addLine(
+        LineOptions(
+          geometry: [center, pinPoint],
+          lineColor: "#ff0000",
+          lineWidth: 2.0,
+          lineOpacity: 1,
         ),
       );
     } else if (tabEnum == TabDetailPageEnum.Footprints) {

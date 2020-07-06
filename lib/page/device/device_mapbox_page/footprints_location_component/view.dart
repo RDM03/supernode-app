@@ -23,7 +23,7 @@ Widget buildView(
                 style: kMiddleFontOfBlack,
               ),
               trailing: InkWell(
-                onTap: (){
+                onTap: () {
                   dispatch(FootPrintsLocationActionCreator.resetToDefault());
                 },
                 child: Text(

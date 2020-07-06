@@ -8,5 +8,4 @@ Effect<DiscoveryBorderState> buildEffect() {
   });
 }
 
-void _onAction(Action action, Context<DiscoveryBorderState> ctx) {
-}
+void _onAction(Action action, Context<DiscoveryBorderState> ctx) {}
