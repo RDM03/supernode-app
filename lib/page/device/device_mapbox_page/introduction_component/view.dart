@@ -200,7 +200,7 @@ Widget buildView(
               Container(
                 padding: EdgeInsets.symmetric(vertical: 20),
                 child: Text(
-                 FlutterI18n.translate(_ctx, 'oracle_desc'),
+                  FlutterI18n.translate(_ctx, 'oracle_desc'),
                   textAlign: TextAlign.center,
                   style: kBigFontOfGrey,
                 ),
@@ -215,7 +215,7 @@ Widget buildView(
               margin: EdgeInsets.symmetric(horizontal: 16),
               padding: EdgeInsets.only(top: 30),
               child: Text(
-                FlutterI18n.translate(_ctx,'device_who_use'),
+                FlutterI18n.translate(_ctx, 'device_who_use'),
                 style: kBigFontOfBlack,
               ),
             ),
@@ -246,7 +246,7 @@ Widget buildView(
               margin: EdgeInsets.symmetric(horizontal: 16),
               padding: EdgeInsets.only(top: 10),
               child: Text(
-                FlutterI18n.translate(_ctx,'user_gender'),
+                FlutterI18n.translate(_ctx, 'user_gender'),
                 style: kBigFontOfBlack,
               ),
             ),
@@ -278,7 +278,10 @@ Widget buildView(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: textfieldWithButton(
               readOnly: true,
-              inputLabel: FlutterI18n.translate(_ctx, 'user_age'),
+              inputLabel: state.userGroupValue ==
+                      FlutterI18n.translate(_ctx, 'for_my_pet')
+                  ? FlutterI18n.translate(_ctx, 'pet_age')
+                  : FlutterI18n.translate(_ctx, 'user_age'),
               isDivider: false,
               icon: Icons.expand_more,
               controller: state.ageController,

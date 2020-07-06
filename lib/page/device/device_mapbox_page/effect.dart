@@ -98,14 +98,14 @@ void _setButtonTabMap(int _selectIndex, Context<DeviceMapBoxState> ctx) {
     if (_selectIndex == 0) {
       ctx.state.mapCtl.addSymbol(
         MapMarker(
-          size: 1,
+          size: 1.5,
           image: 'assets/images/device/gatwary_location.png',
           point: center,
         ),
       );
       ctx.state.mapCtl.addSymbol(
         MapMarker(
-          size: 1,
+          size: 1.5,
           image: 'assets/images/device/watch_location.png',
           point: LatLng(
             center.latitude + sin(1 * pi / 6.0) / 100.0,
@@ -116,7 +116,7 @@ void _setButtonTabMap(int _selectIndex, Context<DeviceMapBoxState> ctx) {
     } else if (_selectIndex == 1) {
       ctx.state.mapCtl.addSymbol(
         MapMarker(
-          size: 1,
+          size: 1.5,
           image: 'assets/images/device/gatwary_location.png',
           point: center,
         ),
@@ -146,7 +146,7 @@ void _setButtonTabMap(int _selectIndex, Context<DeviceMapBoxState> ctx) {
     } else if (_selectIndex == 2) {
       ctx.state.mapCtl.addSymbol(
         MapMarker(
-          size: 1,
+          size: 1.5,
           image: 'assets/images/device/gatwary_location.png',
           point: center,
           withCircle: true,
@@ -182,7 +182,7 @@ void _setButtonTabDetailMap(
     if (tabEnum == TabDetailPageEnum.Discovery) {
       ctx.state.mapCtl.addSymbol(
         MapMarker(
-          size: 1,
+          size: 1.5,
           image: 'assets/images/device/gatwary_location.png',
           point: center,
           withCircle: true,
@@ -196,7 +196,7 @@ void _setButtonTabDetailMap(
       );
       ctx.state.mapCtl.addSymbol(
         MapMarker(
-          size: 1,
+          size: 1.5,
           image: 'assets/images/device/watch_location.png',
           point: LatLng(
             center.latitude + sin(1 * pi / 6.0) / 100.0,
@@ -223,7 +223,7 @@ void _setButtonTabDetailMap(
     } else if (tabEnum == TabDetailPageEnum.Notification) {
       ctx.state.mapCtl.addSymbol(
         MapMarker(
-          size: 1,
+          size: 1.5,
           image: 'assets/images/device/gatwary_location.png',
           point: center,
           withCircle: true,

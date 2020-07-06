@@ -134,6 +134,7 @@ class DragPageState extends State<DragPage> with TickerProviderStateMixin {
                                 _drag(d, screenSize.height);
                               },
                               child: Container(
+                                color: Colors.white,// the color make Gesture sensitive
                                 padding: EdgeInsets.only(
                                     top: 10, left: 20, right: 20, bottom: 20),
                                 child: Container(

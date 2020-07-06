@@ -8,9 +8,10 @@ import 'package:supernodeapp/theme/font.dart';
 import 'action.dart';
 import 'state.dart';
 
-Widget buildView(BorderPromptState state, Dispatch dispatch,
-    ViewService viewService) {
+Widget buildView(
+    BorderPromptState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
+  var screenSize = MediaQuery.of(_ctx);
   return Container(
     color: Color.fromRGBO(0, 0, 0, 0.74),
     child: Stack(
@@ -20,10 +21,27 @@ Widget buildView(BorderPromptState state, Dispatch dispatch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
+              margin: EdgeInsets.only(bottom: 10),
+              width: 41,
+              height: 128,
+              child: Image.asset('assets/images/device/arrow_gatway.png',
+                  fit: BoxFit.contain),
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 40),
               padding: EdgeInsets.symmetric(vertical: 20),
               child: Text(
                 FlutterI18n.translate(_ctx, 'set_border_step1'),
                 style: kBigFontOfWhite,
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 10),
+              width: 70,
+              height: 131,
+              child: Image.asset(
+                'assets/images/device/point_pin.png',
+                fit: BoxFit.contain,
               ),
             ),
             Container(
@@ -36,8 +54,8 @@ Widget buildView(BorderPromptState state, Dispatch dispatch,
           ],
         ),
         Positioned(
-          top: 42,
-          right: 17,
+          top: 50 + (screenSize?.padding?.top ?? 0),
+          right: 22 + (screenSize?.padding?.right ?? 0),
           child: InkWell(
             onTap: () {
               dispatch(DeviceMapBoxActionCreator.setBorderPromptVisible(false));
