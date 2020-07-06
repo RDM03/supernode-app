@@ -1,4 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:supernodeapp/common/daos/dao.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'action.dart';
@@ -41,6 +42,11 @@ HomeState _loading(HomeState state, Action action) {
 
 HomeState _tabIndex(HomeState state, Action action) {
   int index = action.payload;
+
+  Dao.dio.lock();
+  Future.delayed(Duration(seconds: 3),(){
+    Dao.dio.unlock();
+  });
 
   final HomeState newState = state.clone();
   return newState..tabIndex = index;

@@ -59,7 +59,7 @@ class TokenInterceptors extends InterceptorsWrapper {
   onError(DioError err) async {
     var errRes = err.response;
 
-    if(errRes != null && errRes.toString().contains(new RegExp(r'jwt'))){
+    if(errRes != null && errRes.toString().contains(new RegExp(r'jwt|authentication'))){
       /// when token is expired, it needs to start to login.
       Dao.context.dispatch(HomeActionCreator.onReLogin());
     }

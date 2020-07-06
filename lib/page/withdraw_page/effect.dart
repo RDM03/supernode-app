@@ -119,14 +119,14 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
           "otp_code": codes.join('')
         };
         showLoading(ctx.context);
-        dao.withdraw(data).then((res) {
+        dao.withdraw(data).then((res) async{
           hideLoading(ctx.context);
           mLog('withdraw', res);
 
           if (res.containsKey('status') && res['status']) {
             Navigator.pushNamed(ctx.context, 'confirm_page',
                 arguments: {'title': 'withdraw', 'content': 'withdraw_submit_tip'});
-            _updateBalance(ctx);
+            await _updateBalance(ctx);
             ctx.dispatch(WithdrawActionCreator.status(true));
           } else {
             ctx.dispatch(WithdrawActionCreator.status(false));
@@ -142,20 +142,22 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
   }
 }
 
-void _updateBalance(Context<WithdrawState> ctx) {
+Future<void> _updateBalance(Context<WithdrawState> ctx) async{
   WalletDao dao = WalletDao();
   var settingsData = GlobalStore.store.getState().settings;
   String userId = settingsData.userId;
   String orgId = settingsData.selectedOrganizationId;
 
-  Map data = {'userId': userId, 'orgId': orgId};
+  try{
+     Map data = {'userId': userId, 'orgId': orgId};
 
-  dao.balance(data).listen((res) {
+    var res = await dao.balance(data);
     mLog('balance', res);
 
     double balance = Tools.convertDouble(res['balance']);
     ctx.dispatch(WithdrawActionCreator.balance(balance));
-  }).onError((err) {
+  }catch(err){
     tip(ctx.context, 'WalletDao balance: $err');
-  });
+  }
+
 }
