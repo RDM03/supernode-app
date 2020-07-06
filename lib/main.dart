@@ -10,8 +10,10 @@ import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 
 import 'package:supernodeapp/global_store/store.dart';
+import 'package:supernodeapp/page/app.dart';
 import 'package:supernodeapp/page/sign_up_page/page.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'appliction/app.dart';
 import 'global_store/state.dart';
 import 'page/add_gateway_page/page.dart';
 import 'page/change_password_page/page.dart';
@@ -86,6 +88,28 @@ Widget mxcApp() {
             return pagestate;
           });
         }
+
+      //   page.enhancer.append(
+      //     /// View AOP
+      //     viewMiddleware: <ViewMiddleware<dynamic>>[
+      //       safetyView<dynamic>(),
+      //     ],
+
+      //     /// Adapter AOP
+      //     adapterMiddleware: <AdapterMiddleware<dynamic>>[
+      //       safetyAdapter<dynamic>()
+      //     ],
+
+      //     /// Effect AOP
+      //     effectMiddleware: <EffectMiddleware<dynamic>>[
+      //       _pageAnalyticsMiddleware<dynamic>(),
+      //     ],
+
+      //     /// Store AOP
+      //     middleware: <Middleware<dynamic>>[
+      //       logMiddleware<dynamic>(tag: page.runtimeType.toString()),
+      //     ],
+      //   );
       });
 
   return MaterialApp(
@@ -120,7 +144,9 @@ Widget mxcApp() {
       const Locale.fromSubtags(languageCode: 'tr'), // Turkey
     ],
     theme: appTheme,
-    home: routes.buildPage('splash_page', null),
+    home: AppPage(
+      child: routes.buildPage('splash_page', null),
+    ),
     onGenerateRoute: (RouteSettings settings) {
       return MaterialPageRoute(
         builder: (BuildContext context) {
@@ -130,4 +156,18 @@ Widget mxcApp() {
       );
     },
   );
+}
+
+/// 只针对页面的生命周期进行打印
+EffectMiddleware<T> _pageAnalyticsMiddleware<T>({String tag = 'redux'}) {
+  return (AbstractLogic<dynamic> logic, Store<T> store) {
+    return (Effect<dynamic> effect) {
+      return (Action action, Context<dynamic> ctx) {
+        if (logic is Page<dynamic, dynamic> && action.type is Lifecycle) {
+          print('${logic.runtimeType} ${action.type.toString()} ');
+        }
+        return effect?.call(action, ctx);
+      };
+    };
+  };
 }

@@ -11,8 +11,15 @@ PODS:
     - AppCenter/Core
   - AppCenter/Distribute (3.2.0):
     - AppCenter/Core
+  - connectivity (0.0.1):
+    - Flutter
+    - Reachability
+  - connectivity_for_web (0.1.0):
+    - Flutter
+  - connectivity_macos (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
-  - flutter_appcenter (1.0.7):
+  - flutter_appcenter (1.0.10):
     - AppCenter (~> 3.2.0)
     - AppCenter/Distribute (~> 3.2.0)
     - Flutter
@@ -45,6 +52,7 @@ PODS:
     - Flutter
   - "permission_handler (5.0.1+1)":
     - Flutter
+  - Reachability (3.2)
   - shared_preferences (0.0.1):
     - Flutter
   - shared_preferences_macos (0.0.1):
@@ -63,6 +71,9 @@ PODS:
 
 DEPENDENCIES:
   - android_metadata (from `.symlinks/plugins/android_metadata/ios`)
+  - connectivity (from `.symlinks/plugins/connectivity/ios`)
+  - connectivity_for_web (from `.symlinks/plugins/connectivity_for_web/ios`)
+  - connectivity_macos (from `.symlinks/plugins/connectivity_macos/ios`)
   - Flutter (from `Flutter`)
   - flutter_appcenter (from `.symlinks/plugins/flutter_appcenter/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
@@ -90,10 +101,17 @@ SPEC REPOS:
   trunk:
     - AppCenter
     - FMDB
+    - Reachability
 
 EXTERNAL SOURCES:
   android_metadata:
     :path: ".symlinks/plugins/android_metadata/ios"
+  connectivity:
+    :path: ".symlinks/plugins/connectivity/ios"
+  connectivity_for_web:
+    :path: ".symlinks/plugins/connectivity_for_web/ios"
+  connectivity_macos:
+    :path: ".symlinks/plugins/connectivity_macos/ios"
   Flutter:
     :path: Flutter
   flutter_appcenter:
@@ -142,8 +160,11 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   android_metadata: 5f0330219e62dbc94a1e0afc0d23c087c6c6f8db
   AppCenter: ca66175050d538b157959382dd43f1ab96cdab84
+  connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
+  connectivity_for_web: 2b8584556930d4bd490d82b836bcf45067ce345b
+  connectivity_macos: e2e9731b6b22dda39eb1b128f6969d574460e191
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  flutter_appcenter: aa3dc14b714a759cc398162e26f6697d76d2b2e7
+  flutter_appcenter: d705da821d33c17ad9d08ab070f32b9c39b48caf
   flutter_local_notifications: 9e4738ce2471c5af910d961a6b7eadcf57c50186
   flutter_plugin_android_lifecycle: dc0b544e129eebb77a6bfb1239d4d1c673a60a35
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
@@ -158,6 +179,7 @@ SPEC CHECKSUMS:
   path_provider_linux: 4d630dc393e1f20364f3e3b4a2ff41d9674a84e4
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
   permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   shared_preferences_macos: f3f29b71ccbb56bf40c9dd6396c9acf15e214087
   shared_preferences_web: 141cce0c3ed1a1c5bf2a0e44f52d31eeb66e5ea9
