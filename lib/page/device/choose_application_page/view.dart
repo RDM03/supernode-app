@@ -16,6 +16,12 @@ const dartBlue = Color.fromRGBO(28, 20, 120, 1);
 Widget buildView(
     ChooseApplicationState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
+  var list = List<String>();
+  list.add(FlutterI18n.translate(_ctx, 'ai_camera'));
+  list.add(FlutterI18n.translate(_ctx, 'fire_detect'));
+  list.add(FlutterI18n.translate(_ctx, 'waste_detect'));
+  list.add(FlutterI18n.translate(_ctx, 'human_detect'));
+
   return Builder(
     builder: (context) {
       return Scaffold(
@@ -30,7 +36,7 @@ Widget buildView(
           panelFrame(
             child: _buildPanelItem(
               icon: Icons.camera_enhance,
-              title: FlutterI18n.translate(_ctx, 'ai_camera'),
+              title: list[state.selectCameraIndex],
               trailing: Icon(
                 Icons.keyboard_arrow_down,
                 size: 30,
@@ -40,19 +46,16 @@ Widget buildView(
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    var list = List<String>();
-                    list.add(FlutterI18n.translate(context, 'ai_camera'));
-                    list.add(FlutterI18n.translate(context, 'fire_detect'));
-                    list.add(FlutterI18n.translate(context, 'waste_detect'));
-                    list.add(FlutterI18n.translate(context, 'human_detect'));
                     return FullScreenDialog(
                       child: IosStyleBottomDialog(
                         selectIndex: state.selectCameraIndex,
                         list: list,
-                        onItemClickListener: (index){
+                        onItemClickListener: (index) {
                           println(state.selectCameraIndex);
                           print(index);
-                          dispatch(ChooseApplicationActionCreator.onChangeCamera(index));
+                          dispatch(
+                              ChooseApplicationActionCreator.onChangeCamera(
+                                  index));
                         },
                       ),
                     );
@@ -62,18 +65,9 @@ Widget buildView(
             ),
           ),
           panelFrame(
-            child: _buildImagePanelItem(
-              leading:ImageIcon(
-                AssetImage('assets/images/device/solid-camera.png'),
-                color: Colors.white,
-              ),
-              title: FlutterI18n.translate(_ctx, 'smart_watch'),
-            ),
-          ),
-          panelFrame(
             child: _buildPanelItem(
               icon: Icons.watch,
-              title: FlutterI18n.translate(_ctx, 'smart_door_lock'),
+              title: FlutterI18n.translate(_ctx, 'smart_watch'),
               onTap: () {
                 showDialog(
                   context: _ctx,
@@ -82,6 +76,15 @@ Widget buildView(
                   },
                 );
               },
+            ),
+          ),
+          panelFrame(
+            child: _buildImagePanelItem(
+              leading: ImageIcon(
+                AssetImage('assets/images/device/solid-camera.png'),
+                color: Colors.white,
+              ),
+              title: FlutterI18n.translate(_ctx, 'smart_door_lock'),
             ),
           ),
           panelFrame(
@@ -223,8 +226,9 @@ Widget _buildPanelItem(
       ),
       trailing: trailing);
 }
+
 Widget _buildImagePanelItem(
-    {Widget leading,String title, Widget trailing, VoidCallback onTap}) {
+    {Widget leading, String title, Widget trailing, VoidCallback onTap}) {
   return ListTile(
       onTap: onTap,
       contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 14),
