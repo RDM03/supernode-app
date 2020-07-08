@@ -9,26 +9,23 @@ import 'package:supernodeapp/configs/images.dart';
 
 import 'state.dart';
 
-Widget buildView(DeviceState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(
+    DeviceState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
   return Scaffold(
-    appBar: homeBar(
-      FlutterI18n.translate(_ctx, 'device'),
-    ),
-    body: pageBody(
-      children: [
+      appBar: homeBar(
+        FlutterI18n.translate(_ctx, 'device'),
+      ),
+      body: pageBody(children: [
         panelFrame(
           child: panelBody(
-            loading: false,
-            icon: Icons.add_circle,
-            onPressed: (){},
-            titleText: FlutterI18n.translate(_ctx, 'total_device'),
-            subtitleText: '4',
-            trailTitle: FlutterI18n.translate(_ctx, 'downlink_fee'),
-            trailSubtitle: '22 MXC (22 USD)'
-          ),
+              loading: false,
+              icon: Icons.add_circle,
+              onPressed: () {},
+              titleText: FlutterI18n.translate(_ctx, 'total_device'),
+              subtitleText: '0',
+              trailTitle: FlutterI18n.translate(_ctx, 'downlink_fee'),
+              trailSubtitle: '22 MXC (22 USD)'),
         )
-      ]
-    )
-  );
+      ]));
 }

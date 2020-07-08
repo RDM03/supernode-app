@@ -13,7 +13,7 @@ import 'state.dart';
 Effect<WalletState> buildEffect() {
   return combineEffects(<Object, Effect<WalletState>>{
     Lifecycle.initState: _initState,
-    Lifecycle.build: _build,
+    Lifecycle.disappear: _disappear,
     Lifecycle.dispose: _dispose,
     WalletAction.onTab: _onTab,
     WalletAction.onFilter: _onFilter,
@@ -39,8 +39,8 @@ void _initState(Action action, Context<WalletState> ctx) {
   });
 }
 
-void _build(Action action, Context<WalletState> ctx) {
-
+void _disappear(Action action, Context<WalletState> ctx) {
+  print('---------------oooooooo-----1111s');
 }
 
 void _dispose(Action action, Context<WalletState> ctx) {
@@ -174,10 +174,11 @@ void _staking(Context<WalletState> ctx,String type,Map data){
   });
 }
 
-void _requestHistory(Context<WalletState> ctx,dao,Map data,String type, String keyType){
+Future<void> _requestHistory(Context<WalletState> ctx,dao,Map data,String type, String keyType) async{
   ctx.dispatch(WalletActionCreator.loadingHistory(true));
 
-  dao.history(data).listen((res){
+  try{
+    var res = await dao.history(data);
     mLog('$type history',res);
     
     if((res as Map).containsKey(keyType)){
@@ -188,9 +189,9 @@ void _requestHistory(Context<WalletState> ctx,dao,Map data,String type, String k
     }
 
     ctx.dispatch(WalletActionCreator.loadingHistory(false));
-  }).onError((err){
+  }catch(err){
     ctx.dispatch(WalletActionCreator.loadingHistory(false));
     // tip(ctx.context,'$type history: $err');
-  });
+  }
 
 }

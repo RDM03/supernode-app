@@ -119,6 +119,7 @@ SPEC REPOS:
   trunk:
     - AppCenter
     - FMDB
+    - Reachability
 
 EXTERNAL SOURCES:
   android_metadata:
