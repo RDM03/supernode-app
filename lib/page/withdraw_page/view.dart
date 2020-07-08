@@ -37,7 +37,7 @@ Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService
               child: TextFieldWithTitle(
                 title: FlutterI18n.translate(_ctx, 'withdraw_amount'),
                 textInputAction: TextInputAction.next,
-                validator: (value) => _onValidAmount(_ctx,value),
+                validator: (value) => _onValidAmount(_ctx, value, state.fee, state.balance),
                 controller: state.amountCtl,
               ),
             ),
@@ -79,14 +79,18 @@ Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService
   );
 }
 
-String _onValidAmount(BuildContext context,String value){
+String _onValidAmount(BuildContext context, String value, double fee, double balance) {
   String res = Reg.isEmpty(value);
   if(res != null) return FlutterI18n.translate(context, res); 
 
-  RegExp emailRule = new RegExp(r'^[1-9]\d*$');
+  final amount = int.tryParse(value);
 
-  if(!emailRule.hasMatch(value.trim())){
+  if (amount == null || amount <= 0) {
     return FlutterI18n.translate(context, 'reg_amount');
+  }
+
+  if (amount + fee > balance) {
+    return FlutterI18n.translate(context, 'insufficient_balance');
   }
 
   return null;

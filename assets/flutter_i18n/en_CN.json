@@ -177,5 +177,6 @@
 	"update_dialog_downloading": "Downloading File...",
 	"tip_latest_version": "This is the latest version.",
 	"total_device": "Total Devices",
-	"downlink_fee": "Downlink Fee"
+	"downlink_fee": "Downlink Fee",
+	"insufficient_balance": "Insufficient balance"
 }

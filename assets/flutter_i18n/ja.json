@@ -177,5 +177,6 @@
 	"update_dialog_downloading": "ファイルのダウンロード中…",
 	"tip_latest_version": "お使いのバージョンは最新です。",
 	"total_device": "合計デバイス",
-	"downlink_fee": "ダウンリンク価格"
+	"downlink_fee": "ダウンリンク価格",
+	"insufficient_balance": "残高不足です"
 }
