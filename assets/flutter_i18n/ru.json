@@ -177,5 +177,6 @@
 	"update_dialog_downloading": "Файл скачивается...",
 	"tip_latest_version": "Это последняя версия.",
 	"total_device": "Всего устройств",
-	"downlink_fee": "Комиссия"
+	"downlink_fee": "Комиссия",
+	"required_2FA_general": "Требуется 2FA"
 }
