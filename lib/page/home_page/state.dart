@@ -56,6 +56,10 @@ class HomeState implements Cloneable<HomeState> {
   double gatewaysRevenue = 0;
   double gatewaysUSDRevenue = 0;
   List<MapMarker> gatewaysLocations = [];
+  GatewayItemState profile;
+  MapViewController mapCtlProfile = MapViewController();
+  List miningRevenve = [];
+  List gatewayFrame = [];
 
   //map
   MapViewController mapCtl = MapViewController();
@@ -65,9 +69,6 @@ class HomeState implements Cloneable<HomeState> {
   int devicesTotal = 0;
   double devicesRevenue = 0;
   double devicesUSDRevenue = 0;
-
-  //profile
-  // bool isSelectIdType = true;
 
   @override
   HomeState clone() {
@@ -108,7 +109,11 @@ class HomeState implements Cloneable<HomeState> {
       ..isSetDate2 = isSetDate2
       ..selectedIndexBtn1 = selectedIndexBtn1
       ..selectedIndexBtn2 = selectedIndexBtn2
-      ..isFirstRequest = isFirstRequest;
+      ..isFirstRequest = isFirstRequest
+      ..profile = profile
+      ..mapCtlProfile = mapCtlProfile
+      ..miningRevenve = miningRevenve
+      ..gatewayFrame = gatewayFrame;
   }
 }
 
@@ -160,11 +165,21 @@ class GatewayConnector extends ConnOp<HomeState, GatewayState> {
       ..gatewaysRevenue = state.gatewaysRevenue
       ..gatewaysUSDRevenue = state.gatewaysUSDRevenue
       ..organizations = state.organizations
-      ..list = state.gatewaysList;
+      ..list = state.gatewaysList
+      ..profile = state.profile
+      ..mapCtl = state.mapCtlProfile
+      ..miningRevenve = state.miningRevenve
+      ..gatewayFrame = state.gatewayFrame;
   }
 
   @override
-  void set(HomeState state, GatewayState subState) {}
+  void set(HomeState state, GatewayState subState) {
+    state
+      ..profile = subState.profile
+      ..mapCtlProfile = subState.mapCtl
+      ..miningRevenve = subState.miningRevenve
+      ..gatewayFrame = subState.gatewayFrame;
+  }
 }
 
 class DeviceConnector extends ConnOp<HomeState, DeviceState> {

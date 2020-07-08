@@ -10,6 +10,8 @@ class GatewaysApi {
   static final String register = '/api/gateways/register';
   static final String update = '/api/gateways/{gateway.id}';
   static final String profile = '/api/gateway-profiles';
+  static final String frames = '/api/gateways/{gateway.id}/stats'; 
+  static final String getProfile = '/api/gateways/{gateway.id}'; 
 }
 
 class GatewaysDao extends Dao{
@@ -26,6 +28,8 @@ class GatewaysDao extends Dao{
   static final String updatedAt = 'updatedAt';
   static final String firstSeenAt = 'firstSeenAt';
   static final String lastSeenAt = 'lastSeenAt';
+  static final String model = 'model';
+  static final String osversion = 'osversion';
 
   //remote
   Stream<dynamic> list(Map data){
@@ -67,5 +71,12 @@ class GatewaysDao extends Dao{
       url: Api.url(GatewaysApi.update, id),
       data: data
     ).then((res) => res);
+  }
+
+  Future<dynamic> frames(String id,Map data){
+    return get(
+      url: Api.url(GatewaysApi.frames,id),
+      data: data
+    );
   }
 }

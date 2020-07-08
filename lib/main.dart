@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_appcenter/flutter_appcenter.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:supernodeapp/common/daos/crashes_dao.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 
@@ -47,6 +48,11 @@ Future<void> main() async {
     SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
+
+  CrashesDao().init( 
+    appSecretAndroid: Sys.appSecretAndroid,
+    appSecretIOS: Sys.appSecretIOS,
+  );
 }
 
 Widget mxcApp() {

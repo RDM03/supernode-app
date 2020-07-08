@@ -177,5 +177,11 @@
 	"update_dialog_downloading": "Downloading File...",
 	"tip_latest_version": "This is the latest version.",
   "total_device": "Total Device",
-  "downlink_fee": "Downlink Fee"
+  "downlink_fee": "Downlink Fee",
+  "weekly_revenue": "Weekly Revenue",
+  "frame": "Frame",
+  "gateway_model": "Gateway Model",
+  "gateway_osversion": "Gateway OsVersion",
+  "error_tip": "Error",
+  "updated_successful_tip": "Updated Successfully"
 }

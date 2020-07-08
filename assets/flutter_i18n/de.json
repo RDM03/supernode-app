@@ -179,6 +179,11 @@
 	"update_dialog_downloading": "正在下载中...",
 	"tip_latest_version": "已经最新版本",
 	"total_device": "Total Device",
-	"downlink_fee": "Downlink Fee"
-
+	"downlink_fee": "Downlink Fee",
+	"weekly_revenue": "Weekly Revenue",
+	"frame": "Frame",
+	"gateway_model": "Gateway Model",
+	"gateway_osversion": "Gateway OsVersion",
+	"error_tip": "Error",
+	"updated_successful_tip": "Updated Successfully"
 }

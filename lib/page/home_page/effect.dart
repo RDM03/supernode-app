@@ -64,7 +64,7 @@ void _relogin(Action action, Context<HomeState> ctx) {
     settingsData.organizations = [];
     SettingsDao.updateLocal(settingsData);
     Navigator.of(ctx.context).pushReplacementNamed('login_page');
-    tip(ctx.context, '$err');
+    // tip(ctx.context, '$err');
   });
 }
 
@@ -97,7 +97,7 @@ void _onGateways(Action action, Context<HomeState> ctx) {
 
 void _profile(Context<HomeState> ctx) {
   ctx.dispatch(HomeActionCreator.loading(true));
-  Dao.context = ctx;
+  Dao.ctx = ctx;
 
   UserDao dao = UserDao();
   dao.profile().listen((res) async {
@@ -152,7 +152,7 @@ void _balance(Context<HomeState> ctx, UserState userData, String orgId) {
     ctx.dispatch(HomeActionCreator.balance(balance));
   }).onError((err) {
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'WalletDao balance: $err');
+    // tip(ctx.context, 'WalletDao balance: $err');
   });
 }
 
@@ -175,7 +175,7 @@ void _miningIncome(Context<HomeState> ctx, UserState userData, String orgId) {
     _convertUSD(ctx, priceData, 'gateway');
   }).onError((err) {
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'WalletDao miningInfo: $err');
+    // tip(ctx.context, 'WalletDao miningInfo: $err');
   });
 }
 
@@ -194,7 +194,7 @@ void _stakeAmount(Context<HomeState> ctx, String orgId) {
     ctx.dispatch(HomeActionCreator.stakedAmount(amount));
   }).onError((err) {
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'StakeDao amount: $err');
+    // tip(ctx.context, 'StakeDao amount: $err');
   });
 }
 
@@ -220,6 +220,19 @@ void _gateways(Context<HomeState> ctx) {
 
     if (tempList.length > 0) {
       for (int index = 0; index < tempList.length; index++) {
+
+        RegExp modelReg = new RegExp(r'(?<=(Gateway Model: )).+(?=[\n])');
+        RegExpMatch modelRegRes = modelReg.firstMatch(tempList[index]['description']);
+        if(modelRegRes != null){
+          tempList[index]['model'] = modelRegRes.group(0);
+        }
+
+        RegExp versionReg = new RegExp(r'(?<=(Gateway OsVersion: )).+');
+        RegExpMatch versionRegRes = versionReg.firstMatch(tempList[index]['description']);
+        if(versionRegRes != null){
+          tempList[index]['osversion'] = versionRegRes.group(0);
+        }
+
         // allValues += tempList[index]['location']['accuracy'];
         Iterable<Match> matches = reg.allMatches(tempList[index]['description']);
         String description = '';
@@ -228,6 +241,7 @@ void _gateways(Context<HomeState> ctx) {
         }
 
         tempList[index]['description'] = description;
+
         list.add(GatewayItemState.fromMap(tempList[index]));
       }
     }
@@ -235,7 +249,7 @@ void _gateways(Context<HomeState> ctx) {
     ctx.dispatch(HomeActionCreator.gateways(total, 0, list));
   }).onError((err) {
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'GatewaysDao list: $err');
+    // tip(ctx.context, 'GatewaysDao list: $err');
   });
 }
 
@@ -259,7 +273,7 @@ void _gatewaysLocations(Context<HomeState> ctx) {
       ctx.state.mapCtl.addSymbols(locations);
     }
   }).onError((err) {
-    tip(ctx.context, 'GatewaysDao locations: $err');
+    // tip(ctx.context, 'GatewaysDao locations: $err');
   });
 }
 
@@ -283,7 +297,7 @@ void _devices(Context<HomeState> ctx, UserState userData, String orgId) {
     var devicesUSDValue = await _convertUSD(ctx, priceData, 'device');
 //     ctx.dispatch(HomeActionCreator.convertUSD('device', devicesUSDValue));
   }).catchError((err) {
-    tip(ctx.context, 'DevicesDao list: $err');
+    // tip(ctx.context, 'DevicesDao list: $err');
   });
 }
 
@@ -342,7 +356,7 @@ void _convertUSD(Context<HomeState> ctx, Map data, String type) {
     }
   }).onError((err) {
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'WalletDao convertUSD: $err');
+    // tip(ctx.context, 'WalletDao convertUSD: $err');
   });
 }
 
@@ -367,6 +381,6 @@ void _stakingRevenue(Context<HomeState> ctx, String orgId) {
       ctx.dispatch(HomeActionCreator.loading(false));
   }).onError((err) {
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'StakeDao history: $err');
+    // tip(ctx.context, 'StakeDao history: $err');
   });
 }

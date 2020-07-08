@@ -52,7 +52,7 @@ void _onConfirm(Action action, Context<StakeState> ctx) async {
             resultPage('stake', res);
           }).catchError((err) {
             hideLoading(ctx.context);
-            tip(ctx.context, 'StakeDao stake: $err');
+            // tip(ctx.context, 'StakeDao stake: $err');
           });
         } else {
           showLoading(ctx.context);
@@ -62,7 +62,7 @@ void _onConfirm(Action action, Context<StakeState> ctx) async {
             resultPage('unstake', res);
           }).catchError((err) {
             hideLoading(ctx.context);
-            tip(ctx.context, 'StakeDao stake: $err');
+            // tip(ctx.context, 'StakeDao stake: $err');
           });
         }
       },

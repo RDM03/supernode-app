@@ -72,6 +72,7 @@ class MapBoxWidget extends StatefulWidget {
   final bool userLocationSwitch;
   final VoidCallback zoomOutCallback;
   final ValueChanged<LatLng> onTap;
+  final EdgeInsetsGeometry rowTop;
 
   // new field
   final Function clickLocation;
@@ -86,8 +87,9 @@ class MapBoxWidget extends StatefulWidget {
     this.onTap,
     this.zoomOutCallback,
     this.clickLocation,
-    this.userLocationSwitch,
+    this.userLocationSwitch = true,
     this.isFullScreen = false,
+    this.rowTop
   }) : super(key: key);
 
   @override
@@ -100,6 +102,8 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
   MediaQueryData _mediaData;
 
   MapViewController get config => widget.config;
+  bool get userLocationSwitch => widget.userLocationSwitch;
+
   MyLocationTrackingMode _myLocationTrackingMode =
       MyLocationTrackingMode.Tracking;
   Future<void> _myLocationMove({bool state}) async {
@@ -116,6 +120,8 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
   }
 
   void _initLocation() {
+    _myLocationEnable = userLocationSwitch;
+
     Future.delayed(new Duration(seconds: 1), () async {
       bool has = await PermissionUtil.getLocationPermission();
       if (mounted && has) {
@@ -162,7 +168,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
             width: _mediaData.size.width,
             height: _mediaData.size.height,
           )
-        : panelFrame(height: 263, child: _buildMapView());
+        : panelFrame(rowTop: widget.rowTop, height: 263, child: _buildMapView());
   }
 
   Widget _buildMapView() {
