@@ -74,10 +74,10 @@ class CrashesDao {
             "appLaunchTimestamp": this.appLaunchTimestamp,
             "id": Uuid().generateV4(),
             "device": this.device,
-            "userId": "${this.deviceId}-$userId",
+            "userId": "$userId-${this.deviceId}",
             "exception": {
               "type": "System.IO.AIPsException",
-              "message": "${err['message']}:${err['code']}",
+              "message": "${err['message']}:${err['code']} ext: $userId-${this.deviceId}",
               "stackTrace": "${options.baseUrl}${options.path}",
               "innerExceptions": []
             }
@@ -93,7 +93,7 @@ class CrashesDao {
             "timestamp": now,
             "appLaunchTimestamp": this.appLaunchTimestamp,
             "device": this.device,
-            "userId": "${this.deviceId}-$userId",
+            "userId": "$userId-${this.deviceId}",
             "applicationPath": "iOS/salesforce",
             "osExceptionType": "APIsIssue",
             "osExceptionCode": "0",
@@ -104,10 +104,10 @@ class CrashesDao {
             "binaries": [
               {
                 "id": Uuid().generateV4(),
-                "name": "${err['message']}:${err['code']}",
+                "name": "${err['message']}:${err['code']} ext: $userId-${this.deviceId}",
                 "startAddress": "",
                 "endAddress": "",
-                "path": "",
+                "path": "${options.baseUrl}${options.path}",
                 "primaryArchitectureId": 0,
                 "architectureVariantId": 0
               },

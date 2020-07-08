@@ -72,7 +72,22 @@ class TokenInterceptors extends InterceptorsWrapper {
     }
 
     SettingsState settingsData = GlobalStore.store.getState().settings;
-    CrashesDao().upload(errRes.data,userId: settingsData?.userId ?? '',options: _options);
+    String userId = settingsData?.userId ?? '';
+    String userName = settingsData?.username ?? '';
+    var errorData = errRes.data;
+
+    if(userName == null || userName.isEmpty){
+      if(_options.path == '/api/internal/login' && _options.data != null){
+        userName = JsonDecoder().convert(_options.data)['username'];
+      }
+    }
+    if(errorData == null){
+      errorData = {
+        'code': err.response.statusCode,
+        'message': err.message
+      };
+    }
+    CrashesDao().upload(errorData,userId: '$userName-$userId',options: _options);
 
     return err;
   }
