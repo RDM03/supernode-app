@@ -238,5 +238,7 @@
 	"view_all_footprints": "View All Footprints",
 	"delete_all_footprints": "Delete All Footprints",
 	"delete_this_footprint": "Delete this Footprint",
-    "device_bluetooth_prompt": "Select a Bluetooth device from the list of devices. Make sure your Bluetooth is turned on."
+    "device_bluetooth_prompt": "Select a Bluetooth device from the list of devices. Make sure your",
+    "bluetooth": "Bluetooth",
+    "is_turned_on": "is turned on."
 }

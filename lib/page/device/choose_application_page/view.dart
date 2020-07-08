@@ -171,10 +171,22 @@ Widget _buildSmartDialog(BuildContext ctx, Dispatch dispatch) {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Text(
-            FlutterI18n.translate(ctx, 'device_bluetooth_prompt'),
-            textAlign: TextAlign.center,
-            style: kMiddleFontOfGrey,
+          Text.rich(
+            TextSpan(
+              style: kMiddleFontOfGrey,
+              children: [
+                TextSpan(
+                  text: FlutterI18n.translate(ctx, 'device_bluetooth_prompt') +
+                      " ",
+                ),
+                TextSpan(
+                    text: FlutterI18n.translate(ctx, 'bluetooth'),
+                    style: kMiddleFontOfBlueLink),
+                TextSpan(
+                  text: " " + FlutterI18n.translate(ctx, 'is_turned_on'),
+                )
+              ],
+            ),
           ),
           SizedBox(height: 20),
           Row(

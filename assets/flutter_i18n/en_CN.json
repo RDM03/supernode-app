@@ -227,5 +227,17 @@
 	"confirmed_footprints": "Confirmed Footprints",
 	"reset_to_default": "Reset to Default",
 	"confirm_location": "Confirm Location",
-	"out_of_border_notification": "Out of Border Notification"
+	"out_of_border_notification": "Out of Border Notification",
+	"sort_by":"Sort by",
+	"name": "Name",
+	"type_of_device": "Type of Device",
+	"online_offline_status": "Online/Offline Status",
+	"view_today_footprints":"View Today’s Footprints",
+	"view_week_footprints": "View This Week’s Footprints",
+	"view_all_footprints": "View All Footprints",
+	"delete_all_footprints": "Delete All Footprints",
+	"delete_this_footprint": "Delete this Footprint",
+	"device_bluetooth_prompt": "Select a Bluetooth device from the list of devices. Make sure your",
+	"bluetooth": "Bluetooth",
+	"is_turned_on": "is turned on."
 }
