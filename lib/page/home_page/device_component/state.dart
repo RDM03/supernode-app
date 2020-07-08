@@ -2,6 +2,8 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/page/home_page/device_component/device_list_adapter/device_item_component/state.dart';
 
 class DeviceState extends MutableSource implements Cloneable<DeviceState> {
+  int deviceSortType = 0;
+
   List list = [DeviceItemState(), DeviceItemState(), DeviceItemState()];
 
   @override
@@ -18,7 +20,8 @@ class DeviceState extends MutableSource implements Cloneable<DeviceState> {
 
   @override
   DeviceState clone() {
-    return DeviceState();
+    return DeviceState()
+      ..deviceSortType = deviceSortType;
   }
 }
 

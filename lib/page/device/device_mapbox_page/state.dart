@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/components/page/drag_page.dart';
+import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/border_prompt_component/state.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/discover_component/state.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/discovery_border_component/state.dart';
@@ -29,6 +30,7 @@ class DeviceMapBoxState implements Cloneable<DeviceMapBoxState> {
   TabDetailPageEnum showTabDetailName;
   double gatewaySliderValue = 0;
   LatLng centerPoint = LatLng(37.386, -122.083);
+  int footPrintsType = 0;
 
   TextEditingController ageController = new TextEditingController();
 
@@ -48,7 +50,8 @@ class DeviceMapBoxState implements Cloneable<DeviceMapBoxState> {
       ..showTabDetailName = showTabDetailName
       ..gatewaySliderValue = gatewaySliderValue
       ..ageController = ageController
-      ..centerPoint = centerPoint;
+      ..centerPoint = centerPoint
+      ..footPrintsType = footPrintsType;
   }
 }
 
@@ -89,11 +92,13 @@ class DiscoverConnector extends ConnOp<DeviceMapBoxState, DiscoverState> {
 class FootprintsConnector extends ConnOp<DeviceMapBoxState, FootprintsState> {
   @override
   FootprintsState get(DeviceMapBoxState state) {
-    return FootprintsState();
+    return FootprintsState()..footPrintsType = state.footPrintsType;
   }
 
   @override
-  void set(DeviceMapBoxState state, FootprintsState subState) {}
+  void set(DeviceMapBoxState state, FootprintsState subState) {
+    state.footPrintsType = subState.footPrintsType;
+  }
 }
 
 class NotificationConnector
@@ -137,9 +142,7 @@ class FootPrintsLocationConnector
 class NotificationOutConnector
     extends ConnOp<DeviceMapBoxState, NotificationOutState> {
   @override
-  NotificationOutState get(DeviceMapBoxState state) {
-    return NotificationOutState();
-  }
+  NotificationOutState get(DeviceMapBoxState state) {}
 
   @override
   void set(DeviceMapBoxState state, NotificationOutState subState) {}

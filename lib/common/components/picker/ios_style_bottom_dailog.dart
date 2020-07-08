@@ -3,19 +3,29 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
+class IosButtonStyle {
+  String title;
+  TextStyle style;
+
+  IosButtonStyle({String title, TextStyle style = kBigFontOfBlack}) {
+    this.title = title;
+    this.style = style;
+  }
+}
+
 typedef OnItemClickListener = void Function(int index);
 
 class IosStyleBottomDialog extends StatelessWidget {
-  final int selectIndex;
-  final List<String> list;
+  final int blueActionIndex;
+  final List<IosButtonStyle> list;
   final OnItemClickListener onItemClickListener;
 
-  const IosStyleBottomDialog(
-      {Key key,
-      @required this.list,
-      this.onItemClickListener,
-      this.selectIndex = -1})
-      : super(key: key);
+  const IosStyleBottomDialog({
+    Key key,
+    @required this.list,
+    this.onItemClickListener,
+    this.blueActionIndex = -1,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,35 +51,38 @@ class IosStyleBottomDialog extends StatelessWidget {
 
   Widget _buildContentList(BuildContext context) {
     List<Widget> listContent = [];
-    if (selectIndex > -1 && selectIndex < list.length) {
+
+    if (blueActionIndex > -1 && blueActionIndex < list.length) {
       if (list.length == 1) {
-        listContent.add(_buildSelectedItem(context, title: list[selectIndex]));
+        listContent
+            .add(_buildSelectedItem(context, button: list[blueActionIndex]));
       } else {
-        listContent.add(_buildSelectedItem(context, title: list[selectIndex]));
+        listContent
+            .add(_buildSelectedItem(context, button: list[blueActionIndex]));
         listContent.add(Divider(color: borderColor, height: 1));
         int i = 0;
         for (; i < list.length - 1; i++) {
-          if (selectIndex != i) {
-            listContent.add(_buildItem(context, title: list[i], index: i));
+          if (blueActionIndex != i) {
+            listContent.add(_buildItem(context, button: list[i], index: i));
             listContent.add(Divider(color: borderColor, height: 1));
           }
         }
-        listContent.add(_buildItem(context, title: list[i], index: i));
+        listContent.add(_buildItem(context, button: list[i], index: i));
       }
     } else {
       if (list.length == 1) {
-        listContent.add(_buildItem(context, title: list[0], index: 0));
+        listContent.add(_buildItem(context, button: list[0], index: 0));
       } else {
         int i = 0;
         for (; i < list.length - 1; i++) {
-          if (selectIndex != i) {
-            listContent.add(_buildItem(context, title: list[i], index: i));
+          if (blueActionIndex != i) {
+            listContent.add(_buildItem(context, button: list[i], index: i));
             listContent.add(Divider(color: borderColor, height: 1));
           }
         }
         listContent.add(_buildItem(
           context,
-          title: list[i],
+          button: list[i],
         ));
       }
     }
@@ -91,18 +104,18 @@ class IosStyleBottomDialog extends StatelessWidget {
     );
   }
 
-  Widget _buildSelectedItem(context, {String title}) {
+  Widget _buildSelectedItem(context, {IosButtonStyle button}) {
     return InkWell(
       onTap: () => Navigator.pop(context),
       child: Container(
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(vertical: 25),
-        child: Text(title ?? '', style: kBigFontOfBlue),
+        child: Text(button?.title ?? '', style: kBigFontOfBlue),
       ),
     );
   }
 
-  Widget _buildItem(BuildContext context, {String title, int index}) {
+  Widget _buildItem(BuildContext context, {IosButtonStyle button, int index}) {
     return InkWell(
       onTap: () {
         onItemClickListener(index);
@@ -111,7 +124,7 @@ class IosStyleBottomDialog extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(vertical: 14),
-        child: Text(title ?? '', style: kBigFontOfBlack),
+        child: Text(button?.title ?? '', style: button.style),
       ),
     );
   }

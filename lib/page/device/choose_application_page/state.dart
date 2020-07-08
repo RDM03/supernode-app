@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 
 class ChooseApplicationState implements Cloneable<ChooseApplicationState> {
   int selectCameraIndex = 0;
+  String smartWatchName;
 
   @override
   ChooseApplicationState clone() {

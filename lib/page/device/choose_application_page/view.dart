@@ -16,11 +16,11 @@ const dartBlue = Color.fromRGBO(28, 20, 120, 1);
 Widget buildView(
     ChooseApplicationState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
-  var list = List<String>();
-  list.add(FlutterI18n.translate(_ctx, 'ai_camera'));
-  list.add(FlutterI18n.translate(_ctx, 'fire_detect'));
-  list.add(FlutterI18n.translate(_ctx, 'waste_detect'));
-  list.add(FlutterI18n.translate(_ctx, 'human_detect'));
+  var list = List<IosButtonStyle>();
+  list.add(IosButtonStyle(title: FlutterI18n.translate(_ctx, 'ai_camera')));
+  list.add(IosButtonStyle(title: FlutterI18n.translate(_ctx, 'fire_detect')));
+  list.add(IosButtonStyle(title: FlutterI18n.translate(_ctx, 'waste_detect')));
+  list.add(IosButtonStyle(title: FlutterI18n.translate(_ctx, 'human_detect')));
 
   return Builder(
     builder: (context) {
@@ -36,7 +36,7 @@ Widget buildView(
           panelFrame(
             child: _buildPanelItem(
               icon: Icons.camera_enhance,
-              title: list[state.selectCameraIndex],
+              title: list[state.selectCameraIndex].title,
               trailing: Icon(
                 Icons.keyboard_arrow_down,
                 size: 30,
@@ -48,11 +48,9 @@ Widget buildView(
                   builder: (BuildContext context) {
                     return FullScreenDialog(
                       child: IosStyleBottomDialog(
-                        selectIndex: state.selectCameraIndex,
+                        blueActionIndex: state.selectCameraIndex,
                         list: list,
                         onItemClickListener: (index) {
-                          println(state.selectCameraIndex);
-                          print(index);
                           dispatch(
                               ChooseApplicationActionCreator.onChangeCamera(
                                   index));
@@ -65,14 +63,19 @@ Widget buildView(
             ),
           ),
           panelFrame(
+            customPanelColor: (state.smartWatchName?.isEmpty ?? true)
+                ? null
+                : Color.fromRGBO(77, 137, 229, 0.2),
             child: _buildPanelItem(
               icon: Icons.watch,
-              title: FlutterI18n.translate(_ctx, 'smart_watch'),
+              title: (state.smartWatchName?.isEmpty ?? true)
+                  ? FlutterI18n.translate(_ctx, 'smart_watch')
+                  : state.smartWatchName,
               onTap: () {
                 showDialog(
                   context: _ctx,
                   builder: (context) {
-                    return _buildSmartDialog(_ctx);
+                    return _buildSmartDialog(_ctx, dispatch);
                   },
                 );
               },
@@ -138,7 +141,7 @@ Widget _buildButton({VoidCallback onPressed, String title}) {
   );
 }
 
-Widget _buildSmartDialog(BuildContext ctx) {
+Widget _buildSmartDialog(BuildContext ctx, Dispatch dispatch) {
   return AlertDialog(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     title: Container(
@@ -156,7 +159,7 @@ Widget _buildSmartDialog(BuildContext ctx) {
           ),
           Positioned(
             child: Icon(
-              Icons.watch,
+              Icons.bluetooth,
               size: 24,
               color: Colors.white,
             ),
@@ -169,25 +172,108 @@ Widget _buildSmartDialog(BuildContext ctx) {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Text(
-            FlutterI18n.translate(ctx, "smart_watchID") + "(Bluetooth name)",
-            style: kBigFontOfBlack,
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 14),
-          Text(
-            FlutterI18n.translate(ctx, "smart_bluetooth_connect"),
+            FlutterI18n.translate(ctx, 'device_bluetooth_prompt'),
             textAlign: TextAlign.center,
             style: kMiddleFontOfGrey,
           ),
-          SizedBox(height: 38),
-          Text(
-            FlutterI18n.translate(ctx, 'goto_bluetooth_setting'),
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              decoration: TextDecoration.underline,
-              fontSize: 14,
-              color: dartBlue,
+          SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Expanded(
+                child: _buildSmartCard(
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    dispatch(
+                      ChooseApplicationActionCreator.setSmartWatch(
+                          'ORACLEID_1234567'),
+                    );
+                  },
+                ),
+              ),
+              SizedBox(width: 20),
+              Expanded(
+                child: _buildSmartCard(
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    dispatch(
+                      ChooseApplicationActionCreator.setSmartWatch(
+                          'ORACLEID_1234567'),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Expanded(
+                child: _buildSmartCard(
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    dispatch(
+                      ChooseApplicationActionCreator.setSmartWatch(
+                          'ORACLEID_1234567'),
+                    );
+                  },
+                ),
+              ),
+              SizedBox(width: 20),
+              Expanded(
+                child: _buildSmartCard(
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    dispatch(
+                      ChooseApplicationActionCreator.setSmartWatch(
+                          'ORACLEID_1234567'),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _buildSmartCard({VoidCallback onTap}) {
+  return InkWell(
+    onTap: () {
+      onTap?.call();
+    },
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+              color: Color.fromRGBO(0, 0, 0, 0.1),
+              offset: Offset(0, 2),
+              blurRadius: 7.0)
+        ],
+      ),
+      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 5),
+      child: Column(
+        children: <Widget>[
+          Icon(
+            Icons.watch,
+            size: 24,
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Text(
+              'ORACLEID_1234567',
+              textAlign: TextAlign.center,
+              style: kSmallFontOfGrey,
             ),
+          ),
+          Text(
+            'LoRa Watch',
+            style: kSmallFontOfGrey,
           ),
         ],
       ),

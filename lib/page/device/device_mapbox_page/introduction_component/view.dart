@@ -94,7 +94,7 @@ Widget buildView(
   Widget _buildFirstBody() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16),
-      child: ListView(
+      child: Column(
         children: <Widget>[
           Container(
             alignment: Alignment.center,
@@ -151,7 +151,7 @@ Widget buildView(
   Widget _buildSecondBody() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16),
-      child: ListView(
+      child: Column(
         children: <Widget>[
           Container(
             alignment: Alignment.center,
@@ -183,7 +183,7 @@ Widget buildView(
   }
 
   Widget _buildThirdBody() {
-    return ListView(
+    return Column(
       children: <Widget>[
         Container(
           alignment: Alignment.center,
@@ -219,24 +219,22 @@ Widget buildView(
                 style: kBigFontOfBlack,
               ),
             ),
-            _buildRadioListTile(
-              value: FlutterI18n.translate(_ctx, 'me'),
-              groupValue: state.userGroupValue,
-              onChanged: (value) =>
-                  dispatch(IntroductionActionCreator.onChangeRadio(value)),
-            ),
-            _buildRadioListTile(
-              value: FlutterI18n.translate(_ctx, 'family_member'),
-              groupValue: state.userGroupValue,
-              onChanged: (value) =>
-                  dispatch(IntroductionActionCreator.onChangeRadio(value)),
-            ),
-            _buildRadioListTile(
-              value: FlutterI18n.translate(_ctx, 'for_my_pet'),
-              groupValue: state.userGroupValue,
-              onChanged: (value) =>
-                  dispatch(IntroductionActionCreator.onChangeRadio(value)),
-            ),
+            Row(
+              children: <Widget>[
+                _buildRadioListTile(
+                  value: FlutterI18n.translate(_ctx, 'me'),
+                  groupValue: state.userGroupValue,
+                  onChanged: (value) =>
+                      dispatch(IntroductionActionCreator.onChangeRadio(value)),
+                ),
+                _buildRadioListTile(
+                  value: FlutterI18n.translate(_ctx, 'family_member'),
+                  groupValue: state.userGroupValue,
+                  onChanged: (value) =>
+                      dispatch(IntroductionActionCreator.onChangeRadio(value)),
+                ),
+              ],
+            )
           ],
         ),
         Column(

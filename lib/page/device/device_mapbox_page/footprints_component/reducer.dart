@@ -6,12 +6,13 @@ import 'state.dart';
 Reducer<FootprintsState> buildReducer() {
   return asReducer(
     <Object, Reducer<FootprintsState>>{
-      FootprintsAction.action: _onAction,
+      FootprintsAction.changeFootPrintsType: _onChangeFootPrintsType,
     },
   );
 }
 
-FootprintsState _onAction(FootprintsState state, Action action) {
+FootprintsState _onChangeFootPrintsType(FootprintsState state, Action action) {
   final FootprintsState newState = state.clone();
+  newState.footPrintsType=action.payload;
   return newState;
 }

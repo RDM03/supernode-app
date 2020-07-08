@@ -1,10 +1,9 @@
 import 'package:fish_redux/fish_redux.dart';
 
-//TODO replace with your own action
-enum FootprintsAction { action }
+enum FootprintsAction { changeFootPrintsType }
 
 class FootprintsActionCreator {
-  static Action onAction() {
-    return const Action(FootprintsAction.action);
+  static Action onChangeFootPrintsType(int type) {
+    return Action(FootprintsAction.changeFootPrintsType, payload: type);
   }
 }

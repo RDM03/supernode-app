@@ -7,8 +7,16 @@ Reducer<ChooseApplicationState> buildReducer() {
   return asReducer(
     <Object, Reducer<ChooseApplicationState>>{
       ChooseApplicationAction.changeCamera: _onChangeCamera,
+      ChooseApplicationAction.setSmartWatch: _setSmartWatch,
     },
   );
+}
+
+ChooseApplicationState _setSmartWatch(
+    ChooseApplicationState state, Action action) {
+  final ChooseApplicationState newState = state.clone();
+  newState.smartWatchName = action.payload;
+  return newState;
 }
 
 ChooseApplicationState _onChangeCamera(

@@ -4,8 +4,11 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/device/description_item.dart';
 import 'package:supernodeapp/common/components/device/foot_prints_item.dart';
 import 'package:supernodeapp/common/components/device/line_color.dart';
+import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/common/components/picker/date_range_picker.dart';
+import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/action.dart';
+import 'package:supernodeapp/page/device/device_mapbox_page/footprints_component/action.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -15,13 +18,25 @@ import 'state.dart';
 Widget buildView(
     FootprintsState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
+  var list = List<IosButtonStyle>();
+  list.add(IosButtonStyle(title: FlutterI18n.translate(_ctx, 'more')));
+  list.add(IosButtonStyle(
+      title: FlutterI18n.translate(_ctx, 'view_today_footprints')));
+  list.add(IosButtonStyle(
+      title: FlutterI18n.translate(_ctx, 'view_week_footprints')));
+  list.add(IosButtonStyle(
+      title: FlutterI18n.translate(_ctx, 'view_all_footprints')));
+  list.add(IosButtonStyle(
+      title: FlutterI18n.translate(_ctx, 'delete_all_footprints'),
+      style: kMiddleFontOfRed));
+
   return MediaQuery.removePadding(
     removeTop: true,
     context: viewService.context,
     child: ListView(
       children: <Widget>[
         DescriptionItem(
-          title:FlutterI18n.translate(_ctx, 'description'),
+          title: FlutterI18n.translate(_ctx, 'description'),
           content: 'Signal Test',
         ),
         LineColor(
@@ -53,9 +68,34 @@ Widget buildView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                FlutterI18n.translate(_ctx, 'confirm_tr'),
-                style: kMiddleFontOfBlack,
+              Row(
+                children: <Widget>[
+                  Text(
+                    FlutterI18n.translate(_ctx, 'confirm_tr'),
+                    style: kMiddleFontOfBlack,
+                  ),
+                  InkWell(
+                    child: Icon(Icons.more_horiz, size: 25),
+                    onTap: () {
+                      showDialog(
+                        context: _ctx,
+                        builder: (BuildContext context) {
+                          return FullScreenDialog(
+                            child: IosStyleBottomDialog(
+                              blueActionIndex: 0,
+                              list: list,
+                              onItemClickListener: (index) {
+                                //remove all
+                                if (index == list.length - 1) {}
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
               ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 20),

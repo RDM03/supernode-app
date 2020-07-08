@@ -66,6 +66,8 @@ class HomeState implements Cloneable<HomeState> {
   double devicesRevenue = 0;
   double devicesUSDRevenue = 0;
 
+  int deviceSortType = 0;
+
   //profile
   // bool isSelectIdType = true;
 
@@ -108,7 +110,8 @@ class HomeState implements Cloneable<HomeState> {
       ..isSetDate2 = isSetDate2
       ..selectedIndexBtn1 = selectedIndexBtn1
       ..selectedIndexBtn2 = selectedIndexBtn2
-      ..isFirstRequest = isFirstRequest;
+      ..isFirstRequest = isFirstRequest
+      ..deviceSortType = deviceSortType;
   }
 }
 
@@ -170,11 +173,13 @@ class GatewayConnector extends ConnOp<HomeState, GatewayState> {
 class DeviceConnector extends ConnOp<HomeState, DeviceState> {
   @override
   DeviceState get(HomeState state) {
-    return DeviceState();
+    return DeviceState()..deviceSortType = state.deviceSortType;
   }
 
   @override
-  void set(HomeState state, DeviceState subState) {}
+  void set(HomeState state, DeviceState subState) {
+    state.deviceSortType = subState.deviceSortType;
+  }
 }
 
 class WalletConnector extends ConnOp<HomeState, WalletState> {

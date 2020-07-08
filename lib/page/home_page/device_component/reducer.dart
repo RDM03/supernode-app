@@ -1,16 +1,18 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:supernodeapp/page/home_page/device_component/action.dart';
 
 import 'state.dart';
 
 Reducer<DeviceState> buildReducer() {
   return asReducer(
     <Object, Reducer<DeviceState>>{
-//      DeviceAction.onQrScan: _onAction,
+      DeviceAction.changeDeviceSortType: _changeDeviceSortType,
     },
   );
 }
 
-//DeviceState _onAction(DeviceState state, Action action) {
-//  final DeviceState newState = state.clone();
-//  return newState;
-//}
+DeviceState _changeDeviceSortType(DeviceState state, Action action) {
+  final DeviceState newState = state.clone();
+  newState.deviceSortType = action.payload;
+  return newState;
+}
