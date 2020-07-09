@@ -22,8 +22,7 @@ Effect<StakeState> buildEffect() {
 
 void _resultPage(Context<StakeState> ctx, String type, dynamic res) {
   if (res.containsKey('status')) {
-    Navigator.pushNamed(ctx.context, 'confirm_page',
-        arguments: {'title': type, 'content': res['status']});
+    Navigator.pushNamed(ctx.context, 'confirm_page', arguments: {'title': type, 'content': res['status']});
 
     ctx.dispatch(StakeActionCreator.resSuccess(res['status'].contains('successful')));
   } else {
@@ -59,7 +58,11 @@ Future<void> _unstake(Context<StakeState> ctx, String otpCode) async {
   double amount = double.parse(curState.amountCtl.text);
 
   StakeDao dao = StakeDao();
-  Map data = {"orgId": orgId, "amount": amount};
+  Map data = {
+    "orgId": orgId,
+    "amount": amount,
+    "otp_code": otpCode,
+  };
 
   await dao.unstake(data).then((res) async {
     hideLoading(ctx.context);
@@ -98,7 +101,6 @@ void _refreshOtpStatus(Action action, Context<StakeState> ctx) async {
   });
 }
 
-
 void _onConfirm(Action action, Context<StakeState> ctx) async {
   final formValid = ctx.state.formKey.currentState.validate();
   if (!formValid) return;
@@ -118,8 +120,8 @@ void _process(Action action, Context<StakeState> ctx) async {
     if (code == null) {
       await _raise2Fa(ctx);
       return;
-    } 
-    
+    }
+
     await _unstake(ctx, code);
   }
 }
