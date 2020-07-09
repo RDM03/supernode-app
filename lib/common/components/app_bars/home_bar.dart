@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
-Widget homeBar(String title,{Function onPressed}){
+Widget homeBar(String title, {Function onPressed, Widget action}) {
   return AppBar(
     backgroundColor: backgroundColor,
     elevation: 0,
@@ -12,14 +12,15 @@ Widget homeBar(String title,{Function onPressed}){
       style: kBigFontOfBlack,
     ),
     actions: [
-      onPressed != null ? IconButton(
-        icon: Icon(
-          Icons.settings,
-          color: Colors.black,
-        ),
-        onPressed: onPressed,
-      ) : 
-      Container()
+      action != null
+          ? action
+          : IconButton(
+              icon: Icon(
+                Icons.settings,
+                color: Colors.black,
+              ),
+              onPressed: onPressed,
+            ),
     ],
   );
 }
