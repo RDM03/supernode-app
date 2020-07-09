@@ -55,7 +55,7 @@ Widget buildView(WithdrawState state, Dispatch dispatch, ViewService viewService
         ),
       ),
       subtitle(FlutterI18n.translate(_ctx, 'current_transaction_fee')),
-      paragraph('${state.fee} MXC'),
+      paragraph('${state.fee ?? '--'} MXC'),
       SizedBox(height: 40),
       Container(
           child: Text(
