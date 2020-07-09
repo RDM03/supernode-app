@@ -8,6 +8,7 @@ class GatewayProfileState implements Cloneable<GatewayProfileState> {
   MapViewController mapCtl;
   List miningRevenve;
   List gatewayFrame;
+  bool isDemo;
 
   @override
   GatewayProfileState clone() {
@@ -15,7 +16,8 @@ class GatewayProfileState implements Cloneable<GatewayProfileState> {
       ..profile = profile
       ..mapCtl = mapCtl
       ..miningRevenve = miningRevenve
-      ..gatewayFrame = gatewayFrame;
+      ..gatewayFrame = gatewayFrame
+      ..isDemo = isDemo;
   }
 }
 

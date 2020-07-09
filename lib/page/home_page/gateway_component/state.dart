@@ -82,7 +82,8 @@ class GatewayProfileConnector extends ConnOp<GatewayState, GatewayProfileState>{
       ..profile = state.profile ?? GatewayItemState().clone()
       ..mapCtl = state.mapCtl
       ..miningRevenve = state.miningRevenve
-      ..gatewayFrame = state.gatewayFrame;
+      ..gatewayFrame = state.gatewayFrame
+      ..isDemo = state.isDemo;
   }
 
   @override

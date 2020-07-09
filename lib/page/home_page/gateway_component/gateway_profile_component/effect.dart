@@ -3,6 +3,8 @@ import 'package:flutter/scheduler.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/daos/demo/gateways_dao.dart';
+import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
 import 'package:supernodeapp/common/daos/gateways_dao.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';
 import 'package:supernodeapp/common/daos/wallet_dao.dart';
@@ -19,6 +21,18 @@ Effect<GatewayProfileState> buildEffect() {
     Lifecycle.initState: _initState,
     // GatewayProfileAction.action: _onAction,
   });
+}
+
+WalletDao _buildWalletDao(Context<GatewayProfileState> ctx) {
+  return ctx.state.isDemo
+    ? DemoWalletDao()
+    : WalletDao();
+}
+
+GatewaysDao _buildGatewaysDao(Context<GatewayProfileState> ctx) {
+  return ctx.state.isDemo
+    ? DemoGatewaysDao()
+    : GatewaysDao();
 }
 
 void _initState(Action action, Context<GatewayProfileState> ctx){
@@ -51,7 +65,7 @@ Future<void> _miningInfo(Context<GatewayProfileState> ctx) async{
   };
   
   try{
-    WalletDao dao = new WalletDao();
+    WalletDao dao = _buildWalletDao(ctx);
     var res = await dao.miningInfo(data);
     List items = res['data'] as List;
 
@@ -73,7 +87,7 @@ Future<void> _frame(Context<GatewayProfileState> ctx) async{
   };
   
   try{
-    GatewaysDao dao = new GatewaysDao();
+    GatewaysDao dao = _buildGatewaysDao(ctx);
     var res = await dao.frames(data['gatewayID'],data);
     List items = res['result'] as List;
 

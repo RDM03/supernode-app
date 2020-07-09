@@ -18,11 +18,11 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
           'organizationID': 'organizationID',
           'networkServerID': 'networkServerID',
           'location': {
-            'latitude': 0,
-            'longitude': 0,
-            'altitude': 0,
+            'latitude': 52.512270,
+            'longitude': 13.417280,
+            'altitude': 0.0,
             'source': 'UNKNOWN',
-            'accuracy': 0,
+            'accuracy': 0.0,
           }
         },
         {
@@ -36,9 +36,9 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
           'organizationID': 'organizationID',
           'networkServerID': 'networkServerID',
           'location': {
-            'latitude': 0,
-            'longitude': 0,
-            'altitude': 0,
+            'latitude': 52.512270,
+            'longitude': 13.417280,
+            'altitude': 0.0,
             'source': 'UNKNOWN',
             'accuracy': 200,
           }
@@ -53,9 +53,9 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
       'result': [
         {
           'location': {
-            'latitude': 0,
-            'longitude': 0,
-            'altitude': 0,
+            'latitude': 52.512270,
+            'longitude': 13.417280,
+            'altitude': 0.0,
           }
         }
       ]
@@ -75,6 +75,28 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
           'createdAt': '2020-07-09T16:12:32.445Z',
           'updatedAt': '2020-07-09T16:12:32.445Z'
         }
+      ]
+    });
+  }
+
+  @override
+  Future frames(String id, Map data) {
+    return Future.value({
+      "result": [
+        {
+          "timestamp": "2020-07-08T19:03:56.869Z",
+          "rxPacketsReceived": 10,
+          "rxPacketsReceivedOK": 15,
+          "txPacketsReceived": 15,
+          "txPacketsEmitted": 15
+        },
+        {
+          "timestamp": "2020-07-09T19:03:56.869Z",
+          "rxPacketsReceived": 7,
+          "rxPacketsReceivedOK": 5,
+          "txPacketsReceived": 6,
+          "txPacketsEmitted": 3
+        },
       ]
     });
   }
