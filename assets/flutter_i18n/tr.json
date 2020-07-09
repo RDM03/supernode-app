@@ -178,5 +178,11 @@
 	"tip_latest_version": "Program güncel.",
 	"total_device": "Tüm Cihazlar",
 	"downlink_fee": "Downlink Fiyatı",
-	"demo": "Bir demo deneyin!"
+	"demo": "Bir demo deneyin!",
+	"weekly_revenue": "Weekly Revenue",
+	"frame": "Frame",
+	"gateway_model": "Gateway Model",
+	"gateway_osversion": "Gateway OsVersion",
+	"error_tip": "Error",
+	"updated_successful_tip": "Updated Successfully"
 }

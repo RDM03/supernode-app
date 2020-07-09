@@ -1,18 +1,23 @@
 import 'dart:developer';
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/daos/crashes_dao.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
+import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/home_page/action.dart';
+import 'package:supernodeapp/page/settings_page/state.dart';
 
 
 class TokenInterceptors extends InterceptorsWrapper {
   String _token;
-
+  RequestOptions _options;
   @override
   onRequest(RequestOptions options) async {
-
+    _options = options;
     var json = jsonDecode(options.data.toString());
 
     String otpCode = '';
@@ -61,8 +66,28 @@ class TokenInterceptors extends InterceptorsWrapper {
 
     if(errRes != null && errRes.toString().contains(new RegExp(r'jwt|authentication'))){
       /// when token is expired, it needs to start to login.
-      Dao.context.dispatch(HomeActionCreator.onReLogin());
+      Dao.ctx.dispatch(HomeActionCreator.onReLogin());
+    }else{
+      tip(Dao.ctx.context, FlutterI18n.translate(Dao.ctx.context,'error_tip'));
     }
+
+    SettingsState settingsData = GlobalStore.store.getState().settings;
+    String userId = settingsData?.userId ?? '';
+    String userName = settingsData?.username ?? '';
+    var errorData = errRes?.data;
+
+    if(userName == null || userName.isEmpty){
+      if(_options.path == '/api/internal/login' && _options.data != null){
+        userName = JsonDecoder().convert(_options.data)['username'];
+      }
+    }
+    if(errorData == null){
+      errorData = {
+        'code': err.response?.statusCode ?? '500',
+        'message': err.message
+      };
+    }
+    CrashesDao().upload(errorData,userId: '$userName-$userId',options: _options);
 
     return err;
   }

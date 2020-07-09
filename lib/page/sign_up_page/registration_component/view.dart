@@ -101,7 +101,7 @@ Widget buildView(RegistrationState state, Dispatch dispatch, ViewService viewSer
         CheckboxLabelWidget(
           value: state.isCheckTerms,
           child: link(FlutterI18n.translate(_ctx, 'agree_conditions'),
-              onTap: () => Tools.launchURL(Sys.AgreePolicy), alignment: Alignment.centerLeft),
+              onTap: () => Tools.launchURL(Sys.agreePolicy), alignment: Alignment.centerLeft),
           onChanged: (_) => dispatch(RegistrationActionCreator.isCheckTerms()),
         ),
         CheckboxLabelWidget(

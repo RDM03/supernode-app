@@ -178,5 +178,11 @@
 	"tip_latest_version": "Das ist die neueste Version.",
 	"total_device": "Geräte (insgesamt)",
 	"downlink_fee": "Downlink-Preis",
-	"demo": "Probieren Sie eine Demo aus"
+	"demo": "Probieren Sie eine Demo aus",
+	"weekly_revenue": "Weekly Revenue",
+	"frame": "Frame",
+	"gateway_model": "Gateway Model",
+	"gateway_osversion": "Gateway OsVersion",
+	"error_tip": "Error",
+	"updated_successful_tip": "Updated Successfully"
 }

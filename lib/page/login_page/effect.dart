@@ -61,6 +61,7 @@ Future<void> _handleLoginRequest(UserDao dao, String username, String password, 
 }
 
 void _onLogin(Action action, Context<LoginState> ctx) async {
+  Dao.ctx = ctx;
   var curState = ctx.state;
 
   if (curState.currentSuperNode == null) {
@@ -83,7 +84,7 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
       hideLoading(ctx.context);
       Navigator.pushReplacementNamed(ctx.context, 'home_page');
     } catch (err) {
-      tip(ctx.context, '$err');
+      // tip(ctx.context, '$err');
     } finally {
       hideLoading(ctx.context);
     }

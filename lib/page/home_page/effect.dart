@@ -93,7 +93,7 @@ void _relogin(Action action, Context<HomeState> ctx) {
     settingsData.organizations = [];
     SettingsDao.updateLocal(settingsData);
     Navigator.of(ctx.context).pushReplacementNamed('login_page');
-    tip(ctx.context, '$err');
+    // tip(ctx.context, '$err');
   });
 }
 
@@ -126,7 +126,7 @@ void _onGateways(Action action, Context<HomeState> ctx) async{
 
 void _profile(Context<HomeState> ctx) async{
   ctx.dispatch(HomeActionCreator.loading(true));
-  Dao.context = ctx;
+  Dao.ctx = ctx;
 
   try {
     UserDao dao = _buildUserDao(ctx);
@@ -184,7 +184,7 @@ Future<void> _balance(Context<HomeState> ctx, UserState userData, String orgId) 
     ctx.dispatch(HomeActionCreator.balance(balance));
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'WalletDao balance: $err');
+    // tip(ctx.context, 'WalletDao balance: $err');
   }
 }
 
@@ -209,7 +209,7 @@ Future<void> _miningIncome(Context<HomeState> ctx, UserState userData, String or
     await _convertUSD(ctx, priceData, 'gateway');
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'WalletDao miningInfo: $err');
+    // tip(ctx.context, 'WalletDao miningInfo: $err');
   }
   
 }
@@ -230,7 +230,7 @@ Future<void> _stakeAmount(Context<HomeState> ctx, String orgId) async{
     ctx.dispatch(HomeActionCreator.stakedAmount(amount));
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'StakeDao amount: $err');
+    // tip(ctx.context, 'StakeDao amount: $err');
   }
 }
 
@@ -255,6 +255,19 @@ Future<void> _gateways(Context<HomeState> ctx) async{
 
     if (tempList.length > 0) {
       for (int index = 0; index < tempList.length; index++) {
+
+        RegExp modelReg = new RegExp(r'(?<=(Gateway Model: )).+(?=[\n])');
+        RegExpMatch modelRegRes = modelReg.firstMatch(tempList[index]['description']);
+        if(modelRegRes != null){
+          tempList[index]['model'] = modelRegRes.group(0);
+        }
+
+        RegExp versionReg = new RegExp(r'(?<=(Gateway OsVersion: )).+');
+        RegExpMatch versionRegRes = versionReg.firstMatch(tempList[index]['description']);
+        if(versionRegRes != null){
+          tempList[index]['osversion'] = versionRegRes.group(0);
+        }
+
         // allValues += tempList[index]['location']['accuracy'];
         Iterable<Match> matches = reg.allMatches(tempList[index]['description']);
         String description = '';
@@ -263,6 +276,7 @@ Future<void> _gateways(Context<HomeState> ctx) async{
         }
 
         tempList[index]['description'] = description;
+
         list.add(GatewayItemState.fromMap(tempList[index]));
       }
     }
@@ -270,7 +284,7 @@ Future<void> _gateways(Context<HomeState> ctx) async{
     ctx.dispatch(HomeActionCreator.gateways(total, 0, list));
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'GatewaysDao list: $err');
+    // tip(ctx.context, 'GatewaysDao list: $err');
   }
 }
 
@@ -295,7 +309,7 @@ Future<void> _gatewaysLocations(Context<HomeState> ctx) async{
       ctx.state.mapCtl.addSymbols(locations);
     }
   }catch(err){
-    tip(ctx.context, 'GatewaysDao locations: $err');
+    // tip(ctx.context, 'GatewaysDao locations: $err');
   }
 }
 
@@ -317,7 +331,7 @@ Future<void> _devices(Context<HomeState> ctx, UserState userData, String orgId) 
 
     await _convertUSD(ctx, priceData, 'device');
   }catch(err){
-    tip(ctx.context, 'DevicesDao list: $err');
+    // tip(ctx.context, 'DevicesDao list: $err');
   }
 }
 
@@ -385,7 +399,7 @@ Future<void> _convertUSD(Context<HomeState> ctx, Map data, String type) async{
     }
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'WalletDao convertUSD: $err');
+    // tip(ctx.context, 'WalletDao convertUSD: $err');
   }
 }
 
@@ -411,7 +425,7 @@ Future<void> _stakingRevenue(Context<HomeState> ctx, String orgId) async{
     ctx.dispatch(HomeActionCreator.loading(false));
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'StakeDao history: $err');
+    // tip(ctx.context, 'StakeDao history: $err');
   }
 
 }

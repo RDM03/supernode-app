@@ -178,5 +178,11 @@
 	"tip_latest_version": "お使いのバージョンは最新です。",
 	"total_device": "合計デバイス",
 	"downlink_fee": "ダウンリンク価格",
-	"demo": "デモを試す"
+	"demo": "デモを試す",
+	"weekly_revenue": "Weekly Revenue",
+	"frame": "Frame",
+	"gateway_model": "Gateway Model",
+	"gateway_osversion": "Gateway OsVersion",
+	"error_tip": "Error",
+	"updated_successful_tip": "Updated Successfully"
 }

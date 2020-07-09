@@ -178,5 +178,11 @@
 	"tip_latest_version": "Đây là phiên bản mới nhất.",
 	"total_device": "Tổng số thiết bị",
 	"downlink_fee": "Giá downlink",
-	"demo": "Hãy thử một bản demo!"
+	"demo": "Hãy thử một bản demo!",
+	"weekly_revenue": "Weekly Revenue",
+	"frame": "Frame",
+	"gateway_model": "Gateway Model",
+	"gateway_osversion": "Gateway OsVersion",
+	"error_tip": "Error",
+	"updated_successful_tip": "Updated Successfully"
 }

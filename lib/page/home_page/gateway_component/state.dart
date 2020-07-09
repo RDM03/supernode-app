@@ -1,5 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:supernodeapp/common/components/map_box.dart';
+import 'package:supernodeapp/page/home_page/gateway_component/gateway_profile_component/state.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 
 import 'gateway_list_adapter/gateway_item_component/state.dart';
@@ -14,6 +16,12 @@ class GatewayState extends MutableSource implements Cloneable<GatewayState> {
 
   List<OrganizationsState> organizations = [];
   LatLng location;
+
+  //profile
+  GatewayItemState profile;
+  MapViewController mapCtl;
+  List miningRevenve;
+  List gatewayFrame;
 
   List list = [];
 
@@ -34,6 +42,10 @@ class GatewayState extends MutableSource implements Cloneable<GatewayState> {
   @override
   GatewayState clone() {
     return GatewayState()
+      ..profile = profile
+      ..mapCtl = mapCtl
+      ..miningRevenve = miningRevenve
+      ..gatewayFrame = gatewayFrame
       ..loading = loading
       ..gatewaysTotal = gatewaysTotal
       ..gatewaysRevenue = gatewaysRevenue
@@ -59,5 +71,25 @@ class GatewayItemConnector extends ConnOp<GatewayState, GatewayItemState>{
   @override
   void set(GatewayState state, GatewayItemState subState) {
 
+  }
+}
+
+class GatewayProfileConnector extends ConnOp<GatewayState, GatewayProfileState>{
+
+  @override
+  GatewayProfileState get(GatewayState state){    
+    return GatewayProfileState()
+      ..profile = state.profile ?? GatewayItemState().clone()
+      ..mapCtl = state.mapCtl
+      ..miningRevenve = state.miningRevenve
+      ..gatewayFrame = state.gatewayFrame;
+  }
+
+  @override
+  void set(GatewayState state, GatewayProfileState subState) {
+    state
+      ..mapCtl = subState.mapCtl
+      ..miningRevenve = subState.miningRevenve
+      ..gatewayFrame = subState.gatewayFrame;
   }
 }

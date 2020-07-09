@@ -1,4 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:supernodeapp/page/home_page/gateway_component/gateway_profile_component/component.dart';
 
 import 'effect.dart';
 import 'gateway_list_adapter/adapter.dart';
@@ -16,8 +17,7 @@ class GatewayComponent extends Component<GatewayState> {
             dependencies: Dependencies<GatewayState>(
                  adapter: NoneConn<GatewayState>() + GatewayListAdapter(),
                 slots: <String, Dependent<GatewayState>>{
-                  // 'item': GatewayItemConnector() + GatewayItemComponent(),
-                  // 'add':  AddGatewayConnector() + AddGatewayComponent(),
+                  'profile': GatewayProfileConnector() + GatewayProfileComponent()
                 }),);
 
 }

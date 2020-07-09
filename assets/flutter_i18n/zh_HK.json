@@ -178,5 +178,11 @@
 	"tip_latest_version": "已是最新版",
 	"total_device": "設備總數",
 	"downlink_fee": "下行鏈路費用",
-	"demo": "尝试演示！"
+	"demo": "尝试演示！",
+	"weekly_revenue": "Weekly Revenue",
+	"frame": "Frame",
+	"gateway_model": "Gateway Model",
+	"gateway_osversion": "Gateway OsVersion",
+	"error_tip": "Error",
+	"updated_successful_tip": "Updated Successfully"
 }
