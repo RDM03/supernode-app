@@ -1,4 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
@@ -64,12 +65,13 @@ void _relogin(Action action, Context<HomeState> ctx) {
     settingsData.organizations = [];
     SettingsDao.updateLocal(settingsData);
     Navigator.of(ctx.context).pushReplacementNamed('login_page');
-    tip(ctx.context, '$err');
+    // tip(ctx.context, '$err');
   });
 }
 
 void _initState(Action action, Context<HomeState> ctx) {
   _profile(ctx);
+  _gatewaysLocations(ctx);
 }
 
 void _build(Action action, Context<HomeState> ctx) {
@@ -88,7 +90,9 @@ Future<void> _checkForUpdate(Context<HomeState> ctx){
 }
 
 void _onProfile(Action action, Context<HomeState> ctx) {
-  _profile(ctx);
+  Future.delayed(Duration(seconds: 2),() async{
+    _profile(ctx);
+  });
 }
 
 void _onGateways(Action action, Context<HomeState> ctx) async{
@@ -131,7 +135,6 @@ void _profile(Context<HomeState> ctx) async{
 
     // Request gateways' amount and location
     await _gateways(ctx);
-    await _gatewaysLocations(ctx);
 
     // await _devices(ctx,userData,orgId);
   }catch(e) {

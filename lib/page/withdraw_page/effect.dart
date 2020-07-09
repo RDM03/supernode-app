@@ -27,8 +27,10 @@ Effect<WithdrawState> buildEffect() {
 }
 
 void _initState(Action action, Context<WithdrawState> ctx) {
-  _withdrawFee(ctx);
-  _requestTOTPStatus(ctx);
+  Future.delayed(Duration(seconds: 3),() async{
+    _withdrawFee(ctx);
+    _requestTOTPStatus(ctx);
+  });
 }
 
 void _requestTOTPStatus(Context<WithdrawState> ctx) {
