@@ -2,6 +2,8 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';
+import 'package:supernodeapp/common/utils/utils.dart';
+import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
@@ -69,6 +71,9 @@ class HomeState implements Cloneable<HomeState> {
   //profile
   // bool isSelectIdType = true;
 
+  //demo
+  bool isDemo;
+
   @override
   HomeState clone() {
     return HomeState()
@@ -108,17 +113,20 @@ class HomeState implements Cloneable<HomeState> {
       ..isSetDate2 = isSetDate2
       ..selectedIndexBtn1 = selectedIndexBtn1
       ..selectedIndexBtn2 = selectedIndexBtn2
-      ..isFirstRequest = isFirstRequest;
+      ..isFirstRequest = isFirstRequest
+      ..isDemo = isDemo;
   }
 }
 
 HomeState initState(Map<String, dynamic> args) {
-  // String superNode = args['superNode'];
+  args ??= {};
+  final bool isDemo = StorageManager.sharedPreferences.getBool(Config.DEMO_MODE) ?? false;
 
   SettingsState settingsData = GlobalStore.store.getState().settings;
 
   return HomeState()
-    ..username = settingsData.username;
+    ..username = settingsData.username
+    ..isDemo = isDemo;
 }
 
 class UserConnector extends ConnOp<HomeState, UserState> {
@@ -142,7 +150,8 @@ class UserConnector extends ConnOp<HomeState, UserState> {
       ..devicesRevenue = state.devicesRevenue
       ..devicesUSDRevenue = state.devicesUSDRevenue
       ..mapViewController = state.mapCtl
-      ..gatewaysLocations = state.gatewaysLocations;
+      ..gatewaysLocations = state.gatewaysLocations
+      ..isDemo = state.isDemo;
   }
 
   @override
@@ -160,7 +169,8 @@ class GatewayConnector extends ConnOp<HomeState, GatewayState> {
       ..gatewaysRevenue = state.gatewaysRevenue
       ..gatewaysUSDRevenue = state.gatewaysUSDRevenue
       ..organizations = state.organizations
-      ..list = state.gatewaysList;
+      ..list = state.gatewaysList
+      ..isDemo = state.isDemo;
   }
 
   @override
@@ -198,7 +208,8 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..list = state.walletList
       ..withdrawFee = state.withdrawFee
       ..firstTime = state.firstTime
-      ..secondTime = state.secondTime;
+      ..secondTime = state.secondTime
+      ..isDemo = state.isDemo;
   }
 
   @override

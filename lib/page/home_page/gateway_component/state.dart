@@ -29,6 +29,8 @@ class GatewayState extends MutableSource implements Cloneable<GatewayState> {
   @override
   void setItemData(int index, Object data) => list[index] = data;
 
+  bool isDemo;
+
   @override
   GatewayState clone() {
     return GatewayState()
@@ -38,7 +40,8 @@ class GatewayState extends MutableSource implements Cloneable<GatewayState> {
       ..gatewaysUSDRevenue = gatewaysUSDRevenue
       ..organizations = organizations ?? []
       ..location = location
-      ..list = list ?? [];
+      ..list = list ?? []
+      ..isDemo = isDemo;
   }
 }
 

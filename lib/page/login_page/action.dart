@@ -6,6 +6,7 @@ enum LoginAction {
   selectedSuperNode,
   superNodeListVisible,
   onLogin,
+  onDemo,
   onSignUp,
   onForgotPassword,
   clickLogo,
@@ -14,6 +15,10 @@ enum LoginAction {
 class LoginActionCreator {
   static Action onLogin() {
     return const Action(LoginAction.onLogin);
+  }
+
+  static Action onDemo() {
+    return const Action(LoginAction.onDemo);
   }
 
   static Action onSignUp() {

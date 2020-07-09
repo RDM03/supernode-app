@@ -177,5 +177,6 @@
 	"update_dialog_downloading": "Download läuft...",
 	"tip_latest_version": "Das ist die neueste Version.",
 	"total_device": "Geräte (insgesamt)",
-	"downlink_fee": "Downlink-Preis"
+	"downlink_fee": "Downlink-Preis",
+	"demo": "Probieren Sie eine Demo aus"
 }

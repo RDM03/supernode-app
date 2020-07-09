@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
+import 'package:supernodeapp/common/daos/demo/user_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
@@ -21,7 +22,42 @@ Effect<LoginState> buildEffect() {
     LoginAction.onLogin: _onLogin,
     LoginAction.onSignUp: _onSignUp,
     LoginAction.onForgotPassword: _onForgotPassword,
+    LoginAction.onDemo: _onDemo,
   });
+}
+
+Future<void> _handleLoginRequest(UserDao dao, String username, String password, String apiRoot) async {
+  Map data = {'username': username, 'password': password};
+  SettingsState settingsData = GlobalStore.store.getState().settings;
+
+  var loginResult = await dao.login(data);
+  mLog('login', loginResult);
+
+  if (settingsData == null) {
+    settingsData = SettingsState().clone();
+  }
+
+  Dao.token = loginResult['jwt'];
+  settingsData.token = loginResult['jwt'];
+  settingsData.username = data['username'];
+  List<String> users = StorageManager.sharedPreferences.getStringList(Config.USER_KEY) ?? [];
+  if (!users.contains(data['username'])) {
+    users.add(data['username']);
+  }
+  StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
+  StorageManager.sharedPreferences.setString(Config.USERNAME_KEY, data['username']);
+  StorageManager.sharedPreferences.setString(Config.PASSWORD_KEY, data['password']);
+  StorageManager.sharedPreferences.setString(Config.API_ROOT, apiRoot);
+  GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
+
+  var totpStatus = await dao.getTOTPStatus({});
+  mLog('totp', totpStatus);
+
+  settingsData.is2FAEnabled = totpStatus['enabled'];
+  if ((totpStatus as Map).containsKey('enabled')) {
+    GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
+  }
+  await PermissionUtil.getLocationPermission();
 }
 
 void _onLogin(Action action, Context<LoginState> ctx) async {
@@ -35,42 +71,15 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
   if ((curState.formKey.currentState as FormState).validate()) {
     showLoading(ctx.context);
     try {
-      Map data = {'username': curState.usernameCtl.text.trim(), 'password': curState.passwordCtl.text.trim()};
-      SettingsState settingsData = GlobalStore.store.getState().settings;
       String apiRoot = curState.currentSuperNode.url;
       Dao.baseUrl = apiRoot;
       UserDao dao = UserDao();
+      final username = curState.usernameCtl.text.trim();
+      final password = curState.passwordCtl.text.trim();
+      
+      StorageManager.sharedPreferences.setBool(Config.DEMO_MODE, false);
+      await _handleLoginRequest(dao, username, password, apiRoot);
 
-      // var response = await dao.login(data);
-
-      var loginResult = await dao.login(data);
-      mLog('login', loginResult);
-
-      if (settingsData == null) {
-        settingsData = SettingsState().clone();
-      }
-
-      Dao.token = loginResult['jwt'];
-      settingsData.token = loginResult['jwt'];
-      settingsData.username = data['username'];
-      List<String> users = StorageManager.sharedPreferences.getStringList(Config.USER_KEY) ?? [];
-      if (!users.contains(data['username'])) {
-        users.add(data['username']);
-      }
-      StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
-      StorageManager.sharedPreferences.setString(Config.USERNAME_KEY, data['username']);
-      StorageManager.sharedPreferences.setString(Config.PASSWORD_KEY, data['password']);
-      StorageManager.sharedPreferences.setString(Config.API_ROOT, apiRoot);
-      GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
-
-      var totpStatus = await dao.getTOTPStatus({});
-      mLog('totp', totpStatus);
-
-      settingsData.is2FAEnabled = totpStatus['enabled'];
-      if ((totpStatus as Map).containsKey('enabled')) {
-        GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
-      }
-      await PermissionUtil.getLocationPermission();
       hideLoading(ctx.context);
       Navigator.pushReplacementNamed(ctx.context, 'home_page');
     } catch (err) {
@@ -79,6 +88,15 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
       hideLoading(ctx.context);
     }
   }
+}
+
+void _onDemo(Action action, Context<LoginState> ctx) async {
+  final dao = DemoUserDao();
+  final username = DemoUserDao.username;
+  await _handleLoginRequest(dao, username, '', 'demo-root');
+  await StorageManager.sharedPreferences.setBool(Config.DEMO_MODE, true);
+  await StorageManager.sharedPreferences.setString(Config.TOKEN_KEY, 'demo-token');
+  Navigator.pushReplacementNamed(ctx.context, 'home_page');
 }
 
 void _onSignUp(Action action, Context<LoginState> ctx) {

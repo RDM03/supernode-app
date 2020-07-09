@@ -5,7 +5,7 @@ class Mock{
 
   static const Map gateways = {
   'list': {
-    "totalCount": "123",
+    "totalCount": "2",
     "result": [
       {
         "id": "1",
@@ -186,12 +186,12 @@ class Mock{
 
   static const Map activestakes = {
     "actStake": {
-      "id": "string",
-      "fkWallet": "string",
-      "amount": 10,
-      "stakeStatus": "string",
-      "startStakeTime": "2020-04-27T09:44:56.286Z",
-      "unstakeTime": "2020-04-27T09:44:56.286Z"
+      "Id": "string",
+      "FkWallet": "string",
+      "Amount": 10,
+      "StakeStatus": "string",
+      "StartStakeTime": "2020-04-27T09:44:56.286Z",
+      "UnstakeTime": "2020-04-27T09:44:56.286Z"
     },
     "userProfile": {
       "user": {

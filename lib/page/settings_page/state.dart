@@ -44,6 +44,8 @@ class SettingsState implements Cloneable<SettingsState> {
   String version = '';
   String buildNumber = '';
 
+  bool isDemo = false;
+
   SettingsState();
   
   @override
@@ -69,7 +71,8 @@ class SettingsState implements Cloneable<SettingsState> {
       ..selectedOrgName = selectedOrgName
       ..orgNameCtl = orgNameCtl
       ..orgDisplayCtl = orgDisplayCtl
-      ..orgListCtl = orgListCtl;
+      ..orgListCtl = orgListCtl
+      ..isDemo = isDemo;
   }
 
   // columns: [cId, notification, superNode, lanuage, userId, theme]
@@ -106,6 +109,7 @@ class SettingsState implements Cloneable<SettingsState> {
 SettingsState initState(Map<String, dynamic> args) {
   Map user = args['user'];
   List<OrganizationsState> orgs = args['organizations'];
+  bool isDemo = args['isDemo'] ?? false;
 
   return SettingsState()
     ..userId = user['userId']
@@ -113,7 +117,8 @@ SettingsState initState(Map<String, dynamic> args) {
     ..email = user['email']
     ..usernameCtl.text = user['username']
     ..isAdmin = orgs.length > 0 && orgs.first.isAdmin
-    ..organizations = orgs;
+    ..organizations = orgs
+    ..isDemo = isDemo;
 }
 
 class ProfileConnector extends ConnOp<SettingsState, ProfileState>{

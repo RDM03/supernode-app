@@ -50,6 +50,8 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   @override
   void setItemData(int index, Object data) => list[index] = data; 
 
+  bool isDemo;
+
   @override
   WalletState clone() {
     return WalletState()
@@ -70,7 +72,8 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
       ..totalRevenue = totalRevenue
       ..withdrawFee = withdrawFee
       ..firstTime = firstTime
-      ..secondTime = secondTime;
+      ..secondTime = secondTime
+      ..isDemo = isDemo;
   }
 }
 

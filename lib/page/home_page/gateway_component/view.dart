@@ -35,7 +35,7 @@ Widget buildView(GatewayState state, Dispatch dispatch, ViewService viewService)
             child: panelBody(
               loading: state.loading,
               icon: Icons.add_circle,
-              onPressed: () => dispatch(GatewayActionCreator.onAdd()),
+              onPressed: state.isDemo ? null : () => dispatch(GatewayActionCreator.onAdd()),
               titleText: FlutterI18n.translate(_ctx,'total_gateways'),
               subtitleText: '${state.gatewaysTotal}',
               trailTitle: FlutterI18n.translate(_ctx,'profit'),
