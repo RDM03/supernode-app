@@ -74,7 +74,7 @@ class TokenInterceptors extends InterceptorsWrapper {
     SettingsState settingsData = GlobalStore.store.getState().settings;
     String userId = settingsData?.userId ?? '';
     String userName = settingsData?.username ?? '';
-    var errorData = errRes.data;
+    var errorData = errRes?.data;
 
     if(userName == null || userName.isEmpty){
       if(_options.path == '/api/internal/login' && _options.data != null){
@@ -83,7 +83,7 @@ class TokenInterceptors extends InterceptorsWrapper {
     }
     if(errorData == null){
       errorData = {
-        'code': err.response.statusCode,
+        'code': err.response?.statusCode ?? '500',
         'message': err.message
       };
     }

@@ -25,11 +25,17 @@ void _initState(Action action, Context<GatewayProfileState> ctx){
   SchedulerBinding.instance.addPostFrameCallback((_) async{
     GatewayItemState profile = ctx.state.profile;
     LatLng markerPiont = LatLng(profile.location['latitude'],profile.location['longitude']);
-    
-    ctx.state.mapCtl.addSymbol(MapMarker(
-      point: markerPiont,
-      image: AppImages.gateways,
-    ));
+    var ctl = ctx.state.mapCtl;
+
+    ctl.myLatLng = markerPiont;
+    ctl.moveToMyLatLng();
+
+    Future.delayed(Duration(seconds: 1),(){
+      ctl.addSymbol(MapMarker(
+        point: markerPiont,
+        image: AppImages.gateways,
+      ));
+    });
 
     await _miningInfo(ctx);
     await _frame(ctx);

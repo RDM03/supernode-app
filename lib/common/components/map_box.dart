@@ -73,6 +73,9 @@ class MapBoxWidget extends StatefulWidget {
   final VoidCallback zoomOutCallback;
   final ValueChanged<LatLng> onTap;
   final EdgeInsetsGeometry rowTop;
+  final LatLng centerLocation;
+  final bool isUserLocation;
+  final bool isUserLocationSwitch;
 
   // new field
   final Function clickLocation;
@@ -89,7 +92,10 @@ class MapBoxWidget extends StatefulWidget {
     this.clickLocation,
     this.userLocationSwitch = true,
     this.isFullScreen = false,
-    this.rowTop
+    this.rowTop,
+    this.centerLocation,
+    this.isUserLocation = true,
+    this.isUserLocationSwitch = true
   }) : super(key: key);
 
   @override
@@ -103,6 +109,10 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
 
   MapViewController get config => widget.config;
   bool get userLocationSwitch => widget.userLocationSwitch;
+
+  LatLng get centerLocation => widget.centerLocation; 
+  bool get isUserLocation => widget.isUserLocation;
+  bool get isUserLocationSwitch => widget.isUserLocationSwitch;
 
   MyLocationTrackingMode _myLocationTrackingMode =
       MyLocationTrackingMode.Tracking;
@@ -124,7 +134,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
 
     Future.delayed(new Duration(seconds: 1), () async {
       bool has = await PermissionUtil.getLocationPermission();
-      if (mounted && has) {
+      if (mounted && has && _myLocationEnable) {
         _changeModeToLocation();
       }
     });
@@ -177,7 +187,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
         MapboxMap(
           attributionButtonMargins: Point(-50, -50),
           initialCameraPosition: CameraPosition(
-              target: LatLng(37.386, -122.083), zoom: config.zoom),
+              target: centerLocation ?? LatLng(37.386, -122.083), zoom: config.zoom),
           myLocationEnabled: _myLocationEnable,
           myLocationRenderMode: MyLocationRenderMode.NORMAL,
           myLocationTrackingMode: _myLocationTrackingMode,
@@ -196,8 +206,14 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
                 ].toSet()
               : null,
         ),
-        _buildMyLocationIcon(),
-        _buildMyLocationStateChange(),
+        Visibility(
+          visible: isUserLocation,
+          child: _buildMyLocationIcon()
+        ),
+        Visibility(
+          visible: isUserLocationSwitch,
+          child: _buildMyLocationStateChange()
+        ),
         widget.isFullScreen ? _buildCloseIcon() : _buildZoomOutIcon(),
       ],
     );

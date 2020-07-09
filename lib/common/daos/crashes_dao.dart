@@ -39,7 +39,7 @@ class CrashesDao {
         "appBuild": buildNumber,
         "sdkName": androidInfo.fingerprint,
         "sdkVersion": androidInfo.fingerprint,
-        "osName": androidInfo.version.baseOS,
+        "osName": androidInfo.brand,
         "osVersion": androidInfo.version.release,
         "model": androidInfo.model,
         "locale": Platform.localeName

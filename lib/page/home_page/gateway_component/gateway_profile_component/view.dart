@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/gateways/bar_char.dart';
 import 'package:supernodeapp/common/components/gateways/line_chart.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
@@ -51,7 +52,10 @@ Widget buildView(GatewayProfileState state, Dispatch dispatch, ViewService viewS
       MapBoxWidget(
         rowTop: EdgeInsets.zero,
         config: state.mapCtl,
+        centerLocation: LatLng(profile.location['latitude'],profile.location['longitude']),
         userLocationSwitch: false,
+        isUserLocation: false,
+        isUserLocationSwitch: false,
       ),
       ListTile(
         contentPadding: EdgeInsets.zero,
@@ -69,7 +73,7 @@ Widget buildView(GatewayProfileState state, Dispatch dispatch, ViewService viewS
         top: 5
       ),
       paragraph(FlutterI18n.translate(_ctx, 'last_seen')),
-      introduction(profile.lastSeenAt ?? '',
+      introduction(TimeDao.getDatetime(profile.lastSeenAt) ?? '',
         top: 5
       ),
       Padding(

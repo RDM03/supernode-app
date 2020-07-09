@@ -3,8 +3,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
-// import 'package:mapbox_gl/mapbox_gl.dart';
-// import 'package:flutter_map/flutter_map.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/components/page/introduction.dart';
 import 'package:supernodeapp/common/components/page/link.dart';
