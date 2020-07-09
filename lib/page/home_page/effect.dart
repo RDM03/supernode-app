@@ -90,7 +90,7 @@ Future<void> _checkForUpdate(Context<HomeState> ctx){
 }
 
 void _onProfile(Action action, Context<HomeState> ctx) {
-  Future.delayed(Duration(seconds: 2),() async{
+  Future.delayed(Duration(seconds: 3),() async{
     _profile(ctx);
   });
 }
