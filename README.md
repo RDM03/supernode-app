@@ -1,6 +1,9 @@
 # Supernode App
 
-![Build APK](https://github.com/mxc-foundation/supernode-app/workflows/Build%20APK/badge.svg)
+Github ![Build APK](https://github.com/mxc-foundation/supernode-app/workflows/Build%20APK/badge.svg)
+
+AppCenter [![Build status](https://build.appcenter.ms/v0.1/apps/8db186c7-c9e6-4fcd-9ebf-0e7a3b536dcc/branches/master/badge)](https://appcenter.ms)
+
 
 Mobile app used to interact with MXC Supernodes.
 
