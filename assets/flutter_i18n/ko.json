@@ -169,7 +169,7 @@
 	"disable_2FA": "2단계 인증 비활성화",
 	"24hours_warning": "모든 출금신청은 보안성을 위해 2차 확인이 되며, 주말을 제외한 주중에는 최대 24시간이 걸릴 수 있습니다.",
 	"required_2FA": "인출에 필요한 2FA",
-	"update_dialog_title": "MXC Data Dash 업데이트 준비됨",
+	"update_dialog_title": "MXC DataDash 업데이트 준비됨",
 	"update_dialog_subTitle": "최신 버전을 즐겨보세요",
 	"update_dialog_content": "더 많은 기능이 추가된 새로운 버전이 준비되어 있습니다. 확인을 눌러 업그레이드 하세요!",
 	"update_dialog_confirm": "확인",
