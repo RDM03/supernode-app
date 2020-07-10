@@ -11,7 +11,7 @@ Mobile app used to interact with MXC Supernodes.
 # When building locally (eg. not in appcenter)
 - update the variables in .env file and execute it to add them to your env variables
 ```
-./.env 
+/bin/bash .env
 ```
 
 - follow the steps from appcenter build script android/app/appcenter-post-clone.sh
