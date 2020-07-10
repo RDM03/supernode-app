@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Set env
-      run: echo ::set-env name=APPCENTER_BUILD_ID::$(echo $GITHUB_SHA | cut -c 1-6)
+      run: echo ::set-env name=APPCENTER_BUILD_ID::$(echo $GITHUB_RUN_NUMBER)
     - uses: actions/setup-java@v1
       with:
         java-version: '12.x'
