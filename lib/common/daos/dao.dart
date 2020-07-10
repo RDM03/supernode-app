@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
-import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/daos/interceptors/log_interceptor.dart';
 import 'package:supernodeapp/common/daos/interceptors/token_interceptor.dart';
 
