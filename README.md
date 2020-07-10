@@ -4,3 +4,16 @@
 
 Mobile app used to interact with MXC Supernodes.
 
+# Environment setup
+- Follow (flutter get-started)[https://flutter.dev/docs/get-started/install] to setup flutter and Android Studio
+- Add this project to Android Studio
+
+# When building locally (eg. not in appcenter)
+- update the variables in .env file and execute it to add them to your env variables
+./.env 
+
+- follow the steps from appcenter build script android/app/appcenter-post-clone.sh
+```
+flutter clean
+flutter build apk --flavor prod
+``
