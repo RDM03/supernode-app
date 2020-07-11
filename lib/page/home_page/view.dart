@@ -11,32 +11,45 @@ import 'state.dart';
 
 Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
-  List<Widget> pages = <Widget>[
-    viewService.buildComponent('user'),
-    viewService.buildComponent('gateway'),
-    viewService.buildComponent('device'),
-    viewService.buildComponent('wallet')
-  ];
 
   return Scaffold(
-    body: pages[state.tabIndex],
-    bottomNavigationBar: BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      currentIndex: state.tabIndex,
-      selectedItemColor: selectedColor,
-      unselectedItemColor: unselectedColor,
-      onTap: (index) => dispatch(HomeActionCreator.tabIndex(index)),
-      items: Sys.mainMenus.map((String item) =>     
-        BottomNavigationBarItem(
-          icon: Image.asset(
-            AppImages.bottomBarMenus[item.toLowerCase()],
-            color: Sys.mainMenus.indexOf(item) == state.tabIndex ? selectedColor : unselectedColor,
-          ),
-          title: Text(
-            FlutterI18n.translate(_ctx,item.toLowerCase()),
-          ),
+    body: Stack(
+      children: <Widget>[
+        viewService.buildComponent('user'),
+        Stack(
+          children: Sys.mainMenus.map((String item) =>
+            Visibility(
+              visible: item == 'Home'? false : Sys.mainMenus.indexOf(item) == state.tabIndex,
+              child: item == 'Home'? Container() : viewService.buildComponent(item.toLowerCase())
+            )
+          ).toList()
         ),
-      ).toList()
+      ],
+    ),
+    bottomNavigationBar: Theme(
+      data: ThemeData(
+        brightness: Brightness.light,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+      ),
+      child: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: state.tabIndex,
+        selectedItemColor: selectedColor,
+        unselectedItemColor: unselectedColor,
+        onTap: (index) => dispatch(HomeActionCreator.tabIndex(index)),
+        items: Sys.mainMenus.map((String item) =>     
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              AppImages.bottomBarMenus[item.toLowerCase()],
+              color: Sys.mainMenus.indexOf(item) == state.tabIndex ? selectedColor : unselectedColor,
+            ),
+            title: Text(
+              FlutterI18n.translate(_ctx,item.toLowerCase()),
+            ),
+          ),
+        ).toList()
+      )
     )
   );
 }

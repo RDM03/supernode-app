@@ -69,9 +69,9 @@ void _relogin(Action action, Context<HomeState> ctx) {
   });
 }
 
-void _initState(Action action, Context<HomeState> ctx) {
-  _profile(ctx);
-  _gatewaysLocations(ctx);
+void _initState(Action action, Context<HomeState> ctx) async{
+  await _profile(ctx);
+  await _gatewaysLocations(ctx);
 }
 
 void _build(Action action, Context<HomeState> ctx) {
@@ -99,7 +99,7 @@ void _onGateways(Action action, Context<HomeState> ctx) async{
   await _gateways(ctx);
 }
 
-void _profile(Context<HomeState> ctx) async{
+Future<void> _profile(Context<HomeState> ctx) async{
   ctx.dispatch(HomeActionCreator.loading(true));
   Dao.context = ctx;
 
@@ -317,7 +317,7 @@ void _mapbox(Action action, Context<HomeState> ctx) {
     ctx.context,
     'mapbox_page',
     arguments: {
-      'markers': ctx.state.mapCtl.markers,
+      'markers': ctx.state.gatewaysLocations
     },
   );
 }

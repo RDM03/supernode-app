@@ -147,7 +147,8 @@ class UserConnector extends ConnOp<HomeState, UserState> {
 
   @override
   void set(HomeState state, UserState subState) {
-    state..mapCtl = subState.mapViewController;
+    state
+      ..mapCtl = subState.mapViewController;
   }
 }
 

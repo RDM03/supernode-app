@@ -1,6 +1,9 @@
+import 'dart:isolate';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
+import 'package:supernodeapp/common/daos/isolate_dao.dart';
 
 class AppPage extends StatefulWidget {
   final Widget child;
