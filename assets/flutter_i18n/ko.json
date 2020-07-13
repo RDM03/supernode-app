@@ -178,5 +178,6 @@
 	"tip_latest_version": "최신 버전입니다.",
 	"total_device": "총 기기 수",
 	"downlink_fee": "다운링크 수수료",
-	"insufficient_balance": "잔액 불충분"
+	"insufficient_balance": "잔액 불충분",
+	"required_2FA_general": "필수 2FA"
 }

@@ -178,5 +178,6 @@
 	"tip_latest_version": "Это последняя версия.",
 	"total_device": "Всего устройств",
 	"downlink_fee": "Комиссия",
-	"insufficient_balance": "Недостаточно средств"
+	"insufficient_balance": "Недостаточно средств",
+	"required_2FA_general": "Требуется 2FA"
 }

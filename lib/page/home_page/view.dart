@@ -20,24 +20,6 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
 
   return Scaffold(
     body: pages[state.tabIndex],
-    
-    // Stack(
-    //   children: <Widget>[
-    //     // Stack(
-    //     //   children: Sys.mainMenus.map((String item) =>
-    //     //     Visibility(
-    //     //       visible: item == 'Home'? false : Sys.mainMenus.indexOf(item) == state.tabIndex,
-    //     //       child: item == 'Home'? Container() : viewService.buildComponent(item.toLowerCase())
-    //     //     )
-    //     //   ).toList()
-
-    //     // ),
-    //     // Visibility(
-    //     //   visible: state.loading,
-    //     //   child: loading(),
-    //     // ),
-    //   ],
-    // ),
     bottomNavigationBar: BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       currentIndex: state.tabIndex,

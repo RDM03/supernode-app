@@ -8,11 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+    - name: Set env
+      run: echo ::set-env name=APPCENTER_BUILD_ID::$(echo $GITHUB_RUN_NUMBER)
     - uses: actions/setup-java@v1
       with:
         java-version: '12.x'
     - uses: subosito/flutter-action@v1
       with:
-        flutter-version: '1.12'
+        flutter-version: '1.17'
     - run: flutter pub get
     - run: flutter build apk --debug --split-per-abi

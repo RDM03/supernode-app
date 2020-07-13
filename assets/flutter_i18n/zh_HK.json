@@ -178,5 +178,6 @@
 	"tip_latest_version": "已是最新版",
 	"total_device": "設備總數",
 	"downlink_fee": "下行鏈路費用",
-	"insufficient_balance": "余额不足"
+	"insufficient_balance": "余额不足",
+	"required_2FA_general": "必需2FA"
 }

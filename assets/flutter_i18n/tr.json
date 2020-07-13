@@ -178,5 +178,6 @@
 	"tip_latest_version": "Program güncel.",
 	"total_device": "Tüm Cihazlar",
 	"downlink_fee": "Downlink Fiyatı",
-	"insufficient_balance": "Yetersiz bakiye"
+	"insufficient_balance": "Yetersiz bakiye",
+	"required_2FA_general": "Gerekli 2FA"
 }

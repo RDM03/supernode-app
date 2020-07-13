@@ -178,5 +178,6 @@
 	"tip_latest_version": "Đây là phiên bản mới nhất.",
 	"total_device": "Tổng số thiết bị",
 	"downlink_fee": "Giá downlink",
-	"insufficient_balance": "Thiếu cân bằng"
+	"insufficient_balance": "Thiếu cân bằng",
+	"required_2FA_general": "Yêu cầu 2FA"
 }

@@ -178,5 +178,6 @@
 	"tip_latest_version": "This is the latest version.",
 	"total_device": "Total Devices",
 	"downlink_fee": "Downlink Fee",
-	"insufficient_balance": "Insufficient balance"
+	"insufficient_balance": "Insufficient balance",
+	"required_2FA_general": "Required 2FA"
 }
