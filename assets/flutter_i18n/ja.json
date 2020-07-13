@@ -178,5 +178,6 @@
 	"tip_latest_version": "お使いのバージョンは最新です。",
 	"total_device": "合計デバイス",
 	"downlink_fee": "ダウンリンク価格",
+	"insufficient_balance": "残高不足です",
 	"required_2FA_general": "必要な2FA"
 }
