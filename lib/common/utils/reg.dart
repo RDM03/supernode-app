@@ -98,7 +98,9 @@ class Reg{
     
     return null;
   }
-
+  
+  /// NOT USED. Please remove @deprecated if you want to use it
+  @deprecated
   static String onValidAmount(BuildContext context,String value,{bool isShowError = true}){
     String res = Reg.isEmpty(value);
     if(res != null) return FlutterI18n.translate(context, res); 

@@ -177,5 +177,6 @@
 	"update_dialog_downloading": "Dosyalar indiriliyor...",
 	"tip_latest_version": "Program güncel.",
 	"total_device": "Tüm Cihazlar",
-	"downlink_fee": "Downlink Fiyatı"
+	"downlink_fee": "Downlink Fiyatı",
+	"required_2FA_general": "Gerekli 2FA"
 }

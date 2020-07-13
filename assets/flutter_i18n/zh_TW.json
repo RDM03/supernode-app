@@ -177,5 +177,6 @@
 	"update_dialog_downloading": "下載檔案中...",
 	"tip_latest_version": "已是最新版",
 	"total_device": "設備總數",
-	"downlink_fee": "下行鏈路費用"
+	"downlink_fee": "下行鏈路費用",
+	"required_2FA_general": "必需2FA"
 }

@@ -177,5 +177,6 @@
 	"update_dialog_downloading": "Dữ liệu đang tải...",
 	"tip_latest_version": "Đây là phiên bản mới nhất.",
 	"total_device": "Tổng số thiết bị",
-	"downlink_fee": "Giá downlink"
+	"downlink_fee": "Giá downlink",
+	"required_2FA_general": "Yêu cầu 2FA"
 }
