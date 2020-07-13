@@ -43,7 +43,7 @@ class IsolateDao {
 
       try{
         var _res = await DaoSingleton.get(token: _token,url: _url,data: _data);
-        _send.send(_res);
+        _send.send(_res ?? {});
       }catch(e){
         _send.send(e);
       }

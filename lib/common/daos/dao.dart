@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:supernodeapp/common/daos/interceptors/log_interceptor.dart';
 import 'package:supernodeapp/common/daos/interceptors/token_interceptor.dart';
 import 'package:supernodeapp/common/daos/isolate_dao.dart';
+import 'package:supernodeapp/page/home_page/action.dart';
 
 class Dao {
   static String baseUrl = '';
@@ -100,8 +101,11 @@ class DaoSingleton{
       if (response.statusCode == 200) {
         return response.data;
       }
-    } on DioError catch (e) {
-      throw e.response != null ? e.response.data['message'] : e.message;
+    } on DioError catch (err) {
+      var errRes = err.response;
+      if(errRes != null && errRes.toString().contains(new RegExp(r'jwt|authentication'))){
+        Dao.context.dispatch(HomeActionCreator.onReLogin());
+      }
     }
   }
 

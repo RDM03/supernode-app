@@ -16,13 +16,13 @@ Effect<DepositState> buildEffect() {
   });
 }
 
-void _initState(Action action, Context<DepositState> ctx){
+void _initState(Action action, Context<DepositState> ctx) async{
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
   if(orgId == null || orgId.isEmpty){
     orgId = ctx.state.organizations.first.organizationID;
   }
 
-  Future.delayed(Duration(seconds: 3),() async{
+  // Future.delayed(Duration(seconds: 3),() async{
     try{
       TopupDao dao = TopupDao();
       Map data = {
@@ -38,7 +38,7 @@ void _initState(Action action, Context<DepositState> ctx){
     }catch(err){
       tip(ctx.context,'TopupDao account: $err');
     }
-  });
+  // });
 
 }
 

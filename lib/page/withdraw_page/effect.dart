@@ -26,40 +26,44 @@ Effect<WithdrawState> buildEffect() {
   });
 }
 
-void _initState(Action action, Context<WithdrawState> ctx) {
-  Future.delayed(Duration(seconds: 3),() async{
-    _withdrawFee(ctx);
-    _requestTOTPStatus(ctx);
-  });
+void _initState(Action action, Context<WithdrawState> ctx) async{
+  // Future.delayed(Duration(seconds: 3),() async{
+    await _withdrawFee(ctx);
+    await _requestTOTPStatus(ctx);
+  // });
 }
 
-void _requestTOTPStatus(Context<WithdrawState> ctx) {
+Future<void> _requestTOTPStatus(Context<WithdrawState> ctx) async{
   UserDao dao = UserDao();
 
   Map data = {};
 
-  dao.getTOTPStatus(data).then((res) {
+  try{
+    var res = await dao.getTOTPStatus(data);
     mLog('totp', res);
 
     if ((res as Map).containsKey('enabled')) {
       ctx.dispatch(WithdrawActionCreator.isEnabled(res['enabled']));
     }
-  }).catchError((err) {
+  }catch(err){
     tip(ctx.context, '$err');
-  });
+  }
 }
 
-void _withdrawFee(Context<WithdrawState> ctx) {
-  WithdrawDao dao = WithdrawDao();
-  dao.fee().then((res) {
+Future<void> _withdrawFee(Context<WithdrawState> ctx) async{
+
+  try{
+    WithdrawDao dao = WithdrawDao();
+    var res = await dao.fee();
     mLog('WithdrawDao fee', res);
 
     if ((res as Map).containsKey('withdrawFee')) {
       ctx.dispatch(WithdrawActionCreator.fee(Tools.convertDouble(res['withdrawFee'])));
     }
-  }).catchError((err) {
+  }catch(err){
     tip(ctx.context, 'WithdrawDao fee: $err');
-  });
+  }
+  
 }
 
 void _onQrScan(Action action, Context<WithdrawState> ctx) async {
