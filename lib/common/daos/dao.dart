@@ -42,13 +42,23 @@ class Dao {
       if(!url.contains('http')){
         url = dio.options.baseUrl + url;
       }
-      var res = await IsolateDao.receive(url: url,data: data);
-      return res;//getMethod(url: url,data: data);
+      var res;
+      //if isolate had this request, stop to address this process.
+      if(!IsolateDao.isolate.containsKey('$url')){
+
+        res = await IsolateDao.receive(url: url,data: data);
+        
+        if(IsolateDao.isolate.containsKey('$url')){
+          IsolateDao.isolate['$url'].kill();
+          IsolateDao.isolate.remove('$url');
+        }
+
+        return res;
+      }
+      return {};
     }catch(e){
-      // getMethod(url: url,data: data);
       DaoSingleton.get(url: url,data: data,dio: dio);
     }
-    
   }
 
   Future<dynamic> put({String url, dynamic data}) async {
@@ -87,15 +97,10 @@ class DaoSingleton{
         url,
         queryParameters: data != null ? new Map<String, dynamic>.from(data) : null,
       );
-
-      _dio.lock();
-
       if (response.statusCode == 200) {
-        _dio.unlock();
         return response.data;
       }
     } on DioError catch (e) {
-      _dio.unlock();
       throw e.response != null ? e.response.data['message'] : e.message;
     }
   }

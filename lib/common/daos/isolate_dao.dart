@@ -7,23 +7,25 @@ import 'package:supernodeapp/configs/config.dart';
 
 class IsolateDao {
   static String token = '';
+  static Map isolate = {};
   static Future<dynamic> receive({String url = '',Map data}) async{
-    
+    List _params = [];
+
+    final _response = new ReceivePort();
+
     if(token.isEmpty){
       token = StorageManager?.sharedPreferences?.getString(Config.TOKEN_KEY);
     }
 
-    final response = new ReceivePort();
-    await Isolate.spawn(request,response.sendPort);
-    final sendPort = await response.first as SendPort;
-    final answer = new ReceivePort();
+    isolate['$url'] = await Isolate.spawn(request,_response.sendPort);
 
-    List params = [];
+    final _sendPort = await _response.first as SendPort;
+    final _answer = new ReceivePort();
 
-    params.addAll([token,url,data,answer.sendPort]);
-    sendPort.send(params);
-  
-    return answer.first;
+    _params.addAll([token,url,data,_answer.sendPort]);
+    _sendPort.send(_params);
+
+    return _answer.first;
   }
   
   static void request(SendPort initialReplyTo) async{
