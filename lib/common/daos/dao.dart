@@ -92,6 +92,9 @@ class DaoSingleton{
             }
           )
         );
+
+        _dio.interceptors.add(TokenInterceptors());
+        _dio.interceptors.add(LogsInterceptors());
       } 
 
       Response response = await _dio.get(
@@ -102,10 +105,7 @@ class DaoSingleton{
         return response.data;
       }
     } on DioError catch (err) {
-      var errRes = err.response;
-      if(errRes != null && errRes.toString().contains(new RegExp(r'jwt|authentication'))){
-        Dao.context.dispatch(HomeActionCreator.onReLogin());
-      }
+      print(err);
     }
   }
 
