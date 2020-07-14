@@ -25,6 +25,8 @@ class MapViewController {
   LatLng myLatLng;
   double zoom;
 
+  double actualZoom;
+
   bool _symbolsAdd = false;
 
   MapViewController({this.markers, this.zoom = 12});
@@ -304,17 +306,12 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
           onMapClick: (point, coordinates) {
             widget.onTap(coordinates);
           },
+          trackCameraPosition: true,
           onMapCreated: (controller) {
             config.onMapCreated(controller);
           },
           onStyleLoadedCallback: widget.config.onStyleLoadedInit,
-          gestureRecognizers: !widget.isFullScreen
-              ? <Factory<OneSequenceGestureRecognizer>>[
-                  Factory<OneSequenceGestureRecognizer>(
-                    () => ScaleGestureRecognizer(),
-                  ),
-                ].toSet()
-              : null,
+          zoomGesturesEnabled: widget.isFullScreen,
         ),
         Visibility(
           visible: isUserLocation,

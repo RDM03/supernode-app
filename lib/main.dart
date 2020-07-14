@@ -50,7 +50,9 @@ Future<void> main() async {
   ));
 
   if (Platform.isAndroid) {
-    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    );
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
 
@@ -99,22 +101,21 @@ Widget mxcApp() {
             return pagestate;
           });
         }
-      
       });
 
   return MaterialApp(
     navigatorKey: navigatorKey,
     localizationsDelegates: [
       FlutterI18nDelegate(
-        translationLoader: FileTranslationLoader(
-          useCountryCode: true,
-          // forcedLocale: Locale()
-        )
-        // translationLoader: NamespaceFileTranslationLoader(
-        //   useCountryCode: true,
-        //   namespaces: [ 'login' ]
-        // )
-      ),
+          translationLoader: FileTranslationLoader(
+        useCountryCode: true,
+        // forcedLocale: Locale()
+      )
+          // translationLoader: NamespaceFileTranslationLoader(
+          //   useCountryCode: true,
+          //   namespaces: [ 'login' ]
+          // )
+          ),
       GlobalMaterialLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
@@ -122,9 +123,9 @@ Widget mxcApp() {
     supportedLocales: [
       const Locale('en'),
       const Locale.fromSubtags(languageCode: 'zh'),
-      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans', countryCode:'CN'),
-      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode:'TW'),
-      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode:'HK'),
+      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans', countryCode: 'CN'),
+      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
+      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'HK'),
       const Locale.fromSubtags(languageCode: 'vi'), // Vietnam
       const Locale.fromSubtags(languageCode: 'ja'), // Japan
       const Locale.fromSubtags(languageCode: 'ko'), // Korea

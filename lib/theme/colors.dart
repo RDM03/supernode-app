@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 final appTheme = ThemeData(
   primarySwatch: Colors.blue,
   // secondaryHeaderColor: Colors.blue,
+  brightness: Brightness.light,
+  appBarTheme: AppBarTheme(
+    brightness: Brightness.light
+  ),
 );
 
 const color1 = Color.fromARGB(255, 0, 0, 0);

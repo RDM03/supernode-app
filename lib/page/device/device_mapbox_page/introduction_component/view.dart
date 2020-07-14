@@ -183,7 +183,7 @@ Widget buildView(
   }
 
   Widget _buildThirdBody() {
-    return Column(
+    return ListView(
       children: <Widget>[
         Container(
           alignment: Alignment.center,

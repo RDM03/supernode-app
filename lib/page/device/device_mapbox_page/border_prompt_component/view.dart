@@ -55,7 +55,7 @@ Widget buildView(
         ),
         Positioned(
           top: 50 + (screenSize?.padding?.top ?? 0),
-          right: 22 + (screenSize?.padding?.right ?? 0),
+          left: 22 + (screenSize?.padding?.left ?? 0),
           child: InkWell(
             onTap: () {
               dispatch(DeviceMapBoxActionCreator.setBorderPromptVisible(false));
