@@ -6,13 +6,13 @@ import 'state.dart';
 
 Effect<UserState> buildEffect() {
   return combineEffects(<Object, Effect<UserState>>{
-    // Lifecycle.appear: _appear,
+    Lifecycle.disappear: _disappear,
     // UserAction.onOperate: _onOperate,
   });
 }
 
-void _appear(Action action, Context<UserState> ctx) {
-  ctx.dispatch(HomeActionCreator.onProfile());
+void _disappear(Action action, Context<UserState> ctx) {
+  ctx.dispatch(HomeActionCreator.loading(false));
 }
 
 void _onOperate(Action action, Context<UserState> ctx) {

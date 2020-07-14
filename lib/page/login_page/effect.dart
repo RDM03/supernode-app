@@ -58,6 +58,7 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
         users.add(data['username']);
       }
       StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
+      StorageManager.sharedPreferences.setString(Config.TOKEN_KEY, loginResult['jwt']);
       StorageManager.sharedPreferences.setString(Config.USERNAME_KEY, data['username']);
       StorageManager.sharedPreferences.setString(Config.PASSWORD_KEY, data['password']);
       StorageManager.sharedPreferences.setString(Config.API_ROOT, apiRoot);

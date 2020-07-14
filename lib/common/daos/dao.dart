@@ -58,7 +58,22 @@ class Dao {
       }
       return {};
     }catch(e){
-      DaoSingleton.get(url: url,data: data,dio: dio);
+      return getMethod(url: url,data: data);
+    }
+  }
+
+  Future<dynamic> getMethod({String url, Map data}) async {
+    try {
+      Response response = await dio.get(
+        url,
+        queryParameters: data != null ? new Map<String, dynamic>.from(data) : null,
+      );
+
+      if (response.statusCode == 200) {
+        return response.data;
+      }
+    } on DioError catch (e) {
+      throw e.response != null ? e.response.data['message'] : e.message;
     }
   }
 
@@ -79,23 +94,16 @@ class Dao {
 }
 
 class DaoSingleton{
-  static Future<dynamic> get({String token,String url, Map data,Dio dio}) async {
+  static Future<dynamic> get({String token,String url, Map data}) async {
     Dio _dio;
     try {
-      if(dio != null){
-        _dio = dio;
-      }else{
-        _dio = Dio(
-          BaseOptions(
-            headers: {
-              "Grpc-Metadata-Authorization": token
-            }
-          )
-        );
-
-        _dio.interceptors.add(TokenInterceptors());
-        _dio.interceptors.add(LogsInterceptors());
-      } 
+      _dio = Dio(
+        BaseOptions(
+          headers: {
+            "Grpc-Metadata-Authorization": token
+          }
+        )
+      );
 
       Response response = await _dio.get(
         url,

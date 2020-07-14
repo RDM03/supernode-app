@@ -1,9 +1,8 @@
 import 'dart:isolate';
 
-import 'package:dio/dio.dart';
 import 'package:supernodeapp/common/daos/app_dao.dart';
-import 'package:supernodeapp/common/utils/utils.dart';
-import 'package:supernodeapp/configs/config.dart';
+import 'package:supernodeapp/global_store/store.dart';
+import 'package:supernodeapp/page/settings_page/state.dart';
 
 class IsolateDao {
   static String token = '';
@@ -13,9 +12,8 @@ class IsolateDao {
 
     final _response = new ReceivePort();
 
-    if(token.isEmpty){
-      token = StorageManager?.sharedPreferences?.getString(Config.TOKEN_KEY);
-    }
+    SettingsState settingsData = GlobalStore.store.getState().settings;
+    token = settingsData.token;
 
     isolate['$url'] = await Isolate.spawn(request,_response.sendPort);
 

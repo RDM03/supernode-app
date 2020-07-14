@@ -34,15 +34,24 @@ Effect<HomeState> buildEffect() {
   });
 }
 
-void _relogin(Action action, Context<HomeState> ctx) {
-  Map data = {'username': StorageManager.sharedPreferences.getString(Config.USERNAME_KEY), 'password': StorageManager.sharedPreferences.getString(Config.PASSWORD_KEY)};
+int reloginCount = 0;
+void _relogin(Action action, Context<HomeState> ctx) async{
+  try {
+    if(reloginCount > 3){
+      reloginCount = 0;
+      throw Exception(['error: login more than three times.']);
+    }
 
-  String apiRoot = StorageManager.sharedPreferences.getString(Config.API_ROOT);
-  Dao.baseUrl = apiRoot;
+    reloginCount += 1;
 
-  UserDao dao = UserDao();
-  showLoading(ctx.context);
-  dao.login(data).then((res) {
+    Map data = {'username': StorageManager.sharedPreferences.getString(Config.USERNAME_KEY), 'password': StorageManager.sharedPreferences.getString(Config.PASSWORD_KEY)};
+
+    String apiRoot = StorageManager.sharedPreferences.getString(Config.API_ROOT);
+    Dao.baseUrl = apiRoot;
+
+    UserDao dao = UserDao();
+    showLoading(ctx.context);
+    var res = await dao.login(data);
     mLog('login', res);
     hideLoading(ctx.context);
 
@@ -56,17 +65,20 @@ void _relogin(Action action, Context<HomeState> ctx) {
     settingsData.token = res['jwt'];
     settingsData.username = data['username'];
     _profile(ctx);
-  }).catchError((err) {
+  }catch(e){
     hideLoading(ctx.context);
+
     ctx.dispatch(HomeActionCreator.loading(false));
+
     SettingsState settingsData = GlobalStore.store.getState().settings;
     settingsData.userId = '';
     settingsData.selectedOrganizationId = '';
     settingsData.organizations = [];
     SettingsDao.updateLocal(settingsData);
+
     Navigator.of(ctx.context).pushReplacementNamed('login_page');
     // tip(ctx.context, '$err');
-  });
+  }
 }
 
 void _initState(Action action, Context<HomeState> ctx) async{
