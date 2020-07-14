@@ -32,6 +32,6 @@ class DemoWithdrawDao extends DemoDao implements WithdrawDao {
 
   @override
   Future withdraw(Map data) {
-    throw UnimplementedError('withdraw not supported in demo');
+    return Future.value({"status": true});
   }
 }

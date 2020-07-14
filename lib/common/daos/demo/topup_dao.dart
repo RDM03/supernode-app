@@ -4,7 +4,7 @@ import 'package:supernodeapp/common/daos/demo/demo_dao.dart';
 class DemoTopupDao extends DemoDao implements TopupDao {
   @override
   Future account(Map data) {
-    return Future.value({"activeAccount": "string"});
+    return Future.value({"activeAccount": "0x00000000000000"});
   }
 
   @override

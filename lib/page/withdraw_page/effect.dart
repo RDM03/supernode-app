@@ -5,6 +5,9 @@ import 'package:majascan/majascan.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/security/biometrics.dart';
 import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/daos/demo/user_dao.dart';
+import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
+import 'package:supernodeapp/common/daos/demo/withdraw_dao.dart';
 import 'package:supernodeapp/common/daos/wallet_dao.dart';
 import 'package:supernodeapp/common/daos/withdraw_dao.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
@@ -26,13 +29,25 @@ Effect<WithdrawState> buildEffect() {
   });
 }
 
+WithdrawDao _buildWithdrawDao(Context<WithdrawState> ctx) {
+  return ctx.state.isDemo ? DemoWithdrawDao() : WithdrawDao();
+}
+
+UserDao _buildUserDao(Context<WithdrawState> ctx) {
+  return ctx.state.isDemo ? DemoUserDao() : UserDao();
+}
+
+WalletDao _buildWalletDao(Context<WithdrawState> ctx) {
+  return ctx.state.isDemo ? DemoWalletDao() : WalletDao();
+}
+
 void _initState(Action action, Context<WithdrawState> ctx) {
   _withdrawFee(ctx);
   _requestTOTPStatus(ctx);
 }
 
 void _requestTOTPStatus(Context<WithdrawState> ctx) {
-  UserDao dao = UserDao();
+  UserDao dao = _buildUserDao(ctx);
 
   Map data = {};
 
@@ -48,7 +63,7 @@ void _requestTOTPStatus(Context<WithdrawState> ctx) {
 }
 
 void _withdrawFee(Context<WithdrawState> ctx) {
-  WithdrawDao dao = WithdrawDao();
+  WithdrawDao dao = _buildWithdrawDao(ctx);
   dao.fee().then((res) {
     mLog('WithdrawDao fee', res);
 
@@ -110,7 +125,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
     Biometrics.authenticate(
       ctx.context,
       authenticateCallback: () {
-        WithdrawDao dao = WithdrawDao();
+        WithdrawDao dao = _buildWithdrawDao(ctx);
         Map data = {
           "orgId": orgId,
           "amount": int.parse(amount),
@@ -143,7 +158,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
 }
 
 Future<void> _updateBalance(Context<WithdrawState> ctx) async{
-  WalletDao dao = WalletDao();
+  WalletDao dao = _buildWalletDao(ctx);
   var settingsData = GlobalStore.store.getState().settings;
   String userId = settingsData.userId;
   String orgId = settingsData.selectedOrganizationId;

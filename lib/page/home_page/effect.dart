@@ -339,13 +339,16 @@ void _onOperate(Action action, Context<HomeState> ctx) {
   String act = action.payload;
   String page = '${act}_page';
   double balance = ctx.state.balance;
+  bool isDemo = ctx.state.isDemo;
   List<OrganizationsState> organizations = ctx.state.organizations;
 
   if (act == 'unstake') {
     page = 'stake_page';
   }
 
-  Navigator.pushNamed(ctx.context, page, arguments: {'balance': balance, 'organizations': organizations, 'type': act}).then((res) {
+  Navigator.pushNamed(ctx.context, page, arguments: {
+    'balance': balance, 
+    'organizations': organizations, 'type': act, 'isDemo': isDemo}).then((res) {
     if ((page == 'stake_page' || page == 'withdraw_page') && res) {
       _profile(ctx);
     }

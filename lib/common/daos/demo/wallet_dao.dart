@@ -6,7 +6,7 @@ class DemoWalletDao extends DemoDao implements WalletDao {
   @override
   Future balance(Map data) async {
     return Future.value({
-      'balance': 0,
+      'balance': 20180706,
       'userProfile': await DemoUserDao().profile(),
     });
   }

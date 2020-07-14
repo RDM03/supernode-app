@@ -20,7 +20,8 @@ void _onOperate(Action action, Context<UserState> ctx) {
   String userId = ctx.state.id;
   double balance = ctx.state.balance;
   List<OrganizationsState> organizations = ctx.state.organizations;
+  bool isDemo = ctx.state.isDemo;
 
   Navigator.pushNamed(ctx.context, '${act}_page',
-      arguments: {'balance': balance, 'organizations': organizations, 'userId': userId});
+      arguments: {'balance': balance, 'organizations': organizations, 'userId': userId, 'isDemo': isDemo});
 }

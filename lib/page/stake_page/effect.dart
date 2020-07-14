@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/security/biometrics.dart';
 import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
 import 'package:supernodeapp/common/daos/stake_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/global_store/store.dart';
@@ -14,6 +15,10 @@ Effect<StakeState> buildEffect() {
   return combineEffects(<Object, Effect<StakeState>>{
     StakeAction.onConfirm: _onConfirm,
   });
+}
+
+StakeDao _buildStakeDao(Context<StakeState> ctx) {
+  return ctx.state.isDemo ? DemoStakeDao() : StakeDao();
 }
 
 void _onConfirm(Action action, Context<StakeState> ctx) async {
@@ -29,7 +34,7 @@ void _onConfirm(Action action, Context<StakeState> ctx) async {
     Biometrics.authenticate(
       ctx.context,
       authenticateCallback: () {
-        StakeDao dao = StakeDao();
+        StakeDao dao = _buildStakeDao(ctx);
 
         Map data = {"orgId": orgId, "amount": amount};
 

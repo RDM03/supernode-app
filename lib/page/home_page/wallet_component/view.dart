@@ -52,9 +52,9 @@ Widget buildView(WalletState state, Dispatch dispatch, ViewService viewService) 
                 ),
                 primaryButtons(
                   buttonLabel1: FlutterI18n.translate(_ctx,'deposit'),
-                  onTap1: state.isDemo ? null : () => dispatch(HomeActionCreator.onOperate('deposit')),
+                  onTap1: () => dispatch(HomeActionCreator.onOperate('deposit')),
                   buttonLabel2: FlutterI18n.translate(_ctx,'withdraw'),
-                  onTap2: state.isDemo ? null : () => dispatch(HomeActionCreator.onOperate('withdraw')),
+                  onTap2: () => dispatch(HomeActionCreator.onOperate('withdraw')),
                 ),
               ]
             ),
@@ -73,9 +73,9 @@ Widget buildView(WalletState state, Dispatch dispatch, ViewService viewService) 
                 ),
                 primaryButtons(
                   buttonLabel1: FlutterI18n.translate(_ctx,'stake'),
-                  onTap1: state.isDemo ? null : () => dispatch(HomeActionCreator.onOperate('stake')),
+                  onTap1: () => dispatch(HomeActionCreator.onOperate('stake')),
                   buttonLabel2: FlutterI18n.translate(_ctx,'unstake'),
-                  onTap2: state.isDemo ? null : () => dispatch(HomeActionCreator.onOperate('unstake')),
+                  onTap2: () => dispatch(HomeActionCreator.onOperate('unstake')),
                 ),
               ]
             ),

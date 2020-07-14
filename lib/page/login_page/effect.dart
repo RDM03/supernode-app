@@ -10,6 +10,7 @@ import 'package:supernodeapp/common/daos/dao.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/configs/config.dart';
+import 'package:supernodeapp/data/super_node_bean.dart';
 import 'package:supernodeapp/global_store/action.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
@@ -94,9 +95,16 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
 void _onDemo(Action action, Context<LoginState> ctx) async {
   final dao = DemoUserDao();
   final username = DemoUserDao.username;
+
+  GlobalStore.store.dispatch(GlobalActionCreator.choiceSuperNode(SuperNodeBean(
+    logo: 'https://lora.supernode.matchx.io/branding.png',
+    name: 'Demo',
+  )));
+
   await _handleLoginRequest(dao, username, '', 'demo-root');
   await StorageManager.sharedPreferences.setBool(Config.DEMO_MODE, true);
   await StorageManager.sharedPreferences.setString(Config.TOKEN_KEY, 'demo-token');
+  
   Navigator.pushReplacementNamed(ctx.context, 'home_page');
 }
 

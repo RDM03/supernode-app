@@ -80,7 +80,7 @@ class Mock{
           "revMonth": "string",
           "networkIncome": 0,
           "monthlyRate": 0,
-          "revenue": 0,
+          "revenue": 201712.17,
           "balance": 0
         },
         {
@@ -188,7 +188,7 @@ class Mock{
     "actStake": {
       "Id": "string",
       "FkWallet": "string",
-      "Amount": 10,
+      "Amount": 20200706,
       "StakeStatus": "string",
       "StartStakeTime": "2020-04-27T09:44:56.286Z",
       "UnstakeTime": "2020-04-27T09:44:56.286Z"

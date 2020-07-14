@@ -1,5 +1,6 @@
 import 'package:supernodeapp/common/daos/app_dao.dart';
 import 'package:supernodeapp/common/daos/demo/demo_dao.dart';
+import 'package:supernodeapp/common/daos/demo/user_dao.dart';
 
 class DemoStakeDao extends DemoDao implements StakeDao {
   @override
@@ -18,12 +19,18 @@ class DemoStakeDao extends DemoDao implements StakeDao {
   }
 
   @override
-  Future stake(Map data) {
-    throw UnimplementedError('stake not supported in demo');
+  Future stake(Map data) async {
+    return Future.value({
+      "status": "Demo mode",
+      ...(await DemoUserDao().profile() as Map),
+    });
   }
 
   @override
-  Future unstake(Map data) {
-    throw UnimplementedError('unstake not supported in demo');
+  Future unstake(Map data) async {
+    return Future.value({
+      "status": "Demo mode",
+      ...(await DemoUserDao().profile() as Map),
+    });
   }
 }

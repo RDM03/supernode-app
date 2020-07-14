@@ -17,6 +17,8 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
           'lastSeenAt': '2020-04-15T13:01:41.617Z',
           'organizationID': 'organizationID',
           'networkServerID': 'networkServerID',
+          'model': 'MX1901',
+          'osversion': '0.1.1',
           'location': {
             'latitude': 52.512270,
             'longitude': 13.417280,
@@ -35,6 +37,8 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
           'lastSeenAt': '2020-04-15T13:01:41.617Z',
           'organizationID': 'organizationID',
           'networkServerID': 'networkServerID',
+          'model': 'MX1901',
+          'osversion': '0.1.1',
           'location': {
             'latitude': 52.512270,
             'longitude': 13.417280,

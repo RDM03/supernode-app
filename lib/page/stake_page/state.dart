@@ -11,6 +11,7 @@ class StakeState implements Cloneable<StakeState> {
   List<OrganizationsState> organizations = [];
 
   bool resSuccess = false;
+  bool isDemo = false;
   
   @override
   StakeState clone() {
@@ -19,15 +20,18 @@ class StakeState implements Cloneable<StakeState> {
       ..formKey = formKey
       ..amountCtl = amountCtl
       ..organizations = organizations
-      ..resSuccess = resSuccess;
+      ..resSuccess = resSuccess
+      ..isDemo = isDemo;
   }
 }
 
 StakeState initState(Map<String, dynamic> args) {
   List<OrganizationsState> organizations = args['organizations'];
   String type = args['type'] ?? 'stake';
+  bool isDemo = args['isDemo'] ?? false;
 
   return StakeState()
     ..organizations = organizations
-    ..type = type;
+    ..type = type
+    ..isDemo = isDemo;
 }
