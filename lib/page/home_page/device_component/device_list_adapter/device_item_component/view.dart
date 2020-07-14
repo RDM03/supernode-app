@@ -45,25 +45,13 @@ Widget buildView(
                   child: Row(
                     children: <Widget>[
                       Icon(
-                        Icons.camera_enhance,
-                        size: 24,
-                      ),
-                      Icon(
                         Icons.watch,
-                        size: 24,
-                      ),
-                      Image.asset(
-                        'assets/images/device/solid-camera.png',
-                        width: 24,
-                      ),
-                      Icon(
-                        Icons.directions_car,
                         size: 24,
                       ),
                       SizedBox(width: 7),
                       Expanded(
                         child: Text(
-                          'AI Camera Name AI Camera NameAI Camera Name here…',
+                          'LPWAN watch',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: kBigFontOfBlack,
