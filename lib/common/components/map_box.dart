@@ -313,15 +313,6 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
           onStyleLoadedCallback: widget.config.onStyleLoadedInit,
           zoomGesturesEnabled: widget.isFullScreen,
         ),
-        Visibility(
-          visible: isUserLocation,
-          child: _buildMyLocationIcon()
-        ),
-        Visibility(
-          visible: isUserLocationSwitch,
-          child: _buildMyLocationStateChange()
-        ),
-        widget.isFullScreen ? _buildCloseIcon() : _buildZoomOutIcon(),
         _buildActionWidgets(),
       ],
     );
