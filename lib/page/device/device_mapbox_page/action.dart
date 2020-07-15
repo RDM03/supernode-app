@@ -12,12 +12,16 @@ enum DeviceMapBoxAction {
   changeTabDetailName,
   changeGatewaySliderValue,
   onMapBoxTap,
+  onZoomChanged,
 }
 
 class DeviceMapBoxActionCreator {
 
   static Action onMapBoxTap(LatLng coordinates) {
     return Action(DeviceMapBoxAction.onMapBoxTap, payload: coordinates);
+  }
+  static Action onZoomChanged() {
+    return Action(DeviceMapBoxAction.onZoomChanged);
   }
 
   static Action changeGatewaySliderValue(double value) {

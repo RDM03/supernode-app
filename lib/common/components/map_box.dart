@@ -29,6 +29,8 @@ class MapViewController {
 
   bool _symbolsAdd = false;
 
+  VoidCallback onZoomChanged;
+
   MapViewController({this.markers, this.zoom = 12});
 
   void onStyleLoadedInit() {
@@ -39,7 +41,23 @@ class MapViewController {
   }
 
   void onMapCreated(MapboxMapController controller) {
+    if (this.ctl != null) {
+      _removeListener();
+    }
     this.ctl = controller;
+    actualZoom = this.ctl.cameraPosition?.zoom;
+    this.ctl.addListener(_onMapUpdate);
+  }
+
+  void _removeListener() {
+    this.ctl.removeListener(_onMapUpdate);
+  }
+
+  void _onMapUpdate() {
+    if (actualZoom != this.ctl.cameraPosition?.zoom) {
+      actualZoom = this.ctl.cameraPosition?.zoom;
+      if (onZoomChanged != null) onZoomChanged();
+    }
   }
 
   Future<void> addSymbol(MapMarker marker) async {
@@ -60,6 +78,33 @@ class MapViewController {
       geometry: marker.point,
       iconSize: marker?.size ?? 1,
       iconOffset: marker.iconOffset,
+    ));
+    if (realSymbolPoint == null) {
+      realSymbolPoint = new List<Symbol>();
+    }
+    if (symbolPoint != null) {
+      realSymbolPoint.add(symbolPoint);
+    }
+  }
+
+  Future<void> updateSymbolOffset(MapMarker marker, Offset offset) async {
+    if (markers == null) markers = List<MapMarker>();
+    var result = markers.where((MapMarker item) =>
+        (item.point.latitude == marker.point.latitude) &&
+        (item.point.longitude == marker.point.longitude));
+    if (result.isEmpty) {
+      markers.add(marker);
+    }
+    if (marker.withCircle != null && marker.withCircle) {
+      if (marker.circleOptions != null) {
+        await addCircle(marker.circleOptions);
+      }
+    }
+    var symbolPoint = await ctl?.addSymbol(SymbolOptions(
+      iconImage: marker.image,
+      geometry: marker.point,
+      iconSize: marker?.size ?? 1,
+      iconOffset: offset,
     ));
     if (realSymbolPoint == null) {
       realSymbolPoint = new List<Symbol>();
@@ -152,6 +197,10 @@ class MapViewController {
     if (myLatLng == null) myLatLng = await ctl.requestMyLocationLatLng();
     if (myLatLng != null)
       ctl.moveCamera(CameraUpdate.newLatLngZoom(myLatLng, zoom));
+  }
+
+  void dispose() {
+    if (ctl != null) _removeListener();
   }
 }
 
