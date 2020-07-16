@@ -178,6 +178,12 @@
 	"tip_latest_version": "Program güncel.",
 	"total_device": "Tüm Cihazlar",
 	"downlink_fee": "Downlink Fiyatı",
+	"weekly_revenue": "Weekly Revenue",
+	"frame": "Frame",
+	"gateway_model": "Gateway Model",
+	"gateway_osversion": "Gateway OsVersion",
+	"error_tip": "Error",
+	"updated_successful_tip": "Updated Successfully",
 	"insufficient_balance": "Yetersiz bakiye",
 	"required_2FA_general": "Gerekli 2FA"
 }

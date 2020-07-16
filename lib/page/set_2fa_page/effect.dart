@@ -37,7 +37,7 @@ void _initState(Action action, Context<Set2FAState> ctx) {
     }
 
   }).catchError((err){
-    tip(ctx.context,'$err');
+    // tip(ctx.context,'$err');
   });
 
 }
@@ -118,7 +118,7 @@ void _onGetTOTPConfig(Action action, Context<Set2FAState> ctx) {
     );
   }).catchError((err){
     hideLoading(ctx.context);
-    tip(ctx.context,'UserDao getTOTPConfig: $err');
+    // tip(ctx.context,'UserDao getTOTPConfig: $err');
   });
 }
 
@@ -178,11 +178,11 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx){
       );
     }).catchError((err){
       hideLoading(ctx.context);
-      tip(ctx.context,'$err');
+      // tip(ctx.context,'$err');
     });
   })..catchError((err){
     hideLoading(ctx.context);
-    tip(ctx.context,'Setting setEnable: $err');
+    // tip(ctx.context,'Setting setEnable: $err');
   });
 }
 
@@ -241,10 +241,10 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx){
       });
     }).catchError((err){
       hideLoading(ctx.context);
-      tip(ctx.context,'$err');
+      // tip(ctx.context,'$err');
     });
   })..catchError((err){
     hideLoading(ctx.context);
-    tip(ctx.context,'Setting setDisable: $err');
+    // tip(ctx.context,'Setting setDisable: $err');
   });
 }

@@ -36,10 +36,9 @@ void _initState(Action action, Context<DepositState> ctx){
         ctx.dispatch(DepositActionCreator.address(res['activeAccount']));
       }
     }catch(err){
-      tip(ctx.context,'TopupDao account: $err');
+      // tip(ctx.context,'TopupDao account: $err');
     }
   });
-
 }
 
 void _copy(Action action, Context<DepositState> ctx) {

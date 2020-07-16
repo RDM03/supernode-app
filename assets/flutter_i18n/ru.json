@@ -178,6 +178,12 @@
 	"tip_latest_version": "Это последняя версия.",
 	"total_device": "Всего устройств",
 	"downlink_fee": "Комиссия",
+	"weekly_revenue": "Weekly Revenue",
+	"frame": "Frame",
+	"gateway_model": "Gateway Model",
+	"gateway_osversion": "Gateway OsVersion",
+	"error_tip": "Error",
+	"updated_successful_tip": "Updated Successfully",
 	"insufficient_balance": "Недостаточно средств",
 	"required_2FA_general": "Требуется 2FA"
 }

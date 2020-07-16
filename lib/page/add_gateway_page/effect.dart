@@ -105,6 +105,6 @@ void _register(Context<AddGatewayState> ctx, String serialNumber) {
     }
   }).catchError((err) {
     hideLoading(ctx.context);
-    tip(ctx.context, 'Gateway register: $err');
+    // tip(ctx.context, 'Gateway register: $err');
   });
 }

@@ -131,7 +131,7 @@ void _withdrawFee(Context<WalletState> ctx){
       ctx.dispatch(WalletActionCreator.withdrawFee(Tools.convertDouble(res['withdrawFee'])));
     }
   }).catchError((err){
-    tip(ctx.context,'WithdrawDao fee: $err');
+    // tip(ctx.context,'WithdrawDao fee: $err');
   });
 }
 
@@ -165,7 +165,7 @@ void _staking(Context<WalletState> ctx,String type,Map data){
       ctx.dispatch(WalletActionCreator.updateList(type, list));
     }
   }).catchError((err){
-    tip(ctx.context,'StakeDao activestakes: $err');
+    // tip(ctx.context,'StakeDao activestakes: $err');
   });
 }
 
@@ -186,7 +186,7 @@ Future<void> _requestHistory(Context<WalletState> ctx,dao,Map data,String type, 
     ctx.dispatch(WalletActionCreator.loadingHistory(false));
   }catch(err){
     ctx.dispatch(WalletActionCreator.loadingHistory(false));
-    tip(ctx.context,'$type history: $err');
+    // tip(ctx.context,'$type history: $err');
   }
 
 }

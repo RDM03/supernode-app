@@ -45,7 +45,7 @@ void _requestTOTPStatus(Context<WithdrawState> ctx) {
       ctx.dispatch(WithdrawActionCreator.isEnabled(res['enabled']));
     }
   }).catchError((err) {
-    tip(ctx.context, '$err');
+    // tip(ctx.context, '$err');
   });
 }
 
@@ -58,7 +58,7 @@ void _withdrawFee(Context<WithdrawState> ctx) {
       ctx.dispatch(WithdrawActionCreator.fee(Tools.convertDouble(res['withdrawFee'])));
     }
   }).catchError((err) {
-    tip(ctx.context, 'WithdrawDao fee: $err');
+    // tip(ctx.context, 'WithdrawDao fee: $err');
   });
 }
 
@@ -143,12 +143,12 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
             ctx.dispatch(WithdrawActionCreator.status(true));
           } else {
             ctx.dispatch(WithdrawActionCreator.status(false));
-            tip(ctx.context, res);
+            // tip(ctx.context, res);
           }
         }).catchError((err) {
           hideLoading(ctx.context);
           ctx.dispatch(WithdrawActionCreator.status(false));
-          tip(ctx.context, 'WithdrawDao withdraw: $err');
+          // tip(ctx.context, 'WithdrawDao withdraw: $err');
         });
       },
     );
@@ -170,7 +170,7 @@ Future<void> _updateBalance(Context<WithdrawState> ctx) async{
     double balance = Tools.convertDouble(res['balance']);
     ctx.dispatch(WithdrawActionCreator.balance(balance));
   }catch(err){
-    tip(ctx.context, 'WalletDao balance: $err');
+    // tip(ctx.context, 'WalletDao balance: $err');
   }
 
 }

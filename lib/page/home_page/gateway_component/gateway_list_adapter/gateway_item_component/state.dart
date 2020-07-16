@@ -15,7 +15,9 @@ class GatewayItemState implements Cloneable<GatewayItemState> {
   String createdAt = '';
   String updatedAt = '';
   String firstSeenAt = '';
-  String lastSeenAt;
+  String lastSeenAt = '';
+  String model = '';
+  String osversion = '';
 
   //profile
   // MapController mapCtl = MapController();
@@ -57,6 +59,8 @@ class GatewayItemState implements Cloneable<GatewayItemState> {
     updatedAt = map[GatewaysDao.updatedAt] as String;
     firstSeenAt = map[GatewaysDao.firstSeenAt] as String;
     lastSeenAt = map[GatewaysDao.lastSeenAt] as String;
+    model = map[GatewaysDao.model] as String;
+    osversion = map[GatewaysDao.osversion] as String;
   }
 
   Map<String,dynamic> toMap() {

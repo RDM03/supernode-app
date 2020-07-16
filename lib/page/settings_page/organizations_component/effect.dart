@@ -87,7 +87,7 @@ void _updateData(Context<OrganizationsState> ctx){
 
   }).catchError((err){
     hideLoading(ctx.context);
-    tip(ctx.context,'OrganizationDao update: $err');
+    // tip(ctx.context,'OrganizationDao update: $err');
   });
 
 }
