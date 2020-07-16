@@ -48,7 +48,11 @@ Future<void> main() async {
   ));
 
   if (Platform.isAndroid) {
-    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.dark,
+    );
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
 
