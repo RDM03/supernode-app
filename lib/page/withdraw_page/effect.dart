@@ -27,8 +27,10 @@ Effect<WithdrawState> buildEffect() {
 }
 
 void _initState(Action action, Context<WithdrawState> ctx) {
-  _withdrawFee(ctx);
-  _requestTOTPStatus(ctx);
+  Future.delayed(Duration(seconds: 3),() async{
+    _withdrawFee(ctx);
+    _requestTOTPStatus(ctx);
+  });
 }
 
 void _requestTOTPStatus(Context<WithdrawState> ctx) {
@@ -74,6 +76,11 @@ void _onQrScan(Action action, Context<WithdrawState> ctx) async {
 void _onEnterSecurityWithdrawContinue(Action action, Context<WithdrawState> ctx) async {
   //showLoading(ctx.context);
 
+  final formValid = (ctx.state.formKey.currentState as FormState).validate();
+  if (!formValid) {
+    return;
+  }
+
   Navigator.push(
     ctx.context,
     MaterialPageRoute(
@@ -101,6 +108,12 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
 
   List<String> codes = curState.listCtls.map((code) => code.text).toList();
+  
+  final formValid = (curState.formKey.currentState as FormState).validate();
+  if (!formValid) {
+    return;
+  }
+
   if ((curState.formKey.currentState as FormState).validate()) {
     if (address.trim().isEmpty) {
       tip(ctx.context, 'The field of "To" is required.');

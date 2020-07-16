@@ -5,12 +5,14 @@ import 'package:supernodeapp/page/settings_page/organizations_component/state.da
 class StakeState implements Cloneable<StakeState> {
 
   String type = 'stake';
-  GlobalKey formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey();
   TextEditingController amountCtl = TextEditingController();
 
   List<OrganizationsState> organizations = [];
 
   bool resSuccess = false;
+  bool otpEnabled = false;
+  bool inputLocked = false;
   
   @override
   StakeState clone() {
@@ -19,15 +21,21 @@ class StakeState implements Cloneable<StakeState> {
       ..formKey = formKey
       ..amountCtl = amountCtl
       ..organizations = organizations
-      ..resSuccess = resSuccess;
+      ..resSuccess = resSuccess
+      ..otpEnabled = otpEnabled
+      ..inputLocked = inputLocked;
   }
 }
 
 StakeState initState(Map<String, dynamic> args) {
   List<OrganizationsState> organizations = args['organizations'];
   String type = args['type'] ?? 'stake';
+  bool inputLocked = type == 'unstake';
+  double stakedAmount = type == 'unstake' ? args['stakedAmount'] : null;
 
   return StakeState()
     ..organizations = organizations
-    ..type = type;
+    ..type = type
+    ..inputLocked = inputLocked
+    ..amountCtl = TextEditingController(text: stakedAmount?.toString());
 }

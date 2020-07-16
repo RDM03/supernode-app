@@ -120,7 +120,7 @@
 	"learn_more": "Daha fazla bilgi",
 	"stake_amount": "Stake Edilecek Miktar",
 	"unstake_amount": "İptal Edilecek Stake Miktarı",
-	"revenue_rate": "Gelir Oranı",
+	"revenue_rate": "Mevcut Maksimum Dönüş",
 	"monthly": "aylık",
 	"confirm_stake": "Stake Etmeyi Onayla",
 	"confirm_unstake": "Stake İptal Etmeyi Onayla",
@@ -183,5 +183,7 @@
 	"gateway_model": "Gateway Model",
 	"gateway_osversion": "Gateway OsVersion",
 	"error_tip": "Error",
-	"updated_successful_tip": "Updated Successfully"
+	"updated_successful_tip": "Updated Successfully",
+	"insufficient_balance": "Yetersiz bakiye",
+	"required_2FA_general": "Gerekli 2FA"
 }
