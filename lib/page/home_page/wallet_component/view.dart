@@ -130,8 +130,9 @@ Widget buildView(WalletState state, Dispatch dispatch, ViewService viewService) 
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
           ) : empty(_ctx) )
-        )
-      ]
-    )
+        ),
+        SizedBox(height: 20,)
+      ],
+    ),
   );
 }
