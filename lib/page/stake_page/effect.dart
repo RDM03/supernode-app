@@ -35,7 +35,7 @@ Future<void> _stake(Context<StakeState> ctx) async {
   showLoading(ctx.context);
 
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-  double amount = double.parse(curState.amountCtl.text);
+  String amount = curState.amountCtl.text;
 
   StakeDao dao = StakeDao();
   Map data = {"orgId": orgId, "amount": amount};
@@ -55,7 +55,7 @@ Future<void> _unstake(Context<StakeState> ctx, String otpCode) async {
   showLoading(ctx.context);
 
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-  double amount = double.parse(curState.amountCtl.text);
+  String amount = curState.amountCtl.text;
 
   StakeDao dao = StakeDao();
   Map data = {

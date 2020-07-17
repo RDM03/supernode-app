@@ -148,7 +148,7 @@ Future<void> _balance(Context<HomeState> ctx, UserState userData, String orgId) 
 
   try{
     WalletDao dao = WalletDao();
-    Map data = {'userId': userData.id, 'orgId': orgId};
+    Map data = {'userId': userData.id, 'orgId': orgId, 'currency': ''};
 
     var res = await dao.balance(data);
     mLog('balance', res);
@@ -166,7 +166,7 @@ Future<void> _miningIncome(Context<HomeState> ctx, UserState userData, String or
   
   try{
     WalletDao dao = WalletDao();
-    Map data = {'userId': userData.id, 'orgId': orgId};
+    Map data = {'userId': userData.id, 'orgId': orgId, 'currency': ''};
 
     var res = await dao.miningIncome(data);
 
@@ -179,7 +179,7 @@ Future<void> _miningIncome(Context<HomeState> ctx, UserState userData, String or
 
     ctx.dispatch(HomeActionCreator.miningIncome(value));
 
-    Map priceData = {'userId': userData.id, 'orgId': orgId, 'mxcPrice': '${value == 0.0 ? value.toInt() : value}'};
+    Map priceData = {'userId': userData.id, 'orgId': orgId, 'currency': '', 'mxcPrice': '${value == 0.0 ? value.toInt() : value}'};
     await _convertUSD(ctx, priceData, 'gateway');
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
@@ -301,7 +301,7 @@ Future<void> _devices(Context<HomeState> ctx, UserState userData, String orgId) 
 
     ctx.dispatch(HomeActionCreator.devices(total, allValues));
 
-    Map priceData = {'userId': userData.id, 'orgId': orgId, 'mxcPrice': '${allValues == 0.0 ? allValues.toInt() : allValues}'};
+    Map priceData = {'userId': userData.id, 'orgId': orgId, 'currency': '', 'mxcPrice': '${allValues == 0.0 ? allValues.toInt() : allValues}'};
 
     await _convertUSD(ctx, priceData, 'device');
   }catch(err){
@@ -378,7 +378,7 @@ Future<void> _convertUSD(Context<HomeState> ctx, Map data, String type) async{
 Future<void> _stakingRevenue(Context<HomeState> ctx, String orgId) async{
   try{
     StakeDao dao = StakeDao();
-    Map data = {'orgId': orgId, 'offset': 0, 'limit': 999};
+    Map data = {'orgId': orgId, 'from': 0, 'till': DateTime.now().add(Duration(days: 1)).toIso8601String()};
 
     var res = await dao.history(data);
     mLog('StakeDao history', res);
