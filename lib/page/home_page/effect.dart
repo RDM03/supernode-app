@@ -54,6 +54,7 @@ void _relogin(Action action, Context<HomeState> ctx) async{
     var res = await dao.login(data);
     mLog('login', res);
     hideLoading(ctx.context);
+    reloginCount = 0;
 
     SettingsState settingsData = GlobalStore.store.getState().settings;
 
