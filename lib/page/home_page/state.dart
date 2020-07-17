@@ -15,8 +15,9 @@ import 'wallet_component/wallet_list_adapter/wallet_item_component/state.dart';
 
 class HomeState implements Cloneable<HomeState> {
   //home
-  bool isUpdate = true;
+  int reloginCount = 0;
   int tabIndex = 0;
+  bool isUpdate = true;
   bool loading = true;
 
   //profile
@@ -72,6 +73,7 @@ class HomeState implements Cloneable<HomeState> {
   @override
   HomeState clone() {
     return HomeState()
+      ..reloginCount = reloginCount
       ..isUpdate = isUpdate
       ..tabController = tabController
       ..tabIndex = tabIndex

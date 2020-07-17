@@ -34,15 +34,16 @@ Effect<HomeState> buildEffect() {
   });
 }
 
-int reloginCount = 0;
 void _relogin(Action action, Context<HomeState> ctx) async{
+
+  int reloginCount = ctx.state.reloginCount;
   try {
     if(reloginCount > 3){
-      reloginCount = 0;
+      ctx.dispatch(HomeActionCreator.reloginCount(0));
       throw Exception(['error: login more than three times.']);
     }
 
-    reloginCount += 1;
+    ctx.dispatch(HomeActionCreator.reloginCount(reloginCount++));
 
     Map data = {'username': StorageManager.sharedPreferences.getString(Config.USERNAME_KEY), 'password': StorageManager.sharedPreferences.getString(Config.PASSWORD_KEY)};
 
@@ -54,7 +55,6 @@ void _relogin(Action action, Context<HomeState> ctx) async{
     var res = await dao.login(data);
     mLog('login', res);
     hideLoading(ctx.context);
-    reloginCount = 0;
 
     SettingsState settingsData = GlobalStore.store.getState().settings;
 
