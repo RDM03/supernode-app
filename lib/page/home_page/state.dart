@@ -201,7 +201,9 @@ class GatewayConnector extends ConnOp<HomeState, GatewayState> {
 class DeviceConnector extends ConnOp<HomeState, DeviceState> {
   @override
   DeviceState get(HomeState state) {
-    return DeviceState()..deviceSortType = state.deviceSortType;
+    return DeviceState()
+      ..deviceSortType = state.deviceSortType
+      ..isDemo = state.isDemo;
   }
 
   @override

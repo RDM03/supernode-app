@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/theme/font.dart';
 
+import '../../action.dart';
 import 'state.dart';
 
 Widget buildView(
@@ -16,7 +17,7 @@ Widget buildView(
     ),
     child: ListTile(
       onTap: () {
-        Navigator.pushNamed(_ctx, 'device_mapbox_page');
+        dispatch(DeviceActionCreator.onOpen());
       },
       // onTap: () => dispatch(GatewayItemActionCreator.onProfile()),
       title: Container(

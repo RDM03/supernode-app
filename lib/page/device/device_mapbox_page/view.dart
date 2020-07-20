@@ -21,8 +21,8 @@ Widget buildView(
       body: Stack(
         children: <Widget>[
           MapBoxWidget(
-            needFirstPosition: false,
-            userLocationSwitch: true,
+            needFirstPosition: state.isDemo ? true : false,
+            userLocationSwitch: state.isDemo ? false : true,
             isActionsTop: true,
             config: state.mapCtl,
             isFullScreen: true,

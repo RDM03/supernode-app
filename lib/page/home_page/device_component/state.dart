@@ -18,10 +18,13 @@ class DeviceState extends MutableSource implements Cloneable<DeviceState> {
   @override
   void setItemData(int index, Object data) => list[index] = data;
 
+  bool isDemo;
+
   @override
   DeviceState clone() {
     return DeviceState()
-      ..deviceSortType = deviceSortType;
+      ..deviceSortType = deviceSortType
+      ..isDemo = isDemo;
   }
 }
 

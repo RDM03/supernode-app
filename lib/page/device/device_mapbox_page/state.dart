@@ -34,6 +34,8 @@ class DeviceMapBoxState implements Cloneable<DeviceMapBoxState> {
 
   TextEditingController ageController = new TextEditingController();
 
+  bool isDemo;
+
   @override
   DeviceMapBoxState clone() {
     return DeviceMapBoxState()
@@ -51,12 +53,17 @@ class DeviceMapBoxState implements Cloneable<DeviceMapBoxState> {
       ..gatewaySliderValue = gatewaySliderValue
       ..ageController = ageController
       ..centerPoint = centerPoint
+      ..isDemo = isDemo
       ..footPrintsType = footPrintsType;
   }
 }
 
 DeviceMapBoxState initState(Map<String, dynamic> args) {
-  return DeviceMapBoxState()..mapCtl = MapViewController();
+  args ??= {};
+  final isDemo = args['isDemo'] ?? false;
+  return DeviceMapBoxState()
+    ..isDemo = isDemo
+    ..mapCtl = MapViewController();
 }
 
 class IntroductionConnector

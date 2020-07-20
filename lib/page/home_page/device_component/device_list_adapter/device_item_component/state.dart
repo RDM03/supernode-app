@@ -1,7 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 
 class DeviceItemState implements Cloneable<DeviceItemState> {
-
   @override
   DeviceItemState clone() {
     return DeviceItemState();

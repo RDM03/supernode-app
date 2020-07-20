@@ -10,6 +10,13 @@ import 'state.dart';
 Effect<DeviceState> buildEffect() {
   return combineEffects(<Object, Effect<DeviceState>>{
     DeviceAction.onQrScan: _onQrScan,
+    DeviceAction.onOpen: _onOpen,
+  });
+}
+
+void _onOpen(Action action, Context<DeviceState> ctx) {
+  Navigator.pushNamed(ctx.context, 'device_mapbox_page', arguments: {
+    'isDemo': ctx.state.isDemo
   });
 }
 
