@@ -13,6 +13,7 @@ Effect<DeviceMapBoxState> buildEffect() {
     DeviceMapBoxAction.setBorderPromptVisible: _setBorderPromptVisible,
     DeviceMapBoxAction.changeTabDetailName: _changeTabDetailName,
     DeviceMapBoxAction.onMapBoxTap: _onMapBoxTap,
+    DeviceMapBoxAction.onZoomChanged: _onZoomChanged,
     DeviceMapBoxAction.changeBottomTab: _changeBottomTab,
     DeviceMapBoxAction.changeGatewaySliderValue: _changeGatewaySliderValue,
     Lifecycle.initState: _init,
@@ -23,11 +24,12 @@ bool _changeGatewaySliderValue(Action action, Context<DeviceMapBoxState> ctx) {
   //0-25
   var sliderValue = action.payload;
   var mapCtl = ctx.state.mapCtl;
+  final radius = calculateCircleRadius(mapCtl, sliderValue.roundToDouble());
   if ((mapCtl?.realCirclePoint?.length ?? 0) > 0) {
     mapCtl.updateCircle(
       mapCtl.realCirclePoint[0],
       CircleOptions(
-        circleRadius: sliderValue * 2 + 100,
+        circleRadius: radius,
       ),
     );
   }
@@ -35,9 +37,45 @@ bool _changeGatewaySliderValue(Action action, Context<DeviceMapBoxState> ctx) {
 }
 
 void _init(Action action, Context<DeviceMapBoxState> ctx) {
+  ctx.state.mapCtl.onZoomChanged = () => ctx.dispatch(DeviceMapBoxActionCreator.onZoomChanged());
   Future.delayed(Duration(seconds: 2), () {
     _setButtonTabMap(0, ctx);
   });
+}
+
+double metersToPixelsAtZoom(double meters, double latitude, double zoom) {
+  return meters / (78271.484 / pow(2, zoom)) / cos(latitude * pi / 180);
+}
+
+double calculateCircleRadius(MapViewController mapCtl, double km) {
+  return metersToPixelsAtZoom(km * 1000, mapCtl.realCirclePoint[0].options.geometry.latitude, mapCtl.actualZoom);
+}
+
+void _onZoomChanged(Action action, Context<DeviceMapBoxState> ctx) {
+  ctx.state.gatewaySliderValue.roundToDouble();
+  var mapCtl = ctx.state.mapCtl;
+  if ((mapCtl?.realCirclePoint?.length ?? 0) > 0) {
+    final borderRadiusKm = ctx.state.gatewaySliderValue.roundToDouble();
+    final radius = calculateCircleRadius(mapCtl, borderRadiusKm);
+    final borderMarker = mapCtl.realSymbolPoint.firstWhere(
+      (e) => e.options.iconImage == 'assets/images/device/PIN.png', 
+      orElse: () => null
+    );
+    if (borderMarker != null) {
+      final gatewayGeometry = mapCtl.realCirclePoint[0].options.geometry;
+      final newLatitude  = gatewayGeometry.latitude  + (borderRadiusKm * 1000  / 6371000.0) * (180 / pi);
+      mapCtl.ctl.updateSymbol(borderMarker, SymbolOptions(
+        iconOffset: Offset(0, -10),
+        geometry: LatLng(newLatitude, gatewayGeometry.longitude)
+      ));
+    }
+    mapCtl.updateCircle(
+      mapCtl.realCirclePoint[0],
+      CircleOptions(
+        circleRadius: radius,
+      ),
+    );
+  }
 }
 
 bool _changeBottomTab(Action action, Context<DeviceMapBoxState> ctx) {
@@ -228,30 +266,30 @@ void _setButtonTabDetailMap(
         center.latitude + sin(6 * pi / 6.0) / 60.0,
         center.longitude + cos(6 * pi / 6.0) / 60.0,
       );
-      ctx.state.mapCtl.addCircle(
-        CircleOptions(
-          geometry: pinPoint,
-          circleColor: "#FF0000",
-          circleRadius: 3,
-        ),
-      );
-      ctx.state.mapCtl.addSymbol(
-        MapMarker(
-          size: 1.5,
-          image: 'assets/images/device/PIN.png',
-          point: pinPoint,
-          iconOffset: Offset(0, -10),
-        ),
-      );
+      // ctx.state.mapCtl.addCircle(
+      //   CircleOptions(
+      //     geometry: pinPoint,
+      //     circleColor: "#FF0000",
+      //     circleRadius: 3,
+      //   ),
+      // );
+      // ctx.state.mapCtl.addSymbol(
+      //   MapMarker(
+      //     size: 1.5,
+      //     image: 'assets/images/device/PIN.png',
+      //     point: pinPoint,
+      //     iconOffset: Offset(0, -10),
+      //   ),
+      // );
       //add line
-      ctx.state.mapCtl.addLine(
-        LineOptions(
-          geometry: [center, pinPoint],
-          lineColor: "#ff0000",
-          lineWidth: 2.0,
-          lineOpacity: 1,
-        ),
-      );
+      // ctx.state.mapCtl.addLine(
+      //   LineOptions(
+      //     geometry: [center, pinPoint],
+      //     lineColor: "#ff0000",
+      //     lineWidth: 2.0,
+      //     lineOpacity: 1,
+      //   ),
+      // );
     } else if (tabEnum == TabDetailPageEnum.Footprints) {
       ctx.state.mapCtl.addCircle(
         CircleOptions(
