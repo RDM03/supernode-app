@@ -237,6 +237,7 @@ Widget _buildAppBar({String title, Widget trackingWidget}) {
 Widget _buildPage({Widget appBar, Widget pageContent}) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16),
+    padding: EdgeInsets.only(bottom: 83),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(10),
@@ -244,12 +245,41 @@ Widget _buildPage({Widget appBar, Widget pageContent}) {
       ),
       color: Colors.white,
     ),
-    child: Column(
-      children: <Widget>[
-        appBar == null ? SizedBox() : appBar,
-        pageContent == null ? SizedBox() : Expanded(child: pageContent),
-        SizedBox(height: 82.5),
+    child: CustomScrollView(
+      slivers: <Widget>[
+        SliverPersistentHeader(
+          pinned: true,
+          delegate: PersistentHeader(
+            widget: appBar == null ? SizedBox() : appBar,
+          ),
+        ),
+        SliverFillRemaining(
+          child: pageContent == null ? SizedBox() : pageContent,
+        ),
       ],
     ),
   );
+}
+
+class PersistentHeader extends SliverPersistentHeaderDelegate {
+  final Widget widget;
+
+  PersistentHeader({this.widget});
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return widget;
+  }
+
+  @override
+  double get maxExtent => 70.0;
+
+  @override
+  double get minExtent => 70.0;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
+    return true;
+  }
 }
