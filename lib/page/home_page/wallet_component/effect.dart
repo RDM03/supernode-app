@@ -54,8 +54,8 @@ void _onTab(Action action, Context<WalletState> ctx) {
     'orgId': orgId,
     'offset': 0,
     'limit': 999,
-    'from': 0,
-    'till': DateTime.now().add(Duration(days: 1)).toIso8601String(),
+    'from': DateTime(2000).toUtc().toIso8601String(),
+    'till': DateTime.now().add(Duration(days: 1)).toUtc().toIso8601String(),
   };
 
   _search(ctx,'SEARCH DEFUALT',data);
@@ -71,8 +71,8 @@ void _onFilter(Action action, Context<WalletState> ctx) {
     'orgId': orgId,
     'offset': 0,
     'limit': 999,
-    'from': 0,
-    'till': DateTime.now().add(Duration(days: 1)).toIso8601String(),
+    'from': DateTime(2000).toUtc().toIso8601String(),
+    'till': DateTime.now().add(Duration(days: 1)).toUtc().toIso8601String(),
   };
 
   _withdrawFee(ctx);

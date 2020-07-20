@@ -38,7 +38,7 @@ class Tools {
   }
 
   static String priceFormat(double number,{int range = 1}){
-    return number.toStringAsFixed(range);
+    return number?.toStringAsFixed(range) ?? '0.0';
   }
 
   static double convertDouble(dynamic number){

@@ -378,7 +378,11 @@ Future<void> _convertUSD(Context<HomeState> ctx, Map data, String type) async{
 Future<void> _stakingRevenue(Context<HomeState> ctx, String orgId) async{
   try{
     StakeDao dao = StakeDao();
-    Map data = {'orgId': orgId, 'from': 0, 'till': DateTime.now().add(Duration(days: 1)).toIso8601String()};
+    Map data = {
+      'orgId': orgId,
+      'from': DateTime(2000).toUtc().toIso8601String(), 
+      'till': DateTime.now().add(Duration(days: 1)).toUtc().toIso8601String()
+    };
 
     var res = await dao.history(data);
     mLog('StakeDao history', res);
