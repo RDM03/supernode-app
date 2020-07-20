@@ -73,6 +73,7 @@ void _onFilter(Action action, Context<WalletState> ctx) {
     'limit': 999,
     'from': DateTime(2000).toUtc().toIso8601String(),
     'till': DateTime.now().add(Duration(days: 1)).toUtc().toIso8601String(),
+    'currency': '',
   };
 
   _withdrawFee(ctx);

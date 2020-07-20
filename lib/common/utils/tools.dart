@@ -42,10 +42,7 @@ class Tools {
   }
 
   static double convertDouble(dynamic number){
-    if(number.runtimeType == int){
-      return double.parse(number.toString());
-    }
-
-    return number;
+    if (number is double) return number;
+    return double.parse(number.toString());
   } 
 }
