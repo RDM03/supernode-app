@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:supernodeapp/common/components/text_field/primary_text_field.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/colors.dart' as c;
 
 class TextFieldWithTitle extends StatelessWidget {
   TextFieldWithTitle(
@@ -17,8 +18,10 @@ class TextFieldWithTitle extends StatelessWidget {
       this.keyboardType,
       this.onChanged,
       this.maxLength,
+      this.borderColor = c.borderColor,
       this.counterText});
 
+  final Color borderColor;
   final String title;
   final String hint;
   final bool isObscureText;
@@ -61,6 +64,7 @@ class TextFieldWithTitle extends StatelessWidget {
           child: Stack(
             children: <Widget>[
               PrimaryTextField(
+                borderColor: borderColor,
                 maxLength: maxLength,
                 counterText: counterText,
                 readOnly: readOnly,
