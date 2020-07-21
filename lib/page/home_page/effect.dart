@@ -198,7 +198,7 @@ Future<void> _stakeAmount(Context<HomeState> ctx, String orgId) async{
     mLog('StakeDao amount', res);
     double amount = 0;
     if (res.containsKey('actStake') && res['actStake'] != null) {
-      amount = Tools.convertDouble(res['actStake']['Amount']);
+      amount = Tools.convertDouble(res['actStake']['amount']);
     }
 
     ctx.dispatch(HomeActionCreator.stakedAmount(amount));

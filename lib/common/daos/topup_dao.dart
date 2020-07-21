@@ -8,7 +8,7 @@ class TopupApi {
 class TopupDao extends Dao{
   //remote
   Future<dynamic> history(Map data){
-    return get(
+    return post(
       url: TopupApi.history,
       data: data
     );
