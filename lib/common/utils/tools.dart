@@ -42,6 +42,7 @@ class Tools {
   }
 
   static double convertDouble(dynamic number){
+    if (number == null) return null;
     if (number is double) return number;
     return double.parse(number.toString());
   } 
