@@ -380,24 +380,14 @@ Future<void> _stakingRevenue(Context<HomeState> ctx, String orgId) async{
     StakeDao dao = StakeDao();
     Map data = {
       'orgId': orgId,
-      'from': DateTime(2000).toUtc().toIso8601String(), 
       'till': DateTime.now().add(Duration(days: 1)).toUtc().toIso8601String()
     };
 
-    var res = await dao.history(data);
-    mLog('StakeDao history', res);
-    double totleRevenue = 0;
+    var res = await dao.revenue(data);
 
-    if ((res as Map).containsKey('stakingHist') && res['stakingHist'].length > 0) {
-      List items = res['stakingHist'] as List;
-      items.forEach((item) {
-        WalletItemState obj = WalletItemState.fromMap(item);
-        totleRevenue += obj.revenue;
-      });
-
-      ctx.dispatch(HomeActionCreator.totalRevenue(totleRevenue));
-    }
-
+    mLog('StakeDao revenue', res);
+    final amount = Tools.convertDouble(res['amount']);
+    ctx.dispatch(HomeActionCreator.totalRevenue(amount));
     ctx.dispatch(HomeActionCreator.loading(false));
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
