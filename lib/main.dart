@@ -15,6 +15,7 @@ import 'package:supernodeapp/page/app.dart';
 import 'package:supernodeapp/page/sign_up_page/page.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'appliction/app.dart';
+import 'common/utils/no_glow_behavior.dart';
 import 'global_store/state.dart';
 import 'page/add_gateway_page/page.dart';
 import 'page/change_password_page/page.dart';
@@ -138,6 +139,15 @@ Widget mxcApp() {
     home: AppPage(
       child: routes.buildPage('splash_page', null),
     ),
+    builder: (context, child) {
+      if (Platform.isAndroid) {
+        return ScrollConfiguration(
+          behavior: NoGlowBehavior(),
+          child: child,
+        );
+      }
+      return child;
+    },
     onGenerateRoute: (RouteSettings settings) {
       return MaterialPageRoute(
         builder: (BuildContext context) {
