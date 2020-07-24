@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 import 'package:supernodeapp/common/daos/settings_dao.dart';
 
 import 'about_component/state.dart';
@@ -9,7 +10,7 @@ import 'profile_component/state.dart';
 import 'security_component/state.dart';
 
 class SettingsState implements Cloneable<SettingsState> {
-
+  PackageInfo info;
   int cId;
   String id;
   bool notification = false;
@@ -21,7 +22,7 @@ class SettingsState implements Cloneable<SettingsState> {
   int theme = 0;
 
   String token = '';
-  String otp_code = '';
+  String otpCode = '';
   List<OrganizationsState> organizations = [];
   String selectedOrganizationId = '';
   String expire = '';
@@ -72,7 +73,8 @@ class SettingsState implements Cloneable<SettingsState> {
       ..orgNameCtl = orgNameCtl
       ..orgDisplayCtl = orgDisplayCtl
       ..orgListCtl = orgListCtl
-      ..isDemo = isDemo;
+      ..isDemo = isDemo
+      ..info = info;
   }
 
   // columns: [cId, notification, superNode, lanuage, userId, theme]
@@ -204,11 +206,12 @@ class AboutConnector extends ConnOp<SettingsState, AboutState>{
   AboutState get(SettingsState state){
     return AboutState()
       ..version = state.version
-      ..buildNumber = state.buildNumber;
+      ..buildNumber = state.buildNumber
+      ..info = state.info;
   }
 
   @override
   void set(SettingsState state, AboutState subState) {
-   
+   state.info = subState.info;
   }
 }

@@ -1,6 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:package_info/package_info.dart';
 
 class AboutState implements Cloneable<AboutState> {
+  PackageInfo info;
 
   String version = '';
   String buildNumber = '';
@@ -9,7 +11,8 @@ class AboutState implements Cloneable<AboutState> {
   AboutState clone() {
     return AboutState()
       ..version = version
-      ..buildNumber = buildNumber;
+      ..buildNumber = buildNumber
+      ..info = info;
   }
 }
 

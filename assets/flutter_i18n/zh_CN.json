@@ -179,6 +179,7 @@
 	"total_device": "设备总数",
 	"downlink_fee": "下行链路费用",
 	"demo": "尝试演示！",
+	"loading": "loading...",
 	"weekly_revenue": "Weekly Revenue",
 	"frame": "Frame",
 	"gateway_model": "Gateway Model",

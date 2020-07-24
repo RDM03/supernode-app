@@ -14,6 +14,7 @@ import 'package:supernodeapp/data/super_node_bean.dart';
 import 'package:supernodeapp/global_store/action.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
+
 import 'action.dart';
 import 'state.dart';
 

@@ -13,7 +13,6 @@ Widget panelBody(
     bool loading = false}) {
   var temp = trailSubtitle.split('(');
   String mxcPrice = temp[0].substring(0, temp[0].length - 1);
-  String usdPrice = temp[1].substring(0, temp[1].length - 1);
 
   return ListTile(
     contentPadding: EdgeInsets.zero,

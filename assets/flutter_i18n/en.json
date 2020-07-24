@@ -248,6 +248,7 @@
 	"device_bluetooth_prompt": "Select a Bluetooth device from the list of devices. Make sure your",
 	"bluetooth": "Bluetooth",
 	"is_turned_on": "is turned on.",
+	"loading": "loading...",
 	"insufficient_balance": "Insufficient balance",
 	"required_2FA_general": "Required 2FA"
 }

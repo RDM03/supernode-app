@@ -23,12 +23,12 @@ Widget listItem({BuildContext context,String type = '',String datetime,String se
             ),
             smallRowSpacer(),
             Visibility(
-              visible: !type?.contains('SEARCH') && !type?.contains('STAKE') && !type?.contains('UNSTAKE'),
+              visible: !type.contains('SEARCH') && !type.contains('STAKE') && !type.contains('UNSTAKE'),
               child: Expanded(
                 child: Text(
                   '(${FlutterI18n.translate(context,type.toLowerCase())})',
                   overflow: TextOverflow.ellipsis,
-                  style: type?.contains('DEPOSIT') ? kSmallFontOfGreen : kSmallFontOfRed
+                  style: type.contains('DEPOSIT') ? kSmallFontOfGreen : kSmallFontOfRed
                 ),
               )
             ),
@@ -45,7 +45,7 @@ Widget listItem({BuildContext context,String type = '',String datetime,String se
             Container(
               padding: kRoundRow5,
               decoration: BoxDecoration(
-                color: amount <= 0 || type?.contains('STAKE') ? null : depositColor,
+                color: amount <= 0 || type.contains('STAKE') ? null : depositColor,
                 borderRadius: BorderRadius.all(Radius.circular(7)),
               ),
               child: Text(

@@ -6,5 +6,3 @@ Effect<EnterRecoveryCodeState> buildEffect() {
   return combineEffects(<Object, Effect<EnterRecoveryCodeState>>{
   });
 }
-
-

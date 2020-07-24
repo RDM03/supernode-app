@@ -4,12 +4,12 @@ import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
 import 'package:supernodeapp/common/daos/demo/topup_dao.dart';
 import 'package:supernodeapp/common/daos/demo/withdraw_dao.dart';
 import 'package:supernodeapp/common/daos/stake_dao.dart';
+import 'package:supernodeapp/common/daos/topup_dao.dart';
 import 'package:supernodeapp/common/daos/withdraw_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
-import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/daos/topup_dao.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
+
 import 'action.dart';
 import 'state.dart';
 
@@ -190,7 +190,7 @@ void _staking(Context<WalletState> ctx,String type,Map data){
   });
 }
 
-Future<void> _requestHistory(Context<WalletState> ctx,dao,Map data,String type, String keyType) async{
+Future<void> _requestHistory(Context<WalletState> ctx,dao,Map data,String type, String keyType) async {
   ctx.dispatch(WalletActionCreator.loadingHistory(true));
   
   try{

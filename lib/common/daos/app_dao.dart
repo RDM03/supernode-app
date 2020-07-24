@@ -1,7 +1,7 @@
 export 'dao.dart';
-export 'mock.dart';
 export 'devices_dao.dart';
 export 'gateways_dao.dart';
+export 'mock.dart';
 export 'organization_dao.dart';
 export 'settings_dao.dart';
 export 'stake_dao.dart';
