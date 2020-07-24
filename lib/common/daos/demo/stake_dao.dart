@@ -33,4 +33,11 @@ class DemoStakeDao extends DemoDao implements StakeDao {
       ...(await DemoUserDao().profile() as Map),
     });
   }
+
+  @override
+  Future revenue(Map data) {
+    return Future.value({
+      'amount': 120
+    });
+  }
 }

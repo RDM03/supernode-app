@@ -26,4 +26,8 @@ class DemoDao implements Dao {
     throw UnimplementedError("Direct PUT unavailable in demo");
   }
 
+  @override
+  Future getMethod({String url, Map data}) {
+    throw UnimplementedError("Direct getMethod unavailable in demo");
+  }
 }
