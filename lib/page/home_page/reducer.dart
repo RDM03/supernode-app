@@ -23,8 +23,16 @@ Reducer<HomeState> buildReducer() {
       HomeAction.convertUSD: _convertUSD,
       HomeAction.totalRevenue: _totalRevenue,
       HomeAction.isUpdate: _isUpdate,
+      HomeAction.reloginCount: _reloginCount,
     },
   );
+}
+
+HomeState _reloginCount(HomeState state, Action action) {
+
+  final HomeState newState = state.clone();
+  return newState
+    ..reloginCount = action.payload;
 }
 
 HomeState _isUpdate(HomeState state, Action action) {

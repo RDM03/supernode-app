@@ -28,7 +28,6 @@ Effect<WithdrawState> buildEffect() {
     WithdrawAction.onSubmit: _onSubmit,
   });
 }
-
 WithdrawDao _buildWithdrawDao(Context<WithdrawState> ctx) {
   return ctx.state.isDemo ? DemoWithdrawDao() : WithdrawDao();
 }
@@ -41,40 +40,42 @@ WalletDao _buildWalletDao(Context<WithdrawState> ctx) {
   return ctx.state.isDemo ? DemoWalletDao() : WalletDao();
 }
 
-void _initState(Action action, Context<WithdrawState> ctx) {
-  Future.delayed(Duration(seconds: 3),() async{
-    _withdrawFee(ctx);
-    _requestTOTPStatus(ctx);
-  });
-}
-
-void _requestTOTPStatus(Context<WithdrawState> ctx) {
+Future<void> _requestTOTPStatus(Context<WithdrawState> ctx) async{
   UserDao dao = _buildUserDao(ctx);
 
   Map data = {};
 
-  dao.getTOTPStatus(data).then((res) {
+  try{
+    var res = await dao.getTOTPStatus(data);
     mLog('totp', res);
 
     if ((res as Map).containsKey('enabled')) {
       ctx.dispatch(WithdrawActionCreator.isEnabled(res['enabled']));
     }
-  }).catchError((err) {
-    // tip(ctx.context, '$err');
-  });
+  } catch(err){
+    tip(ctx.context, '$err');
+  }
 }
 
-void _withdrawFee(Context<WithdrawState> ctx) {
-  WithdrawDao dao = _buildWithdrawDao(ctx);
-  dao.fee().then((res) {
+void _initState(Action action, Context<WithdrawState> ctx) async {
+  await _withdrawFee(ctx);
+  await _requestTOTPStatus(ctx);
+}
+
+Future<void> _withdrawFee(Context<WithdrawState> ctx) async{
+
+  try{
+    WithdrawDao dao = WithdrawDao();
+    var res = await dao.fee();
     mLog('WithdrawDao fee', res);
 
     if ((res as Map).containsKey('withdrawFee')) {
       ctx.dispatch(WithdrawActionCreator.fee(Tools.convertDouble(res['withdrawFee'])));
     }
-  }).catchError((err) {
-    // tip(ctx.context, 'WithdrawDao fee: $err');
-  });
+  } catch(err){
+    tip(ctx.context, 'WithdrawDao fee: $err');
+  }
+  
 }
 
 void _onQrScan(Action action, Context<WithdrawState> ctx) async {
@@ -141,7 +142,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
         WithdrawDao dao = _buildWithdrawDao(ctx);
         Map data = {
           "orgId": orgId,
-          "amount": int.parse(amount),
+          "amount": amount,
           "ethAddress": address,
           "availableBalance": balance,
           "otp_code": codes.join('')

@@ -22,10 +22,15 @@ enum HomeAction {
   convertUSD,
   location,
   totalRevenue,
-  isUpdate
+  isUpdate,
+  reloginCount
 }
 
 class HomeActionCreator {
+  static Action reloginCount(int num) {
+    return Action(HomeAction.reloginCount,payload: num);
+  }
+
   static Action isUpdate() {
     return const Action(HomeAction.isUpdate);
   }
