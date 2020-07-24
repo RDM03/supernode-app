@@ -79,7 +79,9 @@ void _onTab(Action action, Context<WalletState> ctx) {
     'till': DateTime.now().add(Duration(days: 1)).toUtc().toIso8601String(),
   };
 
-  _search(ctx,'SEARCH DEFUALT',data);
+  Future.delayed(Duration(seconds: 1), () {
+    _search(ctx,'SEARCH DEFUALT',data);
+  });
 }
 
 void _onFilter(Action action, Context<WalletState> ctx) {
