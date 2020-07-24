@@ -70,9 +70,9 @@ class TokenInterceptors extends InterceptorsWrapper {
     if(errRes != null && errRes.toString().contains(new RegExp(r'jwt|authentication'))){
       /// when token is expired, it needs to start to login.
       Dao.ctx.dispatch(HomeActionCreator.onReLogin());
-    } else if (errRes.statusCode == 401 || errRes.toString().contains('not authenticated')) {
+    } else if (Dao.ctx?.context != null && errRes.statusCode == 401 || errRes.toString().contains('not authenticated')) {
       await logOut(Dao.ctx.context);
-    } else{
+    } else if (Dao.ctx?.context != null) {
       tip(Dao.ctx.context, FlutterI18n.translate(Dao.ctx.context,'error_tip'));
     }
 
