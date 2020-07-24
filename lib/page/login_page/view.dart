@@ -19,6 +19,7 @@ import 'state.dart';
 
 Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
+  
   return Scaffold(
       backgroundColor: cardBackgroundColor,
       body: GestureDetector(
@@ -153,7 +154,10 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            CircleButton(onTap: () => dispatch(LoginActionCreator.onSignUp()), icon: Icon(Icons.email),),
+                            CircleButton(
+                              onTap: () => dispatch(LoginActionCreator.onSignUp()),
+                              icon: Image.asset(AppImages.email, width: 22, height: 22,),
+                            ),
                             SizedBox(width: s(30)),
                             CircleButton(icon: null),
                             SizedBox(width: s(30)),

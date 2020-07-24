@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'prefer_height_widget.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
+
+import 'prefer_height_widget.dart';
 
 class ScaffoldWidget extends StatelessWidget {
   const ScaffoldWidget({

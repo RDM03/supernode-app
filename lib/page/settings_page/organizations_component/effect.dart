@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/daos/settings_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/global_store/store.dart';
+
 import '../state.dart';
 import 'action.dart';
 import 'state.dart';
@@ -87,7 +88,7 @@ void _updateData(Context<OrganizationsState> ctx){
 
   }).catchError((err){
     hideLoading(ctx.context);
-    tip(ctx.context,'OrganizationDao update: $err');
+    // tip(ctx.context,'OrganizationDao update: $err');
   });
 
 }

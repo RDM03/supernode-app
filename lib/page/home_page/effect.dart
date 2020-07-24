@@ -16,6 +16,7 @@ import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/home_page/wallet_component/wallet_list_adapter/wallet_item_component/state.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
+
 import 'action.dart';
 import 'gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
 import 'state.dart';
@@ -109,12 +110,17 @@ void _onProfile(Action action, Context<HomeState> ctx) {
 }
 
 void _onGateways(Action action, Context<HomeState> ctx) async{
+  SettingsState settingsData = GlobalStore.store.getState().settings;
+  var orgId = settingsData.selectedOrgId;
+  if (orgId == null || orgId.isEmpty) 
+    orgId = settingsData.organizations.first.organizationID;
+  await _miningIncome(ctx, ctx.state.userId, orgId);
   await _gateways(ctx);
 }
 
 Future<void> _profile(Context<HomeState> ctx) async{
   ctx.dispatch(HomeActionCreator.loading(true));
-  Dao.context = ctx;
+  Dao.ctx = ctx;
 
   try {
     UserDao dao = UserDao();
@@ -142,7 +148,7 @@ Future<void> _profile(Context<HomeState> ctx) async{
 
     // Gain user's finance situation
     await _balance(ctx, userData, orgId);
-    await _miningIncome(ctx, userData, orgId);
+    await _miningIncome(ctx, userData.id, orgId);
     await _stakeAmount(ctx, orgId);
     await _stakingRevenue(ctx, orgId);
 
@@ -171,15 +177,15 @@ Future<void> _balance(Context<HomeState> ctx, UserState userData, String orgId) 
     ctx.dispatch(HomeActionCreator.balance(balance));
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'WalletDao balance: $err');
+    // tip(ctx.context, 'WalletDao balance: $err');
   }
 }
 
-Future<void> _miningIncome(Context<HomeState> ctx, UserState userData, String orgId) async{
+Future<void> _miningIncome(Context<HomeState> ctx, String userId, String orgId) async{
   
   try{
     WalletDao dao = WalletDao();
-    Map data = {'userId': userData.id, 'orgId': orgId};
+    Map data = {'userId': userId, 'orgId': orgId};
 
     var res = await dao.miningIncome(data);
 
@@ -192,11 +198,11 @@ Future<void> _miningIncome(Context<HomeState> ctx, UserState userData, String or
 
     ctx.dispatch(HomeActionCreator.miningIncome(value));
 
-    Map priceData = {'userId': userData.id, 'orgId': orgId, 'mxcPrice': '${value == 0.0 ? value.toInt() : value}'};
+    Map priceData = {'userId': userId, 'orgId': orgId, 'mxcPrice': '${value == 0.0 ? value.toInt() : value}'};
     await _convertUSD(ctx, priceData, 'gateway');
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'WalletDao miningInfo: $err');
+    // tip(ctx.context, 'WalletDao miningInfo: $err');
   }
   
 }
@@ -217,7 +223,7 @@ Future<void> _stakeAmount(Context<HomeState> ctx, String orgId) async{
     ctx.dispatch(HomeActionCreator.stakedAmount(amount));
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'StakeDao amount: $err');
+    // tip(ctx.context, 'StakeDao amount: $err');
   }
 }
 
@@ -242,6 +248,19 @@ Future<void> _gateways(Context<HomeState> ctx) async{
 
     if (tempList.length > 0) {
       for (int index = 0; index < tempList.length; index++) {
+
+        RegExp modelReg = new RegExp(r'(?<=(Gateway Model: )).+(?=[\n])');
+        RegExpMatch modelRegRes = modelReg.firstMatch(tempList[index]['description']);
+        if(modelRegRes != null){
+          tempList[index]['model'] = modelRegRes.group(0);
+        }
+
+        RegExp versionReg = new RegExp(r'(?<=(Gateway OsVersion: )).+');
+        RegExpMatch versionRegRes = versionReg.firstMatch(tempList[index]['description']);
+        if(versionRegRes != null){
+          tempList[index]['osversion'] = versionRegRes.group(0);
+        }
+
         // allValues += tempList[index]['location']['accuracy'];
         Iterable<Match> matches = reg.allMatches(tempList[index]['description']);
         String description = '';
@@ -250,6 +269,7 @@ Future<void> _gateways(Context<HomeState> ctx) async{
         }
 
         tempList[index]['description'] = description;
+
         list.add(GatewayItemState.fromMap(tempList[index]));
       }
     }
@@ -257,7 +277,7 @@ Future<void> _gateways(Context<HomeState> ctx) async{
     ctx.dispatch(HomeActionCreator.gateways(total, 0, list));
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'GatewaysDao list: $err');
+    // tip(ctx.context, 'GatewaysDao list: $err');
   }
 }
 
@@ -282,29 +302,7 @@ Future<void> _gatewaysLocations(Context<HomeState> ctx) async{
       ctx.state.mapCtl.addSymbols(locations);
     }
   }catch(err){
-    tip(ctx.context, 'GatewaysDao locations: $err');
-  }
-}
-
-Future<void> _devices(Context<HomeState> ctx, UserState userData, String orgId) async{
-  try{
-    DevicesDao dao = DevicesDao();
-    String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-    Map data = {"organizationID": orgId, "offset": 0, "limit": 999};
-
-    var res = await dao.list(data);
-    mLog('DevicesDao list', res);
-
-    int total = int.parse(res['totalCount']);
-    double allValues = 0;
-
-    ctx.dispatch(HomeActionCreator.devices(total, allValues));
-
-    Map priceData = {'userId': userData.id, 'orgId': orgId, 'mxcPrice': '${allValues == 0.0 ? allValues.toInt() : allValues}'};
-
-    await _convertUSD(ctx, priceData, 'device');
-  }catch(err){
-    tip(ctx.context, 'DevicesDao list: $err');
+    // tip(ctx.context, 'GatewaysDao locations: $err');
   }
 }
 
@@ -312,13 +310,19 @@ void _onOperate(Action action, Context<HomeState> ctx) {
   String act = action.payload;
   String page = '${act}_page';
   double balance = ctx.state.balance;
+  double stakedAmount = ctx.state.stakedAmount;
   List<OrganizationsState> organizations = ctx.state.organizations;
 
   if (act == 'unstake') {
     page = 'stake_page';
   }
 
-  Navigator.pushNamed(ctx.context, page, arguments: {'balance': balance, 'organizations': organizations, 'type': act}).then((res) {
+  Navigator.pushNamed(ctx.context, page, arguments: {
+    'balance': balance, 
+    'organizations': organizations, 
+    'type': act,
+    'stakedAmount': stakedAmount,
+  }).then((res) {
     if ((page == 'stake_page' || page == 'withdraw_page') && res) {
       _profile(ctx);
     }
@@ -364,7 +368,7 @@ Future<void> _convertUSD(Context<HomeState> ctx, Map data, String type) async{
     }
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'WalletDao convertUSD: $err');
+    // tip(ctx.context, 'WalletDao convertUSD: $err');
   }
 }
 
@@ -390,7 +394,7 @@ Future<void> _stakingRevenue(Context<HomeState> ctx, String orgId) async{
     ctx.dispatch(HomeActionCreator.loading(false));
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context, 'StakeDao history: $err');
+    // tip(ctx.context, 'StakeDao history: $err');
   }
 
 }

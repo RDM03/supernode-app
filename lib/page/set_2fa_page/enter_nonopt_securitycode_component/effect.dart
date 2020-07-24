@@ -6,5 +6,3 @@ Effect<EnterNonOTPSecurityCodeState> buildEffect() {
   return combineEffects(<Object, Effect<EnterNonOTPSecurityCodeState>>{
   });
 }
-
-

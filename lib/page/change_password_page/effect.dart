@@ -1,10 +1,12 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/global_store/store.dart';
+
 import 'action.dart';
 import 'state.dart';
 
@@ -22,8 +24,6 @@ void _onConfirm(Action action, Context<ChangePasswordState> ctx) {
   }
 
   String userId = GlobalStore.store.getState().settings.userId;
-  String oldPwd = curState.oldPwdCtl.text;
-  String newPwd = curState.newPwdCtl.text;
   String confirmNewPwd = curState.confirmNewPwdCtl.text;
 
   showLoading(ctx.context);
@@ -39,10 +39,10 @@ void _onConfirm(Action action, Context<ChangePasswordState> ctx) {
     mLog('changePassword',res);
     hideLoading(ctx.context);
 
-    tip(ctx.context,'Updated Successfully',success: true);
+    tip(ctx.context,FlutterI18n.translate(ctx.context,'updated_successful_tip'),success: true);
 
   }).catchError((err){
     hideLoading(ctx.context);
-    tip(ctx.context,'UserDao changePassword: $err');
+    // tip(ctx.context,'UserDao changePassword: $err');
   });
 }

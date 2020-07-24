@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/colors.dart' as c;
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
@@ -17,8 +17,10 @@ class PrimaryTextField extends StatelessWidget {
       this.keyboardType,
       this.onChanged,
       this.maxLength,
+      this.borderColor = c.borderColor,
       this.counterText});
 
+  final Color borderColor;
   final String hint;
   final bool isObscureText;
   final TextInputAction textInputAction;
@@ -43,6 +45,12 @@ class PrimaryTextField extends StatelessWidget {
         contentPadding: kRoundRow105,
         hintText: hint,
         counterText: counterText,
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: borderColor,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(3)),
+        ),
         border: OutlineInputBorder(
           borderSide: BorderSide(
             color: borderColor,

@@ -23,23 +23,21 @@ void _initState(Action action, Context<DepositState> ctx) async{
   }
 
   // Future.delayed(Duration(seconds: 3),() async{
-    try{
-      TopupDao dao = TopupDao();
-      Map data = {
-        "orgId": orgId
-      };
+  try{
+    TopupDao dao = TopupDao();
+    Map data = {
+      "orgId": orgId
+    };
 
-      var res = await dao.account(data);
-      mLog('account',res);
-        
-      if((res as Map).containsKey('activeAccount')){
-        ctx.dispatch(DepositActionCreator.address(res['activeAccount']));
-      }
-    }catch(err){
-      tip(ctx.context,'TopupDao account: $err');
+    var res = await dao.account(data);
+    mLog('account',res);
+      
+    if((res as Map).containsKey('activeAccount')){
+      ctx.dispatch(DepositActionCreator.address(res['activeAccount']));
     }
-  // });
-
+  }catch(err){
+    // tip(ctx.context,'TopupDao account: $err');
+  }
 }
 
 void _copy(Action action, Context<DepositState> ctx) {

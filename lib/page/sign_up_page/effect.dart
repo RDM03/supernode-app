@@ -60,7 +60,7 @@ void _onEmailContinue(Action action, Context<SignUpState> ctx) {
       );
     }).catchError((err){
       hideLoading(ctx.context);
-      tip(ctx.context,'UserDao register: $err');
+      // tip(ctx.context,'UserDao register: $err');
     });
   }
 
@@ -117,7 +117,7 @@ void _onVerificationContinue(Action action, Context<SignUpState> ctx) {
 
     }).catchError((err){
       hideLoading(ctx.context);
-      tip(ctx.context,'UserDao registerConfirm: $err');
+      // tip(ctx.context,'UserDao registerConfirm: $err');
     });
 
   }else{
@@ -149,7 +149,7 @@ void _onRegistrationContinue(Action action, Context<SignUpState> ctx) {
       Navigator.of(ctx.context).pushNamed('add_gateway_page',arguments:{'fromPage': 'registration'});
     }).catchError((err){
       hideLoading(ctx.context);
-      tip(ctx.context,'UserDao registerFinish: $err');
+      // tip(ctx.context,'UserDao registerFinish: $err');
     });
   }
 }

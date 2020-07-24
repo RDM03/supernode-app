@@ -18,6 +18,8 @@ PODS:
     - Flutter
   - connectivity_macos (0.0.1):
     - Flutter
+  - device_info (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
   - flutter_appcenter (1.0.10):
     - AppCenter (~> 3.2.0)
@@ -83,6 +85,7 @@ DEPENDENCIES:
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
   - connectivity_for_web (from `.symlinks/plugins/connectivity_for_web/ios`)
   - connectivity_macos (from `.symlinks/plugins/connectivity_macos/ios`)
+  - device_info (from `.symlinks/plugins/device_info/ios`)
   - Flutter (from `Flutter`)
   - flutter_appcenter (from `.symlinks/plugins/flutter_appcenter/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
@@ -126,6 +129,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/connectivity_for_web/ios"
   connectivity_macos:
     :path: ".symlinks/plugins/connectivity_macos/ios"
+  device_info:
+    :path: ".symlinks/plugins/device_info/ios"
   Flutter:
     :path: Flutter
   flutter_appcenter:
@@ -179,6 +184,7 @@ SPEC CHECKSUMS:
   connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
   connectivity_for_web: 2b8584556930d4bd490d82b836bcf45067ce345b
   connectivity_macos: e2e9731b6b22dda39eb1b128f6969d574460e191
+  device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_appcenter: d705da821d33c17ad9d08ab070f32b9c39b48caf
   flutter_local_notifications: 9e4738ce2471c5af910d961a6b7eadcf57c50186

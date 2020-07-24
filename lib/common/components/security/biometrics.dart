@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -45,10 +47,22 @@ class Biometrics {
           failAuthenticateCallBack?.call();
         }
       } on PlatformException catch (e) {
+        print(e);
         authenticateCallback.call();
       }
     } else {
       authenticateCallback.call();
     }
+  }
+
+  static Future<bool> authenticateAsync(BuildContext context, {String localizedReason}) async {
+    final completer = Completer<bool>();
+
+    final authenticateFuture = authenticate(context, 
+      authenticateCallback: () => completer.complete(true), 
+      failAuthenticateCallBack: () => completer.complete(false));
+    
+    await Future.wait([authenticateFuture, completer.future]);
+    return await completer.future;
   }
 }

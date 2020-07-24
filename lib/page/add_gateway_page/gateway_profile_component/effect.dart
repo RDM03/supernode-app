@@ -13,6 +13,7 @@ import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/home_page/action.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
+
 import 'action.dart';
 import 'state.dart';
 
@@ -115,7 +116,7 @@ void _gatewayProfile(Context<GatewayProfileState> ctx,String id){
       tip(ctx.context,res);
     }
   }).catchError((err){
-    tip(ctx.context,'Gateway profile $err');
+    // tip(ctx.context,'Gateway profile $err');
   });
 }
 
@@ -145,7 +146,6 @@ void _update(Action action, Context<GatewayProfileState> ctx) {
     GatewaysDao dao = GatewaysDao();
 
     String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-    String serialNumber = curState.serialNumber;
 
     Map data ={
       "gateway": {
@@ -182,7 +182,7 @@ void _update(Action action, Context<GatewayProfileState> ctx) {
 
     }).catchError((err){
       hideLoading(ctx.context);
-      tip(ctx.context,'Gateways add: $err');
+      // tip(ctx.context,'Gateways add: $err');
     });
 
   }
@@ -209,7 +209,7 @@ void _getOrganizations(Action action, Context<GatewayProfileState> ctx){
     
   }).catchError((err){
     hideLoading(ctx.context);
-    tip(ctx.context,'UserDao registerFinish: $err');
+    // tip(ctx.context,'UserDao registerFinish: $err');
   });
 }
 
@@ -245,7 +245,7 @@ void _onNetworkServerList(Action action, Context<GatewayProfileState> ctx) async
   }).catchError((err){
     hideLoading(ctx.context);
     ctx.dispatch(HomeActionCreator.loading(false));
-    tip(ctx.context,'NetworkServerDao list: $err');
+    // tip(ctx.context,'NetworkServerDao list: $err');
   });
 
 }

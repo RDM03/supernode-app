@@ -120,7 +120,7 @@
 	"learn_more": "Mehr erfahren",
 	"stake_amount": "Staking-Betrag",
 	"unstake_amount": "Staking-Betrag aufheben",
-	"revenue_rate": "Umsatzquote",
+	"revenue_rate": "Aktuelle maximale Rendite",
 	"monthly": "monatlich",
 	"confirm_stake": "Staking-Betrag bestätigen",
 	"confirm_unstake": "Aufhebung des Staking-Betrags bestätigen",
@@ -177,5 +177,14 @@
 	"update_dialog_downloading": "Download läuft...",
 	"tip_latest_version": "Das ist die neueste Version.",
 	"total_device": "Geräte (insgesamt)",
-	"downlink_fee": "Downlink-Preis"
+	"downlink_fee": "Downlink-Preis",
+	"loading": "loading...",
+	"weekly_revenue": "Weekly Revenue",
+	"frame": "Frame",
+	"gateway_model": "Gateway Model",
+	"gateway_osversion": "Gateway OsVersion",
+	"error_tip": "Error",
+	"updated_successful_tip": "Updated Successfully",
+	"insufficient_balance": "Mangelhaftes Gleichgewicht",
+	"required_2FA_general": "Erforderliche 2FA"
 }

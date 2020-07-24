@@ -1,4 +1,6 @@
 class TimeDao {
+  static Map<String, int> months = {'January': 1,'February': 2,'March': 3,'April': 4,'May': 5,'June': 6,'July': 7,'August': 8,'September': 9,'October': 10,'November': 11,'December': 12};
+
   static bool isIn5Min(String value){
     if(value == null || value.isEmpty) return false;
 
@@ -36,9 +38,9 @@ class TimeDao {
     if(timeTemp == null) return '';
 
     dynamic time = timeTemp;
-    if(timeTemp.runtimeType == int){
+    if(timeTemp is int){
       time = DateTime(timeTemp);
-    }else if(timeTemp.runtimeType == String){
+    }else if(timeTemp is String){
       if(timeTemp.isEmpty) return '';
 
       if(timeTemp.contains('+0000')){
@@ -57,6 +59,12 @@ class TimeDao {
 
     if(type == 'date'){
       convertTime = "${time.year.toString()}-${time.month.toString().padLeft(2,'0')}-${time.day.toString().padLeft(2,'0')}";
+    }else if(type == 'md'){
+      convertTime = "${time.month.toString().padLeft(2,'0')}-${time.day.toString().padLeft(2,'0')}";
+    }else if(type == 'month'){
+      convertTime = "${time.month.toString().padLeft(2,'0')}";
+    }else if(type == 'day'){
+      convertTime = "${time.day.toString().padLeft(2,'0')}";
     }else if(type == 'time'){
       convertTime = "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:${time.second.toString().padLeft(2, '0')}";
     }else{
@@ -131,8 +139,7 @@ class TimeDao {
     if(diff.inHours < 24){
       return getHM(oldTime);
     }else if(diff.inDays > 0 && diff.inDays <= 1){
-      return '';
-      // return '${AppStrings.of(context).yesterday()} ' + getHM(oldTime);
+      return null;
     }else if(diff.inDays <= 7){
       return getMDHM(oldTime);
     }else{
