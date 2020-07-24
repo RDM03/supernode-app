@@ -130,7 +130,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
         WithdrawDao dao = WithdrawDao();
         Map data = {
           "orgId": orgId,
-          "amount": int.parse(amount),
+          "amount": amount,
           "ethAddress": address,
           "availableBalance": balance,
           "otp_code": codes.join('')
