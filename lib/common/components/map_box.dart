@@ -38,11 +38,15 @@ class MapViewController {
     if (result.isEmpty) {
       markers.add(marker);
     }
-    await ctl?.addSymbol(SymbolOptions(
+    final symbol = await ctl?.addSymbol(SymbolOptions(
       iconImage: marker.image,
       geometry: marker.point,
       iconSize: marker?.size ?? 1,
     ));
+    if (symbol == null) {
+      print('symbol not loaded, trying again in 0.5 sec');
+      Future.delayed(Duration(milliseconds: 500), () => addSymbol(marker));
+    }
   }
 
   void addSymbols(List<MapMarker> markers) {
