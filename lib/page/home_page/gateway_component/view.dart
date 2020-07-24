@@ -25,9 +25,8 @@ Widget buildView(GatewayState state, Dispatch dispatch, ViewService viewService)
     body: RefreshIndicator(
       displacement: 10,
       onRefresh: () async{
-        await Future.delayed(Duration(seconds: 2), (){
-          dispatch(HomeActionCreator.onGateways());
-        });
+        dispatch(HomeActionCreator.onGateways());
+        await Future.delayed(Duration(seconds: 2));
       },
       child: pageBody(
         children: [
@@ -52,7 +51,8 @@ Widget buildView(GatewayState state, Dispatch dispatch, ViewService viewService)
                 shrinkWrap: true,
               ) : empty(_ctx)
             )
-          )
+          ),
+          SizedBox(height: 20,)
         ]
       )
     )

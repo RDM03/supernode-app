@@ -27,8 +27,10 @@ Effect<WithdrawState> buildEffect() {
 }
 
 void _initState(Action action, Context<WithdrawState> ctx) {
-  _withdrawFee(ctx);
-  _requestTOTPStatus(ctx);
+  Future.delayed(Duration(seconds: 3),() async{
+    _withdrawFee(ctx);
+    _requestTOTPStatus(ctx);
+  });
 }
 
 void _requestTOTPStatus(Context<WithdrawState> ctx) {
@@ -43,7 +45,7 @@ void _requestTOTPStatus(Context<WithdrawState> ctx) {
       ctx.dispatch(WithdrawActionCreator.isEnabled(res['enabled']));
     }
   }).catchError((err) {
-    tip(ctx.context, '$err');
+    // tip(ctx.context, '$err');
   });
 }
 
@@ -56,7 +58,7 @@ void _withdrawFee(Context<WithdrawState> ctx) {
       ctx.dispatch(WithdrawActionCreator.fee(Tools.convertDouble(res['withdrawFee'])));
     }
   }).catchError((err) {
-    tip(ctx.context, 'WithdrawDao fee: $err');
+    // tip(ctx.context, 'WithdrawDao fee: $err');
   });
 }
 
@@ -73,6 +75,11 @@ void _onQrScan(Action action, Context<WithdrawState> ctx) async {
 
 void _onEnterSecurityWithdrawContinue(Action action, Context<WithdrawState> ctx) async {
   //showLoading(ctx.context);
+
+  final formValid = (ctx.state.formKey.currentState as FormState).validate();
+  if (!formValid) {
+    return;
+  }
 
   Navigator.push(
     ctx.context,
@@ -101,6 +108,12 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
 
   List<String> codes = curState.listCtls.map((code) => code.text).toList();
+  
+  final formValid = (curState.formKey.currentState as FormState).validate();
+  if (!formValid) {
+    return;
+  }
+
   if ((curState.formKey.currentState as FormState).validate()) {
     if (address.trim().isEmpty) {
       tip(ctx.context, 'The field of "To" is required.');
@@ -130,12 +143,12 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
             ctx.dispatch(WithdrawActionCreator.status(true));
           } else {
             ctx.dispatch(WithdrawActionCreator.status(false));
-            tip(ctx.context, res);
+            // tip(ctx.context, res);
           }
         }).catchError((err) {
           hideLoading(ctx.context);
           ctx.dispatch(WithdrawActionCreator.status(false));
-          tip(ctx.context, 'WithdrawDao withdraw: $err');
+          // tip(ctx.context, 'WithdrawDao withdraw: $err');
         });
       },
     );
@@ -157,7 +170,7 @@ Future<void> _updateBalance(Context<WithdrawState> ctx) async{
     double balance = Tools.convertDouble(res['balance']);
     ctx.dispatch(WithdrawActionCreator.balance(balance));
   }catch(err){
-    tip(ctx.context, 'WalletDao balance: $err');
+    // tip(ctx.context, 'WalletDao balance: $err');
   }
 
 }

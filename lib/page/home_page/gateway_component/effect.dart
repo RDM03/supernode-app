@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/page/home_page/action.dart';
-
+import 'package:supernodeapp/page/home_page/gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -11,7 +11,7 @@ Effect<GatewayState> buildEffect() {
   return combineEffects(<Object, Effect<GatewayState>>{
     Lifecycle.initState: _initState,
     GatewayAction.onAdd: _onAddAction,
-    // GatewayAction.onProfile: _onProfile,
+    GatewayAction.onProfile: _onProfile,
   });
 }
 
@@ -33,3 +33,17 @@ void _onAddAction(Action action, Context<GatewayState> ctx) {
   });
 }
 
+void _onProfile(Action action, Context<GatewayState> ctx) {
+  GatewayItemState data = action.payload;
+  ctx.dispatch(GatewayActionCreator.profile(data));
+
+  Navigator.push(
+    ctx.context,
+    MaterialPageRoute(
+      maintainState: false,
+      fullscreenDialog: true,
+      builder: (context) {
+        return ctx.buildComponent('profile');
+      }),
+  );
+}

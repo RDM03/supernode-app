@@ -50,7 +50,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
     body: RefreshIndicator(
       displacement: 10,
       onRefresh: () async {
-        await Future.delayed(Duration(seconds: 2), () {
+        await Future.delayed(Duration(seconds: 1), () {
           dispatch(HomeActionCreator.onProfile());
         });
       },

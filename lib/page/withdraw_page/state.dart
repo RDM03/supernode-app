@@ -14,7 +14,7 @@ class WithdrawState implements Cloneable<WithdrawState> {
   bool status = false;
   bool isEnabled = false;
   double balance = 0;
-  double fee = 20;
+  double fee;
   List<OrganizationsState> organizations = [];
 
   GlobalKey enterSecurityCodeWithdrawFormKey = GlobalKey<FormState>();

@@ -120,7 +120,7 @@
 	"learn_more": "Tìm hiểu thêm",
 	"stake_amount": "Số lượng đặt cọc",
 	"unstake_amount": "Số lượng hủy đặt cọc",
-	"revenue_rate": "Tỉ lệ doanh thu",
+	"revenue_rate": "Lợi nhuận tối đa hiện tại",
 	"monthly": "hàng tháng",
 	"confirm_stake": "Xác nhận đặt cọc",
 	"confirm_unstake": "Xác nhận hủy đặt cọc",
@@ -178,5 +178,13 @@
 	"tip_latest_version": "Đây là phiên bản mới nhất.",
 	"total_device": "Tổng số thiết bị",
 	"downlink_fee": "Giá downlink",
-	"loading": "loading..."
+	"loading": "loading...",
+	"weekly_revenue": "Weekly Revenue",
+	"frame": "Frame",
+	"gateway_model": "Gateway Model",
+	"gateway_osversion": "Gateway OsVersion",
+	"error_tip": "Error",
+	"updated_successful_tip": "Updated Successfully",
+	"insufficient_balance": "Thiếu cân bằng",
+	"required_2FA_general": "Yêu cầu 2FA"
 }

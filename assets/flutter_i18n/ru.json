@@ -120,7 +120,7 @@
 	"learn_more": "Подробнее",
 	"stake_amount": "Внести средтсва",
 	"unstake_amount": "Вывести средства",
-	"revenue_rate": "Уровень дохода",
+	"revenue_rate": "Текущий максимальный доход",
 	"monthly": "ежемесячно",
 	"confirm_stake": "Подтвердить внесение средств",
 	"confirm_unstake": "Подтвердите снятие",
@@ -178,5 +178,13 @@
 	"tip_latest_version": "Это последняя версия.",
 	"total_device": "Всего устройств",
 	"downlink_fee": "Комиссия",
-	"loading": "loading..."
+	"loading": "loading...",
+	"weekly_revenue": "Weekly Revenue",
+	"frame": "Frame",
+	"gateway_model": "Gateway Model",
+	"gateway_osversion": "Gateway OsVersion",
+	"error_tip": "Error",
+	"updated_successful_tip": "Updated Successfully",
+	"insufficient_balance": "Недостаточно средств",
+	"required_2FA_general": "Требуется 2FA"
 }

@@ -120,7 +120,7 @@
 	"learn_more": "瞭解詳情",
 	"stake_amount": "質押金額",
 	"unstake_amount": "解除質押金額",
-	"revenue_rate": "收益率",
+	"revenue_rate": "当前最大收益",
 	"monthly": "每月",
 	"confirm_stake": "確認質押",
 	"confirm_unstake": "確認解除質押",
@@ -178,5 +178,13 @@
 	"tip_latest_version": "已是最新版",
 	"total_device": "設備總數",
 	"downlink_fee": "下行鏈路費用",
-	"loading": "loading..."
+	"loading": "loading...",
+	"weekly_revenue": "Weekly Revenue",
+	"frame": "Frame",
+	"gateway_model": "Gateway Model",
+	"gateway_osversion": "Gateway OsVersion",
+	"error_tip": "Error",
+	"updated_successful_tip": "Updated Successfully",
+	"insufficient_balance": "余额不足",
+	"required_2FA_general": "必需2FA"
 }

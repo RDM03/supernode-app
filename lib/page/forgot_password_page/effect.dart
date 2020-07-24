@@ -53,7 +53,7 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
       );
     } catch (err) {
       hideLoading(ctx.context);
-      tip(ctx.context, 'UserDao register: $err');
+      // tip(ctx.context, 'UserDao register: $err');
     }
   }
 }
@@ -84,7 +84,7 @@ void _onVerificationContinue(Action action, Context<ForgotPasswordState> ctx) as
       Navigator.popUntil(ctx.context, ModalRoute.withName("login_page"));
     } catch (e) {
       hideLoading(ctx.context);
-      tip(ctx.context, 'UserDao registerConfirm: $e');
+      // tip(ctx.context, 'UserDao registerConfirm: $e');
     }
   } else {
     tip(ctx.context, FlutterI18n.translate(ctx.context, 'invalid verification code'));

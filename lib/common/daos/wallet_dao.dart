@@ -6,6 +6,7 @@ class WalletApi {
   static const String history = '/api/wallet/{orgId}/tx-history';
   static const String miningIncome = '/api/wallet/mining_income';
   static const String convertUSD = '/api/wallet/mxc_price';
+  static const String miningInfo = '/api/wallet/mining_info';
 }
 
 class WalletDao extends Dao{
@@ -50,6 +51,13 @@ class WalletDao extends Dao{
   Future<dynamic> convertUSD(Map data){
     return get(
       url: WalletApi.convertUSD,
+      data: data
+    );
+  }
+
+  Future<dynamic> miningInfo(Map data){
+    return get(
+      url: WalletApi.miningInfo,
       data: data
     );
   }

@@ -13,7 +13,6 @@ Widget buildView(EnterSecurityCodeState state, Dispatch dispatch, ViewService vi
   var _ctx = viewService.context;
 
   return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: cardBackgroundColor,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
@@ -97,22 +96,25 @@ Widget buildView(EnterSecurityCodeState state, Dispatch dispatch, ViewService vi
                   Form(
                     key: state.formKey,
                     autovalidate: false,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      constraints: BoxConstraints(maxWidth: 500),
+                      child: Row(
                         children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 80.0),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: state.listCtls.asMap().keys.map((index) => textfieldWithCodes(
-                                    context: _ctx,
-                                    controller: state.listCtls[index],
-                                    isLast: index == state.listCtls.length - 1
-                                )).toList()
+                          for(var i = 0; i < 6; i++)
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 4),
+                                child: textfieldWithCodes(
+                                  context: _ctx,
+                                  controller: state.listCtls[i],
+                                  isLast: i == state.listCtls.length - 1
+                                ),
+                              ),
                             ),
-                          ),
-                        ]
-                    ),
+                        ],
+                      ),
+                    )
                   ),
                   Spacer(),
                   state.isEnabled ?

@@ -39,7 +39,7 @@ void _onUpdate(Action action, Context<ProfileState> ctx) {
       ctx.dispatch(ProfileActionCreator.update(data));
     }).catchError((err){
       hideLoading(ctx.context);
-      tip(ctx.context,'UserDao update: $err');
+      // tip(ctx.context,'UserDao update: $err');
     });
 
   }
