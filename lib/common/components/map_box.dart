@@ -361,6 +361,13 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
           },
           onStyleLoadedCallback: widget.config.onStyleLoadedInit,
           zoomGesturesEnabled: widget.isFullScreen,
+          gestureRecognizers: !widget.isFullScreen
+              ? <Factory<OneSequenceGestureRecognizer>>[
+                  Factory<OneSequenceGestureRecognizer>(
+                    () => ScaleGestureRecognizer(),
+                  ),
+                ].toSet()
+              : null,
         ),
         _buildActionWidgets(),
       ],
