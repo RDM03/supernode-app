@@ -2,6 +2,8 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';
+import 'package:supernodeapp/common/utils/utils.dart';
+import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
@@ -70,6 +72,14 @@ class HomeState implements Cloneable<HomeState> {
   int devicesTotal = 0;
   double devicesRevenue = 0;
   double devicesUSDRevenue = 0;
+  
+  //demo
+  bool isDemo;
+
+  int deviceSortType = 0;
+
+  //profile
+  // bool isSelectIdType = true;
 
   @override
   HomeState clone() {
@@ -112,20 +122,24 @@ class HomeState implements Cloneable<HomeState> {
       ..selectedIndexBtn1 = selectedIndexBtn1
       ..selectedIndexBtn2 = selectedIndexBtn2
       ..isFirstRequest = isFirstRequest
+      ..isDemo = isDemo
       ..profile = profile
       ..mapCtlProfile = mapCtlProfile
       ..miningRevenve = miningRevenve
-      ..gatewayFrame = gatewayFrame;
+      ..gatewayFrame = gatewayFrame
+      ..deviceSortType = deviceSortType;
   }
 }
 
 HomeState initState(Map<String, dynamic> args) {
-  // String superNode = args['superNode'];
+  args ??= {};
+  final bool isDemo = StorageManager.sharedPreferences.getBool(Config.DEMO_MODE) ?? false;
 
   SettingsState settingsData = GlobalStore.store.getState().settings;
 
   return HomeState()
-    ..username = settingsData.username;
+    ..username = settingsData.username
+    ..isDemo = isDemo;
 }
 
 class UserConnector extends ConnOp<HomeState, UserState> {
@@ -149,7 +163,8 @@ class UserConnector extends ConnOp<HomeState, UserState> {
       ..devicesRevenue = state.devicesRevenue
       ..devicesUSDRevenue = state.devicesUSDRevenue
       ..mapViewController = state.mapCtl
-      ..gatewaysLocations = state.gatewaysLocations;
+      ..gatewaysLocations = state.gatewaysLocations
+      ..isDemo = state.isDemo;
   }
 
   @override
@@ -169,6 +184,7 @@ class GatewayConnector extends ConnOp<HomeState, GatewayState> {
       ..gatewaysUSDRevenue = state.gatewaysUSDRevenue
       ..organizations = state.organizations
       ..list = state.gatewaysList
+      ..isDemo = state.isDemo
       ..profile = state.profile
       ..mapCtl = state.mapCtlProfile
       ..miningRevenve = state.miningRevenve
@@ -188,11 +204,15 @@ class GatewayConnector extends ConnOp<HomeState, GatewayState> {
 class DeviceConnector extends ConnOp<HomeState, DeviceState> {
   @override
   DeviceState get(HomeState state) {
-    return DeviceState();
+    return DeviceState()
+      ..deviceSortType = state.deviceSortType
+      ..isDemo = state.isDemo;
   }
 
   @override
-  void set(HomeState state, DeviceState subState) {}
+  void set(HomeState state, DeviceState subState) {
+    state.deviceSortType = subState.deviceSortType;
+  }
 }
 
 class WalletConnector extends ConnOp<HomeState, WalletState> {
@@ -216,7 +236,8 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..list = state.walletList
       ..withdrawFee = state.withdrawFee
       ..firstTime = state.firstTime
-      ..secondTime = state.secondTime;
+      ..secondTime = state.secondTime
+      ..isDemo = state.isDemo;
   }
 
   @override

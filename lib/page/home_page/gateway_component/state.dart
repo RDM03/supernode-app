@@ -37,6 +37,8 @@ class GatewayState extends MutableSource implements Cloneable<GatewayState> {
   @override
   void setItemData(int index, Object data) => list[index] = data;
 
+  bool isDemo;
+
   @override
   GatewayState clone() {
     return GatewayState()
@@ -50,7 +52,8 @@ class GatewayState extends MutableSource implements Cloneable<GatewayState> {
       ..gatewaysUSDRevenue = gatewaysUSDRevenue
       ..organizations = organizations ?? []
       ..location = location
-      ..list = list ?? [];
+      ..list = list ?? []
+      ..isDemo = isDemo;
   }
 }
 
@@ -79,7 +82,8 @@ class GatewayProfileConnector extends ConnOp<GatewayState, GatewayProfileState>{
       ..profile = state.profile ?? GatewayItemState().clone()
       ..mapCtl = state.mapCtl
       ..miningRevenve = state.miningRevenve
-      ..gatewayFrame = state.gatewayFrame;
+      ..gatewayFrame = state.gatewayFrame
+      ..isDemo = state.isDemo;
   }
 
   @override

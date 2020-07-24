@@ -11,6 +11,7 @@ class StakeState implements Cloneable<StakeState> {
   List<OrganizationsState> organizations = [];
 
   bool resSuccess = false;
+  bool isDemo = false;
   bool otpEnabled = false;
   bool inputLocked = false;
   
@@ -22,6 +23,7 @@ class StakeState implements Cloneable<StakeState> {
       ..amountCtl = amountCtl
       ..organizations = organizations
       ..resSuccess = resSuccess
+      ..isDemo = isDemo
       ..otpEnabled = otpEnabled
       ..inputLocked = inputLocked;
   }
@@ -30,12 +32,14 @@ class StakeState implements Cloneable<StakeState> {
 StakeState initState(Map<String, dynamic> args) {
   List<OrganizationsState> organizations = args['organizations'];
   String type = args['type'] ?? 'stake';
+  bool isDemo = args['isDemo'] ?? false;
   bool inputLocked = type == 'unstake';
   double stakedAmount = type == 'unstake' ? args['stakedAmount'] : null;
 
   return StakeState()
     ..organizations = organizations
     ..type = type
+    ..isDemo = isDemo
     ..inputLocked = inputLocked
     ..amountCtl = TextEditingController(text: stakedAmount?.toString());
 }

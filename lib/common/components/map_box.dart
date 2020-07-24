@@ -1,9 +1,11 @@
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
@@ -11,11 +13,23 @@ import 'package:supernodeapp/configs/sys.dart';
 
 class MapViewController {
   List<MapMarker> markers;
+  List<Symbol> realSymbolPoint;
+
+  List<CircleOptions> markerCircleOptions;
+  List<Circle> realCirclePoint;
+
+  List<LineOptions> markerLineOptions;
+  List<Line> realLinePoint;
+
   MapboxMapController ctl;
   LatLng myLatLng;
   double zoom;
 
+  double actualZoom;
+
   bool _symbolsAdd = false;
+
+  VoidCallback onZoomChanged;
 
   MapViewController({this.markers, this.zoom = 12});
 
@@ -27,22 +41,150 @@ class MapViewController {
   }
 
   void onMapCreated(MapboxMapController controller) {
+    if (this.ctl != null) {
+      _removeListener();
+    }
     this.ctl = controller;
+    actualZoom = this.ctl.cameraPosition?.zoom;
+    this.ctl.addListener(_onMapUpdate);
+  }
+
+  void _removeListener() {
+    this.ctl.removeListener(_onMapUpdate);
+  }
+
+  void _onMapUpdate() {
+    if (actualZoom != this.ctl.cameraPosition?.zoom) {
+      actualZoom = this.ctl.cameraPosition?.zoom;
+      if (onZoomChanged != null) onZoomChanged();
+    }
   }
 
   Future<void> addSymbol(MapMarker marker) async {
     if (markers == null) markers = List<MapMarker>();
     var result = markers.where((MapMarker item) =>
         (item.point.latitude == marker.point.latitude) &&
-        (item.point.longitude == item.point.longitude));
+        (item.point.longitude == marker.point.longitude));
     if (result.isEmpty) {
       markers.add(marker);
     }
-    await ctl?.addSymbol(SymbolOptions(
+    if (marker.withCircle != null && marker.withCircle) {
+      if (marker.circleOptions != null) {
+        await addCircle(marker.circleOptions);
+      }
+    }
+    var symbolPoint = await ctl?.addSymbol(SymbolOptions(
       iconImage: marker.image,
       geometry: marker.point,
       iconSize: marker?.size ?? 1,
+      iconOffset: marker.iconOffset,
     ));
+    if (realSymbolPoint == null) {
+      realSymbolPoint = new List<Symbol>();
+    }
+    if (symbolPoint != null) {
+      realSymbolPoint.add(symbolPoint);
+    }
+  }
+
+  Future<void> updateSymbolOffset(MapMarker marker, Offset offset) async {
+    if (markers == null) markers = List<MapMarker>();
+    var result = markers.where((MapMarker item) =>
+        (item.point.latitude == marker.point.latitude) &&
+        (item.point.longitude == marker.point.longitude));
+    if (result.isEmpty) {
+      markers.add(marker);
+    }
+    if (marker.withCircle != null && marker.withCircle) {
+      if (marker.circleOptions != null) {
+        await addCircle(marker.circleOptions);
+      }
+    }
+    var symbolPoint = await ctl?.addSymbol(SymbolOptions(
+      iconImage: marker.image,
+      geometry: marker.point,
+      iconSize: marker?.size ?? 1,
+      iconOffset: offset,
+    ));
+    if (realSymbolPoint == null) {
+      realSymbolPoint = new List<Symbol>();
+    }
+    if (symbolPoint != null) {
+      realSymbolPoint.add(symbolPoint);
+    }
+  }
+
+  Future<void> removeAll() async {
+    //remove symbol
+    if ((realSymbolPoint?.length ?? 0) > 0) {
+      realSymbolPoint.forEach((item) {
+        print(item.id);
+        ctl?.removeSymbol(item);
+      });
+      realSymbolPoint.clear();
+      markers.clear();
+    }
+    //remove circle
+    if ((realCirclePoint?.length ?? 0) > 0) {
+      realCirclePoint.forEach((item) {
+        ctl?.removeCircle(item);
+      });
+      realCirclePoint.clear();
+      markerCircleOptions.clear();
+    }
+    //remove line
+    if ((realLinePoint?.length ?? 0) > 0) {
+      realLinePoint.forEach((item) {
+        ctl?.removeLine(item);
+      });
+      realLinePoint.clear();
+      markerLineOptions.clear();
+    }
+  }
+
+  Future<void> updateCircle(Circle circle, CircleOptions changes) async {
+    await ctl?.updateCircle(circle, changes);
+  }
+
+  Future<void> addCircle(CircleOptions circleOption) async {
+    if (markerCircleOptions == null)
+      markerCircleOptions = List<CircleOptions>();
+    var result = markerCircleOptions.where((CircleOptions item) =>
+        (item.geometry.latitude == circleOption.geometry.latitude) &&
+        (item.geometry.longitude == circleOption.geometry.longitude));
+    if (result.isEmpty) {
+      markerCircleOptions.add(circleOption);
+    }
+    var circle = await ctl?.addCircle(circleOption);
+    if (realCirclePoint == null) realCirclePoint = new List<Circle>();
+    if (circle != null) {
+      realCirclePoint.add(circle);
+    }
+  }
+
+  Future<void> addLine(LineOptions lineOption) async {
+    if (markerLineOptions == null) markerLineOptions = List<LineOptions>();
+    var result = markerLineOptions.where((LineOptions item) {
+      bool isMatch = true;
+      if (item.geometry.length != lineOption.geometry.length) return false;
+      for (int i = 0; i < item.geometry.length; i++) {
+        if (item.geometry[i].latitude != lineOption.geometry[i].latitude ||
+            item.geometry[i].longitude != lineOption.geometry[i].longitude) {
+          isMatch = false;
+          return isMatch;
+        }
+      }
+      return isMatch;
+    });
+
+    if (result.isEmpty) {
+      markerLineOptions.add(lineOption);
+    }
+    var line = await ctl?.addLine(lineOption);
+    if (realLinePoint == null) realLinePoint = new List<Line>();
+    if (line != null) {
+      realLinePoint.add(line);
+    }
   }
 
   void addSymbols(List<MapMarker> markers) {
@@ -56,18 +198,33 @@ class MapViewController {
     if (myLatLng != null)
       ctl.moveCamera(CameraUpdate.newLatLngZoom(myLatLng, zoom));
   }
+
+  void dispose() {
+    if (ctl != null) _removeListener();
+  }
 }
 
 class MapMarker {
   final LatLng point;
   final double size;
   final String image;
-  bool onMap = false;
+  final bool withCircle;
+  final CircleOptions circleOptions;
+  final Offset iconOffset;
+  final bool onMap = false;
 
-  MapMarker({this.point, this.size, this.image});
+  MapMarker({
+    this.point,
+    this.size,
+    this.image,
+    this.withCircle,
+    this.circleOptions,
+    this.iconOffset,
+  });
 }
 
 class MapBoxWidget extends StatefulWidget {
+  final bool isActionsTop;
   final bool isFullScreen;
   final bool userLocationSwitch;
   final VoidCallback zoomOutCallback;
@@ -76,6 +233,7 @@ class MapBoxWidget extends StatefulWidget {
   final LatLng centerLocation;
   final bool isUserLocation;
   final bool isUserLocationSwitch;
+  final bool needFirstPosition;
 
   // new field
   final Function clickLocation;
@@ -95,7 +253,9 @@ class MapBoxWidget extends StatefulWidget {
     this.rowTop,
     this.centerLocation,
     this.isUserLocation = true,
-    this.isUserLocationSwitch = true
+    this.isUserLocationSwitch = true,
+    this.isActionsTop = false,
+    this.needFirstPosition = true
   }) : super(key: key);
 
   @override
@@ -116,6 +276,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
 
   MyLocationTrackingMode _myLocationTrackingMode =
       MyLocationTrackingMode.Tracking;
+
   Future<void> _myLocationMove({bool state}) async {
     bool has = await PermissionUtil.getLocationPermission();
     setState(() {
@@ -126,7 +287,9 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
   @override
   void initState() {
     super.initState();
-    _initLocation();
+    if (widget.needFirstPosition) {
+      _initLocation();
+    }
   }
 
   void _initLocation() {
@@ -152,9 +315,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
   void _changeModeToLocation() {
     setState(() {
       _myLocationTrackingMode =
-          _myLocationTrackingMode == MyLocationTrackingMode.Tracking
-              ? MyLocationTrackingMode.None
-              : MyLocationTrackingMode.Tracking;
+          _myLocationTrackingMode = MyLocationTrackingMode.None;
     });
     Future.delayed(
         Duration(
@@ -162,9 +323,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
         ), () {
       setState(() {
         _myLocationTrackingMode =
-            _myLocationTrackingMode == MyLocationTrackingMode.Tracking
-                ? MyLocationTrackingMode.None
-                : MyLocationTrackingMode.Tracking;
+            _myLocationTrackingMode = MyLocationTrackingMode.Tracking;
       });
     });
   }
@@ -196,52 +355,65 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
           onMapClick: (point, coordinates) {
             widget.onTap(coordinates);
           },
-          onMapCreated: config.onMapCreated,
+          trackCameraPosition: true,
+          onMapCreated: (controller) {
+            config.onMapCreated(controller);
+          },
           onStyleLoadedCallback: widget.config.onStyleLoadedInit,
-          gestureRecognizers: !widget.isFullScreen
-              ? <Factory<OneSequenceGestureRecognizer>>[
-                  Factory<OneSequenceGestureRecognizer>(
-                    () => ScaleGestureRecognizer(),
-                  ),
-                ].toSet()
-              : null,
+          zoomGesturesEnabled: widget.isFullScreen,
         ),
-        Visibility(
-          visible: isUserLocation,
-          child: _buildMyLocationIcon()
-        ),
-        Visibility(
-          visible: isUserLocationSwitch,
-          child: _buildMyLocationStateChange()
-        ),
-        widget.isFullScreen ? _buildCloseIcon() : _buildZoomOutIcon(),
+        _buildActionWidgets(),
       ],
     );
   }
 
-  Widget _buildMyLocationIcon() {
+  Widget _buildActionWidgets() {
+    double topHeight;
+    double bottomHeight;
+    if (widget.isActionsTop || !widget.isFullScreen) {
+      if (widget.isFullScreen) {
+        topHeight = _mediaData.padding.top + 50;
+      } else {
+        topHeight = 20;
+      }
+      bottomHeight = null;
+    } else {
+      topHeight = null;
+      bottomHeight = 40 + _mediaData.padding.bottom + 80 + 10;
+    }
     return Positioned(
-      bottom:
-          widget.isFullScreen ? 40 + _mediaData.padding.bottom + 80 + 10 : 205,
+      top: topHeight,
+      bottom: bottomHeight,
       right: 20,
+      child: Column(
+        children: <Widget>[
+          _buildMyLocationIcon(),
+          _buildMyLocationStateChange(),
+          widget.isFullScreen ? _buildCloseIcon() : _buildZoomOutIcon(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMyLocationIcon() {
+    return Container(
+      margin: EdgeInsets.only(bottom: 10),
       width: 40,
       height: 40,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.blueAccent,
-          borderRadius: BorderRadius.circular(20.0),
-          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
-        ),
-        child: IconButton(
-          onPressed: () async {
-            await _myLocationMove();
+      decoration: BoxDecoration(
+        color: Colors.blueAccent,
+        borderRadius: BorderRadius.circular(20.0),
+        boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
+      ),
+      child: IconButton(
+        onPressed: () async {
+          await _myLocationMove();
 //            config.moveToMyLatLng();
-            _changeModeToLocation();
-          },
-          icon: Icon(
-            Icons.my_location,
-            color: Colors.white,
-          ),
+          _changeModeToLocation();
+        },
+        icon: Icon(
+          Icons.my_location,
+          color: Colors.white,
         ),
       ),
     );
@@ -249,75 +421,68 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
 
   Widget _buildZoomOutIcon() {
     if (widget.zoomOutCallback == null) return SizedBox();
-    return Positioned(
-      bottom: 105,
-      right: 20,
+    return Container(
+      margin: EdgeInsets.only(bottom: 10),
       width: 40,
       height: 40,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.blueAccent,
-          borderRadius: BorderRadius.circular(20.0),
-          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
-        ),
-        child: IconButton(
-          onPressed: widget.zoomOutCallback,
-          icon: Icon(
-            Icons.zoom_out_map,
-            color: Colors.white,
-          ),
+      decoration: BoxDecoration(
+        color: Colors.blueAccent,
+        borderRadius: BorderRadius.circular(20.0),
+        boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
+      ),
+      child: IconButton(
+        onPressed: widget.zoomOutCallback,
+        icon: Icon(
+          Icons.zoom_out_map,
+          color: Colors.white,
         ),
       ),
     );
   }
 
   Widget _buildMyLocationStateChange() {
-    return Positioned(
-      bottom: widget.isFullScreen ? 80 + _mediaData.padding.bottom : 155,
-      right: 20,
+    if (!widget.userLocationSwitch) {
+      return SizedBox();
+    }
+    return Container(
+      margin: EdgeInsets.only(bottom: 10),
       width: 40,
       height: 40,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.blueAccent,
-          borderRadius: BorderRadius.circular(20.0),
-          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
-        ),
-        child: IconButton(
-          onPressed: () async {
-            _myLocationMove(state: !_myLocationEnable);
-          },
-          icon: Icon(
-            _myLocationEnable ? Icons.location_off : Icons.location_on,
-            color: Colors.white,
-          ),
+      decoration: BoxDecoration(
+        color: Colors.blueAccent,
+        borderRadius: BorderRadius.circular(20.0),
+        boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
+      ),
+      child: IconButton(
+        onPressed: () async {
+          _myLocationMove(state: !_myLocationEnable);
+        },
+        icon: Icon(
+          _myLocationEnable ? Icons.location_off : Icons.location_on,
+          color: Colors.white,
         ),
       ),
     );
   }
 
   Widget _buildCloseIcon() {
-    return Positioned(
-      bottom: 30 + _mediaData.padding.bottom,
-      right: 20,
+    return Container(
       width: 40,
       height: 40,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.blueAccent,
-          borderRadius: BorderRadius.circular(20.0),
-          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
-        ),
-        child: IconButton(
-          onPressed: () {
-            if (Navigator.of(context).canPop()) {
-              Navigator.of(context).pop();
-            }
-          },
-          icon: Icon(
-            Icons.close,
-            color: Colors.white,
-          ),
+      decoration: BoxDecoration(
+        color: Colors.blueAccent,
+        borderRadius: BorderRadius.circular(20.0),
+        boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
+      ),
+      child: IconButton(
+        onPressed: () {
+          if (Navigator.of(context).canPop()) {
+            Navigator.of(context).pop();
+          }
+        },
+        icon: Icon(
+          Icons.close,
+          color: Colors.white,
         ),
       ),
     );

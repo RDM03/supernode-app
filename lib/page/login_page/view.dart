@@ -129,15 +129,24 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                           ]),
                         ),
                         SizedBox(height: s(12)),
-                        GestureDetector(
-                          onTap: () => dispatch(LoginActionCreator.onForgotPasswordAction()),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                              FlutterI18n.translate(_ctx, 'forgot_hint'),
-                              style: TextStyle(fontSize: s(12), color: hintFont),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            GestureDetector(
+                              onTap: () => dispatch(LoginActionCreator.onDemo()),
+                              child: Text(
+                                FlutterI18n.translate(_ctx, 'demo'),
+                                style: TextStyle(fontSize: s(12), color: hintFont),
+                              ),
                             ),
-                          ),
+                            GestureDetector(
+                              onTap: () => dispatch(LoginActionCreator.onForgotPasswordAction()),
+                              child: Text(
+                                FlutterI18n.translate(_ctx, 'forgot_hint'),
+                                style: TextStyle(fontSize: s(12), color: hintFont),
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(height: s(18)),
                         PrimaryButton(onTap: () => dispatch(LoginActionCreator.onLogin()), buttonTitle: FlutterI18n.translate(_ctx, 'login'), minHeight: s(46), minWidget: double.infinity),

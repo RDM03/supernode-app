@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
-
+const kSmallFontOfWhite = TextStyle(
+    color: Colors.white,
+    fontFamily: "Roboto",
+    fontSize: 12,
+    height: 1.33333,
+    decoration: TextDecoration.none);
 const kSmallFontOfGrey = TextStyle(
-  color: const Color.fromARGB(138, 0, 0, 0),
-  fontFamily: "Roboto",
-  fontSize: 12,
-  height: 1.33333,
-  decoration: TextDecoration.none
-);
+    color: const Color.fromARGB(138, 0, 0, 0),
+    fontFamily: "Roboto",
+    fontSize: 12,
+    height: 1.33333,
+    decoration: TextDecoration.none);
 
 const kSmallFontOfGreen = TextStyle(
   color: const Color.fromARGB(255, 16, 196, 105),
@@ -21,6 +25,13 @@ const kSmallFontOfRed = TextStyle(
   color: Color.fromARGB(255, 255, 91, 91),
   fontFamily: "Roboto",
   fontSize: 12,
+  height: 1.33333,
+);
+
+const kMiddleFontODarkBlue = TextStyle(
+  color: const Color.fromARGB(255, 28, 20, 120),
+  fontFamily: "Roboto",
+  fontSize: 14,
   height: 1.33333,
 );
 
@@ -49,6 +60,20 @@ const kMiddleFontOfBlueLink = TextStyle(
   decoration: TextDecoration.underline,
   fontFamily: "Roboto",
   fontSize: 14,
+);
+
+const kMiddleFontOfDarkBlueLink = TextStyle(
+  color: const Color.fromARGB(255, 28, 20, 120),
+  fontFamily: "Roboto",
+  decoration: TextDecoration.underline,
+  fontSize: 14,
+);
+
+const kBigFontOfDarkBlueLink = TextStyle(
+  color: const Color.fromARGB(255, 28, 20, 120),
+  fontFamily: "Roboto",
+  decoration: TextDecoration.underline,
+  fontSize: 16,
 );
 
 const kMiddleFontOfGreen = TextStyle(
@@ -86,8 +111,36 @@ const kBigFontOfBlack = TextStyle(
   height: 1.5,
 );
 
+const kVeryBigFontOfBlack = TextStyle(
+  color: const Color.fromARGB(222, 0, 0, 0),
+  fontFamily: "Roboto",
+  fontSize: 24,
+);
+
 const kBigFontOfBlue = TextStyle(
   color: const Color.fromARGB(255, 77, 137, 229),
+  fontFamily: "Roboto",
+  fontSize: 16,
+  height: 1.5,
+);
+
+
+const kBigFontOfWhite = TextStyle(
+  color: Colors.white,
+  fontFamily: "Roboto",
+  fontSize: 16,
+  height: 1.5,
+);
+
+const kBigFontOfDarkBlue = TextStyle(
+  color: const Color.fromARGB(255, 28, 20, 120),
+  fontFamily: "Roboto",
+  fontSize: 16,
+  height: 1.5,
+);
+
+const kBigFontOfGrey = TextStyle(
+  color: const Color.fromARGB(138, 0, 0, 0),
   fontFamily: "Roboto",
   fontSize: 16,
   height: 1.5,

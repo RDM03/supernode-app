@@ -1,6 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
-import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
+import 'package:supernodeapp/common/daos/demo/topup_dao.dart';
+import 'package:supernodeapp/common/daos/demo/withdraw_dao.dart';
 import 'package:supernodeapp/common/daos/stake_dao.dart';
 import 'package:supernodeapp/common/daos/topup_dao.dart';
 import 'package:supernodeapp/common/daos/withdraw_dao.dart';
@@ -18,6 +20,24 @@ Effect<WalletState> buildEffect() {
     WalletAction.onTab: _onTab,
     WalletAction.onFilter: _onFilter,
   });
+}
+
+StakeDao _buildStakeDao(Context<WalletState> ctx) {
+  return ctx.state.isDemo 
+    ? DemoStakeDao()
+    : StakeDao(); 
+}
+
+WithdrawDao _buildWithdrawDao(Context<WalletState> ctx) {
+  return ctx.state.isDemo 
+    ? DemoWithdrawDao()
+    : WithdrawDao(); 
+}
+
+TopupDao _buildTopupDao(Context<WalletState> ctx) {
+  return ctx.state.isDemo 
+    ? DemoTopupDao()
+    : TopupDao(); 
 }
 
 void _initState(Action action, Context<WalletState> ctx) {
@@ -104,13 +124,13 @@ void _search(Context<WalletState> ctx,String type,Map data,{int index = -1}){
   if(type == 'STAKE' || type == 'UNSTAKE'){
     ctx.dispatch(WalletActionCreator.updateSelectedButton(index));
 
-    StakeDao dao = StakeDao();
+    StakeDao dao = _buildStakeDao(ctx);
     _requestHistory(ctx,dao,data,type,'stakingHist');
     return; 
   }
 
   if(ctx.state.tabIndex == 1){
-    StakeDao dao = StakeDao();
+    StakeDao dao = _buildStakeDao(ctx);
     _requestHistory(ctx,dao,data,type,'stakingHist');
     return;
   }
@@ -129,7 +149,7 @@ void _search(Context<WalletState> ctx,String type,Map data,{int index = -1}){
 }
 
 void _withdrawFee(Context<WalletState> ctx){
-  WithdrawDao dao = WithdrawDao();
+  WithdrawDao dao = _buildWithdrawDao(ctx);
   dao.fee().then((res){
     mLog('WithdrawDao fee',res);
 
@@ -146,7 +166,7 @@ void _withdraw(Context<WalletState> ctx,String type,Map data){
     ctx.dispatch(WalletActionCreator.updateSelectedButton(1));
   }
   data['moneyAbbr']="ETH_MXC";
-  WithdrawDao dao = WithdrawDao();
+  WithdrawDao dao = _buildWithdrawDao(ctx);
   _requestHistory(ctx,dao,data,type,'withdrawHistory');  
 
 }
@@ -154,8 +174,25 @@ void _withdraw(Context<WalletState> ctx,String type,Map data){
 void _deposit(Context<WalletState> ctx,String type,Map data){
   if(!type.contains('DEFAULT') && !type.contains('DATETIME')) ctx.dispatch(WalletActionCreator.updateSelectedButton(0));
 
-  TopupDao dao = TopupDao();
+  TopupDao dao = _buildTopupDao(ctx);
   _requestHistory(ctx,dao,data,type,'topupHistory');  
+}
+
+void _staking(Context<WalletState> ctx,String type,Map data){
+  ctx.dispatch(WalletActionCreator.updateSelectedButton(0));
+
+  StakeDao dao = _buildStakeDao(ctx);
+  
+  dao.activestakes(data).then((res){
+    mLog('StakeDao activestakes',res);
+    
+    if((res as Map).containsKey('actStake')){// && (res['actStake'] as List).isNotEmpty){
+      List list = [res['actStake']];
+      ctx.dispatch(WalletActionCreator.updateList(type, list));
+    }
+  }).catchError((err){
+    // tip(ctx.context,'StakeDao activestakes: $err');
+  });
 }
 
 Future<void> _requestHistory(Context<WalletState> ctx,dao,Map data,String type, String keyType) async {

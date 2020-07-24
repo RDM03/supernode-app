@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/security/biometrics.dart';
 import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
 import 'package:supernodeapp/common/daos/stake_dao.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
@@ -18,6 +19,10 @@ Effect<StakeState> buildEffect() {
     StakeAction.process: _process,
     Lifecycle.initState: _refreshOtpStatus,
   });
+}
+
+StakeDao _buildStakeDao(Context<StakeState> ctx) {
+  return ctx.state.isDemo ? DemoStakeDao() : StakeDao();
 }
 
 void _resultPage(Context<StakeState> ctx, String type, dynamic res) {
@@ -37,7 +42,7 @@ Future<void> _stake(Context<StakeState> ctx) async {
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
   String amount = curState.amountCtl.text;
 
-  StakeDao dao = StakeDao();
+  StakeDao dao = _buildStakeDao(ctx);
   Map data = {"orgId": orgId, "amount": amount};
 
   await dao.stake(data).then((res) async {
@@ -57,7 +62,7 @@ Future<void> _unstake(Context<StakeState> ctx, String otpCode) async {
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
   String amount = curState.amountCtl.text;
 
-  StakeDao dao = StakeDao();
+  StakeDao dao = _buildStakeDao(ctx);
   Map data = {
     "orgId": orgId,
     "amount": amount,
