@@ -31,7 +31,8 @@ void _initState(Action action, Context<DepositState> ctx) async {
     try{
       TopupDao dao = _buildTopupDao(ctx);
       Map data = {
-        "orgId": orgId
+        "orgId": orgId,
+        "currency": '',
       };
 
       var res = await dao.account(data);

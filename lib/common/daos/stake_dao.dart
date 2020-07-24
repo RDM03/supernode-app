@@ -8,6 +8,7 @@ class StakeApi {
  static const String unstake = '/api/staking/{orgId}/unstake';
  static const String history = '/api/staking/{orgId}/history';
  static const String activestakes = '/api/staking/{orgId}/activestakes';
+ static const String revenue = '/api/staking/{orgId}/revenue';
 }
 
 class StakeDao extends Dao{
@@ -43,5 +44,11 @@ class StakeDao extends Dao{
     return get(
       url: Api.url(StakeApi.activestakes,data['orgId']),
     ).then((res) => !isMock ? res : Mock.activestakes);
+  }
+
+  Future<dynamic> revenue(Map data) {
+    return get(
+      url: Api.url(StakeApi.revenue, data['orgId'])
+    );
   }
 }
