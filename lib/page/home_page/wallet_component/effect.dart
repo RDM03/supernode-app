@@ -16,7 +16,6 @@ import 'state.dart';
 Effect<WalletState> buildEffect() {
   return combineEffects(<Object, Effect<WalletState>>{
     Lifecycle.initState: _initState,
-    Lifecycle.disappear: _disappear,
     Lifecycle.dispose: _dispose,
     WalletAction.onTab: _onTab,
     WalletAction.onFilter: _onFilter,
@@ -54,14 +53,10 @@ void _initState(Action action, Context<WalletState> ctx) {
 
   ctx.dispatch(WalletActionCreator.tabController(tabController));
   
-  Future.delayed(Duration(seconds: 2),(){
+  Future.delayed(Duration(seconds: 3),(){
     ctx.dispatch(WalletActionCreator.tab(0));
     ctx.dispatch(WalletActionCreator.onFilter('SEARCH DEFUALT'));
   });
-}
-
-void _disappear(Action action, Context<WalletState> ctx) {
-  print('---------------oooooooo-----1111s');
 }
 
 void _dispose(Action action, Context<WalletState> ctx) {
@@ -197,7 +192,7 @@ void _staking(Context<WalletState> ctx,String type,Map data){
 
 Future<void> _requestHistory(Context<WalletState> ctx,dao,Map data,String type, String keyType) async{
   ctx.dispatch(WalletActionCreator.loadingHistory(true));
-
+  
   try{
     var res = await dao.history(data);
     mLog('$type history',res);

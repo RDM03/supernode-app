@@ -16,11 +16,12 @@ import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
 import 'package:supernodeapp/page/device/smart_watch_detail_page/page.dart';
 import 'package:supernodeapp/page/sign_up_page/page.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'appliction/app.dart';
+import 'common/utils/no_glow_behavior.dart';
 import 'global_store/state.dart';
 import 'page/add_gateway_page/page.dart';
 import 'page/change_password_page/page.dart';
 import 'page/device/choose_application_page/page.dart';
+import 'page/get_2fa_page/page.dart';
 import 'page/set_2fa_page/page.dart';
 import 'page/confirm_page/page.dart';
 import 'page/deposit_page/page.dart';
@@ -52,6 +53,8 @@ Future<void> main() async {
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.dark,
     );
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
@@ -79,6 +82,7 @@ Widget mxcApp() {
         'settings_page': SettingsPage(),
         'change_password_page': ChangePasswordPage(),
         'set_2fa_page': Set2FAPage(),
+        'get_2fa_page': Get2FAPage(),
         'add_gateway_page': AddGatewayPage(),
         'mapbox_page': MapBoxPage(),
         'choose_application_page': ChooseApplicationPage(),
@@ -138,6 +142,15 @@ Widget mxcApp() {
     home: AppPage(
       child: routes.buildPage('splash_page', null),
     ),
+    builder: (context, child) {
+      if (Platform.isAndroid) {
+        return ScrollConfiguration(
+          behavior: NoGlowBehavior(),
+          child: child,
+        );
+      }
+      return child;
+    },
     onGenerateRoute: (RouteSettings settings) {
       return MaterialPageRoute(
         builder: (BuildContext context) {

@@ -38,7 +38,9 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
           margin: const EdgeInsets.only(top: 40),
           child: TextFieldWithTitle(
             title: FlutterI18n.translate(_ctx, state.type == 'stake' ? 'stake_amount' : 'unstake_amount'),
-            validator: (value) => Reg.onValidAmount(_ctx, value),
+            keyboardType: TextInputType.number,
+            readOnly: state.inputLocked,
+            validator: (value) => onValidAmount(_ctx, value),
             controller: state.amountCtl,
           ),
         ),
@@ -56,9 +58,29 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
         ),
       ),
       submitButton(
-        FlutterI18n.translate(_ctx, state.type == 'stake' ? 'confirm_stake' : 'confirm_unstake'),
+        submitText(_ctx, state),
         onPressed: () => dispatch(StakeActionCreator.onConfirm())
       )
     ]
   );
+}
+
+String submitText(BuildContext ctx, StakeState state) {
+  if (state.type == 'stake')
+    return FlutterI18n.translate(ctx, 'confirm_stake');
+  if (state.otpEnabled)
+    return FlutterI18n.translate(ctx, 'confirm_unstake');
+  return FlutterI18n.translate(ctx, 'required_2FA_general');
+}
+
+String onValidAmount(BuildContext context,String value){
+  String res = Reg.isEmpty(value);
+  if(res != null) return FlutterI18n.translate(context, res); 
+
+  final parsed = double.tryParse(value);
+  if (parsed < 0) {
+    return FlutterI18n.translate(context, 'reg_amount');
+  }
+
+  return null;
 }

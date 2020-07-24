@@ -11,7 +11,7 @@ description: Mobile app used to interact with MXC Supernodes.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.3.1
+version: 1.3.2
 
 environment:
   sdk: ">=2.2.2 <3.0.0"
@@ -68,7 +68,13 @@ dependencies:
   # https://pub.dev/packages/page_transition
   page_transition: ^1.1.5
   # https://pub.dev/packages/local_auth
-  local_auth: 0.6.2+3
+  # temporary using 3rd party branch
+  # return back after merged - https://github.com/flutter/plugins/pull/2760
+  local_auth:
+    git:
+      url: https://github.com/severance88/plugins
+      ref: 74ce2b178fccdd3affaeed50dc19700777439e7a
+      path: packages/local_auth
   # https://pub.dev/packages/location
   location: ^3.0.0
   # https://pub.dev/packages/cached_network_image

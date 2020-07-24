@@ -120,7 +120,7 @@
 	"learn_more": "Learn More",
 	"stake_amount": "Stake Amount",
 	"unstake_amount": "UnStake Amount",
-	"revenue_rate": "Revenue Rate",
+	"revenue_rate": "Current Maximum Return",
 	"monthly": "Monthly",
 	"confirm_stake": "Confirm Stake",
 	"confirm_unstake": "Confirm UnStake",
@@ -177,7 +177,6 @@
 	"update_dialog_downloading": "Downloading File...",
 	"tip_latest_version": "This is the latest version.",
 	"demo": "Try a demo!",
-	"downlink_fee": "Downlink Fee",
 	"weekly_revenue": "Weekly Revenue",
 	"frame": "Frame",
 	"gateway_model": "Gateway Model",
@@ -247,5 +246,8 @@
 	"delete_this_footprint": "Delete this Footprint",
 	"device_bluetooth_prompt": "Select a Bluetooth device from the list of devices. Make sure your",
 	"bluetooth": "Bluetooth",
-	"is_turned_on": "is turned on."
+	"is_turned_on": "is turned on.",
+	"downlink_fee": "Downlink Fee",
+	"insufficient_balance": "Insufficient balance",
+	"required_2FA_general": "Required 2FA"
 }

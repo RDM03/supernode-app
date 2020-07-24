@@ -120,7 +120,7 @@
 	"learn_more": "Tìm hiểu thêm",
 	"stake_amount": "Số lượng đặt cọc",
 	"unstake_amount": "Số lượng hủy đặt cọc",
-	"revenue_rate": "Tỉ lệ doanh thu",
+	"revenue_rate": "Lợi nhuận tối đa hiện tại",
 	"monthly": "hàng tháng",
 	"confirm_stake": "Xác nhận đặt cọc",
 	"confirm_unstake": "Xác nhận hủy đặt cọc",
@@ -247,5 +247,7 @@
 	"delete_this_footprint": "Delete this Footprint",
 	"device_bluetooth_prompt": "Select a Bluetooth device from the list of devices. Make sure your",
 	"bluetooth": "Bluetooth",
-	"is_turned_on": "is turned on."
+	"is_turned_on": "is turned on.",
+	"insufficient_balance": "Thiếu cân bằng",
+	"required_2FA_general": "Yêu cầu 2FA"
 }

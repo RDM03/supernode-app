@@ -21,6 +21,7 @@ Widget textfieldWithCodes({BuildContext context,TextEditingController controller
           FocusScope.of(context).unfocus();
         }
       },
+      borderColor: Color(0x1A000000),
       validator: (value) => Reg.onValidNumber(context,value,isShowError: false),
       controller: controller,
     ),

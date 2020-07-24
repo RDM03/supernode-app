@@ -25,4 +25,5 @@ class AppImages {
 
   //login
   static const String placeholder = "assets/images/login/placeholder.png";
+  static const String email = 'assets/images/login/email.png';
 }
