@@ -56,7 +56,9 @@ void _onTab(Action action, Context<WalletState> ctx) {
     'limit': 999
   };
 
-  _search(ctx,'SEARCH DEFUALT',data);
+  Future.delayed(Duration(seconds: 1), () {
+    _search(ctx,'SEARCH DEFUALT',data);
+  });
 }
 
 void _onFilter(Action action, Context<WalletState> ctx) {
