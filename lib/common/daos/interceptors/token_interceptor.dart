@@ -105,7 +105,7 @@ class TokenInterceptors extends InterceptorsWrapper {
 
   ///获取授权token
   getAuthorization() async {
-    String token = StorageManager.sharedPreferences.getString(Config.TOKEN_KEY);
+    String token = StorageManager?.sharedPreferences?.getString(Config.TOKEN_KEY);
     log('${Config.TOKEN_KEY}=$token');
     if (token == null) {
       return Null;

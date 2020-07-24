@@ -16,30 +16,29 @@ Effect<DepositState> buildEffect() {
   });
 }
 
-void _initState(Action action, Context<DepositState> ctx){
+void _initState(Action action, Context<DepositState> ctx) async{
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
   if(orgId == null || orgId.isEmpty){
     orgId = ctx.state.organizations.first.organizationID;
   }
 
-  Future.delayed(Duration(seconds: 3),() async{
-    try{
-      TopupDao dao = TopupDao();
-      Map data = {
-        "orgId": orgId,
-        "currency": '',
-      };
+  // Future.delayed(Duration(seconds: 3),() async{
+  try{
+    TopupDao dao = TopupDao();
+    Map data = {
+      "orgId": orgId,
+      "currency": '',
+    };
 
-      var res = await dao.account(data);
-      mLog('account',res);
-        
-      if((res as Map).containsKey('activeAccount')){
-        ctx.dispatch(DepositActionCreator.address(res['activeAccount']));
-      }
-    }catch(err){
-      // tip(ctx.context,'TopupDao account: $err');
+    var res = await dao.account(data);
+    mLog('account',res);
+      
+    if((res as Map).containsKey('activeAccount')){
+      ctx.dispatch(DepositActionCreator.address(res['activeAccount']));
     }
-  });
+  }catch(err){
+    // tip(ctx.context,'TopupDao account: $err');
+  }
 }
 
 void _copy(Action action, Context<DepositState> ctx) {

@@ -35,15 +35,25 @@ Effect<HomeState> buildEffect() {
   });
 }
 
-void _relogin(Action action, Context<HomeState> ctx) {
-  Map data = {'username': StorageManager.sharedPreferences.getString(Config.USERNAME_KEY), 'password': StorageManager.sharedPreferences.getString(Config.PASSWORD_KEY)};
+void _relogin(Action action, Context<HomeState> ctx) async{
 
-  String apiRoot = StorageManager.sharedPreferences.getString(Config.API_ROOT);
-  Dao.baseUrl = apiRoot;
+  int reloginCount = ctx.state.reloginCount;
+  try {
+    if(reloginCount > 3){
+      ctx.dispatch(HomeActionCreator.reloginCount(0));
+      throw Exception(['error: login more than three times.']);
+    }
 
-  UserDao dao = UserDao();
-  showLoading(ctx.context);
-  dao.login(data).then((res) {
+    ctx.dispatch(HomeActionCreator.reloginCount(reloginCount++));
+
+    Map data = {'username': StorageManager.sharedPreferences.getString(Config.USERNAME_KEY), 'password': StorageManager.sharedPreferences.getString(Config.PASSWORD_KEY)};
+
+    String apiRoot = StorageManager.sharedPreferences.getString(Config.API_ROOT);
+    Dao.baseUrl = apiRoot;
+
+    UserDao dao = UserDao();
+    showLoading(ctx.context);
+    var res = await dao.login(data);
     mLog('login', res);
     hideLoading(ctx.context);
 
@@ -57,22 +67,25 @@ void _relogin(Action action, Context<HomeState> ctx) {
     settingsData.token = res['jwt'];
     settingsData.username = data['username'];
     _profile(ctx);
-  }).catchError((err) {
+  }catch(e){
     hideLoading(ctx.context);
+
     ctx.dispatch(HomeActionCreator.loading(false));
+
     SettingsState settingsData = GlobalStore.store.getState().settings;
     settingsData.userId = '';
     settingsData.selectedOrganizationId = '';
     settingsData.organizations = [];
     SettingsDao.updateLocal(settingsData);
+
     Navigator.of(ctx.context).pushReplacementNamed('login_page');
     // tip(ctx.context, '$err');
-  });
+  }
 }
 
-void _initState(Action action, Context<HomeState> ctx) {
-  _profile(ctx);
-  _gatewaysLocations(ctx);
+void _initState(Action action, Context<HomeState> ctx) async{
+  await _profile(ctx);
+  await _gatewaysLocations(ctx);
 }
 
 void _build(Action action, Context<HomeState> ctx) {
@@ -105,7 +118,7 @@ void _onGateways(Action action, Context<HomeState> ctx) async{
   await _gateways(ctx);
 }
 
-void _profile(Context<HomeState> ctx) async{
+Future<void> _profile(Context<HomeState> ctx) async{
   ctx.dispatch(HomeActionCreator.loading(true));
   Dao.ctx = ctx;
 
@@ -321,7 +334,7 @@ void _mapbox(Action action, Context<HomeState> ctx) {
     ctx.context,
     'mapbox_page',
     arguments: {
-      'markers': ctx.state.mapCtl.markers,
+      'markers': ctx.state.gatewaysLocations
     },
   );
 }

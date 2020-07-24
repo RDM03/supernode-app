@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:supernodeapp/common/daos/interceptors/log_interceptor.dart';
 import 'package:supernodeapp/common/daos/interceptors/token_interceptor.dart';
+import 'package:supernodeapp/common/daos/isolate_dao.dart';
+import 'package:supernodeapp/page/home_page/action.dart';
 
 class Dao {
   static String baseUrl = '';
@@ -37,6 +39,30 @@ class Dao {
   }
 
   Future<dynamic> get({String url, Map data}) async {
+    try{
+      if(!url.contains('http')){
+        url = dio.options.baseUrl + url;
+      }
+      var res;
+      //if isolate had this request, stop to address this process.
+      if(!IsolateDao.isolate.containsKey('$url')){
+
+        res = await IsolateDao.receive(url: url,data: data);
+        
+        if(IsolateDao.isolate.containsKey('$url')){
+          IsolateDao.isolate['$url'].kill();
+          IsolateDao.isolate.remove('$url');
+        }
+
+        return res;
+      }
+      return {};
+    }catch(e){
+      return getMethod(url: url,data: data);
+    }
+  }
+
+  Future<dynamic> getMethod({String url, Map data}) async {
     try {
       Response response = await dio.get(
         url,
@@ -66,3 +92,44 @@ class Dao {
     }
   }
 }
+
+class DaoSingleton{
+  static Future<dynamic> get({String token,String url, Map data}) async {
+    Dio _dio;
+    try {
+      _dio = Dio(
+        BaseOptions(
+          headers: {
+            "Grpc-Metadata-Authorization": token
+          }
+        )
+      );
+
+      Response response = await _dio.get(
+        url,
+        queryParameters: data != null ? new Map<String, dynamic>.from(data) : null,
+      );
+      if (response.statusCode == 200) {
+        return response.data;
+      }
+    } on DioError catch (err) {
+      print(err);
+    }
+  }
+
+  // singleton
+  factory DaoSingleton() => _getInstance();
+
+  static DaoSingleton get instance => _getInstance();
+  static DaoSingleton _instance;
+
+  DaoSingleton._internal();
+
+  static DaoSingleton _getInstance() {
+    if (_instance == null) {
+      _instance = new DaoSingleton._internal();
+    }
+    return _instance;
+  }
+}
+
