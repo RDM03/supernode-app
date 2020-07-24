@@ -178,6 +178,7 @@
 	"tip_latest_version": "Это последняя версия.",
 	"total_device": "Всего устройств",
 	"downlink_fee": "Комиссия",
+	"loading": "loading...",
 	"weekly_revenue": "Weekly Revenue",
 	"frame": "Frame",
 	"gateway_model": "Gateway Model",

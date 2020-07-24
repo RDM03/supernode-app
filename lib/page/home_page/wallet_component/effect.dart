@@ -1,12 +1,13 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/stake_dao.dart';
+import 'package:supernodeapp/common/daos/topup_dao.dart';
 import 'package:supernodeapp/common/daos/withdraw_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
-import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/daos/topup_dao.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
+
 import 'action.dart';
 import 'state.dart';
 
@@ -157,24 +158,7 @@ void _deposit(Context<WalletState> ctx,String type,Map data){
   _requestHistory(ctx,dao,data,type,'topupHistory');  
 }
 
-void _staking(Context<WalletState> ctx,String type,Map data){
-  ctx.dispatch(WalletActionCreator.updateSelectedButton(0));
-
-  StakeDao dao = StakeDao();
-  
-  dao.activestakes(data).then((res){
-    mLog('StakeDao activestakes',res);
-    
-    if((res as Map).containsKey('actStake')){// && (res['actStake'] as List).isNotEmpty){
-      List list = [res['actStake']];
-      ctx.dispatch(WalletActionCreator.updateList(type, list));
-    }
-  }).catchError((err){
-    // tip(ctx.context,'StakeDao activestakes: $err');
-  });
-}
-
-Future<void> _requestHistory(Context<WalletState> ctx,dao,Map data,String type, String keyType) async{
+Future<void> _requestHistory(Context<WalletState> ctx,dao,Map data,String type, String keyType) async {
   ctx.dispatch(WalletActionCreator.loadingHistory(true));
   
   try{

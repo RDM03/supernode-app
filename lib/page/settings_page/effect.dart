@@ -4,7 +4,9 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:package_info/package_info.dart';
 import 'package:supernodeapp/common/daos/settings_dao.dart';
+import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/global_store/store.dart';
+
 import 'action.dart';
 import 'state.dart';
 
@@ -39,19 +41,7 @@ void _onSettings(Action action, Context<SettingsState> ctx) async{
   String page = action.payload;
 
   if(page == 'logout'){
-    SettingsState settingsData = GlobalStore.store.getState().settings;
-    settingsData.userId = '';
-    settingsData.selectedOrganizationId = '';
-    settingsData.organizations = [];
-    settingsData.language = '';
-
-    SettingsDao.updateLocal(settingsData);
-
-    Locale locale = Localizations.localeOf(ctx.context);
-    await FlutterI18n.refresh(ctx.context, locale);
-
-    Navigator.of(ctx.context).pushNamedAndRemoveUntil('login_page',(_) => false);
-
+    await logOut(ctx.context);
     return;
   }
 

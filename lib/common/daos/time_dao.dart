@@ -139,8 +139,7 @@ class TimeDao {
     if(diff.inHours < 24){
       return getHM(oldTime);
     }else if(diff.inDays > 0 && diff.inDays <= 1){
-      return '';
-      // return '${AppStrings.of(context).yesterday()} ' + getHM(oldTime);
+      return null;
     }else if(diff.inDays <= 7){
       return getMDHM(oldTime);
     }else{

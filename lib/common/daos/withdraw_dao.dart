@@ -1,6 +1,5 @@
 import 'package:supernodeapp/common/daos/dao.dart';
 
-
 class WithdrawApi {
   static final String withdraw = '/api/withdraw/req';
   static final String history = '/api/withdraw/history';
