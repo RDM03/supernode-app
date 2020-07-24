@@ -4,9 +4,9 @@ import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
+import 'package:supernodeapp/global_store/action.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
-import 'package:supernodeapp/global_store/action.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -134,7 +134,7 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx){
     settingsData = SettingsState().clone();
   }
 
-  settingsData.otp_code = codes.join();
+  settingsData.otpCode = codes.join();
 
   Map data = {
     "otp_code": codes.join()
@@ -198,7 +198,7 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx){
     settingsData = SettingsState().clone();
   }
 
-  settingsData.otp_code = codes;
+  settingsData.otpCode = codes;
 
   Map data = {
     "otp_code": codes

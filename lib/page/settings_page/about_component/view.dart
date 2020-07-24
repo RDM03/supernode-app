@@ -49,7 +49,10 @@ Widget buildView(AboutState state, Dispatch dispatch, ViewService viewService) {
             onTap: () => dispatch(AboutActionCreator.onCheckForUpdate()),
             trailing: Container(
               padding: kInnerRowRight10,
-              child: Text('v${state.version}+${state.buildNumber}', style: kMiddleFontOfGrey),
+              child: Text(
+                  state.info?.version??FlutterI18n.translate(_ctx, 'loading'),
+                  style: kMiddleFontOfGrey
+              ),
             ),
           ),
           Divider(),

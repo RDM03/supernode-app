@@ -16,6 +16,7 @@ import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/home_page/wallet_component/wallet_list_adapter/wallet_item_component/state.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
+
 import 'action.dart';
 import 'gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
 import 'state.dart';
@@ -289,28 +290,6 @@ Future<void> _gatewaysLocations(Context<HomeState> ctx) async{
     }
   }catch(err){
     // tip(ctx.context, 'GatewaysDao locations: $err');
-  }
-}
-
-Future<void> _devices(Context<HomeState> ctx, UserState userData, String orgId) async{
-  try{
-    DevicesDao dao = DevicesDao();
-    String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-    Map data = {"organizationID": orgId, "offset": 0, "limit": 999};
-
-    var res = await dao.list(data);
-    mLog('DevicesDao list', res);
-
-    int total = int.parse(res['totalCount']);
-    double allValues = 0;
-
-    ctx.dispatch(HomeActionCreator.devices(total, allValues));
-
-    Map priceData = {'userId': userData.id, 'orgId': orgId, 'mxcPrice': '${allValues == 0.0 ? allValues.toInt() : allValues}'};
-
-    await _convertUSD(ctx, priceData, 'device');
-  }catch(err){
-    // tip(ctx.context, 'DevicesDao list: $err');
   }
 }
 

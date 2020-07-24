@@ -1,9 +1,10 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
-import 'enter_securitycode_component/state.dart';
+
 import 'enter_recoverycode_component/state.dart';
-import 'recovery_code_component/state.dart';
+import 'enter_securitycode_component/state.dart';
 import 'qr_code_component/state.dart';
+import 'recovery_code_component/state.dart';
 
 class Set2FAState implements Cloneable<Set2FAState> {
 

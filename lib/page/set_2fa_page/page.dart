@@ -1,10 +1,10 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'enter_securitycode_component/component.dart';
-import 'enter_recoverycode_component/component.dart';
-import 'recovery_code_component/component.dart';
-import 'qr_code_component/component.dart';
 
 import 'effect.dart';
+import 'enter_recoverycode_component/component.dart';
+import 'enter_securitycode_component/component.dart';
+import 'qr_code_component/component.dart';
+import 'recovery_code_component/component.dart';
 import 'reducer.dart';
 import 'state.dart';
 import 'view.dart';

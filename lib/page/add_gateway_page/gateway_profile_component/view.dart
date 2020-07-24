@@ -1,5 +1,4 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
@@ -12,7 +11,6 @@ import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/text_field/row_label.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_button.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
-import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
@@ -22,8 +20,6 @@ import 'state.dart';
 
 Widget buildView(GatewayProfileState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
-  TapGestureRecognizer _gIdTapRecognizer =    TapGestureRecognizer()
-    ..onTap = () => dispatch(GatewayProfileActionCreator.selectIdType());
 
   return pageFrame(
     context: viewService.context,

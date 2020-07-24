@@ -19,6 +19,7 @@ import 'state.dart';
 
 Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
+  
   return Scaffold(
       backgroundColor: cardBackgroundColor,
       body: GestureDetector(

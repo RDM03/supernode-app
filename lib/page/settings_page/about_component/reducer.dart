@@ -6,12 +6,16 @@ import 'state.dart';
 Reducer<AboutState> buildReducer() {
   return asReducer(
     <Object, Reducer<AboutState>>{
-      // AboutAction.action: _onAction,
+      AboutAction.initPackageInfo: _onInitPackageInfo,
     },
   );
 }
 
-AboutState _onAction(AboutState state, Action action) {
+AboutState _onInitPackageInfo(AboutState state, Action action) {
+  var info = action.payload;
   final AboutState newState = state.clone();
+  if (info != null) {
+    newState.info = info;
+  }
   return newState;
 }

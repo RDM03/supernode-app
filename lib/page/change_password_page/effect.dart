@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/global_store/store.dart';
+
 import 'action.dart';
 import 'state.dart';
 
@@ -23,8 +24,6 @@ void _onConfirm(Action action, Context<ChangePasswordState> ctx) {
   }
 
   String userId = GlobalStore.store.getState().settings.userId;
-  String oldPwd = curState.oldPwdCtl.text;
-  String newPwd = curState.newPwdCtl.text;
   String confirmNewPwd = curState.confirmNewPwdCtl.text;
 
   showLoading(ctx.context);

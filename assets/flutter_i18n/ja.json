@@ -178,6 +178,7 @@
 	"tip_latest_version": "お使いのバージョンは最新です。",
 	"total_device": "合計デバイス",
 	"downlink_fee": "ダウンリンク価格",
+	"loading": "loading...",
 	"weekly_revenue": "Weekly Revenue",
 	"frame": "Frame",
 	"gateway_model": "Gateway Model",

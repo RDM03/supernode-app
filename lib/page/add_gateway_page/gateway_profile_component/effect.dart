@@ -13,6 +13,7 @@ import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/home_page/action.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
+
 import 'action.dart';
 import 'state.dart';
 
@@ -145,7 +146,6 @@ void _update(Action action, Context<GatewayProfileState> ctx) {
     GatewaysDao dao = GatewaysDao();
 
     String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-    String serialNumber = curState.serialNumber;
 
     Map data ={
       "gateway": {

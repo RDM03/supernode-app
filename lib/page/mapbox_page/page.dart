@@ -1,8 +1,9 @@
 import 'package:fish_redux/fish_redux.dart';
+
 import 'effect.dart';
 import 'reducer.dart';
-import 'view.dart';
 import 'state.dart';
+import 'view.dart';
 
 class MapBoxPage extends Page<MapBoxState, Map<String, dynamic>> {
   MapBoxPage()
