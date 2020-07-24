@@ -154,7 +154,7 @@ Future<void> _balance(Context<HomeState> ctx, UserState userData, String orgId) 
 
   try{
     WalletDao dao = WalletDao();
-    Map data = {'userId': userData.id, 'orgId': orgId};
+    Map data = {'userId': userData.id, 'orgId': orgId, 'currency': ''};
 
     var res = await dao.balance(data);
     mLog('balance', res);
@@ -172,7 +172,7 @@ Future<void> _miningIncome(Context<HomeState> ctx, String userId, String orgId) 
   
   try{
     WalletDao dao = WalletDao();
-    Map data = {'userId': userId, 'orgId': orgId};
+    Map data = {'userId': userId, 'orgId': orgId, 'currency': ''};
 
     var res = await dao.miningIncome(data);
 
@@ -185,7 +185,7 @@ Future<void> _miningIncome(Context<HomeState> ctx, String userId, String orgId) 
 
     ctx.dispatch(HomeActionCreator.miningIncome(value));
 
-    Map priceData = {'userId': userId, 'orgId': orgId, 'mxcPrice': '${value == 0.0 ? value.toInt() : value}'};
+    Map priceData = {'userId': userId, 'orgId': orgId, 'currency': '', 'mxcPrice': '${value == 0.0 ? value.toInt() : value}'};
     await _convertUSD(ctx, priceData, 'gateway');
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
@@ -204,7 +204,7 @@ Future<void> _stakeAmount(Context<HomeState> ctx, String orgId) async{
     mLog('StakeDao amount', res);
     double amount = 0;
     if (res.containsKey('actStake') && res['actStake'] != null) {
-      amount = Tools.convertDouble(res['actStake']['Amount']);
+      amount = Tools.convertDouble(res['actStake']['amount']);
     }
 
     ctx.dispatch(HomeActionCreator.stakedAmount(amount));
@@ -362,22 +362,16 @@ Future<void> _convertUSD(Context<HomeState> ctx, Map data, String type) async{
 Future<void> _stakingRevenue(Context<HomeState> ctx, String orgId) async{
   try{
     StakeDao dao = StakeDao();
-    Map data = {'orgId': orgId, 'offset': 0, 'limit': 999};
+    Map data = {
+      'orgId': orgId,
+      'till': DateTime.now().add(Duration(days: 1)).toUtc().toIso8601String()
+    };
 
-    var res = await dao.history(data);
-    mLog('StakeDao history', res);
-    double totleRevenue = 0;
+    var res = await dao.revenue(data);
 
-    if ((res as Map).containsKey('stakingHist') && res['stakingHist'].length > 0) {
-      List items = res['stakingHist'] as List;
-      items.forEach((item) {
-        WalletItemState obj = WalletItemState.fromMap(item);
-        totleRevenue += obj.revenue;
-      });
-
-      ctx.dispatch(HomeActionCreator.totalRevenue(totleRevenue));
-    }
-
+    mLog('StakeDao revenue', res);
+    final amount = Tools.convertDouble(res['amount']);
+    ctx.dispatch(HomeActionCreator.totalRevenue(amount));
     ctx.dispatch(HomeActionCreator.loading(false));
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
