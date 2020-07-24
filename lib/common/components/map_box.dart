@@ -95,17 +95,24 @@ class MapViewController {
     if (result.isEmpty) {
       markers.add(marker);
     }
+
     if (marker.withCircle != null && marker.withCircle) {
       if (marker.circleOptions != null) {
         await addCircle(marker.circleOptions);
       }
     }
-    var symbolPoint = await ctl?.addSymbol(SymbolOptions(
+    
+    final symbolPoint = await ctl?.addSymbol(SymbolOptions(
       iconImage: marker.image,
       geometry: marker.point,
       iconSize: marker?.size ?? 1,
       iconOffset: offset,
     ));
+    
+    if (symbolPoint == null) {
+      print('symbol not loaded, trying again in 0.5 sec');
+      Future.delayed(Duration(milliseconds: 500), () => addSymbol(marker));
+    }
     if (realSymbolPoint == null) {
       realSymbolPoint = new List<Symbol>();
     }
