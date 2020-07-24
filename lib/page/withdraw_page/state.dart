@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
+
 import 'enter_securitycode_withdraw_component/state.dart';
 
 class WithdrawState implements Cloneable<WithdrawState> {
@@ -15,6 +16,7 @@ class WithdrawState implements Cloneable<WithdrawState> {
   double balance = 0;
   double fee;
   List<OrganizationsState> organizations = [];
+  bool isDemo;
 
   GlobalKey enterSecurityCodeWithdrawFormKey = GlobalKey<FormState>();
   TextEditingController otpCodeCtl = TextEditingController();
@@ -35,17 +37,20 @@ class WithdrawState implements Cloneable<WithdrawState> {
       ..fee = fee
       ..isEnabled = isEnabled
       ..listCtls = listCtls
-      ..organizations = organizations;
+      ..organizations = organizations
+      ..isDemo = isDemo;
   }
 }
 
 WithdrawState initState(Map<String, dynamic> args) {
   double balance = args['balance'];
   List<OrganizationsState> organizations = args['organizations'];
+  bool isDemo = args['isDemo'] ?? false;
 
   return WithdrawState()
     ..balance = balance
-    ..organizations = organizations;
+    ..organizations = organizations
+    ..isDemo = isDemo;
 }
 
 class EnterSecurityCodeWithdrawConnector extends ConnOp<WithdrawState, EnterSecurityCodeWithdrawState>{

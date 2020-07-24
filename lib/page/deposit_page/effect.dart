@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/daos/demo/topup_dao.dart';
 import 'package:supernodeapp/common/daos/topup_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/global_store/store.dart';
@@ -16,7 +17,11 @@ Effect<DepositState> buildEffect() {
   });
 }
 
-void _initState(Action action, Context<DepositState> ctx){
+_buildTopupDao(Context<DepositState> ctx) {
+  return ctx.state.isDemo  ? DemoTopupDao() : TopupDao();
+}
+
+void _initState(Action action, Context<DepositState> ctx) async {
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
   if(orgId == null || orgId.isEmpty){
     orgId = ctx.state.organizations.first.organizationID;
@@ -24,9 +29,10 @@ void _initState(Action action, Context<DepositState> ctx){
 
   Future.delayed(Duration(seconds: 3),() async{
     try{
-      TopupDao dao = TopupDao();
+      TopupDao dao = _buildTopupDao(ctx);
       Map data = {
-        "orgId": orgId
+        "orgId": orgId,
+        "currency": '',
       };
 
       var res = await dao.account(data);

@@ -41,8 +41,6 @@ dependencies:
   latlong: ^0.6.1
   # https://pub.dev/packages/majascan
   majascan: ^0.3.7
-  # https://pub.dev/packages/pin_code_fields
-  pin_code_fields: ^2.4.0
   # https://pub.dev/packages/package_info
   package_info: ^0.4.1
   # https://pub.dev/packages/permission_handler
@@ -65,8 +63,6 @@ dependencies:
   flutter_spinkit: "^2.1.0"
   # https://pub.dev/packages/localstorage
   localstorage: ^3.0.0
-  # https://pub.dev/packages/page_transition
-  page_transition: ^1.1.5
   # https://pub.dev/packages/local_auth
   # temporary using 3rd party branch
   # return back after merged - https://github.com/flutter/plugins/pull/2760
@@ -117,6 +113,7 @@ flutter:
     - assets/images/deposit/
     - assets/images/withdraw/
     - assets/images/stake/
+    - assets/images/device/
     - assets/others/
   #  - images/a_dot_ham.jpeg
 

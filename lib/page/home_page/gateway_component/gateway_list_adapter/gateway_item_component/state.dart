@@ -42,7 +42,8 @@ class GatewayItemState implements Cloneable<GatewayItemState> {
       ..firstSeenAt = firstSeenAt
       ..lastSeenAt = lastSeenAt
       // ..mapCtl = mapCtl
-      ..isSelectIdType = isSelectIdType;
+      ..isSelectIdType = isSelectIdType
+      ..model = model;
   }
 
  GatewayItemState.fromMap(Map map) {
@@ -78,6 +79,7 @@ class GatewayItemState implements Cloneable<GatewayItemState> {
       GatewaysDao.updatedAt: updatedAt,
       GatewaysDao.firstSeenAt: firstSeenAt,
       GatewaysDao.lastSeenAt: lastSeenAt,
+      GatewaysDao.model: model,
     };
 
     return map;

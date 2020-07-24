@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
+
 import 'action.dart';
 import 'state.dart';
 import 'user_component/state.dart';
@@ -22,8 +23,16 @@ Reducer<HomeState> buildReducer() {
       HomeAction.convertUSD: _convertUSD,
       HomeAction.totalRevenue: _totalRevenue,
       HomeAction.isUpdate: _isUpdate,
+      HomeAction.reloginCount: _reloginCount,
     },
   );
+}
+
+HomeState _reloginCount(HomeState state, Action action) {
+
+  final HomeState newState = state.clone();
+  return newState
+    ..reloginCount = action.payload;
 }
 
 HomeState _isUpdate(HomeState state, Action action) {

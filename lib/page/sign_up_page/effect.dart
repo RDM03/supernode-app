@@ -58,9 +58,9 @@ void _onEmailContinue(Action action, Context<SignUpState> ctx) {
           }
         ),
       );
-    }).catchError((err){
+    }).catchError((err, c){
       hideLoading(ctx.context);
-      // tip(ctx.context,'UserDao register: $err');
+      tip(ctx.context, err);
     });
   }
 

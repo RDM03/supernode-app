@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 import 'package:supernodeapp/common/daos/settings_dao.dart';
 
 import 'about_component/state.dart';
@@ -9,7 +10,7 @@ import 'profile_component/state.dart';
 import 'security_component/state.dart';
 
 class SettingsState implements Cloneable<SettingsState> {
-
+  PackageInfo info;
   int cId;
   String id;
   bool notification = false;
@@ -21,7 +22,7 @@ class SettingsState implements Cloneable<SettingsState> {
   int theme = 0;
 
   String token = '';
-  String otp_code = '';
+  String otpCode = '';
   List<OrganizationsState> organizations = [];
   String selectedOrganizationId = '';
   String expire = '';
@@ -43,6 +44,8 @@ class SettingsState implements Cloneable<SettingsState> {
   //about
   String version = '';
   String buildNumber = '';
+
+  bool isDemo = false;
 
   SettingsState();
   
@@ -69,7 +72,9 @@ class SettingsState implements Cloneable<SettingsState> {
       ..selectedOrgName = selectedOrgName
       ..orgNameCtl = orgNameCtl
       ..orgDisplayCtl = orgDisplayCtl
-      ..orgListCtl = orgListCtl;
+      ..orgListCtl = orgListCtl
+      ..isDemo = isDemo
+      ..info = info;
   }
 
   // columns: [cId, notification, superNode, lanuage, userId, theme]
@@ -106,6 +111,7 @@ class SettingsState implements Cloneable<SettingsState> {
 SettingsState initState(Map<String, dynamic> args) {
   Map user = args['user'];
   List<OrganizationsState> orgs = args['organizations'];
+  bool isDemo = args['isDemo'] ?? false;
 
   return SettingsState()
     ..userId = user['userId']
@@ -113,7 +119,8 @@ SettingsState initState(Map<String, dynamic> args) {
     ..email = user['email']
     ..usernameCtl.text = user['username']
     ..isAdmin = orgs.length > 0 && orgs.first.isAdmin
-    ..organizations = orgs;
+    ..organizations = orgs
+    ..isDemo = isDemo;
 }
 
 class ProfileConnector extends ConnOp<SettingsState, ProfileState>{
@@ -199,11 +206,12 @@ class AboutConnector extends ConnOp<SettingsState, AboutState>{
   AboutState get(SettingsState state){
     return AboutState()
       ..version = state.version
-      ..buildNumber = state.buildNumber;
+      ..buildNumber = state.buildNumber
+      ..info = state.info;
   }
 
   @override
   void set(SettingsState state, AboutState subState) {
-   
+   state.info = subState.info;
   }
 }

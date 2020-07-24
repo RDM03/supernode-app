@@ -37,8 +37,8 @@ Widget buildView(SettingsState state, Dispatch dispatch, ViewService viewService
           child: profile(
             name: state.username,
             position: state.isAdmin ? FlutterI18n.translate(_ctx,'admin') : '',
-            trailing: Icon(Icons.chevron_right),
-            onTap: () => dispatch(SettingsActionCreator.onSettings('profile'))
+            trailing: state.isDemo ? Icon(Icons.do_not_disturb_alt) : Icon(Icons.chevron_right),
+            onTap: state.isDemo ? null : () => dispatch(SettingsActionCreator.onSettings('profile'))
           )
         ),
         panelFrame(
@@ -46,12 +46,14 @@ Widget buildView(SettingsState state, Dispatch dispatch, ViewService viewService
             children: <Widget>[
               listItem(
                 FlutterI18n.translate(_ctx,'organization_setting'),
-                onTap: () => dispatch(SettingsActionCreator.onSettings('organization'))
+                trailing: state.isDemo ? Icon(Icons.do_not_disturb_alt) : null,
+                onTap: state.isDemo ? null : () => dispatch(SettingsActionCreator.onSettings('organization'))
               ),
               Divider(),
               listItem(
                 FlutterI18n.translate(_ctx,'security_setting'),
-                onTap: () => dispatch(SettingsActionCreator.onSettings('security'))
+                trailing: state.isDemo ? Icon(Icons.do_not_disturb_alt) : null,
+                onTap: state.isDemo ? null : () => dispatch(SettingsActionCreator.onSettings('security'))
               ),
               Divider(),
               // listItem(

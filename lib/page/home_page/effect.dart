@@ -1,10 +1,12 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
-import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/components/update_dialog.dart';
+import 'package:supernodeapp/common/daos/demo/gateways_dao.dart';
+import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
+import 'package:supernodeapp/common/daos/demo/user_dao.dart';
+import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/common/daos/app_dao.dart';
@@ -13,9 +15,9 @@ import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
-import 'package:supernodeapp/page/home_page/wallet_component/wallet_list_adapter/wallet_item_component/state.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
+
 import 'action.dart';
 import 'gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
 import 'state.dart';
@@ -33,16 +35,50 @@ Effect<HomeState> buildEffect() {
     HomeAction.mapbox: _mapbox,
   });
 }
+UserDao _buildUserDao(Context<HomeState> ctx) {
+  return ctx.state.isDemo 
+    ? DemoUserDao()
+    : UserDao();
+}
 
-void _relogin(Action action, Context<HomeState> ctx) {
+WalletDao _buildWalletDao(Context<HomeState> ctx) {
+  return ctx.state.isDemo 
+    ? DemoWalletDao()
+    : WalletDao();
+}
+
+GatewaysDao _buildGatewaysDao(Context<HomeState> ctx) {
+  return ctx.state.isDemo 
+    ? DemoGatewaysDao()
+    : GatewaysDao();
+}
+
+StakeDao _buildStakeDao(Context<HomeState> ctx) {
+  return ctx.state.isDemo 
+    ? DemoStakeDao()
+    : StakeDao();
+}
+
+void _relogin(Action action, Context<HomeState> ctx) async{
   Map data = {'username': StorageManager.sharedPreferences.getString(Config.USERNAME_KEY), 'password': StorageManager.sharedPreferences.getString(Config.PASSWORD_KEY)};
 
-  String apiRoot = StorageManager.sharedPreferences.getString(Config.API_ROOT);
-  Dao.baseUrl = apiRoot;
+  int reloginCount = ctx.state.reloginCount;
+  try {
+    if(reloginCount > 3){
+      ctx.dispatch(HomeActionCreator.reloginCount(0));
+      throw Exception(['error: login more than three times.']);
+    }
 
-  UserDao dao = UserDao();
-  showLoading(ctx.context);
-  dao.login(data).then((res) {
+    ctx.dispatch(HomeActionCreator.reloginCount(reloginCount++));
+
+    Map data = {'username': StorageManager.sharedPreferences.getString(Config.USERNAME_KEY), 'password': StorageManager.sharedPreferences.getString(Config.PASSWORD_KEY)};
+
+    String apiRoot = StorageManager.sharedPreferences.getString(Config.API_ROOT);
+    Dao.baseUrl = apiRoot;
+
+    UserDao dao = _buildUserDao(ctx);
+    showLoading(ctx.context);
+    var res = await dao.login(data);
     mLog('login', res);
     hideLoading(ctx.context);
 
@@ -56,22 +92,25 @@ void _relogin(Action action, Context<HomeState> ctx) {
     settingsData.token = res['jwt'];
     settingsData.username = data['username'];
     _profile(ctx);
-  }).catchError((err) {
+  }catch(e){
     hideLoading(ctx.context);
+
     ctx.dispatch(HomeActionCreator.loading(false));
+
     SettingsState settingsData = GlobalStore.store.getState().settings;
     settingsData.userId = '';
     settingsData.selectedOrganizationId = '';
     settingsData.organizations = [];
     SettingsDao.updateLocal(settingsData);
+
     Navigator.of(ctx.context).pushReplacementNamed('login_page');
     // tip(ctx.context, '$err');
-  });
+  }
 }
 
-void _initState(Action action, Context<HomeState> ctx) {
-  _profile(ctx);
-  _gatewaysLocations(ctx);
+void _initState(Action action, Context<HomeState> ctx) async{
+  await _profile(ctx);
+  await _gatewaysLocations(ctx);
 }
 
 void _build(Action action, Context<HomeState> ctx) {
@@ -104,12 +143,12 @@ void _onGateways(Action action, Context<HomeState> ctx) async{
   await _gateways(ctx);
 }
 
-void _profile(Context<HomeState> ctx) async{
+Future<void> _profile(Context<HomeState> ctx) async{
   ctx.dispatch(HomeActionCreator.loading(true));
   Dao.ctx = ctx;
 
   try {
-    UserDao dao = UserDao();
+    UserDao dao = _buildUserDao(ctx);
     var res = await dao.profile();
 
     mLog('profile', res);
@@ -152,8 +191,8 @@ Future<void> _balance(Context<HomeState> ctx, UserState userData, String orgId) 
   if (orgId.isEmpty) return;
 
   try{
-    WalletDao dao = WalletDao();
-    Map data = {'userId': userData.id, 'orgId': orgId};
+    WalletDao dao = _buildWalletDao(ctx);
+    Map data = {'userId': userData.id, 'orgId': orgId, 'currency': ''};
 
     var res = await dao.balance(data);
     mLog('balance', res);
@@ -168,10 +207,9 @@ Future<void> _balance(Context<HomeState> ctx, UserState userData, String orgId) 
 }
 
 Future<void> _miningIncome(Context<HomeState> ctx, String userId, String orgId) async{
-  
   try{
-    WalletDao dao = WalletDao();
-    Map data = {'userId': userId, 'orgId': orgId};
+    WalletDao dao = _buildWalletDao(ctx);
+    Map data = {'userId': userId, 'orgId': orgId, 'currency': ''};
 
     var res = await dao.miningIncome(data);
 
@@ -184,7 +222,7 @@ Future<void> _miningIncome(Context<HomeState> ctx, String userId, String orgId) 
 
     ctx.dispatch(HomeActionCreator.miningIncome(value));
 
-    Map priceData = {'userId': userId, 'orgId': orgId, 'mxcPrice': '${value == 0.0 ? value.toInt() : value}'};
+    Map priceData = {'userId': userId, 'orgId': orgId, 'currency': '', 'mxcPrice': '${value == 0.0 ? value.toInt() : value}'};
     await _convertUSD(ctx, priceData, 'gateway');
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
@@ -197,13 +235,13 @@ Future<void> _stakeAmount(Context<HomeState> ctx, String orgId) async{
   assert(orgId.isNotEmpty);
 
   try{
-    StakeDao dao = StakeDao();
+    StakeDao dao = _buildStakeDao(ctx);
 
     var res = await dao.amount(orgId);
     mLog('StakeDao amount', res);
     double amount = 0;
     if (res.containsKey('actStake') && res['actStake'] != null) {
-      amount = Tools.convertDouble(res['actStake']['Amount']);
+      amount = Tools.convertDouble(res['actStake']['amount']);
     }
 
     ctx.dispatch(HomeActionCreator.stakedAmount(amount));
@@ -215,7 +253,7 @@ Future<void> _stakeAmount(Context<HomeState> ctx, String orgId) async{
 
 Future<void> _gateways(Context<HomeState> ctx) async{
   try{
-    GatewaysDao dao = GatewaysDao();
+    GatewaysDao dao = _buildGatewaysDao(ctx);
     String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
     Map data = {"organizationID": orgId, "offset": 0, "limit": 999};
 
@@ -269,7 +307,7 @@ Future<void> _gateways(Context<HomeState> ctx) async{
 
 Future<void> _gatewaysLocations(Context<HomeState> ctx) async{
   try{
-    GatewaysDao dao = GatewaysDao();
+    GatewaysDao dao = _buildGatewaysDao(ctx);
 
     var res = await dao.locations();
     mLog('GatewaysDao locations', res);
@@ -292,32 +330,11 @@ Future<void> _gatewaysLocations(Context<HomeState> ctx) async{
   }
 }
 
-Future<void> _devices(Context<HomeState> ctx, UserState userData, String orgId) async{
-  try{
-    DevicesDao dao = DevicesDao();
-    String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-    Map data = {"organizationID": orgId, "offset": 0, "limit": 999};
-
-    var res = await dao.list(data);
-    mLog('DevicesDao list', res);
-
-    int total = int.parse(res['totalCount']);
-    double allValues = 0;
-
-    ctx.dispatch(HomeActionCreator.devices(total, allValues));
-
-    Map priceData = {'userId': userData.id, 'orgId': orgId, 'mxcPrice': '${allValues == 0.0 ? allValues.toInt() : allValues}'};
-
-    await _convertUSD(ctx, priceData, 'device');
-  }catch(err){
-    // tip(ctx.context, 'DevicesDao list: $err');
-  }
-}
-
 void _onOperate(Action action, Context<HomeState> ctx) {
   String act = action.payload;
   String page = '${act}_page';
   double balance = ctx.state.balance;
+  bool isDemo = ctx.state.isDemo;
   double stakedAmount = ctx.state.stakedAmount;
   List<OrganizationsState> organizations = ctx.state.organizations;
 
@@ -330,6 +347,7 @@ void _onOperate(Action action, Context<HomeState> ctx) {
     'organizations': organizations, 
     'type': act,
     'stakedAmount': stakedAmount,
+    'isDemo': isDemo
   }).then((res) {
     if ((page == 'stake_page' || page == 'withdraw_page') && res) {
       _profile(ctx);
@@ -342,7 +360,7 @@ void _mapbox(Action action, Context<HomeState> ctx) {
     ctx.context,
     'mapbox_page',
     arguments: {
-      'markers': ctx.state.mapCtl.markers,
+      'markers': ctx.state.gatewaysLocations
     },
   );
 }
@@ -354,7 +372,15 @@ void _onSettings(Action action, Context<HomeState> ctx) {
 
   List<OrganizationsState> organizations = ctx.state.organizations;
 
-  Navigator.pushNamed(ctx.context, 'settings_page', arguments: {'user': user, 'organizations': organizations}).then((res) {
+  Navigator.pushNamed(
+    ctx.context, 
+    'settings_page', 
+    arguments: {
+      'user': user, 
+      'organizations': organizations,
+      'isDemo': curState.isDemo,
+    },
+  ).then((res) {
     if (res != null) {
       ctx.dispatch(HomeActionCreator.updateUsername(res));
     }
@@ -365,7 +391,7 @@ void _onSettings(Action action, Context<HomeState> ctx) {
 
 Future<void> _convertUSD(Context<HomeState> ctx, Map data, String type) async{
   try{
-    WalletDao dao = WalletDao();
+    WalletDao dao = _buildWalletDao(ctx);
 
     var res = await dao.convertUSD(data);
     mLog('WalletDao convertUSD', res);
@@ -382,27 +408,20 @@ Future<void> _convertUSD(Context<HomeState> ctx, Map data, String type) async{
 
 Future<void> _stakingRevenue(Context<HomeState> ctx, String orgId) async{
   try{
-    StakeDao dao = StakeDao();
-    Map data = {'orgId': orgId, 'offset': 0, 'limit': 999};
+    StakeDao dao = _buildStakeDao(ctx);
+    Map data = {
+      'orgId': orgId,
+      'till': DateTime.now().add(Duration(days: 1)).toUtc().toIso8601String()
+    };
 
-    var res = await dao.history(data);
-    mLog('StakeDao history', res);
-    double totleRevenue = 0;
+    var res = await dao.revenue(data);
 
-    if ((res as Map).containsKey('stakingHist') && res['stakingHist'].length > 0) {
-      List items = res['stakingHist'] as List;
-      items.forEach((item) {
-        WalletItemState obj = WalletItemState.fromMap(item);
-        totleRevenue += obj.revenue;
-      });
-
-      ctx.dispatch(HomeActionCreator.totalRevenue(totleRevenue));
-    }
-
+    mLog('StakeDao revenue', res);
+    final amount = Tools.convertDouble(res['amount']);
+    ctx.dispatch(HomeActionCreator.totalRevenue(amount));
     ctx.dispatch(HomeActionCreator.loading(false));
   }catch(err){
     ctx.dispatch(HomeActionCreator.loading(false));
     // tip(ctx.context, 'StakeDao history: $err');
   }
-
 }

@@ -5,9 +5,12 @@ import 'package:majascan/majascan.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/security/biometrics.dart';
 import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/daos/demo/user_dao.dart';
+import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
+import 'package:supernodeapp/common/daos/demo/withdraw_dao.dart';
+import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/daos/wallet_dao.dart';
 import 'package:supernodeapp/common/daos/withdraw_dao.dart';
-import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
@@ -25,41 +28,54 @@ Effect<WithdrawState> buildEffect() {
     WithdrawAction.onSubmit: _onSubmit,
   });
 }
-
-void _initState(Action action, Context<WithdrawState> ctx) {
-  Future.delayed(Duration(seconds: 3),() async{
-    _withdrawFee(ctx);
-    _requestTOTPStatus(ctx);
-  });
+WithdrawDao _buildWithdrawDao(Context<WithdrawState> ctx) {
+  return ctx.state.isDemo ? DemoWithdrawDao() : WithdrawDao();
 }
 
-void _requestTOTPStatus(Context<WithdrawState> ctx) {
-  UserDao dao = UserDao();
+UserDao _buildUserDao(Context<WithdrawState> ctx) {
+  return ctx.state.isDemo ? DemoUserDao() : UserDao();
+}
+
+WalletDao _buildWalletDao(Context<WithdrawState> ctx) {
+  return ctx.state.isDemo ? DemoWalletDao() : WalletDao();
+}
+
+Future<void> _requestTOTPStatus(Context<WithdrawState> ctx) async{
+  UserDao dao = _buildUserDao(ctx);
 
   Map data = {};
 
-  dao.getTOTPStatus(data).then((res) {
+  try{
+    var res = await dao.getTOTPStatus(data);
     mLog('totp', res);
 
     if ((res as Map).containsKey('enabled')) {
       ctx.dispatch(WithdrawActionCreator.isEnabled(res['enabled']));
     }
-  }).catchError((err) {
-    // tip(ctx.context, '$err');
-  });
+  } catch(err){
+    tip(ctx.context, '$err');
+  }
 }
 
-void _withdrawFee(Context<WithdrawState> ctx) {
-  WithdrawDao dao = WithdrawDao();
-  dao.fee().then((res) {
+void _initState(Action action, Context<WithdrawState> ctx) async {
+  await _withdrawFee(ctx);
+  await _requestTOTPStatus(ctx);
+}
+
+Future<void> _withdrawFee(Context<WithdrawState> ctx) async{
+
+  try{
+    WithdrawDao dao = WithdrawDao();
+    var res = await dao.fee();
     mLog('WithdrawDao fee', res);
 
     if ((res as Map).containsKey('withdrawFee')) {
       ctx.dispatch(WithdrawActionCreator.fee(Tools.convertDouble(res['withdrawFee'])));
     }
-  }).catchError((err) {
-    // tip(ctx.context, 'WithdrawDao fee: $err');
-  });
+  } catch(err){
+    tip(ctx.context, 'WithdrawDao fee: $err');
+  }
+  
 }
 
 void _onQrScan(Action action, Context<WithdrawState> ctx) async {
@@ -123,10 +139,10 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
     Biometrics.authenticate(
       ctx.context,
       authenticateCallback: () {
-        WithdrawDao dao = WithdrawDao();
+        WithdrawDao dao = _buildWithdrawDao(ctx);
         Map data = {
           "orgId": orgId,
-          "amount": int.parse(amount),
+          "amount": amount,
           "ethAddress": address,
           "availableBalance": balance,
           "otp_code": codes.join('')
@@ -156,7 +172,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
 }
 
 Future<void> _updateBalance(Context<WithdrawState> ctx) async{
-  WalletDao dao = WalletDao();
+  WalletDao dao = _buildWalletDao(ctx);
   var settingsData = GlobalStore.store.getState().settings;
   String userId = settingsData.userId;
   String orgId = settingsData.selectedOrganizationId;

@@ -1,8 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
-// import 'package:mapbox_gl/mapbox_gl.dart';
-import 'package:supernodeapp/page/home_page/gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
-
 import 'action.dart';
 import 'state.dart';
 
@@ -29,11 +26,9 @@ GatewayProfileState _selectIdType(GatewayProfileState state, Action action) {
 }
 
 GatewayProfileState _updateItem(GatewayProfileState state, Action action) {
-  GatewayItemState data = action.payload;
 
   final GatewayProfileState newState = state.clone();
   return newState;
-    // ..item = data;
 }
 
 GatewayProfileState _networkServerList(GatewayProfileState state, Action action) {

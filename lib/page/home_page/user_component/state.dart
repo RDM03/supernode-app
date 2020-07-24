@@ -44,6 +44,8 @@ class UserState implements Cloneable<UserState> {
   MapViewController mapViewController;
   StreamController<LatLng> markerlocationStream = StreamController();
 
+  bool isDemo = false;
+
   UserState();
 
   @override
@@ -71,7 +73,8 @@ class UserState implements Cloneable<UserState> {
       ..devicesUSDRevenue = devicesUSDRevenue
       ..mapViewController = mapViewController
       ..markerlocationStream = markerlocationStream
-      ..gatewaysLocations = gatewaysLocations;
+      ..gatewaysLocations = gatewaysLocations
+      ..isDemo = isDemo;
   }
 
   UserState.fromMap(Map map, {String type = 'local'}) {

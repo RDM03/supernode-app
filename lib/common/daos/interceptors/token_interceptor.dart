@@ -1,5 +1,6 @@
-import 'dart:developer';
 import 'dart:convert';
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/tip.dart';
@@ -69,9 +70,9 @@ class TokenInterceptors extends InterceptorsWrapper {
     if(errRes != null && errRes.toString().contains(new RegExp(r'jwt|authentication'))){
       /// when token is expired, it needs to start to login.
       Dao.ctx.dispatch(HomeActionCreator.onReLogin());
-    } else if (errRes.statusCode == 401 || errRes.toString().contains('not authenticated')) {
+    } else if (Dao.ctx?.context != null && errRes.statusCode == 401 || errRes.toString().contains('not authenticated')) {
       await logOut(Dao.ctx.context);
-    } else{
+    } else if (Dao.ctx?.context != null) {
       tip(Dao.ctx.context, FlutterI18n.translate(Dao.ctx.context,'error_tip'));
     }
 
@@ -104,7 +105,7 @@ class TokenInterceptors extends InterceptorsWrapper {
 
   ///获取授权token
   getAuthorization() async {
-    String token = StorageManager.sharedPreferences.getString(Config.TOKEN_KEY);
+    String token = StorageManager?.sharedPreferences?.getString(Config.TOKEN_KEY);
     log('${Config.TOKEN_KEY}=$token');
     if (token == null) {
       return Null;

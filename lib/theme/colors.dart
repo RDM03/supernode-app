@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 final appTheme = ThemeData(
   primarySwatch: Colors.blue,
   // secondaryHeaderColor: Colors.blue,
+  brightness: Brightness.light,
   appBarTheme: AppBarTheme(
-    brightness: Brightness.light,
+    brightness: Brightness.light
   ),
 );
 
@@ -56,3 +57,14 @@ const selectedTabColor = Color.fromARGB(255, 77, 137, 229);
 const Color darkBackground = Color(0xFFEBEFF2);
 const Color hintFont = Color(0xFF98A6AD);
 const Color tipFont = Color(0xDE000000);
+
+//device
+const dartBlueColor = Color.fromARGB(255, 28, 20, 120);
+const dbm100=Color(0xFFFF5B5B);
+const dbm100_105=Color(0xFFFAA300);
+const dbm105_110=Color(0xFFF7D700);
+
+const dbm110_115=Color(0xFF10C469);
+const dbm115_120=Color(0xFF4D89E5);
+const dbm120=Color(0xFF1C1478);
+const boxShadowColor=Color.fromRGBO(0, 0, 0, 0.1);
