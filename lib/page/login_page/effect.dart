@@ -87,7 +87,13 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
       hideLoading(ctx.context);
       Navigator.pushReplacementNamed(ctx.context, 'home_page');
     } catch (err) {
-      // tip(ctx.context, '$err');
+      ctx.state.scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text(err, style: Theme.of(ctx.context).textTheme.bodyText1.copyWith(color: Colors.white),),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.red,
+        )
+      );
     } finally {
       hideLoading(ctx.context);
     }
