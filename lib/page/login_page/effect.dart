@@ -14,6 +14,7 @@ import 'package:supernodeapp/data/super_node_bean.dart';
 import 'package:supernodeapp/global_store/action.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
+import 'package:supernodeapp/theme/colors.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -91,7 +92,7 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
         SnackBar(
           content: Text(err, style: Theme.of(ctx.context).textTheme.bodyText1.copyWith(color: Colors.white),),
           duration: Duration(seconds: 2),
-          backgroundColor: Colors.red,
+          backgroundColor: errorColor,
         )
       );
     } finally {

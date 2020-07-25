@@ -68,3 +68,5 @@ const dbm110_115=Color(0xFF10C469);
 const dbm115_120=Color(0xFF4D89E5);
 const dbm120=Color(0xFF1C1478);
 const boxShadowColor=Color.fromRGBO(0, 0, 0, 0.1);
+
+final errorColor=Colors.red[200];
