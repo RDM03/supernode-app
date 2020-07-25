@@ -169,6 +169,7 @@
 	"disable_2FA": "Zweistufige Anmeldung deaktivieren",
 	"24hours_warning": "Jeder Auszug unterliegt einer Sicherheitsprüfung, die an Werktagen bis zu 24 Stunden dauern kann.",
 	"required_2FA": "Erforderliche 2FA für Auszahlung",
+	"required_2FA_general": "Erforderliche 2FA",
 	"update_dialog_title": "MXC DataDash Update verfügbar",
 	"update_dialog_subTitle": "Genießen Sie die neueste Version",
 	"update_dialog_content": "Es gibt eine neue Version mit den fortschrittlichsten Funktionen, bitte klicke auf \"Bestätigen\", um zu aktualisieren!",
@@ -247,5 +248,6 @@
 	"delete_this_footprint": "Delete this Footprint",
 	"device_bluetooth_prompt": "Select a Bluetooth device from the list of devices. Make sure your",
 	"bluetooth": "Bluetooth",
-	"is_turned_on": "is turned on."
+	"is_turned_on": "is turned on.",
+	"insufficient_balance": "Mangelhaftes Gleichgewicht"
 }

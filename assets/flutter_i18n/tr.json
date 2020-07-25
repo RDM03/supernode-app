@@ -169,6 +169,7 @@
 	"disable_2FA": "İki Aşamalı Kimlik Doğrulamasını devre dışı bırak",
 	"24hours_warning": "Her para çekme işlemi, iş günlerinde 24 saate kadar sürebilen bir güvenlik taramasına tabidir.",
 	"required_2FA": "Para çekmek için gerekli 2FA",
+	"required_2FA_general": "Gerekli 2FA",
 	"update_dialog_title": "Menkul Kıymet aMXC DataDash güncellemesi mevcut",
 	"update_dialog_subTitle": "En son sürümün keyfini çıkarın",
 	"update_dialog_content": "En gelişmiş özelliklere sahip yeni bir sürüm var, lütfen yükseltmek için onayla'yı tıklayın!",
@@ -247,5 +248,6 @@
 	"delete_this_footprint": "Delete this Footprint",
 	"device_bluetooth_prompt": "Select a Bluetooth device from the list of devices. Make sure your",
 	"bluetooth": "Bluetooth",
-	"is_turned_on": "is turned on."
+	"is_turned_on": "is turned on.",
+	"insufficient_balance": "Yetersiz bakiye"
 }

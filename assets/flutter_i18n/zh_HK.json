@@ -169,6 +169,7 @@
 	"disable_2FA": "停用兩步驗證",
 	"24hours_warning": "每次提取通證在工作日最多需要24小時。",
 	"required_2FA": "請求兩步驗證",
+	"required_2FA_general": "请求两步验证",
 	"update_dialog_title": "MXC智慧城市APP可更新",
 	"update_dialog_subTitle": "享受最新版本",
 	"update_dialog_content": "有可用的新版本，搭載最新功能，請點擊確認以升級！",
@@ -247,5 +248,6 @@
 	"delete_this_footprint": "刪除此足跡",
 	"device_bluetooth_prompt": "從設備列表中選擇一個藍牙設備。 確保你的",
 	"bluetooth": "藍牙",
-	"is_turned_on": "已開啟。"
+	"is_turned_on": "已開啟。",
+	"insufficient_balance": "余额不足"
 }

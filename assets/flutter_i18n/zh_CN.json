@@ -169,6 +169,7 @@
 	"disable_2FA": "关闭双重身份验证",
 	"24hours_warning": "每次提取都要经过安全检查，在工作日最多需要24个小时。",
 	"required_2FA": "请求两步验证",
+	"required_2FA_general": "请求两步验证",
 	"update_dialog_title": "MXC智慧城市APP可更新",
 	"update_dialog_subTitle": "享受最新版本",
 	"update_dialog_content": "有可用的新版本，搭载最新功能，请点击确认以升级！",
@@ -247,5 +248,6 @@
 	"delete_this_footprint": "删除足迹",
 	"device_bluetooth_prompt": "从设备列表中选择一个蓝牙设备。请确保您的",
 	"bluetooth": "蓝牙",
-	"is_turned_on": "已开机。"
+	"is_turned_on": "已开机。",
+	"insufficient_balance": "余额不足"
 }

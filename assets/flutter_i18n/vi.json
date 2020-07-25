@@ -169,6 +169,7 @@
 	"disable_2FA": "Vô hiệu hóa Xác thực 2 nhân tố",
 	"24hours_warning": "Mỗi lần rút tiền phải được kiểm tra bảo mật có thể mất tới 24 giờ vào ngày làm việc.",
 	"required_2FA": "Yêu cầu 2FA để rút tiền",
+	"required_2FA_general": "Yêu cầu 2FA",
 	"update_dialog_title": "Có sẵn bản cập nhật MXC DataDash",
 	"update_dialog_subTitle": "Thưởng thức phiên bản mới nhất",
 	"update_dialog_content": "Có một phiên bản mới với các tính năng tiên tiến nhất, vui lòng nhấp vào xác nhận để nâng cấp!",
@@ -247,5 +248,6 @@
 	"delete_this_footprint": "Delete this Footprint",
 	"device_bluetooth_prompt": "Select a Bluetooth device from the list of devices. Make sure your",
 	"bluetooth": "Bluetooth",
-	"is_turned_on": "is turned on."
+	"is_turned_on": "is turned on.",
+	"insufficient_balance": "Thiếu cân bằng"
 }

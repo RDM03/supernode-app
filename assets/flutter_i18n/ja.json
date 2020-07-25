@@ -169,6 +169,7 @@
 	"disable_2FA": "2段階認証を無効にする",
 	"24hours_warning": "各引き出しは、営業日に最大24時間かかる可能性のあるセキュリティ審査の対象となります。",
 	"required_2FA": "引き出しには2FAが必要です",
+	"required_2FA_general": "2FAが必要",
 	"update_dialog_title": "MXCデータダッシュの更新が利用可能です",
 	"update_dialog_subTitle": "最新バージョンをお楽しみください",
 	"update_dialog_content": "最新の機能を搭載した新しいバージョンがあります。アップグレードの確認をクリックしてください！",
@@ -247,5 +248,6 @@
 	"delete_this_footprint": "Delete this Footprint",
 	"device_bluetooth_prompt": "Select a Bluetooth device from the list of devices. Make sure your",
 	"bluetooth": "Bluetooth",
-	"is_turned_on": "is turned on."
+	"is_turned_on": "is turned on.",
+	"insufficient_balance": "残高不足です"
 }
