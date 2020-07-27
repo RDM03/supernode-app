@@ -68,9 +68,9 @@ Widget buildView(
                     dispatch(DeviceActionCreator.onQrScan());
                 },
                 titleText: FlutterI18n.translate(_ctx, 'total_device'),
-                subtitleText: '4',
+                subtitleText: '0',
                 trailTitle: FlutterI18n.translate(_ctx, 'downlink_fee'),
-                trailSubtitle: '22 MXC (22 USD)'),
+                trailSubtitle: '88 MXC (8.8 USD)'),
           ),
           panelFrame(
             child: adapter.itemCount != 0
