@@ -4,7 +4,11 @@ import 'package:supernodeapp/page/home_page/device_component/device_list_adapter
 class DeviceState extends MutableSource implements Cloneable<DeviceState> {
   int deviceSortType = 0;
 
-  List list = [DeviceItemState(), DeviceItemState(), DeviceItemState()];
+  List list;
+
+  DeviceState() {
+    list = [DeviceItemState(() => isDemo), DeviceItemState(() => isDemo), DeviceItemState(() => isDemo)];
+  }
 
   @override
   Object getItemData(int index) => list[index];

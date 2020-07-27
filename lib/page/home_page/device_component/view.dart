@@ -64,7 +64,8 @@ Widget buildView(
                 loading: false,
                 icon: Icons.add_circle,
                 onPressed: () {
-                  dispatch(DeviceActionCreator.onQrScan());
+                  if (state.isDemo)
+                    dispatch(DeviceActionCreator.onQrScan());
                 },
                 titleText: FlutterI18n.translate(_ctx, 'total_device'),
                 subtitleText: '4',

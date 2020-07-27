@@ -1,12 +1,12 @@
 import 'package:fish_redux/fish_redux.dart';
 
 class DeviceItemState implements Cloneable<DeviceItemState> {
+  bool Function() isDemo; 
+
+  DeviceItemState(this.isDemo);
+
   @override
   DeviceItemState clone() {
-    return DeviceItemState();
+    return DeviceItemState(isDemo);
   }
-}
-
-DeviceItemState initState(Map<String, dynamic> args) {
-  return DeviceItemState();
 }
