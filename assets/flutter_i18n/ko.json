@@ -110,7 +110,7 @@
 	"address": "주소",
 	"copy_address": "주소 복사",
 	"send_deposit_address": "이 입금계좌로는 MXC 토큰만 전송하셔야 합니다.",
-	"send_coin_tip": "ETH외의 코인이나 토큰을 이 계좌로 보낼 경우 손실이 발생할 수 있습니다.",
+	"send_coin_tip": "MXC외의 코인이나 토큰을 이 계좌로 보낼 경우 손실이 발생할 수 있습니다.",
 	"deposit_confirm_tip": "12개의 네트워크 승인 후, MXC가 입금 완료 됩니다.",
 	"withdraw_amount": "출금 수량",
 	"qr_scan": "QR 코드 스캔",

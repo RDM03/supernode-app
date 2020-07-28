@@ -110,7 +110,7 @@
 	"address": "地址",
 	"copy_address": "複製位址",
 	"send_deposit_address": "僅發送MXC到該存款地址。",
-	"send_coin_tip": "將除ETH以外的代幣或通證發送到該地址可能會導致您的存款丟失。",
+	"send_coin_tip": "將除MXC以外的代幣或通證發送到該地址可能會導致您的存款丟失。",
 	"deposit_confirm_tip": "您的MXC極域將在經過12次網路確認後存入。",
 	"withdraw_amount": "提取數量",
 	"qr_scan": "QR掃描",

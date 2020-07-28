@@ -110,7 +110,7 @@
 	"address": "Adres",
 	"copy_address": "Adresi Kopyala",
 	"send_deposit_address": "Bu hesap adresine sadece MXC gönder.",
-	"send_coin_tip": "Bu adrese ETH harici herhangi bir para veya token göndermek, depozitonuzu kaybetmenize neden olabilir.",
+	"send_coin_tip": "Bu adrese MXC harici herhangi bir para veya token göndermek, depozitonuzu kaybetmenize neden olabilir.",
 	"deposit_confirm_tip": "MXC miktarınız 12 adet ağ onayı sonrası hesabınıza yatırılacaktır.",
 	"withdraw_amount": "Çekilen Miktar",
 	"qr_scan": "QR Tarama",
