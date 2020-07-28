@@ -110,7 +110,7 @@
 	"address": "Adresse",
 	"copy_address": "Adresse kopieren",
 	"send_deposit_address": "Sende MXC nur an diese Einzahlungsadresse.",
-	"send_coin_tip": "Das Senden von anderen Kryptowährungen als ETH an diese Adresse, kann zu einem Verlust Ihrer Einzahlung führen.",
+	"send_coin_tip": "Das Senden von anderen Kryptowährungen als MXC an diese Adresse, kann zu einem Verlust Ihrer Einzahlung führen.",
 	"deposit_confirm_tip": "Deine MXC werden nach 12 Netzwerk-Bestätigungen gutgeschrieben.",
 	"withdraw_amount": "Betrag abheben",
 	"qr_scan": "QR-Scan",

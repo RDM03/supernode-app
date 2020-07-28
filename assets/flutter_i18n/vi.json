@@ -110,7 +110,7 @@
 	"address": "Địa chỉ",
 	"copy_address": "Sao chép Địa chỉ",
 	"send_deposit_address": "Chỉ gửi MXC đến những địa chỉ này.",
-	"send_coin_tip": "Gửi coin hoặc token không phải dạng ETH đến địa chỉ này có thể làm mất tài sản của bạn.",
+	"send_coin_tip": "Gửi coin hoặc token không phải dạng MXC đến địa chỉ này có thể làm mất tài sản của bạn.",
 	"deposit_confirm_tip": "MXC sẽ được nạp vào tài khoản sau 12 xác minh trong mạng lưới.",
 	"withdraw_amount": "Số lượng rút",
 	"qr_scan": "Quét mã QR",
