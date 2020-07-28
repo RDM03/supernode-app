@@ -32,12 +32,12 @@
   "MatchX US": {
     "region": "America",
     "url": "https://ussn.matchx.io",
-    "logo": "https://ussn.matchx.iot-ducapitalo/branding.png"
+    "logo": "https://ussn.matchx.io/branding.png"
   },
   "Sejong": {
     "region": "Korea",
-    "url": "https://sn.parkingclub.co.kr/",
-    "logo": "https://sn.parkingclub.co.kr/branding.png"
+    "url": "https://k-supernode.com",
+    "logo": "https://k-supernode.com/branding.png"
   },
   "MXCtest": {
     "region": "Test",
