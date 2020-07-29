@@ -22,6 +22,7 @@ import 'state.dart';
 Widget buildView(GatewayProfileState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
   GatewayItemState profile = state.profile;
+  final location = LatLng((profile.location['latitude'] as num).toDouble(), (profile.location['longitude'] as num).toDouble());
 
   return pageFrame(
     context: viewService.context,
@@ -52,7 +53,7 @@ Widget buildView(GatewayProfileState state, Dispatch dispatch, ViewService viewS
       MapBoxWidget(
         rowTop: EdgeInsets.zero,
         config: state.mapCtl,
-        centerLocation: LatLng(profile.location['latitude'],profile.location['longitude']),
+        centerLocation: location,
         userLocationSwitch: false,
         isUserLocation: false,
         isUserLocationSwitch: false,

@@ -38,11 +38,13 @@ GatewaysDao _buildGatewaysDao(Context<GatewayProfileState> ctx) {
 void _initState(Action action, Context<GatewayProfileState> ctx){
   SchedulerBinding.instance.addPostFrameCallback((_) async{
     GatewayItemState profile = ctx.state.profile;
-    LatLng markerPiont = LatLng(profile.location['latitude'],profile.location['longitude']);
+    LatLng markerPiont = LatLng(
+      (profile.location['latitude'] as num).toDouble(),
+      (profile.location['longitude'] as num).toDouble());
     var ctl = ctx.state.mapCtl;
 
     ctl.myLatLng = markerPiont;
-    ctl.moveToMyLatLng();
+    await ctl.moveToMyLatLng();
 
     Future.delayed(Duration(seconds: 1),(){
       ctl.addSymbol(MapMarker(
