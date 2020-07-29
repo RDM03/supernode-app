@@ -93,68 +93,36 @@ WalletState _updateSelectedButton(WalletState state, Action action) {
 
 WalletState _updateList(WalletState state, Action action) {
   Map data = action.payload;
-  String type = data['type'];
+  String sourceType = data['type'];
+  final type = sourceType.split(' ')[0];
   List<WalletItemState> list = [];
-  double totalRevenue = 0;
-  for(int index = 0;index < data['list'].length;index ++){
-    WalletItemState item = WalletItemState.fromMap(data['list'][index]);
 
-    item.type = type;
-
-    if(type.contains('DEFAULT') || type.contains('DATETIME')) {
-      item.type = type.split(' ')[0];
-    }
-
-    if(item.revenue != null){
-      totalRevenue += item.revenue;
-    }
-    
-    if(type == 'STAKE'){
-      if(item.end.contains('--') || (item.end != null && item.end.isEmpty)){
-        list.add( item ); 
-      }
-
-      continue;
-    }
-
-    if(type == 'UNSTAKE'){
-      if(item.end != null && item.end.isNotEmpty && !item.end.contains('--')){
-        list.add( item ); 
-      }
-
-      continue;
-    }
-
-    if(type == 'DEPOSIT DATETIME' || type == 'WITHDRAW DATETIME'){
-      if(TimeDao.isInRange(item.txSentTime!=null?item.txSentTime:item.createdAt, state.firstTime, state.secondTime)){
-        list.add( item );
-      }
-
-      continue;
-    }
-    
-    if(type == 'SEARCH' && state.tabIndex == 1 && state.isSetDate2){
-      if(TimeDao.isInRange(item.start, state.firstTime, state.secondTime)){
-        list.add( item );
-      }
-
-      continue;
-    }
-
-    list.add( item );
+  final sourceList = (data['list'] as List).map((e) => WalletItemState.fromMap(e));
+  if (type == 'STAKE') {
+    list.addAll(sourceList.where((e) => e.type == 'STAKING'));
   }
-  
-  if(type.contains('WITHDRAW DEFAULT') ||type.contains('WITHDRAW DATETIME')) {
-    list.addAll(state.list);
+  else if (type == 'UNSTAKE') {
+    list.addAll(sourceList.where((e) => e.type == 'UNSTAKING'));
+  }
+  else if (type == 'DEPOSIT') {
+    list.addAll(sourceList.where((e) => e.amount > 0));
+  }
+  else if (type == 'WITHDRAW') {
+    list.addAll(sourceList.where((e) => e.amount < 0));
+  }
+  else {
+    list.addAll(sourceList);
   }
 
+  list.forEach((e) => e.type = type);
+
+  list.sort((a,b) => b.timestamp.compareTo(a.timestamp));
   if(list.length > 0) list[list.length - 1].isLast = true;
 
   final WalletState newState = state.clone();
 
   return newState
     ..isFirstRequest = false
-    ..totalRevenue = totalRevenue
     ..list = list;
 }
 

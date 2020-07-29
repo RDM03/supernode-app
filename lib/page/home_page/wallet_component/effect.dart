@@ -75,8 +75,12 @@ void _onTab(Action action, Context<WalletState> ctx) {
     'orgId': orgId,
     'offset': 0,
     'limit': 999,
-    'from': DateTime(2000).toUtc().toIso8601String(),
-    'till': DateTime.now().add(Duration(days: 1)).toUtc().toIso8601String(),
+    'from': ctx.state.isSetDate1 || ctx.state.isSetDate2
+      ? DateTime.parse(ctx.state.firstTime).toUtc().toIso8601String()
+      : DateTime(2000).toUtc().toIso8601String(),
+    'till': ctx.state.isSetDate1 || ctx.state.isSetDate2
+      ? DateTime.parse(ctx.state.secondTime).toUtc().toIso8601String()
+      : DateTime.now().add(Duration(days: 1)).toUtc().toIso8601String(),
   };
 
   Future.delayed(Duration(seconds: 1), () {
@@ -84,7 +88,7 @@ void _onTab(Action action, Context<WalletState> ctx) {
   });
 }
 
-void _onFilter(Action action, Context<WalletState> ctx) {
+void _onFilter(Action action, Context<WalletState> ctx) async {
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
   String type = action.payload;
 
@@ -94,8 +98,12 @@ void _onFilter(Action action, Context<WalletState> ctx) {
     'orgId': orgId,
     'offset': 0,
     'limit': 999,
-    'from': DateTime(2000).toUtc().toIso8601String(),
-    'till': DateTime.now().add(Duration(days: 1)).toUtc().toIso8601String(),
+    'from': type == 'SEARCH' && (ctx.state.isSetDate1 || ctx.state.isSetDate2)
+      ? DateTime.parse(ctx.state.firstTime).toUtc().toIso8601String()
+      : DateTime(2000).toUtc().toIso8601String(),
+    'till': type == 'SEARCH' && (ctx.state.isSetDate1 || ctx.state.isSetDate2)
+      ? DateTime.parse(ctx.state.secondTime).toUtc().toIso8601String()
+      : DateTime.now().add(Duration(days: 1)).toUtc().toIso8601String(),
     'currency': '',
   };
 
@@ -103,10 +111,20 @@ void _onFilter(Action action, Context<WalletState> ctx) {
 
   switch (type) {
     case 'DEPOSIT':
-      _deposit(ctx,type,data);
+      if(!type.contains('DEFAULT') && !type.contains('DATETIME')) {
+        ctx.dispatch(WalletActionCreator.updateSelectedButton(0));
+      }
+      TopupDao dao = _buildTopupDao(ctx);
+      final list = await _getHistory(ctx,dao,data,type,['topupHistory']);
+      ctx.dispatch(WalletActionCreator.updateList(type, list));
       break;
     case 'WITHDRAW':
-      _withdraw(ctx,type,data);
+      if(!type.contains('DEFAULT') && !type.contains('DATETIME')) {
+        ctx.dispatch(WalletActionCreator.updateSelectedButton(1));
+      }
+      WithdrawDao dao = _buildWithdrawDao(ctx);
+      final list = await _getHistory(ctx,dao,data,type,['withdrawHistory']);
+      ctx.dispatch(WalletActionCreator.updateList(type, list));
       break;
     case 'STAKE':
       _search(ctx,type,data,index: 0);
@@ -122,31 +140,39 @@ void _onFilter(Action action, Context<WalletState> ctx) {
   }
 }
 
-void _search(Context<WalletState> ctx,String type,Map data,{int index = -1}){
+void _search(Context<WalletState> ctx,String type,Map data,{int index = -1}) async {
   if(type == 'STAKE' || type == 'UNSTAKE'){
     ctx.dispatch(WalletActionCreator.updateSelectedButton(index));
 
     StakeDao dao = _buildStakeDao(ctx);
-    _requestHistory(ctx,dao,data,type,'stakingHist');
-    return; 
+    final list = await _getHistory(ctx,dao,data,type,['stakingHist']);
+    ctx.dispatch(WalletActionCreator.updateList(type, list));
+    return;
   }
 
   if(ctx.state.tabIndex == 1){
     StakeDao dao = _buildStakeDao(ctx);
-    _requestHistory(ctx,dao,data,type,'stakingHist');
+    final list = await _getHistory(ctx,dao,data,type,['stakingHist']);
+    ctx.dispatch(WalletActionCreator.updateList(type, list));
     return;
   }
 
   // WalletDao dao = WalletDao();
   // _requestHistory(ctx,dao,data,type,'txHistory'); 
   if(type == 'SEARCH DEFUALT'){
-    _deposit(ctx,'DEPOSIT DEFAULT',data);
-    _withdraw(ctx,'WITHDRAW DEFAULT',data);
+    final list = [
+      ...await _getHistory(ctx, _buildTopupDao(ctx), data,type, ['topupHistory', 'withdrawHistory']),
+      ...await _getHistory(ctx, _buildWithdrawDao(ctx), data,type, ['topupHistory', 'withdrawHistory']),
+    ];
+    ctx.dispatch(WalletActionCreator.updateList(type, list));
   }
 
   if(type == 'SEARCH'){
-    _deposit(ctx,'DEPOSIT DATETIME',data);
-    _withdraw(ctx,'WITHDRAW DATETIME',data);
+    final list = [
+      ...await _getHistory(ctx, _buildTopupDao(ctx), data,type, ['topupHistory', 'withdrawHistory']),
+      ...await _getHistory(ctx, _buildWithdrawDao(ctx), data,type, ['topupHistory', 'withdrawHistory']),
+    ];  
+    ctx.dispatch(WalletActionCreator.updateList(type, list));
   }
 }
 
@@ -161,23 +187,6 @@ void _withdrawFee(Context<WalletState> ctx){
   }).catchError((err){
     // tip(ctx.context,'WithdrawDao fee: $err');
   });
-}
-
-void _withdraw(Context<WalletState> ctx,String type,Map data){
-  if(!type.contains('DEFAULT') && !type.contains('DATETIME')) {
-    ctx.dispatch(WalletActionCreator.updateSelectedButton(1));
-  }
-  data['moneyAbbr']="ETH_MXC";
-  WithdrawDao dao = _buildWithdrawDao(ctx);
-  _requestHistory(ctx,dao,data,type,'withdrawHistory');  
-
-}
-
-void _deposit(Context<WalletState> ctx,String type,Map data){
-  if(!type.contains('DEFAULT') && !type.contains('DATETIME')) ctx.dispatch(WalletActionCreator.updateSelectedButton(0));
-
-  TopupDao dao = _buildTopupDao(ctx);
-  _requestHistory(ctx,dao,data,type,'topupHistory');  
 }
 
 void _staking(Context<WalletState> ctx,String type,Map data){
@@ -197,23 +206,27 @@ void _staking(Context<WalletState> ctx,String type,Map data){
   });
 }
 
-Future<void> _requestHistory(Context<WalletState> ctx,dao,Map data,String type, String keyType) async {
+Future<List> _getHistory(Context<WalletState> ctx,dao,Map data,String type, List<String> keyTypes) async {
   ctx.dispatch(WalletActionCreator.loadingHistory(true));
   
   try{
     var res = await dao.history(data);
     mLog('$type history',res);
     
-    if((res as Map).containsKey(keyType)){
-
-      List list = res[keyType] as List;
-
-      ctx.dispatch(WalletActionCreator.updateList(type, list));
+    final list = [];
+    for(final keyType in keyTypes) {
+      if((res as Map).containsKey(keyType)){
+        list.addAll(res[keyType] as List);
+      }
     }
+    // _buildWithdrawDao(ctx)
+    // ctx.dispatch(WalletActionCreator.updateList(type, list));
 
     ctx.dispatch(WalletActionCreator.loadingHistory(false));
+    return list;
   }catch(err){
     ctx.dispatch(WalletActionCreator.loadingHistory(false));
+    return [];
     // tip(ctx.context,'$type history: $err');
   }
 

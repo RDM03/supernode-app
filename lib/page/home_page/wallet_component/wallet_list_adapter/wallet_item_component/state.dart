@@ -37,6 +37,8 @@ class WalletItemState implements Cloneable<WalletItemState> {
   String start = '';
   String end = '';
 
+  DateTime timestamp;
+
   WalletItemState();
 
   @override
@@ -61,11 +63,14 @@ class WalletItemState implements Cloneable<WalletItemState> {
       ..unstakeTime = unstakeTime
       ..stakeAmount = stakeAmount
       ..start = start
-      ..end = end;
+      ..end = end
+      ..timestamp = timestamp;
   }
 
   WalletItemState.fromMap(Map map) {
     id = Uuid().generateV4();
+    type = map['type'];
+    timestamp = DateTime.parse(map['timestamp']);
     amount = Tools.convertDouble(map[WalletDao.amount]);
     revenue = Tools.convertDouble(map[WalletDao.revenue]);
     createdAt = map[WalletDao.createdAt] as String;
