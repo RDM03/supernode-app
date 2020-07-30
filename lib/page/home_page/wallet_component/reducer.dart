@@ -13,7 +13,8 @@ Reducer<WalletState> buildReducer() {
       WalletAction.tabController: _tabController,
       WalletAction.isSetDate: _isSetDate,
       WalletAction.updateSelectedButton: _updateSelectedButton,
-      WalletAction.updateList: _updateList,
+      WalletAction.updateStakeList: _updateStakeList,
+      WalletAction.updateWalletList: _updateWalletList,
       WalletAction.withdrawFee: _withdrawFee,
       WalletAction.firstTime: _firstTime,
       WalletAction.secondTime: _secondTime,
@@ -91,7 +92,39 @@ WalletState _updateSelectedButton(WalletState state, Action action) {
     ..selectedIndexBtn2 = index;
 }
 
-WalletState _updateList(WalletState state, Action action) {
+WalletState _updateStakeList(WalletState state, Action action) {
+  Map data = action.payload;
+  String sourceType = data['type'];
+  final type = sourceType.split(' ')[0];
+
+  final sourceList = (data['list'] as List).map((e) => StakeHistoryEntity.fromMap(e)).toList();
+  final entityList = [];
+
+  if (type == 'STAKE') {
+    entityList.addAll(sourceList.where((e) => e.type == 'STAKING'));
+  }
+  else if (type == 'UNSTAKE') {
+    entityList.addAll(sourceList.where((e) => e.type == 'UNSTAKING'));
+  }
+  else {
+    entityList.addAll(sourceList);
+  }
+
+  final list = entityList.map((e) => StakeItemState(e, type)).toList();
+
+  list.sort((a,b) => b.historyEntity.timestamp.compareTo(a.historyEntity.timestamp));
+  if(list.length > 0) {
+    list[list.length - 1] = list[list.length - 1].copyWith(isLast: true);
+  }
+
+  final WalletState newState = state.clone();
+
+  return newState
+    ..isFirstRequest = false
+    ..stakeList = list;
+}
+
+WalletState _updateWalletList(WalletState state, Action action) {
   Map data = action.payload;
   String sourceType = data['type'];
   final type = sourceType.split(' ')[0];
@@ -123,7 +156,7 @@ WalletState _updateList(WalletState state, Action action) {
 
   return newState
     ..isFirstRequest = false
-    ..list = list;
+    ..walletList = list;
 }
 
 WalletState _withdrawFee(WalletState state, Action action) {

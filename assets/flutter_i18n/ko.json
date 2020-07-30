@@ -249,5 +249,6 @@
 	"device_bluetooth_prompt": "리스트에서 블루투스 기기를 선택하십시오. 설정에서",
 	"bluetooth": "블루투스",
 	"is_turned_on": "가 켜져 있는지 확인해 주세요.",
-	"insufficient_balance": "잔액 불충분"
+	"insufficient_balance": "잔액 불충분",
+	"duration_days": "일의 기간 - {0}"
 }

@@ -5,7 +5,7 @@ import 'reducer.dart';
 import 'state.dart';
 import 'view.dart';
 
-class WalletItemComponent extends Component<WalletItemState> {
+class WalletItemComponent extends Component<GeneralItemState> {
   WalletItemComponent()
       : super(
             effect: buildEffect(),

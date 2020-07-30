@@ -47,6 +47,7 @@ class HomeState implements Cloneable<HomeState> {
   int selectedIndexBtn1 = -1;
   int selectedIndexBtn2 = -1;
   List<WalletItemState> walletList = [];
+  List<StakeItemState> stakeList = [];
   double withdrawFee = 0;
   String firstTime = TimeDao.getDatetime(new DateTime.now(), type: 'date');
   String secondTime = TimeDao.getDatetime(new DateTime.now(), type: 'date');
@@ -114,6 +115,7 @@ class HomeState implements Cloneable<HomeState> {
       ..tabHeight = tabHeight
       ..walletTabIndex = walletTabIndex
       ..walletList = walletList ?? []
+      ..stakeList = stakeList ?? []
       ..withdrawFee = withdrawFee
       ..firstTime = firstTime
       ..secondTime = secondTime
@@ -233,7 +235,8 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..selectedIndexBtn2 = state.selectedIndexBtn2
       ..tabIndex = state.walletTabIndex
       ..tabHeight = state.tabHeight
-      ..list = state.walletList
+      ..walletList = state.walletList
+      ..stakeList = state.stakeList
       ..withdrawFee = state.withdrawFee
       ..firstTime = state.firstTime
       ..secondTime = state.secondTime
@@ -253,7 +256,8 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..selectedIndexBtn2 = subState.selectedIndexBtn2
       ..walletTabIndex = subState.tabIndex
       ..tabHeight = subState.tabHeight
-      ..walletList = subState.list
+      ..walletList = subState.walletList
+      ..stakeList = subState.stakeList
       ..withdrawFee = subState.withdrawFee
       ..firstTime = subState.firstTime
       ..secondTime = subState.secondTime;

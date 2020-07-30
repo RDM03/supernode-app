@@ -249,5 +249,6 @@
 	"device_bluetooth_prompt": "Select a Bluetooth device from the list of devices. Make sure your",
 	"bluetooth": "Bluetooth",
 	"is_turned_on": "is turned on.",
-	"insufficient_balance": "Yetersiz bakiye"
+	"insufficient_balance": "Yetersiz bakiye",
+	"duration_days": "gün cinsinden süre - {0}"
 }

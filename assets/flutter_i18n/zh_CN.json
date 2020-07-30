@@ -249,5 +249,6 @@
 	"device_bluetooth_prompt": "从设备列表中选择一个蓝牙设备。请确保您的",
 	"bluetooth": "蓝牙",
 	"is_turned_on": "已开机。",
-	"insufficient_balance": "余额不足"
+	"insufficient_balance": "余额不足",
+	"duration_days": "持续天数 - {0}"
 }
