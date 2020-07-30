@@ -8,12 +8,15 @@ import 'package:supernodeapp/theme/spacing.dart';
 
 import '../row_spacer.dart';
 
-Widget listItem({BuildContext context,String type = '', Color amountColor, String amountText, String datetime,String secondDateTime,double amount = 0,double revenue = 0,double fee = 0,String fromAddress,String toAddress,String txHashAddress,String status,bool isExpand = true,bool isLast = false,Function onTap}){
+Widget listItem({BuildContext context,String type = '', String followText, Color amountColor, String amountText, String datetime,String secondDateTime,double amount = 0,double revenue = 0,double fee = 0,String fromAddress,String toAddress,String txHashAddress,String status,bool isExpand = true,bool isLast = false,Function onTap}){
   final subtitle = revenue != null 
     ? '${Tools.priceFormat(revenue,range: 2)} MXC ${TimeDao.getDatetime(datetime)}' 
     : TimeDao.getDatetime(datetime);
   amountColor ??= amount <= 0 || type.contains('STAKE') ? null : depositColor;
   amountText ??= secondDateTime != null ? TimeDao.getDatetime(secondDateTime) : null;
+  if (!type.contains('SEARCH') && !type.contains('STAKE') && !type.contains('UNSTAKE')) {
+    followText ??= '(${FlutterI18n.translate(context,type.toLowerCase())})';
+  } 
 
   return Column(
     children: <Widget>[
@@ -28,10 +31,10 @@ Widget listItem({BuildContext context,String type = '', Color amountColor, Strin
             ),
             smallRowSpacer(),
             Visibility(
-              visible: !type.contains('SEARCH') && !type.contains('STAKE') && !type.contains('UNSTAKE'),
+              visible: followText != null,
               child: Expanded(
                 child: Text(
-                  '(${FlutterI18n.translate(context,type.toLowerCase())})',
+                  followText ?? '',
                   overflow: TextOverflow.ellipsis,
                   style: type.contains('DEPOSIT') ? kSmallFontOfGreen : kSmallFontOfRed
                 ),
