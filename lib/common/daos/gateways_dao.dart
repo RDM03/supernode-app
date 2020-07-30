@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'api.dart';
 import 'dao.dart';
 
@@ -33,72 +30,51 @@ class GatewaysDao extends Dao{
   static final String osversion = 'osversion';
 
   //remote
-  Future<dynamic> list(Map data) async {
-    final res =  await get(
+  Future<dynamic> list(Map data){
+    return get(
       url: GatewaysApi.list,
       data: data
     );
-    final s = json.encode(res);
-    debugger(); 
-    return res;
   }
 
-  Future<dynamic> locations() async {
-    final res =  await get(
+  Future<dynamic> locations(){
+    return get(
       url: GatewaysApi.locations,
     );
-    final s = json.encode(res);
-    debugger(); 
-    return res;
   }
 
-  Future<dynamic> add(Map data) async {
-    final res = await  post(
+  Future<dynamic> add(Map data){
+    return post(
       url: GatewaysApi.add,
       data: data
     ).then((res) => res);
-    final s = json.encode(res);
-    debugger(); 
-    return res;
   }
 
-  Future<dynamic> register(Map data) async {
-    final res = await post(
+  Future<dynamic> register(Map data){
+    return post(
       url: GatewaysApi.register,
       data: data
     ).then((res) => res);
-    final s = json.encode(res);
-    debugger(); 
-    return res;
   }
 
-  Future<dynamic> profile(Map data) async {
-    final res = await get(
+  Future<dynamic> profile(Map data){
+    return get(
       url: GatewaysApi.profile,
       data: data
     ).then((res) => res);
-    final s = json.encode(res);
-    debugger(); 
-    return res;
   }
 
-  Future<dynamic> update(String id,Map data) async {
-    final res =  await put(
+  Future<dynamic> update(String id,Map data){
+    return put(
       url: Api.url(GatewaysApi.update, id),
       data: data
     ).then((res) => res);
-    final s = json.encode(res);
-    debugger(); 
-    return res;
   }
 
-  Future<dynamic> frames(String id,Map data) async {
-    final res =  await get(
+  Future<dynamic> frames(String id,Map data){
+    return get(
       url: Api.url(GatewaysApi.frames,id),
       data: data
     );
-    final s = json.encode(res);
-    debugger(); 
-    return res;
   }
 }
