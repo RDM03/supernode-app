@@ -15,7 +15,7 @@ Widget buildView(WalletItemState state, Dispatch dispatch, ViewService viewServi
     amount: state.amount ?? state.stakeAmount,
     revenue: state.revenue,
     fee: state.fee,
-    datetime: state.createdAt ?? state.txSentTime ?? state.startStakeTime ?? state.start,
+    datetime: state.createdAt ?? state.txSentTime ?? state.startStakeTime ?? state.start ?? state.timestamp.toIso8601String(),
     secondDateTime: state.unstakeTime ?? state.end,
     fromAddress: state.fromAddress,
     toAddress: state.toAddress,

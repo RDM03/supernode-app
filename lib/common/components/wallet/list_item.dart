@@ -35,7 +35,9 @@ Widget listItem({BuildContext context,String type = '',String datetime,String se
           ],
         ),
         subtitle: Text(
-         revenue != null ? '${Tools.priceFormat(revenue,range: 2)} MXC ${TimeDao.getDatetime(datetime)}' : TimeDao.getDatetime(datetime),
+         revenue != null 
+            ? '${Tools.priceFormat(revenue,range: 2)} MXC ${TimeDao.getDatetime(datetime)}' 
+            : TimeDao.getDatetime(datetime),
           style: kSmallFontOfGrey,
         ),
         trailing: Column(
