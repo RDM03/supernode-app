@@ -56,7 +56,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   int get itemCount => _currentList?.length ?? 0;
 
   @override
-  void setItemData(int index, Object data) => throw UnimplementedError(); 
+  void setItemData(int index, Object data) => _currentList[index] = data; 
 
   bool isDemo;
 
