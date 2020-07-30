@@ -249,5 +249,8 @@
 	"device_bluetooth_prompt": "從設備列表中選擇一個藍牙設備。 確保你的",
 	"bluetooth": "藍牙",
 	"is_turned_on": "已開啟。",
-	"insufficient_balance": "余额不足"
+	"insufficient_balance": "余额不足",
+	"created": "待定",
+	"completed": "成功",
+	"rejected": "被拒绝"
 }

@@ -250,5 +250,8 @@
 	"is_turned_on": "is turned on.",
 	"loading": "loading...",
 	"insufficient_balance": "Insufficient balance",
-	"required_2FA_general": "Required 2FA"
+	"required_2FA_general": "Required 2FA",
+	"created": "pending",
+	"completed": "success",
+	"rejected": "denied"
 }

@@ -249,5 +249,8 @@
 	"device_bluetooth_prompt": "Выберите устройство Bluetooth из списка устройств. Убедитесь, что вы",
 	"bluetooth": "Bluetooth",
 	"is_turned_on": "включен.",
-	"insufficient_balance": "Недостаточно средств"
+	"insufficient_balance": "Недостаточно средств",
+	"created": "ожидание",
+	"completed": "успешно",
+	"rejected": "отказ"
 }
