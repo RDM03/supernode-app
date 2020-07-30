@@ -250,8 +250,8 @@
 	"bluetooth": "Bluetooth",
 	"is_turned_on": "is turned on.",
 	"insufficient_balance": "Yetersiz bakiye",
-	"created": "bekliyor",
-	"completed": "başarı",
-	"rejected": "inkar",
+	"created": "Bekliyor",
+	"completed": "Başarı",
+	"rejected": "Inkar",
 	"duration_days": "gün cinsinden süre - {0}"
 }

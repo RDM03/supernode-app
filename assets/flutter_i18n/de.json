@@ -250,8 +250,8 @@
 	"bluetooth": "Bluetooth",
 	"is_turned_on": "is turned on.",
 	"insufficient_balance": "Mangelhaftes Gleichgewicht",
-	"created": "ausstehend",
-	"completed": "erfolg",
-	"rejected": "verweigert",
+	"created": "Ausstehend",
+	"completed": "Erfolg",
+	"rejected": "Verweigert",
 	"duration_days": "Dauer in Tagen - {0}"
 }
