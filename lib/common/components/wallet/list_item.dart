@@ -45,7 +45,7 @@ Widget listItem({BuildContext context,String type = '',String datetime,String se
             Container(
               padding: kRoundRow5,
               decoration: BoxDecoration(
-                color: amount <= 0 || type.contains('STAKE') ? null : depositColor,
+                color: amount <= 0 || type.contains('STAKE') ? withdrawColor : depositColor,
                 borderRadius: BorderRadius.all(Radius.circular(7)),
               ),
               child: Text(

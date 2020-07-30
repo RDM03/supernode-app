@@ -20,7 +20,9 @@ Widget buildView(WalletItemState state, Dispatch dispatch, ViewService viewServi
     fromAddress: state.fromAddress,
     toAddress: state.toAddress,
     txHashAddress: state.txHash,
-    status: FlutterI18n.translate(_ctx,state.txStatus) ?? FlutterI18n.translate(_ctx,'completed'),
+    status: state.txStatus != null
+      ? FlutterI18n.translate(_ctx,state.txStatus) 
+      : FlutterI18n.translate(_ctx,'completed'),
     isExpand: state.isExpand,
     isLast: state.isLast,
     onTap: () => dispatch(WalletItemActionCreator.isExpand(state.id))
