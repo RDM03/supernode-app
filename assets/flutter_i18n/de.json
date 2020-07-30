@@ -252,5 +252,6 @@
 	"insufficient_balance": "Mangelhaftes Gleichgewicht",
 	"created": "ausstehend",
 	"completed": "erfolg",
-	"rejected": "verweigert"
+	"rejected": "verweigert",
+	"duration_days": "Dauer in Tagen - {0}"
 }

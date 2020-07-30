@@ -1,6 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 
-enum WalletAction { loadingHistory, tab, onTab, tabController, isSetDate, onFilter, updateSelectedButton, updateList, withdrawFee, firstTime, secondTime }
+enum WalletAction { loadingHistory, tab, onTab, tabController, isSetDate, onFilter, updateSelectedButton, updateWalletList, updateStakeList, withdrawFee, firstTime, secondTime }
 
 class WalletActionCreator {
   static Action loadingHistory(bool toogle) {
@@ -31,8 +31,12 @@ class WalletActionCreator {
     return Action(WalletAction.updateSelectedButton,payload: index);
   }
 
-  static Action updateList(String type,List list) {
-    return Action(WalletAction.updateList,payload: {"type": type, "list": list});
+  static Action updateWalletList(String type,List list) {
+    return Action(WalletAction.updateWalletList,payload: {"type": type, "list": list});
+  }
+
+  static Action updateStakeList(String type,List list) {
+    return Action(WalletAction.updateStakeList,payload: {"type": type, "list": list});
   }
 
   static Action withdrawFee(double fee) {

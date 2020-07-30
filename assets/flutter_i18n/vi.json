@@ -252,5 +252,6 @@
 	"insufficient_balance": "Thiếu cân bằng",
 	"created": "đang chờ xử lý",
 	"completed": "sự thành công",
-	"rejected": "phủ định"
+	"rejected": "phủ định",
+	"duration_days": "thời gian tính bằng ngày - {0}"
 }

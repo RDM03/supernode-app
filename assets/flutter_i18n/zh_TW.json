@@ -252,5 +252,6 @@
 	"insufficient_balance": "余额不足",
 	"created": "待定",
 	"completed": "成功",
-	"rejected": "被拒绝"
+	"rejected": "被拒绝",
+	"duration_days": "持续天数 - {0}"
 }

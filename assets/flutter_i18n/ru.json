@@ -252,5 +252,6 @@
 	"insufficient_balance": "Недостаточно средств",
 	"created": "ожидание",
 	"completed": "успешно",
-	"rejected": "отказ"
+	"rejected": "отказ",
+	"duration_days": "протяженность в днях - {0}"
 }

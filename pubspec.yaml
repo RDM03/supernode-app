@@ -11,10 +11,10 @@ description: Mobile app used to interact with MXC Supernodes.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.4.0
+version: 1.4.1
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: '>=2.2.2 <3.0.0'
 
 dependencies:
   flutter:
@@ -60,7 +60,7 @@ dependencies:
   # https://pub.dev/packages/toast
   toast: ^0.1.5
   # https://pub.dev/packages/flutter_spinkit
-  flutter_spinkit: "^2.1.0"
+  flutter_spinkit: '^2.1.0'
   # https://pub.dev/packages/localstorage
   localstorage: ^3.0.0
   # https://pub.dev/packages/local_auth
@@ -86,13 +86,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

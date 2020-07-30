@@ -19,7 +19,8 @@ class Mining {
     int total = data.length;
     for(int j = 0;j < total;j++){
       var item = data[j];
-      blank[TimeDao.months[item['month']]-1]['amount'] = item['amount'];
+      final monthNumber = TimeDao.months[item['month']] - 1;
+      blank[monthNumber]['amount'] = double.parse(item['amount']);
     }
 
     if(total > 0){
@@ -30,6 +31,7 @@ class Mining {
   }
 
   static List<charts.Series<Mining, int>> getData(List data) {
+    data ??= [];
     List newData = blankDecoration(data);
 
     return [
@@ -53,6 +55,7 @@ class GatewayFrame {
   GatewayFrame(this.txData,this.datetime);
 
   static List<charts.Series<GatewayFrame, String>> getData(List data) {
+    data ??= [];
     final reveivedData = data.map((item) => new GatewayFrame(Tools.convertDouble(item['rxPacketsReceivedOK']),DateTime.parse(item['timestamp']))).toList();
 
     final transmittedData = data.map((item) => new GatewayFrame(Tools.convertDouble(item['txPacketsEmitted']),DateTime.parse(item['timestamp']))).toList();

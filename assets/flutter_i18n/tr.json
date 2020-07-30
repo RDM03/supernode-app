@@ -252,5 +252,6 @@
 	"insufficient_balance": "Yetersiz bakiye",
 	"created": "bekliyor",
 	"completed": "başarı",
-	"rejected": "inkar"
+	"rejected": "inkar",
+	"duration_days": "gün cinsinden süre - {0}"
 }
