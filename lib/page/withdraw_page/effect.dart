@@ -164,7 +164,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
         }).catchError((err) {
           hideLoading(ctx.context);
           ctx.dispatch(WithdrawActionCreator.status(false));
-          // tip(ctx.context, 'WithdrawDao withdraw: $err');
+          tip(ctx.context, err);
         });
       },
     );
