@@ -154,14 +154,14 @@ Widget buildView(GeneralItemState state, Dispatch dispatch, ViewService viewServ
       startDate = state.historyEntity.stake.startTime;
       endDate = state.historyEntity.stake.endTime;
       final diffEndTime = state.historyEntity.stake.endTime ?? DateTime.now();
-      final dateDiff = diffEndTime.difference(diffEndTime).inDays;
+      final dateDiff = startDate.difference(diffEndTime).inDays.abs();
       durationDays = dateDiff;
       amountColor = depositColor;
       followText = FlutterI18n.translate(_ctx, 'unstake');
     } else if (state.historyEntity.type == 'STAKING') {
       startDate = state.historyEntity.stake.startTime;
       final diffEndTime = state.historyEntity.stake.endTime ?? DateTime.now();
-      final dateDiff = diffEndTime.difference(diffEndTime).inDays;
+      final dateDiff = startDate.difference(diffEndTime).inDays.abs();
       durationDays = dateDiff;
       amountColor = Colors.transparent;
       followText = FlutterI18n.translate(_ctx, 'stake');
