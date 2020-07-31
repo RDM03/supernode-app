@@ -3,21 +3,19 @@ import 'package:fish_redux/fish_redux.dart';
 import 'action.dart';
 import 'state.dart';
 
-Reducer<WalletItemState> buildReducer() {
+Reducer<GeneralItemState> buildReducer() {
   return asReducer(
-    <Object, Reducer<WalletItemState>>{
+    <Object, Reducer<GeneralItemState>>{
       WalletItemAction.isExpand: _isExpand,
     },
   );
 }
 
-WalletItemState _isExpand(WalletItemState state, Action action) {
-  String id = action.payload;
-  final WalletItemState newState = state.clone();
+WalletItemState _isExpand(GeneralItemState state, Action action) {
+  GeneralItemState id = action.payload;
   
-  if(id == state.id){
-    return newState
-      ..isExpand = !state.isExpand;
+  if(id == state){
+    return state.copyWithExtend(!state.isExpand);
   }
   
   return state;

@@ -33,22 +33,30 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   //withdraw
   double withdrawFee = 0;
 
-  List<WalletItemState> list = [];
+  List<dynamic> get _currentList => tabIndex == 0
+    ? walletList
+    : stakeList;
+
+  List<StakeItemState> stakeList = [];
+  List<WalletItemState> walletList = [];
 
   @override
   Object getItemData(int index){
-    list[index].fee = withdrawFee;
-    return list[index];
+    final o = _currentList[index];
+    if (o is WalletItemState) {
+      o.fee = withdrawFee;
+    }
+    return o;
   }
 
   @override
   String getItemType(int index) => 'item';
 
   @override
-  int get itemCount => list?.length ?? 0;
+  int get itemCount => _currentList?.length ?? 0;
 
   @override
-  void setItemData(int index, Object data) => list[index] = data; 
+  void setItemData(int index, Object data) => throw UnimplementedError(); 
 
   bool isDemo;
 
@@ -59,7 +67,8 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
       ..loading = loading
       ..loadingHistory= loadingHistory
       ..tabController = tabController
-      ..list = list ?? []
+      ..walletList = walletList
+      ..stakeList = stakeList
       ..organizations = organizations
       ..tabIndex = tabIndex
       ..tabHeight = tabHeight

@@ -116,7 +116,7 @@ void _onFilter(Action action, Context<WalletState> ctx) async {
       }
       TopupDao dao = _buildTopupDao(ctx);
       final list = await _getHistory(ctx,dao,data,type,['topupHistory']);
-      ctx.dispatch(WalletActionCreator.updateList(type, list));
+      ctx.dispatch(WalletActionCreator.updateWalletList(type, list));
       break;
     case 'WITHDRAW':
       if(!type.contains('DEFAULT') && !type.contains('DATETIME')) {
@@ -124,7 +124,7 @@ void _onFilter(Action action, Context<WalletState> ctx) async {
       }
       WithdrawDao dao = _buildWithdrawDao(ctx);
       final list = await _getHistory(ctx,dao,data,type,['withdrawHistory']);
-      ctx.dispatch(WalletActionCreator.updateList(type, list));
+      ctx.dispatch(WalletActionCreator.updateWalletList(type, list));
       break;
     case 'STAKE':
       _search(ctx,type,data,index: 0);
@@ -146,14 +146,14 @@ void _search(Context<WalletState> ctx,String type,Map data,{int index = -1}) asy
 
     StakeDao dao = _buildStakeDao(ctx);
     final list = await _getHistory(ctx,dao,data,type,['stakingHist']);
-    ctx.dispatch(WalletActionCreator.updateList(type, list));
+    ctx.dispatch(WalletActionCreator.updateStakeList(type, list));
     return;
   }
 
   if(ctx.state.tabIndex == 1){
     StakeDao dao = _buildStakeDao(ctx);
     final list = await _getHistory(ctx,dao,data,type,['stakingHist']);
-    ctx.dispatch(WalletActionCreator.updateList(type, list));
+    ctx.dispatch(WalletActionCreator.updateStakeList(type, list));
     return;
   }
 
@@ -164,7 +164,7 @@ void _search(Context<WalletState> ctx,String type,Map data,{int index = -1}) asy
       ...await _getHistory(ctx, _buildTopupDao(ctx), data,type, ['topupHistory', 'withdrawHistory']),
       ...await _getHistory(ctx, _buildWithdrawDao(ctx), data,type, ['topupHistory', 'withdrawHistory']),
     ];
-    ctx.dispatch(WalletActionCreator.updateList(type, list));
+    ctx.dispatch(WalletActionCreator.updateWalletList(type, list));
   }
 
   if(type == 'SEARCH'){
@@ -172,7 +172,7 @@ void _search(Context<WalletState> ctx,String type,Map data,{int index = -1}) asy
       ...await _getHistory(ctx, _buildTopupDao(ctx), data,type, ['topupHistory', 'withdrawHistory']),
       ...await _getHistory(ctx, _buildWithdrawDao(ctx), data,type, ['topupHistory', 'withdrawHistory']),
     ];  
-    ctx.dispatch(WalletActionCreator.updateList(type, list));
+    ctx.dispatch(WalletActionCreator.updateWalletList(type, list));
   }
 }
 
@@ -199,7 +199,7 @@ void _staking(Context<WalletState> ctx,String type,Map data){
     
     if((res as Map).containsKey('actStake')){// && (res['actStake'] as List).isNotEmpty){
       List list = [res['actStake']];
-      ctx.dispatch(WalletActionCreator.updateList(type, list));
+      ctx.dispatch(WalletActionCreator.updateStakeList(type, list));
     }
   }).catchError((err){
     // tip(ctx.context,'StakeDao activestakes: $err');
