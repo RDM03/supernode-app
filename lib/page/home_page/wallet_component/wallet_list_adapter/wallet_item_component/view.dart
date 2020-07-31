@@ -113,6 +113,16 @@ int i = 0;
 Widget buildView(GeneralItemState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
   if (state is WalletItemState) {
+    String followText;
+    TextStyle followStyle;
+    if (state.amount > 0) {
+      followText = '(' + FlutterI18n.translate(_ctx, 'withdraw') + ')';
+      followStyle = kSmallFontOfGreen;
+    }
+    if (state.amount < 0) {
+      followText = '(' + FlutterI18n.translate(_ctx, 'deposit') + ')';
+      followStyle = kSmallFontOfRed;
+    }
     return listItem(
       context: viewService.context,
       type: state.txType != null ? state.txType : state.type,
@@ -124,6 +134,8 @@ Widget buildView(GeneralItemState state, Dispatch dispatch, ViewService viewServ
       fromAddress: state.fromAddress,
       toAddress: state.toAddress,
       txHashAddress: state.txHash,
+      followText: followText,
+      followStyle: followStyle,
       status: state.txStatus != null
         ? FlutterI18n.translate(_ctx,state.txStatus) 
         : FlutterI18n.translate(_ctx,'completed'),
