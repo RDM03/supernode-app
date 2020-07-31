@@ -39,6 +39,7 @@ const primaryColor = Color.fromARGB(255, 16, 196, 105);
 const scaffoldBackgroundColor = Color.fromARGB(255, 16, 196, 105);
 const shodowColor = const Color.fromARGB(26, 0, 0, 0);
 const borderColor = const Color.fromARGB(26, 0, 0, 0);
+final withdrawColor = Colors.red[200];
 const depositColor = const Color.fromARGB(51, 16, 196, 105);
 
 const textColor1 = Color.fromARGB(222, 0, 0, 0);

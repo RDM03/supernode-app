@@ -250,5 +250,8 @@
 	"bluetooth": "Bluetooth",
 	"is_turned_on": "is turned on.",
 	"insufficient_balance": "Thiếu cân bằng",
+	"created": "Dang chờ xử lý",
+	"completed": "Sự thành công",
+	"rejected": "Phủ định",
 	"duration_days": "thời gian tính bằng ngày - {0}"
 }

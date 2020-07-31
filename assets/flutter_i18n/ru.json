@@ -250,5 +250,8 @@
 	"bluetooth": "Bluetooth",
 	"is_turned_on": "включен.",
 	"insufficient_balance": "Недостаточно средств",
+	"created": "Ожидание",
+	"completed": "Успешно",
+	"rejected": "Отказ",
 	"duration_days": "протяженность в днях - {0}"
 }

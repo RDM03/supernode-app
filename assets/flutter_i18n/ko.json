@@ -250,5 +250,8 @@
 	"bluetooth": "블루투스",
 	"is_turned_on": "가 켜져 있는지 확인해 주세요.",
 	"insufficient_balance": "잔액 불충분",
+	"created": "보류 중",
+	"completed": "성공",
+	"rejected": "거부",
 	"duration_days": "일의 기간 - {0}"
 }

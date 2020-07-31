@@ -250,5 +250,8 @@
 	"bluetooth": "Bluetooth",
 	"is_turned_on": "is turned on.",
 	"insufficient_balance": "残高不足です",
+	"created": "保留中",
+	"completed": "成功",
+	"rejected": "拒否された",
 	"duration_days": "日数 - {0}"
 }
