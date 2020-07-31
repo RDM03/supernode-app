@@ -130,10 +130,7 @@ WalletState _updateWalletList(WalletState state, Action action) {
   final type = sourceType.split(' ')[0];
   List<WalletItemState> list = [];
 
-  final sourceList = (data['list'] as List)
-    .map((e) => WalletItemState.fromMap(e))
-    .where((e) => e.txStatus != 'REJECTED')
-    .toList();
+  final sourceList = (data['list'] as List).map((e) => WalletItemState.fromMap(e));
   if (type == 'STAKE') {
     list.addAll(sourceList.where((e) => e.type == 'STAKING'));
   }
