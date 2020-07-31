@@ -117,11 +117,11 @@ Widget buildView(GeneralItemState state, Dispatch dispatch, ViewService viewServ
     TextStyle followStyle;
     if (state.amount > 0) {
       followText = '(' + FlutterI18n.translate(_ctx, 'deposit') + ')';
-      followStyle = kSmallFontOfRed;
+      followStyle = kSmallFontOfGreen;
     }
     if (state.amount < 0) {
       followText = '(' + FlutterI18n.translate(_ctx, 'withdraw') + ')';
-      followStyle = kSmallFontOfGreen;
+      followStyle = kSmallFontOfRed;
     }
     return listItem(
       context: viewService.context,
