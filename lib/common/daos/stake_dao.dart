@@ -48,7 +48,8 @@ class StakeDao extends Dao{
 
   Future<dynamic> revenue(Map data) {
     return get(
-      url: Api.url(StakeApi.revenue, data['orgId'])
+      url: Api.url(StakeApi.revenue, data['orgId']),
+      data: data
     );
   }
 }
