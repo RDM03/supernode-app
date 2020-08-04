@@ -66,11 +66,7 @@ dependencies:
   # https://pub.dev/packages/local_auth
   # temporary using 3rd party branch
   # return back after merged - https://github.com/flutter/plugins/pull/2760
-  local_auth:
-    git:
-      url: https://github.com/severance88/plugins
-      ref: 74ce2b178fccdd3affaeed50dc19700777439e7a
-      path: packages/local_auth
+  local_auth: ^0.6.3
   # https://pub.dev/packages/location
   location: ^3.0.0
   # https://pub.dev/packages/cached_network_image
@@ -80,6 +76,10 @@ dependencies:
   # https://pub.dev/packages/json_serializable
   json_serializable: ^3.3.0
 
+dependency_overrides:
+  local_auth:
+    path: packages/local_auth
+    
 dev_dependencies:
   json_annotation: ^3.0.0
   build_runner: ^1.8.0
