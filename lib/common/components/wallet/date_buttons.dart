@@ -4,62 +4,85 @@ import 'package:supernodeapp/common/daos/time_dao.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
-Widget dateButtons(BuildContext context,{String firstTime,String secondTime,String thirdText,Function(String) firstTimeOnTap,Function(String) secondTimeOnTap,Function onSearch}){
+Widget dateButtons(
+  BuildContext context, {
+  String firstTime,
+  String secondTime,
+  String thirdText,
+  Function(String) firstTimeOnTap,
+  Function(String) secondTimeOnTap,
+  Function onSearch,
+}) {
   return Container(
     // scrollDirection: Axis.horizontal,
     // physics: const NeverScrollableScrollPhysics(),
     // contentPadding: EdgeInsets.zero,
     // child: Container(
-    child: Row(
-      mainAxisSize: MainAxisSize.max,
+    height: 34,
+    child: ListView(
+      scrollDirection: Axis.horizontal,
       children: [
-        SecondaryButton(
-          color: Colors.white,
-          buttonTitle: firstTime ?? '',
-          icon: Icons.date_range,
-          onTap: (){
-            showDatePicker(
-              context: context,
-              initialDate: new DateTime.now(),
-              firstDate: new DateTime(2000),
-              lastDate: new DateTime.now()
-            ).then((DateTime value) {
-              if(value != null){
-                firstTimeOnTap(TimeDao.getDatetime(value,type: 'date'));
-              }
-            });
-          },
+        SizedBox(
+          width: 135,
+          child: SecondaryButton(
+            color: Colors.white,
+            buttonTitle: firstTime ?? '',
+            icon: Icons.date_range,
+            onTap: () {
+              showDatePicker(
+                      context: context,
+                      initialDate: new DateTime.now(),
+                      firstDate: new DateTime(2000),
+                      lastDate: new DateTime.now())
+                  .then((DateTime value) {
+                if (value != null) {
+                  firstTimeOnTap(TimeDao.getDatetime(value, type: 'date'));
+                }
+              });
+            },
+          ),
         ),
         Container(
           padding: kRoundRow5,
+          alignment: Alignment.center,
           child: Text('~'),
         ),
-        SecondaryButton(
-          color: Colors.white,
-          buttonTitle: secondTime ?? '',
-          icon: Icons.date_range,
-          onTap: (){
-            showDatePicker(
-              context: context,
-              initialDate: new DateTime.now(),
-              firstDate: firstTime != null ? DateTime.parse(firstTime) : new DateTime(2000),
-              lastDate: new DateTime.now()
-            ).then((DateTime value){
-              if(value != null){
-                secondTimeOnTap(TimeDao.getDatetime(value,type: 'date'));
-              }
-            });
-          },
-        ),
-        Spacer(),
-        GestureDetector(
-          child: Text(
-            thirdText ?? '',
-            style: kMiddleFontOfGreyLink,
+        SizedBox(
+          width: 135,
+          child: SecondaryButton(
+            color: Colors.white,
+            buttonTitle: secondTime ?? '',
+            icon: Icons.date_range,
+            onTap: () {
+              showDatePicker(
+                      context: context,
+                      initialDate: new DateTime.now(),
+                      firstDate: firstTime != null
+                          ? DateTime.parse(firstTime)
+                          : new DateTime(2000),
+                      lastDate: new DateTime.now())
+                  .then(
+                (DateTime value) {
+                  if (value != null) {
+                    secondTimeOnTap(TimeDao.getDatetime(value, type: 'date'));
+                  }
+                },
+              );
+            },
           ),
-          onTap: onSearch,
-        )
-      ]
+        ),
+        SizedBox(width: 15),
+        Center(
+          child: GestureDetector(
+            child: Text(
+              thirdText ?? '',
+              style: kMiddleFontOfGreyLink,
+            ),
+            onTap: onSearch,
+          ),
+        ),
+        SizedBox(width: 15),
+      ],
     ),
   );
 }
