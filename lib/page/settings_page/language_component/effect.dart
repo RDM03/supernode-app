@@ -11,15 +11,26 @@ Effect<LanguageState> buildEffect() {
   });
 }
 
+void _rebuildAllChildren(BuildContext context) {
+  void rebuild(Element el) {
+    el.markNeedsBuild();
+    el.visitChildren(rebuild);
+  }
+
+  (context as Element).visitChildren(rebuild);
+}
+
 void _onChange(Action action, Context<LanguageState> ctx) {
   var context = ctx.context;
   String language = action.payload;
 
-  if(language == ctx.state.language){
+  if (language == ctx.state.language) {
     return;
   }
 
-  FlutterI18n.refresh(context, language == 'auto' ? Localizations.localeOf(context) : Locale(language));
+  _rebuildAllChildren(ctx.context);
+  FlutterI18n.refresh(context,
+      language == 'auto' ? Localizations.localeOf(context) : Locale(language));
 
   ctx.dispatch(LanguageActionCreator.change(language));
 }
