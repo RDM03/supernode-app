@@ -20,18 +20,24 @@ class LogsInterceptors extends InterceptorsWrapper {
     if (Config.DEBUG) {
       print("request url：${options.path}");
       print('headers: ' + options.headers.toString());
-      print('method: '+options.method);
+      print('method: ' + options.method);
       if (options.data != null) {
         print('params: ' + options.data.toString());
       }
-      if(options.queryParameters!=null){
+      if (options.queryParameters != null) {
         print('params: ' + options.queryParameters.toString());
       }
     }
 
     try {
       addLogic(sRequestHttpUrl, options.path ?? "");
-      var data = options.data ?? Map<String, dynamic>();
+      Map<String, dynamic> data;
+      if (options.data is String) {
+        data = json.decode(options.data);
+      } else {
+        data = options.data;
+      }
+      data ??= {};
       var map = {
         "header:": options.headers,
       };
@@ -78,7 +84,7 @@ class LogsInterceptors extends InterceptorsWrapper {
       print(3);
       try {
         String data = response.data.toJson();
-        print("chocho data"+ data);
+        print("chocho data" + data);
         addLogic(sResponsesHttpUrl, response?.request?.uri.toString() ?? "");
         addLogic(sHttpResponses, json.decode(data));
       } catch (e) {
