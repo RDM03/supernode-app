@@ -1,12 +1,15 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter/cupertino.dart' hide Action;
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/daos/app_dao.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/configs/config.dart';
+import 'package:supernodeapp/theme/font.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -15,6 +18,7 @@ Effect<ForgotPasswordState> buildEffect() {
   return combineEffects(<Object, Effect<ForgotPasswordState>>{
     ForgotPasswordAction.onEmailContinue: _onEmailContinue,
     ForgotPasswordAction.onVerificationContinue: _onVerificationContinue,
+    ForgotPasswordAction.showHasCodeDialog: _showHasCodeDialog,
   });
 }
 
@@ -33,7 +37,8 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
     var email = curState.emailCtl.text;
     Map data = {"language": languageCode, "username": email};
     ctx.dispatch(ForgotPasswordActionCreator.setEmail(email));
-    List<String> users = StorageManager.sharedPreferences.getStringList(Config.USER_KEY) ?? [];
+    List<String> users =
+        StorageManager.sharedPreferences.getStringList(Config.USER_KEY) ?? [];
     if (!users.contains(email)) {
       users.add(email);
     }
@@ -45,20 +50,61 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
       Navigator.push(
         ctx.context,
         MaterialPageRoute(
-            maintainState: false,
-            fullscreenDialog: false,
-            builder: (context) {
-              return ctx.buildComponent('pwd_reset');
-            }),
+          maintainState: false,
+          fullscreenDialog: false,
+          builder: (context) {
+            return ctx.buildComponent('pwd_reset');
+          },
+        ),
       );
     } catch (err) {
       hideLoading(ctx.context);
+      if (err is DaoException && err.code == 7) {
+        ctx.dispatch(ForgotPasswordActionCreator.showHasCodeDialog());
+      }
       // tip(ctx.context, 'UserDao register: $err');
     }
   }
 }
 
-void _onVerificationContinue(Action action, Context<ForgotPasswordState> ctx) async {
+void _showHasCodeDialog(Action action, Context<ForgotPasswordState> ctx) async {
+  final hasCode = await showDialog(
+    context: ctx.context,
+    builder: (ctx) => CupertinoAlertDialog(
+      content: Text(FlutterI18n.translate(ctx, 'one_reset_email_month')),
+      actions: <Widget>[
+        CupertinoDialogAction(
+          child: Text(FlutterI18n.translate(ctx, 'have_code')),
+          onPressed: () {
+            Navigator.of(ctx).pop(true);
+          },
+        ),
+        CupertinoDialogAction(
+          child: Text('OK'),
+          isDefaultAction: true,
+          onPressed: () {
+            Navigator.of(ctx).pop(false);
+          },
+        ),
+      ],
+    ),
+  );
+  if (hasCode) {
+    Navigator.push(
+      ctx.context,
+      MaterialPageRoute(
+        maintainState: false,
+        fullscreenDialog: false,
+        builder: (context) {
+          return ctx.buildComponent('pwd_reset');
+        },
+      ),
+    );
+  }
+}
+
+void _onVerificationContinue(
+    Action action, Context<ForgotPasswordState> ctx) async {
   var curState = ctx.state;
 
   if ((curState.codesFormKey.currentState as FormState).validate()) {
@@ -66,7 +112,8 @@ void _onVerificationContinue(Action action, Context<ForgotPasswordState> ctx) as
 
     showLoading(ctx.context);
 
-    List<String> codes = curState.codeListCtls.map((code) => code.text).toList();
+    List<String> codes =
+        curState.codeListCtls.map((code) => code.text).toList();
 
     UserDao dao = UserDao();
     Map data = {
@@ -80,13 +127,15 @@ void _onVerificationContinue(Action action, Context<ForgotPasswordState> ctx) as
       hideLoading(ctx.context);
       mLog('passwordConfirm', res);
 
-      tip(ctx.context, FlutterI18n.translate(ctx.context, 'update_success'), success: true);
+      tip(ctx.context, FlutterI18n.translate(ctx.context, 'update_success'),
+          success: true);
       Navigator.popUntil(ctx.context, ModalRoute.withName("login_page"));
     } catch (e) {
       hideLoading(ctx.context);
       // tip(ctx.context, 'UserDao registerConfirm: $e');
     }
   } else {
-    tip(ctx.context, FlutterI18n.translate(ctx.context, 'invalid verification code'));
+    tip(ctx.context,
+        FlutterI18n.translate(ctx.context, 'invalid verification code'));
   }
 }

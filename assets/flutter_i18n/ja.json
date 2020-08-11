@@ -253,5 +253,7 @@
 	"created": "保留中",
 	"completed": "成功",
 	"rejected": "拒否された",
-	"duration_days": "日数 - {0}"
+	"duration_days": "日数 - {0}",
+	"have_code": "私はコードをもっている",
+	"one_reset_email_month": "1か月あたり1つのパスワード再設定メールしか送信できません"
 }

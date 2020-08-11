@@ -253,5 +253,7 @@
 	"created": "Dang chờ xử lý",
 	"completed": "Sự thành công",
 	"rejected": "Phủ định",
-	"duration_days": "thời gian tính bằng ngày - {0}"
+	"duration_days": "thời gian tính bằng ngày - {0}",
+	"have_code": "Tôi có một mật mã",
+	"one_reset_email_month": "Chỉ có thể gửi một email đặt lại mật khẩu mỗi tháng"
 }

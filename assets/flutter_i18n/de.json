@@ -253,5 +253,7 @@
 	"created": "Ausstehend",
 	"completed": "Erfolg",
 	"rejected": "Verweigert",
-	"duration_days": "Dauer in Tagen - {0}"
+	"duration_days": "Dauer in Tagen - {0}",
+	"have_code": "Ich habe einen Code",
+	"one_reset_email_month": "Pro Monat kann nur eine E-Mail zum Zurücksetzen des Passworts gesendet werden."
 }

@@ -254,5 +254,7 @@
 	"created": "Pending",
 	"completed": "Success",
 	"rejected": "Denied",
-	"duration_days": "duration in days - {0}"
+	"duration_days": "duration in days - {0}",
+	"have_code": "I have a code",
+	"one_reset_email_month": "Only one reset password email can be sent per month"
 }
