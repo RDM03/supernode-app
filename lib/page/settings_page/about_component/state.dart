@@ -6,13 +6,15 @@ class AboutState implements Cloneable<AboutState> {
 
   String version = '';
   String buildNumber = '';
+  String mxVersion;
 
   @override
   AboutState clone() {
     return AboutState()
       ..version = version
       ..buildNumber = buildNumber
-      ..info = info;
+      ..info = info
+      ..mxVersion = mxVersion;
   }
 }
 

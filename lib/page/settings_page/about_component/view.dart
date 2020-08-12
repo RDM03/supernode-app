@@ -50,10 +50,23 @@ Widget buildView(AboutState state, Dispatch dispatch, ViewService viewService) {
             trailing: Container(
               padding: kInnerRowRight10,
               child: Text(
-                  state.info?.version == null
+                state.info?.version == null
                     ? FlutterI18n.translate(_ctx, 'loading')
                     : '${state.info.version} (${state.info.buildNumber})',
-                  style: kMiddleFontOfGrey
+                style: kMiddleFontOfGrey,
+              ),
+            ),
+          ),
+          Divider(),
+          listItem(
+            FlutterI18n.translate(_ctx, 'mxversion'),
+            trailing: Container(
+              padding: kInnerRowRight10,
+              child: Text(
+                state.mxVersion == null
+                    ? FlutterI18n.translate(_ctx, 'loading')
+                    : state.mxVersion,
+                style: kMiddleFontOfGrey,
               ),
             ),
           ),

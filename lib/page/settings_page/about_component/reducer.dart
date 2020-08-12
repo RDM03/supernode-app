@@ -7,6 +7,7 @@ Reducer<AboutState> buildReducer() {
   return asReducer(
     <Object, Reducer<AboutState>>{
       AboutAction.initPackageInfo: _onInitPackageInfo,
+      AboutAction.initMxVersion: _onInitMxVersion,
     },
   );
 }
@@ -16,6 +17,15 @@ AboutState _onInitPackageInfo(AboutState state, Action action) {
   final AboutState newState = state.clone();
   if (info != null) {
     newState.info = info;
+  }
+  return newState;
+}
+
+AboutState _onInitMxVersion(AboutState state, Action action) {
+  var info = action.payload as String;
+  final AboutState newState = state.clone();
+  if (info != null) {
+    newState.mxVersion = info;
   }
   return newState;
 }

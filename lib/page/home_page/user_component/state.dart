@@ -81,8 +81,13 @@ class UserState implements Cloneable<UserState> {
     id = map[UserDao.id] as String;
     username = map[UserDao.username] as String;
     token = map[UserDao.token] as String;
-    isAdmin = type == 'local' ? (map[UserDao.isAdmin] == 1 ? true : false) : (map[UserDao.isAdmin] as bool);
-    isActive = type == 'local' ? (map[UserDao.isActive] == 1 ? true : false) : (map[UserDao.isActive] as bool);
+    isDemo = map['isDemo'] ?? false;
+    isAdmin = type == 'local'
+        ? (map[UserDao.isAdmin] == 1 ? true : false)
+        : (map[UserDao.isAdmin] as bool);
+    isActive = type == 'local'
+        ? (map[UserDao.isActive] == 1 ? true : false)
+        : (map[UserDao.isActive] as bool);
     email = map[UserDao.email] as String;
     note = map[UserDao.note] as String;
   }

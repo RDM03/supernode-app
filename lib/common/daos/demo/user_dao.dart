@@ -20,6 +20,7 @@ class DemoUserDao extends DemoDao implements UserDao {
         'sessionTTL': 0,
         'isAdmin': false,
         'isActive': true,
+        'isDemo': true,
         'email': 'demo@email.net',
         'note': 'User used for demo',
       },
@@ -50,7 +51,7 @@ class DemoUserDao extends DemoDao implements UserDao {
 
   @override
   Future login(Map data) {
-    return Future.value({'jwt': 'demo'});
+    return Future.value({'jwt': 'demo', 'isDemo': true});
   }
 
   @override

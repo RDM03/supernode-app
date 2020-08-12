@@ -6,7 +6,8 @@ class UserApi {
   static const String login = '/api/internal/login';
   static const String profile = '/api/internal/profile';
   static const String registration = '/api/internal/registration';
-  static const String registrationConfirm = '/api/internal/registration-confirm';
+  static const String registrationConfirm =
+      '/api/internal/registration-confirm';
   static const String registrationFinish = '/api/internal/registration-finish';
 
   static const String update = '/api/users/{user.id}';
@@ -14,11 +15,13 @@ class UserApi {
 
   static const String getTOTPStatus = '/api/internal/totp-status';
   static const String getTOTPConfig = '/api/internal/totp-configuration';
-  static const String setEnable = '/api/internal/totp-enable'; //OTP code in Grpc-Metadata-X-OTP header
+  static const String setEnable =
+      '/api/internal/totp-enable'; //OTP code in Grpc-Metadata-X-OTP header
   static const String setDisable = '/api/internal/totp-disable';
 
   static const String passwordReset = "/api/internal/request-password-reset";
-  static const String passwordResetConfirm = "/api/internal/confirm-password-reset";
+  static const String passwordResetConfirm =
+      "/api/internal/confirm-password-reset";
 }
 
 class UserDao extends Dao {
@@ -30,6 +33,7 @@ class UserDao extends Dao {
   static const String token = 'token';
   static const String isAdmin = 'isAdmin';
   static const String isActive = 'isActive';
+  static const String isDemo = 'isDemo';
   static const String email = 'email';
   static const String note = 'note';
 
@@ -72,11 +76,13 @@ class UserDao extends Dao {
   }
 
   Future<dynamic> update(Map data) {
-    return put(url: Api.url(UserApi.update, data['id']), data: data).then((res) => res);
+    return put(url: Api.url(UserApi.update, data['id']), data: data)
+        .then((res) => res);
   }
 
   Future<dynamic> changePassword(Map data) {
-    return put(url: Api.url(UserApi.password, data['userId']), data: data).then((res) => res);
+    return put(url: Api.url(UserApi.password, data['userId']), data: data)
+        .then((res) => res);
   }
 
   //get TOTP Status by Namgyeong

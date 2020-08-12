@@ -44,11 +44,12 @@ class SettingsState implements Cloneable<SettingsState> {
   //about
   String version = '';
   String buildNumber = '';
+  String mxVersion;
 
   bool isDemo = false;
 
   SettingsState();
-  
+
   @override
   SettingsState clone() {
     return SettingsState()
@@ -91,8 +92,8 @@ class SettingsState implements Cloneable<SettingsState> {
     theme = map[SettingsDao.theme] as int;
   }
 
-  Map<String,dynamic> toMap() {
-    var map = <String,dynamic>{
+  Map<String, dynamic> toMap() {
+    var map = <String, dynamic>{
       SettingsDao.id: id,
       SettingsDao.notification: notification ? 1 : 0,
       SettingsDao.language: language,
@@ -123,11 +124,9 @@ SettingsState initState(Map<String, dynamic> args) {
     ..isDemo = isDemo;
 }
 
-class ProfileConnector extends ConnOp<SettingsState, ProfileState>{
-
+class ProfileConnector extends ConnOp<SettingsState, ProfileState> {
   @override
-  ProfileState get(SettingsState state){
-
+  ProfileState get(SettingsState state) {
     return ProfileState()
       ..userId = state.userId
       ..username = state.username
@@ -148,10 +147,9 @@ class ProfileConnector extends ConnOp<SettingsState, ProfileState>{
   }
 }
 
-class OrganizationConnector extends ConnOp<SettingsState, OrganizationsState>{
-
+class OrganizationConnector extends ConnOp<SettingsState, OrganizationsState> {
   @override
-  OrganizationsState get(SettingsState state){
+  OrganizationsState get(SettingsState state) {
     return OrganizationsState()
       ..list = state.organizations
       ..formKey = state.orgFormKey
@@ -173,25 +171,20 @@ class OrganizationConnector extends ConnOp<SettingsState, OrganizationsState>{
   }
 }
 
-class SecurityConnector extends ConnOp<SettingsState, SecurityState>{
-
+class SecurityConnector extends ConnOp<SettingsState, SecurityState> {
   @override
-  SecurityState get(SettingsState state){
+  SecurityState get(SettingsState state) {
     return SecurityState();
   }
 
   @override
-  void set(SettingsState state, SecurityState subState) {
-   
-  }
+  void set(SettingsState state, SecurityState subState) {}
 }
 
-class LanguageConnector extends ConnOp<SettingsState, LanguageState>{
-
+class LanguageConnector extends ConnOp<SettingsState, LanguageState> {
   @override
-  LanguageState get(SettingsState state){
-    return LanguageState()
-      ..language = state.language;
+  LanguageState get(SettingsState state) {
+    return LanguageState()..language = state.language;
   }
 
   @override
@@ -200,18 +193,19 @@ class LanguageConnector extends ConnOp<SettingsState, LanguageState>{
   }
 }
 
-class AboutConnector extends ConnOp<SettingsState, AboutState>{
-
+class AboutConnector extends ConnOp<SettingsState, AboutState> {
   @override
-  AboutState get(SettingsState state){
+  AboutState get(SettingsState state) {
     return AboutState()
       ..version = state.version
       ..buildNumber = state.buildNumber
-      ..info = state.info;
+      ..info = state.info
+      ..mxVersion = state.mxVersion;
   }
 
   @override
   void set(SettingsState state, AboutState subState) {
-   state.info = subState.info;
+    state.info = subState.info;
+    state.mxVersion = subState.mxVersion;
   }
 }
