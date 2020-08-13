@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
@@ -11,6 +12,7 @@ import 'package:supernodeapp/global_store/action.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/module/base/model_manager.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
+import 'package:supernodeapp/main.dart';
 
 class App with AppLifecycle {
   factory App() => _getInstance();
@@ -38,6 +40,8 @@ mixin AppLifecycle {
   Future<void> init(BuildContext context) async {
     if (_onInit) return;
     _onInit = true;
+    NetworkUtil.instance.init();
+    NetworkUtil.instance.addListener(_connectivityListener);
     await NetworkUtil.instance.refresh();
     await SharedPreferenceHelper.init();
     ModelManager.instance
@@ -46,9 +50,12 @@ mixin AppLifecycle {
       ]);
 
     try {
-      ScreenUtil.instance.init(Config.BLUE_PRINT_WIDTH, Config.BLUE_PRINT_HEIGHT, context);
-      if (!(ModelManager?.instance?.localLoadComplete ?? false)) await _localLoadStore();
-      if (!(ModelManager?.instance?.networkLoadComplete ?? false)) await _networkLoadStore();
+      ScreenUtil.instance
+          .init(Config.BLUE_PRINT_WIDTH, Config.BLUE_PRINT_HEIGHT, context);
+      if (!(ModelManager?.instance?.localLoadComplete ?? false))
+        await _localLoadStore();
+      if (!(ModelManager?.instance?.networkLoadComplete ?? false))
+        await _networkLoadStore();
       if (!_isLoaded) await _load(context);
       _isInit = true;
     } catch (e) {} finally {
@@ -59,6 +66,25 @@ mixin AppLifecycle {
               "Local Data: ${(ModelManager?.instance?.localLoadComplete ?? false)}\n"
               "Network Data: ${(ModelManager?.instance?.networkLoadComplete ?? false)}\n");
       _onInit = false;
+    }
+  }
+
+  bool isCurrent(NavigatorState n, String routeName) {
+    bool isCurrent = false;
+    n.popUntil((route) {
+      if (route.settings.name == routeName) {
+        isCurrent = true;
+      }
+      return true;
+    });
+    return isCurrent;
+  }
+
+  void _connectivityListener(ConnectivityResult result) {
+    if (result == ConnectivityResult.none) {
+      if (!isCurrent(navigatorKey.currentState, 'connectivity_lost_page')) {
+        navigatorKey.currentState.pushNamed('connectivity_lost_page');
+      }
     }
   }
 
@@ -79,7 +105,10 @@ mixin AppLifecycle {
 
     Locale locale;
 
-    if ((data == null || data.language == null || data.language.isEmpty || data.language == 'auto')) {
+    if ((data == null ||
+        data.language == null ||
+        data.language.isEmpty ||
+        data.language == 'auto')) {
       locale = Localizations.localeOf(context);
     } else {
       if (data.language.contains('_')) {

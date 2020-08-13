@@ -112,6 +112,7 @@ flutter:
     - assets/images/withdraw/
     - assets/images/stake/
     - assets/images/device/
+    - assets/images/connectivity/
     - assets/others/
   #  - images/a_dot_ham.jpeg
 
