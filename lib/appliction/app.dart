@@ -46,9 +46,12 @@ mixin AppLifecycle {
       ]);
 
     try {
-      ScreenUtil.instance.init(Config.BLUE_PRINT_WIDTH, Config.BLUE_PRINT_HEIGHT, context);
-      if (!(ModelManager?.instance?.localLoadComplete ?? false)) await _localLoadStore();
-      if (!(ModelManager?.instance?.networkLoadComplete ?? false)) await _networkLoadStore();
+      ScreenUtil.instance
+          .init(Config.BLUE_PRINT_WIDTH, Config.BLUE_PRINT_HEIGHT, context);
+      if (!(ModelManager?.instance?.localLoadComplete ?? false))
+        await _localLoadStore();
+      if (!(ModelManager?.instance?.networkLoadComplete ?? false))
+        await _networkLoadStore();
       if (!_isLoaded) await _load(context);
       _isInit = true;
     } catch (e) {} finally {
@@ -79,7 +82,10 @@ mixin AppLifecycle {
 
     Locale locale;
 
-    if ((data == null || data.language == null || data.language.isEmpty || data.language == 'auto')) {
+    if ((data == null ||
+        data.language == null ||
+        data.language.isEmpty ||
+        data.language == 'auto')) {
       locale = Localizations.localeOf(context);
     } else {
       if (data.language.contains('_')) {

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:supernodeapp/common/daos/supernode_dao.dart';
 import 'package:supernodeapp/data/super_node_bean.dart';
@@ -19,7 +20,7 @@ class SuperNodeModel extends BaseModel<SuperNodesBean> {
     sp.put(spCurrentNode, _currentNode.toJsonStr());
   }
 
-  Map<String, List<SuperNodeBean>> get superNodesByCountry  {
+  Map<String, List<SuperNodeBean>> get superNodesByCountry {
     var result = Map<String, List<SuperNodeBean>>();
     for (SuperNodeBean item in data?.nodes?.values ?? []) {
       if (result.containsKey(item.region))
@@ -36,13 +37,15 @@ class SuperNodeModel extends BaseModel<SuperNodesBean> {
     if (data == null) newData = initData();
     if (data?.nodes?.isNotEmpty ?? true) {
       newData.nodes = {};
-      Map<String, dynamic> nodes = jsonDecode(await rootBundle.loadString(SUPER_NODES));
+      Map<String, dynamic> nodes =
+          jsonDecode(await rootBundle.loadString(SUPER_NODES));
       for (var k in nodes.keys) {
         newData.nodes[k] = SuperNodeBean(
           name: k,
           logo: nodes[k]["logo"],
           region: nodes[k]["region"],
           url: nodes[k]["url"],
+          status: nodes[k]['status'],
         );
       }
       await localUpdate(newData);
@@ -56,7 +59,7 @@ class SuperNodeModel extends BaseModel<SuperNodesBean> {
   @override
   Future<bool> networkLoad() async {
     try {
-      var newData = initData();
+      final newData = initData();
       var nodes = jsonDecode(await SuperNodeDao().superNodes());
       newData.nodes = {};
       for (var k in nodes.keys) {
@@ -65,10 +68,19 @@ class SuperNodeModel extends BaseModel<SuperNodesBean> {
           logo: nodes[k]["logo"],
           region: nodes[k]["region"],
           url: nodes[k]["url"],
+          status: nodes[k]['status'],
         );
       }
+
+      if (newData != null && sp.contains(spCurrentNode)) {
+        final currentStoredNode =
+            SuperNodeBean.fromJsonStr(sp.get(spCurrentNode));
+        var currentFreshNode = newData.nodes[currentStoredNode.name];
+        _currentNode = currentFreshNode;
+      }
+
       return localUpdate(newData);
-    } catch(e) {}
+    } catch (e) {}
     return true;
   }
 

@@ -12,6 +12,7 @@ SuperNodeBean _$SuperNodeBeanFromJson(Map<String, dynamic> json) {
     region: json['region'] as String,
     url: json['url'] as String,
     logo: json['logo'] as String,
+    status: json['status'] as String,
   );
 }
 
@@ -21,4 +22,5 @@ Map<String, dynamic> _$SuperNodeBeanToJson(SuperNodeBean instance) =>
       'region': instance.region,
       'url': instance.url,
       'logo': instance.logo,
+      'status': instance.status,
     };

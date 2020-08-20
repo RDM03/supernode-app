@@ -253,5 +253,7 @@
 	"created": "待定",
 	"completed": "成功",
 	"rejected": "被拒绝",
+	"refresh": "刷新",
+	"under_maintenance": "我们目前正在进行维护。 这不会花很长时间。",
 	"duration_days": "持续天数 - {0}"
 }

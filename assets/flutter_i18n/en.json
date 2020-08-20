@@ -254,5 +254,7 @@
 	"created": "Pending",
 	"completed": "Success",
 	"rejected": "Denied",
+	"refresh": "Refresh",
+	"under_maintenance": "We are currently undergoing maintenance. This won’t take long.",
 	"duration_days": "duration in days - {0}"
 }

@@ -253,5 +253,7 @@
 	"created": "Bekliyor",
 	"completed": "Başarı",
 	"rejected": "Inkar",
+	"refresh": "Yenile",
+	"under_maintenance": "Şu anda bakımdayız. Bu uzun sürmeyecek.",
 	"duration_days": "gün cinsinden süre - {0}"
 }

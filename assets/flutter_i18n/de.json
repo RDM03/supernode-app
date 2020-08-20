@@ -253,5 +253,7 @@
 	"created": "Ausstehend",
 	"completed": "Erfolg",
 	"rejected": "Verweigert",
+	"refresh": "Aktualisierung",
+	"under_maintenance": "Wir sind derzeit in der Wartung. Dies wird nicht lange dauern.",
 	"duration_days": "Dauer in Tagen - {0}"
 }

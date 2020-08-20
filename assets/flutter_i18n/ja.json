@@ -253,5 +253,7 @@
 	"created": "保留中",
 	"completed": "成功",
 	"rejected": "拒否された",
+	"refresh": "リフレッシュ",
+	"under_maintenance": "我々は現在、メンテナンスを受けています。 これには時間がかかりません。",
 	"duration_days": "日数 - {0}"
 }
