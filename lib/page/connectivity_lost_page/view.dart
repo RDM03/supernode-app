@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/utils/network_util.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -41,7 +42,7 @@ class _ConnectivityLostPageView extends StatelessWidget {
                 ),
                 Spacer(),
                 Text(
-                  'No Internet connection.\nMake sure that Wi-Fi or mobile data is turned on, then try again.',
+                  FlutterI18n.translate(context, 'connectivity_lost'),
                   style: kPrimaryBigFontOfBlack,
                   textAlign: TextAlign.center,
                 ),
@@ -50,7 +51,7 @@ class _ConnectivityLostPageView extends StatelessWidget {
                   onTap: () {
                     _refresh(context);
                   },
-                  buttonTitle: 'Reload',
+                  buttonTitle: FlutterI18n.translate(context, 'refresh'),
                 ),
                 Spacer(),
               ],

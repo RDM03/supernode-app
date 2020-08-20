@@ -253,5 +253,6 @@
 	"created": "Ausstehend",
 	"completed": "Erfolg",
 	"rejected": "Verweigert",
+	"connectivity_lost": "Keine Internetverbindung. Stellen Sie sicher, dass Wi-Fi oder mobile Daten aktiviert sind, und versuchen Sie es erneut.",
 	"duration_days": "Dauer in Tagen - {0}"
 }

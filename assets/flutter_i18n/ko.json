@@ -253,5 +253,7 @@
 	"created": "보류 중",
 	"completed": "성공",
 	"rejected": "거부",
+	"refresh": "새롭게 하다",
+	"connectivity_lost": "인터넷에 연결되지 않음. Wi-Fi 또는 모바일 데이터가 켜져 있는지 확인한 다음 다시 시도하세요.",
 	"duration_days": "일의 기간 - {0}"
 }

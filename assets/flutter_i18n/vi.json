@@ -253,5 +253,7 @@
 	"created": "Dang chờ xử lý",
 	"completed": "Sự thành công",
 	"rejected": "Phủ định",
+	"refresh": "Làm tươi",
+	"connectivity_lost": "Không có kết nối Internet. Đảm bảo rằng Wi-Fi hoặc dữ liệu di động đã được bật, sau đó thử lại.",
 	"duration_days": "thời gian tính bằng ngày - {0}"
 }

@@ -254,5 +254,7 @@
 	"created": "Pending",
 	"completed": "Success",
 	"rejected": "Denied",
+	"refresh": "Refresh",
+	"connectivity_lost": "No Internet connection.\nMake sure that Wi-Fi or mobile data is turned on, then try again.",
 	"duration_days": "duration in days - {0}"
 }

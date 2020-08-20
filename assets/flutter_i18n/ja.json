@@ -253,5 +253,7 @@
 	"created": "保留中",
 	"completed": "成功",
 	"rejected": "拒否された",
+	"refresh": "リフレッシュ",
+	"connectivity_lost": "インターネット接続なし。 Wi-Fiまたはモバイルデータがオンになっていることを確認してから、もう一度お試しください。",
 	"duration_days": "日数 - {0}"
 }

@@ -253,5 +253,7 @@
 	"created": "Bekliyor",
 	"completed": "Başarı",
 	"rejected": "Inkar",
+	"refresh": "Yenile",
+	"connectivity_lost": "İnternet bağlantısı yok. Wi-Fi veya mobil verinin açık olduğundan emin olun, ardından tekrar deneyin.",
 	"duration_days": "gün cinsinden süre - {0}"
 }

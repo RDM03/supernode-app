@@ -253,5 +253,7 @@
 	"created": "待定",
 	"completed": "成功",
 	"rejected": "被拒绝",
+	"refresh": "刷新",
+	"connectivity_lost": "没有网络连接。 确保已打开Wi-Fi或移动数据，然后重试。",
 	"duration_days": "持续天数 - {0}"
 }
