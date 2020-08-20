@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
 import 'package:supernodeapp/common/daos/settings_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
+import 'package:supernodeapp/common/utils/navigator.dart';
 import 'package:supernodeapp/common/utils/network_util.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/shared_preferences_helper.dart';
@@ -67,17 +68,6 @@ mixin AppLifecycle {
               "Network Data: ${(ModelManager?.instance?.networkLoadComplete ?? false)}\n");
       _onInit = false;
     }
-  }
-
-  bool isCurrent(NavigatorState n, String routeName) {
-    bool isCurrent = false;
-    n.popUntil((route) {
-      if (route.settings.name == routeName) {
-        isCurrent = true;
-      }
-      return true;
-    });
-    return isCurrent;
   }
 
   void _connectivityListener(ConnectivityResult result) {
