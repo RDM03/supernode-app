@@ -75,6 +75,8 @@ dependencies:
   connectivity: ^0.4.8+6
   # https://pub.dev/packages/json_serializable
   json_serializable: ^3.3.0
+  # https://pub.dev/packages/font_awesome_flutter
+  font_awesome_flutter: ^8.8.1
 
 dependency_overrides:
   local_auth:
@@ -112,6 +114,7 @@ flutter:
     - assets/images/withdraw/
     - assets/images/stake/
     - assets/images/device/
+    - assets/images/calculator/currencies/
     - assets/others/
   #  - images/a_dot_ham.jpeg
 
