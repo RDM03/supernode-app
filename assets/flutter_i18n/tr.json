@@ -306,5 +306,13 @@
 	"ltc": "Litecoin",
 	"xlm": "Stellar",
 	"xrp": "XRP",
-	"mxc": "Machine eXchange Coin"
+	"mxc": "Machine eXchange Coin",
+	"currencies": "Para birimleri",
+	"my_currencies": "Para birimlerim",
+	"fiat_currencies": "Fiat para birimleri",
+	"cryptocurrencies": "Kripto para birimleri",
+	"balance": "Denge",
+	"staking": "Stake etme",
+	"mining": "Madencilik",
+	"calculator": "Hesap makinesi"
 }

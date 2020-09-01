@@ -306,5 +306,13 @@
 	"ltc": "Litecoin",
 	"xlm": "Stellar",
 	"xrp": "XRP",
-	"mxc": "Machine eXchange Coin"
+	"mxc": "Machine eXchange Coin",
+	"currencies": "Tiền tệ",
+	"my_currencies": "Tiền tệ của tôi",
+	"fiat_currencies": "Tiền tệ Fiat",
+	"cryptocurrencies": "Tiền điện tử",
+	"balance": "Thăng bằng",
+	"staking": "Đánh cược",
+	"mining": "Khai thác mỏ",
+	"calculator": "Máy tính"
 }

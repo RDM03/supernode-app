@@ -1,7 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/daos/coingecko_dao.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 
 class CalculatorState implements Cloneable<CalculatorState> {
   List<Currency> selectedCurrencies;
@@ -35,17 +35,6 @@ CalculatorState initState(Map<String, dynamic> args) {
   state.staking = args['staking'];
   state.mining = args['mining'];
   state.balance = args['balance'];
-  state.selectedCurrencies = [
-    Currency.cny,
-    Currency.usd,
-    Currency.rub,
-    Currency.krw,
-    Currency.jpy,
-    Currency.eur,
-    Currency.try0,
-    Currency.vnd,
-    Currency.idr,
-    Currency.brl,
-  ];
+  state.selectedCurrencies = StorageManager.selectedCurrencies();
   return state;
 }

@@ -5,3 +5,4 @@ export 'storage_manager_native.dart';
 export 'tools.dart';
 export 'ui_utils.dart';
 export 'uuid.dart';
+export 'fish.dart';

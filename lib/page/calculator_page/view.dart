@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/wallet/tab_buttons.dart';
 import 'package:supernodeapp/common/daos/coingecko_dao.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/page/calculator_page/action.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 import 'state.dart';
@@ -22,10 +23,16 @@ Widget buildView(
         backgroundColor: backgroundColor,
         elevation: 0,
         title: Text(
-          'Calculator',
+          FlutterI18n.translate(context, 'calculator'),
           style: Theme.of(context).textTheme.subtitle1,
         ),
         centerTitle: true,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          dispatch(CalculatorActionCreator.list());
+        },
+        child: Icon(Icons.add),
       ),
       body: pageBody(
         usePadding: false,
@@ -36,9 +43,9 @@ Widget buildView(
               padding: EdgeInsets.symmetric(horizontal: 20),
               context: _ctx,
               list: [
-                'Balance',
-                'Staking',
-                'Mining',
+                FlutterI18n.translate(context, 'balance'),
+                FlutterI18n.translate(context, 'staking'),
+                FlutterI18n.translate(context, 'mining'),
               ],
               children: [
                 GenericCurrencyTab(

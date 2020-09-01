@@ -306,5 +306,13 @@
 	"ltc": "Litecoin",
 	"xlm": "Stellar",
 	"xrp": "XRP",
-	"mxc": "Machine eXchange Coin"
+	"mxc": "Machine eXchange Coin",
+	"currencies": "货币",
+	"my_currencies": "我的货币",
+	"fiat_currencies": "法定货币",
+	"cryptocurrencies": "加密货币",
+	"balance": "平衡",
+	"staking": "放样",
+	"mining": "矿业",
+	"calculator": "计算器"
 }

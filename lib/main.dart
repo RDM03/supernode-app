@@ -11,6 +11,7 @@ import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/app.dart';
+import 'package:supernodeapp/page/calculator_list_page/page.dart';
 import 'package:supernodeapp/page/calculator_page/page.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
 import 'package:supernodeapp/page/sign_up_page/page.dart';
@@ -86,6 +87,7 @@ Widget mxcApp() {
         'choose_application_page': ChooseApplicationPage(),
         'device_mapbox_page': DeviceMapBoxPage(),
         'calculator_page': CalculatorPage(),
+        'calculator_list_page': CalculatorListPage(),
       },
       visitor: (String path, Page<Object, dynamic> page) {
         if (page.isTypeof<GlobalBaseState>()) {

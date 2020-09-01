@@ -3,19 +3,26 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/common/daos/coingecko_dao.dart';
 import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
 import 'package:supernodeapp/common/daos/wallet_dao.dart';
+import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/calculator_page/action.dart';
-import 'package:supernodeapp/page/settings_page/state.dart';
 import 'state.dart';
 
 Effect<CalculatorState> buildEffect() {
   return combineEffects(<Object, Effect<CalculatorState>>{
     Lifecycle.initState: _initState,
+    CalculatorAction.list: _list,
   });
 }
 
 WalletDao _buildWalletDao(Context<CalculatorState> ctx) {
   return GlobalStore.state.settings.isDemo ? DemoWalletDao() : WalletDao();
+}
+
+Future<void> _list(Action action, Context<CalculatorState> ctx) async {
+  await Navigator.of(ctx.context).pushNamed('calculator_list_page');
+  ctx.dispatch(CalculatorActionCreator.setSelectedCurrencies(
+      StorageManager.selectedCurrencies()));
 }
 
 Future<void> _initState(Action action, Context<CalculatorState> ctx) async {

@@ -307,5 +307,13 @@
 	"ltc": "Litecoin",
 	"xlm": "Stellar",
 	"xrp": "XRP",
-	"mxc": "Machine eXchange Coin"
+	"mxc": "Machine eXchange Coin",
+	"currencies": "Currencies",
+	"my_currencies": "My currencies",
+	"fiat_currencies": "Fiat currencies",
+	"cryptocurrencies": "Cryptocurrencies",
+	"balance": "Balance",
+	"staking": "Staking",
+	"mining": "Mining",
+	"calculator": "Calculator"
 }

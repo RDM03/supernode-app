@@ -9,6 +9,7 @@ Reducer<CalculatorState> buildReducer() {
     <Object, Reducer<CalculatorState>>{
       CalculatorAction.setMxcPrice: _mxcPrice,
       CalculatorAction.setRates: _rates,
+      CalculatorAction.setSelectedCurrencies: _setSelectedCurrencies,
     },
   );
 }
@@ -27,4 +28,10 @@ CalculatorState _rates(CalculatorState state, Action action) {
   final CalculatorState newState = state.clone();
 
   return newState..rates = rates;
+}
+
+CalculatorState _setSelectedCurrencies(CalculatorState state, Action action) {
+  final CalculatorState newState = state.clone();
+
+  return newState..selectedCurrencies = action.payload;
 }

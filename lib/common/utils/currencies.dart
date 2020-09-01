@@ -1,8 +1,11 @@
+enum CurrencyType { fiat, crypto }
+
 class Currency {
   final String iconPath;
   final String shortName;
+  final CurrencyType type;
 
-  Currency(this.shortName, this.iconPath);
+  Currency(this.shortName, this.iconPath, [this.type = CurrencyType.fiat]);
 
   String toString() => shortName;
 
@@ -64,12 +67,8 @@ class Currency {
 
   static final usd =
       Currency('usd', 'assets/images/calculator/currencies/usd.png');
-  static final btc =
-      Currency('btc', 'assets/images/calculator/currencies/btc.png');
   static final cny =
       Currency('cny', 'assets/images/calculator/currencies/cny.png');
-  static final eth =
-      Currency('eth', 'assets/images/calculator/currencies/eth.png');
   static final krw =
       Currency('krw', 'assets/images/calculator/currencies/krw.png');
   static final aed =
@@ -152,20 +151,25 @@ class Currency {
       Currency('vnd', 'assets/images/calculator/currencies/vnd.png');
   static final zar =
       Currency('zar', 'assets/images/calculator/currencies/zar.png');
-  static final bch =
-      Currency('bch', 'assets/images/calculator/currencies/bch.png');
-  static final bhd =
-      Currency('bhd', 'assets/images/calculator/currencies/bhd.png');
-  static final bnb =
-      Currency('bnb', 'assets/images/calculator/currencies/bnb.png');
-  static final eos =
-      Currency('eos', 'assets/images/calculator/currencies/eos.png');
-  static final ltc =
-      Currency('ltc', 'assets/images/calculator/currencies/ltc.png');
-  static final xlm =
-      Currency('xlm', 'assets/images/calculator/currencies/xlm.png');
-  static final xrp =
-      Currency('xrp', 'assets/images/calculator/currencies/xrp.png');
-  static final mxc =
-      Currency('mxc', 'assets/images/calculator/currencies/mxc.png');
+
+  static final bch = Currency('bch',
+      'assets/images/calculator/currencies/bch.png', CurrencyType.crypto);
+  static final bhd = Currency('bhd',
+      'assets/images/calculator/currencies/bhd.png', CurrencyType.crypto);
+  static final bnb = Currency('bnb',
+      'assets/images/calculator/currencies/bnb.png', CurrencyType.crypto);
+  static final eos = Currency('eos',
+      'assets/images/calculator/currencies/eos.png', CurrencyType.crypto);
+  static final ltc = Currency('ltc',
+      'assets/images/calculator/currencies/ltc.png', CurrencyType.crypto);
+  static final xlm = Currency('xlm',
+      'assets/images/calculator/currencies/xlm.png', CurrencyType.crypto);
+  static final xrp = Currency('xrp',
+      'assets/images/calculator/currencies/xrp.png', CurrencyType.crypto);
+  static final mxc = Currency('mxc',
+      'assets/images/calculator/currencies/mxc.png', CurrencyType.crypto);
+  static final btc = Currency('btc',
+      'assets/images/calculator/currencies/btc.png', CurrencyType.crypto);
+  static final eth = Currency('eth',
+      'assets/images/calculator/currencies/eth.png', CurrencyType.crypto);
 }

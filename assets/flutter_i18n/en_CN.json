@@ -254,5 +254,13 @@
 	"created": "Pending",
 	"completed": "Success",
 	"rejected": "Denied",
-	"duration_days": "duration in days - {0}"
+	"duration_days": "duration in days - {0}",
+	"currencies": "Currencies",
+	"my_currencies": "My currencies",
+	"fiat_currencies": "Fiat currencies",
+	"cryptocurrencies": "Cryptocurrencies",
+	"balance": "Balance",
+	"staking": "Staking",
+	"mining": "Mining",
+	"calculator": "Calculator"
 }

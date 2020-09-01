@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:localstorage/localstorage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 
 class StorageManager {
   /// app全局配置 eg:theme token
@@ -24,5 +25,33 @@ class StorageManager {
     sharedPreferences = await SharedPreferences.getInstance();
     localStorage = LocalStorage('LocalStorage');
     await localStorage.ready;
+  }
+
+  static List<Currency> selectedCurrencies() {
+    final currenciesKeys =
+        StorageManager.sharedPreferences.getStringList('selected_currencies');
+    if (currenciesKeys == null)
+      return [
+        Currency.cny,
+        Currency.usd,
+        Currency.rub,
+        Currency.krw,
+        Currency.jpy,
+        Currency.eur,
+        Currency.try0,
+        Currency.vnd,
+        Currency.idr,
+        Currency.brl,
+      ];
+    return Currency.values
+        .where((e) => currenciesKeys.contains(e.shortName))
+        .toList();
+  }
+
+  static Future<void> setSelectedCurrencies(List<Currency> currencies) async {
+    await StorageManager.sharedPreferences.setStringList(
+      'selected_currencies',
+      currencies.map((e) => e.shortName).toList(),
+    );
   }
 }

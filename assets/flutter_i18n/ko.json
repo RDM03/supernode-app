@@ -306,5 +306,13 @@
 	"ltc": "Litecoin",
 	"xlm": "Stellar",
 	"xrp": "XRP",
-	"mxc": "Machine eXchange Coin"
+	"mxc": "Machine eXchange Coin",
+	"currencies": "통화",
+	"my_currencies": "내 통화",
+	"fiat_currencies": "피아트 통화",
+	"cryptocurrencies": "암호 화폐",
+	"balance": "밸런스",
+	"staking": "스테이 킹",
+	"mining": "채광",
+	"calculator": "계산자"
 }
