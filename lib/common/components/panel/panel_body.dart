@@ -11,6 +11,7 @@ Widget panelBody({
   IconData icon,
   Function onPressed,
   bool loading = false,
+  bool trailLoading,
 }) {
   var temp = trailSubtitle.split('(');
   String mxcPrice = temp[0].substring(0, temp[0].length - 1);
@@ -52,7 +53,7 @@ Widget panelBody({
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(trailTitle, style: kSmallFontOfGrey),
-          loading
+          (trailLoading ?? loading)
               ? loadingFlash(
                   child: Text(
                     mxcPrice,

@@ -43,6 +43,7 @@ Widget buildView(
                     titleText: FlutterI18n.translate(_ctx, 'total_gateways'),
                     subtitleText: '${state.gatewaysTotal}',
                     trailTitle: FlutterI18n.translate(_ctx, 'profit'),
+                    trailLoading: state.gatewaysRevenue == 0 && state.loading,
                     trailSubtitle:
                         '${Tools.priceFormat(state.gatewaysRevenue)} MXC (${Tools.priceFormat(state.gatewaysUSDRevenue)} USD)')),
             panelFrame(
