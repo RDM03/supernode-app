@@ -25,67 +25,63 @@ Effect<SignUpState> buildEffect() {
 
 void _onEmailContinue(Action action, Context<SignUpState> ctx) {
   var curState = ctx.state;
-  if((curState.emailFormKey.currentState as FormState).validate()){
+  if ((curState.emailFormKey.currentState as FormState).validate()) {
     showLoading(ctx.context);
 
     UserDao dao = UserDao();
 
     String languageCode = FlutterI18n.currentLocale(ctx.context).languageCode;
     String countryCode = FlutterI18n.currentLocale(ctx.context).countryCode;
-    if(languageCode.contains('zh')){
+    if (languageCode.contains('zh')) {
       languageCode = '$languageCode$countryCode';
     }
 
-    Map data = {
-      "email": curState.emailCtl.text,
-      "language": languageCode
-    };
-    List<String> users=StorageManager.sharedPreferences.getStringList(Config.USER_KEY)??[];
-    if(!users.contains( curState.emailCtl.text)){
-      users.add( curState.emailCtl.text);
+    Map data = {"email": curState.emailCtl.text, "language": languageCode};
+    List<String> users =
+        StorageManager.sharedPreferences.getStringList(Config.USER_KEY) ?? [];
+    if (!users.contains(curState.emailCtl.text)) {
+      users.add(curState.emailCtl.text);
     }
     StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
-    dao.register(data).then((res){
+    dao.register(data).then((res) {
       hideLoading(ctx.context);
-      mLog('register',res);
+      mLog('register', res);
 
-      Navigator.push(ctx.context,
+      Navigator.push(
+        ctx.context,
         MaterialPageRoute(
-          maintainState: false,
-          fullscreenDialog: false,
-          builder:(context){
-            return ctx.buildComponent('verification');
-          }
-        ),
+            maintainState: false,
+            fullscreenDialog: false,
+            builder: (context) {
+              return ctx.buildComponent('verification');
+            }),
       );
-    }).catchError((err, c){
+    }).catchError((err, c) {
       hideLoading(ctx.context);
       tip(ctx.context, err);
     });
   }
-
 }
 
 void _onVerificationContinue(Action action, Context<SignUpState> ctx) {
   var curState = ctx.state;
-  
-  if((curState.codesFormKey.currentState as FormState).validate()){
+
+  if ((curState.codesFormKey.currentState as FormState).validate()) {
     showLoading(ctx.context);
 
-    List<String> codes = curState.codeListCtls.map((code) => code.text).toList();
+    List<String> codes =
+        curState.codeListCtls.map((code) => code.text).toList();
 
     UserDao dao = UserDao();
-    Map data = {
-      "token": codes.join()
-    };
+    Map data = {"token": codes.join()};
 
-    dao.registerConfirm(data).then((res){
+    dao.registerConfirm(data).then((res) {
       hideLoading(ctx.context);
-      mLog('registerConfirm',res);
+      mLog('registerConfirm', res);
 
       SettingsState settingsData = GlobalStore.store.getState().settings;
 
-      if(settingsData == null){
+      if (settingsData == null) {
         settingsData = SettingsState().clone();
       }
 
@@ -96,44 +92,39 @@ void _onVerificationContinue(Action action, Context<SignUpState> ctx) {
       settingsData.username = res['username'];
       settingsData.usernameCtl.text = res['username'];
 
-      Map userData = {
-        "userId": res['id'],
-        "email": res['username']
-      };
+      Map userData = {"userId": res['id'], "email": res['username']};
 
       ctx.dispatch(SignUpActionCreator.registrationContinue(userData));
-    
+
       SettingsDao.updateLocal(settingsData);
 
-      Navigator.push(ctx.context,
+      Navigator.push(
+        ctx.context,
         MaterialPageRoute(
-          maintainState: false,
-          fullscreenDialog: false,
-          builder:(context){
-            return ctx.buildComponent('registration');
-          }
-        ),
+            maintainState: false,
+            fullscreenDialog: false,
+            builder: (context) {
+              return ctx.buildComponent('registration');
+            }),
       );
-
-    }).catchError((err){
+    }).catchError((err) {
       hideLoading(ctx.context);
       // tip(ctx.context,'UserDao registerConfirm: $err');
     });
-
-  }else{
-    tip(ctx.context, FlutterI18n.translate(ctx.context, 'invalid verification code'));
+  } else {
+    tip(ctx.context,
+        FlutterI18n.translate(ctx.context, 'invalid verification code'));
   }
 }
 
 void _onRegistrationContinue(Action action, Context<SignUpState> ctx) {
   var curState = ctx.state;
-  
-  if((curState.registerFormKey.currentState as FormState).validate()){
 
-    if(!curState.isCheckTerms){
+  if ((curState.registerFormKey.currentState as FormState).validate()) {
+    if (!curState.isCheckTerms) {
       return;
     }
-    
+
     showLoading(ctx.context);
     UserDao dao = UserDao();
     Map data = {
@@ -143,11 +134,12 @@ void _onRegistrationContinue(Action action, Context<SignUpState> ctx) {
       "password": curState.pwdCtl.text
     };
 
-    dao.registerFinish(data).then((res){
+    dao.registerFinish(data).then((res) {
       hideLoading(ctx.context);
-      mLog('UserDao registerFinish',res);
-      Navigator.of(ctx.context).pushNamed('add_gateway_page',arguments:{'fromPage': 'registration'});
-    }).catchError((err){
+      mLog('UserDao registerFinish', res);
+      Navigator.of(ctx.context).pushNamed('add_gateway_page',
+          arguments: {'fromPage': 'registration'});
+    }).catchError((err) {
       hideLoading(ctx.context);
       // tip(ctx.context,'UserDao registerFinish: $err');
     });
