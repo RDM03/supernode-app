@@ -140,7 +140,7 @@ void _onGateways(Action action, Context<HomeState> ctx) async {
   if (orgId == null || orgId.isEmpty)
     orgId = settingsData.organizations.first.organizationID;
   await _miningIncome(ctx, ctx.state.userId, orgId);
-  await _gateways(ctx);
+  await _gateways(ctx, ctx.state.userId);
 }
 
 Future<void> _profile(Context<HomeState> ctx) async {
@@ -191,7 +191,7 @@ Future<void> _profile(Context<HomeState> ctx) async {
     await _stakingRevenue(ctx, userData.id, orgId);
 
     // Request gateways' amount and location
-    await _gateways(ctx);
+    await _gateways(ctx, userData.id);
 
     // await _devices(ctx,userData,orgId);
   } catch (e) {
@@ -212,6 +212,9 @@ void _loadUserData(Context<HomeState> ctx, String userDataId) {
     ctx.dispatch(HomeActionCreator.stakedAmount(data['stakedAmount']));
   if (data['totalRevenue'] != null)
     ctx.dispatch(HomeActionCreator.totalRevenue(data['totalRevenue']));
+  if (data['usd_gateway'] != null)
+    ctx.dispatch(
+        HomeActionCreator.convertUSD('usd_gateway', data['totalRevenue']));
 
   print(data);
 }
@@ -260,7 +263,7 @@ Future<void> _miningIncome(
       'currency': '',
       'mxcPrice': '${value == 0.0 ? value.toInt() : value}'
     };
-    await _convertUSD(ctx, priceData, 'gateway');
+    await _convertUSD(ctx, userId, priceData, 'gateway');
   } catch (err) {
     ctx.dispatch(HomeActionCreator.loading(false));
     // tip(ctx.context, 'WalletDao miningInfo: $err');
@@ -289,7 +292,7 @@ Future<void> _stakeAmount(
   }
 }
 
-Future<void> _gateways(Context<HomeState> ctx) async {
+Future<void> _gateways(Context<HomeState> ctx, String userId) async {
   try {
     GatewaysDao dao = _buildGatewaysDao(ctx);
     String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
@@ -338,6 +341,7 @@ Future<void> _gateways(Context<HomeState> ctx) async {
       }
     }
 
+    LocalStorageDao.saveUserData('user_$userId', {'gatewaysTotal': total});
     ctx.dispatch(HomeActionCreator.gateways(total, 0, list));
   } catch (err) {
     ctx.dispatch(HomeActionCreator.loading(false));
@@ -432,7 +436,8 @@ void _onSettings(Action action, Context<HomeState> ctx) {
   });
 }
 
-Future<void> _convertUSD(Context<HomeState> ctx, Map data, String type) async {
+Future<void> _convertUSD(
+    Context<HomeState> ctx, String userId, Map data, String type) async {
   try {
     WalletDao dao = _buildWalletDao(ctx);
 
@@ -441,6 +446,7 @@ Future<void> _convertUSD(Context<HomeState> ctx, Map data, String type) async {
 
     if ((res as Map).containsKey('mxcPrice')) {
       double value = double.parse(res['mxcPrice']);
+      LocalStorageDao.saveUserData('user_$userId', {'usd_$type': value});
       ctx.dispatch(HomeActionCreator.convertUSD(type, value));
     }
   } catch (err) {
