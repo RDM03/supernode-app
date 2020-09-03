@@ -254,5 +254,11 @@
 	"created": "Pending",
 	"completed": "Success",
 	"rejected": "Denied",
-	"duration_days": "duration in days - {0}"
+	"duration_days": "duration in days - {0}",
+	"confirm_withdrawal": "Confirm Withdrawal",
+	"check_recipient_address": "Please check the Recipient Address carefully to make sure it is exactly what you entered.",
+	"amount": "Amount",
+	"fee": "Fee",
+	"recepient": "Recepient",
+	"submit": "Submit"
 }

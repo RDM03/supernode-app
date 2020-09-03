@@ -253,5 +253,11 @@
 	"created": "보류 중",
 	"completed": "성공",
 	"rejected": "거부",
-	"duration_days": "일의 기간 - {0}"
+	"duration_days": "일의 기간 - {0}",
+	"confirm_withdrawal": "출금 확인",
+	"check_recipient_address": "받는 사람 주소를주의 깊게 확인하여 입력 한 주소와 정확히 일치하는지 확인하십시오.",
+	"amount": "양",
+	"fee": "요정",
+	"recepient": "받는 사람",
+	"submit": "제출"
 }

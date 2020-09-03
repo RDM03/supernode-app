@@ -253,5 +253,11 @@
 	"created": "保留中",
 	"completed": "成功",
 	"rejected": "拒否された",
-	"duration_days": "日数 - {0}"
+	"duration_days": "日数 - {0}",
+	"confirm_withdrawal": "引き出しを確認",
+	"check_recipient_address": "受信者のアドレスを注意深くチェックして、入力したとおりであることを確認してください。",
+	"amount": "量",
+	"fee": "費用",
+	"recepient": "受取人",
+	"submit": "参加する"
 }

@@ -253,5 +253,11 @@
 	"created": "待定",
 	"completed": "成功",
 	"rejected": "被拒绝",
-	"duration_days": "持续天数 - {0}"
+	"duration_days": "持续天数 - {0}",
+	"confirm_withdrawal": "确认提款",
+	"check_recipient_address": "请仔细检查收件人地址，以确保它是您输入的准确地址。",
+	"amount": "量",
+	"fee": "仙女",
+	"recepient": "接受者",
+	"submit": "提交"
 }

@@ -5,18 +5,19 @@ import 'package:supernodeapp/page/settings_page/organizations_component/state.da
 import 'enter_securitycode_withdraw_component/state.dart';
 
 class WithdrawState implements Cloneable<WithdrawState> {
-
   // why use GlobalKey ? it very expensive !
-  GlobalKey formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController amountCtl = TextEditingController();
   TextEditingController addressCtl = TextEditingController();
-  
+
   bool status = false;
   bool isEnabled = false;
   double balance = 0;
   double fee;
   List<OrganizationsState> organizations = [];
   bool isDemo;
+
+  DateTime confirmTime;
 
   GlobalKey enterSecurityCodeWithdrawFormKey = GlobalKey<FormState>();
   TextEditingController otpCodeCtl = TextEditingController();
@@ -38,7 +39,10 @@ class WithdrawState implements Cloneable<WithdrawState> {
       ..isEnabled = isEnabled
       ..listCtls = listCtls
       ..organizations = organizations
-      ..isDemo = isDemo;
+      ..isDemo = isDemo
+      ..confirmTime = confirmTime
+      ..amountCtl = amountCtl
+      ..addressCtl = addressCtl;
   }
 }
 
@@ -53,10 +57,10 @@ WithdrawState initState(Map<String, dynamic> args) {
     ..isDemo = isDemo;
 }
 
-class EnterSecurityCodeWithdrawConnector extends ConnOp<WithdrawState, EnterSecurityCodeWithdrawState>{
-
+class EnterSecurityCodeWithdrawConnector
+    extends ConnOp<WithdrawState, EnterSecurityCodeWithdrawState> {
   @override
-  EnterSecurityCodeWithdrawState get(WithdrawState state){
+  EnterSecurityCodeWithdrawState get(WithdrawState state) {
     return EnterSecurityCodeWithdrawState()
       ..formKey = state.enterSecurityCodeWithdrawFormKey
       ..listCtls = state.listCtls;
@@ -64,7 +68,6 @@ class EnterSecurityCodeWithdrawConnector extends ConnOp<WithdrawState, EnterSecu
 
   @override
   void set(WithdrawState state, EnterSecurityCodeWithdrawState subState) {
-    state
-      ..listCtls = subState.listCtls;
+    state..listCtls = subState.listCtls;
   }
 }

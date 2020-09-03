@@ -253,5 +253,11 @@
 	"created": "Bekliyor",
 	"completed": "Başarı",
 	"rejected": "Inkar",
-	"duration_days": "gün cinsinden süre - {0}"
+	"duration_days": "gün cinsinden süre - {0}",
+	"confirm_withdrawal": "Para Çekmeyi Onayla",
+	"check_recipient_address": "Lütfen tam olarak girdiğiniz adres olduğundan emin olmak için alıcı adresini dikkatlice kontrol edin.",
+	"amount": "Miktar",
+	"fee": "peri",
+	"recepient": "Alıcı",
+	"submit": "Sunmak"
 }
