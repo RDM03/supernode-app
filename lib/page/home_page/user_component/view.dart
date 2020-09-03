@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
@@ -20,6 +21,7 @@ import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
 import 'state.dart';
+
 bool isUpdate = true;
 
 Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
@@ -60,15 +62,44 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
             child: Column(
               children: [
                 profile(
-                  name: '${FlutterI18n.translate(_ctx, 'hi')}, ${state.username}',
-                  position: (state.organizations.length > 0 && state.organizations.first.isAdmin) ? FlutterI18n.translate(_ctx, 'admin') : '',
+                  name:
+                      '${FlutterI18n.translate(_ctx, 'hi')}, ${state.username}',
+                  position: (state.organizations.length > 0 &&
+                          state.organizations.first.isAdmin)
+                      ? FlutterI18n.translate(_ctx, 'admin')
+                      : '',
+                  trailing: SizedBox(
+                    width: 30,
+                    child: IconButton(
+                      key: ValueKey('calculatorButton'),
+                      icon: FaIcon(
+                        FontAwesomeIcons.calculator,
+                        color: Colors.black,
+                      ),
+                      onPressed: () => Navigator.of(_ctx)
+                          .pushNamed('calculator_page', arguments: {
+                        'balance': state.balance,
+                        'staking': state.stakedAmount,
+                        'mining': state.gatewaysRevenue + state.devicesRevenue,
+                      }),
+                      iconSize: 20,
+                    ),
+                  ),
                 ),
-                rowRight(FlutterI18n.translate(_ctx, 'current_balance'), style: kSmallFontOfGrey),
-                rowRight('${Tools.priceFormat(state.balance)} MXC', style: kBigFontOfBlack, loading: state.loading),
-                rowRight(FlutterI18n.translate(_ctx, 'staked_amount'), style: kSmallFontOfGrey),
-                rowRight('${Tools.priceFormat(state.stakedAmount)} MXC', style: kBigFontOfBlack, loading: state.loading),
-                rowRight(FlutterI18n.translate(_ctx, 'staking_revenue'), style: kSmallFontOfGrey),
-                rowRight('${Tools.priceFormat(state.totalRevenue, range: 2)} MXC', style: kBigFontOfBlack, loading: state.loading),
+                rowRight(FlutterI18n.translate(_ctx, 'current_balance'),
+                    style: kSmallFontOfGrey),
+                rowRight('${Tools.priceFormat(state.balance)} MXC',
+                    style: kBigFontOfBlack, loading: state.loading),
+                rowRight(FlutterI18n.translate(_ctx, 'staked_amount'),
+                    style: kSmallFontOfGrey),
+                rowRight('${Tools.priceFormat(state.stakedAmount)} MXC',
+                    style: kBigFontOfBlack, loading: state.loading),
+                rowRight(FlutterI18n.translate(_ctx, 'staking_revenue'),
+                    style: kSmallFontOfGrey),
+                rowRight(
+                    '${Tools.priceFormat(state.totalRevenue, range: 2)} MXC',
+                    style: kBigFontOfBlack,
+                    loading: state.loading),
                 Container(
                   margin: kRoundRow5,
                   child: Row(
@@ -76,17 +107,20 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                       Spacer(),
                       PrimaryButton(
                         buttonTitle: FlutterI18n.translate(_ctx, 'deposit'),
-                        onTap: () => dispatch(HomeActionCreator.onOperate('deposit')),
+                        onTap: () =>
+                            dispatch(HomeActionCreator.onOperate('deposit')),
                       ),
                       Spacer(),
                       PrimaryButton(
                         buttonTitle: FlutterI18n.translate(_ctx, 'withdraw'),
-                        onTap: () => dispatch(HomeActionCreator.onOperate('withdraw')),
+                        onTap: () =>
+                            dispatch(HomeActionCreator.onOperate('withdraw')),
                       ),
                       Spacer(),
                       PrimaryButton(
                         buttonTitle: FlutterI18n.translate(_ctx, 'stake'),
-                        onTap: () => dispatch(HomeActionCreator.onOperate('stake')),
+                        onTap: () =>
+                            dispatch(HomeActionCreator.onOperate('stake')),
                       ),
                       Spacer(),
                     ],
@@ -102,7 +136,8 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
               title: FlutterI18n.translate(_ctx, 'total_gateways'),
               number: '${state.gatewaysTotal}',
               subtitle: FlutterI18n.translate(_ctx, 'profit'),
-              price: '${Tools.priceFormat(state.gatewaysRevenue)} MXC (${Tools.priceFormat(state.gatewaysUSDRevenue)} USD)',
+              price:
+                  '${Tools.priceFormat(state.gatewaysRevenue)} MXC (${Tools.priceFormat(state.gatewaysUSDRevenue)} USD)',
             ),
           ),
           panelFrame(
@@ -112,7 +147,8 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
               title: FlutterI18n.translate(_ctx, 'total_devices'),
               number: '${state.devicesTotal}',
               subtitle: FlutterI18n.translate(_ctx, 'cost'),
-              price: '${Tools.priceFormat(state.devicesRevenue)} MXC (${Tools.priceFormat(state.devicesUSDRevenue)} USD)',
+              price:
+                  '${Tools.priceFormat(state.devicesRevenue)} MXC (${Tools.priceFormat(state.devicesUSDRevenue)} USD)',
             ),
           ),
           MapBoxWidget(

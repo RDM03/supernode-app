@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
-Widget pageBody({List<Widget> children}){
+Widget pageBody(
+    {List<Widget> children, bool useColumn = false, bool usePadding = true}) {
   return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      constraints: BoxConstraints.expand(),
-      decoration: BoxDecoration(
-        color: backgroundColor,
-      ),
-      child: ListView(
-        children: children,
-      )
+    padding: usePadding ? const EdgeInsets.symmetric(horizontal: 20) : null,
+    constraints: BoxConstraints.expand(),
+    decoration: BoxDecoration(
+      color: backgroundColor,
+    ),
+    child: useColumn
+        ? Column(
+            children: children,
+          )
+        : ListView(
+            children: children,
+          ),
   );
 }
