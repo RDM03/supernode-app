@@ -71,6 +71,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                   trailing: SizedBox(
                     width: 30,
                     child: IconButton(
+                      key: ValueKey('calculatorButton'),
                       icon: FaIcon(
                         FontAwesomeIcons.calculator,
                         color: Colors.black,
@@ -79,7 +80,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                           .pushNamed('calculator_page', arguments: {
                         'balance': state.balance,
                         'staking': state.stakedAmount,
-                        'mining': state.devicesRevenue,
+                        'mining': state.gatewaysRevenue + state.devicesRevenue,
                       }),
                       iconSize: 20,
                     ),

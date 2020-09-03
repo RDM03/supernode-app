@@ -29,6 +29,7 @@ Widget buildView(
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
+        key: ValueKey('addCurrencyButton'),
         onPressed: () {
           dispatch(CalculatorActionCreator.list());
         },
@@ -68,7 +69,6 @@ Widget buildView(
                 ),
               ],
               expandContent: true,
-              onTap: (tabIndex) {},
             ),
           ),
           smallColumnSpacer(),

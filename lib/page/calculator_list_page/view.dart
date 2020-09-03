@@ -66,6 +66,7 @@ Widget buildView(
                   ),
                   actionWidget: Text(FlutterI18n.translate(_ctx, 'done')),
                   leadingWidget: GestureDetector(
+                    key: ValueKey('navBackButton'),
                     child: Icon(
                       Icons.arrow_back_ios,
                       color: Colors.black,
@@ -78,6 +79,7 @@ Widget buildView(
               Expanded(
                 flex: 1,
                 child: CustomScrollView(
+                  key: ValueKey('currenciesScrollView'),
                   slivers: [
                     SliverToBoxAdapter(
                       child: Padding(
@@ -86,6 +88,7 @@ Widget buildView(
                           vertical: 20,
                         ),
                         child: TextField(
+                          key: ValueKey('searchField'),
                           controller: state.searchController,
                           decoration: InputDecoration(
                             isDense: true,
@@ -120,6 +123,8 @@ Widget buildView(
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (ctx, i) => ListTile(
+                          key: ValueKey(
+                              'selected_${selectedCurrencies[i].shortName}'),
                           leading: Image.asset(selectedCurrencies[i].iconPath),
                           title: Text(
                             FlutterI18n.translate(
@@ -146,6 +151,7 @@ Widget buildView(
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (ctx, i) => ListTile(
+                          key: ValueKey('fiat_${fiatCurrencies[i].shortName}'),
                           leading: Image.asset(fiatCurrencies[i].iconPath),
                           title: Text(
                             FlutterI18n.translate(
@@ -169,6 +175,8 @@ Widget buildView(
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (ctx, i) => ListTile(
+                          key: ValueKey(
+                              'crypto_${selectedCurrencies[i].shortName}'),
                           leading: Image.asset(cryptoCurrencies[i].iconPath),
                           title: Text(
                             FlutterI18n.translate(

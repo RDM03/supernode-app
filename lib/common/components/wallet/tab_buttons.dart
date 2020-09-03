@@ -27,6 +27,7 @@ Widget tabButtons({
                 indicatorColor: buttonPrimaryColor,
                 labelColor: Colors.black,
                 unselectedLabelColor: Colors.black38,
+                key: ValueKey('tabBar'),
                 tabs: list.map((item) {
                   return Tab(
                     text: FlutterI18n.translate(context, item),
