@@ -253,5 +253,12 @@
 	"created": "待定",
 	"completed": "成功",
 	"rejected": "被拒绝",
-	"duration_days": "持续天数 - {0}"
+	"duration_days": "持续天数 - {0}",
+	"memo": "备忘录",
+	"address_book": "地址簿",
+	"address_book_desc": "在此处添加您经常使用的地址，但是由于安全原因，您只能添加或删除该地址。",
+	"invalid_address": "无效地址",
+	"invalid_name": "名称无效",
+	"address_book_control_desc": "在此处控制您经常使用的地址，请注意，出于安全原因，您只能删除或添加地址。",
+	"delete_address": "删除地址"
 }

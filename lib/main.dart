@@ -10,6 +10,9 @@ import 'package:supernodeapp/common/daos/crashes_dao.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/global_store/store.dart';
+import 'package:supernodeapp/page/address_book_page/add_address_page/page.dart';
+import 'package:supernodeapp/page/address_book_page/address_details_page/page.dart';
+import 'package:supernodeapp/page/address_book_page/page.dart';
 import 'package:supernodeapp/page/app.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
 import 'package:supernodeapp/page/device/smart_watch_detail_page/page.dart';
@@ -58,7 +61,7 @@ Future<void> main() async {
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
 
-  CrashesDao().init( 
+  CrashesDao().init(
     appSecretAndroid: Sys.appSecretAndroid,
     appSecretIOS: Sys.appSecretIOS,
   );
@@ -86,10 +89,14 @@ Widget mxcApp() {
         'mapbox_page': MapBoxPage(),
         'choose_application_page': ChooseApplicationPage(),
         'device_mapbox_page': DeviceMapBoxPage(),
+        'address_book_page': AddressBookPage(),
+        'add_address_page': AddAddressPage(),
+        'address_details_page': AddressDetailsPage(),
       },
       visitor: (String path, Page<Object, dynamic> page) {
         if (page.isTypeof<GlobalBaseState>()) {
-          page.connectExtraStore<GlobalState>(GlobalStore.store, (Object pagestate, GlobalState appState) {
+          page.connectExtraStore<GlobalState>(GlobalStore.store,
+              (Object pagestate, GlobalState appState) {
             final GlobalBaseState p = pagestate;
 
             if (!(p.settings == appState.settings)) {
@@ -126,9 +133,12 @@ Widget mxcApp() {
     supportedLocales: [
       const Locale('en'),
       const Locale.fromSubtags(languageCode: 'zh'),
-      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans', countryCode: 'CN'),
-      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
-      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'HK'),
+      const Locale.fromSubtags(
+          languageCode: 'zh', scriptCode: 'Hans', countryCode: 'CN'),
+      const Locale.fromSubtags(
+          languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
+      const Locale.fromSubtags(
+          languageCode: 'zh', scriptCode: 'Hant', countryCode: 'HK'),
       const Locale.fromSubtags(languageCode: 'vi'), // Vietnam
       const Locale.fromSubtags(languageCode: 'ja'), // Japan
       const Locale.fromSubtags(languageCode: 'ko'), // Korea

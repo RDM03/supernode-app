@@ -17,7 +17,7 @@ Future onSelectNotification(String payload) async {
 }
 
 Future onDidReceiveLocalNotification(
-  int id, String title, String body, String payload) async {
+    int id, String title, String body, String payload) async {
   // print(title);
 }
 
@@ -29,7 +29,7 @@ Effect<SettingsState> buildEffect() {
   });
 }
 
-void _initState(Action action, Context<SettingsState> ctx) async{
+void _initState(Action action, Context<SettingsState> ctx) async {
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
   String version = packageInfo.version;
   String buildNumber = packageInfo.buildNumber;
@@ -37,19 +37,19 @@ void _initState(Action action, Context<SettingsState> ctx) async{
   ctx.dispatch(SettingsActionCreator.localVersion(version, buildNumber));
 }
 
-void _onSettings(Action action, Context<SettingsState> ctx) async{
+void _onSettings(Action action, Context<SettingsState> ctx) async {
   String page = action.payload;
 
-  if(page == 'logout'){
+  if (page == 'logout') {
     await logOut(ctx.context);
     return;
   }
 
-  if(page == 'notification'){
-    try{
+  if (page == 'notification') {
+    try {
       _noticationEnable();
       ctx.state.notification = !ctx.state.notification;
-    }catch(e){
+    } catch (e) {
       ctx.state.notification = false;
     }
 
@@ -57,34 +57,39 @@ void _onSettings(Action action, Context<SettingsState> ctx) async{
     return;
   }
 
-  Navigator.push(ctx.context,
-    MaterialPageRoute(
-      maintainState: false,
-      fullscreenDialog: true,
-      builder:(context){
-        return ctx.buildComponent(page);
-      }
-    ),
-  );
+  if (page == 'address_book') {
+    Navigator.of(ctx.context).pushNamed('address_book_page');
+    return;
+  }
 
+  Navigator.push(
+    ctx.context,
+    MaterialPageRoute(
+        maintainState: false,
+        fullscreenDialog: true,
+        builder: (context) {
+          return ctx.buildComponent(page);
+        }),
+  );
 }
 
-void _noticationEnable(){
+void _noticationEnable() {
   flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
 
   var initializationSettingsAndroid =
-  new AndroidInitializationSettings('app_icon');
+      new AndroidInitializationSettings('app_icon');
 
-  var initializationSettingsIOS = 
-  IOSInitializationSettings(
+  var initializationSettingsIOS = IOSInitializationSettings(
       onDidReceiveLocalNotification: onDidReceiveLocalNotification);
 
-  var initializationSettings = InitializationSettings(initializationSettingsAndroid,initializationSettingsIOS);
+  var initializationSettings = InitializationSettings(
+      initializationSettingsAndroid, initializationSettingsIOS);
 
-  flutterLocalNotificationsPlugin.initialize(initializationSettings,onSelectNotification: onSelectNotification);
+  flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onSelectNotification: onSelectNotification);
 }
 
-void _onDispose(Action action, Context<SettingsState> ctx) async{
+void _onDispose(Action action, Context<SettingsState> ctx) async {
   // await flutterLocalNotificationsPlugin.cancel(0);
   // await flutterLocalNotificationsPlugin.cancelAll();
 }
