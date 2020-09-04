@@ -48,6 +48,7 @@ class _ConnectivityLostPageView extends StatelessWidget {
                 ),
                 Spacer(),
                 PrimaryButton(
+                  key: ValueKey('refreshButton'),
                   onTap: () {
                     _refresh(context);
                   },
