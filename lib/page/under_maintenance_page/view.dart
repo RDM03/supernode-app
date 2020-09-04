@@ -49,6 +49,7 @@ class _UnderMaintenancePageView extends StatelessWidget {
                 ),
                 Spacer(),
                 PrimaryButton(
+                  key: ValueKey('refreshButton'),
                   onTap: loading ? null : onRefresh,
                   buttonTitle: FlutterI18n.translate(context, 'refresh'),
                 ),
