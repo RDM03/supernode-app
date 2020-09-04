@@ -7,16 +7,17 @@ class WalletApi {
   static const String miningIncome = '/api/wallet/mining_income';
   static const String convertUSD = '/api/wallet/mxc_price';
   static const String miningInfo = '/api/wallet/mining_info';
+  static const String miningIncomeGateway = '/api/wallet/mining_income_gw';
 }
 
-class WalletDao extends Dao{
+class WalletDao extends Dao {
   static const String amount = 'amount';
   static const String revenue = 'revenue';
   static const String createdAt = 'createdAt';
   static const String txHash = 'txHash';
   static const String txSentTime = 'txSentTime';
   static const String txStatus = 'txStatus';
-  static const String denyComment ='denyComment';
+  static const String denyComment = 'denyComment';
   static const String from = 'from';
   static const String to = 'to';
   static const String txType = 'txType';
@@ -27,38 +28,27 @@ class WalletDao extends Dao{
   static const String end = 'end';
 
   //remote
-  Future<dynamic> balance(Map data){
-    return get(
-      url: WalletApi.balance,
-      data: data
-    );
+  Future<dynamic> balance(Map data) {
+    return get(url: WalletApi.balance, data: data);
   }
 
-  Future<dynamic> history(Map data){
-    return get(
-      url: Api.url( WalletApi.history, data['orgId'] ),
-      data: data
-    );
+  Future<dynamic> history(Map data) {
+    return get(url: Api.url(WalletApi.history, data['orgId']), data: data);
   }
 
-  Future<dynamic> miningIncome(Map data){
-    return get(
-      url: WalletApi.miningIncome,
-      data: data
-    );
+  Future<dynamic> miningIncome(Map data) {
+    return get(url: WalletApi.miningIncome, data: data);
   }
 
-  Future<dynamic> convertUSD(Map data){
-    return get(
-      url: WalletApi.convertUSD,
-      data: data
-    );
+  Future<dynamic> convertUSD(Map data) {
+    return get(url: WalletApi.convertUSD, data: data);
   }
 
-  Future<dynamic> miningInfo(Map data){
-    return get(
-      url: WalletApi.miningInfo,
-      data: data
-    );
+  Future<dynamic> miningInfo(Map data) {
+    return get(url: WalletApi.miningInfo, data: data);
+  }
+
+  Future<dynamic> miningIncomeGateway(Map data) {
+    return get(url: WalletApi.miningIncomeGateway, data: data);
   }
 }

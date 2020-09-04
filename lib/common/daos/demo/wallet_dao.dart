@@ -93,4 +93,85 @@ class DemoWalletDao extends DemoDao implements WalletDao {
       ]
     });
   }
+
+  @override
+  Future miningIncomeGateway(Map data) {
+    return Future.value({
+      "total": "100",
+      "dailyStats": [
+        {
+          "date": DateTime.now()
+              .add(Duration(
+                days: 0,
+              ))
+              .toUtc()
+              .toIso8601String(),
+          "amount": "300.0"
+        },
+        {
+          "date": DateTime.now()
+              .add(Duration(
+                days: -1,
+              ))
+              .toUtc()
+              .toIso8601String(),
+          "amount": "350.0"
+        },
+        {
+          "date": DateTime.now()
+              .add(Duration(
+                days: -2,
+              ))
+              .toUtc()
+              .toIso8601String(),
+          "amount": "358.0"
+        },
+        {
+          "date": DateTime.now()
+              .add(Duration(
+                days: -3,
+              ))
+              .toUtc()
+              .toIso8601String(),
+          "amount": "420.0"
+        },
+        {
+          "date": DateTime.now()
+              .add(Duration(
+                days: -4,
+              ))
+              .toUtc()
+              .toIso8601String(),
+          "amount": "430.0"
+        },
+        {
+          "date": DateTime.now()
+              .add(Duration(
+                days: -5,
+              ))
+              .toUtc()
+              .toIso8601String(),
+          "amount": "400.0"
+        },
+        {
+          "date": DateTime.now()
+              .add(Duration(
+                days: -6,
+              ))
+              .toUtc()
+              .toIso8601String(),
+          "amount": "380.0"
+        },
+        {
+          "date": DateTime.now()
+              .add(Duration(
+                days: -7,
+              ))
+              .toUtc()
+              .toIso8601String(),
+          "amount": "390.0"
+        },
+      ]
+    });
+  }
 }

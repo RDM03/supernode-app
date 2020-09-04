@@ -24,29 +24,27 @@ Effect<GatewayProfileState> buildEffect() {
 }
 
 WalletDao _buildWalletDao(Context<GatewayProfileState> ctx) {
-  return ctx.state.isDemo
-    ? DemoWalletDao()
-    : WalletDao();
+  return ctx.state.isDemo ? DemoWalletDao() : WalletDao();
 }
 
 GatewaysDao _buildGatewaysDao(Context<GatewayProfileState> ctx) {
-  return ctx.state.isDemo
-    ? DemoGatewaysDao()
-    : GatewaysDao();
+  return ctx.state.isDemo ? DemoGatewaysDao() : GatewaysDao();
 }
 
-void _initState(Action action, Context<GatewayProfileState> ctx){
-  SchedulerBinding.instance.addPostFrameCallback((_) async{
+void _initState(Action action, Context<GatewayProfileState> ctx) {
+  SchedulerBinding.instance.addPostFrameCallback((_) async {
     GatewayItemState profile = ctx.state.profile;
     LatLng markerPiont = LatLng(
-      (profile.location['latitude'] as num).toDouble(),
-      (profile.location['longitude'] as num).toDouble());
+        (profile.location['latitude'] as num).toDouble(),
+        (profile.location['longitude'] as num).toDouble());
     var ctl = ctx.state.mapCtl;
 
     ctl.myLatLng = markerPiont;
-    await ctl.moveToMyLatLng();
+    try {
+      await ctl.moveToMyLatLng();
+    } catch (_) {}
 
-    Future.delayed(Duration(seconds: 1),(){
+    Future.delayed(Duration(seconds: 1), () {
       ctl.addSymbol(MapMarker(
         point: markerPiont,
         image: AppImages.gateways,
@@ -59,42 +57,51 @@ void _initState(Action action, Context<GatewayProfileState> ctx){
 }
 
 /// Request MiningInfo
-Future<void> _miningInfo(Context<GatewayProfileState> ctx) async{
+Future<void> _miningInfo(Context<GatewayProfileState> ctx) async {
   SettingsState settingsData = GlobalStore.store.getState().settings;
+  final fromDateSource = DateTime.now().add(Duration(days: -7));
+  final toDateSource = DateTime.now();
+
   Map data = {
-    'userId': settingsData.userId,
-    'orgId': settingsData.selectedOrganizationId
+    'gatewayMac': ctx.state.profile.id,
+    'orgId': settingsData.selectedOrganizationId,
+    'fromDate': DateTime.utc(
+            fromDateSource.year, fromDateSource.month, fromDateSource.day)
+        .toIso8601String(),
+    'tillDate':
+        DateTime.utc(toDateSource.year, toDateSource.month, toDateSource.day)
+            .toIso8601String(),
   };
-  
-  try{
+
+  try {
     WalletDao dao = _buildWalletDao(ctx);
-    var res = await dao.miningInfo(data);
-    List items = res['data'] as List;
+    var res = await dao.miningIncomeGateway(data);
+    List items = res['dailyStats'] ?? res['data'];
 
     ctx.dispatch(GatewayProfileActionCreator.miningInfo(items));
-  }catch(err){
+  } catch (err) {
     // tip(ctx.context, 'WalletDao miningInfo: $err');
   }
 }
 
 /// Request Gateway Frame
-Future<void> _frame(Context<GatewayProfileState> ctx) async{
+Future<void> _frame(Context<GatewayProfileState> ctx) async {
   var now = DateTime.now();
   var beforeDay = now.subtract(Duration(days: 7));
   Map data = {
     'gatewayID': ctx.state.profile.id,
     'interval': 'DAY',
     'startTimestamp': beforeDay.toIso8601String() + 'Z',
-    'endTimestamp':  now.toIso8601String() + 'Z'
+    'endTimestamp': now.toIso8601String() + 'Z'
   };
-  
-  try{
+
+  try {
     GatewaysDao dao = _buildGatewaysDao(ctx);
-    var res = await dao.frames(data['gatewayID'],data);
+    var res = await dao.frames(data['gatewayID'], data);
     List items = res['result'] as List;
 
     ctx.dispatch(GatewayProfileActionCreator.gatewayFrame(items));
-  }catch(err){
+  } catch (err) {
     // tip(ctx.context, 'GatewaysDao frames: $err');
   }
 }
