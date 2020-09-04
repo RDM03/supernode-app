@@ -1,9 +1,9 @@
+import 'dart:math';
+
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
-import 'package:supernodeapp/common/components/gateways/bar_char.dart';
-import 'package:supernodeapp/common/components/gateways/line_chart.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/components/page/introduction.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
@@ -16,7 +16,9 @@ import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
-import 'action.dart';
+import 'package:charts_flutter/src/text_style.dart' as style;
+import 'package:charts_flutter/src/text_element.dart';
+
 import 'state.dart';
 
 Widget buildView(
@@ -76,10 +78,9 @@ Widget buildView(
       child: Container(
         width: 300,
         height: 300,
-        child: charts.TimeSeriesChart(
-          Mining.getData(state.miningRevenve),
-          animate: true,
-          defaultRenderer: charts.LineRendererConfig(includePoints: true),
+        child: MiningChart(
+          state.miningRevenve,
+          key: ValueKey('miningChart'),
         ),
       ),
     ),
@@ -101,4 +102,129 @@ Widget buildView(
     paragraph(FlutterI18n.translate(_ctx, 'gateway_osversion')),
     introduction(profile.osversion ?? '', top: 5),
   ]);
+}
+
+class MiningChart extends StatefulWidget {
+  final List miningRevenue;
+  MiningChart(this.miningRevenue, {Key key}) : super(key: key);
+
+  @override
+  _MiningChartState createState() => _MiningChartState();
+}
+
+class _MiningChartState extends State<MiningChart> {
+  List _miningRevenue;
+  CustomCircleSymbolRenderer _renderer;
+
+  @override
+  void initState() {
+    _miningRevenue = widget.miningRevenue;
+    _renderer = CustomCircleSymbolRenderer(0);
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(MiningChart oldWidget) {
+    if (oldWidget.miningRevenue != widget.miningRevenue) {
+      setState(() => _miningRevenue = widget.miningRevenue);
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return charts.TimeSeriesChart(
+      Mining.getData(_miningRevenue),
+      animate: true,
+      defaultRenderer: charts.LineRendererConfig(includePoints: true),
+      behaviors: [
+        charts.LinePointHighlighter(
+          symbolRenderer: _renderer,
+        )
+      ],
+      selectionModels: [
+        charts.SelectionModelConfig(
+          changedListener: (charts.SelectionModel model) {
+            if (model.hasDatumSelection) {
+              _renderer.value = model.selectedSeries[0]
+                  .measureFn(model.selectedDatum[0].index);
+            }
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class CustomCircleSymbolRenderer extends charts.CircleSymbolRenderer {
+  double value;
+  CustomCircleSymbolRenderer(this.value);
+
+  @override
+  void paint(
+    charts.ChartCanvas canvas,
+    Rectangle<num> bounds, {
+    List<int> dashPattern,
+    charts.Color fillColor,
+    charts.FillPatternType fillPattern,
+    charts.Color strokeColor,
+    double strokeWidthPx,
+  }) {
+    super.paint(
+      canvas,
+      bounds,
+      dashPattern: dashPattern,
+      fillColor: fillColor,
+      strokeColor: strokeColor,
+      strokeWidthPx: strokeWidthPx,
+    );
+    final val = value.toStringAsFixed(0);
+    Rectangle rect;
+    int xTextOffset;
+    if (val.length >= 4) {
+      rect = Rectangle(
+        bounds.left - 13,
+        bounds.top - 30,
+        bounds.width + 25,
+        bounds.height + 10,
+      );
+      xTextOffset = (bounds.left - 11).round();
+    }
+    if (val.length == 3) {
+      rect = Rectangle(
+        bounds.left - 13,
+        bounds.top - 30,
+        bounds.width + 25,
+        bounds.height + 10,
+      );
+      xTextOffset = (bounds.left - 7).round();
+    }
+    if (val.length == 2) {
+      rect = Rectangle(
+        bounds.left - 13,
+        bounds.top - 30,
+        bounds.width + 25,
+        bounds.height + 10,
+      );
+      xTextOffset = (bounds.left - 3).round();
+    }
+    if (val.length <= 1) {
+      rect = Rectangle(
+        bounds.left - 13,
+        bounds.top - 30,
+        bounds.width + 25,
+        bounds.height + 10,
+      );
+      xTextOffset = (bounds.left + 2).round();
+    }
+    canvas.drawRect(
+      rect,
+      fill: charts.Color.fromHex(code: "#808080"),
+    );
+    var textStyle = style.TextStyle();
+    textStyle.color = charts.Color.white;
+    textStyle.fontSize = 15;
+    final el = TextElement(val, style: textStyle);
+    canvas.drawText(el, xTextOffset, (bounds.top - 28).round());
+  }
 }
