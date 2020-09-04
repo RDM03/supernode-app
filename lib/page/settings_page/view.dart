@@ -64,9 +64,12 @@ Widget buildView(
                     : () =>
                         dispatch(SettingsActionCreator.onSettings('security'))),
             Divider(),
-            listItem(FlutterI18n.translate(_ctx, 'address_book'),
-                onTap: () =>
-                    dispatch(SettingsActionCreator.onSettings('address_book'))),
+            listItem(
+              FlutterI18n.translate(_ctx, 'address_book'),
+              onTap: () =>
+                  dispatch(SettingsActionCreator.onSettings('address_book')),
+              key: ValueKey('addressBookItem'),
+            ),
             Divider(),
             // listItem(
             //   FlutterI18n.translate(_ctx,'notification'),

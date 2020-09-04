@@ -45,6 +45,7 @@ Widget buildView(
         trailing: SizedBox(
           width: 30,
           child: IconButton(
+            key: ValueKey('copyButton'),
             icon: Icon(Icons.content_copy),
             onPressed: () => dispatch(AddressDetailsActionCreator.onCopy()),
           ),
@@ -56,6 +57,7 @@ Widget buildView(
       _titled(FlutterI18n.translate(_ctx, 'memo'), state.entity.memo),
       SizedBox(height: 40),
       GestureDetector(
+        key: ValueKey('deleteButton'),
         child: Text(
           FlutterI18n.translate(_ctx, 'delete_address'),
           style: kMiddleFontOfRed.copyWith(

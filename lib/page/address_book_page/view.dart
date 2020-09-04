@@ -64,7 +64,7 @@ Widget buildView(
               Expanded(
                 flex: 1,
                 child: CustomScrollView(
-                  key: ValueKey('currenciesScrollView'),
+                  key: ValueKey('addressesScrollView'),
                   slivers: [
                     if (state.addresses.isEmpty)
                       SliverFillRemaining(
@@ -88,6 +88,7 @@ Widget buildView(
                               key: ValueKey('address_$i'),
                               title: Text(state.addresses[i].name),
                               subtitle: GestureDetector(
+                                key: ValueKey('address_${i}_details'),
                                 child: Text(
                                   Tools.hideHalf(state.addresses[i].address),
                                   style: TextStyle(
@@ -105,6 +106,7 @@ Widget buildView(
                                     : null,
                               ),
                               trailing: IconButton(
+                                key: ValueKey('address_${i}_buttons'),
                                 icon: Icon(
                                   state.selectionMode
                                       ? Icons.arrow_forward_ios

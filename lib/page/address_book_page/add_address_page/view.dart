@@ -2,16 +2,12 @@ import 'package:ethereum_address/ethereum_address.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
-import 'package:supernodeapp/common/components/page/introduction.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
-import 'package:supernodeapp/theme/font.dart';
 
-import '../action.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -48,6 +44,7 @@ Widget buildView(
         ),
         SizedBox(height: 40),
         TextFieldWithTitle(
+          key: ValueKey('addressTextField'),
           title: FlutterI18n.translate(_ctx, 'address'),
           validator: (v) => v != null && isValidEthereumAddress(v)
               ? null
@@ -56,6 +53,7 @@ Widget buildView(
         ),
         smallColumnSpacer(),
         TextFieldWithTitle(
+          key: ValueKey('nameTextField'),
           title: FlutterI18n.translate(_ctx, 'name'),
           validator: (v) => v != null && v.isNotEmpty
               ? null
@@ -64,12 +62,16 @@ Widget buildView(
         ),
         smallColumnSpacer(),
         TextFieldWithTitle(
+          key: ValueKey('memoTextField'),
           title: FlutterI18n.translate(_ctx, 'memo'),
           controller: state.memoController,
         ),
       ]),
     ),
-    submitButton(FlutterI18n.translate(_ctx, 'update'),
-        onPressed: () => dispatch(AddAddressActionCreator.onSave()))
+    submitButton(
+      FlutterI18n.translate(_ctx, 'update'),
+      onPressed: () => dispatch(AddAddressActionCreator.onSave()),
+      key: ValueKey('nameTextField'),
+    )
   ]);
 }

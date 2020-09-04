@@ -46,6 +46,7 @@ Widget buildView(
             inputLabel: FlutterI18n.translate(_ctx, 'to'),
             buttonLabel: FlutterI18n.translate(_ctx, 'qr_scan'),
             suffixTitleChild: GestureDetector(
+              key: ValueKey('addressBookButton'),
               onTap: () => dispatch(WithdrawActionCreator.onAddressBook()),
               child: Padding(
                 padding: EdgeInsets.only(top: 2),
