@@ -1,6 +1,7 @@
 import 'package:feedback/src/better_feedback.dart';
 import 'package:feedback/src/controls_column.dart';
 import 'package:feedback/src/feedback_functions.dart';
+import 'package:feedback/src/feedback_widget_content.dart';
 import 'package:feedback/src/paint_on_background.dart';
 import 'package:feedback/src/painter.dart';
 import 'package:feedback/src/scale_and_clip.dart';
@@ -19,6 +20,7 @@ class FeedbackWidget extends StatefulWidget {
     @required this.translation,
     this.backgroundColor,
     this.drawColors,
+    this.formBuilder,
   })  : assert(child != null),
         assert(onFeedbackSubmitted != null),
         assert(isFeedbackVisible != null),
@@ -38,6 +40,7 @@ class FeedbackWidget extends StatefulWidget {
   final Color backgroundColor;
   final List<Color> drawColors;
   final FeedbackTranslation translation;
+  final Widget Function(void Function(String text) submit) formBuilder;
 
   @override
   FeedbackWidgetState createState() => FeedbackWidgetState();
@@ -48,7 +51,6 @@ class FeedbackWidgetState extends State<FeedbackWidget>
     with SingleTickerProviderStateMixin {
   PainterController painterController;
   ScreenshotController screenshotController = ScreenshotController();
-  TextEditingController textEditingController = TextEditingController();
 
   bool isNavigatingActive = false;
   AnimationController _controller;
@@ -67,6 +69,7 @@ class FeedbackWidgetState extends State<FeedbackWidget>
 
     drawColors = widget.drawColors ??
         [
+          Colors.black,
           Colors.red,
           Colors.green,
           Colors.blue,
@@ -188,45 +191,19 @@ class FeedbackWidgetState extends State<FeedbackWidget>
                   bottom: MediaQuery.of(context).viewInsets.bottom,
                   right: 0,
                   child: Material(
-                    child: Container(
-                      padding: const EdgeInsets.all(30),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Text(
-                            widget.translation.feedbackDescriptionText,
-                            maxLines: 2,
-                          ),
-                          TextField(
-                            maxLines: 2,
-                            minLines: 2,
-                            controller: textEditingController,
-                          ),
-                          Builder(
-                            builder: (innerContext) {
-                              // Through using a Builder we can supply an
-                              // appropriate BuildContext to the callback
-                              // function.
-                              return FlatButton(
-                                key: const Key('submit_feedback_button'),
-                                child: Text(
-                                  widget.translation.submitButtonText,
-                                ),
-                                onPressed: () {
-                                  sendFeedback(
-                                    innerContext,
-                                    widget.onFeedbackSubmitted,
-                                    screenshotController,
-                                    textEditingController,
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ],
-                      ),
+                    type: MaterialType.transparency,
+                    child: Builder(
+                      builder: (innerContext) {
+                        Future<void> fun(String text) => sendFeedback(
+                              innerContext,
+                              widget.onFeedbackSubmitted,
+                              screenshotController,
+                              text,
+                            );
+                        return widget.formBuilder != null
+                            ? widget.formBuilder(fun)
+                            : FeedbackWidgetForm(widget.translation, fun);
+                      },
                     ),
                   ),
                 ),
@@ -242,7 +219,7 @@ class FeedbackWidgetState extends State<FeedbackWidget>
     BuildContext context,
     OnFeedbackCallback onFeedbackSubmitted,
     ScreenshotController controller,
-    TextEditingController textEditingController, {
+    String feedbackText, {
     Duration delay = const Duration(milliseconds: 200),
     bool showKeyboard = false,
   }) async {
@@ -259,9 +236,6 @@ class FeedbackWidgetState extends State<FeedbackWidget>
         pixelRatio: 3,
         delay: const Duration(milliseconds: 0),
       );
-
-      // Get feedback text
-      final feedbackText = textEditingController.text;
 
       // Give it to the developer
       // to do something with it.

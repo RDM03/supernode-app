@@ -253,5 +253,7 @@
 	"created": "Ausstehend",
 	"completed": "Erfolg",
 	"rejected": "Verweigert",
-	"duration_days": "Dauer in Tagen - {0}"
+	"duration_days": "Dauer in Tagen - {0}",
+	"draw": "Zeichnen",
+	"whats_up": "Was geht?"
 }

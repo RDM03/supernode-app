@@ -4,22 +4,24 @@ import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/colors.dart' as c;
 
 class TextFieldWithTitle extends StatelessWidget {
-  TextFieldWithTitle(
-      {@required this.title,
-      this.hint,
-      this.isObscureText = false,
-      this.textInputAction = TextInputAction.done,
-      this.validator,
-      this.controller,
-      this.suffixChild,
-      this.suffixTitleChild,
-      this.readOnly = false,
-      this.textAlign = TextAlign.start,
-      this.keyboardType,
-      this.onChanged,
-      this.maxLength,
-      this.borderColor = c.borderColor,
-      this.counterText});
+  TextFieldWithTitle({
+    @required this.title,
+    this.hint,
+    this.isObscureText = false,
+    this.textInputAction = TextInputAction.done,
+    this.validator,
+    this.controller,
+    this.suffixChild,
+    this.suffixTitleChild,
+    this.readOnly = false,
+    this.textAlign = TextAlign.start,
+    this.keyboardType,
+    this.onChanged,
+    this.maxLength,
+    this.borderColor = c.borderColor,
+    this.counterText,
+    Key key,
+  }) : super(key: key);
 
   final Color borderColor;
   final String title;
@@ -74,16 +76,15 @@ class TextFieldWithTitle extends StatelessWidget {
                 isObscureText: isObscureText,
                 validator: validator,
                 controller: controller,
-                onChanged: onChanged
+                onChanged: onChanged,
               ),
               Positioned(
                 right: 0,
                 child: Visibility(
                   visible: suffixChild != null,
-                  child: suffixChild ?? Container()
-                )
+                  child: suffixChild ?? Container(),
+                ),
               ),
-
             ],
           ),
         )

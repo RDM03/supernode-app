@@ -13,6 +13,7 @@ class BetterFeedback extends StatefulWidget {
     this.backgroundColor,
     this.drawColors,
     this.translation,
+    this.formBuilder,
   })  : assert(child != null),
         assert(onFeedback != null),
         super(key: key);
@@ -31,6 +32,9 @@ class BetterFeedback extends StatefulWidget {
 
   /// Optional translation for the feedback view, defaults to english.
   final FeedbackTranslation translation;
+
+  /// Optional feedback form builder
+  final Widget Function(void Function(String text) submit) formBuilder;
 
   /// Call `BetterFeedback.of(context)` to get an instance of
   /// [FeedbackData] on which you can call `.show()` or `.hide()`
@@ -69,6 +73,7 @@ class _BetterFeedbackState extends State<BetterFeedback> {
           onFeedbackSubmitted: widget.onFeedback,
           backgroundColor: widget.backgroundColor,
           drawColors: widget.drawColors,
+          formBuilder: widget.formBuilder,
           translation: widget.translation ?? EnTranslation(),
         ),
       ),

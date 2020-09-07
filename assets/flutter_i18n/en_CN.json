@@ -254,5 +254,7 @@
 	"created": "Pending",
 	"completed": "Success",
 	"rejected": "Denied",
-	"duration_days": "duration in days - {0}"
+	"duration_days": "duration in days - {0}",
+	"draw": "Draw",
+	"whats_up": "What’s up?"
 }

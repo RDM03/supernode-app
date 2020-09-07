@@ -53,30 +53,21 @@ class ControlsColumn extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          FeedbackIconButton(
-            key: const Key('close_controls_column'),
-            minButtonSize: 48,
-            icon: Icon(Icons.close),
-            onPressed: onCloseFeedback,
-          ),
+          const SizedBox(height: 10),
           RotatedBox(
             quarterTurns: 1,
             child: MaterialButton(
               key: const Key('draw_button'),
               minWidth: 20,
-              child: Text(translation.draw),
+              child: Text(
+                translation.draw,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    .copyWith(fontWeight: FontWeight.w500),
+              ),
               onPressed: () {},
             ),
-          ),
-          FeedbackIconButton(
-            key: const Key('undo_button'),
-            icon: Icon(Icons.undo),
-            onPressed: isNavigatingActive ? null : onUndo,
-          ),
-          FeedbackIconButton(
-            key: const Key('clear_button'),
-            icon: Icon(Icons.delete),
-            onPressed: isNavigatingActive ? null : onClearDrawing,
           ),
           for (final color in colors)
             _ColorSelectionIconButton(
@@ -89,6 +80,17 @@ class ControlsColumn extends StatelessWidget {
                     },
               isActive: activeColor == color,
             ),
+          FeedbackIconButton(
+            key: const Key('undo_button'),
+            icon: Icon(Icons.undo),
+            onPressed: isNavigatingActive ? null : onUndo,
+          ),
+          FeedbackIconButton(
+            key: const Key('clear_button'),
+            icon: Icon(Icons.delete),
+            onPressed: isNavigatingActive ? null : onClearDrawing,
+          ),
+          const SizedBox(height: 10),
         ],
       ),
     );

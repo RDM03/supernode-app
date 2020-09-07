@@ -253,5 +253,7 @@
 	"created": "보류 중",
 	"completed": "성공",
 	"rejected": "거부",
-	"duration_days": "일의 기간 - {0}"
+	"duration_days": "일의 기간 - {0}",
+	"draw": "무승부",
+	"whats_up": "뭐야?"
 }

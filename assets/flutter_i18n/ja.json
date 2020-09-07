@@ -253,5 +253,7 @@
 	"created": "保留中",
 	"completed": "成功",
 	"rejected": "拒否された",
-	"duration_days": "日数 - {0}"
+	"duration_days": "日数 - {0}",
+	"draw": "ドロー",
+	"whats_up": "調子はどう？"
 }

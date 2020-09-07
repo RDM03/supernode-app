@@ -253,5 +253,7 @@
 	"created": "Dang chờ xử lý",
 	"completed": "Sự thành công",
 	"rejected": "Phủ định",
-	"duration_days": "thời gian tính bằng ngày - {0}"
+	"duration_days": "thời gian tính bằng ngày - {0}",
+	"draw": "Vẽ tranh",
+	"whats_up": "Có chuyện gì vậy?"
 }

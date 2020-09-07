@@ -5,20 +5,22 @@ import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
 class PrimaryTextField extends StatelessWidget {
-  PrimaryTextField(
-      {@required this.hint,
-      this.isObscureText = false,
-      this.textInputAction = TextInputAction.done,
-      this.validator,
-      this.controller,
-      this.initialValue,
-      this.readOnly = false,
-      this.textAlign =  TextAlign.start,
-      this.keyboardType,
-      this.onChanged,
-      this.maxLength,
-      this.borderColor = c.borderColor,
-      this.counterText});
+  PrimaryTextField({
+    @required this.hint,
+    this.isObscureText = false,
+    this.textInputAction = TextInputAction.done,
+    this.validator,
+    this.controller,
+    this.initialValue,
+    this.readOnly = false,
+    this.textAlign = TextAlign.start,
+    this.keyboardType,
+    this.onChanged,
+    this.maxLength,
+    this.borderColor = c.borderColor,
+    this.counterText,
+    Key key,
+  }) : super(key: key);
 
   final Color borderColor;
   final String hint;

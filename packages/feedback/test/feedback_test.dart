@@ -125,7 +125,7 @@ void main() {
       null,
       onFeedback,
       screenshotController,
-      textController,
+      textController.text,
       delay: const Duration(seconds: 0),
       showKeyboard: true,
     );
