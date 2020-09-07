@@ -12,7 +12,6 @@ if [ "$APPCENTER_BRANCH" == "master" ] && [ "$AGENT_JOBSTATUS" == "Succeeded" ];
     FILEPATH=$APPCENTER_OUTPUT_DIRECTORY/${OBJECT_NAME}
     RESOURCE="/${OSS_BUCKET_NAME}/${OBJECT_NAME}"
     CONTENT_MD5=$(openssl dgst -md5 -binary "${FILEPATH}" | openssl enc -base64)
-    CONTENT_TYPE=$(file -ib "${FILEPATH}" |awk -F ";" '{print $1}')
     DATE_VALUE="`TZ=GMT date +'%a, %d %b %Y %H:%M:%S GMT'`"
     STRING_TO_SIGN="PUT\n${CONTENT_MD5}\n${CONTENT_TYPE}\n${DATE_VALUE}\n${RESOURCE}"
     SIGNATURE=$(echo -e -n $STRING_TO_SIGN | openssl dgst -sha1 -binary -hmac $OSS_ACCESS_KEY_SECRET | openssl enc -base64)
