@@ -76,7 +76,8 @@ dependencies:
   # https://pub.dev/packages/json_serializable
   json_serializable: ^3.3.0
   # https://pub.dev/packages/feedback
-  feedback: ^0.3.0
+  feedback:
+    path: packages/feedback
 
 dependency_overrides:
   local_auth:
