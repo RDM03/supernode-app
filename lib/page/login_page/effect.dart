@@ -29,7 +29,8 @@ Effect<LoginState> buildEffect() {
   });
 }
 
-Future<void> _handleLoginRequest(UserDao dao, String username, String password, String apiRoot) async {
+Future<void> _handleLoginRequest(
+    UserDao dao, String username, String password, String apiRoot) async {
   Map data = {'username': username, 'password': password};
   SettingsState settingsData = GlobalStore.store.getState().settings;
 
@@ -43,14 +44,18 @@ Future<void> _handleLoginRequest(UserDao dao, String username, String password, 
   Dao.token = loginResult['jwt'];
   settingsData.token = loginResult['jwt'];
   settingsData.username = data['username'];
-  List<String> users = StorageManager.sharedPreferences.getStringList(Config.USER_KEY) ?? [];
+  List<String> users =
+      StorageManager.sharedPreferences.getStringList(Config.USER_KEY) ?? [];
   if (!users.contains(data['username'])) {
     users.add(data['username']);
   }
   StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
-  StorageManager.sharedPreferences.setString(Config.TOKEN_KEY, loginResult['jwt']);
-  StorageManager.sharedPreferences.setString(Config.USERNAME_KEY, data['username']);
-  StorageManager.sharedPreferences.setString(Config.PASSWORD_KEY, data['password']);
+  StorageManager.sharedPreferences
+      .setString(Config.TOKEN_KEY, loginResult['jwt']);
+  StorageManager.sharedPreferences
+      .setString(Config.USERNAME_KEY, data['username']);
+  StorageManager.sharedPreferences
+      .setString(Config.PASSWORD_KEY, data['password']);
   StorageManager.sharedPreferences.setString(Config.API_ROOT, apiRoot);
   GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
 
@@ -69,7 +74,8 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
   var curState = ctx.state;
 
   if (curState.currentSuperNode == null) {
-    tip(ctx.context, FlutterI18n.translate(ctx.context, 'reg_select_supernode'));
+    tip(ctx.context,
+        FlutterI18n.translate(ctx.context, 'reg_select_supernode'));
     return;
   }
 
@@ -81,20 +87,24 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
       UserDao dao = UserDao();
       final username = curState.usernameCtl.text.trim();
       final password = curState.passwordCtl.text.trim();
-      
+
       StorageManager.sharedPreferences.setBool(Config.DEMO_MODE, false);
       await _handleLoginRequest(dao, username, password, apiRoot);
 
       hideLoading(ctx.context);
       Navigator.pushReplacementNamed(ctx.context, 'home_page');
     } catch (err) {
-      ctx.state.scaffoldKey.currentState.showSnackBar(
-        SnackBar(
-          content: Text(err, style: Theme.of(ctx.context).textTheme.bodyText1.copyWith(color: Colors.white),),
-          duration: Duration(seconds: 2),
-          backgroundColor: errorColor,
-        )
-      );
+      ctx.state.scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text(
+          err,
+          style: Theme.of(ctx.context)
+              .textTheme
+              .bodyText1
+              .copyWith(color: Colors.white),
+        ),
+        duration: Duration(seconds: 2),
+        backgroundColor: errorColor,
+      ));
     } finally {
       hideLoading(ctx.context);
     }
@@ -112,15 +122,17 @@ void _onDemo(Action action, Context<LoginState> ctx) async {
 
   await _handleLoginRequest(dao, username, '', 'demo-root');
   await StorageManager.sharedPreferences.setBool(Config.DEMO_MODE, true);
-  await StorageManager.sharedPreferences.setString(Config.TOKEN_KEY, 'demo-token');
-  
+  await StorageManager.sharedPreferences
+      .setString(Config.TOKEN_KEY, 'demo-token');
+
   Navigator.pushReplacementNamed(ctx.context, 'home_page');
 }
 
-void _onSignUp(Action action, Context<LoginState> ctx) {
+void _onSignUp(Action action, Context<LoginState> ctx) async {
   var curState = ctx.state;
   if (curState.currentSuperNode == null) {
-    tip(ctx.context, FlutterI18n.translate(ctx.context, 'reg_select_supernode'));
+    tip(ctx.context,
+        FlutterI18n.translate(ctx.context, 'reg_select_supernode'));
     return;
   }
 
@@ -134,13 +146,15 @@ void _onSignUp(Action action, Context<LoginState> ctx) {
   }
 
   GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
+  await StorageManager.sharedPreferences.setBool(Config.DEMO_MODE, false);
 
   Navigator.pushNamed(ctx.context, 'sign_up_page');
 }
 
 void _onForgotPassword(Action action, Context<LoginState> ctx) {
   if (ctx.state.currentSuperNode == null) {
-    tip(ctx.context, FlutterI18n.translate(ctx.context, 'reg_select_supernode'));
+    tip(ctx.context,
+        FlutterI18n.translate(ctx.context, 'reg_select_supernode'));
     return;
   }
 
