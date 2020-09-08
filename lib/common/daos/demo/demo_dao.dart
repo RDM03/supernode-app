@@ -17,7 +17,12 @@ class DemoDao implements Dao {
   }
 
   @override
-  Future post({String url, data}) {
+  Future post({
+    String url,
+    data,
+    Map<String, dynamic> headers,
+    bool encodeJson = true,
+  }) {
     throw UnimplementedError("Direct POST unavailable in demo");
   }
 

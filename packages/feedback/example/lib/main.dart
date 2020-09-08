@@ -11,6 +11,7 @@ void main() {
         BuildContext context,
         String feedbackText,
         Uint8List feedbackScreenshot,
+        void params,
       ) {
         // upload to server, share whatever
         // for example purposes just show it to the user

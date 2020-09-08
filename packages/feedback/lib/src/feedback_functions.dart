@@ -6,11 +6,8 @@ import 'package:flutter/material.dart';
 /// [context] is a [BuildContext] with a [MaterialApp] ancestor.
 /// [feedback] is the user generated feedback text.
 /// [feedbackScreenshot] is a raw png encoded image.
-typedef OnFeedbackCallback = void Function(
-  BuildContext context,
-  String feedback,
-  Uint8List feedbackScreenshot,
-);
+typedef OnFeedbackCallback<T> = void Function(BuildContext context,
+    String feedback, Uint8List feedbackScreenshot, T params);
 
 /// Prints the given feedback to the console.
 /// This is useful for debugging purposes.

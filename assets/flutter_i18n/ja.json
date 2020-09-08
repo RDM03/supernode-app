@@ -255,5 +255,7 @@
 	"rejected": "拒否された",
 	"duration_days": "日数 - {0}",
 	"draw": "ドロー",
-	"whats_up": "調子はどう？"
+	"whats_up": "調子はどう？",
+	"feedback_bug": "バグとして分類できます",
+	"feedback_bug_unstable": "アプリが使用できなくなります"
 }

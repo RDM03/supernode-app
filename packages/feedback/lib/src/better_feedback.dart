@@ -5,7 +5,7 @@ import 'package:feedback/src/translation.dart';
 import 'package:flutter/material.dart';
 
 /// This widget should be at the top of your widget tree.
-class BetterFeedback extends StatefulWidget {
+class BetterFeedback<T> extends StatefulWidget {
   const BetterFeedback({
     Key key,
     @required this.child,
@@ -19,7 +19,7 @@ class BetterFeedback extends StatefulWidget {
         super(key: key);
 
   /// Gets called when the user submits his feedback.
-  final OnFeedbackCallback onFeedback;
+  final OnFeedbackCallback<T> onFeedback;
 
   /// The application to wrap, typically a [MaterialApp].
   final Widget child;
@@ -34,7 +34,8 @@ class BetterFeedback extends StatefulWidget {
   final FeedbackTranslation translation;
 
   /// Optional feedback form builder
-  final Widget Function(void Function(String text) submit) formBuilder;
+  final Widget Function(Future<void> Function(String text, [T params]) submit)
+      formBuilder;
 
   /// Call `BetterFeedback.of(context)` to get an instance of
   /// [FeedbackData] on which you can call `.show()` or `.hide()`
@@ -43,10 +44,10 @@ class BetterFeedback extends StatefulWidget {
       context.dependOnInheritedWidgetOfExactType<FeedbackData>();
 
   @override
-  _BetterFeedbackState createState() => _BetterFeedbackState();
+  _BetterFeedbackState createState() => _BetterFeedbackState<T>();
 }
 
-class _BetterFeedbackState extends State<BetterFeedback> {
+class _BetterFeedbackState<T> extends State<BetterFeedback<T>> {
   FeedbackController controller = FeedbackController();
 
   @override
@@ -67,7 +68,7 @@ class _BetterFeedbackState extends State<BetterFeedback> {
       debugShowCheckedModeBanner: false,
       home: FeedbackData(
         controller: controller,
-        child: FeedbackWidget(
+        child: FeedbackWidget<T>(
           child: widget.child,
           isFeedbackVisible: controller.isVisible,
           onFeedbackSubmitted: widget.onFeedback,

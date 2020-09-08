@@ -17,6 +17,7 @@ void main() {
           BuildContext context,
           String feedbackText,
           Uint8List feedbackScreenshot,
+          void params,
         ) {},
       );
 
@@ -34,6 +35,7 @@ void main() {
           BuildContext context,
           String feedbackText,
           Uint8List feedbackScreenshot,
+          void params,
         ) {},
       );
 

@@ -11,12 +11,13 @@ import 'test_app.dart';
 void main() {
   group('BetterFeedback', () {
     testWidgets(' can open feedback', (tester) async {
-      final widget = BetterFeedback(
+      final widget = BetterFeedback<void>(
         child: const MyTestApp(),
         onFeedback: (
           BuildContext context,
           String feedbackText,
           Uint8List feedbackScreenshot,
+          void params,
         ) {},
       );
 
@@ -43,6 +44,7 @@ void main() {
           BuildContext context,
           String feedbackText,
           Uint8List feedbackScreenshot,
+          void params,
         ) {},
       );
 
@@ -80,6 +82,7 @@ void main() {
           BuildContext context,
           String feedbackText,
           Uint8List feedbackScreenshot,
+          void params,
         ) {
           print('Feedback: $feedbackText');
           feedbackCallbackWasCalled = true;
@@ -114,6 +117,7 @@ void main() {
       BuildContext context,
       String feedback,
       Uint8List feedbackScreenshot,
+      void params,
     ) {
       expect(context, null);
       expect(feedback, 'Hello World!');
@@ -137,15 +141,19 @@ void main() {
     // child must not be null
     expect(() {
       BetterFeedback(
-        onFeedback: (BuildContext context, String feedback,
-            Uint8List feedbackScreenshot) {},
+        onFeedback: (
+          BuildContext context,
+          String feedback,
+          Uint8List feedbackScreenshot,
+          void params,
+        ) {},
         child: null,
       );
     }, throwsAssertionError);
 
     // onFeedback must not be null
     expect(() {
-      BetterFeedback(
+      BetterFeedback<void>(
         onFeedback: null,
         child: Container(),
       );

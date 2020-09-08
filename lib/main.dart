@@ -10,6 +10,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:supernodeapp/common/components/widgets/floating_area.dart';
 import 'package:supernodeapp/common/daos/crashes_dao.dart';
+import 'package:supernodeapp/common/daos/jira_dao.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/feedback.dart';
@@ -66,10 +67,6 @@ Future<void> main() async {
   );
 }
 
-Future<void> onFeedback(String text, Uint8List image) async {
-  print('ok');
-}
-
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class MxcApp extends StatelessWidget {
@@ -116,9 +113,12 @@ class MxcApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tr = DatadashTranslation(() => navigatorKey.currentContext);
-    return BetterFeedback(
+    return BetterFeedback<FeedbackParams>(
       translation: tr,
-      onFeedback: (_, text, image) => onFeedback(text, image),
+      onFeedback: (_, __, image, params) async {
+        await submitJiraFeedback(params, image);
+        BetterFeedback.of(navigatorKey.currentContext).hide();
+      },
       formBuilder: (s) => DatadashFeedbackWidgetForm(tr, s),
       child: Material(
         type: MaterialType.transparency,

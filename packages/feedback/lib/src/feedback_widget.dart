@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 
 typedef FeedbackButtonPress = void Function(BuildContext context);
 
-class FeedbackWidget extends StatefulWidget {
+class FeedbackWidget<T> extends StatefulWidget {
   const FeedbackWidget({
     Key key,
     @required this.child,
@@ -35,19 +35,20 @@ class FeedbackWidget extends StatefulWidget {
         super(key: key);
 
   final bool isFeedbackVisible;
-  final OnFeedbackCallback onFeedbackSubmitted;
+  final OnFeedbackCallback<T> onFeedbackSubmitted;
   final Widget child;
   final Color backgroundColor;
   final List<Color> drawColors;
   final FeedbackTranslation translation;
-  final Widget Function(void Function(String text) submit) formBuilder;
+  final Widget Function(Future<void> Function(String text, [T params]) submit)
+      formBuilder;
 
   @override
-  FeedbackWidgetState createState() => FeedbackWidgetState();
+  FeedbackWidgetState createState() => FeedbackWidgetState<T>();
 }
 
 @visibleForTesting
-class FeedbackWidgetState extends State<FeedbackWidget>
+class FeedbackWidgetState<T> extends State<FeedbackWidget<T>>
     with SingleTickerProviderStateMixin {
   PainterController painterController;
   ScreenshotController screenshotController = ScreenshotController();
@@ -91,7 +92,7 @@ class FeedbackWidgetState extends State<FeedbackWidget>
   }
 
   @override
-  void didUpdateWidget(FeedbackWidget oldWidget) {
+  void didUpdateWidget(FeedbackWidget<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.isFeedbackVisible != widget.isFeedbackVisible &&
         oldWidget.isFeedbackVisible == false) {
@@ -194,11 +195,13 @@ class FeedbackWidgetState extends State<FeedbackWidget>
                     type: MaterialType.transparency,
                     child: Builder(
                       builder: (innerContext) {
-                        Future<void> fun(String text) => sendFeedback(
+                        Future<void> fun(String text, [T params]) =>
+                            sendFeedback(
                               innerContext,
                               widget.onFeedbackSubmitted,
                               screenshotController,
                               text,
+                              params: params,
                             );
                         return widget.formBuilder != null
                             ? widget.formBuilder(fun)
@@ -215,13 +218,14 @@ class FeedbackWidgetState extends State<FeedbackWidget>
   }
 
   @visibleForTesting
-  static Future<void> sendFeedback(
+  static Future<void> sendFeedback<T>(
     BuildContext context,
-    OnFeedbackCallback onFeedbackSubmitted,
+    OnFeedbackCallback<T> onFeedbackSubmitted,
     ScreenshotController controller,
     String feedbackText, {
     Duration delay = const Duration(milliseconds: 200),
     bool showKeyboard = false,
+    T params,
   }) async {
     assert(onFeedbackSubmitted != null);
     if (!showKeyboard) {
@@ -239,11 +243,7 @@ class FeedbackWidgetState extends State<FeedbackWidget>
 
       // Give it to the developer
       // to do something with it.
-      onFeedbackSubmitted(
-        context,
-        feedbackText,
-        screenshot,
-      );
+      onFeedbackSubmitted(context, feedbackText, screenshot, params);
     });
   }
 

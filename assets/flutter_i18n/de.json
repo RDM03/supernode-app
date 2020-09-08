@@ -255,5 +255,7 @@
 	"rejected": "Verweigert",
 	"duration_days": "Dauer in Tagen - {0}",
 	"draw": "Zeichnen",
-	"whats_up": "Was geht?"
+	"whats_up": "Was geht?",
+	"feedback_bug": "Es kann als Fehler eingestuft werden",
+	"feedback_bug_unstable": "Es macht die App unbrauchbar"
 }

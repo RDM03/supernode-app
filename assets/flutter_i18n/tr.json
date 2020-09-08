@@ -255,5 +255,7 @@
 	"rejected": "Inkar",
 	"duration_days": "gün cinsinden süre - {0}",
 	"draw": "Çizmek",
-	"whats_up": "Naber?"
+	"whats_up": "Naber?",
+	"feedback_bug": "Hata olarak sınıflandırılabilir",
+	"feedback_bug_unstable": "Uygulamayı kullanılamaz hale getirir"
 }

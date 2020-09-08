@@ -255,5 +255,7 @@
 	"rejected": "Phủ định",
 	"duration_days": "thời gian tính bằng ngày - {0}",
 	"draw": "Vẽ tranh",
-	"whats_up": "Có chuyện gì vậy?"
+	"whats_up": "Có chuyện gì vậy?",
+	"feedback_bug": "Nó có thể được phân loại là một lỗi",
+	"feedback_bug_unstable": "Nó làm cho ứng dụng không sử dụng được"
 }

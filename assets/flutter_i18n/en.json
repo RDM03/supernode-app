@@ -256,5 +256,7 @@
 	"rejected": "Denied",
 	"duration_days": "duration in days - {0}",
 	"draw": "Draw",
-	"whats_up": "What’s up?"
+	"whats_up": "What’s up?",
+	"feedback_bug": "It can be classified as a bug",
+	"feedback_bug_unstable": "It makes the app unusable"
 }

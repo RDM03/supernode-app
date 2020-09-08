@@ -255,5 +255,7 @@
 	"rejected": "被拒绝",
 	"duration_days": "持续天数 - {0}",
 	"draw": "画",
-	"whats_up": "这是怎么回事？"
+	"whats_up": "这是怎么回事？",
+	"feedback_bug": "可以将其归类为错误",
+	"feedback_bug_unstable": "它使该应用无法使用"
 }
