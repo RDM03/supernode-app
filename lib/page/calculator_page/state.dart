@@ -18,6 +18,8 @@ class CalculatorState implements Cloneable<CalculatorState> {
   double get mxcRate =>
       rates == null ? null : rates[Currency.usd].value / double.parse(mxcPrice);
 
+  bool isDemo;
+
   @override
   CalculatorState clone() {
     return CalculatorState()
@@ -26,15 +28,17 @@ class CalculatorState implements Cloneable<CalculatorState> {
       ..mining = mining
       ..selectedCurrencies = selectedCurrencies
       ..rates = rates
-      ..mxcPrice = mxcPrice;
+      ..mxcPrice = mxcPrice
+      ..isDemo = isDemo;
   }
 }
 
 CalculatorState initState(Map<String, dynamic> args) {
   final state = CalculatorState();
-  state.staking = args['staking'];
-  state.mining = args['mining'];
-  state.balance = args['balance'];
+  state.staking = args['staking'] ?? 0.0;
+  state.mining = args['mining'] ?? 0.0;
+  state.balance = args['balance'] ?? 0.0;
+  state.isDemo = args['isDemo'] ?? false;
   state.selectedCurrencies = StorageManager.selectedCurrencies();
   return state;
 }

@@ -81,6 +81,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                         'balance': state.balance,
                         'staking': state.stakedAmount,
                         'mining': state.gatewaysRevenue + state.devicesRevenue,
+                        'isDemo': state.isDemo,
                       }),
                       iconSize: 20,
                     ),

@@ -16,7 +16,7 @@ Effect<CalculatorState> buildEffect() {
 }
 
 WalletDao _buildWalletDao(Context<CalculatorState> ctx) {
-  return GlobalStore.state.settings.isDemo ? DemoWalletDao() : WalletDao();
+  return ctx.state.isDemo ? DemoWalletDao() : WalletDao();
 }
 
 Future<void> _list(Action action, Context<CalculatorState> ctx) async {
