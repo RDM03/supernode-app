@@ -1,3 +1,4 @@
+import 'package:ethereum_address/ethereum_address.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -40,13 +41,13 @@ Widget buildView(
         ),
         smallColumnSpacer(),
         textfieldWithButton(
-            //readOnly: true,
-            inputLabel: FlutterI18n.translate(_ctx, 'to'),
-            buttonLabel: FlutterI18n.translate(_ctx, 'qr_scan'),
-            icon: Icons.center_focus_weak,
-            // validator: _onValidAddress,
-            controller: state.addressCtl,
-            onTap: () => dispatch(WithdrawActionCreator.onQrScan())),
+          //readOnly: true,
+          inputLabel: FlutterI18n.translate(_ctx, 'to'),
+          buttonLabel: FlutterI18n.translate(_ctx, 'qr_scan'),
+          icon: Icons.center_focus_weak,
+          controller: state.addressCtl,
+          onTap: () => dispatch(WithdrawActionCreator.onQrScan()),
+        ),
       ]),
     ),
     subtitle(FlutterI18n.translate(_ctx, 'current_transaction_fee')),

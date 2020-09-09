@@ -260,5 +260,6 @@
 	"amount": "Amount",
 	"fee": "Fee",
 	"recepient": "Recepient",
-	"submit": "Submit"
+	"submit": "Submit",
+	"invalid_address": "Invalid address"
 }

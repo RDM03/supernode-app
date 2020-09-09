@@ -1,3 +1,4 @@
+import 'package:ethereum_address/ethereum_address.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -186,6 +187,10 @@ Future<void> _goToConfirmation(
   if (ctx.state.formKey.currentState.validate()) {
     if (address.trim().isEmpty) {
       tip(ctx.context, 'The field of "To" is required.');
+      return;
+    }
+    if (!isValidEthereumAddress(address.trim())) {
+      tip(ctx.context, FlutterI18n.translate(ctx.context, 'invalid_address'));
       return;
     }
 

@@ -259,5 +259,6 @@
 	"amount": "量",
 	"fee": "費用",
 	"recepient": "受取人",
-	"submit": "参加する"
+	"submit": "参加する",
+	"invalid_address": "無効なアドレス"
 }

@@ -259,5 +259,6 @@
 	"amount": "Miktar",
 	"fee": "peri",
 	"recepient": "Alıcı",
-	"submit": "Sunmak"
+	"submit": "Sunmak",
+	"invalid_address": "Geçersiz adres"
 }

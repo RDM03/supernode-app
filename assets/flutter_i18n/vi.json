@@ -259,5 +259,6 @@
 	"amount": "Số tiền",
 	"fee": "nàng tiên",
 	"recepient": "Người nhận",
-	"submit": "Gửi đi"
+	"submit": "Gửi đi",
+	"invalid_address": "Địa chỉ không hợp lệ"
 }

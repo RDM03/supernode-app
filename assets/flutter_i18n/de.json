@@ -259,5 +259,6 @@
 	"amount": "Menge",
 	"fee": "Gebühr",
 	"recepient": "Empfänger",
-	"submit": "Einreichen"
+	"submit": "Einreichen",
+	"invalid_address": "Ungültige Adresse"
 }

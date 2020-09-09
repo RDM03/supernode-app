@@ -259,5 +259,6 @@
 	"amount": "양",
 	"fee": "요정",
 	"recepient": "받는 사람",
-	"submit": "제출"
+	"submit": "제출",
+	"invalid_address": "잘못된 주소"
 }

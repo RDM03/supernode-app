@@ -259,5 +259,6 @@
 	"amount": "量",
 	"fee": "仙女",
 	"recepient": "接受者",
-	"submit": "提交"
+	"submit": "提交",
+	"invalid_address": "无效地址"
 }
