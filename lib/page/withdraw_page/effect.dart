@@ -67,7 +67,7 @@ void _initState(Action action, Context<WithdrawState> ctx) async {
 
 Future<void> _withdrawFee(Context<WithdrawState> ctx) async {
   try {
-    WithdrawDao dao = WithdrawDao();
+    WithdrawDao dao = _buildWithdrawDao(ctx);
     var res = await dao.fee();
     mLog('WithdrawDao fee', res);
 
@@ -95,19 +95,15 @@ void _onEnterSecurityWithdrawContinue(
     Action action, Context<WithdrawState> ctx) async {
   //showLoading(ctx.context);
 
-  final formValid = (ctx.state.formKey.currentState as FormState).validate();
-  if (!formValid) {
-    return;
-  }
-
   Navigator.push(
     ctx.context,
     MaterialPageRoute(
-        maintainState: false,
-        fullscreenDialog: false,
-        builder: (context) {
-          return ctx.buildComponent('enterSecurityCodeWithdraw');
-        }),
+      maintainState: false,
+      fullscreenDialog: false,
+      builder: (context) {
+        return ctx.buildComponent('enterSecurityCodeWithdraw');
+      },
+    ),
   );
 }
 
@@ -129,52 +125,40 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
 
   List<String> codes = curState.listCtls.map((code) => code.text).toList();
 
-  final formValid = (curState.formKey.currentState as FormState).validate();
-  if (!formValid) {
-    return;
-  }
+  Biometrics.authenticate(
+    ctx.context,
+    authenticateCallback: () {
+      WithdrawDao dao = _buildWithdrawDao(ctx);
+      Map data = {
+        "orgId": orgId,
+        "amount": amount,
+        "ethAddress": address,
+        "availableBalance": balance,
+        "otp_code": codes.join('')
+      };
+      showLoading(ctx.context);
+      dao.withdraw(data).then((res) async {
+        hideLoading(ctx.context);
+        mLog('withdraw', res);
 
-  if ((curState.formKey.currentState as FormState).validate()) {
-    if (address.trim().isEmpty) {
-      tip(ctx.context, 'The field of "To" is required.');
-      return;
-    }
-
-    Biometrics.authenticate(
-      ctx.context,
-      authenticateCallback: () {
-        WithdrawDao dao = _buildWithdrawDao(ctx);
-        Map data = {
-          "orgId": orgId,
-          "amount": amount,
-          "ethAddress": address,
-          "availableBalance": balance,
-          "otp_code": codes.join('')
-        };
-        showLoading(ctx.context);
-        dao.withdraw(data).then((res) async {
-          hideLoading(ctx.context);
-          mLog('withdraw', res);
-
-          if (res.containsKey('status') && res['status']) {
-            Navigator.pushNamed(ctx.context, 'confirm_page', arguments: {
-              'title': 'withdraw',
-              'content': 'withdraw_submit_tip'
-            });
-            await _updateBalance(ctx);
-            ctx.dispatch(WithdrawActionCreator.status(true));
-          } else {
-            ctx.dispatch(WithdrawActionCreator.status(false));
-            // tip(ctx.context, res);
-          }
-        }).catchError((err) {
-          hideLoading(ctx.context);
+        if (res.containsKey('status') && res['status']) {
+          Navigator.pushNamed(ctx.context, 'confirm_page', arguments: {
+            'title': 'withdraw',
+            'content': 'withdraw_submit_tip'
+          });
+          await _updateBalance(ctx);
+          ctx.dispatch(WithdrawActionCreator.status(true));
+        } else {
           ctx.dispatch(WithdrawActionCreator.status(false));
-          tip(ctx.context, err);
-        });
-      },
-    );
-  }
+          // tip(ctx.context, res);
+        }
+      }).catchError((err) {
+        hideLoading(ctx.context);
+        ctx.dispatch(WithdrawActionCreator.status(false));
+        tip(ctx.context, err);
+      });
+    },
+  );
 }
 
 Future<void> _updateBalance(Context<WithdrawState> ctx) async {
@@ -198,9 +182,26 @@ Future<void> _updateBalance(Context<WithdrawState> ctx) async {
 
 Future<void> _goToConfirmation(
     Action action, Context<WithdrawState> ctx) async {
+  String address = ctx.state.addressCtl.text;
   if (ctx.state.formKey.currentState.validate()) {
+    if (address.trim().isEmpty) {
+      tip(ctx.context, 'The field of "To" is required.');
+      return;
+    }
+
     ctx.dispatch(WithdrawActionCreator.setConfirmation(
         DateTime.now().add(Duration(seconds: 30))));
+
+    Navigator.push(
+      ctx.context,
+      MaterialPageRoute(
+        maintainState: false,
+        fullscreenDialog: false,
+        builder: (context) {
+          return ctx.buildComponent('confirm');
+        },
+      ),
+    );
   }
   //Navigator.of(viewService.context).pushNamed('set_2fa_page', arguments:{'isEnabled': false})
 }

@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 
+import 'confirm_component/state.dart';
 import 'enter_securitycode_withdraw_component/state.dart';
 
 class WithdrawState implements Cloneable<WithdrawState> {
@@ -70,4 +71,19 @@ class EnterSecurityCodeWithdrawConnector
   void set(WithdrawState state, EnterSecurityCodeWithdrawState subState) {
     state..listCtls = subState.listCtls;
   }
+}
+
+class ConfirmConnector extends ConnOp<WithdrawState, ConfirmState> {
+  @override
+  ConfirmState get(WithdrawState state) {
+    return ConfirmState()
+      ..address = state.addressCtl.text
+      ..amount = state.amountCtl.text
+      ..confirmTime = state.confirmTime
+      ..fee = state.fee.toString()
+      ..isEnabled = state.isEnabled;
+  }
+
+  @override
+  void set(WithdrawState state, ConfirmState subState) {}
 }
