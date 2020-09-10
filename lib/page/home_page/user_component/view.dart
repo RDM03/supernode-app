@@ -20,6 +20,7 @@ import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
 import 'state.dart';
+
 bool isUpdate = true;
 
 Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
@@ -60,15 +61,27 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
             child: Column(
               children: [
                 profile(
-                  name: '${FlutterI18n.translate(_ctx, 'hi')}, ${state.username}',
-                  position: (state.organizations.length > 0 && state.organizations.first.isAdmin) ? FlutterI18n.translate(_ctx, 'admin') : '',
+                  name:
+                      '${FlutterI18n.translate(_ctx, 'hi')}, ${state.username}',
+                  position: (state.organizations.length > 0 &&
+                          state.organizations.first.isAdmin)
+                      ? FlutterI18n.translate(_ctx, 'admin')
+                      : '',
                 ),
-                rowRight(FlutterI18n.translate(_ctx, 'current_balance'), style: kSmallFontOfGrey),
-                rowRight('${Tools.priceFormat(state.balance)} MXC', style: kBigFontOfBlack, loading: state.loading),
-                rowRight(FlutterI18n.translate(_ctx, 'staked_amount'), style: kSmallFontOfGrey),
-                rowRight('${Tools.priceFormat(state.stakedAmount)} MXC', style: kBigFontOfBlack, loading: state.loading),
-                rowRight(FlutterI18n.translate(_ctx, 'staking_revenue'), style: kSmallFontOfGrey),
-                rowRight('${Tools.priceFormat(state.totalRevenue, range: 2)} MXC', style: kBigFontOfBlack, loading: state.loading),
+                rowRight(FlutterI18n.translate(_ctx, 'current_balance'),
+                    style: kSmallFontOfGrey),
+                rowRight('${Tools.priceFormat(state.balance)} MXC',
+                    style: kBigFontOfBlack, loading: state.loading),
+                rowRight(FlutterI18n.translate(_ctx, 'staked_amount'),
+                    style: kSmallFontOfGrey),
+                rowRight('${Tools.priceFormat(state.stakedAmount)} MXC',
+                    style: kBigFontOfBlack, loading: state.loading),
+                rowRight(FlutterI18n.translate(_ctx, 'staking_revenue'),
+                    style: kSmallFontOfGrey),
+                rowRight(
+                    '${Tools.priceFormat(state.totalRevenue, range: 2)} MXC',
+                    style: kBigFontOfBlack,
+                    loading: state.loading),
                 Container(
                   margin: kRoundRow5,
                   child: Row(
@@ -76,17 +89,20 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                       Spacer(),
                       PrimaryButton(
                         buttonTitle: FlutterI18n.translate(_ctx, 'deposit'),
-                        onTap: () => dispatch(HomeActionCreator.onOperate('deposit')),
+                        onTap: () =>
+                            dispatch(HomeActionCreator.onOperate('deposit')),
                       ),
                       Spacer(),
                       PrimaryButton(
                         buttonTitle: FlutterI18n.translate(_ctx, 'withdraw'),
-                        onTap: () => dispatch(HomeActionCreator.onOperate('withdraw')),
+                        onTap: () =>
+                            dispatch(HomeActionCreator.onOperate('withdraw')),
                       ),
                       Spacer(),
                       PrimaryButton(
                         buttonTitle: FlutterI18n.translate(_ctx, 'stake'),
-                        onTap: () => dispatch(HomeActionCreator.onOperate('stake')),
+                        onTap: () =>
+                            dispatch(HomeActionCreator.onOperate('stake')),
                       ),
                       Spacer(),
                     ],
@@ -98,21 +114,12 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
           panelFrame(
             child: summaryRow(
               loading: state.loading,
-              image: AppImages.gateways,
-              title: FlutterI18n.translate(_ctx, 'total_gateways'),
-              number: '${state.gatewaysTotal}',
-              subtitle: FlutterI18n.translate(_ctx, 'profit'),
-              price: '${Tools.priceFormat(state.gatewaysRevenue)} MXC (${Tools.priceFormat(state.gatewaysUSDRevenue)} USD)',
-            ),
-          ),
-          panelFrame(
-            child: summaryRow(
-              loading: state.loading,
               image: AppImages.devices,
               title: FlutterI18n.translate(_ctx, 'total_devices'),
               number: '${state.devicesTotal}',
               subtitle: FlutterI18n.translate(_ctx, 'cost'),
-              price: '${Tools.priceFormat(state.devicesRevenue)} MXC (${Tools.priceFormat(state.devicesUSDRevenue)} USD)',
+              price:
+                  '${Tools.priceFormat(state.devicesRevenue)} MXC (${Tools.priceFormat(state.devicesUSDRevenue)} USD)',
             ),
           ),
           MapBoxWidget(

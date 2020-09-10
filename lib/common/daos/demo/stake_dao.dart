@@ -36,8 +36,19 @@ class DemoStakeDao extends DemoDao implements StakeDao {
 
   @override
   Future revenue(Map data) {
+    return Future.value({'amount': 120});
+  }
+
+  @override
+  Future stakingPercentage() {
     return Future.value({
-      'amount': 120
+      "stakingInterest": 0.005,
+      "lockBoosts": [
+        {"lockPeriods": "6", "boost": "0.05"},
+        {"lockPeriods": "9", "boost": "0.15"},
+        {"lockPeriods": "12", "boost": "0.25"},
+        {"lockPeriods": "24", "boost": "0.4"}
+      ]
     });
   }
 }

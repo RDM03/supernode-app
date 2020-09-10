@@ -5,13 +5,14 @@ import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
-Widget summaryRow(
-    {String image = '',
-    String title = '',
-    String subtitle = '',
-    String number = '',
-    String price = '',
-    bool loading = false}) {
+Widget summaryRow({
+  String image = '',
+  String title = '',
+  String subtitle = '',
+  String number = '',
+  String price = '',
+  bool loading = false,
+}) {
   var temp = price.split('(');
   String mxcPrice = temp[0].substring(0, temp[0].length - 1);
   print(mxcPrice);
@@ -33,15 +34,16 @@ Widget summaryRow(
       title,
       style: kMiddleFontOfBlack,
     ),
-    subtitle: loading ? loadingFlash(
-      child: Text(
-        number,
-        style: kBigFontOfBlue,
-      ) 
-    ) : Text(
-      number,
-      style: kBigFontOfBlue,
-    ),
+    subtitle: loading
+        ? loadingFlash(
+            child: Text(
+            number,
+            style: kBigFontOfBlue,
+          ))
+        : Text(
+            number,
+            style: kBigFontOfBlue,
+          ),
     trailing: Container(
       margin: kOuterRowTop10,
       child: Column(
@@ -51,15 +53,16 @@ Widget summaryRow(
             subtitle,
             style: kSmallFontOfGrey,
           ),
-          loading ? loadingFlash(
-            child: Text(
-              '≈ ' + usdPrice,
-              style: kMiddleFontOfBlack,
-            ) 
-          ) : Text(
-            '≈ ' + usdPrice,
-            style: kMiddleFontOfBlack,
-          )
+          loading
+              ? loadingFlash(
+                  child: Text(
+                  '≈ ' + usdPrice,
+                  style: kMiddleFontOfBlack,
+                ))
+              : Text(
+                  '≈ ' + usdPrice,
+                  style: kMiddleFontOfBlack,
+                )
         ],
       ),
     ),

@@ -5,12 +5,12 @@ import 'reducer.dart';
 import 'state.dart';
 import 'view.dart';
 
-class StakePage extends Page<StakeState, Map<String, dynamic>> {
-  StakePage()
+class PrepareStakePage extends Page<PrepareStakeState, Map<String, dynamic>> {
+  PrepareStakePage()
       : super(
           initState: initState,
-          view: buildView,
-          reducer: buildReducer(),
           effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
         );
 }

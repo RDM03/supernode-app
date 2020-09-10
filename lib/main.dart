@@ -12,8 +12,11 @@ import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/app.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
-import 'package:supernodeapp/page/device/smart_watch_detail_page/page.dart';
 import 'package:supernodeapp/page/sign_up_page/page.dart';
+import 'package:supernodeapp/page/stake_page/confirm_stake_page/page.dart';
+import 'package:supernodeapp/page/stake_page/details_stake_page/page.dart';
+import 'package:supernodeapp/page/stake_page/list_unstake_page/page.dart';
+import 'package:supernodeapp/page/stake_page/prepare_stake_page/page.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'common/utils/no_glow_behavior.dart';
 import 'global_store/state.dart';
@@ -27,8 +30,7 @@ import 'page/deposit_page/page.dart';
 import 'page/forgot_password_page/page.dart';
 import 'page/home_page/page.dart';
 import 'page/login_page/page.dart';
-import 'page/mapbox_page//page.dart';
-import 'page/set_2fa_page/page.dart';
+import 'page/mapbox_page/page.dart';
 import 'page/settings_page/page.dart';
 import 'page/splash_page/page.dart';
 import 'page/stake_page/page.dart';
@@ -58,7 +60,7 @@ Future<void> main() async {
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
 
-  CrashesDao().init( 
+  CrashesDao().init(
     appSecretAndroid: Sys.appSecretAndroid,
     appSecretIOS: Sys.appSecretIOS,
   );
@@ -86,10 +88,15 @@ Widget mxcApp() {
         'mapbox_page': MapBoxPage(),
         'choose_application_page': ChooseApplicationPage(),
         'device_mapbox_page': DeviceMapBoxPage(),
+        'prepare_stake_page': PrepareStakePage(),
+        'confirm_stake_page': ConfirmStakePage(),
+        'details_stake_page': DetailsStakePage(),
+        'list_unstake_page': ListUnstakePage(),
       },
       visitor: (String path, Page<Object, dynamic> page) {
         if (page.isTypeof<GlobalBaseState>()) {
-          page.connectExtraStore<GlobalState>(GlobalStore.store, (Object pagestate, GlobalState appState) {
+          page.connectExtraStore<GlobalState>(GlobalStore.store,
+              (Object pagestate, GlobalState appState) {
             final GlobalBaseState p = pagestate;
 
             if (!(p.settings == appState.settings)) {
@@ -126,9 +133,12 @@ Widget mxcApp() {
     supportedLocales: [
       const Locale('en'),
       const Locale.fromSubtags(languageCode: 'zh'),
-      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans', countryCode: 'CN'),
-      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
-      const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'HK'),
+      const Locale.fromSubtags(
+          languageCode: 'zh', scriptCode: 'Hans', countryCode: 'CN'),
+      const Locale.fromSubtags(
+          languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
+      const Locale.fromSubtags(
+          languageCode: 'zh', scriptCode: 'Hant', countryCode: 'HK'),
       const Locale.fromSubtags(languageCode: 'vi'), // Vietnam
       const Locale.fromSubtags(languageCode: 'ja'), // Japan
       const Locale.fromSubtags(languageCode: 'ko'), // Korea

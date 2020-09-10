@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
-Widget submitButton(String label,{double top = 34,Function onPressed}){
+Widget submitButton(
+  String label, {
+  double top = 34,
+  Function onPressed,
+  Key key,
+}) {
   return Container(
+    key: key,
     height: 45,
     width: double.infinity,
     margin: EdgeInsets.only(top: top),

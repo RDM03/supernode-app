@@ -1,86 +1,181 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/common/components/page/introduction.dart';
 import 'package:supernodeapp/common/components/page/link.dart';
-import 'package:supernodeapp/common/components/page/page_frame.dart';
-import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
-import 'package:supernodeapp/common/components/page/paragraph.dart';
-import 'package:supernodeapp/common/components/page/submit_button.dart';
-import 'package:supernodeapp/common/components/page/subtitle.dart';
-import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
+import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/configs/sys.dart';
-import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/font.dart';
 
-import 'action.dart';
 import 'state.dart';
 
 Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
-  var _ctx = viewService.context;
+  var context = viewService.context;
 
-  return pageFrame(
-    context: viewService.context,
-    children: [
-      pageNavBar(
-        FlutterI18n.translate(_ctx, state.type),
-        onTap: () => Navigator.pop(viewService.context,state.resSuccess)
+  return Scaffold(
+    body: Container(
+      constraints: BoxConstraints.expand(),
+      padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 235, 239, 242),
       ),
-      introduction(FlutterI18n.translate(_ctx, 'staking_trade_tip')),
-      link(
-        FlutterI18n.translate(_ctx, 'learn_more'),
-        onTap: () => Tools.launchURL(Sys.stakeMore),
-        alignment: Alignment.centerLeft
-      ),
-      Form(
-        key: state.formKey,
-        child: Container(
-          margin: const EdgeInsets.only(top: 40),
-          child: TextFieldWithTitle(
-            title: FlutterI18n.translate(_ctx, state.type == 'stake' ? 'stake_amount' : 'unstake_amount'),
-            keyboardType: TextInputType.number,
-            readOnly: state.inputLocked,
-            validator: (value) => onValidAmount(_ctx, value),
-            controller: state.amountCtl,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 20),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: GestureDetector(
+              child: Icon(Icons.arrow_back_ios),
+              onTap: () => Navigator.of(context).pop(),
+            ),
           ),
-        ),
+          SizedBox(height: 15),
+          Row(
+            children: [
+              Text('Stake & Earn MXC', style: kBigFontOfBlack),
+              Spacer(),
+              link(
+                FlutterI18n.translate(context, 'learn_more'),
+                onTap: () => Tools.launchURL(Sys.stakeMore),
+                alignment: Alignment.centerLeft,
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
+          Text(
+            FlutterI18n.translate(context, 'staking_trade_tip'),
+            style: kMiddleFontOfGrey,
+          ),
+          Text(
+            'Choose your Stake options',
+            style: kMiddleFontOfGrey,
+          ),
+          SizedBox(height: 20),
+          Text('MXC Vault', style: kBigFontOfBlack),
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                _stakeCard(
+                  context: context,
+                  months: 24,
+                  color: stake24Color,
+                  boostText: state.rate24m == null
+                      ? null
+                      : '+${round(state.rate24m / state.rate12m)}% Mega',
+                  first: true,
+                  state: state,
+                  revenueRate: state.rate24m,
+                ),
+                _stakeCard(
+                  context: context,
+                  months: 12,
+                  color: stake12Color,
+                  boostText: 'Standard',
+                  state: state,
+                  revenueRate: state.rate12m,
+                ),
+                _stakeCard(
+                  context: context,
+                  months: 9,
+                  color: stake9Color,
+                  boostText: state.rate9m == null
+                      ? null
+                      : '${round(state.rate9m / state.rate12m)}%',
+                  state: state,
+                  revenueRate: state.rate9m,
+                ),
+                _stakeCard(
+                  context: context,
+                  months: 6,
+                  color: stake6Color,
+                  boostText: state.rate6m == null
+                      ? null
+                      : '${round(state.rate6m / state.rate12m)}%',
+                  state: state,
+                  revenueRate: state.rate6m,
+                ),
+                _stakeCard(
+                  context: context,
+                  color: stakeFlexColor,
+                  boostText: state.rateFlex == null
+                      ? null
+                      : '${round(state.rateFlex / state.rate12m)}%',
+                  state: state,
+                  revenueRate: state.rateFlex,
+                  stakeName: 'Flex Stake',
+                ),
+              ],
+            ),
+          )
+        ],
       ),
-      Visibility(
-        visible: state.type == 'stake',
-        child: subtitle(
-          FlutterI18n.translate(_ctx, 'revenue_rate')
-        ),
-      ),
-      Visibility(
-        visible: state.type == 'stake',
-        child: paragraph(
-         '1% ${FlutterI18n.translate(_ctx, "monthly")}'
-        ),
-      ),
-      submitButton(
-        submitText(_ctx, state),
-        onPressed: () => dispatch(StakeActionCreator.onConfirm())
-      )
-    ]
+    ),
   );
 }
 
-String submitText(BuildContext ctx, StakeState state) {
-  if (state.type == 'stake')
-    return FlutterI18n.translate(ctx, 'confirm_stake');
-  if (state.otpEnabled)
-    return FlutterI18n.translate(ctx, 'confirm_unstake');
-  return FlutterI18n.translate(ctx, 'required_2FA_general');
+int round(double v) {
+  return ((v * 100) - 100).round();
 }
 
-String onValidAmount(BuildContext context,String value){
-  String res = Reg.isEmpty(value);
-  if(res != null) return FlutterI18n.translate(context, res); 
-
-  final parsed = double.tryParse(value);
-  if (parsed < 0) {
-    return FlutterI18n.translate(context, 'reg_amount');
-  }
-
-  return null;
+Widget _stakeCard({
+  BuildContext context,
+  int months,
+  Color color,
+  String boostText,
+  double revenueRate,
+  bool first = false,
+  String stakeName,
+  StakeState state,
+}) {
+  return panelFrame(
+    rowTop: first ? EdgeInsets.only(top: 10) : null,
+    child: ListTile(
+      onTap: () async {
+        if (revenueRate == null) return;
+        final res = await Navigator.of(context)
+            .pushNamed('prepare_stake_page', arguments: {
+          'isDemo': state.isDemo,
+          'balance': state.balance,
+          'months': months,
+          'revenueRate': revenueRate,
+          'iconColor': color,
+          'stakeName': stakeName,
+        });
+        if (res ?? false) {
+          Navigator.of(context).pop(true);
+        }
+      },
+      leading: Container(
+        height: 44,
+        width: 44,
+        alignment: Alignment.center,
+        child: Text(
+          months?.toString() ?? '~',
+          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+        padding: EdgeInsets.only(top: 2),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: color,
+        ),
+      ),
+      title: Text(
+        stakeName ?? '$months Month Stake',
+      ),
+      subtitle: Text(
+        boostText == null ? '...' : '$boostText Boost',
+        style: kMiddleFontOfBlack.copyWith(
+          color: Color(0xFF1C1478),
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    ),
+  );
 }

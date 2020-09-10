@@ -5,8 +5,8 @@ import 'reducer.dart';
 import 'state.dart';
 import 'view.dart';
 
-class StakePage extends Page<StakeState, Map<String, dynamic>> {
-  StakePage()
+class ListUnstakePage extends Page<ListUnstakeState, Map<String, dynamic>> {
+  ListUnstakePage()
       : super(
           initState: initState,
           view: buildView,

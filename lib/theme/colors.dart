@@ -4,9 +4,7 @@ final appTheme = ThemeData(
   primarySwatch: Colors.blue,
   // secondaryHeaderColor: Colors.blue,
   brightness: Brightness.light,
-  appBarTheme: AppBarTheme(
-    brightness: Brightness.light
-  ),
+  appBarTheme: AppBarTheme(brightness: Brightness.light),
 );
 
 const color1 = Color.fromARGB(255, 0, 0, 0);
@@ -61,13 +59,19 @@ const Color tipFont = Color(0xDE000000);
 
 //device
 const dartBlueColor = Color.fromARGB(255, 28, 20, 120);
-const dbm100=Color(0xFFFF5B5B);
-const dbm100_105=Color(0xFFFAA300);
-const dbm105_110=Color(0xFFF7D700);
+const dbm100 = Color(0xFFFF5B5B);
+const dbm100_105 = Color(0xFFFAA300);
+const dbm105_110 = Color(0xFFF7D700);
 
-const dbm110_115=Color(0xFF10C469);
-const dbm115_120=Color(0xFF4D89E5);
-const dbm120=Color(0xFF1C1478);
-const boxShadowColor=Color.fromRGBO(0, 0, 0, 0.1);
+const dbm110_115 = Color(0xFF10C469);
+const dbm115_120 = Color(0xFF4D89E5);
+const dbm120 = Color(0xFF1C1478);
+const boxShadowColor = Color.fromRGBO(0, 0, 0, 0.1);
 
-final errorColor=Colors.red[200];
+final errorColor = Colors.red[200];
+
+final stake24Color = Color(0xFF1C1478);
+final stake12Color = Color(0xFF494393);
+final stake9Color = Color(0xFF7772AE);
+final stake6Color = Color(0xFFA4A1C9);
+final stakeFlexColor = Color(0xFFD2D0E4);
