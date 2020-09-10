@@ -5,7 +5,6 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
-import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/page/stake_page/details_stake_page/action.dart';
 import 'package:supernodeapp/theme/colors.dart';
@@ -69,7 +68,10 @@ Widget buildView(
           ),
           SizedBox(width: 16),
           Text(
-            months == null ? 'Stake Flex' : '$months Month Stake',
+            months == null
+                ? FlutterI18n.translate(_ctx, 'flex_stake')
+                : FlutterI18n.translate(_ctx, 'x_month_stake')
+                    .replaceFirst('{0}', months.toString()),
             style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
           ),
           Spacer(),
@@ -82,7 +84,7 @@ Widget buildView(
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Transaction ID' + ' :'),
+              Text(FlutterI18n.translate(_ctx, "transaction_id") + ' :'),
               Text(
                 state.stake.id.toString(),
                 style: kBigFontOfBlack,
@@ -93,7 +95,7 @@ Widget buildView(
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Stake Date' + ' :'),
+              Text(FlutterI18n.translate(_ctx, 'stake_date') + ' :'),
               Text(
                 formatDate(state.stake.startTime),
                 style: kBigFontOfBlack,
@@ -104,7 +106,7 @@ Widget buildView(
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('End Date' + ' :'),
+              Text(FlutterI18n.translate(_ctx, 'end_date') + ' :'),
               Text(
                 state.stake.lockTill == null
                     ? '-'
@@ -117,7 +119,7 @@ Widget buildView(
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('UnStake Date' + ' :'),
+              Text(FlutterI18n.translate(_ctx, 'unstake_date') + ' :'),
               Text(
                 state.stake.endTime == null
                     ? '-'
@@ -130,7 +132,7 @@ Widget buildView(
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Amount' + ' :'),
+              Text(FlutterI18n.translate(_ctx, 'amount') + ' :'),
               Text(
                 state.stake.amount.toString() + ' MXC',
                 style: kBigFontOfBlack,
@@ -141,9 +143,9 @@ Widget buildView(
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Revenue' + ' :'),
+              Text(FlutterI18n.translate(_ctx, 'revenue') + ' :'),
               Text(
-                state.stake.amount.toString() + ' MXC',
+                state.stake.revenue.toString() + ' MXC',
                 style: kBigFontOfBlack,
               ),
             ],
@@ -154,7 +156,9 @@ Widget buildView(
           Align(
             alignment: Alignment.centerRight,
             child: Text(
-              state.stake.amount.toString() + ' MXC',
+              (double.parse(state.stake.amount) + state.stake.revenue)
+                      .toStringAsFixed(2) +
+                  ' MXC',
               style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
             ),
           ),
@@ -163,7 +167,7 @@ Widget buildView(
             Align(
               alignment: Alignment.centerRight,
               child: Text(
-                'Unstaked',
+                FlutterI18n.translate(_ctx, 'unstaked'),
                 style: kBigFontOfGrey,
               ),
             ),

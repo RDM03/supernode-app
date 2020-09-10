@@ -30,7 +30,7 @@ Widget buildView(
       SizedBox(height: 20),
       Center(
         child: Text(
-          'Once you proceed the Stake you won’t be able to Unstake within this period.',
+          FlutterI18n.translate(_ctx, 'stake_warning'),
           style: kMiddleFontOfBlack.copyWith(fontWeight: FontWeight.w600),
           textAlign: TextAlign.center,
         ),
@@ -41,7 +41,7 @@ Widget buildView(
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Stake Date' + ' :'),
+              Text(FlutterI18n.translate(_ctx, 'stake_date') + ' :'),
               Text(formatDate(DateTime.now())),
             ],
           ),
@@ -50,7 +50,7 @@ Widget buildView(
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('End Date' + ' :'),
+                Text(FlutterI18n.translate(_ctx, 'end_date') + ' :'),
                 Text(formatDate(state.endDate)),
               ],
             ),
@@ -59,7 +59,7 @@ Widget buildView(
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Amount' + ' :'),
+              Text(FlutterI18n.translate(_ctx, 'amount') + ' :'),
               Text(state.amount.toString()),
             ],
           ),
@@ -91,7 +91,10 @@ Widget buildView(
           );
         },
       ),
-      submitButton('Go Back', top: 16, onPressed: () {}),
+      submitButton(FlutterI18n.translate(_ctx, 'go_back'), top: 16,
+          onPressed: () {
+        Navigator.of(_ctx).pop();
+      }),
     ],
   );
 }

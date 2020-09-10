@@ -12,6 +12,7 @@ class Stake {
   final bool active;
   final DateTime lockTill;
   final String boost;
+  final double revenue;
 
   int get months {
     if (lockTill == null) return null;
@@ -28,6 +29,7 @@ class Stake {
     this.active,
     this.lockTill,
     this.boost,
+    this.revenue,
   });
 
   factory Stake.fromMap(Map<String, dynamic> map) {
@@ -44,6 +46,7 @@ class Stake {
           map['startTime'] != null ? DateTime.tryParse(map['startTime']) : null,
       endTime:
           map['endTime'] != null ? DateTime.tryParse(map['endTime']) : null,
+      revenue: map['revenue'] != null ? double.tryParse(map['revenue']) : null,
     );
   }
 

@@ -49,12 +49,19 @@ Widget buildView(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  state.stakeName ?? '${state.months} Month Stake',
+                  state.stakeName ??
+                      FlutterI18n.translate(_ctx, 'x_month_stake')
+                          .replaceFirst('{0}', state.months.toString()),
                   textAlign: TextAlign.left,
                   style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  FlutterI18n.translate(_ctx, 'staking_trade_tip'),
+                  state.months == null
+                      ? FlutterI18n.translate(_ctx, 'staking_trade_tip_regular')
+                      : FlutterI18n.translate(_ctx, 'staking_trade_tip_2')
+                          .replaceFirst(
+                              '{0}', (state.boostRate * 100).round().toString())
+                          .replaceFirst('{1}', state.months.toString()),
                   textAlign: TextAlign.left,
                   style: kMiddleFontOfGrey,
                 ),
@@ -68,7 +75,7 @@ Widget buildView(
         child: Column(
           children: [
             Text(
-              'Estimated Rate',
+              FlutterI18n.translate(_ctx, 'estimated_rate'),
               style: kSmallFontOfGrey.copyWith(
                 color: Color(0xFF1C1478),
               ),
@@ -83,8 +90,10 @@ Widget buildView(
             ),
             SizedBox(height: 3),
             Text(
-              'Monthly Rate + (Current Rate * ${state.boostRate} Boost)',
+              FlutterI18n.translate(_ctx, 'boost_formula')
+                  .replaceFirst('{0}', state.boostRate.toString()),
               style: kSmallFontOfGrey,
+              textAlign: TextAlign.center,
             )
           ],
         ),
@@ -92,30 +101,40 @@ Widget buildView(
       SizedBox(height: 40),
       Row(
         children: [
-          _infoCircle('Stake now', _dateFmt(DateTime.now())),
+          _infoCircle(FlutterI18n.translate(_ctx, 'stake_now'),
+              _dateFmt(DateTime.now())),
           Expanded(
             child: Container(
               height: 2,
               color: Color(0xFFEBEFF2),
             ),
           ),
-          _infoCircle('Gains start', _dateFmt(DateTime.now())),
+          _infoCircle(FlutterI18n.translate(_ctx, 'gains_start'),
+              _dateFmt(DateTime.now())),
           Expanded(
             child: Container(
               height: 2,
               color: Color(0xFFEBEFF2),
             ),
           ),
-          _infoCircle('Gains stop',
-              state.months == null ? 'Flex' : _dateFmt(state.endDate, true)),
+          _infoCircle(
+            FlutterI18n.translate(_ctx, 'gains_stop'),
+            state.months == null
+                ? FlutterI18n.translate(_ctx, 'flex')
+                : _dateFmt(state.endDate, true),
+          ),
           Expanded(
             child: Container(
               height: 2,
               color: Color(0xFFEBEFF2),
             ),
           ),
-          _infoCircle('Liquidate',
-              state.months == null ? 'Flex' : _dateFmt(state.endDate, true)),
+          _infoCircle(
+            FlutterI18n.translate(_ctx, 'liquidate'),
+            state.months == null
+                ? FlutterI18n.translate(_ctx, 'flex')
+                : _dateFmt(state.endDate, true),
+          ),
         ],
       ),
       Form(
@@ -135,7 +154,7 @@ Widget buildView(
         children: [
           Expanded(
             child: Text(
-              'Current Balance',
+              FlutterI18n.translate(_ctx, 'current_balance'),
               style: kSmallFontOfGrey,
             ),
           ),
@@ -228,6 +247,7 @@ _infoCircle(String text, String date) {
         Text(
           text,
           style: kSmallFontOfBlack,
+          textAlign: TextAlign.center,
         ),
         SizedBox(height: 14),
         Container(

@@ -34,8 +34,10 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
           SizedBox(height: 15),
           Row(
             children: [
-              Text('Stake & Earn MXC', style: kBigFontOfBlack),
-              Spacer(),
+              Expanded(
+                child: Text(FlutterI18n.translate(context, 'stake_earn_mxc'),
+                    style: kBigFontOfBlack),
+              ),
               link(
                 FlutterI18n.translate(context, 'learn_more'),
                 onTap: () => Tools.launchURL(Sys.stakeMore),
@@ -49,11 +51,12 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
             style: kMiddleFontOfGrey,
           ),
           Text(
-            'Choose your Stake options',
+            FlutterI18n.translate(context, 'choose_stake_options'),
             style: kMiddleFontOfGrey,
           ),
           SizedBox(height: 20),
-          Text('MXC Vault', style: kBigFontOfBlack),
+          Text(FlutterI18n.translate(context, 'mxc_vault'),
+              style: kBigFontOfBlack),
           Expanded(
             child: ListView(
               padding: EdgeInsets.zero,
@@ -64,7 +67,8 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   color: stake24Color,
                   boostText: state.rate24m == null
                       ? null
-                      : '+${round(state.rate24m / state.rate12m)}% Mega',
+                      : '+${round(state.rate24m / state.rate12m)}% ' +
+                          FlutterI18n.translate(context, 'mega_boost'),
                   first: true,
                   state: state,
                   revenueRate: state.rate24m,
@@ -83,7 +87,8 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   color: stake9Color,
                   boostText: state.rate9m == null
                       ? null
-                      : '${round(state.rate9m / state.rate12m)}%',
+                      : '${round(state.rate9m / state.rate12m)}% ' +
+                          FlutterI18n.translate(context, 'boost'),
                   state: state,
                   revenueRate: state.rate9m,
                 ),
@@ -93,7 +98,8 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   color: stake6Color,
                   boostText: state.rate6m == null
                       ? null
-                      : '${round(state.rate6m / state.rate12m)}%',
+                      : '${round(state.rate6m / state.rate12m)}% ' +
+                          FlutterI18n.translate(context, 'boost'),
                   state: state,
                   revenueRate: state.rate6m,
                 ),
@@ -102,10 +108,11 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   color: stakeFlexColor,
                   boostText: state.rateFlex == null
                       ? null
-                      : '${round(state.rateFlex / state.rate12m)}%',
+                      : '${round(state.rateFlex / state.rate12m)}% ' +
+                          FlutterI18n.translate(context, 'boost'),
                   state: state,
                   revenueRate: state.rateFlex,
-                  stakeName: 'Flex Stake',
+                  stakeName: FlutterI18n.translate(context, 'flex_stake'),
                 ),
               ],
             ),
@@ -167,10 +174,12 @@ Widget _stakeCard({
         ),
       ),
       title: Text(
-        stakeName ?? '$months Month Stake',
+        stakeName ??
+            FlutterI18n.translate(context, 'x_month_stake')
+                .replaceFirst('{0}', months.toString()),
       ),
       subtitle: Text(
-        boostText == null ? '...' : '$boostText Boost',
+        boostText == null ? '...' : boostText,
         style: kMiddleFontOfBlack.copyWith(
           color: Color(0xFF1C1478),
           fontWeight: FontWeight.w600,
