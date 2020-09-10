@@ -175,7 +175,6 @@ class CurrencyCard extends StatelessWidget {
                     ),
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.end,
-                    readOnly: true,
                     controller: TextEditingController(
                       text: amount,
                     ),

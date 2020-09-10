@@ -11,6 +11,7 @@ import 'state.dart';
 Effect<CalculatorState> buildEffect() {
   return combineEffects(<Object, Effect<CalculatorState>>{
     Lifecycle.initState: _initState,
+    Lifecycle.dispose: _dispose,
     CalculatorAction.list: _list,
   });
 }
@@ -28,6 +29,10 @@ Future<void> _list(Action action, Context<CalculatorState> ctx) async {
 Future<void> _initState(Action action, Context<CalculatorState> ctx) async {
   await _refreshMxcPrice(ctx);
   await _refreshRates(ctx);
+}
+
+Future<void> _dispose(Action action, Context<CalculatorState> ctx) async {
+  ctx.state.controllers.forEach((e) => e.dispose());
 }
 
 Future<void> _refreshMxcPrice(Context<CalculatorState> ctx) async {

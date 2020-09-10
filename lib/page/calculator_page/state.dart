@@ -1,10 +1,12 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:supernodeapp/common/daos/coingecko_dao.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 
 class CalculatorState implements Cloneable<CalculatorState> {
   List<Currency> selectedCurrencies;
+  List<TextEditingController> controllers;
 
   double balance;
   double staking;
@@ -40,5 +42,7 @@ CalculatorState initState(Map<String, dynamic> args) {
   state.balance = args['balance'] ?? 0.0;
   state.isDemo = args['isDemo'] ?? false;
   state.selectedCurrencies = StorageManager.selectedCurrencies();
+  state.controllers = List.generate(
+      state.selectedCurrencies.length, (_) => TextEditingController());
   return state;
 }
