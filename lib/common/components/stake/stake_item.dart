@@ -16,9 +16,7 @@ class Stake {
 
   int get months {
     if (lockTill == null) return null;
-    return (lockTill.year - startTime.year) * 12 +
-        lockTill.month -
-        startTime.month;
+    return (lockTill.difference(startTime).inDays / 30).floor();
   }
 
   Stake({
