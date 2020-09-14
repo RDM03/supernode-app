@@ -315,5 +315,6 @@
 	"balance": "平衡",
 	"staking": "放样",
 	"mining": "矿业",
-	"calculator": "计算器"
+	"calculator": "计算器",
+	"invalid_value": "Ungültiger Wert"
 }

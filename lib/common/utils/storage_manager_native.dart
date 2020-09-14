@@ -32,6 +32,7 @@ class StorageManager {
         StorageManager.sharedPreferences.getStringList('selected_currencies');
     if (currenciesKeys == null)
       return [
+        Currency.mxc,
         Currency.cny,
         Currency.usd,
         Currency.rub,
@@ -43,9 +44,13 @@ class StorageManager {
         Currency.idr,
         Currency.brl,
       ];
-    return Currency.values
-        .where((e) => currenciesKeys.contains(e.shortName))
-        .toList();
+    if (!currenciesKeys.contains(Currency.mxc.shortName)) {
+      currenciesKeys.insert(0, Currency.mxc.shortName);
+    }
+    final currencyMap = Currency.values
+        .asMap()
+        .map((key, value) => MapEntry(value.shortName, value));
+    return currenciesKeys.map((e) => currencyMap[e]).toList();
   }
 
   static Future<void> setSelectedCurrencies(List<Currency> currencies) async {

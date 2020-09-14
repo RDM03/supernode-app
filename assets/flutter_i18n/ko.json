@@ -315,5 +315,6 @@
 	"balance": "밸런스",
 	"staking": "스테이 킹",
 	"mining": "채광",
-	"calculator": "계산자"
+	"calculator": "계산자",
+	"invalid_value": "잘못된 값"
 }
