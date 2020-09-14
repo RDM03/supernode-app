@@ -20,6 +20,7 @@ Widget buildView(
 
   final selectedCurrencies = state.selectedCurrencies
       .where((e) => _searchMatch(_ctx, e, state.searchValue))
+      .where((e) => e != Currency.mxc)
       .toList();
   final fiatCurrencies = state.fiatCurrencies
       .where((e) => !state.selectedCurrencies.contains(e))

@@ -1,8 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-
-import 'package:supernodeapp/common/components/column_spacer.dart';
+import 'package:collection/collection.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/wallet/tab_buttons.dart';
 import 'package:supernodeapp/common/daos/coingecko_dao.dart';
@@ -13,6 +12,7 @@ import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
+import 'reorderable_list_custom.dart';
 import 'state.dart';
 
 Widget buildView(
@@ -38,18 +38,16 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
     with SingleTickerProviderStateMixin {
   Map<Currency, ExchangeRate> rates;
   List<Currency> selectedCurrencies;
-  Map<int, List<double>> values = {};
+  Map<int, Map<Currency, double>> values = {};
   bool isDemo;
 
-  double mxcPrice;
+  // double mxcPrice;
 
   double mining;
   double staking;
   double balance;
 
-  double get mxcRate => rates == null || mxcPrice == null
-      ? null
-      : rates[Currency.usd].value / mxcPrice;
+  double get mxcRate => rates == null ? null : rates[Currency.mxc].value;
 
   TabController tabController;
 
@@ -58,14 +56,12 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
     super.initState();
     tabController = TabController(length: 3, vsync: this);
     isDemo = widget.initState.isDemo;
-    mxcPrice = widget.initState.balance;
     mining = widget.initState.mining;
     staking = widget.initState.staking;
     balance = widget.initState.balance;
     _loadSelectedCurrencies();
     reinitValues();
     Future.wait([
-      _refreshMxcPrice(),
       _refreshRates(),
     ]).then((value) => recalcValues());
   }
@@ -75,13 +71,10 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
   }
 
   void _loadSelectedCurrencies() {
-    selectedCurrencies = [
-      Currency.mxc,
-      ...StorageManager.selectedCurrencies(),
-    ];
+    selectedCurrencies = StorageManager.selectedCurrencies();
   }
 
-  Future<void> _refreshMxcPrice() async {
+  Future<double> _getMxcPrice() async {
     final walletDao = _buildWalletDao();
 
     final settingsData = GlobalStore.store.getState().settings;
@@ -95,16 +88,23 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
     };
     final response = await walletDao.convertUSD(data);
     final mxcPriceText = response['mxcPrice'];
-    setState(() {
-      mxcPrice = double.parse(mxcPriceText);
-    });
+    return double.parse(mxcPriceText);
   }
 
   Future<void> _refreshRates() async {
     final dao = CoingeckoDao();
     final rates = await dao.exchangeRates();
+    final mxcPrice = await _getMxcPrice();
     setState(() {
-      this.rates = rates;
+      this.rates = {
+        ...rates,
+        Currency.mxc: ExchangeRate(
+          Currency.mxc.shortName,
+          Currency.mxc.shortName.toUpperCase(),
+          rates[Currency.usd].value / mxcPrice,
+          'crypto',
+        )
+      };
     });
   }
 
@@ -117,9 +117,9 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
   void reinitValues() {
     setState(() {
       values = {
-        0: List.filled(selectedCurrencies.length, null),
-        1: List.filled(selectedCurrencies.length, null),
-        2: List.filled(selectedCurrencies.length, null),
+        0: Map.fromEntries(selectedCurrencies.map((e) => MapEntry(e, null))),
+        1: Map.fromEntries(selectedCurrencies.map((e) => MapEntry(e, null))),
+        2: Map.fromEntries(selectedCurrencies.map((e) => MapEntry(e, null))),
       };
     });
     recalcValues();
@@ -131,21 +131,20 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
     _recalcValuesForTab(values[2], mining);
   }
 
-  void _recalcValuesForTab(List<double> values, double mxcValue, {int except}) {
+  void _recalcValuesForTab(Map<Currency, double> values, double mxcValue,
+      {int except}) {
     for (var i = 0; i < selectedCurrencies.length; i++) {
       //if (i == except) continue;
       final currency = selectedCurrencies[i];
-      final rate =
-          rates == null ? null : mxcRate / (rates[currency]?.value ?? mxcRate);
-      values[i] = rate == null ? null : (mxcValue / rate);
+      final rate = rates == null ? null : mxcRate / rates[currency]?.value;
+      values[currency] = rate == null ? null : (mxcValue / rate);
     }
   }
 
   void onTextChanged(int tabNum, int currencyIndex, String valueText) {
     if (rates == null || mxcRate == null) return;
     final currency = selectedCurrencies[currencyIndex];
-    final rate =
-        rates == null ? null : mxcRate / (rates[currency]?.value ?? mxcRate);
+    final rate = rates == null ? null : mxcRate / rates[currency].value;
     final val = double.tryParse(valueText);
     if (val == null) return;
     final mxcValue = rate * val;
@@ -156,10 +155,34 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
     setState(() {});
   }
 
+  void onReorder(int tabNum, int oldIndex, int newIndex) async {
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+    setState(() {
+      final currency = selectedCurrencies.removeAt(oldIndex);
+      selectedCurrencies.insert(newIndex, currency);
+    });
+    await StorageManager.setSelectedCurrencies(selectedCurrencies);
+  }
+
   @override
   void dispose() {
     tabController.dispose();
     super.dispose();
+  }
+
+  Widget tab(int number) {
+    return GenericCurrencyTab(
+      selectedCurrencies,
+      values[number],
+      mxcRate: mxcRate,
+      rates: rates,
+      onChanged: (s, i) => onTextChanged(number, i, s),
+      onReorder: (a, b) => onReorder(number, a, b),
+      tabNum: number,
+      key: ValueKey('tab_$number'),
+    );
   }
 
   @override
@@ -195,25 +218,9 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
                 FlutterI18n.translate(context, 'mining'),
               ],
               children: [
-                GenericCurrencyTab(
-                  selectedCurrencies,
-                  values[0],
-                  mxcRate: mxcRate,
-                  rates: rates,
-                  onChanged: (s, i) => onTextChanged(0, i, s),
-                ),
-                GenericCurrencyTab(
-                  selectedCurrencies,
-                  values[1],
-                  mxcRate: mxcRate,
-                  rates: rates,
-                ),
-                GenericCurrencyTab(
-                  selectedCurrencies,
-                  values[2],
-                  mxcRate: mxcRate,
-                  rates: rates,
-                ),
+                tab(0),
+                tab(1),
+                tab(2),
               ],
               expandContent: true,
             ),
@@ -224,12 +231,14 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
   }
 }
 
-class GenericCurrencyTab extends StatelessWidget {
+class GenericCurrencyTab extends StatefulWidget {
   final List<Currency> selectedCurrencies;
-  final List<double> values;
+  final Map<Currency, double> values;
   final Map<Currency, ExchangeRate> rates;
   final double mxcRate;
   final void Function(String, int) onChanged;
+  final void Function(int, int) onReorder;
+  final int tabNum;
 
   GenericCurrencyTab(
     this.selectedCurrencies,
@@ -237,22 +246,52 @@ class GenericCurrencyTab extends StatelessWidget {
     this.rates,
     this.mxcRate,
     this.onChanged,
-  });
+    this.onReorder,
+    this.tabNum,
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _GenericCurrencyTabState createState() => _GenericCurrencyTabState();
+}
+
+class _GenericCurrencyTabState extends State<GenericCurrencyTab> {
+  Map<Currency, GlobalKey> keys;
+  static const _listComparer = const DeepCollectionEquality.unordered();
+
+  @override
+  void initState() {
+    super.initState();
+    _initKeys();
+  }
+
+  @override
+  void didUpdateWidget(GenericCurrencyTab oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!_listComparer.equals(widget.selectedCurrencies, keys.keys.toList())) {
+      _initKeys();
+    }
+  }
+
+  void _initKeys() {
+    keys = widget.selectedCurrencies
+        .asMap()
+        .map((key, value) => MapEntry(value, GlobalKey()));
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      addAutomaticKeepAlives: true,
+    return ReorderableListViewCustom(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      itemCount: selectedCurrencies.length,
-      itemBuilder: (_, i) {
-        final currency = selectedCurrencies[i];
-        final value = values[i];
-        final rate = rates == null
+      children: List.generate(widget.selectedCurrencies.length, (i) {
+        final currency = widget.selectedCurrencies[i];
+        final value = widget.values[currency];
+        final rate = widget.rates == null
             ? null
-            : mxcRate / (rates[currency]?.value ?? mxcRate);
+            : widget.mxcRate /
+                (widget.rates[currency]?.value ?? widget.mxcRate);
         var amountPerUnit = _loadingStr;
-        if (rates != null) {
+        if (widget.rates != null) {
           amountPerUnit = rate.toStringAsFixed(7);
         }
         if (currency == Currency.mxc) {
@@ -260,13 +299,15 @@ class GenericCurrencyTab extends StatelessWidget {
         }
         return CurrencyCard(
           shortName: currency.shortName,
-          onChanged: (s) => onChanged(s, i),
+          onChanged: (s) => widget.onChanged(s, i),
           fullName: FlutterI18n.translate(context, currency.shortName),
           value: value?.toStringAsFixed(2) ?? '...',
           amountPerUnit: amountPerUnit,
           iconPath: currency.iconPath,
+          key: keys[currency],
         );
-      },
+      }),
+      onReorder: widget.onReorder,
     );
   }
 }
@@ -288,7 +329,8 @@ class CurrencyCard extends StatefulWidget {
     this.focusNode,
     this.onChanged,
     this.value,
-  });
+    Key key,
+  }) : super(key: key);
 
   @override
   _CurrencyCardState createState() => _CurrencyCardState();
@@ -325,65 +367,68 @@ class _CurrencyCardState extends State<CurrencyCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.only(bottom: 15),
-      child: Padding(
-        padding: EdgeInsets.all(10).copyWith(top: 5),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Image.asset(widget.iconPath),
-                SizedBox(width: 10),
-                Text(widget.shortName.toUpperCase()),
-                Spacer(),
-                SizedBox(
-                  child: TextFormField(
-                    focusNode: widget.focusNode,
-                    scrollPhysics: NeverScrollableScrollPhysics(),
-                    decoration: InputDecoration(
-                      suffix: Padding(
-                        child: Text(widget.shortName.toUpperCase()),
-                        padding: EdgeInsets.only(left: 2),
+    return Container(
+      height: 90,
+      child: Card(
+        margin: EdgeInsets.only(bottom: 15),
+        child: Padding(
+          padding: EdgeInsets.all(10).copyWith(top: 5),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Image.asset(widget.iconPath),
+                  SizedBox(width: 10),
+                  Text(widget.shortName.toUpperCase()),
+                  Spacer(),
+                  SizedBox(
+                    child: TextFormField(
+                      focusNode: widget.focusNode,
+                      scrollPhysics: NeverScrollableScrollPhysics(),
+                      decoration: InputDecoration(
+                        suffix: Padding(
+                          child: Text(widget.shortName.toUpperCase()),
+                          padding: EdgeInsets.only(left: 2),
+                        ),
+                        suffixStyle: Theme.of(context).textTheme.subtitle1,
+                        isDense: true,
+                        focusedBorder: null,
+                        enabledBorder: InputBorder.none,
                       ),
-                      suffixStyle: Theme.of(context).textTheme.subtitle1,
-                      isDense: true,
-                      focusedBorder: null,
-                      enabledBorder: InputBorder.none,
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.end,
+                      controller: controller,
+                      onChanged: widget.onChanged,
+                      validator: (s) =>
+                          double.tryParse(s) == null && s != _loadingStr
+                              ? FlutterI18n.translate(context, 'invalid_value')
+                              : null,
+                      autovalidate: true,
+                      readOnly: false,
                     ),
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.end,
-                    controller: controller,
-                    onChanged: widget.onChanged,
-                    validator: (s) =>
-                        double.tryParse(s) == null && s != _loadingStr
-                            ? FlutterI18n.translate(context, 'invalid_value')
-                            : null,
-                    autovalidate: true,
-                    readOnly: false,
+                    width: 180,
                   ),
-                  width: 180,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Text(
-                  widget.fullName,
-                  style: Theme.of(context).textTheme.caption,
-                ),
-                Spacer(),
-                if (widget.amountPerUnit != null)
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
                   Text(
-                    '1${widget.shortName.toUpperCase()} = ${widget.amountPerUnit} MXC',
+                    widget.fullName,
                     style: Theme.of(context).textTheme.caption,
                   ),
-              ],
-            )
-          ],
+                  Spacer(),
+                  if (widget.amountPerUnit != null)
+                    Text(
+                      '1${widget.shortName.toUpperCase()} = ${widget.amountPerUnit} MXC',
+                      style: Theme.of(context).textTheme.caption,
+                    ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
