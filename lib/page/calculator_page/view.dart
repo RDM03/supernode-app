@@ -38,15 +38,7 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
     with SingleTickerProviderStateMixin {
   Map<Currency, ExchangeRate> rates;
   List<Currency> selectedCurrencies;
-  Map<int, List<TextEditingController>> controllers = {};
-  Map<int, List<String>> controllersValue = {};
-  Map<int, ScrollController> scrollControllers = {
-    0: ScrollController(keepScrollOffset: false),
-    1: ScrollController(),
-    2: ScrollController(),
-  };
-  Map<int, List<FocusNode>> focusNodes = {};
-
+  Map<int, List<double>> values = {};
   bool isDemo;
 
   double mxcPrice;
@@ -58,8 +50,6 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
   double get mxcRate => rates == null || mxcPrice == null
       ? null
       : rates[Currency.usd].value / mxcPrice;
-
-  bool lockControllers = false;
 
   TabController tabController;
 
@@ -73,23 +63,15 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
     staking = widget.initState.staking;
     balance = widget.initState.balance;
     _loadSelectedCurrencies();
-    reinitControllers();
+    reinitValues();
     Future.wait([
       _refreshMxcPrice(),
       _refreshRates(),
-    ]).then((value) => recalcControllers());
-    focusNodes[0][0].requestFocus();
-    tabController.addListener(_tabControllerChanged);
+    ]).then((value) => recalcValues());
   }
 
   WalletDao _buildWalletDao() {
     return isDemo ? DemoWalletDao() : WalletDao();
-  }
-
-  void _tabControllerChanged() {
-    if (tabController.indexIsChanging) return;
-    focusNodes[tabController.index][0].requestFocus();
-    FocusScope.of(context).unfocus();
   }
 
   void _loadSelectedCurrencies() {
@@ -129,106 +111,53 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
   Future<void> list() async {
     await Navigator.of(context).pushNamed('calculator_list_page');
     _loadSelectedCurrencies();
-    reinitControllers();
+    reinitValues();
   }
 
-  void reinitControllers() {
-    disposeControllers();
+  void reinitValues() {
     setState(() {
-      controllers = {
-        0: List.generate(
-            selectedCurrencies.length, (_) => TextEditingController()),
-        1: List.generate(
-            selectedCurrencies.length, (_) => TextEditingController()),
-        2: List.generate(
-            selectedCurrencies.length, (_) => TextEditingController()),
-      };
-      focusNodes = {
-        0: List.generate(selectedCurrencies.length, (_) => FocusNode()),
-        1: List.generate(selectedCurrencies.length, (_) => FocusNode()),
-        2: List.generate(selectedCurrencies.length, (_) => FocusNode()),
-      };
-      controllersValue = {
-        0: List.generate(selectedCurrencies.length, (_) => null),
-        1: List.generate(selectedCurrencies.length, (_) => null),
-        2: List.generate(selectedCurrencies.length, (_) => null),
+      values = {
+        0: List.filled(selectedCurrencies.length, null),
+        1: List.filled(selectedCurrencies.length, null),
+        2: List.filled(selectedCurrencies.length, null),
       };
     });
-    for (final entry in controllers.entries) {
-      final tabNum = entry.key;
-      final list = entry.value;
-      for (var i = 0; i < list.length; i++) {
-        final controller = list[i];
-        controller.addListener(() => onTextChanged(tabNum, i, controller));
-      }
-    }
-    recalcControllers();
+    recalcValues();
   }
 
-  void recalcControllers() {
-    _recalcControllersForTab(controllers[0], balance);
-    _recalcControllersForTab(controllers[1], staking);
-    _recalcControllersForTab(controllers[2], mining);
+  void recalcValues() {
+    _recalcValuesForTab(values[0], balance);
+    _recalcValuesForTab(values[1], staking);
+    _recalcValuesForTab(values[2], mining);
   }
 
-  void _recalcControllersForTab(
-      List<TextEditingController> controllers, double value,
-      {TextEditingController except}) {
-    lockControllers = true;
+  void _recalcValuesForTab(List<double> values, double mxcValue, {int except}) {
     for (var i = 0; i < selectedCurrencies.length; i++) {
-      if (controllers[i] == except) continue;
+      //if (i == except) continue;
       final currency = selectedCurrencies[i];
       final rate =
           rates == null ? null : mxcRate / (rates[currency]?.value ?? mxcRate);
-      controllers[i].value = controllers[i].value.copyWith(
-          text: rate == null ? '...' : (value / rate).toStringAsFixed(2));
+      values[i] = rate == null ? null : (mxcValue / rate);
     }
-    lockControllers = false;
   }
 
-  void onTextChanged(
-      int tabNum, int currencyIndex, TextEditingController controller) {
-    if (lockControllers) return;
-    if (controllersValue[tabNum][currencyIndex] == null ||
-        controllersValue[tabNum][currencyIndex] == controller.text) {
-      controllersValue[tabNum][currencyIndex] = controller.text;
-      return;
-    }
+  void onTextChanged(int tabNum, int currencyIndex, String valueText) {
     if (rates == null || mxcRate == null) return;
-    controllersValue[tabNum][currencyIndex] = controller.text;
     final currency = selectedCurrencies[currencyIndex];
     final rate =
         rates == null ? null : mxcRate / (rates[currency]?.value ?? mxcRate);
-    final valueText = controller.text;
     final val = double.tryParse(valueText);
     if (val == null) return;
     final mxcValue = rate * val;
     if (tabNum == 0) balance = mxcValue;
     if (tabNum == 1) staking = mxcValue;
     if (tabNum == 2) mining = mxcValue;
-    //_recalcControllersForTab(controllers[tabNum], mxcValue, except: controller);
-    controllers[tabNum][currencyIndex].text = '234';
-  }
-
-  void disposeControllers() {
-    if (controllers != null) {
-      for (final tabNum in controllers.keys) {
-        final controllersList = controllers[tabNum];
-        final nodesList = focusNodes[tabNum];
-        for (var i = 0; i < controllersList.length; i++) {
-          final controller = controllersList[i];
-          final node = nodesList[i];
-          node.dispose();
-          controller.dispose();
-        }
-      }
-    }
+    _recalcValuesForTab(values[tabNum], mxcValue, except: currencyIndex);
+    setState(() {});
   }
 
   @override
   void dispose() {
-    disposeControllers();
-    scrollControllers.forEach((key, value) => value.dispose());
     tabController.dispose();
     super.dispose();
   }
@@ -268,27 +197,22 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
               children: [
                 GenericCurrencyTab(
                   selectedCurrencies,
-                  controllers[0],
+                  values[0],
                   mxcRate: mxcRate,
                   rates: rates,
-                  scrollController: scrollControllers[0],
-                  focusNodes: focusNodes[0],
+                  onChanged: (s, i) => onTextChanged(0, i, s),
                 ),
                 GenericCurrencyTab(
                   selectedCurrencies,
-                  controllers[1],
+                  values[1],
                   mxcRate: mxcRate,
                   rates: rates,
-                  scrollController: scrollControllers[1],
-                  focusNodes: focusNodes[1],
                 ),
                 GenericCurrencyTab(
                   selectedCurrencies,
-                  controllers[2],
+                  values[2],
                   mxcRate: mxcRate,
                   rates: rates,
-                  scrollController: scrollControllers[2],
-                  focusNodes: focusNodes[2],
                 ),
               ],
               expandContent: true,
@@ -302,19 +226,17 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
 
 class GenericCurrencyTab extends StatelessWidget {
   final List<Currency> selectedCurrencies;
-  final List<TextEditingController> controllers;
+  final List<double> values;
   final Map<Currency, ExchangeRate> rates;
   final double mxcRate;
-  final ScrollController scrollController;
-  final List<FocusNode> focusNodes;
+  final void Function(String, int) onChanged;
 
   GenericCurrencyTab(
     this.selectedCurrencies,
-    this.controllers, {
+    this.values, {
     this.rates,
     this.mxcRate,
-    this.scrollController,
-    this.focusNodes,
+    this.onChanged,
   });
 
   @override
@@ -322,11 +244,10 @@ class GenericCurrencyTab extends StatelessWidget {
     return ListView.builder(
       addAutomaticKeepAlives: true,
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      controller: scrollController,
       itemCount: selectedCurrencies.length,
       itemBuilder: (_, i) {
         final currency = selectedCurrencies[i];
-        final controller = controllers[i];
+        final value = values[i];
         final rate = rates == null
             ? null
             : mxcRate / (rates[currency]?.value ?? mxcRate);
@@ -339,45 +260,68 @@ class GenericCurrencyTab extends StatelessWidget {
         }
         return CurrencyCard(
           shortName: currency.shortName,
+          onChanged: (s) => onChanged(s, i),
           fullName: FlutterI18n.translate(context, currency.shortName),
-          controller: controller,
+          value: value?.toStringAsFixed(2) ?? '...',
           amountPerUnit: amountPerUnit,
           iconPath: currency.iconPath,
-          focusNode: focusNodes[i],
         );
       },
     );
   }
 }
 
-class MXCCurrencyCard extends StatefulWidget {
-  @override
-  _MXCCurrencyCardState createState() => _MXCCurrencyCardState();
-}
-
-class _MXCCurrencyCardState extends State<MXCCurrencyCard> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class CurrencyCard extends StatelessWidget {
+class CurrencyCard extends StatefulWidget {
   final String shortName;
   final String fullName;
-  final TextEditingController controller;
   final String amountPerUnit;
   final String iconPath;
   final FocusNode focusNode;
+  final void Function(String) onChanged;
+  final String value;
 
   CurrencyCard({
     this.shortName,
     this.fullName,
-    this.controller,
     this.amountPerUnit,
     this.iconPath,
     this.focusNode,
+    this.onChanged,
+    this.value,
   });
+
+  @override
+  _CurrencyCardState createState() => _CurrencyCardState();
+}
+
+class _CurrencyCardState extends State<CurrencyCard> {
+  TextEditingController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = TextEditingController(text: widget.value);
+  }
+
+  @override
+  void didUpdateWidget(CurrencyCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.value != controller.text) {
+      final oldController = controller;
+      setState(() {
+        controller = TextEditingController(text: widget.value);
+      });
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        oldController?.dispose();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -389,17 +333,17 @@ class CurrencyCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Image.asset(iconPath),
+                Image.asset(widget.iconPath),
                 SizedBox(width: 10),
-                Text(shortName.toUpperCase()),
+                Text(widget.shortName.toUpperCase()),
                 Spacer(),
                 SizedBox(
                   child: TextFormField(
-                    focusNode: focusNode,
+                    focusNode: widget.focusNode,
                     scrollPhysics: NeverScrollableScrollPhysics(),
                     decoration: InputDecoration(
                       suffix: Padding(
-                        child: Text(shortName.toUpperCase()),
+                        child: Text(widget.shortName.toUpperCase()),
                         padding: EdgeInsets.only(left: 2),
                       ),
                       suffixStyle: Theme.of(context).textTheme.subtitle1,
@@ -410,11 +354,13 @@ class CurrencyCard extends StatelessWidget {
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.end,
                     controller: controller,
+                    onChanged: widget.onChanged,
                     validator: (s) =>
                         double.tryParse(s) == null && s != _loadingStr
                             ? FlutterI18n.translate(context, 'invalid_value')
                             : null,
                     autovalidate: true,
+                    readOnly: false,
                   ),
                   width: 180,
                 ),
@@ -426,13 +372,13 @@ class CurrencyCard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  fullName,
+                  widget.fullName,
                   style: Theme.of(context).textTheme.caption,
                 ),
                 Spacer(),
-                if (amountPerUnit != null)
+                if (widget.amountPerUnit != null)
                   Text(
-                    '1${shortName.toUpperCase()} = $amountPerUnit MXC',
+                    '1${widget.shortName.toUpperCase()} = ${widget.amountPerUnit} MXC',
                     style: Theme.of(context).textTheme.caption,
                   ),
               ],
