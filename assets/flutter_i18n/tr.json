@@ -314,5 +314,6 @@
 	"balance": "Denge",
 	"staking": "Stake etme",
 	"mining": "Madencilik",
-	"calculator": "Hesap makinesi"
+	"calculator": "Hesap makinesi",
+	"invalid_value": "geçersiz değer"
 }

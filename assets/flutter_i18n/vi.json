@@ -314,5 +314,6 @@
 	"balance": "Thăng bằng",
 	"staking": "Đánh cược",
 	"mining": "Khai thác mỏ",
-	"calculator": "Máy tính"
+	"calculator": "Máy tính",
+	"invalid_value": "giá trị không hợp lệ"
 }

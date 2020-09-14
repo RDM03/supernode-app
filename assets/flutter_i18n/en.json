@@ -315,5 +315,6 @@
 	"balance": "Balance",
 	"staking": "Staking",
 	"mining": "Mining",
-	"calculator": "Calculator"
+	"calculator": "Calculator",
+	"invalid_value": "Invalid value"
 }

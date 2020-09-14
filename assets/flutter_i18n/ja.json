@@ -314,5 +314,6 @@
 	"balance": "残高",
 	"staking": "ステーキング",
 	"mining": "鉱業",
-	"calculator": "電卓"
+	"calculator": "電卓",
+	"invalid_value": "無効な値"
 }
