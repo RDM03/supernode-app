@@ -175,6 +175,10 @@ class StakeItem extends StatelessWidget {
     }
 
     if (months == null && stake.endTime == null) {
+      showLockOpenIcon = false;
+    }
+
+    if (months == null && stake.endTime != null) {
       showLockOpenIcon = true;
     }
 
@@ -250,7 +254,7 @@ class StakeItem extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Text(id, style: kSmallFontOfGrey),
+                      Text('ID: ' + id, style: kSmallFontOfGrey),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
