@@ -4,6 +4,7 @@ import 'package:localstorage/localstorage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/common/utils/address_entity.dart';
 
 class StorageManager {
   /// app全局配置 eg:theme token
@@ -57,6 +58,20 @@ class StorageManager {
     await StorageManager.sharedPreferences.setStringList(
       'selected_currencies',
       currencies.map((e) => e.shortName).toList(),
+    );
+  }
+
+  static List<AddressEntity> addressBook() {
+    final addressBook =
+        StorageManager.sharedPreferences.getStringList('address_book');
+    if (addressBook == null) return [];
+    return addressBook.map((e) => AddressEntity.fromJson(e)).toList();
+  }
+
+  static Future<void> setAddressBook(List<AddressEntity> currencies) async {
+    await StorageManager.sharedPreferences.setStringList(
+      'address_book',
+      currencies.map((e) => e.toJson()).toList(),
     );
   }
 }

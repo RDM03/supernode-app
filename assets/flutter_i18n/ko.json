@@ -316,5 +316,10 @@
 	"staking": "스테이 킹",
 	"mining": "채광",
 	"calculator": "계산자",
-	"invalid_value": "잘못된 값"
+	"invalid_value": "잘못된 값",
+	"memo": "메모",
+	"address_book": "주소록",
+	"address_book_desc": "자주 사용하는 주소를 여기에 추가하지만 보안상의 이유로 새 주소를 추가하거나 삭제할 수만 있습니다.",
+	"invalid_address": "잘못된 주소",
+	"invalid_name": "잘못된 이름"
 }

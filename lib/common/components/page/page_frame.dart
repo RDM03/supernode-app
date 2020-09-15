@@ -4,8 +4,10 @@ Widget pageFrame({
   BuildContext context,
   List<Widget> children,
   EdgeInsetsGeometry padding,
+  Key scaffoldKey,
 }) {
   return Scaffold(
+    key: scaffoldKey,
     resizeToAvoidBottomInset: false,
     body: Container(
       constraints: BoxConstraints.expand(),

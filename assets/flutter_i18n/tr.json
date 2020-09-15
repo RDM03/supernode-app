@@ -316,5 +316,12 @@
 	"staking": "Stake etme",
 	"mining": "Madencilik",
 	"calculator": "Hesap makinesi",
-	"invalid_value": "geçersiz değer"
+	"invalid_value": "geçersiz değer",
+	"memo": "Not",
+	"address_book": "Adres defteri",
+	"address_book_desc": "Sık kullandığınız adresi buraya ekleyin, ancak yalnızca güvenlik nedeniyle yeni adres ekleyebilir veya adresi silebilirsiniz.",
+	"invalid_address": "Geçersiz adres",
+	"invalid_name": "Geçersiz isim",
+	"address_book_control_desc": "Sık kullandığınız adresinizi buradan kontrol edin, lütfen adresi yalnızca güvenlik nedeniyle silebileceğinizi veya ekleyebileceğinizi unutmayın.",
+	"delete_address": "Adresi sil"
 }

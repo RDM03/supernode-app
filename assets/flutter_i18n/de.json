@@ -316,5 +316,12 @@
 	"staking": "放样",
 	"mining": "矿业",
 	"calculator": "计算器",
-	"invalid_value": "Ungültiger Wert"
+	"invalid_value": "Ungültiger Wert",
+	"memo": "Memo",
+	"address_book": "Adressbuch",
+	"address_book_desc": "Fügen Sie hier Ihre häufig verwendete Adresse hinzu, aber Sie können die Adresse aus Sicherheitsgründen nur hinzufügen oder löschen.",
+	"invalid_address": "Ungültige Adresse",
+	"invalid_name": "Ungültiger Name",
+	"address_book_control_desc": "Kontrollieren Sie hier Ihre häufig verwendete Adresse. Bitte beachten Sie, dass Sie die Adresse aus Sicherheitsgründen nur löschen oder hinzufügen können.",
+	"delete_address": "Adresse löschen"
 }

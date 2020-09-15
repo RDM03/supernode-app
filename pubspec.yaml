@@ -77,6 +77,8 @@ dependencies:
   json_serializable: ^3.3.0
   # https://pub.dev/packages/font_awesome_flutter
   font_awesome_flutter: ^8.8.1
+  # https://pub.dev/packages/ethereum_address
+  ethereum_address: ^1.0.1
 
 dependency_overrides:
   local_auth:

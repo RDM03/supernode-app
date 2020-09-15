@@ -10,6 +10,9 @@ import 'package:supernodeapp/common/daos/crashes_dao.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/global_store/store.dart';
+import 'package:supernodeapp/page/address_book_page/add_address_page/page.dart';
+import 'package:supernodeapp/page/address_book_page/address_details_page/page.dart';
+import 'package:supernodeapp/page/address_book_page/page.dart';
 import 'package:supernodeapp/page/app.dart';
 import 'package:supernodeapp/page/calculator_list_page/page.dart';
 import 'package:supernodeapp/page/calculator_page/page.dart';
@@ -88,6 +91,9 @@ Widget mxcApp() {
         'device_mapbox_page': DeviceMapBoxPage(),
         'calculator_page': CalculatorPage(),
         'calculator_list_page': CalculatorListPage(),
+        'address_book_page': AddressBookPage(),
+        'add_address_page': AddAddressPage(),
+        'address_details_page': AddressDetailsPage(),
       },
       visitor: (String path, Page<Object, dynamic> page) {
         if (page.isTypeof<GlobalBaseState>()) {

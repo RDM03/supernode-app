@@ -264,5 +264,12 @@
 	"staking": "Staking",
 	"mining": "Mining",
 	"calculator": "Calculator",
-	"invalid_value": "Invalid value"
+	"invalid_value": "Invalid value",
+	"memo": "Memo",
+	"address_book": "Address Book",
+	"address_book_desc": "Add your frequently used address here, but you can only add new or delete the address due to security reasons.",
+	"invalid_address": "Invalid address",
+	"invalid_name": "Invalid name",
+	"address_book_control_desc": "Control your frequently used address here, please note you can only delete or add the address due to security reason.",
+	"delete_address": "Delete address"
 }

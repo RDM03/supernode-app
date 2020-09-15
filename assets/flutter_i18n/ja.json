@@ -316,5 +316,12 @@
 	"staking": "ステーキング",
 	"mining": "鉱業",
 	"calculator": "電卓",
-	"invalid_value": "無効な値"
+	"invalid_value": "無効な値",
+	"memo": "メモ",
+	"address_book": "住所録",
+	"address_book_desc": "頻繁に使用するアドレスをここに追加しますが、セキュリティ上の理由により、アドレスを追加または削除することしかできません。",
+	"invalid_address": "無効なアドレス",
+	"invalid_name": "無効な名前",
+	"address_book_control_desc": "ここで頻繁に使用するアドレスを制御します。セキュリティ上の理由により、アドレスの削除または追加しかできないことに注意してください。",
+	"delete_address": "住所を削除"
 }
