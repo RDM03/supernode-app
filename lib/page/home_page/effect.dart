@@ -7,6 +7,7 @@ import 'package:supernodeapp/common/daos/demo/gateways_dao.dart';
 import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
 import 'package:supernodeapp/common/daos/demo/user_dao.dart';
 import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
+import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/common/utils/navigator.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/configs/images.dart';
@@ -119,21 +120,7 @@ void _initState(Action action, Context<HomeState> ctx) async {
 }
 
 void _checkNodeStatus() async {
-  await GlobalStore.store.getState().superModel.networkLoad();
-  final node = GlobalStore.store.getState().superModel.currentNode;
-  if (node.status == 'maintenance') {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (!isCurrent(navigatorKey.currentState, 'under_maintenance_page')) {
-        navigatorKey.currentState.pushNamed('under_maintenance_page');
-      }
-    });
-  } else if (node.status == 'online') {
-    print('node online');
-  } else if (node.status == null) {
-    print('node status not set');
-  } else {
-    print('node status unknown');
-  }
+  await checkMaintenance();
 }
 
 void _build(Action action, Context<HomeState> ctx) {

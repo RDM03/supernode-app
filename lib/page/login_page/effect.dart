@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'package:supernodeapp/common/daos/demo/user_dao.dart';
+import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
@@ -94,6 +95,8 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
       hideLoading(ctx.context);
       Navigator.pushReplacementNamed(ctx.context, 'home_page');
     } catch (err) {
+      final res = await checkMaintenance();
+      if (!res) return;
       ctx.state.scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text(
           err,
@@ -128,13 +131,16 @@ void _onDemo(Action action, Context<LoginState> ctx) async {
   Navigator.pushReplacementNamed(ctx.context, 'home_page');
 }
 
-void _onSignUp(Action action, Context<LoginState> ctx) {
+void _onSignUp(Action action, Context<LoginState> ctx) async {
   var curState = ctx.state;
   if (curState.currentSuperNode == null) {
     tip(ctx.context,
         FlutterI18n.translate(ctx.context, 'reg_select_supernode'));
     return;
   }
+
+  final res = await checkMaintenance(curState.currentSuperNode);
+  if (!res) return;
 
   String apiRoot = curState.currentSuperNode.url;
   Dao.baseUrl = apiRoot;

@@ -14,7 +14,6 @@ import 'package:supernodeapp/page/home_page/action.dart';
 import 'package:supernodeapp/page/settings_page/action.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 
-
 class TokenInterceptors extends InterceptorsWrapper {
   String _token;
   RequestOptions _options;
@@ -24,8 +23,8 @@ class TokenInterceptors extends InterceptorsWrapper {
     var json = jsonDecode(options.data.toString());
 
     String otpCode = '';
-    if(json != null){
-      if(json['otp_code'] != null){
+    if (json != null) {
+      if (json['otp_code'] != null) {
         otpCode = json['otp_code'];
       }
     }
@@ -36,15 +35,14 @@ class TokenInterceptors extends InterceptorsWrapper {
         _token = authorizationCode;
         options.headers["Grpc-Metadata-Authorization"] = _token;
       }
-      if(otpCode != ''){
+      if (otpCode != '') {
         options.headers["Grpc-Metadata-X-OTP"] = otpCode;
       }
-    }
-    else{
-        options.headers["Grpc-Metadata-Authorization"] = '$_token';
-        if(otpCode != ''){
-          options.headers["Grpc-Metadata-X-OTP"] = otpCode;
-        }
+    } else {
+      options.headers["Grpc-Metadata-Authorization"] = '$_token';
+      if (otpCode != '') {
+        options.headers["Grpc-Metadata-X-OTP"] = otpCode;
+      }
     }
     return options;
   }
@@ -53,7 +51,8 @@ class TokenInterceptors extends InterceptorsWrapper {
   onResponse(Response response) async {
     try {
       var responseJson = response.data;
-      if (response.statusCode == 200 && responseJson[Config.TOKEN_KEY] != null) {
+      if (response.statusCode == 200 &&
+          responseJson[Config.TOKEN_KEY] != null) {
         _token = responseJson[Config.TOKEN_KEY];
         StorageManager.sharedPreferences.setString(Config.TOKEN_KEY, _token);
       }
@@ -67,7 +66,8 @@ class TokenInterceptors extends InterceptorsWrapper {
   onError(DioError err) async {
     var errRes = err.response;
 
-    if(errRes != null && errRes.toString().contains(new RegExp(r'jwt|authentication'))){
+    if (errRes != null &&
+        errRes.toString().contains(new RegExp(r'jwt|authentication'))) {
       /// when token is expired, it needs to start to login.
       Dao.ctx.dispatch(HomeActionCreator.onReLogin());
     } /* else if (Dao.ctx?.context != null && errRes.statusCode == 401 || errRes.toString().contains('not authenticated')) {
@@ -75,8 +75,9 @@ class TokenInterceptors extends InterceptorsWrapper {
       if (settingsData?.userId != null && settingsData.userId.isNotEmpty) {
         await logOut(Dao.ctx.context);
       }
-    } */ else if (Dao.ctx?.context != null) {
-      tip(Dao.ctx.context, FlutterI18n.translate(Dao.ctx.context,'error_tip'));
+    } */
+    else if (Dao.ctx?.context != null) {
+      //tip(Dao.ctx.context, FlutterI18n.translate(Dao.ctx.context,'error_tip'));
     }
 
     SettingsState settingsData = GlobalStore.store.getState().settings;
@@ -84,18 +85,19 @@ class TokenInterceptors extends InterceptorsWrapper {
     String userName = settingsData?.username ?? '';
     var errorData = errRes?.data;
 
-    if(userName == null || userName.isEmpty){
-      if(_options.path == '/api/internal/login' && _options.data != null){
+    if (userName == null || userName.isEmpty) {
+      if (_options.path == '/api/internal/login' && _options.data != null) {
         userName = JsonDecoder().convert(_options.data)['username'];
       }
     }
-    if(errorData == null){
+    if (errorData == null) {
       errorData = {
         'code': err.response?.statusCode ?? '500',
         'message': err.message
       };
     }
-    CrashesDao().upload(errorData,userId: '$userName-$userId',options: _options);
+    CrashesDao()
+        .upload(errorData, userId: '$userName-$userId', options: _options);
 
     return err;
   }
@@ -108,7 +110,8 @@ class TokenInterceptors extends InterceptorsWrapper {
 
   ///获取授权token
   getAuthorization() async {
-    String token = StorageManager?.sharedPreferences?.getString(Config.TOKEN_KEY);
+    String token =
+        StorageManager?.sharedPreferences?.getString(Config.TOKEN_KEY);
     log('${Config.TOKEN_KEY}=$token');
     if (token == null) {
       return Null;
