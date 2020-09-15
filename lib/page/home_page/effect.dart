@@ -118,7 +118,8 @@ void _initState(Action action, Context<HomeState> ctx) async {
   await _gatewaysLocations(ctx);
 }
 
-void _checkNodeStatus() {
+void _checkNodeStatus() async {
+  await GlobalStore.store.getState().superModel.networkLoad();
   final node = GlobalStore.store.getState().superModel.currentNode;
   if (node.status == 'maintenance') {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {

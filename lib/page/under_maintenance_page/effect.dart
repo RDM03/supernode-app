@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/common/daos/supernode_dao.dart';
+import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/data/super_node_bean.dart';
 import 'package:supernodeapp/global_store/store.dart';
 
@@ -12,7 +13,12 @@ import 'state.dart';
 Effect<UnderMaintenanceState> buildEffect() {
   return combineEffects(<Object, Effect<UnderMaintenanceState>>{
     UnderMaintenanceAction.refresh: _refresh,
+    UnderMaintenanceAction.logOut: _logOut,
   });
+}
+
+void _logOut(Action action, Context<UnderMaintenanceState> ctx) async {
+  await logOut(ctx.context);
 }
 
 void _refresh(Action action, Context<UnderMaintenanceState> ctx) async {

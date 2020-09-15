@@ -1,17 +1,17 @@
-import 'dart:convert';
-
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
+import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/page/under_maintenance_page/action.dart';
 import 'state.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class _UnderMaintenancePageView extends StatelessWidget {
   final VoidCallback onRefresh;
+  final VoidCallback onLogOut;
   final bool loading;
-  _UnderMaintenancePageView({this.onRefresh, this.loading});
+  _UnderMaintenancePageView({this.onRefresh, this.onLogOut, this.loading});
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +53,15 @@ class _UnderMaintenancePageView extends StatelessWidget {
                   onTap: loading ? null : onRefresh,
                   buttonTitle: FlutterI18n.translate(context, 'refresh'),
                 ),
+                SizedBox(height: 5),
+                GestureDetector(
+                  key: ValueKey('logOutButton'),
+                  onTap: loading ? null : onLogOut,
+                  child: Text(
+                    FlutterI18n.translate(context, 'logout'),
+                    style: kMiddleFontOfGrey,
+                  ),
+                ),
                 Spacer(),
               ],
             ),
@@ -67,6 +76,7 @@ Widget buildView(
     UnderMaintenanceState state, Dispatch dispatch, ViewService viewService) {
   return _UnderMaintenancePageView(
     onRefresh: () => dispatch(UnderMaintenanceActionCreator.refresh()),
+    onLogOut: () => dispatch(UnderMaintenanceActionCreator.logOut()),
     loading: state.loading,
   );
 }
