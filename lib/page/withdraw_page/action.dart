@@ -11,6 +11,8 @@ enum WithdrawAction {
   balance,
   status,
   onAddressBook,
+  goToConfirmation,
+  setConfirmation,
 }
 
 class WithdrawActionCreator {
@@ -52,5 +54,13 @@ class WithdrawActionCreator {
 
   static Action onSubmit() {
     return const Action(WithdrawAction.onSubmit);
+  }
+
+  static Action setConfirmation(DateTime confirmationTime) {
+    return Action(WithdrawAction.setConfirmation, payload: confirmationTime);
+  }
+
+  static Action goToConfirmation() {
+    return Action(WithdrawAction.goToConfirmation);
   }
 }

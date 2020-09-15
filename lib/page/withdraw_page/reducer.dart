@@ -11,6 +11,7 @@ Reducer<WithdrawState> buildReducer() {
       WithdrawAction.isEnabled: _isEnabled,
       WithdrawAction.balance: _balance,
       WithdrawAction.status: _status,
+      WithdrawAction.setConfirmation: _setConfirmation,
     },
   );
 }
@@ -19,16 +20,14 @@ WithdrawState _address(WithdrawState state, Action action) {
   String address = action.payload;
   final WithdrawState newState = state.clone();
 
-  return newState
-    ..addressCtl.text = address;
+  return newState..addressCtl.text = address;
 }
 
 WithdrawState _isEnabled(WithdrawState state, Action action) {
   bool isEnabled = action.payload;
 
   final WithdrawState newState = state.clone();
-  return newState
-    ..isEnabled = isEnabled;
+  return newState..isEnabled = isEnabled;
 }
 
 WithdrawState _fee(WithdrawState state, Action action) {
@@ -36,8 +35,7 @@ WithdrawState _fee(WithdrawState state, Action action) {
 
   final WithdrawState newState = state.clone();
 
-  return newState
-    ..fee = fee;
+  return newState..fee = fee;
 }
 
 WithdrawState _balance(WithdrawState state, Action action) {
@@ -45,8 +43,7 @@ WithdrawState _balance(WithdrawState state, Action action) {
 
   final WithdrawState newState = state.clone();
 
-  return newState
-    ..balance = balance;
+  return newState..balance = balance;
 }
 
 WithdrawState _status(WithdrawState state, Action action) {
@@ -54,6 +51,11 @@ WithdrawState _status(WithdrawState state, Action action) {
 
   final WithdrawState newState = state.clone();
 
-  return newState
-    ..status = status;
+  return newState..status = status;
+}
+
+WithdrawState _setConfirmation(WithdrawState state, Action action) {
+  final WithdrawState newState = state.clone();
+
+  return newState..confirmTime = action.payload;
 }

@@ -319,10 +319,16 @@
 	"memo": "Not",
 	"address_book": "Adres defteri",
 	"address_book_desc": "Sık kullandığınız adresi buraya ekleyin, ancak yalnızca güvenlik nedeniyle yeni adres ekleyebilir veya adresi silebilirsiniz.",
-	"invalid_address": "Geçersiz adres",
 	"invalid_name": "Geçersiz isim",
 	"address_book_control_desc": "Sık kullandığınız adresinizi buradan kontrol edin, lütfen adresi yalnızca güvenlik nedeniyle silebileceğinizi veya ekleyebileceğinizi unutmayın.",
 	"delete_address": "Adresi sil",
 	"connectivity_lost": "İnternet bağlantısı yok. Wi-Fi veya mobil verinin açık olduğundan emin olun, ardından tekrar deneyin.",
-	"duration_days": "gün cinsinden süre - {0}"
+	"duration_days": "gün cinsinden süre - {0}",
+	"confirm_withdrawal": "Para Çekmeyi Onayla",
+	"check_recipient_address": "Lütfen tam olarak girdiğiniz adres olduğundan emin olmak için alıcı adresini dikkatlice kontrol edin.",
+	"amount": "Miktar",
+	"fee": "peri",
+	"recepient": "Alıcı",
+	"submit": "Sunmak",
+	"invalid_address": "Geçersiz adres"
 }

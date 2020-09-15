@@ -319,11 +319,16 @@
 	"memo": "Bản ghi nhớ",
 	"address_book": "Sổ địa chỉ",
 	"address_book_desc": "Thêm địa chỉ thường dùng của bạn tại đây, nhưng bạn chỉ có thể thêm mới hoặc xóa địa chỉ vì lý do bảo mật.",
-	"invalid_address": "Địa chỉ không hợp lệ",
 	"invalid_name": "Tên không hợp lệ",
 	"address_book_control_desc": "Kiểm soát địa chỉ thường dùng của bạn tại đây, xin lưu ý rằng bạn chỉ có thể xóa hoặc thêm địa chỉ vì lý do bảo mật.",
 	"delete_address": "Xóa địa chỉ",
 	"refresh": "Làm tươi",
 	"connectivity_lost": "Không có kết nối Internet. Đảm bảo rằng Wi-Fi hoặc dữ liệu di động đã được bật, sau đó thử lại.",
-	"duration_days": "thời gian tính bằng ngày - {0}"
+	"confirm_withdrawal": "Xác nhận Rút tiền",
+	"check_recipient_address": "Vui lòng kiểm tra kỹ địa chỉ người nhận để đảm bảo rằng đó chính xác là những gì bạn đã nhập.",
+	"amount": "Số tiền",
+	"fee": "nàng tiên",
+	"recepient": "Người nhận",
+	"submit": "Gửi đi",
+	"invalid_address": "Địa chỉ không hợp lệ"
 }

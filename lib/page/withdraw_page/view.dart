@@ -1,3 +1,4 @@
+import 'package:ethereum_address/ethereum_address.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -79,12 +80,11 @@ Widget buildView(
         ),
       ),
     ),
-    state.isEnabled
-        ? submitButton(FlutterI18n.translate(_ctx, 'submit_request'),
-            onPressed: () => dispatch(
-                WithdrawActionCreator.onEnterSecurityWithdrawContinue()))
-        : submitButton(FlutterI18n.translate(_ctx, 'required_2FA'),
-            onPressed: () => dispatch(WithdrawActionCreator.onGotoSet2FA())),
+    submitButton(
+      FlutterI18n.translate(_ctx, 'submit_request'),
+      onPressed: () => dispatch(WithdrawActionCreator.goToConfirmation()),
+      key: ValueKey('preconfirmationButton'),
+    ),
   ]);
 }
 

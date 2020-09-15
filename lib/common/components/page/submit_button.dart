@@ -8,6 +8,7 @@ Widget submitButton(String label,
     margin: EdgeInsets.only(top: top),
     key: key,
     child: FlatButton(
+      key: key,
       onPressed: onPressed,
       color: Color.fromARGB(0, 0, 0, 0),
       shape: RoundedRectangleBorder(

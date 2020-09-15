@@ -319,9 +319,14 @@
 	"memo": "메모",
 	"address_book": "주소록",
 	"address_book_desc": "자주 사용하는 주소를 여기에 추가하지만 보안상의 이유로 새 주소를 추가하거나 삭제할 수만 있습니다.",
-	"invalid_address": "잘못된 주소",
 	"invalid_name": "잘못된 이름",
 	"refresh": "새롭게 하다",
 	"connectivity_lost": "인터넷에 연결되지 않음. Wi-Fi 또는 모바일 데이터가 켜져 있는지 확인한 다음 다시 시도하세요.",
-	"duration_days": "일의 기간 - {0}"
+	"confirm_withdrawal": "출금 확인",
+	"check_recipient_address": "받는 사람 주소를주의 깊게 확인하여 입력 한 주소와 정확히 일치하는지 확인하십시오.",
+	"amount": "양",
+	"fee": "요정",
+	"recepient": "받는 사람",
+	"submit": "제출",
+	"invalid_address": "잘못된 주소"
 }

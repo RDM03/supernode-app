@@ -319,11 +319,16 @@
 	"memo": "备忘录",
 	"address_book": "地址簿",
 	"address_book_desc": "在此处添加您经常使用的地址，但是由于安全原因，您只能添加或删除该地址。",
-	"invalid_address": "无效地址",
 	"invalid_name": "名称无效",
 	"address_book_control_desc": "在此处控制您经常使用的地址，请注意，出于安全原因，您只能删除或添加地址。",
 	"delete_address": "删除地址",
 	"refresh": "刷新",
 	"connectivity_lost": "没有网络连接。 确保已打开Wi-Fi或移动数据，然后重试。",
-	"duration_days": "持续天数 - {0}"
+	"confirm_withdrawal": "确认提款",
+	"check_recipient_address": "请仔细检查收件人地址，以确保它是您输入的准确地址。",
+	"amount": "量",
+	"fee": "仙女",
+	"recepient": "接受者",
+	"submit": "提交",
+	"invalid_address": "无效地址"
 }
