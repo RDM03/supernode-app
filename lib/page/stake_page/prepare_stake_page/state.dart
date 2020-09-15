@@ -14,6 +14,9 @@ class PrepareStakeState implements Cloneable<PrepareStakeState> {
   double balance;
   Color iconColor;
   String stakeName;
+  double rateFlex;
+  double estimatedRate;
+  int marketingBoost;
 
   DateTime get endDate {
     final curDate = DateTime.now();
@@ -33,7 +36,10 @@ class PrepareStakeState implements Cloneable<PrepareStakeState> {
       ..revenueRate = revenueRate
       ..balance = balance
       ..iconColor = iconColor
-      ..stakeName = stakeName;
+      ..stakeName = stakeName
+      ..rateFlex = rateFlex
+      ..estimatedRate = estimatedRate
+      ..marketingBoost = marketingBoost;
   }
 }
 
@@ -44,6 +50,14 @@ PrepareStakeState initState(Map<String, dynamic> args) {
   double revenueRate = args['revenueRate'];
   Color iconColor = args['iconColor'] ?? Color(0xFF1C1478);
   String stakeName = args['stakeName'];
+  double rateFlex = args['rateFlex'] ?? 0;
+  int marketingBoost = args['marketingBoost'] ?? 1;
+  final flexPercent = (rateFlex - 1) * 100;
+
+  final boostRate = (((revenueRate - 1) * 100).roundToDouble() / 100);
+  final estimatedRateFull = flexPercent + (flexPercent * boostRate);
+
+  double estimatedRate = (estimatedRateFull * 1000).roundToDouble() / 1000;
 
   return PrepareStakeState()
     ..isDemo = isDemo
@@ -52,5 +66,8 @@ PrepareStakeState initState(Map<String, dynamic> args) {
     ..revenueRate = revenueRate
     ..iconColor = iconColor
     ..stakeName = stakeName
+    ..rateFlex = rateFlex
+    ..estimatedRate = estimatedRate
+    ..marketingBoost = marketingBoost
     ..amountCtl = TextEditingController(text: '0');
 }

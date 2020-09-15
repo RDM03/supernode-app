@@ -114,6 +114,17 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
           panelFrame(
             child: summaryRow(
               loading: state.loading,
+              image: AppImages.gateways,
+              title: FlutterI18n.translate(_ctx, 'total_gateways'),
+              number: '${state.gatewaysTotal}',
+              subtitle: FlutterI18n.translate(_ctx, 'profit'),
+              price:
+                  '${Tools.priceFormat(state.gatewaysRevenue)} MXC (${Tools.priceFormat(state.gatewaysUSDRevenue)} USD)',
+            ),
+          ),
+          panelFrame(
+            child: summaryRow(
+              loading: state.loading,
               image: AppImages.devices,
               title: FlutterI18n.translate(_ctx, 'total_devices'),
               number: '${state.devicesTotal}',

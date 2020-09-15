@@ -266,9 +266,10 @@
 	"unstaked": "Unstaked",
 	"choose_unstake": "UnStake'e devam etmek için Stake varlıklarınızı seçin.",
 	"staking_trade_tip_2": "{1} Aylık Stake ile gelirinizi% {0} artırın. Lütfen unutmayın, bu süre içinde Paydan Çıkamayacaksınız.",
+	"staking_trade_tip_2_ver2": "Gelirinizi {1} Aylık Hisse artırın. Lütfen unutmayın, bu süre içinde Paydan Çıkamayacaksınız.",
 	"staking_trade_tip_regular": "Normal gelir oranının ve istediğiniz zaman UnStake'in keyfini çıkarın.",
 	"estimated_rate": "Tahmini Oran",
-	"boost_formula": "Aylık Oran + (Cari Oran * {0} Artış)",
+	"boost_formula": "Aylık Oran + (Cari Oran * Artış)",
 	"stake_now": "Şimdi bahis yap",
 	"gains_start": "Kazançlar başlar",
 	"gains_stop": "Kazançlar durur",
@@ -279,5 +280,6 @@
 	"mxc_vault": "MXC Kasası",
 	"boost": "Boost",
 	"mega_boost": "Mega Güçlendirme",
-	"flex_stake": "Esnek Bahis"
+	"flex_stake": "Esnek Bahis",
+	"standard_boost": "Standart Güçlendirme"
 }

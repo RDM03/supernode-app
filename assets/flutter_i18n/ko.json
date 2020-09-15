@@ -266,9 +266,10 @@
 	"unstaked": "언 스테이 킹",
 	"choose_unstake": "언 스테이크를 진행하려면 스테이크 자산을 선택하십시오.",
 	"staking_trade_tip_2": "{1} 개월 지분으로 수익을 {0} %까지 늘리십시오. 이 기간 내에는 언 스테이 킹이 불가능합니다.",
+	"staking_trade_tip_2_ver2": "{1} 개월 지분으로 수익을 늘리십시오. 이 기간 내에는 언 스테이 킹이 불가능합니다.",
 	"staking_trade_tip_regular": "원할 때 언제든지 일반 수익률과 UnStake를 즐기십시오.",
 	"estimated_rate": "예상 요금",
-	"boost_formula": "월간 요금 + (현재 요금 * {0} 부스트)",
+	"boost_formula": "월간 요금 + (현재 요금 * 부스트)",
 	"stake_now": "지금 스테이크",
 	"gains_start": "이득 시작",
 	"gains_stop": "이득 중지",
@@ -279,5 +280,6 @@
 	"mxc_vault": "MXC Vault",
 	"boost": "후원",
 	"mega_boost": "메가 부스트",
-	"flex_stake": "플렉스 스테이크"
+	"flex_stake": "플렉스 스테이크",
+	"standard_boost": "표준 부스트"
 }

@@ -3,7 +3,6 @@ import 'dao.dart';
 import 'mock.dart';
 
 class StakeApi {
-  static const String amount = '/api/staking/{orgId}/activestakes';
   static const String stake = '/api/staking/{orgId}/stake';
   static const String unstake = '/api/staking/{orgId}/unstake';
   static const String history = '/api/staking/{orgId}/history';
@@ -13,13 +12,6 @@ class StakeApi {
 }
 
 class StakeDao extends Dao {
-  //remote
-  Future<dynamic> amount(String orgId) {
-    return get(
-      url: Api.url(StakeApi.amount, orgId),
-    );
-  }
-
   Future<dynamic> stake(Map data) {
     return post(url: Api.url(StakeApi.stake, data['orgId']), data: data)
         .then((res) => res);

@@ -266,9 +266,10 @@
 	"unstaked": "Chưa đóng dấu",
 	"choose_unstake": "Chọn tài sản Stake của bạn để tiếp tục UnStake.",
 	"staking_trade_tip_2": "Tăng doanh thu của bạn lên {0}% bằng Cổ phần {1} tháng. Xin lưu ý, bạn sẽ không thể Hủy tham gia trong khoảng thời gian này.",
+	"staking_trade_tip_2_ver2": "Tăng doanh thu của bạn bằng Cổ phần {1} tháng. Xin lưu ý, bạn sẽ không thể Hủy đăng ký trong khoảng thời gian này.",
 	"staking_trade_tip_regular": "Tận hưởng tỷ lệ doanh thu thường xuyên và Bỏ tiền ra bất cứ lúc nào bạn muốn.",
 	"estimated_rate": "Tỷ lệ ước tính",
-	"boost_formula": "Tỷ lệ hàng tháng + (Tỷ lệ hiện tại * Tăng {0})",
+	"boost_formula": "Tỷ lệ hàng tháng + (Tỷ lệ hiện tại * Tăng)",
 	"stake_now": "Đặt cọc ngay bây giờ",
 	"gains_start": "Bắt đầu đạt được",
 	"gains_stop": "Đạt được điểm dừng",
@@ -279,5 +280,6 @@
 	"mxc_vault": "MXC Vault",
 	"boost": "Tăng cường",
 	"mega_boost": "Tăng cường Mega",
-	"flex_stake": "Cổ phần Flex"
+	"flex_stake": "Cổ phần Flex",
+	"standard_boost": "Tăng chuẩn"
 }

@@ -266,9 +266,10 @@
 	"unstaked": "Unbesetzt",
 	"choose_unstake": "Wählen Sie Ihre Stake-Assets aus, um mit UnStake fortzufahren.",
 	"staking_trade_tip_2": "Steigern Sie Ihren Umsatz bis zum {1}-Monats-Einsatz auf {0}%. Bitte beachten Sie, dass Sie innerhalb dieses Zeitraums nicht abheben können.",
+	"staking_trade_tip_2_ver2": "Steigern Sie Ihren Umsatz um {1} Monate. Bitte beachten Sie, dass Sie innerhalb dieses Zeitraums nicht abheben können.",
 	"staking_trade_tip_regular": "Genießen Sie die reguläre Umsatzrate und UnStake, wann immer Sie möchten.",
 	"estimated_rate": "Geschätzte Rate",
-	"boost_formula": "Monatsrate + (Aktuelle Rate * {0} Boost)",
+	"boost_formula": "Monatsrate + (Aktuelle Rate * Boost)",
 	"stake_now": "Jetzt einsetzen",
 	"gains_start": "Gewinne beginnen",
 	"gains_stop": "Gewinne stoppen",
@@ -279,5 +280,6 @@
 	"mxc_vault": "MXC-Tresor",
 	"boost": "Boost",
 	"mega_boost": "Mega Boost",
-	"flex_stake": "Flex Stake"
+	"flex_stake": "Flex Stake",
+	"standard_boost": "Standard Boost"
 }

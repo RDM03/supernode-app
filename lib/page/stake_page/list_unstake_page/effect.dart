@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/daos/app_dao.dart';
 import 'package:supernodeapp/common/daos/demo/stake_dao.dart';

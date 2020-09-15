@@ -266,9 +266,10 @@
 	"unstaked": "固定されていない",
 	"choose_unstake": "アンステークを続行するには、ステーク資産を選択してください。",
 	"staking_trade_tip_2": "{1}か月の賭けまでに収益を{0}％に増やしましょう この期間中はアンステークできませんのでご注意ください。",
+	"staking_trade_tip_2_ver2": "収益を{1}か月間引き上げる。 この期間中はアンステークできませんのでご注意ください。",
 	"staking_trade_tip_regular": "通常の収益率とUnStakeをいつでもお楽しみいただけます。",
 	"estimated_rate": "推定レート",
-	"boost_formula": "月間レート+（現在のレート* {0}ブースト）",
+	"boost_formula": "月間レート+（現在のレート* ブースト）",
 	"stake_now": "今賭け",
 	"gains_start": "ゲインスタート",
 	"gains_stop": "ゲインストップ",
@@ -279,5 +280,6 @@
 	"mxc_vault": "MXCボールト",
 	"boost": "ブースト",
 	"mega_boost": "メガブースト",
-	"flex_stake": "フレックスステーク"
+	"flex_stake": "フレックスステーク",
+	"standard_boost": "標準ブースト"
 }

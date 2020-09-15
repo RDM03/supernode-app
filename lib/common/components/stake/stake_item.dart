@@ -114,6 +114,7 @@ class StakeItem extends StatelessWidget {
 
   final Color iconColor;
   final int months;
+  final bool showLockOpenIcon;
 
   StakeItem({
     this.onTap,
@@ -126,6 +127,7 @@ class StakeItem extends StatelessWidget {
     this.isLast,
     this.iconColor,
     this.months,
+    this.showLockOpenIcon = true,
   });
 
   factory StakeItem.fromStake(Stake stake,
@@ -166,6 +168,16 @@ class StakeItem extends StatelessWidget {
       iconColor = stake12Color;
     }
 
+    var showLockOpenIcon = false;
+    if ((stake.lockTill == null || stake.lockTill.isBefore(DateTime.now())) &&
+        stake.endTime == null) {
+      showLockOpenIcon = true;
+    }
+
+    if (months == null && stake.endTime == null) {
+      showLockOpenIcon = true;
+    }
+
     return StakeItem(
       amount: amount,
       durationDays: durationDays,
@@ -177,6 +189,7 @@ class StakeItem extends StatelessWidget {
       isLast: isLast,
       iconColor: iconColor,
       onTap: onTap,
+      showLockOpenIcon: showLockOpenIcon,
     );
   }
 
@@ -229,8 +242,7 @@ class StakeItem extends StatelessWidget {
                           Container(
                             padding: kRoundRow5.copyWith(top: 2, bottom: 2),
                             child: Icon(
-                              lockTill == null ||
-                                      lockTill.isBefore(DateTime.now())
+                              showLockOpenIcon
                                   ? Icons.lock_open
                                   : Icons.lock_outline,
                               size: 24,

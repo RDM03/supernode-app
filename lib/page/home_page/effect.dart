@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/common/components/loading.dart';
@@ -245,11 +246,20 @@ Future<void> _stakeAmount(Context<HomeState> ctx, String orgId) async {
   try {
     StakeDao dao = _buildStakeDao(ctx);
 
-    var res = await dao.amount(orgId);
+    final res = await dao.activestakes({
+      "orgId": orgId,
+    });
+
     mLog('StakeDao amount', res);
     double amount = 0;
     if (res.containsKey('actStake') && res['actStake'] != null) {
-      amount = Tools.convertDouble(res['actStake']['amount']);
+      final list = res['actStake'] as List;
+      var sum = Decimal.zero;
+      for (final stake in list) {
+        final stakeAmount = Decimal.parse(stake['amount']);
+        sum += stakeAmount;
+      }
+      amount = sum.toDouble();
     }
 
     ctx.dispatch(HomeActionCreator.stakedAmount(amount));

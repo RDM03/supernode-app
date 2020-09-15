@@ -58,10 +58,13 @@ Widget buildView(
                 Text(
                   state.months == null
                       ? FlutterI18n.translate(_ctx, 'staking_trade_tip_regular')
-                      : FlutterI18n.translate(_ctx, 'staking_trade_tip_2')
-                          .replaceFirst(
-                              '{0}', (state.boostRate * 100).round().toString())
-                          .replaceFirst('{1}', state.months.toString()),
+                      : (FlutterI18n.translate(
+                              _ctx,
+                              state.marketingBoost <= 0
+                                  ? 'staking_trade_tip_2_ver2'
+                                  : 'staking_trade_tip_2')
+                          .replaceFirst('{0}', state.marketingBoost.toString())
+                          .replaceFirst('{1}', state.months.toString())),
                   textAlign: TextAlign.left,
                   style: kMiddleFontOfGrey,
                 ),
@@ -82,7 +85,7 @@ Widget buildView(
             ),
             SizedBox(height: 2),
             Text(
-              '+${state.revenueRate}%',
+              '+${state.estimatedRate}%',
               style: kBigFontOfDarkBlue.copyWith(
                 fontWeight: FontWeight.w600,
                 fontSize: 20,

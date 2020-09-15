@@ -72,14 +72,18 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   first: true,
                   state: state,
                   revenueRate: state.rate24m,
+                  marketingBoost: state.rate24m == null
+                      ? null
+                      : round(state.rate24m / state.rate12m),
                 ),
                 _stakeCard(
                   context: context,
                   months: 12,
                   color: stake12Color,
-                  boostText: 'Standard',
+                  boostText: FlutterI18n.translate(context, 'standard_boost'),
                   state: state,
                   revenueRate: state.rate12m,
+                  marketingBoost: 0,
                 ),
                 _stakeCard(
                   context: context,
@@ -91,6 +95,9 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                           FlutterI18n.translate(context, 'boost'),
                   state: state,
                   revenueRate: state.rate9m,
+                  marketingBoost: state.rate9m == null
+                      ? null
+                      : round(state.rate9m / state.rate12m),
                 ),
                 _stakeCard(
                   context: context,
@@ -102,6 +109,9 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                           FlutterI18n.translate(context, 'boost'),
                   state: state,
                   revenueRate: state.rate6m,
+                  marketingBoost: state.rate6m == null
+                      ? null
+                      : round(state.rate6m / state.rate12m),
                 ),
                 _stakeCard(
                   context: context,
@@ -113,6 +123,9 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   state: state,
                   revenueRate: state.rateFlex,
                   stakeName: FlutterI18n.translate(context, 'flex_stake'),
+                  marketingBoost: state.rateFlex == null
+                      ? null
+                      : round(state.rateFlex / state.rate12m),
                 ),
               ],
             ),
@@ -136,6 +149,7 @@ Widget _stakeCard({
   bool first = false,
   String stakeName,
   StakeState state,
+  int marketingBoost,
 }) {
   return panelFrame(
     rowTop: first ? EdgeInsets.only(top: 10) : null,
@@ -150,6 +164,8 @@ Widget _stakeCard({
           'revenueRate': revenueRate,
           'iconColor': color,
           'stakeName': stakeName,
+          'rateFlex': state.rateFlex,
+          'marketingBoost': marketingBoost,
         });
         if (res ?? false) {
           Navigator.of(context).pop(true);

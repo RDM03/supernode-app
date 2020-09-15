@@ -266,9 +266,10 @@
 	"unstaked": "无抵押",
 	"choose_unstake": "选择您的权益资产以继续进行权益。",
 	"staking_trade_tip_2": "通过{1}个月的收益将您的收入提高到{0}％。 请注意，您将无法在此期间取消抵押。",
+	"staking_trade_tip_2_ver2": "将您的收入提高{1}个月。 请注意，您将无法在此期间取消抵押。",
 	"staking_trade_tip_regular": "随时随地享受正常收入率和放心。",
 	"estimated_rate": "估计费用",
-	"boost_formula": "月费率+（当前费率* {0}提升）",
+	"boost_formula": "月费率+（当前费率* 提升）",
 	"stake_now": "现在下注",
 	"gains_start": "收益开始",
 	"gains_stop": "止损",
@@ -279,5 +280,6 @@
 	"mxc_vault": "MXC保险柜",
 	"boost": "促进",
 	"mega_boost": "超级助推器",
-	"flex_stake": "弹性桩"
+	"flex_stake": "弹性桩",
+	"standard_boost": "标准升压"
 }
