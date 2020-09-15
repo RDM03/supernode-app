@@ -257,5 +257,11 @@
 	"draw": "Vẽ tranh",
 	"whats_up": "Có chuyện gì vậy?",
 	"feedback_bug": "Nó có thể được phân loại là một lỗi",
-	"feedback_bug_unstable": "Nó làm cho ứng dụng không sử dụng được"
+	"feedback_bug_unstable": "Nó làm cho ứng dụng không sử dụng được",
+	"feedback": "Phản hồi",
+	"share": "Chia sẻ",
+	"this_is_bug": "Đây là một lỗi",
+	"this_is_idea": "Đây là một ý tưởng",
+	"cancel_normalized": "Huỷ bỏ",
+	"screenshot": "Ảnh chụp màn hình"
 }

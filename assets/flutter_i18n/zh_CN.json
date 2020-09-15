@@ -257,5 +257,11 @@
 	"draw": "画",
 	"whats_up": "这是怎么回事？",
 	"feedback_bug": "可以将其归类为错误",
-	"feedback_bug_unstable": "它使该应用无法使用"
+	"feedback_bug_unstable": "它使该应用无法使用",
+	"feedback": "反馈",
+	"share": "分享",
+	"this_is_bug": "这是一个错误",
+	"this_is_idea": "这是一个主意",
+	"cancel_normalized": "取消",
+	"screenshot": "屏幕截图"
 }

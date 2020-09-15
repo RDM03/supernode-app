@@ -75,6 +75,12 @@ dependencies:
   connectivity: ^0.4.8+6
   # https://pub.dev/packages/json_serializable
   json_serializable: ^3.3.0
+  # https://pub.dev/packages/font_awesome_flutter
+  font_awesome_flutter: ^8.8.1
+  # https://pub.dev/packages/share
+  share: ^0.6.5
+  # https://pub.dev/packages/path_provider
+  path_provider: ^1.6.14
   # https://pub.dev/packages/feedback
   feedback:
     path: packages/feedback

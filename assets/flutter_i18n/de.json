@@ -256,6 +256,10 @@
 	"duration_days": "Dauer in Tagen - {0}",
 	"draw": "Zeichnen",
 	"whats_up": "Was geht?",
-	"feedback_bug": "Es kann als Fehler eingestuft werden",
-	"feedback_bug_unstable": "Es macht die App unbrauchbar"
+	"feedback": "Feedback",
+	"share": "Aktie",
+	"this_is_bug": "Dies ist ein Fehler",
+	"this_is_idea": "Das ist eine Idee",
+	"cancel_normalized": "Stornieren",
+	"screenshot": "Bildschirmfoto"
 }

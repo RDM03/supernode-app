@@ -8,12 +8,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_appcenter/flutter_appcenter.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:supernodeapp/common/components/widgets/floating_area.dart';
 import 'package:supernodeapp/common/daos/crashes_dao.dart';
 import 'package:supernodeapp/common/daos/jira_dao.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
-import 'package:supernodeapp/feedback.dart';
+import 'package:supernodeapp/page/feedback_page/feedback.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/app.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
@@ -112,103 +111,62 @@ class MxcApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tr = DatadashTranslation(() => navigatorKey.currentContext);
-    return BetterFeedback<FeedbackParams>(
-      translation: tr,
-      onFeedback: (_, __, image, params) async {
-        await submitJiraFeedback(params, image);
-        BetterFeedback.of(navigatorKey.currentContext).hide();
-      },
-      formBuilder: (s) => DatadashFeedbackWidgetForm(tr, s),
-      child: Material(
-        type: MaterialType.transparency,
-        child: Stack(
-          children: [
-            MaterialApp(
-              navigatorKey: navigatorKey,
-              localizationsDelegates: [
-                FlutterI18nDelegate(
-                    translationLoader: FileTranslationLoader(
-                  useCountryCode: true,
-                  // forcedLocale: Locale()
-                )
-                    // translationLoader: NamespaceFileTranslationLoader(
-                    //   useCountryCode: true,
-                    //   namespaces: [ 'login' ]
-                    // )
-                    ),
-                GlobalMaterialLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
-              supportedLocales: [
-                const Locale('en'),
-                const Locale.fromSubtags(languageCode: 'zh'),
-                const Locale.fromSubtags(
-                    languageCode: 'zh', scriptCode: 'Hans', countryCode: 'CN'),
-                const Locale.fromSubtags(
-                    languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
-                const Locale.fromSubtags(
-                    languageCode: 'zh', scriptCode: 'Hant', countryCode: 'HK'),
-                const Locale.fromSubtags(languageCode: 'vi'), // Vietnam
-                const Locale.fromSubtags(languageCode: 'ja'), // Japan
-                const Locale.fromSubtags(languageCode: 'ko'), // Korea
-                const Locale.fromSubtags(languageCode: 'de'), // Germany
-                const Locale.fromSubtags(languageCode: 'ru'), // Russia
-                const Locale.fromSubtags(languageCode: 'ko'), // Korea
-                const Locale.fromSubtags(languageCode: 'tr'), // Turkey
-              ],
-              theme: appTheme,
-              home: AppPage(
-                child: routes.buildPage('splash_page', null),
+    return DatadashFeedback(
+      child: MaterialApp(
+        navigatorKey: navigatorKey,
+        localizationsDelegates: [
+          FlutterI18nDelegate(
+              translationLoader: FileTranslationLoader(
+            useCountryCode: true,
+            // forcedLocale: Locale()
+          )
+              // translationLoader: NamespaceFileTranslationLoader(
+              //   useCountryCode: true,
+              //   namespaces: [ 'login' ]
+              // )
               ),
-              builder: (context, child) {
-                if (Platform.isAndroid) {
-                  return ScrollConfiguration(
-                    behavior: NoGlowBehavior(),
-                    child: child,
-                  );
-                }
-                return child;
-              },
-              onGenerateRoute: (RouteSettings settings) {
-                return MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return routes.buildPage(settings.name, settings.arguments);
-                  },
-                  settings: settings,
-                );
-              },
-            ),
-            SafeArea(
-              child: FloatingArea(
-                (_) => Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.orange,
-                    ),
-                    height: 30,
-                    width: 30,
-                    child: InkWell(
-                      child: Icon(
-                        Icons.mobile_screen_share,
-                        color: Colors.white,
-                        size: 16,
-                      ),
-                      onTap: () {
-                        BetterFeedback.of(navigatorKey.currentContext).show();
-                      },
-                    ),
-                  ),
-                ),
-                alignment: Alignment.bottomLeft,
-                initialPadding: EdgeInsets.only(bottom: 50),
-              ),
-            ),
-          ],
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: [
+          const Locale('en'),
+          const Locale.fromSubtags(languageCode: 'zh'),
+          const Locale.fromSubtags(
+              languageCode: 'zh', scriptCode: 'Hans', countryCode: 'CN'),
+          const Locale.fromSubtags(
+              languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
+          const Locale.fromSubtags(
+              languageCode: 'zh', scriptCode: 'Hant', countryCode: 'HK'),
+          const Locale.fromSubtags(languageCode: 'vi'), // Vietnam
+          const Locale.fromSubtags(languageCode: 'ja'), // Japan
+          const Locale.fromSubtags(languageCode: 'ko'), // Korea
+          const Locale.fromSubtags(languageCode: 'de'), // Germany
+          const Locale.fromSubtags(languageCode: 'ru'), // Russia
+          const Locale.fromSubtags(languageCode: 'ko'), // Korea
+          const Locale.fromSubtags(languageCode: 'tr'), // Turkey
+        ],
+        theme: appTheme,
+        home: AppPage(
+          child: routes.buildPage('splash_page', null),
         ),
+        builder: (context, child) {
+          if (Platform.isAndroid) {
+            return ScrollConfiguration(
+              behavior: NoGlowBehavior(),
+              child: child,
+            );
+          }
+          return child;
+        },
+        onGenerateRoute: (RouteSettings settings) {
+          return MaterialPageRoute(
+            builder: (BuildContext context) {
+              return routes.buildPage(settings.name, settings.arguments);
+            },
+            settings: settings,
+          );
+        },
       ),
     );
   }

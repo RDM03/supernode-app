@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+
 const kSmallFontOfWhite = TextStyle(
     color: Colors.white,
     fontFamily: "Roboto",
@@ -23,6 +24,13 @@ const kSmallFontOfGreen = TextStyle(
 
 const kSmallFontOfRed = TextStyle(
   color: Color.fromARGB(255, 255, 91, 91),
+  fontFamily: "Roboto",
+  fontSize: 12,
+  height: 1.33333,
+);
+
+const kSmallFontOfDarkBlue = TextStyle(
+  color: const Color.fromARGB(255, 28, 20, 120),
   fontFamily: "Roboto",
   fontSize: 12,
   height: 1.33333,
@@ -123,7 +131,6 @@ const kBigFontOfBlue = TextStyle(
   fontSize: 16,
   height: 1.5,
 );
-
 
 const kBigFontOfWhite = TextStyle(
   color: Colors.white,

@@ -25,4 +25,13 @@ class StorageManager {
     localStorage = LocalStorage('LocalStorage');
     await localStorage.ready;
   }
+
+  static bool showFeedback() {
+    final res = StorageManager.sharedPreferences.getBool('feedback');
+    return res ?? true;
+  }
+
+  static Future<void> setShowFeedback(bool val) async {
+    await StorageManager.sharedPreferences.setBool('feedback', val);
+  }
 }

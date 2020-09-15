@@ -1,0 +1,254 @@
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:feedback/feedback.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share/share.dart';
+import 'package:supernodeapp/common/components/buttons/primary_button.dart';
+import 'package:supernodeapp/common/components/text_field/primary_text_field.dart';
+import 'package:supernodeapp/common/daos/jira_dao.dart';
+import 'package:supernodeapp/common/utils/storage_manager_native.dart';
+import 'package:supernodeapp/main.dart';
+import 'package:supernodeapp/page/feedback_page/feedback_result.dart';
+import 'package:supernodeapp/theme/font.dart';
+
+class DatadashFeedbackWidgetForm extends StatefulWidget {
+  const DatadashFeedbackWidgetForm(this.translation, this.sendFeedback);
+  final DatadashTranslation translation;
+  final void Function(String text, FeedbackParams params) sendFeedback;
+
+  @override
+  _DatadashFeedbackWidgetFormState createState() =>
+      _DatadashFeedbackWidgetFormState();
+}
+
+class _DatadashFeedbackWidgetFormState
+    extends State<DatadashFeedbackWidgetForm> {
+  final TextEditingController textEditingController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+      decoration: BoxDecoration(),
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 255, 255, 255),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+          boxShadow: [
+            BoxShadow(
+              color: const Color.fromARGB(26, 0, 0, 0),
+              offset: Offset(0, 2),
+              blurRadius: 7,
+            ),
+          ],
+        ),
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  SizedBox(height: 20),
+                  Container(
+                    padding: EdgeInsets.only(left: 20),
+                    width: double.infinity,
+                    child: Text(
+                      widget.translation.feedbackDescriptionText,
+                      style: kMiddleFontOfBlack,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: PrimaryTextField(
+                      key: const Key('feedbackTextfield'),
+                      hint: '',
+                      controller: textEditingController,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  PrimaryButton(
+                    key: const Key('submit_feedback_button'),
+                    buttonTitle: widget.translation.submitButtonText,
+                    onTap: () => widget.sendFeedback(
+                      textEditingController.text,
+                      FeedbackParams(
+                        critical: false,
+                        title: textEditingController.text,
+                        type: null,
+                        description: 'Issue from datadash feedback system',
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 30)
+                ],
+              ),
+            ),
+            Positioned(
+              right: 5,
+              top: 10,
+              child: IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () {
+                  BetterFeedback.of(context).hide();
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DatadashTranslation extends FeedbackTranslation {
+  final BuildContext Function() context;
+  DatadashTranslation(this.context);
+
+  String translate(String key) {
+    final ctx = context();
+    if (ctx == null) return 'loading...';
+    return FlutterI18n.translate(context(), key);
+  }
+
+  @override
+  String get draw => translate('draw');
+
+  @override
+  String get feedbackDescriptionText => translate('whats_up');
+
+  @override
+  String get navigate => '???';
+
+  @override
+  String get submitButtonText => translate('done');
+}
+
+class _DatadashFeedbackInherited extends InheritedWidget {
+  final DatadashFeedbackState data;
+
+  _DatadashFeedbackInherited({
+    Key key,
+    @required Widget child,
+    @required this.data,
+  }) : super(key: key, child: child);
+
+  @override
+  bool updateShouldNotify(InheritedWidget oldWidget) {
+    return true;
+  }
+}
+
+class DatadashFeedback extends StatefulWidget {
+  final Widget child;
+  DatadashFeedback({this.child});
+
+  static DatadashFeedbackState of(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<_DatadashFeedbackInherited>()
+        .data;
+  }
+
+  @override
+  DatadashFeedbackState createState() => DatadashFeedbackState();
+}
+
+class DatadashFeedbackState extends State<DatadashFeedback> {
+  bool _showScreenshot;
+  bool get showScreenshot => _showScreenshot;
+
+  Future<void> setShowScreenshot(bool value) async {
+    setState(() => _showScreenshot = value);
+    await StorageManager.setShowFeedback(value);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _showScreenshot = StorageManager.showFeedback();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final tr = DatadashTranslation(() => navigatorKey.currentContext);
+    return _DatadashFeedbackInherited(
+      data: this,
+      child: BetterFeedback<FeedbackParams>(
+        translation: tr,
+        onFeedback: (ctx, __, image, params) async {
+          final res = await submitJiraFeedback(ctx, params, image);
+          if (!res) return;
+          BetterFeedback.of(navigatorKey.currentContext).hide();
+        },
+        formBuilder: (s) => DatadashFeedbackWidgetForm(tr, s),
+        child: Material(
+          type: MaterialType.transparency,
+          child: Stack(
+            children: [
+              widget.child,
+              if (_showScreenshot)
+                SafeArea(
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 100),
+                      child: GestureDetector(
+                        onTap: () {
+                          BetterFeedback.of(navigatorKey.currentContext).show();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.7),
+                            borderRadius: BorderRadius.horizontal(
+                              left: Radius.circular(8),
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsets.all(4).copyWith(right: 18, left: 10),
+                            child: Icon(
+                              Icons.camera_alt,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Future<bool> submitJiraFeedback(
+    BuildContext ctx, FeedbackParams params, Uint8List image) async {
+  final res = await Navigator.of(ctx).push(PageRouteBuilder(
+    pageBuilder: (_, __, ___) => FeedbackResultPage(
+        params, image, DatadashTranslation(() => navigatorKey.currentContext)),
+    opaque: false,
+  )) as FeedbackResult;
+  if (res == null) return false;
+  if (res.resultType == FeedbackResultType.feedback) {
+    params = params.copyWith(type: res.feedbackType);
+    final dao = JiraDao();
+    final issueId = await dao.createIssue(params);
+    await dao.addImage(issueId, image);
+  } else if (res.resultType == FeedbackResultType.share) {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File(
+        '${directory.path}/share_${DateTime.now().millisecondsSinceEpoch}.png');
+    await file.writeAsBytes(image);
+    Share.shareFiles([file.path], text: params.title);
+  }
+  return true;
+}
