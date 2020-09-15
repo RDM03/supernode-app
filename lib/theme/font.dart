@@ -182,3 +182,6 @@ const kRowShodow = BoxDecoration(
     ),
   ],
 );
+
+const kPrimaryBigFontOfBlack =
+    TextStyle(fontSize: 18, fontWeight: FontWeight.w600);

@@ -254,7 +254,6 @@
 	"created": "보류 중",
 	"completed": "성공",
 	"rejected": "거부",
-	"duration_days": "일의 기간 - {0}",
 	"usd": "미국 달러",
 	"btc": "비트 코인",
 	"cny": "중국 위안 인민폐",
@@ -321,5 +320,8 @@
 	"address_book": "주소록",
 	"address_book_desc": "자주 사용하는 주소를 여기에 추가하지만 보안상의 이유로 새 주소를 추가하거나 삭제할 수만 있습니다.",
 	"invalid_address": "잘못된 주소",
-	"invalid_name": "잘못된 이름"
+	"invalid_name": "잘못된 이름",
+	"refresh": "새롭게 하다",
+	"connectivity_lost": "인터넷에 연결되지 않음. Wi-Fi 또는 모바일 데이터가 켜져 있는지 확인한 다음 다시 시도하세요.",
+	"duration_days": "일의 기간 - {0}"
 }

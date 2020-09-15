@@ -16,6 +16,7 @@ import 'package:supernodeapp/page/address_book_page/page.dart';
 import 'package:supernodeapp/page/app.dart';
 import 'package:supernodeapp/page/calculator_list_page/page.dart';
 import 'package:supernodeapp/page/calculator_page/page.dart';
+import 'package:supernodeapp/page/connectivity_lost_page/page.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
 import 'package:supernodeapp/page/sign_up_page/page.dart';
 import 'package:supernodeapp/theme/colors.dart';
@@ -67,9 +68,9 @@ Future<void> main() async {
   );
 }
 
-Widget mxcApp() {
-  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
+Widget mxcApp() {
   final AbstractRoutes routes = PageRoutes(
       pages: <String, Page<Object, dynamic>>{
         'splash_page': SplashPage(),
@@ -94,6 +95,7 @@ Widget mxcApp() {
         'address_book_page': AddressBookPage(),
         'add_address_page': AddAddressPage(),
         'address_details_page': AddressDetailsPage(),
+        'connectivity_lost_page': ConnectivityLostPage(),
       },
       visitor: (String path, Page<Object, dynamic> page) {
         if (page.isTypeof<GlobalBaseState>()) {

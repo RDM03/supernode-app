@@ -254,7 +254,6 @@
 	"created": "待定",
 	"completed": "成功",
 	"rejected": "被拒绝",
-	"duration_days": "持续天数 - {0}",
 	"usd": "美元",
 	"btc": "比特币",
 	"cny": "人民币",
@@ -323,5 +322,8 @@
 	"invalid_address": "无效地址",
 	"invalid_name": "名称无效",
 	"address_book_control_desc": "在此处控制您经常使用的地址，请注意，出于安全原因，您只能删除或添加地址。",
-	"delete_address": "删除地址"
+	"delete_address": "删除地址",
+	"refresh": "刷新",
+	"connectivity_lost": "没有网络连接。 确保已打开Wi-Fi或移动数据，然后重试。",
+	"duration_days": "持续天数 - {0}"
 }

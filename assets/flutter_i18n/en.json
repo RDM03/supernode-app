@@ -255,7 +255,6 @@
 	"created": "Pending",
 	"completed": "Success",
 	"rejected": "Denied",
-	"duration_days": "duration in days - {0}",
 	"usd": "US dollar",
 	"btc": "Bitcoin",
 	"cny": "Chinese Yuan Renminbi",
@@ -324,5 +323,8 @@
 	"invalid_address": "Invalid address",
 	"invalid_name": "Invalid name",
 	"address_book_control_desc": "Control your frequently used address here, please note you can only delete or add the address due to security reason.",
-	"delete_address": "Delete address"
+	"delete_address": "Delete address",
+	"refresh": "Refresh",
+	"connectivity_lost": "No Internet connection.\nMake sure that Wi-Fi or mobile data is turned on, then try again.",
+	"duration_days": "duration in days - {0}"
 }

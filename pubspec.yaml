@@ -117,6 +117,7 @@ flutter:
     - assets/images/stake/
     - assets/images/device/
     - assets/images/calculator/currencies/
+    - assets/images/connectivity/
     - assets/others/
   #  - images/a_dot_ham.jpeg
 

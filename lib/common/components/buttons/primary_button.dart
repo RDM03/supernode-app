@@ -4,6 +4,7 @@ import 'package:supernodeapp/theme/colors.dart';
 
 class PrimaryButton extends StatelessWidget {
   PrimaryButton({
+    Key key,
     @required this.onTap,
     @required this.buttonTitle,
     this.minHeight = 36,
@@ -11,7 +12,7 @@ class PrimaryButton extends StatelessWidget {
     this.bgColor = buttonPrimaryColor,
     this.textColor = Colors.white,
     this.padding = const EdgeInsets.symmetric(vertical: 0),
-  });
+  }) : super(key: key);
 
   final Color bgColor;
   final Color textColor;

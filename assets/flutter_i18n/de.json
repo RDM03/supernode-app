@@ -254,7 +254,6 @@
 	"created": "Ausstehend",
 	"completed": "Erfolg",
 	"rejected": "Verweigert",
-	"duration_days": "Dauer in Tagen - {0}",
 	"usd": "US Dollar",
 	"btc": "Bitcoin",
 	"cny": "Chinesischer Yuan Renminbi",
@@ -323,5 +322,7 @@
 	"invalid_address": "Ungültige Adresse",
 	"invalid_name": "Ungültiger Name",
 	"address_book_control_desc": "Kontrollieren Sie hier Ihre häufig verwendete Adresse. Bitte beachten Sie, dass Sie die Adresse aus Sicherheitsgründen nur löschen oder hinzufügen können.",
-	"delete_address": "Adresse löschen"
+	"delete_address": "Adresse löschen",
+	"connectivity_lost": "Keine Internetverbindung. Stellen Sie sicher, dass Wi-Fi oder mobile Daten aktiviert sind, und versuchen Sie es erneut.",
+	"duration_days": "Dauer in Tagen - {0}"
 }

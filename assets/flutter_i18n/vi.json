@@ -254,7 +254,6 @@
 	"created": "Dang chờ xử lý",
 	"completed": "Sự thành công",
 	"rejected": "Phủ định",
-	"duration_days": "thời gian tính bằng ngày - {0}",
 	"usd": "Đô la Mỹ",
 	"btc": "Bitcoin",
 	"cny": "Nhân dân tệ của Trung Quốc",
@@ -323,5 +322,8 @@
 	"invalid_address": "Địa chỉ không hợp lệ",
 	"invalid_name": "Tên không hợp lệ",
 	"address_book_control_desc": "Kiểm soát địa chỉ thường dùng của bạn tại đây, xin lưu ý rằng bạn chỉ có thể xóa hoặc thêm địa chỉ vì lý do bảo mật.",
-	"delete_address": "Xóa địa chỉ"
+	"delete_address": "Xóa địa chỉ",
+	"refresh": "Làm tươi",
+	"connectivity_lost": "Không có kết nối Internet. Đảm bảo rằng Wi-Fi hoặc dữ liệu di động đã được bật, sau đó thử lại.",
+	"duration_days": "thời gian tính bằng ngày - {0}"
 }

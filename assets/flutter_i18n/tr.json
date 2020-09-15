@@ -254,7 +254,6 @@
 	"created": "Bekliyor",
 	"completed": "Başarı",
 	"rejected": "Inkar",
-	"duration_days": "gün cinsinden süre - {0}",
 	"usd": "Amerikan Doları",
 	"btc": "Bitcoin",
 	"cny": "Çin Yuanı Renminbi",
@@ -323,5 +322,7 @@
 	"invalid_address": "Geçersiz adres",
 	"invalid_name": "Geçersiz isim",
 	"address_book_control_desc": "Sık kullandığınız adresinizi buradan kontrol edin, lütfen adresi yalnızca güvenlik nedeniyle silebileceğinizi veya ekleyebileceğinizi unutmayın.",
-	"delete_address": "Adresi sil"
+	"delete_address": "Adresi sil",
+	"connectivity_lost": "İnternet bağlantısı yok. Wi-Fi veya mobil verinin açık olduğundan emin olun, ardından tekrar deneyin.",
+	"duration_days": "gün cinsinden süre - {0}"
 }
