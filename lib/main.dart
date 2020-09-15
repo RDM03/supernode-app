@@ -19,6 +19,10 @@ import 'package:supernodeapp/page/calculator_page/page.dart';
 import 'package:supernodeapp/page/connectivity_lost_page/page.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
 import 'package:supernodeapp/page/sign_up_page/page.dart';
+import 'package:supernodeapp/page/stake_page/confirm_stake_page/page.dart';
+import 'package:supernodeapp/page/stake_page/details_stake_page/page.dart';
+import 'package:supernodeapp/page/stake_page/list_unstake_page/page.dart';
+import 'package:supernodeapp/page/stake_page/prepare_stake_page/page.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'common/utils/no_glow_behavior.dart';
 import 'global_store/state.dart';
@@ -32,7 +36,7 @@ import 'page/deposit_page/page.dart';
 import 'page/forgot_password_page/page.dart';
 import 'page/home_page/page.dart';
 import 'page/login_page/page.dart';
-import 'page/mapbox_page//page.dart';
+import 'page/mapbox_page/page.dart';
 import 'page/settings_page/page.dart';
 import 'page/splash_page/page.dart';
 import 'page/stake_page/page.dart';
@@ -96,6 +100,10 @@ Widget mxcApp() {
         'add_address_page': AddAddressPage(),
         'address_details_page': AddressDetailsPage(),
         'connectivity_lost_page': ConnectivityLostPage(),
+        'prepare_stake_page': PrepareStakePage(),
+        'confirm_stake_page': ConfirmStakePage(),
+        'details_stake_page': DetailsStakePage(),
+        'list_unstake_page': ListUnstakePage(),
       },
       visitor: (String path, Page<Object, dynamic> page) {
         if (page.isTypeof<GlobalBaseState>()) {

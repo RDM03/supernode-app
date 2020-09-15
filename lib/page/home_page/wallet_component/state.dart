@@ -5,7 +5,6 @@ import 'package:supernodeapp/page/settings_page/organizations_component/state.da
 import 'wallet_list_adapter/wallet_item_component/state.dart';
 
 class WalletState extends MutableSource implements Cloneable<WalletState> {
-
   bool isFirstRequest = true;
   bool loading = true;
   bool loadingHistory = true;
@@ -33,15 +32,13 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   //withdraw
   double withdrawFee = 0;
 
-  List<dynamic> get _currentList => tabIndex == 0
-    ? walletList
-    : stakeList;
+  List<dynamic> get _currentList => tabIndex == 0 ? walletList : stakeList;
 
   List<StakeItemState> stakeList = [];
   List<WalletItemState> walletList = [];
 
   @override
-  Object getItemData(int index){
+  Object getItemData(int index) {
     final o = _currentList[index];
     if (o is WalletItemState) {
       o.fee = withdrawFee;
@@ -56,16 +53,19 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   int get itemCount => _currentList?.length ?? 0;
 
   @override
-  void setItemData(int index, Object data) => _currentList[index] = data; 
+  void setItemData(int index, Object data) => _currentList[index] = data;
 
   bool isDemo;
+
+  Map lastSearchData;
+  String lastSearchType;
 
   @override
   WalletState clone() {
     return WalletState()
       ..isFirstRequest = isFirstRequest
       ..loading = loading
-      ..loadingHistory= loadingHistory
+      ..loadingHistory = loadingHistory
       ..tabController = tabController
       ..walletList = walletList
       ..stakeList = stakeList
@@ -82,7 +82,9 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
       ..withdrawFee = withdrawFee
       ..firstTime = firstTime
       ..secondTime = secondTime
-      ..isDemo = isDemo;
+      ..isDemo = isDemo
+      ..lastSearchData = lastSearchData
+      ..lastSearchType = lastSearchType;
   }
 }
 

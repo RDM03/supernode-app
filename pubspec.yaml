@@ -79,6 +79,8 @@ dependencies:
   font_awesome_flutter: ^8.8.1
   # https://pub.dev/packages/ethereum_address
   ethereum_address: ^1.0.1
+  # https://pub.dev/packages/decimal
+  decimal: ^0.3.5
 
 dependency_overrides:
   local_auth:

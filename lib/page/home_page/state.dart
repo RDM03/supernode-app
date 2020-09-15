@@ -51,6 +51,8 @@ class HomeState implements Cloneable<HomeState> {
   double withdrawFee = 0;
   String firstTime = TimeDao.getDatetime(new DateTime.now(), type: 'date');
   String secondTime = TimeDao.getDatetime(new DateTime.now(), type: 'date');
+  Map lastSearchData;
+  String lastSearchType;
 
   //stake
   double stakedAmount = 0;
@@ -73,7 +75,7 @@ class HomeState implements Cloneable<HomeState> {
   int devicesTotal = 0;
   double devicesRevenue = 0;
   double devicesUSDRevenue = 0;
-  
+
   //demo
   bool isDemo;
 
@@ -129,13 +131,16 @@ class HomeState implements Cloneable<HomeState> {
       ..mapCtlProfile = mapCtlProfile
       ..miningRevenve = miningRevenve
       ..gatewayFrame = gatewayFrame
-      ..deviceSortType = deviceSortType;
+      ..deviceSortType = deviceSortType
+      ..lastSearchData = lastSearchData
+      ..lastSearchType = lastSearchType;
   }
 }
 
 HomeState initState(Map<String, dynamic> args) {
   args ??= {};
-  final bool isDemo = StorageManager.sharedPreferences.getBool(Config.DEMO_MODE) ?? false;
+  final bool isDemo =
+      StorageManager.sharedPreferences.getBool(Config.DEMO_MODE) ?? false;
 
   SettingsState settingsData = GlobalStore.store.getState().settings;
 
@@ -171,8 +176,7 @@ class UserConnector extends ConnOp<HomeState, UserState> {
 
   @override
   void set(HomeState state, UserState subState) {
-    state
-      ..mapCtl = subState.mapViewController;
+    state..mapCtl = subState.mapViewController;
   }
 }
 
@@ -240,7 +244,9 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..withdrawFee = state.withdrawFee
       ..firstTime = state.firstTime
       ..secondTime = state.secondTime
-      ..isDemo = state.isDemo;
+      ..isDemo = state.isDemo
+      ..lastSearchData = state.lastSearchData
+      ..lastSearchType = state.lastSearchType;
   }
 
   @override
@@ -260,6 +266,8 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..stakeList = subState.stakeList
       ..withdrawFee = subState.withdrawFee
       ..firstTime = subState.firstTime
-      ..secondTime = subState.secondTime;
+      ..secondTime = subState.secondTime
+      ..lastSearchData = subState.lastSearchData
+      ..lastSearchType = subState.lastSearchType;
   }
 }

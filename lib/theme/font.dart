@@ -8,6 +8,14 @@ const kSmallFontOfWhite = TextStyle(
     fontSize: 12,
     height: 1.33333,
     decoration: TextDecoration.none);
+
+const kSmallFontOfBlack = TextStyle(
+    color: Colors.black,
+    fontFamily: "Roboto",
+    fontSize: 12,
+    height: 1.33333,
+    decoration: TextDecoration.none);
+
 const kSmallFontOfGrey = TextStyle(
     color: const Color.fromARGB(138, 0, 0, 0),
     fontFamily: "Roboto",

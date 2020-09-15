@@ -18,6 +18,7 @@ Reducer<WalletState> buildReducer() {
       WalletAction.withdrawFee: _withdrawFee,
       WalletAction.firstTime: _firstTime,
       WalletAction.secondTime: _secondTime,
+      WalletAction.saveLastSearch: _saveLastSearch
     },
   );
 }
@@ -27,8 +28,7 @@ WalletState _loadingHistory(WalletState state, Action action) {
 
   final WalletState newState = state.clone();
 
-  return newState
-    ..loadingHistory = toogle;
+  return newState..loadingHistory = toogle;
 }
 
 WalletState _tab(WalletState state, Action action) {
@@ -36,7 +36,7 @@ WalletState _tab(WalletState state, Action action) {
 
   final WalletState newState = state.clone();
 
-  if(state.tabIndex == tabIndex){
+  if (state.tabIndex == tabIndex) {
     return state;
   }
 
@@ -54,18 +54,17 @@ WalletState _tabController(WalletState state, Action action) {
 
   final WalletState newState = state.clone();
 
-  return newState
-    ..tabController = controller;
+  return newState..tabController = controller;
 }
 
 WalletState _isSetDate(WalletState state, Action action) {
   final WalletState newState = state.clone();
 
-  if(state.tabIndex == 0 && !state.isSetDate1){
+  if (state.tabIndex == 0 && !state.isSetDate1) {
     return newState
       ..selectedIndexBtn1 = 2
       ..isSetDate1 = !state.isSetDate1;
-  }else if(state.tabIndex == 1 && !state.isSetDate2){
+  } else if (state.tabIndex == 1 && !state.isSetDate2) {
     return newState
       ..selectedIndexBtn2 = 2
       ..isSetDate2 = !state.isSetDate2;
@@ -79,11 +78,11 @@ WalletState _updateSelectedButton(WalletState state, Action action) {
 
   final WalletState newState = state.clone();
 
-  if(state.tabIndex == 0){
+  if (state.tabIndex == 0) {
     return newState
-    ..isSetDate1 = false
-    ..isSetDate2 = false
-    ..selectedIndexBtn1 = index;
+      ..isSetDate1 = false
+      ..isSetDate2 = false
+      ..selectedIndexBtn1 = index;
   }
 
   return newState
@@ -97,23 +96,23 @@ WalletState _updateStakeList(WalletState state, Action action) {
   String sourceType = data['type'];
   final type = sourceType.split(' ')[0];
 
-  final sourceList = (data['list'] as List).map((e) => StakeHistoryEntity.fromMap(e)).toList();
+  final sourceList =
+      (data['list'] as List).map((e) => StakeHistoryEntity.fromMap(e)).toList();
   final entityList = [];
 
   if (type == 'STAKE') {
     entityList.addAll(sourceList.where((e) => e.type == 'STAKING'));
-  }
-  else if (type == 'UNSTAKE') {
+  } else if (type == 'UNSTAKE') {
     entityList.addAll(sourceList.where((e) => e.type == 'UNSTAKING'));
-  }
-  else {
+  } else {
     entityList.addAll(sourceList);
   }
 
   final list = entityList.map((e) => StakeItemState(e, type)).toList();
 
-  list.sort((a,b) => b.historyEntity.timestamp.compareTo(a.historyEntity.timestamp));
-  if(list.length > 0) {
+  list.sort(
+      (a, b) => b.historyEntity.timestamp.compareTo(a.historyEntity.timestamp));
+  if (list.length > 0) {
     list[list.length - 1] = list[list.length - 1].copyWith(isLast: true);
   }
 
@@ -130,27 +129,24 @@ WalletState _updateWalletList(WalletState state, Action action) {
   final type = sourceType.split(' ')[0];
   List<WalletItemState> list = [];
 
-  final sourceList = (data['list'] as List).map((e) => WalletItemState.fromMap(e));
+  final sourceList =
+      (data['list'] as List).map((e) => WalletItemState.fromMap(e));
   if (type == 'STAKE') {
     list.addAll(sourceList.where((e) => e.type == 'STAKING'));
-  }
-  else if (type == 'UNSTAKE') {
+  } else if (type == 'UNSTAKE') {
     list.addAll(sourceList.where((e) => e.type == 'UNSTAKING'));
-  }
-  else if (type == 'DEPOSIT') {
+  } else if (type == 'DEPOSIT') {
     list.addAll(sourceList.where((e) => e.amount > 0));
-  }
-  else if (type == 'WITHDRAW') {
+  } else if (type == 'WITHDRAW') {
     list.addAll(sourceList.where((e) => e.amount < 0));
-  }
-  else {
+  } else {
     list.addAll(sourceList);
   }
 
   list.forEach((e) => e.type = type);
 
-  list.sort((a,b) => b.timestamp.compareTo(a.timestamp));
-  if(list.length > 0) list[list.length - 1].isLast = true;
+  list.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+  if (list.length > 0) list[list.length - 1].isLast = true;
 
   final WalletState newState = state.clone();
 
@@ -164,8 +160,7 @@ WalletState _withdrawFee(WalletState state, Action action) {
 
   final WalletState newState = state.clone();
 
-  return newState
-    ..withdrawFee = fee;
+  return newState..withdrawFee = fee;
 }
 
 WalletState _firstTime(WalletState state, Action action) {
@@ -173,8 +168,7 @@ WalletState _firstTime(WalletState state, Action action) {
 
   final WalletState newState = state.clone();
 
-  return newState
-    ..firstTime = date;
+  return newState..firstTime = date;
 }
 
 WalletState _secondTime(WalletState state, Action action) {
@@ -182,6 +176,15 @@ WalletState _secondTime(WalletState state, Action action) {
 
   final WalletState newState = state.clone();
 
+  return newState..secondTime = date;
+}
+
+WalletState _saveLastSearch(WalletState state, Action action) {
+  Map data = action.payload;
+
+  final WalletState newState = state.clone();
+
   return newState
-    ..secondTime = date;
+    ..lastSearchData = data['data']
+    ..lastSearchType = data['type'];
 }

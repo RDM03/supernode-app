@@ -46,9 +46,10 @@ Widget buildView(
               Column(children: [
                 middleColumnSpacer(),
                 titleDetailRow(
-                    loading: state.loading,
-                    name: FlutterI18n.translate(_ctx, 'current_balance'),
-                    value: Tools.priceFormat(state.balance)),
+                  loading: state.loading,
+                  name: FlutterI18n.translate(_ctx, 'current_balance'),
+                  value: Tools.priceFormat(state.balance),
+                ),
                 primaryButtons(
                   buttonLabel1: FlutterI18n.translate(_ctx, 'deposit'),
                   onTap1: () =>
@@ -70,10 +71,9 @@ Widget buildView(
                     value: Tools.priceFormat(state.totalRevenue, range: 2)),
                 primaryButtons(
                   buttonLabel1: FlutterI18n.translate(_ctx, 'stake'),
-                  onTap1: () => dispatch(HomeActionCreator.onOperate('stake')),
+                  onTap1: () => dispatch(WalletActionCreator.onStake()),
                   buttonLabel2: FlutterI18n.translate(_ctx, 'unstake'),
-                  onTap2: () =>
-                      dispatch(HomeActionCreator.onOperate('unstake')),
+                  onTap2: () => dispatch(WalletActionCreator.onUnstake()),
                 ),
               ]),
             ]),
@@ -123,17 +123,18 @@ Widget buildView(
         ),
         titleRow(FlutterI18n.translate(_ctx, 'transaction_history')),
         panelFrame(
-            rowTop: EdgeInsets.zero,
-            child: state.loadingHistory
-                ? LoadingList()
-                : (adapter.itemCount != 0
-                    ? ListView.builder(
-                        itemBuilder: adapter.itemBuilder,
-                        itemCount: adapter.itemCount,
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                      )
-                    : empty(_ctx))),
+          rowTop: EdgeInsets.zero,
+          child: state.loadingHistory
+              ? LoadingList()
+              : (adapter.itemCount != 0
+                  ? ListView.builder(
+                      itemBuilder: adapter.itemBuilder,
+                      itemCount: adapter.itemCount,
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                    )
+                  : empty(_ctx)),
+        ),
         SizedBox(
           height: 20,
         )

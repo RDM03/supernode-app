@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/common/components/loading.dart';
@@ -279,11 +280,20 @@ Future<void> _stakeAmount(
   try {
     StakeDao dao = _buildStakeDao(ctx);
 
-    var res = await dao.amount(orgId);
+    final res = await dao.activestakes({
+      "orgId": orgId,
+    });
+
     mLog('StakeDao amount', res);
     double amount = 0;
     if (res.containsKey('actStake') && res['actStake'] != null) {
-      amount = Tools.convertDouble(res['actStake']['amount']);
+      final list = res['actStake'] as List;
+      var sum = Decimal.zero;
+      for (final stake in list) {
+        final stakeAmount = Decimal.parse(stake['amount']);
+        sum += stakeAmount;
+      }
+      amount = sum.toDouble();
     }
     LocalStorageDao.saveUserData('user_$userId', {'stakedAmount': amount});
 
@@ -385,7 +395,7 @@ void _onOperate(Action action, Context<HomeState> ctx) {
   List<OrganizationsState> organizations = ctx.state.organizations;
 
   if (act == 'unstake') {
-    page = 'stake_page';
+    page = 'list_unstake_page';
   }
 
   Navigator.pushNamed(ctx.context, page, arguments: {
@@ -393,8 +403,9 @@ void _onOperate(Action action, Context<HomeState> ctx) {
     'organizations': organizations,
     'type': act,
     'stakedAmount': stakedAmount,
-    'isDemo': isDemo
+    'isDemo': isDemo,
   }).then((res) {
+    res ??= false;
     if ((page == 'stake_page' || page == 'withdraw_page') && res) {
       _profile(ctx);
     }
