@@ -91,6 +91,7 @@ Widget buildView(
             listItem(
               FlutterI18n.translate(_ctx, 'screenshot'),
               trailing: Switch(
+                activeColor: Color(0xFF1C1478),
                 value: DatadashFeedback.of(_ctx).showScreenshot,
                 onChanged: (v) =>
                     dispatch(SettingsActionCreator.onSetScreenshot(v)),
