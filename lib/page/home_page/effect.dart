@@ -141,7 +141,7 @@ void _onGateways(Action action, Context<HomeState> ctx) async {
   if (orgId == null || orgId.isEmpty)
     orgId = settingsData.organizations.first.organizationID;
   await _miningIncome(ctx, ctx.state.userId, orgId);
-  await _gateways(ctx);
+  await _gateways(ctx, ctx.state.userId);
 }
 
 Future<void> _profile(Context<HomeState> ctx) async {
@@ -150,6 +150,13 @@ Future<void> _profile(Context<HomeState> ctx) async {
 
   try {
     UserDao dao = _buildUserDao(ctx);
+    SettingsState settingsData = GlobalStore.store.getState().settings;
+    bool dataPreloaded = false;
+    if (settingsData.userId != null) {
+      _loadUserData(ctx, settingsData.userId);
+      dataPreloaded = true;
+    }
+
     var res = await dao.profile();
 
     mLog('profile', res);
@@ -161,7 +168,7 @@ Future<void> _profile(Context<HomeState> ctx) async {
           .add(OrganizationsState.fromMap(res['organizations'][index]));
     }
 
-    SettingsState settingsData = GlobalStore.store.getState().settings;
+    settingsData = GlobalStore.store.getState().settings;
     settingsData.userId = userData.id;
     settingsData.organizations = organizationsData;
     settingsData.isDemo = userData.isDemo;
@@ -175,20 +182,43 @@ Future<void> _profile(Context<HomeState> ctx) async {
 
     String orgId = settingsData.selectedOrganizationId;
 
+    if (!dataPreloaded) {
+      _loadUserData(ctx, userData.id);
+    }
+
     // Gain user's finance situation
     await _balance(ctx, userData, orgId);
     await _miningIncome(ctx, userData.id, orgId);
-    await _stakeAmount(ctx, orgId);
-    await _stakingRevenue(ctx, orgId);
+    await _stakeAmount(ctx, userData.id, orgId);
+    await _stakingRevenue(ctx, userData.id, orgId);
 
     // Request gateways' amount and location
-    await _gateways(ctx);
+    await _gateways(ctx, userData.id);
 
     // await _devices(ctx,userData,orgId);
   } catch (e) {
     ctx.dispatch(HomeActionCreator.loading(false));
     ctx.dispatch(HomeActionCreator.onReLogin());
   }
+}
+
+void _loadUserData(Context<HomeState> ctx, String userDataId) {
+  var data = LocalStorageDao.loadUserData('user_$userDataId');
+  data ??= {};
+
+  if (data['balance'] != null)
+    ctx.dispatch(HomeActionCreator.balance(data['balance']));
+  if (data['miningIncome'] != null)
+    ctx.dispatch(HomeActionCreator.miningIncome(data['miningIncome']));
+  if (data['stakedAmount'] != null)
+    ctx.dispatch(HomeActionCreator.stakedAmount(data['stakedAmount']));
+  if (data['totalRevenue'] != null)
+    ctx.dispatch(HomeActionCreator.totalRevenue(data['totalRevenue']));
+  if (data['usd_gateway'] != null)
+    ctx.dispatch(
+        HomeActionCreator.convertUSD('usd_gateway', data['totalRevenue']));
+
+  print(data);
 }
 
 Future<void> _balance(
@@ -225,6 +255,7 @@ Future<void> _miningIncome(
     if ((res as Map).containsKey('miningIncome')) {
       value = Tools.convertDouble(res['miningIncome']);
     }
+    LocalStorageDao.saveUserData('user_$userId', {'miningIncome': value});
 
     ctx.dispatch(HomeActionCreator.miningIncome(value));
 
@@ -234,14 +265,15 @@ Future<void> _miningIncome(
       'currency': '',
       'mxcPrice': '${value == 0.0 ? value.toInt() : value}'
     };
-    await _convertUSD(ctx, priceData, 'gateway');
+    await _convertUSD(ctx, userId, priceData, 'gateway');
   } catch (err) {
     ctx.dispatch(HomeActionCreator.loading(false));
     // tip(ctx.context, 'WalletDao miningInfo: $err');
   }
 }
 
-Future<void> _stakeAmount(Context<HomeState> ctx, String orgId) async {
+Future<void> _stakeAmount(
+    Context<HomeState> ctx, String userId, String orgId) async {
   assert(orgId.isNotEmpty);
 
   try {
@@ -253,6 +285,7 @@ Future<void> _stakeAmount(Context<HomeState> ctx, String orgId) async {
     if (res.containsKey('actStake') && res['actStake'] != null) {
       amount = Tools.convertDouble(res['actStake']['amount']);
     }
+    LocalStorageDao.saveUserData('user_$userId', {'stakedAmount': amount});
 
     ctx.dispatch(HomeActionCreator.stakedAmount(amount));
   } catch (err) {
@@ -261,7 +294,7 @@ Future<void> _stakeAmount(Context<HomeState> ctx, String orgId) async {
   }
 }
 
-Future<void> _gateways(Context<HomeState> ctx) async {
+Future<void> _gateways(Context<HomeState> ctx, String userId) async {
   try {
     GatewaysDao dao = _buildGatewaysDao(ctx);
     String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
@@ -310,6 +343,7 @@ Future<void> _gateways(Context<HomeState> ctx) async {
       }
     }
 
+    LocalStorageDao.saveUserData('user_$userId', {'gatewaysTotal': total});
     ctx.dispatch(HomeActionCreator.gateways(total, 0, list));
   } catch (err) {
     ctx.dispatch(HomeActionCreator.loading(false));
@@ -404,7 +438,8 @@ void _onSettings(Action action, Context<HomeState> ctx) {
   });
 }
 
-Future<void> _convertUSD(Context<HomeState> ctx, Map data, String type) async {
+Future<void> _convertUSD(
+    Context<HomeState> ctx, String userId, Map data, String type) async {
   try {
     WalletDao dao = _buildWalletDao(ctx);
 
@@ -413,6 +448,7 @@ Future<void> _convertUSD(Context<HomeState> ctx, Map data, String type) async {
 
     if ((res as Map).containsKey('mxcPrice')) {
       double value = double.parse(res['mxcPrice']);
+      LocalStorageDao.saveUserData('user_$userId', {'usd_$type': value});
       ctx.dispatch(HomeActionCreator.convertUSD(type, value));
     }
   } catch (err) {
@@ -421,7 +457,8 @@ Future<void> _convertUSD(Context<HomeState> ctx, Map data, String type) async {
   }
 }
 
-Future<void> _stakingRevenue(Context<HomeState> ctx, String orgId) async {
+Future<void> _stakingRevenue(
+    Context<HomeState> ctx, String userId, String orgId) async {
   try {
     StakeDao dao = _buildStakeDao(ctx);
     Map data = {
@@ -433,6 +470,7 @@ Future<void> _stakingRevenue(Context<HomeState> ctx, String orgId) async {
 
     mLog('StakeDao revenue', res);
     final amount = Tools.convertDouble(res['amount']);
+    LocalStorageDao.saveUserData('user_$userId', {'totalRevenue': amount});
     ctx.dispatch(HomeActionCreator.totalRevenue(amount));
     ctx.dispatch(HomeActionCreator.loading(false));
   } catch (err) {

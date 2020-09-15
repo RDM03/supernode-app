@@ -13,48 +13,52 @@ import '../action.dart';
 import 'action.dart';
 import 'state.dart';
 
-Widget buildView(GatewayState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(
+    GatewayState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
   final ListAdapter adapter = viewService.buildAdapter();
 
   return Scaffold(
-    appBar: homeBar(
-      FlutterI18n.translate(_ctx,'gateway'),
-      onPressed: () => dispatch(HomeActionCreator.onSettings()),
-    ),
-    body: RefreshIndicator(
-      displacement: 10,
-      onRefresh: () async{
-        dispatch(HomeActionCreator.onGateways());
-        await Future.delayed(Duration(seconds: 2));
-      },
-      child: pageBody(
-        children: [
-          panelFrame(
-            child: panelBody(
-              loading: state.loading,
-              icon: Icons.add_circle,
-              onPressed: state.isDemo ? null : () => dispatch(GatewayActionCreator.onAdd()),
-              titleText: FlutterI18n.translate(_ctx,'total_gateways'),
-              subtitleText: '${state.gatewaysTotal}',
-              trailTitle: FlutterI18n.translate(_ctx,'profit'),
-              trailSubtitle: '${Tools.priceFormat(state.gatewaysRevenue)} MXC (${Tools.priceFormat(state.gatewaysUSDRevenue)} USD)'
+      appBar: homeBar(
+        FlutterI18n.translate(_ctx, 'gateway'),
+        onPressed: () => dispatch(HomeActionCreator.onSettings()),
+      ),
+      body: RefreshIndicator(
+          displacement: 10,
+          onRefresh: () async {
+            dispatch(HomeActionCreator.onGateways());
+            await Future.delayed(Duration(seconds: 2));
+          },
+          child: pageBody(children: [
+            panelFrame(
+                child: panelBody(
+                    loading: (state.gatewaysTotal == 0 ||
+                            state.gatewaysRevenue == 0 ||
+                            state.gatewaysUSDRevenue == 0) &&
+                        state.loading,
+                    icon: Icons.add_circle,
+                    onPressed: state.isDemo
+                        ? null
+                        : () => dispatch(GatewayActionCreator.onAdd()),
+                    titleText: FlutterI18n.translate(_ctx, 'total_gateways'),
+                    subtitleText: '${state.gatewaysTotal}',
+                    trailTitle: FlutterI18n.translate(_ctx, 'profit'),
+                    trailLoading: state.gatewaysRevenue == 0 && state.loading,
+                    trailSubtitle:
+                        '${Tools.priceFormat(state.gatewaysRevenue)} MXC (${Tools.priceFormat(state.gatewaysUSDRevenue)} USD)')),
+            panelFrame(
+                child: state.loading
+                    ? LoadingList()
+                    : (adapter.itemCount != 0
+                        ? ListView.builder(
+                            itemBuilder: adapter.itemBuilder,
+                            itemCount: adapter.itemCount,
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                          )
+                        : empty(_ctx))),
+            SizedBox(
+              height: 20,
             )
-          ),
-          panelFrame(
-            child: state.loading ? LoadingList() : (
-              adapter.itemCount != 0 ? 
-              ListView.builder(
-                itemBuilder: adapter.itemBuilder,
-                itemCount: adapter.itemCount,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-              ) : empty(_ctx)
-            )
-          ),
-          SizedBox(height: 20,)
-        ]
-      )
-    )
-  );
+          ])));
 }
