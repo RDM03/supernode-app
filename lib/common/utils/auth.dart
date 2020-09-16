@@ -25,11 +25,10 @@ Future<void> logOut(BuildContext context) async {
   Navigator.of(context).pushNamedAndRemoveUntil('login_page', (_) => false);
 }
 
-void _pushMaintenance() {
+Future<void> _pushMaintenance() async {
   if (!isCurrent(navigatorKey.currentState, 'under_maintenance_page')) {
-    navigatorKey.currentState.pushNamed('under_maintenance_page');
+    await navigatorKey.currentState.pushNamed('under_maintenance_page');
   }
-  ;
 }
 
 Future<bool> checkMaintenance([SuperNodeBean node]) async {
@@ -45,7 +44,7 @@ Future<bool> checkMaintenance([SuperNodeBean node]) async {
         _pushMaintenance();
       });
     } else {
-      _pushMaintenance();
+      await _pushMaintenance();
     }
     return false;
   } else if (node.status == 'online') {

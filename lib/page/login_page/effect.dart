@@ -156,12 +156,15 @@ void _onSignUp(Action action, Context<LoginState> ctx) async {
   Navigator.pushNamed(ctx.context, 'sign_up_page');
 }
 
-void _onForgotPassword(Action action, Context<LoginState> ctx) {
+void _onForgotPassword(Action action, Context<LoginState> ctx) async {
   if (ctx.state.currentSuperNode == null) {
     tip(ctx.context,
         FlutterI18n.translate(ctx.context, 'reg_select_supernode'));
     return;
   }
+
+  final res = await checkMaintenance(ctx.state.currentSuperNode);
+  if (!res) return;
 
   String apiRoot = ctx.state.currentSuperNode.url;
   Dao.baseUrl = apiRoot;
