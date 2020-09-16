@@ -1,7 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/common/components/loading.dart';
-import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 
@@ -14,11 +13,11 @@ Effect<ProfileState> buildEffect() {
   });
 }
 
-void _onUpdate(Action action, Context<ProfileState> ctx) {  
+void _onUpdate(Action action, Context<ProfileState> ctx) async {
   var curState = ctx.state;
 
-  if((curState.formKey.currentState as FormState).validate()){
-    showLoading(ctx.context);
+  if ((curState.formKey.currentState as FormState).validate()) {
+    final loading = await Loading.show(ctx.context);
 
     Map data = {
       "id": curState.userId,
@@ -32,16 +31,14 @@ void _onUpdate(Action action, Context<ProfileState> ctx) {
 
     UserDao dao = UserDao();
 
-    dao.update(data).then((res){
-      mLog('update',res);
-      hideLoading(ctx.context);
+    dao.update(data).then((res) {
+      mLog('update', res);
+      loading.hide();
 
       ctx.dispatch(ProfileActionCreator.update(data));
-    }).catchError((err){
-      hideLoading(ctx.context);
+    }).catchError((err) {
+      loading.hide();
       // tip(ctx.context,'UserDao update: $err');
     });
-
   }
-
 }

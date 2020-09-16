@@ -16,33 +16,31 @@ Effect<ChangePasswordState> buildEffect() {
   });
 }
 
-void _onConfirm(Action action, Context<ChangePasswordState> ctx) {
+void _onConfirm(Action action, Context<ChangePasswordState> ctx) async {
   var curState = ctx.state;
 
-  if(!(curState.formKey.currentState as FormState).validate()){
+  if (!(curState.formKey.currentState as FormState).validate()) {
     return;
   }
 
   String userId = GlobalStore.store.getState().settings.userId;
   String confirmNewPwd = curState.confirmNewPwdCtl.text;
 
-  showLoading(ctx.context);
+  final loading = await Loading.show(ctx.context);
 
-  Map data = {
-    "userId": userId,
-    "password": confirmNewPwd
-  };
+  Map data = {"userId": userId, "password": confirmNewPwd};
 
   UserDao dao = UserDao();
 
-  dao.changePassword(data).then((res){
-    mLog('changePassword',res);
-    hideLoading(ctx.context);
+  dao.changePassword(data).then((res) {
+    mLog('changePassword', res);
+    loading.hide();
 
-    tip(ctx.context,FlutterI18n.translate(ctx.context,'updated_successful_tip'),success: true);
-
-  }).catchError((err){
-    hideLoading(ctx.context);
+    tip(ctx.context,
+        FlutterI18n.translate(ctx.context, 'updated_successful_tip'),
+        success: true);
+  }).catchError((err) {
+    loading.hide();
     // tip(ctx.context,'UserDao changePassword: $err');
   });
 }

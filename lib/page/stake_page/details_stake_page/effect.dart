@@ -28,7 +28,7 @@ void _onUnstake(Action action, Context<DetailsStakeState> ctx) async {
 
 Future<void> _unstake(Context<DetailsStakeState> ctx, String otpCode) async {
   var curState = ctx.state;
-  showLoading(ctx.context);
+  final loading = await Loading.show(ctx.context);
 
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
 
@@ -52,7 +52,7 @@ Future<void> _unstake(Context<DetailsStakeState> ctx, String otpCode) async {
       tip(ctx.context, res);
     }
   } catch (err) {
-    hideLoading(ctx.context);
+    loading.hide();
     tip(ctx.context, 'StakeDao unstake: $err');
   }
 }

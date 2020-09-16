@@ -25,7 +25,7 @@ Effect<ForgotPasswordState> buildEffect() {
 void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
   var curState = ctx.state;
   if ((curState.emailFormKey.currentState as FormState).validate()) {
-    BuildContext loadingContext = await showLoading(ctx.context);
+    final loading = await Loading.show(ctx.context);
 
     UserDao dao = UserDao();
 
@@ -45,7 +45,7 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
     StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
     try {
       var res = await dao.passwordReset(data);
-      hideLoading(loadingContext);
+      loading.hide();
       L.dTag('register', "$res");
       Navigator.push(
         ctx.context,
@@ -58,7 +58,7 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
         ),
       );
     } catch (err) {
-      hideLoading(loadingContext);
+      loading.hide();
       if (err is DaoException && err.code == 7) {
         ctx.dispatch(ForgotPasswordActionCreator.showHasCodeDialog());
       }
@@ -110,8 +110,7 @@ void _onVerificationContinue(
 
   if ((curState.codesFormKey.currentState as FormState).validate()) {
     String confirmNewPwd = curState.confirmNewPwdCtl.text;
-
-    showLoading(ctx.context);
+    final loading = await Loading.show(ctx.context);
 
     List<String> codes =
         curState.codeListCtls.map((code) => code.text).toList();
@@ -125,14 +124,14 @@ void _onVerificationContinue(
 
     try {
       var res = await dao.passwordResetConfirm(data);
-      hideLoading(ctx.context);
+      loading.hide();
       mLog('passwordConfirm', res);
 
       tip(ctx.context, FlutterI18n.translate(ctx.context, 'update_success'),
           success: true);
       Navigator.popUntil(ctx.context, ModalRoute.withName("login_page"));
     } catch (e) {
-      hideLoading(ctx.context);
+      loading.hide();
       // tip(ctx.context, 'UserDao registerConfirm: $e');
     }
   } else {

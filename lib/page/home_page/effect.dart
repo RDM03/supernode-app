@@ -60,6 +60,7 @@ void _relogin(Action action, Context<HomeState> ctx) async {
   };
 
   int reloginCount = ctx.state.reloginCount;
+  Loading loading;
   try {
     if (reloginCount > 3) {
       ctx.dispatch(HomeActionCreator.reloginCount(0));
@@ -80,10 +81,10 @@ void _relogin(Action action, Context<HomeState> ctx) async {
     Dao.baseUrl = apiRoot;
 
     UserDao dao = _buildUserDao(ctx);
-    showLoading(ctx.context);
+    loading = await Loading.show(ctx.context);
     var res = await dao.login(data);
     mLog('login', res);
-    hideLoading(ctx.context);
+    loading.hide();
 
     SettingsState settingsData = GlobalStore.store.getState().settings;
 
@@ -97,7 +98,7 @@ void _relogin(Action action, Context<HomeState> ctx) async {
     settingsData.isDemo = res['isDemo'] ?? false;
     _profile(ctx);
   } catch (e) {
-    hideLoading(ctx.context);
+    loading?.hide();
 
     ctx.dispatch(HomeActionCreator.loading(false));
 

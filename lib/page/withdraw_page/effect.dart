@@ -130,7 +130,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
 
   Biometrics.authenticate(
     ctx.context,
-    authenticateCallback: () {
+    authenticateCallback: () async {
       WithdrawDao dao = _buildWithdrawDao(ctx);
       Map data = {
         "orgId": orgId,
@@ -139,9 +139,9 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
         "availableBalance": balance,
         "otp_code": codes.join('')
       };
-      showLoading(ctx.context);
+      final loading = await Loading.show(ctx.context);
       dao.withdraw(data).then((res) async {
-        hideLoading(ctx.context);
+        loading.hide();
         mLog('withdraw', res);
 
         if (res.containsKey('status') && res['status']) {
@@ -156,7 +156,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
           // tip(ctx.context, res);
         }
       }).catchError((err) {
-        hideLoading(ctx.context);
+        loading.hide();
         ctx.dispatch(WithdrawActionCreator.status(false));
         tip(ctx.context, err);
       });

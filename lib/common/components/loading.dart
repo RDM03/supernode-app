@@ -5,25 +5,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
-bool isLoadingLarge = false;
+class Loading {
+  bool _enabled = true;
+  bool get enabled => _enabled;
 
-Future<BuildContext> showLoading(BuildContext context) {
-  isLoadingLarge = true;
-  final completer = Completer<BuildContext>();
-  showCupertinoDialog(
-    context: context,
-    builder: (ctx) {
-      completer.complete(ctx);
-      return loadingView();
-    },
-  );
-  return completer.future;
-}
+  final BuildContext _loadingContext;
 
-void hideLoading(BuildContext context) {
-  if (isLoadingLarge) {
-    Navigator.of(context).pop();
-    isLoadingLarge = false;
+  Loading._(this._loadingContext);
+
+  static Future<Loading> show(BuildContext context) {
+    final completer = Completer<Loading>();
+    showCupertinoDialog(
+      context: context,
+      builder: (ctx) {
+        final loading = Loading._(ctx);
+        completer.complete(loading);
+        return loadingView();
+      },
+    );
+    return completer.future;
+  }
+
+  void hide() {
+    if (enabled) {
+      Navigator.of(_loadingContext).pop();
+      _enabled = false;
+    }
   }
 }
 

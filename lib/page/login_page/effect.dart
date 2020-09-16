@@ -80,7 +80,7 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
   }
 
   if ((curState.formKey.currentState as FormState).validate()) {
-    showLoading(ctx.context);
+    final loading = await Loading.show(ctx.context);
     try {
       String apiRoot = curState.currentSuperNode.url;
       Dao.baseUrl = apiRoot;
@@ -91,7 +91,7 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
       StorageManager.sharedPreferences.setBool(Config.DEMO_MODE, false);
       await _handleLoginRequest(dao, username, password, apiRoot);
 
-      hideLoading(ctx.context);
+      loading.hide();
       Navigator.pushReplacementNamed(ctx.context, 'home_page');
     } catch (err) {
       ctx.state.scaffoldKey.currentState.showSnackBar(SnackBar(
@@ -106,7 +106,7 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
         backgroundColor: errorColor,
       ));
     } finally {
-      hideLoading(ctx.context);
+      loading.hide();
     }
   }
 }

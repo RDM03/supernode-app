@@ -36,7 +36,12 @@ void _initState(Action action, Context<AddGatewayState> ctx) {
 }
 
 void _onQrScan(Action action, Context<AddGatewayState> ctx) async {
-  String qrResult = await MajaScan.startScan(title: FlutterI18n.translate(ctx.context, 'scan_code'), barColor: buttonPrimaryColor, titleColor: backgroundColor, qRCornerColor: buttonPrimaryColor, qRScannerColor: buttonPrimaryColorAccent);
+  String qrResult = await MajaScan.startScan(
+      title: FlutterI18n.translate(ctx.context, 'scan_code'),
+      barColor: buttonPrimaryColor,
+      titleColor: backgroundColor,
+      qRCornerColor: buttonPrimaryColor,
+      qRScannerColor: buttonPrimaryColorAccent);
   ctx.dispatch(AddGatewayActionCreator.serialNumber(qrResult));
 
   try {
@@ -86,15 +91,15 @@ void _onProfile(Action action, Context<AddGatewayState> ctx) {
   }
 }
 
-void _register(Context<AddGatewayState> ctx, String serialNumber) {
+void _register(Context<AddGatewayState> ctx, String serialNumber) async {
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
   GatewaysDao dao = GatewaysDao();
 
   Map data = {"organizationId": orgId, "sn": serialNumber.trim()};
 
-  showLoading(ctx.context);
+  final loading = await Loading.show(ctx.context);
   dao.register(data).then((res) {
-    hideLoading(ctx.context);
+    loading.hide();
     mLog('Gateway register', res);
 
     if (res.containsKey('status')) {
@@ -104,7 +109,7 @@ void _register(Context<AddGatewayState> ctx, String serialNumber) {
       }
     }
   }).catchError((err) {
-    hideLoading(ctx.context);
+    loading.hide();
     // tip(ctx.context, 'Gateway register: $err');
   });
 }

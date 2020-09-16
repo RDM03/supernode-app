@@ -36,7 +36,7 @@ void _resultPage(Context<PrepareStakeState> ctx, String type, dynamic res) {
 
 Future<void> _stake(Context<PrepareStakeState> ctx) async {
   var curState = ctx.state;
-  showLoading(ctx.context);
+  final loading = await Loading.show(ctx.context);
 
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
   String amount = curState.amountCtl.text;
@@ -50,11 +50,11 @@ Future<void> _stake(Context<PrepareStakeState> ctx) async {
   };
 
   await dao.stake(data).then((res) async {
-    hideLoading(ctx.context);
+    loading.hide();
     mLog('stake', res);
     _resultPage(ctx, 'stake', res);
   }).catchError((err) {
-    hideLoading(ctx.context);
+    loading.hide();
     tip(ctx.context, 'StakeDao stake: $err');
   });
 }
