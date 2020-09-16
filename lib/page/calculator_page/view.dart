@@ -367,13 +367,17 @@ class _CurrencyCardState extends State<CurrencyCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 90,
-      child: Card(
-        margin: EdgeInsets.only(bottom: 15),
+    return Card(
+      margin: EdgeInsets.only(bottom: 15),
+      child: Container(
+        constraints: BoxConstraints(
+          minHeight: 70,
+          maxHeight: 120,
+        ),
         child: Padding(
           padding: EdgeInsets.all(10).copyWith(top: 5),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Row(
                 children: [
