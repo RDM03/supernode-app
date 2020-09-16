@@ -74,4 +74,13 @@ class StorageManager {
       currencies.map((e) => e.toJson()).toList(),
     );
   }
+
+  static bool showFeedback() {
+    final res = StorageManager.sharedPreferences.getBool('feedback');
+    return res ?? true;
+  }
+
+  static Future<void> setShowFeedback(bool val) async {
+    await StorageManager.sharedPreferences.setBool('feedback', val);
+  }
 }

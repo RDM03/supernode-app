@@ -1,11 +1,9 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:package_info/package_info.dart';
-import 'package:supernodeapp/common/daos/settings_dao.dart';
 import 'package:supernodeapp/common/utils/auth.dart';
-import 'package:supernodeapp/global_store/store.dart';
+import 'package:supernodeapp/page/feedback_page/feedback.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -26,6 +24,7 @@ Effect<SettingsState> buildEffect() {
     Lifecycle.initState: _initState,
     Lifecycle.dispose: _onDispose,
     SettingsAction.onSettings: _onSettings,
+    SettingsAction.onSetScreenshot: _onSetScreenshot,
   });
 }
 
@@ -35,6 +34,11 @@ void _initState(Action action, Context<SettingsState> ctx) async {
   String buildNumber = packageInfo.buildNumber;
 
   ctx.dispatch(SettingsActionCreator.localVersion(version, buildNumber));
+}
+
+void _onSetScreenshot(Action action, Context<SettingsState> ctx) async {
+  await DatadashFeedback.of(ctx.context).setShowScreenshot(action.payload);
+  ctx.dispatch(SettingsActionCreator.blank());
 }
 
 void _onSettings(Action action, Context<SettingsState> ctx) async {

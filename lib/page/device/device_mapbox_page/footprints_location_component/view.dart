@@ -39,6 +39,7 @@ Widget buildView(
                     builder: (BuildContext context) {
                       return FullScreenDialog(
                         child: IosStyleBottomDialog(
+                          context: _ctx,
                           blueActionIndex: 0,
                           list: list,
                           onItemClickListener: (index) {

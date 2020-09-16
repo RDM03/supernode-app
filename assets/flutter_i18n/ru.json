@@ -357,5 +357,13 @@
 	"boost": "Увеличение",
 	"mega_boost": "Mega Boost",
 	"flex_stake": "Гибкая ставка",
-	"standard_boost": "Стандартное усиление"
+	"standard_boost": "Стандартное усиление",
+	"draw": "Рисовать",
+	"whats_up": "Что происходит?",
+	"feedback": "Обратная связь",
+	"share": "Поделиться",
+	"this_is_bug": "Это ошибка",
+	"this_is_idea": "Это идея",
+	"cancel_normalized": "Отмена",
+	"screenshot": "Скриншот"
 }

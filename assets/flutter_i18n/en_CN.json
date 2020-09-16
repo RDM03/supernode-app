@@ -358,5 +358,13 @@
 	"boost": "Boost",
 	"mega_boost": "Mega Boost",
 	"flex_stake": "Flex Stake",
-	"standard_boost": "Standard Boost"
+	"standard_boost": "Standard Boost",
+	"draw": "Draw",
+	"whats_up": "What’s up?",
+	"feedback": "Feedback",
+	"share": "Share",
+	"this_is_bug": "This is a bug",
+	"this_is_idea": "This is an idea",
+	"cancel_normalized": "Cancel",
+	"screenshot": "Screenshot"
 }

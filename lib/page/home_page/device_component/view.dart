@@ -42,6 +42,7 @@ Widget buildView(
             builder: (BuildContext context) {
               return FullScreenDialog(
                 child: IosStyleBottomDialog(
+                  context: _ctx,
                   blueActionIndex: 0,
                   list: list,
                   onItemClickListener: (index) {
@@ -64,8 +65,7 @@ Widget buildView(
                 loading: false,
                 icon: Icons.add_circle,
                 onPressed: () {
-                  if (state.isDemo)
-                    dispatch(DeviceActionCreator.onQrScan());
+                  if (state.isDemo) dispatch(DeviceActionCreator.onQrScan());
                 },
                 titleText: FlutterI18n.translate(_ctx, 'total_device'),
                 subtitleText: '0',

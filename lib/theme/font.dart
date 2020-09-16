@@ -37,6 +37,13 @@ const kSmallFontOfRed = TextStyle(
   height: 1.33333,
 );
 
+const kSmallFontOfDarkBlue = TextStyle(
+  color: const Color.fromARGB(255, 28, 20, 120),
+  fontFamily: "Roboto",
+  fontSize: 12,
+  height: 1.33333,
+);
+
 const kMiddleFontODarkBlue = TextStyle(
   color: const Color.fromARGB(255, 28, 20, 120),
   fontFamily: "Roboto",

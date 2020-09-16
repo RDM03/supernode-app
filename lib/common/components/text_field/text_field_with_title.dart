@@ -66,22 +66,25 @@ class TextFieldWithTitle extends StatelessWidget {
           child: Stack(
             children: <Widget>[
               PrimaryTextField(
-                  borderColor: borderColor,
-                  maxLength: maxLength,
-                  counterText: counterText,
-                  readOnly: readOnly,
-                  textAlign: textAlign,
-                  keyboardType: keyboardType,
-                  hint: hint,
-                  isObscureText: isObscureText,
-                  validator: validator,
-                  controller: controller,
-                  onChanged: onChanged),
+                borderColor: borderColor,
+                maxLength: maxLength,
+                counterText: counterText,
+                readOnly: readOnly,
+                textAlign: textAlign,
+                keyboardType: keyboardType,
+                hint: hint,
+                isObscureText: isObscureText,
+                validator: validator,
+                controller: controller,
+                onChanged: onChanged,
+              ),
               Positioned(
-                  right: 0,
-                  child: Visibility(
-                      visible: suffixChild != null,
-                      child: suffixChild ?? Container())),
+                right: 0,
+                child: Visibility(
+                  visible: suffixChild != null,
+                  child: suffixChild ?? Container(),
+                ),
+              ),
             ],
           ),
         )

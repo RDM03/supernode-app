@@ -357,5 +357,13 @@
 	"boost": "ブースト",
 	"mega_boost": "メガブースト",
 	"flex_stake": "フレックスステーク",
-	"standard_boost": "標準ブースト"
+	"standard_boost": "標準ブースト",
+	"draw": "ドロー",
+	"whats_up": "調子はどう？",
+	"feedback": "フィードバック",
+	"share": "共有",
+	"this_is_bug": "これはバグです",
+	"this_is_idea": "これはアイデアです",
+	"cancel_normalized": "キャンセル",
+	"screenshot": "スクリーンショット"
 }

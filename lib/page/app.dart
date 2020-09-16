@@ -1,9 +1,6 @@
-import 'dart:isolate';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
-import 'package:supernodeapp/common/daos/isolate_dao.dart';
 
 class AppPage extends StatefulWidget {
   final Widget child;
@@ -14,16 +11,17 @@ class AppPage extends StatefulWidget {
   _AppPageState createState() => _AppPageState();
 }
 
-class _AppPageState extends State<AppPage> with WidgetsBindingObserver {  
-	@override
+class _AppPageState extends State<AppPage> with WidgetsBindingObserver {
+  @override
   void initState() {
+    super.initState();
     WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
-      case AppLifecycleState.inactive: 
+      case AppLifecycleState.inactive:
         break;
       case AppLifecycleState.resumed:
         Dao.dio.unlock();
@@ -35,7 +33,7 @@ class _AppPageState extends State<AppPage> with WidgetsBindingObserver {
         break;
     }
   }
-  
+
   @override
   void dispose() {
     // WidgetsBinding.instance.removeObserver(this);

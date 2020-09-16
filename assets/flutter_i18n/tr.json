@@ -357,5 +357,15 @@
 	"boost": "Boost",
 	"mega_boost": "Mega Güçlendirme",
 	"flex_stake": "Esnek Bahis",
-	"standard_boost": "Standart Güçlendirme"
+	"standard_boost": "Standart Güçlendirme",
+	"draw": "Çizmek",
+	"whats_up": "Naber?",
+	"feedback_bug": "Hata olarak sınıflandırılabilir",
+	"feedback_bug_unstable": "Uygulamayı kullanılamaz hale getirir",
+	"feedback": "geri bildirim",
+	"share": "Paylaş",
+	"this_is_bug": "Bu bir hata",
+	"this_is_idea": "Bu bir fikir",
+	"cancel_normalized": "İptal etmek",
+	"screenshot": "Ekran görüntüsü"
 }

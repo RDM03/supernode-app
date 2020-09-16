@@ -356,5 +356,13 @@
 	"boost": "Boost",
 	"mega_boost": "Mega Boost",
 	"flex_stake": "Flex Stake",
-	"standard_boost": "Standard Boost"
+	"standard_boost": "Standard Boost",
+	"draw": "Zeichnen",
+	"whats_up": "Was geht?",
+	"feedback": "Feedback",
+	"share": "Aktie",
+	"this_is_bug": "Dies ist ein Fehler",
+	"this_is_idea": "Das ist eine Idee",
+	"cancel_normalized": "Stornieren",
+	"screenshot": "Bildschirmfoto"
 }

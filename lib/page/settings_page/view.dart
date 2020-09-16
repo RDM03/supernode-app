@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/profile.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
+import 'package:supernodeapp/page/feedback_page/feedback.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -87,6 +88,16 @@ Widget buildView(
             listItem(FlutterI18n.translate(_ctx, 'about'),
                 onTap: () =>
                     dispatch(SettingsActionCreator.onSettings('about'))),
+            Divider(),
+            listItem(
+              FlutterI18n.translate(_ctx, 'screenshot'),
+              trailing: Switch(
+                activeColor: Color(0xFF1C1478),
+                value: DatadashFeedback.of(_ctx).showScreenshot,
+                onChanged: (v) =>
+                    dispatch(SettingsActionCreator.onSetScreenshot(v)),
+              ),
+            ),
             Divider(),
             listItem(FlutterI18n.translate(_ctx, 'logout'),
                 trailing: Text(''),

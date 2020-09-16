@@ -355,5 +355,13 @@
 	"boost": "후원",
 	"mega_boost": "메가 부스트",
 	"flex_stake": "플렉스 스테이크",
-	"standard_boost": "표준 부스트"
+	"standard_boost": "표준 부스트",
+	"draw": "무승부",
+	"whats_up": "뭐야?",
+	"feedback": "피드백",
+	"share": "공유",
+	"this_is_bug": "이것은 버그입니다",
+	"this_is_idea": "이것은 아이디어입니다",
+	"cancel_normalized": "취소",
+	"screenshot": "스크린 샷"
 }

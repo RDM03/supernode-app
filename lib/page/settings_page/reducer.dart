@@ -10,8 +10,14 @@ Reducer<SettingsState> buildReducer() {
     <Object, Reducer<SettingsState>>{
       SettingsAction.notification: _notification,
       SettingsAction.localVersion: _localVersion,
+      SettingsAction.blank: _blank,
     },
   );
+}
+
+SettingsState _blank(SettingsState state, Action action) {
+  final SettingsState newState = state.clone();
+  return newState;
 }
 
 SettingsState _notification(SettingsState state, Action action) {
@@ -23,8 +29,7 @@ SettingsState _notification(SettingsState state, Action action) {
   SettingsDao.updateLocal(settingsData);
 
   final SettingsState newState = state.clone();
-  return newState
-    ..notification = toogle;
+  return newState..notification = toogle;
 }
 
 SettingsState _localVersion(SettingsState state, Action action) {
