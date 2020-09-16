@@ -25,7 +25,7 @@ Effect<ForgotPasswordState> buildEffect() {
 void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
   var curState = ctx.state;
   if ((curState.emailFormKey.currentState as FormState).validate()) {
-    showLoading(ctx.context);
+    BuildContext loadingContext = await showLoading(ctx.context);
 
     UserDao dao = UserDao();
 
@@ -45,7 +45,7 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
     StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
     try {
       var res = await dao.passwordReset(data);
-      hideLoading(ctx.context);
+      hideLoading(loadingContext);
       L.dTag('register', "$res");
       Navigator.push(
         ctx.context,
@@ -58,7 +58,7 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
         ),
       );
     } catch (err) {
-      hideLoading(ctx.context);
+      hideLoading(loadingContext);
       if (err is DaoException && err.code == 7) {
         ctx.dispatch(ForgotPasswordActionCreator.showHasCodeDialog());
       }
@@ -68,22 +68,23 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
 }
 
 void _showHasCodeDialog(Action action, Context<ForgotPasswordState> ctx) async {
+  final _ctx = ctx.context;
   final hasCode = await showDialog(
     context: ctx.context,
-    builder: (ctx) => CupertinoAlertDialog(
-      content: Text(FlutterI18n.translate(ctx, 'one_reset_email_month')),
+    builder: (dialogContext) => CupertinoAlertDialog(
+      content: Text(FlutterI18n.translate(_ctx, 'one_reset_email_month')),
       actions: <Widget>[
         CupertinoDialogAction(
-          child: Text(FlutterI18n.translate(ctx, 'have_code')),
+          child: Text(FlutterI18n.translate(_ctx, 'have_code')),
           onPressed: () {
-            Navigator.of(ctx).pop(true);
+            Navigator.of(dialogContext).pop(true);
           },
         ),
         CupertinoDialogAction(
           child: Text('OK'),
           isDefaultAction: true,
           onPressed: () {
-            Navigator.of(ctx).pop(false);
+            Navigator.of(dialogContext).pop(false);
           },
         ),
       ],

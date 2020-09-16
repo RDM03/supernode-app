@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -5,12 +7,17 @@ import 'package:supernodeapp/theme/colors.dart';
 
 bool isLoadingLarge = false;
 
-void showLoading(BuildContext context) {
+Future<BuildContext> showLoading(BuildContext context) {
   isLoadingLarge = true;
+  final completer = Completer<BuildContext>();
   showCupertinoDialog(
     context: context,
-    builder: (_) => loadingView(),
+    builder: (ctx) {
+      completer.complete(ctx);
+      return loadingView();
+    },
   );
+  return completer.future;
 }
 
 void hideLoading(BuildContext context) {
