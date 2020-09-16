@@ -364,5 +364,7 @@
 	"this_is_bug": "Dies ist ein Fehler",
 	"this_is_idea": "Das ist eine Idee",
 	"cancel_normalized": "Stornieren",
-	"screenshot": "Bildschirmfoto"
+	"screenshot": "Bildschirmfoto",
+	"have_code": "Ich habe einen Code",
+	"one_reset_email_month": "Pro Monat kann nur eine E-Mail zum Zurücksetzen des Passworts gesendet werden."
 }

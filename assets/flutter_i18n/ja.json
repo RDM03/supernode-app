@@ -365,5 +365,7 @@
 	"this_is_bug": "これはバグです",
 	"this_is_idea": "これはアイデアです",
 	"cancel_normalized": "キャンセル",
-	"screenshot": "スクリーンショット"
+	"screenshot": "スクリーンショット",
+	"have_code": "私はコードをもっている",
+	"one_reset_email_month": "1か月あたり1つのパスワード再設定メールしか送信できません"
 }

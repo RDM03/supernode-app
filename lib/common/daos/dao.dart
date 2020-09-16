@@ -6,6 +6,18 @@ import 'package:supernodeapp/common/daos/interceptors/token_interceptor.dart';
 import 'package:supernodeapp/common/daos/isolate_dao.dart';
 import 'package:supernodeapp/page/home_page/action.dart';
 
+class DaoException implements Exception {
+  final String message;
+  final int code;
+
+  DaoException(this.message, this.code);
+
+  @override
+  String toString() {
+    return '[$code] $message';
+  }
+}
+
 class Dao {
   static String baseUrl = '';
   static String token = '';
@@ -38,7 +50,10 @@ class Dao {
 
       return response.data;
     } on DioError catch (e) {
-      throw e.response != null ? e.response.data['message'] : e.message;
+      final message =
+          e.response != null ? e.response.data['message'] : e.message;
+      final code = e.response != null ? e.response.data['code'] : -1;
+      throw DaoException(message, code);
     }
   }
 
@@ -77,7 +92,10 @@ class Dao {
         return response.data;
       }
     } on DioError catch (e) {
-      throw e.response != null ? e.response.data['message'] : e.message;
+      final message =
+          e.response != null ? e.response.data['message'] : e.message;
+      final code = e.response != null ? e.response.data['code'] : -1;
+      throw DaoException(message, code);
     }
   }
 
@@ -92,7 +110,10 @@ class Dao {
         return response.data;
       }
     } on DioError catch (e) {
-      throw e.response != null ? e.response.data['message'] : e.message;
+      final message =
+          e.response != null ? e.response.data['message'] : e.message;
+      final code = e.response != null ? e.response.data['code'] : -1;
+      throw DaoException(message, code);
     }
   }
 }

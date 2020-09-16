@@ -367,5 +367,7 @@
 	"this_is_bug": "Đây là một lỗi",
 	"this_is_idea": "Đây là một ý tưởng",
 	"cancel_normalized": "Huỷ bỏ",
-	"screenshot": "Ảnh chụp màn hình"
+	"screenshot": "Ảnh chụp màn hình",
+	"have_code": "Tôi có một mật mã",
+	"one_reset_email_month": "Chỉ có thể gửi một email đặt lại mật khẩu mỗi tháng"
 }

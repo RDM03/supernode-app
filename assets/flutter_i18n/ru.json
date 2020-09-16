@@ -365,5 +365,7 @@
 	"this_is_bug": "Это ошибка",
 	"this_is_idea": "Это идея",
 	"cancel_normalized": "Отмена",
-	"screenshot": "Скриншот"
+	"screenshot": "Скриншот",
+	"have_code": "У меня есть код",
+	"one_reset_email_month": "В месяц можно отправить только одно письмо для сброса пароля"
 }

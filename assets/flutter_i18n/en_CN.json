@@ -366,5 +366,7 @@
 	"this_is_bug": "This is a bug",
 	"this_is_idea": "This is an idea",
 	"cancel_normalized": "Cancel",
-	"screenshot": "Screenshot"
+	"screenshot": "Screenshot",
+	"have_code": "I have a code",
+	"one_reset_email_month": "Only one reset password email can be sent per month"
 }

@@ -12,7 +12,8 @@ import 'package:supernodeapp/theme/spacing.dart';
 
 import 'state.dart';
 
-Widget buildView(ForgotPasswordState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(
+    ForgotPasswordState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
 
   return Scaffold(
@@ -24,33 +25,39 @@ Widget buildView(ForgotPasswordState state, Dispatch dispatch, ViewService viewS
       elevation: 0,
     ),
     body: SafeArea(
-        child: Container(
-            padding: kRoundRow202,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                paragraph('${FlutterI18n.translate(_ctx, 'welcome')},'),
-                paragraph('${FlutterI18n.translate(_ctx, 'change_password_hint')}'),
-                Form(
-                  key: state.emailFormKey,
-                  autovalidate: false,
-                  child: Column(children: <Widget>[
-                    Container(
-                      margin: kOuterRowTop35,
-                      child: TextFieldWithTitle(
-                        title: FlutterI18n.translate(_ctx, 'email'),
-                        hint: FlutterI18n.translate(_ctx, 'email_hint'),
-                        textInputAction: TextInputAction.done,
-                        validator: (value) => Reg.onValidEmail(_ctx, value),
-                        controller: state.emailCtl,
-                      ),
-                    ),
-                  ]),
+      child: Container(
+        padding: kRoundRow202,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            paragraph('${FlutterI18n.translate(_ctx, 'welcome')},'),
+            paragraph('${FlutterI18n.translate(_ctx, 'change_password_hint')}'),
+            Form(
+              key: state.emailFormKey,
+              autovalidate: false,
+              child: Column(children: <Widget>[
+                Container(
+                  margin: kOuterRowTop35,
+                  child: TextFieldWithTitle(
+                    title: FlutterI18n.translate(_ctx, 'email'),
+                    hint: FlutterI18n.translate(_ctx, 'email_hint'),
+                    textInputAction: TextInputAction.done,
+                    validator: (value) => Reg.onValidEmail(_ctx, value),
+                    controller: state.emailCtl,
+                  ),
                 ),
-                Spacer(),
-                PrimaryButton(onTap: () => dispatch(ForgotPasswordActionCreator.onEmailContinue()), buttonTitle: FlutterI18n.translate(_ctx, 'continue'), minHeight: 46),
-                SizedBox(height: s(54)),
-              ],
-            ))),
+              ]),
+            ),
+            Spacer(),
+            PrimaryButton(
+                onTap: () =>
+                    dispatch(ForgotPasswordActionCreator.onEmailContinue()),
+                buttonTitle: FlutterI18n.translate(_ctx, 'continue'),
+                minHeight: 46),
+            SizedBox(height: s(54)),
+          ],
+        ),
+      ),
+    ),
   );
 }

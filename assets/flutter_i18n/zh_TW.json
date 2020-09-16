@@ -367,5 +367,7 @@
 	"this_is_bug": "这是一个错误",
 	"this_is_idea": "这是一个主意",
 	"cancel_normalized": "取消",
-	"screenshot": "屏幕截图"
+	"screenshot": "屏幕截图",
+	"have_code": "我有密码",
+	"one_reset_email_month": "每月只能发送一封密码重置电子邮件"
 }
