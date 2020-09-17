@@ -369,5 +369,9 @@
 	"cancel_normalized": "Huỷ bỏ",
 	"screenshot": "Ảnh chụp màn hình",
 	"have_code": "Tôi có một mật mã",
-	"one_reset_email_month": "Chỉ có thể gửi một email đặt lại mật khẩu mỗi tháng"
+	"one_reset_email_month": "Chỉ có thể gửi một email đặt lại mật khẩu mỗi tháng",
+	"join_us_telegram": "Tham gia với chúng tôi trên Telegram",
+	"join_us_wechat": "Tham gia với chúng tôi trên WeChat",
+	"join_us_twitter": "theo dõi chúng tối trên Twitter",
+	"connect_with_us": "Kết nối với chúng tôi"
 }

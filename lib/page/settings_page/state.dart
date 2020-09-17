@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/daos/settings_dao.dart';
 
 import 'about_component/state.dart';
 import 'language_component/state.dart';
+import 'links_component/state.dart';
 import 'organizations_component/state.dart';
 import 'profile_component/state.dart';
 import 'security_component/state.dart';
@@ -191,6 +192,16 @@ class LanguageConnector extends ConnOp<SettingsState, LanguageState> {
   void set(SettingsState state, LanguageState subState) {
     state.language = subState.language;
   }
+}
+
+class LinksConnector extends ConnOp<SettingsState, LinksState> {
+  @override
+  LinksState get(SettingsState state) {
+    return LinksState();
+  }
+
+  @override
+  void set(SettingsState state, LinksState subState) {}
 }
 
 class AboutConnector extends ConnOp<SettingsState, AboutState> {

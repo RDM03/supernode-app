@@ -367,5 +367,9 @@
 	"cancel_normalized": "キャンセル",
 	"screenshot": "スクリーンショット",
 	"have_code": "私はコードをもっている",
-	"one_reset_email_month": "1か月あたり1つのパスワード再設定メールしか送信できません"
+	"one_reset_email_month": "1か月あたり1つのパスワード再設定メールしか送信できません",
+	"join_us_telegram": "Telegramに参加",
+	"join_us_wechat": "WeChatにご参加ください",
+	"join_us_twitter": "Twitterでフォローします",
+	"connect_with_us": "私達と接続"
 }

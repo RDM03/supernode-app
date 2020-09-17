@@ -369,5 +369,9 @@
 	"cancel_normalized": "İptal etmek",
 	"screenshot": "Ekran görüntüsü",
 	"have_code": "Kodum var",
-	"one_reset_email_month": "Ayda yalnızca bir şifre sıfırlama e-postası gönderilebilir"
+	"one_reset_email_month": "Ayda yalnızca bir şifre sıfırlama e-postası gönderilebilir",
+	"join_us_telegram": "Telegram'da bize katılın",
+	"join_us_wechat": "WeChat'te bize katılın",
+	"join_us_twitter": "Bizi Twitter'da takip edin",
+	"connect_with_us": "Bizimle iletişime geçin"
 }

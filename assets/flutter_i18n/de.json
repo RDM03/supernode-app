@@ -366,5 +366,9 @@
 	"cancel_normalized": "Stornieren",
 	"screenshot": "Bildschirmfoto",
 	"have_code": "Ich habe einen Code",
-	"one_reset_email_month": "Pro Monat kann nur eine E-Mail zum Zurücksetzen des Passworts gesendet werden."
+	"one_reset_email_month": "Pro Monat kann nur eine E-Mail zum Zurücksetzen des Passworts gesendet werden.",
+	"join_us_telegram": "Begleiten Sie uns per Telegramm",
+	"join_us_wechat": "Begleiten Sie uns auf WeChat",
+	"join_us_twitter": "Folge uns auf Twitter",
+	"connect_with_us": "verbinde dich mit uns"
 }

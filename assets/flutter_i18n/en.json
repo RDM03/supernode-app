@@ -368,5 +368,9 @@
 	"cancel_normalized": "Cancel",
 	"screenshot": "Screenshot",
 	"have_code": "I have a code",
-	"one_reset_email_month": "Only one reset password email can be sent per month"
+	"one_reset_email_month": "Only one reset password email can be sent per month",
+	"join_us_telegram": "Join us on Telegram",
+	"join_us_wechat": "Join us on WeChat",
+	"join_us_twitter": "Follow us on Twitter",
+	"connect_with_us": "Connect with us"
 }

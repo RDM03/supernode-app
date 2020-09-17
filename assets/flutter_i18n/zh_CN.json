@@ -369,5 +369,9 @@
 	"cancel_normalized": "取消",
 	"screenshot": "屏幕截图",
 	"have_code": "我有密码",
-	"one_reset_email_month": "每月只能发送一封密码重置电子邮件"
+	"one_reset_email_month": "每月只能发送一封密码重置电子邮件",
+	"join_us_telegram": "加入我们的电报",
+	"join_us_wechat": "加入我们的微信",
+	"join_us_twitter": "在推特上关注我们",
+	"connect_with_us": "联系我们"
 }
