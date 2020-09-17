@@ -24,6 +24,7 @@ import 'package:supernodeapp/page/stake_page/confirm_stake_page/page.dart';
 import 'package:supernodeapp/page/stake_page/details_stake_page/page.dart';
 import 'package:supernodeapp/page/stake_page/list_unstake_page/page.dart';
 import 'package:supernodeapp/page/stake_page/prepare_stake_page/page.dart';
+import 'package:supernodeapp/page/under_maintenance_page/page.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'common/utils/no_glow_behavior.dart';
 import 'global_store/state.dart';
@@ -105,6 +106,7 @@ class MxcApp extends StatelessWidget {
         'confirm_stake_page': ConfirmStakePage(),
         'details_stake_page': DetailsStakePage(),
         'list_unstake_page': ListUnstakePage(),
+        'under_maintenance_page': UnderMaintenancePage(),
       },
       visitor: (String path, Page<Object, dynamic> page) {
         if (page.isTypeof<GlobalBaseState>()) {

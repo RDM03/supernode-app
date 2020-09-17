@@ -370,5 +370,8 @@
 	"join_us_telegram": "Begleiten Sie uns per Telegramm",
 	"join_us_wechat": "Begleiten Sie uns auf WeChat",
 	"join_us_twitter": "Folge uns auf Twitter",
-	"connect_with_us": "verbinde dich mit uns"
+	"connect_with_us": "verbinde dich mit uns",
+	"refresh": "Aktualisierung",
+	"under_maintenance": "Wir sind derzeit in der Wartung. Dies wird nicht lange dauern.",
+	"duration_days": "Dauer in Tagen - {0}"
 }

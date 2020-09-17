@@ -323,7 +323,6 @@
 	"address_book_control_desc": "Sık kullandığınız adresinizi buradan kontrol edin, lütfen adresi yalnızca güvenlik nedeniyle silebileceğinizi veya ekleyebileceğinizi unutmayın.",
 	"delete_address": "Adresi sil",
 	"connectivity_lost": "İnternet bağlantısı yok. Wi-Fi veya mobil verinin açık olduğundan emin olun, ardından tekrar deneyin.",
-	"duration_days": "gün cinsinden süre - {0}",
 	"confirm_withdrawal": "Para Çekmeyi Onayla",
 	"check_recipient_address": "Lütfen tam olarak girdiğiniz adres olduğundan emin olmak için alıcı adresini dikkatlice kontrol edin.",
 	"fee": "peri",
@@ -373,5 +372,8 @@
 	"join_us_telegram": "Telegram'da bize katılın",
 	"join_us_wechat": "WeChat'te bize katılın",
 	"join_us_twitter": "Bizi Twitter'da takip edin",
-	"connect_with_us": "Bizimle iletişime geçin"
+	"connect_with_us": "Bizimle iletişime geçin",
+	"refresh": "Yenile",
+	"under_maintenance": "Şu anda bakımdayız. Bu uzun sürmeyecek.",
+	"duration_days": "gün cinsinden süre - {0}"
 }

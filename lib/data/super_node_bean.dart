@@ -14,19 +14,23 @@ class SuperNodeBean extends AbstractBaseData<SuperNodeBean> {
   String url;
   @JsonKey(name: "logo")
   String logo;
+  @JsonKey(name: "status")
+  String status;
 
   SuperNodeBean({
     this.name,
     this.region,
     this.url,
     this.logo,
+    this.status,
   });
 
   static SuperNodeBean fromJsonStr(String jsonStr) {
     return SuperNodeBean.fromJson(jsonDecode(jsonStr));
   }
 
-  factory SuperNodeBean.fromJson(Map<String, dynamic> json) => _$SuperNodeBeanFromJson(json);
+  factory SuperNodeBean.fromJson(Map<String, dynamic> json) =>
+      _$SuperNodeBeanFromJson(json);
 
   Map<String, dynamic> toJson() => _$SuperNodeBeanToJson(this);
 
@@ -36,7 +40,8 @@ class SuperNodeBean extends AbstractBaseData<SuperNodeBean> {
       ..name
       ..region
       ..url
-      ..logo;
+      ..logo
+      ..status;
   }
 
   @override

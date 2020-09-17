@@ -322,7 +322,6 @@
 	"invalid_name": "Tên không hợp lệ",
 	"address_book_control_desc": "Kiểm soát địa chỉ thường dùng của bạn tại đây, xin lưu ý rằng bạn chỉ có thể xóa hoặc thêm địa chỉ vì lý do bảo mật.",
 	"delete_address": "Xóa địa chỉ",
-	"refresh": "Làm tươi",
 	"connectivity_lost": "Không có kết nối Internet. Đảm bảo rằng Wi-Fi hoặc dữ liệu di động đã được bật, sau đó thử lại.",
 	"confirm_withdrawal": "Xác nhận Rút tiền",
 	"check_recipient_address": "Vui lòng kiểm tra kỹ địa chỉ người nhận để đảm bảo rằng đó chính xác là những gì bạn đã nhập.",
@@ -373,5 +372,8 @@
 	"join_us_telegram": "Tham gia với chúng tôi trên Telegram",
 	"join_us_wechat": "Tham gia với chúng tôi trên WeChat",
 	"join_us_twitter": "theo dõi chúng tối trên Twitter",
-	"connect_with_us": "Kết nối với chúng tôi"
+	"connect_with_us": "Kết nối với chúng tôi",
+	"refresh": "Làm tươi",
+	"under_maintenance": "Chúng tôi hiện đang bảo trì. Việc này sẽ không mất nhiều thời gian.",
+	"duration_days": "thời gian tính bằng ngày - {0}"
 }

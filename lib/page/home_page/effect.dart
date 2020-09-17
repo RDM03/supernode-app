@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/daos/demo/gateways_dao.dart';
 import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
 import 'package:supernodeapp/common/daos/demo/user_dao.dart';
 import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
+import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/common/daos/app_dao.dart';
@@ -114,8 +115,13 @@ void _relogin(Action action, Context<HomeState> ctx) async {
 }
 
 void _initState(Action action, Context<HomeState> ctx) async {
+  _checkNodeStatus();
   await _profile(ctx);
   await _gatewaysLocations(ctx);
+}
+
+void _checkNodeStatus() async {
+  await checkMaintenance();
 }
 
 void _build(Action action, Context<HomeState> ctx) {
