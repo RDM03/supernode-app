@@ -89,6 +89,10 @@ Widget buildView(
                 onTap: () =>
                     dispatch(SettingsActionCreator.onSettings('about'))),
             Divider(),
+            listItem(FlutterI18n.translate(_ctx, 'connect_with_us'),
+                onTap: () =>
+                    dispatch(SettingsActionCreator.onSettings('links'))),
+            Divider(),
             listItem(
               FlutterI18n.translate(_ctx, 'screenshot'),
               trailing: Switch(

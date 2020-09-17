@@ -127,6 +127,7 @@ flutter:
     - assets/images/device/
     - assets/images/calculator/currencies/
     - assets/images/connectivity/
+    - assets/images/settings/
     - assets/others/
   #  - images/a_dot_ham.jpeg
 
