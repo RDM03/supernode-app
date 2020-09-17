@@ -95,6 +95,7 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
       loading.hide();
       Navigator.pushReplacementNamed(ctx.context, 'home_page');
     } catch (err) {
+      loading.hide();
       final res = await checkMaintenance();
       if (!res) return;
       ctx.state.scaffoldKey.currentState.showSnackBar(SnackBar(
