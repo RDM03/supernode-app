@@ -17,16 +17,10 @@ Reducer<LanguageState> buildReducer() {
 LanguageState _select(LanguageState state, Action action) {
   String language = action.payload;
 
-  if(language == state.language){
+  if (language == state.language) {
     return state;
   }
 
-  SettingsState settingsData = GlobalStore.store.getState().settings;
-  settingsData.language = language;
-
-  SettingsDao.updateLocal(settingsData);
-
   final LanguageState newState = state.clone();
-  return newState
-    ..language = language;
+  return newState..language = language;
 }
