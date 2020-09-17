@@ -83,6 +83,34 @@ Widget buildView(LanguageState state, Dispatch dispatch, ViewService viewService
           value: state.language,
           onTap: () => dispatch(LanguageActionCreator.onChange(AppLanguage.ru))
       ),
+      Divider(),
+      _item(
+          name: 'Español',
+          type: AppLanguage.es,
+          value: state.language,
+          onTap: () => dispatch(LanguageActionCreator.onChange(AppLanguage.es))
+      ),
+      Divider(),
+      _item(
+          name: 'Portugués',
+          type: AppLanguage.pt,
+          value: state.language,
+          onTap: () => dispatch(LanguageActionCreator.onChange(AppLanguage.pt))
+      ),
+      Divider(),
+      _item(
+          name: 'Indonesio',
+          type: AppLanguage.id,
+          value: state.language,
+          onTap: () => dispatch(LanguageActionCreator.onChange(AppLanguage.id))
+      ),
+      Divider(),
+      _item(
+          name: 'Tagalog',
+          type: AppLanguage.tl,
+          value: state.language,
+          onTap: () => dispatch(LanguageActionCreator.onChange(AppLanguage.tl))
+      ),
 
       Divider(),
       _item(
