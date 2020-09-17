@@ -9,7 +9,7 @@ import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/configs/config.dart';
-import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/colors.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -18,7 +18,7 @@ Effect<ForgotPasswordState> buildEffect() {
   return combineEffects(<Object, Effect<ForgotPasswordState>>{
     ForgotPasswordAction.onEmailContinue: _onEmailContinue,
     ForgotPasswordAction.onVerificationContinue: _onVerificationContinue,
-    ForgotPasswordAction.showHasCodeDialog: _showHasCodeDialog,
+    ForgotPasswordAction.onHasCode: _onHasCode,
   });
 }
 
@@ -60,48 +60,35 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
     } catch (err) {
       loading.hide();
       if (err is DaoException && err.code == 7) {
-        ctx.dispatch(ForgotPasswordActionCreator.showHasCodeDialog());
+        final scaffold = Scaffold.of(ctx.state.emailFormKey.currentContext);
+        scaffold.showSnackBar(SnackBar(
+          content: Text(
+            FlutterI18n.translate(ctx.context, 'one_reset_email_month'),
+            style: Theme.of(ctx.context)
+                .textTheme
+                .bodyText1
+                .copyWith(color: Colors.white),
+          ),
+          duration: Duration(seconds: 2),
+          backgroundColor: errorColor,
+        ));
       }
       // tip(ctx.context, 'UserDao register: $err');
     }
   }
 }
 
-void _showHasCodeDialog(Action action, Context<ForgotPasswordState> ctx) async {
-  final _ctx = ctx.context;
-  final hasCode = await showDialog(
-    context: ctx.context,
-    builder: (dialogContext) => CupertinoAlertDialog(
-      content: Text(FlutterI18n.translate(_ctx, 'one_reset_email_month')),
-      actions: <Widget>[
-        CupertinoDialogAction(
-          child: Text(FlutterI18n.translate(_ctx, 'have_code')),
-          onPressed: () {
-            Navigator.of(dialogContext).pop(true);
-          },
-        ),
-        CupertinoDialogAction(
-          child: Text('OK'),
-          isDefaultAction: true,
-          onPressed: () {
-            Navigator.of(dialogContext).pop(false);
-          },
-        ),
-      ],
+void _onHasCode(Action action, Context<ForgotPasswordState> ctx) async {
+  Navigator.push(
+    ctx.context,
+    MaterialPageRoute(
+      maintainState: false,
+      fullscreenDialog: false,
+      builder: (context) {
+        return ctx.buildComponent('pwd_reset');
+      },
     ),
   );
-  if (hasCode) {
-    Navigator.push(
-      ctx.context,
-      MaterialPageRoute(
-        maintainState: false,
-        fullscreenDialog: false,
-        builder: (context) {
-          return ctx.buildComponent('pwd_reset');
-        },
-      ),
-    );
-  }
 }
 
 void _onVerificationContinue(

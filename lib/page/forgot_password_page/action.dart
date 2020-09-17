@@ -5,7 +5,7 @@ enum ForgotPasswordAction {
   onEmailContinue,
   onVerificationContinue,
   setEmail,
-  showHasCodeDialog,
+  onHasCode,
 }
 
 class ForgotPasswordActionCreator {
@@ -21,7 +21,7 @@ class ForgotPasswordActionCreator {
     return Action(ForgotPasswordAction.setEmail, payload: email);
   }
 
-  static Action showHasCodeDialog() {
-    return Action(ForgotPasswordAction.showHasCodeDialog);
+  static Action onHasCode() {
+    return Action(ForgotPasswordAction.onHasCode);
   }
 }

@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/page/forgot_password_page/action.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
 import 'state.dart';
@@ -17,7 +18,6 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return Scaffold(
-    resizeToAvoidBottomInset: false,
     backgroundColor: cardBackgroundColor,
     appBar: AppBar(
       iconTheme: IconThemeData(color: Colors.black),
@@ -44,6 +44,19 @@ Widget buildView(
                     textInputAction: TextInputAction.done,
                     validator: (value) => Reg.onValidEmail(_ctx, value),
                     controller: state.emailCtl,
+                  ),
+                ),
+                SizedBox(height: 10),
+                GestureDetector(
+                  onTap: () =>
+                      dispatch(ForgotPasswordActionCreator.onHasCode()),
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.only(left: 2),
+                    child: Text(
+                      FlutterI18n.translate(_ctx, 'have_code'),
+                      style: kMiddleFontOfGreyLink,
+                    ),
                   ),
                 ),
               ]),
