@@ -22,6 +22,10 @@
 		<string>ru</string>
 		<string>tr</string>
 		<string>de</string>
+		<string>es</string>
+		<string>pt</string>
+		<string>tl</string>
+		<string>id</string>
 	</array>
 	<key>CFBundleName</key>
 	<string>MXC DataDash</string>

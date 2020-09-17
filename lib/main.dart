@@ -163,6 +163,10 @@ class MxcApp extends StatelessWidget {
           const Locale.fromSubtags(languageCode: 'ru'), // Russia
           const Locale.fromSubtags(languageCode: 'ko'), // Korea
           const Locale.fromSubtags(languageCode: 'tr'), // Turkey
+          const Locale.fromSubtags(languageCode: 'es'), // Spain
+          const Locale.fromSubtags(languageCode: 'pt'), // Portugal
+          const Locale.fromSubtags(languageCode: 'id'), // Indonesia
+          const Locale.fromSubtags(languageCode: 'tl'), // Philippines
         ],
         theme: appTheme,
         home: AppPage(
