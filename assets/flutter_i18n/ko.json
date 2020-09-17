@@ -365,5 +365,9 @@
 	"cancel_normalized": "취소",
 	"screenshot": "스크린 샷",
 	"have_code": "나는 코드를 가지고있다",
-	"one_reset_email_month": "한 달에 하나의 비밀번호 재설정 이메일 만 보낼 수 있습니다."
+	"one_reset_email_month": "한 달에 하나의 비밀번호 재설정 이메일 만 보낼 수 있습니다.",
+	"join_us_telegram": "Telegram에 가입하세요",
+	"join_us_wechat": "WeChat에 가입하세요",
+	"join_us_twitter": "Twitter에서 팔로우하세요",
+	"connect_with_us": "우리와 접촉"
 }
