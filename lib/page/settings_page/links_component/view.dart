@@ -32,7 +32,7 @@ Widget buildView(LinksState state, Dispatch dispatch, ViewService viewService) {
       _item(
         name: FlutterI18n.translate(viewService.context, 'join_us_wechat'),
         onTap: () => launch(
-            'https://datadash.oss-cn-shanghai.aliyuncs.com/mxcwechat.png'),
+            'https://mp.weixin.qq.com/s/wQI0nGCbzB5089r4_VmzjQ'),
         leading: Image.asset(
           'assets/images/settings/wechat.png',
           color: buttonPrimaryColor,
