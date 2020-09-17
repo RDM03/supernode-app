@@ -323,7 +323,6 @@
 	"invalid_name": "無効な名前",
 	"address_book_control_desc": "ここで頻繁に使用するアドレスを制御します。セキュリティ上の理由により、アドレスの削除または追加しかできないことに注意してください。",
 	"delete_address": "住所を削除",
-	"refresh": "リフレッシュ",
 	"connectivity_lost": "インターネット接続なし。 Wi-Fiまたはモバイルデータがオンになっていることを確認してから、もう一度お試しください。",
 	"confirm_withdrawal": "引き出しを確認",
 	"check_recipient_address": "受信者のアドレスを注意深くチェックして、入力したとおりであることを確認してください。",
@@ -373,6 +372,7 @@
 	"join_us_wechat": "WeChatにご参加ください",
 	"join_us_twitter": "Twitterでフォローします",
 	"connect_with_us": "私達と接続",
-	"under_maintenance": "We are currently undergoing maintenance. This won’t take long.",
-	"duration_days": "日数-{0}"
+	"refresh": "リフレッシュ",
+	"under_maintenance": "我々は現在、メンテナンスを受けています。 これには時間がかかりません。",
+	"duration_days": "日数 - {0}"
 }

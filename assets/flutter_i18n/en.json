@@ -323,7 +323,6 @@
 	"invalid_name": "Invalid name",
 	"address_book_control_desc": "Control your frequently used address here, please note you can only delete or add the address due to security reason.",
 	"delete_address": "Delete address",
-	"refresh": "Refresh",
 	"connectivity_lost": "No Internet connection.\nMake sure that Wi-Fi or mobile data is turned on, then try again.",
 	"confirm_withdrawal": "Confirm Withdrawal",
 	"check_recipient_address": "Please check the Recipient Address carefully to make sure it is exactly what you entered.",
@@ -372,5 +371,8 @@
 	"join_us_telegram": "Join us on Telegram",
 	"join_us_wechat": "Join us on WeChat",
 	"join_us_twitter": "Follow us on Twitter",
-	"connect_with_us": "Connect with us"
+	"connect_with_us": "Connect with us",
+	"refresh": "Refresh",
+	"under_maintenance": "We are currently undergoing maintenance. This won’t take long.",
+	"duration_days": "duration in days - {0}"
 }

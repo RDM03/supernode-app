@@ -79,7 +79,7 @@ class TokenInterceptors extends InterceptorsWrapper {
       }
     } */
     else if (Dao.ctx?.context != null) {
-      tip(Dao.ctx.context, FlutterI18n.translate(Dao.ctx.context, 'error_tip'));
+      //tip(Dao.ctx.context, FlutterI18n.translate(Dao.ctx.context,'error_tip'));
     }
 
     SettingsState settingsData = GlobalStore.store.getState().settings;

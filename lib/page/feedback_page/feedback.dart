@@ -211,7 +211,7 @@ class DatadashFeedbackState extends State<DatadashFeedback> {
                           ),
                           child: Padding(
                             padding:
-                                EdgeInsets.all(4).copyWith(right: 18, left: 10),
+                                EdgeInsets.all(4).copyWith(right: 4, left: 6),
                             child: Icon(
                               Icons.camera_alt,
                               color: Colors.white,
