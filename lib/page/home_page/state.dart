@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/daos/time_dao.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/global_store/store.dart';
+import 'package:supernodeapp/page/home_page/mapbox_gl_component/state.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 
@@ -68,6 +69,7 @@ class HomeState implements Cloneable<HomeState> {
   //map
   MapViewController mapCtl = MapViewController();
   List<GatewayItemState> gatewaysList = [];
+  List geojsonList = [];
 
   //devices
   int devicesTotal = 0;
@@ -112,6 +114,7 @@ class HomeState implements Cloneable<HomeState> {
       ..gatewaysLocations = gatewaysLocations
       ..mapCtl = mapCtl
       ..gatewaysList = gatewaysList
+      ..geojsonList = geojsonList
       ..tabHeight = tabHeight
       ..walletTabIndex = walletTabIndex
       ..walletList = walletList ?? []
@@ -166,6 +169,7 @@ class UserConnector extends ConnOp<HomeState, UserState> {
       ..devicesUSDRevenue = state.devicesUSDRevenue
       ..mapViewController = state.mapCtl
       ..gatewaysLocations = state.gatewaysLocations
+      ..geojsonList = state.geojsonList
       ..isDemo = state.isDemo;
   }
 
@@ -261,5 +265,18 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..withdrawFee = subState.withdrawFee
       ..firstTime = subState.firstTime
       ..secondTime = subState.secondTime;
+  }
+}
+
+class MapboxGlConnector extends ConnOp<HomeState, MapboxGlState> {
+  @override
+  MapboxGlState get(HomeState state) {
+    return MapboxGlState()
+      ..geojsonList = state.geojsonList;
+  }
+
+  @override
+  void set(HomeState state, MapboxGlState subState) {
+    
   }
 }

@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/page/home_page/device_component/component.dart';
 import 'package:supernodeapp/page/home_page/gateway_component/component.dart';
+import 'package:supernodeapp/page/home_page/mapbox_gl_component/component.dart';
 import 'package:supernodeapp/page/home_page/user_component/component.dart';
 import 'package:supernodeapp/page/home_page/wallet_component/component.dart';
 
@@ -23,6 +24,7 @@ class HomePage extends Page<HomeState, Map<String, dynamic>> {
                   'gateway': GatewayConnector() + GatewayComponent(),
                   'device': DeviceConnector() + DeviceComponent(),
                   'wallet': WalletConnector() + WalletComponent(),
+                  'mapbox': MapboxGlConnector() + MapboxGlComponent(),
                 }),
             middleware: <Middleware<HomeState>>[
             ],);

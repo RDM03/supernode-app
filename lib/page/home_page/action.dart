@@ -10,6 +10,7 @@ enum HomeAction {
   profile,
   balance,
   mapbox,
+  geojsonList,
   stakedAmount,
   gateways,
   onGateways,
@@ -61,6 +62,10 @@ class HomeActionCreator {
 
   static Action mapbox(){
     return const Action(HomeAction.mapbox);
+  }
+
+  static Action geojsonList(List data){
+    return Action(HomeAction.geojsonList,payload: data);
   }
 
   static Action stakedAmount(double data) {

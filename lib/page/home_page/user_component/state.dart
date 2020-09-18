@@ -43,6 +43,7 @@ class UserState implements Cloneable<UserState> {
   //map
   MapViewController mapViewController;
   StreamController<LatLng> markerlocationStream = StreamController();
+  List geojsonList = [];
 
   bool isDemo = false;
 
@@ -74,6 +75,7 @@ class UserState implements Cloneable<UserState> {
       ..mapViewController = mapViewController
       ..markerlocationStream = markerlocationStream
       ..gatewaysLocations = gatewaysLocations
+      ..geojsonList = geojsonList
       ..isDemo = isDemo;
   }
 
@@ -108,5 +110,7 @@ class UserState implements Cloneable<UserState> {
 }
 
 UserState initState(Map<String, dynamic> args) {
+  
+
   return UserState();
 }

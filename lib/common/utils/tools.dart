@@ -23,6 +23,12 @@ class Tools {
   }
 
   static LatLng convertLatLng(Map location){
+
+    if(location['latitude'] is String){
+      location['latitude'] = double.parse(location['latitude']);
+      location['longitude'] = double.parse(location['longitude']);
+    }
+
     return LatLng(
       location['latitude'].toDouble(),
       location['longitude'].toDouble()

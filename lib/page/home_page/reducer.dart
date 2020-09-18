@@ -24,9 +24,18 @@ Reducer<HomeState> buildReducer() {
       HomeAction.totalRevenue: _totalRevenue,
       HomeAction.isUpdate: _isUpdate,
       HomeAction.reloginCount: _reloginCount,
+      HomeAction.geojsonList: _geojsonList,
     },
   );
 }
+
+HomeState _geojsonList(HomeState state, Action action) {
+
+  final HomeState newState = state.clone();
+  return newState
+    ..geojsonList = action.payload;
+}
+
 
 HomeState _reloginCount(HomeState state, Action action) {
 
