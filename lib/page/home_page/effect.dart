@@ -21,7 +21,7 @@ import 'package:supernodeapp/page/settings_page/organizations_component/state.da
 import 'package:supernodeapp/page/settings_page/state.dart';
 
 import 'action.dart';
-import 'gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
+import 'gateway_component/item_state.dart';
 import 'state.dart';
 import 'user_component/state.dart';
 
@@ -194,6 +194,7 @@ Future<void> _profile(Context<HomeState> ctx) async {
       _loadUserData(ctx, userData.id);
     }
 
+    mLog('loading', 'initial loading');
     // Gain user's finance situation
     await _balance(ctx, userData, orgId);
     await _miningIncome(ctx, userData.id, orgId);
@@ -313,9 +314,10 @@ Future<void> _stakeAmount(
 
 Future<void> _gateways(Context<HomeState> ctx, String userId) async {
   try {
+    ctx.dispatch(HomeActionCreator.loading(true));
     GatewaysDao dao = _buildGatewaysDao(ctx);
     String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-    Map data = {"organizationID": orgId, "offset": 0, "limit": 999};
+    Map data = {"organizationID": orgId, "offset": 0, "limit": 10};
 
     var res = await dao.list(data);
     mLog('GatewaysDao list', res);
@@ -362,6 +364,7 @@ Future<void> _gateways(Context<HomeState> ctx, String userId) async {
 
     LocalStorageDao.saveUserData('user_$userId', {'gatewaysTotal': total});
     ctx.dispatch(HomeActionCreator.gateways(total, 0, list));
+    ctx.dispatch(HomeActionCreator.loading(false));
   } catch (err) {
     ctx.dispatch(HomeActionCreator.loading(false));
     // tip(ctx.context, 'GatewaysDao list: $err');
