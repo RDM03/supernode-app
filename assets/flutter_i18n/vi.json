@@ -375,5 +375,6 @@
 	"connect_with_us": "Kết nối với chúng tôi",
 	"refresh": "Làm tươi",
 	"under_maintenance": "Chúng tôi hiện đang bảo trì. Việc này sẽ không mất nhiều thời gian.",
-	"duration_days": "thời gian tính bằng ngày - {0}"
+	"duration_days": "thời gian tính bằng ngày - {0}",
+	"days": "{0} ngày"
 }

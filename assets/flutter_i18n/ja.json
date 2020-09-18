@@ -373,5 +373,6 @@
 	"connect_with_us": "私達と接続",
 	"refresh": "リフレッシュ",
 	"under_maintenance": "我々は現在、メンテナンスを受けています。 これには時間がかかりません。",
-	"duration_days": "日数 - {0}"
+	"duration_days": "日数 - {0}",
+	"days": "{0}日間"
 }

@@ -13,7 +13,6 @@ import 'gateway_component/gateway_list_adapter/gateway_item_component/state.dart
 import 'gateway_component/state.dart';
 import 'user_component/state.dart';
 import 'wallet_component/state.dart';
-import 'wallet_component/wallet_list_adapter/wallet_item_component/state.dart';
 
 class HomeState implements Cloneable<HomeState> {
   //home

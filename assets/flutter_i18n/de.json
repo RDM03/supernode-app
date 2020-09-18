@@ -373,5 +373,6 @@
 	"connect_with_us": "verbinde dich mit uns",
 	"refresh": "Aktualisierung",
 	"under_maintenance": "Wir sind derzeit in der Wartung. Dies wird nicht lange dauern.",
-	"duration_days": "Dauer in Tagen - {0}"
+	"duration_days": "Dauer in Tagen - {0}",
+	"days": "{0} Tage"
 }

@@ -1,9 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:supernodeapp/common/daos/time_dao.dart';
 
 import 'action.dart';
 import 'state.dart';
-import 'wallet_list_adapter/wallet_item_component/state.dart';
 
 Reducer<WalletState> buildReducer() {
   return asReducer(

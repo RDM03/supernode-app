@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -202,6 +203,7 @@ class StakeItem extends StatelessWidget {
     String dateStr = Tools.dateFormat(startDate);
     if (endDate != null) dateStr += '~' + Tools.dateFormat(endDate);
     dateStr = '${startDate.year}-${startDate.month}-${startDate.day}';
+
     return InkWell(
       onTap: onTap,
       child: Column(
@@ -259,7 +261,11 @@ class StakeItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(dateStr, style: kSmallFontOfGrey),
-                          Text('$durationDays Days', style: kSmallFontOfGrey),
+                          Text(
+                            FlutterI18n.translate(context, 'days')
+                                .replaceFirst('{0}', durationDays.toString()),
+                            style: kSmallFontOfGrey,
+                          ),
                         ],
                       ),
                     ],

@@ -371,5 +371,6 @@
 	"connect_with_us": "우리와 접촉",
 	"refresh": "새롭게 하다",
 	"under_maintenance": "현재 점검 중입니다. 오래 걸리지 않을 것입니다.",
-	"duration_days": "일의 기간 - {0}"
+	"duration_days": "일의 기간 - {0}",
+	"days": "{0} 일"
 }

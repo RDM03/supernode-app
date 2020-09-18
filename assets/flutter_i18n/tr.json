@@ -375,5 +375,6 @@
 	"connect_with_us": "Bizimle iletişime geçin",
 	"refresh": "Yenile",
 	"under_maintenance": "Şu anda bakımdayız. Bu uzun sürmeyecek.",
-	"duration_days": "gün cinsinden süre - {0}"
+	"duration_days": "gün cinsinden süre - {0}",
+	"days": "{0} gün"
 }
