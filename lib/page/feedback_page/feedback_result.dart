@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:feedback/feedback.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,17 +13,26 @@ enum FeedbackResultType { cancel, feedback, share }
 class FeedbackResult {
   final FeedbackResultType resultType;
   final FeedbackType feedbackType;
+  final Uint8List image;
 
-  FeedbackResult(this.resultType, this.feedbackType);
+  FeedbackResult(this.resultType, this.feedbackType, this.image);
 }
 
-class FeedbackResultPage extends StatelessWidget {
+class FeedbackResultPage extends StatefulWidget {
   final FeedbackParams params;
   final Uint8List image;
   final DatadashTranslation translation;
   FeedbackResultPage(this.params, this.image, this.translation);
 
   static const _buttonColor = Color.fromARGB(255, 28, 20, 120);
+  static final _screenshotKey = GlobalKey();
+
+  @override
+  _FeedbackResultPageState createState() => _FeedbackResultPageState();
+}
+
+class _FeedbackResultPageState extends State<FeedbackResultPage> {
+  final ScreenshotController screenshotController = ScreenshotController();
 
   Future<FeedbackType> _showFeedbackDialog(BuildContext context) {
     return showCupertinoModalPopup<FeedbackType>(
@@ -30,20 +40,20 @@ class FeedbackResultPage extends StatelessWidget {
       builder: (BuildContext context) {
         return CupertinoActionSheet(
           title: Text(
-            translation.translate('feedback'),
+            widget.translation.translate('feedback'),
             style: kBigFontOfBlue,
           ),
           actions: <Widget>[
             CupertinoActionSheetAction(
               child: Text(
-                translation.translate('this_is_bug'),
+                widget.translation.translate('this_is_bug'),
                 style: kBigFontOfBlack,
               ),
               onPressed: () => Navigator.of(context).pop(FeedbackType.bug),
             ),
             CupertinoActionSheetAction(
               child: Text(
-                translation.translate('this_is_idea'),
+                widget.translation.translate('this_is_idea'),
                 style: kBigFontOfBlack,
               ),
               onPressed: () => Navigator.of(context).pop(FeedbackType.idea),
@@ -52,7 +62,7 @@ class FeedbackResultPage extends StatelessWidget {
           cancelButton: CupertinoActionSheetAction(
             isDefaultAction: true,
             child: Text(
-              translation.translate('cancel_normalized'),
+              widget.translation.translate('cancel_normalized'),
               style: kBigFontOfBlack,
             ),
             onPressed: () => Navigator.of(context).pop<FeedbackType>(),
@@ -64,11 +74,12 @@ class FeedbackResultPage extends StatelessWidget {
 
   void _onAction(BuildContext context, FeedbackResultType type) async {
     FeedbackType res;
+    final screenshot = await screenshotController.capture(pixelRatio: 2.0);
     if (type == FeedbackResultType.feedback) {
       res = await _showFeedbackDialog(context);
       if (res == null) return;
     }
-    Navigator.of(context).pop(FeedbackResult(type, res));
+    Navigator.of(context).pop(FeedbackResult(type, res, screenshot));
   }
 
   Widget _button(String title, Widget icon, VoidCallback onTap) {
@@ -119,101 +130,109 @@ class FeedbackResultPage extends StatelessWidget {
             ),
             child: Container(
               color: Colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+              child: Stack(
                 children: [
-                  SizedBox(height: 7),
-                  Image.asset(
-                    'assets/images/splash/logo.png',
-                    height: 35,
-                  ),
-                  Center(
-                    child: Text('mxc.org'),
-                  ),
-                  if (params.title.isNotEmpty) ...[
-                    SizedBox(height: 15),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        params.title,
-                        style: kBigFontOfBlack.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ],
-                  SizedBox(height: 20),
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20)
-                              .copyWith(bottom: 20),
-                          alignment: Alignment.bottomCenter,
-                          child: Image.memory(
-                            image,
-                            alignment: Alignment.bottomCenter,
+                  Screenshot(
+                    containerKey: FeedbackResultPage._screenshotKey,
+                    controller: screenshotController,
+                    child: Container(
+                      color: Colors.white,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          SizedBox(height: 7),
+                          Image.asset(
+                            'assets/images/splash/logo.png',
+                            height: 35,
                           ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                          Center(
+                            child: Text('mxc.org'),
+                          ),
+                          if (widget.params.title.isNotEmpty) ...[
+                            SizedBox(height: 15),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: Text(
+                                widget.params.title,
+                                style: kBigFontOfBlack.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ),
-                            elevation: 3,
+                          ],
+                          SizedBox(height: 20),
+                          Expanded(
                             child: Container(
-                              height: 45,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: _button(
-                                      translation.translate('feedback'),
-                                      Icon(
-                                        Icons.send,
-                                        color: _buttonColor,
-                                        size: 15,
-                                      ),
-                                      () => _onAction(
-                                          context, FeedbackResultType.feedback),
-                                    ),
-                                  ),
-                                  _divider(),
-                                  Expanded(
-                                    child: _button(
-                                      translation.translate('share'),
-                                      FaIcon(
-                                        FontAwesomeIcons.solidShareSquare,
-                                        color: _buttonColor,
-                                        size: 14,
-                                      ),
-                                      () => _onAction(
-                                          context, FeedbackResultType.share),
-                                    ),
-                                  ),
-                                  _divider(),
-                                  Expanded(
-                                    child: _button(
-                                      translation
-                                          .translate('cancel_normalized'),
-                                      Icon(
-                                        Icons.close,
-                                        color: _buttonColor,
-                                        size: 18,
-                                      ),
-                                      () => _onAction(
-                                          context, FeedbackResultType.cancel),
-                                    ),
-                                  ),
-                                ],
+                              padding: EdgeInsets.symmetric(horizontal: 20)
+                                  .copyWith(bottom: 20),
+                              alignment: Alignment.bottomCenter,
+                              child: Image.memory(
+                                widget.image,
+                                alignment: Alignment.bottomCenter,
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                          SizedBox(height: 18),
+                        ],
+                      ),
                     ),
                   ),
-                  SizedBox(height: 18),
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    padding: EdgeInsets.only(bottom: 18),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      elevation: 3,
+                      child: Container(
+                        height: 45,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: _button(
+                                widget.translation.translate('feedback'),
+                                Icon(
+                                  Icons.send,
+                                  color: FeedbackResultPage._buttonColor,
+                                  size: 15,
+                                ),
+                                () => _onAction(
+                                    context, FeedbackResultType.feedback),
+                              ),
+                            ),
+                            _divider(),
+                            Expanded(
+                              child: _button(
+                                widget.translation.translate('share'),
+                                FaIcon(
+                                  FontAwesomeIcons.solidShareSquare,
+                                  color: FeedbackResultPage._buttonColor,
+                                  size: 14,
+                                ),
+                                () => _onAction(
+                                    context, FeedbackResultType.share),
+                              ),
+                            ),
+                            _divider(),
+                            Expanded(
+                              child: _button(
+                                widget.translation
+                                    .translate('cancel_normalized'),
+                                Icon(
+                                  Icons.close,
+                                  color: FeedbackResultPage._buttonColor,
+                                  size: 18,
+                                ),
+                                () => _onAction(
+                                    context, FeedbackResultType.cancel),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

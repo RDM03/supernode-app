@@ -182,9 +182,13 @@ class DatadashFeedbackState extends State<DatadashFeedback> {
       child: BetterFeedback<FeedbackParams>(
         translation: tr,
         onFeedback: (ctx, __, image, params) async {
-          final res = await submitJiraFeedback(ctx, params, image);
-          if (!res) return;
-          BetterFeedback.of(navigatorKey.currentContext).hide();
+          try {
+            final res = await submitJiraFeedback(ctx, params, image);
+            if (!res) return;
+            BetterFeedback.of(navigatorKey.currentContext).hide();
+          } finally {
+            setState(() => _showScreenshot = true);
+          }
         },
         formBuilder: (s) => DatadashFeedbackWidgetForm(tr, s),
         child: Material(
@@ -200,6 +204,7 @@ class DatadashFeedbackState extends State<DatadashFeedback> {
                       padding: EdgeInsets.only(bottom: 100),
                       child: GestureDetector(
                         onTap: () {
+                          setState(() => _showScreenshot = false);
                           BetterFeedback.of(navigatorKey.currentContext).show();
                         },
                         child: Container(
@@ -231,13 +236,17 @@ class DatadashFeedbackState extends State<DatadashFeedback> {
 }
 
 Future<bool> submitJiraFeedback(
-    BuildContext ctx, FeedbackParams params, Uint8List image) async {
+  BuildContext ctx,
+  FeedbackParams params,
+  Uint8List image,
+) async {
   final res = await Navigator.of(ctx).push(PageRouteBuilder(
     pageBuilder: (_, __, ___) => FeedbackResultPage(
         params, image, DatadashTranslation(() => navigatorKey.currentContext)),
     opaque: false,
   )) as FeedbackResult;
   if (res == null) return false;
+  image = res.image;
   if (res.resultType == FeedbackResultType.feedback) {
     params = params.copyWith(type: res.feedbackType);
     final dao = JiraDao();
