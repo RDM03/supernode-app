@@ -16,6 +16,6 @@ jobs:
     - uses: subosito/flutter-action@v1
       with:
         flutter-version: '1.17'
-    - run: cd ~/Library/Android/sdk && ls -l && sudo rm -r ndk/ && sudo rm -r ndk-bundle/ | true
     - run: flutter pub get
+    - run: sdkmanager --uninstall 'ndk-bundle' #FIXME
     - run: flutter build apk --flavor prod
