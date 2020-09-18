@@ -15,7 +15,8 @@ jobs:
         java-version: '12.x'
     - uses: subosito/flutter-action@v1
       with:
-        flutter-version: '1.17'
+        flutter-version: '1.20'
     - run: flutter pub get
-    - run: sdkmanager --uninstall 'ndk-bundle' #FIXME
+    - name: Install NDK as workaround https://github.com/gradle/gradle/issues/12440
+      run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;20.0.5594570" --sdk_root=${ANDROID_SDK_ROOT}
     - run: flutter build apk --flavor prod
