@@ -50,7 +50,6 @@ Future<void> _gatewaysLocationsFromRemote(Context<MapboxGlState> ctx) async {
     List nodes = superNodes[key];
     for(int j = 0;j < nodes.length;j++){
       if(nodes[j].region.toLowerCase() != 'test'){
-        print(nodes[j].url + GatewaysApi.locations);
         var res = await dao.get(
           url: nodes[j].url + GatewaysApi.locations
         );

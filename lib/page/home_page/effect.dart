@@ -217,7 +217,7 @@ Future<void> _requestUserFinance(Context<HomeState> ctx,String userId,String org
 }
 
 void _loadUserData(Context<HomeState> ctx) {
-  var data = LocalStorageDao.loadUserData('user_${ctx.state.userId}');
+  var data = LocalStorageDao.loadUserData('user_${ctx.state.username}');
   data ??= {};
 
   if (data['balance'] != null)
@@ -423,7 +423,7 @@ void _mapbox(Action action, Context<HomeState> ctx) {
   Navigator.push(
     ctx.context,
     MaterialPageRoute(
-      maintainState: true,
+      maintainState: false,
       fullscreenDialog: false,
       builder: (context) {
         return ctx.buildComponent('mapbox');

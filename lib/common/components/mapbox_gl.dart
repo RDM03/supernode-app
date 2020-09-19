@@ -25,7 +25,7 @@ class MapBoxGLWidget extends StatefulWidget {
   _MapBoxGLState createState() => _MapBoxGLState();
 }
 
-class _MapBoxGLState extends State<MapBoxGLWidget> {
+class _MapBoxGLState extends State<MapBoxGLWidget> with WidgetsBindingObserver{
   WebViewController _controller;
   bool _myLocationEnable = true;
   List _oldMarkers = [];
@@ -33,13 +33,71 @@ class _MapBoxGLState extends State<MapBoxGLWidget> {
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addObserver(this);
   }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.inactive:
+        break;
+      case AppLifecycleState.resumed:
+        _controller.reload();
+        _initMap();
+        break;
+      case AppLifecycleState.paused:
+        break;
+      case AppLifecycleState.detached:
+        break;
+    }
+  }
+
+  // @override
+  // void dispose() {
+  //   // WidgetsBinding.instance.removeObserver(this);
+  //   super.dispose();
+  // }
 
   @override
   void didUpdateWidget(MapBoxGLWidget oldWidget) {
     _setMarkers(oldWidget);
     
     super.didUpdateWidget(oldWidget);
+  }
+
+  void _initMap(){
+    DefaultAssetBundle.of(context)
+      .loadString(Sys.mapboxjs)
+      .then((String mapboxjs) async{
+        _controller.evaluateJavascript(mapboxjs);
+      })
+      .then((_) {
+        _controller.evaluateJavascript(map_html).then((_) async{
+
+          Future.delayed(Duration(seconds: 1),(){
+            DefaultAssetBundle.of(context)
+              .loadString(Sys.mapjs)
+              .then((String mapjs) async{
+                // GatewaysLocationDao gatewayLocations = GatewaysLocationDao();
+                // List features = await gatewayLocations.listFromLocal();
+                // String featuresJson = json.encode(features);
+
+                // RegExp role = new RegExp(r'__s\d__');
+                // String newJS = js.replaceAllMapped(role, (match){
+                //   if(match.group(0) == '__s1__'){
+                //     return featuresJson;
+                //   }
+                // });
+
+                _controller.evaluateJavascript(mapjs).then((_) async{
+                  _addMarkers(widget.markers);
+                  _moveToMyLocation();
+                });
+              });
+          });
+        });
+      });
   }
 
   void _setMarkers(MapBoxGLWidget oldWidget){
@@ -115,37 +173,7 @@ class _MapBoxGLState extends State<MapBoxGLWidget> {
               _controller = controller;
               setState(() {});
 
-              DefaultAssetBundle.of(context)
-                .loadString(Sys.mapboxjs)
-                .then((String mapboxjs) async{
-                  controller.evaluateJavascript(mapboxjs);
-                })
-                .then((_) {
-                  controller.evaluateJavascript(map_html).then((_) async{
-
-                    Future.delayed(Duration(seconds: 1),(){
-                      DefaultAssetBundle.of(context)
-                        .loadString(Sys.mapjs)
-                        .then((String mapjs) async{
-                          // GatewaysLocationDao gatewayLocations = GatewaysLocationDao();
-                          // List features = await gatewayLocations.listFromLocal();
-                          // String featuresJson = json.encode(features);
-
-                          // RegExp role = new RegExp(r'__s\d__');
-                          // String newJS = js.replaceAllMapped(role, (match){
-                          //   if(match.group(0) == '__s1__'){
-                          //     return featuresJson;
-                          //   }
-                          // });
-
-                          controller.evaluateJavascript(mapjs).then((_) async{
-                            _addMarkers(widget.markers);
-                            _moveToMyLocation();
-                          });
-                        });
-                    });
-                  });
-                });
+              _initMap();
             },
             onPageFinished: (String url) {
 
