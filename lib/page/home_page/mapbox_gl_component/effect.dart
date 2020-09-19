@@ -35,6 +35,7 @@ Future<void> _gatewaysLocationsFromRemote(Context<MapboxGlState> ctx) async {
     String key = superNodesKeys[i];
     if(key.toLowerCase() == 'test'){
       Map localGeojsonMap = LocalStorageDao.loadUserData('geojson');
+      localGeojsonMap ??= {};
 
       if((localGeojsonMap['data'] == null && geojsonList.length > 0) || (localGeojsonMap['data'] != null && localGeojsonMap['data'].length > 0 && geojsonList.length > 0 && localGeojsonMap['data'].length != geojsonList.length)){
         LocalStorageDao.saveUserData('geojson', {'data': geojsonList});

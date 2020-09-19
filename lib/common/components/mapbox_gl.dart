@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'package:supernodeapp/common/utils/map_html.dart';
 import 'package:supernodeapp/configs/sys.dart';
@@ -43,8 +44,10 @@ class _MapBoxGLState extends State<MapBoxGLWidget> with WidgetsBindingObserver{
       case AppLifecycleState.inactive:
         break;
       case AppLifecycleState.resumed:
-        _controller.reload();
-        _initMap();
+        Future.delayed(Duration(seconds: 2),(){
+          _controller.reload();
+          _initMap();
+        });
         break;
       case AppLifecycleState.paused:
         break;

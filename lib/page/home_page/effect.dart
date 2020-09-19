@@ -1,6 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/update_dialog.dart';
 import 'package:supernodeapp/common/daos/demo/gateways_dao.dart';
@@ -270,7 +271,7 @@ Future<void> _miningIncome(
     if ((res as Map).containsKey('miningIncome')) {
       value = Tools.convertDouble(res['miningIncome']);
     }
-    LocalStorageDao.saveUserData('user_$userId', {'miningIncome': value});
+    LocalStorageDao.saveUserData('user_${ctx.state.username}', {'miningIncome': value});
 
     ctx.dispatch(HomeActionCreator.miningIncome(value));
 
@@ -308,7 +309,7 @@ Future<void> _stakeAmount(
       }
       amount = sum.toDouble();
     }
-    LocalStorageDao.saveUserData('user_$userId', {'stakedAmount': amount});
+    LocalStorageDao.saveUserData('user_${ctx.state.username}', {'stakedAmount': amount});
 
     ctx.dispatch(HomeActionCreator.stakedAmount(amount));
     ctx.dispatch(HomeActionCreator.loadingMap('stakedAmount'));
@@ -367,7 +368,7 @@ Future<void> _gateways(Context<HomeState> ctx, String userId) async {
       }
     }
 
-    LocalStorageDao.saveUserData('user_$userId', {'gatewaysTotal': total});
+    LocalStorageDao.saveUserData('user_${ctx.state.username}', {'gatewaysTotal': total});
     ctx.dispatch(HomeActionCreator.gateways(total, 0, list));
     ctx.dispatch(HomeActionCreator.loadingMap('gatewaysTotal'));
   } catch (err) {
@@ -419,15 +420,11 @@ void _onOperate(Action action, Context<HomeState> ctx) {
   });
 }
 
-void _mapbox(Action action, Context<HomeState> ctx) {
-  Navigator.push(
-    ctx.context,
-    MaterialPageRoute(
-      maintainState: false,
-      fullscreenDialog: false,
-      builder: (context) {
-        return ctx.buildComponent('mapbox');
-      }),
+void _mapbox(Action action, Context<HomeState> ctx) async{
+  showMaterialModalBottomSheet(
+    context: ctx.context,
+    enableDrag: false,
+    builder: (context, scrollController) => ctx.buildComponent('mapbox'),
   );
 }
 
@@ -470,7 +467,7 @@ Future<void> _convertUSD(
 
     if ((res as Map).containsKey('mxcPrice')) {
       double value = double.parse(res['mxcPrice']);
-      LocalStorageDao.saveUserData('user_$userId', {'usd_$type': value});
+      LocalStorageDao.saveUserData('user_${ctx.state.username}', {'usd_$type': value});
       ctx.dispatch(HomeActionCreator.convertUSD(type, value));
       ctx.dispatch(HomeActionCreator.loadingMap('gatewaysUSD'));
     }
@@ -493,7 +490,7 @@ Future<void> _stakingRevenue(
 
     mLog('StakeDao revenue', res);
     final amount = Tools.convertDouble(res['amount']);
-    LocalStorageDao.saveUserData('user_$userId', {'totalRevenue': amount});
+    LocalStorageDao.saveUserData('user_${ctx.state.username}', {'totalRevenue': amount});
     ctx.dispatch(HomeActionCreator.totalRevenue(amount));
     ctx.dispatch(HomeActionCreator.loadingMap('totalRevenue'));
   } catch (err) {
