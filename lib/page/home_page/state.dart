@@ -144,6 +144,7 @@ HomeState initState(Map<String, dynamic> args) {
 
   return HomeState()
     ..username = settingsData.username
+    ..userId = settingsData.userId
     ..isDemo = isDemo;
 }
 

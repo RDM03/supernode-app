@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/common/components/loading.dart';
-import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/components/update_dialog.dart';
 import 'package:supernodeapp/common/daos/demo/gateways_dao.dart';
 import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
@@ -11,7 +10,6 @@ import 'package:supernodeapp/common/daos/demo/user_dao.dart';
 import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
 import 'package:supernodeapp/common/daos/gateways_location_dao.dart';
 import 'package:supernodeapp/configs/config.dart';
-import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/common/daos/app_dao.dart';
 import 'package:supernodeapp/common/daos/local_storage_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
@@ -19,7 +17,6 @@ import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/data/super_node_bean.dart';
 import 'package:supernodeapp/global_store/store.dart';
-import 'package:supernodeapp/page/home_page/mapbox_gl_component/component.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 
@@ -70,7 +67,7 @@ void _relogin(Action action, Context<HomeState> ctx) async {
       throw Exception(['error: login more than three times.']);
     }
 
-    ctx.dispatch(HomeActionCreator.reloginCount(reloginCount++));
+    ctx.dispatch(HomeActionCreator.reloginCount(reloginCount));
 
     Map data = {
       'username':
@@ -119,8 +116,7 @@ void _relogin(Action action, Context<HomeState> ctx) async {
 void _initState(Action action, Context<HomeState> ctx) async {
   await _gatewaysLocationsFromLocal(ctx);
   _updateUserDataFromLocal(ctx);
-  await _profile(ctx);
-  await _gatewaysLocationsFromRemote(ctx);
+  _profile(ctx);
 }
 
 void _updateUserDataFromLocal(Context<HomeState> ctx){
@@ -165,9 +161,11 @@ Future<void> _checkForUpdate(Context<HomeState> ctx) {
 }
 
 void _onProfile(Action action, Context<HomeState> ctx) {
-  Future.delayed(Duration(seconds: 2), () async {
-    _profile(ctx);
-  });
+  SettingsState settingsData = GlobalStore.store.getState().settings;
+
+  if(ctx.state.userId == settingsData.userId){
+    _requestUserFinance(ctx,settingsData.userId,settingsData.selectedOrganizationId);
+  }
 }
 
 void _onGateways(Action action, Context<HomeState> ctx) async {
@@ -180,8 +178,12 @@ void _onGateways(Action action, Context<HomeState> ctx) async {
 }
 
 Future<void> _profile(Context<HomeState> ctx) async {
-  ctx.dispatch(HomeActionCreator.loading(true));
   Dao.ctx = ctx;
+  SettingsState settingsData = GlobalStore.store.getState().settings;
+
+  if(ctx.state.userId == settingsData.userId){
+    await _requestUserFinance(ctx,settingsData.userId,settingsData.selectedOrganizationId);
+  }
 
   try {
     UserDao dao = _buildUserDao(ctx);
@@ -196,43 +198,51 @@ Future<void> _profile(Context<HomeState> ctx) async {
           .add(OrganizationsState.fromMap(res['organizations'][index]));
     }
 
-    SettingsState settingsData = GlobalStore.store.getState().settings;
+    if(ctx.state.userId != settingsData.userId){
+      await _requestUserFinance(ctx,ctx.state.userId,organizationsData.first.organizationID);
+    }
+
     settingsData.userId = userData.id;
     settingsData.organizations = organizationsData;
     settingsData.isDemo = userData.isDemo;
     if (settingsData.selectedOrganizationId.isEmpty) {
-      settingsData.selectedOrganizationId =
-          organizationsData.first.organizationID;
+      settingsData.selectedOrganizationId = organizationsData.first.organizationID;
     }
 
     SettingsDao.updateLocal(settingsData);
     ctx.dispatch(HomeActionCreator.profile(userData, organizationsData));
 
-    String orgId = settingsData.selectedOrganizationId;
-
-    // Gain user's finance situation
-    await _balance(ctx, userData, orgId);
-    await _miningIncome(ctx, userData.id, orgId);
-    await _stakeAmount(ctx, orgId);
-    await _stakingRevenue(ctx, orgId);
-
-    // Request gateways' amount and location
-    await _gateways(ctx);
-
-    // await _devices(ctx,userData,orgId);
   } catch (e) {
-    ctx.dispatch(HomeActionCreator.loading(false));
     ctx.dispatch(HomeActionCreator.onReLogin());
   }
 }
 
+Future<void> _requestUserFinance(Context<HomeState> ctx,String userId,String orgId) async{
+  ctx.dispatch(HomeActionCreator.loading(true));
+
+  try{
+    // Gain user's finance situation
+    _balance(ctx, userId, orgId);
+    _miningIncome(ctx, userId, orgId);
+    _stakeAmount(ctx, orgId);
+    _stakingRevenue(ctx, orgId);
+
+    // Request gateways' amount and location
+    _gateways(ctx);
+
+    // await _devices(ctx,userData,orgId);
+  }catch(e){
+    ctx.dispatch(HomeActionCreator.loading(false));
+  }
+}
+
 Future<void> _balance(
-    Context<HomeState> ctx, UserState userData, String orgId) async {
+    Context<HomeState> ctx, String userId, String orgId) async {
   if (orgId.isEmpty) return;
 
   try {
     WalletDao dao = _buildWalletDao(ctx);
-    Map data = {'userId': userData.id, 'orgId': orgId, 'currency': ''};
+    Map data = {'userId': userId, 'orgId': orgId, 'currency': ''};
 
     var res = await dao.balance(data);
     mLog('balance', res);
@@ -368,42 +378,13 @@ Future<void> _gatewaysLocationsFromLocal(Context<HomeState> ctx) async {
 
   //local data
   geojsonList = await gatewayLocationDao.listFromLocal();
-  ctx.dispatch(HomeActionCreator.geojsonList(geojsonList));
-}
+  Map localGeojsonMap = LocalStorageDao.loadUserData('geojson');
 
-Future<void> _gatewaysLocationsFromRemote(Context<HomeState> ctx) async {
-  Map<String, List<SuperNodeBean>> superNodes = GlobalStore.state.superModel.superNodesByCountry;
-  GatewaysLocationDao gatewayLocationDao = GatewaysLocationDao();
-  List geojsonList = ctx.state.geojsonList;
-
-  //remote data
-  Dao dao = Dao();
-  List superNodesKeys = superNodes.keys.toList();
-
- for(int i = 0;i < superNodesKeys.length;i++){
-    String key = superNodesKeys[i];
-    if(key.toLowerCase() == 'test'){
-      ctx.dispatch(HomeActionCreator.geojsonList(geojsonList));
-      continue;
-    }
-
-    List nodes = superNodes[key];
-    for(int j = 0;j < nodes.length;j++){
-      if(nodes[j].region.toLowerCase() != 'test'){
-        print(nodes[j].url + GatewaysApi.locations);
-        var res = await dao.get(
-          url: nodes[j].url + GatewaysApi.locations
-        );
-
-        //the link of ausn.matchx.io returns null
-        if(res != null && res['result'] != null && res['result'].length > 0){
-          List geojsonRes = gatewayLocationDao.geojsonList(res['result']);
-          geojsonList.addAll(geojsonRes);
-        }
-
-      }
-    }
+  if(localGeojsonMap['data'] != null && localGeojsonMap['data'].length > 0){
+    geojsonList.addAll(localGeojsonMap['data']);
   }
+
+  ctx.dispatch(HomeActionCreator.geojsonList(geojsonList));
 }
 
 void _onOperate(Action action, Context<HomeState> ctx) {
@@ -435,7 +416,7 @@ void _mapbox(Action action, Context<HomeState> ctx) {
   Navigator.push(
     ctx.context,
     MaterialPageRoute(
-      maintainState: false,
+      maintainState: true,
       fullscreenDialog: false,
       builder: (context) {
         return ctx.buildComponent('mapbox');

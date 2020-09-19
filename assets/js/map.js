@@ -14,6 +14,14 @@ function _removeClusters(){
         map.removeLayer('unclustered-point');
     }
 
+    if(map.getLayer('unclustered-point-field')) {
+        map.removeLayer('unclustered-point-field');
+    } 
+    
+    if(map.getLayer('clusters-points')) {
+        map.removeLayer('clusters-points');
+    } 
+
     if(map.getSource('gateways')){
         map.removeSource('gateways');
     }
@@ -32,20 +40,22 @@ function _addClusters(){
     });
 
     map.addLayer({
-        id: 'clusters',
+        id: 'clusters-points',
         type: 'circle',
         source: 'gateways',
         paint: {
             'circle-opacity': 0.75,
-            'circle-color': [
-                'step',
-                ['get', 'point_count'],
-                '#1c1478',
-                100,
-                '#1c1478',
-                750,
-                '#1c1478'
-            ],
+            'circle-color': '#1c1478',
+            'circle-radius': 16
+        }
+    });
+
+    map.addLayer({
+        id: 'clusters',
+        type: 'circle',
+        source: 'gateways',
+        paint: {
+            'circle-color': 'rgba(255, 255, 255, 0)',
             'circle-radius': [
                 'step',
                 ['get', 'point_count'],
@@ -74,15 +84,17 @@ function _addClusters(){
     });
 
     map.addLayer({
-        id: 'unclustered-point',
-        type: 'circle',
+        id: 'unclustered-point-field',
+        type: 'symbol',
         source: 'gateways',
         filter: ['!', ['has', 'point_count']],
+        layout: {
+            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+            'text-size': 12,
+            'text-field': '1'
+        },
         paint: {
-            'circle-color': '#1c1478',
-            'circle-radius': 4,
-            'circle-stroke-width': 1,
-            'circle-stroke-color': '#fff'
+            'text-color': '#fff',
         }
     });
 
@@ -220,7 +232,7 @@ function _moveToMyLocation(longitude,latitude,isShow) {
 
     map.easeTo({
         center: [longitude,latitude],
-        duration: 3000,
+        duration: 5000,
         zoom: 12,
     });
 }

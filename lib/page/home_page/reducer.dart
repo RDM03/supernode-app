@@ -41,7 +41,7 @@ HomeState _reloginCount(HomeState state, Action action) {
 
   final HomeState newState = state.clone();
   return newState
-    ..reloginCount = action.payload;
+    ..reloginCount = action.payload + 1;
 }
 
 HomeState _isUpdate(HomeState state, Action action) {
