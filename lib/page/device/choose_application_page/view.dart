@@ -45,9 +45,10 @@ Widget buildView(
               onTap: () {
                 showDialog(
                   context: context,
-                  builder: (BuildContext context) {
+                  builder: (BuildContext _) {
                     return FullScreenDialog(
                       child: IosStyleBottomDialog(
+                        context: context,
                         blueActionIndex: state.selectCameraIndex,
                         list: list,
                         onItemClickListener: (index) {

@@ -5,6 +5,7 @@ import 'package:supernodeapp/page/settings_page/organizations_component/state.da
 enum HomeAction {
   relogin,
   loading,
+  loadingMap,
   tabIndex,
   onProfile,
   profile,
@@ -42,6 +43,10 @@ class HomeActionCreator {
 
   static Action loading(bool toogle) {
     return Action(HomeAction.loading, payload: toogle);
+  }
+
+  static Action loadingMap(String data,{String type = 'add'}) {
+    return Action(HomeAction.loadingMap, payload: {'data': data, 'type': type});
   }
 
   static Action onProfile() {

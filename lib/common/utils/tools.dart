@@ -2,19 +2,19 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Tools {
-  static String hideHalf(String source){
+  static String hideHalf(String source) {
     String newSource = '';
     int endLength = source.length;
 
-    if(endLength == 0 || endLength == 1){
+    if (endLength == 0 || endLength == 1) {
       return '*';
-    } 
+    }
 
     int lastLength = endLength > 6 ? 4 : 1;
-    int halfLength = ( endLength / 2 ).floor();
+    int halfLength = (endLength / 2).floor();
 
-    if(endLength > 60){
-      halfLength = ( endLength / 10 ).floor();
+    if (endLength > 60) {
+      halfLength = (endLength / 10).floor();
     }
 
     newSource = source.replaceRange(halfLength, endLength - lastLength, '...');
@@ -30,9 +30,7 @@ class Tools {
     }
 
     return LatLng(
-      location['latitude'].toDouble(),
-      location['longitude'].toDouble()
-    );
+        location['latitude'].toDouble(), location['longitude'].toDouble());
   }
 
   static Future<void> launchURL(String url) async {
@@ -43,13 +41,20 @@ class Tools {
     }
   }
 
-  static String priceFormat(double number,{int range = 1}){
+  static String priceFormat(double number, {int range = 1}) {
     return number?.toStringAsFixed(range) ?? '0.0';
   }
 
-  static double convertDouble(dynamic number){
+  static double convertDouble(dynamic number) {
     if (number == null) return null;
     if (number is double) return number;
     return double.parse(number.toString());
-  } 
+  }
+
+  static String dateFormat(DateTime date) {
+    if (date == null) return '?';
+    final month = date.month.toString().padLeft(2, '0');
+    final day = date.day.toString().padLeft(2, '0');
+    return '${date.year}-$month-$day';
+  }
 }

@@ -1,22 +1,40 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:supernodeapp/common/components/stake/stake_item.dart';
 
-enum WalletAction { loadingHistory, tab, onTab, tabController, isSetDate, onFilter, updateSelectedButton, updateWalletList, updateStakeList, withdrawFee, firstTime, secondTime }
+enum WalletAction {
+  loadingHistory,
+  tab,
+  onTab,
+  tabController,
+  isSetDate,
+  onFilter,
+  updateSelectedButton,
+  updateWalletList,
+  updateStakeList,
+  withdrawFee,
+  firstTime,
+  secondTime,
+  onStake,
+  onUnstake,
+  onStakeDetails,
+  saveLastSearch,
+}
 
 class WalletActionCreator {
   static Action loadingHistory(bool toogle) {
-    return Action(WalletAction.loadingHistory,payload: toogle);
+    return Action(WalletAction.loadingHistory, payload: toogle);
   }
 
   static Action onTab(int index) {
-    return Action(WalletAction.onTab,payload: index);
+    return Action(WalletAction.onTab, payload: index);
   }
 
   static Action tab(int index) {
-    return Action(WalletAction.tab,payload: index);
+    return Action(WalletAction.tab, payload: index);
   }
 
   static Action tabController(dynamic controller) {
-    return Action(WalletAction.tabController,payload: controller);
+    return Action(WalletAction.tabController, payload: controller);
   }
 
   static Action isSetDate() {
@@ -24,31 +42,51 @@ class WalletActionCreator {
   }
 
   static Action onFilter(String type) {
-    return Action(WalletAction.onFilter,payload: type);
+    return Action(WalletAction.onFilter, payload: type);
   }
 
   static Action updateSelectedButton(int index) {
-    return Action(WalletAction.updateSelectedButton,payload: index);
+    return Action(WalletAction.updateSelectedButton, payload: index);
   }
 
-  static Action updateWalletList(String type,List list) {
-    return Action(WalletAction.updateWalletList,payload: {"type": type, "list": list});
+  static Action updateWalletList(String type, List list) {
+    return Action(WalletAction.updateWalletList,
+        payload: {"type": type, "list": list});
   }
 
-  static Action updateStakeList(String type,List list) {
-    return Action(WalletAction.updateStakeList,payload: {"type": type, "list": list});
+  static Action updateStakeList(String type, List list) {
+    return Action(WalletAction.updateStakeList,
+        payload: {"type": type, "list": list});
   }
 
   static Action withdrawFee(double fee) {
-    return Action(WalletAction.withdrawFee,payload: fee);
+    return Action(WalletAction.withdrawFee, payload: fee);
   }
 
   static Action firstTime(String date) {
-    return Action(WalletAction.firstTime,payload: date);
+    return Action(WalletAction.firstTime, payload: date);
   }
 
   static Action secondTime(String date) {
-    return Action(WalletAction.secondTime,payload: date);
+    return Action(WalletAction.secondTime, payload: date);
   }
 
+  static Action onStake() {
+    return Action(WalletAction.onStake);
+  }
+
+  static Action onUnstake() {
+    return Action(WalletAction.onUnstake);
+  }
+
+  static Action onStakeDetails(Stake stake) {
+    return Action(WalletAction.onStakeDetails, payload: stake);
+  }
+
+  static Action saveLastSearch(Map lastSearchData, String lastSearchType) {
+    return Action(WalletAction.saveLastSearch, payload: {
+      'data': lastSearchData,
+      'type': lastSearchType,
+    });
+  }
 }

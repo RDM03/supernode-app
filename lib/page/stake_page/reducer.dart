@@ -1,29 +1,24 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:supernodeapp/page/stake_page/action.dart';
 
-import 'action.dart';
 import 'state.dart';
 
 Reducer<StakeState> buildReducer() {
   return asReducer(
     <Object, Reducer<StakeState>>{
-      StakeAction.resSuccess: _resSuccess,
-      StakeAction.setOtpEnabled: _setOtpEnabled,
+      StakeAction.setRates: _setRates,
     },
   );
 }
 
-StakeState _resSuccess(StakeState state, Action action) {
-  bool resSuccess = action.payload;
-
+StakeState _setRates(StakeState state, Action action) {
+  Map<String, double> rates = action.payload;
   final StakeState newState = state.clone();
-  return newState
-    ..resSuccess = resSuccess;
-}
 
-StakeState _setOtpEnabled(StakeState state, Action action) {
-  bool enabled = action.payload;
-
-  final StakeState newState = state.clone();
   return newState
-    ..otpEnabled = enabled;
+    ..rate6m = rates['6']
+    ..rate9m = rates['9']
+    ..rate12m = rates['12']
+    ..rate24m = rates['24']
+    ..rateFlex = rates['flex'];
 }

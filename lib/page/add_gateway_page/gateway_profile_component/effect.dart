@@ -29,125 +29,107 @@ Effect<GatewayProfileState> buildEffect() {
 }
 
 void _initState(Action action, Context<GatewayProfileState> ctx) {
-
   // if(ctx.state.networkServerList.isNotEmpty) return;
-  Future.delayed(Duration(seconds: 1),(){
-    _onNetworkServerList(action,ctx);
+  Future.delayed(Duration(seconds: 1), () {
+    _onNetworkServerList(action, ctx);
 
-  // if(ctx.state.networkServerID.isNotEmpty){
-  //   _gatewayProfile(ctx,ctx.state.networkServerID);
-  // }
+    // if(ctx.state.networkServerID.isNotEmpty){
+    //   _gatewayProfile(ctx,ctx.state.networkServerID);
+    // }
   });
- 
 }
 
 void _onNetworkServerPicker(Action action, Context<GatewayProfileState> ctx) {
   var curState = ctx.state;
   int selectedSNIndex = -1;
 
-  List data = curState.networkServerList.asMap().keys.map(
-    (index){
-      if(curState.networkServerList[index]['id'] == curState.networkServerID){
-        selectedSNIndex = index;
-      }
-
-      return curState.networkServerList[index]['name'];
+  List data = curState.networkServerList.asMap().keys.map((index) {
+    if (curState.networkServerList[index]['id'] == curState.networkServerID) {
+      selectedSNIndex = index;
     }
-  ).toList();
 
-  selectPicker(
-    ctx.context,
-    data: data,
-    value: selectedSNIndex,
-    onSelected: (sIndex){
-      String id = curState.networkServerList[sIndex]['id'];
-      String name = curState.networkServerList[sIndex]['name'];
-      ctx.dispatch(GatewayProfileActionCreator.networkServerId(id, name));
+    return curState.networkServerList[index]['name'];
+  }).toList();
 
-      if(ctx.state.gatewayProfileList.isEmpty){
-        _gatewayProfile(ctx,id);
-      }
-      
+  selectPicker(ctx.context, data: data, value: selectedSNIndex,
+      onSelected: (sIndex) {
+    String id = curState.networkServerList[sIndex]['id'];
+    String name = curState.networkServerList[sIndex]['name'];
+    ctx.dispatch(GatewayProfileActionCreator.networkServerId(id, name));
+
+    if (ctx.state.gatewayProfileList.isEmpty) {
+      _gatewayProfile(ctx, id);
     }
-  );
+  });
 }
 
 void _onGatewayProfilePicker(Action action, Context<GatewayProfileState> ctx) {
   var curState = ctx.state;
   int selectedIndex = -1;
 
-  List data = curState.gatewayProfileList.asMap().keys.map(
-    (index){
-      if(curState.gatewayProfileList[index]['id'] == curState.gatewayProfileID){
-        selectedIndex = index;
-      }
-
-      return curState.gatewayProfileList[index]['name'];
+  List data = curState.gatewayProfileList.asMap().keys.map((index) {
+    if (curState.gatewayProfileList[index]['id'] == curState.gatewayProfileID) {
+      selectedIndex = index;
     }
-  ).toList();
 
-  selectPicker(
-    ctx.context,
-    data: data,
-    value: selectedIndex,
-    onSelected: (sIndex){
-      String id = curState.gatewayProfileList[sIndex]['id'];
-      String name = curState.gatewayProfileList[sIndex]['name'];
-      ctx.dispatch(GatewayProfileActionCreator.gatewayProfileId(id, name));   
-    }
-  );
+    return curState.gatewayProfileList[index]['name'];
+  }).toList();
+
+  selectPicker(ctx.context, data: data, value: selectedIndex,
+      onSelected: (sIndex) {
+    String id = curState.gatewayProfileList[sIndex]['id'];
+    String name = curState.gatewayProfileList[sIndex]['name'];
+    ctx.dispatch(GatewayProfileActionCreator.gatewayProfileId(id, name));
+  });
 }
 
-void _gatewayProfile(Context<GatewayProfileState> ctx,String id){
-
+void _gatewayProfile(Context<GatewayProfileState> ctx, String id) {
   GatewaysDao dao = GatewaysDao();
 
-  Map data = {
-    "networkServerID": id,
-    "offset": 0,
-    "limit": 999
-  };
-  
-  dao.profile(data).then((res){
-    mLog('Gateway profile',res);
-    if(res.containsKey('result') && res['result'].length > 0){
-      ctx.dispatch(GatewayProfileActionCreator.gatewayProfileList(res['result']));
-    }else{
-      tip(ctx.context,res);
+  Map data = {"networkServerID": id, "offset": 0, "limit": 999};
+
+  dao.profile(data).then((res) {
+    mLog('Gateway profile', res);
+    if (res.containsKey('result') && res['result'].length > 0) {
+      ctx.dispatch(
+          GatewayProfileActionCreator.gatewayProfileList(res['result']));
+    } else {
+      tip(ctx.context, res);
     }
-  }).catchError((err){
+  }).catchError((err) {
     // tip(ctx.context,'Gateway profile $err');
   });
 }
 
-void _update(Action action, Context<GatewayProfileState> ctx) {
+void _update(Action action, Context<GatewayProfileState> ctx) async {
   var curState = ctx.state;
 
-  if(curState.networkServerID.isEmpty){
-    tip(ctx.context,FlutterI18n.translate(ctx.context,'reg_network_server'));
+  if (curState.networkServerID.isEmpty) {
+    tip(ctx.context, FlutterI18n.translate(ctx.context, 'reg_network_server'));
     return;
   }
 
-  if(curState.gatewayProfileID.isEmpty){
-    tip(ctx.context,FlutterI18n.translate(ctx.context,'reg_gateway_profile'));
+  if (curState.gatewayProfileID.isEmpty) {
+    tip(ctx.context, FlutterI18n.translate(ctx.context, 'reg_gateway_profile'));
     return;
   }
 
   LatLng location = curState.markerPoint ?? curState.location;
 
-  if(location == null){
-    tip(ctx.context,FlutterI18n.translate(ctx.context,'reg_gateway_location'));
+  if (location == null) {
+    tip(ctx.context,
+        FlutterI18n.translate(ctx.context, 'reg_gateway_location'));
     return;
   }
 
-  if((curState.formKey.currentState as FormState).validate()){
-    showLoading(ctx.context);
+  if ((curState.formKey.currentState as FormState).validate()) {
+    final loading = await Loading.show(ctx.context);
 
     GatewaysDao dao = GatewaysDao();
 
     String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
 
-    Map data ={
+    Map data = {
       "gateway": {
         "id": curState.idCtl.text.trim(),
         "name": curState.nameCtl.text.trim(),
@@ -172,80 +154,69 @@ void _update(Action action, Context<GatewayProfileState> ctx) {
       }
     };
 
-    dao.add(data).then((res){
-      hideLoading(ctx.context);
-      mLog('GatewaysDao add',res);
+    dao.add(data).then((res) {
+      loading.hide();
+      mLog('GatewaysDao add', res);
 
-      tip(ctx.context,FlutterI18n.translate(ctx.context,'update_success'),success: true);
+      tip(ctx.context, FlutterI18n.translate(ctx.context, 'update_success'),
+          success: true);
 
       Navigator.of(ctx.context).pop();
-
-    }).catchError((err){
-      hideLoading(ctx.context);
+    }).catchError((err) {
+      loading.hide();
       // tip(ctx.context,'Gateways add: $err');
     });
-
   }
-
 }
 
-void _getOrganizations(Action action, Context<GatewayProfileState> ctx){
+Future<void> _getOrganizations(
+    Action action, Context<GatewayProfileState> ctx) async {
   OrganizationDao dao = OrganizationDao();
 
-  Map data = {
-    "offset": 0,
-    "limit": 999
-  };
+  Map data = {"offset": 0, "limit": 999};
 
-  dao.list(data).then((res){
-    hideLoading(ctx.context);
-    mLog('OrganizationDao list',res);
+  final res = await dao.list(data);
+  mLog('OrganizationDao list', res);
 
-    SettingsState settingsData = GlobalStore.store.getState().settings;
-    settingsData.selectedOrganizationId = res['result'][0]['id'];
-    SettingsDao.updateLocal(settingsData);
+  SettingsState settingsData = GlobalStore.store.getState().settings;
+  settingsData.selectedOrganizationId = res['result'][0]['id'];
+  SettingsDao.updateLocal(settingsData);
 
-    _onNetworkServerList(action,ctx);
-    
-  }).catchError((err){
-    hideLoading(ctx.context);
-    // tip(ctx.context,'UserDao registerFinish: $err');
-  });
+  _onNetworkServerList(action, ctx);
 }
 
-void _onNetworkServerList(Action action, Context<GatewayProfileState> ctx) async{
-  showLoading(ctx.context);
-  
+void _onNetworkServerList(
+    Action action, Context<GatewayProfileState> ctx) async {
+  final loading = await Loading.show(ctx.context);
+
   NetworkServerDao dao = NetworkServerDao();
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
 
-  if(orgId.isEmpty){
-    _getOrganizations(action,ctx);
+  if (orgId.isEmpty) {
+    try {
+      await _getOrganizations(action, ctx);
+    } finally {
+      loading.hide();
+    }
     return;
   }
 
-  Map data = {
-    "organizationID": orgId,
-    "offset": 0,
-    "limit": 999
-  };
+  Map data = {"organizationID": orgId, "offset": 0, "limit": 999};
 
-  await dao.list(data).then((res){
-    hideLoading(ctx.context);
-    mLog('NetworkServerDao list',res);
+  await dao.list(data).then((res) {
+    loading.hide();
+    mLog('NetworkServerDao list', res);
 
-    if((res as Map).containsKey('result') && res['result'].length > 0){
+    if ((res as Map).containsKey('result') && res['result'].length > 0) {
       // List nsList = [];
 
       // nsList = res['result'] as List;
-      ctx.dispatch(GatewayProfileActionCreator.networkServerList(res['result']));
-
+      ctx.dispatch(
+          GatewayProfileActionCreator.networkServerList(res['result']));
     }
-
-  }).catchError((err){
-    hideLoading(ctx.context);
+  }).catchError((err) {
+    loading.hide();
     ctx.dispatch(HomeActionCreator.loading(false));
     // tip(ctx.context,'NetworkServerDao list: $err');
   });
-
 }

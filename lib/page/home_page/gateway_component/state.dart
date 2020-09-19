@@ -10,6 +10,7 @@ class GatewayState extends MutableSource implements Cloneable<GatewayState> {
   
   //gateways
   bool loading = true;
+  Set loadingMap = {};
   int gatewaysTotal = 0;
   double gatewaysRevenue = 0;
   double gatewaysUSDRevenue = 0;
@@ -47,6 +48,7 @@ class GatewayState extends MutableSource implements Cloneable<GatewayState> {
       ..miningRevenve = miningRevenve
       ..gatewayFrame = gatewayFrame
       ..loading = loading
+      ..loadingMap = loadingMap
       ..gatewaysTotal = gatewaysTotal
       ..gatewaysRevenue = gatewaysRevenue
       ..gatewaysUSDRevenue = gatewaysUSDRevenue

@@ -19,16 +19,18 @@ class IosStyleBottomDialog extends StatelessWidget {
   final int blueActionIndex;
   final List<IosButtonStyle> list;
   final OnItemClickListener onItemClickListener;
+  final BuildContext context;
 
   const IosStyleBottomDialog({
     Key key,
     @required this.list,
     this.onItemClickListener,
     this.blueActionIndex = -1,
+    this.context,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext _) {
     return Stack(
       children: <Widget>[
         Positioned(

@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'package:supernodeapp/common/daos/demo/user_dao.dart';
+import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
@@ -80,7 +81,7 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
   }
 
   if ((curState.formKey.currentState as FormState).validate()) {
-    showLoading(ctx.context);
+    final loading = await Loading.show(ctx.context);
     try {
       String apiRoot = curState.currentSuperNode.url;
       Dao.baseUrl = apiRoot;
@@ -91,9 +92,12 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
       StorageManager.sharedPreferences.setBool(Config.DEMO_MODE, false);
       await _handleLoginRequest(dao, username, password, apiRoot);
 
-      hideLoading(ctx.context);
+      loading.hide();
       Navigator.pushReplacementNamed(ctx.context, 'home_page');
     } catch (err) {
+      loading.hide();
+      final res = await checkMaintenance();
+      if (!res) return;
       ctx.state.scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text(
           err,
@@ -106,7 +110,7 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
         backgroundColor: errorColor,
       ));
     } finally {
-      hideLoading(ctx.context);
+      loading.hide();
     }
   }
 }
@@ -136,6 +140,9 @@ void _onSignUp(Action action, Context<LoginState> ctx) async {
     return;
   }
 
+  final res = await checkMaintenance(curState.currentSuperNode);
+  if (!res) return;
+
   String apiRoot = curState.currentSuperNode.url;
   Dao.baseUrl = apiRoot;
 
@@ -151,12 +158,15 @@ void _onSignUp(Action action, Context<LoginState> ctx) async {
   Navigator.pushNamed(ctx.context, 'sign_up_page');
 }
 
-void _onForgotPassword(Action action, Context<LoginState> ctx) {
+void _onForgotPassword(Action action, Context<LoginState> ctx) async {
   if (ctx.state.currentSuperNode == null) {
     tip(ctx.context,
         FlutterI18n.translate(ctx.context, 'reg_select_supernode'));
     return;
   }
+
+  final res = await checkMaintenance(ctx.state.currentSuperNode);
+  if (!res) return;
 
   String apiRoot = ctx.state.currentSuperNode.url;
   Dao.baseUrl = apiRoot;

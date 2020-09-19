@@ -14,6 +14,7 @@ class UserState implements Cloneable<UserState> {
   String password = '';
   String token = '';
   bool loading = true;
+  Set loadingMap = {};
 
   bool isAdmin = false;
   bool isActive = false;
@@ -53,6 +54,7 @@ class UserState implements Cloneable<UserState> {
   UserState clone() {
     return UserState()
       ..loading = loading
+      ..loadingMap = loadingMap
       ..selectedSuperNode = selectedSuperNode
       ..id = id
       ..username = username

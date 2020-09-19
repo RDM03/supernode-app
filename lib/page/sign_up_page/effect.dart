@@ -23,10 +23,10 @@ Effect<SignUpState> buildEffect() {
   });
 }
 
-void _onEmailContinue(Action action, Context<SignUpState> ctx) {
+void _onEmailContinue(Action action, Context<SignUpState> ctx) async {
   var curState = ctx.state;
   if ((curState.emailFormKey.currentState as FormState).validate()) {
-    showLoading(ctx.context);
+    final loading = await Loading.show(ctx.context);
 
     UserDao dao = UserDao();
 
@@ -44,7 +44,7 @@ void _onEmailContinue(Action action, Context<SignUpState> ctx) {
     }
     StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
     dao.register(data).then((res) {
-      hideLoading(ctx.context);
+      loading.hide();
       mLog('register', res);
 
       Navigator.push(
@@ -57,17 +57,17 @@ void _onEmailContinue(Action action, Context<SignUpState> ctx) {
             }),
       );
     }).catchError((err, c) {
-      hideLoading(ctx.context);
+      loading.hide();
       tip(ctx.context, err);
     });
   }
 }
 
-void _onVerificationContinue(Action action, Context<SignUpState> ctx) {
+void _onVerificationContinue(Action action, Context<SignUpState> ctx) async {
   var curState = ctx.state;
 
   if ((curState.codesFormKey.currentState as FormState).validate()) {
-    showLoading(ctx.context);
+    final loading = await Loading.show(ctx.context);
 
     List<String> codes =
         curState.codeListCtls.map((code) => code.text).toList();
@@ -76,7 +76,7 @@ void _onVerificationContinue(Action action, Context<SignUpState> ctx) {
     Map data = {"token": codes.join()};
 
     dao.registerConfirm(data).then((res) {
-      hideLoading(ctx.context);
+      loading.hide();
       mLog('registerConfirm', res);
 
       SettingsState settingsData = GlobalStore.store.getState().settings;
@@ -108,7 +108,7 @@ void _onVerificationContinue(Action action, Context<SignUpState> ctx) {
             }),
       );
     }).catchError((err) {
-      hideLoading(ctx.context);
+      loading.hide();
       // tip(ctx.context,'UserDao registerConfirm: $err');
     });
   } else {
@@ -117,15 +117,14 @@ void _onVerificationContinue(Action action, Context<SignUpState> ctx) {
   }
 }
 
-void _onRegistrationContinue(Action action, Context<SignUpState> ctx) {
+void _onRegistrationContinue(Action action, Context<SignUpState> ctx) async {
   var curState = ctx.state;
 
   if ((curState.registerFormKey.currentState as FormState).validate()) {
     if (!curState.isCheckTerms) {
       return;
     }
-
-    showLoading(ctx.context);
+    final loading = await Loading.show(ctx.context);
     UserDao dao = UserDao();
     Map data = {
       "organizationName": curState.orgCtl.text,
@@ -135,12 +134,12 @@ void _onRegistrationContinue(Action action, Context<SignUpState> ctx) {
     };
 
     dao.registerFinish(data).then((res) {
-      hideLoading(ctx.context);
+      loading.hide();
       mLog('UserDao registerFinish', res);
       Navigator.of(ctx.context).pushNamed('add_gateway_page',
           arguments: {'fromPage': 'registration'});
     }).catchError((err) {
-      hideLoading(ctx.context);
+      loading.hide();
       // tip(ctx.context,'UserDao registerFinish: $err');
     });
   }

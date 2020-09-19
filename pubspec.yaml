@@ -11,7 +11,7 @@ description: Mobile app used to interact with MXC Supernodes.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.4.1
+version: 1.5.0
 
 environment:
   sdk: '>=2.2.2 <3.0.0'
@@ -79,6 +79,17 @@ dependencies:
   json_serializable: ^3.3.0
   # https://pub.dev/packages/font_awesome_flutter
   font_awesome_flutter: ^8.8.1
+  # https://pub.dev/packages/ethereum_address
+  ethereum_address: ^1.0.1
+  # https://pub.dev/packages/decimal
+  decimal: ^0.3.5
+  # https://pub.dev/packages/share
+  share: ^0.6.5
+  # https://pub.dev/packages/path_provider
+  path_provider: 1.6.14
+  # https://pub.dev/packages/feedback
+  feedback:
+    path: packages/feedback
 
 dependency_overrides:
   local_auth:
@@ -117,6 +128,9 @@ flutter:
     - assets/images/stake/
     - assets/images/device/
     - assets/images/calculator/currencies/
+    - assets/images/connectivity/
+    - assets/images/settings/
+    - assets/images/maintenance/
     - assets/others/
     - assets/js/
   #  - images/a_dot_ham.jpeg

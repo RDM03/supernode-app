@@ -11,6 +11,10 @@ class AppLanguage {
   static const String de         = 'de';
   static const String ru         = 'ru';
   static const String vi         = 'vi';
+  static const String es         = 'es';
+  static const String id         = 'id';
+  static const String pt         = 'pt';
+  static const String tl         = 'tl';
 }
 
 class Sys {

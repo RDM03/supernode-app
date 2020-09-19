@@ -1,5 +1,4 @@
-import 'dart:async';
-
+import 'package:decimal/decimal.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/common/components/loading.dart';
@@ -9,6 +8,7 @@ import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
 import 'package:supernodeapp/common/daos/demo/user_dao.dart';
 import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
 import 'package:supernodeapp/common/daos/gateways_location_dao.dart';
+import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/common/daos/app_dao.dart';
 import 'package:supernodeapp/common/daos/local_storage_dao.dart';
@@ -61,6 +61,7 @@ void _relogin(Action action, Context<HomeState> ctx) async {
   };
 
   int reloginCount = ctx.state.reloginCount;
+  Loading loading;
   try {
     if (reloginCount > 3) {
       ctx.dispatch(HomeActionCreator.reloginCount(0));
@@ -81,10 +82,10 @@ void _relogin(Action action, Context<HomeState> ctx) async {
     Dao.baseUrl = apiRoot;
 
     UserDao dao = _buildUserDao(ctx);
-    showLoading(ctx.context);
+    loading = await Loading.show(ctx.context);
     var res = await dao.login(data);
     mLog('login', res);
-    hideLoading(ctx.context);
+    loading.hide();
 
     SettingsState settingsData = GlobalStore.store.getState().settings;
 
@@ -98,7 +99,7 @@ void _relogin(Action action, Context<HomeState> ctx) async {
     settingsData.isDemo = res['isDemo'] ?? false;
     _profile(ctx);
   } catch (e) {
-    hideLoading(ctx.context);
+    loading?.hide();
 
     ctx.dispatch(HomeActionCreator.loading(false));
 
@@ -114,37 +115,15 @@ void _relogin(Action action, Context<HomeState> ctx) async {
 }
 
 void _initState(Action action, Context<HomeState> ctx) async {
+  _checkNodeStatus();
+  _loadUserData(ctx);
+
   await _gatewaysLocationsFromLocal(ctx);
-  _updateUserDataFromLocal(ctx);
-  _profile(ctx);
+  await _profile(ctx);
 }
 
-void _updateUserDataFromLocal(Context<HomeState> ctx){
-  Map data = LocalStorageDao.loadUserData('user_'+ctx.state.username);
-  if(data['balance'] != null){
-    ctx.dispatch(HomeActionCreator.balance(data['balance']));
-  }
-
-  if(data['miningIncome'] != null){
-    ctx.dispatch(HomeActionCreator.miningIncome(data['miningIncome']));
-  }
-
-  if(data['stakedAmount'] != null){
-    ctx.dispatch(HomeActionCreator.stakedAmount(data['stakedAmount']));
-  }
-
-  if(data['gatewaysTotal'] != null){
-    ctx.dispatch(HomeActionCreator.gateways(data['gatewaysTotal'], 0, null));
-  }
-
-  if(data['gatewayUSD'] != null){
-    ctx.dispatch(HomeActionCreator.convertUSD('gateway', data['gatewayUSD']));
-  }
-
-  if(data['totalRevenue'] != null){
-    ctx.dispatch(HomeActionCreator.totalRevenue(data['totalRevenue']));
-  }
-
+void _checkNodeStatus() async {
+  await checkMaintenance();
 }
 
 void _build(Action action, Context<HomeState> ctx) {
@@ -170,23 +149,28 @@ void _onProfile(Action action, Context<HomeState> ctx) {
 
 void _onGateways(Action action, Context<HomeState> ctx) async {
   SettingsState settingsData = GlobalStore.store.getState().settings;
-  var orgId = settingsData.selectedOrgId;
+  var orgId = settingsData.selectedOrganizationId;
   if (orgId == null || orgId.isEmpty)
     orgId = settingsData.organizations.first.organizationID;
+
+  ctx.dispatch(HomeActionCreator.loadingMap('gatewaysTotal',type: 'delete'));
+
   await _miningIncome(ctx, ctx.state.userId, orgId);
-  await _gateways(ctx);
+  await _gateways(ctx, ctx.state.userId);
 }
 
 Future<void> _profile(Context<HomeState> ctx) async {
   Dao.ctx = ctx;
   SettingsState settingsData = GlobalStore.store.getState().settings;
 
-  if(ctx.state.userId == settingsData.userId){
+  if(settingsData.userId.isNotEmpty && settingsData.selectedOrganizationId.isNotEmpty){
     await _requestUserFinance(ctx,settingsData.userId,settingsData.selectedOrganizationId);
   }
 
   try {
     UserDao dao = _buildUserDao(ctx);
+    SettingsState settingsData = GlobalStore.store.getState().settings;
+
     var res = await dao.profile();
 
     mLog('profile', res);
@@ -198,10 +182,11 @@ Future<void> _profile(Context<HomeState> ctx) async {
           .add(OrganizationsState.fromMap(res['organizations'][index]));
     }
 
-    if(ctx.state.userId != settingsData.userId){
-      await _requestUserFinance(ctx,ctx.state.userId,organizationsData.first.organizationID);
+    if(ctx.state.userId == null || settingsData.userId.isEmpty || settingsData.selectedOrganizationId.isEmpty){
+      await _requestUserFinance(ctx,userData.id,organizationsData.first.organizationID);
     }
 
+    settingsData = GlobalStore.store.getState().settings;
     settingsData.userId = userData.id;
     settingsData.organizations = organizationsData;
     settingsData.isDemo = userData.isDemo;
@@ -211,29 +196,45 @@ Future<void> _profile(Context<HomeState> ctx) async {
 
     SettingsDao.updateLocal(settingsData);
     ctx.dispatch(HomeActionCreator.profile(userData, organizationsData));
-
   } catch (e) {
     ctx.dispatch(HomeActionCreator.onReLogin());
   }
 }
 
 Future<void> _requestUserFinance(Context<HomeState> ctx,String userId,String orgId) async{
-  ctx.dispatch(HomeActionCreator.loading(true));
+  ctx.dispatch(HomeActionCreator.loadingMap(''));
 
-  try{
-    // Gain user's finance situation
-    _balance(ctx, userId, orgId);
-    _miningIncome(ctx, userId, orgId);
-    _stakeAmount(ctx, orgId);
-    _stakingRevenue(ctx, orgId);
+  await _balance(ctx, userId, orgId);
+  await _stakeAmount(ctx, userId,orgId);
+  await _stakingRevenue(ctx, userId, orgId);
 
-    // Request gateways' amount and location
-    _gateways(ctx);
+  await _miningIncome(ctx, userId, orgId);
 
-    // await _devices(ctx,userData,orgId);
-  }catch(e){
-    ctx.dispatch(HomeActionCreator.loading(false));
-  }
+  // Request gateways' amount and location
+  await _gateways(ctx, userId);
+
+  // await _devices(ctx,userData,orgId);
+}
+
+void _loadUserData(Context<HomeState> ctx) {
+  var data = LocalStorageDao.loadUserData('user_${ctx.state.userId}');
+  data ??= {};
+
+  if (data['balance'] != null)
+    ctx.dispatch(HomeActionCreator.balance(data['balance']));
+  if (data['miningIncome'] != null)
+    ctx.dispatch(HomeActionCreator.miningIncome(data['miningIncome']));
+  if (data['stakedAmount'] != null)
+    ctx.dispatch(HomeActionCreator.stakedAmount(data['stakedAmount']));
+  if (data['totalRevenue'] != null)
+    ctx.dispatch(HomeActionCreator.totalRevenue(data['totalRevenue']));
+  if (data['gatewaysTotal'] != null)
+    ctx.dispatch(HomeActionCreator.gateways(data['gatewaysTotal'], 0, null));
+  if (data['usd_gateway'] != null)
+    ctx.dispatch(
+        HomeActionCreator.convertUSD('gateway', data['usd_gateway']));
+
+  print(data);
 }
 
 Future<void> _balance(
@@ -249,11 +250,8 @@ Future<void> _balance(
     double balance = Tools.convertDouble(res['balance']);
 
     ctx.dispatch(HomeActionCreator.balance(balance));
-
-    //save to the local
-    LocalStorageDao.saveUserData('user_'+ctx.state.username, 'balance', balance);
+    ctx.dispatch(HomeActionCreator.loadingMap('balance'));
   } catch (err) {
-    ctx.dispatch(HomeActionCreator.loading(false));
     // tip(ctx.context, 'WalletDao balance: $err');
   }
 }
@@ -272,10 +270,9 @@ Future<void> _miningIncome(
     if ((res as Map).containsKey('miningIncome')) {
       value = Tools.convertDouble(res['miningIncome']);
     }
+    LocalStorageDao.saveUserData('user_$userId', {'miningIncome': value});
 
     ctx.dispatch(HomeActionCreator.miningIncome(value));
-    //save to the local
-    LocalStorageDao.saveUserData('user_'+ctx.state.username, 'miningIncome', value);
 
     Map priceData = {
       'userId': userId,
@@ -283,36 +280,45 @@ Future<void> _miningIncome(
       'currency': '',
       'mxcPrice': '${value == 0.0 ? value.toInt() : value}'
     };
-    await _convertUSD(ctx, priceData, 'gateway');
+    await _convertUSD(ctx, userId, priceData, 'gateway');
   } catch (err) {
-    ctx.dispatch(HomeActionCreator.loading(false));
     // tip(ctx.context, 'WalletDao miningInfo: $err');
   }
 }
 
-Future<void> _stakeAmount(Context<HomeState> ctx, String orgId) async {
+Future<void> _stakeAmount(
+    Context<HomeState> ctx, String userId, String orgId) async {
   assert(orgId.isNotEmpty);
 
   try {
     StakeDao dao = _buildStakeDao(ctx);
 
-    var res = await dao.amount(orgId);
+    final res = await dao.activestakes({
+      "orgId": orgId,
+    });
+
     mLog('StakeDao amount', res);
     double amount = 0;
     if (res.containsKey('actStake') && res['actStake'] != null) {
-      amount = Tools.convertDouble(res['actStake']['amount']);
+      final list = res['actStake'] as List;
+      var sum = Decimal.zero;
+      for (final stake in list) {
+        final stakeAmount = Decimal.parse(stake['amount']);
+        sum += stakeAmount;
+      }
+      amount = sum.toDouble();
     }
+    LocalStorageDao.saveUserData('user_$userId', {'stakedAmount': amount});
 
     ctx.dispatch(HomeActionCreator.stakedAmount(amount));
-    //save to the local
-    LocalStorageDao.saveUserData('user_'+ctx.state.username, 'stakedAmount', amount);
+    ctx.dispatch(HomeActionCreator.loadingMap('stakedAmount'));
   } catch (err) {
-    ctx.dispatch(HomeActionCreator.loading(false));
+    ctx.dispatch(HomeActionCreator.loadingMap('stakedAmount'));
     // tip(ctx.context, 'StakeDao amount: $err');
   }
 }
 
-Future<void> _gateways(Context<HomeState> ctx) async {
+Future<void> _gateways(Context<HomeState> ctx, String userId) async {
   try {
     GatewaysDao dao = _buildGatewaysDao(ctx);
     String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
@@ -361,12 +367,11 @@ Future<void> _gateways(Context<HomeState> ctx) async {
       }
     }
 
+    LocalStorageDao.saveUserData('user_$userId', {'gatewaysTotal': total});
     ctx.dispatch(HomeActionCreator.gateways(total, 0, list));
-
-    //save to the local
-    LocalStorageDao.saveUserData('user_'+ctx.state.username, 'gatewaysTotal', total);
+    ctx.dispatch(HomeActionCreator.loadingMap('gatewaysTotal'));
   } catch (err) {
-    ctx.dispatch(HomeActionCreator.loading(false));
+    ctx.dispatch(HomeActionCreator.loadingMap('gatewaysTotal'));
     // tip(ctx.context, 'GatewaysDao list: $err');
   }
 }
@@ -379,6 +384,7 @@ Future<void> _gatewaysLocationsFromLocal(Context<HomeState> ctx) async {
   //local data
   geojsonList = await gatewayLocationDao.listFromLocal();
   Map localGeojsonMap = LocalStorageDao.loadUserData('geojson');
+  localGeojsonMap ??= {};
 
   if(localGeojsonMap['data'] != null && localGeojsonMap['data'].length > 0){
     geojsonList.addAll(localGeojsonMap['data']);
@@ -396,7 +402,7 @@ void _onOperate(Action action, Context<HomeState> ctx) {
   List<OrganizationsState> organizations = ctx.state.organizations;
 
   if (act == 'unstake') {
-    page = 'stake_page';
+    page = 'list_unstake_page';
   }
 
   Navigator.pushNamed(ctx.context, page, arguments: {
@@ -404,8 +410,9 @@ void _onOperate(Action action, Context<HomeState> ctx) {
     'organizations': organizations,
     'type': act,
     'stakedAmount': stakedAmount,
-    'isDemo': isDemo
+    'isDemo': isDemo,
   }).then((res) {
+    res ??= false;
     if ((page == 'stake_page' || page == 'withdraw_page') && res) {
       _profile(ctx);
     }
@@ -453,7 +460,8 @@ void _onSettings(Action action, Context<HomeState> ctx) {
   });
 }
 
-Future<void> _convertUSD(Context<HomeState> ctx, Map data, String type) async {
+Future<void> _convertUSD(
+    Context<HomeState> ctx, String userId, Map data, String type) async {
   try {
     WalletDao dao = _buildWalletDao(ctx);
 
@@ -462,18 +470,18 @@ Future<void> _convertUSD(Context<HomeState> ctx, Map data, String type) async {
 
     if ((res as Map).containsKey('mxcPrice')) {
       double value = double.parse(res['mxcPrice']);
+      LocalStorageDao.saveUserData('user_$userId', {'usd_$type': value});
       ctx.dispatch(HomeActionCreator.convertUSD(type, value));
-
-      //save to the local
-      LocalStorageDao.saveUserData('user_'+ctx.state.username, '${type}USD', value);
+      ctx.dispatch(HomeActionCreator.loadingMap('gatewaysUSD'));
     }
   } catch (err) {
-    ctx.dispatch(HomeActionCreator.loading(false));
+    ctx.dispatch(HomeActionCreator.loadingMap('gatewaysUSD'));
     // tip(ctx.context, 'WalletDao convertUSD: $err');
   }
 }
 
-Future<void> _stakingRevenue(Context<HomeState> ctx, String orgId) async {
+Future<void> _stakingRevenue(
+    Context<HomeState> ctx, String userId, String orgId) async {
   try {
     StakeDao dao = _buildStakeDao(ctx);
     Map data = {
@@ -485,13 +493,11 @@ Future<void> _stakingRevenue(Context<HomeState> ctx, String orgId) async {
 
     mLog('StakeDao revenue', res);
     final amount = Tools.convertDouble(res['amount']);
+    LocalStorageDao.saveUserData('user_$userId', {'totalRevenue': amount});
     ctx.dispatch(HomeActionCreator.totalRevenue(amount));
-    ctx.dispatch(HomeActionCreator.loading(false));
-
-    //save to the local
-    LocalStorageDao.saveUserData('user_'+ctx.state.username, 'totalRevenue', amount);
+    ctx.dispatch(HomeActionCreator.loadingMap('totalRevenue'));
   } catch (err) {
-    ctx.dispatch(HomeActionCreator.loading(false));
+    ctx.dispatch(HomeActionCreator.loadingMap('totalRevenue'));
     // tip(ctx.context, 'StakeDao history: $err');
   }
 }

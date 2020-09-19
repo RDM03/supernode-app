@@ -22,32 +22,29 @@ Effect<OrganizationsState> buildEffect() {
 void _onUpdate(Action action, Context<OrganizationsState> ctx) {
   var curState = ctx.state;
 
-  if((curState.formKey.currentState as FormState).validate()){
-
+  if ((curState.formKey.currentState as FormState).validate()) {
     showDialog(
-      context: ctx.context,
-      builder: (context){
-        return AlertDialog(
-          title: Text(FlutterI18n.translate(context,'profile_setting')),
-          content: Text(FlutterI18n.translate(context,'sure_switch_organization')),
-          actions: [
-            FlatButton(
-              child: Text(FlutterI18n.translate(context,'switch')),
-              onPressed: () => _updateData(ctx),
-            ),
-            FlatButton(
-              child: Text(FlutterI18n.translate(context,'cancel')),
-              onPressed: () => Navigator.of(ctx.context).pop(),
-            ),
-          ]
-        );
-      }
-    );
-    
+        context: ctx.context,
+        builder: (context) {
+          return AlertDialog(
+              title: Text(FlutterI18n.translate(context, 'profile_setting')),
+              content: Text(
+                  FlutterI18n.translate(context, 'sure_switch_organization')),
+              actions: [
+                FlatButton(
+                  child: Text(FlutterI18n.translate(context, 'switch')),
+                  onPressed: () => _updateData(ctx),
+                ),
+                FlatButton(
+                  child: Text(FlutterI18n.translate(context, 'cancel')),
+                  onPressed: () => Navigator.of(ctx.context).pop(),
+                ),
+              ]);
+        });
   }
 }
 
-void _updateData(Context<OrganizationsState> ctx){
+void _updateData(Context<OrganizationsState> ctx) async {
   Navigator.of(ctx.context).pop(); //exit alertlog
 
   var curState = ctx.state;
@@ -55,13 +52,12 @@ void _updateData(Context<OrganizationsState> ctx){
   String id = curState.selectedOrgId;
   String name = curState.orgNameCtl.text;
   String displayName = curState.orgDisplayCtl.text;
-  
-  if(Reg.isEmpty(id) != null){
-    tip(ctx.context,FlutterI18n.translate(ctx.context,'select_organization'));
+
+  if (Reg.isEmpty(id) != null) {
+    tip(ctx.context, FlutterI18n.translate(ctx.context, 'select_organization'));
     return;
   }
-
-  showLoading(ctx.context);
+  final loading = await Loading.show(ctx.context);
 
   Map data = {
     "id": id,
@@ -75,20 +71,19 @@ void _updateData(Context<OrganizationsState> ctx){
 
   OrganizationDao dao = OrganizationDao();
 
-  dao.update(data).then((res){
-    mLog('update',res);
-    hideLoading(ctx.context);
+  dao.update(data).then((res) {
+    mLog('update', res);
+    loading.hide();
 
-    tip(ctx.context,FlutterI18n.translate(ctx.context,'update_success'),success: true);
+    tip(ctx.context, FlutterI18n.translate(ctx.context, 'update_success'),
+        success: true);
 
     SettingsState settingsData = GlobalStore.store.getState().settings;
     settingsData.selectedOrganizationId = id;
 
     SettingsDao.updateLocal(settingsData);
-
-  }).catchError((err){
-    hideLoading(ctx.context);
+  }).catchError((err) {
+    loading.hide();
     // tip(ctx.context,'OrganizationDao update: $err');
   });
-
 }

@@ -9,12 +9,22 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:supernodeapp/common/daos/crashes_dao.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
+import 'package:supernodeapp/page/feedback_page/feedback.dart';
 import 'package:supernodeapp/global_store/store.dart';
+import 'package:supernodeapp/page/address_book_page/add_address_page/page.dart';
+import 'package:supernodeapp/page/address_book_page/address_details_page/page.dart';
+import 'package:supernodeapp/page/address_book_page/page.dart';
 import 'package:supernodeapp/page/app.dart';
 import 'package:supernodeapp/page/calculator_list_page/page.dart';
 import 'package:supernodeapp/page/calculator_page/page.dart';
+import 'package:supernodeapp/page/connectivity_lost_page/page.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
 import 'package:supernodeapp/page/sign_up_page/page.dart';
+import 'package:supernodeapp/page/stake_page/confirm_stake_page/page.dart';
+import 'package:supernodeapp/page/stake_page/details_stake_page/page.dart';
+import 'package:supernodeapp/page/stake_page/list_unstake_page/page.dart';
+import 'package:supernodeapp/page/stake_page/prepare_stake_page/page.dart';
+import 'package:supernodeapp/page/under_maintenance_page/page.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'common/utils/no_glow_behavior.dart';
 import 'global_store/state.dart';
@@ -28,7 +38,7 @@ import 'page/deposit_page/page.dart';
 import 'page/forgot_password_page/page.dart';
 import 'page/home_page/page.dart';
 import 'page/login_page/page.dart';
-import 'page/mapbox_page//page.dart';
+import 'page/mapbox_page/page.dart';
 import 'page/settings_page/page.dart';
 import 'page/splash_page/page.dart';
 import 'page/stake_page/page.dart';
@@ -38,7 +48,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageManager.init();
 
-  runApp(mxcApp());
+  runApp(MxcApp());
   Stream.fromFuture(FlutterAppCenter.init(
     appSecretAndroid: Sys.appSecretAndroid,
     appSecretIOS: Sys.appSecretIOS,
@@ -64,9 +74,9 @@ Future<void> main() async {
   );
 }
 
-Widget mxcApp() {
-  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
+class MxcApp extends StatelessWidget {
   final AbstractRoutes routes = PageRoutes(
       pages: <String, Page<Object, dynamic>>{
         'splash_page': SplashPage(),
@@ -88,6 +98,15 @@ Widget mxcApp() {
         'device_mapbox_page': DeviceMapBoxPage(),
         'calculator_page': CalculatorPage(),
         'calculator_list_page': CalculatorListPage(),
+        'address_book_page': AddressBookPage(),
+        'add_address_page': AddAddressPage(),
+        'address_details_page': AddressDetailsPage(),
+        'connectivity_lost_page': ConnectivityLostPage(),
+        'prepare_stake_page': PrepareStakePage(),
+        'confirm_stake_page': ConfirmStakePage(),
+        'details_stake_page': DetailsStakePage(),
+        'list_unstake_page': ListUnstakePage(),
+        'under_maintenance_page': UnderMaintenancePage(),
       },
       visitor: (String path, Page<Object, dynamic> page) {
         if (page.isTypeof<GlobalBaseState>()) {
@@ -109,62 +128,70 @@ Widget mxcApp() {
         }
       });
 
-  return MaterialApp(
-    navigatorKey: navigatorKey,
-    localizationsDelegates: [
-      FlutterI18nDelegate(
-          translationLoader: FileTranslationLoader(
-        useCountryCode: true,
-        // forcedLocale: Locale()
-      )
-          // translationLoader: NamespaceFileTranslationLoader(
-          //   useCountryCode: true,
-          //   namespaces: [ 'login' ]
-          // )
-          ),
-      GlobalMaterialLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-    ],
-    supportedLocales: [
-      const Locale('en'),
-      const Locale.fromSubtags(languageCode: 'zh'),
-      const Locale.fromSubtags(
-          languageCode: 'zh', scriptCode: 'Hans', countryCode: 'CN'),
-      const Locale.fromSubtags(
-          languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
-      const Locale.fromSubtags(
-          languageCode: 'zh', scriptCode: 'Hant', countryCode: 'HK'),
-      const Locale.fromSubtags(languageCode: 'vi'), // Vietnam
-      const Locale.fromSubtags(languageCode: 'ja'), // Japan
-      const Locale.fromSubtags(languageCode: 'ko'), // Korea
-      const Locale.fromSubtags(languageCode: 'de'), // Germany
-      const Locale.fromSubtags(languageCode: 'ru'), // Russia
-      const Locale.fromSubtags(languageCode: 'ko'), // Korea
-      const Locale.fromSubtags(languageCode: 'tr'), // Turkey
-    ],
-    theme: appTheme,
-    home: AppPage(
-      child: routes.buildPage('splash_page', null),
-    ),
-    builder: (context, child) {
-      if (Platform.isAndroid) {
-        return ScrollConfiguration(
-          behavior: NoGlowBehavior(),
-          child: child,
-        );
-      }
-      return child;
-    },
-    onGenerateRoute: (RouteSettings settings) {
-      return MaterialPageRoute(
-        builder: (BuildContext context) {
-          return routes.buildPage(settings.name, settings.arguments);
+  Widget build(BuildContext context) {
+    return DatadashFeedback(
+      child: MaterialApp(
+        navigatorKey: navigatorKey,
+        localizationsDelegates: [
+          FlutterI18nDelegate(
+              translationLoader: FileTranslationLoader(
+            useCountryCode: true,
+            // forcedLocale: Locale()
+          )
+              // translationLoader: NamespaceFileTranslationLoader(
+              //   useCountryCode: true,
+              //   namespaces: [ 'login' ]
+              // )
+              ),
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: [
+          const Locale('en'),
+          const Locale.fromSubtags(languageCode: 'zh'),
+          const Locale.fromSubtags(
+              languageCode: 'zh', scriptCode: 'Hans', countryCode: 'CN'),
+          const Locale.fromSubtags(
+              languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
+          const Locale.fromSubtags(
+              languageCode: 'zh', scriptCode: 'Hant', countryCode: 'HK'),
+          const Locale.fromSubtags(languageCode: 'vi'), // Vietnam
+          const Locale.fromSubtags(languageCode: 'ja'), // Japan
+          const Locale.fromSubtags(languageCode: 'ko'), // Korea
+          const Locale.fromSubtags(languageCode: 'de'), // Germany
+          const Locale.fromSubtags(languageCode: 'ru'), // Russia
+          const Locale.fromSubtags(languageCode: 'ko'), // Korea
+          const Locale.fromSubtags(languageCode: 'tr'), // Turkey
+          const Locale.fromSubtags(languageCode: 'es'), // Spain
+          const Locale.fromSubtags(languageCode: 'pt'), // Portugal
+          const Locale.fromSubtags(languageCode: 'id'), // Indonesia
+          const Locale.fromSubtags(languageCode: 'tl'), // Philippines
+        ],
+        theme: appTheme,
+        home: AppPage(
+          child: routes.buildPage('splash_page', null),
+        ),
+        builder: (context, child) {
+          if (Platform.isAndroid) {
+            return ScrollConfiguration(
+              behavior: NoGlowBehavior(),
+              child: child,
+            );
+          }
+          return child;
         },
-        settings: settings,
-      );
-    },
-  );
+        onGenerateRoute: (RouteSettings settings) {
+          return MaterialPageRoute(
+            builder: (BuildContext context) {
+              return routes.buildPage(settings.name, settings.arguments);
+            },
+            settings: settings,
+          );
+        },
+      ),
+    );
+  }
 }
 
 /// 只针对页面的生命周期进行打印

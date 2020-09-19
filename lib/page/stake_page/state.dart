@@ -1,45 +1,33 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter/material.dart';
-import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 
 class StakeState implements Cloneable<StakeState> {
-
-  String type = 'stake';
-  GlobalKey<FormState> formKey = GlobalKey();
-  TextEditingController amountCtl = TextEditingController();
-
-  List<OrganizationsState> organizations = [];
-
-  bool resSuccess = false;
   bool isDemo = false;
-  bool otpEnabled = false;
-  bool inputLocked = false;
-  
+  double balance;
+
+  double rate24m;
+  double rate12m;
+  double rate9m;
+  double rate6m;
+  double rateFlex;
+
   @override
   StakeState clone() {
     return StakeState()
-      ..type = type
-      ..formKey = formKey
-      ..amountCtl = amountCtl
-      ..organizations = organizations
-      ..resSuccess = resSuccess
+      ..balance = balance
       ..isDemo = isDemo
-      ..otpEnabled = otpEnabled
-      ..inputLocked = inputLocked;
+      ..rate24m = rate24m
+      ..rate12m = rate12m
+      ..rate9m = rate9m
+      ..rate6m = rate6m
+      ..rateFlex = rateFlex;
   }
 }
 
 StakeState initState(Map<String, dynamic> args) {
-  List<OrganizationsState> organizations = args['organizations'];
-  String type = args['type'] ?? 'stake';
   bool isDemo = args['isDemo'] ?? false;
-  bool inputLocked = type == 'unstake';
-  double stakedAmount = type == 'unstake' ? args['stakedAmount'] : null;
+  double balance = args['balance'] ?? 0;
 
   return StakeState()
-    ..organizations = organizations
-    ..type = type
     ..isDemo = isDemo
-    ..inputLocked = inputLocked
-    ..amountCtl = TextEditingController(text: stakedAmount?.toString());
+    ..balance = balance;
 }

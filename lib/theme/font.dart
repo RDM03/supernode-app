@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+
 const kSmallFontOfWhite = TextStyle(
     color: Colors.white,
     fontFamily: "Roboto",
     fontSize: 12,
     height: 1.33333,
     decoration: TextDecoration.none);
+
+const kSmallFontOfBlack = TextStyle(
+    color: Colors.black,
+    fontFamily: "Roboto",
+    fontSize: 12,
+    height: 1.33333,
+    decoration: TextDecoration.none);
+
 const kSmallFontOfGrey = TextStyle(
     color: const Color.fromARGB(138, 0, 0, 0),
     fontFamily: "Roboto",
@@ -23,6 +32,13 @@ const kSmallFontOfGreen = TextStyle(
 
 const kSmallFontOfRed = TextStyle(
   color: Color.fromARGB(255, 255, 91, 91),
+  fontFamily: "Roboto",
+  fontSize: 12,
+  height: 1.33333,
+);
+
+const kSmallFontOfDarkBlue = TextStyle(
+  color: const Color.fromARGB(255, 28, 20, 120),
   fontFamily: "Roboto",
   fontSize: 12,
   height: 1.33333,
@@ -124,9 +140,15 @@ const kBigFontOfBlue = TextStyle(
   height: 1.5,
 );
 
-
 const kBigFontOfWhite = TextStyle(
   color: Colors.white,
+  fontFamily: "Roboto",
+  fontSize: 16,
+  height: 1.5,
+);
+
+const kBigFontOfRed = TextStyle(
+  color: Colors.red,
   fontFamily: "Roboto",
   fontSize: 16,
   height: 1.5,
@@ -175,3 +197,6 @@ const kRowShodow = BoxDecoration(
     ),
   ],
 );
+
+const kPrimaryBigFontOfBlack =
+    TextStyle(fontSize: 18, fontWeight: FontWeight.w600);
