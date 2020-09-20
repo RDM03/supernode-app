@@ -166,11 +166,18 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
             ),
           ),
           panelFrame(
-            height: 263,
-            child: MapBoxGLWidget(
-              markers: state.geojsonList,
-              onFullScreenPress: () => dispatch(HomeActionCreator.mapbox())
-            ),
+            height: 600,
+            child: FutureBuilder(
+              builder: (context,builder) {
+                return MapBoxGLWidget(
+                  markers: state.geojsonList,
+                  onFullScreenPress: () => dispatch(HomeActionCreator.mapbox())
+                ) ?? SizedBox(
+                  width: 0,
+                  height: 0,
+                );
+              },
+            )
           ),
           smallColumnSpacer(),
         ],

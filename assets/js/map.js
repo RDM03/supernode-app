@@ -55,7 +55,7 @@ function _addClusters(){
         type: 'circle',
         source: 'gateways',
         paint: {
-            'circle-color': 'rgba(255, 255, 255, 0)',
+            'circle-color': 'rgba(0, 0, 0, 0)',
             'circle-radius': [
                 'step',
                 ['get', 'point_count'],

@@ -249,6 +249,7 @@ Future<void> _balance(
     var res = await dao.balance(data);
     mLog('balance', res);
     double balance = Tools.convertDouble(res['balance']);
+    LocalStorageDao.saveUserData('user_${ctx.state.username}', {'balance': balance});
 
     ctx.dispatch(HomeActionCreator.balance(balance));
     ctx.dispatch(HomeActionCreator.loadingMap('balance'));
@@ -323,7 +324,7 @@ Future<void> _gateways(Context<HomeState> ctx, String userId) async {
   try {
     GatewaysDao dao = _buildGatewaysDao(ctx);
     String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-    Map data = {"organizationID": orgId, "offset": 0, "limit": 999};
+    Map data = {"organizationID": orgId, "offset": 0, "limit": 10};
 
     var res = await dao.list(data);
     mLog('GatewaysDao list', res);

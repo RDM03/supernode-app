@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'package:supernodeapp/common/utils/map_html.dart';
 import 'package:supernodeapp/configs/sys.dart';
