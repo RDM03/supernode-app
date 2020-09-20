@@ -143,9 +143,7 @@ Future<void> _checkForUpdate(Context<HomeState> ctx) {
 void _onProfile(Action action, Context<HomeState> ctx) {
   SettingsState settingsData = GlobalStore.store.getState().settings;
 
-  if(ctx.state.userId == settingsData.userId){
-    _requestUserFinance(ctx,settingsData.userId,settingsData.selectedOrganizationId);
-  }
+  _requestUserFinance(ctx,settingsData.userId,settingsData.selectedOrganizationId);
 }
 
 void _onGateways(Action action, Context<HomeState> ctx) async {
@@ -157,7 +155,7 @@ void _onGateways(Action action, Context<HomeState> ctx) async {
   ctx.dispatch(HomeActionCreator.loadingMap('gatewaysTotal',type: 'delete'));
 
   await _miningIncome(ctx, ctx.state.userId, orgId);
-  await _gateways(ctx, ctx.state.userId);
+  await _gateways(ctx, orgId);
 }
 
 Future<void> _profile(Context<HomeState> ctx) async {
@@ -183,7 +181,7 @@ Future<void> _profile(Context<HomeState> ctx) async {
           .add(OrganizationsState.fromMap(res['organizations'][index]));
     }
 
-    if(ctx.state.userId == null || settingsData.userId.isEmpty || settingsData.selectedOrganizationId.isEmpty){
+    if(settingsData.userId.isEmpty || settingsData.selectedOrganizationId.isEmpty){
       await _requestUserFinance(ctx,userData.id,organizationsData.first.organizationID);
     }
 
@@ -206,13 +204,13 @@ Future<void> _requestUserFinance(Context<HomeState> ctx,String userId,String org
   ctx.dispatch(HomeActionCreator.loadingMap(''));
 
   await _balance(ctx, userId, orgId);
-  await _stakeAmount(ctx, userId,orgId);
+  await _stakeAmount(ctx, userId, orgId);
   await _stakingRevenue(ctx, userId, orgId);
 
   await _miningIncome(ctx, userId, orgId);
 
   // Request gateways' amount and location
-  await _gateways(ctx, userId);
+  await _gateways(ctx, orgId);
 
   // await _devices(ctx,userData,orgId);
 }
@@ -320,11 +318,11 @@ Future<void> _stakeAmount(
   }
 }
 
-Future<void> _gateways(Context<HomeState> ctx, String userId) async {
+Future<void> _gateways(Context<HomeState> ctx, String orgId) async {
   try {
     ctx.dispatch(HomeActionCreator.loading(true));
     GatewaysDao dao = _buildGatewaysDao(ctx);
-    String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
+
     Map data = {"organizationID": orgId, "offset": 0, "limit": 10};
 
     var res = await dao.list(data);
