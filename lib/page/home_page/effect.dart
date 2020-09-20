@@ -22,7 +22,7 @@ import 'package:supernodeapp/page/settings_page/organizations_component/state.da
 import 'package:supernodeapp/page/settings_page/state.dart';
 
 import 'action.dart';
-import 'gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
+import 'gateway_component/item_state.dart';
 import 'state.dart';
 import 'user_component/state.dart';
 
@@ -322,6 +322,7 @@ Future<void> _stakeAmount(
 
 Future<void> _gateways(Context<HomeState> ctx, String userId) async {
   try {
+    ctx.dispatch(HomeActionCreator.loading(true));
     GatewaysDao dao = _buildGatewaysDao(ctx);
     String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
     Map data = {"organizationID": orgId, "offset": 0, "limit": 10};

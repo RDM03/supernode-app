@@ -10,7 +10,7 @@ import 'package:supernodeapp/page/settings_page/organizations_component/state.da
 import 'package:supernodeapp/page/settings_page/state.dart';
 
 import 'device_component/state.dart';
-import 'gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
+import 'gateway_component/item_state.dart';
 import 'gateway_component/state.dart';
 import 'user_component/state.dart';
 import 'wallet_component/state.dart';
@@ -211,7 +211,8 @@ class GatewayConnector extends ConnOp<HomeState, GatewayState> {
       ..profile = subState.profile
       ..mapCtlProfile = subState.mapCtl
       ..miningRevenve = subState.miningRevenve
-      ..gatewayFrame = subState.gatewayFrame;
+      ..gatewayFrame = subState.gatewayFrame
+      ..gatewaysList = subState.list;
   }
 }
 

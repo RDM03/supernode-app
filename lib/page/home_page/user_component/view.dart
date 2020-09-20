@@ -166,7 +166,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
             ),
           ),
           panelFrame(
-            height: 600,
+            height: 263,
             child: FutureBuilder(
               builder: (context,builder) {
                 return MapBoxGLWidget(

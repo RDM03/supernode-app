@@ -1,6 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
-import 'package:supernodeapp/page/home_page/gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
+import 'package:supernodeapp/page/home_page/gateway_component/item_state.dart';
 
 enum GatewayProfileAction {
   initState,
@@ -34,11 +34,13 @@ class GatewayProfileActionCreator {
   }
 
   static Action networkServerId(String id, String value) {
-    return Action(GatewayProfileAction.networkServerId, payload: {'id': id, 'value': value});
+    return Action(GatewayProfileAction.networkServerId,
+        payload: {'id': id, 'value': value});
   }
 
   static Action gatewayProfileId(String id, String value) {
-    return Action(GatewayProfileAction.gatewayProfileId, payload: {'id': id, 'value': value});
+    return Action(GatewayProfileAction.gatewayProfileId,
+        payload: {'id': id, 'value': value});
   }
 
   static Action selectIdType() {
@@ -70,7 +72,8 @@ class GatewayProfileActionCreator {
   }
 
   static Action addLocation({LatLng location, String type = 'user'}) {
-    return Action(GatewayProfileAction.addLocation, payload: {'location': location, 'type': type});
+    return Action(GatewayProfileAction.addLocation,
+        payload: {'location': location, 'type': type});
   }
 
   static Action addMapController(MapboxMapController ctl) {

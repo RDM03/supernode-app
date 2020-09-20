@@ -50,6 +50,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.4.1"
+  bloc:
+    dependency: transitive
+    description:
+      name: bloc
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "6.0.3"
   boolean_selector:
     dependency: transitive
     description:
@@ -335,6 +342,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.10"
+  flutter_bloc:
+    dependency: transitive
+    description:
+      name: flutter_bloc
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "6.0.5"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -595,6 +609,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.2.0"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.4"
   node_interop:
     dependency: transitive
     description:
@@ -630,6 +651,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.4.3"
+  pagination_view:
+    dependency: "direct main"
+    description:
+      name: pagination_view
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.3+2"
   path:
     dependency: transitive
     description:
@@ -756,6 +784,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.4"
+  provider:
+    dependency: transitive
+    description:
+      name: provider
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.3.2+2"
   pub_semver:
     dependency: transitive
     description:
