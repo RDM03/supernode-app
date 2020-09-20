@@ -1118,6 +1118,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.2.1"
+  solid_bottom_sheet:
+    dependency: "direct main"
+    description:
+      name: solid_bottom_sheet
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.9"
 sdks:
   dart: ">=2.8.0 <3.0.0"
   flutter: ">=1.17.0 <2.0.0"
