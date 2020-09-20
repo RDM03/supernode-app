@@ -259,7 +259,11 @@ class StakeItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(dateStr, style: kSmallFontOfGrey),
-                          Text('$durationDays Days', style: kSmallFontOfGrey),
+                          Text(
+                            FlutterI18n.translate(context, 'duration_days')
+                                .replaceFirst('{0}', durationDays.toString()),
+                            style: kSmallFontOfGrey,
+                          ),
                         ],
                       ),
                     ],
