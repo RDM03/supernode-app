@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'package:supernodeapp/common/utils/map_html.dart';
 import 'package:supernodeapp/configs/sys.dart';
@@ -29,6 +29,7 @@ class _MapBoxGLState extends State<MapBoxGLWidget> with WidgetsBindingObserver{
   WebViewController _controller;
   bool _myLocationEnable = true;
   List _oldMarkers = [];
+  LocationData _locationData;
 
   @override
   void initState() {
@@ -124,8 +125,9 @@ class _MapBoxGLState extends State<MapBoxGLWidget> with WidgetsBindingObserver{
 
     if (mounted && isPermiss) {
       Future.delayed(Duration(seconds: seconds,), () async{
-        Position position = await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-        await _controller.evaluateJavascript('window.moveToMyLocation(${position.longitude},${position.latitude},$_myLocationEnable);');
+        Location location = new Location();
+        _locationData = await location.getLocation();
+        await _controller.evaluateJavascript('window.moveToMyLocation(${_locationData.longitude},${_locationData.latitude},$_myLocationEnable);');
       });
     }
   }
@@ -139,8 +141,9 @@ class _MapBoxGLState extends State<MapBoxGLWidget> with WidgetsBindingObserver{
 
     if (mounted && isPermiss) {
       Future.delayed(Duration(seconds: seconds,), () async{
-        Position position = await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-        await _controller.evaluateJavascript('window.addMyLocation(${position.longitude},${position.latitude},true);');
+        Location location = new Location();
+        _locationData = await location.getLocation();
+        await _controller.evaluateJavascript('window.addMyLocation(${_locationData.longitude},${_locationData.latitude},true);');
       });
     }
   }
@@ -204,11 +207,12 @@ class _MapBoxGLState extends State<MapBoxGLWidget> with WidgetsBindingObserver{
 
   Widget _buildActionWidgets() {
     return Positioned(
-      bottom: 100,
+      bottom: 60,
       right: 20,
       child: Column(
         children: <Widget>[
           _buildMyLocationIcon(),
+          _buildRefreshIcon(),
           _buildMyLocationStateChange(),
           _buildCloseAndFullScreenIcon(widget.isFullScreen)
         ],
@@ -230,6 +234,26 @@ class _MapBoxGLState extends State<MapBoxGLWidget> with WidgetsBindingObserver{
         onPressed: () => _moveToMyLocation(),
         icon: Icon(
           Icons.my_location,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRefreshIcon() {
+    return Container(
+      margin: EdgeInsets.only(bottom: 10),
+      width: 40,
+      height: 40,
+      decoration: BoxDecoration(
+        color: Colors.blueAccent,
+        borderRadius: BorderRadius.circular(20.0),
+        boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
+      ),
+      child: IconButton(
+        onPressed: () => _initMap(),
+        icon: Icon(
+          Icons.refresh,
           color: Colors.white,
         ),
       ),

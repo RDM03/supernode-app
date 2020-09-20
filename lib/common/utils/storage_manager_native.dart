@@ -77,7 +77,7 @@ class StorageManager {
 
   static bool showFeedback() {
     final res = StorageManager.sharedPreferences.getBool('feedback');
-    return res ?? true;
+    return res ?? false;
   }
 
   static Future<void> setShowFeedback(bool val) async {
