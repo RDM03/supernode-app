@@ -5,11 +5,12 @@ import 'package:supernodeapp/common/daos/time_dao.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/global_store/store.dart';
+import 'package:supernodeapp/page/home_page/mapbox_gl_component/state.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 
 import 'device_component/state.dart';
-import 'gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
+import 'gateway_component/item_state.dart';
 import 'gateway_component/state.dart';
 import 'user_component/state.dart';
 import 'wallet_component/state.dart';
@@ -21,6 +22,7 @@ class HomeState implements Cloneable<HomeState> {
   int tabIndex = 0;
   bool isUpdate = true;
   bool loading = true;
+  Set loadingMap = {};
 
   //profile
   String userId = '';
@@ -70,6 +72,7 @@ class HomeState implements Cloneable<HomeState> {
   //map
   MapViewController mapCtl = MapViewController();
   List<GatewayItemState> gatewaysList = [];
+  List geojsonList = [];
 
   //devices
   int devicesTotal = 0;
@@ -92,6 +95,7 @@ class HomeState implements Cloneable<HomeState> {
       ..tabController = tabController
       ..tabIndex = tabIndex
       ..loading = loading
+      ..loadingMap = loadingMap
       ..loadingHistory = loadingHistory
       ..userId = userId
       ..username = username
@@ -114,6 +118,7 @@ class HomeState implements Cloneable<HomeState> {
       ..gatewaysLocations = gatewaysLocations
       ..mapCtl = mapCtl
       ..gatewaysList = gatewaysList
+      ..geojsonList = geojsonList
       ..tabHeight = tabHeight
       ..walletTabIndex = walletTabIndex
       ..walletList = walletList ?? []
@@ -154,6 +159,7 @@ class UserConnector extends ConnOp<HomeState, UserState> {
   UserState get(HomeState state) {
     return UserState()
       ..loading = state.loading
+      ..loadingMap = state.loadingMap
       ..id = state.userId
       ..username = state.username
       ..isAdmin = state.isAdmin
@@ -171,6 +177,7 @@ class UserConnector extends ConnOp<HomeState, UserState> {
       ..devicesUSDRevenue = state.devicesUSDRevenue
       ..mapViewController = state.mapCtl
       ..gatewaysLocations = state.gatewaysLocations
+      ..geojsonList = state.geojsonList
       ..isDemo = state.isDemo;
   }
 
@@ -185,6 +192,7 @@ class GatewayConnector extends ConnOp<HomeState, GatewayState> {
   GatewayState get(HomeState state) {
     return GatewayState()
       ..loading = state.loading
+      ..loadingMap = state.loadingMap
       ..gatewaysTotal = state.gatewaysTotal
       ..gatewaysRevenue = state.gatewaysRevenue
       ..gatewaysUSDRevenue = state.gatewaysUSDRevenue
@@ -203,7 +211,8 @@ class GatewayConnector extends ConnOp<HomeState, GatewayState> {
       ..profile = subState.profile
       ..mapCtlProfile = subState.mapCtl
       ..miningRevenve = subState.miningRevenve
-      ..gatewayFrame = subState.gatewayFrame;
+      ..gatewayFrame = subState.gatewayFrame
+      ..gatewaysList = subState.list;
   }
 }
 
@@ -227,6 +236,7 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
     return WalletState()
       ..isFirstRequest = state.isFirstRequest
       ..loading = state.loading
+      ..loadingMap = state.loadingMap
       ..loadingHistory = state.loadingHistory
       ..tabController = state.tabController
       ..balance = state.balance
@@ -269,5 +279,18 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..secondTime = subState.secondTime
       ..lastSearchData = subState.lastSearchData
       ..lastSearchType = subState.lastSearchType;
+  }
+}
+
+class MapboxGlConnector extends ConnOp<HomeState, MapboxGlState> {
+  @override
+  MapboxGlState get(HomeState state) {
+    return MapboxGlState()
+      ..geojsonList = state.geojsonList;
+  }
+
+  @override
+  void set(HomeState state, MapboxGlState subState) {
+    
   }
 }

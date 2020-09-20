@@ -7,6 +7,7 @@ import 'wallet_list_adapter/wallet_item_component/state.dart';
 class WalletState extends MutableSource implements Cloneable<WalletState> {
   bool isFirstRequest = true;
   bool loading = true;
+  Set loadingMap = {};
   bool loadingHistory = true;
   TabController tabController;
   int tabIndex = 0;
@@ -65,6 +66,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
     return WalletState()
       ..isFirstRequest = isFirstRequest
       ..loading = loading
+      ..loadingMap = loadingMap
       ..loadingHistory = loadingHistory
       ..tabController = tabController
       ..walletList = walletList

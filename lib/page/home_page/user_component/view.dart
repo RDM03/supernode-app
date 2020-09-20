@@ -5,7 +5,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
-import 'package:supernodeapp/common/components/map_box.dart';
+import 'package:supernodeapp/common/components/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/profile.dart';
@@ -94,8 +94,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                 rowRight(
                   '${Tools.priceFormat(state.balance)} MXC',
                   style: kBigFontOfBlack,
-                  loading: state.balance == null ||
-                      (state.balance == 0 && state.loading),
+                  loading: !state.loadingMap.contains('balance'),
                 ),
                 rowRight(
                   FlutterI18n.translate(_ctx, 'staked_amount'),
@@ -104,8 +103,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                 rowRight(
                   '${Tools.priceFormat(state.stakedAmount)} MXC',
                   style: kBigFontOfBlack,
-                  loading: state.stakedAmount == null ||
-                      (state.stakedAmount == 0 && state.loading),
+                  loading: !state.loadingMap.contains('stakedAmount'),
                 ),
                 rowRight(
                   FlutterI18n.translate(_ctx, 'staking_revenue'),
@@ -114,8 +112,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                 rowRight(
                   '${Tools.priceFormat(state.totalRevenue, range: 2)} MXC',
                   style: kBigFontOfBlack,
-                  loading: state.totalRevenue == null ||
-                      (state.totalRevenue == 0 && state.loading),
+                  loading: !state.loadingMap.contains('totalRevenue'),
                 ),
                 Container(
                   margin: kRoundRow5,
@@ -148,7 +145,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
           ),
           panelFrame(
             child: summaryRow(
-              loading: state.loading,
+              loading: !state.loadingMap.contains('gatewaysUSD'),
               image: AppImages.gateways,
               title: FlutterI18n.translate(_ctx, 'total_gateways'),
               number: '${state.gatewaysTotal}',
@@ -159,7 +156,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
           ),
           panelFrame(
             child: summaryRow(
-              loading: state.loading,
+              loading: false,
               image: AppImages.devices,
               title: FlutterI18n.translate(_ctx, 'total_devices'),
               number: '${state.devicesTotal}',
@@ -168,10 +165,19 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                   '${Tools.priceFormat(state.devicesRevenue)} MXC (${Tools.priceFormat(state.devicesUSDRevenue)} USD)',
             ),
           ),
-          MapBoxWidget(
-            config: state.mapViewController,
-            userLocationSwitch: true,
-            zoomOutCallback: () => dispatch(HomeActionCreator.mapbox()),
+          panelFrame(
+            height: 263,
+            child: FutureBuilder(
+              builder: (context,builder) {
+                return MapBoxGLWidget(
+                  markers: state.geojsonList,
+                  onFullScreenPress: () => dispatch(HomeActionCreator.mapbox())
+                ) ?? SizedBox(
+                  width: 0,
+                  height: 0,
+                );
+              },
+            )
           ),
           smallColumnSpacer(),
         ],

@@ -46,7 +46,7 @@ Widget buildView(
               Column(children: [
                 middleColumnSpacer(),
                 titleDetailRow(
-                  loading: state.loading,
+                  loading: !state.loadingMap.contains('balance'),
                   name: FlutterI18n.translate(_ctx, 'current_balance'),
                   value: Tools.priceFormat(state.balance),
                 ),
@@ -62,11 +62,11 @@ Widget buildView(
               Column(children: [
                 smallColumnSpacer(),
                 titleDetailRow(
-                    loading: state.loading,
+                    loading: !state.loadingMap.contains('stakedAmount'),
                     name: FlutterI18n.translate(_ctx, 'staked_amount'),
                     value: Tools.priceFormat(state.stakedAmount)),
                 titleDetailRow(
-                    loading: state.loading,
+                    loading: !state.loadingMap.contains('totalRevenue'),
                     name: FlutterI18n.translate(_ctx, 'total_revenue'),
                     value: Tools.priceFormat(state.totalRevenue, range: 2)),
                 primaryButtons(

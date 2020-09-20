@@ -1,10 +1,10 @@
 import 'package:fish_redux/fish_redux.dart';
 
 //TODO replace with your own action
-enum GatewayListAction { action }
+enum MapboxGlAction { action }
 
-class GatewayListActionCreator {
+class MapboxGlActionCreator {
   static Action onAction() {
-    return const Action(GatewayListAction.action);
+    return const Action(MapboxGlAction.action);
   }
 }

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset=utf-8 />
+      <title>Gateways</title>
+      <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+      <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+      <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+      <style>
+      body { margin:0; padding:0; }
+      #map { position:absolute; top:0; bottom:0; width:100%; }
+      </style>
+    </head>
+    <body>
+
+      <div id='map'></div>
+
+      <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoibXhjZGF0YWRhc2giLCJhIjoiY2s5bnc4dmh4MDBiMDNnbnczamRoN2ExeCJ9.sq0w8DGDXpA_6AMoejYaUw';
+        
+        var map = new mapboxgl.Map({
+          container: 'map',
+          style: 'mapbox://styles/mapbox/streets-v11',
+          center: [0,0],
+          zoom: 3
+        });
+
+function _removeClusters(){
+    if(map.getLayer('clusters')) {
+        map.removeLayer('clusters');
+        map.off('click', 'clusters',function(e){});
+    } 
+
+    if(map.getLayer('cluster-count')) {
+        map.removeLayer('cluster-count');
+    }
+
+    if(map.getLayer('unclustered-point')) {
+        map.removeLayer('unclustered-point');
+    }
+
+    if(map.getLayer('unclustered-point-field')) {
+        map.removeLayer('unclustered-point-field');
+    } 
+    
+    if(map.getLayer('clusters-points')) {
+        map.removeLayer('clusters-points');
+    } 
+
+    if(map.getSource('gateways')){
+        map.removeSource('gateways');
+    }
+}
+
+function _addClusters(){
+    map.addSource('gateways', {
+        type: 'geojson',
+        data: {
+            'type': 'FeatureCollection',
+            'features': [{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[0,0]}},{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-43.850486200000006,-19.8426953]}},{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[17.18408550000001,50.9352832]}},{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-74.0242508,4.6780785]}},{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-73.3783338,5.5966581]}},{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-70.7209186,-33.4677846]}},{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-70.5087339,-33.4834135]}},{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[2.478581200000008,44.1902619]}},{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[15.86524030000001,45.7283808]}}]
+        },
+        cluster: true,
+        clusterMaxZoom: 12, 
+        clusterRadius: 50 
+    });
+
+    map.addLayer({
+        id: 'clusters-points',
+        type: 'circle',
+        source: 'gateways',
+        paint: {
+            'circle-opacity': 0.75,
+            'circle-color': '#1c1478',
+            'circle-radius': 16
+        }
+    });
+
+    map.addLayer({
+        id: 'clusters',
+        type: 'circle',
+        source: 'gateways',
+        paint: {
+            'circle-color': 'rgba(255, 255, 255, 0)',
+            'circle-radius': [
+                'step',
+                ['get', 'point_count'],
+                20,
+                100,
+                30,
+                750,
+                40
+            ]
+        }
+    });
+
+    map.addLayer({
+        id: 'cluster-count',
+        type: 'symbol',
+        source: 'gateways',
+        filter: ['has', 'point_count'],
+        layout: {
+            'text-field': '{point_count_abbreviated}',
+            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+            'text-size': 12
+        },
+        paint: {
+            'text-color': '#fff'
+        }
+    });
+
+    map.addLayer({
+        id: 'unclustered-point-field',
+        type: 'symbol',
+        source: 'gateways',
+        filter: ['!', ['has', 'point_count']],
+        layout: {
+            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+            'text-size': 12,
+            'text-field': '1'
+        },
+        paint: {
+            'text-color': '#fff',
+        }
+    });
+
+    map.on('click', 'clusters', function (e) {
+        var features = map.queryRenderedFeatures(e.point, {
+                layers: ['clusters']
+            });
+
+            var clusterId = features[0].properties.cluster_id;
+            map.getSource('gateways').getClusterExpansionZoom(
+                clusterId,
+                function (err, zoom) {
+                if (err) return;
+                    
+                map.easeTo({
+                    center: features[0].geometry.coordinates,
+                    zoom: zoom
+                });
+            }
+        );
+    });
+}
+
+// user location
+var size = 100;
+
+var pulsingDot = {
+    width: size,
+    height: size,
+    data: new Uint8Array(size * size * 4),
+        
+    // get rendering context for the map canvas when layer is added to the map
+    onAdd: function () {
+        var canvas = document.createElement('canvas');
+        canvas.width = this.width;
+        canvas.height = this.height;
+        this.context = canvas.getContext('2d');
+    },
+        
+    // called once before every frame where the icon will be used
+    render: function () {
+        var duration = 1000;
+        var t = (performance.now() % duration) / duration;
+        
+        var radius = (size / 2) * 0.3;
+        var outerRadius = (size / 2) * 0.7 * t + radius;
+        var context = this.context;
+        
+        // draw outer circle
+        context.clearRect(0, 0, this.width, this.height);
+        context.beginPath();
+        context.arc(
+            this.width / 2,
+            this.height / 2,
+            outerRadius,
+            0,
+            Math.PI * 2
+        );
+        context.fillStyle = 'rgba(41, 182, 246,' + (1 - t) + ')';
+        context.fill();
+        
+        // draw inner circle
+        context.beginPath();
+        context.arc(
+            this.width / 2,
+            this.height / 2,
+            radius,
+            0,
+            Math.PI * 2
+        );
+        context.fillStyle = 'rgba(41, 182, 246, 1)';
+        context.strokeStyle = 'white';
+        context.lineWidth = 2 + 4 * (1 - t);
+        context.fill();
+        context.stroke();
+        
+        // update this image's data with data from the canvas
+        this.data = context.getImageData(
+            0,
+            0,
+            this.width,
+            this.height
+        ).data;
+        
+        // continuously repaint the map, resulting in the smooth animation of the dot
+        map.triggerRepaint();
+        
+        // return `true` to let the map know that the image was updated
+        return true;
+    }
+};
+
+function _removeUserMarker(){
+    if (map.getLayer('user-point')) {
+        map.removeLayer('user-point');
+        map.removeSource('user-point');
+        map.removeImage('pulsing-dot');
+    }
+}
+
+function _addUserMarker(longitude,latitude,isShow){
+    if (isShow && !map.getLayer('user-point')){
+        map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
+
+        map.addSource('user-point', {
+            'type': 'geojson',
+            'data': {
+                'type': 'FeatureCollection',
+                'features': [
+                    {
+                        'type': 'Feature',
+                        'geometry': {
+                            'type': 'Point',
+                            'coordinates': [longitude,latitude]
+                        }
+                    }
+                ]
+            }
+        });
+
+        map.addLayer({
+            'id': 'user-point',
+            'type': 'symbol',
+            'source': 'user-point',
+            'layout': {
+                'icon-image': 'pulsing-dot'
+            }
+        });
+
+    }
+}
+
+function _moveToMyLocation(longitude,latitude,isShow) {
+    _addUserMarker(longitude,latitude,isShow);
+
+    map.easeTo({
+        center: [longitude,latitude],
+        duration: 3000,
+        zoom: 12,
+    });
+}
+
+window.moveToMyLocation = _moveToMyLocation;
+window.removeMyLocation = _removeUserMarker;
+window.addMyLocation = _addUserMarker;
+window.removeClusters = _removeClusters;
+window.addClusters = _addClusters;
+window.gatewaysFeatures = [];
+
+// });
+      </script>
+
+    </body>
+</html>

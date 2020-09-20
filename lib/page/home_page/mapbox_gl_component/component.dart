@@ -5,15 +5,15 @@ import 'reducer.dart';
 import 'state.dart';
 import 'view.dart';
 
-class GatewayItemComponent extends Component<GatewayItemState> {
-  GatewayItemComponent()
+class MapboxGlComponent extends Component<MapboxGlState> {
+  MapboxGlComponent()
       : super(
             effect: buildEffect(),
             reducer: buildReducer(),
             view: buildView,
-            dependencies: Dependencies<GatewayItemState>(
+            dependencies: Dependencies<MapboxGlState>(
                 adapter: null,
-                slots: <String, Dependent<GatewayItemState>>{
+                slots: <String, Dependent<MapboxGlState>>{
                 }),);
 
 }

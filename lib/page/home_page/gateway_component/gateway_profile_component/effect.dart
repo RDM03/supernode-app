@@ -11,7 +11,7 @@ import 'package:supernodeapp/common/daos/wallet_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/global_store/store.dart';
-import 'package:supernodeapp/page/home_page/gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
+import 'package:supernodeapp/page/home_page/gateway_component/item_state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 import 'action.dart';
 import 'state.dart';

@@ -11,7 +11,7 @@ import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/paragraph.dart';
 import 'package:supernodeapp/common/daos/chart_dao.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';
-import 'package:supernodeapp/page/home_page/gateway_component/gateway_list_adapter/gateway_item_component/state.dart';
+import 'package:supernodeapp/page/home_page/gateway_component/item_state.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 import 'package:charts_flutter/flutter.dart' as charts;

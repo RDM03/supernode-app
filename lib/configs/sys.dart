@@ -46,8 +46,13 @@ class Sys {
   static const mapTileStyle   = "mapbox://styles/mxcdatadash/ck9qr005y5xec1is8yu6i51kw";
   static const mapUrlTemplate = 'https://api.mapbox.com/styles/v1/mxcdatadash/ck9qr005y5xec1is8yu6i51kw/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}';
   static const mapToken       = 'pk.eyJ1IjoibXhjZGF0YWRhc2giLCJhIjoiY2s5bnc4dmh4MDBiMDNnbnczamRoN2ExeCJ9.sq0w8DGDXpA_6AMoejYaUw';
+  static const mapboxjs       = 'assets/js/mapbox-gl.js';
+  static const mapjs          = 'assets/js/map.js';
 
-  // Crashes
+  /// Crashes
   static const crashesUrl = 'https://in.appcenter.ms';
   static const crasheslog = '/logs?Api-Version=1.0.0';
+
+  /// Load data of the location of global gateways 
+  static const gateways_location_list = 'assets/others/global_gateways_location.json';
 }

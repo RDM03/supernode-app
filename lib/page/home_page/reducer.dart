@@ -11,6 +11,7 @@ Reducer<HomeState> buildReducer() {
   return asReducer(
     <Object, Reducer<HomeState>>{
       HomeAction.loading: _loading,
+      HomeAction.loadingMap: _loadingMap,
       HomeAction.tabIndex: _tabIndex,
       HomeAction.profile: _profile,
       HomeAction.balance: _balance,
@@ -24,15 +25,24 @@ Reducer<HomeState> buildReducer() {
       HomeAction.totalRevenue: _totalRevenue,
       HomeAction.isUpdate: _isUpdate,
       HomeAction.reloginCount: _reloginCount,
+      HomeAction.geojsonList: _geojsonList,
     },
   );
 }
+
+HomeState _geojsonList(HomeState state, Action action) {
+
+  final HomeState newState = state.clone();
+  return newState
+    ..geojsonList = action.payload;
+}
+
 
 HomeState _reloginCount(HomeState state, Action action) {
 
   final HomeState newState = state.clone();
   return newState
-    ..reloginCount = action.payload;
+    ..reloginCount = action.payload + 1;
 }
 
 HomeState _isUpdate(HomeState state, Action action) {
@@ -47,6 +57,19 @@ HomeState _loading(HomeState state, Action action) {
 
   final HomeState newState = state.clone();
   return newState..loading = toogle;
+}
+
+HomeState _loadingMap(HomeState state, Action action) {
+  final HomeState newState = state.clone();
+  Map res = action.payload;
+
+  if(res['data'].length == 0){
+    return newState..loadingMap = {};
+  }else if(res['type'] == 'add'){
+    return newState..loadingMap.add(res['data']);
+  }else{
+    return newState..loadingMap.remove(res['data']);
+  }
 }
 
 HomeState _tabIndex(HomeState state, Action action) {

@@ -5,11 +5,13 @@ import 'package:supernodeapp/page/settings_page/organizations_component/state.da
 enum HomeAction {
   relogin,
   loading,
+  loadingMap,
   tabIndex,
   onProfile,
   profile,
   balance,
   mapbox,
+  geojsonList,
   stakedAmount,
   gateways,
   onGateways,
@@ -43,6 +45,10 @@ class HomeActionCreator {
     return Action(HomeAction.loading, payload: toogle);
   }
 
+  static Action loadingMap(String data,{String type = 'add'}) {
+    return Action(HomeAction.loadingMap, payload: {'data': data, 'type': type});
+  }
+
   static Action onProfile() {
     return const Action(HomeAction.onProfile);
   }
@@ -61,6 +67,10 @@ class HomeActionCreator {
 
   static Action mapbox(){
     return const Action(HomeAction.mapbox);
+  }
+
+  static Action geojsonList(List data){
+    return Action(HomeAction.geojsonList,payload: data);
   }
 
   static Action stakedAmount(double data) {

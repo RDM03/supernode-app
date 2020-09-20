@@ -14,6 +14,7 @@ class UserState implements Cloneable<UserState> {
   String password = '';
   String token = '';
   bool loading = true;
+  Set loadingMap = {};
 
   bool isAdmin = false;
   bool isActive = false;
@@ -43,6 +44,7 @@ class UserState implements Cloneable<UserState> {
   //map
   MapViewController mapViewController;
   StreamController<LatLng> markerlocationStream = StreamController();
+  List geojsonList = [];
 
   bool isDemo = false;
 
@@ -52,6 +54,7 @@ class UserState implements Cloneable<UserState> {
   UserState clone() {
     return UserState()
       ..loading = loading
+      ..loadingMap = loadingMap
       ..selectedSuperNode = selectedSuperNode
       ..id = id
       ..username = username
@@ -74,6 +77,7 @@ class UserState implements Cloneable<UserState> {
       ..mapViewController = mapViewController
       ..markerlocationStream = markerlocationStream
       ..gatewaysLocations = gatewaysLocations
+      ..geojsonList = geojsonList
       ..isDemo = isDemo;
   }
 
@@ -108,5 +112,7 @@ class UserState implements Cloneable<UserState> {
 }
 
 UserState initState(Map<String, dynamic> args) {
+  
+
   return UserState();
 }

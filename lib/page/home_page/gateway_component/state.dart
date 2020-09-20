@@ -4,12 +4,12 @@ import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/page/home_page/gateway_component/gateway_profile_component/state.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 
-import 'gateway_list_adapter/gateway_item_component/state.dart';
+import 'item_state.dart';
 
 class GatewayState extends MutableSource implements Cloneable<GatewayState> {
-  
   //gateways
   bool loading = true;
+  Set loadingMap = {};
   int gatewaysTotal = 0;
   double gatewaysRevenue = 0;
   double gatewaysUSDRevenue = 0;
@@ -23,7 +23,7 @@ class GatewayState extends MutableSource implements Cloneable<GatewayState> {
   List miningRevenve;
   List gatewayFrame;
 
-  List list = [];
+  List<GatewayItemState> list = [];
 
   @override
   Object getItemData(int index) => list[index];
@@ -47,6 +47,7 @@ class GatewayState extends MutableSource implements Cloneable<GatewayState> {
       ..miningRevenve = miningRevenve
       ..gatewayFrame = gatewayFrame
       ..loading = loading
+      ..loadingMap = loadingMap
       ..gatewaysTotal = gatewaysTotal
       ..gatewaysRevenue = gatewaysRevenue
       ..gatewaysUSDRevenue = gatewaysUSDRevenue
@@ -61,23 +62,20 @@ GatewayState initState(Map<String, dynamic> args) {
   return GatewayState();
 }
 
-class GatewayItemConnector extends ConnOp<GatewayState, GatewayItemState>{
-
+class GatewayItemConnector extends ConnOp<GatewayState, GatewayItemState> {
   @override
-  GatewayItemState get(GatewayState state){
+  GatewayItemState get(GatewayState state) {
     return GatewayItemState();
   }
 
   @override
-  void set(GatewayState state, GatewayItemState subState) {
-
-  }
+  void set(GatewayState state, GatewayItemState subState) {}
 }
 
-class GatewayProfileConnector extends ConnOp<GatewayState, GatewayProfileState>{
-
+class GatewayProfileConnector
+    extends ConnOp<GatewayState, GatewayProfileState> {
   @override
-  GatewayProfileState get(GatewayState state){    
+  GatewayProfileState get(GatewayState state) {
     return GatewayProfileState()
       ..profile = state.profile ?? GatewayItemState().clone()
       ..mapCtl = state.mapCtl
