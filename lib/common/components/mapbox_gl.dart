@@ -43,13 +43,13 @@ class _MapBoxGLState extends State<MapBoxGLWidget> with WidgetsBindingObserver{
       case AppLifecycleState.inactive:
         break;
       case AppLifecycleState.resumed:
-        if(mounted && _controller != null){
-          _controller.reload().then((value){
-            Future.delayed(Duration(seconds: 2),(){
-              _initMap();
-            });
-          });
-        }
+        // if(mounted && _controller != null){
+        //   _controller.reload().then((value){
+        //     Future.delayed(Duration(seconds: 2),(){
+        //       _initMap();
+        //     });
+        //   });
+        // }
         break;
       case AppLifecycleState.paused:
         break;

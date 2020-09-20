@@ -33,6 +33,7 @@ dependencies:
   charts_flutter: ^0.9.0
   # https://pub.dev/packages/webview_flutter
   webview_flutter: ^0.3.22+1
+  flutter_inappwebview: ^4.0.0+4
   # https://pub.dev/packages/geolocator
   geolocator: ^6.0.0+4
   # https://pub.dev/packages/modal_bottom_sheet
