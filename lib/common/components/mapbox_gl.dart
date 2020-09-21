@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:location/location.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'package:supernodeapp/common/utils/map_html.dart';
@@ -26,7 +27,7 @@ class MapBoxGLWidget extends StatefulWidget {
 }
 
 class _MapBoxGLState extends State<MapBoxGLWidget> with WidgetsBindingObserver{
-  WebViewController _controller;
+  InAppWebViewController _controller;
   bool _myLocationEnable = true;
   List _oldMarkers = [];
   LocationData _locationData;
@@ -76,10 +77,10 @@ class _MapBoxGLState extends State<MapBoxGLWidget> with WidgetsBindingObserver{
     DefaultAssetBundle.of(context)
       .loadString(Sys.mapboxjs)
       .then((String mapboxjs) async{
-        _controller.evaluateJavascript(mapboxjs);
+        _controller.evaluateJavascript(source: mapboxjs);
       })
       .then((_) {
-        _controller.evaluateJavascript(map_html).then((_) async{
+        _controller.evaluateJavascript(source: map_html).then((_) async{
 
           Future.delayed(Duration(seconds: 1),(){
             DefaultAssetBundle.of(context)
@@ -96,7 +97,7 @@ class _MapBoxGLState extends State<MapBoxGLWidget> with WidgetsBindingObserver{
                 //   }
                 // });
 
-                _controller.evaluateJavascript(mapjs).then((_) async{
+                _controller.evaluateJavascript(source: mapjs).then((_) async{
                   _addMarkers(widget.markers);
                   _moveToMyLocation();
                 });
@@ -127,13 +128,13 @@ class _MapBoxGLState extends State<MapBoxGLWidget> with WidgetsBindingObserver{
       Future.delayed(Duration(seconds: seconds,), () async{
         Location location = new Location();
         _locationData = await location.getLocation();
-        await _controller.evaluateJavascript('window.moveToMyLocation(${_locationData.longitude},${_locationData.latitude},$_myLocationEnable);');
+        await _controller.evaluateJavascript(source: 'window.moveToMyLocation(${_locationData.longitude},${_locationData.latitude},$_myLocationEnable);');
       });
     }
   }
 
   Future<void> _removeMyLocation() async{
-    await _controller.evaluateJavascript('window.removeMyLocation();');
+    await _controller.evaluateJavascript(source: 'window.removeMyLocation();');
   }
 
   Future<void> _addToMyLocation({int seconds = 0}) async{
@@ -143,7 +144,7 @@ class _MapBoxGLState extends State<MapBoxGLWidget> with WidgetsBindingObserver{
       Future.delayed(Duration(seconds: seconds,), () async{
         Location location = new Location();
         _locationData = await location.getLocation();
-        await _controller.evaluateJavascript('window.addMyLocation(${_locationData.longitude},${_locationData.latitude},true);');
+        await _controller.evaluateJavascript(source: 'window.addMyLocation(${_locationData.longitude},${_locationData.latitude},true);');
       });
     }
   }
@@ -156,16 +157,16 @@ class _MapBoxGLState extends State<MapBoxGLWidget> with WidgetsBindingObserver{
   }
 
   Future<void> _removeMarkers() async{
-    await _controller.evaluateJavascript('window.gatewaysFeatures = [];');
-    await _controller.evaluateJavascript('window.removeClusters();');
+    await _controller.evaluateJavascript(source: 'window.gatewaysFeatures = [];');
+    await _controller.evaluateJavascript(source: 'window.removeClusters();');
   }
 
   Future<void> _addMarkers(List markers) async{
     _removeMarkers();
     
     String featuresJson = json.encode(markers);
-    await _controller.evaluateJavascript('window.gatewaysFeatures = $featuresJson;');
-    await _controller.evaluateJavascript('window.addClusters();');
+    await _controller.evaluateJavascript(source: 'window.gatewaysFeatures = $featuresJson;');
+    await _controller.evaluateJavascript(source: 'window.addClusters();');
   }
 
   @override
@@ -174,21 +175,14 @@ class _MapBoxGLState extends State<MapBoxGLWidget> with WidgetsBindingObserver{
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          WebView(
+          InAppWebView(
             initialUrl: 'about:blank',
-            javascriptMode: JavascriptMode.unrestricted,
-            onWebViewCreated: (WebViewController controller) {
+            onWebViewCreated: (InAppWebViewController controller) {
               _controller = controller;
               setState(() {});
 
               _initMap();
             },
-            onPageFinished: (String url) {
-
-            },
-            javascriptChannels: <JavascriptChannel>[
-              _javascriptChannel(context)
-            ].toSet()
           ),
           _buildActionWidgets()
         ],

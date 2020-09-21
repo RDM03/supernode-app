@@ -97,6 +97,7 @@ dependencies:
   path_provider: 1.6.14
   # https://pub.dev/packages/pagination_view
   pagination_view: ^1.0.3+2
+  flutter_inappwebview: ^4.0.0+4
   native_screenshot: 
     path: packages/native_screenshot
   # https://pub.dev/packages/feedback
