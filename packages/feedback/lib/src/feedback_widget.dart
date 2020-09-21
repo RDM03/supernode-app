@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:feedback/src/better_feedback.dart';
 import 'package:feedback/src/controls_column.dart';
-import 'package:feedback/src/feedback_functions.dart';
 import 'package:feedback/src/feedback_widget_content.dart';
 import 'package:feedback/src/paint_on_background.dart';
 import 'package:feedback/src/painter.dart';
@@ -16,17 +15,12 @@ typedef FeedbackButtonPress = void Function(BuildContext context);
 class FeedbackWidget<T> extends StatefulWidget {
   const FeedbackWidget({
     Key key,
-    @required this.onFeedbackSubmitted,
-    @required this.isFeedbackVisible,
     @required this.translation,
     @required this.screenshot,
     this.backgroundColor,
     this.drawColors,
     this.formBuilder,
-    this.child,
-  })  : assert(onFeedbackSubmitted != null),
-        assert(isFeedbackVisible != null),
-        assert(translation != null),
+  })  : assert(translation != null),
         // if the user chooses to supply custom drawing colors,
         // make sure there is at least on color to draw with
         assert(
@@ -36,15 +30,11 @@ class FeedbackWidget<T> extends StatefulWidget {
         ),
         super(key: key);
 
-  final bool isFeedbackVisible;
-  final OnFeedbackCallback<T> onFeedbackSubmitted;
   final Color backgroundColor;
   final List<Color> drawColors;
   final FeedbackTranslation translation;
-  final Widget child;
   final Uint8List screenshot;
-  final Widget Function(Future<void> Function(String text, [T params]) submit)
-      formBuilder;
+  final FeedbackFormBuilder<T> formBuilder;
 
   @override
   FeedbackWidgetState createState() => FeedbackWidgetState<T>();
@@ -86,30 +76,13 @@ class FeedbackWidgetState<T> extends State<FeedbackWidget<T>>
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
+    _controller.forward();
   }
 
   @override
   void dispose() {
     super.dispose();
     _controller.dispose();
-  }
-
-  @override
-  void didUpdateWidget(FeedbackWidget<T> oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.isFeedbackVisible != widget.isFeedbackVisible &&
-        oldWidget.isFeedbackVisible == false) {
-      // Feedback is now visible,
-      // start animation to show it.
-      _controller.forward();
-    }
-
-    if (oldWidget.isFeedbackVisible != widget.isFeedbackVisible &&
-        oldWidget.isFeedbackVisible == true) {
-      // Feedback is no longer visible,
-      // reverse animation to hide it.
-      _controller.reverse();
-    }
   }
 
   @override
@@ -150,14 +123,8 @@ class FeedbackWidgetState<T> extends State<FeedbackWidget<T>>
                     controller: screenshotController,
                     child: PaintOnChild(
                       controller: painterController,
-                      isPaintingActive:
-                          !isNavigatingActive && widget.isFeedbackVisible,
-                      child: widget.screenshot == null
-                          ? widget.child
-                          : Stack(children: [
-                              widget.child,
-                              Image.memory(widget.screenshot),
-                            ]),
+                      isPaintingActive: true,
+                      child: Image.memory(widget.screenshot),
                     ),
                   ),
                 ),
@@ -187,37 +154,34 @@ class FeedbackWidgetState<T> extends State<FeedbackWidget<T>>
                   },
                   onCloseFeedback: () {
                     _hideKeyboard(context);
-                    BetterFeedback.of(context).hide();
+                    Navigator.of(context).pop();
                   },
                 ),
               ),
-              if (widget.isFeedbackVisible)
-                Positioned(
-                  key: const Key('feedback_user_input_fields'),
-                  left: 0,
-                  // Make sure the input field is always visible,
-                  // especially if the keyboard is shown
-                  bottom: MediaQuery.of(context).viewInsets.bottom,
-                  right: 0,
-                  child: Material(
-                    type: MaterialType.transparency,
-                    child: Builder(
-                      builder: (innerContext) {
-                        Future<void> fun(String text, [T params]) =>
-                            sendFeedback(
-                              innerContext,
-                              widget.onFeedbackSubmitted,
-                              screenshotController,
-                              text,
-                              params: params,
-                            );
-                        return widget.formBuilder != null
-                            ? widget.formBuilder(fun)
-                            : FeedbackWidgetForm(widget.translation, fun);
-                      },
-                    ),
+              Positioned(
+                key: const Key('feedback_user_input_fields'),
+                left: 0,
+                // Make sure the input field is always visible,
+                // especially if the keyboard is shown
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+                right: 0,
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: Builder(
+                    builder: (innerContext) {
+                      Future<void> fun(String text, [T params]) => sendFeedback(
+                            innerContext,
+                            screenshotController,
+                            text,
+                            params: params,
+                          );
+                      return widget.formBuilder != null
+                          ? widget.formBuilder(fun)
+                          : FeedbackWidgetForm(widget.translation, fun);
+                    },
                   ),
                 ),
+              ),
             ],
           ),
         );
@@ -228,31 +192,33 @@ class FeedbackWidgetState<T> extends State<FeedbackWidget<T>>
   @visibleForTesting
   static Future<void> sendFeedback<T>(
     BuildContext context,
-    OnFeedbackCallback<T> onFeedbackSubmitted,
     ScreenshotController controller,
     String feedbackText, {
     Duration delay = const Duration(milliseconds: 200),
     bool showKeyboard = false,
     T params,
   }) async {
-    assert(onFeedbackSubmitted != null);
     if (!showKeyboard) {
       _hideKeyboard(context);
     }
 
     // Wait for the keyboard to be closed, and then proceed
     // to take a screenshot
-    await Future.delayed(delay, () async {
-      // Take high resolution screenshot
-      final screenshot = await controller.capture(
-        pixelRatio: 3,
-        delay: const Duration(milliseconds: 0),
-      );
+    await Future<void>.delayed(delay);
 
-      // Give it to the developer
-      // to do something with it.
-      onFeedbackSubmitted(context, feedbackText, screenshot, params);
-    });
+    // Take high resolution screenshot
+    final screenshot = await controller.capture(
+      pixelRatio: 3,
+      delay: const Duration(milliseconds: 0),
+    );
+
+    // Give it to the developer
+    // to do something with it.
+    Navigator.of(context).pop(FeedbackResponse<T>(
+      feedbackText,
+      screenshot,
+      params,
+    ));
   }
 
   static void _hideKeyboard(BuildContext context) {
