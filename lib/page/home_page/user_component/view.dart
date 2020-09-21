@@ -5,7 +5,6 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
-import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/components/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
@@ -170,9 +169,9 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
             height: 263,
             child: FutureBuilder(
               builder: (context,builder) {
-                return MapBoxWidget(
-                  isFullScreen: false,
-                  config: state.mapViewController,
+                return MapBoxGLWidget(
+                  markers: state.geojsonList,
+                  onFullScreenPress: () => dispatch(HomeActionCreator.mapbox())
                 ) ?? SizedBox(
                   width: 0,
                   height: 0,
