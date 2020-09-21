@@ -70,6 +70,7 @@ class _BetterFeedbackState<T> extends State<BetterFeedback<T>> {
         controller: controller,
         child: FeedbackWidget<T>(
           child: widget.child,
+          screenshot: controller.screenshot,
           isFeedbackVisible: controller.isVisible,
           onFeedbackSubmitted: widget.onFeedback,
           backgroundColor: widget.backgroundColor,
@@ -103,7 +104,7 @@ class FeedbackData extends InheritedWidget {
   }
 
   /// Shows the feedback view
-  void show() => controller.show();
+  Future<void> show() => controller.show();
 
   /// Hides the feedback view
   void hide() => controller.hide();

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:feedback/src/better_feedback.dart';
 import 'package:feedback/src/controls_column.dart';
 import 'package:feedback/src/feedback_functions.dart';
@@ -14,15 +16,15 @@ typedef FeedbackButtonPress = void Function(BuildContext context);
 class FeedbackWidget<T> extends StatefulWidget {
   const FeedbackWidget({
     Key key,
-    @required this.child,
     @required this.onFeedbackSubmitted,
     @required this.isFeedbackVisible,
     @required this.translation,
+    @required this.screenshot,
     this.backgroundColor,
     this.drawColors,
     this.formBuilder,
-  })  : assert(child != null),
-        assert(onFeedbackSubmitted != null),
+    this.child,
+  })  : assert(onFeedbackSubmitted != null),
         assert(isFeedbackVisible != null),
         assert(translation != null),
         // if the user chooses to supply custom drawing colors,
@@ -36,10 +38,11 @@ class FeedbackWidget<T> extends StatefulWidget {
 
   final bool isFeedbackVisible;
   final OnFeedbackCallback<T> onFeedbackSubmitted;
-  final Widget child;
   final Color backgroundColor;
   final List<Color> drawColors;
   final FeedbackTranslation translation;
+  final Widget child;
+  final Uint8List screenshot;
   final Widget Function(Future<void> Function(String text, [T params]) submit)
       formBuilder;
 
@@ -149,7 +152,12 @@ class FeedbackWidgetState<T> extends State<FeedbackWidget<T>>
                       controller: painterController,
                       isPaintingActive:
                           !isNavigatingActive && widget.isFeedbackVisible,
-                      child: widget.child,
+                      child: widget.screenshot == null
+                          ? widget.child
+                          : Stack(children: [
+                              widget.child,
+                              Image.memory(widget.screenshot),
+                            ]),
                     ),
                   ),
                 ),
