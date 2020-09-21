@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -259,7 +260,11 @@ class StakeItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(dateStr, style: kSmallFontOfGrey),
-                          Text('$durationDays Days', style: kSmallFontOfGrey),
+                          Text(
+                            FlutterI18n.translate(context, 'duration_days')
+                                .replaceFirst('{0}', durationDays.toString()),
+                            style: kSmallFontOfGrey,
+                          ),
                         ],
                       ),
                     ],
