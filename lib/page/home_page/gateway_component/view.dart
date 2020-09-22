@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,11 @@ Widget buildView(
                   '${Tools.priceFormat(state.gatewaysRevenue)} MXC (${Tools.priceFormat(state.gatewaysUSDRevenue)} USD)',
             ),
           ),
-          Flexible(
+          Container(
+            height: 120 * (state.gatewaysTotal).toDouble(),
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(viewService.context).size.height - 305
+            ),
             child: panelFrame(
               child: !state.loadingMap.contains('gatewaysTotal')
                   ? LoadingList()

@@ -16,220 +16,223 @@ Widget buildView(
     PrepareStakeState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
 
-  return pageFrame(
-    context: viewService.context,
-    children: [
-      pageNavBar(FlutterI18n.translate(_ctx, 'stake'),
-          onTap: () => Navigator.pop(viewService.context, state.resSuccess)),
-      SizedBox(height: 30),
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 44,
-            width: 44,
-            alignment: Alignment.center,
-            child: Text(
-              state.months == null ? '~' : state.months.toString(),
-              style: Theme.of(_ctx).textTheme.bodyText1.copyWith(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                  ),
+  return GestureDetector(
+    onTap: () => FocusScope.of(viewService.context).requestFocus(new FocusNode()),
+    child: pageFrame(
+      context: viewService.context,
+      children: [
+        pageNavBar(FlutterI18n.translate(_ctx, 'stake'),
+            onTap: () => Navigator.pop(viewService.context, state.resSuccess)),
+        SizedBox(height: 30),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 44,
+              width: 44,
+              alignment: Alignment.center,
+              child: Text(
+                state.months == null ? '~' : state.months.toString(),
+                style: Theme.of(_ctx).textTheme.bodyText1.copyWith(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+              padding: EdgeInsets.only(top: 2),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: state.iconColor,
+              ),
             ),
-            padding: EdgeInsets.only(top: 2),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: state.iconColor,
+            SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    state.stakeName ??
+                        FlutterI18n.translate(_ctx, 'x_month_stake')
+                            .replaceFirst('{0}', state.months.toString()),
+                    textAlign: TextAlign.left,
+                    style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    state.months == null
+                        ? FlutterI18n.translate(_ctx, 'staking_trade_tip_regular')
+                        : (FlutterI18n.translate(
+                                _ctx,
+                                state.marketingBoost <= 0
+                                    ? 'staking_trade_tip_2_ver2'
+                                    : 'staking_trade_tip_2')
+                            .replaceFirst('{0}', state.marketingBoost.toString())
+                            .replaceFirst('{1}', state.months.toString())),
+                    textAlign: TextAlign.left,
+                    style: kMiddleFontOfGrey,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 20),
+        Center(
+          child: Column(
+            children: [
+              Text(
+                FlutterI18n.translate(_ctx, 'estimated_rate'),
+                style: kSmallFontOfGrey.copyWith(
+                  color: Color(0xFF1C1478),
+                ),
+              ),
+              SizedBox(height: 2),
+              Text(
+                '+${state.estimatedRate}%',
+                style: kBigFontOfDarkBlue.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(height: 3),
+              Text(
+                FlutterI18n.translate(_ctx, 'boost_formula')
+                    .replaceFirst('{0}', state.boostRate.toString()),
+                style: kSmallFontOfGrey,
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
+        ),
+        SizedBox(height: 40),
+        Row(
+          children: [
+            _infoCircle(FlutterI18n.translate(_ctx, 'stake_now'),
+                _dateFmt(DateTime.now())),
+            Expanded(
+              child: Container(
+                height: 2,
+                color: Color(0xFFEBEFF2),
+              ),
+            ),
+            _infoCircle(FlutterI18n.translate(_ctx, 'gains_start'),
+                _dateFmt(DateTime.now())),
+            Expanded(
+              child: Container(
+                height: 2,
+                color: Color(0xFFEBEFF2),
+              ),
+            ),
+            _infoCircle(
+              FlutterI18n.translate(_ctx, 'gains_stop'),
+              state.months == null
+                  ? FlutterI18n.translate(_ctx, 'flex')
+                  : _dateFmt(state.endDate, true),
+            ),
+            Expanded(
+              child: Container(
+                height: 2,
+                color: Color(0xFFEBEFF2),
+              ),
+            ),
+            _infoCircle(
+              FlutterI18n.translate(_ctx, 'liquidate'),
+              state.months == null
+                  ? FlutterI18n.translate(_ctx, 'flex')
+                  : _dateFmt(state.endDate, true),
+            ),
+          ],
+        ),
+        Form(
+          key: state.formKey,
+          child: Container(
+            margin: const EdgeInsets.only(top: 40),
+            child: TextFieldWithTitle(
+              title: FlutterI18n.translate(_ctx, 'stake_amount'),
+              keyboardType: TextInputType.number,
+              validator: (value) => onValidAmount(_ctx, value, state.balance),
+              controller: state.amountCtl,
             ),
           ),
-          SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  state.stakeName ??
-                      FlutterI18n.translate(_ctx, 'x_month_stake')
-                          .replaceFirst('{0}', state.months.toString()),
-                  textAlign: TextAlign.left,
-                  style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
+        ),
+        SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                FlutterI18n.translate(_ctx, 'current_balance'),
+                style: kSmallFontOfGrey,
+              ),
+            ),
+            Text(state.balance.toStringAsFixed(2) + ' MXC'),
+          ],
+        ),
+        SizedBox(height: 10),
+        Column(
+          children: [
+            SizedBox(
+              height: 25,
+              child: SliderTheme(
+                data: SliderThemeData(
+                  trackShape: CustomTrackShape(),
+                  trackHeight: 5,
                 ),
-                Text(
-                  state.months == null
-                      ? FlutterI18n.translate(_ctx, 'staking_trade_tip_regular')
-                      : (FlutterI18n.translate(
-                              _ctx,
-                              state.marketingBoost <= 0
-                                  ? 'staking_trade_tip_2_ver2'
-                                  : 'staking_trade_tip_2')
-                          .replaceFirst('{0}', state.marketingBoost.toString())
-                          .replaceFirst('{1}', state.months.toString())),
-                  textAlign: TextAlign.left,
-                  style: kMiddleFontOfGrey,
+                child: ValueListenableBuilder<TextEditingValue>(
+                  valueListenable: state.amountCtl,
+                  builder: (ctx, val, _) {
+                    var parcedVal = double.tryParse(val.text);
+                    var percent = 0.0;
+                    if (parcedVal != null) {
+                      percent = parcedVal / state.balance;
+                      if (percent > 1) percent = 1;
+                    }
+                    return Slider(
+                      value: percent,
+                      activeColor: Color(0xFF1C1478),
+                      inactiveColor: Color(0xFF1C1478).withOpacity(0.2),
+                      onChanged: (v) {
+                        final balanceVal =
+                            (state.balance * v * 100).roundToDouble() / 100;
+                        state.amountCtl.text = balanceVal.toString();
+                      },
+                    );
+                  },
+                ),
+              ),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    '0%',
+                    style: kSmallFontOfGrey,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    '50%',
+                    style: kSmallFontOfGrey,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    '100%',
+                    style: kSmallFontOfGrey,
+                    textAlign: TextAlign.right,
+                  ),
                 ),
               ],
-            ),
-          ),
-        ],
-      ),
-      SizedBox(height: 20),
-      Center(
-        child: Column(
-          children: [
-            Text(
-              FlutterI18n.translate(_ctx, 'estimated_rate'),
-              style: kSmallFontOfGrey.copyWith(
-                color: Color(0xFF1C1478),
-              ),
-            ),
-            SizedBox(height: 2),
-            Text(
-              '+${state.estimatedRate}%',
-              style: kBigFontOfDarkBlue.copyWith(
-                fontWeight: FontWeight.w600,
-                fontSize: 20,
-              ),
-            ),
-            SizedBox(height: 3),
-            Text(
-              FlutterI18n.translate(_ctx, 'boost_formula')
-                  .replaceFirst('{0}', state.boostRate.toString()),
-              style: kSmallFontOfGrey,
-              textAlign: TextAlign.center,
             )
           ],
         ),
-      ),
-      SizedBox(height: 40),
-      Row(
-        children: [
-          _infoCircle(FlutterI18n.translate(_ctx, 'stake_now'),
-              _dateFmt(DateTime.now())),
-          Expanded(
-            child: Container(
-              height: 2,
-              color: Color(0xFFEBEFF2),
-            ),
-          ),
-          _infoCircle(FlutterI18n.translate(_ctx, 'gains_start'),
-              _dateFmt(DateTime.now())),
-          Expanded(
-            child: Container(
-              height: 2,
-              color: Color(0xFFEBEFF2),
-            ),
-          ),
-          _infoCircle(
-            FlutterI18n.translate(_ctx, 'gains_stop'),
-            state.months == null
-                ? FlutterI18n.translate(_ctx, 'flex')
-                : _dateFmt(state.endDate, true),
-          ),
-          Expanded(
-            child: Container(
-              height: 2,
-              color: Color(0xFFEBEFF2),
-            ),
-          ),
-          _infoCircle(
-            FlutterI18n.translate(_ctx, 'liquidate'),
-            state.months == null
-                ? FlutterI18n.translate(_ctx, 'flex')
-                : _dateFmt(state.endDate, true),
-          ),
-        ],
-      ),
-      Form(
-        key: state.formKey,
-        child: Container(
-          margin: const EdgeInsets.only(top: 40),
-          child: TextFieldWithTitle(
-            title: FlutterI18n.translate(_ctx, 'stake_amount'),
-            keyboardType: TextInputType.number,
-            validator: (value) => onValidAmount(_ctx, value, state.balance),
-            controller: state.amountCtl,
-          ),
+        SizedBox(
+          height: 30,
         ),
-      ),
-      SizedBox(height: 12),
-      Row(
-        children: [
-          Expanded(
-            child: Text(
-              FlutterI18n.translate(_ctx, 'current_balance'),
-              style: kSmallFontOfGrey,
-            ),
-          ),
-          Text(state.balance.toStringAsFixed(2) + ' MXC'),
-        ],
-      ),
-      SizedBox(height: 10),
-      Column(
-        children: [
-          SizedBox(
-            height: 25,
-            child: SliderTheme(
-              data: SliderThemeData(
-                trackShape: CustomTrackShape(),
-                trackHeight: 5,
-              ),
-              child: ValueListenableBuilder<TextEditingValue>(
-                valueListenable: state.amountCtl,
-                builder: (ctx, val, _) {
-                  var parcedVal = double.tryParse(val.text);
-                  var percent = 0.0;
-                  if (parcedVal != null) {
-                    percent = parcedVal / state.balance;
-                    if (percent > 1) percent = 1;
-                  }
-                  return Slider(
-                    value: percent,
-                    activeColor: Color(0xFF1C1478),
-                    inactiveColor: Color(0xFF1C1478).withOpacity(0.2),
-                    onChanged: (v) {
-                      final balanceVal =
-                          (state.balance * v * 100).roundToDouble() / 100;
-                      state.amountCtl.text = balanceVal.toString();
-                    },
-                  );
-                },
-              ),
-            ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  '0%',
-                  style: kSmallFontOfGrey,
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  '50%',
-                  style: kSmallFontOfGrey,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  '100%',
-                  style: kSmallFontOfGrey,
-                  textAlign: TextAlign.right,
-                ),
-              ),
-            ],
-          )
-        ],
-      ),
-      SizedBox(
-        height: 30,
-      ),
-      submitButton(submitText(_ctx, state),
-          onPressed: () => dispatch(PrepareStakeActionCreator.onConfirm()))
-    ],
+        submitButton(submitText(_ctx, state),
+            onPressed: () => dispatch(PrepareStakeActionCreator.onConfirm()))
+      ],
+    )
   );
 }
 
