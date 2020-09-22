@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 
 enum StakeAction {
   setRates,
+  balance
 }
 
 class StakeActionCreator {
@@ -19,5 +20,9 @@ class StakeActionCreator {
       '24': rate24Months,
       'flex': rateFlex,
     });
+  }
+
+  static Action balance(double balance) {
+    return Action(StakeActionCreator.balance, payload: balance);
   }
 }

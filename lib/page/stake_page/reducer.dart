@@ -7,6 +7,7 @@ Reducer<StakeState> buildReducer() {
   return asReducer(
     <Object, Reducer<StakeState>>{
       StakeAction.setRates: _setRates,
+      StakeAction.balance: _balance
     },
   );
 }
@@ -21,4 +22,11 @@ StakeState _setRates(StakeState state, Action action) {
     ..rate12m = rates['12']
     ..rate24m = rates['24']
     ..rateFlex = rates['flex'];
+}
+
+StakeState _balance(StakeState state, Action action) {
+  double balance = action.payload;
+
+  final StakeState newState = state.clone();
+  return newState..balance = balance;
 }

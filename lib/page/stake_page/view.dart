@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
+import 'action.dart';
 import 'state.dart';
 
 Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
@@ -63,6 +64,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
               children: [
                 _stakeCard(
                   context: context,
+                  dispatch: dispatch,
                   months: 24,
                   color: stake24Color,
                   boostText: state.rate24m == null
@@ -150,13 +152,14 @@ Widget _stakeCard({
   String stakeName,
   StakeState state,
   int marketingBoost,
+  Dispatch dispatch
 }) {
   return panelFrame(
     rowTop: first ? EdgeInsets.only(top: 10) : null,
     child: ListTile(
       onTap: () async {
         if (revenueRate == null) return;
-        final res = await Navigator.of(context)
+        dynamic data = await Navigator.of(context)
             .pushNamed('prepare_stake_page', arguments: {
           'isDemo': state.isDemo,
           'balance': state.balance,
@@ -167,7 +170,12 @@ Widget _stakeCard({
           'rateFlex': state.rateFlex,
           'marketingBoost': marketingBoost,
         });
-        if (res ?? false) {
+
+        if(data['balance'] != null){
+          dispatch(StakeActionCreator.balance(data['balance']));
+        }
+
+        if (data['result'] ?? false) {
           Navigator.of(context).pop(true);
         }
       },

@@ -4,6 +4,7 @@ enum PrepareStakeAction {
   onConfirm,
   process,
   resSuccess,
+  balance
 }
 
 class PrepareStakeActionCreator {
@@ -17,5 +18,9 @@ class PrepareStakeActionCreator {
 
   static Action process([String otpCode]) {
     return Action(PrepareStakeAction.process, payload: otpCode);
+  }
+
+  static Action balance(double balance) {
+    return Action(PrepareStakeAction.balance, payload: balance);
   }
 }
