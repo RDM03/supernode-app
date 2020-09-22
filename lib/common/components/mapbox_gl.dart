@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'package:supernodeapp/common/utils/map_html.dart';
 import 'package:supernodeapp/configs/sys.dart';
@@ -29,7 +29,6 @@ class _MapBoxGLState extends State<MapBoxGLWidget> {
   WebViewController _controller;
   bool _myLocationEnable = true;
   List _oldMarkers = [];
-  LocationData _locationData;
 
   @override
   void initState() {
@@ -125,9 +124,10 @@ class _MapBoxGLState extends State<MapBoxGLWidget> {
 
     if (mounted && isPermiss) {
       Future.delayed(Duration(seconds: seconds,), () async{
-        Location location = new Location();
-        _locationData = await location.getLocation();
-        await _controller.evaluateJavascript('window.moveToMyLocation(${_locationData.longitude},${_locationData.latitude},$_myLocationEnable);');
+        if(_controller != null){
+          Position position = await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+          await _controller.evaluateJavascript('window.addMyLocation(${position.longitude},${position.latitude},true);');
+        }
       });
     }
   }
@@ -141,9 +141,10 @@ class _MapBoxGLState extends State<MapBoxGLWidget> {
 
     if (mounted && isPermiss) {
       Future.delayed(Duration(seconds: seconds,), () async{
-        Location location = new Location();
-        _locationData = await location.getLocation();
-        await _controller.evaluateJavascript('window.addMyLocation(${_locationData.longitude},${_locationData.latitude},true);');
+        if(_controller != null){
+          Position position = await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+          await _controller.evaluateJavascript('window.addMyLocation(${position.longitude},${position.latitude},true);');
+        }
       });
     }
   }
