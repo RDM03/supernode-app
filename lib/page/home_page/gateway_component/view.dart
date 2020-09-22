@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/page/home_page/gateway_component/item_state.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
@@ -53,7 +55,11 @@ Widget buildView(
                   '${Tools.priceFormat(state.gatewaysRevenue)} MXC (${Tools.priceFormat(state.gatewaysUSDRevenue)} USD)',
             ),
           ),
-          Flexible(
+          Container(
+            height: 120 * (state.gatewaysTotal).toDouble(),
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(viewService.context).size.height - 305
+            ),
             child: panelFrame(
               child: !state.loadingMap.contains('gatewaysTotal')
                   ? LoadingList()
