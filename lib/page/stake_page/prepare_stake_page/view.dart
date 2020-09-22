@@ -7,6 +7,7 @@ import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
+import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import 'action.dart';
@@ -22,7 +23,7 @@ Widget buildView(
       context: viewService.context,
       children: [
         pageNavBar(FlutterI18n.translate(_ctx, 'stake'),
-            onTap: () => Navigator.pop(viewService.context, state.resSuccess)),
+            onTap: () => Navigator.pop(viewService.context, {'result': state.resSuccess,'balance': state.balance})),
         SizedBox(height: 30),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,7 +164,7 @@ Widget buildView(
                 style: kSmallFontOfGrey,
               ),
             ),
-            Text(state.balance.toStringAsFixed(2) + ' MXC'),
+            Text(Tools.priceFormat(state.balance,range: 2) + ' MXC'),
           ],
         ),
         SizedBox(height: 10),
@@ -191,7 +192,7 @@ Widget buildView(
                       inactiveColor: Color(0xFF1C1478).withOpacity(0.2),
                       onChanged: (v) {
                         final balanceVal =
-                            (state.balance * v * 100).roundToDouble() / 100;
+                            (state.balance * v * 100).floorToDouble() / 100;
                         state.amountCtl.text = balanceVal.toString();
                       },
                     );

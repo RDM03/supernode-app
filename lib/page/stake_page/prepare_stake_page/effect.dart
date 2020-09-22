@@ -5,8 +5,11 @@ import 'package:supernodeapp/common/components/security/biometrics.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
 import 'package:supernodeapp/common/daos/stake_dao.dart';
+import 'package:supernodeapp/common/daos/wallet_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
+import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
+import 'package:supernodeapp/page/settings_page/state.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -72,6 +75,8 @@ void _onConfirm(Action action, Context<PrepareStakeState> ctx) async {
     'amount': ctx.state.amountCtl.text,
   });
 
+  _balance(ctx);
+
   if (val ?? false) {
     ctx.dispatch(PrepareStakeActionCreator.process());
   }
@@ -79,4 +84,20 @@ void _onConfirm(Action action, Context<PrepareStakeState> ctx) async {
 
 void _process(Action action, Context<PrepareStakeState> ctx) async {
   await _stake(ctx);
+}
+
+Future<void> _balance(Context<PrepareStakeState> ctx) async {
+  SettingsState settingsData = GlobalStore.store.getState().settings;
+  
+  try {
+    WalletDao dao = WalletDao();
+    Map data = {'userId': settingsData.userId, 'orgId': settingsData.selectedOrganizationId, 'currency': ''};
+
+    var res = await dao.balance(data);
+    mLog('balance', res);
+    double balance = Tools.convertDouble(res['balance']);
+
+    ctx.dispatch(PrepareStakeActionCreator.balance(balance));
+  } catch (err) {
+  }
 }
