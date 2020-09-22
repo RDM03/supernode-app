@@ -25,7 +25,7 @@ class MapBoxGLWidget extends StatefulWidget {
   _MapBoxGLState createState() => _MapBoxGLState();
 }
 
-class _MapBoxGLState extends State<MapBoxGLWidget> with WidgetsBindingObserver{
+class _MapBoxGLState extends State<MapBoxGLWidget> {
   WebViewController _controller;
   bool _myLocationEnable = true;
   List _oldMarkers = [];
@@ -34,8 +34,8 @@ class _MapBoxGLState extends State<MapBoxGLWidget> with WidgetsBindingObserver{
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addObserver(this);
+    
+    _addToMyLocation();
   }
 
   @override

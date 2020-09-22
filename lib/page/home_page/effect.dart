@@ -143,7 +143,10 @@ Future<void> _checkForUpdate(Context<HomeState> ctx) {
 void _onProfile(Action action, Context<HomeState> ctx) {
   SettingsState settingsData = GlobalStore.store.getState().settings;
 
-  _requestUserFinance(ctx,settingsData.userId,settingsData.selectedOrganizationId);
+  if(settingsData.userId.isNotEmpty && settingsData.selectedOrganizationId.isNotEmpty){
+    _requestUserFinance(ctx,settingsData.userId,settingsData.selectedOrganizationId);
+  }
+
 }
 
 void _onGateways(Action action, Context<HomeState> ctx) async {
