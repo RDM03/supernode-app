@@ -29,6 +29,7 @@ class _MapBoxGLState extends State<MapBoxGLWidget> {
   WebViewController _controller;
   bool _myLocationEnable = true;
   List _oldMarkers = [];
+  bool _isLoadedMap = false;
 
   @override
   void initState() {
@@ -72,6 +73,9 @@ class _MapBoxGLState extends State<MapBoxGLWidget> {
   }
 
   void _initMap(){
+    _isLoadedMap = false;
+    setState(() {});
+
     DefaultAssetBundle.of(context)
       .loadString(Sys.mapboxjs)
       .then((String mapboxjs) async{
@@ -98,6 +102,9 @@ class _MapBoxGLState extends State<MapBoxGLWidget> {
                 _controller.evaluateJavascript(mapjs).then((_) async{
                   _addMarkers(widget.markers);
                   _moveToMyLocation();
+
+                  _isLoadedMap = true;
+                  setState(() {});
                 });
               });
           });
@@ -122,12 +129,10 @@ class _MapBoxGLState extends State<MapBoxGLWidget> {
   void _moveToMyLocation({int seconds = 2}) async{
     bool isPermiss = await PermissionUtil.getLocationPermission();
 
-    if (mounted && isPermiss) {
+    if (mounted && isPermiss && _isLoadedMap) {
       Future.delayed(Duration(seconds: seconds,), () async{
-        if(_controller != null){
-          Position position = await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-          await _controller.evaluateJavascript('window.addMyLocation(${position.longitude},${position.latitude},true);');
-        }
+        Position position = await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+        await _controller.evaluateJavascript('window.moveToMyLocation(${position.longitude},${position.latitude},true);');
       });
     }
   }
@@ -139,12 +144,10 @@ class _MapBoxGLState extends State<MapBoxGLWidget> {
   Future<void> _addToMyLocation({int seconds = 0}) async{
     bool isPermiss = await PermissionUtil.getLocationPermission();
 
-    if (mounted && isPermiss) {
+    if (mounted && isPermiss && _isLoadedMap) {
       Future.delayed(Duration(seconds: seconds,), () async{
-        if(_controller != null){
-          Position position = await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-          await _controller.evaluateJavascript('window.addMyLocation(${position.longitude},${position.latitude},true);');
-        }
+        Position position = await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+        await _controller.evaluateJavascript('window.addMyLocation(${position.longitude},${position.latitude},true);');
       });
     }
   }
@@ -162,6 +165,8 @@ class _MapBoxGLState extends State<MapBoxGLWidget> {
   }
 
   Future<void> _addMarkers(List markers) async{
+    if(!_isLoadedMap) return;
+
     _removeMarkers();
     
     String featuresJson = json.encode(markers);
