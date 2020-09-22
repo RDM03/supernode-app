@@ -25,6 +25,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   # https://pub.dev/packages/device_info
   device_info: ^0.4.2+4
+  # https://pub.dev/packages/geolocator
+  geolocator: ^6.0.0+4
   # https://pub.dev/packages/flutter_appcenter
   flutter_appcenter: ^1.0.10
   # https://pub.dev/packages/fl_chart
