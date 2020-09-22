@@ -14,7 +14,6 @@ import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/page/home_page/gateway_component/item_state.dart';
-import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
