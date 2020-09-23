@@ -51,7 +51,7 @@ android {
 
     defaultConfig {
         applicationId "com.mxc.smartcity"
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode System.getenv('APPCENTER_BUILD_ID').toInteger()
         versionName flutterVersionName
