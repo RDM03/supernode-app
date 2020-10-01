@@ -55,6 +55,7 @@ Widget buildView(
                     state.stakeName ??
                         FlutterI18n.translate(_ctx, 'x_month_stake')
                             .replaceFirst('{0}', state.months.toString()),
+                    key: ValueKey('stake_length_' + state.months.toString()),
                     textAlign: TextAlign.left,
                     style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
                   ),
@@ -148,6 +149,7 @@ Widget buildView(
           child: Container(
             margin: const EdgeInsets.only(top: 40),
             child: TextFieldWithTitle(
+              key: ValueKey('stake_amount'),
               title: FlutterI18n.translate(_ctx, 'stake_amount'),
               keyboardType: TextInputType.number,
               validator: (value) => onValidAmount(_ctx, value, state.balance),
@@ -230,7 +232,7 @@ Widget buildView(
         SizedBox(
           height: 30,
         ),
-        submitButton(submitText(_ctx, state),
+        submitButton(submitText(_ctx, state), key: ValueKey('stake_confirm'),
             onPressed: () => dispatch(PrepareStakeActionCreator.onConfirm()))
       ],
     )

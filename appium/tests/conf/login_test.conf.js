@@ -1,4 +1,5 @@
 const dotenv = require('dotenv');
+
 dotenv.config();
 exports.config = {
   user: process.env.BROWSERSTACK_USERNAME,
@@ -12,7 +13,9 @@ exports.config = {
 
   capabilities: [{
     name: 'single_appium_test',
-    build: 'webdriver-browserstack'
+    build: 'webdriver-browserstack',
+//    'browserstack.local': true,
+//    'browserstack.debug': true
   }],
 
   logLevel: 'info',
