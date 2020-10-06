@@ -66,16 +66,58 @@ const opts = {
     var stake_proceed = find.byValueKey('submitButton');
     var stake_success = find.byValueKey('stake_status');
     var done = find.byValueKey('stake_done');
+    var close = find.byValueKey('stake_close');
 
     await driver.elementClick(stake_button);
     await driver.elementClick(stake_length);
     await driver.elementSendKeys(stake_amount, '20');
     await driver.elementClick(stake_confirm);
-    await driver.getElementText(find.byText('Proceed Anyway'));
+    await driver.getElementText(find.byText('Proceed anyway'));
     await driver.elementClick(stake_proceed);
     assert.strictEqual(await driver.getElementText(stake_success), 'Stake successful.')
     await driver.elementClick(done);
+    await driver.elementClick(close);
 
+    //find stake in wallet
+    var nav_wallet = find.byValueKey('nav_wallet');
+    var wallet_nav_stake = find.byValueKey('wallet_nav_stake');
+    var latest_stake = find.byValueKey('latest_stake');
+    var stake_close = find.byValueKey('stake_close');
+
+    await driver.elementClick(nav_wallet);
+    assert.strictEqual(await driver.getElementText('current_balance_label'), 'Current Balance');
+    await driver.elementClick(wallet_nav_stake);
+
+    //asserts pass if latest was made today for 20 mxc must edit to make sure it's the exact stake from before
+    assert.strictEqual(await driver.getElementText('staked_amount_label'), 'Staked Amount');
+    assert.strictEqual(await driver.getElementText('latest_stake_amount'), '20 MXC');
+    assert.strictEqual(await driver.getElementText('latest_stake_duration'), 'Duration(days) - 0');
+    await driver.elementClick(stake_close);
+
+    // TODO work out interaction with GAuth to unstake
+    // perhaps you can mock a success from the api??
+
+
+    //gateway menu navigation and interaction
+    var nav_gateway = find.byValueKey('nav_gateway');
+    var add_gateway = find.byValueKey('gateway_add');
+    var serial_textbox = find.byValueKey('gateway_serial_key');
+    var gateway_add_confirm = find.byValueKey('gateway_add_confirm');
+    var gateway_update = find.byValueKey('gateway_update');
+    var gateway_close = find.byValueKey('gateway_close');
+
+    await driver.elementClick(nav_gateway);
+    await driver.elementClick(gateway_add);
+    // enter gateway serial
+    // may need a new serial for testing
+    await driver.elementSendKeys(serial_textbox, 'M2XSTEFANOO');
+    await driver.elementClick(gateway_add_confirm);
+    // TODO work out scrolling
+    await driver.elementClick(gateway_update);
+    await driver.elementClick(gateway_close);
+
+
+/* add valuekeys for nav_gateway, add_gateway, serial_textbox, gateway_add_confirm, gateway_update, gateway_close */
 
 
   });
