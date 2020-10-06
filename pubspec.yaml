@@ -14,7 +14,7 @@ description: Mobile app used to interact with MXC Supernodes.
 version: 1.5.1
 
 environment:
-  sdk: '>=2.2.2 <3.0.0'
+  sdk: '>=2.8.0 <3.0.0'
 
 dependencies:
   flutter:
