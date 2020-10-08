@@ -48,6 +48,7 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
                   color: Sys.mainMenus.indexOf(item) == state.tabIndex
                       ? selectedColor
                       : unselectedColor,
+                  key: ValueKey('bottomNavBar_$item'),
                 ),
                 title: Text(
                   FlutterI18n.translate(_ctx, item.toLowerCase()),

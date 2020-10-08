@@ -30,6 +30,7 @@ Widget tabButtons({
                 key: ValueKey('tabBar'),
                 tabs: list.map((item) {
                   return Tab(
+                    key: ValueKey('tabBar_$item'),
                     text: FlutterI18n.translate(context, item),
                   );
                 }).toList(),
