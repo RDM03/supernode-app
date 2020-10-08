@@ -57,6 +57,7 @@ Widget buildView(
                     state.stakeName ??
                         FlutterI18n.translate(_ctx, 'x_month_stake')
                             .replaceFirst('{0}', state.months.toString()),
+                    key: ValueKey('stake_length_' + state.months.toString()),
                     textAlign: TextAlign.left,
                     style:
                         kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),

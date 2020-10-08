@@ -120,18 +120,21 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                     children: <Widget>[
                       Spacer(),
                       PrimaryButton(
+                        key: ValueKey('deposit_button'),
                         buttonTitle: FlutterI18n.translate(_ctx, 'deposit'),
                         onTap: () =>
                             dispatch(HomeActionCreator.onOperate('deposit')),
                       ),
                       Spacer(),
                       PrimaryButton(
+                        key: ValueKey('withdraw_button'),
                         buttonTitle: FlutterI18n.translate(_ctx, 'withdraw'),
                         onTap: () =>
                             dispatch(HomeActionCreator.onOperate('withdraw')),
                       ),
                       Spacer(),
                       PrimaryButton(
+                        key: ValueKey('stake_button'),
                         buttonTitle: FlutterI18n.translate(_ctx, 'stake'),
                         onTap: () =>
                             dispatch(HomeActionCreator.onOperate('stake')),

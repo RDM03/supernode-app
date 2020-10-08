@@ -38,6 +38,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                     Column(
                       children: <Widget>[
                         GestureDetector(
+                          key: ValueKey('home_logo'),
                           onTap: () => dispatch(LoginActionCreator.clickLogo()),
                           child: Container(
                             color: darkBackground,
@@ -59,6 +60,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                     Positioned(
                       top: s(133),
                       child: GestureDetector(
+                        key: ValueKey('home_supernode_menu'),
                         onTap: () => dispatch(LoginActionCreator.superNodeListVisible(true)),
                         child: ClipOval(
                           child: Container(
@@ -109,6 +111,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                           Container(
                             margin: kOuterRowTop35,
                             child: TextFieldWithList(
+                                key: ValueKey('home_email'),
                               title: FlutterI18n.translate(_ctx, 'email'),
                               hint: FlutterI18n.translate(_ctx, 'email_hint'),
                               textInputAction: TextInputAction.next,
@@ -150,7 +153,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                         ],
                       ),
                       SizedBox(height: s(18)),
-                      PrimaryButton(onTap: () => dispatch(LoginActionCreator.onLogin()), buttonTitle: FlutterI18n.translate(_ctx, 'login'), minHeight: s(46), minWidget: double.infinity),
+                      PrimaryButton(key: ValueKey('home_login_button'), onTap: () => dispatch(LoginActionCreator.onLogin()), buttonTitle: FlutterI18n.translate(_ctx, 'login'), minHeight: s(46), minWidget: double.infinity),
                       Container(
                         margin: EdgeInsets.only(top: s(28.5), bottom: s(17.5)),
                         height: s(1),
@@ -230,6 +233,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                     ),
                   ),
                   Column(
+                      key: ValueKey("home_supernode_scroll"),
                     children: <Widget>[
                       for (var key in state.superNodes?.keys ?? [])
                         if (key != "Test" || state.count == 7)
@@ -240,6 +244,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                             children: <Widget>[
                               for (SuperNodeBean item in state.superNodes[key])
                                 GestureDetector(
+                                    key: ValueKey(item.name),
                                   child: ListTile(
                                     title: Container(
                                       alignment: Alignment.center,
