@@ -91,10 +91,14 @@ Widget buildView(
           );
         },
       ),
-      submitButton(FlutterI18n.translate(_ctx, 'go_back'), top: 16,
-          onPressed: () {
-        Navigator.of(_ctx).pop();
-      }),
+      submitButton(
+        FlutterI18n.translate(_ctx, 'go_back'),
+        top: 16,
+        onPressed: () {
+          Navigator.of(_ctx).pop();
+        },
+        key: ValueKey('goBackButton'),
+      ),
     ],
   );
 }

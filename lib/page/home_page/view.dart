@@ -1,8 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/common/components/mapbox_gl.dart';
-import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/theme/colors.dart';
@@ -18,13 +16,15 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
       children: <Widget>[
         viewService.buildComponent('user'),
         Stack(
-          children: Sys.mainMenus.map((String item) =>
-            Visibility(
-              visible: item == 'Home'? false : Sys.mainMenus.indexOf(item) == state.tabIndex,
-              child: item == 'Home'? Container() : viewService.buildComponent(item.toLowerCase())
-            )
-          ).toList()
-        ),
+            children: Sys.mainMenus
+                .map((String item) => Visibility(
+                    visible: item == 'Home'
+                        ? false
+                        : Sys.mainMenus.indexOf(item) == state.tabIndex,
+                    child: item == 'Home'
+                        ? Container()
+                        : viewService.buildComponent(item.toLowerCase())))
+                .toList()),
       ],
     ),
     bottomNavigationBar: Theme(
@@ -34,24 +34,28 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
         highlightColor: Colors.transparent,
       ),
       child: BottomNavigationBar(
+        key: ValueKey('bottomNavBar'),
         type: BottomNavigationBarType.fixed,
         currentIndex: state.tabIndex,
         selectedItemColor: selectedColor,
         unselectedItemColor: unselectedColor,
         onTap: (index) => dispatch(HomeActionCreator.tabIndex(index)),
-        items: Sys.mainMenus.map((String item) =>     
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              AppImages.bottomBarMenus[item.toLowerCase()],
-              color: Sys.mainMenus.indexOf(item) == state.tabIndex ? selectedColor : unselectedColor,
-            ),
-            title: Text(
-              FlutterI18n.translate(_ctx,item.toLowerCase()),
-            ),
-          ),
-        ).toList()
-      )
-    )
+        items: Sys.mainMenus
+            .map(
+              (String item) => BottomNavigationBarItem(
+                icon: Image.asset(
+                  AppImages.bottomBarMenus[item.toLowerCase()],
+                  color: Sys.mainMenus.indexOf(item) == state.tabIndex
+                      ? selectedColor
+                      : unselectedColor,
+                ),
+                title: Text(
+                  FlutterI18n.translate(_ctx, item.toLowerCase()),
+                ),
+              ),
+            )
+            .toList(),
+      ),
+    ),
   );
 }
-

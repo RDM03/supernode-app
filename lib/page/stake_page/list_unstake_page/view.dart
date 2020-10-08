@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/empty.dart';
 import 'package:supernodeapp/common/components/loading_list.dart';
-import 'package:supernodeapp/common/components/page/link.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/stake/stake_item.dart';
-import 'package:supernodeapp/configs/sys.dart';
-import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import 'state.dart';
@@ -31,6 +28,7 @@ Widget buildView(
             child: GestureDetector(
               child: Icon(Icons.arrow_back_ios),
               onTap: () => Navigator.of(context).pop(),
+              key: ValueKey('backButton'),
             ),
           ),
           SizedBox(height: 15),
@@ -53,6 +51,7 @@ Widget buildView(
                 : (state.stakes.isNotEmpty
                     ? ListView.builder(
                         shrinkWrap: true,
+                        key: ValueKey('stakesList'),
                         physics: NeverScrollableScrollPhysics(),
                         padding: EdgeInsets.zero,
                         itemCount: state.stakes.length,
@@ -71,6 +70,7 @@ Widget buildView(
                                 Navigator.of(context).pop(true);
                               }
                             },
+                            key: ValueKey('stakeItem_${stake.id}'),
                           );
                         },
                       )

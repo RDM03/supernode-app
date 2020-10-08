@@ -18,12 +18,14 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return GestureDetector(
-    onTap: () => FocusScope.of(viewService.context).requestFocus(new FocusNode()),
+    onTap: () =>
+        FocusScope.of(viewService.context).requestFocus(new FocusNode()),
     child: pageFrame(
       context: viewService.context,
       children: [
         pageNavBar(FlutterI18n.translate(_ctx, 'stake'),
-            onTap: () => Navigator.pop(viewService.context, {'result': state.resSuccess,'balance': state.balance})),
+            onTap: () => Navigator.pop(viewService.context,
+                {'result': state.resSuccess, 'balance': state.balance})),
         SizedBox(height: 30),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,17 +58,20 @@ Widget buildView(
                         FlutterI18n.translate(_ctx, 'x_month_stake')
                             .replaceFirst('{0}', state.months.toString()),
                     textAlign: TextAlign.left,
-                    style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
+                    style:
+                        kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
                   ),
                   Text(
                     state.months == null
-                        ? FlutterI18n.translate(_ctx, 'staking_trade_tip_regular')
+                        ? FlutterI18n.translate(
+                            _ctx, 'staking_trade_tip_regular')
                         : (FlutterI18n.translate(
                                 _ctx,
                                 state.marketingBoost <= 0
                                     ? 'staking_trade_tip_2_ver2'
                                     : 'staking_trade_tip_2')
-                            .replaceFirst('{0}', state.marketingBoost.toString())
+                            .replaceFirst(
+                                '{0}', state.marketingBoost.toString())
                             .replaceFirst('{1}', state.months.toString())),
                     textAlign: TextAlign.left,
                     style: kMiddleFontOfGrey,
@@ -148,6 +153,7 @@ Widget buildView(
           child: Container(
             margin: const EdgeInsets.only(top: 40),
             child: TextFieldWithTitle(
+              key: ValueKey('stakeAmount'),
               title: FlutterI18n.translate(_ctx, 'stake_amount'),
               keyboardType: TextInputType.number,
               validator: (value) => onValidAmount(_ctx, value, state.balance),
@@ -164,7 +170,7 @@ Widget buildView(
                 style: kSmallFontOfGrey,
               ),
             ),
-            Text(Tools.priceFormat(state.balance,range: 2) + ' MXC'),
+            Text(Tools.priceFormat(state.balance, range: 2) + ' MXC'),
           ],
         ),
         SizedBox(height: 10),
@@ -187,6 +193,7 @@ Widget buildView(
                       if (percent > 1) percent = 1;
                     }
                     return Slider(
+                      key: ValueKey('stakeAmountSlider'),
                       value: percent,
                       activeColor: Color(0xFF1C1478),
                       inactiveColor: Color(0xFF1C1478).withOpacity(0.2),
@@ -230,10 +237,13 @@ Widget buildView(
         SizedBox(
           height: 30,
         ),
-        submitButton(submitText(_ctx, state),
-            onPressed: () => dispatch(PrepareStakeActionCreator.onConfirm()))
+        submitButton(
+          submitText(_ctx, state),
+          onPressed: () => dispatch(PrepareStakeActionCreator.onConfirm()),
+          key: ValueKey('submitButton'),
+        )
       ],
-    )
+    ),
   );
 }
 

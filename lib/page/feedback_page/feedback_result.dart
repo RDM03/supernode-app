@@ -45,6 +45,7 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
           ),
           actions: <Widget>[
             CupertinoActionSheetAction(
+              key: ValueKey('bugButton'),
               child: Text(
                 widget.translation.translate('this_is_bug'),
                 style: kBigFontOfBlack,
@@ -52,6 +53,7 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
               onPressed: () => Navigator.of(context).pop(FeedbackType.bug),
             ),
             CupertinoActionSheetAction(
+              key: ValueKey('ideaButton'),
               child: Text(
                 widget.translation.translate('this_is_idea'),
                 style: kBigFontOfBlack,
@@ -61,6 +63,7 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
           ],
           cancelButton: CupertinoActionSheetAction(
             isDefaultAction: true,
+            key: ValueKey('cancelButton'),
             child: Text(
               widget.translation.translate('cancel_normalized'),
               style: kBigFontOfBlack,
@@ -82,8 +85,9 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
     Navigator.of(context).pop(FeedbackResult(type, res, screenshot));
   }
 
-  Widget _button(String title, Widget icon, VoidCallback onTap) {
+  Widget _button(String title, Widget icon, VoidCallback onTap, {Key key}) {
     return GestureDetector(
+      key: key,
       onTap: onTap,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10),
@@ -199,6 +203,7 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
                                 ),
                                 () => _onAction(
                                     context, FeedbackResultType.feedback),
+                                key: ValueKey('sendFeedbackButton'),
                               ),
                             ),
                             _divider(),
@@ -212,6 +217,7 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
                                 ),
                                 () => _onAction(
                                     context, FeedbackResultType.share),
+                                key: ValueKey('shareButton'),
                               ),
                             ),
                             _divider(),
@@ -226,6 +232,7 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
                                 ),
                                 () => _onAction(
                                     context, FeedbackResultType.cancel),
+                                key: ValueKey('cancelFeedbackButton'),
                               ),
                             ),
                           ],
