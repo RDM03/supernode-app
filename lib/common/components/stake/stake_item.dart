@@ -129,10 +129,11 @@ class StakeItem extends StatelessWidget {
     this.iconColor,
     this.months,
     this.showLockOpenIcon = true,
-  });
+    Key key,
+  }) : super(key: key);
 
   factory StakeItem.fromStake(Stake stake,
-      {bool isLast = false, VoidCallback onTap}) {
+      {bool isLast = false, VoidCallback onTap, Key key}) {
     DateTime startDate;
     DateTime endDate;
     int durationDays;
@@ -195,6 +196,7 @@ class StakeItem extends StatelessWidget {
       iconColor: iconColor,
       onTap: onTap,
       showLockOpenIcon: showLockOpenIcon,
+      key: key,
     );
   }
 

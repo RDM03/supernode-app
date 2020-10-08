@@ -26,6 +26,7 @@ Widget buildView(
       followStyle = kSmallFontOfRed;
     }
     return listItem(
+      key: ValueKey('walletItem_${state.id}'),
       context: viewService.context,
       type: state.txType != null ? state.txType : state.type,
       amount: state.amount ?? state.stakeAmount,
@@ -57,6 +58,7 @@ Widget buildView(
       isLast: state.isLast,
       onTap: () => dispatch(
           WalletActionCreator.onStakeDetails(state.historyEntity.stake)),
+      key: ValueKey('stakeItem_${state.historyEntity.stake.id}'),
     );
   }
   throw UnimplementedError('Unknown state type ${state.runtimeType}');

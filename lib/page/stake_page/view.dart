@@ -63,6 +63,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
               padding: EdgeInsets.zero,
               children: [
                 _stakeCard(
+                  key: ValueKey('stake24'),
                   context: context,
                   dispatch: dispatch,
                   months: 24,
@@ -79,6 +80,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                       : round(state.rate24m / state.rate12m),
                 ),
                 _stakeCard(
+                  key: ValueKey('stake12'),
                   context: context,
                   months: 12,
                   color: stake12Color,
@@ -88,6 +90,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   marketingBoost: 0,
                 ),
                 _stakeCard(
+                  key: ValueKey('stake9'),
                   context: context,
                   months: 9,
                   color: stake9Color,
@@ -102,6 +105,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                       : round(state.rate9m / state.rate12m),
                 ),
                 _stakeCard(
+                  key: ValueKey('stake6'),
                   context: context,
                   months: 6,
                   color: stake6Color,
@@ -116,6 +120,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                       : round(state.rate6m / state.rate12m),
                 ),
                 _stakeCard(
+                  key: ValueKey('stakeFlex'),
                   context: context,
                   color: stakeFlexColor,
                   boostText: state.rateFlex == null
@@ -152,11 +157,13 @@ Widget _stakeCard({
   String stakeName,
   StakeState state,
   int marketingBoost,
-  Dispatch dispatch
+  Dispatch dispatch,
+  Key key,
 }) {
   return panelFrame(
     rowTop: first ? EdgeInsets.only(top: 10) : null,
     child: ListTile(
+      key: key,
       onTap: () async {
         if (revenueRate == null) return;
         dynamic data = await Navigator.of(context)
@@ -171,7 +178,7 @@ Widget _stakeCard({
           'marketingBoost': marketingBoost,
         });
 
-        if(data['balance'] != null){
+        if (data['balance'] != null) {
           dispatch(StakeActionCreator.balance(data['balance']));
         }
 

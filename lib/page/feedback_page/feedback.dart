@@ -193,6 +193,7 @@ class DatadashFeedbackState extends State<DatadashFeedback> {
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 100),
                     child: GestureDetector(
+                      key: ValueKey('feedbackButton'),
                       onTap: () async {
                         setState(() => _showScreenshot = false);
                         // wait while camera icon disapper

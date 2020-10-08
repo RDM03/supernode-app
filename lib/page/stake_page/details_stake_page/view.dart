@@ -186,6 +186,7 @@ Widget buildView(
                   }
                 : null,
             buttonTitle: submitText(_ctx, state),
+            key: ValueKey('primaryButton'),
           ),
         ),
     ],
