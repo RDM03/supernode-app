@@ -7,15 +7,18 @@ exports.config = {
 
   updateJob: false,
   specs: [
-    './specs/login_test.js'
+    './specs/test.js'
   ],
   exclude: [],
 
   capabilities: [{
-    name: 'single_appium_test',
-    build: 'webdriver-browserstack',
-//    'browserstack.local': true,
-//    'browserstack.debug': true
+    project: "supernode-app",
+        build: 'Supernode Android',
+        name: 'supernode_tests',
+        device: 'Google Pixel 3',
+        os_version: "9.0",
+        app: process.env.BROWSERSTACK_APP_ID || 'bs://edc707fd884af301bf3d0903aee62bdff33fa202',
+        'browserstack.debug': true
   }],
 
   logLevel: 'info',

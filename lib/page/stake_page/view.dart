@@ -28,6 +28,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
           Align(
             alignment: Alignment.centerLeft,
             child: GestureDetector(
+              key: ValueKey('stake_close'),
               child: Icon(Icons.arrow_back_ios),
               onTap: () => Navigator.of(context).pop(),
             ),

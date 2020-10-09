@@ -4,7 +4,7 @@
   "readme": "WendriverIO Integration with [BrowserStack](https://www.browserstack.com)",
   "description": "Selenium examples for WebdriverIO and BrowserStack App Automate",
   "scripts": {
-    "login": "./node_modules/.bin/wdio run conf/login_test.conf.js"
+    "test": "./node_modules/.bin/wdio run conf/test.conf.js"
   },
   "repository": {
     "type": "git",
