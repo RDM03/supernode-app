@@ -7,6 +7,7 @@ Reducer<DeviceState> buildReducer() {
   return asReducer(
     <Object, Reducer<DeviceState>>{
       DeviceAction.changeDeviceSortType: _changeDeviceSortType,
+      DeviceAction.qrScan: _addDevice,
     },
   );
 }
@@ -14,5 +15,11 @@ Reducer<DeviceState> buildReducer() {
 DeviceState _changeDeviceSortType(DeviceState state, Action action) {
   final DeviceState newState = state.clone();
   newState.deviceSortType = action.payload;
+  return newState;
+}
+
+DeviceState _addDevice(DeviceState state, Action action) {
+  final DeviceState newState = state.clone();
+  newState.addDevice(action.payload);
   return newState;
 }

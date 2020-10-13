@@ -83,6 +83,8 @@ class HomeState implements Cloneable<HomeState> {
   bool isDemo;
 
   int deviceSortType = 0;
+  var demoList = [];
+  var realList = [];
 
   //profile
   // bool isSelectIdType = true;
@@ -221,12 +223,16 @@ class DeviceConnector extends ConnOp<HomeState, DeviceState> {
   DeviceState get(HomeState state) {
     return DeviceState()
       ..deviceSortType = state.deviceSortType
+      ..demoList = state.demoList
+      ..realList = state.realList
       ..isDemo = state.isDemo;
   }
 
   @override
   void set(HomeState state, DeviceState subState) {
     state.deviceSortType = subState.deviceSortType;
+    state.demoList = subState.demoList;
+    state.realList = subState.realList;
   }
 }
 

@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/page/home_page/device_component/device_list_adapter/device_item_component/state.dart';
+import 'package:supernodeapp/page/home_page/wallet_component/wallet_list_adapter/wallet_item_component/view.dart';
 
 class DeviceState extends MutableSource implements Cloneable<DeviceState> {
   int deviceSortType = 0;
@@ -10,8 +11,6 @@ class DeviceState extends MutableSource implements Cloneable<DeviceState> {
   List realList;
 
   DeviceState() {
-    demoList = [DeviceItemState(() => isDemo), DeviceItemState(() => isDemo), DeviceItemState(() => isDemo)];
-    realList = [];
   }
 
   @override
@@ -32,7 +31,13 @@ class DeviceState extends MutableSource implements Cloneable<DeviceState> {
   DeviceState clone() {
     return DeviceState()
       ..deviceSortType = deviceSortType
+      ..demoList = demoList
+      ..realList = realList
       ..isDemo = isDemo;
+  }
+
+  void addDevice(String sn) {
+    list.add(DeviceItemState(() => isDemo));
   }
 }
 
