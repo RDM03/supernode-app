@@ -189,14 +189,14 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                   mapStyle: Sys.mapTileStyle,
                   center: CenterPosition(
                     target: LatLng(0,0),
-                    zoom: 12,
+                    zoom: 0,
                     animated: true,
                   ),
                   // minimumZoomLevel: 1,
                   maximumZoomLevel: 12, 
                   clusters: state.geojsonList,
                   myLocationEnabled: true,
-                  myLocationTrackingMode: MyLocationTrackingMode.Tracking,
+                  myLocationTrackingMode: MyLocationTrackingMode.None,
                   onFullScreenTap: () => dispatch(HomeActionCreator.mapbox())
                 );
               }

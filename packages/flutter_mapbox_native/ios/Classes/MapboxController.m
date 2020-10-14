@@ -53,7 +53,7 @@ static void InterpretMapOptions(NSDictionary* data, id<MapboxOptionsSink> sink);
         // _mapView.userTrackingMode = MGLUserTrackingModeFollowWithHeading;
 
         // Enable the permanent heading indicator, which will appear when the tracking mode is not `MGLUserTrackingModeFollowWithHeading`.
-        // _mapView.showsUserHeadingIndicator = YES;
+        _mapView.showsUserHeadingIndicator = YES;
         _mapView.allowsZooming = YES;
 
         InterpretMapOptions(args[@"options"], self);
@@ -167,7 +167,9 @@ static void InterpretMapOptions(NSDictionary* data, id<MapboxOptionsSink> sink);
 }
 
 - (void)mapViewDidFinishLoadingMap:(MGLMapView *)mapView {
-    // [self moveCameraToUserCenter:_mapView.userLocationVisible];
+    if(_mapView.userTrackingMode == MGLUserTrackingModeFollow){
+        [self moveCameraToUserCenter:YES];   
+    }
 }
 
 - (void)moveCameraToUserCenter:(BOOL) isUserCenter{

@@ -245,9 +245,6 @@ private static String getAccessToken(@NonNull Context context) {
         mapView.onCreate(null);
         break;
       case DESTROYED:
-        mapboxMap.removeOnCameraIdleListener(this);
-        mapboxMap.removeOnCameraMoveStartedListener(this);
-        mapboxMap.removeOnCameraMoveListener(this);
         mapView.onDestroy();
         break;
       default:
@@ -629,35 +626,6 @@ private static String getAccessToken(@NonNull Context context) {
    return true;
  }
 
-  @Override 
-  public void onCameraMoveStarted(int reason) {
-    final Map<String, Object> arguments = new HashMap<>(2);
-    boolean isGesture = reason == MapboxMap.OnCameraMoveStartedListener.REASON_API_GESTURE;
-    arguments.put("isGesture", isGesture);
-    // methodChannel.invokeMethod("camera#onMoveStarted", arguments);
-  }
-
-  @Override
-  public void onCameraMove() {
-    if (!trackCameraPosition) {
-      return;
-    }
-    final Map<String, Object> arguments = new HashMap<>(2);
-    arguments.put("position", Convert.toJson(mapboxMap.getCameraPosition()));
-    // methodChannel.invokeMethod("camera#onMove", arguments);
-  }
-
-  @Override
-  public void onCameraIdle() {
-    // methodChannel.invokeMethod("camera#onIdle", Collections.singletonMap("map", id));
-  }
-
-  @Override
-  public boolean onMarkerClick(Marker marker) {
-    return true;
-    // return markersController.onMarkerTap(Double.toString(marker.getId()));
-  }
-
  @Override
   public void onCameraTrackingChanged(int currentMode) {
     final Map<String, Object> arguments = new HashMap<>(2);
@@ -693,10 +661,6 @@ private static String getAccessToken(@NonNull Context context) {
  }
 
  private void setMapboxListener(@Nullable MapboxListener listener) {
-  mapboxMap.addOnCameraMoveStartedListener(this);
-  mapboxMap.addOnCameraMoveListener(this);
-  mapboxMap.addOnCameraIdleListener(this);
-  mapboxMap.setOnMarkerClickListener(listener);
   mapboxMap.addOnMapClickListener(listener);
  }
 
@@ -1073,8 +1037,4 @@ private static String getAccessToken(@NonNull Context context) {
 }
 
 interface MapboxListener
-    extends MapboxMap.OnCameraIdleListener,
-        MapboxMap.OnCameraMoveListener,
-        MapboxMap.OnMarkerClickListener,
-        MapboxMap.OnCameraMoveStartedListener,
-        MapboxMap.OnMapClickListener {}
+    extends MapboxMap.OnMapClickListener {}
