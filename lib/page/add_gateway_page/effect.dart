@@ -96,6 +96,7 @@ void _register(Context<AddGatewayState> ctx, String serialNumber) async {
   GatewaysDao dao = GatewaysDao();
 
   Map data = {"organizationId": orgId, "sn": serialNumber.trim()};
+  //TODO check if gateway from wrong region
 
   final loading = await Loading.show(ctx.context);
   dao.register(data).then((res) {

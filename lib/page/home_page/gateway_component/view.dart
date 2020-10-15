@@ -98,6 +98,7 @@ class _GatewaysListState extends State<GatewaysList> {
           GatewayListTile(
         state: state,
         onTap: () => dispatch(GatewayActionCreator.onProfile(state)),
+            onLongPress: () => dispatch(GatewayActionCreator.onDelete(state)),
       ),
       pageFetch: (page) {
         final completer = Completer<List<GatewayItemState>>();
@@ -114,10 +115,12 @@ class _GatewaysListState extends State<GatewaysList> {
 
 class GatewayListTile extends StatelessWidget {
   final VoidCallback onTap;
+  final VoidCallback onLongPress;
   final GatewayItemState state;
 
   GatewayListTile({
     @required this.onTap,
+    @required this.onLongPress,
     @required this.state,
   });
 
@@ -133,6 +136,7 @@ class GatewayListTile extends StatelessWidget {
       ),
       child: ListTile(
         onTap: onTap,
+        onLongPress: onLongPress,
         title: Row(
           children: <Widget>[
             Column(

@@ -35,4 +35,9 @@ class DemoDao implements Dao {
   Future getMethod({String url, Map data}) {
     throw UnimplementedError("Direct getMethod unavailable in demo");
   }
+
+  @override
+  Future<String> delete({String url}) {
+    throw UnimplementedError("Direct delete unavailable in demo");
+  }
 }
