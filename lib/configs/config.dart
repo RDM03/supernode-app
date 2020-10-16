@@ -10,7 +10,7 @@ class Config {
       "pk.eyJ1Ijoidm90ZXIiLCJhIjoiY2tiZjhzMG12MHQwZjMxdWZoOXB6aXliaCJ9.ow8x2P3JMAV6-UaWd0cYyA";
   static const double BLUE_PRINT_WIDTH = 375;
   static const double BLUE_PRINT_HEIGHT = 812;
-  static const String JIRA_PROJECT_KEY = 'MMA';
+  static const String JIRA_PROJECT_KEY = 'MMD';
   static const String JIRA_AUTH =
       'dGVzdEBteGMub3JnOmR0OXJ0NHZBWkZPWWRhVXFsdVlmNjRGQQ==';
 }
