@@ -6,7 +6,6 @@ import 'package:flutter_mapbox_native/flutter_mapbox_native.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
-import 'package:supernodeapp/common/components/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/profile.dart';
@@ -167,20 +166,6 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                   '${Tools.priceFormat(state.devicesRevenue)} MXC (${Tools.priceFormat(state.devicesUSDRevenue)} USD)',
             ),
           ),
-          // panelFrame(
-          //   height: 263,
-          //   child: FutureBuilder(
-          //     builder: (context,builder) {
-          //       return MapBoxGLWidget(
-          //         markers: state.geojsonList,
-          //         onFullScreenPress: () => dispatch(HomeActionCreator.mapbox())
-          //       ) ?? SizedBox(
-          //         width: 0,
-          //         height: 0,
-          //       );
-          //     },
-          //   )
-          // ),
           panelFrame(
             height: 263,
             child: FutureBuilder(
