@@ -170,6 +170,7 @@ class StakeItem extends StatelessWidget {
       iconColor = stake12Color;
     }
 
+    // If the record is still in lock, so the icon is locked. If you unstake, the icon will be unlock
     var showLockOpenIcon = false;
     if ((stake.lockTill == null || stake.lockTill.isBefore(DateTime.now())) &&
         stake.endTime == null) {

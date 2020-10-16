@@ -95,11 +95,20 @@ class _GatewaysListState extends State<GatewaysList> {
   Widget build(BuildContext context) {
     return PaginationView<GatewayItemState>(
       itemBuilder: (BuildContext context, GatewayItemState state, int index) =>
-          GatewayListTile(
-        state: state,
-        onTap: () => dispatch(GatewayActionCreator.onProfile(state)),
-            onLongPress: () => dispatch(GatewayActionCreator.onDelete(state)),
-      ),
+        Dismissible(
+            key: Key("$index"),
+            background: Container(color: Colors.red),
+            onDismissed: (direction) => {
+              dispatch(GatewayActionCreator.onDelete(state)),
+            Scaffold
+            .of(context)
+            .showSnackBar(SnackBar(content: Text("${state.name} deleted")))
+            },
+            child: GatewayListTile(
+              state: state,
+              onTap: () => dispatch(GatewayActionCreator.onProfile(state)),
+            )
+        ),
       pageFetch: (page) {
         final completer = Completer<List<GatewayItemState>>();
         dispatch(GatewayActionCreator.onLoadPage(page, completer));
