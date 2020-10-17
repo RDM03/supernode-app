@@ -71,7 +71,7 @@ class TokenInterceptors extends InterceptorsWrapper {
       /// when token is expired, it needs to start to login.
       Dao.ctx.dispatch(HomeActionCreator.onReLogin());
     }else if (Dao.ctx?.context != null) {
-      if(errRes != null && ( errRes?.data["code"] == 16)){
+      if(errRes != null && (errRes?.data["code"] == 2 || errRes?.data["code"] == 5)){
         return;
       }
       tip(Dao.ctx.context, FlutterI18n.translate(Dao.ctx.context,'error_tip'),duration: 5);
