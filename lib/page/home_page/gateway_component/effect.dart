@@ -66,15 +66,19 @@ void _onDelete(Action action, Context<GatewayState> ctx) async {
   String id = data.id;
   GatewaysDao dao = GatewaysDao();
 
-  final loading = await Loading.show(ctx.context);
   dao.deleteGateway(id).then((res) {
-    loading.hide();
-    mLog('Gateway deleted', res);
-
-    tip(ctx.context, res.isEmpty?"success":"deleting gateway failed", success: res.isEmpty);
+    Scaffold
+        .of(ctx.context)
+        .showSnackBar(
+        SnackBar(
+            content: Text( res.isEmpty?"${data.name} deleted":"Deleting gateway failed: ${res["message"]}")));
+    //TODO reload
   }).catchError((err) {
-    loading.hide();
-    //tip(ctx.context, 'Gateway deleted: $err');
+    Scaffold
+        .of(ctx.context)
+        .showSnackBar(
+        SnackBar(
+            content: Text('Deleting gateway failed: $err')));
   });
 }
 
