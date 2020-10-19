@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_mapbox_native/flutter_mapbox_native.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
@@ -14,6 +15,7 @@ import 'package:supernodeapp/common/components/summary_row.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/home_page/action.dart';
 import 'package:supernodeapp/theme/colors.dart';
@@ -165,19 +167,41 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                   '${Tools.priceFormat(state.devicesRevenue)} MXC (${Tools.priceFormat(state.devicesUSDRevenue)} USD)',
             ),
           ),
+          // panelFrame(
+          //   height: 263,
+          //   child: FutureBuilder(
+          //     builder: (context,builder) {
+          //       return MapBoxGLWidget(
+          //         markers: state.geojsonList,
+          //         onFullScreenPress: () => dispatch(HomeActionCreator.mapbox())
+          //       ) ?? SizedBox(
+          //         width: 0,
+          //         height: 0,
+          //       );
+          //     },
+          //   )
+          // ),
           panelFrame(
             height: 263,
             child: FutureBuilder(
               builder: (context,builder) {
-                return MapBoxGLWidget(
-                  markers: state.geojsonList,
-                  onFullScreenPress: () => dispatch(HomeActionCreator.mapbox())
-                ) ?? SizedBox(
-                  width: 0,
-                  height: 0,
+                return FlutterMapboxNative(
+                  mapStyle: Sys.mapTileStyle,
+                  center: CenterPosition(
+                    target: LatLng(0,0),
+                    zoom: 0,
+                    animated: true,
+                  ),
+                  // minimumZoomLevel: 1,
+                  maximumZoomLevel: 12, 
+                  clusters: state.geojsonList,
+                  myLocationEnabled: true,
+                  myLocationTrackingMode: MyLocationTrackingMode.None,
+                  onFullScreenTap: () => dispatch(HomeActionCreator.mapbox())
                 );
-              },
+              }
             )
+
           ),
           smallColumnSpacer(),
         ],
