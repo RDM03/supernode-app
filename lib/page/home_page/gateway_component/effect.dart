@@ -67,12 +67,15 @@ void _onDelete(Action action, Context<GatewayState> ctx) async {
   GatewaysDao dao = GatewaysDao();
 
   dao.deleteGateway(id).then((res) {
+    if(res.isEmpty) {
+      //reload gateways
+      ctx.dispatch(HomeActionCreator.onGateways());
+    }
     Scaffold
         .of(ctx.context)
         .showSnackBar(
         SnackBar(
             content: Text( res.isEmpty?"${data.name} deleted":"Deleting gateway failed: ${res["message"]}")));
-    //TODO reload
   }).catchError((err) {
     Scaffold
         .of(ctx.context)
