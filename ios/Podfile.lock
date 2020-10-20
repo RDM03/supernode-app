@@ -145,13 +145,12 @@ DEPENDENCIES:
   - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
 SPEC REPOS:
-  https://github.com/sheenhx/Specs.git:
-    - Mapbox-iOS-SDK
-    - MapboxAnnotationExtension
-    - MapboxMobileEvents
   trunk:
     - AppCenter
     - FMDB
+    - Mapbox-iOS-SDK
+    - MapboxAnnotationExtension
+    - MapboxMobileEvents
     - Reachability
 
 EXTERNAL SOURCES:
@@ -253,7 +252,7 @@ SPEC CHECKSUMS:
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   location_web: b94e7433cfe28c0f7c8923c2ee482824b32e55a7
   majascan: 6ad3804777ac93f1ca09160e5d38197e4387081d
-  Mapbox-iOS-SDK: 7cd4e610c59d22a2b8789d82561a97d73ece9634
+  Mapbox-iOS-SDK: b31bd62a5dd5b7e688eab787acd3d093a122f4d6
   mapbox_gl: 48d261b93d7dfc2367c2f93b493ea8f43df5ba96
   mapbox_gl_web: 029cfb3c841d146fde3209538782498350a87f3f
   MapboxAnnotationExtension: d66de5561562c9d940153c0135725e671407b781
@@ -283,4 +282,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8170785708efa8825dcbea35ba981cd6d29a3b8d
 
-COCOAPODS: 1.10.0.rc.1
+COCOAPODS: 1.9.3
