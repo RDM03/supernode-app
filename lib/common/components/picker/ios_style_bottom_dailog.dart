@@ -111,8 +111,8 @@ class IosStyleBottomDialog extends StatelessWidget {
       onTap: () => Navigator.pop(context),
       child: Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 25),
-        child: Text(button?.title ?? '', style: kBigFontOfBlue),
+        padding: EdgeInsets.all(25),
+        child: Text(button?.title ?? '', style: kBigFontOfBlue, textAlign: TextAlign.center,),
       ),
     );
   }
@@ -125,8 +125,8 @@ class IosStyleBottomDialog extends StatelessWidget {
       },
       child: Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 14),
-        child: Text(button?.title ?? '', style: button.style),
+        padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
+        child: Text(button?.title ?? '', style: button.style, textAlign: TextAlign.center,),
       ),
     );
   }
@@ -149,9 +149,9 @@ class IosStyleBottomDialog extends StatelessWidget {
               ),
             ]),
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 14),
+        padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
         child: Text(FlutterI18n.translate(context, 'device_cancel'),
-            style: kBigFontOfBlack),
+            style: kBigFontOfBlack, textAlign: TextAlign.center,),
       ),
     );
   }

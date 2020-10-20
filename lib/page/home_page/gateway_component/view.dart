@@ -121,7 +121,7 @@ class _GatewaysListState extends State<GatewaysList> {
                       lst.add(IosButtonStyle(
                           title: FlutterI18n.translate(context, 'confirm_deleting_miner_message')));
                       lst.add(IosButtonStyle(
-                          title: FlutterI18n.translate(context, 'delete'),
+                          title: FlutterI18n.translate(context, 'delete_miner'),
                           style:kBigFontOfBlack.copyWith(color:Colors.red)));
                       return FullScreenDialog(
                         child: IosStyleBottomDialog(
