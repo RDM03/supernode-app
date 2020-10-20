@@ -99,6 +99,7 @@ class _GatewaysListState extends State<GatewaysList> {
     return PaginationView<GatewayItemState>(
       itemBuilder: (BuildContext context, GatewayItemState state, int index) =>
           Slidable(
+            key: Key("slide_gateway$index"),
             actionPane: SlidableDrawerActionPane(),//SlidableBehindActionPane
             actionExtentRatio: 0.25,
             child: GatewayListTile(
@@ -107,6 +108,7 @@ class _GatewaysListState extends State<GatewaysList> {
             ),
             secondaryActions: <Widget>[
               IconSlideAction(
+                key: ValueKey("delete_gateway_button$index"),
                 caption: FlutterI18n.translate(context, 'delete'),
                 color: Colors.red,
                 icon: Icons.delete,
@@ -156,12 +158,10 @@ class _GatewaysListState extends State<GatewaysList> {
 
 class GatewayListTile extends StatelessWidget {
   final VoidCallback onTap;
-  final VoidCallback onLongPress;
   final GatewayItemState state;
 
   GatewayListTile({
     @required this.onTap,
-    @required this.onLongPress,
     @required this.state,
   });
 
@@ -177,7 +177,6 @@ class GatewayListTile extends StatelessWidget {
       ),
       child: ListTile(
         onTap: onTap,
-        onLongPress: onLongPress,
         title: Row(
           children: <Widget>[
             Column(
