@@ -36,7 +36,7 @@ class Sys {
   static const stakeMore = 'https://mxc.wiki';
 
   /// AppCenter Config of init method
-  static final appSecretAndroid = DotEnv().env['APPCENTER_SECRET_ANDROID']; '85fbe3cf-0680-4024-b047-ae781c95bd9d';
+  static final appSecretAndroid = DotEnv().env['APPCENTER_SECRET_ANDROID'];
   static final appSecretIOS = DotEnv().env['APPCENTER_SECRET_IOS'];
   static final tokenAndroid = DotEnv().env['APPCENTER_TOKEN_ANDROID'];
   static final tokenIOS = DotEnv().env['APPCENTER_TOKEN_IOS'];
