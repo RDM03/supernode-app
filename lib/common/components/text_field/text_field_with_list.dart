@@ -36,8 +36,8 @@ class TextFieldWithList extends StatefulWidget {
     this.keyboardType,
     this.onChanged,
     this.maxLength,
-    this.counterText, Key key,
-  }): super(key: key);
+    this.counterText,
+  });
 
   @override
   State<StatefulWidget> createState() {
