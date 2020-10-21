@@ -122,9 +122,9 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                           Container(
                             margin: const EdgeInsets.only(top: 16),
                             child: TextFieldWithTitle(
+                              key: Key('homePassword'),
                               title: FlutterI18n.translate(_ctx, 'password'),
                               hint: FlutterI18n.translate(_ctx, 'password_hint'),
-                              key: Key('homePassword'),
                               isObscureText: state.isObscureText,
                               validator: (value) => Reg.onValidPassword(_ctx, value),
                               controller: state.passwordCtl,

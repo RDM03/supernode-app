@@ -47,6 +47,8 @@ void main() {
 
       print('LOCATING THE MXC LOGO');
 
+      delay(2000);
+
       await driver.waitFor(logoFinder);
 
       print('LOGO FOUND, BEGINNING THE TAP');
@@ -81,11 +83,6 @@ void main() {
       print('HOUSTON, WE ARE LOGGED IN');
 
     });
-
-    test('the buttons work', () async {
-
-    });
-
 
   });
 }
