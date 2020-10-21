@@ -128,12 +128,14 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                       ),
                       Spacer(),
                       PrimaryButton(
+                        key: Key('withdrawButtonDashboard'),
                         buttonTitle: FlutterI18n.translate(_ctx, 'withdraw'),
                         onTap: () =>
                             dispatch(HomeActionCreator.onOperate('withdraw')),
                       ),
                       Spacer(),
                       PrimaryButton(
+                        key: Key('stakeButtonDashboard'),
                         buttonTitle: FlutterI18n.translate(_ctx, 'stake'),
                         onTap: () =>
                             dispatch(HomeActionCreator.onOperate('stake')),
@@ -147,6 +149,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
           ),
           panelFrame(
             child: summaryRow(
+              key: Key('totalGatewaysDashboard'),
               loading: !state.loadingMap.contains('gatewaysUSD'),
               image: AppImages.gateways,
               title: FlutterI18n.translate(_ctx, 'total_gateways'),

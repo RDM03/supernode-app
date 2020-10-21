@@ -12,6 +12,10 @@ void main() {
 
   group('Supernode App', () {
 
+    // All-Purpose
+
+    final exitPage = find.byValueKey('navActionButton');
+
     // Login Screen
 
     final logoFinder = find.byValueKey('homeLogo');
@@ -21,10 +25,21 @@ void main() {
     final passwordFieldFinder = find.byValueKey('homePassword');
     final testServerFinder = find.byValueKey('MXCbuild');
     final scrollMenu = find.byValueKey('scrollMenu');
+    final mxcChinaFinder = find.byValueKey('MXCChina');
 
     // Dashboard
 
-    final depositButtonDashboardFinder = find.byValueKey('depositButtonDashboard');
+    final calculatorButtonDashboard = find.byValueKey('calculatorButton');
+    final depositButtonDashboard = find.byValueKey('depositButtonDashboard');
+    final checkEmailApi = find.text('test@mxc.org');
+    final withdrawButtonDashboard = find.byValueKey('withdrawButtonDashboard');
+    final totalGatewaysDashboard = find.byValueKey('totalGatewaysDashboard');
+
+    // Top-Up Page
+
+    final ethAddressTopUp = find.byValueKey('ethAddressTopUp');
+    final qrCodeTopUp = find.byValueKey('qrCodeTopUp');
+
 
     FlutterDriver driver;
 
@@ -47,11 +62,9 @@ void main() {
 
       print('LOCATING THE MXC LOGO');
 
-      delay(2000);
-
       await driver.waitFor(logoFinder);
 
-      print('LOGO FOUND, BEGINNING THE TAP');
+      print('LOADED, BEGINNING THE TAP');
 
       for (var i = 0; i < 7; i++) {
         await driver.tap(logoFinder);
@@ -62,7 +75,7 @@ void main() {
       print('ALL TAPPED OUT, LETS SELECT THAT SERVER');
 
       await driver.tap(menuFinder);
-      await driver.scrollUntilVisible(scrollMenu, testServerFinder);
+      await driver.scrollUntilVisible(scrollMenu, mxcChinaFinder);
       await driver.tap(testServerFinder);
 
       print('SERVER SELECTED, TIME TO ENTER CREDENTIALS');
@@ -78,11 +91,22 @@ void main() {
 
       await driver.tap(loginFinder);
 
-      expect(await driver.getText(depositButtonDashboardFinder), 'Deposit');
+      expect(await driver.getText(totalGatewaysDashboard), 'Revenue');
 
       print('HOUSTON, WE ARE LOGGED IN');
 
     });
 
+    test('has top up address', () async {
+
+      print('CHECKING TOP-UP API');
+
+      await driver.tap(depositButtonDashboard);
+      delay(2000);
+      await driver.waitFor(qrCodeTopUp);
+      expect(await driver.getText(ethAddressTopUp), '0x9bfd604ef6cbfdca05e9eae056bc465c570c09e8');
+      await driver.tap(exitPage);
+
+    });
   });
 }
