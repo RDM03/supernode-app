@@ -1,13 +1,18 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
+import 'package:dotenv/dotenv.dart' show load, env;
+
 
 Future<void> delay([int milliseconds = 250]) async {
   await Future<void>.delayed(Duration(milliseconds: milliseconds));
 }
 
 void main() {
+  load();
 
   group('Supernode App', () {
+
+    // Login Screen
 
     final logoFinder = find.byValueKey('homeLogo');
     final loginFinder = find.byValueKey('homeLogin');
@@ -16,6 +21,10 @@ void main() {
     final passwordFieldFinder = find.byValueKey('homePassword');
     final testServerFinder = find.byValueKey('MXCbuild');
     final scrollMenu = find.byValueKey('scrollMenu');
+
+    // Dashboard
+
+    final depositButtonDashboardFinder = find.byValueKey('depositButtonDashboard');
 
     FlutterDriver driver;
 
@@ -58,17 +67,25 @@ void main() {
 
       await driver.waitFor(emailFieldFinder);
       await driver.tap(emailFieldFinder);
-      await driver.enterText('test@mxc.org');
-      await driver.waitFor(find.text('test@mxc.org'));
+      await driver.enterText(env['TESTING_USER']);
+      await driver.waitFor(find.text(env['TESTING_USER']));
       await driver.tap(passwordFieldFinder);
-      await driver.enterText('ADDPASSWORD');
+      await driver.enterText(env['TEST_PASSWORD']);
 
       print('THE MOMENT HAS COME, WILL IT WORK?');
 
       await driver.tap(loginFinder);
 
+      expect(await driver.getText(depositButtonDashboardFinder), 'Deposit');
+
       print('HOUSTON, WE ARE LOGGED IN');
 
     });
+
+    test('the buttons work', () async {
+
+    });
+
+
   });
 }
