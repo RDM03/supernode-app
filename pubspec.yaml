@@ -106,6 +106,7 @@ dependencies:
     path: packages/feedback
   flutter_mapbox_native:
     path: packages/flutter_mapbox_native
+  dotenv: ^2.0.0
 
 dependency_overrides:
   local_auth:
@@ -116,6 +117,9 @@ dev_dependencies:
   build_runner: ^1.8.0
   flutter_test:
     sdk: flutter
+  flutter_driver:
+    sdk: flutter
+  test: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -149,6 +153,7 @@ flutter:
     - assets/images/maintenance/
     - assets/others/
     - assets/js/
+
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

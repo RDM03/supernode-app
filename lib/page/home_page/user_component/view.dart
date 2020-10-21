@@ -121,6 +121,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                     children: <Widget>[
                       Spacer(),
                       PrimaryButton(
+                        key: Key('depositButtonDashboard'),
                         buttonTitle: FlutterI18n.translate(_ctx, 'deposit'),
                         onTap: () =>
                             dispatch(HomeActionCreator.onOperate('deposit')),

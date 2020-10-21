@@ -38,6 +38,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                     Column(
                       children: <Widget>[
                         GestureDetector(
+                          key: Key('homeLogo'),
                           onTap: () => dispatch(LoginActionCreator.clickLogo()),
                           child: Container(
                             color: darkBackground,
@@ -59,6 +60,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                     Positioned(
                       top: s(133),
                       child: GestureDetector(
+                        key: Key('homeSupernodeMenu'),
                         onTap: () => dispatch(LoginActionCreator.superNodeListVisible(true)),
                         child: ClipOval(
                           child: Container(
@@ -109,6 +111,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                           Container(
                             margin: kOuterRowTop35,
                             child: TextFieldWithList(
+                              key: Key('homeEmail'),
                               title: FlutterI18n.translate(_ctx, 'email'),
                               hint: FlutterI18n.translate(_ctx, 'email_hint'),
                               textInputAction: TextInputAction.next,
@@ -119,6 +122,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                           Container(
                             margin: const EdgeInsets.only(top: 16),
                             child: TextFieldWithTitle(
+                              key: Key('homePassword'),
                               title: FlutterI18n.translate(_ctx, 'password'),
                               hint: FlutterI18n.translate(_ctx, 'password_hint'),
                               isObscureText: state.isObscureText,
@@ -150,7 +154,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                         ],
                       ),
                       SizedBox(height: s(18)),
-                      PrimaryButton(onTap: () => dispatch(LoginActionCreator.onLogin()), buttonTitle: FlutterI18n.translate(_ctx, 'login'), minHeight: s(46), minWidget: double.infinity),
+                      PrimaryButton(key: Key('homeLogin'), onTap: () => dispatch(LoginActionCreator.onLogin()), buttonTitle: FlutterI18n.translate(_ctx, 'login'), minHeight: s(46), minWidget: double.infinity),
                       Container(
                         margin: EdgeInsets.only(top: s(28.5), bottom: s(17.5)),
                         height: s(1),
@@ -202,6 +206,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                 ),
               ),
               child: SingleChildScrollView(
+                key: Key('scrollMenu'),
                 child: Column(children: <Widget>[
                   SizedBox(
                     height: s(114),
@@ -242,6 +247,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                                 GestureDetector(
                                   child: ListTile(
                                     title: Container(
+                                      key: Key(item.name),
                                       alignment: Alignment.center,
                                       height: s(65),
                                       child: CachedNetworkImage(
