@@ -6,12 +6,10 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/crashes_dao.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
-import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/home_page/action.dart';
-import 'package:supernodeapp/page/settings_page/action.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 
 class TokenInterceptors extends InterceptorsWrapper {
@@ -72,15 +70,17 @@ class TokenInterceptors extends InterceptorsWrapper {
         errRes.toString().contains(new RegExp(r'jwt|authentication'))) {
       /// when token is expired, it needs to start to login.
       Dao.ctx.dispatch(HomeActionCreator.onReLogin());
+    }else if (Dao.ctx?.context != null) {
+      if(errRes != null && (errRes?.data["code"] == 2 || errRes?.data["code"] == 5)){
+        return;
+      }
+      tip(Dao.ctx.context, FlutterI18n.translate(Dao.ctx.context,'error_tip'),duration: 5);
     } /* else if (Dao.ctx?.context != null && errRes.statusCode == 401 || errRes.toString().contains('not authenticated')) {
       final settingsData = GlobalStore.store.getState().settings;
       if (settingsData?.userId != null && settingsData.userId.isNotEmpty) {
         await logOut(Dao.ctx.context);
       }
     } */
-    else if (Dao.ctx?.context != null) {
-      //tip(Dao.ctx.context, FlutterI18n.translate(Dao.ctx.context,'error_tip'));
-    }
 
     SettingsState settingsData = GlobalStore.store.getState().settings;
     String userId = settingsData?.userId ?? '';
