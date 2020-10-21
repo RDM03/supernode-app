@@ -70,7 +70,7 @@ void main() {
       await driver.enterText(env['TESTING_USER']);
       await driver.waitFor(find.text(env['TESTING_USER']));
       await driver.tap(passwordFieldFinder);
-      await driver.enterText(env['TEST_PASSWORD']);
+      await driver.enterText(env['TESTING_PASSWORD']);
 
       print('THE MOMENT HAS COME, WILL IT WORK?');
 
