@@ -38,7 +38,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                     Column(
                       children: <Widget>[
                         GestureDetector(
-                          key: Key('homeSupernodeMenu'),
+                          key: Key('homeLogo'),
                           onTap: () => dispatch(LoginActionCreator.clickLogo()),
                           child: Container(
                             color: darkBackground,
@@ -60,6 +60,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                     Positioned(
                       top: s(133),
                       child: GestureDetector(
+                        key: Key('homeSupernodeMenu'),
                         onTap: () => dispatch(LoginActionCreator.superNodeListVisible(true)),
                         child: ClipOval(
                           child: Container(
