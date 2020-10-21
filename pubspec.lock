@@ -7,14 +7,14 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.0.0"
+    version: "11.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.39.14"
+    version: "0.40.4"
   android_metadata:
     dependency: transitive
     description:
@@ -33,7 +33,8 @@ packages:
     dependency: transitive
     description:
       name: archive
-      url: "https://pub.flutter-io.cn"
+      url: "https://pub.dartlang.org"
+
     source: hosted
     version: "2.0.13"
   args:
@@ -49,28 +50,29 @@ packages:
       name: async
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.4.1"
+    version: "2.5.0-nullsafety.1"
+
   bloc:
     dependency: transitive
     description:
       name: bloc
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.0.3"
+    version: "6.1.0"
   boolean_selector:
     dependency: transitive
     description:
       name: boolean_selector
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.0"
+    version: "2.1.0-nullsafety.1"
   build:
     dependency: transitive
     description:
       name: build
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.3.0"
+    version: "1.5.0"
   build_config:
     dependency: transitive
     description:
@@ -91,21 +93,21 @@ packages:
       name: build_resolvers
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.3.11"
+    version: "1.4.1"
   build_runner:
     dependency: "direct dev"
     description:
       name: build_runner
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.10.1"
+    version: "1.10.3"
   build_runner_core:
     dependency: transitive
     description:
       name: build_runner_core
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.0.1"
+    version: "6.0.3"
   built_collection:
     dependency: transitive
     description:
@@ -126,14 +128,21 @@ packages:
       name: cached_network_image
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.0+1"
+    version: "2.3.3"
+  characters:
+    dependency: transitive
+    description:
+      name: characters
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0-nullsafety.3"
   charcode:
     dependency: transitive
     description:
       name: charcode
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.3"
+    version: "1.2.0-nullsafety.1"
   charts_common:
     dependency: transitive
     description:
@@ -161,14 +170,14 @@ packages:
       name: cli_util
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.1.4"
+    version: "0.2.0"
   clock:
     dependency: transitive
     description:
       name: clock
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.1"
+    version: "1.1.0-nullsafety.1"
   code_builder:
     dependency: transitive
     description:
@@ -182,14 +191,14 @@ packages:
       name: collection
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.14.12"
+    version: "1.15.0-nullsafety.3"
   connectivity:
     dependency: "direct main"
     description:
       name: connectivity
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.4.9+3"
+    version: "0.4.9+5"
   connectivity_for_web:
     dependency: transitive
     description:
@@ -252,7 +261,7 @@ packages:
       name: dart_style
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.3.6"
+    version: "1.3.7"
   decimal:
     dependency: "direct main"
     description:
@@ -266,7 +275,7 @@ packages:
       name: device_info
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.4.2+8"
+    version: "0.4.2+9"
   device_info_platform_interface:
     dependency: transitive
     description:
@@ -295,6 +304,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.1"
+  fake_async:
+    dependency: transitive
+    description:
+      name: fake_async
+      url: "https://pub.dartlang.org"
+    source: hosted
+
   feedback:
     dependency: "direct main"
     description:
@@ -356,6 +372,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "6.0.6"
+  flutter_blurhash:
+    dependency: transitive
+    description:
+      name: flutter_blurhash
+      url: "https://pub.dartlang.org"
+    source: hosted
+
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -433,14 +456,14 @@ packages:
       name: geolocator
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.0.0+4"
+    version: "6.1.0"
   geolocator_platform_interface:
     dependency: transitive
     description:
       name: geolocator_platform_interface
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.4"
+    version: "1.0.5"
   glob:
     dependency: transitive
     description:
@@ -462,6 +485,7 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.14.0+4"
+
   http:
     dependency: transitive
     description:
@@ -487,9 +511,11 @@ packages:
     dependency: transitive
     description:
       name: image
-      url: "https://pub.flutter-io.cn"
+
+      url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.12"
+    version: "2.1.18"
+
   install_plugin:
     dependency: transitive
     description:
@@ -545,14 +571,14 @@ packages:
       path: "packages/local_auth"
       relative: true
     source: path
-    version: "0.6.3"
+    version: "0.6.3+3"
   localstorage:
     dependency: "direct main"
     description:
       name: localstorage
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.0.2+5"
+    version: "3.0.3+6"
   location:
     dependency: "direct main"
     description:
@@ -601,19 +627,30 @@ packages:
       name: mapbox_gl_dart
       url: "https://pub.flutter-io.cn"
     source: hosted
+    version: "0.8.0"
+  mapbox_gl_dart:
+    dependency: transitive
+    description:
+      name: mapbox_gl_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.1.5"
   mapbox_gl_platform_interface:
     dependency: transitive
     description:
       name: mapbox_gl_platform_interface
-      url: "https://pub.flutter-io.cn"
+
+      url: "https://pub.dartlang.org"
+
     source: hosted
     version: "0.8.0"
   mapbox_gl_web:
     dependency: transitive
     description:
       name: mapbox_gl_web
-      url: "https://pub.flutter-io.cn"
+
+      url: "https://pub.dartlang.org"
+
     source: hosted
     version: "0.8.0"
   matcher:
@@ -622,14 +659,17 @@ packages:
       name: matcher
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.12.6"
+
+
+    version: "0.12.10-nullsafety.1"
+
   meta:
     dependency: transitive
     description:
       name: meta
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.8"
+    version: "1.3.0-nullsafety.3"
   mime:
     dependency: transitive
     description:
@@ -706,7 +746,9 @@ packages:
       name: path
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.6.4"
+
+    version: "1.8.0-nullsafety.1"
+
   path_drawing:
     dependency: transitive
     description:
@@ -762,7 +804,7 @@ packages:
       name: pedantic
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.9.0"
+    version: "1.9.2"
   permission_handler:
     dependency: "direct main"
     description:
@@ -781,14 +823,18 @@ packages:
     dependency: transitive
     description:
       name: petitparser
-      url: "https://pub.flutter-io.cn"
+
+      url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.0"
+    version: "3.1.0"
+
   platform:
     dependency: transitive
     description:
       name: platform
-      url: "https://pub.flutter-io.cn"
+
+      url: "https://pub.dartlang.org"
+
     source: hosted
     version: "2.2.1"
   plugin_platform_interface:
@@ -888,14 +934,14 @@ packages:
       name: share
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.6.5+2"
+    version: "0.6.5+3"
   shared_preferences:
     dependency: "direct main"
     description:
       name: shared_preferences
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.5.12"
+    version: "0.5.12+2"
   shared_preferences_linux:
     dependency: transitive
     description:
@@ -977,14 +1023,14 @@ packages:
       name: source_span
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.7.0"
+    version: "1.8.0-nullsafety.2"
   sqflite:
     dependency: "direct main"
     description:
       name: sqflite
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.3.1+1"
+    version: "1.3.1+2"
   sqflite_common:
     dependency: transitive
     description:
@@ -998,14 +1044,16 @@ packages:
       name: stack_trace
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.9.3"
+
+    version: "1.10.0-nullsafety.1"
+
   stream_channel:
     dependency: transitive
     description:
       name: stream_channel
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.0"
+    version: "2.1.0-nullsafety.1"
   stream_transform:
     dependency: transitive
     description:
@@ -1019,7 +1067,7 @@ packages:
       name: string_scanner
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.5"
+    version: "1.1.0-nullsafety.1"
   supernova_flutter_ui_toolkit:
     dependency: "direct main"
     description:
@@ -1040,14 +1088,16 @@ packages:
       name: term_glyph
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0-nullsafety.1"
   test_api:
     dependency: transitive
     description:
       name: test_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.15"
+
+    version: "0.2.19-nullsafety.2"
+
   timing:
     dependency: transitive
     description:
@@ -1068,14 +1118,18 @@ packages:
       name: typed_data
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.6"
+
+    version: "1.3.0-nullsafety.3"
+
   url_launcher:
     dependency: "direct main"
     description:
       name: url_launcher
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.7.2"
+
+    version: "5.7.5"
+
   url_launcher_linux:
     dependency: transitive
     description:
@@ -1096,7 +1150,7 @@ packages:
       name: url_launcher_platform_interface
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.8"
+    version: "1.0.9"
   url_launcher_web:
     dependency: transitive
     description:
@@ -1131,7 +1185,7 @@ packages:
       name: vector_math
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.8"
+    version: "2.1.0-nullsafety.3"
   watcher:
     dependency: transitive
     description:
@@ -1166,14 +1220,18 @@ packages:
       name: xdg_directories
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.1.0"
+
+    version: "0.1.2"
+
   xml:
     dependency: transitive
     description:
       name: xml
-      url: "https://pub.flutter-io.cn"
+
+      url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.6.1"
+    version: "4.5.1"
+
   yaml:
     dependency: transitive
     description:
@@ -1182,5 +1240,7 @@ packages:
     source: hosted
     version: "2.2.1"
 sdks:
-  dart: ">=2.8.0 <3.0.0"
-  flutter: ">=1.17.0 <2.0.0"
+
+  dart: ">=2.10.0-110 <2.11.0"
+  flutter: ">=1.22.0 <2.0.0"
+

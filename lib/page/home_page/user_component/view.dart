@@ -166,6 +166,20 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                   '${Tools.priceFormat(state.devicesRevenue)} MXC (${Tools.priceFormat(state.devicesUSDRevenue)} USD)',
             ),
           ),
+          // panelFrame(
+          //   height: 263,
+          //   child: FutureBuilder(
+          //     builder: (context,builder) {
+          //       return MapBoxGLWidget(
+          //         markers: state.geojsonList,
+          //         onFullScreenPress: () => dispatch(HomeActionCreator.mapbox())
+          //       ) ?? SizedBox(
+          //         width: 0,
+          //         height: 0,
+          //       );
+          //     },
+          //   )
+          // ),
           panelFrame(
             height: 263,
             child: FutureBuilder(
