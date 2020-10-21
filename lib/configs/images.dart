@@ -22,6 +22,7 @@ class AppImages {
   static const String done = 'assets/images/app/done.png';
   static const String noData = 'assets/images/app/no-data.png';
   static const String circleLogo = 'assets/images/app/logo-circle.png';
+  static const String questionCircle = 'assets/images/app/ic-question-circle.png';
 
   //login
   static const String placeholder = "assets/images/login/placeholder.png";

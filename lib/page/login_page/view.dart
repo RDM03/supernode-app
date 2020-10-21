@@ -48,11 +48,21 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                           ),
                         ),
                         SizedBox(height: s(100)),
-                        Center(
-                          child: Text(
-                            FlutterI18n.translate(_ctx, 'choose_supernode'),
-                            style: TextStyle(fontSize: s(14), fontWeight: FontWeight.w400, color: Colors.black),
-                          ),
+                        Row(
+                          mainAxisAlignment : MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              FlutterI18n.translate(_ctx, 'choose_supernode'),
+                              style: TextStyle(fontSize: s(14), fontWeight: FontWeight.w400, color: Colors.black),
+                            ),
+                            GestureDetector(
+                              onTap: () => _showInfoDialog(),
+                              child: Padding(
+                                padding: EdgeInsets.only(left: s(5)),
+                                child: Image.asset(AppImages.questionCircle, height: s(20)),
+                              ),
+                            )
+                          ],
                         ),
                       ],
                     ),
@@ -271,6 +281,8 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
       },
     ));
 }
+
+void _showInfoDialog() {}
 
 //Sys.superNodes.keys
 //    .map(

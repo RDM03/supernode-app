@@ -1,4 +1,3 @@
-import 'package:ethereum_address/ethereum_address.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -11,7 +10,9 @@ import 'package:supernodeapp/common/components/page/subtitle.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_button.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
+import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import 'action.dart';
@@ -67,7 +68,18 @@ Widget buildView(
         ],
       ),
     ),
-    subtitle(FlutterI18n.translate(_ctx, 'current_transaction_fee')),
+    Row(
+      children: [
+        subtitle(FlutterI18n.translate(_ctx, 'current_transaction_fee')),
+        GestureDetector(
+          onTap: () => _showInfoDialog(),
+          child: Padding(
+            padding: EdgeInsets.only(top: 30, left: s(5)),
+            child: Image.asset(AppImages.questionCircle, height: s(20)),
+          ),
+        )
+      ],
+    ),
     paragraph('${state.fee ?? '--'} MXC'),
     SizedBox(height: 40),
     Container(
@@ -105,3 +117,5 @@ String _onValidAmount(
 
   return null;
 }
+
+void _showInfoDialog(){}

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/link.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
+import 'package:supernodeapp/common/utils/screen_util.dart';
+import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/colors.dart';
@@ -56,8 +58,19 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
             style: kMiddleFontOfGrey,
           ),
           SizedBox(height: 20),
-          Text(FlutterI18n.translate(context, 'mxc_vault'),
-              style: kBigFontOfBlack),
+          Row(
+            children: [
+              Text(FlutterI18n.translate(context, 'mxc_vault'),
+                  style: kBigFontOfBlack),
+              GestureDetector(
+                onTap: () => _showInfoDialog(),
+                child: Padding(
+                  padding: EdgeInsets.only(left: s(5)),
+                  child: Image.asset(AppImages.questionCircle, height: s(20)),
+                ),
+              )
+            ],
+          ),
           Expanded(
             child: ListView(
               padding: EdgeInsets.zero,
@@ -142,6 +155,8 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
     ),
   );
 }
+
+void _showInfoDialog(){}
 
 int round(double v) {
   return ((v * 100) - 100).round();

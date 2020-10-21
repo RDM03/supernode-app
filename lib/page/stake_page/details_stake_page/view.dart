@@ -5,7 +5,9 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
+import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
+import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/stake_page/details_stake_page/action.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -67,11 +69,23 @@ Widget buildView(
             ),
           ),
           SizedBox(width: 16),
-          Text(
-            months == null
-                ? FlutterI18n.translate(_ctx, 'flex_stake')
-                : FlutterI18n.translate(_ctx, 'x_month_stake')
-                    .replaceFirst('{0}', months.toString()),
+          months == null
+              ? Row(
+            children: [
+              Text(
+                FlutterI18n.translate(_ctx, 'flex_stake'),
+                style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600)
+              ),
+              GestureDetector(
+                onTap: () => _showInfoDialog(),
+                child: Padding(
+                  padding: EdgeInsets.only(left: s(5)),
+                  child: Image.asset(AppImages.questionCircle, height: s(20)),
+                ),
+              )
+            ],
+          )
+              : Text(FlutterI18n.translate(_ctx, 'x_month_stake').replaceFirst('{0}', months.toString()),
             style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
           ),
           Spacer(),
@@ -192,6 +206,8 @@ Widget buildView(
     ],
   );
 }
+
+void _showInfoDialog(){}
 
 String formatDate(DateTime date) {
   return Tools.dateFormat(date);
