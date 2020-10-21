@@ -41,6 +41,10 @@
 	"wallet": "Carteira",
 	"add_gateway": "Adicionar Gateway",
 	"add_gateway_tip": "Registre seu Gateway / Minerador",
+	"delete": "Delete",
+	"confirm_deleting_miner_title": "Are you sure to delete the miner?",
+	"confirm_deleting_miner_message": "Once you delete the miner, you won't be able to recover.",
+	"delete_miner": "Delete Miner",
 	"scan_qrcode": "Escaneie o Código QR",
 	"input_serial_number": "ou insira o número de série manualmente",
 	"serial_number_hint": "Número Serial de Gateway",
@@ -185,7 +189,6 @@
 	"error_tip": "ERRO",
 	"updated_successful_tip": "Atualizado com Sucesso",
 	"total_device": "Total de dispositivos",
-	"downlink_fee": "Taxa de recebimento",
 	"device_choose": "Escolha seu aplicativo",
 	"ai_camera": "Câmera IA",
 	"fire_detect": "Detectar Fogo",
@@ -249,6 +252,7 @@
 	"device_bluetooth_prompt": "Selecione um dispositivo Bluetooth da lista de dispositivos. Certifique-se de seu",
 	"bluetooth": "Bluetooth",
 	"is_turned_on": "está ligado.",
+	"downlink_fee": "Taxa de recebimento",
 	"loading": "carregando...",
 	"insufficient_balance": "Saldo insuficiente",
 	"required_2FA_general": "2FA requerido",
@@ -323,7 +327,6 @@
 	"invalid_name": "Nome inválido",
 	"address_book_control_desc": "Controle aqui o endereço usado com frequência. Por favor, note que você só pode excluir ou adicionar o endereço devido a motivos de segurança.",
 	"delete_address": "Excluir endereço",
-	"refresh": "atualizar",
 	"connectivity_lost": "Sem conexão com a internet.\nVerifique se o Wi-Fi ou os dados móveis estão ativados e tente novamente.",
 	"confirm_withdrawal": "Confirmar Retirada",
 	"check_recipient_address": "Por favor, verifique o endereço do destinatário com cuidado para se certificar de que é exatamente o que você inseriu.",
@@ -373,6 +376,7 @@
 	"join_us_wechat": "Junte-se a nós no WeChat",
 	"join_us_twitter": "Siga-nos no Twitter",
 	"connect_with_us": "Conecte-se conosco",
+	"refresh": "atualizar",
 	"under_maintenance": "We are currently undergoing maintenance. This won’t take long.",
-	"duration_days": "duração em dias - {0}"
+	"duration_days": "Duration (days) - {0}"
 }
