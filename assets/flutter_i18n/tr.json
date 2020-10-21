@@ -41,6 +41,10 @@
 	"wallet": "Cüzdan",
 	"add_gateway": "Ağ Geçidi Ekle",
 	"add_gateway_tip": "Ağ Geçidi Madencini Kaydet",
+	"delete": "Delete",
+	"confirm_deleting_miner_title": "Are you sure to delete the miner?",
+	"confirm_deleting_miner_message": "Once you delete the miner, you won't be able to recover.",
+	"delete_miner": "Delete Miner",
 	"scan_qrcode": "QR Kodunu Taratın",
 	"input_serial_number": "veya seri numarasını elle girebilirsiniz",
 	"serial_number_hint": "Ağ Geçidi Seri Numarası",
@@ -185,7 +189,6 @@
 	"error_tip": "Hata",
 	"updated_successful_tip": "Başarıyla Güncellendi",
 	"total_device": "Tüm Cihazlar",
-	"downlink_fee": "Downlink Fiyatı",
 	"device_choose": "Uygulamanı Seç",
 	"ai_camera": "AI Kamerası",
 	"fire_detect": "Duman Dedektörü",
@@ -249,6 +252,7 @@
 	"device_bluetooth_prompt": "Cihaz listesinden bir Bluetooth cihazı seç.",
 	"bluetooth": "Bluetooth",
 	"is_turned_on": "açık olduğundan emin ol.",
+	"downlink_fee": "Downlink Fiyatı",
 	"loading": "yükleniyor...",
 	"insufficient_balance": "Yetersiz bakiye",
 	"required_2FA_general": "Gerekli 2FA",
@@ -323,7 +327,6 @@
 	"invalid_name": "Geçersiz isim",
 	"address_book_control_desc": "Sık kullandığınız adresinizi buradan kontrol edin, lütfen adresi yalnızca güvenlik nedeniyle silebileceğinizi veya ekleyebileceğinizi unutmayın.",
 	"delete_address": "Adresi sil",
-	"refresh": "Yenile",
 	"connectivity_lost": "İnternet bağlantısı yok. Wi-Fi veya mobil verinin açık olduğundan emin olun, ardından tekrar deneyin.",
 	"confirm_withdrawal": "Para Çekmeyi Onayla",
 	"check_recipient_address": "Lütfen tam olarak girdiğiniz adres olduğundan emin olmak için alıcı adresini dikkatlice kontrol edin.",
@@ -373,7 +376,7 @@
 	"join_us_wechat": "WeChat'te bize katılın",
 	"join_us_twitter": "Bizi Twitter'da takip edin",
 	"connect_with_us": "Bizimle iletişime geçin",
-	"under_maintenance": "Şu anda bakımdayız. Bu uzun sürmeyecek.",
-	"duration_days": "gün cinsinden süre - {0}"
+	"refresh": "Yenile",
+	"under_maintenance": "We are currently undergoing maintenance. This won’t take long.",
+	"duration_days": "Duration (days) - {0}"
 }
-
