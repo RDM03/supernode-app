@@ -1,5 +1,4 @@
 import 'package:flutter_driver/flutter_driver.dart';
-import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:test/test.dart';
 import 'package:dotenv/dotenv.dart' show load, env;
 
@@ -48,7 +47,6 @@ void main() {
     final stakeAmount = find.byValueKey('stakeAmount');
     final stakeButton = find.byValueKey('stakeButton');
     final submitButtonTimeout = find.byValueKey('submitButtonTimeout');
-    final doneButton = find.byValueKey('doneButton');
 
 
     FlutterDriver driver;
@@ -119,7 +117,7 @@ void main() {
       expect(await driver.getText(ethAddressTopUp), '0x9bfd604ef6cbfdca05e9eae056bc465c570c09e8');
       await driver.tap(exitPage);
 
-    });
+    }, timeout:Timeout(Duration(seconds: 60)));
 
     test('can set stake', () async {
 
@@ -130,10 +128,10 @@ void main() {
       await driver.waitFor(find.text('20'));
       await driver.tap(stakeButton);
       await driver.waitFor(find.text('(0)'));
-      delay(200);
+      await delay(200);
       await driver.waitFor(submitButtonTimeout);
       await driver.tap(submitButtonTimeout);
-      await driver.tap(doneButton);
+      await driver.tap(exitPage);
 
 
     }, timeout:Timeout(Duration(seconds: 60)));

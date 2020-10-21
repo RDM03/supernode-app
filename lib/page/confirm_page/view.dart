@@ -26,7 +26,6 @@ Widget buildView(ConfirmState state, Dispatch dispatch, ViewService viewService)
       submitButton(
         FlutterI18n.translate(_ctx,'done'),
         onPressed: () => Navigator.pop(viewService.context),
-        key: Key('doneButton')
       )
     ]
   );
