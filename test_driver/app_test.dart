@@ -1,4 +1,5 @@
 import 'package:flutter_driver/flutter_driver.dart';
+import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:test/test.dart';
 import 'package:dotenv/dotenv.dart' show load, env;
 
@@ -34,11 +35,20 @@ void main() {
     final checkEmailApi = find.text('test@mxc.org');
     final withdrawButtonDashboard = find.byValueKey('withdrawButtonDashboard');
     final totalGatewaysDashboard = find.byValueKey('totalGatewaysDashboard');
+    final stakeButtonDashboard = find.byValueKey('stakeButtonDashboard');
 
     // Top-Up Page
 
     final ethAddressTopUp = find.byValueKey('ethAddressTopUp');
     final qrCodeTopUp = find.byValueKey('qrCodeTopUp');
+
+    // Stake Page
+
+    final stakeFlex = find.byValueKey('stakeFlex');
+    final stakeAmount = find.byValueKey('stakeAmount');
+    final stakeButton = find.byValueKey('stakeButton');
+    final submitButtonTimeout = find.byValueKey('submitButtonTimeout');
+    final doneButton = find.byValueKey('doneButton');
 
 
     FlutterDriver driver;
@@ -103,10 +113,29 @@ void main() {
 
       await driver.tap(depositButtonDashboard);
       delay(2000);
+      await driver.tap(exitPage);
+      await driver.tap(depositButtonDashboard);
       await driver.waitFor(qrCodeTopUp);
       expect(await driver.getText(ethAddressTopUp), '0x9bfd604ef6cbfdca05e9eae056bc465c570c09e8');
       await driver.tap(exitPage);
 
     });
+
+    test('can set stake', () async {
+
+      await driver.tap(stakeButtonDashboard);
+      await driver.tap(stakeFlex);
+      await driver.tap(stakeAmount);
+      await driver.enterText('20');
+      await driver.waitFor(find.text('20'));
+      await driver.tap(stakeButton);
+      await driver.waitFor(find.text('(0)'));
+      delay(200);
+      await driver.waitFor(submitButtonTimeout);
+      await driver.tap(submitButtonTimeout);
+      await driver.tap(doneButton);
+
+
+    }, timeout:Timeout(Duration(seconds: 60)));
   });
 }
