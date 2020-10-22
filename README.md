@@ -11,7 +11,7 @@ Mobile app used to interact with MXC Supernodes.
 
 ## Using Visual Studio Code
 
-you can install `fish-redux-template` of the extension in the Visual Studio code, which it is very convenient to create relative code files.
+You can install `fish-redux-template` of the extension in the Visual Studio code, which it is very convenient to create relative code files.
 
 Select a fold and right click and then it will display some menus: `Generate Adapter Template`,`Generate Component Template`,`Generate Page Template`.
 
