@@ -54,8 +54,8 @@ jobs:
     strategy:
       matrix:
         device:
-        - "iPhone 8 (13.7)"
-        - "iPhone 11 Pro Max (13.7)"
+        - "iPhone 8 (14.1)"
+        - "iPhone 11 Pro Max (14.1)"
       fail-fast: false
     runs-on: self-hosted
     steps:
