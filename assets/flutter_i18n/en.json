@@ -1,5 +1,6 @@
 {
 	"choose_supernode": "Choose your Supernode",
+	"info_supernode": "Please connect to a Supernode closest to your geographical region",
 	"email": "Email",
 	"email_hint": "Enter your email address",
 	"password": "Password",
