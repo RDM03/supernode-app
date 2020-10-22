@@ -1,6 +1,6 @@
 name: flutter pipeline
 on:
-  push:
+  pull_request:
 
 jobs:
   build_apk:
@@ -103,4 +103,3 @@ jobs:
       with:
         name: ios-build
         path: build/ios/iphoneos
-        
