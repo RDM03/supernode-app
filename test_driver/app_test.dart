@@ -110,7 +110,6 @@ void main() {
       print('CHECKING TOP-UP API');
 
       await driver.tap(depositButtonDashboard);
-      delay(2000);
       await driver.tap(exitPage);
       await driver.tap(depositButtonDashboard);
       await driver.waitFor(qrCodeTopUp);
