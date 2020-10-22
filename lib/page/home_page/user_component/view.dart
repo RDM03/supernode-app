@@ -121,18 +121,21 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                     children: <Widget>[
                       Spacer(),
                       PrimaryButton(
+                        key: Key('depositButtonDashboard'),
                         buttonTitle: FlutterI18n.translate(_ctx, 'deposit'),
                         onTap: () =>
                             dispatch(HomeActionCreator.onOperate('deposit')),
                       ),
                       Spacer(),
                       PrimaryButton(
+                        key: Key('withdrawButtonDashboard'),
                         buttonTitle: FlutterI18n.translate(_ctx, 'withdraw'),
                         onTap: () =>
                             dispatch(HomeActionCreator.onOperate('withdraw')),
                       ),
                       Spacer(),
                       PrimaryButton(
+                        key: Key('stakeButtonDashboard'),
                         buttonTitle: FlutterI18n.translate(_ctx, 'stake'),
                         onTap: () =>
                             dispatch(HomeActionCreator.onOperate('stake')),
@@ -146,6 +149,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
           ),
           panelFrame(
             child: summaryRow(
+              key: Key('totalGatewaysDashboard'),
               loading: !state.loadingMap.contains('gatewaysUSD'),
               image: AppImages.gateways,
               title: FlutterI18n.translate(_ctx, 'total_gateways'),
