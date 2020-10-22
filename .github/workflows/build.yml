@@ -1,4 +1,4 @@
-name: flutter build
+name: flutter pipeline
 on:
   push:
 
@@ -51,14 +51,28 @@ jobs:
 
   build_ios:
     name: Build flutter (IOS)
+    strategy:
+      matrix:
+        device:
+        - "iPhone 8 (13.7)"
+        - "iPhone 11 Pro Max (13.7)"
+      fail-fast: false
     runs-on: macos-latest
     steps:
+    - name: "List all simulators"
+      run: "xcrun instruments -s"
+    - name: "Start Simulator"
+      run: |
+        UDID=$(
+          xcrun instruments -s |
+          awk \
+            -F ' *[][]' \
+            -v 'device=${{ matrix.device }}' \
+            '$1 == device { print $2 }'
+        )
+        xcrun simctl boot "${UDID:?No Simulator with this name found}"
     - name: Checkout
       uses: actions/checkout@v1
-    - name: Setup Java
-      uses: actions/setup-java@v1
-      with:
-        java-version: '8.x' #https://github.com/subosito/flutter-action/issues/58
     - name: Setup subosito/flutter-action@v1
       uses: subosito/flutter-action@v1
       with:
@@ -80,6 +94,8 @@ jobs:
         echo "APPCENTER_TOKEN_ANDROID=${{ secrets.APPCENTER_TOKEN_ANDROID }}" >> assets/.env
         echo "APPCENTER_TOKEN_IOS=${{ secrets.APPCENTER_TOKEN_IOS }}" >> assets/.env
         echo "APPCENTER_APPID_IOS=${{ secrets.APPCENTER_APPID_IOS }}" >> assets/.env        
+    - name: "Run Flutter Driver tests"
+      run: "flutter drive --target=test_driver/app.dart"
     - name: Build IOS
       run: flutter build ios --release --no-codesign
     - name: Upload IPA
