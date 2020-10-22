@@ -1,4 +1,4 @@
-name: CI
+name: flutter build
 on:
   push:
 
@@ -42,7 +42,7 @@ jobs:
         APPCENTER_BUILD_ID: ${{ secrets.APPCENTER_BUILD_ID}}
         APPCENTER_KEYSTORE_PASSWORD: ${{ secrets.APPCENTER_KEYSTORE_PASSWORD}}
         APPCENTER_KEY_ALIAS: ${{ secrets.APPCENTER_KEY_ALIAS}}
-        APPCENTER_KEY_PASSWORD: ${{ secrets.APPCENTER_KEY_PASSWORD}
+        APPCENTER_KEY_PASSWORD: ${{ secrets.APPCENTER_KEY_PASSWORD}}
     - name: Upload APK
       uses: actions/upload-artifact@master
       with:
