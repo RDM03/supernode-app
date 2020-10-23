@@ -17,11 +17,11 @@ class Mining {
       data[realDate] = double.parse(item['amount']);
     }
 
-    final weekStartTemp = DateTime.now().add(Duration(days: -7));
+    final weekStartTemp = DateTime.now().add(Duration(days: -8));
     final weekStart =
         DateTime(weekStartTemp.year, weekStartTemp.month, weekStartTemp.day);
 
-    final futureDayTemp = DateTime.now().add(Duration(days: 1));
+    final futureDayTemp = DateTime.now().add(Duration(days: -1));
     final futureDay =
         DateTime(futureDayTemp.year, futureDayTemp.month, futureDayTemp.day);
 
