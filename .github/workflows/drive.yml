@@ -1,0 +1,39 @@
+name: flutter drive
+on:
+  pull_request:
+
+jobs:
+  drive_ios:
+    name: Drive flutter (IOS)
+    strategy:
+      matrix:
+        device:
+        - "iPhone SE (2nd generation) (14.1)"
+        - "iPhone 11 Pro Max (14.1)"
+      fail-fast: false
+    runs-on: self-hosted
+    steps:
+    - name: "List all simulators"
+      run: "xcrun instruments -s"
+    - name: "Start Simulator"
+      run: |
+        UDID=$(
+          xcrun instruments -s |
+          awk \
+            -F ' *[][]' \
+            -v 'device=${{ matrix.device }}' \
+            '$1 == device { print $2 }'
+        )
+        xcrun simctl boot "${UDID:?No Simulator with this name found}"
+      continue-on-error: true
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Clean workspace
+      run: flutter clean
+    - name: create env file
+      run: touch assets/.env
+    - name: "Run Flutter Driver tests"
+      run: "flutter drive --target=test_driver/app.dart"
+      env:
+        TESTING_USER: ${{ secrets.TESTING_USER }}
+        TESTING_PASSWORD: ${{ secrets.TESTING_PASSWORD }}
