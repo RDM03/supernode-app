@@ -27,4 +27,12 @@ class AppImages {
   //login
   static const String placeholder = "assets/images/login/placeholder.png";
   static const String email = 'assets/images/login/email.png';
+
+  //wallet
+  static const String infoMXCVault= 'assets/images/wallet/info-mxc-vault.png';
+  static const String infoCurrentTransactionFee= 'assets/images/wallet/info-current-transaction-fee.png';
+
+  //gateway
+  static const String infoDownlinkPrice= 'assets/images/gateway/info-downloadlink_price.png';
+
 }
