@@ -3,48 +3,6 @@ on:
   pull_request:
 
 jobs:
-  build_apk:
-    name: Build flutter (Android)
-    needs: build_ios
-    runs-on: self-hosted
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-    - name: Setup Java
-      uses: actions/setup-java@v1
-      with:
-        java-version: '8.x' #https://github.com/subosito/flutter-action/issues/58
-    - name: Setup subosito/flutter-action@v1
-      uses: subosito/flutter-action@v1
-      with:
-        flutter-version: '1.20'
-    - name: Clean workspace
-      run: flutter clean
-    #- name: Install NDK (workaround to https://github.com/gradle/gradle/issues/12440)
-     # run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;20.0.5594570" --sdk_root=${ANDROID_SDK_ROOT}
-    - name: create env file
-      run: |
-        touch assets/.env
-        echo "APPCENTER_BUILD_ID=${{ secrets.APPCENTER_BUILD_ID }}" > assets/.env
-        echo "APPCENTER_KEYSTORE_PASSWORD=${{ secrets.APPCENTER_KEYSTORE_PASSWORD }}" >> assets/.env
-        echo "APPCENTER_KEY_ALIAS=${{ secrets.APPCENTER_KEY_ALIAS }}" >> assets/.env
-        echo "APPCENTER_KEY_PASSWORD=${{ secrets.APPCENTER_KEY_PASSWORD }}" >> assets/.env
-        echo "JIRA_AUTH=${{ secrets.JIRA_AUTH }}" > assets/.env
-        echo "JIRA_PROJECT_KEY=${{ secrets.JIRA_PROJECT_KEY }}" >> assets/.env
-        echo "MAP_BOX_ACCESS_TOKEN=${{ secrets.MAP_BOX_ACCESS_TOKEN }}" >> assets/.env
-        echo "APPCENTER_SECRET_ANDROID=${{ secrets.APPCENTER_SECRET_ANDROID }}" >> assets/.env
-        echo "APPCENTER_SECRET_IOS=${{ secrets.APPCENTER_SECRET_IOS }}" > assets/.env
-        echo "APPCENTER_TOKEN_ANDROID=${{ secrets.APPCENTER_TOKEN_ANDROID }}" >> assets/.env
-        echo "APPCENTER_TOKEN_IOS=${{ secrets.APPCENTER_TOKEN_IOS }}" >> assets/.env
-        echo "APPCENTER_APPID_IOS=${{ secrets.APPCENTER_APPID_IOS }}" >> assets/.env        
-    - name: Build APK
-      run: flutter build apk --flavor prod
-      env:
-        APPCENTER_BUILD_ID: ${{ secrets.APPCENTER_BUILD_ID }}
-        APPCENTER_KEYSTORE_PASSWORD: ${{ secrets.APPCENTER_KEYSTORE_PASSWORD }}
-        APPCENTER_KEY_ALIAS: ${{ secrets.APPCENTER_KEY_ALIAS }}
-        APPCENTER_KEY_PASSWORD: ${{ secrets.APPCENTER_KEY_PASSWORD }}
-
   drive_ios:
     name: Drive flutter (IOS)
     strategy:
@@ -89,9 +47,8 @@ jobs:
 
   build_ios:
     name: Build flutter (IOS)
-    #needs: drive_ios
+    needs: drive_ios
     runs-on: self-hosted
     steps:
     - name: Trigger build thru appcenter API
-      run: 'curl -X POST "https://api.appcenter.ms/v0.1/apps/MXC-Foundation-gGmbH/DataDashIOS/branches/jeff%2FMMD-97%2FreTest/builds" -H  "accept: application/json" -H  "X-API-Token: ${{ secrets.APPCENTER_DATADASH_IOS }}" -H  "Content-Type: application/json" -d "{}"'
-
+      run: 'curl -X POST "https://api.appcenter.ms/v0.1/apps/MXC-Foundation-gGmbH/DataDashIOS/branches/master/builds" -H  "accept: application/json" -H  "X-API-Token: ${{ secrets.APPCENTER_DATADASH_IOS }}" -H  "Content-Type: application/json" -d "{}"'
