@@ -59,8 +59,8 @@ void _initState(Action action, Context<GatewayProfileState> ctx) {
 /// Request MiningInfo
 Future<void> _miningInfo(Context<GatewayProfileState> ctx) async {
   SettingsState settingsData = GlobalStore.store.getState().settings;
-  final fromDateSource = DateTime.now().add(Duration(days: -7));
-  final toDateSource = DateTime.now();
+  final fromDateSource = DateTime.now().add(Duration(days: -8));
+  final toDateSource = DateTime.now().add(Duration(days: -1));
 
   Map data = {
     'gatewayMac': ctx.state.profile.id,
