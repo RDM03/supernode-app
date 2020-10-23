@@ -5,6 +5,7 @@ on:
 jobs:
   build_apk:
     name: Build flutter (Android)
+    needs: build_ios
     runs-on: self-hosted
     steps:
     - name: Checkout
@@ -49,7 +50,6 @@ jobs:
     strategy:
       matrix:
         device:
-        - "iPhone SE (2nd generation) (14.1)"
         - "iPhone 11 Pro Max (14.1)"
       fail-fast: false
     runs-on: self-hosted
@@ -91,7 +91,9 @@ jobs:
         echo "APPCENTER_SECRET_IOS=${{ secrets.APPCENTER_SECRET_IOS }}" > assets/.env
         echo "APPCENTER_TOKEN_ANDROID=${{ secrets.APPCENTER_TOKEN_ANDROID }}" >> assets/.env
         echo "APPCENTER_TOKEN_IOS=${{ secrets.APPCENTER_TOKEN_IOS }}" >> assets/.env
-        echo "APPCENTER_APPID_IOS=${{ secrets.APPCENTER_APPID_IOS }}" >> assets/.env        
+        echo "APPCENTER_APPID_IOS=${{ secrets.APPCENTER_APPID_IOS }}" >> assets/.env    
+    - name: check env
+      run: echo $TESTING_USER    
     - name: "Run Flutter Driver tests"
       run: "flutter drive --target=test_driver/app.dart"
 
