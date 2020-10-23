@@ -2,11 +2,13 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
+import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/paragraph.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/page/subtitle.dart';
+import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_button.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
@@ -72,9 +74,9 @@ Widget buildView(
       children: [
         subtitle(FlutterI18n.translate(_ctx, 'current_transaction_fee')),
         GestureDetector(
-          onTap: () => _showInfoDialog(),
+          onTap: () => _showInfoDialog(_ctx),
           child: Padding(
-            padding: EdgeInsets.only(top: 30, left: s(5)),
+            padding: EdgeInsets.only(top: 30+s(5), bottom: s(5), left: s(5), right: s(5)),
             child: Image.asset(AppImages.questionCircle, height: s(20)),
           ),
         )
@@ -118,4 +120,32 @@ String _onValidAmount(
   return null;
 }
 
-void _showInfoDialog(){}
+void _showInfoDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return FullScreenDialog(
+        child: IosStyleBottomDialog2(
+            context: context,
+            child: Column(
+              children: [
+                Image.asset(AppImages.infoCurrentTransactionFee, height: s(80)),
+                Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: Text(
+                      FlutterI18n.translate(context, 'info_current_transaction_fee'),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: s(16),
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.center,
+                    )
+                ),
+              ],
+            )
+        ),
+      );
+    },
+  );
+}
