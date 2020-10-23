@@ -76,24 +76,7 @@ jobs:
     - name: Clean workspace
       run: flutter clean
     - name: Upgrade flutter
-      run: flutter upgrade
-    - name: create env file
-      run: |
-        touch assets/.env
-        echo "APPCENTER_BUILD_ID=${{ secrets.APPCENTER_BUILD_ID }}" > assets/.env
-        echo "APPCENTER_KEYSTORE_PASSWORD=${{ secrets.APPCENTER_KEYSTORE_PASSWORD }}" >> assets/.env
-        echo "APPCENTER_KEY_ALIAS=${{ secrets.APPCENTER_KEY_ALIAS }}" >> assets/.env
-        echo "APPCENTER_KEY_PASSWORD=${{ secrets.APPCENTER_KEY_PASSWORD }}" >> assets/.env
-        echo "JIRA_AUTH=${{ secrets.JIRA_AUTH }}" > assets/.env
-        echo "JIRA_PROJECT_KEY=${{ secrets.JIRA_PROJECT_KEY }}" >> assets/.env
-        echo "MAP_BOX_ACCESS_TOKEN=${{ secrets.MAP_BOX_ACCESS_TOKEN }}" >> assets/.env
-        echo "APPCENTER_SECRET_ANDROID=${{ secrets.APPCENTER_SECRET_ANDROID }}" >> assets/.env
-        echo "APPCENTER_SECRET_IOS=${{ secrets.APPCENTER_SECRET_IOS }}" > assets/.env
-        echo "APPCENTER_TOKEN_ANDROID=${{ secrets.APPCENTER_TOKEN_ANDROID }}" >> assets/.env
-        echo "APPCENTER_TOKEN_IOS=${{ secrets.APPCENTER_TOKEN_IOS }}" >> assets/.env
-        echo "APPCENTER_APPID_IOS=${{ secrets.APPCENTER_APPID_IOS }}" >> assets/.env    
-    - name: check env
-      run: echo $TESTING_USER    
+      run: flutter upgrade  
     - name: "Run Flutter Driver tests"
       run: "flutter drive --target=test_driver/app.dart"
 
@@ -111,21 +94,6 @@ jobs:
     - name: Clean workspace
       run: flutter clean
     - name: Upgrade flutter
-      run: flutter upgrade
-    - name: create env file
-      run: |
-        touch assets/.env
-        echo "APPCENTER_BUILD_ID=${{ secrets.APPCENTER_BUILD_ID }}" > assets/.env
-        echo "APPCENTER_KEYSTORE_PASSWORD=${{ secrets.APPCENTER_KEYSTORE_PASSWORD }}" >> assets/.env
-        echo "APPCENTER_KEY_ALIAS=${{ secrets.APPCENTER_KEY_ALIAS }}" >> assets/.env
-        echo "APPCENTER_KEY_PASSWORD=${{ secrets.APPCENTER_KEY_PASSWORD }}" >> assets/.env
-        echo "JIRA_AUTH=${{ secrets.JIRA_AUTH }}" > assets/.env
-        echo "JIRA_PROJECT_KEY=${{ secrets.JIRA_PROJECT_KEY }}" >> assets/.env
-        echo "MAP_BOX_ACCESS_TOKEN=${{ secrets.MAP_BOX_ACCESS_TOKEN }}" >> assets/.env
-        echo "APPCENTER_SECRET_ANDROID=${{ secrets.APPCENTER_SECRET_ANDROID }}" >> assets/.env
-        echo "APPCENTER_SECRET_IOS=${{ secrets.APPCENTER_SECRET_IOS }}" > assets/.env
-        echo "APPCENTER_TOKEN_ANDROID=${{ secrets.APPCENTER_TOKEN_ANDROID }}" >> assets/.env
-        echo "APPCENTER_TOKEN_IOS=${{ secrets.APPCENTER_TOKEN_IOS }}" >> assets/.env
-        echo "APPCENTER_APPID_IOS=${{ secrets.APPCENTER_APPID_IOS }}" >> assets/.env        
+      run: flutter upgrade    
     - name: Build IOS
       run: flutter build ios --release --no-codesign
