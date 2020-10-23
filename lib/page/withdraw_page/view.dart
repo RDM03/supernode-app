@@ -76,6 +76,7 @@ Widget buildView(
         GestureDetector(
           onTap: () => _showInfoDialog(_ctx),
           child: Padding(
+            key: Key("questionCircle"),
             padding: EdgeInsets.only(top: 30+s(5), bottom: s(5), left: s(5), right: s(5)),
             child: Image.asset(AppImages.questionCircle, height: s(20)),
           ),

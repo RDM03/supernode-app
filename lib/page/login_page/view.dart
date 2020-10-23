@@ -60,6 +60,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                             GestureDetector(
                               onTap: () => _showInfoDialog(_ctx),
                               child: Padding(
+                                key: Key("questionCircle"),
                                 padding: EdgeInsets.all(s(5)),
                                 child: Image.asset(AppImages.questionCircle, height: s(20)),
                               ),
