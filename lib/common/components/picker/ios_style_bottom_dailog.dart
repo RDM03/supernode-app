@@ -45,10 +45,10 @@ class IosButtonStyle {
 
 typedef OnItemClickListener = void Function(int index);
 
-/**
- * iOS style Bottom Dialog with list of buttons IosButtonStyle
- * and a separate Cancel button
- */
+///
+/// iOS style Bottom Dialog with list of buttons IosButtonStyle
+/// and a separate Cancel button by default
+///
 class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
   final int blueActionIndex;
   final List<IosButtonStyle> list;
@@ -177,9 +177,9 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
   }
 }
 
-/**
- * iOS style Bottom Dialog with UI defined by param child
- */
+///
+/// iOS style Bottom Dialog with UI defined by param child
+///
 class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
   final Widget child;
 
