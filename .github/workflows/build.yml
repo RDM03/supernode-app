@@ -50,6 +50,7 @@ jobs:
     strategy:
       matrix:
         device:
+        - "iPhone SE (2nd generation) (14.1)"
         - "iPhone 11 Pro Max (14.1)"
       fail-fast: false
     runs-on: self-hosted
