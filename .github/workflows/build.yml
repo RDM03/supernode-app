@@ -43,11 +43,6 @@ jobs:
         APPCENTER_KEYSTORE_PASSWORD: ${{ secrets.APPCENTER_KEYSTORE_PASSWORD}}
         APPCENTER_KEY_ALIAS: ${{ secrets.APPCENTER_KEY_ALIAS}}
         APPCENTER_KEY_PASSWORD: ${{ secrets.APPCENTER_KEY_PASSWORD}}
-    - name: Upload APK
-      uses: actions/upload-artifact@master
-      with:
-        name: apk-build
-        path: build/app/outputs/flutter-apk
 
   drive_ios:
     name: Drive flutter (IOS)
@@ -132,8 +127,3 @@ jobs:
         echo "APPCENTER_APPID_IOS=${{ secrets.APPCENTER_APPID_IOS }}" >> assets/.env        
     - name: Build IOS
       run: flutter build ios --release --no-codesign
-    - name: Upload IPA
-      uses: actions/upload-artifact@master
-      with:
-        name: ios-build
-        path: build/ios/iphoneos
