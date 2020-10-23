@@ -40,10 +40,10 @@ jobs:
     - name: Build APK
       run: flutter build apk --flavor prod
       env:
-        APPCENTER_BUILD_ID: ${{ secrets.APPCENTER_BUILD_ID}}
-        APPCENTER_KEYSTORE_PASSWORD: ${{ secrets.APPCENTER_KEYSTORE_PASSWORD}}
-        APPCENTER_KEY_ALIAS: ${{ secrets.APPCENTER_KEY_ALIAS}}
-        APPCENTER_KEY_PASSWORD: ${{ secrets.APPCENTER_KEY_PASSWORD}}
+        APPCENTER_BUILD_ID: ${{ secrets.APPCENTER_BUILD_ID }}
+        APPCENTER_KEYSTORE_PASSWORD: ${{ secrets.APPCENTER_KEYSTORE_PASSWORD }}
+        APPCENTER_KEY_ALIAS: ${{ secrets.APPCENTER_KEY_ALIAS }}
+        APPCENTER_KEY_PASSWORD: ${{ secrets.APPCENTER_KEY_PASSWORD }}
 
   drive_ios:
     name: Drive flutter (IOS)
@@ -83,6 +83,9 @@ jobs:
         touch assets/.env
     - name: "Run Flutter Driver tests"
       run: "flutter drive --target=test_driver/app.dart"
+      env:
+        TESTING_USER: ${{ secrets.TESTING_USER }}
+        TESTING_PASSWORD: ${{ secrets.TESTING_PASSWORD }}
 
   build_ios:
     name: Build flutter (IOS)
