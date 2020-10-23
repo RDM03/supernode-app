@@ -24,6 +24,7 @@ jobs:
             -v 'device=${{ matrix.device }}' \
             '$1 == device { print $2 }'
         )
+        xcrun simctl shutdown all
         xcrun simctl boot "${UDID:?No Simulator with this name found}"
       continue-on-error: true
     - name: Checkout
