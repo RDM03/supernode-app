@@ -28,6 +28,12 @@ jobs:
       continue-on-error: true
     - name: Checkout
       uses: actions/checkout@v1
+    - name: Setup subosito/flutter-action@v1
+      uses: subosito/flutter-action@v1
+      with:
+        channel: beta
+    - name: Upgrade flutter
+      run: flutter upgrade
     - name: Clean workspace
       run: flutter clean
     - name: create env file
