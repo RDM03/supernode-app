@@ -89,21 +89,9 @@ jobs:
 
   build_ios:
     name: Build flutter (IOS)
-    needs: drive_ios
+    #needs: drive_ios
     runs-on: self-hosted
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-    - name: Setup subosito/flutter-action@v1
-      uses: subosito/flutter-action@v1
-      with:
-        channel: beta
-    - name: Clean workspace
-      run: flutter clean
-    - name: Upgrade flutter
-      run: flutter upgrade
-    - name: create env file
-      run: |
-        touch assets/.env
-    - name: Build IOS
-      run: flutter build ios --release --no-codesign
+    - name: Trigger build thru appcenter API
+      run: 'curl -X POST "https://api.appcenter.ms/v0.1/apps/MXC-Foundation-gGmbH/DataDashIOS/branches/jeff%2FMMD-97%2FreTest/builds" -H  "accept: application/json" -H  "X-API-Token: ${{ secrets.APPCENTER_DATADASH_IOS }}" -H  "Content-Type: application/json" -d "{}"'
+
