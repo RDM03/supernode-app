@@ -66,7 +66,13 @@ void main() {
       }
     });
 
+    delay(5000);
+
     test('can login', () async {
+
+      await driver.waitUntilFirstFrameRasterized();
+
+      delay(5000);
 
       print('LOCATING THE MXC LOGO');
 
@@ -83,6 +89,7 @@ void main() {
       print('ALL TAPPED OUT, LETS SELECT THAT SERVER');
 
       await driver.tap(menuFinder);
+      delay(20);
       await driver.scrollUntilVisible(scrollMenu, mxcChinaFinder);
       await driver.tap(testServerFinder);
 
@@ -103,7 +110,7 @@ void main() {
 
       print('HOUSTON, WE ARE LOGGED IN');
 
-    });
+    }, timeout:Timeout(Duration(seconds: 60)));
 
     test('has top up address', () async {
 
@@ -118,7 +125,7 @@ void main() {
 
     }, timeout:Timeout(Duration(seconds: 60)));
 
-    test('can set stake', () async {
+/*    test('can set stake', () async {
 
       await driver.tap(stakeButtonDashboard);
       await driver.tap(stakeFlex);
@@ -133,6 +140,6 @@ void main() {
       await driver.tap(exitPage);
 
 
-    }, timeout:Timeout(Duration(seconds: 60)));
+    }, timeout:Timeout(Duration(seconds: 60)));*/
   });
 }
