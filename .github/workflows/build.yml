@@ -76,7 +76,10 @@ jobs:
     - name: Clean workspace
       run: flutter clean
     - name: Upgrade flutter
-      run: flutter upgrade  
+      run: flutter upgrade
+    - name: create env file
+      run: |
+        touch assets/.env
     - name: "Run Flutter Driver tests"
       run: "flutter drive --target=test_driver/app.dart"
 
@@ -94,6 +97,9 @@ jobs:
     - name: Clean workspace
       run: flutter clean
     - name: Upgrade flutter
-      run: flutter upgrade    
+      run: flutter upgrade
+    - name: create env file
+      run: |
+        touch assets/.env
     - name: Build IOS
       run: flutter build ios --release --no-codesign
