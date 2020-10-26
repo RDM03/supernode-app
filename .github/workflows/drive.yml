@@ -5,6 +5,7 @@ on:
 jobs:
   drive_ios:
     name: Drive flutter (IOS)
+    needs: drive_android
     strategy:
       matrix:
         device:
@@ -57,9 +58,7 @@ jobs:
     - name: "List all simulators"
       run: "/Users/runner/Library/Android/sdk/emulator/emulator -list-avds"
     - name: "Start Simulator"
-      run: |
-        UDID=$(/Users/runner/Library/Android/sdk/emulator/emulator -list-avds)
-        /Users/runner/Library/Android/sdk/emulator/emulator Pixel_3a_API_30 #FIXME: figure out how to add more avds, only launches one
+      run: /Users/runner/Library/Android/sdk/emulator/emulator Pixel_3a_API_30 #FIXME: figure out how to add more avds, only launches one
       continue-on-error: true
     - name: Checkout
       uses: actions/checkout@v1
