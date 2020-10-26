@@ -46,7 +46,12 @@ jobs:
         TESTING_PASSWORD: ${{ secrets.TESTING_PASSWORD }}
 
   drive_android:
-    name: drive flutter (Android)
+    name: Drive flutter (Android)
+    strategy:
+      matrix:
+        device:
+        - "Pixel_3a_API_30"
+      fail-fast: false
     runs-on: self-hosted
     steps:
     - name: "List all simulators"
