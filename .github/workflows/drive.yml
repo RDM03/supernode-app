@@ -84,6 +84,10 @@ jobs:
         echo "APPCENTER_TOKEN_ANDROID=${{ secrets.APPCENTER_TOKEN_ANDROID }}" >> assets/.env
         echo "APPCENTER_TOKEN_IOS=${{ secrets.APPCENTER_TOKEN_IOS }}" >> assets/.env
         echo "APPCENTER_APPID_IOS=${{ secrets.APPCENTER_APPID_IOS }}" >> assets/.env        
+    - name: Build APK
+      run: flutter build apk --flavor prod
+    - name: Copy apk to emulator
+      run: /Users/runner/Library/Android/sdk/platform-tools/adb install "build/app/outputs/flutter-apk/app-prod-release.apk
     - name: "Run Flutter Driver tests"
       run: "flutter drive --target=test_driver/app.dart"
       env:
