@@ -94,7 +94,7 @@ jobs:
     - name: Copy apk to emulator
       run: /Users/runner/Library/Android/sdk/platform-tools/adb install build/app/outputs/flutter-apk/app-prod-release.apk
     - name: "Run Flutter Driver tests"
-      run: "flutter drive --target=test_driver/app.dart"
+      run: "flutter drive --target=test_driver/app.dart --no-build --device-id emulator-5554"
       env:
         TESTING_USER: ${{ secrets.TESTING_USER }}
         TESTING_PASSWORD: ${{ secrets.TESTING_PASSWORD }}
