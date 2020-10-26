@@ -92,7 +92,7 @@ jobs:
         APPCENTER_KEY_ALIAS: ${{ secrets.APPCENTER_KEY_ALIAS}}
         APPCENTER_KEY_PASSWORD: ${{ secrets.APPCENTER_KEY_PASSWORD}}
     - name: Copy apk to emulator
-      run: /Users/runner/Library/Android/sdk/platform-tools/adb install "build/app/outputs/flutter-apk/app-prod-release.apk
+      run: /Users/runner/Library/Android/sdk/platform-tools/adb install build/app/outputs/flutter-apk/app-prod-release.apk
     - name: "Run Flutter Driver tests"
       run: "flutter drive --target=test_driver/app.dart"
       env:
