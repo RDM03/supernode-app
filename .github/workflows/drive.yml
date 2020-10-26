@@ -5,7 +5,6 @@ on:
 jobs:
   drive_ios:
     name: Drive flutter (IOS)
-    needs: drive_android
     strategy:
       matrix:
         device:
