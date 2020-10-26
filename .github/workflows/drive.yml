@@ -5,7 +5,6 @@ on:
 jobs:
   drive_ios:
     name: Drive flutter (IOS)
-    needs: drive_android
     strategy:
       matrix:
         device:
@@ -48,11 +47,7 @@ jobs:
 
   drive_android:
     name: drive flutter (Android)
-    strategy:
-      matrix:
-        device:
-        - "Pixel_3a_API_30"
-      fail-fast: false
+    needs: drive_ios
     runs-on: self-hosted
     steps:
     - name: "List all simulators"
@@ -60,7 +55,7 @@ jobs:
     - name: "Start adb-server"
       run: /Users/runner/Library/Android/sdk/platform-tools/adb start-server   
     - name: "Start Simulator"
-      run: /Users/runner/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_30 -no-audio -no-snapshot -nocache #FIXME: figure out how to add more avds, only launches one
+      run: /Users/runner/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_30 -no-audio -no-snapshot -nocache & #FIXME: figure out how to add more avds, only launches one
       continue-on-error: true
     - name: Checkout
       uses: actions/checkout@v1
