@@ -1,0 +1,98 @@
+name: flutter drive
+on:
+  pull_request:
+
+jobs:
+  drive_ios:
+    name: Drive flutter (IOS)
+    needs: drive_android
+    strategy:
+      matrix:
+        device:
+        - "iPhone SE (2nd generation) (14.1)"
+        - "iPhone 11 Pro Max (14.1)"
+      fail-fast: false
+    runs-on: self-hosted
+    steps:
+    - name: "List all simulators"
+      run: "xcrun instruments -s"
+    - name: "Start Simulator"
+      run: |
+        UDID=$(
+          xcrun instruments -s |
+          awk \
+            -F ' *[][]' \
+            -v 'device=${{ matrix.device }}' \
+            '$1 == device { print $2 }'
+        )
+        xcrun simctl shutdown all
+        xcrun simctl boot "${UDID:?No Simulator with this name found}"
+      continue-on-error: true
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Setup subosito/flutter-action@v1
+      uses: subosito/flutter-action@v1
+      with:
+        channel: beta
+    - name: Upgrade flutter
+      run: flutter upgrade
+    - name: Clean workspace
+      run: flutter clean
+    - name: create env file
+      run: touch assets/.env
+    - name: "Run Flutter Driver tests"
+      run: "flutter drive --target=test_driver/app.dart"
+      env:
+        TESTING_USER: ${{ secrets.TESTING_USER }}
+        TESTING_PASSWORD: ${{ secrets.TESTING_PASSWORD }}
+
+  drive_android:
+    name: drive flutter (Android)
+    strategy:
+      matrix:
+        device:
+        - "Pixel_3a_API_30"
+      fail-fast: false
+    runs-on: self-hosted
+    steps:
+    - name: "List all simulators"
+      run: "/Users/runner/Library/Android/sdk/emulator/emulator -list-avds"
+    - name: "Start Simulator"
+      run: /Users/runner/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_30 -no-audio -no-snapshot -nocache #FIXME: figure out how to add more avds, only launches one
+      continue-on-error: true
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Setup Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: '8.x' #https://github.com/subosito/flutter-action/issues/58
+    - name: Setup subosito/flutter-action@v1
+      uses: subosito/flutter-action@v1
+      with:
+        flutter-version: '1.20'
+    - name: Clean workspace
+      run: flutter clean
+    - name: create env file
+      run: |
+        touch assets/.env
+        echo "APPCENTER_BUILD_ID=${{ secrets.APPCENTER_BUILD_ID }}" > assets/.env
+        echo "APPCENTER_KEYSTORE_PASSWORD=${{ secrets.APPCENTER_KEYSTORE_PASSWORD }}" >> assets/.env
+        echo "APPCENTER_KEY_ALIAS=${{ secrets.APPCENTER_KEY_ALIAS }}" >> assets/.env
+        echo "APPCENTER_KEY_PASSWORD=${{ secrets.APPCENTER_KEY_PASSWORD }}" >> assets/.env
+        echo "JIRA_AUTH=${{ secrets.JIRA_AUTH }}" > assets/.env
+        echo "JIRA_PROJECT_KEY=${{ secrets.JIRA_PROJECT_KEY }}" >> assets/.env
+        echo "MAP_BOX_ACCESS_TOKEN=${{ secrets.MAP_BOX_ACCESS_TOKEN }}" >> assets/.env
+        echo "APPCENTER_SECRET_ANDROID=${{ secrets.APPCENTER_SECRET_ANDROID }}" >> assets/.env
+        echo "APPCENTER_SECRET_IOS=${{ secrets.APPCENTER_SECRET_IOS }}" > assets/.env
+        echo "APPCENTER_TOKEN_ANDROID=${{ secrets.APPCENTER_TOKEN_ANDROID }}" >> assets/.env
+        echo "APPCENTER_TOKEN_IOS=${{ secrets.APPCENTER_TOKEN_IOS }}" >> assets/.env
+        echo "APPCENTER_APPID_IOS=${{ secrets.APPCENTER_APPID_IOS }}" >> assets/.env        
+    - name: "Run Flutter Driver tests"
+      run: "flutter drive --target=test_driver/app.dart"
+      env:
+        TESTING_USER: ${{ secrets.TESTING_USER }}
+        TESTING_PASSWORD: ${{ secrets.TESTING_PASSWORD }}
+        APPCENTER_BUILD_ID: ${{ secrets.APPCENTER_BUILD_ID}}
+        APPCENTER_KEYSTORE_PASSWORD: ${{ secrets.APPCENTER_KEYSTORE_PASSWORD}}
+        APPCENTER_KEY_ALIAS: ${{ secrets.APPCENTER_KEY_ALIAS}}
+        APPCENTER_KEY_PASSWORD: ${{ secrets.APPCENTER_KEY_PASSWORD}}
