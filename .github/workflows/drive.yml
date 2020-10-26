@@ -86,17 +86,17 @@ jobs:
         echo "APPCENTER_TOKEN_ANDROID=${{ secrets.APPCENTER_TOKEN_ANDROID }}" >> assets/.env
         echo "APPCENTER_TOKEN_IOS=${{ secrets.APPCENTER_TOKEN_IOS }}" >> assets/.env
         echo "APPCENTER_APPID_IOS=${{ secrets.APPCENTER_APPID_IOS }}" >> assets/.env        
-    - name: Build APK
-      run: flutter build apk --flavor prod
-      env:
-        APPCENTER_BUILD_ID: ${{ secrets.APPCENTER_BUILD_ID}}
-        APPCENTER_KEYSTORE_PASSWORD: ${{ secrets.APPCENTER_KEYSTORE_PASSWORD}}
-        APPCENTER_KEY_ALIAS: ${{ secrets.APPCENTER_KEY_ALIAS}}
-        APPCENTER_KEY_PASSWORD: ${{ secrets.APPCENTER_KEY_PASSWORD}}
-    - name: Copy apk to emulator
-      run: /Users/runner/Library/Android/sdk/platform-tools/adb install build/app/outputs/flutter-apk/app-prod-release.apk
+    #- name: Build APK
+    #  run: flutter build apk --flavor prod
+    #  env:
+    #    APPCENTER_BUILD_ID: ${{ secrets.APPCENTER_BUILD_ID}}
+    #    APPCENTER_KEYSTORE_PASSWORD: ${{ secrets.APPCENTER_KEYSTORE_PASSWORD}}
+    #    APPCENTER_KEY_ALIAS: ${{ secrets.APPCENTER_KEY_ALIAS}}
+    #    APPCENTER_KEY_PASSWORD: ${{ secrets.APPCENTER_KEY_PASSWORD}}
+    #- name: Install apk on emulator
+    #  run: /Users/runner/Library/Android/sdk/platform-tools/adb install build/app/outputs/flutter-apk/app-prod-release.apk
     - name: "Run Flutter Driver tests"
-      run: "flutter drive --target=test_driver/app.dart --no-build --device-id emulator-5554"
+      run: "flutter drive --target=test_driver/app.dart --flavor prod --device-id emulator-5554"
       env:
         TESTING_USER: ${{ secrets.TESTING_USER }}
         TESTING_PASSWORD: ${{ secrets.TESTING_PASSWORD }}
