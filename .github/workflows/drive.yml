@@ -58,7 +58,7 @@ jobs:
     - name: "List all simulators"
       run: "/Users/runner/Library/Android/sdk/emulator/emulator -list-avds"
     - name: "Start Simulator"
-      run: /Users/runner/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_30 #FIXME: figure out how to add more avds, only launches one
+      run: /Users/runner/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_30 -noaudio -no-snapshot -nocache #FIXME: figure out how to add more avds, only launches one
       continue-on-error: true
     - name: Checkout
       uses: actions/checkout@v1
