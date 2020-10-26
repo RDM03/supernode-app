@@ -5,6 +5,7 @@ on:
 jobs:
   drive_ios:
     name: Drive flutter (IOS)
+    needs: drive_android
     strategy:
       matrix:
         device:
@@ -47,7 +48,6 @@ jobs:
 
   drive_android:
     name: drive flutter (Android)
-    needs: drive_ios
     runs-on: self-hosted
     steps:
     - name: "List all simulators"
