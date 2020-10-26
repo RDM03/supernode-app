@@ -57,6 +57,8 @@ jobs:
     steps:
     - name: "List all simulators"
       run: "/Users/runner/Library/Android/sdk/emulator/emulator -list-avds"
+    - name: "Start adb-server"
+      run: adb start-server   
     - name: "Start Simulator"
       run: /Users/runner/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_30 -no-audio -no-snapshot -nocache #FIXME: figure out how to add more avds, only launches one
       continue-on-error: true
