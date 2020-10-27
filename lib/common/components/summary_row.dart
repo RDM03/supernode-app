@@ -6,6 +6,7 @@ import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
 Widget summaryRow({
+  key,
   String image = '',
   String title = '',
   String subtitle = '',
@@ -52,6 +53,7 @@ Widget summaryRow({
           Text(
             subtitle,
             style: kSmallFontOfGrey,
+            key: key,
           ),
           loading
               ? loadingFlash(
