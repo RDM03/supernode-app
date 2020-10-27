@@ -10,12 +10,12 @@ jobs:
     runs-on: self-hosted
     steps:
     - name: Trigger build thru appcenter API
-      run: 'curl -X POST "https://api.appcenter.ms/v0.1/apps/MXC-Foundation-gGmbH/DataDashIOS/branches/jeff%2FMMD-97%2FreTest/builds" -H  "accept: application/json" -H  "X-API-Token: ${{ secrets.APPCENTER_DATADASH_IOS }}" -H  "Content-Type: application/json" -d "{}"'
+      run: 'curl -X POST "https://api.appcenter.ms/v0.1/apps/MXC-Foundation-gGmbH/DataDashIOS/branches/master/builds" -H  "accept: application/json" -H  "X-API-Token: ${{ secrets.APPCENTER_DATADASH_IOS }}" -H  "Content-Type: application/json" -d "{}"'
 
   build_apk:
     name: Build flutter (Android)
     runs-on: self-hosted
     steps:
     - name: Trigger build thru appcenter API
-      run: 'curl -X POST "https://api.appcenter.ms/v0.1/apps/MXC-Foundation-gGmbH/DataDashAndroid/branches/jeff%2FMMD-97%2FreTest/builds" -H  "accept: application/json" -H  "X-API-Token: ${{ secrets.APPCENTER_DATADASH_ANDROID }}" -H  "Content-Type: application/json" -d "{}"'
+      run: 'curl -X POST "https://api.appcenter.ms/v0.1/apps/MXC-Foundation-gGmbH/DataDashAndroid/branches/master/builds" -H  "accept: application/json" -H  "X-API-Token: ${{ secrets.APPCENTER_DATADASH_ANDROID }}" -H  "Content-Type: application/json" -d "{}"'
             
