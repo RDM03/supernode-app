@@ -326,6 +326,7 @@ void _showInfoDialog(BuildContext context) {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: Text(FlutterI18n.translate(context, 'info_supernode'),
+                      key: ValueKey("helpText"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: s(16),

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 import 'package:dotenv/dotenv.dart' show load, env;
@@ -26,6 +27,7 @@ void main() {
     final testServerFinder = find.byValueKey('MXCbuild');
     final scrollMenu = find.byValueKey('scrollMenu');
     final mxcChinaFinder = find.byValueKey('MXCChina');
+    final questionCircle = find.byValueKey('questionCircle');
 
     // Dashboard
 
@@ -74,6 +76,14 @@ void main() {
 
       delay(5000);
 
+      print('CLICK QUESTION CIRCLE');
+
+      await driver.waitFor(questionCircle);
+      await driver.tap(questionCircle);
+      var helpText = find.byValueKey("helpText");
+      //find solution for testing all languages
+      expect(driver.getText(helpText), "Please connect to a Supernode closest to your geographical region");
+
       print('LOCATING THE MXC LOGO');
 
       await driver.waitFor(logoFinder);
@@ -112,20 +122,40 @@ void main() {
 
     }, timeout:Timeout(Duration(seconds: 60)));
 
-    test('has top up address', () async {
+    // test('has top up address', () async {
+    //
+    //   print('CHECKING TOP-UP API');
+    //   await driver.tap(depositButtonDashboard);
+    //   await driver.tap(exitPage);
+    //   await driver.tap(depositButtonDashboard);
+    //   await driver.waitFor(qrCodeTopUp);
+    //   expect(await driver.getText(ethAddressTopUp), '0x9bfd604ef6cbfdca05e9eae056bc465c570c09e8');
+    //   await driver.tap(exitPage);
+    //
+    // }, timeout:Timeout(Duration(seconds: 60)));
 
-      print('CHECKING TOP-UP API');
-
-      await driver.tap(depositButtonDashboard);
-      await driver.tap(exitPage);
-      await driver.tap(depositButtonDashboard);
-      await driver.waitFor(qrCodeTopUp);
-      expect(await driver.getText(ethAddressTopUp), '0x9bfd604ef6cbfdca05e9eae056bc465c570c09e8');
-      await driver.tap(exitPage);
-
+    test('can withdraw', () async {
+      print('CHECKING ? BUTTON');
+      await driver.waitFor(questionCircle);
+      await driver.tap(questionCircle);
+      var helpText = find.byValueKey("helpText");
+      //find solution for testing all languages
+      expect(driver.getText(helpText), "You must ensure you have at least this fee amount in order to cover costs");
     }, timeout:Timeout(Duration(seconds: 60)));
+    //complete withdraw test
 
-/*    test('can set stake', () async {
+
+
+    test('can set stake', () async {
+      /*
+      Not clickable yet
+      print('CHECKING ? BUTTON');
+      await driver.waitFor(questionCircle);
+      await driver.tap(questionCircle);
+      var helpText = find.byValueKey("helpText");
+      //find solution for testing all language
+      expect(driver.getText(helpText), "");
+       */
 
       await driver.tap(stakeButtonDashboard);
       await driver.tap(stakeFlex);
@@ -140,6 +170,6 @@ void main() {
       await driver.tap(exitPage);
 
 
-    }, timeout:Timeout(Duration(seconds: 60)));*/
+    }, timeout:Timeout(Duration(seconds: 60)));
   });
 }
