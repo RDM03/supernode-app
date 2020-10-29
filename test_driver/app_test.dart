@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 import 'package:dotenv/dotenv.dart' show load, env;
@@ -6,6 +5,15 @@ import 'package:dotenv/dotenv.dart' show load, env;
 
 Future<void> delay([int milliseconds = 250]) async {
   await Future<void>.delayed(Duration(milliseconds: milliseconds));
+}
+
+isPresent(SerializableFinder byValueKey, FlutterDriver driver, {Duration timeout = const Duration(seconds: 20)}) async {
+  try {
+    await driver.waitFor(byValueKey,timeout: timeout);
+    return true;
+  } catch(exception) {
+    return false;
+  }
 }
 
 void main() {
@@ -75,18 +83,22 @@ void main() {
       await driver.waitUntilFirstFrameRasterized();
 
       delay(5000);
+      print('LOCATING THE MXC LOGO');
+
+      await driver.waitFor(logoFinder);
 
       print('CLICK QUESTION CIRCLE');
 
       await driver.waitFor(questionCircle);
       await driver.tap(questionCircle);
-      var helpText = find.byValueKey("helpText");
       //find solution for testing all languages
-      expect(driver.getText(helpText), "Please connect to a Supernode closest to your geographical region");
-
-      print('LOCATING THE MXC LOGO');
-
+      delay(5000);
+      var isExists = await isPresent(find.byValueKey('helpText'), driver);
+      expect(isExists, true);
+      delay(5000);
       await driver.waitFor(logoFinder);
+      //not sure how to click something that isn't labelled so the you must close the help box manually for now
+
 
       print('LOADED, BEGINNING THE TAP');
 
@@ -135,13 +147,21 @@ void main() {
     // }, timeout:Timeout(Duration(seconds: 60)));
 
     test('can withdraw', () async {
-      print('CHECKING ? BUTTON');
-      await driver.waitFor(questionCircle);
-      await driver.tap(questionCircle);
-      var helpText = find.byValueKey("helpText");
-      //find solution for testing all languages
-      expect(driver.getText(helpText), "You must ensure you have at least this fee amount in order to cover costs");
+          print('NAVIGATE TO WITHDRAW');
+          await driver.waitFor(withdrawButtonDashboard);
+          await driver.tap(withdrawButtonDashboard);
+          print('CHECKING ? BUTTON');
+          await driver.waitFor(questionCircle);
+          await driver.tap(questionCircle);
+          delay(5000);
+          var isExists = await isPresent(find.byValueKey('helpText'), driver);
+          expect(isExists, true);
+          delay(5000);
+          await driver.waitFor(logoFinder);
+          //not sure how to click something that isn't labelled so the you must close the help box manually for now
     }, timeout:Timeout(Duration(seconds: 60)));
+
+
     //complete withdraw test
 
 
@@ -152,9 +172,12 @@ void main() {
       print('CHECKING ? BUTTON');
       await driver.waitFor(questionCircle);
       await driver.tap(questionCircle);
-      var helpText = find.byValueKey("helpText");
-      //find solution for testing all language
-      expect(driver.getText(helpText), "");
+      delay(5000);
+      var isExists = await isPresent(find.byValueKey('helpText'), driver);
+      expect(isExists, true);
+      delay(5000);
+      await driver.waitFor(logoFinder);
+      //not sure how to click something that isn't labelled so the you must close the help box manually for now
        */
 
       await driver.tap(stakeButtonDashboard);

@@ -135,6 +135,7 @@ void _showInfoDialog(BuildContext context) {
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Text(
                       FlutterI18n.translate(context, 'info_current_transaction_fee'),
+                      key: ValueKey('helpText'),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: s(16),
