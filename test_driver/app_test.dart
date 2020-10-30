@@ -86,6 +86,17 @@ void main() {
 
     delay(5000);
 
+    test('login help bubble works', () async {
+      print('CLICK QUESTION CIRCLE');
+      await driver.waitFor(questionCircle);
+      await driver.tap(questionCircle);
+      // find solution for testing all languages
+      await driver.waitFor(helpTextFinder);
+      final helpTextExists = await isPresent(helpTextFinder, driver);
+      expect(helpTextExists, true);
+      // Needs exit
+    });
+
     test('can login', () async {
 
       await driver.waitUntilFirstFrameRasterized();
@@ -95,15 +106,7 @@ void main() {
 
       await driver.waitFor(logoFinder);
 
-      // print('CLICK QUESTION CIRCLE');
-      //
-      // await driver.waitFor(questionCircle);
-      // await driver.tap(questionCircle);
-      // // find solution for testing all languages
-      // await driver.waitFor(helpTextFinder);
-      // final helpTextExists = await isPresent(helpTextFinder, driver);
-      // expect(helpTextExists, true);
-      // // Needs exit
+
 
       print('LOADED, BEGINNING THE TAP');
 
@@ -159,7 +162,7 @@ void main() {
     //       await driver.waitFor(questionCircle);
     //       await driver.tap(questionCircle);
     //       delay(5000);
-    //       var isExists = await isPresent(find.byValueKey('helpText'), driver);
+    //       var isExists = await isPresent(helpTextFinder, driver);
     //       expect(isExists, true);
     //       delay(5000);
     //       await driver.waitFor(logoFinder);
@@ -170,7 +173,7 @@ void main() {
     //complete withdraw test
 
 
-
+// Staking Test doesn't Work
     test('can set stake', () async {
       /*
       Not clickable yet
@@ -201,6 +204,7 @@ void main() {
     }, timeout:Timeout(Duration(seconds: 60)));
 
 
+    // Logout Test Works
     test('can logout', () async {
       await driver.tap(settingsButtonDashboard);
       await driver.tap(logoutFinder);
