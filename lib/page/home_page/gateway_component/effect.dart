@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:supernodeapp/common/components/loading.dart';
+import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/demo/gateways_dao.dart';
 import 'package:supernodeapp/common/daos/gateways_dao.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
@@ -17,6 +19,7 @@ Effect<GatewayState> buildEffect() {
     Lifecycle.initState: _initState,
     GatewayAction.onAdd: _onAddAction,
     GatewayAction.onProfile: _onProfile,
+    GatewayAction.onDelete: _onDelete,
     GatewayAction.onLoadPage: _onLoadPage,
   });
 }
@@ -56,6 +59,30 @@ void _onProfile(Action action, Context<GatewayState> ctx) {
           return ctx.buildComponent('profile');
         }),
   );
+}
+
+void _onDelete(Action action, Context<GatewayState> ctx) async {
+  GatewayItemState data = action.payload;
+  String id = data.id;
+  GatewaysDao dao = GatewaysDao();
+
+  dao.deleteGateway(id).then((res) {
+    if(res.isEmpty) {
+      //reload gateways
+      ctx.dispatch(HomeActionCreator.onGateways());
+    }
+    Scaffold
+        .of(ctx.context)
+        .showSnackBar(
+        SnackBar(
+            content: Text( res.isEmpty?"${data.name} deleted":"Deleting gateway failed: ${res["message"]}")));
+  }).catchError((err) {
+    Scaffold
+        .of(ctx.context)
+        .showSnackBar(
+        SnackBar(
+            content: Text('Deleting gateway failed: $err')));
+  });
 }
 
 void _onLoadPage(Action action, Context<GatewayState> ctx) async {

@@ -1,16 +1,19 @@
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pagination_view/pagination_view.dart';
 import 'package:supernodeapp/common/components/app_bars/home_bar.dart';
+import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/common/components/empty.dart';
 import 'package:supernodeapp/common/components/loading_list.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
+import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/page/home_page/gateway_component/item_state.dart';
@@ -95,10 +98,51 @@ class _GatewaysListState extends State<GatewaysList> {
   Widget build(BuildContext context) {
     return PaginationView<GatewayItemState>(
       itemBuilder: (BuildContext context, GatewayItemState state, int index) =>
-          GatewayListTile(
-        state: state,
-        onTap: () => dispatch(GatewayActionCreator.onProfile(state)),
-      ),
+          Slidable(
+            key: Key("slide_gateway$index"),
+            actionPane: SlidableDrawerActionPane(),//SlidableBehindActionPane
+            actionExtentRatio: 0.25,
+            child: GatewayListTile(
+              state: state,
+              onTap: () => dispatch(GatewayActionCreator.onProfile(state)),
+            ),
+            secondaryActions: <Widget>[
+              IconSlideAction(
+                key: ValueKey("delete_gateway_button$index"),
+                caption: FlutterI18n.translate(context, 'delete'),
+                color: Colors.red,
+                icon: Icons.delete,
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext ctx) {
+                      var lst = List<IosButtonStyle>();
+                      lst.add(IosButtonStyle(
+                          title: FlutterI18n.translate(context, 'confirm_deleting_miner_title'),
+                          style:kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600)));
+                      lst.add(IosButtonStyle(
+                          title: FlutterI18n.translate(context, 'confirm_deleting_miner_message')));
+                      lst.add(IosButtonStyle(
+                          title: FlutterI18n.translate(context, 'delete_miner'),
+                          style:kBigFontOfBlack.copyWith(color:Colors.red)));
+                      return FullScreenDialog(
+                        child: IosStyleBottomDialog(
+                          context: context,
+                          blueActionIndex: 0,
+                          list: lst,
+                          onItemClickListener: (itemIndex) {
+                            if(itemIndex == lst.length-1) {
+                              dispatch(GatewayActionCreator.onDelete(state));
+                            }
+                          }
+                        ),
+                      );
+                    },
+                  );
+                },
+              )
+            ],
+          ),
       pageFetch: (page) {
         final completer = Completer<List<GatewayItemState>>();
         dispatch(GatewayActionCreator.onLoadPage(page, completer));
