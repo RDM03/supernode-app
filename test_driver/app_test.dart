@@ -58,6 +58,10 @@ void main() {
     final stakeButton = find.byValueKey('stakeButton');
     final submitButtonTimeout = find.byValueKey('submitButtonTimeout');
 
+    // Question Circles
+
+    final helpTextFinder = find.byValueKey('helpText');
+
 
     FlutterDriver driver;
 
@@ -87,18 +91,15 @@ void main() {
 
       await driver.waitFor(logoFinder);
 
-      print('CLICK QUESTION CIRCLE');
-
-      await driver.waitFor(questionCircle);
-      await driver.tap(questionCircle);
-      //find solution for testing all languages
-      delay(5000);
-      var isExists = await isPresent(find.byValueKey('helpText'), driver);
-      expect(isExists, true);
-      delay(5000);
-      await driver.waitFor(logoFinder);
-      //not sure how to click something that isn't labelled so the you must close the help box manually for now
-
+      // print('CLICK QUESTION CIRCLE');
+      //
+      // await driver.waitFor(questionCircle);
+      // await driver.tap(questionCircle);
+      // // find solution for testing all languages
+      // await driver.waitFor(helpTextFinder);
+      // final helpTextExists = await isPresent(helpTextFinder, driver);
+      // expect(helpTextExists, true);
+      // // Needs exit
 
       print('LOADED, BEGINNING THE TAP');
 
@@ -111,7 +112,7 @@ void main() {
       print('ALL TAPPED OUT, LETS SELECT THAT SERVER');
 
       await driver.tap(menuFinder);
-      delay(20);
+      delay(2000);
       await driver.scrollUntilVisible(scrollMenu, mxcChinaFinder);
       await driver.tap(testServerFinder);
 
@@ -146,20 +147,20 @@ void main() {
     //
     // }, timeout:Timeout(Duration(seconds: 60)));
 
-    test('can withdraw', () async {
-          print('NAVIGATE TO WITHDRAW');
-          await driver.waitFor(withdrawButtonDashboard);
-          await driver.tap(withdrawButtonDashboard);
-          print('CHECKING ? BUTTON');
-          await driver.waitFor(questionCircle);
-          await driver.tap(questionCircle);
-          delay(5000);
-          var isExists = await isPresent(find.byValueKey('helpText'), driver);
-          expect(isExists, true);
-          delay(5000);
-          await driver.waitFor(logoFinder);
-          //not sure how to click something that isn't labelled so the you must close the help box manually for now
-    }, timeout:Timeout(Duration(seconds: 60)));
+    // test('can withdraw', () async {
+    //       print('NAVIGATE TO WITHDRAW');
+    //       await driver.waitFor(withdrawButtonDashboard);
+    //       await driver.tap(withdrawButtonDashboard);
+    //       print('CHECKING ? BUTTON');
+    //       await driver.waitFor(questionCircle);
+    //       await driver.tap(questionCircle);
+    //       delay(5000);
+    //       var isExists = await isPresent(find.byValueKey('helpText'), driver);
+    //       expect(isExists, true);
+    //       delay(5000);
+    //       await driver.waitFor(logoFinder);
+    //       //not sure how to click something that isn't labelled so the you must close the help box manually for now
+    // }, timeout:Timeout(Duration(seconds: 60)));
 
 
     //complete withdraw test
@@ -194,5 +195,16 @@ void main() {
 
 
     }, timeout:Timeout(Duration(seconds: 60)));
+
+
+    test('can logout', () async {
+
+
+    });
+
+
+
   });
+
+
 }
