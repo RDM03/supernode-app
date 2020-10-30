@@ -106,8 +106,6 @@ void main() {
 
       await driver.waitFor(logoFinder);
 
-
-
       print('LOADED, BEGINNING THE TAP');
 
       for (var i = 0; i < 7; i++) {
