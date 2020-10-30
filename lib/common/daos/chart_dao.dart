@@ -13,17 +13,17 @@ class Mining {
     for (final item in source) {
       final sourceDate = DateTime.parse(item['date']);
       final realDate =
-          DateTime(sourceDate.year, sourceDate.month, sourceDate.day);
+          DateTime.utc(sourceDate.year, sourceDate.month, sourceDate.day);
       data[realDate] = double.parse(item['amount']);
     }
 
     final weekStartTemp = DateTime.now().add(Duration(days: -7));
     final weekStart =
-        DateTime(weekStartTemp.year, weekStartTemp.month, weekStartTemp.day);
+        DateTime.utc(weekStartTemp.year, weekStartTemp.month, weekStartTemp.day);
 
     final futureDayTemp = DateTime.now().add(Duration(days: 1));
     final futureDay =
-        DateTime(futureDayTemp.year, futureDayTemp.month, futureDayTemp.day);
+        DateTime.utc(futureDayTemp.year, futureDayTemp.month, futureDayTemp.day);
 
     for (var i = weekStart;
         i.isBefore(futureDay);
