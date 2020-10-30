@@ -36,6 +36,7 @@ Widget buildView(DepositState state, Dispatch dispatch, ViewService viewService)
               child: state.address.isEmpty ?
               loading(isSmall: true) :
               QrImage(
+                key: Key('qrCodeTopUp'),
                 data: state.address,
                 version: QrVersions.auto,
                 size: 240.0,
@@ -46,6 +47,7 @@ Widget buildView(DepositState state, Dispatch dispatch, ViewService viewService)
               state.address,
               textAlign: TextAlign.center,
               style: kMiddleFontOfGrey,
+              key: Key('ethAddressTopUp'),
             )
           ],
         ),

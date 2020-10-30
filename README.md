@@ -11,7 +11,7 @@ Mobile app used to interact with MXC Supernodes.
 
 ## Using Visual Studio Code
 
-you can install `fish-redux-template` of the extension in the Visual Studio code, which it is very convenient to create relative code files.
+You can install `fish-redux-template` of the extension in the Visual Studio code, which it is very convenient to create relative code files.
 
 Select a fold and right click and then it will display some menus: `Generate Adapter Template`,`Generate Component Template`,`Generate Page Template`.
 
@@ -24,6 +24,18 @@ The `prod` and `play` represent the name of channel distribution. The `prod` is 
 # Environment setup
 - Follow [flutter get-started](https://flutter.dev/docs/get-started/install) to setup flutter and Android Studio
 - Add this project to Android Studio
+- Create assets/.env file with following content:
+```
+JIRA_AUTH=${JIRA_AUTH}
+JIRA_PROJECT_KEY=${JIRA_PROJECT_KEY}
+MAP_BOX_ACCESS_TOKEN=${MAP_BOX_ACCESS_TOKEN}
+APPCENTER_SECRET_ANDROID=${APPCENTER_SECRET_ANDROID}
+APPCENTER_SECRET_IOS=${APPCENTER_SECRET_IOS}
+APPCENTER_TOKEN_ANDROID=${APPCENTER_TOKEN_ANDROID}
+APPCENTER_TOKEN_IOS=${APPCENTER_TOKEN_IOS}
+APPCENTER_APPID_IOS=${APPCENTER_APPID_IOS}
+```
+JIRA_AUTH is 'email:token' encoded in base64
 
 # When building locally (eg. not in appcenter)
 - update the variables in .env file and execute it to add them to your env variables

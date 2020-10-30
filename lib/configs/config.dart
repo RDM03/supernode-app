@@ -1,3 +1,5 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class Config {
   static const bool DEBUG = true;
   static const String TOKEN_KEY = "jwt";
@@ -6,11 +8,10 @@ class Config {
   static const String USERNAME_KEY = 'username';
   static const String PASSWORD_KEY = 'password';
   static const String API_ROOT = 'api_root';
-  static const String MAP_BOX_ACCESS_TOKEN =
-      "pk.eyJ1Ijoidm90ZXIiLCJhIjoiY2tiZjhzMG12MHQwZjMxdWZoOXB6aXliaCJ9.ow8x2P3JMAV6-UaWd0cYyA";
   static const double BLUE_PRINT_WIDTH = 375;
   static const double BLUE_PRINT_HEIGHT = 812;
-  static const String JIRA_PROJECT_KEY = 'MMA';
-  static const String JIRA_AUTH =
-      'dGVzdEBteGMub3JnOmR0OXJ0NHZBWkZPWWRhVXFsdVlmNjRGQQ==';
+  static final String JIRA_PROJECT_KEY = DotEnv().env['JIRA_PROJECT_KEY'];
+  static final String JIRA_AUTH = DotEnv().env['JIRA_AUTH'];
+  static final String MAP_BOX_ACCESS_TOKEN =
+      DotEnv().env['MAP_BOX_ACCESS_TOKEN'];
 }

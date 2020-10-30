@@ -100,7 +100,7 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
       if (!res) return;
       ctx.state.scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text(
-          err,
+          err?.message ?? FlutterI18n.translate(ctx.context,'error_tip'),
           style: Theme.of(ctx.context)
               .textTheme
               .bodyText1
