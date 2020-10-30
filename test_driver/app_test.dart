@@ -1,17 +1,17 @@
+import 'package:dotenv/dotenv.dart' show load, env;
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
-import 'package:dotenv/dotenv.dart' show load, env;
-
 
 Future<void> delay([int milliseconds = 250]) async {
   await Future<void>.delayed(Duration(milliseconds: milliseconds));
 }
 
-isPresent(SerializableFinder byValueKey, FlutterDriver driver, {Duration timeout = const Duration(seconds: 20)}) async {
+isPresent(SerializableFinder byValueKey, FlutterDriver driver,
+    {Duration timeout = const Duration(seconds: 20)}) async {
   try {
-    await driver.waitFor(byValueKey,timeout: timeout);
+    await driver.waitFor(byValueKey, timeout: timeout);
     return true;
-  } catch(exception) {
+  } catch (exception) {
     return false;
   }
 }
@@ -20,7 +20,6 @@ void main() {
   load();
 
   group('Supernode App', () {
-
     // All-Purpose
 
     final exitPage = find.byValueKey('navActionButton');
@@ -56,8 +55,9 @@ void main() {
 
     final stakeFlex = find.byValueKey('stakeFlex');
     final stakeAmount = find.byValueKey('stakeAmount');
-    final stakeButton = find.byValueKey('stakeButton');
-    final submitButtonTimeout = find.byValueKey('submitButtonTimeout');
+    final submitButton = find.byValueKey('submitButton');
+    final backButtonFinder = find.byValueKey('backButton');
+    final successIconFinder = find.byValueKey('successIcon');
 
     // Question Circles
 
@@ -65,7 +65,6 @@ void main() {
 
     // Settings
     final logoutFinder = find.byValueKey('logout');
-
 
     FlutterDriver driver;
 
@@ -84,32 +83,27 @@ void main() {
       }
     });
 
-    delay(5000);
-
-    test('login help bubble works', () async {
-
-      await driver.waitUntilFirstFrameRasterized();
-
-      delay(5000);
-      print('LOCATING THE MXC LOGO');
-
-      await driver.waitFor(logoFinder);
-
-      print('CLICK QUESTION CIRCLE');
-      await driver.waitFor(questionCircle);
-      await driver.tap(questionCircle);
-      // find solution for testing all languages
-      await driver.waitFor(helpTextFinder);
-      final helpTextExists = await isPresent(helpTextFinder, driver);
-      expect(helpTextExists, true);
-      // Needs exit
-    });
+    // test('login help bubble works', () async {
+    //   await driver.waitUntilFirstFrameRasterized();
+    //
+    //   delay(5000);
+    //   print('LOCATING THE MXC LOGO');
+    //
+    //   await driver.waitFor(logoFinder);
+    //
+    //   print('CLICK QUESTION CIRCLE');
+    //   await driver.waitFor(questionCircle);
+    //   await driver.tap(questionCircle);
+    //   // find solution for testing all languages
+    //   await driver.waitFor(helpTextFinder);
+    //   final helpTextExists = await isPresent(helpTextFinder, driver);
+    //   expect(helpTextExists, true);
+    //   // Needs exit
+    // });
 
     test('can login', () async {
-
       await driver.waitUntilFirstFrameRasterized();
 
-      delay(5000);
       print('LOCATING THE MXC LOGO');
 
       await driver.waitFor(logoFinder);
@@ -125,7 +119,6 @@ void main() {
       print('ALL TAPPED OUT, LETS SELECT THAT SERVER');
 
       await driver.tap(menuFinder);
-      delay(2000);
       await driver.scrollUntilVisible(scrollMenu, mxcChinaFinder);
       await driver.tap(testServerFinder);
 
@@ -145,8 +138,7 @@ void main() {
       expect(await driver.getText(totalGatewaysDashboard), 'Revenue');
 
       print('HOUSTON, WE ARE LOGGED IN');
-
-    }, timeout:Timeout(Duration(seconds: 60)));
+    }, timeout: Timeout(Duration(seconds: 60)));
 
     // test('has top up address', () async {
     //
@@ -175,42 +167,57 @@ void main() {
     //       //not sure how to click something that isn't labelled so the you must close the help box manually for now
     // }, timeout:Timeout(Duration(seconds: 60)));
 
-
     //complete withdraw test
 
-
 // Staking Test doesn't Work
-//     test('can set stake', () async {
-//       /*
-//       Not clickable yet
-//       print('CHECKING ? BUTTON');
-//       await driver.waitFor(questionCircle);
-//       await driver.tap(questionCircle);
-//       delay(5000);
-//       var isExists = await isPresent(find.byValueKey('helpText'), driver);
-//       expect(isExists, true);
-//       delay(5000);
-//       await driver.waitFor(logoFinder);
-//       //not sure how to click something that isn't labelled so the you must close the help box manually for now
-//        */
-//
-//       await driver.tap(stakeButtonDashboard);
-//       await driver.tap(stakeFlex);
-//       await driver.tap(stakeAmount);
-//       await driver.enterText('20');
-//       await driver.waitFor(find.text('20'));
-//       await driver.tap(stakeButton);
-//       await driver.waitFor(find.text('(0)'));
-//       await delay(200);
-//       await driver.waitFor(submitButtonTimeout);
-//       await driver.tap(submitButtonTimeout);
-//       await driver.tap(exitPage);
-//
-//
-//     }, timeout:Timeout(Duration(seconds: 60)));
+    test('can set stake', () async {
+      await driver.waitUntilFirstFrameRasterized();
 
+      /*
+      Not clickable yet
+      print('CHECKING ? BUTTON');
+      await driver.waitFor(questionCircle);
+      await driver.tap(questionCircle);
+      delay(5000);
+      var isExists = await isPresent(find.byValueKey('helpText'), driver);
+      expect(isExists, true);
+      delay(5000);
+      await driver.waitFor(logoFinder);
+      //not sure how to click something that isn't labelled so the you must close the help box manually for now
+       */
 
-    // Logout Test Works
+      await driver.tap(stakeButtonDashboard);
+      print('tapped stake button');
+      await driver.waitUntilNoTransientCallbacks();
+      await driver.tap(stakeFlex);
+      for (var pageChanged = await isPresent(stakeAmount, driver);
+          pageChanged == false;
+          pageChanged = await isPresent(stakeAmount, driver)) {
+        print('page not changed, tapping again');
+        await driver.tap(stakeFlex);
+      }
+      print('tapped stakeFlex');
+      await driver.tap(stakeAmount);
+      print('tapped stake amount');
+      await driver.enterText('20');
+      print('entered 20');
+      await driver.waitFor(find.text('20'));
+      print('20 is there');
+      await driver.tap(submitButton);
+      print('tapped stake button');
+      await delay(31000);
+      await driver.tap(submitButton);
+      print('Waited for the countdown, and proceeded anyways');
+      expect(await isPresent(successIconFinder, driver), true);
+      await driver.tap(exitPage);
+      print('tapped exit page');
+      await driver.tap(exitPage);
+      print('tapped exit page');
+      await driver.tap(backButtonFinder);
+      print(
+          'current page is ${await isPresent(depositButtonDashboard, driver) ? "Home" : "Not home, we're lost"}');
+    }, timeout: Timeout(Duration(seconds: 600)));
+
     test('can logout', () async {
       await driver.tap(settingsButtonDashboard);
       await driver.tap(logoutFinder);
@@ -218,10 +225,5 @@ void main() {
       final logoIsPresent = await isPresent(logoFinder, driver);
       expect(logoIsPresent, true);
     });
-
-
-
   });
-
-
 }

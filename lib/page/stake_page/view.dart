@@ -6,9 +6,9 @@ import 'package:supernodeapp/common/components/page/link.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
+import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
-import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -32,6 +32,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
           Align(
             alignment: Alignment.centerLeft,
             child: GestureDetector(
+              key: Key('backButton'),
               child: Icon(Icons.arrow_back_ios),
               onTap: () => Navigator.of(context).pop(),
             ),
@@ -179,11 +180,9 @@ void _showInfoDialog(BuildContext context) {
                         fontWeight: FontWeight.w500,
                       ),
                       textAlign: TextAlign.center,
-                    )
-                ),
+                    )),
               ],
-            )
-        ),
+            )),
       );
     },
   );
@@ -261,6 +260,7 @@ Widget _stakeCard({
           color: Color(0xFF1C1478),
           fontWeight: FontWeight.w600,
         ),
+        key: Key('setBoost'),
       ),
     ),
   );
