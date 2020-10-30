@@ -45,6 +45,7 @@ void main() {
     final withdrawButtonDashboard = find.byValueKey('withdrawButtonDashboard');
     final totalGatewaysDashboard = find.byValueKey('totalGatewaysDashboard');
     final stakeButtonDashboard = find.byValueKey('stakeButtonDashboard');
+    final settingsButtonDashboard = find.byValueKey('settingsButton');
 
     // Top-Up Page
 
@@ -61,6 +62,9 @@ void main() {
     // Question Circles
 
     final helpTextFinder = find.byValueKey('helpText');
+
+    // Settings
+    final logoutFinder = find.byValueKey('logout');
 
 
     FlutterDriver driver;
@@ -198,8 +202,11 @@ void main() {
 
 
     test('can logout', () async {
-
-
+      await driver.tap(settingsButtonDashboard);
+      await driver.tap(logoutFinder);
+      await driver.waitFor(logoFinder);
+      final logoIsPresent = await isPresent(logoFinder, driver);
+      expect(logoIsPresent, true);
     });
 
 
