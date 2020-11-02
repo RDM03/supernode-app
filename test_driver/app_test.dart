@@ -23,6 +23,7 @@ void main() {
     // All-Purpose
 
     final exitPage = find.byValueKey('navActionButton');
+    final infoDialog = find.byValueKey('infoDialog')
 
     // Login Screen
 
@@ -83,23 +84,23 @@ void main() {
       }
     });
 
-    // test('login help bubble works', () async {
-    //   await driver.waitUntilFirstFrameRasterized();
-    //
-    //   delay(5000);
-    //   print('LOCATING THE MXC LOGO');
-    //
-    //   await driver.waitFor(logoFinder);
-    //
-    //   print('CLICK QUESTION CIRCLE');
-    //   await driver.waitFor(questionCircle);
-    //   await driver.tap(questionCircle);
-    //   // find solution for testing all languages
-    //   await driver.waitFor(helpTextFinder);
-    //   final helpTextExists = await isPresent(helpTextFinder, driver);
-    //   expect(helpTextExists, true);
-    //   // Needs exit
-    // });
+    test('login help bubble works', () async {
+      await driver.waitUntilFirstFrameRasterized();
+
+      delay(5000);
+      print('LOCATING THE MXC LOGO');
+
+      await driver.waitFor(logoFinder);
+
+      print('CLICK QUESTION CIRCLE');
+      await driver.waitFor(questionCircle);
+      await driver.tap(questionCircle);
+      // find solution for testing all languages
+      await driver.waitFor(helpTextFinder);
+      final helpTextExists = await isPresent(helpTextFinder, driver);
+      expect(helpTextExists, true);
+      await driver.tap(infoDialog);
+    });
 
     test('can login', () async {
       await driver.waitUntilFirstFrameRasterized();
