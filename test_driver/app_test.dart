@@ -23,7 +23,7 @@ void main() {
     // All-Purpose
 
     final exitPage = find.byValueKey('navActionButton');
-    final infoDialog = find.byValueKey('infoDialog')
+    final infoDialog = find.byValueKey('infoDialog');
 
     // Login Screen
 
@@ -121,6 +121,10 @@ void main() {
 
       await driver.tap(menuFinder);
       await driver.scrollUntilVisible(scrollMenu, mxcChinaFinder);
+      var menuIsClosed = await isPresent(menuFinder, driver);
+      if (menuIsClosed) {
+        await driver.tap(menuFinder);
+      }
       await driver.tap(testServerFinder);
 
       print('SERVER SELECTED, TIME TO ENTER CREDENTIALS');
