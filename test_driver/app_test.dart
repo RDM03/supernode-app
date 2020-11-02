@@ -47,6 +47,13 @@ void main() {
     final stakeButtonDashboard = find.byValueKey('stakeButtonDashboard');
     final settingsButtonDashboard = find.byValueKey('settingsButton');
 
+    // Nav Bar
+
+    final bottomNavBar_Home = find.byValueKey('bottomNavBar_Home');
+    final bottomNavBar_Gateway = find.byValueKey('bottomNavBar_Gateway');
+    final bottomNavBar_Device = find.byValueKey('bottomNavBar_Device');
+    final bottomNavBar_Wallet = find.byValueKey('bottomNavBar_Wallet');
+
     // Top-Up Page
 
     final ethAddressTopUp = find.byValueKey('ethAddressTopUp');
@@ -58,6 +65,15 @@ void main() {
     final stakeAmount = find.byValueKey('stakeAmount');
     final stakeButton = find.byValueKey('stakeButton');
     final submitButtonTimeout = find.byValueKey('submitButtonTimeout');
+
+    // Miner Page
+
+    final addGatewayIcon = find.byValueKey('add_gateway_icon');
+    final minerSerialNumber = find.byValueKey('miner_serial_number');
+    final submitMiner = find.byValueKey('submit_miner');
+    final slideGateway = find.text('Gateway_M2XLIXUANOO');
+    final deleteGatewayButton = find.text('Delete');
+    final deleteGatewayConfirm = find.byValueKey('delete_gateway_bottom_dialog_item2');
 
     // Question Circles
 
@@ -209,16 +225,44 @@ void main() {
 //
 //     }, timeout:Timeout(Duration(seconds: 60)));
 
+    test('add miner', () async {
+      driver.tap(bottomNavBar_Gateway);
+      await driver.waitFor(addGatewayIcon);
+      await driver.tap(addGatewayIcon);
+      await driver.waitFor(minerSerialNumber);
+      await driver.tap(minerSerialNumber);
+      await driver.enterText('M2XLIXUANOO');
+      await driver.waitFor(submitMiner);
+      //can't tap submit button for some reason??
+      await driver.tap(submitMiner);
+      var MinerExists = await isPresent(slideGateway, driver);
+      expect(MinerExists, true);
+    }, timeout:Timeout(Duration(seconds: 60)));
+
+    test('delete miner', () async {
+      driver.tap(bottomNavBar_Gateway);
+      await driver.waitFor(slideGateway);
+      await driver.scroll(slideGateway, -100, 0, Duration(seconds: 1));
+      await driver.waitFor(deleteGatewayButton);
+      await driver.tap(deleteGatewayButton);
+      await driver.waitFor(deleteGatewayConfirm);
+      await driver.tap(deleteGatewayConfirm);
+      delay(5000);
+      var MinerExists = await isPresent(slideGateway, driver);
+      expect(MinerExists, false);
+    }, timeout:Timeout(Duration(seconds: 60)));
+
 
     // Logout Test Works
     test('can logout', () async {
+      driver.tap(bottomNavBar_Home);
       await driver.tap(settingsButtonDashboard);
+      await driver.scrollIntoView(logoutFinder);
       await driver.tap(logoutFinder);
       await driver.waitFor(logoFinder);
       final logoIsPresent = await isPresent(logoFinder, driver);
       expect(logoIsPresent, true);
-    });
-
+    }, timeout:Timeout(Duration(seconds: 60)));
 
 
   });
