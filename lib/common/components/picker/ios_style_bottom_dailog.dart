@@ -7,7 +7,7 @@ import 'package:supernodeapp/theme/font.dart';
 abstract class _IosStyleBottomDialogBase extends StatelessWidget {
   final BuildContext context;
 
-  const _IosStyleBottomDialogBase({
+  _IosStyleBottomDialogBase({
     Key key,
     this.context,
   }) : super(key: key);
@@ -53,7 +53,7 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
   final OnItemClickListener onItemClickListener;
   final List<IosButtonStyle> list;
 
-  const IosStyleBottomDialog({
+  IosStyleBottomDialog({
     Key key,
     @required this.list,
     this.onItemClickListener,
@@ -182,8 +182,9 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
 ///
 class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
   final Widget child;
+  bool isClosing = false;
 
-  const IosStyleBottomDialog2({
+  IosStyleBottomDialog2({
     Key key,
     @required this.child,
     BuildContext context,
@@ -192,6 +193,12 @@ class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
   @override
   Widget buildDialog(){
     return GestureDetector(
+      onTap: (){
+        if(!isClosing){
+          isClosing = true;
+          Navigator.pop(context);
+        }
+      },
       onVerticalDragUpdate: (details){
         if (details.delta.dy > 0.0) {
           //swipe down
