@@ -66,10 +66,13 @@ Widget buildView(
               child: !state.loadingMap.contains('gatewaysTotal')
                   ? LoadingList()
                   : (state.gatewaysTotal != 0
-                      ? GatewaysList(
-                          dispatch: dispatch,
-                          state: state,
-                        )
+                      ? Padding(
+                        padding: kOuterRowTop10,
+                        child: GatewaysList(
+                            dispatch: dispatch,
+                            state: state,
+                          ),
+                      )
                       : empty(_ctx)),
             ),
           ),
@@ -176,6 +179,7 @@ class GatewayListTile extends StatelessWidget {
         ),
       ),
       child: ListTile(
+        tileColor: Colors.white,
         onTap: onTap,
         title: Row(
           children: <Widget>[
