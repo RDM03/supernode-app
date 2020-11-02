@@ -184,7 +184,7 @@ class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
   final Widget child;
 
   const IosStyleBottomDialog2({
-    Key key,
+    Key key = const Key("infoDialog"),
     @required this.child,
     BuildContext context,
   }) : super(key: key, context: context);
