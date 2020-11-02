@@ -39,6 +39,7 @@ class PrimaryTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      key: key,
       maxLength: maxLength,
       textAlign: textAlign,
       readOnly: readOnly,
