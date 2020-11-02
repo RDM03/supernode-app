@@ -184,7 +184,7 @@ class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
   final Widget child;
 
   const IosStyleBottomDialog2({
-    Key key = const Key("infoDialog"),
+    Key key,
     @required this.child,
     BuildContext context,
   }) : super(key: key, context: context);
@@ -199,6 +199,7 @@ class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
         }
       },
       child: Container(
+        key: Key("infoDialog"),
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
