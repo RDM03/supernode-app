@@ -1,13 +1,10 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
+import 'finders.dart' show f;
 import 'utils.dart' show isPresent;
 
 logoutTest() {
-  final settingsButtonDashboard = find.byValueKey('settingsButton');
-  final logoutFinder = find.byValueKey('logout');
-  final logoFinder = find.byValueKey('homeLogo');
-
   FlutterDriver driver;
 
   setUpAll(() async {
@@ -21,11 +18,11 @@ logoutTest() {
   });
 
   test('can logout', () async {
-    await driver.tap(settingsButtonDashboard);
-    await driver.scrollIntoView(logoutFinder);
-    await driver.tap(logoutFinder);
-    await driver.waitFor(logoFinder);
-    final logoIsPresent = await isPresent(logoFinder, driver);
+    await driver.tap(f['settingsButtonDashboard']);
+    await driver.scrollIntoView(f['logoutFinder']);
+    await driver.tap(f['logoutFinder']);
+    await driver.waitFor(f['logoFinder']);
+    final logoIsPresent = await isPresent(f['logoFinder'], driver);
     expect(logoIsPresent, true);
   });
 }
