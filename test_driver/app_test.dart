@@ -121,10 +121,14 @@ void main() {
 
       await driver.tap(menuFinder);
       await driver.scrollUntilVisible(scrollMenu, mxcChinaFinder);
-      var menuIsClosed = await isPresent(menuFinder, driver);
-      if (menuIsClosed) {
-        await driver.tap(menuFinder);
-      }
+
+      // Needed for some local environments, not needed for the CI environments
+
+      // var menuIsClosed = await isPresent(menuFinder, driver);
+      // if (menuIsClosed) {
+      //   await driver.tap(menuFinder);
+      // }
+
       await driver.tap(testServerFinder);
 
       print('SERVER SELECTED, TIME TO ENTER CREDENTIALS');
