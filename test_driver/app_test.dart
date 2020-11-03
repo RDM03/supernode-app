@@ -16,6 +16,16 @@ isPresent(SerializableFinder byValueKey, FlutterDriver driver,
   }
 }
 
+canTap(SerializableFinder byValueKey, FlutterDriver driver,
+    {Duration timeout = const Duration(seconds: 2)}) async {
+  try {
+    await driver.tap(byValueKey, timeout: timeout);
+    return true;
+  } catch (exception) {
+    return false;
+  }
+}
+
 void main() {
   load();
 
@@ -23,6 +33,7 @@ void main() {
     // All-Purpose
 
     final exitPage = find.byValueKey('navActionButton');
+    final settingsPageFinder = find.byValueKey('settingsPage');
 
     // Login Screen
 
@@ -104,48 +115,38 @@ void main() {
 
     test('can login', () async {
       await driver.waitUntilFirstFrameRasterized();
-
       print('LOCATING THE MXC LOGO');
-
       await driver.waitFor(logoFinder);
-
       print('LOADED, BEGINNING THE TAP');
-
       for (var i = 0; i < 7; i++) {
         await driver.tap(logoFinder);
         delay(20);
         print('TAP ${i + 1}');
       }
-
       print('ALL TAPPED OUT, LETS SELECT THAT SERVER');
-
       await driver.tap(menuFinder);
+      await delay(2000);
       await driver.scrollUntilVisible(scrollMenu, mxcChinaFinder);
-
-      // Needed for some local environments, not needed for the CI environments
-
-      // var menuIsClosed = await isPresent(menuFinder, driver);
-      // if (menuIsClosed) {
-      //   await driver.tap(menuFinder);
-      // }
-
-      await driver.tap(testServerFinder);
-
-      print('SERVER SELECTED, TIME TO ENTER CREDENTIALS');
-
+      var openMenuState = await canTap(testServerFinder, driver);
+      print(openMenuState);
+      if (openMenuState == true) {
+        print('TEST SERVER SELECTED');
+      } else {
+        print("OOPS THE MENU CLOSED, I'LL JUST OPEN THAT UP FOR YOU");
+        await driver.tap(menuFinder);
+        await driver.tap(testServerFinder);
+        print('SERVER SELECTED, TIME TO ENTER CREDENTIALS');
+      }
       await driver.waitFor(emailFieldFinder);
+      print('I SEE THE EMAIL FIELD');
       await driver.tap(emailFieldFinder);
       await driver.enterText(env['TESTING_USER']);
       await driver.waitFor(find.text(env['TESTING_USER']));
       await driver.tap(passwordFieldFinder);
       await driver.enterText(env['TESTING_PASSWORD']);
-
       print('THE MOMENT HAS COME, WILL IT WORK?');
-
       await driver.tap(loginFinder);
-
       expect(await driver.getText(totalGatewaysDashboard), 'Revenue');
-
       print('HOUSTON, WE ARE LOGGED IN');
     }, timeout: Timeout(Duration(seconds: 60)));
 
@@ -230,7 +231,6 @@ void main() {
       await driver.scrollIntoView(logoutFinder);
       await driver.tap(logoutFinder);
       await driver.waitFor(logoFinder);
-
       final logoIsPresent = await isPresent(logoFinder, driver);
       expect(logoIsPresent, true);
     });
