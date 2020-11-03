@@ -23,7 +23,6 @@ void main() {
     // All-Purpose
 
     final exitPage = find.byValueKey('navActionButton');
-    final infoDialog = find.byValueKey('infoDialog');
 
     // Login Screen
 
@@ -64,6 +63,7 @@ void main() {
     // Question Circles
 
     final helpTextFinder = find.byValueKey('helpText');
+    final infoDialog = find.byValueKey('infoDialog');
 
     // Settings
     final logoutFinder = find.byValueKey('logout');
@@ -88,7 +88,6 @@ void main() {
     test('login help bubble works', () async {
       await driver.waitUntilFirstFrameRasterized();
 
-      delay(5000);
       print('LOCATING THE MXC LOGO');
 
       await driver.waitFor(logoFinder);
@@ -122,10 +121,14 @@ void main() {
 
       await driver.tap(menuFinder);
       await driver.scrollUntilVisible(scrollMenu, mxcChinaFinder);
-      var menuIsClosed = await isPresent(menuFinder, driver);
-      if (menuIsClosed) {
-        await driver.tap(menuFinder);
-      }
+
+      // Needed for some local environments, not needed for the CI environments
+
+      // var menuIsClosed = await isPresent(menuFinder, driver);
+      // if (menuIsClosed) {
+      //   await driver.tap(menuFinder);
+      // }
+
       await driver.tap(testServerFinder);
 
       print('SERVER SELECTED, TIME TO ENTER CREDENTIALS');
@@ -175,23 +178,8 @@ void main() {
 
     //complete withdraw test
 
-// Staking Test doesn't Work
     test('can set stake', () async {
       await driver.waitUntilFirstFrameRasterized();
-
-      /*
-      Not clickable yet
-      print('CHECKING ? BUTTON');
-      await driver.waitFor(questionCircle);
-      await driver.tap(questionCircle);
-      delay(5000);
-      var isExists = await isPresent(find.byValueKey('helpText'), driver);
-      expect(isExists, true);
-      delay(5000);
-      await driver.waitFor(logoFinder);
-      //not sure how to click something that isn't labelled so the you must close the help box manually for now
-       */
-
       await driver.tap(stakeButtonDashboard);
       print('tapped stake button');
       await driver.waitUntilNoTransientCallbacks();
@@ -226,6 +214,16 @@ void main() {
       print(
           'current page is ${await isPresent(depositButtonDashboard, driver) ? "Home" : "Not home, we're lost"}');
     }, timeout: Timeout(Duration(seconds: 600)));
+
+    test('can use MXC Vault help bubble', () async {
+      await driver.tap(stakeButtonDashboard);
+      print('TAPPED STAKE BUTTON');
+      await driver.tap(questionCircle);
+      var isExists = await isPresent(find.byValueKey('helpText'), driver);
+      expect(isExists, true);
+      await driver.tap(infoDialog);
+      await driver.tap(backButtonFinder);
+    });
 
     test('can logout', () async {
       await driver.tap(settingsButtonDashboard);
