@@ -55,11 +55,11 @@ jobs:
     runs-on: [self-hosted, android]
     steps:
     - name: "List all simulators"
-      run: "/Users/runner/Library/Android/sdk/emulator/emulator -list-avds"
+      run: "/usr/local/bin/emulator -list-avds"
     - name: "Start adb-server"
-      run: /Users/runner/Library/Android/sdk/platform-tools/adb start-server   
+      run: /usr/local/bin/adb start-server   
     - name: "Start Simulator"
-      run: /Users/runner/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_30 -no-audio & #FIXME: figure out how to add more avds, only launches one
+      run: /usr/local/bin/emulator -avd Pixel_3a_API_30 -no-audio & #FIXME: figure out how to add more avds, only launches one
       continue-on-error: true
     - name: Checkout
       uses: actions/checkout@v1
