@@ -18,7 +18,7 @@ Map f = {
   'stakeFlex': find.byValueKey('stakeFlex'),
   'stakeAmount': find.byValueKey('stakeAmount'),
   'submitButton': find.byValueKey('submitButton'),
-  'backButtonFinder': find.byValueKey('backButton'),
+  'backButton': find.byValueKey('backButton'),
   'successIconFinder': find.byValueKey('successIcon'),
   'stakeAmountView': find.byValueKey('stakeAmountView'),
   'stakeButtonDashboard': find.byValueKey('stakeButtonDashboard'),

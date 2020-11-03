@@ -23,7 +23,7 @@ helpBubbleTest() {
       var isExists = await isPresent(find.byValueKey('helpText'), driver);
       expect(isExists, true);
       await driver.tap(f['infoDialog']);
-      await driver.tap(f['backButtonFinder']);
+      await driver.tap(f['backButton']);
     });
   });
 }
