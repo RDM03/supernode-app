@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:supernodeapp/common/components/text_field/primary_text_field.dart';
-import 'package:supernodeapp/theme/colors.dart' as c;
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/colors.dart' as c;
 
 class TextFieldWithTitle extends StatelessWidget {
   TextFieldWithTitle({
@@ -66,7 +66,6 @@ class TextFieldWithTitle extends StatelessWidget {
           child: Stack(
             children: <Widget>[
               PrimaryTextField(
-                key: key,
                 borderColor: borderColor,
                 maxLength: maxLength,
                 counterText: counterText,
