@@ -107,8 +107,8 @@ List<Widget> _body({AddGatewayState state,BuildContext context,Dispatch dispatch
         )
       ),
       submitButton(
-        FlutterI18n.translate(context,'submitMiner'),
-        key: ValueKey('submit_miner'),
+        FlutterI18n.translate(context,'add_gateway'),
+        key: ValueKey('submitMiner'),
         top: 10,
         onPressed: () => dispatch(AddGatewayActionCreator.onProfile())
       ),
