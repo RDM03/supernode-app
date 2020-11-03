@@ -229,8 +229,10 @@ void main() {
 
     test('can logout', () async {
       await driver.tap(settingsButtonDashboard);
+      await driver.scrollIntoView(logoutFinder);
       await driver.tap(logoutFinder);
       await driver.waitFor(logoFinder);
+
       final logoIsPresent = await isPresent(logoFinder, driver);
       expect(logoIsPresent, true);
     });
