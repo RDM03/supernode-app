@@ -57,6 +57,13 @@ void main() {
     final stakeButtonDashboard = find.byValueKey('stakeButtonDashboard');
     final settingsButtonDashboard = find.byValueKey('settingsButton');
 
+    // Nav Bar
+
+    final bottomNavBar_Home = find.byValueKey('bottomNavBar_Home');
+    final bottomNavBar_Gateway = find.byValueKey('bottomNavBar_Gateway');
+    final bottomNavBar_Device = find.byValueKey('bottomNavBar_Device');
+    final bottomNavBar_Wallet = find.byValueKey('bottomNavBar_Wallet');
+
     // Top-Up Page
 
     final ethAddressTopUp = find.byValueKey('ethAddressTopUp');
@@ -71,6 +78,15 @@ void main() {
     final successIconFinder = find.byValueKey('successIcon');
     final stakeAmountView = find.byValueKey('stakeAmountView');
 
+    // Miner Page
+
+    final addMinerIcon = find.byValueKey('addMinerIcon');
+    final minerSerialNumber = find.byValueKey('minerSerialNumber');
+    final submitMiner = find.byValueKey('submitMiner');
+    final slideMiner = find.text('Gateway_' + env['MINER_SERIAL']);
+    final deleteGatewayButton = find.text('Delete');
+    final deleteGatewayConfirm = find.byValueKey('delete_gateway_bottom_dialog_item2');
+
     // Question Circles
 
     final helpTextFinder = find.byValueKey('helpText');
@@ -80,6 +96,7 @@ void main() {
     final logoutFinder = find.byValueKey('logout');
 
     FlutterDriver driver;
+
 
     test('check flutter driver health', () async {
       Health health = await driver.checkHealth();
@@ -226,7 +243,68 @@ void main() {
       await driver.tap(backButtonFinder);
     });
 
+
+// Staking Test doesn't Work
+//     test('can set stake', () async {
+//       /*
+//       Not clickable yet
+//       print('CHECKING ? BUTTON');
+//       await driver.waitFor(questionCircle);
+//       await driver.tap(questionCircle);
+//       delay(5000);
+//       var isExists = await isPresent(find.byValueKey('helpText'), driver);
+//       expect(isExists, true);
+//       delay(5000);
+//       await driver.waitFor(logoFinder);
+//       //not sure how to click something that isn't labelled so the you must close the help box manually for now
+//        */
+//
+//       await driver.tap(stakeButtonDashboard);
+//       await driver.tap(stakeFlex);
+//       await driver.tap(stakeAmount);
+//       await driver.enterText('20');
+//       await driver.waitFor(find.text('20'));
+//       await driver.tap(stakeButton);
+//       await driver.waitFor(find.text('(0)'));
+//       await delay(200);
+//       await driver.waitFor(submitButtonTimeout);
+//       await driver.tap(submitButtonTimeout);
+//       await driver.tap(exitPage);
+//
+//
+//     }, timeout:Timeout(Duration(seconds: 60)));
+
+    test('add miner', () async {
+      driver.tap(bottomNavBar_Gateway);
+      await driver.waitFor(addMinerIcon);
+      await driver.tap(addMinerIcon);
+      await driver.waitFor(minerSerialNumber);
+      await driver.tap(minerSerialNumber);
+      await driver.enterText(env['MINER_SERIAL']);
+      await driver.waitFor(submitMiner);
+      //can't tap submit button for some reason??
+      await driver.tap(submitMiner);
+      var MinerExists = await isPresent(slideMiner, driver);
+      expect(MinerExists, true);
+    }, timeout:Timeout(Duration(seconds: 60)));
+
+    test('delete miner', () async {
+      driver.tap(bottomNavBar_Gateway);
+      await driver.waitFor(slideMiner);
+      await driver.scroll(slideMiner, -100, 0, Duration(seconds: 1));
+      await driver.waitFor(deleteGatewayButton);
+      await driver.tap(deleteGatewayButton);
+      await driver.waitFor(deleteGatewayConfirm);
+      await driver.tap(deleteGatewayConfirm);
+      delay(5000);
+      var MinerExists = await isPresent(slideMiner, driver);
+      expect(MinerExists, false);
+    }, timeout:Timeout(Duration(seconds: 60)));
+
+
+    // Logout Test Works
     test('can logout', () async {
+      driver.tap(bottomNavBar_Home);
       await driver.tap(settingsButtonDashboard);
       await driver.scrollIntoView(logoutFinder);
       await driver.tap(logoutFinder);
