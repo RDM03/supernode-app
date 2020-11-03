@@ -20,7 +20,7 @@ class PrimaryTextField extends StatelessWidget {
     this.borderColor = c.borderColor,
     this.counterText,
     Key key,
-  }) : super(key: key);
+  });
 
   final Color borderColor;
   final String hint;
@@ -39,7 +39,6 @@ class PrimaryTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      key: key,
       maxLength: maxLength,
       textAlign: textAlign,
       readOnly: readOnly,

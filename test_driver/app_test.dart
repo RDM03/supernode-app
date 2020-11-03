@@ -59,6 +59,7 @@ void main() {
     final submitButton = find.byValueKey('submitButton');
     final backButtonFinder = find.byValueKey('backButton');
     final successIconFinder = find.byValueKey('successIcon');
+    final stakeAmountView = find.byValueKey('stakeAmountView');
 
     // Question Circles
 
@@ -202,6 +203,8 @@ void main() {
         await driver.tap(stakeFlex);
       }
       print('tapped stakeFlex');
+      await driver.scrollUntilVisible(stakeAmountView, stakeAmount);
+      print('scrolled it visible');
       await driver.tap(stakeAmount);
       print('tapped stake amount');
       await driver.enterText('20');
@@ -215,9 +218,10 @@ void main() {
       print('Waited for the countdown, and proceeded anyways');
       expect(await isPresent(successIconFinder, driver), true);
       await driver.tap(exitPage);
-      print('tapped exit page');
+      print('tapped exit confirm');
+      await driver.scroll(stakeAmountView, 0, 300, Duration(milliseconds: 500));
       await driver.tap(exitPage);
-      print('tapped exit page');
+      print('tapped exit stake amount page');
       await driver.tap(backButtonFinder);
       print(
           'current page is ${await isPresent(depositButtonDashboard, driver) ? "Home" : "Not home, we're lost"}');
