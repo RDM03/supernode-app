@@ -11,7 +11,7 @@ jobs:
         - "iPhone SE (2nd generation) (14.1)"
         - "iPhone 11 Pro Max (14.1)"
       fail-fast: false
-    runs-on: [self-hosted, macOS, officeMac]
+    runs-on: [self-hosted, macOS]
     steps:
     - name: "List all simulators"
       run: "xcrun instruments -s"
@@ -52,7 +52,7 @@ jobs:
         device:
         - "Pixel_3a_API_30"
       fail-fast: false
-    runs-on: [self-hosted, macOS]
+    runs-on: [self-hosted, android]
     steps:
     - name: "List all simulators"
       run: "/Users/runner/Library/Android/sdk/emulator/emulator -list-avds"
