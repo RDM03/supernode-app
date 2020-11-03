@@ -1,27 +1,17 @@
-import 'package:dotenv/dotenv.dart' show load, env;
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
+import 'package:dotenv/dotenv.dart' show load, env;
+
 
 Future<void> delay([int milliseconds = 250]) async {
   await Future<void>.delayed(Duration(milliseconds: milliseconds));
 }
 
-isPresent(SerializableFinder byValueKey, FlutterDriver driver,
-    {Duration timeout = const Duration(seconds: 20)}) async {
+isPresent(SerializableFinder byValueKey, FlutterDriver driver, {Duration timeout = const Duration(seconds: 20)}) async {
   try {
-    await driver.waitFor(byValueKey, timeout: timeout);
+    await driver.waitFor(byValueKey,timeout: timeout);
     return true;
-  } catch (exception) {
-    return false;
-  }
-}
-
-canTap(SerializableFinder byValueKey, FlutterDriver driver,
-    {Duration timeout = const Duration(seconds: 2)}) async {
-  try {
-    await driver.tap(byValueKey, timeout: timeout);
-    return true;
-  } catch (exception) {
+  } catch(exception) {
     return false;
   }
 }
@@ -30,10 +20,10 @@ void main() {
   load();
 
   group('Supernode App', () {
+
     // All-Purpose
 
     final exitPage = find.byValueKey('navActionButton');
-    final settingsPageFinder = find.byValueKey('settingsPage');
 
     // Login Screen
 
@@ -73,10 +63,8 @@ void main() {
 
     final stakeFlex = find.byValueKey('stakeFlex');
     final stakeAmount = find.byValueKey('stakeAmount');
-    final submitButton = find.byValueKey('submitButton');
-    final backButtonFinder = find.byValueKey('backButton');
-    final successIconFinder = find.byValueKey('successIcon');
-    final stakeAmountView = find.byValueKey('stakeAmountView');
+    final stakeButton = find.byValueKey('stakeButton');
+    final submitButtonTimeout = find.byValueKey('submitButtonTimeout');
 
     // Miner Page
 
@@ -90,10 +78,10 @@ void main() {
     // Question Circles
 
     final helpTextFinder = find.byValueKey('helpText');
-    final infoDialog = find.byValueKey('infoDialog');
 
     // Settings
     final logoutFinder = find.byValueKey('logout');
+
 
     FlutterDriver driver;
 
@@ -113,9 +101,13 @@ void main() {
       }
     });
 
+    delay(5000);
+
     test('login help bubble works', () async {
+
       await driver.waitUntilFirstFrameRasterized();
 
+      delay(5000);
       print('LOCATING THE MXC LOGO');
 
       await driver.waitFor(logoFinder);
@@ -127,45 +119,51 @@ void main() {
       await driver.waitFor(helpTextFinder);
       final helpTextExists = await isPresent(helpTextFinder, driver);
       expect(helpTextExists, true);
-      await driver.tap(infoDialog);
+      // Needs exit
     });
 
     test('can login', () async {
+
       await driver.waitUntilFirstFrameRasterized();
+
+      delay(5000);
       print('LOCATING THE MXC LOGO');
+
       await driver.waitFor(logoFinder);
+
       print('LOADED, BEGINNING THE TAP');
+
       for (var i = 0; i < 7; i++) {
         await driver.tap(logoFinder);
         delay(20);
         print('TAP ${i + 1}');
       }
+
       print('ALL TAPPED OUT, LETS SELECT THAT SERVER');
+
       await driver.tap(menuFinder);
-      await delay(2000);
+      delay(2000);
       await driver.scrollUntilVisible(scrollMenu, mxcChinaFinder);
-      var openMenuState = await canTap(testServerFinder, driver);
-      print(openMenuState);
-      if (openMenuState == true) {
-        print('TEST SERVER SELECTED');
-      } else {
-        print("OOPS THE MENU CLOSED, I'LL JUST OPEN THAT UP FOR YOU");
-        await driver.tap(menuFinder);
-        await driver.tap(testServerFinder);
-        print('SERVER SELECTED, TIME TO ENTER CREDENTIALS');
-      }
+      await driver.tap(testServerFinder);
+
+      print('SERVER SELECTED, TIME TO ENTER CREDENTIALS');
+
       await driver.waitFor(emailFieldFinder);
-      print('I SEE THE EMAIL FIELD');
       await driver.tap(emailFieldFinder);
       await driver.enterText(env['TESTING_USER']);
       await driver.waitFor(find.text(env['TESTING_USER']));
       await driver.tap(passwordFieldFinder);
       await driver.enterText(env['TESTING_PASSWORD']);
+
       print('THE MOMENT HAS COME, WILL IT WORK?');
+
       await driver.tap(loginFinder);
+
       expect(await driver.getText(totalGatewaysDashboard), 'Revenue');
+
       print('HOUSTON, WE ARE LOGGED IN');
-    }, timeout: Timeout(Duration(seconds: 60)));
+
+    }, timeout:Timeout(Duration(seconds: 60)));
 
     // test('has top up address', () async {
     //
@@ -194,54 +192,8 @@ void main() {
     //       //not sure how to click something that isn't labelled so the you must close the help box manually for now
     // }, timeout:Timeout(Duration(seconds: 60)));
 
+
     //complete withdraw test
-
-    test('can set stake', () async {
-      await driver.waitUntilFirstFrameRasterized();
-      await driver.tap(stakeButtonDashboard);
-      print('tapped stake button');
-      await driver.waitUntilNoTransientCallbacks();
-      await driver.tap(stakeFlex);
-      for (var pageChanged = await isPresent(stakeAmount, driver);
-          pageChanged == false;
-          pageChanged = await isPresent(stakeAmount, driver)) {
-        print('page not changed, tapping again');
-        await driver.tap(stakeFlex);
-      }
-      print('tapped stakeFlex');
-      await driver.scrollUntilVisible(stakeAmountView, stakeAmount);
-      print('scrolled it visible');
-      await driver.tap(stakeAmount);
-      print('tapped stake amount');
-      await driver.enterText('20');
-      print('entered 20');
-      await driver.waitFor(find.text('20'));
-      print('20 is there');
-      await driver.tap(submitButton);
-      print('tapped stake button');
-      await delay(31000);
-      await driver.tap(submitButton);
-      print('Waited for the countdown, and proceeded anyways');
-      expect(await isPresent(successIconFinder, driver), true);
-      await driver.tap(exitPage);
-      print('tapped exit confirm');
-      await driver.scroll(stakeAmountView, 0, 300, Duration(milliseconds: 500));
-      await driver.tap(exitPage);
-      print('tapped exit stake amount page');
-      await driver.tap(backButtonFinder);
-      print(
-          'current page is ${await isPresent(depositButtonDashboard, driver) ? "Home" : "Not home, we're lost"}');
-    }, timeout: Timeout(Duration(seconds: 600)));
-
-    test('can use MXC Vault help bubble', () async {
-      await driver.tap(stakeButtonDashboard);
-      print('TAPPED STAKE BUTTON');
-      await driver.tap(questionCircle);
-      var isExists = await isPresent(find.byValueKey('helpText'), driver);
-      expect(isExists, true);
-      await driver.tap(infoDialog);
-      await driver.tap(backButtonFinder);
-    });
 
 
 // Staking Test doesn't Work
@@ -311,6 +263,10 @@ void main() {
       await driver.waitFor(logoFinder);
       final logoIsPresent = await isPresent(logoFinder, driver);
       expect(logoIsPresent, true);
-    });
+    }, timeout:Timeout(Duration(seconds: 60)));
+
+
   });
+
+
 }

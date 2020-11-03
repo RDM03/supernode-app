@@ -18,7 +18,6 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return Scaffold(
-      key: Key('settingsPage'),
       appBar: AppBar(
         leading: IconButton(
             icon: Icon(
