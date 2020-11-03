@@ -1,5 +1,7 @@
 import 'package:flutter_driver/flutter_driver.dart';
 
+// Naming Convention 'page' + 'DescribeItem'
+
 Map f = {
   'logoFinder': find.byValueKey('homeLogo'),
   'loginFinder': find.byValueKey('homeLogin'),
@@ -12,5 +14,16 @@ Map f = {
   'questionCircle': find.byValueKey('questionCircle'),
   'totalGatewaysDashboard': find.byValueKey('totalGatewaysDashboard'),
   'helpTextFinder': find.byValueKey('helpText'),
-  'infoDialog': find.byValueKey('infoDialog')
+  'infoDialog': find.byValueKey('infoDialog'),
+  'stakeFlex': find.byValueKey('stakeFlex'),
+  'stakeAmount': find.byValueKey('stakeAmount'),
+  'submitButton': find.byValueKey('submitButton'),
+  'backButtonFinder': find.byValueKey('backButton'),
+  'successIconFinder': find.byValueKey('successIcon'),
+  'stakeAmountView': find.byValueKey('stakeAmountView'),
+  'stakeButtonDashboard': find.byValueKey('stakeButtonDashboard'),
+  'depositButtonDashboard': find.byValueKey('depositButtonDashboard'),
+  'exitPage': find.byValueKey('navActionButton'),
+  'settingsButtonDashboard': find.byValueKey('settingsButton'),
+  'logoutFinder': find.byValueKey('logout')
 };
