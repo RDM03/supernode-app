@@ -7,7 +7,6 @@ Widget submitButton(
   Key key,
 }) {
   return Container(
-    key: key,
     height: 45,
     width: double.infinity,
     margin: EdgeInsets.only(top: top),

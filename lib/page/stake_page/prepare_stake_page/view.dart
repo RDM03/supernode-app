@@ -18,6 +18,7 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return GestureDetector(
+    key: Key('stakeAmountView'),
     onTap: () =>
         FocusScope.of(viewService.context).requestFocus(new FocusNode()),
     child: pageFrame(
@@ -153,7 +154,7 @@ Widget buildView(
           child: Container(
             margin: const EdgeInsets.only(top: 40),
             child: TextFieldWithTitle(
-              key: ValueKey('stakeAmount'),
+              key: Key('stakeAmount'),
               title: FlutterI18n.translate(_ctx, 'stake_amount'),
               keyboardType: TextInputType.number,
               validator: (value) => onValidAmount(_ctx, value, state.balance),

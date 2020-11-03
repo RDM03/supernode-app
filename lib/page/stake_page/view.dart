@@ -1,14 +1,13 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/common/components/page/link.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
+import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
-import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -32,6 +31,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
           Align(
             alignment: Alignment.centerLeft,
             child: GestureDetector(
+              key: Key('backButton'),
               child: Icon(Icons.arrow_back_ios),
               onTap: () => Navigator.of(context).pop(),
             ),
@@ -160,33 +160,27 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
 }
 
 void _showInfoDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return FullScreenDialog(
-        child: IosStyleBottomDialog2(
-            context: context,
-            child: Column(
-              children: [
-                Image.asset(AppImages.infoMXCVault, height: s(80)),
-                Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: Text(
-                      FlutterI18n.translate(context, 'info_mxc_vault'),
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: s(16),
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.center,
-                    )
-                ),
-              ],
-            )
-        ),
-      );
-    },
-  );
+  showInfoDialog(
+      context,
+      IosStyleBottomDialog2(
+          context: context,
+          child: Column(
+            children: [
+              Image.asset(AppImages.infoMXCVault, height: s(80)),
+              Padding(
+                  key: Key('helpText'),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Text(
+                    FlutterI18n.translate(context, 'info_mxc_vault'),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: s(16),
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  )),
+            ],
+          )));
 }
 
 int round(double v) {
@@ -261,6 +255,7 @@ Widget _stakeCard({
           color: Color(0xFF1C1478),
           fontWeight: FontWeight.w600,
         ),
+        key: Key('setBoost'),
       ),
     ),
   );
