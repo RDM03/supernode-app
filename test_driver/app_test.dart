@@ -68,10 +68,10 @@ void main() {
 
     // Miner Page
 
-    final addGatewayIcon = find.byValueKey('add_gateway_icon');
-    final minerSerialNumber = find.byValueKey('miner_serial_number');
-    final submitMiner = find.byValueKey('submit_miner');
-    final slideGateway = find.text('Gateway_M2XLIXUANOO');
+    final addMinerIcon = find.byValueKey('addMinerIcon');
+    final minerSerialNumber = find.byValueKey('minerSerialNumber');
+    final submitMiner = find.byValueKey('submitMiner');
+    final slideMiner = find.text('Gateway_' + env['MINER_SERIAL']);
     final deleteGatewayButton = find.text('Delete');
     final deleteGatewayConfirm = find.byValueKey('delete_gateway_bottom_dialog_item2');
 
@@ -84,6 +84,7 @@ void main() {
 
 
     FlutterDriver driver;
+
 
     test('check flutter driver health', () async {
       Health health = await driver.checkHealth();
@@ -227,28 +228,28 @@ void main() {
 
     test('add miner', () async {
       driver.tap(bottomNavBar_Gateway);
-      await driver.waitFor(addGatewayIcon);
-      await driver.tap(addGatewayIcon);
+      await driver.waitFor(addMinerIcon);
+      await driver.tap(addMinerIcon);
       await driver.waitFor(minerSerialNumber);
       await driver.tap(minerSerialNumber);
-      await driver.enterText('M2XLIXUANOO');
+      await driver.enterText(env['MINER_SERIAL']);
       await driver.waitFor(submitMiner);
       //can't tap submit button for some reason??
       await driver.tap(submitMiner);
-      var MinerExists = await isPresent(slideGateway, driver);
+      var MinerExists = await isPresent(slideMiner, driver);
       expect(MinerExists, true);
     }, timeout:Timeout(Duration(seconds: 60)));
 
     test('delete miner', () async {
       driver.tap(bottomNavBar_Gateway);
-      await driver.waitFor(slideGateway);
-      await driver.scroll(slideGateway, -100, 0, Duration(seconds: 1));
+      await driver.waitFor(slideMiner);
+      await driver.scroll(slideMiner, -100, 0, Duration(seconds: 1));
       await driver.waitFor(deleteGatewayButton);
       await driver.tap(deleteGatewayButton);
       await driver.waitFor(deleteGatewayConfirm);
       await driver.tap(deleteGatewayConfirm);
       delay(5000);
-      var MinerExists = await isPresent(slideGateway, driver);
+      var MinerExists = await isPresent(slideMiner, driver);
       expect(MinerExists, false);
     }, timeout:Timeout(Duration(seconds: 60)));
 
