@@ -49,13 +49,16 @@ loginPageTests() {
       print('ALL TAPPED OUT, LETS SELECT THAT SERVER');
       await driver.tap(f['menuFinder']);
       await driver.scrollUntilVisible(f['scrollMenu'], f['mxcChinaFinder']);
+      await delay(2000);
       var openMenuState = await canTap(f['testServerFinder'], driver);
       if (await openMenuState == true) {
         print('TEST SERVER SELECTED');
       } else {
         print("OOPS THE MENU CLOSED, I'LL JUST OPEN THAT UP FOR YOU");
         await driver.tap(f['menuFinder']);
+        await delay(2000);
         await driver.tap(f['testServerFinder']);
+        await delay(2000);
         print('SERVER SELECTED, TIME TO ENTER CREDENTIALS');
       }
       await driver.waitFor(f['emailFieldFinder']);
