@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 
 import 'utils.dart' show delay, canTap, isPresent;
 
-loginPage() {
+loginPageTests() {
   final logoFinder = find.byValueKey('homeLogo');
   final loginFinder = find.byValueKey('homeLogin');
   final menuFinder = find.byValueKey('homeSupernodeMenu');
@@ -60,11 +60,9 @@ loginPage() {
       }
       print('ALL TAPPED OUT, LETS SELECT THAT SERVER');
       await driver.tap(menuFinder);
-      await delay(2000);
       await driver.scrollUntilVisible(scrollMenu, mxcChinaFinder);
       var openMenuState = await canTap(testServerFinder, driver);
-      print(openMenuState);
-      if (openMenuState == true) {
+      if (await openMenuState == true) {
         print('TEST SERVER SELECTED');
       } else {
         print("OOPS THE MENU CLOSED, I'LL JUST OPEN THAT UP FOR YOU");
