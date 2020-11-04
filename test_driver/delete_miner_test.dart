@@ -1,25 +1,9 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
-import 'package:dotenv/dotenv.dart' show load, env;
-
-isPresent(SerializableFinder byValueKey, FlutterDriver driver, {Duration timeout = const Duration(seconds: 20)}) async {
-  try {
-    await driver.waitFor(byValueKey,timeout: timeout);
-    return true;
-  } catch(exception) {
-    return false;
-  }
-}
-Future<void> delay([int milliseconds = 250]) async {
-  await Future<void>.delayed(Duration(milliseconds: milliseconds));
-}
+import 'utils.dart' show delay, isPresent;
+import 'finders.dart' show f;
 
 deleteMinerTest() {
-  load();
-  final bottomNavBar_Gateway = find.byValueKey('bottomNavBar_Gateway');
-  final deleteGatewayButton = find.text('Delete');
-  final deleteGatewayConfirm = find.byValueKey('delete_gateway_bottom_dialog_item2');
-  final slideMiner = find.text('Gateway_' + env['MINER_SERIAL']);
   FlutterDriver driver;
 
   setUpAll(() async {
@@ -33,15 +17,17 @@ deleteMinerTest() {
   });
 
   test('delete miner', () async {
-    driver.tap(bottomNavBar_Gateway);
-    await driver.waitFor(slideMiner);
-    await driver.scroll(slideMiner, -100, 0, Duration(seconds: 1));
-    await driver.waitFor(deleteGatewayButton);
-    await driver.tap(deleteGatewayButton);
-    await driver.waitFor(deleteGatewayConfirm);
-    await driver.tap(deleteGatewayConfirm);
+    await driver.waitFor(f['minersNewMiner']);
+    await driver.scroll(f['minersNewMiner'], -100, 0, Duration(seconds: 1));
+    print('SWIPE GATEWAY TO REVEAL DELETE');
+    await driver.waitFor(f['minerDeleteButton']);
+    await driver.tap(f['minerDeleteButton']);
+    print('TAP DELETE BUTTON');
+    await driver.waitFor(f['minerConfirmDeleteButton']);
+    await driver.tap(f['minerConfirmDeleteButton']);
+    print('CONFIRM DELETE');
     delay(5000);
-    var MinerExists = await isPresent(slideMiner, driver);
+    var MinerExists = await isPresent(f['minerNewMiner'], driver);
     expect(MinerExists, false);
   }, timeout:Timeout(Duration(seconds: 60)));
 }

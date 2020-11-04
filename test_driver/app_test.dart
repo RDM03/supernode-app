@@ -1,11 +1,13 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
-import 'package:dotenv/dotenv.dart' show load, env;
+
 
 import 'help_bubble_test.dart' show helpBubbleTest;
 import 'login_test.dart' show loginPageTests;
 import 'logout_test.dart' show logoutTest;
 import 'stake_test.dart' show stakeTest;
+import 'add_miner_test.dart' show addMinerTest;
+import 'delete_miner_test.dart' show deleteMinerTest;
 
 void main() {
   group('Supernode App', () {
@@ -30,6 +32,8 @@ void main() {
     loginPageTests();
     stakeTest();
     helpBubbleTest();
+    addMinerTest();
+    deleteMinerTest();
     logoutTest();
 
   });

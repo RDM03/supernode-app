@@ -99,7 +99,7 @@ List<Widget> _body({AddGatewayState state,BuildContext context,Dispatch dispatch
         key: state.formKey,
         child: TextFieldWithTitle(
           title: '',
-          key: ValueKey('minerSerialNumber'),
+          key: ValueKey('addMinerSerialNumber'),
           hint: FlutterI18n.translate(context,'serial_number_hint'),
           textInputAction: TextInputAction.done,
           validator: (value) => Reg.onNotEmpty(context, value),     
@@ -108,7 +108,7 @@ List<Widget> _body({AddGatewayState state,BuildContext context,Dispatch dispatch
       ),
       submitButton(
         FlutterI18n.translate(context,'add_gateway'),
-        key: ValueKey('submitMiner'),
+        key: ValueKey('addMinerSubmit'),
         top: 10,
         onPressed: () => dispatch(AddGatewayActionCreator.onProfile())
       ),
