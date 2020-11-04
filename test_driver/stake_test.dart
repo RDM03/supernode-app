@@ -71,7 +71,7 @@ stakingTest() {
       print('SCROLLED INTO VIEW');
       await driver.tap(f['unstakeStakedToken']);
       print('TAPPED TOKEN TO UNSTAKE');
-      await delay(1000);
+      await delay(3000);
       await driver.tap(f['primaryButton']);
       print('TAPPED UNSTAKE');
       await driver.tap(f['otpEnterOtp']);
@@ -88,6 +88,6 @@ stakingTest() {
       await driver.tap(f['navbarHomeButton']);
       print(
           'CURRENT PAGE IS: ${await isPresent(f['depositButtonDashboard'], driver) ? "HOME" : "NOT HOME, WE ARE LOST"}');
-    }, timeout: Timeout(Duration(seconds: 120)));
+    }, timeout: Timeout(Duration(seconds: 150)));
   });
 }
