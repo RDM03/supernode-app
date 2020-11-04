@@ -50,6 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.5.0-nullsafety.1"
+  base32:
+    dependency: transitive
+    description:
+      name: base32
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.2"
   bloc:
     dependency: transitive
     description:
@@ -514,6 +521,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
+  hasura:
+    dependency: transitive
+    description:
+      name: hasura
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.5.0"
+  hive:
+    dependency: transitive
+    description:
+      name: hive
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.4+1"
   html:
     dependency: transitive
     description:
@@ -724,6 +745,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.4"
+  no_bloc:
+    dependency: transitive
+    description:
+      name: no_bloc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.10"
   node_interop:
     dependency: transitive
     description:
@@ -759,6 +787,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  otp:
+    dependency: "direct main"
+    description:
+      name: otp
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.3"
   package_config:
     dependency: transitive
     description:
@@ -941,6 +976,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.2.0"
+  quick_log:
+    dependency: transitive
+    description:
+      name: quick_log
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.4"
   quiver:
     dependency: transitive
     description:
@@ -1303,6 +1345,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.3"
+  websocket:
+    dependency: transitive
+    description:
+      name: websocket
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.5"
   webview_flutter:
     dependency: "direct main"
     description:

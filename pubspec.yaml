@@ -109,6 +109,7 @@ dependencies:
   flutter_mapbox_native:
     path: packages/flutter_mapbox_native
   dotenv: ^2.0.0
+  otp: ^2.2.3
 
 dependency_overrides:
   local_auth:
