@@ -5,6 +5,7 @@ This only works on flutter channel beta, I can't seem to get it to work properly
 Use the following ENV variables for your credentials:
 * TESTING_USER
 * TESTING_PASSWORD
+* OTP_KEY
 
 Then on iOS run: `flutter drive --target=test_driver/app.dart`
 For android: `flutter drive --target=test_.dart --no-build --flavor prod`

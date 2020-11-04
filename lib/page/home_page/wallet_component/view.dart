@@ -110,6 +110,7 @@ Widget buildView(
               onTap3: () => dispatch(WalletActionCreator.isSetDate())),
         ),
         Visibility(
+          key: Key(''),
           visible: state.tabIndex == 0 ? state.isSetDate1 : state.isSetDate2,
           child: Padding(
             padding: EdgeInsets.only(top: 5),
