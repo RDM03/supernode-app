@@ -119,4 +119,9 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
   Future update(String id, Map data) {
     throw UnimplementedError('update not supported in demo');
   }
+
+  @override
+  Future deleteGateway(String id) {
+    throw UnimplementedError('delete not supported in demo');
+  }
 }

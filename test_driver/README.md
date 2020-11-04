@@ -7,8 +7,7 @@ Use the following ENV variables for your credentials:
 * TESTING_PASSWORD
 * OTP_KEY
 
-Then on iOS run: `flutter drive --target=test_driver/app.dart`
-For android: `flutter drive --target=test_.dart --no-build --flavor prod`
+Then run: `flutter drive --target=test_driver/app.dart`
 
 If you already have the app installed, you can try `flutter drive --target=test_driver/app.dart --no-build`
 
