@@ -43,7 +43,7 @@ jobs:
     - name: "Run Flutter Driver tests"
       run: |
         UDID=$(cat /tmp/iosdeviceid.tmp)
-        flutter drive --target=test_driver/app.dart $UDID
+        flutter drive --target=test_driver/app.dart --device-id $UDID
       env:
         TESTING_USER: ${{ secrets.TESTING_USER }}
         TESTING_PASSWORD: ${{ secrets.TESTING_PASSWORD }}
