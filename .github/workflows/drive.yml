@@ -25,6 +25,7 @@ jobs:
             '$1 == device { print $2 }'
         )
         xcrun simctl shutdown all
+        echo ${UDID} > /tmp/iosdeviceid.tmp
         xcrun simctl boot "${UDID:?No Simulator with this name found}"
       continue-on-error: true
     - name: Checkout
@@ -40,7 +41,9 @@ jobs:
     - name: create env file
       run: touch assets/.env
     - name: "Run Flutter Driver tests"
-      run: "flutter drive --target=test_driver/app.dart --device-id ${UDID}"
+      run: |
+        UDID=$(cat /tmp/iosdeviceid.tmp) 
+        flutter drive --target=test_driver/app.dart --device-id $UDID
       env:
         TESTING_USER: ${{ secrets.TESTING_USER }}
         TESTING_PASSWORD: ${{ secrets.TESTING_PASSWORD }}
@@ -51,6 +54,7 @@ jobs:
       matrix:
         device:
         - "Pixel_3a_API_30"
+        - "Pixel_3_API_29"
       fail-fast: false
     runs-on: [self-hosted, android]
     steps:
@@ -58,8 +62,8 @@ jobs:
       run: "/usr/local/bin/emulator -list-avds"
     - name: "Start adb-server"
       run: /usr/local/bin/adb start-server   
-    - name: "Start Simulator"
-      run: /usr/local/bin/emulator -avd Pixel_3a_API_30 -no-audio & #FIXME: figure out how to add more avds, only launches one
+    - name: "Start Simulator" 
+      run: "/usr/local/bin/emulator -avd ${{ matrix.device }} -id ${{ matrix.device }} -no-audio"
       continue-on-error: true
     - name: Checkout
       uses: actions/checkout@v1
@@ -91,7 +95,9 @@ jobs:
         echo "APPCENTER_TOKEN_IOS=${{ secrets.APPCENTER_TOKEN_IOS }}" >> assets/.env
         echo "APPCENTER_APPID_IOS=${{ secrets.APPCENTER_APPID_IOS }}" >> assets/.env        
     - name: "Run Flutter Driver tests"
-      run: "flutter drive --target=test_driver/app.dart --flavor prod --device-id emulator-5554"
+      run: |
+        UDID=$(/usr/local/bin/adb devices | grep emulator |awk '{print$1}')
+        flutter drive --target=test_driver/app.dart --flavor prod --device-id $UDID
       env:
         TESTING_USER: ${{ secrets.TESTING_USER }}
         TESTING_PASSWORD: ${{ secrets.TESTING_PASSWORD }}
