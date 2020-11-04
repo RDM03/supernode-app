@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 abstract class _IosStyleBottomDialogBase extends StatelessWidget {
-  final OnItemClickListener onItemClickListener;
   final BuildContext context;
 
-  const _IosStyleBottomDialogBase({
+  _IosStyleBottomDialogBase({
     Key key,
-    this.onItemClickListener,
     this.context,
   }) : super(key: key);
 
@@ -51,15 +50,16 @@ typedef OnItemClickListener = void Function(int index);
 ///
 class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
   final int blueActionIndex;
+  final OnItemClickListener onItemClickListener;
   final List<IosButtonStyle> list;
 
-  const IosStyleBottomDialog({
+  IosStyleBottomDialog({
     Key key,
     @required this.list,
-    OnItemClickListener onItemClickListener,
+    this.onItemClickListener,
     this.blueActionIndex = -1,
     BuildContext context,
-  }) : super(key: key, onItemClickListener: onItemClickListener, context: context);
+  }) : super(key: key, context: context);
 
   @override
   Widget buildDialog(){
@@ -131,8 +131,8 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
       onTap: () => Navigator.pop(context),
       child: Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.all(25),
-        child: Text(button?.title ?? '', style: kBigFontOfBlue, textAlign: TextAlign.center,),
+        padding: EdgeInsets.symmetric(vertical: 25),
+        child: Text(button?.title ?? '', style: kBigFontOfBlue),
       ),
     );
   }
@@ -144,10 +144,9 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
         Navigator.pop(context);
       },
       child: Container(
-        key: Key("delete_gateway_bottom_dialog_item$index"),
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
-        child: Text(button?.title ?? '', style: button.style, textAlign: TextAlign.center,),
+        padding: EdgeInsets.symmetric(vertical: 14),
+        child: Text(button?.title ?? '', style: button.style),
       ),
     );
   }
@@ -170,9 +169,9 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
               ),
             ]),
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
+        padding: EdgeInsets.symmetric(vertical: 14),
         child: Text(FlutterI18n.translate(context, 'device_cancel'),
-            style: kBigFontOfBlack, textAlign: TextAlign.center,),
+            style: kBigFontOfBlack),
       ),
     );
   }
@@ -183,30 +182,63 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
 ///
 class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
   final Widget child;
+  bool isClosing = false;
 
-  const IosStyleBottomDialog2({
+  IosStyleBottomDialog2({
     Key key,
     @required this.child,
-    OnItemClickListener onItemClickListener,
     BuildContext context,
-  }) : super(key: key, onItemClickListener: onItemClickListener, context: context);
+  }) : super(key: key, context: context);
 
   @override
   Widget buildDialog(){
-    return Container(
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-          boxShadow: [
-            BoxShadow(
-              color: shodowColor,
-              offset: Offset(0, 2),
-              blurRadius: 7,
-            ),
-          ]),
-      alignment: Alignment.center,
-      padding: EdgeInsets.only(left: 22, right:22, top: 28, bottom:60),
-      child: child,
+    return GestureDetector(
+      onTap: (){
+        if(!isClosing){
+          isClosing = true;
+          Navigator.pop(context);
+        }
+      },
+      onVerticalDragUpdate: (details){
+        if (details.delta.dy > 0.0) {
+          //swipe down
+          Navigator.pop(context);
+        }
+      },
+      child: Container(
+        key: Key("infoDialog"),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+            boxShadow: [
+              BoxShadow(
+                color: shodowColor,
+                offset: Offset(0, 2),
+                blurRadius: 7,
+              ),
+            ]),
+        alignment: Alignment.center,
+        padding: EdgeInsets.only(left: 22, right:22, top: 28, bottom:60),
+        child: child,
+      ),
     );
   }
 }
+
+void showInfoDialog(BuildContext context, IosStyleBottomDialog2 child) {
+  showGeneralDialog(
+      context: context,
+      pageBuilder: (context, anim1, anim2) {},
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.4),
+      barrierLabel: '',
+      transitionBuilder: (context, anim1, anim2, ch) {
+        return Transform.translate(
+          offset: Offset(0, 200 - anim1.value * 200),
+          child: FullScreenDialog(child: child),
+        );
+      },
+      transitionDuration: Duration(milliseconds: 200)
+  );
+}
+

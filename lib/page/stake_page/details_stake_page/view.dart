@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
-import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
@@ -59,10 +58,10 @@ Widget buildView(
             child: Text(
               months == null ? '~' : months.toString(),
               style: Theme.of(_ctx).textTheme.bodyText1.copyWith(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                  ),
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             padding: EdgeInsets.only(top: 2),
             decoration: BoxDecoration(
@@ -75,8 +74,8 @@ Widget buildView(
               ? Row(
             children: [
               Text(
-                FlutterI18n.translate(_ctx, 'flex_stake'),
-                style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600)
+                  FlutterI18n.translate(_ctx, 'flex_stake'),
+                  style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600)
               ),
               GestureDetector(
                 onTap: () => _showInfoDialog(_ctx),
@@ -174,7 +173,7 @@ Widget buildView(
             alignment: Alignment.centerRight,
             child: Text(
               (double.parse(state.stake.amount) + state.stake.revenue)
-                      .toStringAsFixed(2) +
+                  .toStringAsFixed(2) +
                   ' MXC',
               style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
             ),
@@ -197,10 +196,10 @@ Widget buildView(
           width: double.infinity,
           child: PrimaryButton(
             onTap: (state.stake.lockTill == null ||
-                    state.stake.lockTill.isBefore(DateTime.now()))
+                state.stake.lockTill.isBefore(DateTime.now()))
                 ? () {
-                    dispatch(DetailsStakeActionCreator.unstake());
-                  }
+              dispatch(DetailsStakeActionCreator.unstake());
+            }
                 : null,
             buttonTitle: submitText(_ctx, state),
             key: ValueKey('primaryButton'),
@@ -210,48 +209,44 @@ Widget buildView(
   );
 }
 
-void _showInfoDialog(BuildContext context){
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return FullScreenDialog(
-        child: IosStyleBottomDialog2(
-            context: context,
-            child: Column(
-              children: [
-                Container(
-                  height: 80,
-                  width: 80,
-                  alignment: Alignment.center,
-                  child: Text('~',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                      color: Colors.white,
-                      fontSize: 40,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: stakeFlexColor,
-                  ),
+void _showInfoDialog(BuildContext context) {
+  showInfoDialog(
+    context,
+    IosStyleBottomDialog2(
+        context: context,
+        child: Column(
+          children: [
+            Container(
+              height: 80,
+              width: 80,
+              alignment: Alignment.center,
+              child: Text('~',
+                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  color: Colors.white,
+                  fontSize: 40,
+                  fontWeight: FontWeight.w600,
                 ),
-                Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: Text(
-                      FlutterI18n.translate(context, 'info_flex_stake'),
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: s(16),
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.center,
-                    )
-                ),
-              ],
-            )
-        ),
-      );
-    },
+              ),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: stakeFlexColor,
+              ),
+            ),
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Text(
+                  FlutterI18n.translate(context, 'info_flex_stake'),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: s(16),
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                )
+            ),
+          ],
+        )
+    ),
   );
 }
 
@@ -266,3 +261,4 @@ String submitText(BuildContext ctx, DetailsStakeState state) {
       FlutterI18n.translate(ctx, 'required_2FA_general') +
       ')';
 }
+
