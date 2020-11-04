@@ -51,9 +51,11 @@ Widget buildView(
                   value: Tools.priceFormat(state.balance),
                 ),
                 primaryButtons(
+                  key1: Key('deposit'),
                   buttonLabel1: FlutterI18n.translate(_ctx, 'deposit'),
                   onTap1: () =>
                       dispatch(HomeActionCreator.onOperate('deposit')),
+                  key2: Key('withdraw'),
                   buttonLabel2: FlutterI18n.translate(_ctx, 'withdraw'),
                   onTap2: () =>
                       dispatch(HomeActionCreator.onOperate('withdraw')),
@@ -70,8 +72,10 @@ Widget buildView(
                     name: FlutterI18n.translate(_ctx, 'total_revenue'),
                     value: Tools.priceFormat(state.totalRevenue, range: 2)),
                 primaryButtons(
+                  key1: Key('stake'),
                   buttonLabel1: FlutterI18n.translate(_ctx, 'stake'),
                   onTap1: () => dispatch(WalletActionCreator.onStake()),
+                  key2: Key('unstake'),
                   buttonLabel2: FlutterI18n.translate(_ctx, 'unstake'),
                   onTap2: () => dispatch(WalletActionCreator.onUnstake()),
                 ),
@@ -106,6 +110,7 @@ Widget buildView(
               onTap3: () => dispatch(WalletActionCreator.isSetDate())),
         ),
         Visibility(
+          key: Key(''),
           visible: state.tabIndex == 0 ? state.isSetDate1 : state.isSetDate2,
           child: Padding(
             padding: EdgeInsets.only(top: 5),

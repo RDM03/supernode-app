@@ -33,5 +33,19 @@ Map f = {
   'depositButtonDashboard': find.byValueKey('depositButtonDashboard'),
   'exitPage': find.byValueKey('navActionButton'),
   'settingsButtonDashboard': find.byValueKey('settingsButton'),
-  'logoutFinder': find.byValueKey('logout')
+  'logoutFinder': find.byValueKey('logout'),
+  'navbarWalletButton': find.byValueKey('bottomNavBar_Wallet'),
+  'walletAccountStakeButton': find.byValueKey('tabBar_stake'),
+  'walletStakeUnstakeButton': find.byValueKey('unstake'),
+
+  // Later unstakeStakedToken will need to be managed directly in the staking_test.dart file
+  // so that we can unstake specific to the recently created stake
+
+  'unstakeStakedToken': find.byValueKey('stakeItem_1'),
+  'primaryButton': find.byValueKey('primaryButton'),
+  'otpEnterOtp': find.byValueKey('otp_0'),
+  'otpConfirmOtpButton': find.byValueKey('confirmOtp'),
+  'navbarHomeButton': find.byValueKey('bottomNavBar_Home'),
+  'unstakeStakesList': find.byValueKey('stakesList'),
+  'unstakePage': find.byValueKey('unstakePage')
 };

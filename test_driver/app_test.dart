@@ -5,7 +5,8 @@ import 'package:test/test.dart';
 import 'help_bubble_test.dart' show helpBubbleTest;
 import 'login_test.dart' show loginPageTests;
 import 'logout_test.dart' show logoutTest;
-import 'stake_test.dart' show stakeTest;
+import 'stake_test.dart' show stakingTest;
+
 import 'add_miner_test.dart' show addMinerTest;
 import 'delete_miner_test.dart' show deleteMinerTest;
 
@@ -30,7 +31,7 @@ void main() {
       }
     });
     loginPageTests();
-    stakeTest();
+    stakingTest();
     helpBubbleTest();
     addMinerTest();
     deleteMinerTest();
