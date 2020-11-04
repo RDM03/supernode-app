@@ -1,31 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
-class IosButtonStyle {
-  String title;
-  TextStyle style;
-
-  IosButtonStyle({String title, TextStyle style = kBigFontOfBlack}) {
-    this.title = title;
-    this.style = style;
-  }
-}
-
-typedef OnItemClickListener = void Function(int index);
-
-class IosStyleBottomDialog extends StatelessWidget {
-  final int blueActionIndex;
-  final List<IosButtonStyle> list;
-  final OnItemClickListener onItemClickListener;
+abstract class _IosStyleBottomDialogBase extends StatelessWidget {
   final BuildContext context;
 
-  const IosStyleBottomDialog({
+  _IosStyleBottomDialogBase({
     Key key,
-    @required this.list,
-    this.onItemClickListener,
-    this.blueActionIndex = -1,
     this.context,
   }) : super(key: key);
 
@@ -39,14 +22,51 @@ class IosStyleBottomDialog extends StatelessWidget {
           right: 20,
           child: GestureDetector(
             onTap: () {},
-            child: Column(
-              children: <Widget>[
-                _buildContentList(context),
-                _buildCancelItem(context),
-              ],
-            ),
+            child: buildDialog(),
           ),
         ),
+      ],
+    );
+  }
+
+  Widget buildDialog();
+}
+
+class IosButtonStyle {
+  String title;
+  TextStyle style;
+
+  IosButtonStyle({String title, TextStyle style = kBigFontOfBlack}) {
+    this.title = title;
+    this.style = style;
+  }
+}
+
+typedef OnItemClickListener = void Function(int index);
+
+///
+/// iOS style Bottom Dialog with list of buttons IosButtonStyle
+/// and a separate Cancel button by default
+///
+class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
+  final int blueActionIndex;
+  final OnItemClickListener onItemClickListener;
+  final List<IosButtonStyle> list;
+
+  IosStyleBottomDialog({
+    Key key,
+    @required this.list,
+    this.onItemClickListener,
+    this.blueActionIndex = -1,
+    BuildContext context,
+  }) : super(key: key, context: context);
+
+  @override
+  Widget buildDialog(){
+    return Column(
+      children: <Widget>[
+        _buildContentList(context),
+        _buildCancelItem(context),
       ],
     );
   }
@@ -155,4 +175,69 @@ class IosStyleBottomDialog extends StatelessWidget {
       ),
     );
   }
+}
+
+///
+/// iOS style Bottom Dialog with UI defined by param child
+///
+class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
+  final Widget child;
+  bool isClosing = false;
+
+  IosStyleBottomDialog2({
+    Key key,
+    @required this.child,
+    BuildContext context,
+  }) : super(key: key, context: context);
+
+  @override
+  Widget buildDialog(){
+    return GestureDetector(
+      onTap: (){
+        if(!isClosing){
+          isClosing = true;
+          Navigator.pop(context);
+        }
+      },
+      onVerticalDragUpdate: (details){
+        if (details.delta.dy > 0.0) {
+          //swipe down
+          Navigator.pop(context);
+        }
+      },
+      child: Container(
+        key: Key("infoDialog"),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+            boxShadow: [
+              BoxShadow(
+                color: shodowColor,
+                offset: Offset(0, 2),
+                blurRadius: 7,
+              ),
+            ]),
+        alignment: Alignment.center,
+        padding: EdgeInsets.only(left: 22, right:22, top: 28, bottom:60),
+        child: child,
+      ),
+    );
+  }
+}
+
+void showInfoDialog(BuildContext context, IosStyleBottomDialog2 child) {
+  showGeneralDialog(
+    context: context,
+    pageBuilder: (context, anim1, anim2) {},
+    barrierDismissible: true,
+    barrierColor: Colors.black.withOpacity(0.4),
+    barrierLabel: '',
+    transitionBuilder: (context, anim1, anim2, ch) {
+      return Transform.translate(
+        offset: Offset(0, 200 - anim1.value * 200),
+        child: FullScreenDialog(child: child),
+      );
+    },
+    transitionDuration: Duration(milliseconds: 200)
+  );
 }

@@ -3,6 +3,9 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:supernodeapp/common/utils/tools.dart';
 
 class Mining {
+  static final weekStartDate = DateTime.now().add(Duration(days: -8));
+  static final weekEndDate = DateTime.now().add(Duration(days: -1));
+
   final DateTime date;
   final double amount;
 
@@ -17,13 +20,9 @@ class Mining {
       data[realDate] = double.parse(item['amount']);
     }
 
-    final weekStartTemp = DateTime.now().add(Duration(days: -7));
-    final weekStart =
-        DateTime.utc(weekStartTemp.year, weekStartTemp.month, weekStartTemp.day);
-
-    final futureDayTemp = DateTime.now().add(Duration(days: 1));
-    final futureDay =
-        DateTime.utc(futureDayTemp.year, futureDayTemp.month, futureDayTemp.day);
+    final weekStart = DateTime.utc(weekStartDate.year, weekStartDate.month, weekStartDate.day);
+    final futureDayTemp = weekEndDate.add(Duration(days: 1));
+    final futureDay = DateTime.utc(futureDayTemp.year, futureDayTemp.month, futureDayTemp.day);
 
     for (var i = weekStart;
         i.isBefore(futureDay);

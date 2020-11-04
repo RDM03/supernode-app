@@ -23,7 +23,7 @@ Widget pageNavBar(
         ),
         Spacer(),
         GestureDetector(
-          key: ValueKey('navActionButton'),
+          key: Key('navActionButton'),
           child: actionWidget == null
               ? Icon(
                   Icons.close,

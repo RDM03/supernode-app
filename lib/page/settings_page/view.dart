@@ -18,6 +18,7 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return Scaffold(
+      key: Key('settingsPage'),
       appBar: AppBar(
         leading: IconButton(
             icon: Icon(
@@ -104,6 +105,7 @@ Widget buildView(
             ),
             Divider(),
             listItem(FlutterI18n.translate(_ctx, 'logout'),
+                key: Key('logout'),
                 trailing: Text(''),
                 onTap: () =>
                     dispatch(SettingsActionCreator.onSettings('logout'))),

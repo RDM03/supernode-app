@@ -102,7 +102,7 @@ class DemoWalletDao extends DemoDao implements WalletDao {
         {
           "date": DateTime.now()
               .add(Duration(
-                days: 0,
+                days: -1,
               ))
               .toUtc()
               .toIso8601String(),
@@ -111,7 +111,7 @@ class DemoWalletDao extends DemoDao implements WalletDao {
         {
           "date": DateTime.now()
               .add(Duration(
-                days: -1,
+                days: -2,
               ))
               .toUtc()
               .toIso8601String(),
@@ -120,7 +120,7 @@ class DemoWalletDao extends DemoDao implements WalletDao {
         {
           "date": DateTime.now()
               .add(Duration(
-                days: -2,
+                days: -3,
               ))
               .toUtc()
               .toIso8601String(),
@@ -129,7 +129,7 @@ class DemoWalletDao extends DemoDao implements WalletDao {
         {
           "date": DateTime.now()
               .add(Duration(
-                days: -3,
+                days: -4,
               ))
               .toUtc()
               .toIso8601String(),
@@ -138,7 +138,7 @@ class DemoWalletDao extends DemoDao implements WalletDao {
         {
           "date": DateTime.now()
               .add(Duration(
-                days: -4,
+                days: -5,
               ))
               .toUtc()
               .toIso8601String(),
@@ -147,7 +147,7 @@ class DemoWalletDao extends DemoDao implements WalletDao {
         {
           "date": DateTime.now()
               .add(Duration(
-                days: -5,
+                days: -6,
               ))
               .toUtc()
               .toIso8601String(),
@@ -156,7 +156,7 @@ class DemoWalletDao extends DemoDao implements WalletDao {
         {
           "date": DateTime.now()
               .add(Duration(
-                days: -6,
+                days: -7,
               ))
               .toUtc()
               .toIso8601String(),
@@ -165,7 +165,7 @@ class DemoWalletDao extends DemoDao implements WalletDao {
         {
           "date": DateTime.now()
               .add(Duration(
-                days: -7,
+                days: -8,
               ))
               .toUtc()
               .toIso8601String(),
