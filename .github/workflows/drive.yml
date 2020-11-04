@@ -25,6 +25,7 @@ jobs:
             '$1 == device { print $2 }'
         )
         xcrun simctl shutdown all
+        echo ${UDID} > /tmp/iosdeviceid.tmp
         xcrun simctl boot "${UDID:?No Simulator with this name found}"
       continue-on-error: true
     - name: Checkout
@@ -41,13 +42,7 @@ jobs:
       run: touch assets/.env
     - name: "Run Flutter Driver tests"
       run: |
-        UDID=$(
-          xcrun instruments -s |
-          awk \
-            -F ' *[][]' \
-            -v 'device=${{ matrix.device }}' \
-            '$1 == device { print $2 }'
-        )
+        UDID=$(cat /tmp/iosdeviceid.tmp)
         "flutter drive --target=test_driver/app.dart --device-id ${UDID}"
       env:
         TESTING_USER: ${{ secrets.TESTING_USER }}
@@ -102,7 +97,7 @@ jobs:
     - name: "Run Flutter Driver tests"
       run: |
         UDID=$(/usr/local/bin/adb devices | grep emulator |awk '{print$1}')
-        "flutter drive --target=test_driver/app.dart --flavor prod --device-id ${UDID}"
+        "flutter drive --target=test_driver/app.dart --flavor prod --device-id emulator-5554"
       env:
         TESTING_USER: ${{ secrets.TESTING_USER }}
         TESTING_PASSWORD: ${{ secrets.TESTING_PASSWORD }}
