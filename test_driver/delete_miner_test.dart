@@ -27,7 +27,7 @@ deleteMinerTest() {
     await driver.tap(f['minerConfirmDeleteButton']);
     print('CONFIRM DELETE');
     delay(5000);
-    var MinerExists = await isPresent(f['minerNewMiner'], driver);
+    var MinerExists = await isPresent(f['minersNewMiner'], driver);
     expect(MinerExists, false);
   }, timeout:Timeout(Duration(seconds: 60)));
 }
