@@ -28,6 +28,6 @@ deleteMinerTest() {
     print('CONFIRM DELETE');
     delay(5000);
     var MinerExists = await isPresent(f['minersNewMiner'], driver);
-    expect(MinerExists, false);
+    expect(await MinerExists, false);
   }, timeout:Timeout(Duration(seconds: 60)));
 }

@@ -34,6 +34,6 @@ addMinerTest() {
     print('SUBMITTED MINER');
     delay(5000);
     var MinerExists = await isPresent(f['minersNewMiner'], driver);
-    expect(MinerExists, true);
+    expect(await MinerExists, true);
   }, timeout:Timeout(Duration(seconds: 60)));
 }
