@@ -2,13 +2,11 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
-import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/daos/chart_dao.dart';
 import 'package:supernodeapp/common/daos/demo/gateways_dao.dart';
 import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
 import 'package:supernodeapp/common/daos/gateways_dao.dart';
-import 'package:supernodeapp/common/daos/time_dao.dart';
 import 'package:supernodeapp/common/daos/wallet_dao.dart';
-import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/home_page/gateway_component/item_state.dart';
@@ -59,8 +57,8 @@ void _initState(Action action, Context<GatewayProfileState> ctx) {
 /// Request MiningInfo
 Future<void> _miningInfo(Context<GatewayProfileState> ctx) async {
   SettingsState settingsData = GlobalStore.store.getState().settings;
-  final fromDateSource = DateTime.now().add(Duration(days: -7));
-  final toDateSource = DateTime.now();
+  final fromDateSource = Mining.weekStartDate;
+  final toDateSource = Mining.weekEndDate;
 
   Map data = {
     'gatewayMac': ctx.state.profile.id,

@@ -15,6 +15,7 @@ Widget buildView(
 
   return Scaffold(
     body: Container(
+      key: Key('unstakePage'),
       constraints: BoxConstraints.expand(),
       padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
       decoration: BoxDecoration(
@@ -70,7 +71,11 @@ Widget buildView(
                                 Navigator.of(context).pop(true);
                               }
                             },
-                            key: ValueKey('stakeItem_${stake.id}'),
+
+                            // changed id to index for automated tests, should be changed back when tests can be stake specific
+                            // use ${stake.id} instead of i
+
+                            key: ValueKey('stakeItem_$i'),
                           );
                         },
                       )

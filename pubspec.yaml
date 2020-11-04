@@ -109,6 +109,10 @@ dependencies:
   flutter_mapbox_native:
     path: packages/flutter_mapbox_native
   dotenv: ^2.0.0
+  otp: ^2.2.3
+  flutter_slidable:
+  # https://pub.dev/packages/flutter_slidable
+
 
 dependency_overrides:
   local_auth:
@@ -149,7 +153,9 @@ flutter:
     - assets/images/deposit/
     - assets/images/withdraw/
     - assets/images/stake/
+    - assets/images/wallet/
     - assets/images/device/
+    - assets/images/gateway/
     - assets/images/calculator/currencies/
     - assets/images/connectivity/
     - assets/images/settings/

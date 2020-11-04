@@ -3,26 +3,32 @@ import 'package:supernodeapp/common/utils/reg.dart';
 
 import 'text_field_with_title.dart';
 
-Widget textfieldWithCodes({BuildContext context,TextEditingController controller,bool isLast = false}){
+Widget textfieldWithCodes(
+    {BuildContext context,
+    TextEditingController controller,
+    bool isLast = false,
+    Key key}) {
   return SizedBox(
     width: 40,
     child: TextFieldWithTitle(
+      key: key,
       title: '',
       // maxLength: 1,
       counterText: '',
       textAlign: TextAlign.center,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
-      onChanged: (value){
+      onChanged: (value) {
         controller.text = value.substring(value.length - 1);
-        if(value.length > 0 && !isLast){
+        if (value.length > 0 && !isLast) {
           FocusScope.of(context).nextFocus();
-        }else{
+        } else {
           FocusScope.of(context).unfocus();
         }
       },
       borderColor: Color(0x1A000000),
-      validator: (value) => Reg.onValidNumber(context,value,isShowError: false),
+      validator: (value) =>
+          Reg.onValidNumber(context, value, isShowError: false),
       controller: controller,
     ),
   );

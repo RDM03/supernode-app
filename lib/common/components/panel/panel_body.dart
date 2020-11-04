@@ -21,6 +21,7 @@ Widget panelBody({
     leading: Container(
         margin: const EdgeInsets.only(left: 10),
         child: IconButton(
+          key: ValueKey('minersAddIcon'),
           padding: EdgeInsets.zero,
           icon: Icon(
             icon,
