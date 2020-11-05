@@ -1,7 +1,8 @@
 name: flutter release
 
 on:
-  release:      
+  release:
+    types: [released] 
 
 jobs:
 
