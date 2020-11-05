@@ -1,8 +1,11 @@
 name: flutter release
 
 on:
+  push:
+    tags:
+      - 'v*'
   release:
-    types: [released] 
+    types: [published]
 
 jobs:
 
