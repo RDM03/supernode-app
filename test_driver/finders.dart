@@ -27,7 +27,7 @@ Map f = {
   'minerConfirmDeleteButton': find.byValueKey('delete_gateway_bottom_dialog_item2'),
   'submitButton': find.byValueKey('submitButton'),
   'backButton': find.byValueKey('backButton'),
-  'successIconFinder': find.byValueKey('successIcon'),
+  'successIconFinder': find.byValueKey('successIcon_true'),
   'stakeAmountView': find.byValueKey('stakeAmountView'),
   'stakeButtonDashboard': find.byValueKey('stakeButtonDashboard'),
   'depositButtonDashboard': find.byValueKey('depositButtonDashboard'),

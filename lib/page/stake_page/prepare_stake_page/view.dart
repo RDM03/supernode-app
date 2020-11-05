@@ -18,6 +18,7 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return GestureDetector(
+    key: Key('stakeAmountView'),
     onTap: () =>
         FocusScope.of(viewService.context).requestFocus(new FocusNode()),
     child: pageFrame(

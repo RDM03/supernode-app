@@ -1,7 +1,8 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
-import 'utils.dart' show delay, isPresent;
+
 import 'finders.dart' show f;
+import 'utils.dart' show delay, isPresent;
 
 deleteMinerTest() {
   FlutterDriver driver;
@@ -26,8 +27,9 @@ deleteMinerTest() {
     await driver.waitFor(f['minerConfirmDeleteButton']);
     await driver.tap(f['minerConfirmDeleteButton']);
     print('CONFIRM DELETE');
-    delay(5000);
-    var MinerExists = await isPresent(f['minersNewMiner'], driver);
-    expect(await MinerExists, false);
-  }, timeout:Timeout(Duration(seconds: 60)));
+    await delay(2000);
+    var minerExists = await isPresent(f['minersNewMiner'], driver);
+    expect(await minerExists, false);
+    await driver.tap(f['navbarHomeButton']);
+  }, timeout: Timeout(Duration(seconds: 60)));
 }

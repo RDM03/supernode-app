@@ -1,14 +1,13 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/common/components/page/link.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
+import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
-import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -32,6 +31,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
           Align(
             alignment: Alignment.centerLeft,
             child: GestureDetector(
+              key: Key('backButton'),
               child: Icon(Icons.arrow_back_ios),
               onTap: () => Navigator.of(context).pop(),
             ),
@@ -87,7 +87,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   boostText: state.rate24m == null
                       ? null
                       : '+${round(state.rate24m / state.rate12m)}% ' +
-                          FlutterI18n.translate(context, 'mega_boost'),
+                      FlutterI18n.translate(context, 'mega_boost'),
                   first: true,
                   state: state,
                   revenueRate: state.rate24m,
@@ -113,7 +113,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   boostText: state.rate9m == null
                       ? null
                       : '${round(state.rate9m / state.rate12m)}% ' +
-                          FlutterI18n.translate(context, 'boost'),
+                      FlutterI18n.translate(context, 'boost'),
                   state: state,
                   revenueRate: state.rate9m,
                   marketingBoost: state.rate9m == null
@@ -128,7 +128,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   boostText: state.rate6m == null
                       ? null
                       : '${round(state.rate6m / state.rate12m)}% ' +
-                          FlutterI18n.translate(context, 'boost'),
+                      FlutterI18n.translate(context, 'boost'),
                   state: state,
                   revenueRate: state.rate6m,
                   marketingBoost: state.rate6m == null
@@ -142,7 +142,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   boostText: state.rateFlex == null
                       ? null
                       : '${round(state.rateFlex / state.rate12m)}% ' +
-                          FlutterI18n.translate(context, 'boost'),
+                      FlutterI18n.translate(context, 'boost'),
                   state: state,
                   revenueRate: state.rateFlex,
                   stakeName: FlutterI18n.translate(context, 'flex_stake'),
@@ -160,33 +160,27 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
 }
 
 void _showInfoDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return FullScreenDialog(
-        child: IosStyleBottomDialog2(
-            context: context,
-            child: Column(
-              children: [
-                Image.asset(AppImages.infoMXCVault, height: s(80)),
-                Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: Text(
-                      FlutterI18n.translate(context, 'info_mxc_vault'),
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: s(16),
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.center,
-                    )
-                ),
-              ],
-            )
-        ),
-      );
-    },
-  );
+  showInfoDialog(
+      context,
+      IosStyleBottomDialog2(
+          context: context,
+          child: Column(
+            children: [
+              Image.asset(AppImages.infoMXCVault, height: s(80)),
+              Padding(
+                  key: Key('helpText'),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Text(
+                    FlutterI18n.translate(context, 'info_mxc_vault'),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: s(16),
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  )),
+            ],
+          )));
 }
 
 int round(double v) {
@@ -239,10 +233,10 @@ Widget _stakeCard({
         child: Text(
           months?.toString() ?? '~',
           style: Theme.of(context).textTheme.bodyText1.copyWith(
-                color: Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-              ),
+            color: Colors.white,
+            fontSize: 22,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         padding: EdgeInsets.only(top: 2),
         decoration: BoxDecoration(
@@ -261,7 +255,9 @@ Widget _stakeCard({
           color: Color(0xFF1C1478),
           fontWeight: FontWeight.w600,
         ),
+        key: Key('setBoost'),
       ),
     ),
   );
 }
+
