@@ -16,7 +16,7 @@ class MainActivity: FlutterFragmentActivity() {
         super.onCreate(savedInstanceState)
     }
     override fun onDestroy() {
-        flutterEngine?.platformViewsController?.onFlutterViewDestroyed()
+        //flutterEngine?.platformViewsController?.onFlutterViewDestroyed()
         super.onDestroy()
     }
 }
