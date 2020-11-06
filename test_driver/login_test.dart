@@ -3,8 +3,9 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
 import 'finders.dart' show f;
-import 'supernodes.dart' show s;
-import 'utils.dart' show delay, canTap, isPresentString password) {
+import 'utils.dart' show delay, canTap, isPresent;
+
+loginPageTests(String server, String password) {
   FlutterDriver driver;
   load();
   group('login page', () {

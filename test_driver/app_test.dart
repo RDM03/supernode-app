@@ -1,4 +1,5 @@
 import 'package:dotenv/dotenv.dart' show load;
+import 'package:dotenv/dotenv.dart' show env, load;
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
@@ -7,7 +8,6 @@ import 'delete_miner_test.dart' show deleteMinerTest;
 import 'help_bubble_test.dart' show helpBubbleTest;
 import 'login_test.dart' show loginPageTests;
 import 'logout_test.dart' show logoutTest;
-import 'stake_test.dart' show staking logoutTest;
 import 'stake_test.dart' show stakingTest;
 import 'supernodes.dart' show s;
 
