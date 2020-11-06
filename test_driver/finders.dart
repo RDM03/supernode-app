@@ -1,10 +1,7 @@
 import 'package:flutter_driver/flutter_driver.dart';
-import 'package:dotenv/dotenv.dart' show load, env;
+import 'package:dotenv/dotenv.dart' show env;
 
 // Naming Convention 'page' + 'DescribeItem'
-finders(){
-  load();
-}
 
 Map f = {
   'logoFinder': find.byValueKey('homeLogo'),

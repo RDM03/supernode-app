@@ -4,9 +4,20 @@ This only works on flutter channel beta, I can't seem to get it to work properly
 
 Use the following ENV variables for your credentials:
 * TESTING_USER
-* TESTING_PASSWORD
+* MXCTEST_PASSWORD
 * MINER_SERIAL
 * OTP_KEY
+
+OPTIONAL:
+* ENLINK_PASSWORD
+* XY_PASSWORD
+* HUAWEITECH_PASSWORD
+* MATCHXEU_PASSWORD
+* SEJONG_PASSWORD
+* MXCBUILD_PASSWORD
+* MXCCHINA_PASSWORD
+
+Currently, to change server you're testing you must change the value in the loginPageTests() function in app_test.dart. All test accounts use the same email in this version.
 
 Then run: `flutter drive --target=test_driver/app.dart`
 

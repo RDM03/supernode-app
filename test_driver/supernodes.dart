@@ -1,8 +1,4 @@
-import 'package:dotenv/dotenv.dart' show env, load;
-
-supernodes(){
-  load();
-}
+import 'package:dotenv/dotenv.dart' show env;
 
 Map s = {
   'Enlink': env['ENLINK_PASSWORD'],
@@ -10,7 +6,8 @@ Map s = {
   'Huaweitech': env['HUAWEITECH_PASSWORD'],
   'MatchX EU': env['MATCHXEU_PASSWORD'],
   'Sejong': env['SEJONG_PASSWORD'],
-  'MXCtest': env['MXCTEST_PASSWORD'],
-  'MXCbuild': env['MXCBUILD_PASSWORD'],
+  'MXCtest': env['MXCBUILD_PASSWORD'],
+  'MXCbuild': env['MXCTEST_PASSWORD'],
   'MXCChina': env['MXCCHINA_PASSWORD']
 };
+

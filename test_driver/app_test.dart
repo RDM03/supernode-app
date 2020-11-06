@@ -1,6 +1,6 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
-
+import 'package:dotenv/dotenv.dart' show load;
 
 import 'help_bubble_test.dart' show helpBubbleTest;
 import 'login_test.dart' show loginPageTests;
@@ -20,7 +20,7 @@ void main() {
       Health health = await driver.checkHealth();
       print(health.status);
     });
-
+    load();
     setUpAll(() async {
       driver = await FlutterDriver.connect();
     });
