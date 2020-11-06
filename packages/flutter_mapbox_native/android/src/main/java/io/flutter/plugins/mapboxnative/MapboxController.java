@@ -1026,7 +1026,9 @@ private static String getAccessToken(@NonNull Context context) {
    if (mapView == null) {
      return;
    }
-   mapView.onDestroy();
+   if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+     mapView.onDestroy();
+   }
    mapView = null;
  }
 
