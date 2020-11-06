@@ -3,10 +3,8 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
 import 'finders.dart' show f;
-import 'utils.dart' show delay, canTap, isPresent;
 import 'supernodes.dart' show s;
-
-loginPageTests(String server) {
+import 'utils.dart' show delay, canTap, isPresentString password) {
   FlutterDriver driver;
   load();
   group('login page', () {
@@ -65,10 +63,12 @@ loginPageTests(String server) {
       await driver.waitFor(f['emailFieldFinder']);
       print('I SEE THE EMAIL FIELD');
       await driver.tap(f['emailFieldFinder']);
+      print('TAPPED EMAIL FIELD');
       await driver.enterText(env['TESTING_USER']);
-      await driver.waitFor(find.text(env['TESTING_USER']));
+      print('ENTERED EMAIL ADDRESS');
       await driver.tap(f['passwordFieldFinder']);
-      await driver.enterText(s[server]);
+      print('TAPPED PASSWORD FIELD');
+      await driver.enterText(password);
       print('THE MOMENT HAS COME, WILL IT WORK?');
       await driver.tap(f['loginFinder']);
       expect(await driver.getText(f['totalGatewaysDashboard']), 'Revenue');

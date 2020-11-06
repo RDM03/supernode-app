@@ -4,7 +4,7 @@ This only works on flutter channel beta, I can't seem to get it to work properly
 
 Use the following ENV variables for your credentials:
 * TESTING_USER
-* MXCTEST_PASSWORD
+* TESTING_PASSWORD
 * MINER_SERIAL
 * OTP_KEY
 

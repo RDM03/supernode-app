@@ -1,20 +1,20 @@
+import 'package:dotenv/dotenv.dart' show load;
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
-import 'package:dotenv/dotenv.dart' show load;
-
-import 'help_bubble_test.dart' show helpBubbleTest;
-import 'login_test.dart' show loginPageTests;
-import 'logout_test.dart' show logoutTest;
-import 'stake_test.dart' show stakingTest;
 
 import 'add_miner_test.dart' show addMinerTest;
 import 'delete_miner_test.dart' show deleteMinerTest;
+import 'help_bubble_test.dart' show helpBubbleTest;
+import 'login_test.dart' show loginPageTests;
+import 'logout_test.dart' show logoutTest;
+import 'stake_test.dart' show staking logoutTest;
+import 'stake_test.dart' show stakingTest;
+import 'supernodes.dart' show s;
 
 void main() {
+  load();
   group('Supernode App', () {
-
     FlutterDriver driver;
-
 
     test('check flutter driver health', () async {
       Health health = await driver.checkHealth();
@@ -30,14 +30,22 @@ void main() {
         driver.close();
       }
     });
-    loginPageTests('MXCbuild');
-    stakingTest();
-    helpBubbleTest();
-    addMinerTest();
-    deleteMinerTest();
-    logoutTest();
 
+    if (env['ENVIRONMENT'] == 'test') {
+      loginPageTests('MXCbuild', env['TESTING_PASSWORD']);
+      stakingTest();
+      helpBubbleTest();
+      addMinerTest();
+      deleteMinerTest();
+      logoutTest();
+    } else
+      for (var i; i < s.length; i++) {
+        loginPageTests(s[i][0], s[i][1]);
+        stakingTest();
+        helpBubbleTest();
+        addMinerTest();
+        deleteMinerTest();
+        logoutTest();
+      }
   });
-
-
 }
