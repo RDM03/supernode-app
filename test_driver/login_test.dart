@@ -4,8 +4,9 @@ import 'package:test/test.dart';
 
 import 'finders.dart' show f;
 import 'utils.dart' show delay, canTap, isPresent;
+import 'supernodes.dart' show s;
 
-loginPageTests() {
+loginPageTests(String server) {
   FlutterDriver driver;
   load();
   group('login page', () {
@@ -50,14 +51,14 @@ loginPageTests() {
       await driver.tap(f['menuFinder']);
       await driver.scrollUntilVisible(f['scrollMenu'], f['mxcChinaFinder']);
       await delay(2000);
-      var openMenuState = await canTap(f['testServerFinder'], driver);
+      var openMenuState = await canTap(find.byValueKey(server), driver);
       if (await openMenuState == true) {
-        print('TEST SERVER SELECTED');
+        print('SERVER SELECTED');
       } else {
         print("OOPS THE MENU CLOSED, I'LL JUST OPEN THAT UP FOR YOU");
         await driver.tap(f['menuFinder']);
         await delay(2000);
-        await driver.tap(f['testServerFinder']);
+        await driver.tap(find.byValueKey(server));
         await delay(2000);
         print('SERVER SELECTED, TIME TO ENTER CREDENTIALS');
       }
@@ -67,7 +68,7 @@ loginPageTests() {
       await driver.enterText(env['TESTING_USER']);
       await driver.waitFor(find.text(env['TESTING_USER']));
       await driver.tap(f['passwordFieldFinder']);
-      await driver.enterText(env['TESTING_PASSWORD']);
+      await driver.enterText(s[server]);
       print('THE MOMENT HAS COME, WILL IT WORK?');
       await driver.tap(f['loginFinder']);
       expect(await driver.getText(f['totalGatewaysDashboard']), 'Revenue');

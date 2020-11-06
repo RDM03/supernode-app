@@ -30,7 +30,7 @@ void main() {
         driver.close();
       }
     });
-    loginPageTests();
+    loginPageTests('MXCbuild');
     stakingTest();
     helpBubbleTest();
     addMinerTest();

@@ -32,7 +32,7 @@ addMinerTest() {
     await driver.waitFor(f['addMinerSubmit']);
     await driver.tap(f['addMinerSubmit']);
     print('SUBMITTED MINER');
-    delay(5000);
+    await delay(5000);
     var MinerExists = await isPresent(f['minersNewMiner'], driver);
     expect(await MinerExists, true);
   }, timeout:Timeout(Duration(seconds: 60)));

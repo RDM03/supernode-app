@@ -2,6 +2,9 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:dotenv/dotenv.dart' show load, env;
 
 // Naming Convention 'page' + 'DescribeItem'
+finders(){
+  load();
+}
 
 Map f = {
   'logoFinder': find.byValueKey('homeLogo'),
@@ -10,7 +13,6 @@ Map f = {
   'navBarMiners': find.byValueKey('bottomNavBar_Gateway'),
   'emailFieldFinder': find.byValueKey('homeEmail'),
   'passwordFieldFinder': find.byValueKey('homePassword'),
-  'testServerFinder': find.byValueKey('MXCbuild'),
   'scrollMenu': find.byValueKey('scrollMenu'),
   'mxcChinaFinder': find.byValueKey('MXCChina'),
   'questionCircle': find.byValueKey('questionCircle'),
