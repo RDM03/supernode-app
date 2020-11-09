@@ -48,7 +48,7 @@ loginPageTests(String server, String password) {
       }
       print('ALL TAPPED OUT, LETS SELECT THAT SERVER');
       await driver.tap(f['menuFinder']);
-      await driver.scrollUntilVisible(f['scrollMenu'], f['mxcChinaFinder']);
+      await driver.scrollUntilVisible(f['scrollMenu'], find.byValueKey(server));
       await delay(2000);
       var openMenuState = await canTap(find.byValueKey(server), driver);
       if (await openMenuState == true) {

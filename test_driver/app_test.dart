@@ -39,7 +39,7 @@ void main() {
       deleteMinerTest();
       logoutTest();
     } else
-      for (var i; i < s.length; i++) {
+      for (var i = 0; i < s.length; i++) {
         loginPageTests(s[i][0], s[i][1]);
         stakingTest();
         helpBubbleTest();
