@@ -177,14 +177,14 @@ class CustomCircleSymbolRenderer extends charts.CircleSymbolRenderer {
 
   @override
   void paint(
-    charts.ChartCanvas canvas,
-    Rectangle<num> bounds, {
-    List<int> dashPattern,
-    charts.Color fillColor,
-    charts.FillPatternType fillPattern,
-    charts.Color strokeColor,
-    double strokeWidthPx,
-  }) {
+      charts.ChartCanvas canvas,
+      Rectangle<num> bounds, {
+        List<int> dashPattern,
+        charts.Color fillColor,
+        charts.FillPatternType fillPattern,
+        charts.Color strokeColor,
+        double strokeWidthPx,
+      }) {
     super.paint(
       canvas,
       bounds,
@@ -248,24 +248,24 @@ void _showInfoDialog(BuildContext context) {
   showInfoDialog(
     context,
     IosStyleBottomDialog2(
-      context: context,
-      child: Column(
-        children: [
-          Image.asset(AppImages.infoDownlinkPrice, height: s(80)),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Text(
-              FlutterI18n.translate(context, 'info_downlink_price'),
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: s(16),
-                fontWeight: FontWeight.w500,
-              ),
-              textAlign: TextAlign.center,
-            )
-          ),
-        ],
-      )
+        context: context,
+        child: Column(
+          children: [
+            Image.asset(AppImages.infoDownlinkPrice, height: s(80)),
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Text(
+                  FlutterI18n.translate(context, 'info_downlink_price'),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: s(16),
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                )
+            ),
+          ],
+        )
     ),
   );
 }

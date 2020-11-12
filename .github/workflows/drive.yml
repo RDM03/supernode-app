@@ -11,7 +11,7 @@ jobs:
         - "iPhone SE (2nd generation) (14.1)"
         - "iPhone 11 Pro Max (14.1)"
       fail-fast: false
-    runs-on: [self-hosted, macOS]
+    runs-on: ["self-hosted", "macOS"]
     steps:
     - name: "List all simulators"
       run: "xcrun instruments -s"
@@ -30,6 +30,8 @@ jobs:
       continue-on-error: true
     - name: Checkout
       uses: actions/checkout@v1
+      with:
+        ref: ${{ github.ref }}
     - name: Setup subosito/flutter-action@v1
       uses: subosito/flutter-action@v1
       with:
@@ -47,6 +49,8 @@ jobs:
       env:
         TESTING_USER: ${{ secrets.TESTING_USER }}
         TESTING_PASSWORD: ${{ secrets.TESTING_PASSWORD }}
+        MINER_SERIAL: ${{ secrets.MINER_SERIAL }}
+        OTP_KEY: ${{ secrets.OTP_KEY }}
 
   drive_android:
     name: Drive flutter (Android)
@@ -56,7 +60,7 @@ jobs:
         - "Pixel_3a_API_30"
         - "Pixel_3_API_29"
       fail-fast: false
-    runs-on: [self-hosted, android]
+    runs-on: ["self-hosted", "android"]
     steps:
     - name: "List all simulators"
       run: "/usr/local/bin/emulator -list-avds"
@@ -67,6 +71,8 @@ jobs:
       continue-on-error: true
     - name: Checkout
       uses: actions/checkout@v1
+      with:
+        ref: ${{ github.ref }}
     - name: Setup Java
       uses: actions/setup-java@v1
       with:
@@ -105,3 +111,5 @@ jobs:
         APPCENTER_KEYSTORE_PASSWORD: ${{ secrets.APPCENTER_KEYSTORE_PASSWORD}}
         APPCENTER_KEY_ALIAS: ${{ secrets.APPCENTER_KEY_ALIAS}}
         APPCENTER_KEY_PASSWORD: ${{ secrets.APPCENTER_KEY_PASSWORD}}
+        MINER_SERIAL: ${{ secrets.MINER_SERIAL }}
+        OTP_KEY: ${{ secrets.OTP_KEY }}

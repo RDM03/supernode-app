@@ -122,27 +122,27 @@ String _onValidAmount(
 
 void _showInfoDialog(BuildContext context) {
   showInfoDialog(
-    context,
-    IosStyleBottomDialog2(
-      context: context,
-      child: Column(
-        children: [
-          Image.asset(AppImages.infoCurrentTransactionFee, height: s(80)),
-          Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Text(
-              FlutterI18n.translate(context, 'info_current_transaction_fee'),
-              key: ValueKey('helpText'),
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: s(16),
-                fontWeight: FontWeight.w500,
+      context,
+      IosStyleBottomDialog2(
+          context: context,
+          child: Column(
+            children: [
+              Image.asset(AppImages.infoCurrentTransactionFee, height: s(80)),
+              Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Text(
+                    FlutterI18n.translate(context, 'info_current_transaction_fee'),
+                    key: ValueKey('helpText'),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: s(16),
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  )
               ),
-              textAlign: TextAlign.center,
-            )
-          ),
-        ],
+            ],
+          )
       )
-    )
   );
 }

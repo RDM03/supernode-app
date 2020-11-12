@@ -20,7 +20,7 @@ class PrimaryTextField extends StatelessWidget {
     this.borderColor = c.borderColor,
     this.counterText,
     Key key,
-  });
+  }) : super(key: key);
 
   final Color borderColor;
   final String hint;

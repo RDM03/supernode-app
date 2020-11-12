@@ -1,21 +1,19 @@
 name: flutter release
-
 on:
-  release:      
+  release:
+    types: [published]
 
 jobs:
-
   build_ios:
     name: Build flutter (IOS)
     runs-on: self-hosted
     steps:
-    - name: Trigger build thru appcenter API
+    - name: Trigger IOS job thru appcenter API
       run: 'curl -X POST "https://api.appcenter.ms/v0.1/apps/MXC-Foundation-gGmbH/DataDashIOS/branches/master/builds" -H  "accept: application/json" -H  "X-API-Token: ${{ secrets.APPCENTER_DATADASH_IOS }}" -H  "Content-Type: application/json" -d "{}"'
 
   build_apk:
     name: Build flutter (Android)
     runs-on: self-hosted
     steps:
-    - name: Trigger build thru appcenter API
+    - name: Trigger Android job thru appcenter API
       run: 'curl -X POST "https://api.appcenter.ms/v0.1/apps/MXC-Foundation-gGmbH/DataDashAndroid/branches/master/builds" -H  "accept: application/json" -H  "X-API-Token: ${{ secrets.APPCENTER_DATADASH_ANDROID }}" -H  "Content-Type: application/json" -d "{}"'
-            

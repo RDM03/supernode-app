@@ -154,7 +154,7 @@ Widget buildView(
           child: Container(
             margin: const EdgeInsets.only(top: 40),
             child: TextFieldWithTitle(
-              key: Key('stakeAmount'),
+              key: ValueKey('stakeAmount'),
               title: FlutterI18n.translate(_ctx, 'stake_amount'),
               keyboardType: TextInputType.number,
               validator: (value) => onValidAmount(_ctx, value, state.balance),

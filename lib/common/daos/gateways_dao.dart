@@ -9,7 +9,8 @@ class GatewaysApi {
   static final String update = '/api/gateways/{gateway.id}';
   static final String profile = '/api/gateway-profiles';
   static final String frames = '/api/gateways/{gateway.id}/stats'; 
-  static final String getProfile = '/api/gateways/{gateway.id}'; 
+  static final String getProfile = '/api/gateways/{gateway.id}';
+  static final String delete = '/api/gateways/{gateway.id}';
 }
 
 class GatewaysDao extends Dao{
@@ -76,5 +77,11 @@ class GatewaysDao extends Dao{
       url: Api.url(GatewaysApi.frames,id),
       data: data
     );
+  }
+
+  Future<dynamic> deleteGateway(String id){
+    return delete(
+        url: Api.url(GatewaysApi.delete,id)
+    ).then((res) => res);
   }
 }

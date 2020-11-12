@@ -87,7 +87,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   boostText: state.rate24m == null
                       ? null
                       : '+${round(state.rate24m / state.rate12m)}% ' +
-                          FlutterI18n.translate(context, 'mega_boost'),
+                      FlutterI18n.translate(context, 'mega_boost'),
                   first: true,
                   state: state,
                   revenueRate: state.rate24m,
@@ -113,7 +113,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   boostText: state.rate9m == null
                       ? null
                       : '${round(state.rate9m / state.rate12m)}% ' +
-                          FlutterI18n.translate(context, 'boost'),
+                      FlutterI18n.translate(context, 'boost'),
                   state: state,
                   revenueRate: state.rate9m,
                   marketingBoost: state.rate9m == null
@@ -128,7 +128,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   boostText: state.rate6m == null
                       ? null
                       : '${round(state.rate6m / state.rate12m)}% ' +
-                          FlutterI18n.translate(context, 'boost'),
+                      FlutterI18n.translate(context, 'boost'),
                   state: state,
                   revenueRate: state.rate6m,
                   marketingBoost: state.rate6m == null
@@ -142,7 +142,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   boostText: state.rateFlex == null
                       ? null
                       : '${round(state.rateFlex / state.rate12m)}% ' +
-                          FlutterI18n.translate(context, 'boost'),
+                      FlutterI18n.translate(context, 'boost'),
                   state: state,
                   revenueRate: state.rateFlex,
                   stakeName: FlutterI18n.translate(context, 'flex_stake'),
@@ -233,10 +233,10 @@ Widget _stakeCard({
         child: Text(
           months?.toString() ?? '~',
           style: Theme.of(context).textTheme.bodyText1.copyWith(
-                color: Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-              ),
+            color: Colors.white,
+            fontSize: 22,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         padding: EdgeInsets.only(top: 2),
         decoration: BoxDecoration(
@@ -260,3 +260,4 @@ Widget _stakeCard({
     ),
   );
 }
+
