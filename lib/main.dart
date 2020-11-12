@@ -39,7 +39,6 @@ import 'page/deposit_page/page.dart';
 import 'page/forgot_password_page/page.dart';
 import 'page/home_page/page.dart';
 import 'page/login_page/page.dart';
-import 'page/mapbox_page/page.dart';
 import 'page/settings_page/page.dart';
 import 'page/splash_page/page.dart';
 import 'page/stake_page/page.dart';
@@ -95,7 +94,6 @@ class MxcApp extends StatelessWidget {
         'set_2fa_page': Set2FAPage(),
         'get_2fa_page': Get2FAPage(),
         'add_gateway_page': AddGatewayPage(),
-        'mapbox_page': MapBoxPage(),
         'choose_application_page': ChooseApplicationPage(),
         'device_mapbox_page': DeviceMapBoxPage(),
         'calculator_page': CalculatorPage(),
