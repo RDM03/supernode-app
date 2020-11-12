@@ -40,7 +40,7 @@ Map f = {
   // Later unstakeStakedToken will need to be managed directly in the staking_test.dart file
   // so that we can unstake specific to the recently created stake
 
-  'unstakeStakedToken': find.byValueKey('stakeItem_1'),
+  'unstakeStakedToken': find.byValueKey('stakeItem_0'),
   'primaryButton': find.byValueKey('primaryButton'),
   'otpEnterOtp': find.byValueKey('otp_0'),
   'otpConfirmOtpButton': find.byValueKey('confirmOtp'),

@@ -1,4 +1,3 @@
-import 'package:dotenv/dotenv.dart' show load;
 import 'package:dotenv/dotenv.dart' show env, load;
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
@@ -32,8 +31,8 @@ void main() {
     });
 
     if (env['ENVIRONMENT'] == 'test') {
-      loginPageTests('MXCbuild', env['TESTING_PASSWORD']);
-      stakingTest();
+      loginPageTests('MXCtest', env['TESTING_PASSWORD']);
+      stakingTest(env['MXCTEST_OTP_KEY']);
       helpBubbleTest();
       addMinerTest();
       deleteMinerTest();
@@ -41,10 +40,10 @@ void main() {
     } else
       for (var i = 0; i < s.length; i++) {
         loginPageTests(s[i][0], s[i][1]);
-        stakingTest();
+        stakingTest(s[i][2]);
         helpBubbleTest();
-        addMinerTest();
-        deleteMinerTest();
+        //addMinerTest();
+        //deleteMinerTest();
         logoutTest();
       }
   });

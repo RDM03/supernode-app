@@ -3,12 +3,14 @@
 This only works on flutter channel beta, I can't seem to get it to work properly on the latest stable version. 
 
 Use the following ENV variables for your credentials:
+* ENVIRONMENT=test
 * TESTING_USER
 * TESTING_PASSWORD
 * MINER_SERIAL
-* OTP_KEY
+* MXCTEST_OTP_KEY
 
-OPTIONAL:
+OPTIONAL: (ENVIRONMENT var not needed with all this)
+
 * ENLINK_PASSWORD
 * XY_PASSWORD
 * HUAWEITECH_PASSWORD

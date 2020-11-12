@@ -40,17 +40,25 @@ loginPageTests(String server, String password) {
       await driver.waitUntilFirstFrameRasterized();
       print('LOCATING THE MXC LOGO');
       await driver.waitFor(f['logoFinder']);
-      print('LOADED, BEGINNING THE TAP');
-      for (var i = 0; i < 7; i++) {
-        await driver.tap(f['logoFinder']);
-        delay(20);
-        print('TAP ${i + 1}');
+      if(server == 'MXCtest' || server == 'MXCbuild') {
+        print('LOADED, BEGINNING THE TAP');
+        for (var i = 0; i < 7; i++) {
+          await driver.tap(f['logoFinder']);
+          delay(20);
+          print('TAP ${i + 1}');
+        }
       }
-      print('ALL TAPPED OUT, LETS SELECT THAT SERVER');
+      print('LETS SELECT THAT SERVER');
       await driver.tap(f['menuFinder']);
-      await driver.scrollUntilVisible(f['scrollMenu'], find.byValueKey(server));
       await delay(2000);
       var openMenuState = await canTap(find.byValueKey(server), driver);
+      if(openMenuState == false){
+        await driver.scrollUntilVisible(f['scrollMenu'], find.byValueKey(server));
+        openMenuState = await canTap(find.byValueKey(server), driver);
+      }
+      print('DELAY');
+      await delay(2000);
+
       if (await openMenuState == true) {
         print('SERVER SELECTED');
       } else {
