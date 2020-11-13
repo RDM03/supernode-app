@@ -47,10 +47,26 @@ jobs:
         UDID=$(cat /tmp/iosdeviceid.tmp) 
         flutter drive --target=test_driver/app.dart --device-id $UDID
       env:
-        TESTING_USER: ${{ secrets.TESTING_USER }}
-        TESTING_PASSWORD: ${{ secrets.TESTING_PASSWORD }}
-        MINER_SERIAL: ${{ secrets.MINER_SERIAL }}
-        OTP_KEY: ${{ secrets.OTP_KEY }}
+        APPCENTER_BUILD_ID: ${{ secrets.APPCENTER_BUILD_ID}}
+        APPCENTER_KEYSTORE_PASSWORD: ${{ secrets.APPCENTER_KEYSTORE_PASSWORD}}
+        APPCENTER_KEY_ALIAS: ${{ secrets.APPCENTER_KEY_ALIAS}}
+        APPCENTER_KEY_PASSWORD: ${{ secrets.APPCENTER_KEY_PASSWORD}}
+        MAP_BOX_ACCESS_TOKEN: ${{ secrets.MAP_BOX_ACCESS_TOKEN }}
+        TOKEN: ${{ secrets.TOKEN }}
+        DRIVE_MINER_SERIAL: ${{ secrets.DRIVE_MINER_SERIAL }}
+        DRIVE_MXCTEST_OTP_KEY: ${{ secrets.DRIVE_MXCTEST_OTP_KEY }}
+        DRIVE_TESTING_USER: ${{ secrets.DRIVE_TESTING_USER }}
+        DRIVE_MXCTEST_PASSWORD: ${{ secrets.DRIVE_MXCTEST_PASSWORD }}
+        DRIVE_ENLINK_OTP_KEY: ${{ secrets.DRIVE_ENLINK_OTP_KEY }}
+        DRIVE_ENLINK_PASSWORD: ${{ secrets.DRIVE_ENLINK_PASSWORD }}
+        DRIVE_MATCHXEU_OTP_KEY: ${{ secrets.DRIVE_MATCHXEU_OTP_KEY }}
+        DRIVE_MATCHXEU_PASSWORD: ${{ secrets.DRIVE_MATCHXEU_PASSWORD }}
+        DRIVE_MXCBUILD_OTP_KEY: ${{ secrets.DRIVE_MXCBUILD_OTP_KEY }}
+        DRIVE_MXCBUILD_PASSWORD: ${{ secrets.DRIVE_MXCBUILD_PASSWORD }}
+        DRIVE_SEJONG_OTP_KEY: ${{ secrets.DRIVE_SEJONG_OTP_KEY }}
+        DRIVE_SEJONG_PASSWORD: ${{ secrets.DRIVE_SEJONG_PASSWORD }}
+        DRIVE_XY_OTP_KEY: ${{ secrets.DRIVE_XY_OTP_KEY }}
+        DRIVE_XY_PASSWORD: ${{ secrets.DRIVE_XY_PASSWORD }}
 
   drive_android:
     name: Drive flutter (Android)
@@ -105,11 +121,23 @@ jobs:
         UDID=$(/usr/local/bin/adb devices | grep emulator |awk '{print$1}')
         flutter drive --target=test_driver/app.dart --flavor prod --device-id $UDID
       env:
-        TESTING_USER: ${{ secrets.TESTING_USER }}
-        TESTING_PASSWORD: ${{ secrets.TESTING_PASSWORD }}
         APPCENTER_BUILD_ID: ${{ secrets.APPCENTER_BUILD_ID}}
         APPCENTER_KEYSTORE_PASSWORD: ${{ secrets.APPCENTER_KEYSTORE_PASSWORD}}
         APPCENTER_KEY_ALIAS: ${{ secrets.APPCENTER_KEY_ALIAS}}
         APPCENTER_KEY_PASSWORD: ${{ secrets.APPCENTER_KEY_PASSWORD}}
-        MINER_SERIAL: ${{ secrets.MINER_SERIAL }}
-        OTP_KEY: ${{ secrets.OTP_KEY }}
+        MAP_BOX_ACCESS_TOKEN: ${{ secrets.MAP_BOX_ACCESS_TOKEN }}
+        TOKEN: ${{ secrets.TOKEN }}
+        DRIVE_MINER_SERIAL: ${{ secrets.DRIVE_MINER_SERIAL }}
+        DRIVE_MXCTEST_OTP_KEY: ${{ secrets.DRIVE_MXCTEST_OTP_KEY }}
+        DRIVE_TESTING_USER: ${{ secrets.DRIVE_TESTING_USER }}
+        DRIVE_MXCTEST_PASSWORD: ${{ secrets.DRIVE_MXCTEST_PASSWORD }}
+        DRIVE_ENLINK_OTP_KEY: ${{ secrets.DRIVE_ENLINK_OTP_KEY }}
+        DRIVE_ENLINK_PASSWORD: ${{ secrets.DRIVE_ENLINK_PASSWORD }}
+        DRIVE_MATCHXEU_OTP_KEY: ${{ secrets.DRIVE_MATCHXEU_OTP_KEY }}
+        DRIVE_MATCHXEU_PASSWORD: ${{ secrets.DRIVE_MATCHXEU_PASSWORD }}
+        DRIVE_MXCBUILD_OTP_KEY: ${{ secrets.DRIVE_MXCBUILD_OTP_KEY }}
+        DRIVE_MXCBUILD_PASSWORD: ${{ secrets.DRIVE_MXCBUILD_PASSWORD }}
+        DRIVE_SEJONG_OTP_KEY: ${{ secrets.DRIVE_SEJONG_OTP_KEY }}
+        DRIVE_SEJONG_PASSWORD: ${{ secrets.DRIVE_SEJONG_PASSWORD }}
+        DRIVE_XY_OTP_KEY: ${{ secrets.DRIVE_XY_OTP_KEY }}
+        DRIVE_XY_PASSWORD: ${{ secrets.DRIVE_XY_PASSWORD }}
