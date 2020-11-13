@@ -67,6 +67,7 @@ jobs:
         DRIVE_SEJONG_PASSWORD: ${{ secrets.DRIVE_SEJONG_PASSWORD }}
         DRIVE_XY_OTP_KEY: ${{ secrets.DRIVE_XY_OTP_KEY }}
         DRIVE_XY_PASSWORD: ${{ secrets.DRIVE_XY_PASSWORD }}
+        ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
 
   drive_android:
     name: Drive flutter (Android)
@@ -141,3 +142,4 @@ jobs:
         DRIVE_SEJONG_PASSWORD: ${{ secrets.DRIVE_SEJONG_PASSWORD }}
         DRIVE_XY_OTP_KEY: ${{ secrets.DRIVE_XY_OTP_KEY }}
         DRIVE_XY_PASSWORD: ${{ secrets.DRIVE_XY_PASSWORD }}
+        ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
