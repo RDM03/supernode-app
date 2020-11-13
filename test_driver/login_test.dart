@@ -11,6 +11,7 @@ loginPageTests(String server, String password) {
   group('login page', () {
     setUpAll(() async {
       driver = await FlutterDriver.connect();
+
     });
 
     tearDownAll(() async {
@@ -20,6 +21,7 @@ loginPageTests(String server, String password) {
     });
 
     test('login help bubble works', () async {
+      print('STARTING ' + server + ' TESTING');
       await driver.waitUntilFirstFrameRasterized();
 
       print('LOCATING THE MXC LOGO');
@@ -82,6 +84,6 @@ loginPageTests(String server, String password) {
       await driver.tap(f['loginFinder']);
       expect(await driver.getText(f['totalGatewaysDashboard']), 'Revenue');
       print('HOUSTON, WE ARE LOGGED IN');
-    }, timeout: Timeout(Duration(seconds: 60)));
+    }, timeout: Timeout(Duration(seconds: 180)));
   });
 }

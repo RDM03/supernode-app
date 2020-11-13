@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'finders.dart' show f;
 import 'utils.dart' show isPresent;
 
-logoutTest() {
+logoutTest(String server) {
   FlutterDriver driver;
 
   setUpAll(() async {
@@ -24,5 +24,6 @@ logoutTest() {
     await driver.waitFor(f['logoFinder']);
     final logoIsPresent = await isPresent(f['logoFinder'], driver);
     expect(logoIsPresent, true);
+    print('COMPLETED ' + server + ' TESTING');
   });
 }

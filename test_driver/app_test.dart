@@ -36,15 +36,18 @@ void main() {
       helpBubbleTest();
       addMinerTest();
       deleteMinerTest();
-      logoutTest();
+      logoutTest('MXCtest');
     } else
       for (var i = 0; i < s.length; i++) {
+
         loginPageTests(s[i][0], s[i][1]);
         stakingTest(s[i][2]);
         helpBubbleTest();
+        //Currently miner tests don't work for servers other than test. Need miner serials.
         //addMinerTest();
         //deleteMinerTest();
-        logoutTest();
+        logoutTest(s[i][0]);
+
       }
   });
 }
