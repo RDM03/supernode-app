@@ -31,8 +31,8 @@ void main() {
     });
 
     if (env['ENVIRONMENT'] == 'test') {
-      loginPageTests('MXCtest', env['MXCTEST_PASSWORD']);
-      stakingTest(env['MXCTEST_OTP_KEY']);
+      loginPageTests('MXCtest', env['DRIVE_MXCTEST_PASSWORD']);
+      stakingTest(env['DRIVE_MXCTEST_OTP_KEY']);
       helpBubbleTest();
       addMinerTest();
       deleteMinerTest();

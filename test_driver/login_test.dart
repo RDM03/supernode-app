@@ -75,7 +75,7 @@ loginPageTests(String server, String password) {
       print('I SEE THE EMAIL FIELD');
       await driver.tap(f['emailFieldFinder']);
       print('TAPPED EMAIL FIELD');
-      await driver.enterText(env['TESTING_USER']);
+      await driver.enterText(env['DRIVE_TESTING_USER']);
       print('ENTERED EMAIL ADDRESS');
       await driver.tap(f['passwordFieldFinder']);
       print('TAPPED PASSWORD FIELD');
