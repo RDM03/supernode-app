@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 import 'finders.dart' show f;
 import 'utils.dart' show delay, isPresent, getOtp;
 
-stakingTest() {
+stakingTest(String secret) {
   load();
   FlutterDriver driver;
 
@@ -76,7 +76,7 @@ stakingTest() {
       print('TAPPED UNSTAKE');
       await driver.tap(f['otpEnterOtp']);
       print('READY TO ENTER OTP');
-      var otp = getOtp(env['OTP_KEY']);
+      var otp = getOtp(secret);
       print('Here is the OTP: $otp');
       await driver.enterText(otp);
       print('KEY ENTERED');
