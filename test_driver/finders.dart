@@ -21,7 +21,7 @@ Map f = {
   'minersAddIcon': find.byValueKey('minersAddIcon'),
   'addMinerSerialNumber': find.byValueKey('addMinerSerialNumber'),
   'addMinerSubmit': find.byValueKey('addMinerSubmit'),
-  'minersNewMiner': find.text('Gateway_' + env['MINER_SERIAL']),
+  'minersNewMiner': find.text('Gateway_' + env['DRIVE_MINER_SERIAL']),
   'minerDeleteButton': find.text('Delete'),
   'minerConfirmDeleteButton': find.byValueKey('delete_gateway_bottom_dialog_item2'),
   'submitButton': find.byValueKey('submitButton'),
