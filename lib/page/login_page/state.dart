@@ -16,6 +16,7 @@ abstract class LoginState with _$LoginState {
     @Default(0) int showTestNodesCounter,
     @Default(Wrap.pending()) Wrap<Map<String, List<Supernode>>> supernodes,
     @Default(false) bool showLoading,
+    @Default(false) bool showWeChatLoginOption,
     @nullable LoginResult result,
   }) = _LoginState;
 

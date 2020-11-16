@@ -21,6 +21,7 @@ class _$LoginStateTearOff {
       int showTestNodesCounter = 0,
       Wrap<Map<String, List<Supernode>>> supernodes = const Wrap.pending(),
       bool showLoading = false,
+      bool showWeChatLoginOption = false,
       @nullable LoginResult result}) {
     return _LoginState(
       supernodeListVisible: supernodeListVisible,
@@ -29,6 +30,7 @@ class _$LoginStateTearOff {
       showTestNodesCounter: showTestNodesCounter,
       supernodes: supernodes,
       showLoading: showLoading,
+      showWeChatLoginOption: showWeChatLoginOption,
       result: result,
     );
   }
@@ -47,6 +49,7 @@ mixin _$LoginState {
   int get showTestNodesCounter;
   Wrap<Map<String, List<Supernode>>> get supernodes;
   bool get showLoading;
+  bool get showWeChatLoginOption;
   @nullable
   LoginResult get result;
 
@@ -65,6 +68,7 @@ abstract class $LoginStateCopyWith<$Res> {
       int showTestNodesCounter,
       Wrap<Map<String, List<Supernode>>> supernodes,
       bool showLoading,
+      bool showWeChatLoginOption,
       @nullable LoginResult result});
 }
 
@@ -84,6 +88,7 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
     Object showTestNodesCounter = freezed,
     Object supernodes = freezed,
     Object showLoading = freezed,
+    Object showWeChatLoginOption = freezed,
     Object result = freezed,
   }) {
     return _then(_value.copyWith(
@@ -103,6 +108,9 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
           : supernodes as Wrap<Map<String, List<Supernode>>>,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
+      showWeChatLoginOption: showWeChatLoginOption == freezed
+          ? _value.showWeChatLoginOption
+          : showWeChatLoginOption as bool,
       result: result == freezed ? _value.result : result as LoginResult,
     ));
   }
@@ -121,6 +129,7 @@ abstract class _$LoginStateCopyWith<$Res> implements $LoginStateCopyWith<$Res> {
       int showTestNodesCounter,
       Wrap<Map<String, List<Supernode>>> supernodes,
       bool showLoading,
+      bool showWeChatLoginOption,
       @nullable LoginResult result});
 }
 
@@ -142,6 +151,7 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
     Object showTestNodesCounter = freezed,
     Object supernodes = freezed,
     Object showLoading = freezed,
+    Object showWeChatLoginOption = freezed,
     Object result = freezed,
   }) {
     return _then(_LoginState(
@@ -161,6 +171,9 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
           : supernodes as Wrap<Map<String, List<Supernode>>>,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
+      showWeChatLoginOption: showWeChatLoginOption == freezed
+          ? _value.showWeChatLoginOption
+          : showWeChatLoginOption as bool,
       result: result == freezed ? _value.result : result as LoginResult,
     ));
   }
@@ -175,12 +188,14 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
       this.showTestNodesCounter = 0,
       this.supernodes = const Wrap.pending(),
       this.showLoading = false,
+      this.showWeChatLoginOption = false,
       @nullable this.result})
       : assert(supernodeListVisible != null),
         assert(obscureText != null),
         assert(showTestNodesCounter != null),
         assert(supernodes != null),
         assert(showLoading != null),
+        assert(showWeChatLoginOption != null),
         super._();
 
   @JsonKey(defaultValue: false)
@@ -201,13 +216,16 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
   @JsonKey(defaultValue: false)
   @override
   final bool showLoading;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool showWeChatLoginOption;
   @override
   @nullable
   final LoginResult result;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LoginState(supernodeListVisible: $supernodeListVisible, obscureText: $obscureText, selectedSuperNode: $selectedSuperNode, showTestNodesCounter: $showTestNodesCounter, supernodes: $supernodes, showLoading: $showLoading, result: $result)';
+    return 'LoginState(supernodeListVisible: $supernodeListVisible, obscureText: $obscureText, selectedSuperNode: $selectedSuperNode, showTestNodesCounter: $showTestNodesCounter, supernodes: $supernodes, showLoading: $showLoading, showWeChatLoginOption: $showWeChatLoginOption, result: $result)';
   }
 
   @override
@@ -221,6 +239,7 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('showTestNodesCounter', showTestNodesCounter))
       ..add(DiagnosticsProperty('supernodes', supernodes))
       ..add(DiagnosticsProperty('showLoading', showLoading))
+      ..add(DiagnosticsProperty('showWeChatLoginOption', showWeChatLoginOption))
       ..add(DiagnosticsProperty('result', result));
   }
 
@@ -246,6 +265,9 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
             (identical(other.showLoading, showLoading) ||
                 const DeepCollectionEquality()
                     .equals(other.showLoading, showLoading)) &&
+            (identical(other.showWeChatLoginOption, showWeChatLoginOption) ||
+                const DeepCollectionEquality().equals(
+                    other.showWeChatLoginOption, showWeChatLoginOption)) &&
             (identical(other.result, result) ||
                 const DeepCollectionEquality().equals(other.result, result)));
   }
@@ -259,6 +281,7 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(showTestNodesCounter) ^
       const DeepCollectionEquality().hash(supernodes) ^
       const DeepCollectionEquality().hash(showLoading) ^
+      const DeepCollectionEquality().hash(showWeChatLoginOption) ^
       const DeepCollectionEquality().hash(result);
 
   @override
@@ -275,6 +298,7 @@ abstract class _LoginState extends LoginState {
       int showTestNodesCounter,
       Wrap<Map<String, List<Supernode>>> supernodes,
       bool showLoading,
+      bool showWeChatLoginOption,
       @nullable LoginResult result}) = _$_LoginState;
 
   @override
@@ -290,6 +314,8 @@ abstract class _LoginState extends LoginState {
   Wrap<Map<String, List<Supernode>>> get supernodes;
   @override
   bool get showLoading;
+  @override
+  bool get showWeChatLoginOption;
   @override
   @nullable
   LoginResult get result;

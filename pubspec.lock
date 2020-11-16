@@ -488,6 +488,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fluwx:
+    dependency: "direct main"
+    description:
+      path: "packages/fluwx"
+      relative: true
+    source: path
+    version: "2.4.0"
   font_awesome_flutter:
     dependency: "direct main"
     description:

@@ -5,7 +5,9 @@ import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/wrap.dart';
+import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/page/login_page/state.dart';
+import 'package:fluwx/fluwx.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit({
@@ -33,6 +35,13 @@ class LoginCubit extends Cubit<LoginState> {
   final SupernodeCubit supernodeCubit;
 
   Future<void> initState() async {
+    await Future.wait([
+      loadSupernodes(),
+      loadWeChat(),
+    ]);
+  }
+
+  Future<void> loadSupernodes() async {
     final supernodes = await dao.loadSupernodes();
     final byRegion = <String, List<Supernode>>{};
     for (final s in supernodes.values) {
@@ -40,6 +49,17 @@ class LoginCubit extends Cubit<LoginState> {
       byRegion[s.region].add(s);
     }
     emit(state.copyWith(supernodes: Wrap(byRegion)));
+  }
+
+  Future<void> loadWeChat() async {
+    await registerWxApi(
+      appId: Config.WECHAT_APP_ID,
+      doOnAndroid: true,
+      doOnIOS: true,
+      universalLink: "https://your.univerallink.com/link/",
+    );
+    final result = await isWeChatInstalled;
+    emit(state.copyWith(showWeChatLoginOption: result));
   }
 
   Future<void> login(String username, String password) async {
