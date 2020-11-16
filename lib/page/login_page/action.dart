@@ -10,6 +10,7 @@ enum LoginAction {
   onSignUp,
   onForgotPassword,
   clickLogo,
+  showWeChat,
 }
 
 class LoginActionCreator {
@@ -43,5 +44,9 @@ class LoginActionCreator {
 
   static Action superNodeListVisible(bool state) {
     return Action(LoginAction.superNodeListVisible, payload: state);
+  }
+
+  static Action showWeChat(bool showWeChatLogo) {
+    return Action(LoginAction.showWeChat, payload: showWeChatLogo);
   }
 }

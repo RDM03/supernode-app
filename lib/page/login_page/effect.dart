@@ -1,8 +1,10 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:fluwx/fluwx.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
+import 'package:supernodeapp/common/constants.dart';
 import 'package:supernodeapp/common/daos/demo/user_dao.dart';
 import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/common/utils/log.dart';
@@ -22,6 +24,7 @@ import 'state.dart';
 
 Effect<LoginState> buildEffect() {
   return combineEffects(<Object, Effect<LoginState>>{
+    Lifecycle.initState: _initWeChat,
     Lifecycle.dispose: _dispose,
     LoginAction.onLogin: _onLogin,
     LoginAction.onSignUp: _onSignUp,
@@ -184,4 +187,14 @@ void _onForgotPassword(Action action, Context<LoginState> ctx) async {
 void _dispose(Action action, Context<LoginState> ctx) {
   ctx.state.passwordCtl?.dispose();
   ctx.state.usernameCtl?.dispose();
+}
+
+void _initWeChat(Action action, Context<LoginState> ctx) async {
+  var ok = await registerWxApi(
+      appId: WECHAT_APP_ID,
+      doOnAndroid: true,
+      doOnIOS: true,
+      universalLink: "https://your.univerallink.com/link/");
+  var result = await isWeChatInstalled;
+  ctx.dispatch(LoginActionCreator.showWeChat(result));
 }

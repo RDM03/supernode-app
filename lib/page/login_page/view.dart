@@ -2,12 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:supernodeapp/common/components/buttons/circle_button.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/expansion_super_node_tile.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_list.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
+import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
@@ -185,7 +187,21 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                               icon: Image.asset(AppImages.email, width: 22, height: 22,),
                             ),
                             SizedBox(width: s(30)),
-                            CircleButton(icon: null),
+                            CircleButton(
+                              onTap: () => {
+                                fluwx.weChatResponseEventHandler.distinct((a, b) => a == b).listen((res) {
+                                  if (res is fluwx.WeChatAuthResponse) {
+                                    //TODO
+                                    mLog("fluwx.WeChatAuthResponse", "fluwx.WeChatAuthResponse ${res.errCode} ${res.errStr} ${res.type} ${res.country} ${res.lang} ${res.code} ${res.state}");
+                                  }
+                                }),
+
+                                fluwx.sendWeChatAuth(
+                                    scope: "snsapi_userinfo", state: "wechat_sdk_demo_test")
+                                    .then((data) {})
+                              },
+                              icon: (state.showWeChatLoginOption ? Image.asset(AppImages.wechat, width: 22, height: 22,) :  null),
+                            ),
                             SizedBox(width: s(30)),
                             CircleButton(icon: null),
                           ],
