@@ -82,8 +82,8 @@ loginPageTests(String server, String password) {
       await driver.enterText(password);
       print('THE MOMENT HAS COME, WILL IT WORK?');
       await driver.tap(f['loginFinder']);
-      expect(await driver.getText(f['totalGatewaysDashboard']), 'Revenue');
       print('HOUSTON, WE ARE LOGGED IN');
+      expect(await driver.getText(f['homeProfile']), 'Hi, ' + env['DRIVE_TESTING_USER']);
     }, timeout: Timeout(Duration(seconds: 180)));
   });
 }

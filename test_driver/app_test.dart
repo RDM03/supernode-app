@@ -8,6 +8,7 @@ import 'help_bubble_test.dart' show helpBubbleTest;
 import 'login_test.dart' show loginPageTests;
 import 'logout_test.dart' show logoutTest;
 import 'stake_test.dart' show stakingTest;
+import 'homepage_api_test.dart' show homeAPITest;
 import 'supernodes.dart' show s;
 
 void main() {
@@ -32,10 +33,11 @@ void main() {
 
     if (env['ENVIRONMENT'] == 'test') {
       loginPageTests('MXCtest', env['DRIVE_MXCTEST_PASSWORD']);
-      stakingTest(env['DRIVE_MXCTEST_OTP_KEY']);
-      helpBubbleTest();
-      addMinerTest();
-      deleteMinerTest();
+      homeAPITest();
+      // stakingTest(env['DRIVE_MXCTEST_OTP_KEY']);
+      // helpBubbleTest();
+      // addMinerTest();
+      // deleteMinerTest();
       logoutTest('MXCtest');
     } else
       for (var i = 0; i < s.length; i++) {

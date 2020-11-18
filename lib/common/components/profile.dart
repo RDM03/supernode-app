@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/font.dart';
 
-Widget profile({String name = '',String position = '',EdgeInsetsGeometry contentPadding,Widget trailing,Function onTap}){
+Widget profile({key, String name = '',String position = '',EdgeInsetsGeometry contentPadding,Widget trailing,Function onTap}){
   return ListTile(
     contentPadding: contentPadding,
     leading: Icon(
@@ -10,6 +10,7 @@ Widget profile({String name = '',String position = '',EdgeInsetsGeometry content
     ),
     title: Text(
       name,
+      key: key,
       style: kBigFontOfBlack,
     ),
     subtitle: Text(

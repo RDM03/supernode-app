@@ -36,6 +36,17 @@ Map f = {
   'navbarWalletButton': find.byValueKey('bottomNavBar_Wallet'),
   'walletAccountStakeButton': find.byValueKey('tabBar_stake'),
   'walletStakeUnstakeButton': find.byValueKey('unstake'),
+  'homeProfile': find.byValueKey('homeProfile'),
+  'totalDevicesDashboard': find.byValueKey('totalDevicesDashboard'),
+  'homeCurrentBalanceLabel': find.byValueKey('homeCurrentBalanceLabel'),
+  'homeCurrentBalance': find.byValueKey('homeCurrentBalance'),
+  'homeStakedAmountLabel': find.byValueKey('homeStakedAmountLabel'),
+  'homeStakedAmount': find.byValueKey('homeStakedAmount'),
+  'homeStakingRevenueLabel': find.byValueKey('homeStakingRevenueLabel'),
+  'homeStakingRevenue': find.byValueKey('homeStakingRevenue'),
+  'homeMapbox': find.byValueKey('homeMapbox'),
+
+
 
   // Later unstakeStakedToken will need to be managed directly in the staking_test.dart file
   // so that we can unstake specific to the recently created stake
