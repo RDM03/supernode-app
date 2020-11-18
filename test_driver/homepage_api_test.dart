@@ -40,5 +40,6 @@ homeAPITest() {
     print('CHECKING FOR MAPBOX');
     var mapboxPresent = await isPresent(f['homeMapbox'], driver);
     expect(await mapboxPresent, true);
+    await driver.scrollIntoView(f['homeProfile']);
   });
 }
