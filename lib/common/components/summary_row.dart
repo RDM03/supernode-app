@@ -53,7 +53,6 @@ Widget summaryRow({
           Text(
             subtitle,
             style: kSmallFontOfGrey,
-            key: key,
           ),
           loading
               ? loadingFlash(
@@ -63,6 +62,7 @@ Widget summaryRow({
                 ))
               : Text(
                   '≈ ' + usdPrice,
+                  key: key,
                   style: kMiddleFontOfBlack,
                 )
         ],

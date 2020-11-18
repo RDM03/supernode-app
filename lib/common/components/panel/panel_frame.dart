@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
-Widget panelFrame({double height,Widget child,EdgeInsetsGeometry rowTop,Color customPanelColor}){
+Widget panelFrame({key, double height,Widget child,EdgeInsetsGeometry rowTop,Color customPanelColor}){
   return Container(
+    key: key,
     height: height,
     margin: rowTop != null ? rowTop : kOuterRowTop20,
     decoration: BoxDecoration(
