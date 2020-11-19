@@ -2,6 +2,19 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 
+class MiddleFontOfColor extends TextStyle {
+  final Color color;
+
+  MiddleFontOfColor({this.color = const Color.fromARGB(222, 0, 0, 0)}) {
+    TextStyle(
+      color: color,
+      fontFamily: "Roboto",
+      fontSize: 15,
+      height: 1.5,
+    );
+  }
+}
+
 const kSmallFontOfWhite = TextStyle(
     color: Colors.white,
     fontFamily: "Roboto",

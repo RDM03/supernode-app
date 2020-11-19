@@ -116,6 +116,11 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
   }
 
   @override
+  Future registerReseller(Map data) {
+    throw UnimplementedError('register not supported in demo');
+  }
+
+  @override
   Future update(String id, Map data) {
     throw UnimplementedError('update not supported in demo');
   }

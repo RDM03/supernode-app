@@ -70,6 +70,17 @@ Widget buildView(AddGatewayState state, Dispatch dispatch, ViewService viewServi
 }
 
 List<Widget> _body({AddGatewayState state,BuildContext context,Dispatch dispatch}){
+  _onChangedSetTextColor (text) {
+    var color;
+    if (text.length == 9 || text.length == 24) {
+      color = Colors.green;
+    } else {
+      color = Colors.red;
+    }
+    dispatch(AddGatewayActionCreator.setNumberTextColor(color));
+    print("First text field: $text");
+  }
+
     return [
       Visibility(
         visible: state.fromPage != 'home',
@@ -102,7 +113,9 @@ List<Widget> _body({AddGatewayState state,BuildContext context,Dispatch dispatch
           key: ValueKey('addMinerSerialNumber'),
           hint: FlutterI18n.translate(context,'serial_number_hint'),
           textInputAction: TextInputAction.done,
-          validator: (value) => Reg.onNotEmpty(context, value),     
+          validator: (value) => Reg.onNotEmpty(context, value),
+          textColor: state.numberTextColor,
+          onChanged:  _onChangedSetTextColor,
           controller: state.serialNumberCtl,
         )
       ),

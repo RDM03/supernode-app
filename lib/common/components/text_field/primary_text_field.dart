@@ -10,6 +10,7 @@ class PrimaryTextField extends StatelessWidget {
     this.isObscureText = false,
     this.textInputAction = TextInputAction.done,
     this.validator,
+    this.textColor,
     this.controller,
     this.initialValue,
     this.readOnly = false,
@@ -27,6 +28,7 @@ class PrimaryTextField extends StatelessWidget {
   final bool isObscureText;
   final TextInputAction textInputAction;
   final Function(String) validator;
+  final Color textColor;
   final TextEditingController controller;
   final String initialValue;
   final bool readOnly;
@@ -63,7 +65,7 @@ class PrimaryTextField extends StatelessWidget {
       onFieldSubmitted: (_) => textInputAction == TextInputAction.next
           ? FocusScope.of(context).nextFocus()
           : FocusScope.of(context).unfocus(),
-      style: kMiddleFontOfBlack,
+      style: MiddleFontOfColor(color: textColor),
       textAlignVertical: TextAlignVertical.center,
       maxLines: 1,
       obscureText: isObscureText,
