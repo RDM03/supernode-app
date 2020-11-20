@@ -5,6 +5,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:majascan/majascan.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
+import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/gateways_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
@@ -13,6 +14,7 @@ import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/font.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -135,10 +137,18 @@ void _registerReseller(Context<AddGatewayState> ctx, String manufacturerNr) asyn
     mLog('Reseller register', res);
 
     if (res.containsKey('status')) {
-      tip(ctx.context, res['status'], success: true);
-      if (ctx.state.fromPage == 'home') {
-        Navigator.of(ctx.context).pop();//TODO check if pop
-      }
+      showInfoDialog(
+        ctx.context,
+        IosStyleBottomDialog2 (
+            context: ctx.context,
+            child: Text(
+              FlutterI18n.translate(ctx.context, 'register_reseller_success').replaceFirst('{0}', manufacturerNr),
+              style: kBigFontOfBlack,
+              textAlign: TextAlign.center
+            )
+        )
+      );
+      ctx.state.serialNumberCtl.text = "";
     }
   }).catchError((err) {
     loading.hide();
