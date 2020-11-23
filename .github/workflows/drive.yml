@@ -1,6 +1,7 @@
 name: flutter drive
 on:
   pull_request:
+  repository_dispatch:
 
 jobs:
   drive_ios:
