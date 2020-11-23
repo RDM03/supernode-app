@@ -7,6 +7,10 @@ Widget panelBody({
   String titleText,
   String subtitleText,
   String trailTitle,
+  keyIcon,
+  keyTitle,
+  keySubtitle,
+  keyTrailSubtitle,
   trailSubtitle,
   IconData icon,
   Function onPressed,
@@ -21,7 +25,7 @@ Widget panelBody({
     leading: Container(
         margin: const EdgeInsets.only(left: 10),
         child: IconButton(
-          key: ValueKey('minersAddIcon'),
+          key: keyIcon,
           padding: EdgeInsets.zero,
           icon: Icon(
             icon,
@@ -32,6 +36,7 @@ Widget panelBody({
         )),
     title: Text(
       titleText,
+      key: keyTitle,
       textAlign: TextAlign.left,
       style: kMiddleFontOfBlack,
     ),
@@ -39,6 +44,7 @@ Widget panelBody({
         ? loadingFlash(
             child: Text(
               subtitleText,
+              key: keySubtitle,
               textAlign: TextAlign.left,
               style: kBigFontOfBlack,
             ),
@@ -63,6 +69,7 @@ Widget panelBody({
                 )
               : Text(
                   mxcPrice,
+                  key: keyTrailSubtitle,
                   style: kMiddleFontOfBlack,
                 )
         ],

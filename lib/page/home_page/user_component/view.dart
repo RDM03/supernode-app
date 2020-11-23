@@ -64,7 +64,8 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
             child: Column(
               children: [
                 profile(
-                  key:ValueKey('homeProfile'),
+                  keyTitle:ValueKey('homeProfile'),
+                  keySubtitle:ValueKey('homeProfileSubtitle'),
                   name:
                       '${FlutterI18n.translate(_ctx, 'hi')}, ${state.username}',
                   position: (state.organizations.length > 0 &&
