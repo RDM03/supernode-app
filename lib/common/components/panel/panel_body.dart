@@ -44,13 +44,13 @@ Widget panelBody({
         ? loadingFlash(
             child: Text(
               subtitleText,
-              key: keySubtitle,
               textAlign: TextAlign.left,
               style: kBigFontOfBlack,
             ),
           )
         : Text(
             subtitleText,
+            key: keySubtitle,
             textAlign: TextAlign.left,
             style: kBigFontOfBlack,
           ),

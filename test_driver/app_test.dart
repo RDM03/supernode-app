@@ -35,11 +35,11 @@ void main() {
     if (env['ENVIRONMENT'] == 'test') {
       loginPageTests('MXCtest', env['DRIVE_MXCTEST_PASSWORD']);
       homeAPITest();
-      stakingTest(env['DRIVE_MXCTEST_OTP_KEY']);
-      helpBubbleTest();
-      addMinerTest();
+      //stakingTest(env['DRIVE_MXCTEST_OTP_KEY']);
+      //helpBubbleTest();
+      //addMinerTest();
       minerListAPITest();
-      deleteMinerTest();
+      //deleteMinerTest();
       logoutTest('MXCtest');
     } else
       for (var i = 0; i < s.length; i++) {
