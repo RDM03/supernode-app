@@ -194,7 +194,7 @@ void _initWeChat(Action action, Context<LoginState> ctx) async {
       appId: WECHAT_APP_ID,
       doOnAndroid: true,
       doOnIOS: true,
-      universalLink: "https://your.univerallink.com/link/");
+      universalLink: "https://www.mxc.org/mxcdatadash/");
   var result = await isWeChatInstalled;
   ctx.dispatch(LoginActionCreator.showWeChat(result));
 }
