@@ -56,7 +56,7 @@ class LoginCubit extends Cubit<LoginState> {
       appId: Config.WECHAT_APP_ID,
       doOnAndroid: true,
       doOnIOS: true,
-      universalLink: "https://your.univerallink.com/link/",
+      universalLink: "https://www.mxc.org/mxcdatadash/",
     );
     final result = await isWeChatInstalled;
     emit(state.copyWith(showWeChatLoginOption: result));

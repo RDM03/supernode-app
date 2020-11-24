@@ -108,7 +108,7 @@ dependencies:
     path: packages/feedback
   flutter_mapbox_native:
     path: packages/flutter_mapbox_native
-  # submodule https://github.com/OpenFlutter/fluwx
+  # submodule https://github.com/mxc-foundation/fluwx.git
   fluwx:
     path: packages/fluwx
   dotenv: ^2.0.0
