@@ -33,6 +33,6 @@ minerListAPITest() {
       await driver.scrollIntoView(find.byValueKey('slide_gateway' + i.toString()));
       expect(await isPresent(find.byValueKey('slide_gateway' + i.toString()), driver), true);
     }
-    await driver.tap(f['navBarHome']);
+    await driver.tap(f['navbarHomeButton']);
   });
 }
