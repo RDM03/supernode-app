@@ -9,6 +9,7 @@ import 'login_test.dart' show loginPageTests;
 import 'logout_test.dart' show logoutTest;
 import 'stake_test.dart' show stakingTest;
 import 'homepage_api_test.dart' show homeAPITest;
+import 'miner_list_api_test.dart' show minerListAPITest;
 import 'supernodes.dart' show s;
 
 void main() {
@@ -37,6 +38,7 @@ void main() {
       stakingTest(env['DRIVE_MXCTEST_OTP_KEY']);
       helpBubbleTest();
       addMinerTest();
+      minerListAPITest();
       deleteMinerTest();
       logoutTest('MXCtest');
     } else
