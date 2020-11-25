@@ -10,6 +10,7 @@ class TextFieldWithTitle extends StatelessWidget {
     this.isObscureText = false,
     this.textInputAction = TextInputAction.done,
     this.validator,
+    this.textColor,
     this.controller,
     this.suffixChild,
     this.suffixTitleChild,
@@ -29,6 +30,7 @@ class TextFieldWithTitle extends StatelessWidget {
   final bool isObscureText;
   final TextInputAction textInputAction;
   final Function(String) validator;
+  final Color textColor;
   final TextEditingController controller;
   final Widget suffixChild;
   final Widget suffixTitleChild;
@@ -75,6 +77,7 @@ class TextFieldWithTitle extends StatelessWidget {
                 hint: hint,
                 isObscureText: isObscureText,
                 validator: validator,
+                textColor: textColor,
                 controller: controller,
                 onChanged: onChanged,
               ),
