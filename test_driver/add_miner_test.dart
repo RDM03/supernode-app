@@ -27,13 +27,14 @@ addMinerTest() {
     print('TAP ADD MINER BUTTON');
     await driver.waitFor(f['addMinerSerialNumber']);
     await driver.tap(f['addMinerSerialNumber']);
-    await driver.enterText(env['MINER_SERIAL']);
+    await driver.enterText(env['DRIVE_MINER_SERIAL']);
     print('TYPED SERIAL NUMBER');
     await driver.waitFor(f['addMinerSubmit']);
     await driver.tap(f['addMinerSubmit']);
     print('SUBMITTED MINER');
-    delay(5000);
+    await delay(5000);
     var MinerExists = await isPresent(f['minersNewMiner'], driver);
     expect(await MinerExists, true);
+    driver.tap(f['navbarHomeButton']);
   }, timeout:Timeout(Duration(seconds: 60)));
 }

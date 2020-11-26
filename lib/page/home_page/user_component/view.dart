@@ -64,6 +64,8 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
             child: Column(
               children: [
                 profile(
+                  keyTitle:ValueKey('homeProfile'),
+                  keySubtitle:ValueKey('homeProfileSubtitle'),
                   name:
                       '${FlutterI18n.translate(_ctx, 'hi')}, ${state.username}',
                   position: (state.organizations.length > 0 &&
@@ -91,29 +93,35 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                 ),
                 rowRight(
                   FlutterI18n.translate(_ctx, 'current_balance'),
+                  key: ValueKey('homeCurrentBalanceLabel'),
                   style: kSmallFontOfGrey,
                 ),
                 rowRight(
                   '${Tools.priceFormat(state.balance)} MXC',
+                  key: ValueKey('homeCurrentBalance'),
                   style: kBigFontOfBlack,
                   loading: !state.loadingMap.contains('balance'),
                 ),
                 rowRight(
                   FlutterI18n.translate(_ctx, 'staked_amount'),
+                  key: ValueKey('homeStakedAmountLabel'),
                   style: kSmallFontOfGrey,
                 ),
                 rowRight(
                   '${Tools.priceFormat(state.stakedAmount)} MXC',
+                  key: ValueKey('homeStakedAmount'),
                   style: kBigFontOfBlack,
                   loading: !state.loadingMap.contains('stakedAmount'),
                 ),
                 rowRight(
                   FlutterI18n.translate(_ctx, 'staking_revenue'),
+                  key: ValueKey('homeStakingRevenueLabel'),
                   style: kSmallFontOfGrey,
                 ),
                 rowRight(
                   '${Tools.priceFormat(state.totalRevenue, range: 2)} MXC',
                   style: kBigFontOfBlack,
+                  key: ValueKey('homeStakingRevenue'),
                   loading: !state.loadingMap.contains('totalRevenue'),
                 ),
                 Container(
@@ -162,6 +170,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
           ),
           panelFrame(
             child: summaryRow(
+              key: Key('totalDevicesDashboard'),
               loading: false,
               image: AppImages.devices,
               title: FlutterI18n.translate(_ctx, 'total_devices'),
@@ -186,6 +195,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
           //   )
           // ),
           panelFrame(
+            key: ValueKey('homeMapbox'),
             height: 263,
             child: FutureBuilder(
               builder: (context,builder) {

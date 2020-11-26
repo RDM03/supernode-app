@@ -1,7 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mapbox_native/flutter_mapbox_native.dart';
-import 'package:supernodeapp/common/components/mapbox_gl.dart';
 import 'package:supernodeapp/configs/sys.dart';
 
 import 'action.dart';

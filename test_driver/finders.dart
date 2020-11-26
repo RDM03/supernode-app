@@ -1,5 +1,5 @@
 import 'package:flutter_driver/flutter_driver.dart';
-import 'package:dotenv/dotenv.dart' show load, env;
+import 'package:dotenv/dotenv.dart' show env;
 
 // Naming Convention 'page' + 'DescribeItem'
 
@@ -10,7 +10,6 @@ Map f = {
   'navBarMiners': find.byValueKey('bottomNavBar_Gateway'),
   'emailFieldFinder': find.byValueKey('homeEmail'),
   'passwordFieldFinder': find.byValueKey('homePassword'),
-  'testServerFinder': find.byValueKey('MXCbuild'),
   'scrollMenu': find.byValueKey('scrollMenu'),
   'mxcChinaFinder': find.byValueKey('MXCChina'),
   'questionCircle': find.byValueKey('questionCircle'),
@@ -20,9 +19,12 @@ Map f = {
   'stakeFlex': find.byValueKey('stakeFlex'),
   'stakeAmount': find.byValueKey('stakeAmount'),
   'minersAddIcon': find.byValueKey('minersAddIcon'),
+  'totalMinersTitle': find.byValueKey('totalMinersTitle'),
+  'totalMinersSubtitle': find.byValueKey('totalMinersSubtitle'),
+  'minersRevenue': find.byValueKey('minersRevenue'),
   'addMinerSerialNumber': find.byValueKey('addMinerSerialNumber'),
   'addMinerSubmit': find.byValueKey('addMinerSubmit'),
-  'minersNewMiner': find.text('Gateway_' + env['MINER_SERIAL']),
+  'minersNewMiner': find.text('Gateway_' + env['DRIVE_MINER_SERIAL']),
   'minerDeleteButton': find.text('Delete'),
   'minerConfirmDeleteButton': find.byValueKey('delete_gateway_bottom_dialog_item2'),
   'submitButton': find.byValueKey('submitButton'),
@@ -37,11 +39,23 @@ Map f = {
   'navbarWalletButton': find.byValueKey('bottomNavBar_Wallet'),
   'walletAccountStakeButton': find.byValueKey('tabBar_stake'),
   'walletStakeUnstakeButton': find.byValueKey('unstake'),
+  'homeProfile': find.byValueKey('homeProfile'),
+  'homeProfileSubtitle': find.byValueKey('homeProfileSubtitle'),
+  'totalDevicesDashboard': find.byValueKey('totalDevicesDashboard'),
+  'homeCurrentBalanceLabel': find.byValueKey('homeCurrentBalanceLabel'),
+  'homeCurrentBalance': find.byValueKey('homeCurrentBalance'),
+  'homeStakedAmountLabel': find.byValueKey('homeStakedAmountLabel'),
+  'homeStakedAmount': find.byValueKey('homeStakedAmount'),
+  'homeStakingRevenueLabel': find.byValueKey('homeStakingRevenueLabel'),
+  'homeStakingRevenue': find.byValueKey('homeStakingRevenue'),
+  'homeMapbox': find.byValueKey('homeMapbox'),
+
+
 
   // Later unstakeStakedToken will need to be managed directly in the staking_test.dart file
   // so that we can unstake specific to the recently created stake
 
-  'unstakeStakedToken': find.byValueKey('stakeItem_1'),
+  'unstakeStakedToken': find.byValueKey('stakeItem_0'),
   'primaryButton': find.byValueKey('primaryButton'),
   'otpEnterOtp': find.byValueKey('otp_0'),
   'otpConfirmOtpButton': find.byValueKey('confirmOtp'),
