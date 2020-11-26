@@ -65,6 +65,13 @@ class TextFieldWithTitleState extends State<TextFieldWithList> {
   @override
   void initState() {
     super.initState();
+    _focusNode.addListener(() {
+      if (!_focusNode.hasFocus) {
+        if (this._overlayEntry != null) {
+          this._overlayEntry.remove();
+        }
+      }
+    });
     widget.controller.addListener(() {
       if (_focusNode.hasFocus && widget.controller.text != '') {
         searchUser(widget.controller.text);
