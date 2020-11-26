@@ -42,6 +42,7 @@
 	"wallet": "Wallet",
 	"add_gateway": "Gateway hinzufügen",
 	"add_gateway_tip": "Deinen Gateway Miner registrieren",
+	"register_reseller_success": "Du hast {0} als Wiederverkäufer registriert. Sobald der M2 Pro Besitzer seinen Miner registriert, wirst Du den Miner in Deiner Minerliste sehen. Kannst Du den Miner, nachdem der M2 Pro Besitzer seinen Miner registriert hat, innerhalb von 24 Stunden nicht sehen, wende Dich bitte an den Support.",
 	"delete": "Entfernen",
 	"confirm_deleting_miner_title": "Möchtest Du diesen Miner wirklich entfernen?",
 	"confirm_deleting_miner_message": "Sobald du den Miner enfernst, kannst du diesen nicht mehr wiederherstellen.",
@@ -192,6 +193,7 @@
 	"error_tip": "Fehler",
 	"updated_successful_tip": "Aktualisierung erfolgreich",
 	"total_device": "Geräte (insgesamt)",
+	"downlink_fee": "Downlink-Preis",
 	"device_choose": "Wähle Deine Anwendung",
 	"ai_camera": "AI-Kamera",
 	"fire_detect": "Feuererkennung",
@@ -255,7 +257,6 @@
 	"device_bluetooth_prompt": "Wähle ein Bluetooth-Gerät aus der Liste. Stelle sicher, dass Dein",
 	"bluetooth": "Bluetooth",
 	"is_turned_on": "eingeschaltet ist.",
-	"downlink_fee": "Downlink-Preis",
 	"loading": "laden...",
 	"insufficient_balance": "Unzureichendes Guthaben",
 	"required_2FA_general": "Erforderliche 2FA",
@@ -385,3 +386,4 @@
 	"under_maintenance": "Wir führen gerade eine Wartung aus. Es dauert nicht lange.",
 	"duration_days": "Dauer (Tage) - {0}"
 }
+

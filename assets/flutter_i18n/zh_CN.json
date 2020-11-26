@@ -42,6 +42,7 @@
 	"wallet": "钱包",
 	"add_gateway": "添加基站",
 	"add_gateway_tip": "注册您的基站矿机",
+	"register_reseller_success": "您已在您的转售者账户中成功注册 {0} 。当M2 Pro 矿机所有者注册他们的矿机时，您会在您的矿机列表中看到矿机名单。 如果您在M2 Pro矿机所有者注册矿机后24小时内没有看到矿机名单，请联系客服。",
 	"delete": "删除",
 	"confirm_deleting_miner_title": "是否确定要删除该矿机?",
 	"confirm_deleting_miner_message": "一旦你删除了矿机，你将无法恢复。",
@@ -192,6 +193,7 @@
 	"error_tip": "错误",
 	"updated_successful_tip": "更新成功",
 	"total_device": "设备总数",
+	"downlink_fee": "下行链路费用",
 	"device_choose": "选择一个应用",
 	"ai_camera": "AI 摄像头",
 	"fire_detect": "火灾检测",
@@ -255,7 +257,6 @@
 	"device_bluetooth_prompt": "从设备列表中选择一个蓝牙设备。请确保您的",
 	"bluetooth": "蓝牙",
 	"is_turned_on": "已开机。",
-	"downlink_fee": "下行链路费用",
 	"loading": "载入中...",
 	"insufficient_balance": "余额不足",
 	"required_2FA_general": "请求两步验证",
@@ -385,3 +386,4 @@
 	"under_maintenance": "我们目前正在进行维护。这将不需要很长时间。",
 	"duration_days": "持续时间(天) - {0}"
 }
+
