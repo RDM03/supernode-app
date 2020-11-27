@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
@@ -17,10 +19,11 @@ abstract class LoginState with _$LoginState {
     @Default(Wrap.pending()) Wrap<Map<String, List<Supernode>>> supernodes,
     @Default(false) bool showLoading,
     @Default(false) bool showWeChatLoginOption,
+    @nullable String errorMessage,
     @nullable LoginResult result,
   }) = _LoginState;
 
   bool get showTestNodes => showTestNodesCounter % 7 == 0;
 }
 
-enum LoginResult { home, signUp, resetPassword }
+enum LoginResult { home, signUp, resetPassword, wechat }

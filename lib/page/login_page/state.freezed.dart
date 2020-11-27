@@ -22,6 +22,7 @@ class _$LoginStateTearOff {
       Wrap<Map<String, List<Supernode>>> supernodes = const Wrap.pending(),
       bool showLoading = false,
       bool showWeChatLoginOption = false,
+      @nullable String errorMessage,
       @nullable LoginResult result}) {
     return _LoginState(
       supernodeListVisible: supernodeListVisible,
@@ -31,6 +32,7 @@ class _$LoginStateTearOff {
       supernodes: supernodes,
       showLoading: showLoading,
       showWeChatLoginOption: showWeChatLoginOption,
+      errorMessage: errorMessage,
       result: result,
     );
   }
@@ -51,6 +53,8 @@ mixin _$LoginState {
   bool get showLoading;
   bool get showWeChatLoginOption;
   @nullable
+  String get errorMessage;
+  @nullable
   LoginResult get result;
 
   $LoginStateCopyWith<LoginState> get copyWith;
@@ -69,6 +73,7 @@ abstract class $LoginStateCopyWith<$Res> {
       Wrap<Map<String, List<Supernode>>> supernodes,
       bool showLoading,
       bool showWeChatLoginOption,
+      @nullable String errorMessage,
       @nullable LoginResult result});
 }
 
@@ -89,6 +94,7 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
     Object supernodes = freezed,
     Object showLoading = freezed,
     Object showWeChatLoginOption = freezed,
+    Object errorMessage = freezed,
     Object result = freezed,
   }) {
     return _then(_value.copyWith(
@@ -111,6 +117,9 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
       showWeChatLoginOption: showWeChatLoginOption == freezed
           ? _value.showWeChatLoginOption
           : showWeChatLoginOption as bool,
+      errorMessage: errorMessage == freezed
+          ? _value.errorMessage
+          : errorMessage as String,
       result: result == freezed ? _value.result : result as LoginResult,
     ));
   }
@@ -130,6 +139,7 @@ abstract class _$LoginStateCopyWith<$Res> implements $LoginStateCopyWith<$Res> {
       Wrap<Map<String, List<Supernode>>> supernodes,
       bool showLoading,
       bool showWeChatLoginOption,
+      @nullable String errorMessage,
       @nullable LoginResult result});
 }
 
@@ -152,6 +162,7 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
     Object supernodes = freezed,
     Object showLoading = freezed,
     Object showWeChatLoginOption = freezed,
+    Object errorMessage = freezed,
     Object result = freezed,
   }) {
     return _then(_LoginState(
@@ -174,6 +185,9 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
       showWeChatLoginOption: showWeChatLoginOption == freezed
           ? _value.showWeChatLoginOption
           : showWeChatLoginOption as bool,
+      errorMessage: errorMessage == freezed
+          ? _value.errorMessage
+          : errorMessage as String,
       result: result == freezed ? _value.result : result as LoginResult,
     ));
   }
@@ -189,6 +203,7 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
       this.supernodes = const Wrap.pending(),
       this.showLoading = false,
       this.showWeChatLoginOption = false,
+      @nullable this.errorMessage,
       @nullable this.result})
       : assert(supernodeListVisible != null),
         assert(obscureText != null),
@@ -221,11 +236,14 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
   final bool showWeChatLoginOption;
   @override
   @nullable
+  final String errorMessage;
+  @override
+  @nullable
   final LoginResult result;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LoginState(supernodeListVisible: $supernodeListVisible, obscureText: $obscureText, selectedSuperNode: $selectedSuperNode, showTestNodesCounter: $showTestNodesCounter, supernodes: $supernodes, showLoading: $showLoading, showWeChatLoginOption: $showWeChatLoginOption, result: $result)';
+    return 'LoginState(supernodeListVisible: $supernodeListVisible, obscureText: $obscureText, selectedSuperNode: $selectedSuperNode, showTestNodesCounter: $showTestNodesCounter, supernodes: $supernodes, showLoading: $showLoading, showWeChatLoginOption: $showWeChatLoginOption, errorMessage: $errorMessage, result: $result)';
   }
 
   @override
@@ -240,6 +258,7 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('supernodes', supernodes))
       ..add(DiagnosticsProperty('showLoading', showLoading))
       ..add(DiagnosticsProperty('showWeChatLoginOption', showWeChatLoginOption))
+      ..add(DiagnosticsProperty('errorMessage', errorMessage))
       ..add(DiagnosticsProperty('result', result));
   }
 
@@ -268,6 +287,9 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
             (identical(other.showWeChatLoginOption, showWeChatLoginOption) ||
                 const DeepCollectionEquality().equals(
                     other.showWeChatLoginOption, showWeChatLoginOption)) &&
+            (identical(other.errorMessage, errorMessage) ||
+                const DeepCollectionEquality()
+                    .equals(other.errorMessage, errorMessage)) &&
             (identical(other.result, result) ||
                 const DeepCollectionEquality().equals(other.result, result)));
   }
@@ -282,6 +304,7 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(supernodes) ^
       const DeepCollectionEquality().hash(showLoading) ^
       const DeepCollectionEquality().hash(showWeChatLoginOption) ^
+      const DeepCollectionEquality().hash(errorMessage) ^
       const DeepCollectionEquality().hash(result);
 
   @override
@@ -299,6 +322,7 @@ abstract class _LoginState extends LoginState {
       Wrap<Map<String, List<Supernode>>> supernodes,
       bool showLoading,
       bool showWeChatLoginOption,
+      @nullable String errorMessage,
       @nullable LoginResult result}) = _$_LoginState;
 
   @override
@@ -316,6 +340,9 @@ abstract class _LoginState extends LoginState {
   bool get showLoading;
   @override
   bool get showWeChatLoginOption;
+  @override
+  @nullable
+  String get errorMessage;
   @override
   @nullable
   LoginResult get result;

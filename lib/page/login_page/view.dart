@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_cubit.dart';
-import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:supernodeapp/common/components/buttons/circle_button.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/expansion_super_node_tile.dart';
@@ -11,7 +10,6 @@ import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
@@ -79,17 +77,13 @@ class _LoginPageContentState extends State<_LoginPageContent> {
     context.read<LoginCubit>().login(username, password);
   }
 
-  Future<void> onWeChatLogin() {
-    // {fluwx.weChatResponseEventHandler.distinct((a, b) => a == b).listen((res) {
-    //                               if (res is fluwx.WeChatAuthResponse) {
-    //                                 //TODO
-    //                                 mLog("fluwx.WeChatAuthResponse", "fluwx.WeChatAuthResponse ${res.errCode} ${res.errStr} ${res.type} ${res.country} ${res.lang} ${res.code} ${res.state}");
-    //                               }
-    //                             }),
-
-    //                             fluwx.sendWeChatAuth(
-    //                                 scope: "snsapi_userinfo", state: "wechat_sdk_demo_test")
-    //                                 .then((data) {})
+  Future<void> onWeChatLogin() async {
+    if (context.read<LoginCubit>().state.selectedSuperNode == null) {
+      tip(context, FlutterI18n.translate(context, 'reg_select_supernode'));
+      return;
+    }
+    if (!formKey.currentState.validate()) return;
+    context.read<LoginCubit>().weChatLogin();
   }
 
   void onSignUp() {
@@ -126,6 +120,24 @@ class _LoginPageContentState extends State<_LoginPageContent> {
           },
         ),
         BlocListener<LoginCubit, LoginState>(
+          listenWhen: (a, b) => a.errorMessage != b.errorMessage,
+          listener: (ctx, state) async {
+            if (state.errorMessage == null) return;
+            final message = FlutterI18n.translate(context, state.errorMessage);
+            scaffoldKey.currentState.showSnackBar(SnackBar(
+              content: Text(
+                message,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(color: Colors.white),
+              ),
+              duration: Duration(seconds: 2),
+              backgroundColor: errorColor,
+            ));
+          },
+        ),
+        BlocListener<LoginCubit, LoginState>(
           listenWhen: (a, b) => a.result != b.result,
           listener: (ctx, state) async {
             switch (state.result) {
@@ -135,6 +147,9 @@ class _LoginPageContentState extends State<_LoginPageContent> {
                 break;
               case LoginResult.resetPassword:
                 Navigator.of(context).pushNamed("forgot_password_page");
+                break;
+              case LoginResult.wechat:
+                Navigator.of(context).pushNamed("wechat_login_page");
                 break;
               case LoginResult.signUp:
                 Navigator.of(context).pushNamed("sign_up_page");

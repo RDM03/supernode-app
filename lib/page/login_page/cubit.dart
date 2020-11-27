@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/app_state.dart';
@@ -7,7 +9,7 @@ import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/wrap.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/page/login_page/state.dart';
-import 'package:fluwx/fluwx.dart';
+import 'package:fluwx/fluwx.dart' as fluwx;
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit({
@@ -34,11 +36,19 @@ class LoginCubit extends Cubit<LoginState> {
   final AppCubit appCubit;
   final SupernodeCubit supernodeCubit;
 
+  StreamSubscription _weChatSubscription;
+
   Future<void> initState() async {
     await Future.wait([
       loadSupernodes(),
       loadWeChat(),
     ]);
+  }
+
+  @override
+  Future<void> close() async {
+    super.close();
+    _weChatSubscription?.cancel();
   }
 
   Future<void> loadSupernodes() async {
@@ -52,17 +62,77 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> loadWeChat() async {
-    await registerWxApi(
-      appId: Config.WECHAT_APP_ID,
-      doOnAndroid: true,
-      doOnIOS: true,
-      universalLink: "https://www.mxc.org/mxcdatadash/",
-    );
-    final result = await isWeChatInstalled;
-    emit(state.copyWith(showWeChatLoginOption: result));
+    await fluwx.registerWxApi(
+        appId: Config.WECHAT_APP_ID,
+        doOnAndroid: true,
+        doOnIOS: true,
+        universalLink: "https://www.mxc.org/mxcdatadash/");
+    var wxInstalled = await fluwx.isWeChatInstalled;
+    emit(state.copyWith(showWeChatLoginOption: wxInstalled));
+
+    if (wxInstalled) {
+      _weChatSubscription = fluwx.weChatResponseEventHandler
+          .distinct((a, b) => a == b)
+          .listen(handleWeChatEvent);
+    }
+  }
+
+  Future<void> handleWeChatEvent(fluwx.BaseWeChatResponse res) async {
+    if (res is fluwx.WeChatAuthResponse) {
+      emit(state.copyWith(showLoading: true));
+      try {
+        if (res.errCode == 0) {
+          Map data = {'code': res.code};
+          var authWeChatUserRes =
+              (Config.WECHAT_APP_ID == Config.WECHAT_APP_ID_DEBUG)
+                  ? await dao.user.debugAuthenticateWeChatUser(data)
+                  : await dao.user.authenticateWeChatUser(data);
+
+          if (authWeChatUserRes['bindingIsRequired']) {
+            // bind DataDash and WeChat accounts
+            setResult(LoginResult.wechat);
+          } else {
+            supernodeCubit.setSupernode(state.selectedSuperNode);
+            final jwt = authWeChatUserRes['jwt'];
+
+            appCubit.setDemo(false);
+            supernodeCubit.setSupernodeSession(SupernodeSession(
+              username: '',
+              password: '',
+              token: jwt,
+              userId: parseJwt(jwt).userId,
+              node: state.selectedSuperNode,
+            ));
+
+            final profile = await dao.main.user.profile();
+            supernodeCubit.setOrganizationId(
+              profile.organizations.first.organizationID,
+            );
+            setResult(LoginResult.home);
+          }
+        } else {
+          //tip(ctx.context, res.errStr);
+        }
+      } catch (err) {
+        final maintenance = await checkMaintenance(state.selectedSuperNode);
+        if (!maintenance) return;
+        String msg;
+        try {
+          msg = err?.message ?? 'error_tip';
+        } catch (e) {
+          msg = 'error_tip';
+        }
+        emit(state.copyWith(errorMessage: msg));
+      } finally {
+        emit(state.copyWith(showLoading: false));
+      }
+    }
   }
 
   Future<void> login(String username, String password) async {
+    final maintenance = await checkMaintenance(state.selectedSuperNode);
+    if (!maintenance) return;
+
     if (state.selectedSuperNode == null) return;
     emit(state.copyWith(showLoading: true));
     try {
@@ -71,7 +141,6 @@ class LoginCubit extends Cubit<LoginState> {
       final jwt = res.jwt;
 
       appCubit.setDemo(false);
-      supernodeCubit.setOrganizationId('todo');
       supernodeCubit.setSupernodeSession(SupernodeSession(
         username: username,
         password: password,
@@ -105,6 +174,19 @@ class LoginCubit extends Cubit<LoginState> {
       ));
 
       setResult(LoginResult.home);
+    } finally {
+      emit(state.copyWith(showLoading: false));
+    }
+  }
+
+  Future<void> weChatLogin() async {
+    if (state.selectedSuperNode == null) return;
+    emit(state.copyWith(showLoading: true));
+    try {
+      supernodeCubit.setSupernode(state.selectedSuperNode);
+
+      fluwx.sendWeChatAuth(
+          scope: "snsapi_userinfo", state: "wechat_sdk_demo_test");
     } finally {
       emit(state.copyWith(showLoading: false));
     }

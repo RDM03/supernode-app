@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:supernodeapp/common/utils/auth.dart';
+
 class UserLoginResponse {
   final bool is2faRequired;
   final String jwt;
@@ -18,26 +20,7 @@ class UserLoginResponse {
     );
   }
 
-  SupernodeJwt get parsedJwt {
-    if (jwt == null) return null;
-    final splitted = jwt.split('.');
-    if (splitted.length < 2) return null;
-    var encoded = splitted[1];
-
-    // need to add tail, otherwise base64 throws.
-    switch (encoded.length % 4) {
-      case 1:
-        break;
-      case 2:
-        encoded += "==";
-        break;
-      case 3:
-        encoded += "=";
-        break;
-    }
-    final json = utf8.decode(base64.decode(encoded));
-    return SupernodeJwt.fromJson(json);
-  }
+  SupernodeJwt get parsedJwt => parseJwt(jwt);
 }
 
 class SupernodeJwt {
