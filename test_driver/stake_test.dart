@@ -78,8 +78,13 @@ stakingTest(String secret) {
       print('READY TO ENTER OTP');
       var otp = getOtp(secret);
       print('Here is the OTP: $otp');
-      await driver.enterText(otp);
+      //enter each number seperately
+      for(var i = 0; i < 6; i++){
+        await driver.enterText(otp[i]);
+        await delay(250);
+      }
       print('KEY ENTERED');
+      await driver.scrollIntoView(f['otpConfirmOtpButton']);
       await driver.tap(f['otpConfirmOtpButton']);
       print('UNSTAKE IN PROGRESS');
       expect(await isPresent(f['successIconFinder'], driver), true);
