@@ -42,6 +42,7 @@
 	"wallet": "지갑",
 	"add_gateway": "게이트웨이 등록",
 	"add_gateway_tip": "게이트웨이 또는 채굴기 등록",
+	"register_reseller_success": "시리얼번호 {0} 를 리셀러 계정에 성공적으로 등록하셨습니다. M2 Pro 채굴자가 채굴기를 등록하면 귀하의 리셀러 계정에서 그 채굴기를 보실 수 있습니다. 채굴자가 채굴기를 등록한 후 24시간 이내에 계정에서 그 채굴기를 보실 수 없으시면 서포트로 문의 부탁드립니다.",
 	"delete": "삭제",
 	"confirm_deleting_miner_title": "채굴기를 삭제하시겠습니까?",
 	"confirm_deleting_miner_message": "채굴기를 삭제하시면 복구가 불가능합니다.",
@@ -192,6 +193,7 @@
 	"error_tip": "오류",
 	"updated_successful_tip": "성공적으로 업데이트 되었습니다.",
 	"total_device": "총 기기 수",
+	"downlink_fee": "다운링크 수수료",
 	"device_choose": "어플리케이션 선택",
 	"ai_camera": "AI 카메라",
 	"fire_detect": "화재 인식",
@@ -255,7 +257,6 @@
 	"device_bluetooth_prompt": "리스트에서 블루투스 기기를 선택하십시오. 설정에서",
 	"bluetooth": "블루투스",
 	"is_turned_on": "가 켜져 있는지 확인해 주세요.",
-	"downlink_fee": "다운링크 수수료",
 	"loading": "로딩중...",
 	"insufficient_balance": "잔액 부족",
 	"required_2FA_general": "2FA 보안인증 필수",
@@ -385,3 +386,4 @@
 	"under_maintenance": "서버 백업 중입니다. 곧 정상 작동으로 돌아오겠습니다.",
 	"duration_days": "지속 시간 (일) - {0}"
 }
+

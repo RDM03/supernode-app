@@ -42,7 +42,7 @@
 	"wallet": "Wallet",
 	"add_gateway": "Add a Miner",
 	"add_gateway_tip": "Register your Miner",
-	"register_reseller_success": "You registered {0} as a reseller. When the M2 Pro owner registers their miner, you will see the miner in your miner list. If you don't see it within 24 hours after the M2 Pro owner registers the miner, please contact support.",
+	"register_reseller_success": "You have successfully registered {0} in your reseller account. Once the M2 Pro owner registers their miner it will appear in your reseller account. Please contact support if the miner does not appear 24 hours after the M2 Pro owner registered their device.",
 	"delete": "Delete",
 	"confirm_deleting_miner_title": "Are you sure to delete the miner?",
 	"confirm_deleting_miner_message": "Once you delete the miner, you won't be able to recover.",

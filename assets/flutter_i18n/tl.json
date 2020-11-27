@@ -42,6 +42,7 @@
 	"wallet": "Wallet",
 	"add_gateway": "Magdagdag ng Gateway",
 	"add_gateway_tip": "Irehistro ang iyong Gateway / Miner",
+	"register_reseller_success": "You have successfully registered {0} in your reseller account. Once the M2 Pro owner registers their miner it will appear in your reseller account. Please contact support if the miner does not appear 24 hours after the M2 Pro owner registered their device.",
 	"delete": "Delete",
 	"confirm_deleting_miner_title": "Are you sure to delete the miner?",
 	"confirm_deleting_miner_message": "Once you delete the miner, you won't be able to recover.",
@@ -192,6 +193,7 @@
 	"error_tip": "Error",
 	"updated_successful_tip": "Naupdate ng Matagumpay",
 	"total_device": "Kabuuang mga Device",
+	"downlink_fee": "Bayad sa Downlink",
 	"device_choose": "Piliin ang Iyong Application",
 	"ai_camera": "AI Camera",
 	"fire_detect": "Fire Detect",
@@ -255,7 +257,6 @@
 	"device_bluetooth_prompt": "Pumili ng isang Bluetooth device mula sa listahan ng mga device. Siguraduhin na ang iyong",
 	"bluetooth": "Bluetooth",
 	"is_turned_on": "ay nakabukas.",
-	"downlink_fee": "Bayad sa Downlink",
 	"loading": "naglo-load...",
 	"insufficient_balance": "Hindi sapat na balanse",
 	"required_2FA_general": "Kailangan ng 2FA",
@@ -383,5 +384,6 @@
 	"connect_with_us": "Kumonekta sa amin",
 	"refresh": "I-refresh",
 	"under_maintenance": "We are currently undergoing maintenance. This won’t take long.",
-	"duration_days": "Duration (days) - {0}"
+	"duration_days": "Duration(Days) - {0}"
 }
+
