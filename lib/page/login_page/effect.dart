@@ -1,7 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:fluwx/fluwx.dart';
+import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'package:supernodeapp/common/constants.dart';
@@ -28,6 +28,7 @@ Effect<LoginState> buildEffect() {
     Lifecycle.dispose: _dispose,
     LoginAction.onLogin: _onLogin,
     LoginAction.onSignUp: _onSignUp,
+    LoginAction.onWeChat: _onWeChat,
     LoginAction.onForgotPassword: _onForgotPassword,
     LoginAction.onDemo: _onDemo,
   });
@@ -161,6 +162,42 @@ void _onSignUp(Action action, Context<LoginState> ctx) async {
   Navigator.pushNamed(ctx.context, 'sign_up_page');
 }
 
+void _onWeChat(Action action, Context<LoginState> ctx) async {
+  var curState = ctx.state;
+  if (curState.currentSuperNode == null) {
+    tip(ctx.context,
+        FlutterI18n.translate(ctx.context, 'reg_select_supernode'));
+    return;
+  }
+
+  final res = await checkMaintenance(curState.currentSuperNode);
+  if (!res) return;
+
+  String apiRoot = curState.currentSuperNode.url;
+  Dao.baseUrl = apiRoot;
+
+  SettingsState settingsData = GlobalStore.store.getState().settings;
+
+  if (settingsData == null) {
+    settingsData = SettingsState().clone();
+  }
+
+  GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
+  await StorageManager.sharedPreferences.setBool(Config.DEMO_MODE, false);
+
+  fluwx.weChatResponseEventHandler.distinct((a, b) => a == b).listen((res) async {
+    if (res is fluwx.WeChatAuthResponse) {
+      if (res.errCode == 0) {
+        UserDao dao = UserDao();
+        Map data = {'code': res.code};
+        dao.authenticateWeChatUser(data);
+      }
+    }
+  });
+
+  fluwx.sendWeChatAuth(scope: "snsapi_userinfo", state: "wechat_sdk_demo_test");
+}
+
 void _onForgotPassword(Action action, Context<LoginState> ctx) async {
   if (ctx.state.currentSuperNode == null) {
     tip(ctx.context,
@@ -190,11 +227,11 @@ void _dispose(Action action, Context<LoginState> ctx) {
 }
 
 void _initWeChat(Action action, Context<LoginState> ctx) async {
-  var ok = await registerWxApi(
+  var ok = await fluwx.registerWxApi(
       appId: WECHAT_APP_ID,
       doOnAndroid: true,
       doOnIOS: true,
       universalLink: "https://www.mxc.org/mxcdatadash/");
-  var result = await isWeChatInstalled;
+  var result = await fluwx.isWeChatInstalled;
   ctx.dispatch(LoginActionCreator.showWeChat(result));
 }

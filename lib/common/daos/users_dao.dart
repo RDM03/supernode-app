@@ -22,6 +22,9 @@ class UserApi {
   static const String passwordReset = "/api/internal/request-password-reset";
   static const String passwordResetConfirm =
       "/api/internal/confirm-password-reset";
+
+  //ExternalUserService
+  static const String authenticateWeChatUser = "/api/external-login/authenticate-wechat-user";
 }
 
 class UserDao extends Dao {
@@ -108,5 +111,9 @@ class UserDao extends Dao {
 
   Future<dynamic> passwordResetConfirm(Map data) {
     return post(url: UserApi.passwordResetConfirm, data: data);
+  }
+
+  Future<dynamic> authenticateWeChatUser(Map data) {
+    return post(url: UserApi.authenticateWeChatUser, data: data);
   }
 }

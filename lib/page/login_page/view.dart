@@ -188,18 +188,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                             ),
                             SizedBox(width: s(30)),
                             CircleButton(
-                              onTap: () => {
-                                fluwx.weChatResponseEventHandler.distinct((a, b) => a == b).listen((res) {
-                                  if (res is fluwx.WeChatAuthResponse) {
-                                    //TODO
-                                    mLog("fluwx.WeChatAuthResponse", "fluwx.WeChatAuthResponse ${res.errCode} ${res.errStr} ${res.type} ${res.country} ${res.lang} ${res.code} ${res.state}");
-                                  }
-                                }),
-
-                                fluwx.sendWeChatAuth(
-                                    scope: "snsapi_userinfo", state: "wechat_sdk_demo_test")
-                                    .then((data) {})
-                              },
+                              onTap: () => dispatch(LoginActionCreator.onWeChat()),
                               icon: (state.showWeChatLoginOption ? Image.asset(AppImages.wechat, width: 22, height: 22,) :  null),
                             ),
                             SizedBox(width: s(30)),
