@@ -48,6 +48,7 @@ class PrimaryTextField extends StatelessWidget {
       decoration: InputDecoration(
         contentPadding: kRoundRow105,
         hintText: hint,
+        errorMaxLines: 2,
         counterText: counterText,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
