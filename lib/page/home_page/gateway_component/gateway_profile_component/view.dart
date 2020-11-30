@@ -64,6 +64,7 @@ Widget buildView(
           ),
         )),
     MapBoxWidget(
+      key: ValueKey('minerDetailsMapbox'),
       rowTop: EdgeInsets.zero,
       config: state.mapCtl,
       centerLocation: location,
@@ -82,9 +83,9 @@ Widget buildView(
           style: kMiddleFontOfGrey,
         )),
     paragraph(FlutterI18n.translate(_ctx, 'gateway_id')),
-    introduction(profile.id ?? '', top: 5),
+    introduction(profile.id ?? '', key: ValueKey('minerDetailsMinerId'), top: 5),
     paragraph(FlutterI18n.translate(_ctx, 'last_seen')),
-    introduction(TimeDao.getDatetime(profile.lastSeenAt) ?? '', top: 5),
+    introduction(TimeDao.getDatetime(profile.lastSeenAt) ?? '', key: ValueKey('minerDetailsLastSeen'), top: 5),
     Padding(
       padding: kOuterRowTop35,
       child: paragraph(FlutterI18n.translate(_ctx, 'weekly_revenue')),
@@ -113,9 +114,9 @@ Widget buildView(
       ),
     ),
     paragraph(FlutterI18n.translate(_ctx, 'gateway_model')),
-    introduction(profile.model ?? '', top: 5),
+    introduction(profile.model ?? '', key: ValueKey('minerDetailsMinerModel'), top: 5),
     paragraph(FlutterI18n.translate(_ctx, 'gateway_osversion')),
-    introduction(profile.osversion ?? '', top: 5),
+    introduction(profile.osversion ?? '', key: ValueKey('minerDetailsMinerOS'), top: 5),
   ]);
 }
 
