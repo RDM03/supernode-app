@@ -38,9 +38,10 @@ minerDetailsAPITest() {
     driver.scrollIntoView(f['minerDetailsWeeklyRevenue']);
     expect(await isPresent(f['minerDetailsWeeklyRevenue'], driver), true);
     print('WEEKLY REVENUE PRESENT');
-    driver.scrollIntoView(f['minerDetailsFrame']);
-    expect(await isPresent(f['minerDetailsFrame'], driver), true);
-    print('FRAME PRESENT');
+    // frame unable to be keyed
+    // driver.scrollIntoView(f['minerDetailsFrame']);
+    // expect(await isPresent(f['minerDetailsFrame'], driver), true);
+    // print('FRAME PRESENT');
     driver.scrollIntoView(f['minerDetailsMinerModel']);
     expect(await isPresent(f['minerDetailsMinerModel'], driver), true);
     print('MINER MODEL PRESENT');

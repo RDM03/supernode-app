@@ -76,10 +76,12 @@ Widget buildView(
         contentPadding: EdgeInsets.zero,
         title: Text(
           '${profile.location['altitude']} meters',
+          key: ValueKey('minerDetailsAltitude'),
           style: kMiddleFontOfGrey,
         ),
         trailing: Text(
           '${profile.location['latitude']},${profile.location['longitude']}',
+          key: ValueKey('minerDetailsCoordinates'),
           style: kMiddleFontOfGrey,
         )),
     paragraph(FlutterI18n.translate(_ctx, 'gateway_id')),
