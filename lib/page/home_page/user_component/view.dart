@@ -27,6 +27,7 @@ bool isUpdate = true;
 
 Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
   final _ctx = viewService.context;
+  bool isOrgIDloaded() => GlobalStore.store.getState().settings.selectedOrganizationId!= null && GlobalStore.store.getState().settings.selectedOrganizationId.isNotEmpty;
 
   return Scaffold(
     appBar: AppBar(
@@ -130,10 +131,14 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                     children: <Widget>[
                       Spacer(),
                       PrimaryButton(
-                        key: Key('depositButtonDashboard'),
-                        buttonTitle: FlutterI18n.translate(_ctx, 'deposit'),
+                        key: Key(isOrgIDloaded() ? 'depositButtonDashboard' : 'depositButtonLoading'),
+                        buttonTitle: FlutterI18n.translate(_ctx, isOrgIDloaded() ? 'deposit' : 'loading'),
                         onTap: () =>
+                        {
+                          if (isOrgIDloaded()) {
                             dispatch(HomeActionCreator.onOperate('deposit')),
+                          }
+                        }
                       ),
                       Spacer(),
                       PrimaryButton(
