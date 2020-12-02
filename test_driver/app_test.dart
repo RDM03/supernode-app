@@ -10,6 +10,7 @@ import 'logout_test.dart' show logoutTest;
 import 'stake_test.dart' show stakingTest;
 import 'homepage_api_test.dart' show homeAPITest;
 import 'miner_list_api_test.dart' show minerListAPITest;
+import 'miner_details_test.dart' show minerDetailsAPITest;
 import 'supernodes.dart' show s;
 
 void main() {
@@ -38,6 +39,7 @@ void main() {
       helpBubbleTest();
       addMinerTest();
       minerListAPITest();
+      minerDetailsAPITest();
       deleteMinerTest();
       logoutTest('MXCtest');
     } else
@@ -46,9 +48,10 @@ void main() {
         homeAPITest();
         stakingTest(s[i][2]);
         helpBubbleTest();
-        //Currently miner tests don't work for servers other than test. Need miner serials.
-        //addMinerTest();
-        //deleteMinerTest();
+        addMinerTest();
+        minerListAPITest();
+        minerDetailsAPITest();
+        deleteMinerTest();
         logoutTest(s[i][0]);
 
       }
