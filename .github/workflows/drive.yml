@@ -37,8 +37,7 @@ jobs:
       uses: subosito/flutter-action@v1
       with:
         channel: beta
-    - name: Upgrade flutter
-      run: flutter upgrade
+        flutter-version: '1.23.0'
     - name: Clean workspace
       run: flutter clean
     - name: create env file
@@ -99,8 +98,7 @@ jobs:
       uses: subosito/flutter-action@v1
       with:
         channel: beta
-    - name: Upgrade flutter
-      run: flutter upgrade
+        flutter-version: '1.23.0'
     - name: Clean workspace
       run: flutter clean
     - name: create env file
