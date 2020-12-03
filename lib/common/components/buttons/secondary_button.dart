@@ -34,26 +34,29 @@ class SecondaryButton extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(3)),
       ),
       // color: buttonSecondaryColor,
-      child: Row(children: <Widget>[
-        Text(
-          buttonTitle,
-          textAlign: TextAlign.center,
-          style: color != null && !isSelected
-              ? kSecondaryButtonOfBlack
-              : kSecondaryButtonOfPurple,
-        ),
-        icon != null
-            ? Container(
-                margin: kInnerRowLeft5,
-                child: Icon(
-                  icon,
-                  color: color != null && !isSelected
-                      ? Colors.black
-                      : buttonPrimaryColor,
-                ),
-              )
-            : Container()
-      ]),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            buttonTitle,
+            textAlign: TextAlign.center,
+            style: color != null && !isSelected
+                ? kSecondaryButtonOfBlack
+                : kSecondaryButtonOfPurple,
+          ),
+          icon != null
+              ? Container(
+                  margin: kInnerRowLeft5,
+                  child: Icon(
+                    icon,
+                    color: color != null && !isSelected
+                        ? Colors.black
+                        : buttonPrimaryColor,
+                  ),
+                )
+              : Container()
+        ],
+      ),
     );
   }
 }

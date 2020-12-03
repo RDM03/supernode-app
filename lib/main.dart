@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action, Page;
-import 'package:flutter/material.dart' as m show Page;
 import 'package:flutter/services.dart';
 import 'package:flutter_appcenter/flutter_appcenter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +21,6 @@ import 'package:supernodeapp/page/feedback_page/feedback.dart';
 import 'package:supernodeapp/page/address_book_page/add_address_page/page.dart';
 import 'package:supernodeapp/page/address_book_page/address_details_page/page.dart';
 import 'package:supernodeapp/page/address_book_page/page.dart';
-import 'package:supernodeapp/app.dart';
 import 'package:supernodeapp/page/calculator_list_page/page.dart';
 import 'package:supernodeapp/page/calculator_page/page.dart';
 import 'package:supernodeapp/page/connectivity_lost_page/page.dart';
@@ -45,6 +43,9 @@ import 'package:supernodeapp/page/stake_page/details_stake_page/page.dart';
 import 'package:supernodeapp/page/stake_page/list_unstake_page/page.dart';
 import 'package:supernodeapp/page/stake_page/prepare_stake_page/page.dart';
 import 'package:supernodeapp/page/under_maintenance_page/page.dart';
+import 'package:supernodeapp/page/wechat_bind_new_acc_page/page.dart';
+import 'package:supernodeapp/page/wechat_bind_page/page.dart';
+import 'package:supernodeapp/page/wechat_login_page/page.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
@@ -220,6 +221,9 @@ class MxcApp extends StatelessWidget {
       'settings_page': SettingsPage(),
       'gateway_profile_page': GatewayProfilePage(),
       'mapbox_gl_page': MapboxGlPage(),
+      'wechat_login_page': WechatLoginPage(),
+      'wechat_bind_page': WechatBindPage(),
+      'wechat_bind_new_acc_page': WechatBindNewAccPage(),
     },
   );
 
