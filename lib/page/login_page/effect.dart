@@ -185,16 +185,6 @@ void _onWeChat(Action action, Context<LoginState> ctx) async {
   GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
   await StorageManager.sharedPreferences.setBool(Config.DEMO_MODE, false);
 
-  fluwx.weChatResponseEventHandler.distinct((a, b) => a == b).listen((res) async {
-    if (res is fluwx.WeChatAuthResponse) {
-      if (res.errCode == 0) {
-        UserDao dao = UserDao();
-        Map data = {'code': res.code};
-        dao.authenticateWeChatUser(data);
-      }
-    }
-  });
-
   fluwx.sendWeChatAuth(scope: "snsapi_userinfo", state: "wechat_sdk_demo_test");
 }
 
@@ -227,11 +217,32 @@ void _dispose(Action action, Context<LoginState> ctx) {
 }
 
 void _initWeChat(Action action, Context<LoginState> ctx) async {
-  var ok = await fluwx.registerWxApi(
+  await fluwx.registerWxApi(
       appId: WECHAT_APP_ID,
       doOnAndroid: true,
       doOnIOS: true,
       universalLink: "https://www.mxc.org/mxcdatadash/");
-  var result = await fluwx.isWeChatInstalled;
-  ctx.dispatch(LoginActionCreator.showWeChat(result));
+  var wxInstalled = await fluwx.isWeChatInstalled;
+  ctx.dispatch(LoginActionCreator.showWeChat(wxInstalled));
+
+  if (wxInstalled) {
+    fluwx.weChatResponseEventHandler.distinct((a, b) => a == b).listen((
+        res) async {
+      if (res is fluwx.WeChatAuthResponse) {
+        if (res.errCode == 0) {
+          UserDao dao = UserDao();
+          Map data = {'code': res.code};
+          var authWeChatUserRes = await dao.authenticateWeChatUser(data);
+
+          if (authWeChatUserRes['bindingIsRequired']) {
+            Navigator.pushNamed(ctx.context, 'wechat_login_page');
+          } else {
+            //TODO login
+          }
+        } else {
+          tip(ctx.context, res.errStr);
+        }
+      }
+    });
+  }
 }
