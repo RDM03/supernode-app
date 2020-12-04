@@ -25,6 +25,7 @@ class UserApi {
 
   //ExternalUserService
   static const String authenticateWeChatUser = "/api/external-login/authenticate-wechat-user";
+  static const String bindExternalUser = "/api/external-login/bind-external-user";
 }
 
 class UserDao extends Dao {
@@ -115,5 +116,9 @@ class UserDao extends Dao {
 
   Future<dynamic> authenticateWeChatUser(Map data) {
     return post(url: UserApi.authenticateWeChatUser, data: data);
+  }
+
+  Future<dynamic> bindExternalUser(Map data) {
+    return post(url: UserApi.bindExternalUser, data: data);
   }
 }

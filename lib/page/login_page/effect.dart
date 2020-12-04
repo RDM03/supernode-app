@@ -3,7 +3,6 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:supernodeapp/common/components/loading.dart';
-import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'package:supernodeapp/common/constants.dart';
 import 'package:supernodeapp/common/daos/demo/user_dao.dart';
 import 'package:supernodeapp/common/utils/auth.dart';
@@ -37,41 +36,11 @@ Effect<LoginState> buildEffect() {
 Future<void> _handleLoginRequest(
     UserDao dao, String username, String password, String apiRoot) async {
   Map data = {'username': username, 'password': password};
-  SettingsState settingsData = GlobalStore.store.getState().settings;
 
   var loginResult = await dao.login(data);
   mLog('login', loginResult);
 
-  if (settingsData == null) {
-    settingsData = SettingsState().clone();
-  }
-
-  Dao.token = loginResult['jwt'];
-  settingsData.token = loginResult['jwt'];
-  settingsData.username = data['username'];
-  List<String> users =
-      StorageManager.sharedPreferences.getStringList(Config.USER_KEY) ?? [];
-  if (!users.contains(data['username'])) {
-    users.add(data['username']);
-  }
-  StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
-  StorageManager.sharedPreferences
-      .setString(Config.TOKEN_KEY, loginResult['jwt']);
-  StorageManager.sharedPreferences
-      .setString(Config.USERNAME_KEY, data['username']);
-  StorageManager.sharedPreferences
-      .setString(Config.PASSWORD_KEY, data['password']);
-  StorageManager.sharedPreferences.setString(Config.API_ROOT, apiRoot);
-  GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
-
-  var totpStatus = await dao.getTOTPStatus({});
-  mLog('totp', totpStatus);
-
-  settingsData.is2FAEnabled = totpStatus['enabled'];
-  if ((totpStatus as Map).containsKey('enabled')) {
-    GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
-  }
-  await PermissionUtil.getLocationPermission();
+  await saveLoginResult(dao, loginResult['jwt'], data['username'], data['password'], apiRoot);
 }
 
 void _onLogin(Action action, Context<LoginState> ctx) async {
@@ -186,6 +155,7 @@ void _onWeChat(Action action, Context<LoginState> ctx) async {
   await StorageManager.sharedPreferences.setBool(Config.DEMO_MODE, false);
 
   fluwx.sendWeChatAuth(scope: "snsapi_userinfo", state: "wechat_sdk_demo_test");
+  //weChatResponseEventHandler defined in _initWeChat
 }
 
 void _onForgotPassword(Action action, Context<LoginState> ctx) async {
@@ -229,18 +199,49 @@ void _initWeChat(Action action, Context<LoginState> ctx) async {
     fluwx.weChatResponseEventHandler.distinct((a, b) => a == b).listen((
         res) async {
       if (res is fluwx.WeChatAuthResponse) {
-        if (res.errCode == 0) {
-          UserDao dao = UserDao();
-          Map data = {'code': res.code};
-          var authWeChatUserRes = await dao.authenticateWeChatUser(data);
+        final loading = await Loading.show(ctx.context);
+        try {
+          if (res.errCode == 0) {
+            UserDao dao = UserDao();
+            Map data = {'code': res.code};
+            var authWeChatUserRes = await dao.authenticateWeChatUser(data);
 
-          if (authWeChatUserRes['bindingIsRequired']) {
-            Navigator.pushNamed(ctx.context, 'wechat_login_page');
+            if (authWeChatUserRes['bindingIsRequired']) {
+              // bind DataDash and WeChat accounts
+              loading.hide();
+              Navigator.pushNamed(ctx.context, 'wechat_login_page');
+            } else {
+              // accounts already bound - proceed with login
+              String apiRoot = ctx.state.currentSuperNode.url;
+
+              await saveLoginResult(dao, authWeChatUserRes['jwt'], '', '', apiRoot);
+
+              loading.hide();
+              Navigator.pushReplacementNamed(ctx.context, 'home_page');
+            }
           } else {
-            //TODO login
+            tip(ctx.context, res.errStr);
           }
-        } else {
-          tip(ctx.context, res.errStr);
+        } catch (err) {
+          final res = await checkMaintenance();
+          loading.hide();
+          if (!res) return;
+          String msg;
+          try {
+            msg = err?.message ?? FlutterI18n.translate(ctx.context,'error_tip');
+          } catch (e) {
+            msg = FlutterI18n.translate(ctx.context,'error_tip');
+          }
+          ctx.state.scaffoldKey.currentState.showSnackBar(SnackBar(
+            content: Text(
+              msg,
+              style: Theme.of(ctx.context).textTheme.bodyText1.copyWith(color: Colors.white),
+            ),
+            duration: Duration(seconds: 2),
+            backgroundColor: errorColor,
+          ));
+        } finally {
+          loading.hide();
         }
       }
     });

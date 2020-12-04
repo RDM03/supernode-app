@@ -99,4 +99,8 @@ class DemoUserDao extends DemoDao implements UserDao {
     throw UnimplementedError('update not supported in demo');
   }
 
+  @override
+  Future<dynamic> bindExternalUser(Map data) {
+    throw UnimplementedError('update not supported in demo');
+  }
 }
