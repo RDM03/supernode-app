@@ -204,7 +204,10 @@ void _initWeChat(Action action, Context<LoginState> ctx) async {
           if (res.errCode == 0) {
             UserDao dao = UserDao();
             Map data = {'code': res.code};
-            var authWeChatUserRes = await dao.authenticateWeChatUser(data);
+            var authWeChatUserRes =
+            (WECHAT_APP_ID == 'wx7fcea6540bed2f37')
+                ? await dao.debugAuthenticateWeChatUser(data)
+                : await dao.authenticateWeChatUser(data);
 
             if (authWeChatUserRes['bindingIsRequired']) {
               // bind DataDash and WeChat accounts
