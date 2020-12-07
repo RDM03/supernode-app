@@ -124,6 +124,7 @@ SettingsState initState(Map<String, dynamic> args) {
     ..username = user['username']
     ..email = user['email']
     ..usernameCtl.text = user['username']
+    ..emailCtl.text = user['email']
     ..wechatExternalUsername = user['wechatExternalUsername']
     ..isAdmin = orgs.length > 0 && orgs.first.isAdmin
     ..organizations = orgs
