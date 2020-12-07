@@ -38,9 +38,7 @@ jobs:
     - name: create env file
       run: touch assets/.env
     - name: "Run Flutter Driver tests"
-      run: |
-        UDID=$(cat /tmp/iosdeviceid.tmp) 
-        flutter drive --target=test_driver/app.dart --device-id $UDID
+      run: flutter drive --target=test_driver/app.dart
       env:
         APPCENTER_BUILD_ID: ${{ secrets.APPCENTER_BUILD_ID}}
         APPCENTER_KEYSTORE_PASSWORD: ${{ secrets.APPCENTER_KEYSTORE_PASSWORD}}
