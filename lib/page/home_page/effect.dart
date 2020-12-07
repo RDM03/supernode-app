@@ -179,10 +179,12 @@ Future<void> _profile(Context<HomeState> ctx) async {
     UserState userData = UserState.fromMap(res['user'], type: 'remote');
 
     String wechatExternalUsername = '';
-    for (var extAcc in res['externalUserAccounts']) {
-      if (extAcc['service'] == 'wechat') {
-        wechatExternalUsername = extAcc['externalUsername'];
-        break;
+    if (res.containsKey('externalUserAccounts')) {
+      for (var extAcc in res['externalUserAccounts']) {
+        if (extAcc['service'] == 'wechat') {
+          wechatExternalUsername = extAcc['externalUsername'];
+          break;
+        }
       }
     }
 
