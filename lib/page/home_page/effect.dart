@@ -178,6 +178,14 @@ Future<void> _profile(Context<HomeState> ctx) async {
     mLog('profile', res);
     UserState userData = UserState.fromMap(res['user'], type: 'remote');
 
+    String wechatExternalUsername = '';
+    for (var extAcc in res['externalUserAccounts']) {
+      if (extAcc['service'] == 'wechat') {
+        wechatExternalUsername = extAcc['externalUsername'];
+        break;
+      }
+    }
+
     List<OrganizationsState> organizationsData = [];
     for (int index = 0; index < res['organizations'].length; index++) {
       organizationsData
@@ -197,7 +205,7 @@ Future<void> _profile(Context<HomeState> ctx) async {
     }
 
     SettingsDao.updateLocal(settingsData);
-    ctx.dispatch(HomeActionCreator.profile(userData, organizationsData));
+    ctx.dispatch(HomeActionCreator.profile(userData, wechatExternalUsername, organizationsData));
   } catch (e) {
     ctx.dispatch(HomeActionCreator.onReLogin());
   }
@@ -438,6 +446,7 @@ void _onSettings(Action action, Context<HomeState> ctx) {
     'userId': curState.userId,
     'username': curState.username,
     'email': curState.email,
+    'wechatExternalUsername': curState.wechatExternalUsername,
     'isAdmin': curState.isAdmin
   };
 

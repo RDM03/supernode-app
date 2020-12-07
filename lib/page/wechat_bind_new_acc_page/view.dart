@@ -3,12 +3,16 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
+import 'package:supernodeapp/common/components/checkbox_with_label.dart';
+import 'package:supernodeapp/common/components/page/link.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_list.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/components/widgets/component_widgets.dart';
+import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
-import 'package:supernodeapp/common/utils/utils.dart';
+import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -17,7 +21,7 @@ import 'package:supernodeapp/theme/spacing.dart';
 import 'action.dart';
 import 'state.dart';
 
-Widget buildView(WechatBindState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(WechatBindNewAccState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
 
   return ScaffoldWidget(
@@ -68,13 +72,13 @@ Widget buildView(WechatBindState state, Dispatch dispatch, ViewService viewServi
                 ),
               ),
             ),
-            Text(FlutterI18n.translate(_ctx, 'bind_existing_account2wechat_title'), style: kBigFontOfBlack, textAlign: TextAlign.center),
+            Text(FlutterI18n.translate(_ctx, 'bind_new_account2wechat_title'), style: kBigFontOfBlack, textAlign: TextAlign.center),
             Container(
-                margin: EdgeInsets.only(top: 16),
-                child: Text(
-                    FlutterI18n.translate(_ctx, 'bind_existing_account2wechat_desc'),
-                    style: kMiddleFontOfGrey,
-                    textAlign: TextAlign.center)
+              margin: EdgeInsets.only(top: 16),
+              child: Text(
+                FlutterI18n.translate(_ctx, 'bind_new_account2wechat_desc'),
+                style: kMiddleFontOfGrey,
+                textAlign: TextAlign.center)
             ),
             Form(
               key: state.formKey,
@@ -88,33 +92,63 @@ Widget buildView(WechatBindState state, Dispatch dispatch, ViewService viewServi
                     hint: FlutterI18n.translate(_ctx, 'email_hint'),
                     textInputAction: TextInputAction.next,
                     validator: (value) => Reg.onValidEmail(_ctx, value),
-                    controller: state.usernameCtl,
+                    controller: state.emailCtl,
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 16),
+                  margin: kOuterRowTop10,
                   child: TextFieldWithTitle(
-                    key: Key('homePassword'),
-                    title: FlutterI18n.translate(_ctx, 'password'),
-                    hint: FlutterI18n.translate(_ctx, 'password_hint'),
-                    isObscureText: state.isObscureText,
-                    validator: (value) => Reg.onValidPassword(_ctx, value),
-                    controller: state.passwordCtl,
-                    suffixChild: IconButton(icon: Icon(state.isObscureText ? Icons.visibility_off : Icons.visibility), onPressed: () => dispatch(WechatBindActionCreator.isObscureText())),
+                    title: FlutterI18n.translate(_ctx, 'organization_name'),
+                    hint: FlutterI18n.translate(_ctx, 'organization_name_hint'),
+                    textInputAction: TextInputAction.next,
+                    validator: (value) => Reg.onNotEmpty(_ctx, value),
+                    controller: state.orgCtl
+                      ..text = state.orgCtl.text == ""
+                          ? state.emailCtl.text.split('@')[0]
+                          : state.orgCtl.text,
+                  ),
+                ),
+                Container(
+                  margin: kOuterRowTop10,
+                  child: TextFieldWithTitle(
+                    title: FlutterI18n.translate(_ctx, 'display_name'),
+                    hint: FlutterI18n.translate(_ctx, 'display_name_hint'),
+                    textInputAction: TextInputAction.done,
+                    validator: (value) => Reg.onNotEmpty(_ctx, value),
+                    controller: state.displayCtl
+                      ..text = state.displayCtl.text == ""
+                          ? state.emailCtl.text.split('@')[0]
+                          : state.displayCtl.text,
                   ),
                 ),
               ]),
             ),
+            SizedBox(height: 30.0),
+            Container(
+              padding: kRoundRow202,
+              child: link(
+                FlutterI18n.translate(_ctx, 'privacy_policy'),
+                onTap: () => Tools.launchURL(Sys.privacyPolicy),
+                alignment: Alignment.centerLeft,
+              ),
+            ),
+            CheckboxLabelWidget(
+              value: state.isCheckTerms,
+              child: link(FlutterI18n.translate(_ctx, 'agree_conditions'),
+                  onTap: () => Tools.launchURL(Sys.agreePolicy), alignment: Alignment.centerLeft),
+              onChanged: (_) => dispatch(WechatBindNewAccActionCreator.isCheckTerms()),
+            ),
+            SizedBox(height: s(18)),
           ],
         )
       )
     ),
     footer: PrimaryButton(
-        key: Key('homeBind'),
-        onTap: () => dispatch(WechatBindActionCreator.onBind()),
-        buttonTitle: FlutterI18n.translate(_ctx, 'bind_existing_account2wechat_button'),
-        minHeight: s(46),
-        minWidget: double.infinity
+      key: Key('homeBind'),
+      onTap: () => state.isCheckTerms ? dispatch(WechatBindNewAccActionCreator.onBindNewAcc()) : null,
+      buttonTitle: FlutterI18n.translate(_ctx, 'bind_new_account2wechat_button'),
+      minHeight: s(46),
+      minWidget: double.infinity
     ),
   );
 }

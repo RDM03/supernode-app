@@ -7,6 +7,7 @@ Reducer<ProfileState> buildReducer() {
   return asReducer(
     <Object, Reducer<ProfileState>>{
       ProfileAction.update: _update,
+      ProfileAction.unbind: _unbind,
     },
   );
 }
@@ -18,4 +19,10 @@ ProfileState _update(ProfileState state, Action action) {
   return newState
     ..username = data['username']
     ..email = data['email'];
+}
+
+ProfileState _unbind(ProfileState state, Action action) {
+  final ProfileState newState = state.clone();
+  return newState
+    ..wechatExternalUsername = '';
 }

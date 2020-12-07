@@ -36,6 +36,9 @@ class HomeState implements Cloneable<HomeState> {
   List<OrganizationsState> organizations = [];
   String selectedOrganizationId = '';
 
+  //external
+  String wechatExternalUsername = '';
+
   //wallet
   bool isFirstRequest = true;
   bool loadingHistory = true;
@@ -104,6 +107,7 @@ class HomeState implements Cloneable<HomeState> {
       ..isActive = isActive
       ..organizations = organizations ?? []
       ..selectedOrganizationId = selectedOrganizationId
+      ..wechatExternalUsername = wechatExternalUsername
       ..superNode = superNode
       ..balance = balance
       ..totalRevenue = totalRevenue

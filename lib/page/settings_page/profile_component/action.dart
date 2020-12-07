@@ -1,6 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 
-enum ProfileAction { onUpdate, update }
+enum ProfileAction { onUpdate, update, onUnbind, unbind }
 
 class ProfileActionCreator {
   static Action onUpdate() {
@@ -9,5 +9,13 @@ class ProfileActionCreator {
 
   static Action update(Map data) {
     return Action(ProfileAction.update,payload: data);
+  }
+
+  static Action onUnbind() {
+    return const Action(ProfileAction.onUnbind);
+  }
+
+  static Action unbind() {
+    return Action(ProfileAction.unbind);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
@@ -47,7 +48,22 @@ Widget buildView(ProfileState state, Dispatch dispatch, ViewService viewService)
       submitButton(
         FlutterI18n.translate(_ctx,'update'),
         onPressed: () => dispatch(ProfileActionCreator.onUpdate())
-      )
+      ),
+      if (state.wechatExternalUsername.isNotEmpty)
+        Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Divider(color: Colors.grey),
+            ),
+            PrimaryButton(
+              onTap: () => dispatch(ProfileActionCreator.onUnbind()),
+              buttonTitle: FlutterI18n.translate(_ctx,'unbind_wechat_button').replaceFirst('{0}', state.wechatExternalUsername),
+              minHeight: 45,
+              minWidget: double.infinity
+            ),
+          ],
+        ),
     ]
   );
 }

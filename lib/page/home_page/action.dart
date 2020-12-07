@@ -53,8 +53,8 @@ class HomeActionCreator {
     return const Action(HomeAction.onProfile);
   }
 
-  static Action profile(UserState user, List<OrganizationsState> organizations) {
-    return Action(HomeAction.profile, payload: {'user': user, 'organizations': organizations});
+  static Action profile(UserState user, String wechatExternalUsername, List<OrganizationsState> organizations) {
+    return Action(HomeAction.profile, payload: {'user': user, 'wechatExternalUsername': wechatExternalUsername, 'organizations': organizations});
   }
 
   static Action updateUsername(Map data) {

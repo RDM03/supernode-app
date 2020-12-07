@@ -20,6 +20,7 @@ import 'package:supernodeapp/page/calculator_list_page/page.dart';
 import 'package:supernodeapp/page/calculator_page/page.dart';
 import 'package:supernodeapp/page/connectivity_lost_page/page.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
+import 'package:supernodeapp/page/wechat_bind_new_acc_page/page.dart';
 import 'package:supernodeapp/page/wechat_bind_page/page.dart';
 import 'package:supernodeapp/page/wechat_login_page/page.dart';
 import 'package:supernodeapp/page/sign_up_page/page.dart';
@@ -87,6 +88,7 @@ class MxcApp extends StatelessWidget {
         'sign_up_page': SignUpPage(),
         'wechat_login_page': WechatLoginPage(),
         'wechat_bind_page': WechatBindPage(),
+        'wechat_bind_new_acc_page': WechatBindNewAccPage(),
         'forgot_password_page': ForgotPasswordPage(),
         'home_page': HomePage(),
         'deposit_page': DepositPage(),
