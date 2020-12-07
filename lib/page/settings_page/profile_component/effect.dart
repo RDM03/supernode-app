@@ -57,10 +57,9 @@ void _onUnbind(Action action, Context<ProfileState> ctx) async {
   UserDao dao = UserDao();
 
   dao.unbindExternalUser(data).then((res) {
+    //returns new jwt in res['status']
     loading.hide();
-    if (res['status'] == '') {
-      ctx.dispatch(ProfileActionCreator.unbind());
-    }
+    ctx.dispatch(ProfileActionCreator.unbind());
   }).catchError((err) {
     loading.hide();
     tip(ctx.context,'Unbind: $err');
