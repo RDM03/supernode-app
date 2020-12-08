@@ -18,10 +18,9 @@ jobs:
       run: "xcrun xctrace list devices"
     - name: "Start Simulator"
       run: |
-        UDID=$(          
         xcrun xctrace list devices &> /tmp/devices.list
-        grep '${{ matrix.device }}' /tmp/devices.list | cut -d '(' -f 3 | cut -d ')' -f 1
-        )
+        grep '${{ matrix.device }}' /tmp/devices.list | cut -d '(' -f 3 | cut -d ')' -f 1 > /tmp/iosdeviceid.tmp
+        UDID=$(cat /tmp/iosdeviceid.tmp)
         xcrun simctl boot "${UDID:?No Simulator with this name found}"
       continue-on-error: true
     - name: Checkout
@@ -77,7 +76,7 @@ jobs:
     - name: "Start adb-server"
       run: /usr/local/bin/adb start-server   
     - name: "Start Simulator" 
-      run: "/usr/local/bin/emulator -avd ${{ matrix.device }} -id ${{ matrix.device }} -no-audio -gpu host"
+      run: "/usr/local/bin/emulator -avd ${{ matrix.device }} -id ${{ matrix.device }} -no-audio -gpu host &"
       continue-on-error: true
     - name: Checkout
       uses: actions/checkout@v1
