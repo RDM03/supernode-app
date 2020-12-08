@@ -77,7 +77,7 @@ jobs:
     - name: "Start adb-server"
       run: /usr/local/bin/adb start-server   
     - name: "Start Simulator" 
-      run: "/usr/local/bin/emulator -avd ${{ matrix.device }} -id ${{ matrix.device }} -no-audio"
+      run: "/usr/local/bin/emulator -avd ${{ matrix.device }} -id ${{ matrix.device }} -no-audio -gpu host"
       continue-on-error: true
     - name: Checkout
       uses: actions/checkout@v1
