@@ -20,8 +20,7 @@ jobs:
       run: |
         xcrun xctrace list devices &> /tmp/devices.list
         grep '${{ matrix.device }}' /tmp/devices.list | cut -d '(' -f 3 | cut -d ')' -f 1 > /tmp/iosdeviceid.tmp
-        UDID=$(cat /tmp/iosdeviceid.tmp)
-        xcrun simctl boot "${UDID:?No Simulator with this name found}"
+        UDID=$(cat /tmp/iosdeviceid.tmp) xcrun simctl boot "${UDID:?No Simulator with this name found}"
       continue-on-error: true
     - name: Checkout
       uses: actions/checkout@v1
