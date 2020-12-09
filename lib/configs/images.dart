@@ -29,10 +29,12 @@ class AppImages {
   static const String email = 'assets/images/login/email.png';
 
   //wallet
-  static const String infoMXCVault= 'assets/images/wallet/info-mxc-vault.png';
-  static const String infoCurrentTransactionFee= 'assets/images/wallet/info-current-transaction-fee.png';
+  static const String logoMXC = 'assets/images/wallet/logo-mxc.png';
+  static const String logoDHX = 'assets/images/wallet/logo-dhx.png';
+  static const String infoMXCVault = 'assets/images/wallet/info-mxc-vault.png';
+  static const String infoCurrentTransactionFee = 'assets/images/wallet/info-current-transaction-fee.png';
 
   //gateway
-  static const String infoDownlinkPrice= 'assets/images/gateway/info-downloadlink_price.png';
+  static const String infoDownlinkPrice = 'assets/images/gateway/info-downloadlink_price.png';
 
 }

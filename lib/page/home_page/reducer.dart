@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 
 import 'action.dart';
@@ -81,6 +82,9 @@ HomeState _tabIndex(HomeState state, Action action) {
   });
 
   final HomeState newState = state.clone();
+  if (Sys.mainMenus[index] == 'Wallet') {
+    newState.expandedView = false;
+  }
   return newState..tabIndex = index;
 }
 

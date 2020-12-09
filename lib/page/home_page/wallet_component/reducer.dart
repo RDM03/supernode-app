@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';
+import 'package:supernodeapp/common/daos/wallet_dao.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -8,6 +9,8 @@ import 'wallet_list_adapter/wallet_item_component/state.dart';
 Reducer<WalletState> buildReducer() {
   return asReducer(
     <Object, Reducer<WalletState>>{
+      WalletAction.expand: _expand,
+      WalletAction.addDHX: _addDHX,
       WalletAction.loadingHistory: _loadingHistory,
       WalletAction.tab: _tab,
       WalletAction.tabController: _tabController,
@@ -21,6 +24,21 @@ Reducer<WalletState> buildReducer() {
       WalletAction.saveLastSearch: _saveLastSearch
     },
   );
+}
+
+WalletState _expand(WalletState state, Action action) {
+  Token tkn = action.payload;
+  //TODO set token to display in expanded mode
+  final WalletState newState = state.clone();
+  return newState..expandedView = true;
+}
+
+WalletState _addDHX(WalletState state, Action action) {
+  final WalletState newState = state.clone();
+  if (!newState.displayTokes.contains(Token.DHX)) {
+    newState.displayTokes.add(Token.DHX);
+  }
+  return newState;
 }
 
 WalletState _loadingHistory(WalletState state, Action action) {

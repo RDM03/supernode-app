@@ -7,14 +7,19 @@ import 'package:supernodeapp/common/components/empty.dart';
 import 'package:supernodeapp/common/components/loading_list.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
+import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/wallet/date_buttons.dart';
 import 'package:supernodeapp/common/components/wallet/primary_buttons.dart';
 import 'package:supernodeapp/common/components/wallet/secondary_buttons.dart';
 import 'package:supernodeapp/common/components/wallet/tab_buttons.dart';
 import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
 import 'package:supernodeapp/common/components/wallet/title_row.dart';
+import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/action.dart';
+import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/spacing.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -29,13 +34,62 @@ Widget buildView(
   var _ctx = viewService.context;
   final ListAdapter adapter = viewService.buildAdapter();
 
-  return Scaffold(
-    appBar: homeBar(
-      FlutterI18n.translate(_ctx, 'wallet'),
-      onPressed: () => dispatch(HomeActionCreator.onSettings()),
-    ),
-    body: pageBody(
-      children: [
+  Widget tokenCard (Token tkn) => GestureDetector(
+      onTap: () => dispatch(WalletActionCreator.expand(tkn)),
+      child: panelFrame(
+          child: Column(
+            children: [
+              Container(
+                padding: kRoundRow205,
+                child: Row(children: [
+                  Image.asset((tkn == Token.MXC) ? AppImages.logoMXC : AppImages.logoDHX, height: s(50)),
+                  Text((tkn == Token.MXC) ? "MXC" : "DHX"),
+                  Spacer(),
+                  Icon(Icons.arrow_forward_ios)
+                ]),
+              ),
+              titleDetailRow(
+                loading: !state.loadingMap.contains('balance'),
+                name: FlutterI18n.translate(_ctx, 'current_balance'),
+                value: Tools.priceFormat((tkn == Token.MXC) ? state.balance : 7060.00),//TODO replace 7060.00
+                token: (tkn == Token.MXC) ? "MXC" : "DHX"),
+              titleDetailRow(
+                loading: !state.loadingMap.contains('stakedAmount'),
+                name: FlutterI18n.translate(_ctx, 'staked_amount'),
+                value: Tools.priceFormat((tkn == Token.MXC) ? state.stakedAmount : 7060.00),//TODO replace 7060.00
+                token: (tkn == Token.MXC) ? "MXC" : "DHX"),
+              titleDetailRow(
+                loading: !state.loadingMap.contains('totalRevenue'),
+                name: FlutterI18n.translate(_ctx, 'total_revenue'),
+                value: Tools.priceFormat((tkn == Token.MXC) ? state.totalRevenue : 7060.00, range: 2),//TODO replace 7060.00
+                token: (tkn == Token.MXC) ? "MXC" : "DHX")
+            ],
+          )
+      )
+  );
+
+  Widget addNewTokenCard () => GestureDetector(
+      onTap: () => _showInfoDialog(_ctx, dispatch),
+      child: panelFrame(
+        child: Padding(
+          padding: kRoundRow105,
+          child: Column(
+            children: [
+              Icon(Icons.add_circle, size: 50),
+              Text(FlutterI18n.translate(_ctx, 'add_new_token'), style: kMiddleFontOfBlack)
+            ],
+          )
+        ),
+      ),
+  );
+
+  List<Widget> contractedView () {
+    List<Widget> lst = state.displayTokes.map((t) => tokenCard(t)).toList();
+    lst.add(addNewTokenCard());
+    return lst;
+  }
+
+  List<Widget> expandedView () => [
         tabButtons(
             context: _ctx,
             tabController: state.tabController,
@@ -114,7 +168,7 @@ Widget buildView(
           visible: state.tabIndex == 0 ? state.isSetDate1 : state.isSetDate2,
           child: Padding(
             padding: EdgeInsets.only(top: 5),
-            child: dateButtons(viewService.context,
+            child: dateButtons(_ctx,
                 firstTime: state.firstTime,
                 secondTime: state.secondTime,
                 thirdText: FlutterI18n.translate(_ctx, 'search'),
@@ -143,7 +197,64 @@ Widget buildView(
         SizedBox(
           height: 20,
         )
-      ],
+  ];
+
+
+  return Scaffold(
+    appBar: homeBar(
+      FlutterI18n.translate(_ctx, 'wallet'),
+      onPressed: () => dispatch(HomeActionCreator.onSettings()),
     ),
+    body: pageBody(
+      children: state.expandedView ? expandedView() : contractedView(),
+    ),
+  );
+}
+void _showInfoDialog(BuildContext context, dispatch) {
+  showInfoDialog(
+      context,
+      IosStyleBottomDialog2(
+        context: context,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Text(FlutterI18n.translate(context, 'add_token_title'),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: s(16),
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+              )
+            ),
+            Divider(color: Colors.grey),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: GestureDetector(
+                  onTap: () {
+                    dispatch(WalletActionCreator.addDHX());
+                    Navigator.pop(context);
+                  },
+                  child:
+                  Row(
+                    children: [
+                      Image.asset(AppImages.logoDHX, height: s(50)),
+                      Text('Datahighway DHX',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: s(16),
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  )
+              )
+            ),
+            Divider(color: Colors.grey),
+          ],
+        )
+      )
   );
 }

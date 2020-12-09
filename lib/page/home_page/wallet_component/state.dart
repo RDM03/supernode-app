@@ -4,7 +4,12 @@ import 'package:supernodeapp/page/settings_page/organizations_component/state.da
 
 import 'wallet_list_adapter/wallet_item_component/state.dart';
 
+enum Token {MXC, DHX}
+
 class WalletState extends MutableSource implements Cloneable<WalletState> {
+
+  bool expandedView = false;
+  List<Token> displayTokes = [Token.MXC];
   bool isFirstRequest = true;
   bool loading = true;
   Set loadingMap = {};
@@ -64,6 +69,8 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   @override
   WalletState clone() {
     return WalletState()
+      ..expandedView = expandedView
+      ..displayTokes = displayTokes
       ..isFirstRequest = isFirstRequest
       ..loading = loading
       ..loadingMap = loadingMap

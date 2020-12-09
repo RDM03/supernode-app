@@ -1,7 +1,10 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/components/stake/stake_item.dart';
+import 'package:supernodeapp/page/home_page/wallet_component/state.dart';
 
 enum WalletAction {
+  expand,
+  addDHX,
   loadingHistory,
   tab,
   onTab,
@@ -21,6 +24,14 @@ enum WalletAction {
 }
 
 class WalletActionCreator {
+  static Action expand(Token t) {
+    return Action(WalletAction.expand, payload: t);
+  }
+
+  static Action addDHX() {
+    return Action(WalletAction.addDHX);
+  }
+
   static Action loadingHistory(bool toogle) {
     return Action(WalletAction.loadingHistory, payload: toogle);
   }

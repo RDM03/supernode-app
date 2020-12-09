@@ -27,6 +27,8 @@
 	"reg_gateway_profile": "Please select an SMB Miner profile",
 	"reg_gateway_location": "Please set a Miner location on the map",
 	"admin": "Device Admin",
+	"add_new_token": "Add New Token",
+	"add_token_title": "Add Token",
 	"current_balance": "Current Balance",
 	"staked_amount": "Staked Amount",
 	"staking_revenue": "Staking Revenue",
