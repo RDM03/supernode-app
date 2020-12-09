@@ -28,7 +28,7 @@ homeAPITest() {
     expect(await stakedAmountPresent, true);
     print('CHECKING FOR STAKING REVENUE');
     var stakingRevenuePresent = await isPresent(f['homeStakingRevenue'], driver);
-    expect(stakingRevenuePresent, true);
+    expect(await stakingRevenuePresent, true);
     print('CHECKING FOR MINERS');
     var minersPresent = await isPresent(f['totalGatewaysDashboard'], driver);
     expect(await minersPresent, true);
