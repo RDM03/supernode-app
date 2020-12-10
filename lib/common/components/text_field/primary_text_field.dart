@@ -6,7 +6,7 @@ import 'package:supernodeapp/theme/spacing.dart';
 
 class PrimaryTextField extends StatelessWidget {
   PrimaryTextField({
-    @required this.hint,
+    this.hint,
     this.isObscureText = false,
     this.textInputAction = TextInputAction.done,
     this.validator,
@@ -20,6 +20,7 @@ class PrimaryTextField extends StatelessWidget {
     this.maxLength,
     this.borderColor = c.borderColor,
     this.counterText,
+    this.suffixText,
     Key key,
   }) : super(key: key);
 
@@ -37,6 +38,7 @@ class PrimaryTextField extends StatelessWidget {
   final Function(String) onChanged;
   final int maxLength;
   final String counterText;
+  final String suffixText;
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +52,7 @@ class PrimaryTextField extends StatelessWidget {
         hintText: hint,
         errorMaxLines: 2,
         counterText: counterText,
+        suffixText: suffixText,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: borderColor,
