@@ -162,6 +162,7 @@
 	"foundation": "MXC Foundation",
 	"version": "Version",
 	"mxversion": "MXProtocol version",
+	"new_stake": "New Stake",
 	"unstake": "Unstake",
 	"profit": "Revenue",
 	"cost": "Fee",

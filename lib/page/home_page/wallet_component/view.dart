@@ -5,18 +5,14 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/app_bars/home_bar.dart';
 import 'package:supernodeapp/common/components/buttons/circle_button.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
-import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/empty.dart';
 import 'package:supernodeapp/common/components/loading_list.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/wallet/date_buttons.dart';
-import 'package:supernodeapp/common/components/wallet/primary_buttons.dart';
 import 'package:supernodeapp/common/components/wallet/secondary_buttons.dart';
-import 'package:supernodeapp/common/components/wallet/tab_buttons.dart';
 import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
-import 'package:supernodeapp/common/components/wallet/title_row.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
@@ -79,7 +75,7 @@ Widget buildView(
   );
 
   Widget addNewTokenCard () => GestureDetector(
-      onTap: () => _showInfoDialog(_ctx, dispatch),
+      onTap: () => _showAddTokenDialog(_ctx, dispatch),
       child: panelFrame(
         child: Padding(
           padding: kRoundRow105,
@@ -122,7 +118,7 @@ Widget buildView(
             Spacer(),
             CircleButton(icon:Image.asset(AppImages.iconMine, color: colorToken[t]),
                 label: FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'stake' : 'mine'), 
-                ),//TODO onTap
+                onTap: () => (t == Token.DHX) ? 'TODO' : _showStakeDialog(_ctx, dispatch)),
             Spacer(),
             (t == Token.DHX) ? CircleButton(icon:Image.asset(AppImages.iconCouncil, color: colorToken[t]),
                 label: FlutterI18n.translate(_ctx, 'council')) : SizedBox(),
@@ -223,7 +219,7 @@ Widget buildView(
   );
 }
 
-void _showInfoDialog(BuildContext context, dispatch) {
+void _showAddTokenDialog(BuildContext context, dispatch) {
   showInfoDialog(
       context,
       IosStyleBottomDialog2(
@@ -268,6 +264,75 @@ void _showInfoDialog(BuildContext context, dispatch) {
             Divider(color: Colors.grey),
           ],
         )
+      )
+  );
+}
+
+void _showStakeDialog(BuildContext context, dispatch) {
+  showInfoDialog(
+      context,
+      IosStyleBottomDialog2(
+          context: context,
+          child: Column(
+            children: [
+              Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: Text(FlutterI18n.translate(context, 'staking'),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: s(16),
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  )
+              ),
+              Divider(color: Colors.grey),
+              GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    dispatch(WalletActionCreator.onStake());
+                  },
+                  child:
+                  Row(
+                    children: [
+                      CircleButton(icon: Image.asset(AppImages.iconMine, color: colorToken[Token.MXC])),
+                      SizedBox(width: 10),
+                      Text(FlutterI18n.translate(context, 'new_stake'),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: s(16),
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  )
+              ),
+              Divider(color: Colors.grey),
+              GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    dispatch(WalletActionCreator.onUnstake());
+                  },
+                  child:
+                  Row(
+                    children: [
+                      CircleButton(icon: Icon(Icons.arrow_back, color: colorToken[Token.MXC])),
+                      SizedBox(width: 10),
+                      Text(FlutterI18n.translate(context, 'unstake'),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: s(16),
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  )
+              ),
+              Divider(color: Colors.grey),
+            ],
+          )
       )
   );
 }
