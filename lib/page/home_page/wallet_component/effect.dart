@@ -63,6 +63,7 @@ void _dispose(Action action, Context<WalletState> ctx) {
 }
 
 void _onTab(Action action, Context<WalletState> ctx) {
+  //TODO take token in account
   int index = action.payload;
   ctx.dispatch(WalletActionCreator.tab(index));
   ctx.state.tabController.animateTo(index);

@@ -38,7 +38,8 @@ class HomeState implements Cloneable<HomeState> {
 
   //wallet
   bool expandedView = false;
-  List<Token> displayTokes = [Token.MXC];
+  List<Token> displayTokens = [Token.MXC];
+  Token selectedToken;
   bool isFirstRequest = true;
   bool loadingHistory = true;
   TabController tabController;
@@ -133,7 +134,8 @@ class HomeState implements Cloneable<HomeState> {
       ..selectedIndexBtn1 = selectedIndexBtn1
       ..selectedIndexBtn2 = selectedIndexBtn2
       ..expandedView = expandedView
-      ..displayTokes = displayTokes
+      ..displayTokens = displayTokens
+      ..selectedToken = selectedToken
       ..isFirstRequest = isFirstRequest
       ..isDemo = isDemo
       ..profile = profile
@@ -239,7 +241,8 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
   WalletState get(HomeState state) {
     return WalletState()
       ..expandedView = state.expandedView
-      ..displayTokes = state.displayTokes
+      ..displayTokens = state.displayTokens
+      ..selectedToken = state.selectedToken
       ..isFirstRequest = state.isFirstRequest
       ..loading = state.loading
       ..loadingMap = state.loadingMap
@@ -269,7 +272,8 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
   void set(HomeState state, WalletState subState) {
     state
       ..expandedView = subState.expandedView
-      ..displayTokes = subState.displayTokes
+      ..displayTokens = subState.displayTokens
+      ..selectedToken = subState.selectedToken
       ..isFirstRequest = subState.isFirstRequest
       ..loadingHistory = subState.loadingHistory
       ..tabController = subState.tabController

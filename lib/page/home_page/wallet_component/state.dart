@@ -9,7 +9,8 @@ enum Token {MXC, DHX}
 class WalletState extends MutableSource implements Cloneable<WalletState> {
 
   bool expandedView = false;
-  List<Token> displayTokes = [Token.MXC];
+  List<Token> displayTokens = [Token.MXC];
+  Token selectedToken;
   bool isFirstRequest = true;
   bool loading = true;
   Set loadingMap = {};
@@ -70,7 +71,8 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   WalletState clone() {
     return WalletState()
       ..expandedView = expandedView
-      ..displayTokes = displayTokes
+      ..displayTokens = displayTokens
+      ..selectedToken = selectedToken
       ..isFirstRequest = isFirstRequest
       ..loading = loading
       ..loadingMap = loadingMap

@@ -4,6 +4,7 @@ import 'package:supernodeapp/page/home_page/wallet_component/state.dart';
 
 enum WalletAction {
   expand,
+  selectToken,
   addDHX,
   loadingHistory,
   tab,
@@ -26,6 +27,10 @@ enum WalletAction {
 class WalletActionCreator {
   static Action expand(Token t) {
     return Action(WalletAction.expand, payload: t);
+  }
+
+  static Action selectToken(Token t) {
+    return Action(WalletAction.selectToken, payload: t);
   }
 
   static Action addDHX() {

@@ -10,6 +10,7 @@ Reducer<WalletState> buildReducer() {
   return asReducer(
     <Object, Reducer<WalletState>>{
       WalletAction.expand: _expand,
+      WalletAction.selectToken: _selectToken,
       WalletAction.addDHX: _addDHX,
       WalletAction.loadingHistory: _loadingHistory,
       WalletAction.tab: _tab,
@@ -28,15 +29,23 @@ Reducer<WalletState> buildReducer() {
 
 WalletState _expand(WalletState state, Action action) {
   Token tkn = action.payload;
-  //TODO set token to display in expanded mode
   final WalletState newState = state.clone();
-  return newState..expandedView = true;
+  return newState
+    ..expandedView = true
+    ..selectedToken = tkn;
+}
+
+WalletState _selectToken(WalletState state, Action action) {
+  Token tkn = action.payload;
+  final WalletState newState = state.clone();
+  return newState
+    ..selectedToken = tkn;
 }
 
 WalletState _addDHX(WalletState state, Action action) {
   final WalletState newState = state.clone();
-  if (!newState.displayTokes.contains(Token.DHX)) {
-    newState.displayTokes.add(Token.DHX);
+  if (!newState.displayTokens.contains(Token.DHX)) {
+    newState.displayTokens.add(Token.DHX);
   }
   return newState;
 }

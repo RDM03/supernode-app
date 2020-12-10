@@ -1,7 +1,10 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/app_bars/home_bar.dart';
+import 'package:supernodeapp/common/components/buttons/circle_button.dart';
+import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/empty.dart';
 import 'package:supernodeapp/common/components/loading_list.dart';
@@ -18,16 +21,12 @@ import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/action.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
 import 'action.dart';
 import 'state.dart';
-
-final List<String> tabList = [
-  'account',
-  'stake',
-];
 
 Widget buildView(
     WalletState state, Dispatch dispatch, ViewService viewService) {
@@ -45,7 +44,11 @@ Widget buildView(
                   Image.asset((tkn == Token.MXC) ? AppImages.logoMXC : AppImages.logoDHX, height: s(50)),
                   Text((tkn == Token.MXC) ? "MXC" : "DHX"),
                   Spacer(),
-                  Icon(Icons.arrow_forward_ios)
+                  state.expandedView
+                      ? (tkn == Token.DHX)
+                        ? PrimaryButton(buttonTitle: FlutterI18n.translate(_ctx, 'simulate_mining'), bgColor: Colors.white60,)
+                        : SizedBox()
+                      : Icon(Icons.arrow_forward_ios)
                 ]),
               ),
               titleDetailRow(
@@ -53,6 +56,13 @@ Widget buildView(
                 name: FlutterI18n.translate(_ctx, 'current_balance'),
                 value: Tools.priceFormat((tkn == Token.MXC) ? state.balance : 7060.00),//TODO replace 7060.00
                 token: (tkn == Token.MXC) ? "MXC" : "DHX"),
+              (state.expandedView && tkn == Token.DHX)
+              ? titleDetailRow(
+                  loading: !state.loadingMap.contains('balance'),//TODO
+                  name: FlutterI18n.translate(_ctx, 'locked_amount'),
+                  value: Tools.priceFormat(7060.00),//TODO replace 7060.00
+                  token: "DHX")
+              : SizedBox(),
               titleDetailRow(
                 loading: !state.loadingMap.contains('stakedAmount'),
                 name: FlutterI18n.translate(_ctx, 'staked_amount'),
@@ -83,61 +93,51 @@ Widget buildView(
       ),
   );
 
+  Widget miningDHXcard() => panelFrame(
+      child: Padding(
+          padding: kRoundRow105,
+          child: Text("TODO mining DHX card")
+      )
+  );
+
   List<Widget> contractedView () {
-    List<Widget> lst = state.displayTokes.map((t) => tokenCard(t)).toList();
+    List<Widget> lst = state.displayTokens.map((t) => tokenCard(t)).toList();
     lst.add(addNewTokenCard());
     return lst;
   }
 
-  List<Widget> expandedView () => [
-        tabButtons(
-            context: _ctx,
-            tabController: state.tabController,
-            list: tabList,
-            height: state.tabHeight,
-            onTap: (tabIndex) => dispatch(WalletActionCreator.onTab(tabIndex)),
-            children: [
-              Column(children: [
-                middleColumnSpacer(),
-                titleDetailRow(
-                  loading: !state.loadingMap.contains('balance'),
-                  name: FlutterI18n.translate(_ctx, 'current_balance'),
-                  value: Tools.priceFormat(state.balance),
-                ),
-                primaryButtons(
-                  key1: Key('deposit'),
-                  buttonLabel1: FlutterI18n.translate(_ctx, 'deposit'),
-                  onTap1: () =>
-                      dispatch(HomeActionCreator.onOperate('deposit')),
-                  key2: Key('withdraw'),
-                  buttonLabel2: FlutterI18n.translate(_ctx, 'withdraw'),
-                  onTap2: () =>
-                      dispatch(HomeActionCreator.onOperate('withdraw')),
-                ),
-              ]),
-              Column(children: [
-                smallColumnSpacer(),
-                titleDetailRow(
-                    loading: !state.loadingMap.contains('stakedAmount'),
-                    name: FlutterI18n.translate(_ctx, 'staked_amount'),
-                    value: Tools.priceFormat(state.stakedAmount)),
-                titleDetailRow(
-                    loading: !state.loadingMap.contains('totalRevenue'),
-                    name: FlutterI18n.translate(_ctx, 'total_revenue'),
-                    value: Tools.priceFormat(state.totalRevenue, range: 2)),
-                primaryButtons(
-                  key1: Key('stake'),
-                  buttonLabel1: FlutterI18n.translate(_ctx, 'stake'),
-                  onTap1: () => dispatch(WalletActionCreator.onStake()),
-                  key2: Key('unstake'),
-                  buttonLabel2: FlutterI18n.translate(_ctx, 'unstake'),
-                  onTap2: () => dispatch(WalletActionCreator.onUnstake()),
-                ),
-              ]),
-            ]),
-        smallColumnSpacer(),
+  Widget tokenPage(Token t) => ListView(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: Row(children:[
+            (t == Token.MXC) ? Spacer() : SizedBox(),
+            CircleButton(icon: Icon(Icons.add), label: FlutterI18n.translate(_ctx, 'deposit'), onTap: () => dispatch(HomeActionCreator.onOperate('deposit'))),
+            Spacer(),
+            CircleButton(icon: Icon(Icons.arrow_forward), label: FlutterI18n.translate(_ctx, 'withdraw'), onTap: () => dispatch(HomeActionCreator.onOperate('withdraw'))),
+            Spacer(),
+            CircleButton(icon:Image.asset(AppImages.iconMine), label: FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'stake' : 'mine')),//TODO onTap
+            Spacer(),
+            (t == Token.DHX) ? CircleButton(icon:Image.asset(AppImages.iconCouncil), label: FlutterI18n.translate(_ctx, 'council')) : SizedBox(),
+          ]),
+        ),
+        tokenCard(t),
+        (t == Token.DHX) ? miningDHXcard() : SizedBox(),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          child: CupertinoSlidingSegmentedControl(
+              groupValue: state.tabIndex,
+              onValueChanged: (tabIndex) => dispatch(WalletActionCreator.onTab(tabIndex)),
+              thumbColor: buttonPrimaryColor,
+              children: <int, Widget> {
+                0: Text(FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'transaction_history' : "mining_income"), style: TextStyle(color: (state.tabIndex == 0) ? Colors.white: Colors.grey)),
+                1: Text(FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'stake_assets' : 'transaction_history'), style: TextStyle(color: (state.tabIndex == 1) ? Colors.white: Colors.grey))
+              }
+          ),
+        ),
+        //smallColumnSpacer(),
         Visibility(
-          visible: state.tabIndex == 0,
+          visible: t == Token.MXC && state.tabIndex == 0,
           child: secondaryButtons(
               buttonLabel1:
                   FlutterI18n.translate(_ctx, 'deposit').toUpperCase(),
@@ -151,7 +151,7 @@ Widget buildView(
               onTap3: () => dispatch(WalletActionCreator.isSetDate())),
         ),
         Visibility(
-          visible: state.tabIndex == 1,
+          visible: t == Token.MXC && state.tabIndex == 1,
           child: secondaryButtons(
               buttonLabel1: FlutterI18n.translate(_ctx, 'stake').toUpperCase(),
               buttonLabel2:
@@ -165,7 +165,7 @@ Widget buildView(
         ),
         Visibility(
           key: Key(''),
-          visible: state.tabIndex == 0 ? state.isSetDate1 : state.isSetDate2,
+          visible: t == Token.MXC ? (state.tabIndex == 0 ? state.isSetDate1 : state.isSetDate2) : false,
           child: Padding(
             padding: EdgeInsets.only(top: 5),
             child: dateButtons(_ctx,
@@ -180,7 +180,6 @@ Widget buildView(
                     dispatch(WalletActionCreator.onFilter('SEARCH'))),
           ),
         ),
-        titleRow(FlutterI18n.translate(_ctx, 'transaction_history')),
         panelFrame(
           rowTop: EdgeInsets.zero,
           child: state.loadingHistory
@@ -194,22 +193,29 @@ Widget buildView(
                     )
                   : empty(_ctx)),
         ),
-        SizedBox(
-          height: 20,
-        )
-  ];
+      ]
+  );//tokenPage
+
+  Widget expandedView () => PageView(
+      controller: PageController(initialPage: state.selectedToken.index),
+      onPageChanged: (val) => dispatch(WalletActionCreator.selectToken(Token.values[val])),
+      children: state.displayTokens.map((t) => tokenPage(t)).toList());
 
 
   return Scaffold(
     appBar: homeBar(
-      FlutterI18n.translate(_ctx, 'wallet'),
+      (state.expandedView)
+          ? (state.selectedToken == Token.MXC) ? "MXC" : "Datahighway DHX"
+          : FlutterI18n.translate(_ctx, 'wallet'),
       onPressed: () => dispatch(HomeActionCreator.onSettings()),
     ),
-    body: pageBody(
-      children: state.expandedView ? expandedView() : contractedView(),
+    body: state.expandedView
+        ? pageBodySingleChild(child: expandedView())
+        : pageBody(children: contractedView(),
     ),
   );
 }
+
 void _showInfoDialog(BuildContext context, dispatch) {
   showInfoDialog(
       context,
