@@ -46,7 +46,7 @@ Widget buildView(
                   Spacer(),
                   state.expandedView
                       ? (tkn == Token.DHX)
-                        ? PrimaryButton(buttonTitle: FlutterI18n.translate(_ctx, 'simulate_mining'), bgColor: Colors.white60,)
+                        ? PrimaryButton(buttonTitle: FlutterI18n.translate(_ctx, 'simulate_mining'))
                         : SizedBox()
                       : Icon(Icons.arrow_forward_ios)
                 ]),
@@ -112,13 +112,20 @@ Widget buildView(
           padding: const EdgeInsets.only(top: 16.0),
           child: Row(children:[
             (t == Token.MXC) ? Spacer() : SizedBox(),
-            CircleButton(icon: Icon(Icons.add), label: FlutterI18n.translate(_ctx, 'deposit'), onTap: () => dispatch(HomeActionCreator.onOperate('deposit'))),
+            CircleButton(icon: Icon(Icons.add, color: (t == Token.DHX) ? Colors.grey : colorToken[t]),
+                label: FlutterI18n.translate(_ctx, 'deposit'),
+                onTap: () => (t == Token.DHX) ? 'disabled' : dispatch(HomeActionCreator.onOperate('deposit'))),
             Spacer(),
-            CircleButton(icon: Icon(Icons.arrow_forward), label: FlutterI18n.translate(_ctx, 'withdraw'), onTap: () => dispatch(HomeActionCreator.onOperate('withdraw'))),
+            CircleButton(icon: Icon(Icons.arrow_forward, color: (t == Token.DHX) ? Colors.grey : colorToken[t]),
+                label: FlutterI18n.translate(_ctx, 'withdraw'),
+                onTap: () => (t == Token.DHX) ? 'disabled' : dispatch(HomeActionCreator.onOperate('withdraw'))),
             Spacer(),
-            CircleButton(icon:Image.asset(AppImages.iconMine), label: FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'stake' : 'mine')),//TODO onTap
+            CircleButton(icon:Image.asset(AppImages.iconMine, color: colorToken[t]),
+                label: FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'stake' : 'mine'), 
+                ),//TODO onTap
             Spacer(),
-            (t == Token.DHX) ? CircleButton(icon:Image.asset(AppImages.iconCouncil), label: FlutterI18n.translate(_ctx, 'council')) : SizedBox(),
+            (t == Token.DHX) ? CircleButton(icon:Image.asset(AppImages.iconCouncil, color: colorToken[t]),
+                label: FlutterI18n.translate(_ctx, 'council')) : SizedBox(),
           ]),
         ),
         tokenCard(t),
@@ -128,7 +135,7 @@ Widget buildView(
           child: CupertinoSlidingSegmentedControl(
               groupValue: state.tabIndex,
               onValueChanged: (tabIndex) => dispatch(WalletActionCreator.onTab(tabIndex)),
-              thumbColor: buttonPrimaryColor,
+              thumbColor: colorToken[t],
               children: <int, Widget> {
                 0: Text(FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'transaction_history' : "mining_income"), style: TextStyle(color: (state.tabIndex == 0) ? Colors.white: Colors.grey)),
                 1: Text(FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'stake_assets' : 'transaction_history'), style: TextStyle(color: (state.tabIndex == 1) ? Colors.white: Colors.grey))

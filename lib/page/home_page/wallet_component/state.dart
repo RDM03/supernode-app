@@ -1,5 +1,4 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter/material.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 
 import 'wallet_list_adapter/wallet_item_component/state.dart';

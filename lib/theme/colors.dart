@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/page/home_page/wallet_component/state.dart';
 
 final appTheme = ThemeData(
   primarySwatch: Colors.blue,
@@ -51,6 +52,7 @@ const iconCircularBackgroundColor = Color.fromARGB(51, 77, 137, 229);
 
 //wallet
 const selectedTabColor = Color.fromARGB(255, 77, 137, 229);
+const Map<Token, Color> colorToken = const {Token.MXC: Color(0xFF1C1478), Token.DHX: Color(0xFF4665EA)};
 
 // login
 const Color darkBackground = Color(0xFFEBEFF2);
