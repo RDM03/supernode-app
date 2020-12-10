@@ -102,7 +102,9 @@ Widget buildView(
     return lst;
   }
 
-  Widget tokenPage(Token t) => ListView(
+  Widget tokenPage(Token t) => Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20),
+    child: ListView(
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 16.0),
@@ -197,6 +199,7 @@ Widget buildView(
                   : empty(_ctx)),
         ),
       ]
+    ),
   );//tokenPage
 
   Widget expandedView () => PageView(
@@ -213,7 +216,7 @@ Widget buildView(
       onPressed: () => dispatch(HomeActionCreator.onSettings()),
     ),
     body: state.expandedView
-        ? pageBodySingleChild(child: expandedView())
+        ? pageBodySingleChild(usePadding: false, child: expandedView())
         : pageBody(children: contractedView(),
     ),
   );
