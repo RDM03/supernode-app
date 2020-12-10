@@ -42,11 +42,9 @@ class HomeState implements Cloneable<HomeState> {
   Token selectedToken;
   bool isFirstRequest = true;
   bool loadingHistory = true;
-  TabController tabController;
   double balance = 0;
   double totalRevenue = 0;
   int walletTabIndex = 0;
-  double tabHeight = 100;
   bool isSetDate1 = false;
   bool isSetDate2 = false;
   int selectedIndexBtn1 = -1;
@@ -95,7 +93,6 @@ class HomeState implements Cloneable<HomeState> {
     return HomeState()
       ..reloginCount = reloginCount
       ..isUpdate = isUpdate
-      ..tabController = tabController
       ..tabIndex = tabIndex
       ..loading = loading
       ..loadingMap = loadingMap
@@ -122,7 +119,6 @@ class HomeState implements Cloneable<HomeState> {
       ..mapCtl = mapCtl
       ..gatewaysList = gatewaysList
       ..geojsonList = geojsonList
-      ..tabHeight = tabHeight
       ..walletTabIndex = walletTabIndex
       ..walletList = walletList ?? []
       ..stakeList = stakeList ?? []
@@ -247,7 +243,6 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..loading = state.loading
       ..loadingMap = state.loadingMap
       ..loadingHistory = state.loadingHistory
-      ..tabController = state.tabController
       ..balance = state.balance
       ..totalRevenue = state.totalRevenue
       ..organizations = state.organizations
@@ -257,7 +252,6 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..selectedIndexBtn1 = state.selectedIndexBtn1
       ..selectedIndexBtn2 = state.selectedIndexBtn2
       ..tabIndex = state.walletTabIndex
-      ..tabHeight = state.tabHeight
       ..walletList = state.walletList
       ..stakeList = state.stakeList
       ..withdrawFee = state.withdrawFee
@@ -276,14 +270,12 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..selectedToken = subState.selectedToken
       ..isFirstRequest = subState.isFirstRequest
       ..loadingHistory = subState.loadingHistory
-      ..tabController = subState.tabController
       ..totalRevenue = subState.totalRevenue
       ..isSetDate1 = subState.isSetDate1
       ..isSetDate2 = subState.isSetDate2
       ..selectedIndexBtn1 = subState.selectedIndexBtn1
       ..selectedIndexBtn2 = subState.selectedIndexBtn2
       ..walletTabIndex = subState.tabIndex
-      ..tabHeight = subState.tabHeight
       ..walletList = subState.walletList
       ..stakeList = subState.stakeList
       ..withdrawFee = subState.withdrawFee

@@ -9,7 +9,6 @@ enum WalletAction {
   loadingHistory,
   tab,
   onTab,
-  tabController,
   isSetDate,
   onFilter,
   updateSelectedButton,
@@ -47,10 +46,6 @@ class WalletActionCreator {
 
   static Action tab(int index) {
     return Action(WalletAction.tab, payload: index);
-  }
-
-  static Action tabController(dynamic controller) {
-    return Action(WalletAction.tabController, payload: controller);
   }
 
   static Action isSetDate() {

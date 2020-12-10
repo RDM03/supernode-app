@@ -50,8 +50,6 @@ void _initState(Action action, Context<WalletState> ctx) {
     ctx.dispatch(WalletActionCreator.tab(tabController.index));
   });
 
-  ctx.dispatch(WalletActionCreator.tabController(tabController));
-
   Future.delayed(Duration(seconds: 3), () {
     ctx.dispatch(WalletActionCreator.tab(0));
     ctx.dispatch(WalletActionCreator.onFilter('SEARCH DEFUALT'));
@@ -66,7 +64,6 @@ void _onTab(Action action, Context<WalletState> ctx) {
   //TODO take token in account
   int index = action.payload;
   ctx.dispatch(WalletActionCreator.tab(index));
-  ctx.state.tabController.animateTo(index);
 
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
   if (orgId.isEmpty) return;

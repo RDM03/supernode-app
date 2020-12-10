@@ -1,6 +1,4 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:supernodeapp/common/daos/time_dao.dart';
-import 'package:supernodeapp/common/daos/wallet_dao.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -14,7 +12,6 @@ Reducer<WalletState> buildReducer() {
       WalletAction.addDHX: _addDHX,
       WalletAction.loadingHistory: _loadingHistory,
       WalletAction.tab: _tab,
-      WalletAction.tabController: _tabController,
       WalletAction.isSetDate: _isSetDate,
       WalletAction.updateSelectedButton: _updateSelectedButton,
       WalletAction.updateStakeList: _updateStakeList,
@@ -72,16 +69,7 @@ WalletState _tab(WalletState state, Action action) {
     ..selectedIndexBtn1 = -1
     ..selectedIndexBtn2 = -1
     ..isSetDate1 = false
-    ..isSetDate2 = false
-    ..tabHeight = tabIndex == 0 ? 100 : 140;
-}
-
-WalletState _tabController(WalletState state, Action action) {
-  dynamic controller = action.payload;
-
-  final WalletState newState = state.clone();
-
-  return newState..tabController = controller;
+    ..isSetDate2 = false;
 }
 
 WalletState _isSetDate(WalletState state, Action action) {

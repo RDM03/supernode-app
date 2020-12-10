@@ -15,9 +15,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   bool loading = true;
   Set loadingMap = {};
   bool loadingHistory = true;
-  TabController tabController;
   int tabIndex = 0;
-  double tabHeight = 100;
   bool isSetDate1 = false;
   bool isSetDate2 = false;
 
@@ -77,12 +75,10 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
       ..loading = loading
       ..loadingMap = loadingMap
       ..loadingHistory = loadingHistory
-      ..tabController = tabController
       ..walletList = walletList
       ..stakeList = stakeList
       ..organizations = organizations
       ..tabIndex = tabIndex
-      ..tabHeight = tabHeight
       ..isSetDate1 = isSetDate1
       ..isSetDate2 = isSetDate2
       ..selectedIndexBtn1 = selectedIndexBtn1
