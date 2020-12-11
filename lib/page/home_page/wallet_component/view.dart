@@ -131,18 +131,18 @@ Widget buildView(
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0),
           child: CupertinoSlidingSegmentedControl(
-              groupValue: state.tabIndex,
+              groupValue: state.activeTabToken[t],
               onValueChanged: (tabIndex) => dispatch(WalletActionCreator.onTab(tabIndex)),
               thumbColor: colorToken[t],
               children: <int, Widget> {
-                0: Text(FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'transaction_history' : "mining_income"), style: TextStyle(color: (state.tabIndex == 0) ? Colors.white: Colors.grey)),
-                1: Text(FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'stake_assets' : 'transaction_history'), style: TextStyle(color: (state.tabIndex == 1) ? Colors.white: Colors.grey))
+                0: Text(FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'transaction_history' : "mining_income"), style: TextStyle(color: (state.activeTabToken[t] == 0) ? Colors.white: Colors.grey)),
+                1: Text(FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'stake_assets' : 'transaction_history'), style: TextStyle(color: (state.activeTabToken[t] == 1) ? Colors.white: Colors.grey))
               }
           ),
         ),
         //smallColumnSpacer(),
         Visibility(
-          visible: t == Token.MXC && state.tabIndex == 0,
+          visible: t == Token.MXC && state.activeTabToken[t] == 0,
           child: secondaryButtons(
               buttonLabel1:
                   FlutterI18n.translate(_ctx, 'deposit').toUpperCase(),
@@ -156,7 +156,7 @@ Widget buildView(
               onTap3: () => dispatch(WalletActionCreator.isSetDate())),
         ),
         Visibility(
-          visible: t == Token.MXC && state.tabIndex == 1,
+          visible: t == Token.MXC && state.activeTabToken[t] == 1,
           child: secondaryButtons(
               buttonLabel1: FlutterI18n.translate(_ctx, 'stake').toUpperCase(),
               buttonLabel2:
@@ -170,7 +170,7 @@ Widget buildView(
         ),
         Visibility(
           key: Key(''),
-          visible: t == Token.MXC ? (state.tabIndex == 0 ? state.isSetDate1 : state.isSetDate2) : false,
+          visible: t == Token.MXC ? (state.activeTabToken[t] == 0 ? state.isSetDate1 : state.isSetDate2) : false,
           child: Padding(
             padding: EdgeInsets.only(top: 5),
             child: dateButtons(_ctx,

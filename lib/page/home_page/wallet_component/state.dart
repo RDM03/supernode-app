@@ -9,12 +9,12 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
 
   bool expandedView = false;
   List<Token> displayTokens = [Token.MXC];
-  Token selectedToken;
+  Token selectedToken = Token.MXC;
   bool isFirstRequest = true;
   bool loading = true;
   Set loadingMap = {};
   bool loadingHistory = true;
-  int tabIndex = 0;
+  Map<Token, int> activeTabToken = {Token.MXC: 0, Token.DHX: 0};
   bool isSetDate1 = false;
   bool isSetDate2 = false;
 
@@ -36,10 +36,14 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   //withdraw
   double withdrawFee = 0;
 
-  List<dynamic> get _currentList => tabIndex == 0 ? walletList : stakeList;
+  List<dynamic> get _currentList => (selectedToken == Token.MXC)
+    ? activeTabToken[selectedToken] == 0 ? walletList : stakeList
+    : activeTabToken[selectedToken] == 0 ? miningList : transactions;
 
   List<StakeItemState> stakeList = [];
   List<WalletItemState> walletList = [];
+  List<StakeItemState> miningList = [];//TODO DHX
+  List<WalletItemState> transactions = [];//TODO DHX
 
   @override
   Object getItemData(int index) {
@@ -77,7 +81,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
       ..walletList = walletList
       ..stakeList = stakeList
       ..organizations = organizations
-      ..tabIndex = tabIndex
+      ..activeTabToken = activeTabToken
       ..isSetDate1 = isSetDate1
       ..isSetDate2 = isSetDate2
       ..selectedIndexBtn1 = selectedIndexBtn1

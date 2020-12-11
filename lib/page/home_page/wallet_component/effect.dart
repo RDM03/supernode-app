@@ -42,18 +42,7 @@ TopupDao _buildTopupDao(Context<WalletState> ctx) {
 void _initState(Action action, Context<WalletState> ctx) {
   if (!ctx.state.isFirstRequest) return;
 
-  final TickerProvider tickerProvider = ctx.stfState as TickerProvider;
-
-  TabController tabController = TabController(length: 2, vsync: tickerProvider);
-
-  tabController.addListener(() {
-    ctx.dispatch(WalletActionCreator.tab(tabController.index));
-  });
-
-  Future.delayed(Duration(seconds: 3), () {
-    ctx.dispatch(WalletActionCreator.tab(0));
-    ctx.dispatch(WalletActionCreator.onFilter('SEARCH DEFUALT'));
-  });
+  ctx.dispatch(WalletActionCreator.onFilter('SEARCH DEFUALT'));
 }
 
 void _dispose(Action action, Context<WalletState> ctx) {
@@ -65,24 +54,26 @@ void _onTab(Action action, Context<WalletState> ctx) {
   int index = action.payload;
   ctx.dispatch(WalletActionCreator.tab(index));
 
-  String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-  if (orgId.isEmpty) return;
+  if (ctx.state.itemCount == 0) {
+    //list not initialised
+    String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
+    if (orgId.isEmpty) return;
+    if (ctx.state.selectedToken == Token.DHX) return; //TODO DHX
 
-  Map data = {
-    'orgId': orgId,
-    'offset': 0,
-    'limit': 999,
-    'from': ctx.state.isSetDate1 || ctx.state.isSetDate2
-        ? DateTime.parse(ctx.state.firstTime).toUtc().toIso8601String()
-        : DateTime(2000).toUtc().toIso8601String(),
-    'till': ctx.state.isSetDate1 || ctx.state.isSetDate2
-        ? DateTime.parse(ctx.state.secondTime).toUtc().toIso8601String()
-        : DateTime.now().add(Duration(days: 1)).toUtc().toIso8601String(),
-  };
+    Map data = {
+      'orgId': orgId,
+      'offset': 0,
+      'limit': 999,
+      'from': ctx.state.isSetDate1 || ctx.state.isSetDate2
+          ? DateTime.parse(ctx.state.firstTime).toUtc().toIso8601String()
+          : DateTime(2000).toUtc().toIso8601String(),
+      'till': ctx.state.isSetDate1 || ctx.state.isSetDate2
+          ? DateTime.parse(ctx.state.secondTime).toUtc().toIso8601String()
+          : DateTime.now().add(Duration(days: 1)).toUtc().toIso8601String(),
+    };
 
-  Future.delayed(Duration(seconds: 1), () {
     _search(ctx, 'SEARCH DEFUALT', data);
-  });
+  }
 }
 
 void _onFilter(Action action, Context<WalletState> ctx) async {
@@ -149,7 +140,7 @@ void _search(Context<WalletState> ctx, String type, Map data,
     return;
   }
 
-  if (ctx.state.tabIndex == 1) {
+  if (ctx.state.activeTabToken[ctx.state.selectedToken] == 1) {
     StakeDao dao = _buildStakeDao(ctx);
     final list = await _getHistory(ctx, dao, data, type, ['stakingHist']);
     ctx.dispatch(WalletActionCreator.updateStakeList(type, list));

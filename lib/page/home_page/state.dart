@@ -44,7 +44,7 @@ class HomeState implements Cloneable<HomeState> {
   bool loadingHistory = true;
   double balance = 0;
   double totalRevenue = 0;
-  int walletTabIndex = 0;
+  Map<Token, int> walletActiveTabToken = {Token.MXC: 0, Token.DHX: 0};
   bool isSetDate1 = false;
   bool isSetDate2 = false;
   int selectedIndexBtn1 = -1;
@@ -119,7 +119,7 @@ class HomeState implements Cloneable<HomeState> {
       ..mapCtl = mapCtl
       ..gatewaysList = gatewaysList
       ..geojsonList = geojsonList
-      ..walletTabIndex = walletTabIndex
+      ..walletActiveTabToken = walletActiveTabToken
       ..walletList = walletList ?? []
       ..stakeList = stakeList ?? []
       ..withdrawFee = withdrawFee
@@ -251,7 +251,7 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..isSetDate2 = state.isSetDate2
       ..selectedIndexBtn1 = state.selectedIndexBtn1
       ..selectedIndexBtn2 = state.selectedIndexBtn2
-      ..tabIndex = state.walletTabIndex
+      ..activeTabToken = state.walletActiveTabToken
       ..walletList = state.walletList
       ..stakeList = state.stakeList
       ..withdrawFee = state.withdrawFee
@@ -275,7 +275,7 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..isSetDate2 = subState.isSetDate2
       ..selectedIndexBtn1 = subState.selectedIndexBtn1
       ..selectedIndexBtn2 = subState.selectedIndexBtn2
-      ..walletTabIndex = subState.tabIndex
+      ..walletActiveTabToken = subState.activeTabToken
       ..walletList = subState.walletList
       ..stakeList = subState.stakeList
       ..withdrawFee = subState.withdrawFee
