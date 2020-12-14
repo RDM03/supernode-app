@@ -62,8 +62,8 @@ Widget buildView(
               titleDetailRow(
                 loading: !state.loadingMap.contains('stakedAmount'),
                 name: FlutterI18n.translate(_ctx, 'staked_amount'),
-                value: Tools.priceFormat((tkn == Token.MXC) ? state.stakedAmount : 7060.00),//TODO replace 7060.00
-                token: (tkn == Token.MXC) ? "MXC" : "DHX"),
+                value: (tkn == Token.MXC) ? Tools.priceFormat(state.stakedAmount) : FlutterI18n.translate(_ctx, 'not_available'),
+                token: (tkn == Token.MXC) ? "MXC" : ""),
               titleDetailRow(
                 loading: !state.loadingMap.contains('totalRevenue'),
                 name: FlutterI18n.translate(_ctx, 'total_revenue'),

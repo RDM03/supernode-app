@@ -64,6 +64,7 @@
 	"downlink_price": "Downlink Price",
 	"info_downlink_price": "MXC pre-sets this price in order to use the market average. The downlink price is the price people pay you to receive data",
 	"coming": "Coming Soon",
+	"not_available": "Not Available",
 	"set_date": "Set Date",
 	"sell": "Sell",
 	"total_revenue": "Total Revenue",
