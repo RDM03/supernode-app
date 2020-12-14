@@ -224,6 +224,8 @@ void _loadUserData(Context<HomeState> ctx) {
 
   if (data['balance'] != null)
     ctx.dispatch(HomeActionCreator.balance(data['balance']));
+  if (data['balanceDHX'] != null)
+    ctx.dispatch(HomeActionCreator.balanceDHX(data['balanceDHX']));
   if (data['miningIncome'] != null)
     ctx.dispatch(HomeActionCreator.miningIncome(data['miningIncome']));
   if (data['stakedAmount'] != null)

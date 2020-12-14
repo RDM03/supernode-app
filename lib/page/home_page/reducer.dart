@@ -16,6 +16,7 @@ Reducer<HomeState> buildReducer() {
       HomeAction.tabIndex: _tabIndex,
       HomeAction.profile: _profile,
       HomeAction.balance: _balance,
+      HomeAction.balanceDHX: _balanceDHX,
       HomeAction.stakedAmount: _stakedAmount,
       HomeAction.gateways: _gateways,
       HomeAction.miningIncome: _miningIncome,
@@ -108,6 +109,13 @@ HomeState _balance(HomeState state, Action action) {
 
   final HomeState newState = state.clone();
   return newState..balance = data;
+}
+
+HomeState _balanceDHX(HomeState state, Action action) {
+  double balanceDHX = action.payload;
+
+  final HomeState newState = state.clone();
+  return newState..balanceDHX = balanceDHX;
 }
 
 HomeState _stakedAmount(HomeState state, Action action) {

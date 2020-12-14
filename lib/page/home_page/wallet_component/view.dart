@@ -48,9 +48,9 @@ Widget buildView(
                 ]),
               ),
               titleDetailRow(
-                loading: !state.loadingMap.contains('balance'),
+                loading: !state.loadingMap.contains((tkn == Token.MXC) ? 'balance' :  'balanceDHX'),
                 name: FlutterI18n.translate(_ctx, 'current_balance'),
-                value: Tools.priceFormat((tkn == Token.MXC) ? state.balance : 7060.00),//TODO replace 7060.00
+                value: Tools.priceFormat((tkn == Token.MXC) ? state.balance : state.balanceDHX),
                 token: (tkn == Token.MXC) ? "MXC" : "DHX"),
               (state.expandedView && tkn == Token.DHX)
               ? titleDetailRow(
@@ -244,10 +244,7 @@ void _showAddTokenDialog(BuildContext context, dispatch) {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: GestureDetector(
-                  onTap: () {
-                    dispatch(WalletActionCreator.addDHX());
-                    Navigator.pop(context);
-                  },
+                  onTap: () => dispatch(WalletActionCreator.onAddDHX()),
                   child:
                   Row(
                     children: [

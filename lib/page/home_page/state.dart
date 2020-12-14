@@ -43,6 +43,7 @@ class HomeState implements Cloneable<HomeState> {
   bool isFirstRequest = true;
   bool loadingHistory = true;
   double balance = 0;
+  double balanceDHX = 0;
   double totalRevenue = 0;
   Map<Token, int> walletActiveTabToken = {Token.MXC: 0, Token.DHX: 0};
   bool isSetDate1 = false;
@@ -106,6 +107,7 @@ class HomeState implements Cloneable<HomeState> {
       ..selectedOrganizationId = selectedOrganizationId
       ..superNode = superNode
       ..balance = balance
+      ..balanceDHX = balanceDHX
       ..totalRevenue = totalRevenue
       ..stakedAmount = stakedAmount
       ..stakedAmount = stakedAmount
@@ -244,6 +246,7 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..loadingMap = state.loadingMap
       ..loadingHistory = state.loadingHistory
       ..balance = state.balance
+      ..balanceDHX = state.balanceDHX
       ..totalRevenue = state.totalRevenue
       ..organizations = state.organizations
       ..stakedAmount = state.stakedAmount
@@ -268,6 +271,7 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..expandedView = subState.expandedView
       ..displayTokens = subState.displayTokens
       ..selectedToken = subState.selectedToken
+      ..balanceDHX = subState.balanceDHX
       ..isFirstRequest = subState.isFirstRequest
       ..loadingHistory = subState.loadingHistory
       ..totalRevenue = subState.totalRevenue

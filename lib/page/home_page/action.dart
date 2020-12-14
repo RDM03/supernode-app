@@ -10,6 +10,7 @@ enum HomeAction {
   onProfile,
   profile,
   balance,
+  balanceDHX,
   mapbox,
   geojsonList,
   stakedAmount,
@@ -45,6 +46,9 @@ class HomeActionCreator {
     return Action(HomeAction.loading, payload: toogle);
   }
 
+  /// data - label for data being loaded ['balance', 'balanceDHX', 'stakeAmount', 'totalRevenue']
+  /// type = 'add' - loading finished for data,
+  /// type = 'other than add' - loading started for data
   static Action loadingMap(String data,{String type = 'add'}) {
     return Action(HomeAction.loadingMap, payload: {'data': data, 'type': type});
   }
@@ -61,8 +65,12 @@ class HomeActionCreator {
     return Action(HomeAction.updateUsername, payload: data);
   }
 
-  static Action balance(double data) {
-    return Action(HomeAction.balance, payload: data);
+  static Action balance(double balance) {
+    return Action(HomeAction.balance, payload: balance);
+  }
+
+  static Action balanceDHX(double balanceDHX) {
+    return Action(HomeAction.balanceDHX, payload: balanceDHX);
   }
 
   static Action mapbox(){

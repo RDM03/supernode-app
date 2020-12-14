@@ -1,16 +1,21 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
 import 'package:supernodeapp/common/daos/demo/topup_dao.dart';
+import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
 import 'package:supernodeapp/common/daos/demo/withdraw_dao.dart';
+import 'package:supernodeapp/common/daos/local_storage_dao.dart';
 import 'package:supernodeapp/common/daos/stake_dao.dart';
 import 'package:supernodeapp/common/daos/topup_dao.dart';
+import 'package:supernodeapp/common/daos/wallet_dao.dart';
 import 'package:supernodeapp/common/daos/withdraw_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/home_page/action.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
+import 'package:supernodeapp/page/settings_page/state.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -24,6 +29,7 @@ Effect<WalletState> buildEffect() {
     WalletAction.onStake: _onStake,
     WalletAction.onUnstake: _onUnstake,
     WalletAction.onStakeDetails: _onStakeDetails,
+    WalletAction.onAddDHX: _onAddDHX,
   });
 }
 
@@ -37,6 +43,10 @@ WithdrawDao _buildWithdrawDao(Context<WalletState> ctx) {
 
 TopupDao _buildTopupDao(Context<WalletState> ctx) {
   return ctx.state.isDemo ? DemoTopupDao() : TopupDao();
+}
+
+WalletDao _buildWalletDao(Context<WalletState> ctx) {
+  return ctx.state.isDemo ? DemoWalletDao() : WalletDao();
 }
 
 void _initState(Action action, Context<WalletState> ctx) {
@@ -268,5 +278,42 @@ void _onStakeDetails(Action action, Context<WalletState> ctx) async {
   if (res ?? false) {
     _search(ctx, ctx.state.lastSearchType, ctx.state.lastSearchData);
     ctx.dispatch(HomeActionCreator.onProfile());
+  }
+}
+
+void _onAddDHX (Action action, Context<WalletState> ctx) {
+  Navigator.pop(ctx.context);
+  if (!ctx.state.displayTokens.contains(Token.DHX)) {
+    ctx.dispatch(WalletActionCreator.addDHX());
+
+    _requestUserDHXBalance(ctx);
+  }
+}
+
+void _requestUserDHXBalance (Context<WalletState> ctx) async {
+  const String balanceDHXlabel = 'balanceDHX';
+  SettingsState settingsData = GlobalStore.store.getState().settings;
+  if (settingsData.userId.isNotEmpty && settingsData.selectedOrganizationId.isNotEmpty) {
+    ctx.dispatch(HomeActionCreator.loadingMap(balanceDHXlabel, type:"remove"));
+
+    String userId = settingsData.userId;
+    String orgId = settingsData.selectedOrganizationId;
+    try {
+      WalletDao dao = _buildWalletDao(ctx);
+      Map data = {'userId': userId, 'orgId': orgId, 'currency': 'DHX'};
+
+      var res = await dao.balance(data);
+      double balanceDHX = Tools.convertDouble(res['balance']);
+      mLog('DHX balance', '$res $balanceDHX');
+      if (settingsData.username.isNotEmpty) {
+        LocalStorageDao.saveUserData(
+            'user_${settingsData.username}', {balanceDHXlabel: balanceDHX});
+      }
+
+      ctx.dispatch(WalletActionCreator.balanceDHX(balanceDHX));
+      ctx.dispatch(HomeActionCreator.loadingMap(balanceDHXlabel));
+    } catch (err) {
+      tip(ctx.context, 'WalletDao balance: $err');
+    }
   }
 }
