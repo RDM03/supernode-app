@@ -5,9 +5,12 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
+import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/security/biometrics.dart';
 import 'package:supernodeapp/common/utils/dhx.dart';
+import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
+import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import 'action.dart';
@@ -122,19 +125,34 @@ Widget buildView(
               ),
             ),
             Expanded(
-              child: Text(
-                FlutterI18n.translate(
-                  context,
-                  minersBoost(
-                        double.tryParse(state.amount),
-                        state.minersOwned,
-                      ).toStringAsFixed(0) +
-                      ' mP',
-                ),
-                textAlign: TextAlign.right,
-                maxLines: 1,
-                softWrap: false,
-                overflow: TextOverflow.clip,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      FlutterI18n.translate(
+                        context,
+                        minersBoost(
+                              double.tryParse(state.amount),
+                              state.minersOwned,
+                            ).toStringAsFixed(0) +
+                            ' mP',
+                      ),
+                      textAlign: TextAlign.right,
+                      maxLines: 1,
+                      softWrap: false,
+                      overflow: TextOverflow.clip,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => _showInfoDialog(context),
+                    child: Padding(
+                      key: Key("questionCircle"),
+                      padding: EdgeInsets.all(s(5)),
+                      child:
+                          Image.asset(AppImages.questionCircle, height: s(20)),
+                    ),
+                  )
+                ],
               ),
             ),
           ],
@@ -214,6 +232,38 @@ Widget buildView(
           key: ValueKey('submitButton'),
         )
       ],
+    ),
+  );
+}
+
+void _showInfoDialog(BuildContext context) {
+  showInfoDialog(
+    context,
+    IosStyleBottomDialog2(
+      context: context,
+      child: Column(
+        children: [
+          Image.asset(
+            AppImages.gateways,
+            height: s(40),
+            color: Colors.grey,
+            fit: BoxFit.contain,
+          ),
+          Padding(
+            key: Key('helpText'),
+            padding: const EdgeInsets.only(top: 32),
+            child: Text(
+              FlutterI18n.translate(context, 'info_lock_boost'),
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: s(16),
+                fontWeight: FontWeight.w500,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }

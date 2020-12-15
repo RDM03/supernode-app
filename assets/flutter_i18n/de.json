@@ -425,5 +425,7 @@
 	"congrats_mining": "Herzlichen glückwunsch!\nSie sind jetzt Mining DHX",
 	"x_months": "{0} Monate",
 	"minimum_duration": "Minimale Dauer",
-	"latest_mpower": "Neueste mPower"
+	"latest_mpower": "Neueste mPower",
+	"info_mxc_lock": "Wählen Sie Ihre bevorzugte Sperrmethode / Belohnung",
+	"info_lock_boost": "Die von einem M2 Pro Miner bereitgestellten Boosts sind auf 1 Million mPower pro Miner begrenzt."
 }

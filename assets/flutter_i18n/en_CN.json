@@ -425,5 +425,7 @@
 	"congrats_mining": "Congratulations!\nYou are now Mining DHX",
 	"x_months": "{0} months",
 	"minimum_duration": "Minimum duration",
-	"latest_mpower": "Latest mPower"
+	"latest_mpower": "Latest mPower",
+	"info_mxc_lock": "Choose your preferred lock method / rewards",
+	"info_lock_boost": "Boosts provided by an M2 Pro Miner are capped at 1 million mPower per miner."
 }

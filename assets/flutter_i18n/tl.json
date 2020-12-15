@@ -425,5 +425,7 @@
 	"congrats_mining": "Wala kay gibuhat diha",
 	"x_months": "{0} buwan",
 	"minimum_duration": "Pinakamababa",
-	"latest_mpower": "Pinakabagong mPower"
+	"latest_mpower": "Pinakabagong mPower",
+	"info_mxc_lock": "Piliin ang iyong ginustong pamamaraan / gantimpala ng lock",
+	"info_lock_boost": "Ang mga pagpapalakas na ibinigay ng isang M2 Pro Miner ay na-cap sa 1 milyong mPower bawat minero."
 }

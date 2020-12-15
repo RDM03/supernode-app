@@ -425,5 +425,7 @@
 	"congrats_mining": "축!\n이제 채굴 DHX",
 	"x_months": "{0}개월",
 	"minimum_duration": "최소 기간",
-	"latest_mpower": "최신 mPower"
+	"latest_mpower": "최신 mPower",
+	"info_mxc_lock": "선호하는 잠금 방법 / 보상 선택",
+	"info_lock_boost": "M2 Pro Miner가 제공하는 부스트는 광 부당 1 백만 mPower로 제한됩니다."
 }

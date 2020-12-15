@@ -425,5 +425,7 @@
 	"congrats_mining": "Chúc mừng!\nBây giờ bạn đang khai thác DHX",
 	"x_months": "{0} tháng",
 	"minimum_duration": "Thời gian tối thiểu",
-	"latest_mpower": "MPower mới nhất"
+	"latest_mpower": "MPower mới nhất",
+	"info_mxc_lock": "Chọn phương pháp khóa / phần thưởng ưa thích của bạn",
+	"info_lock_boost": "Các phần tăng cường do M2 Pro Miner cung cấp được giới hạn ở mức 1 triệu mPower cho mỗi người khai thác."
 }

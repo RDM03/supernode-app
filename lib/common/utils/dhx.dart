@@ -20,11 +20,13 @@ double monthsToBoost(int months) {
   }
 }
 
-double minersBoost(double mxcValue, int minersCount) {
-  return min(minersCount * mxcValue, minersCount * 1000000.0);
+double getMinersBoost(double mxcValue, int minersCount) {
+  return min(mxcValue, minersCount * 1000000.0);
 }
 
-double calculateMiningPower(double mxcValue, int minersCount, double boost) {
-  return (mxcValue + minersBoost(mxcValue, minersCount)) *
-      (boost + 1).floorToDouble();
+double calculateMiningPower(
+    double mxcValue, int minersCount, double monthsBoostRate) {
+  var miningPower = mxcValue + mxcValue * monthsBoostRate;
+  miningPower = miningPower + getMinersBoost(miningPower, minersCount);
+  return miningPower;
 }

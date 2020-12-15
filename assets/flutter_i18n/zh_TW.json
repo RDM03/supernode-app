@@ -425,5 +425,7 @@
 	"congrats_mining": "祝贺！\n您现在正在开采 DHX",
 	"x_months": "{0}月",
 	"minimum_duration": "最小持续时间",
-	"latest_mpower": "最新的mPower"
+	"latest_mpower": "最新的mPower",
+	"info_mxc_lock": "選擇您喜歡的鎖定方式/獎勵",
+	"info_lock_boost": "M2 Pro礦機提供的提升上限為每個礦機100萬毫瓦。"
 }

@@ -425,5 +425,7 @@
 	"congrats_mining": "おめでとう\nあなたは今DHXをマイニングしています",
 	"x_months": "{0}月",
 	"minimum_duration": "最小期間",
-	"latest_mpower": "最新のmPower"
+	"latest_mpower": "最新のmPower",
+	"info_mxc_lock": "お好みのロック方法/報酬を選択してください",
+	"info_lock_boost": "M2 Pro Minerによって提供されるブーストは、マイナーあたり100万mPowerに制限されています。"
 }

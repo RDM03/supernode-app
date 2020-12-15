@@ -159,7 +159,7 @@ void _showInfoDialog(BuildContext context) {
             key: Key('helpText'),
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: Text(
-              FlutterI18n.translate(context, 'info_mxc_vault'),
+              FlutterI18n.translate(context, 'info_mxc_lock'),
               style: TextStyle(
                 color: Colors.black,
                 fontSize: s(16),

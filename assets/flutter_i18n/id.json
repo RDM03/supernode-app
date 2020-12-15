@@ -425,5 +425,7 @@
 	"congrats_mining": "Selamat!\nAnda sekarang Menambang DHX",
 	"x_months": "{0} bulan",
 	"minimum_duration": "Durasi Minimum",
-	"latest_mpower": "MPower terbaru"
+	"latest_mpower": "MPower terbaru",
+	"info_mxc_lock": "Pilih metode kunci / hadiah yang Anda sukai",
+	"info_lock_boost": "Peningkatan yang disediakan oleh M2 Pro Miner dibatasi pada 1 juta mPower per penambang."
 }

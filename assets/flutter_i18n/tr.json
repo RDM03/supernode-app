@@ -425,5 +425,7 @@
 	"congrats_mining": "Tebrikler!\nŞimdi Madencilik DHX vardır",
 	"x_months": "{0} Aylar",
 	"minimum_duration": "Minimum süre",
-	"latest_mpower": "En son mPower"
+	"latest_mpower": "En son mPower",
+	"info_mxc_lock": "Tercih ettiğiniz kilit yöntemini / ödüllerini seçin",
+	"info_lock_boost": "M2 Pro Madenci tarafından sağlanan takviyeler, madenci başına 1 milyon mPower ile sınırlandırılmıştır."
 }

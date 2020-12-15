@@ -425,5 +425,7 @@
 	"congrats_mining": "Parabéns!\nVocê agora está balançando Gênesis",
 	"x_months": "{0} meses",
 	"minimum_duration": "duração mínima necessária",
-	"latest_mpower": "Último mPower"
+	"latest_mpower": "Último mPower",
+	"info_mxc_lock": "Escolha seu método de bloqueio / recompensas preferidos",
+	"info_lock_boost": "Os incentivos fornecidos por um M2 Pro Miner são limitados a 1 milhão de mPower por mineiro."
 }
