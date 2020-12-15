@@ -424,5 +424,6 @@
 	"confirmed": "Confirmed",
 	"congrats_mining": "Congratulations!\nYou are now Mining DHX",
 	"x_months": "{0} Months",
-	"minimum_duration": "Minimum Duration"
+	"minimum_duration": "Minimum Duration",
+	"latest_mpower": "Latest mPower"
 }

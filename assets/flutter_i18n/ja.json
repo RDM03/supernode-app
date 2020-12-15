@@ -424,5 +424,6 @@
 	"confirmed": "メール認証OK",
 	"congrats_mining": "おめでとう\nあなたは今DHXをマイニングしています",
 	"x_months": "{0}月",
-	"minimum_duration": "最小期間"
+	"minimum_duration": "最小期間",
+	"latest_mpower": "最新のmPower"
 }

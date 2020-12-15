@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/daos/dhx_dao.dart';
+import 'package:supernodeapp/common/utils/dhx.dart';
 
 class ConfirmLockState implements Cloneable<ConfirmLockState> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
@@ -13,7 +14,12 @@ class ConfirmLockState implements Cloneable<ConfirmLockState> {
   int minersOwned;
   Council council;
   String get councilName => council.name;
-  double miningPower;
+
+  double get miningPower {
+    return calculateMiningPower(
+        double.tryParse(amount), minersOwned, boostRate);
+  }
+
   DateTime openTime;
   double boostRate;
 
@@ -32,7 +38,6 @@ class ConfirmLockState implements Cloneable<ConfirmLockState> {
       ..months = months
       ..minersOwned = minersOwned
       ..council = council
-      ..miningPower = miningPower
       ..openTime = openTime
       ..boostRate = boostRate;
   }
@@ -50,8 +55,6 @@ ConfirmLockState initState(Map<String, dynamic> args) {
   int minersOwned =
       args['minersOwned'] ?? (throw ArgumentError.notNull('minersOwned'));
   Council council = args['council'] ?? (throw ArgumentError.notNull('council'));
-  double miningPower =
-      args['miningPower'] ?? (throw ArgumentError.notNull('miningPower'));
 
   return ConfirmLockState()
     ..isDemo = isDemo
@@ -60,7 +63,6 @@ ConfirmLockState initState(Map<String, dynamic> args) {
     ..startDate = startDate
     ..minersOwned = minersOwned
     ..council = council
-    ..miningPower = miningPower
     ..openTime = DateTime.now()
     ..boostRate = boostRate;
 }

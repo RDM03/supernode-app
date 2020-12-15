@@ -98,7 +98,7 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
                     color: lock24Color,
                     boostText: state.boost24m == null
                         ? null
-                        : '+${round(state.boost24m)}% ' +
+                        : '${round(state.boost24m)}% ' +
                             FlutterI18n.translate(context, 'mining_boost'),
                     first: true,
                     boostRate: state.boost24m,

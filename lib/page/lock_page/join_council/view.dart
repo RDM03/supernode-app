@@ -70,7 +70,7 @@ Widget buildView(
         else
           for (var i = 0; i < state.councils.length; i++) ...[
             Container(
-              height: 100,
+              height: 80,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
@@ -118,11 +118,7 @@ Widget buildView(
                               style: kBigFontOfBlue,
                             ),
                             Text(
-                              'MatchX (Germany)',
-                              style: kMiddleFontOfBlack,
-                            ),
-                            Text(
-                              'Latest mPower : 5000000',
+                              '${FlutterI18n.translate(context, 'latest_mpower')} : 5000000',
                               style: kMiddleFontOfBlack,
                             ),
                           ],

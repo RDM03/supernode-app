@@ -424,5 +424,6 @@
 	"confirmed": "확인완료",
 	"congrats_mining": "축!\n이제 채굴 DHX",
 	"x_months": "{0}개월",
-	"minimum_duration": "최소 기간"
+	"minimum_duration": "최소 기간",
+	"latest_mpower": "최신 mPower"
 }

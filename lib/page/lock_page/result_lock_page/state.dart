@@ -14,7 +14,7 @@ class ResultLockPageState implements Cloneable<ResultLockPageState> {
 
 ResultLockPageState initState(Map<String, dynamic> args) {
   bool isDemo = args['isDemo'] ?? false;
-  String transactionId = args['transactionId'] ?? '??';
+  String transactionId = args['stakeId'] ?? '??';
   return ResultLockPageState()
     ..isDemo = isDemo
     ..transactionId = transactionId;

@@ -424,5 +424,6 @@
 	"confirmed": "Подтверждено",
 	"congrats_mining": "Поздравляю!\nТеперь вы майните DHX",
 	"x_months": "{0} Месяцев",
-	"minimum_duration": "Минимальная длительность"
+	"minimum_duration": "Минимальная длительность",
+	"latest_mpower": "Последний mPower"
 }

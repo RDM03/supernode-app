@@ -11,7 +11,6 @@ class JoinCouncilState implements Cloneable<JoinCouncilState> {
   double boostRate;
   int months;
   int minersOwned;
-  double miningPower;
 
   List<Council> councils;
 
@@ -25,7 +24,6 @@ class JoinCouncilState implements Cloneable<JoinCouncilState> {
       ..boostRate = boostRate
       ..months = months
       ..minersOwned = minersOwned
-      ..miningPower = miningPower
       ..councils = councils;
   }
 }
@@ -40,14 +38,11 @@ JoinCouncilState initState(Map<String, dynamic> args) {
 
   int minersOwned =
       args['minersOwned'] ?? (throw ArgumentError.notNull('minersOwned'));
-  double miningPower =
-      args['miningPower'] ?? (throw ArgumentError.notNull('miningPower'));
 
   return JoinCouncilState()
     ..isDemo = isDemo
     ..amount = amount
     ..months = months
     ..minersOwned = minersOwned
-    ..miningPower = miningPower
     ..boostRate = boostRate;
 }

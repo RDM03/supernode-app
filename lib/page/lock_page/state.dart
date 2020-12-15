@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/common/utils/dhx.dart';
 
 class LockState implements Cloneable<LockState> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
@@ -28,10 +29,10 @@ LockState initState(Map<String, dynamic> args) {
   double balance = args['balance'] ?? 0;
 
   return LockState()
-    ..boost24m = 0.40
-    ..boost12m = 0.20
-    ..boost9m = 0.10
-    ..boost3m = 0
+    ..boost24m = boost24months
+    ..boost12m = boost12months
+    ..boost9m = boost9months
+    ..boost3m = boost3months
     ..isDemo = isDemo
     ..balance = balance;
 }

@@ -10,6 +10,7 @@ import 'state.dart';
 Effect<JoinCouncilState> buildEffect() {
   return combineEffects(<Object, Effect<JoinCouncilState>>{
     Lifecycle.initState: _onInitState,
+    JoinCouncilAction.process: _onInitState,
     JoinCouncilAction.becomeCouncilChair: _onBecomeCouncilChair,
     JoinCouncilAction.onConfirm: _onConfirm,
   });
@@ -68,17 +69,12 @@ void _onConfirm(Action action, Context<JoinCouncilState> ctx) async {
 }
 
 Future<void> moveNext(Context<JoinCouncilState> ctx, Council council) async {
-  final val = await Navigator.of(ctx.context)
-      .pushNamed('confirm_lock_page', arguments: {
+  await Navigator.of(ctx.context).pushNamed('confirm_lock_page', arguments: {
     'amount': ctx.state.amount,
     'boostRate': ctx.state.boostRate,
     'months': ctx.state.months,
     'minersOwned': ctx.state.minersOwned,
     'council': council,
-    'miningPower': ctx.state.miningPower,
   });
-
-  if (val ?? false) {
-    ctx.dispatch(JoinCouncilActionCreator.process());
-  }
+  ctx.dispatch(JoinCouncilActionCreator.process());
 }

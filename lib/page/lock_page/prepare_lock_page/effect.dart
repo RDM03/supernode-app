@@ -82,7 +82,6 @@ void _onConfirm(Action action, Context<PrepareLockState> ctx) async {
     'months': ctx.state.months,
     'minersOwned': ctx.state.minersOwned,
     'councilName': 'Council Name',
-    'miningPower': ctx.state.miningPower,
   });
 
   _balance(ctx);

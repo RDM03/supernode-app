@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/security/biometrics.dart';
+import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -103,7 +104,8 @@ Widget buildView(
             ),
             Expanded(
               child: Text(
-                FlutterI18n.translate(context, 'TODO %'),
+                FlutterI18n.translate(context,
+                    '${(monthsToBoost(state.months) * 100).toStringAsFixed(0)} %'),
                 textAlign: TextAlign.right,
               ),
             ),
@@ -121,8 +123,18 @@ Widget buildView(
             ),
             Expanded(
               child: Text(
-                FlutterI18n.translate(context, 'TODO %'),
+                FlutterI18n.translate(
+                  context,
+                  minersBoost(
+                        double.tryParse(state.amount),
+                        state.minersOwned,
+                      ).toStringAsFixed(0) +
+                      ' mP',
+                ),
                 textAlign: TextAlign.right,
+                maxLines: 1,
+                softWrap: false,
+                overflow: TextOverflow.clip,
               ),
             ),
           ],
@@ -147,17 +159,23 @@ Widget buildView(
               style: kBigFontOfBlack,
             ),
             SizedBox(width: 30),
-            Spacer(),
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0x4665EA).withOpacity(0.2),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Center(
-                child: Text(
-                  '${state.miningPower.toStringAsFixed(0)} Mil mPower',
-                  style: kMiddleFontOfBlack,
+            Expanded(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0x4665EA).withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: Text(
+                    '${(state.miningPower / 1000000).toString()} Mil mPower',
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.clip,
+                    textAlign: TextAlign.right,
+                    style: kMiddleFontOfBlack,
+                  ),
                 ),
               ),
             ),
@@ -236,6 +254,7 @@ _proceed(Dispatch dispatch, ConfirmLockState state) {
                   final authenticated = await Biometrics.authenticateAsync(ctx);
                   if (!authenticated) return;
                   dispatch(ConfirmLockActionCreator.onConfirm());
+                  Navigator.of(ctx).pop();
                 },
                 key: ValueKey('submitButton'),
               );

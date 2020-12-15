@@ -424,5 +424,6 @@
 	"confirmed": "Onaylanmış",
 	"congrats_mining": "Tebrikler!\nŞimdi Madencilik DHX vardır",
 	"x_months": "{0} Aylar",
-	"minimum_duration": "Minimum süre"
+	"minimum_duration": "Minimum süre",
+	"latest_mpower": "En son mPower"
 }

@@ -424,5 +424,6 @@
 	"confirmed": "Terkonfirmasi",
 	"congrats_mining": "Selamat!\nAnda sekarang Menambang DHX",
 	"x_months": "{0} bulan",
-	"minimum_duration": "Durasi Minimum"
+	"minimum_duration": "Durasi Minimum",
+	"latest_mpower": "MPower terbaru"
 }

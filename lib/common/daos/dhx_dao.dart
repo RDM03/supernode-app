@@ -30,6 +30,18 @@ class Council {
       name: map['name'],
     );
   }
+
+  Council copyWith({
+    String id,
+    String chairOrgId,
+    String name,
+  }) {
+    return Council(
+      id: id ?? this.id,
+      chairOrgId: chairOrgId ?? this.chairOrgId,
+      name: name ?? this.name,
+    );
+  }
 }
 
 class CreateCouncilResponse {
@@ -50,14 +62,15 @@ class CreateCouncilResponse {
 class DhxDao extends Dao {
   Future<List<Council>> listCouncils() async {
     final res = await get(url: DhxApi.listCouncils);
-    print(res);
-    return [];
+    final list = res['council'] as List;
+    return list
+        .map((l) => Council.fromMap(Map<String, dynamic>.from(l)))
+        .toList();
   }
 
   Future<CreateCouncilResponse> createCouncil({
     @required String amount,
     @required String boost,
-    @required String currency,
     @required String lockMonths,
     @required String name,
     @required String organizationId,
@@ -65,7 +78,7 @@ class DhxDao extends Dao {
     final res = await post(url: DhxApi.createCouncil, data: {
       'amount': amount,
       'boost': boost,
-      'currency': currency,
+      'currency': 'ETH_MXC',
       'lockMonths': lockMonths,
       'name': name,
       'organizationId': organizationId,
@@ -77,15 +90,14 @@ class DhxDao extends Dao {
   Future<String> createStake({
     @required String amount,
     @required String boost,
-    @required String currency,
     @required String councilId,
     @required String lockMonths,
     @required String organizationId,
   }) async {
-    final res = await post(url: DhxApi.createCouncil, data: {
+    final res = await post(url: DhxApi.createStake, data: {
       'amount': amount,
       'boost': boost,
-      'currency': currency,
+      'currency': 'ETH_MXC',
       'councilId': councilId,
       'lockMonths': lockMonths,
       'organizationId': organizationId,

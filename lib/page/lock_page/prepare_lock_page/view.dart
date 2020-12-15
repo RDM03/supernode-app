@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/text_field/primary_text_field.dart';
+import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -227,11 +228,21 @@ Widget buildView(
             ),
             SizedBox(width: 30),
             Expanded(
-              child: Text(
-                '${state.miningPower.toStringAsFixed(0)} mPower',
-                textAlign: TextAlign.right,
-                maxLines: 2,
-                style: kBigFontOfBlack,
+              child: ValueListenableBuilder<TextEditingValue>(
+                valueListenable: state.amountCtl,
+                builder: (ctx, val, _) {
+                  final amount = double.tryParse(val.text);
+                  final mPower = amount == null || state.minersOwned == null
+                      ? null
+                      : calculateMiningPower(amount, state.minersOwned,
+                          monthsToBoost(state.months));
+                  return Text(
+                    '${mPower?.toStringAsFixed(0) ?? '??'} mPower',
+                    textAlign: TextAlign.right,
+                    maxLines: 2,
+                    style: kBigFontOfBlack,
+                  );
+                },
               ),
             ),
           ],

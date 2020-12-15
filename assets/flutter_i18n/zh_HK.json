@@ -424,5 +424,6 @@
 	"confirmed": "已確認",
 	"congrats_mining": "祝贺！\n您现在正在开采 DHX",
 	"x_months": "{0}月",
-	"minimum_duration": "最小持续时间"
+	"minimum_duration": "最小持续时间",
+	"latest_mpower": "最新的mPower"
 }

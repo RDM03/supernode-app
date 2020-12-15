@@ -424,5 +424,6 @@
 	"confirmed": "Confirmados",
 	"congrats_mining": "Parabéns!\nVocê agora está balançando Gênesis",
 	"x_months": "{0} meses",
-	"minimum_duration": "duração mínima necessária"
+	"minimum_duration": "duração mínima necessária",
+	"latest_mpower": "Último mPower"
 }
