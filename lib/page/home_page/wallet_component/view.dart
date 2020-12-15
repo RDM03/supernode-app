@@ -22,6 +22,7 @@ import 'state.dart';
 final List<String> tabList = [
   'account',
   'stake',
+  'mmd451',
 ];
 
 Widget buildView(
@@ -80,6 +81,15 @@ Widget buildView(
                   onTap2: () => dispatch(WalletActionCreator.onUnstake()),
                 ),
               ]),
+              Column(children: [
+                TextButton(
+                  child: Text('Lock screen'),
+                  onPressed: () => Navigator.of(_ctx)
+                      .pushNamed('lock_page', arguments: <String, dynamic>{
+                    'isDemo': state.isDemo,
+                  }),
+                ),
+              ])
             ]),
         smallColumnSpacer(),
         Visibility(
