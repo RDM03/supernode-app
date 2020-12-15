@@ -422,5 +422,7 @@
 	"lock_confirm_message": "{1} ay boyunca {0} MXC kilitlemek üzeresiniz, DHX madencilik için {2} konseyine katılmak",
 	"proceed": "İlerle",
 	"confirmed": "Onaylanmış",
-	"congrats_mining": "Tebrikler!\nŞimdi Madencilik DHX vardır"
+	"congrats_mining": "Tebrikler!\nŞimdi Madencilik DHX vardır",
+	"x_months": "{0} Aylar",
+	"minimum_duration": "Minimum süre"
 }

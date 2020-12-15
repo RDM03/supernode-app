@@ -92,7 +92,7 @@ Widget buildView(
             SizedBox(width: 30),
             Expanded(
               child: Text(
-                '${state.balance} MXC',
+                '${state.balance ?? '??'} MXC',
                 textAlign: TextAlign.right,
                 maxLines: 2,
                 style: kBigFontOfBlack,
@@ -111,7 +111,12 @@ Widget buildView(
                   trackHeight: 5,
                 ),
                 child: state.balance == null
-                    ? LinearProgressIndicator()
+                    ? Center(
+                        child: LinearProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(Color(0xFF4665EA)),
+                          backgroundColor: Color(0xFF4665EA).withOpacity(0.2),
+                        ),
+                      )
                     : ValueListenableBuilder<TextEditingValue>(
                         valueListenable: state.amountCtl,
                         builder: (ctx, val, _) {
@@ -196,7 +201,7 @@ Widget buildView(
             SizedBox(width: 30),
             Expanded(
               child: Text(
-                state.numberOfMiner.toString(),
+                state.minersOwned?.toString() ?? '??',
                 textAlign: TextAlign.right,
                 maxLines: 2,
                 style: kBigFontOfBlack,

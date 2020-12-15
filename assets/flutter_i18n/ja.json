@@ -422,5 +422,7 @@
 	"lock_confirm_message": "あなたは{1}ヶ月間MXC{0}ロックしようとしています, DHX鉱業のための{2}の評議会に参加",
 	"proceed": "続行",
 	"confirmed": "メール認証OK",
-	"congrats_mining": "おめでとう\nあなたは今DHXをマイニングしています"
+	"congrats_mining": "おめでとう\nあなたは今DHXをマイニングしています",
+	"x_months": "{0}月",
+	"minimum_duration": "最小期間"
 }

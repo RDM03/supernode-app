@@ -25,7 +25,10 @@ Widget buildView(
       scrollable: false,
       margin: EdgeInsets.only(top: 60),
       children: [
-        pageNavBar(FlutterI18n.translate(context, 'dhx_mining')),
+        pageNavBar(
+          FlutterI18n.translate(context, 'dhx_mining'),
+          onTap: () => Navigator.of(context).pop(),
+        ),
         SizedBox(height: 10),
         title(FlutterI18n.translate(context, 'confirmed')),
         done(),

@@ -422,5 +422,7 @@
 	"lock_confirm_message": "You are about to lock {0} MXC for {1} months, joining {2}’s council for DHX mining",
 	"proceed": "Proceed",
 	"confirmed": "Confirmed",
-	"congrats_mining": "Congratulations!\nYou are now Mining DHX"
+	"congrats_mining": "Congratulations!\nYou are now Mining DHX",
+	"x_months": "{0} Months",
+	"minimum_duration": "Minimum Duration"
 }

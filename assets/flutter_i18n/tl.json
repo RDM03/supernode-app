@@ -422,5 +422,7 @@
 	"lock_confirm_message": "Malapit mo nang i-lock ang {0} MXC sa loob ng {1} buwan, na sumasali sa konseho ni {2} para sa pagmimina ng DHX",
 	"proceed": "Magpatuloy",
 	"confirmed": "Nakumpirma",
-	"congrats_mining": "Wala kay gibuhat diha"
+	"congrats_mining": "Wala kay gibuhat diha",
+	"x_months": "{0} buwan",
+	"minimum_duration": "Pinakamababa"
 }

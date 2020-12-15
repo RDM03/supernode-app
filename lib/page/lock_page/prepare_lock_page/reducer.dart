@@ -8,6 +8,7 @@ Reducer<PrepareLockState> buildReducer() {
     <Object, Reducer<PrepareLockState>>{
       PrepareLockAction.resSuccess: _resSuccess,
       PrepareLockAction.balance: _balance,
+      PrepareLockAction.minersOwned: _minersOwned,
     },
   );
 }
@@ -24,4 +25,11 @@ PrepareLockState _balance(PrepareLockState state, Action action) {
 
   final PrepareLockState newState = state.clone();
   return newState..balance = balance;
+}
+
+PrepareLockState _minersOwned(PrepareLockState state, Action action) {
+  int minersOwned = action.payload;
+
+  final PrepareLockState newState = state.clone();
+  return newState..minersOwned = minersOwned;
 }

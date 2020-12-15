@@ -422,5 +422,7 @@
 	"lock_confirm_message": "您将在 Mxc {0}月{1}， 加入{2} DHX 采矿委员会",
 	"proceed": "继续",
 	"confirmed": "已確認",
-	"congrats_mining": "祝贺！\n您现在正在开采 DHX"
+	"congrats_mining": "祝贺！\n您现在正在开采 DHX",
+	"x_months": "{0}月",
+	"minimum_duration": "最小持续时间"
 }

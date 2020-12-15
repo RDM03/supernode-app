@@ -422,5 +422,7 @@
 	"lock_confirm_message": "Bạn sắp khóa MXC {0} trong {1} tháng, gia nhập hội {2} của chính mình để khai thác DHX",
 	"proceed": "Xử lý",
 	"confirmed": "Đã xác nhận",
-	"congrats_mining": "Chúc mừng!\nBây giờ bạn đang khai thác DHX"
+	"congrats_mining": "Chúc mừng!\nBây giờ bạn đang khai thác DHX",
+	"x_months": "{0} tháng",
+	"minimum_duration": "Thời gian tối thiểu"
 }

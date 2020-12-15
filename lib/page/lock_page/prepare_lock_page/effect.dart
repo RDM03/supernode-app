@@ -2,7 +2,9 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/daos/demo/gateways_dao.dart';
 import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
+import 'package:supernodeapp/common/daos/gateways_dao.dart';
 import 'package:supernodeapp/common/daos/wallet_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
@@ -24,8 +26,12 @@ WalletDao _buildWalletDao(Context<PrepareLockState> ctx) {
   return ctx.state.isDemo ? DemoWalletDao() : WalletDao();
 }
 
-void _onInitState(Action action, Context<PrepareLockState> ctx) {
-  _balance(ctx);
+GatewaysDao _buildGatewaysDao(Context<PrepareLockState> ctx) =>
+    ctx.state.isDemo ? DemoGatewaysDao() : GatewaysDao();
+
+void _onInitState(Action action, Context<PrepareLockState> ctx) async {
+  await _minersOwned(ctx);
+  await _balance(ctx);
 }
 
 void _resultPage(Context<PrepareLockState> ctx, String type, dynamic res) {
@@ -69,13 +75,13 @@ void _onConfirm(Action action, Context<PrepareLockState> ctx) async {
   final formValid = ctx.state.formKey.currentState.validate();
   if (!formValid) return;
 
-  final val =
-      Navigator.of(ctx.context).pushNamed('confirm_lock_page', arguments: {
+  final val = await Navigator.of(ctx.context)
+      .pushNamed('join_council_page', arguments: {
     'amount': ctx.state.amountCtl.text,
     'boostRate': ctx.state.boostRate,
     'months': ctx.state.months,
-    'minerOwned': ctx.state.numberOfMiner,
-    'council': 'Council Name',
+    'minersOwned': ctx.state.minersOwned,
+    'councilName': 'Council Name',
     'miningPower': ctx.state.miningPower,
   });
 
@@ -88,6 +94,19 @@ void _onConfirm(Action action, Context<PrepareLockState> ctx) async {
 
 void _process(Action action, Context<PrepareLockState> ctx) async {
   await _stake(ctx);
+}
+
+Future<void> _minersOwned(Context<PrepareLockState> ctx) async {
+  final dao = _buildGatewaysDao(ctx);
+  SettingsState settingsData = GlobalStore.store.getState().settings;
+  Map data = {
+    "organizationID": settingsData.selectedOrganizationId,
+    "offset": 0,
+    "limit": 1,
+  };
+  final res = await dao.list(data);
+  int total = int.parse(res['totalCount']);
+  ctx.dispatch(PrepareLockActionCreator.minersOwned(total));
 }
 
 Future<void> _balance(Context<PrepareLockState> ctx) async {

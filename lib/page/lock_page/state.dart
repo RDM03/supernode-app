@@ -28,7 +28,10 @@ LockState initState(Map<String, dynamic> args) {
   double balance = args['balance'] ?? 0;
 
   return LockState()
-    ..boost9m = 0.40
+    ..boost24m = 0.40
+    ..boost12m = 0.20
+    ..boost9m = 0.10
+    ..boost3m = 0
     ..isDemo = isDemo
     ..balance = balance;
 }

@@ -1,6 +1,12 @@
 import 'package:fish_redux/fish_redux.dart';
 
-enum PrepareLockAction { onConfirm, process, resSuccess, balance }
+enum PrepareLockAction {
+  onConfirm,
+  process,
+  resSuccess,
+  balance,
+  minersOwned,
+}
 
 class PrepareLockActionCreator {
   static Action onConfirm() {
@@ -17,5 +23,9 @@ class PrepareLockActionCreator {
 
   static Action balance(double balance) {
     return Action(PrepareLockAction.balance, payload: balance);
+  }
+
+  static Action minersOwned(int minersCount) {
+    return Action(PrepareLockAction.minersOwned, payload: minersCount);
   }
 }

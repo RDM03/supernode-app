@@ -422,5 +422,7 @@
 	"lock_confirm_message": "Anda akan mengunci {0} MXC selama {1} bulan, bergabung dengan dewan {2} untuk penambangan DHX",
 	"proceed": "Lanjutkan",
 	"confirmed": "Terkonfirmasi",
-	"congrats_mining": "Selamat!\nAnda sekarang Menambang DHX"
+	"congrats_mining": "Selamat!\nAnda sekarang Menambang DHX",
+	"x_months": "{0} bulan",
+	"minimum_duration": "Durasi Minimum"
 }

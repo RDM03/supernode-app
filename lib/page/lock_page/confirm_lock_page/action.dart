@@ -10,12 +10,4 @@ class ConfirmLockActionCreator {
   static Action resSuccess(bool toogle) {
     return Action(ConfirmLockAction.resSuccess, payload: toogle);
   }
-
-  static Action process([String otpCode]) {
-    return Action(ConfirmLockAction.process, payload: otpCode);
-  }
-
-  static Action balance(double balance) {
-    return Action(ConfirmLockAction.balance, payload: balance);
-  }
 }

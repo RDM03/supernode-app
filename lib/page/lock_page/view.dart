@@ -2,14 +2,10 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/common/components/page/link.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
-import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/configs/images.dart';
-import 'package:supernodeapp/configs/sys.dart';
-import 'package:supernodeapp/page/lock_page/mining_info.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -137,10 +133,8 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
                     context: context,
                     months: 3,
                     color: lock3Color,
-                    boostText: state.boost3m == null
-                        ? null
-                        : '${round(state.boost3m)}% ' +
-                            FlutterI18n.translate(context, 'mining_boost'),
+                    boostText:
+                        FlutterI18n.translate(context, 'minimum_duration'),
                     boostRate: state.boost3m,
                   ),
                 ],

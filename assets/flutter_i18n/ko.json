@@ -422,5 +422,7 @@
 	"lock_confirm_message": "당신은 {1} 개월 동안 {0} MXC를 잠그려고, DHX 광산에 대한 {2} 위원회에 합류",
 	"proceed": "진행",
 	"confirmed": "확인완료",
-	"congrats_mining": "축!\n이제 채굴 DHX"
+	"congrats_mining": "축!\n이제 채굴 DHX",
+	"x_months": "{0}개월",
+	"minimum_duration": "최소 기간"
 }

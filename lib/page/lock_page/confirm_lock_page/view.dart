@@ -5,6 +5,8 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
+import 'package:supernodeapp/common/components/security/biometrics.dart';
+import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import 'action.dart';
@@ -15,14 +17,17 @@ Widget buildView(
   final context = viewService.context;
 
   return GestureDetector(
-    key: Key('lockAmountView'),
+    key: Key('confirmLockPageView'),
     onTap: () =>
         FocusScope.of(viewService.context).requestFocus(new FocusNode()),
     child: pageFrame(
       context: viewService.context,
       scaffoldKey: state.scaffoldKey,
       children: [
-        pageNavBar(FlutterI18n.translate(context, 'dhx_mining')),
+        pageNavBar(
+          FlutterI18n.translate(context, 'dhx_mining'),
+          onTap: () => Navigator.of(context).pop(),
+        ),
         SizedBox(height: 35),
         SizedBox(
           width: double.infinity,
@@ -37,7 +42,7 @@ Widget buildView(
           width: double.infinity,
           child: Text(
             FlutterI18n.translate(context, 'mining_confirm_tip')
-              ..replaceAll('{0}', '24'),
+                .replaceAll('{0}', state.months.toString()),
             style: kMiddleFontOfGrey,
             textAlign: TextAlign.center,
           ),
@@ -48,7 +53,7 @@ Widget buildView(
             Text(FlutterI18n.translate(context, 'mining_start_date')),
             Expanded(
               child: Text(
-                FlutterI18n.translate(context, '2020-01-01'),
+                Tools.dateFormat(state.startDate),
                 textAlign: TextAlign.right,
               ),
             ),
@@ -60,7 +65,7 @@ Widget buildView(
             Text(FlutterI18n.translate(context, 'mining_end_date')),
             Expanded(
               child: Text(
-                FlutterI18n.translate(context, '2022-01-01'),
+                Tools.dateFormat(state.endDate),
                 textAlign: TextAlign.right,
               ),
             ),
@@ -72,7 +77,7 @@ Widget buildView(
             Text(FlutterI18n.translate(context, 'amount')),
             Expanded(
               child: Text(
-                FlutterI18n.translate(context, '1234567 MXC'),
+                FlutterI18n.translate(context, '${state.amount} MXC'),
                 textAlign: TextAlign.right,
               ),
             ),
@@ -91,13 +96,14 @@ Widget buildView(
             Text(FlutterI18n.translate(context, 'mining_duration')),
             Expanded(
               child: Text(
-                FlutterI18n.translate(context, '24 Month'),
+                FlutterI18n.translate(context, 'x_months')
+                    .replaceAll('{0}', state.months.toString()),
                 textAlign: TextAlign.right,
               ),
             ),
             Expanded(
               child: Text(
-                FlutterI18n.translate(context, '40 %'),
+                FlutterI18n.translate(context, 'TODO %'),
                 textAlign: TextAlign.right,
               ),
             ),
@@ -109,13 +115,13 @@ Widget buildView(
             Text(FlutterI18n.translate(context, 'miner_owner')),
             Expanded(
               child: Text(
-                FlutterI18n.translate(context, '1'),
+                state.minersOwned.toString(),
                 textAlign: TextAlign.right,
               ),
             ),
             Expanded(
               child: Text(
-                FlutterI18n.translate(context, '100 %'),
+                FlutterI18n.translate(context, 'TODO %'),
                 textAlign: TextAlign.right,
               ),
             ),
@@ -127,7 +133,7 @@ Widget buildView(
             Text(FlutterI18n.translate(context, 'council')),
             Expanded(
               child: Text(
-                FlutterI18n.translate(context, 'Council Name'),
+                FlutterI18n.translate(context, state.councilName),
                 textAlign: TextAlign.right,
               ),
             ),
@@ -150,7 +156,7 @@ Widget buildView(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Center(
                 child: Text(
-                  '1500 Mil mPower',
+                  '${state.miningPower.toStringAsFixed(0)} Mil mPower',
                   style: kMiddleFontOfBlack,
                 ),
               ),
@@ -186,7 +192,7 @@ Widget buildView(
         ),
         submitButton(
           FlutterI18n.translate(context, 'proceed'),
-          onPressed: () => _proceed(state.scaffoldKey.currentState),
+          onPressed: () => _proceed(dispatch, state),
           key: ValueKey('submitButton'),
         )
       ],
@@ -194,9 +200,9 @@ Widget buildView(
   );
 }
 
-_proceed(ScaffoldState scaffoldState) {
+_proceed(Dispatch dispatch, ConfirmLockState state) {
   showCupertinoModalPopup(
-    context: scaffoldState.context,
+    context: state.scaffoldKey.currentState.context,
     builder: (ctx) => CupertinoActionSheet(
       message: Column(
         children: [
@@ -207,9 +213,9 @@ _proceed(ScaffoldState scaffoldState) {
           SizedBox(height: 16),
           Text(
             FlutterI18n.translate(ctx, 'lock_confirm_message')
-                .replaceAll('{0}', '123123')
-                .replaceAll('{1}', '24')
-                .replaceAll('{2}', '1724**.com'),
+                .replaceAll('{0}', state.amount)
+                .replaceAll('{1}', state.months.toString())
+                .replaceAll('{2}', state.council.name),
             style: kMiddleFontOfBlack,
             textAlign: TextAlign.center,
           ),
@@ -217,13 +223,30 @@ _proceed(ScaffoldState scaffoldState) {
         ],
       ),
       actions: [
-        CupertinoActionSheetAction(
-          child: Text(
-            FlutterI18n.translate(ctx, 'proceed_anyway'),
-            style: kBigFontOfBlue,
-          ),
-          onPressed: () => Navigator.of(ctx).pushNamed('result_lock_page',
-              arguments: {'isDemo': true, 'transactionId': 'txid'}),
+        StreamBuilder<Duration>(
+          stream:
+              UiUtils.timeLeftStream(state.openTime.add(Duration(seconds: 30))),
+          builder: (_, snap) {
+            if (snap.data == null) return Container();
+            final dur = snap.data;
+            if (dur.isNegative) {
+              return CupertinoActionSheetAction(
+                child: Text(FlutterI18n.translate(ctx, 'proceed_anyway')),
+                onPressed: () async {
+                  final authenticated = await Biometrics.authenticateAsync(ctx);
+                  if (!authenticated) return;
+                  dispatch(ConfirmLockActionCreator.onConfirm());
+                },
+                key: ValueKey('submitButton'),
+              );
+            }
+            return CupertinoActionSheetAction(
+              child: Text(FlutterI18n.translate(ctx, 'proceed_anyway') +
+                  ' (${dur.inSeconds})'),
+              key: ValueKey('submitButtonTimeout'),
+              onPressed: () {},
+            );
+          },
         ),
       ],
       cancelButton: CupertinoActionSheetAction(

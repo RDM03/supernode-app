@@ -422,5 +422,7 @@
 	"lock_confirm_message": "Você está prestes a travar {0} MXC por {1} meses, juntando-se ao conselho de mineração da {2} para a mineração DHX",
 	"proceed": "Avançar",
 	"confirmed": "Confirmados",
-	"congrats_mining": "Parabéns!\nVocê agora está balançando Gênesis"
+	"congrats_mining": "Parabéns!\nVocê agora está balançando Gênesis",
+	"x_months": "{0} meses",
+	"minimum_duration": "duração mínima necessária"
 }

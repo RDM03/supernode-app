@@ -13,7 +13,7 @@ class PrepareLockState implements Cloneable<PrepareLockState> {
   double balance;
   Color iconColor;
 
-  int numberOfMiner;
+  int minersOwned;
   double miningPower;
 
   @override
@@ -27,7 +27,7 @@ class PrepareLockState implements Cloneable<PrepareLockState> {
       ..balance = balance
       ..iconColor = iconColor
       ..boostRate = boostRate
-      ..numberOfMiner = numberOfMiner
+      ..minersOwned = minersOwned
       ..miningPower = miningPower;
   }
 }
@@ -43,6 +43,6 @@ PrepareLockState initState(Map<String, dynamic> args) {
     ..iconColor = iconColor
     ..boostRate = boostRate
     ..amountCtl = TextEditingController(text: '0')
-    ..numberOfMiner = 0
+    ..minersOwned
     ..miningPower = 0;
 }
