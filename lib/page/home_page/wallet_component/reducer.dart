@@ -10,7 +10,8 @@ Reducer<WalletState> buildReducer() {
       WalletAction.expand: _expand,
       WalletAction.selectToken: _selectToken,
       WalletAction.addDHX: _addDHX,
-      WalletAction.balanceDHX: _addDHXData,
+      WalletAction.balanceDHX: _balanceDHX,
+      WalletAction.dataDHX: _dataDHX,
       WalletAction.loadingHistory: _loadingHistory,
       WalletAction.tab: _tab,
       WalletAction.isSetDate: _isSetDate,
@@ -46,11 +47,19 @@ WalletState _addDHX(WalletState state, Action action) {
   return newState;
 }
 
-WalletState _addDHXData(WalletState state, Action action) {
+WalletState _balanceDHX(WalletState state, Action action) {
   double balanceDHX = action.payload;
   final WalletState newState = state.clone();
   return newState
     ..balanceDHX = balanceDHX;
+}
+
+WalletState _dataDHX(WalletState state, Action action) {
+  Map data = action.payload;
+  final WalletState newState = state.clone();
+  return newState
+    ..lockedAmount = data['lockedAmount']
+    ..totalRevenueDHX = data['totalRevenueDHX'];
 }
 
 WalletState _loadingHistory(WalletState state, Action action) {

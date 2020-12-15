@@ -287,6 +287,7 @@ void _onAddDHX (Action action, Context<WalletState> ctx) {
     ctx.dispatch(WalletActionCreator.addDHX());
 
     _requestUserDHXBalance(ctx);
+    _requestLockedAmount_TotalRevenue(ctx);
   }
 }
 
@@ -304,7 +305,7 @@ void _requestUserDHXBalance (Context<WalletState> ctx) async {
 
       var res = await dao.balance(data);
       double balanceDHX = Tools.convertDouble(res['balance']);
-      mLog('DHX balance', '$res $balanceDHX');
+      mLog('DHX balance', '$res');
       if (settingsData.username.isNotEmpty) {
         LocalStorageDao.saveUserData(
             'user_${settingsData.username}', {balanceDHXlabel: balanceDHX});
@@ -314,6 +315,39 @@ void _requestUserDHXBalance (Context<WalletState> ctx) async {
       ctx.dispatch(HomeActionCreator.loadingMap(balanceDHXlabel));
     } catch (err) {
       tip(ctx.context, 'WalletDao balance: $err');
+    }
+  }
+}
+
+void _requestLockedAmount_TotalRevenue (Context<WalletState> ctx) async {
+  const String lockedAmountLabel = 'lockedAmount';
+  SettingsState settingsData = GlobalStore.store.getState().settings;
+  if (settingsData.selectedOrganizationId.isNotEmpty) {
+    ctx.dispatch(HomeActionCreator.loadingMap(lockedAmountLabel, type:"remove"));
+
+    String orgId = settingsData.selectedOrganizationId;
+    try {
+      StakeDao dao = _buildStakeDao(ctx);
+      Map data = {'chairOrgId': 0, 'organizationId': orgId};
+
+      var res = await dao.dhxStakesList(data);
+      mLog('dhxStakesList', '$res');
+      double lockedAmount = 0.0;
+      double totalRevenueDHX = 0.0;
+      for (var stake in res['stake']??[]) {
+        lockedAmount += Tools.convertDouble(stake['amount']);
+        totalRevenueDHX += Tools.convertDouble(stake['dhxMined']);
+      }
+      Map dataDHX = {lockedAmountLabel: lockedAmount, 'totalRevenueDHX': totalRevenueDHX};
+      if (settingsData.username.isNotEmpty) {
+        LocalStorageDao.saveUserData(
+            'user_${settingsData.username}', dataDHX);
+      }
+
+      ctx.dispatch(WalletActionCreator.dataDHX(dataDHX));
+      ctx.dispatch(HomeActionCreator.loadingMap(lockedAmountLabel));
+    } catch (err) {
+      tip(ctx.context, 'StakeDao dhxStakesList: $err');
     }
   }
 }

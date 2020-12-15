@@ -226,6 +226,15 @@ void _loadUserData(Context<HomeState> ctx) {
     ctx.dispatch(HomeActionCreator.balance(data['balance']));
   if (data['balanceDHX'] != null)
     ctx.dispatch(HomeActionCreator.balanceDHX(data['balanceDHX']));
+
+  Map dataDHX = {};
+  if (data['lockedAmount'] != null)
+    dataDHX['lockedAmount'] = data['lockedAmount'];
+  if (data['totalRevenueDHX'] != null)
+    dataDHX['totalRevenueDHX'] = data['totalRevenueDHX'];
+  if (dataDHX.isNotEmpty)
+    ctx.dispatch(HomeActionCreator.dataDHX(dataDHX));
+
   if (data['miningIncome'] != null)
     ctx.dispatch(HomeActionCreator.miningIncome(data['miningIncome']));
   if (data['stakedAmount'] != null)

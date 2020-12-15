@@ -48,26 +48,29 @@ Widget buildView(
                 ]),
               ),
               titleDetailRow(
-                loading: !state.loadingMap.contains((tkn == Token.MXC) ? 'balance' :  'balanceDHX'),
+                loading: !state.loadingMap.contains((tkn == Token.MXC) ? 'balance' : 'balanceDHX'),
                 name: FlutterI18n.translate(_ctx, 'current_balance'),
                 value: Tools.priceFormat((tkn == Token.MXC) ? state.balance : state.balanceDHX),
                 token: (tkn == Token.MXC) ? "MXC" : "DHX"),
+
               (state.expandedView && tkn == Token.DHX)
               ? titleDetailRow(
-                  loading: !state.loadingMap.contains('balance'),//TODO
+                  loading: !state.loadingMap.contains('lockedAmount'),
                   name: FlutterI18n.translate(_ctx, 'locked_amount'),
-                  value: Tools.priceFormat(7060.00),//TODO replace 7060.00
+                  value: Tools.priceFormat(state.lockedAmount),
                   token: "DHX")
               : SizedBox(),
+
               titleDetailRow(
-                loading: !state.loadingMap.contains('stakedAmount'),
+                loading: (tkn == Token.MXC) && !state.loadingMap.contains('stakedAmount'),
                 name: FlutterI18n.translate(_ctx, 'staked_amount'),
                 value: (tkn == Token.MXC) ? Tools.priceFormat(state.stakedAmount) : FlutterI18n.translate(_ctx, 'not_available'),
                 token: (tkn == Token.MXC) ? "MXC" : ""),
+
               titleDetailRow(
-                loading: !state.loadingMap.contains('totalRevenue'),
+                loading: !state.loadingMap.contains((tkn == Token.MXC) ? 'totalRevenue' : 'lockedAmount'),
                 name: FlutterI18n.translate(_ctx, 'total_revenue'),
-                value: Tools.priceFormat((tkn == Token.MXC) ? state.totalRevenue : 7060.00, range: 2),//TODO replace 7060.00
+                value: Tools.priceFormat((tkn == Token.MXC) ? state.totalRevenue : state.totalRevenueDHX, range: 2),
                 token: (tkn == Token.MXC) ? "MXC" : "DHX")
             ],
           )

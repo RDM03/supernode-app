@@ -9,6 +9,7 @@ class StakeApi {
   static const String activestakes = '/api/staking/{orgId}/activestakes';
   static const String revenue = '/api/staking/{orgId}/revenue';
   static const String stakingPercentage = '/api/staking/staking_percentage';
+  static const String dhx_list_stakes = "/api/dhx-mining/list-stakes";
 }
 
 class StakeDao extends Dao {
@@ -38,5 +39,9 @@ class StakeDao extends Dao {
 
   Future<dynamic> stakingPercentage() {
     return get(url: StakeApi.stakingPercentage);
+  }
+
+  Future<dynamic> dhxStakesList(Map data) {
+    return get(url: StakeApi.dhx_list_stakes, data: data);
   }
 }

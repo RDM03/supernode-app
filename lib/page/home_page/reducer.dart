@@ -17,6 +17,7 @@ Reducer<HomeState> buildReducer() {
       HomeAction.profile: _profile,
       HomeAction.balance: _balance,
       HomeAction.balanceDHX: _balanceDHX,
+      HomeAction.dataDHX: _dataDHX,
       HomeAction.stakedAmount: _stakedAmount,
       HomeAction.gateways: _gateways,
       HomeAction.miningIncome: _miningIncome,
@@ -116,6 +117,15 @@ HomeState _balanceDHX(HomeState state, Action action) {
 
   final HomeState newState = state.clone();
   return newState..balanceDHX = balanceDHX;
+}
+
+HomeState _dataDHX(HomeState state, Action action) {
+  Map data = action.payload;
+
+  final HomeState newState = state.clone();
+  return newState
+    ..lockedAmount = data['lockedAmount']
+    ..totalRevenueDHX = data['totalRevenueDHX'];
 }
 
 HomeState _stakedAmount(HomeState state, Action action) {

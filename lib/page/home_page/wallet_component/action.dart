@@ -8,6 +8,7 @@ enum WalletAction {
   onAddDHX,
   addDHX,
   balanceDHX,
+  dataDHX,
   loadingHistory,
   tab,
   onTab,
@@ -44,6 +45,10 @@ class WalletActionCreator {
 
   static Action balanceDHX(double balanceDHX) {
     return Action(WalletAction.balanceDHX, payload: balanceDHX);
+  }
+
+  static Action dataDHX(Map data) {
+    return Action(WalletAction.dataDHX, payload: data);
   }
 
   static Action loadingHistory(bool toogle) {

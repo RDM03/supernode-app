@@ -11,6 +11,7 @@ enum HomeAction {
   profile,
   balance,
   balanceDHX,
+  dataDHX,
   mapbox,
   geojsonList,
   stakedAmount,
@@ -71,6 +72,10 @@ class HomeActionCreator {
 
   static Action balanceDHX(double balanceDHX) {
     return Action(HomeAction.balanceDHX, payload: balanceDHX);
+  }
+
+  static Action dataDHX(Map data) {
+    return Action(HomeAction.dataDHX, payload: data);
   }
 
   static Action mapbox(){
