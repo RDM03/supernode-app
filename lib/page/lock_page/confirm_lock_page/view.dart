@@ -131,7 +131,7 @@ Widget buildView(
                     child: Text(
                       FlutterI18n.translate(
                         context,
-                        minersBoost(
+                        getMinersBoost(
                               double.tryParse(state.amount),
                               state.minersOwned,
                             ).toStringAsFixed(0) +
