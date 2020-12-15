@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/done.dart';
-import 'package:supernodeapp/common/components/page/page_content.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
@@ -56,6 +55,7 @@ Widget buildView(
         submitButton(
           FlutterI18n.translate(context, 'done'),
           onPressed: () => Navigator.pop(viewService.context),
+          key: ValueKey('submitButton'),
         ),
         SizedBox(height: 50),
       ],

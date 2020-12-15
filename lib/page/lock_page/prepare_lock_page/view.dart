@@ -238,6 +238,7 @@ Widget buildView(
                           monthsToBoost(state.months));
                   return Text(
                     '${mPower?.toStringAsFixed(0) ?? '??'} mPower',
+                    key: ValueKey('mPowerText'),
                     textAlign: TextAlign.right,
                     maxLines: 2,
                     style: kBigFontOfBlack,

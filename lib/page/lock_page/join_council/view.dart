@@ -7,7 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supernodeapp/common/components/page/link.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
-import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import 'action.dart';
@@ -63,6 +62,7 @@ Widget buildView(
             padding: const EdgeInsets.all(20),
             child: Center(
               child: CircularProgressIndicator(
+                key: ValueKey('circularProgressIndicator'),
                 valueColor: AlwaysStoppedAnimation(Color(0xFF4665EA)),
               ),
             ),
@@ -85,7 +85,7 @@ Widget buildView(
               child: InkWell(
                 onTap: () => dispatch(
                     JoinCouncilActionCreator.onConfirm(state.councils[i])),
-                key: ValueKey('submitButton'),
+                key: ValueKey('councilItem#$i'),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),

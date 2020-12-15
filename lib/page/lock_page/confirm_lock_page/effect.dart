@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
+import 'package:supernodeapp/common/daos/demo/dhx_dao.dart';
 import 'package:supernodeapp/common/daos/dhx_dao.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
@@ -16,7 +17,7 @@ Effect<ConfirmLockState> buildEffect() {
 }
 
 DhxDao _buildDhxDao(Context<ConfirmLockState> ctx) =>
-    ctx.state.isDemo ? DhxDao() : DhxDao();
+    ctx.state.isDemo ? DemoDhxDao() : DhxDao();
 
 void _onConfirm(Action action, Context<ConfirmLockState> ctx) async {
   final council = ctx.state.council;
