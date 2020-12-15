@@ -25,6 +25,6 @@ double minersBoost(double mxcValue, int minersCount) {
 }
 
 double calculateMiningPower(double mxcValue, int minersCount, double boost) {
-  return (mxcValue + minersBoost(mxcValue, minersCount) * (boost + 1))
-      .floorToDouble();
+  return (mxcValue + minersBoost(mxcValue, minersCount)) *
+      (boost + 1).floorToDouble();
 }
