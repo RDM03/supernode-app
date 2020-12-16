@@ -59,7 +59,8 @@ WalletState _dataDHX(WalletState state, Action action) {
   final WalletState newState = state.clone();
   return newState
     ..lockedAmount = data['lockedAmount']
-    ..totalRevenueDHX = data['totalRevenueDHX'];
+    ..totalRevenueDHX = data['totalRevenueDHX']
+    ..stakeDHXList = data['list'];
 }
 
 WalletState _loadingHistory(WalletState state, Action action) {

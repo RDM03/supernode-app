@@ -43,12 +43,12 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
 
   List<dynamic> get _currentList => (selectedToken == Token.MXC)
     ? activeTabToken[selectedToken] == 0 ? walletList : stakeList
-    : activeTabToken[selectedToken] == 0 ? miningList : transactions;
+    : activeTabToken[selectedToken] == 0 ? stakeDHXList : transactions;
 
   List<StakeItemState> stakeList = [];
   List<WalletItemState> walletList = [];
-  List<StakeItemState> miningList = [];//TODO DHX
-  List<WalletItemState> transactions = [];//TODO DHX
+  List<StakeDHXItemState> stakeDHXList = [];
+  List<WalletItemState> transactions = [];
 
   @override
   Object getItemData(int index) {
@@ -85,6 +85,8 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
       ..loadingHistory = loadingHistory
       ..walletList = walletList
       ..stakeList = stakeList
+      ..stakeDHXList = stakeDHXList
+      ..transactions = transactions
       ..organizations = organizations
       ..activeTabToken = activeTabToken
       ..isSetDate1 = isSetDate1

@@ -4,8 +4,10 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/stake/stake_item.dart';
 import 'package:supernodeapp/common/components/wallet/list_item.dart';
 import 'package:supernodeapp/page/home_page/wallet_component/action.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
+import '../../state.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -58,6 +60,29 @@ Widget buildView(
       onTap: () => dispatch(
           WalletActionCreator.onStakeDetails(state.historyEntity.stake)),
       key: ValueKey('stakeItem_${state.historyEntity.stake.id}'),
+    );
+  }
+  if (state is StakeDHXItemState) {
+    final month = (state.historyEntity.lockTill == null)
+        ? null
+        : (state.historyEntity.lockTill.difference(state.historyEntity.created).inDays / 30).floor();
+
+    // If the record is still in lock, so the icon is locked. If you unstake, the icon will be unlock
+    final showLockOpenIcon = (state.historyEntity.lockTill == null || state.historyEntity.lockTill.isBefore(DateTime.now()));
+
+    final dateDiff = (showLockOpenIcon) ? 0: state.historyEntity.lockTill.difference(DateTime.now()).inDays.abs();
+
+    return StakeItem(
+      amount: state.historyEntity.dhxMined,
+      currency: state.historyEntity.currency,
+      stakedAmount: state.historyEntity.amount,
+      id: state.historyEntity.id,
+      startDate: state.historyEntity.created,
+      durationDays: dateDiff,
+      isLast: state.isLast,
+      iconColor: colorToken[Token.DHX],
+      months: month,
+      showLockOpenIcon: showLockOpenIcon,
     );
   }
   throw UnimplementedError('Unknown state type ${state.runtimeType}');

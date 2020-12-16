@@ -14,6 +14,7 @@ import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/home_page/action.dart';
+import 'package:supernodeapp/page/home_page/wallet_component/wallet_list_adapter/wallet_item_component/state.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 
@@ -334,15 +335,20 @@ void _requestLockedAmount_TotalRevenue (Context<WalletState> ctx) async {
       mLog('dhxStakesList', '$res');
       double lockedAmount = 0.0;
       double totalRevenueDHX = 0.0;
+      final List<StakeDHXItemState> list = [];
       for (var stake in res['stake']??[]) {
         lockedAmount += Tools.convertDouble(stake['amount']);
         totalRevenueDHX += Tools.convertDouble(stake['dhxMined']);
+        list.add(StakeDHXItemState(StakeDHXItemEntity.fromMap(stake)));
       }
+      if (list.length > 0) list[list.length - 1].isLast = true;
+
       Map dataDHX = {lockedAmountLabel: lockedAmount, 'totalRevenueDHX': totalRevenueDHX};
       if (settingsData.username.isNotEmpty) {
         LocalStorageDao.saveUserData(
             'user_${settingsData.username}', dataDHX);
       }
+      dataDHX['list'] = list;
 
       ctx.dispatch(WalletActionCreator.dataDHX(dataDHX));
       ctx.dispatch(HomeActionCreator.loadingMap(lockedAmountLabel));
