@@ -427,5 +427,19 @@
 	"minimum_duration": "Минимальная длительность",
 	"latest_mpower": "Последний mPower",
 	"info_mxc_lock": "Выберите предпочтительный метод блокировки / награды",
-	"info_lock_boost": "Усиления, обеспечиваемые майнером M2 Pro, ограничены 1 миллионом мВт на майнер."
+	"info_lock_boost": "Усиления, обеспечиваемые майнером M2 Pro, ограничены 1 миллионом мВт на майнер.",
+	"amount_of_miner": "Количество майнеров",
+	"amount_of_miner_desc": "Количество ваших M2 Pro",
+	"miner": "Майнер",
+	"mxc_lockdrop_duration": "Длительность блокировки MXC",
+	"months_lockdrop_duration": "{0} месяцев ({1})",
+	"no_boost": "(без ускорения)",
+	"dhx_fuel": "Топливо DHX",
+	"not_activated_yet": "Не активирована",
+	"estimated_dhx_daily": "Ориентировочный ежедневный DHX",
+	"estimated_mining_power": "Ориентировочный mPower",
+	"mine_dhx": "Майнить DHX",
+	"back": "Назад",
+	"x_boost": "{0} ускорение",
+	"mining_simulator": "Симулятор майнинга"
 }

@@ -427,5 +427,19 @@
 	"minimum_duration": "Minimum süre",
 	"latest_mpower": "En son mPower",
 	"info_mxc_lock": "Tercih ettiğiniz kilit yöntemini / ödüllerini seçin",
-	"info_lock_boost": "M2 Pro Madenci tarafından sağlanan takviyeler, madenci başına 1 milyon mPower ile sınırlandırılmıştır."
+	"info_lock_boost": "M2 Pro Madenci tarafından sağlanan takviyeler, madenci başına 1 milyon mPower ile sınırlandırılmıştır.",
+	"amount_of_miner": "Madenci Miktarı",
+	"amount_of_miner_desc": "Çalıştırdığınız M2 Pro Miktarı",
+	"miner": "Madenci",
+	"mxc_lockdrop_duration": "MXC Kilit Bırakma Süresi",
+	"months_lockdrop_duration": "{0} ay MXC kilit ({1})",
+	"no_boost": "destek yok",
+	"dhx_fuel": "DHX Yakıt",
+	"not_activated_yet": "Henüz aktif değil",
+	"estimated_dhx_daily": "Tahmini DHX Günlük Getirisi",
+	"estimated_mining_power": "Tahmini Madencilik Gücü",
+	"mine_dhx": "Maden",
+	"back": "Geri",
+	"x_boost": "{0} Boost",
+	"mining_simulator": "Madencilik Simülatörü"
 }

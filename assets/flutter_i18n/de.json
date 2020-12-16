@@ -427,5 +427,19 @@
 	"minimum_duration": "Minimale Dauer",
 	"latest_mpower": "Neueste mPower",
 	"info_mxc_lock": "Wählen Sie Ihre bevorzugte Sperrmethode / Belohnung",
-	"info_lock_boost": "Die von einem M2 Pro Miner bereitgestellten Boosts sind auf 1 Million mPower pro Miner begrenzt."
+	"info_lock_boost": "Die von einem M2 Pro Miner bereitgestellten Boosts sind auf 1 Million mPower pro Miner begrenzt.",
+	"amount_of_miner": "Anzahl des Bergmanns",
+	"amount_of_miner_desc": "Anzahl der",
+	"miner": "Bergarbeiter",
+	"mxc_lockdrop_duration": "MXC Lockdrop-Dauer",
+	"months_lockdrop_duration": "{0} Monate ({1})",
+	"no_boost": "Der Ladedruck des Turbo ist gleich null.",
+	"dhx_fuel": "DHX Kraftstoff",
+	"not_activated_yet": "Noch nicht aktiviert.",
+	"estimated_dhx_daily": "Geschätzte TÄGLICHE DHX-Rendite",
+	"estimated_mining_power": "Geschätzte Bergbauleistung",
+	"mine_dhx": "Mine DHX",
+	"back": "Wstecz",
+	"x_boost": "{0} Boost",
+	"mining_simulator": "Bergbausimulator"
 }

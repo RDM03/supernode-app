@@ -427,5 +427,19 @@
 	"minimum_duration": "Pinakamababa",
 	"latest_mpower": "Pinakabagong mPower",
 	"info_mxc_lock": "Piliin ang iyong ginustong pamamaraan / gantimpala ng lock",
-	"info_lock_boost": "Ang mga pagpapalakas na ibinigay ng isang M2 Pro Miner ay na-cap sa 1 milyong mPower bawat minero."
+	"info_lock_boost": "Ang mga pagpapalakas na ibinigay ng isang M2 Pro Miner ay na-cap sa 1 milyong mPower bawat minero.",
+	"amount_of_miner": "Halaga ng betherchip",
+	"amount_of_miner_desc": "ang dami mong pimples",
+	"miner": "Minero",
+	"mxc_lockdrop_duration": "Tagal ng MXC Lockdrop",
+	"months_lockdrop_duration": "{0} buwan MXC lockdrop ({1})",
+	"no_boost": "walang boost",
+	"dhx_fuel": "panggatong",
+	"not_activated_yet": "Hindi pa naka-aktibo ang gumagamit",
+	"estimated_dhx_daily": "Tinantyang DHX Daily Daily",
+	"estimated_mining_power": "Tinantyang Lakas ng Pagmimina",
+	"mine_dhx": "Minahan",
+	"back": "Bumalik",
+	"x_boost": "{0} Boost",
+	"mining_simulator": "Pagmimina"
 }

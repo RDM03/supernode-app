@@ -427,5 +427,19 @@
 	"minimum_duration": "최소 기간",
 	"latest_mpower": "최신 mPower",
 	"info_mxc_lock": "선호하는 잠금 방법 / 보상 선택",
-	"info_lock_boost": "M2 Pro Miner가 제공하는 부스트는 광 부당 1 백만 mPower로 제한됩니다."
+	"info_lock_boost": "M2 Pro Miner가 제공하는 부스트는 광 부당 1 백만 mPower로 제한됩니다.",
+	"amount_of_miner": "광부의 양",
+	"amount_of_miner_desc": "M2 프로 운영량",
+	"miner": "광부",
+	"mxc_lockdrop_duration": "MXC 락 드롭 기간",
+	"months_lockdrop_duration": "{0} 개월 MXC 잠금 ({1})",
+	"no_boost": "부스트 없음",
+	"dhx_fuel": "DHX 연료",
+	"not_activated_yet": "인증되지 않은 사용자입니다",
+	"estimated_dhx_daily": "예상 DHX 일일 수익률",
+	"estimated_mining_power": "추정 채굴 력",
+	"mine_dhx": "마이",
+	"back": "뒤로",
+	"x_boost": "{0} 상위 노출",
+	"mining_simulator": "마이닝 시뮬레이터"
 }

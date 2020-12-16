@@ -5,10 +5,11 @@ Widget pageFrame({
   List<Widget> children,
   EdgeInsetsGeometry padding,
   Key scaffoldKey,
+  bool resizeToAvoidBottomInset = false,
 }) {
   return Scaffold(
     key: scaffoldKey,
-    resizeToAvoidBottomInset: false,
+    resizeToAvoidBottomInset: resizeToAvoidBottomInset,
     body: Container(
       constraints: BoxConstraints.expand(),
       padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),

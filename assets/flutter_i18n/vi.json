@@ -427,5 +427,19 @@
 	"minimum_duration": "Thời gian tối thiểu",
 	"latest_mpower": "MPower mới nhất",
 	"info_mxc_lock": "Chọn phương pháp khóa / phần thưởng ưa thích của bạn",
-	"info_lock_boost": "Các phần tăng cường do M2 Pro Miner cung cấp được giới hạn ở mức 1 triệu mPower cho mỗi người khai thác."
+	"info_lock_boost": "Các phần tăng cường do M2 Pro Miner cung cấp được giới hạn ở mức 1 triệu mPower cho mỗi người khai thác.",
+	"amount_of_miner": "Hàm lượng của Zr",
+	"amount_of_miner_desc": "Hàm lượng của Zr",
+	"miner": "Thợ mỏ",
+	"mxc_lockdrop_duration": "Thời lượng Lockdrop MXC",
+	"months_lockdrop_duration": "{0} tháng MXC lockdrop ({1})",
+	"no_boost": "không tăng",
+	"dhx_fuel": "Dhx nhiên liệu",
+	"not_activated_yet": "Chưa kích hoạt",
+	"estimated_dhx_daily": "Ước tính DHX Hàng ngày Trở lại",
+	"estimated_mining_power": "Công suất khai thác ước tính",
+	"mine_dhx": "Mỏ DHX",
+	"back": "Quay lại",
+	"x_boost": "{0} Tăng thêm",
+	"mining_simulator": "Trình mô phỏng khai thác mỏ"
 }

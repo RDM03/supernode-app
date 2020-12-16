@@ -427,5 +427,19 @@
 	"minimum_duration": "Minimum Duration",
 	"latest_mpower": "Latest mPower",
 	"info_mxc_lock": "Choose your preferred lock method / rewards",
-	"info_lock_boost": "Boosts provided by an M2 Pro Miner are capped at 1 million mPower per miner."
+	"info_lock_boost": "Boosts provided by an M2 Pro Miner are capped at 1 million mPower per miner.",
+	"amount_of_miner": "Amount of Miner",
+	"amount_of_miner_desc": "Amount of M2 Pro You Operate",
+	"miner": "Miner",
+	"mxc_lockdrop_duration": "MXC Lockdrop Duration",
+	"months_lockdrop_duration": "{0} months MXC lockdrop ({1})",
+	"no_boost": "no boost",
+	"dhx_fuel": "DHX Fuel",
+	"not_activated_yet": "Not activated yet",
+	"estimated_dhx_daily": "Estimated DHX Daily Return",
+	"estimated_mining_power": "Estimated Mining Power",
+	"mine_dhx": "Mine DHX",
+	"back": "Back",
+	"x_boost": "{0} boost",
+	"mining_simulator": "Mining Simulator"
 }

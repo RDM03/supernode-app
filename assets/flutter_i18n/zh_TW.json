@@ -427,5 +427,19 @@
 	"minimum_duration": "最小持续时间",
 	"latest_mpower": "最新的mPower",
 	"info_mxc_lock": "選擇您喜歡的鎖定方式/獎勵",
-	"info_lock_boost": "M2 Pro礦機提供的提升上限為每個礦機100萬毫瓦。"
+	"info_lock_boost": "M2 Pro礦機提供的提升上限為每個礦機100萬毫瓦。",
+	"amount_of_miner": "矿工数量",
+	"amount_of_miner_desc": "您操作的 M2 专业版数量",
+	"miner": "矿工",
+	"mxc_lockdrop_duration": "MXC 锁滴持续时间",
+	"months_lockdrop_duration": "{0} MXC 锁滴 （{1}）",
+	"no_boost": "没有助推",
+	"dhx_fuel": "DHX 燃料",
+	"not_activated_yet": "未激活",
+	"estimated_dhx_daily": "每日返还礼劵",
+	"estimated_mining_power": "估计采矿能力",
+	"mine_dhx": "矿山 DHX",
+	"back": "背面",
+	"x_boost": "{0}提升",
+	"mining_simulator": "采矿模拟器"
 }

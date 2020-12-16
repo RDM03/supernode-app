@@ -427,5 +427,19 @@
 	"minimum_duration": "Durasi Minimum",
 	"latest_mpower": "MPower terbaru",
 	"info_mxc_lock": "Pilih metode kunci / hadiah yang Anda sukai",
-	"info_lock_boost": "Peningkatan yang disediakan oleh M2 Pro Miner dibatasi pada 1 juta mPower per penambang."
+	"info_lock_boost": "Peningkatan yang disediakan oleh M2 Pro Miner dibatasi pada 1 juta mPower per penambang.",
+	"amount_of_miner": "Jumlah Penambang",
+	"amount_of_miner_desc": "Jumlah M2 Pro yang Anda Operasikan",
+	"miner": "Miner",
+	"mxc_lockdrop_duration": "Durasi Lockdrop MXC",
+	"months_lockdrop_duration": "{0} bulan ({1})",
+	"no_boost": "tidak ada dorongan",
+	"dhx_fuel": "Bahan Bakar DHX",
+	"not_activated_yet": "Tidak diaktifkan",
+	"estimated_dhx_daily": "Estimasi Pengembalian Harian DHX",
+	"estimated_mining_power": "Estimasi Daya Pertambangan",
+	"mine_dhx": "DHX Tambang",
+	"back": "Kembali",
+	"x_boost": "{0} Dongkrak",
+	"mining_simulator": "Simulator Pertambangan"
 }
