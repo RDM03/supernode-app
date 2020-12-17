@@ -3,9 +3,9 @@ import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
-Widget titleDetailRow ({String name = '', dynamic value, bool loading = false, String token = 'MXC'}) {
+Widget titleDetailRow ({String name = '', dynamic value, bool loading = false, String token = 'MXC', bool disabled = false}) {
   return Container(
-    padding: kRoundRow205,
+    padding: kRoundRow15_5,
     child: Row(
       children: <Widget>[
         Text(
@@ -21,9 +21,9 @@ Widget titleDetailRow ({String name = '', dynamic value, bool loading = false, S
             style: kBigFontOfBlack,
           )
         ) : Text(
-          '$value $token',
+          '$value${token.isNotEmpty?' $token':''}',
           textAlign: TextAlign.left,
-          style: kBigFontOfBlack,
+          style: disabled? kBigFontOfGrey : kBigFontOfBlack,
         )
       ],
     )

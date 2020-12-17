@@ -217,10 +217,7 @@ class StakeItem extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 15,
-              vertical: 10,
-            ),
+            padding: kRoundRow15_5,
             child: Row(
               children: [
                 Container(

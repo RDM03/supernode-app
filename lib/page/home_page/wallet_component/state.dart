@@ -28,6 +28,9 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
 
   List<OrganizationsState> organizations = [];
 
+  //gateways
+  int gatewaysTotal = 0;
+
   //amount
   double balance = 0; // MXC
   double balanceDHX = 0;
@@ -37,6 +40,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   double totalRevenue = 0; // MXC
   double lockedAmount = 0;
   double totalRevenueDHX = 0;
+  double mPower = 0;
 
   //withdraw
   double withdrawFee = 0;
@@ -88,6 +92,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
       ..stakeDHXList = stakeDHXList
       ..transactions = transactions
       ..organizations = organizations
+      ..gatewaysTotal = gatewaysTotal
       ..activeTabToken = activeTabToken
       ..isSetDate1 = isSetDate1
       ..isSetDate2 = isSetDate2
@@ -99,6 +104,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
       ..totalRevenue = totalRevenue
       ..lockedAmount = lockedAmount
       ..totalRevenueDHX =totalRevenueDHX
+      ..mPower = mPower
       ..withdrawFee = withdrawFee
       ..firstTime = firstTime
       ..secondTime = secondTime

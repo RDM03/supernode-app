@@ -335,15 +335,17 @@ void _requestLockedAmount_TotalRevenue (Context<WalletState> ctx) async {
       mLog('dhxStakesList', '$res');
       double lockedAmount = 0.0;
       double totalRevenueDHX = 0.0;
+      double mPower = 0.0;
       final List<StakeDHXItemState> list = [];
       for (var stake in res['stake']??[]) {
+        mPower += Tools.convertDouble(stake['amount']) * (1 + Tools.convertDouble(stake['boost']));
         lockedAmount += Tools.convertDouble(stake['amount']);
         totalRevenueDHX += Tools.convertDouble(stake['dhxMined']);
         list.add(StakeDHXItemState(StakeDHXItemEntity.fromMap(stake)));
       }
       if (list.length > 0) list[list.length - 1].isLast = true;
 
-      Map dataDHX = {lockedAmountLabel: lockedAmount, 'totalRevenueDHX': totalRevenueDHX};
+      Map dataDHX = {lockedAmountLabel: lockedAmount, 'totalRevenueDHX': totalRevenueDHX, 'mPower': mPower};
       if (settingsData.username.isNotEmpty) {
         LocalStorageDao.saveUserData(
             'user_${settingsData.username}', dataDHX);

@@ -60,6 +60,7 @@ WalletState _dataDHX(WalletState state, Action action) {
   return newState
     ..lockedAmount = data['lockedAmount']
     ..totalRevenueDHX = data['totalRevenueDHX']
+    ..mPower = data['mPower']
     ..stakeDHXList = data['list'];
 }
 

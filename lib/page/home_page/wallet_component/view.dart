@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/components/app_bars/home_bar.dart';
 import 'package:supernodeapp/common/components/buttons/circle_button.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/empty.dart';
+import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/common/components/loading_list.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
@@ -35,10 +36,10 @@ Widget buildView(
           child: Column(
             children: [
               Container(
-                padding: kRoundRow205,
+                padding: kRoundRow15_5,
                 child: Row(children: [
                   Image.asset((tkn == Token.MXC) ? AppImages.logoMXC : AppImages.logoDHX, height: s(50)),
-                  Text((tkn == Token.MXC) ? "MXC" : "DHX"),
+                  Text((tkn == Token.MXC) ? "MXC" : "DHX", style: kBigBoldFontOfBlack),
                   Spacer(),
                   state.expandedView
                       ? (tkn == Token.DHX)
@@ -93,9 +94,75 @@ Widget buildView(
   );
 
   Widget miningDHXcard() => panelFrame(
-      child: Padding(
-          padding: kRoundRow105,
-          child: Text("TODO mining DHX card")
+      child: Column(
+          children: [
+            SizedBox(height: s(5)),
+            Container(
+            padding: kRoundRow15_5,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(FlutterI18n.translate(_ctx, "mining"), style: kBigBoldFontOfBlack),
+                  Spacer(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(FlutterI18n.translate(_ctx, "daily_mining_capacity"), style: kSmallFontOfBlack),
+                      SizedBox(height: s(5)),
+                      Text('5000 DHX', style: MiddleFontOfColor(color: colorToken[Token.DHX])),
+                    ],
+                  ),
+                ]
+              ),
+            ),
+          SizedBox(height: s(20)),
+          Row(children:[
+            Spacer(),
+            Column(children: [
+              Text('${state.gatewaysTotal}', style: kSuperBigBoldFont),
+              SizedBox(height: s(5)),
+              Container(
+                decoration: BoxDecoration(
+                  color: colorToken[Token.DHX],
+                  borderRadius: BorderRadius.all(Radius.circular(5))),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                  child: Text(FlutterI18n.translate(_ctx, 'm2pro_miner'), style: kSecondaryButtonOfWhite),
+                )
+              )
+            ]),
+            Spacer(),
+            Column(children: [
+              !state.loadingMap.contains('lockedAmount')
+              ? loadingFlash(child: Text(Tools.priceFormat(state.mPower), style: kPrimaryBigFontOfBlack))
+              : Text(Tools.priceFormat(state.mPower), style: kSuperBigBoldFont),
+              SizedBox(height: s(5)),
+              Container(
+                decoration: BoxDecoration(
+                  color: colorToken[Token.DHX],
+                  borderRadius: BorderRadius.all(Radius.circular(5))),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                  child: Stack(alignment: AlignmentDirectional.center, children: [
+                    Text(FlutterI18n.translate(_ctx, 'm2pro_miner'), style:TextStyle(color: colorToken[Token.DHX], fontFamily: "Roboto", fontSize: 14)),// invisible - sets width for Container
+                    Text(FlutterI18n.translate(_ctx, 'mpower'), style: kSecondaryButtonOfWhite)
+                  ])
+                )
+              )
+            ]),
+            Spacer()
+          ]),
+          SizedBox(height: s(10)),
+          titleDetailRow(
+            name: FlutterI18n.translate(_ctx, 'estimated_dxh_daily_return'),
+            value: FlutterI18n.translate(_ctx, 'coming'),
+            token: "",
+            disabled: true),
+          titleDetailRow(
+            name: FlutterI18n.translate(_ctx, 'supernode_mining_power'),
+            value: 'TODO',
+            token: ""),
+        ]
       )
   );
 
@@ -299,7 +366,7 @@ void _showStakeDialog(BuildContext context, dispatch) {
                   Row(
                     children: [
                       CircleButton(icon: Image.asset(AppImages.iconMine, color: colorToken[Token.MXC])),
-                      SizedBox(width: 10),
+                      SizedBox(width: s(10)),
                       Text(FlutterI18n.translate(context, 'new_stake'),
                         style: TextStyle(
                           color: Colors.black,
@@ -321,7 +388,7 @@ void _showStakeDialog(BuildContext context, dispatch) {
                   Row(
                     children: [
                       CircleButton(icon: Icon(Icons.arrow_back, color: colorToken[Token.MXC])),
-                      SizedBox(width: 10),
+                      SizedBox(width: s(10)),
                       Text(FlutterI18n.translate(context, 'unstake'),
                         style: TextStyle(
                           color: Colors.black,

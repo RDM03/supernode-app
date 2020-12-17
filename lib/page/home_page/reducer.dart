@@ -125,7 +125,8 @@ HomeState _dataDHX(HomeState state, Action action) {
   final HomeState newState = state.clone();
   return newState
     ..lockedAmount = data['lockedAmount']
-    ..totalRevenueDHX = data['totalRevenueDHX'];
+    ..totalRevenueDHX = data['totalRevenueDHX']
+    ..mPower = data['mPower'];
 }
 
 HomeState _stakedAmount(HomeState state, Action action) {
