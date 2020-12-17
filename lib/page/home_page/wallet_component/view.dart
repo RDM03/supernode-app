@@ -38,7 +38,8 @@ Widget buildView(
               Container(
                 padding: kRoundRow15_5,
                 child: Row(children: [
-                  Image.asset((tkn == Token.MXC) ? AppImages.logoMXC : AppImages.logoDHX, height: s(50)),
+                  Image.asset((tkn == Token.MXC) ? AppImages.logoMXC : AppImages.logoDHX),
+                  SizedBox(width: s(3)),
                   Text((tkn == Token.MXC) ? "MXC" : "DHX", style: kBigBoldFontOfBlack),
                   Spacer(),
                   state.expandedView
@@ -312,11 +313,11 @@ void _showAddTokenDialog(BuildContext context, dispatch) {
               )
             ),
             Divider(color: Colors.grey),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: GestureDetector(
-                  onTap: () => dispatch(WalletActionCreator.onAddDHX()),
-                  child:
+            GestureDetector(
+              onTap: () => dispatch(WalletActionCreator.onAddDHX()),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child:
                   Row(
                     children: [
                       Image.asset(AppImages.logoDHX, height: s(50)),
