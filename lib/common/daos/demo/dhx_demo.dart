@@ -29,4 +29,9 @@ class DemoDhxDao extends DemoDao implements DhxDao {
   }) async {
     return 'demo-stake';
   }
+
+  @override
+  Future<LastMiningResponse> lastMining() async {
+    return LastMiningResponse(DateTime.now(), '100000', '90000');
+  }
 }

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 
 import 'dao.dart';
@@ -8,6 +6,7 @@ class DhxApi {
   static final String listCouncils = '/api/dhx-mining/list-councils';
   static final String createCouncil = '/api/dhx-mining/create-council';
   static final String createStake = '/api/dhx-mining/create-stake';
+  static final String lastMining = '/api/dhx-mining/last-mining';
 }
 
 class Council {
@@ -59,6 +58,23 @@ class CreateCouncilResponse {
   }
 }
 
+class LastMiningResponse {
+  final DateTime date;
+  final String dhxAmount;
+  final String miningPower;
+
+  LastMiningResponse(this.date, this.dhxAmount, this.miningPower);
+  factory LastMiningResponse.fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    return LastMiningResponse(
+      DateTime.tryParse(map['date']),
+      map['dhxAmount'],
+      map['miningPower'],
+    );
+  }
+}
+
 class DhxDao extends Dao {
   Future<List<Council>> listCouncils() async {
     final res = await get(url: DhxApi.listCouncils);
@@ -83,7 +99,6 @@ class DhxDao extends Dao {
       'name': name,
       'organizationId': organizationId,
     });
-    print(res);
     return CreateCouncilResponse.fromMap(res);
   }
 
@@ -102,7 +117,11 @@ class DhxDao extends Dao {
       'lockMonths': lockMonths,
       'organizationId': organizationId,
     });
-    print(res);
     return res == null ? null : res['stakeId'];
+  }
+
+  Future<LastMiningResponse> lastMining() async {
+    var res = await get(url: DhxApi.lastMining);
+    return LastMiningResponse.fromMap(Map<String, dynamic>.from(res));
   }
 }
