@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/stake/stake_item.dart';
 import 'package:supernodeapp/common/components/wallet/list_item.dart';
+import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/page/home_page/wallet_component/action.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -73,9 +74,9 @@ Widget buildView(
     final dateDiff = (showLockOpenIcon) ? 0: state.historyEntity.lockTill.difference(DateTime.now()).inDays.abs();
 
     return StakeItem(
-      amount: state.historyEntity.dhxMined,
-      currency: state.historyEntity.currency,
-      stakedAmount: state.historyEntity.amount,
+      amount: Tools.priceFormat(Tools.convertDouble(state.historyEntity.dhxMined), range: 2),
+      currency: 'DHX',
+      stakedAmount: '${state.historyEntity.amount} ${state.historyEntity.currency}',
       id: state.historyEntity.id,
       startDate: state.historyEntity.created,
       durationDays: dateDiff,

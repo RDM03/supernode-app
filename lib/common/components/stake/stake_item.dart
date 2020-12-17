@@ -261,7 +261,7 @@ class StakeItem extends StatelessWidget {
                           ),
                         ],
                       ),
-                      (stakedAmount.isNotEmpty) ? Text('$stakedAmount MXC', style: kSmallFontOfGrey) : SizedBox(),
+                      (stakedAmount.isNotEmpty) ? Text('$stakedAmount', style: kSmallFontOfGrey) : SizedBox(),
                       Text('ID: ' + id, style: kSmallFontOfGrey),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
