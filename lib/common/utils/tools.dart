@@ -61,4 +61,33 @@ class Tools {
     final day = date.day.toString().padLeft(2, '0');
     return '${date.year}-$month-$day';
   }
+
+  static String numberRounded(double number) {
+    if (number == null) return "";
+    String round(double val, int order, {int afterDot = 0}) {
+      final divided = (val / order);
+      if (afterDot == 0) return divided.round().toString();
+      final wholePart = divided.floor();
+      final fractionPart = divided - wholePart;
+      final fractionPartRounded =
+      (fractionPart * 10 * afterDot).roundToDouble();
+      var fractionPartTruncated = fractionPartRounded;
+      while (fractionPartTruncated % 10 == 0 && fractionPartTruncated > 0)
+        fractionPartTruncated /= 10.0;
+
+      if (fractionPartTruncated == 0) return wholePart.toString();
+      return '$wholePart.${fractionPartTruncated.toStringAsFixed(0)}';
+    }
+
+    if (number >= 1000000000) {
+      return '${round(number, 1000000000, afterDot: 1)}b';
+    }
+    if (number >= 1000000) {
+      return '${round(number, 1000000, afterDot: 1)}m';
+    }
+    if (number >= 10000) {
+      return '${round(number, 1000)}k';
+    }
+    return number.round().toString();
+  }
 }

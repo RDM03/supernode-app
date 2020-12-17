@@ -232,6 +232,8 @@ void _loadUserData(Context<HomeState> ctx) {
     dataDHX['lockedAmount'] = data['lockedAmount'];
   if (data['totalRevenueDHX'] != null)
     dataDHX['totalRevenueDHX'] = data['totalRevenueDHX'];
+  if (data['mPower'] != null)
+    dataDHX['mPower'] = data['mPower'];
   if (data['miningPower'] != null)
     dataDHX['miningPower'] = data['miningPower'];
   if (dataDHX.isNotEmpty)

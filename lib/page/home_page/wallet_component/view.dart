@@ -135,8 +135,8 @@ Widget buildView(
             Spacer(),
             Column(children: [
               !state.loadingMap.contains('lockedAmount')
-              ? loadingFlash(child: Text(Tools.priceFormat(state.mPower), style: kPrimaryBigFontOfBlack))
-              : Text(Tools.priceFormat(state.mPower), style: kSuperBigBoldFont),
+              ? loadingFlash(child: Text(Tools.numberRounded(state.mPower), style: kPrimaryBigFontOfBlack))
+              : Text(Tools.numberRounded(state.mPower), style: kSuperBigBoldFont),
               SizedBox(height: s(5)),
               Container(
                 decoration: BoxDecoration(
@@ -162,7 +162,7 @@ Widget buildView(
           titleDetailRow(
             loading: !state.loadingMap.contains('miningPower'),
             name: FlutterI18n.translate(_ctx, 'supernode_mining_power'),
-            value: Tools.priceFormat(state.miningPower),
+            value: Tools.numberRounded(state.miningPower),
             token: "mPower"),
         ]
       )
