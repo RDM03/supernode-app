@@ -12,6 +12,7 @@ Reducer<WalletState> buildReducer() {
       WalletAction.addDHX: _addDHX,
       WalletAction.balanceDHX: _balanceDHX,
       WalletAction.dataDHX: _dataDHX,
+      WalletAction.lastMining: _lastMining,
       WalletAction.loadingHistory: _loadingHistory,
       WalletAction.tab: _tab,
       WalletAction.isSetDate: _isSetDate,
@@ -62,6 +63,13 @@ WalletState _dataDHX(WalletState state, Action action) {
     ..totalRevenueDHX = data['totalRevenueDHX']
     ..mPower = data['mPower']
     ..stakeDHXList = data['list'];
+}
+
+WalletState _lastMining(WalletState state, Action action) {
+  double miningPower = action.payload;
+  final WalletState newState = state.clone();
+  return newState
+    ..miningPower = miningPower;
 }
 
 WalletState _loadingHistory(WalletState state, Action action) {

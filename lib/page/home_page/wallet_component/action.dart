@@ -9,6 +9,7 @@ enum WalletAction {
   addDHX,
   balanceDHX,
   dataDHX,
+  lastMining,
   loadingHistory,
   tab,
   onTab,
@@ -49,6 +50,10 @@ class WalletActionCreator {
 
   static Action dataDHX(Map data) {
     return Action(WalletAction.dataDHX, payload: data);
+  }
+
+  static Action lastMining(double miningPower) {
+    return Action(WalletAction.lastMining, payload: miningPower);
   }
 
   static Action loadingHistory(bool toogle) {

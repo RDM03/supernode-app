@@ -41,6 +41,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   double lockedAmount = 0;
   double totalRevenueDHX = 0;
   double mPower = 0;
+  double miningPower = 0;
 
   //withdraw
   double withdrawFee = 0;
@@ -105,6 +106,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
       ..lockedAmount = lockedAmount
       ..totalRevenueDHX =totalRevenueDHX
       ..mPower = mPower
+      ..miningPower = miningPower
       ..withdrawFee = withdrawFee
       ..firstTime = firstTime
       ..secondTime = secondTime

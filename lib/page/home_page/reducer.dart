@@ -126,7 +126,8 @@ HomeState _dataDHX(HomeState state, Action action) {
   return newState
     ..lockedAmount = data['lockedAmount']
     ..totalRevenueDHX = data['totalRevenueDHX']
-    ..mPower = data['mPower'];
+    ..mPower = data['mPower']
+    ..miningPower = data['miningPower'];
 }
 
 HomeState _stakedAmount(HomeState state, Action action) {

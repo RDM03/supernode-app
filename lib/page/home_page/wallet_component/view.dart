@@ -159,9 +159,10 @@ Widget buildView(
             token: "",
             disabled: true),
           titleDetailRow(
+            loading: !state.loadingMap.contains('miningPower'),
             name: FlutterI18n.translate(_ctx, 'supernode_mining_power'),
-            value: 'TODO',
-            token: ""),
+            value: Tools.priceFormat(state.miningPower),
+            token: "mPower"),
         ]
       )
   );

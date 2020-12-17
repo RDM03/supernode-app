@@ -1,10 +1,12 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/daos/demo/dhx_demo.dart';
 import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
 import 'package:supernodeapp/common/daos/demo/topup_dao.dart';
 import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
 import 'package:supernodeapp/common/daos/demo/withdraw_dao.dart';
+import 'package:supernodeapp/common/daos/dhx_dao.dart';
 import 'package:supernodeapp/common/daos/local_storage_dao.dart';
 import 'package:supernodeapp/common/daos/stake_dao.dart';
 import 'package:supernodeapp/common/daos/topup_dao.dart';
@@ -48,6 +50,10 @@ TopupDao _buildTopupDao(Context<WalletState> ctx) {
 
 WalletDao _buildWalletDao(Context<WalletState> ctx) {
   return ctx.state.isDemo ? DemoWalletDao() : WalletDao();
+}
+
+DhxDao _buildDhxDao(Context<WalletState> ctx) {
+  return ctx.state.isDemo ? DemoDhxDao() : DhxDao();
 }
 
 void _initState(Action action, Context<WalletState> ctx) {
@@ -289,6 +295,7 @@ void _onAddDHX (Action action, Context<WalletState> ctx) {
 
     _requestUserDHXBalance(ctx);
     _requestLockedAmount_TotalRevenue(ctx);
+    _requestLastMining(ctx);
   }
 }
 
@@ -357,5 +364,29 @@ void _requestLockedAmount_TotalRevenue (Context<WalletState> ctx) async {
     } catch (err) {
       tip(ctx.context, 'StakeDao dhxStakesList: $err');
     }
+  }
+}
+
+void _requestLastMining (Context<WalletState> ctx) async {
+  const String miningPowerLabel = 'miningPower';
+  ctx.dispatch(HomeActionCreator.loadingMap(miningPowerLabel, type:"remove"));
+
+  try {
+    DhxDao dao = _buildDhxDao(ctx);
+    var res = await dao.lastMining();
+    mLog('lastMining', '${res.miningPower}');
+    double miningPower = Tools.convertDouble(res.miningPower);
+
+    SettingsState settingsData = GlobalStore.store.getState().settings;
+    Map data = {miningPowerLabel: miningPower};
+    if (settingsData.username.isNotEmpty) {
+      LocalStorageDao.saveUserData(
+          'user_${settingsData.username}', data);
+    }
+
+    ctx.dispatch(WalletActionCreator.lastMining(miningPower));
+    ctx.dispatch(HomeActionCreator.loadingMap(miningPowerLabel));
+  } catch (err) {
+    tip(ctx.context, 'DhxDao lastMining: $err');
   }
 }
