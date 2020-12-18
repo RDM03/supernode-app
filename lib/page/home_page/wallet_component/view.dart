@@ -32,7 +32,10 @@ Widget buildView(
   return Scaffold(
     appBar: homeBar(
       FlutterI18n.translate(_ctx, 'wallet'),
-      onPressed: () => dispatch(HomeActionCreator.onSettings()),
+      onPressed: () =>
+          Navigator.of(_ctx).pushNamed('list_councils_page', arguments: {
+        'isDemo': state.isDemo,
+      }),
     ),
     body: pageBody(
       children: [
