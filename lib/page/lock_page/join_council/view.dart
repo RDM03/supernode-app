@@ -118,7 +118,7 @@ Widget buildView(
                               style: kBigFontOfBlue,
                             ),
                             Text(
-                              '${FlutterI18n.translate(context, 'latest_mpower')} : 5000000',
+                              '${FlutterI18n.translate(context, 'latest_mpower')} : ${FlutterI18n.translate(context, 'coming')}',
                               style: kMiddleFontOfBlack,
                             ),
                           ],

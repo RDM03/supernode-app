@@ -81,7 +81,7 @@ void _onConfirm(Action action, Context<PrepareLockState> ctx) async {
     'boostRate': ctx.state.boostRate,
     'months': ctx.state.months,
     'minersOwned': ctx.state.minersOwned,
-    'councilName': 'Council Name',
+    'isDemo': ctx.state.isDemo,
   });
 
   _balance(ctx);

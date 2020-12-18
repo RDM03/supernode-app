@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:supernodeapp/common/daos/demo/dhx_dao.dart';
 import 'package:supernodeapp/common/daos/dhx_dao.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/lock_page/join_council/action.dart';
@@ -17,7 +18,7 @@ Effect<JoinCouncilState> buildEffect() {
 }
 
 DhxDao _buildDhxDao(Context<JoinCouncilState> ctx) =>
-    ctx.state.isDemo ? DhxDao() : DhxDao();
+    ctx.state.isDemo ? DemoDhxDao() : DhxDao();
 
 void _onInitState(Action action, Context<JoinCouncilState> ctx) {
   _listCouncils(ctx);
@@ -75,6 +76,7 @@ Future<void> moveNext(Context<JoinCouncilState> ctx, Council council) async {
     'months': ctx.state.months,
     'minersOwned': ctx.state.minersOwned,
     'council': council,
+    'isDemo': ctx.state.isDemo,
   });
   ctx.dispatch(JoinCouncilActionCreator.process());
 }

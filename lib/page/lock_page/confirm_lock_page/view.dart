@@ -187,7 +187,7 @@ Widget buildView(
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: Text(
-                    '${(state.miningPower / 1000000).toString()} Mil mPower',
+                    '${Tools.numberRounded(state.miningPower)} mPower',
                     maxLines: 1,
                     softWrap: false,
                     overflow: TextOverflow.clip,
