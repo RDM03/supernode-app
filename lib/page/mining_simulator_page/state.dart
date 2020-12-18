@@ -2,6 +2,8 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/utils/dhx.dart';
 
+enum CalculateExpandState { notExpanded, dhx, mPower }
+
 class MiningSimulatorState implements Cloneable<MiningSimulatorState> {
   GlobalKey<FormState> formKey = GlobalKey();
   TextEditingController mxcAmountCtl;
@@ -14,6 +16,10 @@ class MiningSimulatorState implements Cloneable<MiningSimulatorState> {
   double mxcTotal;
   int minersTotal;
 
+  double dhxTotal;
+  double yesterdayMining;
+  CalculateExpandState calculateExpandState;
+
   @override
   MiningSimulatorState clone() {
     return MiningSimulatorState()
@@ -25,7 +31,10 @@ class MiningSimulatorState implements Cloneable<MiningSimulatorState> {
       ..isDemo = isDemo
       ..mxcTotal = mxcTotal
       ..minersTotal = minersTotal
-      ..dhxFuelCtl = dhxFuelCtl;
+      ..dhxFuelCtl = dhxFuelCtl
+      ..dhxTotal = dhxTotal
+      ..yesterdayMining = yesterdayMining
+      ..calculateExpandState = calculateExpandState;
   }
 }
 
@@ -39,5 +48,6 @@ MiningSimulatorState initState(Map<String, dynamic> args) {
     ..minersAmountCtl = TextEditingController(text: '0')
     ..months = monthsOptions.first
     ..dhxFuelCtl = TextEditingController(text: '')
-    ..mxcTotal = balance;
+    ..mxcTotal = balance
+    ..calculateExpandState = CalculateExpandState.notExpanded;
 }

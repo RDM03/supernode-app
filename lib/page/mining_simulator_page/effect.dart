@@ -31,8 +31,16 @@ GatewaysDao _buildGatewaysDao(Context<MiningSimulatorState> ctx) =>
     ctx.state.isDemo ? DemoGatewaysDao() : GatewaysDao();
 
 void _onInitState(Action action, Context<MiningSimulatorState> ctx) async {
+  await _lastMining(ctx);
   await _minersOwned(ctx);
   await _balance(ctx);
+}
+
+Future<void> _lastMining(Context<MiningSimulatorState> ctx) async {
+  final dao = _buildDhxDao(ctx);
+  final res = await dao.lastMining();
+  ctx.dispatch(MiningSimulatorActionCreator.lastMining(
+      double.parse(res.dhxAmount), double.parse(res.miningPower)));
 }
 
 Future<void> _minersOwned(Context<MiningSimulatorState> ctx) async {

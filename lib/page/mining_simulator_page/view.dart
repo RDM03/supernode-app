@@ -9,6 +9,7 @@ import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/slider.dart';
 import 'package:supernodeapp/common/components/value_listenable.dart';
 import 'package:supernodeapp/common/utils/dhx.dart';
+import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/page/mining_simulator_page/widgets/action_button.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -128,13 +129,19 @@ Widget buildView(
                   Expanded(
                     child: Center(
                       child: ValueListenableBuilder2(
-                        state.minersAmountCtl,
-                        state.mxcAmountCtl,
-                        builder: (ctx, miners, mxc, _) => Text(
-                          '0',
+                          state.minersAmountCtl, state.mxcAmountCtl, builder:
+                              (ctx, TextEditingValue miners,
+                                  TextEditingValue mxc, _) {
+                        final dailyReturn =
+                            getDailyReturn(state, mxc.text, miners.text);
+                        final res = dailyReturn == null || dailyReturn.isNaN
+                            ? null
+                            : Tools.numberRounded(dailyReturn);
+                        return Text(
+                          (res ?? '??'),
                           style: kBigFontOfBlack,
-                        ),
-                      ),
+                        );
+                      }),
                     ),
                   ),
                   Expanded(
@@ -143,15 +150,11 @@ Widget buildView(
                           state.minersAmountCtl, state.mxcAmountCtl, builder:
                               (ctx, TextEditingValue miners,
                                   TextEditingValue mxc, _) {
-                        final mxcValue = double.tryParse(mxc.text);
-                        final minersCount = int.tryParse(miners.text);
-
-                        final mPower = mxcValue == null || minersCount == null
-                            ? null
-                            : calculateMiningPower(mxcValue, minersCount,
-                                monthsToBoost(state.months));
+                        final mPower = getMPower(state, mxc.text, miners.text);
+                        final res =
+                            mPower == null ? null : Tools.numberRounded(mPower);
                         return Text(
-                          (mPower?.toStringAsFixed(2) ?? '??'),
+                          (res ?? '??'),
                           style: kBigFontOfBlack,
                         );
                       }),
@@ -160,26 +163,71 @@ Widget buildView(
                 ],
               ),
               SizedBox(height: 8),
-              Row(
-                children: [
-                  Expanded(
-                    child: Center(
-                      child: SmallActionButton(
-                        text: 'DHX',
-                        onTap: () {},
+              if (state.calculateExpandState ==
+                  CalculateExpandState.notExpanded)
+                Row(
+                  children: [
+                    Expanded(
+                      child: Center(
+                        child: SmallActionButton(
+                          text: 'DHX',
+                          onTap: () => dispatch(
+                              MiningSimulatorActionCreator.expandCalculation(
+                                  CalculateExpandState.dhx)),
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Center(
-                      child: SmallActionButton(
-                        text: 'mPower',
-                        onTap: () {},
+                    Expanded(
+                      child: Center(
+                        child: SmallActionButton(
+                          text: 'mPower',
+                          onTap: () => dispatch(
+                              MiningSimulatorActionCreator.expandCalculation(
+                                  CalculateExpandState.mPower)),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              if (state.calculateExpandState == CalculateExpandState.dhx)
+                ValueListenableBuilder2(
+                    state.minersAmountCtl, state.mxcAmountCtl, builder: (ctx,
+                        TextEditingValue miners, TextEditingValue mxc, _) {
+                  final dailyReturn =
+                      getDailyReturn(state, mxc.text, miners.text);
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                    child: SmallActionButton(
+                      width: double.infinity,
+                      text: (dailyReturn == null || dailyReturn.isNaN
+                              ? '??'
+                              : dailyReturn.toStringAsFixed(0)) +
+                          ' DHX',
+                      onTap: () => dispatch(
+                          MiningSimulatorActionCreator.expandCalculation(
+                              CalculateExpandState.notExpanded)),
+                    ),
+                  );
+                }),
+              if (state.calculateExpandState == CalculateExpandState.mPower)
+                ValueListenableBuilder2(
+                    state.minersAmountCtl, state.mxcAmountCtl, builder: (ctx,
+                        TextEditingValue miners, TextEditingValue mxc, _) {
+                  final mPower = getMPower(state, mxc.text, miners.text);
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                    child: SmallActionButton(
+                      width: double.infinity,
+                      text: (mPower == null || mPower.isNaN
+                              ? '??'
+                              : mPower.toStringAsFixed(0)) +
+                          ' mPower',
+                      onTap: () => dispatch(
+                          MiningSimulatorActionCreator.expandCalculation(
+                              CalculateExpandState.notExpanded)),
+                    ),
+                  );
+                }),
             ],
           ),
           SizedBox(height: 35),
@@ -217,4 +265,31 @@ Widget buildView(
       ),
     ),
   );
+}
+
+double getDailyReturn(
+    MiningSimulatorState state, String mxcText, String minersText) {
+  final mxcValue = double.tryParse(mxcText);
+  final minersCount = int.tryParse(minersText);
+
+  final mPower = mxcValue == null || minersCount == null
+      ? null
+      : calculateMiningPower(
+          mxcValue, minersCount, monthsToBoost(state.months));
+
+  return mPower == null ||
+          state.dhxTotal == null ||
+          state.yesterdayMining == null
+      ? null
+      : mPower * state.dhxTotal / (state.yesterdayMining + mPower);
+}
+
+double getMPower(
+    MiningSimulatorState state, String mxcText, String minersText) {
+  final mxcValue = double.tryParse(mxcText);
+  final minersCount = int.tryParse(minersText);
+  return mxcValue == null || minersCount == null
+      ? null
+      : calculateMiningPower(
+          mxcValue, minersCount, monthsToBoost(state.months));
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:supernodeapp/theme/font.dart';
 
 class ActionButton extends StatelessWidget {
@@ -29,12 +30,14 @@ class SmallActionButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
   final bool primary;
+  final double width;
 
   const SmallActionButton({
     Key key,
     this.text,
     this.onTap,
     this.primary = true,
+    this.width = 90,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -44,7 +47,7 @@ class SmallActionButton extends StatelessWidget {
         color: primary ? Color(0xFF4665EA) : Color(0xFFEBEFF2),
       ),
       height: 25,
-      width: 90,
+      width: width,
       child: InkWell(
         child: Center(
           child: Text(
