@@ -35,6 +35,7 @@ Widget buildView(
               onTap: () => Navigator.pop(viewService.context)),
           SizedBox(height: 35),
           ValueEditor(
+            key: ValueKey('amountValueEditor'),
             controller: state.mxcAmountCtl,
             total: state.mxcTotal,
             title: FlutterI18n.translate(_ctx, 'lock_amount'),
@@ -44,6 +45,7 @@ Widget buildView(
           ),
           SizedBox(height: 35),
           ValueEditor(
+            key: ValueKey('minersValueEditor'),
             controller: state.minersAmountCtl,
             total: state.minersTotal,
             title: FlutterI18n.translate(_ctx, 'amount_of_miner'),
@@ -83,6 +85,7 @@ Widget buildView(
           ),
           SizedBox(height: 35),
           ValueEditor(
+            key: ValueKey('fuelValueEditor'),
             controller: state.dhxFuelCtl,
             total: 0.0,
             title: FlutterI18n.translate(_ctx, 'dhx_fuel'),
@@ -139,6 +142,7 @@ Widget buildView(
                             : Tools.numberRounded(dailyReturn);
                         return Text(
                           (res ?? '??'),
+                          key: ValueKey('dailyText'),
                           style: kBigFontOfBlack,
                         );
                       }),
@@ -155,6 +159,7 @@ Widget buildView(
                             mPower == null ? null : Tools.numberRounded(mPower);
                         return Text(
                           (res ?? '??'),
+                          key: ValueKey('mPowerText'),
                           style: kBigFontOfBlack,
                         );
                       }),
@@ -170,6 +175,7 @@ Widget buildView(
                     Expanded(
                       child: Center(
                         child: SmallActionButton(
+                          key: ValueKey('dailyButton'),
                           text: 'DHX',
                           onTap: () => dispatch(
                               MiningSimulatorActionCreator.expandCalculation(
@@ -180,6 +186,7 @@ Widget buildView(
                     Expanded(
                       child: Center(
                         child: SmallActionButton(
+                          key: ValueKey('mPowerButton'),
                           text: 'mPower',
                           onTap: () => dispatch(
                               MiningSimulatorActionCreator.expandCalculation(
@@ -198,6 +205,7 @@ Widget buildView(
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32),
                     child: SmallActionButton(
+                      key: ValueKey('dailyExpandedButton'),
                       width: double.infinity,
                       text: (dailyReturn == null || dailyReturn.isNaN
                               ? '??'
@@ -217,6 +225,7 @@ Widget buildView(
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32),
                     child: SmallActionButton(
+                      key: ValueKey('mPowerExpandedButton'),
                       width: double.infinity,
                       text: (mPower == null || mPower.isNaN
                               ? '??'
