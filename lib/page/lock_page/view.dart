@@ -223,7 +223,6 @@ Widget _lockCard({
         if (boostRate == null) return;
         await Navigator.of(context).pushNamed('prepare_lock_page', arguments: {
           'isDemo': state.isDemo,
-          'balance': state.balance,
           'months': months,
           'boostRate': boostRate,
           'iconColor': color,

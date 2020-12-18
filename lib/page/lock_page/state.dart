@@ -5,7 +5,6 @@ import 'package:supernodeapp/common/utils/dhx.dart';
 class LockState implements Cloneable<LockState> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   bool isDemo = false;
-  double balance;
 
   double boost24m;
   double boost12m;
@@ -15,7 +14,6 @@ class LockState implements Cloneable<LockState> {
   @override
   LockState clone() {
     return LockState()
-      ..balance = balance
       ..isDemo = isDemo
       ..boost24m = boost24m
       ..boost12m = boost12m
@@ -26,13 +24,11 @@ class LockState implements Cloneable<LockState> {
 
 LockState initState(Map<String, dynamic> args) {
   bool isDemo = args['isDemo'] ?? false;
-  double balance = args['balance'] ?? 0;
 
   return LockState()
     ..boost24m = boost24months
     ..boost12m = boost12months
     ..boost9m = boost9months
     ..boost3m = boost3months
-    ..isDemo = isDemo
-    ..balance = balance;
+    ..isDemo = isDemo;
 }
