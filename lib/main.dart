@@ -20,6 +20,7 @@ import 'package:supernodeapp/page/calculator_list_page/page.dart';
 import 'package:supernodeapp/page/calculator_page/page.dart';
 import 'package:supernodeapp/page/connectivity_lost_page/page.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
+import 'package:supernodeapp/page/list_councils/page.dart';
 import 'package:supernodeapp/page/sign_up_page/page.dart';
 import 'package:supernodeapp/page/stake_page/confirm_stake_page/page.dart';
 import 'package:supernodeapp/page/stake_page/details_stake_page/page.dart';
@@ -107,6 +108,7 @@ class MxcApp extends StatelessWidget {
         'details_stake_page': DetailsStakePage(),
         'list_unstake_page': ListUnstakePage(),
         'under_maintenance_page': UnderMaintenancePage(),
+        'list_councils_page': ListCouncilsPage(),
       },
       visitor: (String path, Page<Object, dynamic> page) {
         if (page.isTypeof<GlobalBaseState>()) {

@@ -441,5 +441,6 @@
 	"mine_dhx": "Майнить DHX",
 	"back": "Назад",
 	"x_boost": "{0} ускорение",
-	"mining_simulator": "Симулятор майнинга"
+	"mining_simulator": "Симулятор майнинга",
+	"joined_council": "Активные советы"
 }

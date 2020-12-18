@@ -441,5 +441,6 @@
 	"mine_dhx": "矿山 Dhx",
 	"back": "背面",
 	"x_boost": "{0}提升",
-	"mining_simulator": "采矿模拟器"
+	"mining_simulator": "采矿模拟器",
+	"joined_council": "加入理事会"
 }
