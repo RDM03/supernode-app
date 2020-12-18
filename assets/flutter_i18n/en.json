@@ -165,6 +165,8 @@
 	"mxversion": "MXProtocol version",
 	"new_stake": "New Stake",
 	"unstake": "Unstake",
+	"new_mining": "New Mining",
+	"unlock": "UnLock",
 	"profit": "Revenue",
 	"cost": "Fee",
 	"verify": "Verify Your Identity",

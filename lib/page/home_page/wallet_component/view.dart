@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/app_bars/home_bar.dart';
+import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/components/buttons/circle_button.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/empty.dart';
@@ -12,6 +13,7 @@ import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/wallet/date_buttons.dart';
+import 'package:supernodeapp/common/components/wallet/mining_tutorial.dart';
 import 'package:supernodeapp/common/components/wallet/secondary_buttons.dart';
 import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
@@ -192,7 +194,7 @@ Widget buildView(
             Spacer(),
             CircleButton(icon:Image.asset(AppImages.iconMine, color: colorToken[t]),
                 label: FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'stake' : 'mine'), 
-                onTap: () => (t == Token.DHX) ? 'TODO' : _showStakeDialog(_ctx, dispatch)),
+                onTap: () => (t == Token.DHX) ? _showMineDXHDialog(_ctx) : _showStakeDialog(_ctx, dispatch)),
             Spacer(),
             (t == Token.DHX)
               ? CircleButton(
@@ -398,6 +400,83 @@ void _showStakeDialog(BuildContext context, dispatch) {
                       Text(FlutterI18n.translate(context, 'unstake'),
                         style: TextStyle(
                           color: Colors.black,
+                          fontSize: s(16),
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  )
+              ),
+              Divider(color: Colors.grey),
+            ],
+          )
+      )
+  );
+}
+
+void _showMineDXHDialog(BuildContext context) {
+  showInfoDialog(
+      context,
+      IosStyleBottomDialog2(
+          context: context,
+          child: Column(
+            children: [
+              Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: Text(FlutterI18n.translate(context, 'mining'),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: s(16),
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  )
+              ),
+              Divider(color: Colors.grey),
+              GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute<void> (
+                      builder: (BuildContext context) {
+                        return Scaffold(
+                          appBar: AppBars.signUpSkipAppBar(
+                            onPress: () => Navigator.pop(context),
+                            action: FlutterI18n.translate(context, "skip")),
+                          body: miningTutorial(),
+                        );
+                      },
+                    ));
+                  },
+                  child:
+                  Row(
+                    children: [
+                      CircleButton(icon: Image.asset(AppImages.iconMine, color: colorToken[Token.DHX])),
+                      SizedBox(width: s(10)),
+                      Text(FlutterI18n.translate(context, 'new_mining'),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: s(16),
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  )
+              ),
+              Divider(color: Colors.grey),
+              GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child:
+                  Row(
+                    children: [
+                      CircleButton(icon: Icon(Icons.arrow_back, color: Colors.grey)),
+                      SizedBox(width: s(10)),
+                      Text(FlutterI18n.translate(context, 'unlock'),
+                        style: TextStyle(
+                          color: Colors.grey,
                           fontSize: s(16),
                           fontWeight: FontWeight.w500,
                         ),
