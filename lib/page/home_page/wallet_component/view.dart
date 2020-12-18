@@ -194,8 +194,12 @@ Widget buildView(
                 label: FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'stake' : 'mine'), 
                 onTap: () => (t == Token.DHX) ? 'TODO' : _showStakeDialog(_ctx, dispatch)),
             Spacer(),
-            (t == Token.DHX) ? CircleButton(icon:Image.asset(AppImages.iconCouncil, color: colorToken[t]),
-                label: FlutterI18n.translate(_ctx, 'council')) : SizedBox(),
+            (t == Token.DHX)
+              ? CircleButton(
+                icon:Image.asset(AppImages.iconCouncil, color: (state.stakeDHXList == []) ? Colors.grey : colorToken[t]),
+                label: FlutterI18n.translate(_ctx, 'council'),
+                onTap: () => (state.stakeDHXList == []) ? "do nothing" : "open council page")
+              : SizedBox(),
           ]),
         ),
         tokenCard(t),
