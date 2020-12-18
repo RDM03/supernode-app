@@ -32,7 +32,11 @@ Widget buildView(
   return Scaffold(
     appBar: homeBar(
       FlutterI18n.translate(_ctx, 'wallet'),
-      onPressed: () => dispatch(HomeActionCreator.onSettings()),
+      onPressed: () =>
+          Navigator.of(_ctx).pushNamed('mining_simulator_page', arguments: {
+        'isDemo': state.isDemo,
+        'balance': state.balance,
+      }),
     ),
     body: pageBody(
       children: [
