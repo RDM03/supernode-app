@@ -24,7 +24,7 @@ void _onConfirm(Action action, Context<ConfirmLockState> ctx) async {
   final dao = _buildDhxDao(ctx);
   String stakeId;
   try {
-    if (council.id != null) {
+    if (council.id == null) {
       final res = await dao.createCouncil(
         amount: ctx.state.amount,
         boost: ctx.state.boostRate.toString(),
