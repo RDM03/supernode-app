@@ -27,7 +27,8 @@ Future<void> _listCouncils(Context<ListCouncilsState> ctx) async {
   var stakes = await dao.listStakes(organizationId: selectedOrgId);
   final councilsMap =
       Map<String, Council>.fromIterable(councils, key: (k) => k.id);
-  final joinedCouncilIds = stakes.map((e) => e.councilId).toSet();
+  final joinedCouncilIds =
+      stakes.where((t) => !t.closed).map((e) => e.councilId).toSet();
   final joinedCouncils = joinedCouncilIds.map((c) => councilsMap[c]).toList();
   ctx.dispatch(ListCouncilsActionCreator.councils(councils, joinedCouncils));
 }
