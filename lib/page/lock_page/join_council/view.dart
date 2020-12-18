@@ -1,9 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:supernodeapp/common/components/council_card.dart';
 import 'package:supernodeapp/common/components/page/link.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
@@ -69,65 +68,11 @@ Widget buildView(
           )
         else
           for (var i = 0; i < state.councils.length; i++) ...[
-            Container(
-              height: 80,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    spreadRadius: 1,
-                    blurRadius: 2,
-                    offset: Offset(0, 0),
-                  ),
-                ],
-              ),
-              child: InkWell(
-                onTap: () => dispatch(
-                    JoinCouncilActionCreator.onConfirm(state.councils[i])),
-                key: ValueKey('councilItem#$i'),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.horizontal(
-                              left: Radius.circular(10)),
-                          color: Color(0xFF4665EA),
-                        ),
-                        child: Center(
-                          child: FaIcon(
-                            FontAwesomeIcons.landmark,
-                            color: Colors.white,
-                          ),
-                        ),
-                        width: 56,
-                      ),
-                      SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              state.councils[i].name,
-                              style: kBigFontOfBlue,
-                            ),
-                            Text(
-                              '${FlutterI18n.translate(context, 'latest_mpower')} : ${FlutterI18n.translate(context, 'coming')}',
-                              style: kMiddleFontOfBlack,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+            CouncilCard(
+              key: ValueKey('councilItem#$i'),
+              onTap: () => dispatch(
+                  JoinCouncilActionCreator.onConfirm(state.councils[i])),
+              council: state.councils[i],
             ),
             SizedBox(height: 15),
           ],
