@@ -77,3 +77,5 @@ final stake12Color = Color(0xFF494393);
 final stake9Color = Color(0xFF7772AE);
 final stake6Color = Color(0xFFA4A1C9);
 final stakeFlexColor = Color(0xFFD2D0E4);
+
+final tutorialBubble = Color(0x334665EA);

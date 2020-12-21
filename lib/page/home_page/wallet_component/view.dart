@@ -443,7 +443,7 @@ void _showMineDXHDialog(BuildContext context) {
                           appBar: AppBars.signUpSkipAppBar(
                             onPress: () => Navigator.pop(context),
                             action: FlutterI18n.translate(context, "skip")),
-                          body: miningTutorial(),
+                          body: miningTutorial(context),
                         );
                       },
                     ));
