@@ -105,7 +105,6 @@ WalletState _isSetDate(WalletState state, Action action) {
       ..selectedIndexBtn2 = 2
       ..isSetDate2 = !state.isSetDate2;
   }
-  //TODO introduce DHX logic
 
   return state;
 }
@@ -114,7 +113,6 @@ WalletState _updateSelectedButton(WalletState state, Action action) {
   int index = action.payload;
 
   if (state.selectedToken == Token.DHX) {
-    //TODO introduce DHX logic
     return state;
   }
 
@@ -150,7 +148,8 @@ WalletState _updateStakeList(WalletState state, Action action) {
     entityList.addAll(sourceList);
   }
 
-  final list = entityList.map((e) => StakeItemState(e, type)).toList();
+  int index = 0;
+  final list = entityList.map((e) => StakeItemState(index++, e, type)).toList();
 
   list.sort(
       (a, b) => b.historyEntity.timestamp.compareTo(a.historyEntity.timestamp));
@@ -171,8 +170,9 @@ WalletState _updateWalletList(WalletState state, Action action) {
   final type = sourceType.split(' ')[0];
   List<WalletItemState> list = [];
 
+  int index= 0;
   final sourceList =
-      (data['list'] as List).map((e) => WalletItemState.fromMap(e));
+      (data['list'] as List).map((e) => WalletItemState.fromMap(index++, e));
   if (type == 'STAKE') {
     list.addAll(sourceList.where((e) => e.type == 'STAKING'));
   } else if (type == 'UNSTAKE') {

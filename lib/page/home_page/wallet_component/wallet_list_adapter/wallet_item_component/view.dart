@@ -12,7 +12,6 @@ import '../../state.dart';
 import 'action.dart';
 import 'state.dart';
 
-int i = 0;
 Widget buildView(
     GeneralItemState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
@@ -28,7 +27,7 @@ Widget buildView(
       followStyle = kSmallFontOfRed;
     }
     return listItem(
-      key: ValueKey('walletItem_${state.id}'),
+      key: ValueKey('walletItem_${state.index}'),
       context: viewService.context,
       type: state.txType != null ? state.txType : state.type,
       amount: state.amount ?? state.stakeAmount,
@@ -53,6 +52,7 @@ Widget buildView(
       onTap: () => dispatch(WalletItemActionCreator.isExpand(state)),
     );
   }
+
   if (state is StakeItemState) {
     if (state.historyEntity.type != 'STAKING') return Container();
     return StakeItem.fromStake(
@@ -60,9 +60,10 @@ Widget buildView(
       isLast: state.isLast,
       onTap: () => dispatch(
           WalletActionCreator.onStakeDetails(state.historyEntity.stake)),
-      key: ValueKey('stakeItem_${state.historyEntity.stake.id}'),
+      key: ValueKey('stakeItem_${state.index}'),
     );
   }
+
   if (state is StakeDHXItemState) {
     final month = (state.historyEntity.lockTill == null)
         ? null
@@ -74,6 +75,7 @@ Widget buildView(
     final dateDiff = (showLockOpenIcon) ? 0: state.historyEntity.lockTill.difference(DateTime.now()).inDays.abs();
 
     return StakeItem(
+      key: Key('dhx_stake_${state.index}'),
       amount: Tools.priceFormat(Tools.convertDouble(state.historyEntity.dhxMined), range: 2),
       currency: 'DHX',
       stakedAmount: '${state.historyEntity.amount} ${state.historyEntity.currency}',
