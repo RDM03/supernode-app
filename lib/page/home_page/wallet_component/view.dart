@@ -437,13 +437,14 @@ void _showMineDXHDialog(BuildContext context) {
               GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
+                    //TODO push mining page
                     Navigator.push(context, MaterialPageRoute<void> (
                       builder: (BuildContext context) {
                         return Scaffold(
                           appBar: AppBars.signUpSkipAppBar(
                             onPress: () => Navigator.pop(context),
                             action: FlutterI18n.translate(context, "skip")),
-                          body: miningTutorial(context),
+                          body: MiningTutorial(context),
                         );
                       },
                     ));

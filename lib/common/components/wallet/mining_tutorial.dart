@@ -10,9 +10,18 @@ import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Widget miningTutorial(BuildContext ctx) {
+class MiningTutorial extends StatefulWidget {
+  final BuildContext _ctx;
+  List<Widget> _pages;
 
-  Widget bubble() {
+  MiningTutorial (this._ctx) {
+    this._pages = [_page1(_ctx), _page2(_ctx), _page3(_ctx), _page4(_ctx)];
+  }
+
+  @override
+  State<StatefulWidget> createState() => _MiningTutorialState();
+
+  Widget _bubble(BuildContext ctx) {
     return Container(
       padding: EdgeInsets.all(s(8)),
       decoration: BoxDecoration(
@@ -23,16 +32,16 @@ Widget miningTutorial(BuildContext ctx) {
         TextSpan(text: FlutterI18n.translate(ctx, "tutorial_bubble2"), style: kBigBoldFontOfBlack)])));
   }
 
-  Widget page(List<Widget> wgts) {
+  Widget _pageBase(List<Widget> wgts) {
     return
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18.0),
+        padding: const EdgeInsets.only(left: 18.0, right: 18.0, bottom: 20.0),
         child: ListView(children: wgts)
       );
   }
 
-  Widget _page1 () {
-    return page([
+  Widget _page1 (BuildContext ctx) {
+    return _pageBase([
       Text(FlutterI18n.translate(ctx, "tutorial_pg1_title"), style: kPrimaryBigFontOfBlack),
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pg1_text"), style: kBigFontOfBlack),
@@ -63,12 +72,13 @@ Widget miningTutorial(BuildContext ctx) {
         ])
       ]),
       SizedBox(height: s(15)),
-      bubble()
+      _bubble(ctx),
+      SizedBox(height: 25)
     ]);
   }
 
-  Widget _page2 () {
-    return  page([
+  Widget _page2 (BuildContext ctx) {
+    return  _pageBase([
       Text(FlutterI18n.translate(ctx, "tutorial_pg2_title"), style: kPrimaryBigFontOfBlack),
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pg2_text"), style: kBigFontOfBlack),
@@ -169,12 +179,13 @@ Widget miningTutorial(BuildContext ctx) {
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pg2_desc3"), style: kMiddleFontOfBlack),
       SizedBox(height: s(15)),
-      bubble()
+      _bubble(ctx),
+      SizedBox(height: 25)
     ]);
   }
 
-  Widget _page3 () {
-    return page([
+  Widget _page3 (BuildContext ctx) {
+    return _pageBase([
       Text(FlutterI18n.translate(ctx, "tutorial_pg3_title"), style: kPrimaryBigFontOfBlack),
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pg3_text"), style: kBigFontOfBlack),
@@ -223,12 +234,13 @@ Widget miningTutorial(BuildContext ctx) {
         )
       ]),
       SizedBox(height: s(30)),
-      bubble()
+      _bubble(ctx),
+      SizedBox(height: 25)
     ]);
   }
 
-  Widget _page4 () {
-    return page([
+  Widget _page4 (BuildContext ctx) {
+    return _pageBase([
       Text(FlutterI18n.translate(ctx, "tutorial_pg4_title"), style: kPrimaryBigFontOfBlack),
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pg4_text"), style: kBigFontOfBlack),
@@ -263,11 +275,66 @@ Widget miningTutorial(BuildContext ctx) {
         top: 50,
         onPressed: () => Navigator.pop(ctx)),
       SizedBox(height: s(15)),
-      bubble()
+      _bubble(ctx),
+      SizedBox(height: 25)
     ]);
   }
+}
 
-  return PageView(
-    children: [_page1(), _page2(), _page3(), _page4()],
-  );
+class _MiningTutorialState extends State<MiningTutorial> {
+  int currentPageValue = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack (
+      alignment: AlignmentDirectional.bottomCenter,
+      children: [
+        PageView(
+          onPageChanged: (int page) {
+            currentPageValue = page;
+            setState(() {});
+          },
+          children: widget._pages,
+        ),
+        Container(
+          width: double.infinity,
+          height: 50,
+          decoration: new BoxDecoration(
+            gradient: new LinearGradient(
+                colors: [transparentWhite, Colors.white],
+                begin: Alignment.topCenter,
+                end: Alignment.center),
+          ),
+          child: Stack(
+            alignment: AlignmentDirectional.center,
+            children: <Widget> [
+              Container(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    for (int i = 0; i < widget._pages.length; i++)
+                      if (i == currentPageValue) ...[circleBar(true)] else
+                        circleBar(false),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget circleBar(bool isActive) {
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 150),
+      margin: EdgeInsets.symmetric(horizontal: 8),
+      height: isActive ? 12 : 8,
+      width: isActive ? 12 : 8,
+      decoration: BoxDecoration(
+          color: isActive ? colorToken[Token.DHX] : Colors.grey,
+          borderRadius: BorderRadius.all(Radius.circular(12))),
+    );
+  }
 }
