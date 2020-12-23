@@ -194,7 +194,7 @@ Widget buildView(
             Spacer(),
             CircleButton(icon:Image.asset(AppImages.iconMine, color: colorToken[t]),
                 label: FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'stake' : 'mine'), 
-                onTap: () => (t == Token.DHX) ? _showMineDXHDialog(_ctx) : _showStakeDialog(_ctx, dispatch)),
+                onTap: () => (t == Token.DHX) ? _showMineDXHDialog(_ctx, state.isDemo) : _showStakeDialog(_ctx, dispatch)),
             Spacer(),
             (t == Token.DHX)
               ? CircleButton(
@@ -415,7 +415,7 @@ void _showStakeDialog(BuildContext context, dispatch) {
   );
 }
 
-void _showMineDXHDialog(BuildContext context) {
+void _showMineDXHDialog(BuildContext context, bool isDemo) {
   showInfoDialog(
       context,
       IosStyleBottomDialog2(
@@ -437,7 +437,11 @@ void _showMineDXHDialog(BuildContext context) {
               GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
-                    //TODO push mining page
+
+                    Navigator.pushNamed(context, 'lock_page', arguments: {
+                      'isDemo': isDemo
+                    });
+
                     Navigator.push(context, MaterialPageRoute<void> (
                       builder: (BuildContext context) {
                         return Scaffold(
