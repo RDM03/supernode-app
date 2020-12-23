@@ -9,25 +9,18 @@ jobs:
     strategy:
       matrix:
         device:
-        - "iPhone SE (2nd generation) (14.1)"
-        - "iPhone 11 Pro Max (14.1)"
+        - "iPhone SE (2nd generation) (14.2)"
+        - "iPhone 11 Pro Max (14.2)"
       fail-fast: false
     runs-on: ["self-hosted", "macOS"]
     steps:
     - name: "List all simulators"
-      run: "xcrun instruments -s"
+      run: "xcrun xctrace list devices"
     - name: "Start Simulator"
       run: |
-        UDID=$(
-          xcrun instruments -s |
-          awk \
-            -F ' *[][]' \
-            -v 'device=${{ matrix.device }}' \
-            '$1 == device { print $2 }'
-        )
-        xcrun simctl shutdown all
-        echo ${UDID} > /tmp/iosdeviceid.tmp
-        xcrun simctl boot "${UDID:?No Simulator with this name found}"
+        xcrun xctrace list devices &> /tmp/devices.list
+        grep '${{ matrix.device }}' /tmp/devices.list | cut -d '(' -f 3 | cut -d ')' -f 1 > /tmp/iosdeviceid.tmp
+        UDID=$(cat /tmp/iosdeviceid.tmp) xcrun simctl boot "${UDID:?No Simulator with this name found}"
       continue-on-error: true
     - name: Checkout
       uses: actions/checkout@v1
@@ -37,16 +30,13 @@ jobs:
       uses: subosito/flutter-action@v1
       with:
         channel: beta
-    - name: Upgrade flutter
-      run: flutter upgrade
+        flutter-version: '1.23.0'
     - name: Clean workspace
       run: flutter clean
     - name: create env file
       run: touch assets/.env
     - name: "Run Flutter Driver tests"
-      run: |
-        UDID=$(cat /tmp/iosdeviceid.tmp) 
-        flutter drive --target=test_driver/app.dart --device-id $UDID
+      run: flutter drive --target=test_driver/app.dart
       env:
         APPCENTER_BUILD_ID: ${{ secrets.APPCENTER_BUILD_ID}}
         APPCENTER_KEYSTORE_PASSWORD: ${{ secrets.APPCENTER_KEYSTORE_PASSWORD}}
@@ -85,7 +75,7 @@ jobs:
     - name: "Start adb-server"
       run: /usr/local/bin/adb start-server   
     - name: "Start Simulator" 
-      run: "/usr/local/bin/emulator -avd ${{ matrix.device }} -id ${{ matrix.device }} -no-audio"
+      run: "/usr/local/bin/emulator -avd ${{ matrix.device }} -id ${{ matrix.device }} -no-audio -gpu host &"
       continue-on-error: true
     - name: Checkout
       uses: actions/checkout@v1
@@ -99,8 +89,7 @@ jobs:
       uses: subosito/flutter-action@v1
       with:
         channel: beta
-    - name: Upgrade flutter
-      run: flutter upgrade
+        flutter-version: '1.23.0'
     - name: Clean workspace
       run: flutter clean
     - name: create env file

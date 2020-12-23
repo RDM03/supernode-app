@@ -34,4 +34,27 @@ class DemoDhxDao extends DemoDao implements DhxDao {
   Future<LastMiningResponse> lastMining() async {
     return LastMiningResponse(DateTime.now(), '100000', '90000');
   }
+
+  @override
+  Future<List<Stake>> listStakes({
+    String chairOrgId = '0',
+    String organizationId = '0',
+  }) async {
+    return [
+      Stake(
+        amount: "123123",
+        boost: "0.40",
+        closed: false,
+        councilId: "demo1",
+        councilName: "Council 1",
+        created: DateTime(2020, 12, 18, 15, 5),
+        lockTill: DateTime(2021, 12, 18, 15, 5),
+        currency: "ETH_MXC",
+        dhxMined: "11111",
+        lockMonths: "12",
+        id: "demoStake",
+        organizationId: "testOrgId",
+      )
+    ];
+  }
 }

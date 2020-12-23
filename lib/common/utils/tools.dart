@@ -22,9 +22,8 @@ class Tools {
     return newSource;
   }
 
-  static LatLng convertLatLng(Map location){
-
-    if(location['latitude'] is String){
+  static LatLng convertLatLng(Map location) {
+    if (location['latitude'] is String) {
       location['latitude'] = double.parse(location['latitude']);
       location['longitude'] = double.parse(location['longitude']);
     }
@@ -42,11 +41,11 @@ class Tools {
   }
 
   static String priceFormat(double number, {int range = 1}) {
-    if(number == null || number == 0){
+    if (number == null || number == 0) {
       return '0.0';
     }
     String newNumber = number?.toStringAsFixed((range + 1)) ?? '0.0';
-    return newNumber.substring(0,newNumber.lastIndexOf('.') + range + 1);
+    return newNumber.substring(0, newNumber.lastIndexOf('.') + range + 1);
   }
 
   static double convertDouble(dynamic number) {
@@ -63,14 +62,13 @@ class Tools {
   }
 
   static String numberRounded(double number) {
-    if (number == null) return "";
     String round(double val, int order, {int afterDot = 0}) {
       final divided = (val / order);
       if (afterDot == 0) return divided.round().toString();
       final wholePart = divided.floor();
       final fractionPart = divided - wholePart;
       final fractionPartRounded =
-      (fractionPart * 10 * afterDot).roundToDouble();
+          (fractionPart * 10 * afterDot).roundToDouble();
       var fractionPartTruncated = fractionPartRounded;
       while (fractionPartTruncated % 10 == 0 && fractionPartTruncated > 0)
         fractionPartTruncated /= 10.0;
