@@ -22,6 +22,11 @@ import 'package:supernodeapp/page/connectivity_lost_page/page.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
 import 'package:supernodeapp/page/list_councils/page.dart';
 import 'package:supernodeapp/page/mining_simulator_page/page.dart';
+import 'package:supernodeapp/page/lock_page/join_council/page.dart';
+import 'package:supernodeapp/page/lock_page/confirm_lock_page/page.dart';
+import 'package:supernodeapp/page/lock_page/page.dart';
+import 'package:supernodeapp/page/lock_page/prepare_lock_page/page.dart';
+import 'package:supernodeapp/page/lock_page/result_lock_page/page.dart';
 import 'package:supernodeapp/page/sign_up_page/page.dart';
 import 'package:supernodeapp/page/stake_page/confirm_stake_page/page.dart';
 import 'package:supernodeapp/page/stake_page/details_stake_page/page.dart';
@@ -52,6 +57,7 @@ Future<void> main() async {
   await StorageManager.init();
 
   runApp(MxcApp());
+
   Stream.fromFuture(FlutterAppCenter.init(
     appSecretAndroid: Sys.appSecretAndroid,
     appSecretIOS: Sys.appSecretIOS,
@@ -111,6 +117,11 @@ class MxcApp extends StatelessWidget {
         'under_maintenance_page': UnderMaintenancePage(),
         'list_councils_page': ListCouncilsPage(),
         'mining_simulator_page': MiningSimulatorPage(),
+        'lock_page': LockPage(),
+        'prepare_lock_page': PrepareLockPage(),
+        'join_council_page': JoinCouncilPage(),
+        'confirm_lock_page': ConfirmLockPage(),
+        'result_lock_page': ResultLockPage(),
       },
       visitor: (String path, Page<Object, dynamic> page) {
         if (page.isTypeof<GlobalBaseState>()) {

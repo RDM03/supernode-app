@@ -1,6 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
-import 'package:supernodeapp/common/daos/demo/dhx_demo.dart';
+import 'package:supernodeapp/common/daos/demo/dhx_dao.dart';
 import 'package:supernodeapp/common/daos/demo/gateways_dao.dart';
 import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
 import 'package:supernodeapp/common/daos/dhx_dao.dart';
