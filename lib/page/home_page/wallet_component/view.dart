@@ -200,7 +200,10 @@ Widget buildView(
               ? CircleButton(
                 icon:Image.asset(AppImages.iconCouncil, color: (state.stakeDHXList == []) ? Colors.grey : colorToken[t]),
                 label: FlutterI18n.translate(_ctx, 'council'),
-                onTap: () => (state.stakeDHXList == []) ? "do nothing" : "open council page")
+                onTap: () => (state.stakeDHXList == [])
+                    ? "do nothing"
+                    : Navigator.pushNamed(_ctx, 'list_councils_page', arguments: {'isDemo': state.isDemo})
+            )
               : SizedBox(),
           ]),
         ),
