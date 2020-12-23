@@ -44,7 +44,7 @@ void _initState(Action action, Context<WalletState> ctx) {
 
   final TickerProvider tickerProvider = ctx.stfState as TickerProvider;
 
-  TabController tabController = TabController(length: 3, vsync: tickerProvider);
+  TabController tabController = TabController(length: 2, vsync: tickerProvider);
 
   tabController.addListener(() {
     ctx.dispatch(WalletActionCreator.tab(tabController.index));
