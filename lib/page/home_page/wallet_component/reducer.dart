@@ -148,8 +148,7 @@ WalletState _updateStakeList(WalletState state, Action action) {
     entityList.addAll(sourceList);
   }
 
-  int index = 0;
-  final list = entityList.map((e) => StakeItemState(index++, e, type)).toList();
+  final list = entityList.map((e) => StakeItemState(e, type)).toList();
 
   list.sort(
       (a, b) => b.historyEntity.timestamp.compareTo(a.historyEntity.timestamp));
@@ -170,9 +169,8 @@ WalletState _updateWalletList(WalletState state, Action action) {
   final type = sourceType.split(' ')[0];
   List<WalletItemState> list = [];
 
-  int index= 0;
   final sourceList =
-      (data['list'] as List).map((e) => WalletItemState.fromMap(index++, e));
+      (data['list'] as List).map((e) => WalletItemState.fromMap(e));
   if (type == 'STAKE') {
     list.addAll(sourceList.where((e) => e.type == 'STAKING'));
   } else if (type == 'UNSTAKE') {

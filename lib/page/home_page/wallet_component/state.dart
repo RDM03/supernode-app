@@ -46,9 +46,20 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   //withdraw
   double withdrawFee = 0;
 
-  List<dynamic> get _currentList => (selectedToken == Token.MXC)
-    ? activeTabToken[selectedToken] == 0 ? walletList : stakeList
-    : activeTabToken[selectedToken] == 0 ? stakeDHXList : transactions;
+  List<dynamic> get _currentList {
+    List<dynamic> list =
+    (selectedToken == Token.MXC)
+      ? activeTabToken[selectedToken] == 0 ? walletList : stakeList
+      : activeTabToken[selectedToken] == 0 ? stakeDHXList : transactions;
+    int i = 0;
+    for (dynamic item in list) {
+      if (item is StakeItemState && item.historyEntity.type != 'STAKING') {
+        continue;
+      }
+      item.index = i++;
+    }
+    return list;
+  }
 
   List<StakeItemState> stakeList = [];
   List<WalletItemState> walletList = [];

@@ -192,8 +192,8 @@ class StakeItemState extends GeneralItemState
   final String itemType;
   final bool isLast;
   final bool isExpand;
-  final int index;
-  StakeItemState(this.index, this.historyEntity, this.itemType,
+  int index;
+  StakeItemState(this.historyEntity, this.itemType,
       [this.isLast = false, this.isExpand = false]);
 
   @override
@@ -203,12 +203,10 @@ class StakeItemState extends GeneralItemState
 
   StakeItemState copyWith(
       {bool isExpand,
-      int index,
       StakeHistoryEntity historyEntity,
       String itemType,
       bool isLast}) {
     return StakeItemState(
-      index,
       historyEntity ?? this.historyEntity,
       itemType ?? this.itemType,
       isLast ?? this.isLast,
@@ -232,7 +230,7 @@ class WalletItemState extends GeneralItemState
   String txHash = '';
 
   bool isExpand = false;
-  final int index;
+  int index;
   bool isLast = false;
 
   //withdraw history
@@ -258,13 +256,13 @@ class WalletItemState extends GeneralItemState
 
   String createdAt;
 
-  WalletItemState(this.index);
+  WalletItemState();
 
   WalletItemState copyWithExtend(bool val) => clone()..isExpand = val;
 
   @override
   WalletItemState clone() {
-    return WalletItemState(index)
+    return WalletItemState()
       ..type = type
       ..id = id
       ..amount = amount
@@ -288,7 +286,7 @@ class WalletItemState extends GeneralItemState
       ..timestamp = timestamp;
   }
 
-  WalletItemState.fromMap(this.index, Map map) {
+  WalletItemState.fromMap(Map map) {
     id = Uuid().generateV4();
     type = map['type'];
     timestamp = DateTime.parse(map['timestamp']);
@@ -325,8 +323,8 @@ class StakeDHXItemState extends GeneralItemState
   final StakeDHXItemEntity historyEntity;
   bool isLast;
   final bool isExpand;
-  final int index;
-  StakeDHXItemState(this.index, this.historyEntity, [this.isLast = false, this.isExpand = false]);
+  int index;
+  StakeDHXItemState(this.historyEntity, [this.isLast = false, this.isExpand = false]);
 
   @override
   StakeDHXItemState clone() {
@@ -335,12 +333,10 @@ class StakeDHXItemState extends GeneralItemState
 
   StakeDHXItemState copyWith(
       {bool isExpand,
-        int index,
         StakeHistoryEntity historyEntity,
         String itemType,
         bool isLast}) {
     return StakeDHXItemState(
-      index,
       historyEntity ?? this.historyEntity,
       isLast ?? this.isLast,
       isExpand ?? this.isExpand,
@@ -351,5 +347,5 @@ class StakeDHXItemState extends GeneralItemState
 }
 
 WalletItemState initState(Map<String, dynamic> args) {
-  return WalletItemState(0);
+  return WalletItemState();
 }
