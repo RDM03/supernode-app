@@ -46,7 +46,11 @@ Widget buildView(
                   Spacer(),
                   state.expandedView
                       ? (tkn == Token.DHX)
-                        ? PrimaryButton(buttonTitle: FlutterI18n.translate(_ctx, 'simulate_mining'))
+                        ? PrimaryButton(
+                      buttonTitle: FlutterI18n.translate(_ctx, 'simulate_mining'),
+                      onTap: () => (state.loadingMap.contains('balanceDHX'))
+                          ? Navigator.pushNamed(_ctx, 'mining_simulator_page', arguments: {'isDemo': state.isDemo, 'balance': state.balanceDHX})
+                          : 'loading')
                         : SizedBox()
                       : Icon(Icons.arrow_forward_ios)
                 ]),
