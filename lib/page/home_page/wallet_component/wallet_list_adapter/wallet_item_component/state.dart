@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/components/stake/stake_item.dart';
+import 'package:supernodeapp/common/daos/dhx_dao.dart';
 import 'package:supernodeapp/common/daos/wallet_dao.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/common/utils/uuid.dart';
@@ -98,21 +99,21 @@ class StakeDHXItemEntity {
     this.organisationId
   );
 
-  factory StakeDHXItemEntity.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
+  factory StakeDHXItemEntity.fromStake(StakeDHX stake) {
+    if (stake == null) return null;
 
     return StakeDHXItemEntity(
-      map['amount'],
-      map['boost'],
-      map['closed'],
-      map['councilId'],
-      map['councilName'],
-      DateTime.tryParse(map['created']),
-      map['currency'],
-      map['dhxMined'],
-      map['id'],
-      DateTime.tryParse(map['lockTill']),
-      map['organisationId']
+        stake.amount,
+        stake.boost,
+        stake.closed,
+        stake.councilId,
+        stake.councilName,
+        stake.created,
+        stake.currency,
+        stake.dhxMined,
+        stake.id,
+        stake.lockTill,
+        stake.organizationId
     );
   }
 

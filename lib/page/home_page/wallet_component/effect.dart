@@ -335,20 +335,19 @@ void _requestLockedAmount_TotalRevenue (Context<WalletState> ctx) async {
 
     String orgId = settingsData.selectedOrganizationId;
     try {
-      StakeDao dao = _buildStakeDao(ctx);
-      Map data = {'chairOrgId': 0, 'organizationId': orgId};
+      DhxDao dao = _buildDhxDao(ctx);
 
-      var res = await dao.dhxStakesList(data);
+      List<StakeDHX> res = await dao.listStakes(organizationId: orgId);
       mLog('dhxStakesList', '$res');
       double lockedAmount = 0.0;
       double totalRevenueDHX = 0.0;
       double mPower = 0.0;
       final List<StakeDHXItemState> list = [];
-      for (var stake in res['stake']??[]) {
-        mPower += Tools.convertDouble(stake['amount']) * (1 + Tools.convertDouble(stake['boost']));
-        lockedAmount += Tools.convertDouble(stake['amount']);
-        totalRevenueDHX += Tools.convertDouble(stake['dhxMined']);
-        list.add(StakeDHXItemState(StakeDHXItemEntity.fromMap(stake)));
+      for (StakeDHX stake in res) {
+        mPower += Tools.convertDouble(stake.amount) * (1 + Tools.convertDouble(stake.boost));
+        lockedAmount += Tools.convertDouble(stake.amount);
+        totalRevenueDHX += Tools.convertDouble(stake.dhxMined);
+        list.add(StakeDHXItemState(StakeDHXItemEntity.fromStake(stake)));
       }
       if (list.length > 0) list[list.length - 1].isLast = true;
 

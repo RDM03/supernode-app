@@ -46,7 +46,7 @@ class Council {
   }
 }
 
-class Stake {
+class StakeDHX {
   final String amount;
   final String boost;
   final bool closed;
@@ -59,7 +59,7 @@ class Stake {
   final String id;
   final DateTime lockTill;
   final String organizationId;
-  Stake({
+  StakeDHX({
     this.amount,
     this.boost,
     this.closed,
@@ -74,7 +74,7 @@ class Stake {
     this.organizationId,
   });
 
-  Stake copyWith({
+  StakeDHX copyWith({
     String amount,
     String boost,
     bool closed,
@@ -88,7 +88,7 @@ class Stake {
     DateTime lockTill,
     String organizationId,
   }) {
-    return Stake(
+    return StakeDHX(
       amount: amount ?? this.amount,
       boost: boost ?? this.boost,
       closed: closed ?? this.closed,
@@ -104,10 +104,10 @@ class Stake {
     );
   }
 
-  factory Stake.fromMap(Map<String, dynamic> map) {
+  factory StakeDHX.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
-    return Stake(
+    return StakeDHX(
       amount: map['amount'],
       boost: map['boost'],
       closed: map['closed'],
@@ -123,7 +123,7 @@ class Stake {
     );
   }
 
-  factory Stake.fromJson(String source) => Stake.fromMap(json.decode(source));
+  factory StakeDHX.fromJson(String source) => StakeDHX.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -134,7 +134,7 @@ class Stake {
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is Stake &&
+    return o is StakeDHX &&
         o.amount == amount &&
         o.boost == boost &&
         o.closed == closed &&
@@ -207,7 +207,7 @@ class DhxDao extends Dao {
         .toList();
   }
 
-  Future<List<Stake>> listStakes({
+  Future<List<StakeDHX>> listStakes({
     String chairOrgId = '0',
     String organizationId = '0',
   }) async {
@@ -217,7 +217,7 @@ class DhxDao extends Dao {
     });
     final list = res['stake'] as List;
     return list
-        .map((l) => Stake.fromMap(Map<String, dynamic>.from(l)))
+        .map((l) => StakeDHX.fromMap(Map<String, dynamic>.from(l)))
         .toList();
   }
 

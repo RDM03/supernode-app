@@ -36,12 +36,12 @@ class DemoDhxDao extends DemoDao implements DhxDao {
   }
 
   @override
-  Future<List<Stake>> listStakes({
+  Future<List<StakeDHX>> listStakes({
     String chairOrgId = '0',
     String organizationId = '0',
   }) async {
     return [
-      Stake(
+      StakeDHX(
         amount: "123123",
         boost: "0.40",
         closed: false,
