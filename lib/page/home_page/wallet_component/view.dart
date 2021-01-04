@@ -35,6 +35,7 @@ Widget buildView(
   Widget tokenCard (Token tkn) => GestureDetector(
       onTap: () => dispatch(WalletActionCreator.expand(tkn)),
       child: panelFrame(
+        child: Padding (padding: EdgeInsets.symmetric(vertical: 10),
           child: Column(
             children: [
               Container(
@@ -47,6 +48,7 @@ Widget buildView(
                   state.expandedView
                       ? (tkn == Token.DHX)
                         ? PrimaryButton(
+                      bgColor: (state.loadingMap.contains('balanceDHX')) ? colorToken[Token.DHX] : Colors.grey,
                       buttonTitle: FlutterI18n.translate(_ctx, 'simulate_mining'),
                       onTap: () => (state.loadingMap.contains('balanceDHX'))
                           ? Navigator.pushNamed(_ctx, 'mining_simulator_page', arguments: {'isDemo': state.isDemo, 'balance': state.balanceDHX})
@@ -80,7 +82,7 @@ Widget buildView(
                 name: FlutterI18n.translate(_ctx, 'total_revenue'),
                 value: Tools.priceFormat((tkn == Token.MXC) ? state.totalRevenue : state.totalRevenueDHX, range: 2),
                 token: (tkn == Token.MXC) ? "MXC" : "DHX")
-            ],
+            ]),
           )
       )
   );
@@ -101,7 +103,8 @@ Widget buildView(
   );
 
   Widget miningDHXcard() => panelFrame(
-      child: Column(
+      child: Padding (padding: EdgeInsets.symmetric(vertical: 10),
+        child: Column(
           children: [
             SizedBox(height: s(5)),
             Container(
@@ -170,7 +173,7 @@ Widget buildView(
             name: FlutterI18n.translate(_ctx, 'supernode_mining_power'),
             value: Tools.numberRounded(state.miningPower),
             token: "mPower"),
-        ]
+        ]),
       )
   );
 
