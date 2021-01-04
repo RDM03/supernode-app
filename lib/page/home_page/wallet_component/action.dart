@@ -1,12 +1,10 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/components/stake/stake_item.dart';
-import 'package:supernodeapp/page/home_page/wallet_component/state.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 
 enum WalletAction {
   expand,
   selectToken,
-  onAddDHX,
-  addDHX,
   balanceDHX,
   dataDHX,
   lastMining,
@@ -34,14 +32,6 @@ class WalletActionCreator {
 
   static Action selectToken(Token t) {
     return Action(WalletAction.selectToken, payload: t);
-  }
-
-  static Action onAddDHX() {
-    return Action(WalletAction.onAddDHX);
-  }
-
-  static Action addDHX() {
-    return Action(WalletAction.addDHX);
   }
 
   static Action balanceDHX(double balanceDHX) {

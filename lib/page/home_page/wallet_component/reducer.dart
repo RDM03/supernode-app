@@ -1,4 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -9,7 +10,6 @@ Reducer<WalletState> buildReducer() {
     <Object, Reducer<WalletState>>{
       WalletAction.expand: _expand,
       WalletAction.selectToken: _selectToken,
-      WalletAction.addDHX: _addDHX,
       WalletAction.balanceDHX: _balanceDHX,
       WalletAction.dataDHX: _dataDHX,
       WalletAction.lastMining: _lastMining,
@@ -40,12 +40,6 @@ WalletState _selectToken(WalletState state, Action action) {
   final WalletState newState = state.clone();
   return newState
     ..selectedToken = tkn;
-}
-
-WalletState _addDHX(WalletState state, Action action) {
-  final WalletState newState = state.clone();
-  newState.displayTokens.add(Token.DHX);
-  return newState;
 }
 
 WalletState _balanceDHX(WalletState state, Action action) {

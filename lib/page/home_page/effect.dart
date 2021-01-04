@@ -3,13 +3,17 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:supernodeapp/common/components/loading.dart';
+import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/components/update_dialog.dart';
+import 'package:supernodeapp/common/daos/demo/dhx_dao.dart';
 import 'package:supernodeapp/common/daos/demo/gateways_dao.dart';
 import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
 import 'package:supernodeapp/common/daos/demo/user_dao.dart';
 import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
+import 'package:supernodeapp/common/daos/dhx_dao.dart';
 import 'package:supernodeapp/common/daos/gateways_location_dao.dart';
 import 'package:supernodeapp/common/utils/auth.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/common/daos/app_dao.dart';
 import 'package:supernodeapp/common/daos/local_storage_dao.dart';
@@ -18,6 +22,8 @@ import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/data/super_node_bean.dart';
 import 'package:supernodeapp/global_store/store.dart';
+import 'package:supernodeapp/page/home_page/wallet_component/action.dart';
+import 'package:supernodeapp/page/home_page/wallet_component/wallet_list_adapter/wallet_item_component/state.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 
@@ -34,6 +40,7 @@ Effect<HomeState> buildEffect() {
     HomeAction.onSettings: _onSettings,
     HomeAction.onProfile: _onProfile,
     HomeAction.onGateways: _onGateways,
+    HomeAction.onAddDHX: _onAddDHX,
     HomeAction.relogin: _relogin,
     HomeAction.mapbox: _mapbox,
   });
@@ -53,6 +60,10 @@ GatewaysDao _buildGatewaysDao(Context<HomeState> ctx) {
 
 StakeDao _buildStakeDao(Context<HomeState> ctx) {
   return ctx.state.isDemo ? DemoStakeDao() : StakeDao();
+}
+
+DhxDao _buildDhxDao(Context<HomeState> ctx) {
+  return ctx.state.isDemo ? DemoDhxDao() : DhxDao();
 }
 
 void _relogin(Action action, Context<HomeState> ctx) async {
@@ -250,6 +261,8 @@ void _loadUserData(Context<HomeState> ctx) {
   if (data['usd_gateway'] != null)
     ctx.dispatch(
         HomeActionCreator.convertUSD('gateway', data['usd_gateway']));
+  if (data[LocalStorageDao.walletDHX] != null && data[LocalStorageDao.walletDHX])
+    ctx.dispatch(HomeActionCreator.onAddDHX(false));
 
   print(data);
 }
@@ -514,5 +527,114 @@ Future<void> _stakingRevenue(
   } catch (err) {
     ctx.dispatch(HomeActionCreator.loadingMap('totalRevenue'));
     // tip(ctx.context, 'StakeDao history: $err');
+  }
+}
+
+void _onAddDHX (Action action, Context<HomeState> ctx) {
+  bool saveLocally = action.payload;
+  if (!ctx.state.displayTokens.contains(Token.DHX)) {
+    ctx.dispatch(HomeActionCreator.addDHX());
+
+    _requestUserDHXBalance(ctx);
+    _requestLockedAmount_TotalRevenue(ctx);
+    _requestLastMining(ctx);
+  }
+  if (saveLocally) {
+    SettingsState settingsData = GlobalStore.store.getState().settings;
+    if (settingsData.username.isNotEmpty) {
+      LocalStorageDao.saveUserData(
+          'user_${settingsData.username}', {LocalStorageDao.walletDHX: true});
+    }
+  }
+}
+
+void _requestUserDHXBalance (Context<HomeState> ctx) async {
+  const String balanceDHXlabel = 'balanceDHX';
+  SettingsState settingsData = GlobalStore.store.getState().settings;
+  if (settingsData.userId.isNotEmpty && settingsData.selectedOrganizationId.isNotEmpty) {
+    ctx.dispatch(HomeActionCreator.loadingMap(balanceDHXlabel, type:"remove"));
+
+    String userId = settingsData.userId;
+    String orgId = settingsData.selectedOrganizationId;
+    try {
+      WalletDao dao = _buildWalletDao(ctx);
+      Map data = {'userId': userId, 'orgId': orgId, 'currency': 'DHX'};
+
+      var res = await dao.balance(data);
+      double balanceDHX = Tools.convertDouble(res['balance']);
+      mLog('DHX balance', '$res');
+      if (settingsData.username.isNotEmpty) {
+        LocalStorageDao.saveUserData(
+            'user_${settingsData.username}', {balanceDHXlabel: balanceDHX});
+      }
+
+      ctx.dispatch(WalletActionCreator.balanceDHX(balanceDHX));
+      ctx.dispatch(HomeActionCreator.loadingMap(balanceDHXlabel));
+    } catch (err) {
+      tip(ctx.context, 'WalletDao balance: $err');
+    }
+  }
+}
+
+void _requestLockedAmount_TotalRevenue (Context<HomeState> ctx) async {
+  const String lockedAmountLabel = 'lockedAmount';
+  SettingsState settingsData = GlobalStore.store.getState().settings;
+  if (settingsData.selectedOrganizationId.isNotEmpty) {
+    ctx.dispatch(HomeActionCreator.loadingMap(lockedAmountLabel, type:"remove"));
+
+    String orgId = settingsData.selectedOrganizationId;
+    try {
+      DhxDao dao = _buildDhxDao(ctx);
+
+      List<StakeDHX> res = await dao.listStakes(organizationId: orgId);
+      mLog('dhxStakesList', '$res');
+      double lockedAmount = 0.0;
+      double totalRevenueDHX = 0.0;
+      double mPower = 0.0;
+      final List<StakeDHXItemState> list = [];
+      for (StakeDHX stake in res) {
+        mPower += Tools.convertDouble(stake.amount) * (1 + Tools.convertDouble(stake.boost));
+        lockedAmount += Tools.convertDouble(stake.amount);
+        totalRevenueDHX += Tools.convertDouble(stake.dhxMined);
+        list.add(StakeDHXItemState(StakeDHXItemEntity.fromStake(stake)));
+      }
+      if (list.length > 0) list[list.length - 1].isLast = true;
+
+      Map dataDHX = {lockedAmountLabel: lockedAmount, 'totalRevenueDHX': totalRevenueDHX, 'mPower': mPower};
+      if (settingsData.username.isNotEmpty) {
+        LocalStorageDao.saveUserData(
+            'user_${settingsData.username}', dataDHX);
+      }
+      dataDHX['list'] = list;
+
+      ctx.dispatch(WalletActionCreator.dataDHX(dataDHX));
+      ctx.dispatch(HomeActionCreator.loadingMap(lockedAmountLabel));
+    } catch (err) {
+      tip(ctx.context, 'StakeDao dhxStakesList: $err');
+    }
+  }
+}
+
+void _requestLastMining (Context<HomeState> ctx) async {
+  const String miningPowerLabel = 'miningPower';
+  ctx.dispatch(HomeActionCreator.loadingMap(miningPowerLabel, type:"remove"));
+
+  try {
+    DhxDao dao = _buildDhxDao(ctx);
+    var res = await dao.lastMining();
+    mLog('lastMining', '${res.miningPower}');
+    double miningPower = Tools.convertDouble(res.miningPower);
+
+    SettingsState settingsData = GlobalStore.store.getState().settings;
+    Map data = {miningPowerLabel: miningPower};
+    if (settingsData.username.isNotEmpty) {
+      LocalStorageDao.saveUserData(
+          'user_${settingsData.username}', data);
+    }
+
+    ctx.dispatch(WalletActionCreator.lastMining(miningPower));
+    ctx.dispatch(HomeActionCreator.loadingMap(miningPowerLabel));
+  } catch (err) {
+    tip(ctx.context, 'DhxDao lastMining: $err');
   }
 }

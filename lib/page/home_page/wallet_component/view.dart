@@ -16,6 +16,7 @@ import 'package:supernodeapp/common/components/wallet/date_buttons.dart';
 import 'package:supernodeapp/common/components/wallet/mining_tutorial.dart';
 import 'package:supernodeapp/common/components/wallet/secondary_buttons.dart';
 import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
@@ -330,7 +331,9 @@ void _showAddTokenDialog(BuildContext context, dispatch) {
             ),
             Divider(color: Colors.grey),
             GestureDetector(
-              onTap: () => dispatch(WalletActionCreator.onAddDHX()),
+              onTap: () {
+                Navigator.pop(context);
+                dispatch(HomeActionCreator.onAddDHX(true));},
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child:

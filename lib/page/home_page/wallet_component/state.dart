@@ -1,9 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 
 import 'wallet_list_adapter/wallet_item_component/state.dart';
-
-enum Token {MXC, DHX}
 
 class WalletState extends MutableSource implements Cloneable<WalletState> {
 

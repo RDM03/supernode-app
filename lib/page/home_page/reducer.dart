@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
@@ -17,6 +18,7 @@ Reducer<HomeState> buildReducer() {
       HomeAction.profile: _profile,
       HomeAction.balance: _balance,
       HomeAction.balanceDHX: _balanceDHX,
+      HomeAction.addDHX: _addDHX,
       HomeAction.dataDHX: _dataDHX,
       HomeAction.stakedAmount: _stakedAmount,
       HomeAction.gateways: _gateways,
@@ -117,6 +119,12 @@ HomeState _balanceDHX(HomeState state, Action action) {
 
   final HomeState newState = state.clone();
   return newState..balanceDHX = balanceDHX;
+}
+
+HomeState _addDHX(HomeState state, Action action) {
+  final HomeState newState = state.clone();
+  newState.displayTokens.add(Token.DHX);
+  return newState;
 }
 
 HomeState _dataDHX(HomeState state, Action action) {

@@ -1,7 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/global_store/store.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/page/home_page/wallet_component/state.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 
 final appTheme = ThemeData(
   primarySwatch: Colors.blue,
