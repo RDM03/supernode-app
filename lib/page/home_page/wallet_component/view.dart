@@ -455,10 +455,10 @@ void _showMineDXHDialog(BuildContext context, bool isDemo) {
                     Navigator.push(context, MaterialPageRoute<void> (
                       builder: (BuildContext context) {
                         return Scaffold(
-                          appBar: AppBars.signUpSkipAppBar(
+                          appBar: AppBars.backArrowSkipAppBar(
                             onPress: () => Navigator.pop(context),
                             action: FlutterI18n.translate(context, "skip")),
-                          body: MiningTutorial(context),
+                          body: pageBodySingleChild(child: MiningTutorial(context), usePadding: false),
                         );
                       },
                     ));

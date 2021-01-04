@@ -301,7 +301,7 @@ class _MiningTutorialState extends State<MiningTutorial> {
           height: 50,
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
-                colors: [transparentWhite, Colors.white],
+                colors: [transparentWhite, backgroundColor],
                 begin: Alignment.topCenter,
                 end: Alignment.center),
           ),

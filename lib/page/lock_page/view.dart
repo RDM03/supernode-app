@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
@@ -16,6 +17,9 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
 
   return Scaffold(
     key: state.scaffoldKey,
+    appBar: AppBars.backArrowAppBar(
+        title: FlutterI18n.translate(context, 'lock_mxc'),
+        onPress: () => Navigator.pop(context)),
     body: SafeArea(
       child: Container(
         constraints: BoxConstraints.expand(),
@@ -26,30 +30,6 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20),
-            Row(
-              children: [
-                SizedBox(
-                  width: 40,
-                  child: GestureDetector(
-                    key: Key('backButton'),
-                    child: Icon(Icons.arrow_back_ios),
-                    onTap: () => Navigator.of(context).pop(),
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    FlutterI18n.translate(context, 'lock_mxc'),
-                    style: kBigFontOfBlack,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
             RichText(
               text: TextSpan(
                 children: [
