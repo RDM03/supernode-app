@@ -3,11 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
+import 'package:supernodeapp/common/components/page/page_body.dart';
 
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/slider.dart';
 import 'package:supernodeapp/common/components/value_listenable.dart';
+import 'package:supernodeapp/common/components/wallet/mining_tutorial.dart';
 import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/page/mining_simulator_page/widgets/action_button.dart';
@@ -257,11 +260,22 @@ Widget buildView(
                   padding: EdgeInsets.symmetric(horizontal: 5),
                   child: ActionButton(
                     text: FlutterI18n.translate(_ctx, 'mine_dhx'),
-                    onTap: () =>
-                        Navigator.of(_ctx).pushNamed('lock_page', arguments: {
-                      'balance': state.mxcTotal,
-                      'isDemo': state.isDemo,
-                    }),
+                    onTap: () {
+                      Navigator.of(_ctx).pushNamed('lock_page', arguments: {
+                        'balance': state.mxcTotal,
+                        'isDemo': state.isDemo,
+                      });
+                      Navigator.push(_ctx, MaterialPageRoute<void> (
+                        builder: (BuildContext context) {
+                          return Scaffold(
+                            appBar: AppBars.backArrowSkipAppBar(
+                                onPress: () => Navigator.pop(context),
+                                action: FlutterI18n.translate(context, "skip")),
+                            body: pageBodySingleChild(child: MiningTutorial(context), usePadding: false),
+                          );
+                        },
+                      ));
+                    },
                   ),
                 ),
               ),
