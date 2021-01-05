@@ -11,6 +11,7 @@ import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/profile.dart';
 import 'package:supernodeapp/common/components/row_right.dart';
 import 'package:supernodeapp/common/components/summary_row.dart';
+import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
 import 'package:supernodeapp/common/daos/local_storage_dao.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
@@ -93,55 +94,24 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                     ),
                   ),
                 ),
-                rowRight(
-                  FlutterI18n.translate(_ctx, 'current_balance'),
-                  key: ValueKey('homeCurrentBalanceLabel'),
-                  style: kSmallFontOfGrey,
-                ),
-                rowRight(
-                  '${Tools.priceFormat(state.balance)} MXC',
-                  key: ValueKey('homeCurrentBalance'),
-                  style: kBigFontOfBlack,
+                titleDetailRow(
                   loading: !state.loadingMap.contains('balance'),
-                ),
-                rowRight(
-                  FlutterI18n.translate(_ctx, 'staked_amount'),
-                  key: ValueKey('homeStakedAmountLabel'),
-                  style: kSmallFontOfGrey,
-                ),
-                rowRight(
-                  '${Tools.priceFormat(state.stakedAmount)} MXC',
-                  key: ValueKey('homeStakedAmount'),
-                  style: kBigFontOfBlack,
+                  name: FlutterI18n.translate(_ctx, 'current_balance'),
+                  value: Tools.priceFormat(state.balance)),
+                titleDetailRow(
                   loading: !state.loadingMap.contains('stakedAmount'),
-                ),
-
+                  name: FlutterI18n.translate(_ctx, 'staked_amount'),
+                  value: Tools.priceFormat(state.stakedAmount)),
                 (state.lockedAmount > 0)
-                    ? rowRight(
-                    FlutterI18n.translate(_ctx, 'locked_amount'),
-                    key: ValueKey('homeLockedAmountLabel'),
-                    style: kSmallFontOfGrey)
-                    : SizedBox(),
-
-                (state.lockedAmount > 0)
-                    ? rowRight(
-                    '${Tools.priceFormat(state.lockedAmount)} MXC',
-                    key: ValueKey('homeLockedAmount'),
-                    style: kBigFontOfBlack,
+                    ? titleDetailRow(
+                    name: FlutterI18n.translate(_ctx, 'locked_amount'),
+                    value: Tools.priceFormat(state.lockedAmount),
                     loading: !state.loadingMap.contains(LocalStorageDao.lockedAmountKey))
                     : SizedBox(),
-
-                rowRight(
-                  FlutterI18n.translate(_ctx, 'staking_revenue'),
-                  key: ValueKey('homeStakingRevenueLabel'),
-                  style: kSmallFontOfGrey,
-                ),
-                rowRight(
-                  '${Tools.priceFormat(state.totalRevenue, range: 2)} MXC',
-                  style: kBigFontOfBlack,
-                  key: ValueKey('homeStakingRevenue'),
+                titleDetailRow(
                   loading: !state.loadingMap.contains('totalRevenue'),
-                ),
+                  name: FlutterI18n.translate(_ctx, 'staking_revenue'),
+                  value: Tools.priceFormat(state.totalRevenue, range: 2)),
                 Container(
                   margin: kRoundRow5,
                   child: Row(
