@@ -184,6 +184,7 @@ class UserConnector extends ConnOp<HomeState, UserState> {
       ..balance = state.balance
       ..stakedAmount = state.stakedAmount
       ..totalRevenue = state.totalRevenue
+      ..lockedAmount = state.lockedAmount
       ..gatewaysTotal = state.gatewaysTotal
       ..gatewaysRevenue = state.gatewaysRevenue
       ..gatewaysUSDRevenue = state.gatewaysUSDRevenue

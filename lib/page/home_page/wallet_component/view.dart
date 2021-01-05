@@ -65,12 +65,12 @@ Widget buildView(
                 value: Tools.priceFormat((tkn == Token.MXC) ? state.balance : state.balanceDHX),
                 token: (tkn == Token.MXC) ? "MXC" : "DHX"),
 
-              (state.expandedView && tkn == Token.DHX)
+              (tkn == Token.DHX)
               ? titleDetailRow(
                   loading: !state.loadingMap.contains(LocalStorageDao.lockedAmountKey),
                   name: FlutterI18n.translate(_ctx, 'locked_amount'),
                   value: Tools.priceFormat(state.lockedAmount),
-                  token: "DHX")
+                  token: "MXC")
               : SizedBox(),
 
               titleDetailRow(

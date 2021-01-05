@@ -11,6 +11,7 @@ import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/profile.dart';
 import 'package:supernodeapp/common/components/row_right.dart';
 import 'package:supernodeapp/common/components/summary_row.dart';
+import 'package:supernodeapp/common/daos/local_storage_dao.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
@@ -114,6 +115,22 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                   style: kBigFontOfBlack,
                   loading: !state.loadingMap.contains('stakedAmount'),
                 ),
+
+                (state.lockedAmount > 0)
+                    ? rowRight(
+                    FlutterI18n.translate(_ctx, 'locked_amount'),
+                    key: ValueKey('homeLockedAmountLabel'),
+                    style: kSmallFontOfGrey)
+                    : SizedBox(),
+
+                (state.lockedAmount > 0)
+                    ? rowRight(
+                    '${Tools.priceFormat(state.lockedAmount)} MXC',
+                    key: ValueKey('homeLockedAmount'),
+                    style: kBigFontOfBlack,
+                    loading: !state.loadingMap.contains(LocalStorageDao.lockedAmountKey))
+                    : SizedBox(),
+
                 rowRight(
                   FlutterI18n.translate(_ctx, 'staking_revenue'),
                   key: ValueKey('homeStakingRevenueLabel'),

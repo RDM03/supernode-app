@@ -30,6 +30,9 @@ class UserState implements Cloneable<UserState> {
   double stakedAmount = 0;
   double totalRevenue = 0;
 
+  //locked for pre-mining DHX
+  double lockedAmount = 0;
+
   //gateways
   int gatewaysTotal = 0;
   double gatewaysRevenue = 0;
@@ -68,6 +71,7 @@ class UserState implements Cloneable<UserState> {
       ..balance = balance
       ..stakedAmount = stakedAmount
       ..totalRevenue = totalRevenue
+      ..lockedAmount = lockedAmount
       ..gatewaysTotal = gatewaysTotal
       ..gatewaysRevenue = gatewaysRevenue
       ..gatewaysUSDRevenue = gatewaysUSDRevenue
