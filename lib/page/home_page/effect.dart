@@ -235,18 +235,18 @@ void _loadUserData(Context<HomeState> ctx) {
 
   if (data['balance'] != null)
     ctx.dispatch(HomeActionCreator.balance(data['balance']));
-  if (data['balanceDHX'] != null)
-    ctx.dispatch(HomeActionCreator.balanceDHX(data['balanceDHX']));
+  if (data[LocalStorageDao.balanceDHXKey] != null)
+    ctx.dispatch(HomeActionCreator.balanceDHX(data[LocalStorageDao.balanceDHXKey]));
 
   Map dataDHX = {};
-  if (data['lockedAmount'] != null)
-    dataDHX['lockedAmount'] = data['lockedAmount'];
-  if (data['totalRevenueDHX'] != null)
-    dataDHX['totalRevenueDHX'] = data['totalRevenueDHX'];
-  if (data['mPower'] != null)
-    dataDHX['mPower'] = data['mPower'];
-  if (data['miningPower'] != null)
-    dataDHX['miningPower'] = data['miningPower'];
+  if (data[LocalStorageDao.lockedAmountKey] != null)
+    dataDHX[LocalStorageDao.lockedAmountKey] = data[LocalStorageDao.lockedAmountKey];
+  if (data[LocalStorageDao.totalRevenueDHXKey] != null)
+    dataDHX[LocalStorageDao.totalRevenueDHXKey] = data[LocalStorageDao.totalRevenueDHXKey];
+  if (data[LocalStorageDao.mPowerKey] != null)
+    dataDHX[LocalStorageDao.mPowerKey] = data[LocalStorageDao.mPowerKey];
+  if (data[LocalStorageDao.miningPowerKey] != null)
+    dataDHX[LocalStorageDao.miningPowerKey] = data[LocalStorageDao.miningPowerKey];
   if (dataDHX.isNotEmpty)
     ctx.dispatch(HomeActionCreator.dataDHX(dataDHX));
 
@@ -549,7 +549,7 @@ void _onAddDHX (Action action, Context<HomeState> ctx) {
 }
 
 void _requestUserDHXBalance (Context<HomeState> ctx) async {
-  const String balanceDHXlabel = 'balanceDHX';
+  const String balanceDHXlabel = LocalStorageDao.balanceDHXKey;
   SettingsState settingsData = GlobalStore.store.getState().settings;
   if (settingsData.userId.isNotEmpty && settingsData.selectedOrganizationId.isNotEmpty) {
     ctx.dispatch(HomeActionCreator.loadingMap(balanceDHXlabel, type:"remove"));
@@ -577,7 +577,7 @@ void _requestUserDHXBalance (Context<HomeState> ctx) async {
 }
 
 void _requestLockedAmount_TotalRevenue (Context<HomeState> ctx) async {
-  const String lockedAmountLabel = 'lockedAmount';
+  const String lockedAmountLabel = LocalStorageDao.lockedAmountKey;
   SettingsState settingsData = GlobalStore.store.getState().settings;
   if (settingsData.selectedOrganizationId.isNotEmpty) {
     ctx.dispatch(HomeActionCreator.loadingMap(lockedAmountLabel, type:"remove"));
@@ -600,7 +600,7 @@ void _requestLockedAmount_TotalRevenue (Context<HomeState> ctx) async {
       }
       if (list.length > 0) list[list.length - 1].isLast = true;
 
-      Map dataDHX = {lockedAmountLabel: lockedAmount, 'totalRevenueDHX': totalRevenueDHX, 'mPower': mPower};
+      Map dataDHX = {lockedAmountLabel: lockedAmount, LocalStorageDao.totalRevenueDHXKey: totalRevenueDHX, LocalStorageDao.mPowerKey: mPower};
       if (settingsData.username.isNotEmpty) {
         LocalStorageDao.saveUserData(
             'user_${settingsData.username}', dataDHX);
@@ -616,7 +616,7 @@ void _requestLockedAmount_TotalRevenue (Context<HomeState> ctx) async {
 }
 
 void _requestLastMining (Context<HomeState> ctx) async {
-  const String miningPowerLabel = 'miningPower';
+  const String miningPowerLabel = LocalStorageDao.miningPowerKey;
   ctx.dispatch(HomeActionCreator.loadingMap(miningPowerLabel, type:"remove"));
 
   try {

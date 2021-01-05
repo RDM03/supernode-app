@@ -16,6 +16,7 @@ import 'package:supernodeapp/common/components/wallet/date_buttons.dart';
 import 'package:supernodeapp/common/components/wallet/mining_tutorial.dart';
 import 'package:supernodeapp/common/components/wallet/secondary_buttons.dart';
 import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
+import 'package:supernodeapp/common/daos/local_storage_dao.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
@@ -49,9 +50,9 @@ Widget buildView(
                   state.expandedView
                       ? (tkn == Token.DHX)
                         ? PrimaryButton(
-                      bgColor: (state.loadingMap.contains('balanceDHX')) ? colorToken[Token.DHX] : Colors.grey,
+                      bgColor: (state.loadingMap.contains(LocalStorageDao.balanceDHXKey)) ? colorToken[Token.DHX] : Colors.grey,
                       buttonTitle: FlutterI18n.translate(_ctx, 'simulate_mining'),
-                      onTap: () => (state.loadingMap.contains('balanceDHX'))
+                      onTap: () => (state.loadingMap.contains(LocalStorageDao.balanceDHXKey))
                           ? Navigator.pushNamed(_ctx, 'mining_simulator_page', arguments: {'isDemo': state.isDemo, 'balance': state.balanceDHX})
                           : 'loading')
                         : SizedBox()
@@ -59,14 +60,14 @@ Widget buildView(
                 ]),
               ),
               titleDetailRow(
-                loading: !state.loadingMap.contains((tkn == Token.MXC) ? 'balance' : 'balanceDHX'),
+                loading: !state.loadingMap.contains((tkn == Token.MXC) ? 'balance' : LocalStorageDao.balanceDHXKey),
                 name: FlutterI18n.translate(_ctx, 'current_balance'),
                 value: Tools.priceFormat((tkn == Token.MXC) ? state.balance : state.balanceDHX),
                 token: (tkn == Token.MXC) ? "MXC" : "DHX"),
 
               (state.expandedView && tkn == Token.DHX)
               ? titleDetailRow(
-                  loading: !state.loadingMap.contains('lockedAmount'),
+                  loading: !state.loadingMap.contains(LocalStorageDao.lockedAmountKey),
                   name: FlutterI18n.translate(_ctx, 'locked_amount'),
                   value: Tools.priceFormat(state.lockedAmount),
                   token: "DHX")
@@ -79,7 +80,7 @@ Widget buildView(
                 token: (tkn == Token.MXC) ? "MXC" : ""),
 
               titleDetailRow(
-                loading: !state.loadingMap.contains((tkn == Token.MXC) ? 'totalRevenue' : 'lockedAmount'),
+                loading: !state.loadingMap.contains((tkn == Token.MXC) ? 'totalRevenue' : LocalStorageDao.lockedAmountKey),
                 name: FlutterI18n.translate(_ctx, 'total_revenue'),
                 value: Tools.priceFormat((tkn == Token.MXC) ? state.totalRevenue : state.totalRevenueDHX, range: 2),
                 token: (tkn == Token.MXC) ? "MXC" : "DHX")
@@ -144,7 +145,7 @@ Widget buildView(
             ]),
             Spacer(),
             Column(children: [
-              !state.loadingMap.contains('lockedAmount')
+              !state.loadingMap.contains(LocalStorageDao.lockedAmountKey)
               ? loadingFlash(child: Text(Tools.numberRounded(state.mPower), style: kPrimaryBigFontOfBlack))
               : Text(Tools.numberRounded(state.mPower), style: kSuperBigBoldFont),
               SizedBox(height: s(5)),
@@ -170,7 +171,7 @@ Widget buildView(
             token: "",
             disabled: true),
           titleDetailRow(
-            loading: !state.loadingMap.contains('miningPower'),
+            loading: !state.loadingMap.contains(LocalStorageDao.miningPowerKey),
             name: FlutterI18n.translate(_ctx, 'supernode_mining_power'),
             value: Tools.numberRounded(state.miningPower),
             token: "mPower"),
