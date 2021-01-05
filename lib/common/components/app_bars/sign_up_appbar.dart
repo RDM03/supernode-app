@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
-import 'package:supernodeapp/theme/spacing.dart';
 
 class AppBars {
   static backArrowAppBar({String title: '', Function onPress}){
@@ -37,7 +36,7 @@ class AppBars {
           ),
         )
       ],
-      backgroundColor: backgroundColor,
+      backgroundColor: Colors.transparent,
       elevation: 0,
     );
   }

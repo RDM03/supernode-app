@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
-import 'package:supernodeapp/common/components/page/page_body.dart';
 
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
@@ -271,7 +270,7 @@ Widget buildView(
                             appBar: AppBars.backArrowSkipAppBar(
                                 onPress: () => Navigator.pop(context),
                                 action: FlutterI18n.translate(context, "skip")),
-                            body: pageBodySingleChild(child: MiningTutorial(context), usePadding: false),
+                            body: MiningTutorial(context),
                           );
                         },
                       ));

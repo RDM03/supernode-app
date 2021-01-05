@@ -462,7 +462,7 @@ void _showMineDXHDialog(BuildContext context, bool isDemo) {
                           appBar: AppBars.backArrowSkipAppBar(
                             onPress: () => Navigator.pop(context),
                             action: FlutterI18n.translate(context, "skip")),
-                          body: pageBodySingleChild(child: MiningTutorial(context), usePadding: false),
+                          body: MiningTutorial(context),
                         );
                       },
                     ));
