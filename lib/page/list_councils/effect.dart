@@ -20,15 +20,10 @@ void _onInitState(Action action, Context<ListCouncilsState> ctx) {
 }
 
 Future<void> _listCouncils(Context<ListCouncilsState> ctx) async {
-  SettingsState settingsData = GlobalStore.store.getState().settings;
-  final selectedOrgId = settingsData.selectedOrganizationId;
   DhxDao dao = _buildDhxDao(ctx);
   var councils = await dao.listCouncils();
-  var stakes = await dao.listStakes(organizationId: selectedOrgId);
   final councilsMap =
       Map<String, Council>.fromIterable(councils, key: (k) => k.id);
-  final joinedCouncilIds =
-      stakes.where((t) => !t.closed).map((e) => e.councilId).toSet();
-  final joinedCouncils = joinedCouncilIds.map((c) => councilsMap[c]).toList();
+  final joinedCouncils = ctx.state.joinedCouncilsId.map((c) => councilsMap[c]).toList();
   ctx.dispatch(ListCouncilsActionCreator.councils(councils, joinedCouncils));
 }

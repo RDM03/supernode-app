@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/daos/dhx_dao.dart';
 class ListCouncilsState implements Cloneable<ListCouncilsState> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   bool isDemo;
+  Set<String> joinedCouncilsId;
 
   List<Council> allCouncils;
   List<Council> joinedCouncils;
@@ -25,8 +26,10 @@ class ListCouncilsState implements Cloneable<ListCouncilsState> {
 
 ListCouncilsState initState(Map<String, dynamic> args) {
   bool isDemo = args['isDemo'] ?? false;
+  Set<String> joinedCouncilsId = args['joinedCouncilsId'] ?? [];
 
   return ListCouncilsState()
     ..isDemo = isDemo
+    ..joinedCouncilsId = joinedCouncilsId
     ..tab = 0;
 }
