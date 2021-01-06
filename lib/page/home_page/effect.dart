@@ -41,6 +41,7 @@ Effect<HomeState> buildEffect() {
     HomeAction.onProfile: _onProfile,
     HomeAction.onGateways: _onGateways,
     HomeAction.onAddDHX: _onAddDHX,
+    HomeAction.onDataDHX: _onDataDHX,
     HomeAction.relogin: _relogin,
     HomeAction.mapbox: _mapbox,
   });
@@ -235,20 +236,29 @@ void _loadUserData(Context<HomeState> ctx) {
 
   if (data['balance'] != null)
     ctx.dispatch(HomeActionCreator.balance(data['balance']));
-  if (data[LocalStorageDao.balanceDHXKey] != null)
-    ctx.dispatch(HomeActionCreator.balanceDHX(data[LocalStorageDao.balanceDHXKey]));
 
-  Map dataDHX = {};
-  if (data[LocalStorageDao.lockedAmountKey] != null)
-    dataDHX[LocalStorageDao.lockedAmountKey] = data[LocalStorageDao.lockedAmountKey];
-  if (data[LocalStorageDao.totalRevenueDHXKey] != null)
-    dataDHX[LocalStorageDao.totalRevenueDHXKey] = data[LocalStorageDao.totalRevenueDHXKey];
-  if (data[LocalStorageDao.mPowerKey] != null)
-    dataDHX[LocalStorageDao.mPowerKey] = data[LocalStorageDao.mPowerKey];
-  if (data[LocalStorageDao.miningPowerKey] != null)
-    dataDHX[LocalStorageDao.miningPowerKey] = data[LocalStorageDao.miningPowerKey];
-  if (dataDHX.isNotEmpty)
-    ctx.dispatch(HomeActionCreator.dataDHX(dataDHX));
+  if (data[LocalStorageDao.walletDHX] != null && data[LocalStorageDao.walletDHX]) {
+    //load values from previous session
+    Map dataDHX = {};
+    if (data[LocalStorageDao.balanceDHXKey] != null)
+      dataDHX[LocalStorageDao.balanceDHXKey] = data[LocalStorageDao.balanceDHXKey];
+    if (data[LocalStorageDao.lockedAmountKey] != null)
+      dataDHX[LocalStorageDao.lockedAmountKey] =
+      data[LocalStorageDao.lockedAmountKey];
+    if (data[LocalStorageDao.totalRevenueDHXKey] != null)
+      dataDHX[LocalStorageDao.totalRevenueDHXKey] =
+      data[LocalStorageDao.totalRevenueDHXKey];
+    if (data[LocalStorageDao.mPowerKey] != null)
+      dataDHX[LocalStorageDao.mPowerKey] = data[LocalStorageDao.mPowerKey];
+    if (data[LocalStorageDao.miningPowerKey] != null)
+      dataDHX[LocalStorageDao.miningPowerKey] =
+      data[LocalStorageDao.miningPowerKey];
+    if (dataDHX.isNotEmpty)
+      ctx.dispatch(HomeActionCreator.dataDHX(dataDHX));
+
+    //add DHX to wallet
+    ctx.dispatch(HomeActionCreator.onAddDHX(false));
+  }
 
   if (data['miningIncome'] != null)
     ctx.dispatch(HomeActionCreator.miningIncome(data['miningIncome']));
@@ -261,8 +271,6 @@ void _loadUserData(Context<HomeState> ctx) {
   if (data['usd_gateway'] != null)
     ctx.dispatch(
         HomeActionCreator.convertUSD('gateway', data['usd_gateway']));
-  if (data[LocalStorageDao.walletDHX] != null && data[LocalStorageDao.walletDHX])
-    ctx.dispatch(HomeActionCreator.onAddDHX(false));
 
   print(data);
 }
@@ -534,10 +542,7 @@ void _onAddDHX (Action action, Context<HomeState> ctx) {
   bool saveLocally = action.payload;
   if (!ctx.state.displayTokens.contains(Token.DHX)) {
     ctx.dispatch(HomeActionCreator.addDHX());
-
-    _requestUserDHXBalance(ctx);
-    _requestLockedAmount_TotalRevenue(ctx);
-    _requestLastMining(ctx);
+    ctx.dispatch(HomeActionCreator.onDataDHX(addingDHX: true));
   }
   if (saveLocally) {
     SettingsState settingsData = GlobalStore.store.getState().settings;
@@ -545,6 +550,15 @@ void _onAddDHX (Action action, Context<HomeState> ctx) {
       LocalStorageDao.saveUserData(
           'user_${settingsData.username}', {LocalStorageDao.walletDHX: true});
     }
+  }
+}
+
+void _onDataDHX (Action action, Context<HomeState> ctx) async {
+  bool addingDHX = action.payload;
+  if (addingDHX || ctx.state.displayTokens.contains(Token.DHX)) {
+    _requestUserDHXBalance(ctx);
+    _requestLockedAmount_TotalRevenue(ctx);
+    _requestLastMining(ctx);
   }
 }
 
@@ -563,12 +577,13 @@ void _requestUserDHXBalance (Context<HomeState> ctx) async {
       var res = await dao.balance(data);
       double balanceDHX = Tools.convertDouble(res['balance']);
       mLog('DHX balance', '$res');
+      Map dataDHX = {balanceDHXlabel: balanceDHX};
       if (settingsData.username.isNotEmpty) {
         LocalStorageDao.saveUserData(
-            'user_${settingsData.username}', {balanceDHXlabel: balanceDHX});
+            'user_${settingsData.username}', dataDHX);
       }
 
-      ctx.dispatch(WalletActionCreator.balanceDHX(balanceDHX));
+      ctx.dispatch(HomeActionCreator.dataDHX(dataDHX));
       ctx.dispatch(HomeActionCreator.loadingMap(balanceDHXlabel));
     } catch (err) {
       tip(ctx.context, 'WalletDao balance: $err');
@@ -600,17 +615,19 @@ void _requestLockedAmount_TotalRevenue (Context<HomeState> ctx) async {
       }
       if (list.length > 0) list[list.length - 1].isLast = true;
 
-      Map dataDHX = {lockedAmountLabel: lockedAmount, LocalStorageDao.totalRevenueDHXKey: totalRevenueDHX, LocalStorageDao.mPowerKey: mPower};
+      Map dataDHX = {lockedAmountLabel: lockedAmount,
+        LocalStorageDao.totalRevenueDHXKey: totalRevenueDHX,
+        LocalStorageDao.mPowerKey: mPower};
       if (settingsData.username.isNotEmpty) {
         LocalStorageDao.saveUserData(
             'user_${settingsData.username}', dataDHX);
       }
       dataDHX['list'] = list;
 
-      ctx.dispatch(WalletActionCreator.dataDHX(dataDHX));
+      ctx.dispatch(HomeActionCreator.dataDHX(dataDHX));
       ctx.dispatch(HomeActionCreator.loadingMap(lockedAmountLabel));
     } catch (err) {
-      tip(ctx.context, 'StakeDao dhxStakesList: $err');
+      tip(ctx.context, 'DhxDao dhxStakesList: $err');
     }
   }
 }
@@ -626,13 +643,13 @@ void _requestLastMining (Context<HomeState> ctx) async {
     double miningPower = Tools.convertDouble(res.miningPower);
 
     SettingsState settingsData = GlobalStore.store.getState().settings;
-    Map data = {miningPowerLabel: miningPower};
+    Map dataDHX = {miningPowerLabel: miningPower};
     if (settingsData.username.isNotEmpty) {
       LocalStorageDao.saveUserData(
-          'user_${settingsData.username}', data);
+          'user_${settingsData.username}', dataDHX);
     }
 
-    ctx.dispatch(WalletActionCreator.lastMining(miningPower));
+    ctx.dispatch(HomeActionCreator.dataDHX(dataDHX));
     ctx.dispatch(HomeActionCreator.loadingMap(miningPowerLabel));
   } catch (err) {
     tip(ctx.context, 'DhxDao lastMining: $err');

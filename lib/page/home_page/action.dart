@@ -10,9 +10,9 @@ enum HomeAction {
   onProfile,
   profile,
   balance,
-  balanceDHX,
   onAddDHX,
   addDHX,
+  onDataDHX,
   dataDHX,
   mapbox,
   geojsonList,
@@ -72,16 +72,16 @@ class HomeActionCreator {
     return Action(HomeAction.balance, payload: balance);
   }
 
-  static Action balanceDHX(double balanceDHX) {
-    return Action(HomeAction.balanceDHX, payload: balanceDHX);
-  }
-
   static Action onAddDHX(bool saveLocally) {
     return Action(HomeAction.onAddDHX, payload: saveLocally);
   }
 
   static Action addDHX() {
     return Action(HomeAction.addDHX);
+  }
+
+  static Action onDataDHX({bool addingDHX: false}) {
+    return Action(HomeAction.onDataDHX, payload: addingDHX);
   }
 
   static Action dataDHX(Map data) {

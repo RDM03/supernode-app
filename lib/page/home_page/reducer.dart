@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
+import 'package:supernodeapp/common/daos/local_storage_dao.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/sys.dart';
@@ -17,7 +18,6 @@ Reducer<HomeState> buildReducer() {
       HomeAction.tabIndex: _tabIndex,
       HomeAction.profile: _profile,
       HomeAction.balance: _balance,
-      HomeAction.balanceDHX: _balanceDHX,
       HomeAction.addDHX: _addDHX,
       HomeAction.dataDHX: _dataDHX,
       HomeAction.stakedAmount: _stakedAmount,
@@ -114,13 +114,6 @@ HomeState _balance(HomeState state, Action action) {
   return newState..balance = data;
 }
 
-HomeState _balanceDHX(HomeState state, Action action) {
-  double balanceDHX = action.payload;
-
-  final HomeState newState = state.clone();
-  return newState..balanceDHX = balanceDHX;
-}
-
 HomeState _addDHX(HomeState state, Action action) {
   final HomeState newState = state.clone();
   newState.displayTokens.add(Token.DHX);
@@ -131,11 +124,19 @@ HomeState _dataDHX(HomeState state, Action action) {
   Map data = action.payload;
 
   final HomeState newState = state.clone();
-  return newState
-    ..lockedAmount = data['lockedAmount']
-    ..totalRevenueDHX = data['totalRevenueDHX']
-    ..mPower = data['mPower']
-    ..miningPower = data['miningPower'];
+  if (data.containsKey(LocalStorageDao.balanceDHXKey))
+    newState.balanceDHX = data[LocalStorageDao.balanceDHXKey];
+  if (data.containsKey(LocalStorageDao.lockedAmountKey))
+    newState.lockedAmount = data[LocalStorageDao.lockedAmountKey];
+  if (data.containsKey(LocalStorageDao.totalRevenueDHXKey))
+    newState.totalRevenueDHX = data[LocalStorageDao.totalRevenueDHXKey];
+  if (data.containsKey(LocalStorageDao.mPowerKey))
+    newState.mPower = data[LocalStorageDao.mPowerKey];
+  if (data.containsKey(LocalStorageDao.miningPowerKey))
+    newState.miningPower = data[LocalStorageDao.miningPowerKey];
+  if (data.containsKey('list'))
+    newState.stakeDHXList = data['list'];
+  return newState;
 }
 
 HomeState _stakedAmount(HomeState state, Action action) {

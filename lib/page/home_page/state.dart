@@ -290,14 +290,9 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..expandedView = subState.expandedView
       ..displayTokens = subState.displayTokens
       ..selectedToken = subState.selectedToken
-      ..balanceDHX = subState.balanceDHX
       ..isFirstRequest = subState.isFirstRequest
       ..loadingHistory = subState.loadingHistory
       ..totalRevenue = subState.totalRevenue
-      ..lockedAmount = subState.lockedAmount
-      ..totalRevenueDHX = subState.totalRevenueDHX
-      ..mPower = subState.mPower
-      ..miningPower = subState.miningPower
       ..isSetDate1 = subState.isSetDate1
       ..isSetDate2 = subState.isSetDate2
       ..selectedIndexBtn1 = subState.selectedIndexBtn1
@@ -305,7 +300,6 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..walletActiveTabToken = subState.activeTabToken
       ..walletList = subState.walletList
       ..stakeList = subState.stakeList
-      ..stakeDHXList = subState.stakeDHXList
       ..transactions = subState.transactions
       ..withdrawFee = subState.withdrawFee
       ..firstTime = subState.firstTime

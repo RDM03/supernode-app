@@ -10,9 +10,6 @@ Reducer<WalletState> buildReducer() {
     <Object, Reducer<WalletState>>{
       WalletAction.expand: _expand,
       WalletAction.selectToken: _selectToken,
-      WalletAction.balanceDHX: _balanceDHX,
-      WalletAction.dataDHX: _dataDHX,
-      WalletAction.lastMining: _lastMining,
       WalletAction.loadingHistory: _loadingHistory,
       WalletAction.tab: _tab,
       WalletAction.isSetDate: _isSetDate,
@@ -40,30 +37,6 @@ WalletState _selectToken(WalletState state, Action action) {
   final WalletState newState = state.clone();
   return newState
     ..selectedToken = tkn;
-}
-
-WalletState _balanceDHX(WalletState state, Action action) {
-  double balanceDHX = action.payload;
-  final WalletState newState = state.clone();
-  return newState
-    ..balanceDHX = balanceDHX;
-}
-
-WalletState _dataDHX(WalletState state, Action action) {
-  Map data = action.payload;
-  final WalletState newState = state.clone();
-  return newState
-    ..lockedAmount = data['lockedAmount']
-    ..totalRevenueDHX = data['totalRevenueDHX']
-    ..mPower = data['mPower']
-    ..stakeDHXList = data['list'];
-}
-
-WalletState _lastMining(WalletState state, Action action) {
-  double miningPower = action.payload;
-  final WalletState newState = state.clone();
-  return newState
-    ..miningPower = miningPower;
 }
 
 WalletState _loadingHistory(WalletState state, Action action) {

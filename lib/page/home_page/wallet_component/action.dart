@@ -5,9 +5,6 @@ import 'package:supernodeapp/common/utils/currencies.dart';
 enum WalletAction {
   expand,
   selectToken,
-  balanceDHX,
-  dataDHX,
-  lastMining,
   loadingHistory,
   tab,
   onTab,
@@ -32,18 +29,6 @@ class WalletActionCreator {
 
   static Action selectToken(Token t) {
     return Action(WalletAction.selectToken, payload: t);
-  }
-
-  static Action balanceDHX(double balanceDHX) {
-    return Action(WalletAction.balanceDHX, payload: balanceDHX);
-  }
-
-  static Action dataDHX(Map data) {
-    return Action(WalletAction.dataDHX, payload: data);
-  }
-
-  static Action lastMining(double miningPower) {
-    return Action(WalletAction.lastMining, payload: miningPower);
   }
 
   static Action loadingHistory(bool toogle) {
