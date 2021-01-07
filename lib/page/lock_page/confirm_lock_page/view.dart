@@ -149,15 +149,18 @@ Widget buildView(
                       overflow: TextOverflow.clip,
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () => _showInfoDialog(context),
-                    child: Padding(
-                      key: Key("questionCircle"),
-                      padding: EdgeInsets.all(s(5)),
-                      child:
-                          Image.asset(AppImages.questionCircle, height: s(20)),
+                  Container(
+                    constraints: BoxConstraints(maxWidth: 50),
+                    child: GestureDetector(
+                      onTap: () => _showInfoDialog(context),
+                      child: Padding(
+                        key: Key("questionCircle"),
+                        padding: EdgeInsets.only(left: 5, top: 5, bottom: 5),
+                        child:
+                            Image.asset(AppImages.questionCircle, height: 25),
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
