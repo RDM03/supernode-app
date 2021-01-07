@@ -215,16 +215,23 @@ Widget buildView(
               ),
             ),
             SizedBox(width: 30),
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0x4665EA).withOpacity(0.2),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Center(
-                child: Text(
-                  FlutterI18n.translate(context, 'coming'),
-                  style: kMiddleFontOfGrey,
+            Expanded(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0x4665EA).withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: Text(
+                    '${Tools.numberRounded(state.avgDailyDhxRevenue)} DHX',
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.clip,
+                    textAlign: TextAlign.right,
+                    style: kMiddleFontOfBlack,
+                  ),
                 ),
               ),
             ),

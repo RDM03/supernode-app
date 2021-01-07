@@ -13,6 +13,7 @@ class ConfirmLockState implements Cloneable<ConfirmLockState> {
   int months;
   int minersOwned;
   Council council;
+  double avgDailyDhxRevenue;
   String get councilName => council.name;
 
   double get miningPower {
@@ -39,7 +40,8 @@ class ConfirmLockState implements Cloneable<ConfirmLockState> {
       ..minersOwned = minersOwned
       ..council = council
       ..openTime = openTime
-      ..boostRate = boostRate;
+      ..boostRate = boostRate
+      ..avgDailyDhxRevenue = avgDailyDhxRevenue;
   }
 }
 
@@ -56,6 +58,8 @@ ConfirmLockState initState(Map<String, dynamic> args) {
       args['minersOwned'] ?? (throw ArgumentError.notNull('minersOwned'));
   Council council = args['council'] ?? (throw ArgumentError.notNull('council'));
 
+  double avgDailyDhxRevenue = args['avgDailyDhxRevenue'];
+
   return ConfirmLockState()
     ..isDemo = isDemo
     ..amount = amount
@@ -64,5 +68,6 @@ ConfirmLockState initState(Map<String, dynamic> args) {
     ..minersOwned = minersOwned
     ..council = council
     ..openTime = DateTime.now()
-    ..boostRate = boostRate;
+    ..boostRate = boostRate
+    ..avgDailyDhxRevenue = avgDailyDhxRevenue;
 }

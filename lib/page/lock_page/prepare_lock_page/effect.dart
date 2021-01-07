@@ -2,10 +2,13 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/daos/demo/dhx_dao.dart';
 import 'package:supernodeapp/common/daos/demo/gateways_dao.dart';
 import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
+import 'package:supernodeapp/common/daos/dhx_dao.dart';
 import 'package:supernodeapp/common/daos/gateways_dao.dart';
 import 'package:supernodeapp/common/daos/wallet_dao.dart';
+import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/global_store/store.dart';
@@ -29,9 +32,13 @@ WalletDao _buildWalletDao(Context<PrepareLockState> ctx) {
 GatewaysDao _buildGatewaysDao(Context<PrepareLockState> ctx) =>
     ctx.state.isDemo ? DemoGatewaysDao() : GatewaysDao();
 
+DhxDao _buildDhxDao(Context<PrepareLockState> ctx) =>
+    ctx.state.isDemo ? DemoDhxDao() : DhxDao();
+
 void _onInitState(Action action, Context<PrepareLockState> ctx) async {
   await _minersOwned(ctx);
   await _balance(ctx);
+  await _lastMining(ctx);
 }
 
 void _resultPage(Context<PrepareLockState> ctx, String type, dynamic res) {
@@ -73,7 +80,15 @@ Future<void> _stake(Context<PrepareLockState> ctx) async {
 
 void _onConfirm(Action action, Context<PrepareLockState> ctx) async {
   final formValid = ctx.state.formKey.currentState.validate();
+  final estimateDhx = calculateDhxDaily(
+    dhxTotal: ctx.state.lastMiningDhx,
+    minersCount: ctx.state.minersOwned,
+    months: ctx.state.months,
+    mxcValue: double.tryParse(ctx.state.amountCtl.text),
+    yesterdayMining: ctx.state.lastMiningMPower,
+  );
   if (!formValid) return;
+  if (estimateDhx == null) return;
 
   final res = await Navigator.of(ctx.context)
       .pushNamed('join_council_page', arguments: {
@@ -82,6 +97,7 @@ void _onConfirm(Action action, Context<PrepareLockState> ctx) async {
     'months': ctx.state.months,
     'minersOwned': ctx.state.minersOwned,
     'isDemo': ctx.state.isDemo,
+    'avgDailyDhxRevenue': estimateDhx,
   });
 
   _balance(ctx);
@@ -123,4 +139,11 @@ Future<void> _balance(Context<PrepareLockState> ctx) async {
   double balance = Tools.convertDouble(res['balance']);
 
   ctx.dispatch(PrepareLockActionCreator.balance(balance));
+}
+
+Future<void> _lastMining(Context<PrepareLockState> ctx) async {
+  final dao = _buildDhxDao(ctx);
+  final res = await dao.lastMining();
+  ctx.dispatch(PrepareLockActionCreator.lastMining(
+      double.parse(res.dhxAmount), double.parse(res.miningPower)));
 }

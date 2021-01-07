@@ -13,6 +13,9 @@ class PrepareLockState implements Cloneable<PrepareLockState> {
   double balance;
   Color iconColor;
 
+  double lastMiningDhx;
+  double lastMiningMPower;
+
   int minersOwned;
 
   @override
@@ -26,7 +29,9 @@ class PrepareLockState implements Cloneable<PrepareLockState> {
       ..balance = balance
       ..iconColor = iconColor
       ..boostRate = boostRate
-      ..minersOwned = minersOwned;
+      ..minersOwned = minersOwned
+      ..lastMiningDhx = lastMiningDhx
+      ..lastMiningMPower = lastMiningMPower;
   }
 }
 
