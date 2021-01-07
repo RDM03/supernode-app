@@ -1,11 +1,13 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/components/stake/stake_item.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 
 enum WalletAction {
+  expand,
+  selectToken,
   loadingHistory,
   tab,
   onTab,
-  tabController,
   isSetDate,
   onFilter,
   updateSelectedButton,
@@ -21,6 +23,14 @@ enum WalletAction {
 }
 
 class WalletActionCreator {
+  static Action expand(Token t) {
+    return Action(WalletAction.expand, payload: t);
+  }
+
+  static Action selectToken(Token t) {
+    return Action(WalletAction.selectToken, payload: t);
+  }
+
   static Action loadingHistory(bool toogle) {
     return Action(WalletAction.loadingHistory, payload: toogle);
   }
@@ -31,10 +41,6 @@ class WalletActionCreator {
 
   static Action tab(int index) {
     return Action(WalletAction.tab, payload: index);
-  }
-
-  static Action tabController(dynamic controller) {
-    return Action(WalletAction.tabController, payload: controller);
   }
 
   static Action isSetDate() {

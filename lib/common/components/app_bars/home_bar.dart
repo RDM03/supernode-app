@@ -4,11 +4,11 @@ import 'package:supernodeapp/theme/font.dart';
 
 Widget homeBar(String title, {Function onPressed, Widget action}) {
   return AppBar(
+    centerTitle: true,
     backgroundColor: backgroundColor,
     elevation: 0,
     title: Text(
       title,
-      textAlign: TextAlign.left,
       style: kBigFontOfBlack,
     ),
     actions: [

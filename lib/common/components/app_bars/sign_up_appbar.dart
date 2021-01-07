@@ -1,37 +1,38 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/font.dart';
 
 class AppBars {
-  static signUpAppBar({Function onPress}){
+  static backArrowAppBar({String title: '', Function onPress}){
     return AppBar(
       leading: IconButton(
         onPressed: onPress,
-        icon: Image.asset(
-          "assets/images/arrow-left.png",
+        icon: Icon(Icons.arrow_back_ios,
           color: Colors.black,
         ),
       ),
-      backgroundColor: Colors.transparent,
+      centerTitle: true,
+      backgroundColor: backgroundColor,
       elevation: 0,
+      title: Text(
+        title,
+        style: kBigFontOfBlack,
+      ),
     );
   }
 
-  static signUpSkipAppBar({Function onPress}) {
+  static backArrowSkipAppBar({Function onPress, String action = ""}) {
     return AppBar(
       leading: IconButton(
         onPressed: onPress,
-        icon: Image.asset(
-          "assets/images/arrow-left.png",
-        ),
+        icon: Icon(Icons.arrow_back_ios, color: Colors.black),
       ),
       actions: <Widget>[
-        Container(
-          margin: kRoundRow202,
+        FlatButton(
+          onPressed: onPress,
           child: Center(
-            child: Text(
-              "skip",
-            ),
+            child: Text(action, style: kBigFontOfBlack),
           ),
         )
       ],

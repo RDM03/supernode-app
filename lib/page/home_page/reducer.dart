@@ -1,6 +1,9 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
+import 'package:supernodeapp/common/daos/local_storage_dao.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 
 import 'action.dart';
@@ -15,6 +18,8 @@ Reducer<HomeState> buildReducer() {
       HomeAction.tabIndex: _tabIndex,
       HomeAction.profile: _profile,
       HomeAction.balance: _balance,
+      HomeAction.addDHX: _addDHX,
+      HomeAction.dataDHX: _dataDHX,
       HomeAction.stakedAmount: _stakedAmount,
       HomeAction.gateways: _gateways,
       HomeAction.miningIncome: _miningIncome,
@@ -63,9 +68,7 @@ HomeState _loadingMap(HomeState state, Action action) {
   final HomeState newState = state.clone();
   Map res = action.payload;
 
-  if(res['data'].length == 0){
-    return newState..loadingMap = {};
-  }else if(res['type'] == 'add'){
+  if (res['type'] == 'add') {
     return newState..loadingMap.add(res['data']);
   }else{
     return newState..loadingMap.remove(res['data']);
@@ -81,6 +84,9 @@ HomeState _tabIndex(HomeState state, Action action) {
   });
 
   final HomeState newState = state.clone();
+  if (Sys.mainMenus[index] == 'Wallet') {
+    newState.expandedView = false;
+  }
   return newState..tabIndex = index;
 }
 
@@ -104,6 +110,31 @@ HomeState _balance(HomeState state, Action action) {
 
   final HomeState newState = state.clone();
   return newState..balance = data;
+}
+
+HomeState _addDHX(HomeState state, Action action) {
+  final HomeState newState = state.clone();
+  newState.displayTokens = [...newState.displayTokens, Token.DHX];
+  return newState;
+}
+
+HomeState _dataDHX(HomeState state, Action action) {
+  Map data = action.payload;
+
+  final HomeState newState = state.clone();
+  if (data.containsKey(LocalStorageDao.balanceDHXKey))
+    newState.balanceDHX = data[LocalStorageDao.balanceDHXKey];
+  if (data.containsKey(LocalStorageDao.lockedAmountKey))
+    newState.lockedAmount = data[LocalStorageDao.lockedAmountKey];
+  if (data.containsKey(LocalStorageDao.totalRevenueDHXKey))
+    newState.totalRevenueDHX = data[LocalStorageDao.totalRevenueDHXKey];
+  if (data.containsKey(LocalStorageDao.mPowerKey))
+    newState.mPower = data[LocalStorageDao.mPowerKey];
+  if (data.containsKey(LocalStorageDao.miningPowerKey))
+    newState.miningPower = data[LocalStorageDao.miningPowerKey];
+  if (data.containsKey('list'))
+    newState.stakeDHXList = data['list'];
+  return newState;
 }
 
 HomeState _stakedAmount(HomeState state, Action action) {

@@ -1,17 +1,21 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter/material.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 
 import 'wallet_list_adapter/wallet_item_component/state.dart';
 
 class WalletState extends MutableSource implements Cloneable<WalletState> {
+
+  bool expandedView = false;
+  List<Token> displayTokens = [Token.MXC];
+  Token selectedToken = Token.MXC;
   bool isFirstRequest = true;
   bool loading = true;
+
+  /// labels for data being loaded ['balance', 'balanceDHX', 'stakeAmount', 'totalRevenue', 'lockedAmount']
   Set loadingMap = {};
   bool loadingHistory = true;
-  TabController tabController;
-  int tabIndex = 0;
-  double tabHeight = 100;
+  Map<Token, int> activeTabToken = {Token.MXC: 0, Token.DHX: 0};
   bool isSetDate1 = false;
   bool isSetDate2 = false;
 
@@ -23,20 +27,43 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
 
   List<OrganizationsState> organizations = [];
 
+  //gateways
+  int gatewaysTotal = 0;
+
   //amount
-  double balance = 0;
+  double balance = 0; // MXC
+  double balanceDHX = 0;
 
   //stake
   double stakedAmount = 0;
-  double totalRevenue = 0;
+  double totalRevenue = 0; // MXC
+  double lockedAmount = 0;
+  double totalRevenueDHX = 0;
+  double mPower = 0;
+  double miningPower = 0;
 
   //withdraw
   double withdrawFee = 0;
 
-  List<dynamic> get _currentList => tabIndex == 0 ? walletList : stakeList;
+  List<dynamic> get _currentList {
+    List<dynamic> list =
+    (selectedToken == Token.MXC)
+      ? activeTabToken[selectedToken] == 0 ? walletList : stakeList
+      : activeTabToken[selectedToken] == 0 ? stakeDHXList : transactions;
+    int i = 0;
+    for (dynamic item in list) {
+      if (item is StakeItemState && item.historyEntity.type != 'STAKING') {
+        continue;
+      }
+      item.index = i++;
+    }
+    return list;
+  }
 
   List<StakeItemState> stakeList = [];
   List<WalletItemState> walletList = [];
+  List<StakeDHXItemState> stakeDHXList = [];
+  List<WalletItemState> transactions = [];
 
   @override
   Object getItemData(int index) {
@@ -64,23 +91,32 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   @override
   WalletState clone() {
     return WalletState()
+      ..expandedView = expandedView
+      ..displayTokens = displayTokens
+      ..selectedToken = selectedToken
       ..isFirstRequest = isFirstRequest
       ..loading = loading
       ..loadingMap = loadingMap
       ..loadingHistory = loadingHistory
-      ..tabController = tabController
       ..walletList = walletList
       ..stakeList = stakeList
+      ..stakeDHXList = stakeDHXList
+      ..transactions = transactions
       ..organizations = organizations
-      ..tabIndex = tabIndex
-      ..tabHeight = tabHeight
+      ..gatewaysTotal = gatewaysTotal
+      ..activeTabToken = activeTabToken
       ..isSetDate1 = isSetDate1
       ..isSetDate2 = isSetDate2
       ..selectedIndexBtn1 = selectedIndexBtn1
       ..selectedIndexBtn2 = selectedIndexBtn2
       ..balance = balance
+      ..balanceDHX = balanceDHX
       ..stakedAmount = stakedAmount
       ..totalRevenue = totalRevenue
+      ..lockedAmount = lockedAmount
+      ..totalRevenueDHX =totalRevenueDHX
+      ..mPower = mPower
+      ..miningPower = miningPower
       ..withdrawFee = withdrawFee
       ..firstTime = firstTime
       ..secondTime = secondTime

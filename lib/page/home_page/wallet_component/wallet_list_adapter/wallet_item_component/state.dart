@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/components/stake/stake_item.dart';
+import 'package:supernodeapp/common/daos/dhx_dao.dart';
 import 'package:supernodeapp/common/daos/wallet_dao.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/common/utils/uuid.dart';
@@ -71,8 +72,118 @@ class StakeHistoryEntity {
       timestamp.hashCode ^ amount.hashCode ^ type.hashCode ^ stake.hashCode;
 }
 
+class StakeDHXItemEntity {
+  final String amount;
+  final String boost;
+  final bool closed;
+  final String councilId;
+  final String councilName;
+  final DateTime created;
+  final String currency;
+  final String dhxMined;
+  final String id;
+  final DateTime lockTill;
+  final String organisationId;
+
+  StakeDHXItemEntity(
+    this.amount,
+    this.boost,
+    this.closed,
+    this.councilId,
+    this.councilName,
+    this.created,
+    this.currency,
+    this.dhxMined,
+    this.id,
+    this.lockTill,
+    this.organisationId
+  );
+
+  factory StakeDHXItemEntity.fromStake(StakeDHX stake) {
+    if (stake == null) return null;
+
+    return StakeDHXItemEntity(
+        stake.amount,
+        stake.boost,
+        stake.closed,
+        stake.councilId,
+        stake.councilName,
+        stake.created,
+        stake.currency,
+        stake.dhxMined,
+        stake.id,
+        stake.lockTill,
+        stake.organizationId
+    );
+  }
+
+  StakeDHXItemEntity copyWith({
+    String amount,
+    String boost,
+    String closed,
+    String councilId,
+    String councilName,
+    DateTime created,
+    String currency,
+    String dhxMined,
+    String id,
+    DateTime lockTill,
+    String organisationId,
+  }) {
+    return StakeDHXItemEntity(
+      amount ?? this.amount,
+      boost ?? this.boost,
+      closed ?? this.closed,
+      councilId ?? this.councilId,
+      councilName ?? this.councilName,
+      created ?? this.created,
+      currency ?? this.currency,
+      dhxMined ?? this.dhxMined,
+      id ?? this.id,
+      lockTill ?? this.lockTill,
+      organisationId ?? this.organisationId
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      "amount": amount,
+      "boost": boost,
+      "closed": closed,
+      "councilId": councilId,
+      "councilName": councilName,
+      "created": created?.toIso8601String(),
+      "currency": currency,
+      "dhxMined": dhxMined,
+      "id": id,
+      "lockTill": lockTill?.toIso8601String(),
+      "organizationId": organisationId,
+    };
+  }
+
+  @override
+  String toString() =>
+      'StakeDHXHistoryEntity(created: $created, amount: $amount, council Name: $councilName)';
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+
+    return o is StakeDHXItemEntity &&
+        o.created == created &&
+        o.amount == amount &&
+        o.organisationId == organisationId &&
+        o.lockTill == lockTill;
+  }
+
+  @override
+  int get hashCode =>
+      created.hashCode ^ amount.hashCode ^ organisationId.hashCode ^ lockTill.hashCode;
+}
+
 abstract class GeneralItemState {
   bool get isExpand;
+  int get index;
   GeneralItemState copyWithExtend(bool isExpand);
 }
 
@@ -82,6 +193,7 @@ class StakeItemState extends GeneralItemState
   final String itemType;
   final bool isLast;
   final bool isExpand;
+  int index;
   StakeItemState(this.historyEntity, this.itemType,
       [this.isLast = false, this.isExpand = false]);
 
@@ -119,6 +231,7 @@ class WalletItemState extends GeneralItemState
   String txHash = '';
 
   bool isExpand = false;
+  int index;
   bool isLast = false;
 
   //withdraw history
@@ -204,6 +317,34 @@ class WalletItemState extends GeneralItemState
 
     return map;
   }
+}
+
+class StakeDHXItemState extends GeneralItemState
+    implements Cloneable<StakeDHXItemState> {
+  final StakeDHXItemEntity historyEntity;
+  bool isLast;
+  final bool isExpand;
+  int index;
+  StakeDHXItemState(this.historyEntity, [this.isLast = false, this.isExpand = false]);
+
+  @override
+  StakeDHXItemState clone() {
+    return copyWith();
+  }
+
+  StakeDHXItemState copyWith(
+      {bool isExpand,
+        StakeHistoryEntity historyEntity,
+        String itemType,
+        bool isLast}) {
+    return StakeDHXItemState(
+      historyEntity ?? this.historyEntity,
+      isLast ?? this.isLast,
+      isExpand ?? this.isExpand,
+    );
+  }
+
+  StakeDHXItemState copyWithExtend(bool val) => copyWith(isExpand: val);
 }
 
 WalletItemState initState(Map<String, dynamic> args) {

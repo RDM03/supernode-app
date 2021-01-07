@@ -124,4 +124,9 @@ class DemoStakeDao extends DemoDao implements StakeDao {
       ]
     });
   }
+
+  @override
+  Future<dynamic> dhxStakesList(Map data) {
+    throw UnimplementedError('DHX token is not supported in demo');
+  }
 }
