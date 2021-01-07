@@ -50,11 +50,9 @@ Widget buildView(
                   state.expandedView
                       ? (tkn == Token.DHX)
                         ? PrimaryButton(
-                      bgColor: (state.loadingMap.contains(LocalStorageDao.balanceDHXKey)) ? colorToken[Token.DHX] : Colors.grey,
+                      bgColor: colorToken[Token.DHX],
                       buttonTitle: FlutterI18n.translate(_ctx, 'simulate_mining'),
-                      onTap: () => (state.loadingMap.contains(LocalStorageDao.balanceDHXKey))
-                          ? Navigator.pushNamed(_ctx, 'mining_simulator_page', arguments: {'isDemo': state.isDemo, 'balance': state.balanceDHX})
-                          : 'loading')
+                      onTap: () => Navigator.pushNamed(_ctx, 'mining_simulator_page', arguments: {'isDemo': state.isDemo, 'balance': state.balance}))
                         : SizedBox()
                       : Icon(Icons.arrow_forward_ios)
                 ]),
