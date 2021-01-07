@@ -186,7 +186,7 @@ Widget buildView(
   }
 
   Widget tokenPage(Token t) => Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20),
+    padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
     child: ListView(
       children: [
         Padding(
@@ -295,10 +295,60 @@ Widget buildView(
     ),
   );//tokenPage
 
-  Widget expandedView () => PageView(
-      controller: PageController(initialPage: state.selectedToken.index),
-      onPageChanged: (val) => dispatch(WalletActionCreator.selectToken(Token.values[val])),
-      children: state.displayTokens.map((t) => tokenPage(t)).toList());
+  Widget pageviewIndicator(bool isActive) {
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 150),
+      margin: EdgeInsets.symmetric(horizontal: 3),
+      height: 5,
+      width: isActive ? 20 : 19,
+      decoration: BoxDecoration(
+          color: isActive ? colorToken[state.selectedToken] : Colors.grey,
+          borderRadius: BorderRadius.all(Radius.circular(2))),
+    );
+  }
+
+  Widget expandedView () => Stack (
+      alignment: AlignmentDirectional.bottomCenter,
+      children: [
+        PageView(
+            controller: PageController(initialPage: state.selectedToken.index),
+            onPageChanged: (val) => dispatch(WalletActionCreator.selectToken(Token.values[val])),
+            children: state.displayTokens.map((t) => tokenPage(t)).toList()),
+        (state.displayTokens.length > 1)
+        // PageView indicator
+        ? Container(
+          width: double.infinity,
+          height: 20,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: shodowColor,
+                offset: Offset(0, 2),
+                blurRadius: 7,
+              ),
+            ],
+          ),
+          child: Stack(
+            alignment: AlignmentDirectional.center,
+            children: <Widget> [
+              Container(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    for (int i = 0; i < state.displayTokens.length; i++)
+                      if (state.displayTokens[i] == state.selectedToken) ...[pageviewIndicator(true)] else
+                        pageviewIndicator(false),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        )
+        : SizedBox()
+      ],
+  );
 
 
   return Scaffold(
