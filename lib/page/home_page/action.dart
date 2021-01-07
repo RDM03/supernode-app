@@ -49,7 +49,7 @@ class HomeActionCreator {
     return Action(HomeAction.loading, payload: toogle);
   }
 
-  /// data - label for data being loaded ['balance', 'balanceDHX', 'stakeAmount', 'totalRevenue']
+  /// data - label for data being loaded, for example: ['balance', 'balanceDHX', 'lockedAmount', 'miningPower', 'stakedAmount', 'totalRevenue']
   /// type = 'add' - loading finished for data,
   /// type = 'other than add' - loading started for data
   static Action loadingMap(String data,{String type = 'add'}) {

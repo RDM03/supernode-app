@@ -68,9 +68,7 @@ HomeState _loadingMap(HomeState state, Action action) {
   final HomeState newState = state.clone();
   Map res = action.payload;
 
-  if(res['data'].length == 0){
-    return newState..loadingMap = {};
-  }else if(res['type'] == 'add'){
+  if (res['type'] == 'add') {
     return newState..loadingMap.add(res['data']);
   }else{
     return newState..loadingMap.remove(res['data']);
