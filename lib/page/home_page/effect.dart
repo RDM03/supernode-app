@@ -68,11 +68,6 @@ DhxDao _buildDhxDao(Context<HomeState> ctx) {
 }
 
 void _relogin(Action action, Context<HomeState> ctx) async {
-  Map data = {
-    'username': StorageManager.sharedPreferences.getString(Config.USERNAME_KEY),
-    'password': StorageManager.sharedPreferences.getString(Config.PASSWORD_KEY)
-  };
-
   int reloginCount = ctx.state.reloginCount;
   Loading loading;
   try {
@@ -111,6 +106,7 @@ void _relogin(Action action, Context<HomeState> ctx) async {
     settingsData.username = data['username'];
     settingsData.isDemo = res['isDemo'] ?? false;
     _profile(ctx);
+    ctx.dispatch(HomeActionCreator.onDataDHX());
   } catch (e) {
     loading?.hide();
 
@@ -493,6 +489,7 @@ void _onSettings(Action action, Context<HomeState> ctx) {
     }
 
     _profile(ctx);
+    ctx.dispatch(HomeActionCreator.onDataDHX());
   });
 }
 
