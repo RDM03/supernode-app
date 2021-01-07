@@ -386,22 +386,19 @@ void _showAddTokenDialog(BuildContext context, dispatch) {
               onTap: () {
                 Navigator.pop(context);
                 dispatch(HomeActionCreator.onAddDHX(true));},
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child:
-                  Row(
-                    children: [
-                      Image.asset(AppImages.logoDHX, height: s(50)),
-                      Text('Datahighway DHX',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: s(16),
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+              child: Row(
+                children: [
+                  Image.asset(AppImages.logoDHX, height: s(50)),
+                  SizedBox(width: s(10)),
+                  Text('Datahighway DHX',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: s(16),
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
                   )
+                ],
               )
             ),
             Divider(color: Colors.grey),
