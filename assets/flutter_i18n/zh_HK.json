@@ -358,6 +358,7 @@
 	"tutorial_bubble2": "主網上線後，您需要添加DHX燃料才可以繼續挖礦。",
 	"tutorial_pg1_title": "歡迎來到 DHX 挖礦",
 	"tutorial_pg1_text": "DHX挖礦很簡單，只需按照指示即可。首先，您將需要一些MXC； 此外，如果您想要提升您的 DHX 採礦量，您將需要 M2 Pro礦機。",
+	"shop_miner": "購買礦機",
 	"tutorial_pg2_title": "首先，選擇你的算力",
 	"tutorial_pg2_text": "這些都將使您能夠獲得每日可開採量5,000 DHX 中的更大份額，提升您的整體算力。",
 	"mxc_locked": "MXC 已鎖定",

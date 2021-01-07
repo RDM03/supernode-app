@@ -62,7 +62,7 @@ class MiningTutorial extends StatefulWidget {
               CircleButton(
                   onTap: () => launch('https://www.matchx.io/product/m2-pro-lpwan-crypto-miner/'),
                   icon: Icon(Icons.shopping_basket, color: colorToken[Token.DHX]),
-                  label: "Shop Miner"),
+                  label: FlutterI18n.translate(ctx, "shop_miner")),
             ],
           ),
           SizedBox(width: s(80)),

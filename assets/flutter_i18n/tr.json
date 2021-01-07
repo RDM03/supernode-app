@@ -358,6 +358,7 @@
 	"tutorial_bubble2": "Once the mainnet is released you will need to fuel DHX in order to continue mining.",
 	"tutorial_pg1_title": "Welcome to DHX Mining",
 	"tutorial_pg1_text": "Mining DHX is simple, just follow the instructions to receive your DHX. Firstly, you will require some MXC. Additionally, if you wish to boost your DHX mining, you will require an M2 Pro Hardware Miner.",
+	"shop_miner": "Shop Miner",
 	"tutorial_pg2_title": "First, choose your mining power",
 	"tutorial_pg2_text": "All of this will enable you to receive a larger share of the 5,000 DHX daily mineable amount, increasing your overall mining power (mPower).",
 	"mxc_locked": "MXC Locked",
