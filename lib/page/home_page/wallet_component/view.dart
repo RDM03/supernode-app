@@ -450,6 +450,7 @@ void _showStakeDialog(BuildContext context, dispatch) {
               ),
               Divider(color: Colors.grey),
               GestureDetector(
+                  behavior: HitTestBehavior.opaque,
                   onTap: () {
                     Navigator.pop(context);
                     dispatch(WalletActionCreator.onUnstake());
