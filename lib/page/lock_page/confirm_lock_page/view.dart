@@ -97,14 +97,16 @@ Widget buildView(
         SizedBox(height: 16),
         Row(
           children: [
-            Text(FlutterI18n.translate(context, 'mining_duration')),
             Expanded(
-              child: Text(
-                FlutterI18n.translate(context, 'x_months')
-                    .replaceAll('{0}', state.months.toString()),
-                textAlign: TextAlign.right,
-              ),
+              child: Text(FlutterI18n.translate(context, 'mining_duration')),
             ),
+            SizedBox(width: 5),
+            Text(
+              FlutterI18n.translate(context, 'x_months')
+                  .replaceAll('{0}', state.months.toString()),
+              textAlign: TextAlign.right,
+            ),
+            SizedBox(width: 10),
             Expanded(
               child: Text(
                 FlutterI18n.translate(context,
@@ -117,14 +119,18 @@ Widget buildView(
         SizedBox(height: 16),
         Row(
           children: [
-            Text(FlutterI18n.translate(context, 'miner_owner')),
             Expanded(
-              child: Text(
-                state.minersOwned.toString(),
-                textAlign: TextAlign.right,
-              ),
+              flex: 2,
+              child: Text(FlutterI18n.translate(context, 'miner_owner')),
             ),
+            SizedBox(width: 5),
+            Text(
+              state.minersOwned.toString(),
+              textAlign: TextAlign.right,
+            ),
+            SizedBox(width: 10),
             Expanded(
+              flex: 2,
               child: Row(
                 children: [
                   Expanded(
@@ -202,12 +208,13 @@ Widget buildView(
         SizedBox(height: 10),
         Row(
           children: [
-            Text(
-              FlutterI18n.translate(context, 'avg_dhx_daily_revenue'),
-              style: kBigFontOfBlack,
+            Expanded(
+              child: Text(
+                FlutterI18n.translate(context, 'avg_dhx_daily_revenue'),
+                style: kBigFontOfBlack,
+              ),
             ),
             SizedBox(width: 30),
-            Spacer(),
             Container(
               decoration: BoxDecoration(
                 color: Color(0x4665EA).withOpacity(0.2),

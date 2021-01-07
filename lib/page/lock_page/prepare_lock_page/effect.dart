@@ -75,7 +75,7 @@ void _onConfirm(Action action, Context<PrepareLockState> ctx) async {
   final formValid = ctx.state.formKey.currentState.validate();
   if (!formValid) return;
 
-  final val = await Navigator.of(ctx.context)
+  final res = await Navigator.of(ctx.context)
       .pushNamed('join_council_page', arguments: {
     'amount': ctx.state.amountCtl.text,
     'boostRate': ctx.state.boostRate,
@@ -86,7 +86,9 @@ void _onConfirm(Action action, Context<PrepareLockState> ctx) async {
 
   _balance(ctx);
 
-  if (val ?? false) {
+  if (res == true)
+    Navigator.of(ctx.context).pop(true);
+  else {
     ctx.dispatch(PrepareLockActionCreator.process());
   }
 }

@@ -252,12 +252,13 @@ Widget buildView(
         Divider(),
         Row(
           children: [
-            Text(
-              FlutterI18n.translate(_ctx, 'avg_dhx_daily_revenue'),
-              style: kBigFontOfBlack,
+            Expanded(
+              child: Text(
+                FlutterI18n.translate(_ctx, 'avg_dhx_daily_revenue'),
+                style: kBigFontOfBlack,
+              ),
             ),
             SizedBox(width: 30),
-            Spacer(),
             Container(
               decoration: BoxDecoration(
                 color: Color(0x4665EA).withOpacity(0.2),
