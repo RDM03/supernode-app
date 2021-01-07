@@ -149,15 +149,18 @@ Widget buildView(
                       overflow: TextOverflow.clip,
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () => _showInfoDialog(context),
-                    child: Padding(
-                      key: Key("questionCircle"),
-                      padding: EdgeInsets.all(s(5)),
-                      child:
-                          Image.asset(AppImages.questionCircle, height: s(20)),
+                  Container(
+                    constraints: BoxConstraints(maxWidth: 50),
+                    child: GestureDetector(
+                      onTap: () => _showInfoDialog(context),
+                      child: Padding(
+                        key: Key("questionCircle"),
+                        padding: EdgeInsets.only(left: 5, top: 5, bottom: 5),
+                        child:
+                            Image.asset(AppImages.questionCircle, height: 25),
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -215,16 +218,23 @@ Widget buildView(
               ),
             ),
             SizedBox(width: 30),
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0x4665EA).withOpacity(0.2),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Center(
-                child: Text(
-                  FlutterI18n.translate(context, 'coming'),
-                  style: kMiddleFontOfGrey,
+            Expanded(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0x4665EA).withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: Text(
+                    '${Tools.numberRounded(state.avgDailyDhxRevenue)} DHX',
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.clip,
+                    textAlign: TextAlign.right,
+                    style: kMiddleFontOfBlack,
+                  ),
                 ),
               ),
             ),

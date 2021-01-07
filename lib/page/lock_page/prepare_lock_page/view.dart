@@ -259,17 +259,29 @@ Widget buildView(
               ),
             ),
             SizedBox(width: 30),
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0x4665EA).withOpacity(0.2),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Center(
-                child: Text(
-                  FlutterI18n.translate(_ctx, 'coming'),
-                  style: kMiddleFontOfGrey,
-                ),
+            Expanded(
+              child: ValueListenableBuilder<TextEditingValue>(
+                valueListenable: state.amountCtl,
+                builder: (ctx, val, _) {
+                  final amount = double.tryParse(val.text);
+                  final dailyReturn = calculateDhxDaily(
+                    dhxTotal: state.lastMiningDhx,
+                    minersCount: state.minersOwned,
+                    months: state.months,
+                    mxcValue: amount,
+                    yesterdayMining: state.lastMiningMPower,
+                  );
+                  return Text(
+                    (dailyReturn == null || dailyReturn.isNaN
+                            ? '??'
+                            : dailyReturn.toStringAsFixed(0)) +
+                        ' DHX',
+                    key: ValueKey('dailyReturnText'),
+                    textAlign: TextAlign.right,
+                    maxLines: 2,
+                    style: kBigFontOfBlack,
+                  );
+                },
               ),
             ),
           ],

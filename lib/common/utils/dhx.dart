@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
+
 const double boost3months = 0.0;
 const double boost9months = 0.1;
 const double boost12months = 0.2;
@@ -23,6 +25,22 @@ double monthsToBoost(int months) {
 
 double getMinersBoost(double mxcValue, int minersCount) {
   return min(mxcValue, minersCount * 1000000.0);
+}
+
+double calculateDhxDaily({
+  @required double mxcValue,
+  @required int minersCount,
+  @required double dhxTotal,
+  @required double yesterdayMining,
+  @required int months,
+}) {
+  final mPower = mxcValue == null || minersCount == null
+      ? null
+      : calculateMiningPower(mxcValue, minersCount, monthsToBoost(months));
+
+  return mPower == null || dhxTotal == null || yesterdayMining == null
+      ? null
+      : mPower * dhxTotal / (yesterdayMining + mPower);
 }
 
 double calculateMiningPower(

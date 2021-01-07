@@ -78,6 +78,7 @@ Future<void> moveNext(Context<JoinCouncilState> ctx, Council council) async {
     'minersOwned': ctx.state.minersOwned,
     'council': council,
     'isDemo': ctx.state.isDemo,
+    'avgDailyDhxRevenue': ctx.state.avgDailyDhxRevenue,
   });
   if (res == true)
     Navigator.of(ctx.context).pop(true);

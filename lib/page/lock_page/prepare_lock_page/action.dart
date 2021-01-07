@@ -6,6 +6,7 @@ enum PrepareLockAction {
   resSuccess,
   balance,
   minersOwned,
+  lastMining,
 }
 
 class PrepareLockActionCreator {
@@ -27,5 +28,10 @@ class PrepareLockActionCreator {
 
   static Action minersOwned(int minersCount) {
     return Action(PrepareLockAction.minersOwned, payload: minersCount);
+  }
+
+  static Action lastMining(double totalDhx, double lastMining) {
+    return Action(PrepareLockAction.lastMining,
+        payload: [totalDhx, lastMining]);
   }
 }

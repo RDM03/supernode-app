@@ -264,7 +264,7 @@ Widget buildView(
                         'balance': state.mxcTotal,
                         'isDemo': state.isDemo,
                       });
-                      Navigator.push(_ctx, MaterialPageRoute<void> (
+                      Navigator.push(_ctx, MaterialPageRoute<void>(
                         builder: (BuildContext context) {
                           return Scaffold(
                             appBar: AppBars.backArrowSkipAppBar(
@@ -293,17 +293,13 @@ double getDailyReturn(
     MiningSimulatorState state, String mxcText, String minersText) {
   final mxcValue = double.tryParse(mxcText);
   final minersCount = int.tryParse(minersText);
-
-  final mPower = mxcValue == null || minersCount == null
-      ? null
-      : calculateMiningPower(
-          mxcValue, minersCount, monthsToBoost(state.months));
-
-  return mPower == null ||
-          state.dhxTotal == null ||
-          state.yesterdayMining == null
-      ? null
-      : mPower * state.dhxTotal / (state.yesterdayMining + mPower);
+  return calculateDhxDaily(
+    dhxTotal: state.dhxTotal,
+    minersCount: minersCount,
+    months: state.months,
+    mxcValue: mxcValue,
+    yesterdayMining: state.yesterdayMining,
+  );
 }
 
 double getMPower(

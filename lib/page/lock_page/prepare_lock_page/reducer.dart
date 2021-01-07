@@ -9,6 +9,7 @@ Reducer<PrepareLockState> buildReducer() {
       PrepareLockAction.resSuccess: _resSuccess,
       PrepareLockAction.balance: _balance,
       PrepareLockAction.minersOwned: _minersOwned,
+      PrepareLockAction.lastMining: _lastMining,
     },
   );
 }
@@ -32,4 +33,14 @@ PrepareLockState _minersOwned(PrepareLockState state, Action action) {
 
   final PrepareLockState newState = state.clone();
   return newState..minersOwned = minersOwned;
+}
+
+PrepareLockState _lastMining(PrepareLockState state, Action action) {
+  double totalDhx = action.payload[0];
+  double yesterdayMining = action.payload[1];
+
+  final PrepareLockState newState = state.clone();
+  return newState
+    ..lastMiningDhx = totalDhx
+    ..lastMiningMPower = yesterdayMining;
 }
