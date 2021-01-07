@@ -462,7 +462,7 @@
 	"latest_mpower": "Latest mPower",
 	"info_mxc_lock": "Choose your preferred lock method / rewards",
 	"info_lock_boost": "Boosts provided by an M2 Pro Miner are capped at 1 million mPower per miner.",
-	"amount_of_miner": "Amount of Miner",
+	"amount_of_miner": "Amount of Miners",
 	"amount_of_miner_desc": "Amount of M2 Pro You Operate",
 	"miner": "Miner",
 	"mxc_lockdrop_duration": "MXC Lockdrop Duration",
