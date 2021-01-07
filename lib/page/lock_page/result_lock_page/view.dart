@@ -54,7 +54,7 @@ Widget buildView(
         Spacer(),
         submitButton(
           FlutterI18n.translate(context, 'done'),
-          onPressed: () => Navigator.pop(viewService.context),
+          onPressed: () => Navigator.pop(viewService.context, true),
           key: ValueKey('submitButton'),
         ),
         SizedBox(height: 50),

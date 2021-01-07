@@ -70,7 +70,8 @@ void _onConfirm(Action action, Context<JoinCouncilState> ctx) async {
 }
 
 Future<void> moveNext(Context<JoinCouncilState> ctx, Council council) async {
-  await Navigator.of(ctx.context).pushNamed('confirm_lock_page', arguments: {
+  final res = await Navigator.of(ctx.context)
+      .pushNamed('confirm_lock_page', arguments: {
     'amount': ctx.state.amount,
     'boostRate': ctx.state.boostRate,
     'months': ctx.state.months,
@@ -78,5 +79,9 @@ Future<void> moveNext(Context<JoinCouncilState> ctx, Council council) async {
     'council': council,
     'isDemo': ctx.state.isDemo,
   });
-  ctx.dispatch(JoinCouncilActionCreator.process());
+  if (res == true)
+    Navigator.of(ctx.context).pop(true);
+  else {
+    ctx.dispatch(JoinCouncilActionCreator.process());
+  }
 }

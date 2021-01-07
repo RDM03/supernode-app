@@ -201,12 +201,14 @@ Widget _lockCard({
       key: key,
       onTap: () async {
         if (boostRate == null) return;
-        await Navigator.of(context).pushNamed('prepare_lock_page', arguments: {
+        final res = await Navigator.of(context)
+            .pushNamed('prepare_lock_page', arguments: {
           'isDemo': state.isDemo,
           'months': months,
           'boostRate': boostRate,
           'iconColor': color,
         });
+        if (res == true) Navigator.of(context).pop(true);
       },
       leading: Container(
         height: 44,

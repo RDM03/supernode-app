@@ -49,8 +49,9 @@ void _onConfirm(Action action, Context<ConfirmLockState> ctx) async {
     }
 
     if (stakeId != null) {
-      Navigator.of(ctx.context).pushNamed('result_lock_page',
+      await Navigator.of(ctx.context).pushNamed('result_lock_page',
           arguments: {'isDemo': ctx.state.isDemo, 'stakeId': stakeId});
+      Navigator.of(ctx.context).pop(true);
     }
   } on DaoException catch (e) {
     tip(ctx.context, FlutterI18n.translate(ctx.context, e.message),
