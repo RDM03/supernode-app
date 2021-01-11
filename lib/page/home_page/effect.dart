@@ -129,6 +129,8 @@ void _initState(Action action, Context<HomeState> ctx) async {
 
   await _gatewaysLocationsFromLocal(ctx);
   await _profile(ctx);
+  //add DHX to wallet
+  ctx.dispatch(HomeActionCreator.onAddDHX(false));
 }
 
 void _checkNodeStatus() async {
@@ -250,8 +252,6 @@ void _loadUserData(Context<HomeState> ctx) {
     if (dataDHX.isNotEmpty)
       ctx.dispatch(HomeActionCreator.dataDHX(dataDHX));
 
-    //add DHX to wallet
-    ctx.dispatch(HomeActionCreator.onAddDHX(false));
   }
 
   if (data['miningIncome'] != null)
