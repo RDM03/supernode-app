@@ -8,7 +8,6 @@ class ProfileState implements Cloneable<ProfileState> {
   TextEditingController usernameCtl = TextEditingController();
   TextEditingController emailCtl = TextEditingController();
   GlobalKey formKey = GlobalKey<FormState>();
-  //TODO delete SettingsState settingsData = GlobalStore.store.getState().settings;
 
   String userId = '';
   String username = '';
@@ -22,6 +21,8 @@ class ProfileState implements Cloneable<ProfileState> {
       ..userId = userId
       ..username = username
       ..email = email
+      ..usernameCtl = usernameCtl
+      ..emailCtl = emailCtl
       ..wechatExternalUsername = wechatExternalUsername
       ..isAdmin = isAdmin;
   }

@@ -83,7 +83,7 @@ class UserDao extends Dao {
   }
 
   Future<dynamic> update(Map data) {
-    return put(url: Api.url(UserApi.update, data['id']), data: data)
+    return put(url: Api.url(UserApi.update, data['user']['id']), data: data)
         .then((res) => res);
   }
 

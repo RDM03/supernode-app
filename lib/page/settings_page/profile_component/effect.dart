@@ -3,7 +3,10 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
+import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/common/utils/log.dart';
+import 'package:supernodeapp/common/utils/utils.dart';
+import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/global_store/store.dart';
 
 import 'action.dart';
@@ -21,11 +24,13 @@ void _onUpdate(Action action, Context<ProfileState> ctx) async {
 
   if ((curState.formKey.currentState as FormState).validate()) {
     final loading = await Loading.show(ctx.context);
+    String username = curState.usernameCtl.text;
+    String email = curState.emailCtl.text;
 
     Map data = {
       "id": curState.userId,
-      "username": curState.usernameCtl.text,
-      "email": curState.emailCtl.text,
+      "username": username,
+      "email": email,
       "sessionTTL": 0,
       "isAdmin": true,
       "isActive": true,
@@ -34,14 +39,20 @@ void _onUpdate(Action action, Context<ProfileState> ctx) async {
 
     UserDao dao = UserDao();
 
-    dao.update(data).then((res) {
+    dao.update({"user" : data}).then((res) {
       mLog('update', res);
+
+      String jwt = res['jwt'];
+      if (jwt != null && jwt.isNotEmpty) {
+        saveLoginResult(dao, jwt, username, StorageManager.sharedPreferences.getString(Config.PASSWORD_KEY), StorageManager.sharedPreferences.getString(Config.API_ROOT));
+      }
       loading.hide();
+      Navigator.of(ctx.context).pop();
 
       ctx.dispatch(ProfileActionCreator.update(data));
     }).catchError((err) {
       loading.hide();
-      // tip(ctx.context,'UserDao update: $err');
+      tip(ctx.context,'UserDao update: $err');
     });
   }
 }

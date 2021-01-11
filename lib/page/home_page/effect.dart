@@ -56,11 +56,6 @@ StakeDao _buildStakeDao(Context<HomeState> ctx) {
 }
 
 void _relogin(Action action, Context<HomeState> ctx) async {
-  Map data = {
-    'username': StorageManager.sharedPreferences.getString(Config.USERNAME_KEY),
-    'password': StorageManager.sharedPreferences.getString(Config.PASSWORD_KEY)
-  };
-
   int reloginCount = ctx.state.reloginCount;
   Loading loading;
   try {
