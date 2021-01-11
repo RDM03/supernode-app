@@ -60,11 +60,11 @@ Future<void> _handleLoginRequest(
   StorageManager.sharedPreferences.setString(Config.API_ROOT, apiRoot);
   GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
 
-  var totpStatus = await dao.getTOTPStatus({});
+  var totpStatus = await dao.getTOTPStatus();
   mLog('totp', totpStatus);
 
-  settingsData.is2FAEnabled = totpStatus['enabled'];
-  if ((totpStatus as Map).containsKey('enabled')) {
+  settingsData.is2FAEnabled = totpStatus.enabled;
+  if (totpStatus.enabled != null) {
     GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
   }
   await PermissionUtil.getLocationPermission();

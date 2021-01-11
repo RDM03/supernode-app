@@ -25,20 +25,26 @@ Effect<Set2FAState> buildEffect() {
 }
 
 void _initState(Action action, Context<Set2FAState> ctx) {
-  UserDao dao = UserDao();
-
-  Map data = {};
-
-  dao.getTOTPStatus(data).then((res) {
-    mLog('totp', res);
-
-    if ((res as Map).containsKey('enabled')) {
-      ctx.dispatch(Set2FAActionCreator.isEnabled(res['enabled']));
-    }
-  }).catchError((err) {
-    // tip(ctx.context,'$err');
-  });
+  _loadTotpStatus(ctx);
 }
+
+SettingsState getGlobalSettings() {
+  var settingsData = GlobalStore.store.getState().settings;
+  if (settingsData == null) {
+    settingsData = SettingsState().clone();
+  }
+  return settingsData;
+}
+
+Future<void> _loadTotpStatus(Context<Set2FAState> ctx) async {
+  UserDao dao = UserDao();
+  final res = await dao.getTOTPStatus();
+  ctx.dispatch(Set2FAActionCreator.isEnabled(res.enabled));
+  
+  final globalSettings = getGlobalSettings();
+  globalSettings.is2FAEnabled = res.enabled;
+  GlobalStore.store.dispatch(GlobalActionCreator.onSettings(globalSettings));
+} 
 
 void _onQRCodeContinue(Action action, Context<Set2FAState> ctx) async {
   Navigator.push(
@@ -125,66 +131,50 @@ void _onGetTOTPConfig(Action action, Context<Set2FAState> ctx) async {
   });
 }
 
+
 void _onSetEnable(Action action, Context<Set2FAState> ctx) async {
+  
   var curState = ctx.state;
 
   UserDao dao = UserDao();
 
   List<String> codes = curState.listCtls.map((code) => code.text).toList();
-  SettingsState settingsData = GlobalStore.store.getState().settings;
 
+  var settingsData = GlobalStore.store.getState().settings;
   if (settingsData == null) {
     settingsData = SettingsState().clone();
   }
 
   settingsData.otpCode = codes.join();
 
-  Map data = {"otp_code": codes.join()};
   final loading = await Loading.show(ctx.context);
-  dao.setEnable(data).then((res) {
+  var goNext = false;
+
+  try {
+    final res = await dao.setEnable(codes.join());
+
+    ctx.dispatch(Set2FAActionCreator.isEnabled(res.enabled));
+    settingsData.is2FAEnabled = res.enabled;
+    
+    GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
+
+    goNext = true;
+  } finally {
     loading.hide();
-    mLog('setEnable status', res);
-    ctx.dispatch(Set2FAActionCreator.isEnabled(true));
-  }).then((res) {
-    loading.hide();
-    mLog('login saf', res);
-    UserDao dao = UserDao();
+  }
 
-    Map data = {};
-
-    dao.getTOTPStatus(data).then((res) {
-      loading.hide();
-      mLog('totp', res);
-      SettingsState settingsData = GlobalStore.store.getState().settings;
-
-      if (settingsData == null) {
-        settingsData = SettingsState().clone();
-      }
-
-      settingsData.is2FAEnabled = res['enabled'];
-      if ((res as Map).containsKey('enabled')) {
-        GlobalStore.store
-            .dispatch(GlobalActionCreator.onSettings(settingsData));
-      }
-
-      Navigator.push(
-        ctx.context,
-        MaterialPageRoute(
-            maintainState: false,
-            fullscreenDialog: false,
-            builder: (context) {
-              return ctx.buildComponent('recoveryCode');
-            }),
-      );
-    }).catchError((err) {
-      loading.hide();
-      // tip(ctx.context,'$err');
-    });
-  })
-    ..catchError((err) {
-      loading.hide();
-      // tip(ctx.context,'Setting setEnable: $err');
-    });
+  if (goNext) {
+    Navigator.push(
+      ctx.context,
+      MaterialPageRoute(
+        maintainState: false,
+        fullscreenDialog: false,
+        builder: (context) {
+          return ctx.buildComponent('recoveryCode');
+        },
+      ),
+    );
+  }
 }
 
 void _onSetDisable(Action action, Context<Set2FAState> ctx) async {
@@ -217,7 +207,7 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx) async {
 
     Map data = {};
 
-    dao.getTOTPStatus(data).then((res) {
+    dao.getTOTPStatus().then((res) {
       loading.hide();
       mLog('totp', res);
       SettingsState settingsData = GlobalStore.store.getState().settings;
@@ -226,11 +216,9 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx) async {
         settingsData = SettingsState().clone();
       }
 
-      settingsData.is2FAEnabled = res['enabled'];
-      if ((res as Map).containsKey('enabled')) {
-        GlobalStore.store
-            .dispatch(GlobalActionCreator.onSettings(settingsData));
-      }
+      settingsData.is2FAEnabled = res.enabled;
+      GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
+      
       var count = 0;
       Navigator.popUntil(ctx.context, (route) {
         print(route);

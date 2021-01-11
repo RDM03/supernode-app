@@ -31,22 +31,21 @@ Widget buildView(Set2FAState state, Dispatch dispatch, ViewService viewService) 
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                      FlutterI18n.translate(_ctx,'set_fa_02'),
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    FlutterI18n.translate(_ctx,'set_fa_02'),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Switch(
-                    value: state.isEnabled,
-                    onChanged: (value) {
+                    value: state.isEnabled ?? false,
+                    onChanged: state.isEnabled == null ? null : (value) {
                       if(value){
                         dispatch(Set2FAActionCreator.onGetTOTPConfig(240));
                       }else{
                         dispatch(Set2FAActionCreator.onEnterRecoveryContinue());
                       }
                     },
-                    activeTrackColor: Colors.lightGreenAccent,
-                    activeColor: Colors.green,
+                    activeColor: Color(0xFF1C1478),
                   ),
                 ],
               ),
