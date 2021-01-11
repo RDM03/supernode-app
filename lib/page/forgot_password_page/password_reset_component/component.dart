@@ -8,12 +8,10 @@ import 'view.dart';
 class PasswordResetComponent extends Component<PasswordResetState> {
   PasswordResetComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<PasswordResetState>(
-                adapter: null,
-                slots: <String, Dependent<PasswordResetState>>{
-                }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<PasswordResetState>(
+              adapter: null, slots: <String, Dependent<PasswordResetState>>{}),
+        );
 }

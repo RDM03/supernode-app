@@ -8,13 +8,11 @@ import 'view.dart';
 class EnterRecoveryCodeComponent extends Component<EnterRecoveryCodeState> {
   EnterRecoveryCodeComponent()
       : super(
-    effect: buildEffect(),
-    reducer: buildReducer(),
-    view: buildView,
-    dependencies: Dependencies<EnterRecoveryCodeState>(
-        adapter: null,
-        slots: <String, Dependent<EnterRecoveryCodeState>>{
-        }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<EnterRecoveryCodeState>(
+              adapter: null,
+              slots: <String, Dependent<EnterRecoveryCodeState>>{}),
+        );
 }
-

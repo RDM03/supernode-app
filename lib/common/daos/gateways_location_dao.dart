@@ -9,7 +9,7 @@ import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
 
-class GatewaysLocationDao{ 
+class GatewaysLocationDao {
   // singleton
   factory GatewaysLocationDao() => _getInstance();
 
@@ -36,7 +36,7 @@ class GatewaysLocationDao{
     return geojsonList(listJson);
   }
 
-  List geojsonList(listJson){
+  List geojsonList(listJson) {
     List features = [];
     Map feature;
     var location;
@@ -50,10 +50,7 @@ class GatewaysLocationDao{
         "properties": {},
         "geometry": {
           "type": "Point",
-          "coordinates": [
-            latlng.longitude,
-            latlng.latitude
-          ]
+          "coordinates": [latlng.longitude, latlng.latitude]
         }
       };
 
@@ -71,7 +68,6 @@ class GatewaysLocationDao{
     mLog('GatewaysDao locations', res);
 
     if (res['result'].length > 0) {
-      
       for (int index = 0; index < res['result'].length; index++) {
         var location = res['result'][index]['location'];
         var marker = MapMarker(
@@ -84,5 +80,4 @@ class GatewaysLocationDao{
 
     return locations;
   }
-
-} 
+}

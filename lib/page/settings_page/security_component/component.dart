@@ -8,12 +8,10 @@ import 'view.dart';
 class SecurityComponent extends Component<SecurityState> {
   SecurityComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<SecurityState>(
-                adapter: null,
-                slots: <String, Dependent<SecurityState>>{
-                }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<SecurityState>(
+              adapter: null, slots: <String, Dependent<SecurityState>>{}),
+        );
 }

@@ -22,7 +22,8 @@ class AppImages {
   static const String done = 'assets/images/app/done.png';
   static const String noData = 'assets/images/app/no-data.png';
   static const String circleLogo = 'assets/images/app/logo-circle.png';
-  static const String questionCircle = 'assets/images/app/ic-question-circle.png';
+  static const String questionCircle =
+      'assets/images/app/ic-question-circle.png';
 
   //login
   static const String placeholder = "assets/images/login/placeholder.png";
@@ -34,13 +35,15 @@ class AppImages {
   static const String iconMine = 'assets/images/wallet/icon-mine.png';
   static const String iconCouncil = 'assets/images/wallet/icon-council.png';
   static const String infoMXCVault = 'assets/images/wallet/info-mxc-vault.png';
-  static const String infoCurrentTransactionFee = 'assets/images/wallet/info-current-transaction-fee.png';
+  static const String infoCurrentTransactionFee =
+      'assets/images/wallet/info-current-transaction-fee.png';
   static const String mcxBubble = 'assets/images/wallet/mxc_bubble.png';
   static const String minerBubble = 'assets/images/wallet/miner_bubble.png';
   static const String rocket = 'assets/images/wallet/rocket.png';
-  static const String minerBoostGraph = 'assets/images/wallet/mining_boost_graph.png';
+  static const String minerBoostGraph =
+      'assets/images/wallet/mining_boost_graph_n.png';
 
   //gateway
-  static const String infoDownlinkPrice = 'assets/images/gateway/info-downloadlink_price.png';
-
+  static const String infoDownlinkPrice =
+      'assets/images/gateway/info-downloadlink_price.png';
 }

@@ -6,19 +6,17 @@ import 'reducer.dart';
 import 'state.dart';
 import 'view.dart';
 
-class SplashPage extends Page<SplashState, Map<String, dynamic>>{
+class SplashPage extends Page<SplashState, Map<String, dynamic>> {
   SplashPage()
       : super(
-            initState: initState,
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<SplashState>(
-                adapter: null,
-                slots: <String, Dependent<SplashState>>{
-                }),
-            middleware: <Middleware<SplashState>>[
-            ],);
+          initState: initState,
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<SplashState>(
+              adapter: null, slots: <String, Dependent<SplashState>>{}),
+          middleware: <Middleware<SplashState>>[],
+        );
 
   @override
   ComponentState<SplashState> createState() {
@@ -27,6 +25,4 @@ class SplashPage extends Page<SplashState, Map<String, dynamic>>{
 }
 
 class SplashSingleTickerProviderState extends ComponentState<SplashState>
-    with SingleTickerProviderStateMixin {
-}
-
+    with SingleTickerProviderStateMixin {}

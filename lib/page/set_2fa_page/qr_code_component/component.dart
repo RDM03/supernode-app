@@ -8,13 +8,10 @@ import 'view.dart';
 class QRCodeComponent extends Component<QRCodeState> {
   QRCodeComponent()
       : super(
-    effect: buildEffect(),
-    reducer: buildReducer(),
-    view: buildView,
-    dependencies: Dependencies<QRCodeState>(
-        adapter: null,
-        slots: <String, Dependent<QRCodeState>>{
-        }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<QRCodeState>(
+              adapter: null, slots: <String, Dependent<QRCodeState>>{}),
+        );
 }
-

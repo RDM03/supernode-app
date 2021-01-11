@@ -4,7 +4,6 @@ import 'state.dart';
 
 Reducer<Get2FAState> buildReducer() {
   return asReducer(
-    <Object, Reducer<Get2FAState>>{
-    },
+    <Object, Reducer<Get2FAState>>{},
   );
 }

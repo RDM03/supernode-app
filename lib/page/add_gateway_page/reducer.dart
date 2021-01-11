@@ -22,7 +22,9 @@ AddGatewayState _serialNumber(AddGatewayState state, Action action) {
   String number = snData[1];
 
   List macData = itemData[itemData.length - 1].split(':');
-  String macAddress = macData.sublist(1,4).join().toLowerCase() + 'fffe' + macData.sublist(4).join().toLowerCase();
+  String macAddress = macData.sublist(1, 4).join().toLowerCase() +
+      'fffe' +
+      macData.sublist(4).join().toLowerCase();
 
   final AddGatewayState newState = state.clone();
 

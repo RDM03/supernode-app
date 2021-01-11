@@ -10,7 +10,11 @@ class DeviceState extends MutableSource implements Cloneable<DeviceState> {
   List realList;
 
   DeviceState() {
-    demoList = [DeviceItemState(() => isDemo), DeviceItemState(() => isDemo), DeviceItemState(() => isDemo)];
+    demoList = [
+      DeviceItemState(() => isDemo),
+      DeviceItemState(() => isDemo),
+      DeviceItemState(() => isDemo)
+    ];
     realList = [];
   }
 

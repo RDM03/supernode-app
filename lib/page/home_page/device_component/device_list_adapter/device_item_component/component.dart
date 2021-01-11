@@ -8,12 +8,10 @@ import 'view.dart';
 class DeviceItemComponent extends Component<DeviceItemState> {
   DeviceItemComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<DeviceItemState>(
-                adapter: null,
-                slots: <String, Dependent<DeviceItemState>>{
-                }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<DeviceItemState>(
+              adapter: null, slots: <String, Dependent<DeviceItemState>>{}),
+        );
 }

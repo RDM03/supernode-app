@@ -8,12 +8,10 @@ import 'view.dart';
 class FootprintsComponent extends Component<FootprintsState> {
   FootprintsComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<FootprintsState>(
-                adapter: null,
-                slots: <String, Dependent<FootprintsState>>{
-                }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<FootprintsState>(
+              adapter: null, slots: <String, Dependent<FootprintsState>>{}),
+        );
 }

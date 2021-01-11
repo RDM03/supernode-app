@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget paragraph(String text){
+Widget paragraph(String text) {
   return Container(
     margin: EdgeInsets.only(top: 14),
     child: Text(

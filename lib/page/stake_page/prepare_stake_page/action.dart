@@ -1,11 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 
-enum PrepareStakeAction {
-  onConfirm,
-  process,
-  resSuccess,
-  balance
-}
+enum PrepareStakeAction { onConfirm, process, resSuccess, balance }
 
 class PrepareStakeActionCreator {
   static Action onConfirm() {

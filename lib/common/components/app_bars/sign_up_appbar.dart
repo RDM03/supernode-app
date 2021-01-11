@@ -4,11 +4,12 @@ import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class AppBars {
-  static backArrowAppBar({String title: '', Function onPress}){
+  static backArrowAppBar({String title: '', Function onPress}) {
     return AppBar(
       leading: IconButton(
         onPressed: onPress,
-        icon: Icon(Icons.arrow_back_ios,
+        icon: Icon(
+          Icons.arrow_back_ios,
           color: Colors.black,
         ),
       ),

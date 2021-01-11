@@ -4,12 +4,9 @@ class DevicesApi {
   static final String list = '/api/devices';
 }
 
-class DevicesDao extends Dao{
+class DevicesDao extends Dao {
   //remote
-  Future<dynamic> list(Map data){
-    return get(
-      url: DevicesApi.list,
-      data: data
-    ).then((res) => res);
+  Future<dynamic> list(Map data) {
+    return get(url: DevicesApi.list, data: data).then((res) => res);
   }
 }

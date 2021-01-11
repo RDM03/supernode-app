@@ -53,7 +53,6 @@ void main() {
         minerDetailsAPITest();
         deleteMinerTest();
         logoutTest(s[i][0]);
-
       }
   });
 }

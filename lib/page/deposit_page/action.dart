@@ -8,6 +8,6 @@ class DepositActionCreator {
   }
 
   static Action address(String data) {
-    return Action(DepositAction.address,payload: data);
+    return Action(DepositAction.address, payload: data);
   }
 }

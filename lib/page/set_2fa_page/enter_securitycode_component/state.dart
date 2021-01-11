@@ -2,7 +2,6 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/widgets.dart';
 
 class EnterSecurityCodeState implements Cloneable<EnterSecurityCodeState> {
-
   GlobalKey formKey = GlobalKey<FormState>();
   bool isEnabled;
   List<TextEditingController> listCtls = [
@@ -13,7 +12,6 @@ class EnterSecurityCodeState implements Cloneable<EnterSecurityCodeState> {
     TextEditingController(),
     TextEditingController()
   ];
-
 
   @override
   EnterSecurityCodeState clone() {

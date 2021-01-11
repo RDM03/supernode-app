@@ -21,30 +21,28 @@ Reducer<GatewayProfileState> buildReducer() {
 
 GatewayProfileState _selectIdType(GatewayProfileState state, Action action) {
   final GatewayProfileState newState = state.clone();
-  return newState
-    ..isSelectIdType = !state.isSelectIdType;
+  return newState..isSelectIdType = !state.isSelectIdType;
 }
 
 GatewayProfileState _updateItem(GatewayProfileState state, Action action) {
-
   final GatewayProfileState newState = state.clone();
   return newState;
 }
 
-GatewayProfileState _networkServerList(GatewayProfileState state, Action action) {
+GatewayProfileState _networkServerList(
+    GatewayProfileState state, Action action) {
   List list = action.payload;
 
   final GatewayProfileState newState = state.clone();
-  return newState
-    ..networkServerList = list;
+  return newState..networkServerList = list;
 }
 
-GatewayProfileState _gatewayProfileList(GatewayProfileState state, Action action) {
+GatewayProfileState _gatewayProfileList(
+    GatewayProfileState state, Action action) {
   List list = action.payload;
 
   final GatewayProfileState newState = state.clone();
-  return newState
-    ..gatewayProfileList = list;
+  return newState..gatewayProfileList = list;
 }
 
 GatewayProfileState _networkServerId(GatewayProfileState state, Action action) {
@@ -58,7 +56,8 @@ GatewayProfileState _networkServerId(GatewayProfileState state, Action action) {
     ..networkCtl.text = value;
 }
 
-GatewayProfileState _gatewayProfileId(GatewayProfileState state, Action action) {
+GatewayProfileState _gatewayProfileId(
+    GatewayProfileState state, Action action) {
   Map data = action.payload;
   String id = data['id'];
   String value = data['value'];
@@ -69,28 +68,27 @@ GatewayProfileState _gatewayProfileId(GatewayProfileState state, Action action) 
     ..gatewayProfileCtl.text = value;
 }
 
-GatewayProfileState _discoveryEnabled(GatewayProfileState state, Action action) {
-
+GatewayProfileState _discoveryEnabled(
+    GatewayProfileState state, Action action) {
   final GatewayProfileState newState = state.clone();
-  return newState
-    ..discoveryEnabled = !state.discoveryEnabled;
+  return newState..discoveryEnabled = !state.discoveryEnabled;
 }
 
 GatewayProfileState _addLocation(GatewayProfileState state, Action action) {
   Map data = action.payload;
   LatLng location = data['location'];
   String type = data['type'];
-  
+
   final GatewayProfileState newState = state.clone();
-  if(type == 'user'){
-    return newState
-      ..location = location;
-  }else{
-    return newState
-      ..markerPoint = location;
+  if (type == 'user') {
+    return newState..location = location;
+  } else {
+    return newState..markerPoint = location;
   }
 }
-GatewayProfileState _addMapController(GatewayProfileState state, Action action) {
+
+GatewayProfileState _addMapController(
+    GatewayProfileState state, Action action) {
   var newState = state.clone();
   newState.mapCtl = action.payload;
   return newState;

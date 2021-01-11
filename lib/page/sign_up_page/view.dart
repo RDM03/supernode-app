@@ -11,51 +11,47 @@ import 'package:supernodeapp/theme/spacing.dart';
 import 'action.dart';
 import 'state.dart';
 
-Widget buildView(SignUpState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(
+    SignUpState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
 
   return Scaffold(
-    resizeToAvoidBottomInset: false,
-    backgroundColor: cardBackgroundColor,
-    appBar: AppBar(
-      iconTheme: IconThemeData(color: Colors.black),
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-    ),
-    body: SafeArea(
-      child: Container(
-        padding: kRoundRow202,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            paragraph('${FlutterI18n.translate(_ctx, 'welcome')},'),
-            Form(
-              key: state.emailFormKey,
-              autovalidate: false,
+      resizeToAvoidBottomInset: false,
+      backgroundColor: cardBackgroundColor,
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: SafeArea(
+          child: Container(
+              padding: kRoundRow202,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Container(
-                    margin: kOuterRowTop35,
-                    child: TextFieldWithTitle(
-                      title: FlutterI18n.translate(_ctx, 'email'),
-                      hint: FlutterI18n.translate(_ctx, 'email_hint'),
-                      textInputAction: TextInputAction.done,
-                      validator: (value) => Reg.onValidEmail(_ctx,value),
-                      controller: state.emailCtl,
-                    ),
+                  paragraph('${FlutterI18n.translate(_ctx, 'welcome')},'),
+                  Form(
+                    key: state.emailFormKey,
+                    autovalidate: false,
+                    child: Column(children: <Widget>[
+                      Container(
+                        margin: kOuterRowTop35,
+                        child: TextFieldWithTitle(
+                          title: FlutterI18n.translate(_ctx, 'email'),
+                          hint: FlutterI18n.translate(_ctx, 'email_hint'),
+                          textInputAction: TextInputAction.done,
+                          validator: (value) => Reg.onValidEmail(_ctx, value),
+                          controller: state.emailCtl,
+                        ),
+                      ),
+                    ]),
                   ),
-                ]
-              ),
-            ),
-            Spacer(),
-            PrimaryButton(
-              onTap: () => dispatch(SignUpActionCreator.onEmailContinue()),
-              buttonTitle: FlutterI18n.translate(_ctx, 'continue'),
-              minHeight: 46
-            ),
-          ],
-        )
-      )
-    )
-  );
+                  Spacer(),
+                  PrimaryButton(
+                      onTap: () =>
+                          dispatch(SignUpActionCreator.onEmailContinue()),
+                      buttonTitle: FlutterI18n.translate(_ctx, 'continue'),
+                      minHeight: 46),
+                ],
+              ))));
 }

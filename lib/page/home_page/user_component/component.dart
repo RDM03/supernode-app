@@ -8,12 +8,10 @@ import 'view.dart';
 class UserComponent extends Component<UserState> {
   UserComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<UserState>(
-                adapter: null,
-                slots: <String, Dependent<UserState>>{
-                }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<UserState>(
+              adapter: null, slots: <String, Dependent<UserState>>{}),
+        );
 }

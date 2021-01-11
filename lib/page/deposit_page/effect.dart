@@ -18,17 +18,17 @@ Effect<DepositState> buildEffect() {
 }
 
 _buildTopupDao(Context<DepositState> ctx) {
-  return ctx.state.isDemo  ? DemoTopupDao() : TopupDao();
+  return ctx.state.isDemo ? DemoTopupDao() : TopupDao();
 }
 
 void _initState(Action action, Context<DepositState> ctx) async {
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-  if(orgId == null || orgId.isEmpty){
+  if (orgId == null || orgId.isEmpty) {
     orgId = ctx.state.organizations.first.organizationID;
   }
 
-  Future.delayed(Duration(seconds: 3),() async{
-    try{
+  Future.delayed(Duration(seconds: 3), () async {
+    try {
       TopupDao dao = _buildTopupDao(ctx);
       Map data = {
         "orgId": orgId,
@@ -36,13 +36,13 @@ void _initState(Action action, Context<DepositState> ctx) async {
       };
 
       var res = await dao.account(data);
-      mLog('account',res);
-        
-      if((res as Map).containsKey('activeAccount')){
+      mLog('account', res);
+
+      if ((res as Map).containsKey('activeAccount')) {
         ctx.dispatch(DepositActionCreator.address(res['activeAccount']));
       }
-    }catch(err){
-      tip(ctx.context,'TopupDao account: $err');
+    } catch (err) {
+      tip(ctx.context, 'TopupDao account: $err');
     }
   });
 }
@@ -52,5 +52,6 @@ void _copy(Action action, Context<DepositState> ctx) {
 
   Clipboard.setData(ClipboardData(text: curState.address));
 
-  tip(ctx.context,FlutterI18n.translate(ctx.context, 'has_copied'),success: true);
+  tip(ctx.context, FlutterI18n.translate(ctx.context, 'has_copied'),
+      success: true);
 }

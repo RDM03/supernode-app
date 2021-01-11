@@ -24,6 +24,7 @@ Future<void> _listCouncils(Context<ListCouncilsState> ctx) async {
   var councils = await dao.listCouncils();
   final councilsMap =
       Map<String, Council>.fromIterable(councils, key: (k) => k.id);
-  final joinedCouncils = ctx.state.joinedCouncilsId.map((c) => councilsMap[c]).toList();
+  final joinedCouncils =
+      ctx.state.joinedCouncilsId.map((c) => councilsMap[c]).toList();
   ctx.dispatch(ListCouncilsActionCreator.councils(councils, joinedCouncils));
 }

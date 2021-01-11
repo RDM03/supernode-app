@@ -2,7 +2,6 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/widgets.dart';
 
 class RegistrationState implements Cloneable<RegistrationState> {
-
   GlobalKey formKey = GlobalKey<FormState>();
   TextEditingController emailCtl = TextEditingController();
   TextEditingController pwdCtl = TextEditingController();

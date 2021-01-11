@@ -9,16 +9,15 @@ import 'view.dart';
 class AddGatewayPage extends Page<AddGatewayState, Map<String, dynamic>> {
   AddGatewayPage()
       : super(
-            initState: initState,
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<AddGatewayState>(
-                adapter: null,
-                slots: <String, Dependent<AddGatewayState>>{
-                  'profile':  GatewayProfileConnector() + GatewayProfileComponent()
-                }),
-            middleware: <Middleware<AddGatewayState>>[
-            ],);
-
+          initState: initState,
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<AddGatewayState>(
+              adapter: null,
+              slots: <String, Dependent<AddGatewayState>>{
+                'profile': GatewayProfileConnector() + GatewayProfileComponent()
+              }),
+          middleware: <Middleware<AddGatewayState>>[],
+        );
 }

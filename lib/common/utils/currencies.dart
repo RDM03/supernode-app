@@ -1,5 +1,5 @@
 enum CurrencyType { fiat, crypto }
-enum Token {MXC, DHX}
+enum Token { MXC, DHX }
 
 class Currency {
   final String iconPath;

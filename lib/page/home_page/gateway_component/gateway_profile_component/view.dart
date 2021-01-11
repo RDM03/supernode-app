@@ -85,9 +85,11 @@ Widget buildView(
           style: kMiddleFontOfGrey,
         )),
     paragraph(FlutterI18n.translate(_ctx, 'gateway_id')),
-    introduction(profile.id ?? '', key: ValueKey('minerDetailsMinerId'), top: 5),
+    introduction(profile.id ?? '',
+        key: ValueKey('minerDetailsMinerId'), top: 5),
     paragraph(FlutterI18n.translate(_ctx, 'last_seen')),
-    introduction(TimeDao.getDatetime(profile.lastSeenAt) ?? '', key: ValueKey('minerDetailsLastSeen'), top: 5),
+    introduction(TimeDao.getDatetime(profile.lastSeenAt) ?? '',
+        key: ValueKey('minerDetailsLastSeen'), top: 5),
     Padding(
       padding: kOuterRowTop35,
       child: paragraph(FlutterI18n.translate(_ctx, 'weekly_revenue')),
@@ -116,9 +118,11 @@ Widget buildView(
       ),
     ),
     paragraph(FlutterI18n.translate(_ctx, 'gateway_model')),
-    introduction(profile.model ?? '', key: ValueKey('minerDetailsMinerModel'), top: 5),
+    introduction(profile.model ?? '',
+        key: ValueKey('minerDetailsMinerModel'), top: 5),
     paragraph(FlutterI18n.translate(_ctx, 'gateway_osversion')),
-    introduction(profile.osversion ?? '', key: ValueKey('minerDetailsMinerOS'), top: 5),
+    introduction(profile.osversion ?? '',
+        key: ValueKey('minerDetailsMinerOS'), top: 5),
   ]);
 }
 
@@ -180,14 +184,14 @@ class CustomCircleSymbolRenderer extends charts.CircleSymbolRenderer {
 
   @override
   void paint(
-      charts.ChartCanvas canvas,
-      Rectangle<num> bounds, {
-        List<int> dashPattern,
-        charts.Color fillColor,
-        charts.FillPatternType fillPattern,
-        charts.Color strokeColor,
-        double strokeWidthPx,
-      }) {
+    charts.ChartCanvas canvas,
+    Rectangle<num> bounds, {
+    List<int> dashPattern,
+    charts.Color fillColor,
+    charts.FillPatternType fillPattern,
+    charts.Color strokeColor,
+    double strokeWidthPx,
+  }) {
     super.paint(
       canvas,
       bounds,
@@ -265,10 +269,8 @@ void _showInfoDialog(BuildContext context) {
                     fontWeight: FontWeight.w500,
                   ),
                   textAlign: TextAlign.center,
-                )
-            ),
+                )),
           ],
-        )
-    ),
+        )),
   );
 }

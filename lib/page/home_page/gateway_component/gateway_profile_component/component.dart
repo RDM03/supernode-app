@@ -8,12 +8,10 @@ import 'view.dart';
 class GatewayProfileComponent extends Component<GatewayProfileState> {
   GatewayProfileComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<GatewayProfileState>(
-                adapter: null,
-                slots: <String, Dependent<GatewayProfileState>>{
-                }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<GatewayProfileState>(
+              adapter: null, slots: <String, Dependent<GatewayProfileState>>{}),
+        );
 }

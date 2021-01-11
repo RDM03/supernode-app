@@ -13,10 +13,10 @@ Reducer<GeneralItemState> buildReducer() {
 
 WalletItemState _isExpand(GeneralItemState state, Action action) {
   GeneralItemState id = action.payload;
-  
-  if(id == state){
+
+  if (id == state) {
     return state.copyWithExtend(!state.isExpand);
   }
-  
+
   return state;
 }

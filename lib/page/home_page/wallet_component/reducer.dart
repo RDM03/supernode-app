@@ -35,8 +35,7 @@ WalletState _expand(WalletState state, Action action) {
 WalletState _selectToken(WalletState state, Action action) {
   Token tkn = action.payload;
   final WalletState newState = state.clone();
-  return newState
-    ..selectedToken = tkn;
+  return newState..selectedToken = tkn;
 }
 
 WalletState _loadingHistory(WalletState state, Action action) {
@@ -56,8 +55,7 @@ WalletState _tab(WalletState state, Action action) {
 
   final WalletState newState = state.clone();
 
-  return newState
-    ..activeTabToken[state.selectedToken] = tabIndex;
+  return newState..activeTabToken[state.selectedToken] = tabIndex;
 }
 
 WalletState _isSetDate(WalletState state, Action action) {

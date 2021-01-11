@@ -38,7 +38,7 @@ Widget buildView(
             child: Container(
               margin: EdgeInsets.only(left: 16),
               child: Text(
-               FlutterI18n.translate(_ctx, 'set_border'),
+                FlutterI18n.translate(_ctx, 'set_border'),
                 style: kMiddleFontOfDarkBlueLink,
               ),
             ),
@@ -51,8 +51,7 @@ Widget buildView(
             value: true,
             onChanged: (value) {},
           ),
-          content:FlutterI18n.translate(_ctx, 'alert_setting_desc'),
-
+          content: FlutterI18n.translate(_ctx, 'alert_setting_desc'),
         ),
       ],
     ),

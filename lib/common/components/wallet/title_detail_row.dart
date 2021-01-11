@@ -3,29 +3,34 @@ import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
-Widget titleDetailRow ({String name = '', dynamic value, bool loading = false, String token = 'MXC', bool disabled = false}) {
+Widget titleDetailRow(
+    {String name = '',
+    dynamic value,
+    bool loading = false,
+    String token = 'MXC',
+    bool disabled = false}) {
   return Container(
-    padding: kRoundRow15_5,
-    child: Row(
-      children: <Widget>[
-        Text(
-          name,
-          textAlign: TextAlign.left,
-          style: kSmallFontOfGrey,
-        ),
-        Spacer(),
-        loading ? loadingFlash(
-          child: Text(
-            '$value $token',
+      padding: kRoundRow15_5,
+      child: Row(
+        children: <Widget>[
+          Text(
+            name,
             textAlign: TextAlign.left,
-            style: kBigFontOfBlack,
-          )
-        ) : Text(
-          '$value${token.isNotEmpty?' $token':''}',
-          textAlign: TextAlign.left,
-          style: disabled? kBigFontOfGrey : kBigFontOfBlack,
-        )
-      ],
-    )
-  );
+            style: kSmallFontOfGrey,
+          ),
+          Spacer(),
+          loading
+              ? loadingFlash(
+                  child: Text(
+                  '$value $token',
+                  textAlign: TextAlign.left,
+                  style: kBigFontOfBlack,
+                ))
+              : Text(
+                  '$value${token.isNotEmpty ? ' $token' : ''}',
+                  textAlign: TextAlign.left,
+                  style: disabled ? kBigFontOfGrey : kBigFontOfBlack,
+                )
+        ],
+      ));
 }

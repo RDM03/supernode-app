@@ -151,10 +151,11 @@ Future<void> _checkForUpdate(Context<HomeState> ctx) {
 void _onProfile(Action action, Context<HomeState> ctx) {
   SettingsState settingsData = GlobalStore.store.getState().settings;
 
-  if(settingsData.userId.isNotEmpty && settingsData.selectedOrganizationId.isNotEmpty){
-    _requestUserFinance(ctx,settingsData.userId,settingsData.selectedOrganizationId);
+  if (settingsData.userId.isNotEmpty &&
+      settingsData.selectedOrganizationId.isNotEmpty) {
+    _requestUserFinance(
+        ctx, settingsData.userId, settingsData.selectedOrganizationId);
   }
-
 }
 
 void _onGateways(Action action, Context<HomeState> ctx) async {
@@ -163,7 +164,7 @@ void _onGateways(Action action, Context<HomeState> ctx) async {
   if (orgId == null || orgId.isEmpty)
     orgId = settingsData.organizations.first.organizationID;
 
-  ctx.dispatch(HomeActionCreator.loadingMap('gatewaysTotal',type: 'delete'));
+  ctx.dispatch(HomeActionCreator.loadingMap('gatewaysTotal', type: 'delete'));
 
   await _miningIncome(ctx, ctx.state.userId, orgId);
   await _gateways(ctx, orgId);
@@ -173,8 +174,10 @@ Future<void> _profile(Context<HomeState> ctx) async {
   Dao.ctx = ctx;
   SettingsState settingsData = GlobalStore.store.getState().settings;
 
-  if(settingsData.userId.isNotEmpty && settingsData.selectedOrganizationId.isNotEmpty){
-    await _requestUserFinance(ctx,settingsData.userId,settingsData.selectedOrganizationId);
+  if (settingsData.userId.isNotEmpty &&
+      settingsData.selectedOrganizationId.isNotEmpty) {
+    await _requestUserFinance(
+        ctx, settingsData.userId, settingsData.selectedOrganizationId);
   }
 
   try {
@@ -192,8 +195,10 @@ Future<void> _profile(Context<HomeState> ctx) async {
           .add(OrganizationsState.fromMap(res['organizations'][index]));
     }
 
-    if(settingsData.userId.isEmpty || settingsData.selectedOrganizationId.isEmpty){
-      await _requestUserFinance(ctx,userData.id,organizationsData.first.organizationID);
+    if (settingsData.userId.isEmpty ||
+        settingsData.selectedOrganizationId.isEmpty) {
+      await _requestUserFinance(
+          ctx, userData.id, organizationsData.first.organizationID);
     }
 
     settingsData = GlobalStore.store.getState().settings;
@@ -201,7 +206,8 @@ Future<void> _profile(Context<HomeState> ctx) async {
     settingsData.organizations = organizationsData;
     settingsData.isDemo = userData.isDemo;
     if (settingsData.selectedOrganizationId.isEmpty) {
-      settingsData.selectedOrganizationId = organizationsData.first.organizationID;
+      settingsData.selectedOrganizationId =
+          organizationsData.first.organizationID;
     }
 
     SettingsDao.updateLocal(settingsData);
@@ -211,7 +217,8 @@ Future<void> _profile(Context<HomeState> ctx) async {
   }
 }
 
-Future<void> _requestUserFinance(Context<HomeState> ctx,String userId,String orgId) async{
+Future<void> _requestUserFinance(
+    Context<HomeState> ctx, String userId, String orgId) async {
   await _balance(ctx, userId, orgId);
   await _stakeAmount(ctx, userId, orgId);
   await _stakingRevenue(ctx, userId, orgId);
@@ -231,24 +238,25 @@ void _loadUserData(Context<HomeState> ctx) {
   if (data['balance'] != null)
     ctx.dispatch(HomeActionCreator.balance(data['balance']));
 
-  if (data[LocalStorageDao.walletDHX] != null && data[LocalStorageDao.walletDHX]) {
+  if (data[LocalStorageDao.walletDHX] != null &&
+      data[LocalStorageDao.walletDHX]) {
     //load values from previous session
     Map dataDHX = {};
     if (data[LocalStorageDao.balanceDHXKey] != null)
-      dataDHX[LocalStorageDao.balanceDHXKey] = data[LocalStorageDao.balanceDHXKey];
+      dataDHX[LocalStorageDao.balanceDHXKey] =
+          data[LocalStorageDao.balanceDHXKey];
     if (data[LocalStorageDao.lockedAmountKey] != null)
       dataDHX[LocalStorageDao.lockedAmountKey] =
-      data[LocalStorageDao.lockedAmountKey];
+          data[LocalStorageDao.lockedAmountKey];
     if (data[LocalStorageDao.totalRevenueDHXKey] != null)
       dataDHX[LocalStorageDao.totalRevenueDHXKey] =
-      data[LocalStorageDao.totalRevenueDHXKey];
+          data[LocalStorageDao.totalRevenueDHXKey];
     if (data[LocalStorageDao.mPowerKey] != null)
       dataDHX[LocalStorageDao.mPowerKey] = data[LocalStorageDao.mPowerKey];
     if (data[LocalStorageDao.miningPowerKey] != null)
       dataDHX[LocalStorageDao.miningPowerKey] =
-      data[LocalStorageDao.miningPowerKey];
-    if (dataDHX.isNotEmpty)
-      ctx.dispatch(HomeActionCreator.dataDHX(dataDHX));
+          data[LocalStorageDao.miningPowerKey];
+    if (dataDHX.isNotEmpty) ctx.dispatch(HomeActionCreator.dataDHX(dataDHX));
 
     //add DHX to wallet
     ctx.dispatch(HomeActionCreator.onAddDHX(false));
@@ -263,8 +271,7 @@ void _loadUserData(Context<HomeState> ctx) {
   if (data['gatewaysTotal'] != null)
     ctx.dispatch(HomeActionCreator.gateways(data['gatewaysTotal'], 0, null));
   if (data['usd_gateway'] != null)
-    ctx.dispatch(
-        HomeActionCreator.convertUSD('gateway', data['usd_gateway']));
+    ctx.dispatch(HomeActionCreator.convertUSD('gateway', data['usd_gateway']));
 
   print(data);
 }
@@ -281,7 +288,8 @@ Future<void> _balance(
     var res = await dao.balance(data);
     mLog('balance', res);
     double balance = Tools.convertDouble(res['balance']);
-    LocalStorageDao.saveUserData('user_${ctx.state.username}', {'balance': balance});
+    LocalStorageDao.saveUserData(
+        'user_${ctx.state.username}', {'balance': balance});
 
     ctx.dispatch(HomeActionCreator.balance(balance));
     ctx.dispatch(HomeActionCreator.loadingMap('balance'));
@@ -305,7 +313,8 @@ Future<void> _miningIncome(
     if ((res as Map).containsKey('miningIncome')) {
       value = Tools.convertDouble(res['miningIncome']);
     }
-    LocalStorageDao.saveUserData('user_${ctx.state.username}', {'miningIncome': value});
+    LocalStorageDao.saveUserData(
+        'user_${ctx.state.username}', {'miningIncome': value});
 
     ctx.dispatch(HomeActionCreator.miningIncome(value));
 
@@ -344,7 +353,8 @@ Future<void> _stakeAmount(
       }
       amount = sum.toDouble();
     }
-    LocalStorageDao.saveUserData('user_${ctx.state.username}', {'stakedAmount': amount});
+    LocalStorageDao.saveUserData(
+        'user_${ctx.state.username}', {'stakedAmount': amount});
 
     ctx.dispatch(HomeActionCreator.stakedAmount(amount));
     ctx.dispatch(HomeActionCreator.loadingMap('stakedAmount'));
@@ -404,7 +414,8 @@ Future<void> _gateways(Context<HomeState> ctx, String orgId) async {
       }
     }
 
-    LocalStorageDao.saveUserData('user_${ctx.state.username}', {'gatewaysTotal': total});
+    LocalStorageDao.saveUserData(
+        'user_${ctx.state.username}', {'gatewaysTotal': total});
     ctx.dispatch(HomeActionCreator.gateways(total, 0, list));
     ctx.dispatch(HomeActionCreator.loadingMap('gatewaysTotal'));
   } catch (err) {
@@ -414,7 +425,8 @@ Future<void> _gateways(Context<HomeState> ctx, String orgId) async {
 }
 
 Future<void> _gatewaysLocationsFromLocal(Context<HomeState> ctx) async {
-  Map<String, List<SuperNodeBean>> superNodes = GlobalStore.state.superModel.superNodesByCountry;
+  Map<String, List<SuperNodeBean>> superNodes =
+      GlobalStore.state.superModel.superNodesByCountry;
   GatewaysLocationDao gatewayLocationDao = GatewaysLocationDao();
   List geojsonList = [];
 
@@ -423,7 +435,7 @@ Future<void> _gatewaysLocationsFromLocal(Context<HomeState> ctx) async {
   Map localGeojsonMap = LocalStorageDao.loadUserData('geojson');
   localGeojsonMap ??= {};
 
-  if(localGeojsonMap['data'] != null && localGeojsonMap['data'].length > 0){
+  if (localGeojsonMap['data'] != null && localGeojsonMap['data'].length > 0) {
     geojsonList.addAll(localGeojsonMap['data']);
   }
 
@@ -456,7 +468,7 @@ void _onOperate(Action action, Context<HomeState> ctx) {
   });
 }
 
-void _mapbox(Action action, Context<HomeState> ctx) async{
+void _mapbox(Action action, Context<HomeState> ctx) async {
   showMaterialModalBottomSheet(
     context: ctx.context,
     enableDrag: false,
@@ -504,7 +516,8 @@ Future<void> _convertUSD(
 
     if ((res as Map).containsKey('mxcPrice')) {
       double value = double.parse(res['mxcPrice']);
-      LocalStorageDao.saveUserData('user_${ctx.state.username}', {'usd_$type': value});
+      LocalStorageDao.saveUserData(
+          'user_${ctx.state.username}', {'usd_$type': value});
       ctx.dispatch(HomeActionCreator.convertUSD(type, value));
       ctx.dispatch(HomeActionCreator.loadingMap('gatewaysUSD'));
     }
@@ -528,7 +541,8 @@ Future<void> _stakingRevenue(
 
     mLog('StakeDao revenue', res);
     final amount = Tools.convertDouble(res['amount']);
-    LocalStorageDao.saveUserData('user_${ctx.state.username}', {'totalRevenue': amount});
+    LocalStorageDao.saveUserData(
+        'user_${ctx.state.username}', {'totalRevenue': amount});
     ctx.dispatch(HomeActionCreator.totalRevenue(amount));
     ctx.dispatch(HomeActionCreator.loadingMap('totalRevenue'));
   } catch (err) {
@@ -537,7 +551,7 @@ Future<void> _stakingRevenue(
   }
 }
 
-void _onAddDHX (Action action, Context<HomeState> ctx) {
+void _onAddDHX(Action action, Context<HomeState> ctx) {
   bool saveLocally = action.payload;
   if (!ctx.state.displayTokens.contains(Token.DHX)) {
     ctx.dispatch(HomeActionCreator.addDHX());
@@ -552,7 +566,7 @@ void _onAddDHX (Action action, Context<HomeState> ctx) {
   }
 }
 
-void _onDataDHX (Action action, Context<HomeState> ctx) async {
+void _onDataDHX(Action action, Context<HomeState> ctx) async {
   bool addingDHX = action.payload;
   if (addingDHX || ctx.state.displayTokens.contains(Token.DHX)) {
     _requestUserDHXBalance(ctx);
@@ -561,11 +575,12 @@ void _onDataDHX (Action action, Context<HomeState> ctx) async {
   }
 }
 
-void _requestUserDHXBalance (Context<HomeState> ctx) async {
+void _requestUserDHXBalance(Context<HomeState> ctx) async {
   const String balanceDHXlabel = LocalStorageDao.balanceDHXKey;
   SettingsState settingsData = GlobalStore.store.getState().settings;
-  if (settingsData.userId.isNotEmpty && settingsData.selectedOrganizationId.isNotEmpty) {
-    ctx.dispatch(HomeActionCreator.loadingMap(balanceDHXlabel, type:"remove"));
+  if (settingsData.userId.isNotEmpty &&
+      settingsData.selectedOrganizationId.isNotEmpty) {
+    ctx.dispatch(HomeActionCreator.loadingMap(balanceDHXlabel, type: "remove"));
 
     String userId = settingsData.userId;
     String orgId = settingsData.selectedOrganizationId;
@@ -578,8 +593,7 @@ void _requestUserDHXBalance (Context<HomeState> ctx) async {
       mLog('DHX balance', '$res');
       Map dataDHX = {balanceDHXlabel: balanceDHX};
       if (settingsData.username.isNotEmpty) {
-        LocalStorageDao.saveUserData(
-            'user_${settingsData.username}', dataDHX);
+        LocalStorageDao.saveUserData('user_${settingsData.username}', dataDHX);
       }
 
       ctx.dispatch(HomeActionCreator.dataDHX(dataDHX));
@@ -591,11 +605,12 @@ void _requestUserDHXBalance (Context<HomeState> ctx) async {
   }
 }
 
-void _requestLockedAmount_TotalRevenue (Context<HomeState> ctx) async {
+void _requestLockedAmount_TotalRevenue(Context<HomeState> ctx) async {
   const String lockedAmountLabel = LocalStorageDao.lockedAmountKey;
   SettingsState settingsData = GlobalStore.store.getState().settings;
   if (settingsData.selectedOrganizationId.isNotEmpty) {
-    ctx.dispatch(HomeActionCreator.loadingMap(lockedAmountLabel, type:"remove"));
+    ctx.dispatch(
+        HomeActionCreator.loadingMap(lockedAmountLabel, type: "remove"));
 
     String orgId = settingsData.selectedOrganizationId;
     try {
@@ -608,19 +623,21 @@ void _requestLockedAmount_TotalRevenue (Context<HomeState> ctx) async {
       double mPower = 0.0;
       final List<StakeDHXItemState> list = [];
       for (StakeDHX stake in res) {
-        mPower += Tools.convertDouble(stake.amount) * (1 + Tools.convertDouble(stake.boost));
+        mPower += Tools.convertDouble(stake.amount) *
+            (1 + Tools.convertDouble(stake.boost));
         lockedAmount += Tools.convertDouble(stake.amount);
         totalRevenueDHX += Tools.convertDouble(stake.dhxMined);
         list.add(StakeDHXItemState(StakeDHXItemEntity.fromStake(stake)));
       }
       if (list.length > 0) list[list.length - 1].isLast = true;
 
-      Map dataDHX = {lockedAmountLabel: lockedAmount,
+      Map dataDHX = {
+        lockedAmountLabel: lockedAmount,
         LocalStorageDao.totalRevenueDHXKey: totalRevenueDHX,
-        LocalStorageDao.mPowerKey: mPower};
+        LocalStorageDao.mPowerKey: mPower
+      };
       if (settingsData.username.isNotEmpty) {
-        LocalStorageDao.saveUserData(
-            'user_${settingsData.username}', dataDHX);
+        LocalStorageDao.saveUserData('user_${settingsData.username}', dataDHX);
       }
       dataDHX['list'] = list;
 
@@ -633,9 +650,9 @@ void _requestLockedAmount_TotalRevenue (Context<HomeState> ctx) async {
   }
 }
 
-void _requestLastMining (Context<HomeState> ctx) async {
+void _requestLastMining(Context<HomeState> ctx) async {
   const String miningPowerLabel = LocalStorageDao.miningPowerKey;
-  ctx.dispatch(HomeActionCreator.loadingMap(miningPowerLabel, type:"remove"));
+  ctx.dispatch(HomeActionCreator.loadingMap(miningPowerLabel, type: "remove"));
 
   try {
     DhxDao dao = _buildDhxDao(ctx);
@@ -646,8 +663,7 @@ void _requestLastMining (Context<HomeState> ctx) async {
     SettingsState settingsData = GlobalStore.store.getState().settings;
     Map dataDHX = {miningPowerLabel: miningPower};
     if (settingsData.username.isNotEmpty) {
-      LocalStorageDao.saveUserData(
-          'user_${settingsData.username}', dataDHX);
+      LocalStorageDao.saveUserData('user_${settingsData.username}', dataDHX);
     }
 
     ctx.dispatch(HomeActionCreator.dataDHX(dataDHX));

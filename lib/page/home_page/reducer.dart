@@ -36,25 +36,18 @@ Reducer<HomeState> buildReducer() {
 }
 
 HomeState _geojsonList(HomeState state, Action action) {
-
   final HomeState newState = state.clone();
-  return newState
-    ..geojsonList = action.payload;
+  return newState..geojsonList = action.payload;
 }
 
-
 HomeState _reloginCount(HomeState state, Action action) {
-
   final HomeState newState = state.clone();
-  return newState
-    ..reloginCount = action.payload + 1;
+  return newState..reloginCount = action.payload + 1;
 }
 
 HomeState _isUpdate(HomeState state, Action action) {
-
   final HomeState newState = state.clone();
-  return newState
-    ..isUpdate = false;
+  return newState..isUpdate = false;
 }
 
 HomeState _loading(HomeState state, Action action) {
@@ -70,7 +63,7 @@ HomeState _loadingMap(HomeState state, Action action) {
 
   if (res['type'] == 'add') {
     return newState..loadingMap.add(res['data']);
-  }else{
+  } else {
     return newState..loadingMap.remove(res['data']);
   }
 }
@@ -79,7 +72,7 @@ HomeState _tabIndex(HomeState state, Action action) {
   int index = action.payload;
 
   Dao.dio.lock();
-  Future.delayed(Duration(seconds: 3),(){
+  Future.delayed(Duration(seconds: 3), () {
     Dao.dio.unlock();
   });
 
@@ -132,8 +125,7 @@ HomeState _dataDHX(HomeState state, Action action) {
     newState.mPower = data[LocalStorageDao.mPowerKey];
   if (data.containsKey(LocalStorageDao.miningPowerKey))
     newState.miningPower = data[LocalStorageDao.miningPowerKey];
-  if (data.containsKey('list'))
-    newState.stakeDHXList = data['list'];
+  if (data.containsKey('list')) newState.stakeDHXList = data['list'];
   return newState;
 }
 
@@ -208,6 +200,5 @@ HomeState _totalRevenue(HomeState state, Action action) {
   double data = action.payload;
 
   final HomeState newState = state.clone();
-  return newState
-    ..totalRevenue = data;
+  return newState..totalRevenue = data;
 }

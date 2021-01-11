@@ -5,6 +5,6 @@ enum WalletItemAction { isExpand }
 
 class WalletItemActionCreator {
   static Action isExpand(GeneralItemState id) {
-    return Action(WalletItemAction.isExpand,payload: id);
+    return Action(WalletItemAction.isExpand, payload: id);
   }
 }

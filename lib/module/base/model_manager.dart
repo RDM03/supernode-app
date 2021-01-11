@@ -8,9 +8,13 @@ class ModelManager {
 
   List<BaseModel> _models = [];
 
-  bool get localLoadComplete => _models.map((BaseModel element) => element.localLoadComplete).reduce((value, element) => value && element);
+  bool get localLoadComplete => _models
+      .map((BaseModel element) => element.localLoadComplete)
+      .reduce((value, element) => value && element);
 
-  bool get networkLoadComplete => _models.map((BaseModel element) => element.networkLoadComplete).reduce((value, element) => value && element);
+  bool get networkLoadComplete => _models
+      .map((BaseModel element) => element.networkLoadComplete)
+      .reduce((value, element) => value && element);
 
   void register({List<dynamic> models}) {
     if (_isRegister) return;

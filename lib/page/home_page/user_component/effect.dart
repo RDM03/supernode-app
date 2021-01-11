@@ -12,4 +12,3 @@ Effect<UserState> buildEffect() {
 void _disappear(Action action, Context<UserState> ctx) {
   ctx.dispatch(HomeActionCreator.loading(false));
 }
-

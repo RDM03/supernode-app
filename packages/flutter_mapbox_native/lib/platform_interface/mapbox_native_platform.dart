@@ -8,7 +8,7 @@ import 'package:flutter_mapbox_native/method_channel/method_channel_mapbox_nativ
 import 'package:flutter_mapbox_native/type/types.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-abstract class MapboxNativePlatform extends PlatformInterface{
+abstract class MapboxNativePlatform extends PlatformInterface {
   /// Constructs a MapboxNativePlatform.
   MapboxNativePlatform() : super(token: _token);
 
@@ -59,7 +59,8 @@ abstract class MapboxNativePlatform extends PlatformInterface{
   Future<void> moveCameraToMyLocation({
     @required int mapId,
   }) {
-    throw UnimplementedError('moveCameraToMyLocation() has not been implemented.');
+    throw UnimplementedError(
+        'moveCameraToMyLocation() has not been implemented.');
   }
 
   Future<void> isMyLocationVisible(
@@ -70,7 +71,7 @@ abstract class MapboxNativePlatform extends PlatformInterface{
   }
 
   Future<void> updateMyLocationTrackingMode(
-    MyLocationTrackingMode myLocationTrackingMode,{
+    MyLocationTrackingMode myLocationTrackingMode, {
     @required int mapId,
   }) async {
     throw UnimplementedError(
@@ -112,5 +113,4 @@ abstract class MapboxNativePlatform extends PlatformInterface{
       PlatformViewCreatedCallback onPlatformViewCreated) {
     throw UnimplementedError('buildView() has not been implemented.');
   }
-
 }

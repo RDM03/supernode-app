@@ -8,5 +8,4 @@ Effect<SmartWatchDetailState> buildEffect() {
   });
 }
 
-void _onAction(Action action, Context<SmartWatchDetailState> ctx) {
-}
+void _onAction(Action action, Context<SmartWatchDetailState> ctx) {}

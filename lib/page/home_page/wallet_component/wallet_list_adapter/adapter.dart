@@ -7,9 +7,7 @@ import 'wallet_item_component/component.dart';
 class WalletListAdapter extends SourceFlowAdapter<WalletState> {
   WalletListAdapter()
       : super(
-          pool: <String, Component<Object>>{
-            'item': WalletItemComponent()
-          },
+          pool: <String, Component<Object>>{'item': WalletItemComponent()},
           reducer: buildReducer(),
         );
 }

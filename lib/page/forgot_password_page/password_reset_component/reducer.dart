@@ -12,12 +12,14 @@ Reducer<PasswordResetState> buildReducer() {
   );
 }
 
-PasswordResetState _isObscureNewPWDText(PasswordResetState state, Action action) {
+PasswordResetState _isObscureNewPWDText(
+    PasswordResetState state, Action action) {
   final PasswordResetState newState = state.clone();
   return newState..isObscureNewPWDText = !state.isObscureNewPWDText;
 }
 
-PasswordResetState _isObscureConPWDText(PasswordResetState state, Action action) {
+PasswordResetState _isObscureConPWDText(
+    PasswordResetState state, Action action) {
   final PasswordResetState newState = state.clone();
   return newState..isObscureConPWDText = !state.isObscureConPWDText;
 }

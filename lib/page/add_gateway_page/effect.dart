@@ -126,7 +126,8 @@ void _register(Context<AddGatewayState> ctx, String serialNumber) async {
   });
 }
 
-void _registerReseller(Context<AddGatewayState> ctx, String manufacturerNr) async {
+void _registerReseller(
+    Context<AddGatewayState> ctx, String manufacturerNr) async {
   String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
   GatewaysDao dao = GatewaysDao();
 
@@ -138,16 +139,15 @@ void _registerReseller(Context<AddGatewayState> ctx, String manufacturerNr) asyn
 
     if (res.containsKey('status')) {
       showInfoDialog(
-        ctx.context,
-        IosStyleBottomDialog2 (
-            context: ctx.context,
-            child: Text(
-              FlutterI18n.translate(ctx.context, 'register_reseller_success').replaceFirst('{0}', manufacturerNr),
-              style: kBigFontOfBlack,
-              textAlign: TextAlign.center
-            )
-        )
-      );
+          ctx.context,
+          IosStyleBottomDialog2(
+              context: ctx.context,
+              child: Text(
+                  FlutterI18n.translate(
+                          ctx.context, 'register_reseller_success')
+                      .replaceFirst('{0}', manufacturerNr),
+                  style: kBigFontOfBlack,
+                  textAlign: TextAlign.center)));
       ctx.state.serialNumberCtl.text = "";
     }
   }).catchError((err) {

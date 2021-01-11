@@ -34,13 +34,13 @@ enum HomeAction {
 
 class HomeActionCreator {
   static Action reloginCount(int num) {
-    return Action(HomeAction.reloginCount,payload: num);
+    return Action(HomeAction.reloginCount, payload: num);
   }
 
   static Action isUpdate() {
     return const Action(HomeAction.isUpdate);
   }
-  
+
   static Action onReLogin() {
     return const Action(HomeAction.relogin);
   }
@@ -52,7 +52,7 @@ class HomeActionCreator {
   /// data - label for data being loaded, for example: ['balance', 'balanceDHX', 'lockedAmount', 'miningPower', 'stakedAmount', 'totalRevenue']
   /// type = 'add' - loading finished for data,
   /// type = 'other than add' - loading started for data
-  static Action loadingMap(String data,{String type = 'add'}) {
+  static Action loadingMap(String data, {String type = 'add'}) {
     return Action(HomeAction.loadingMap, payload: {'data': data, 'type': type});
   }
 
@@ -60,8 +60,10 @@ class HomeActionCreator {
     return const Action(HomeAction.onProfile);
   }
 
-  static Action profile(UserState user, List<OrganizationsState> organizations) {
-    return Action(HomeAction.profile, payload: {'user': user, 'organizations': organizations});
+  static Action profile(
+      UserState user, List<OrganizationsState> organizations) {
+    return Action(HomeAction.profile,
+        payload: {'user': user, 'organizations': organizations});
   }
 
   static Action updateUsername(Map data) {
@@ -88,12 +90,12 @@ class HomeActionCreator {
     return Action(HomeAction.dataDHX, payload: data);
   }
 
-  static Action mapbox(){
+  static Action mapbox() {
     return const Action(HomeAction.mapbox);
   }
 
-  static Action geojsonList(List data){
-    return Action(HomeAction.geojsonList,payload: data);
+  static Action geojsonList(List data) {
+    return Action(HomeAction.geojsonList, payload: data);
   }
 
   static Action stakedAmount(double data) {
@@ -105,7 +107,8 @@ class HomeActionCreator {
   }
 
   static Action gateways(int total, double value, List list) {
-    return Action(HomeAction.gateways, payload: {'total': total, 'value': value, 'list': list});
+    return Action(HomeAction.gateways,
+        payload: {'total': total, 'value': value, 'list': list});
   }
 
   static Action onGateways() {
@@ -117,7 +120,8 @@ class HomeActionCreator {
   }
 
   static Action devices(int total, double value) {
-    return Action(HomeAction.devices, payload: {'total': total, 'value': value});
+    return Action(HomeAction.devices,
+        payload: {'total': total, 'value': value});
   }
 
   static Action tabIndex(int index) {
@@ -133,10 +137,11 @@ class HomeActionCreator {
   }
 
   static Action convertUSD(String type, value) {
-    return Action(HomeAction.convertUSD, payload: {'type': type, 'value': value});
+    return Action(HomeAction.convertUSD,
+        payload: {'type': type, 'value': value});
   }
 
-  static Action totalRevenue(double data){
+  static Action totalRevenue(double data) {
     return Action(HomeAction.totalRevenue, payload: data);
   }
 }

@@ -29,7 +29,9 @@ bool isUpdate = true;
 
 Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
   final _ctx = viewService.context;
-  bool isOrgIDloaded() => GlobalStore.store.getState().settings.selectedOrganizationId!= null && GlobalStore.store.getState().settings.selectedOrganizationId.isNotEmpty;
+  bool isOrgIDloaded() =>
+      GlobalStore.store.getState().settings.selectedOrganizationId != null &&
+      GlobalStore.store.getState().settings.selectedOrganizationId.isNotEmpty;
 
   return Scaffold(
     appBar: AppBar(
@@ -68,8 +70,8 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
             child: Column(
               children: [
                 profile(
-                  keyTitle:ValueKey('homeProfile'),
-                  keySubtitle:ValueKey('homeProfileSubtitle'),
+                  keyTitle: ValueKey('homeProfile'),
+                  keySubtitle: ValueKey('homeProfileSubtitle'),
                   name:
                       '${FlutterI18n.translate(_ctx, 'hi')}, ${state.username}',
                   position: (state.organizations.length > 0 &&
@@ -96,38 +98,42 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                   ),
                 ),
                 titleDetailRow(
-                  loading: !state.loadingMap.contains('balance'),
-                  name: FlutterI18n.translate(_ctx, 'current_balance'),
-                  value: Tools.priceFormat(state.balance)),
+                    loading: !state.loadingMap.contains('balance'),
+                    name: FlutterI18n.translate(_ctx, 'current_balance'),
+                    value: Tools.priceFormat(state.balance)),
                 titleDetailRow(
-                  loading: !state.loadingMap.contains('stakedAmount'),
-                  name: FlutterI18n.translate(_ctx, 'staked_amount'),
-                  value: Tools.priceFormat(state.stakedAmount)),
+                    loading: !state.loadingMap.contains('stakedAmount'),
+                    name: FlutterI18n.translate(_ctx, 'staked_amount'),
+                    value: Tools.priceFormat(state.stakedAmount)),
                 (state.lockedAmount > 0)
                     ? titleDetailRow(
-                    name: FlutterI18n.translate(_ctx, 'locked_amount'),
-                    value: Tools.priceFormat(state.lockedAmount),
-                    loading: !state.loadingMap.contains(LocalStorageDao.lockedAmountKey))
+                        name: FlutterI18n.translate(_ctx, 'locked_amount'),
+                        value: Tools.priceFormat(state.lockedAmount),
+                        loading: !state.loadingMap
+                            .contains(LocalStorageDao.lockedAmountKey))
                     : SizedBox(),
                 titleDetailRow(
-                  loading: !state.loadingMap.contains('totalRevenue'),
-                  name: FlutterI18n.translate(_ctx, 'staking_revenue'),
-                  value: Tools.priceFormat(state.totalRevenue, range: 2)),
+                    loading: !state.loadingMap.contains('totalRevenue'),
+                    name: FlutterI18n.translate(_ctx, 'staking_revenue'),
+                    value: Tools.priceFormat(state.totalRevenue, range: 2)),
                 Container(
                   margin: kRoundRow5,
                   child: Row(
                     children: <Widget>[
                       Spacer(),
                       PrimaryButton(
-                        key: Key(isOrgIDloaded() ? 'depositButtonDashboard' : 'depositButtonLoading'),
-                        buttonTitle: FlutterI18n.translate(_ctx, isOrgIDloaded() ? 'deposit' : 'loading'),
-                        onTap: () =>
-                        {
-                          if (isOrgIDloaded()) {
-                            dispatch(HomeActionCreator.onOperate('deposit')),
-                          }
-                        }
-                      ),
+                          key: Key(isOrgIDloaded()
+                              ? 'depositButtonDashboard'
+                              : 'depositButtonLoading'),
+                          buttonTitle: FlutterI18n.translate(
+                              _ctx, isOrgIDloaded() ? 'deposit' : 'loading'),
+                          onTap: () => {
+                                if (isOrgIDloaded())
+                                  {
+                                    dispatch(
+                                        HomeActionCreator.onOperate('deposit')),
+                                  }
+                              }),
                       Spacer(),
                       PrimaryButton(
                         key: Key('withdrawButtonDashboard'),
@@ -188,28 +194,24 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
           //   )
           // ),
           panelFrame(
-            key: ValueKey('homeMapbox'),
-            height: 263,
-            child: FutureBuilder(
-              builder: (context,builder) {
+              key: ValueKey('homeMapbox'),
+              height: 263,
+              child: FutureBuilder(builder: (context, builder) {
                 return FlutterMapboxNative(
-                  mapStyle: Sys.mapTileStyle,
-                  center: CenterPosition(
-                    target: LatLng(0,0),
-                    zoom: 0,
-                    animated: true,
-                  ),
-                  // minimumZoomLevel: 1,
-                  maximumZoomLevel: 12, 
-                  clusters: state.geojsonList,
-                  myLocationEnabled: true,
-                  myLocationTrackingMode: MyLocationTrackingMode.None,
-                  onFullScreenTap: () => dispatch(HomeActionCreator.mapbox())
-                );
-              }
-            )
-
-          ),
+                    mapStyle: Sys.mapTileStyle,
+                    center: CenterPosition(
+                      target: LatLng(0, 0),
+                      zoom: 0,
+                      animated: true,
+                    ),
+                    // minimumZoomLevel: 1,
+                    maximumZoomLevel: 12,
+                    clusters: state.geojsonList,
+                    myLocationEnabled: true,
+                    myLocationTrackingMode: MyLocationTrackingMode.None,
+                    onFullScreenTap: () =>
+                        dispatch(HomeActionCreator.mapbox()));
+              })),
           smallColumnSpacer(),
         ],
       ),

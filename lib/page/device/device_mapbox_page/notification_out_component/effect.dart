@@ -8,5 +8,4 @@ Effect<NotificationOutState> buildEffect() {
   });
 }
 
-void _onAction(Action action, Context<NotificationOutState> ctx) {
-}
+void _onAction(Action action, Context<NotificationOutState> ctx) {}

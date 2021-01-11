@@ -15,6 +15,5 @@ DepositState _address(DepositState state, Action action) {
   String address = action.payload;
 
   final DepositState newState = state.clone();
-  return newState
-    ..address = address;
+  return newState..address = address;
 }

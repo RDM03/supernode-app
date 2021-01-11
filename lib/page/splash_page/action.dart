@@ -1,7 +1,12 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/widgets.dart' hide Action;
 
-enum SplashAction { initAnimate, goNextPage, animatePlayStateChange, initDataStateChange }
+enum SplashAction {
+  initAnimate,
+  goNextPage,
+  animatePlayStateChange,
+  initDataStateChange
+}
 
 class SplashActionCreator {
   static Action initAnimate(TickerProvider ticker) {

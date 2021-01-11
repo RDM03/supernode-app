@@ -86,18 +86,17 @@ class StakeDHXItemEntity {
   final String organisationId;
 
   StakeDHXItemEntity(
-    this.amount,
-    this.boost,
-    this.closed,
-    this.councilId,
-    this.councilName,
-    this.created,
-    this.currency,
-    this.dhxMined,
-    this.id,
-    this.lockTill,
-    this.organisationId
-  );
+      this.amount,
+      this.boost,
+      this.closed,
+      this.councilId,
+      this.councilName,
+      this.created,
+      this.currency,
+      this.dhxMined,
+      this.id,
+      this.lockTill,
+      this.organisationId);
 
   factory StakeDHXItemEntity.fromStake(StakeDHX stake) {
     if (stake == null) return null;
@@ -113,8 +112,7 @@ class StakeDHXItemEntity {
         stake.dhxMined,
         stake.id,
         stake.lockTill,
-        stake.organizationId
-    );
+        stake.organizationId);
   }
 
   StakeDHXItemEntity copyWith({
@@ -131,18 +129,17 @@ class StakeDHXItemEntity {
     String organisationId,
   }) {
     return StakeDHXItemEntity(
-      amount ?? this.amount,
-      boost ?? this.boost,
-      closed ?? this.closed,
-      councilId ?? this.councilId,
-      councilName ?? this.councilName,
-      created ?? this.created,
-      currency ?? this.currency,
-      dhxMined ?? this.dhxMined,
-      id ?? this.id,
-      lockTill ?? this.lockTill,
-      organisationId ?? this.organisationId
-    );
+        amount ?? this.amount,
+        boost ?? this.boost,
+        closed ?? this.closed,
+        councilId ?? this.councilId,
+        councilName ?? this.councilName,
+        created ?? this.created,
+        currency ?? this.currency,
+        dhxMined ?? this.dhxMined,
+        id ?? this.id,
+        lockTill ?? this.lockTill,
+        organisationId ?? this.organisationId);
   }
 
   Map<String, dynamic> toMap() {
@@ -178,7 +175,10 @@ class StakeDHXItemEntity {
 
   @override
   int get hashCode =>
-      created.hashCode ^ amount.hashCode ^ organisationId.hashCode ^ lockTill.hashCode;
+      created.hashCode ^
+      amount.hashCode ^
+      organisationId.hashCode ^
+      lockTill.hashCode;
 }
 
 abstract class GeneralItemState {
@@ -325,7 +325,8 @@ class StakeDHXItemState extends GeneralItemState
   bool isLast;
   final bool isExpand;
   int index;
-  StakeDHXItemState(this.historyEntity, [this.isLast = false, this.isExpand = false]);
+  StakeDHXItemState(this.historyEntity,
+      [this.isLast = false, this.isExpand = false]);
 
   @override
   StakeDHXItemState clone() {
@@ -334,9 +335,9 @@ class StakeDHXItemState extends GeneralItemState
 
   StakeDHXItemState copyWith(
       {bool isExpand,
-        StakeHistoryEntity historyEntity,
-        String itemType,
-        bool isLast}) {
+      StakeHistoryEntity historyEntity,
+      String itemType,
+      bool isLast}) {
     return StakeDHXItemState(
       historyEntity ?? this.historyEntity,
       isLast ?? this.isLast,

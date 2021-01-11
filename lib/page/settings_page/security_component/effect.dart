@@ -9,5 +9,4 @@ Effect<SecurityState> buildEffect() {
   });
 }
 
-void _onChangePassword(Action action, Context<SecurityState> ctx) {
-}
+void _onChangePassword(Action action, Context<SecurityState> ctx) {}

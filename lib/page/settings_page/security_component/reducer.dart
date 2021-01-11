@@ -4,8 +4,6 @@ import 'state.dart';
 
 Reducer<SecurityState> buildReducer() {
   return asReducer(
-    <Object, Reducer<SecurityState>>{
-    },
+    <Object, Reducer<SecurityState>>{},
   );
 }
-

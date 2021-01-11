@@ -67,18 +67,28 @@ Widget buildView(
   if (state is StakeDHXItemState) {
     final month = (state.historyEntity.lockTill == null)
         ? null
-        : (state.historyEntity.lockTill.difference(state.historyEntity.created).inDays / 30).floor();
+        : (state.historyEntity.lockTill
+                    .difference(state.historyEntity.created)
+                    .inDays /
+                30)
+            .floor();
 
     // If the record is still in lock, so the icon is locked. If you unstake, the icon will be unlock
-    final showLockOpenIcon = (state.historyEntity.lockTill == null || state.historyEntity.lockTill.isBefore(DateTime.now()));
+    final showLockOpenIcon = (state.historyEntity.lockTill == null ||
+        state.historyEntity.lockTill.isBefore(DateTime.now()));
 
-    final dateDiff = (showLockOpenIcon) ? 0: state.historyEntity.lockTill.difference(DateTime.now()).inDays.abs();
+    final dateDiff = (showLockOpenIcon)
+        ? 0
+        : state.historyEntity.lockTill.difference(DateTime.now()).inDays.abs();
 
     return StakeItem(
       key: Key('dhx_stake_${state.index}'),
-      amount: Tools.priceFormat(Tools.convertDouble(state.historyEntity.dhxMined), range: 2),
+      amount: Tools.priceFormat(
+          Tools.convertDouble(state.historyEntity.dhxMined),
+          range: 2),
       currency: 'DHX',
-      stakedAmount: '${state.historyEntity.amount} ${state.historyEntity.currency}',
+      stakedAmount:
+          '${state.historyEntity.amount} ${state.historyEntity.currency}',
       id: state.historyEntity.id,
       startDate: state.historyEntity.created,
       durationDays: dateDiff,

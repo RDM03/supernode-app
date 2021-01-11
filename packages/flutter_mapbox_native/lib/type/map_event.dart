@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-
-
 import 'types.dart';
 
 /// Generic Event coming from the native side of Maps.
@@ -130,5 +128,5 @@ class MapLongPressEvent extends _PositionedMapEvent<void> {
 }
 
 class MapStyleLoadedEvent extends MapEvent<MapStyleLoadedEvent> {
-  MapStyleLoadedEvent(int mapId) : super(mapId,null);
+  MapStyleLoadedEvent(int mapId) : super(mapId, null);
 }

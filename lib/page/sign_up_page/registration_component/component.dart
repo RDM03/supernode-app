@@ -8,12 +8,10 @@ import 'view.dart';
 class RegistrationComponent extends Component<RegistrationState> {
   RegistrationComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<RegistrationState>(
-                adapter: null,
-                slots: <String, Dependent<RegistrationState>>{
-                }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<RegistrationState>(
+              adapter: null, slots: <String, Dependent<RegistrationState>>{}),
+        );
 }

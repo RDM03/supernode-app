@@ -3,7 +3,14 @@ import 'dart:async';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/page/home_page/gateway_component/item_state.dart';
 
-enum GatewayAction { onAdd, onProfile, profile, onDelete, onLoadPage, addGateways }
+enum GatewayAction {
+  onAdd,
+  onProfile,
+  profile,
+  onDelete,
+  onLoadPage,
+  addGateways
+}
 
 class GatewayActionCreator {
   static Action onAdd() {

@@ -18,179 +18,148 @@ import 'package:supernodeapp/theme/spacing.dart';
 import 'action.dart';
 import 'state.dart';
 
-Widget buildView(GatewayProfileState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(
+    GatewayProfileState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
 
-  return pageFrame(
-    context: viewService.context,
-    children: [
-      pageNavBar(
-        FlutterI18n.translate(_ctx,'gateway_profile'),
-        onTap: () => Navigator.pop(viewService.context)
-      ),
-      introduction(
-        '${FlutterI18n.translate(_ctx,'serial_number')}: ${state.serialNumber}'
-      ),
-      Form(
+  return pageFrame(context: viewService.context, children: [
+    pageNavBar(FlutterI18n.translate(_ctx, 'gateway_profile'),
+        onTap: () => Navigator.pop(viewService.context)),
+    introduction(
+        '${FlutterI18n.translate(_ctx, 'serial_number')}: ${state.serialNumber}'),
+    Form(
         key: state.formKey,
-        child: Column(
-          children: <Widget>[
-            textfieldWithButton(
+        child: Column(children: <Widget>[
+          textfieldWithButton(
               readOnly: true,
-              inputLabel: FlutterI18n.translate(_ctx,'network_server'),
+              inputLabel: FlutterI18n.translate(_ctx, 'network_server'),
               isDivider: false,
               icon: Icons.expand_more,
               controller: state.networkCtl,
-              onTap: () => dispatch(GatewayProfileActionCreator.onNetworkServerPicker())
-            ),
-            introduction(
-              FlutterI18n.translate(_ctx,'network_server_tip'),
-              top: 5,
-              right: 0
-            ),
-            Visibility(
-              visible: state.networkServerID.isNotEmpty,
-              child: textfieldWithButton(
+              onTap: () => dispatch(
+                  GatewayProfileActionCreator.onNetworkServerPicker())),
+          introduction(FlutterI18n.translate(_ctx, 'network_server_tip'),
+              top: 5, right: 0),
+          Visibility(
+            visible: state.networkServerID.isNotEmpty,
+            child: textfieldWithButton(
                 readOnly: true,
-                inputLabel: FlutterI18n.translate(_ctx,'smb_gateway_profile'),
+                inputLabel: FlutterI18n.translate(_ctx, 'smb_gateway_profile'),
                 isDivider: false,
                 icon: Icons.expand_more,
                 controller: state.gatewayProfileCtl,
-                onTap: () => dispatch(GatewayProfileActionCreator.onGatewayProfilePicker())
-              ),
-            ),
-            Visibility(
-              visible: state.networkServerID.isNotEmpty,
-              child: introduction(
-                FlutterI18n.translate(_ctx,'gateway_profile_tip'),
+                onTap: () => dispatch(
+                    GatewayProfileActionCreator.onGatewayProfilePicker())),
+          ),
+          Visibility(
+            visible: state.networkServerID.isNotEmpty,
+            child: introduction(
+                FlutterI18n.translate(_ctx, 'gateway_profile_tip'),
                 top: 5,
-                right: 0
-              ),
+                right: 0),
+          ),
+          Container(
+            margin: kOuterRowTop20,
+            child: TextFieldWithTitle(
+              readOnly: true,
+              title: FlutterI18n.translate(_ctx, 'gateway_name'),
+              textInputAction: TextInputAction.next,
+              validator: (value) => Reg.onNotEmpty(_ctx, value),
+              controller: state.nameCtl,
             ),
-            Container(
-              margin: kOuterRowTop20,
-              child: TextFieldWithTitle(
-                readOnly: true,
-                title: FlutterI18n.translate(_ctx,'gateway_name'),
+          ),
+          introduction(FlutterI18n.translate(_ctx, 'reg_name'),
+              top: 5, right: 0),
+          Container(
+            margin: kOuterRowTop20,
+            child: TextFieldWithTitle(
+              title: FlutterI18n.translate(_ctx, 'gateway_description'),
+              textInputAction: TextInputAction.next,
+              validator: (value) => Reg.onNotEmpty(_ctx, value),
+              controller: state.descriptionCtl,
+            ),
+          ),
+          Container(
+            margin: kOuterRowTop20,
+            child: TextFieldWithTitle(
+                title: FlutterI18n.translate(_ctx, 'gateway_id'),
                 textInputAction: TextInputAction.next,
                 validator: (value) => Reg.onNotEmpty(_ctx, value),
-                controller: state.nameCtl,
-              ),
-            ),
-            introduction(
-              FlutterI18n.translate(_ctx,'reg_name'),
-              top: 5,
-              right: 0
-            ),
-            Container(
-              margin: kOuterRowTop20,
-              child: TextFieldWithTitle(
-                title: FlutterI18n.translate(_ctx,'gateway_description'),
-                textInputAction: TextInputAction.next,
-                validator: (value) => Reg.onNotEmpty(_ctx, value),
-                controller: state.descriptionCtl,
-              ),
-            ),
-            Container(
-              margin: kOuterRowTop20,
-              child: TextFieldWithTitle(
-                title: FlutterI18n.translate(_ctx,'gateway_id'),
-                textInputAction: TextInputAction.next,
-                validator: (value) => Reg.onNotEmpty(_ctx, value),
-                controller: state.idCtl
-              ),
-            ),
-            // textfieldWithButton(
-            //   readOnly: true,
-            //   inputLabel: FlutterI18n.translate(_ctx,'gateway_id'),
-            //   buttonLabel: FlutterI18n.translate(_ctx,'random'),
-            //   icon: Icons.cached,
-            //   suffixTitleChild: Text.rich(
-            //     TextSpan(
-            //       children: [
-            //         TextSpan(
-            //           text: 'MSB',
-            //           recognizer: _gIdTapRecognizer,
-            //           style: state.isSelectIdType ?
-            //             kMiddleFontOfBlue : kMiddleFontOfGrey
-            //         ),
-            //         TextSpan(
-            //           text: ' / ',
-            //         ),
-            //         TextSpan(
-            //           text: 'LSB',
-            //           style: !state.isSelectIdType ?
-            //             kMiddleFontOfBlue : kMiddleFontOfGrey,
-            //           recognizer: _gIdTapRecognizer
-            //         ),
-            //       ]
-            //     )
-            //   ),
-            //   // initialValue: state.item.networkServerID,
-            //   controller: state.idCtl,
-            //   onTap: (){},
-            // ),
-            rowLabel(
-              FlutterI18n.translate(_ctx,'discovery_enabled'),
+                controller: state.idCtl),
+          ),
+          // textfieldWithButton(
+          //   readOnly: true,
+          //   inputLabel: FlutterI18n.translate(_ctx,'gateway_id'),
+          //   buttonLabel: FlutterI18n.translate(_ctx,'random'),
+          //   icon: Icons.cached,
+          //   suffixTitleChild: Text.rich(
+          //     TextSpan(
+          //       children: [
+          //         TextSpan(
+          //           text: 'MSB',
+          //           recognizer: _gIdTapRecognizer,
+          //           style: state.isSelectIdType ?
+          //             kMiddleFontOfBlue : kMiddleFontOfGrey
+          //         ),
+          //         TextSpan(
+          //           text: ' / ',
+          //         ),
+          //         TextSpan(
+          //           text: 'LSB',
+          //           style: !state.isSelectIdType ?
+          //             kMiddleFontOfBlue : kMiddleFontOfGrey,
+          //           recognizer: _gIdTapRecognizer
+          //         ),
+          //       ]
+          //     )
+          //   ),
+          //   // initialValue: state.item.networkServerID,
+          //   controller: state.idCtl,
+          //   onTap: (){},
+          // ),
+          rowLabel(FlutterI18n.translate(_ctx, 'discovery_enabled'),
               suffixChild: Switch(
                 activeColor: buttonPrimaryColor,
                 value: state.discoveryEnabled,
                 onChanged: (value) {
                   dispatch(GatewayProfileActionCreator.discoveryEnabled());
                 },
-              )
+              )),
+          introduction(FlutterI18n.translate(_ctx, 'discovery_enabled_tip'),
+              top: 5, right: 0),
+          Container(
+            margin: kOuterRowTop20,
+            child: TextFieldWithTitle(
+              title: FlutterI18n.translate(_ctx, 'gateway_altitude'),
+              textInputAction: TextInputAction.next,
+              validator: (value) => Reg.onValidNumber(_ctx, value),
+              controller: state.altitudeCtl,
             ),
-            introduction(
-              FlutterI18n.translate(_ctx,'discovery_enabled_tip'),
-              top: 5,
-              right: 0
-            ),
-            Container(
-              margin: kOuterRowTop20,
-              child: TextFieldWithTitle(
-                title: FlutterI18n.translate(_ctx,'gateway_altitude'),
-                textInputAction: TextInputAction.next,
-                validator: (value) => Reg.onValidNumber(_ctx, value),
-                controller: state.altitudeCtl,
-              ),
-            ),
-            introduction(
-              FlutterI18n.translate(_ctx,'gateway_altitude_tip'),
-              top: 5,
-              right: 0
-            ),
-            rowLabel(
-              FlutterI18n.translate(_ctx,'gateway_location'),
-              suffixChild: link(
-                FlutterI18n.translate(_ctx,'set_location'),
-                onTap: () => _changeMarker(state.mapCtl,state.location,dispatch)
-              )
-            ),
-            MapBoxWidget(
+          ),
+          introduction(FlutterI18n.translate(_ctx, 'gateway_altitude_tip'),
+              top: 5, right: 0),
+          rowLabel(FlutterI18n.translate(_ctx, 'gateway_location'),
+              suffixChild: link(FlutterI18n.translate(_ctx, 'set_location'),
+                  onTap: () =>
+                      _changeMarker(state.mapCtl, state.location, dispatch))),
+          MapBoxWidget(
               config: state.mapCtl,
-              clickLocation: (point) => dispatch(GatewayProfileActionCreator.addLocation(location: point)),
-              onTap: (point) => _changeMarker(state.mapCtl,point,dispatch)
-            ),
-          ]
-        )
-      ),
-      introduction(
-        FlutterI18n.translate(_ctx,'drag_marker_tip'),
-        top: 5,
-        right: 0
-      ),
-      submitButton(
-        FlutterI18n.translate(_ctx,'update'),
-        onPressed: () => dispatch(GatewayProfileActionCreator.update())
-      ),
-    ]
-  );
+              clickLocation: (point) => dispatch(
+                  GatewayProfileActionCreator.addLocation(location: point)),
+              onTap: (point) => _changeMarker(state.mapCtl, point, dispatch)),
+        ])),
+    introduction(FlutterI18n.translate(_ctx, 'drag_marker_tip'),
+        top: 5, right: 0),
+    submitButton(FlutterI18n.translate(_ctx, 'update'),
+        onPressed: () => dispatch(GatewayProfileActionCreator.update())),
+  ]);
 }
 
-void _changeMarker(MapViewController mapCtl,LatLng point, dispatch){
-  if(mapCtl != null){
+void _changeMarker(MapViewController mapCtl, LatLng point, dispatch) {
+  if (mapCtl != null) {
     mapCtl.ctl.moveCamera(CameraUpdate.newLatLng(point));
   }
 
-  dispatch(GatewayProfileActionCreator.addLocation(location: point, type: 'marker'));
+  dispatch(
+      GatewayProfileActionCreator.addLocation(location: point, type: 'marker'));
 }

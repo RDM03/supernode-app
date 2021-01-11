@@ -123,7 +123,8 @@ class StakeDHX {
     );
   }
 
-  factory StakeDHX.fromJson(String source) => StakeDHX.fromMap(json.decode(source));
+  factory StakeDHX.fromJson(String source) =>
+      StakeDHX.fromMap(json.decode(source));
 
   @override
   String toString() {

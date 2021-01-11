@@ -7,7 +7,8 @@ class OrganizationsActionCreator {
     return const Action(OrganizationsAction.onUpdate);
   }
 
-  static Action selectedItem(String id,String name) {
-    return Action(OrganizationsAction.selectedItem,payload: {'id': id,'name': name});
+  static Action selectedItem(String id, String name) {
+    return Action(OrganizationsAction.selectedItem,
+        payload: {'id': id, 'name': name});
   }
 }

@@ -8,6 +8,6 @@ class ProfileActionCreator {
   }
 
   static Action update(Map data) {
-    return Action(ProfileAction.update,payload: data);
+    return Action(ProfileAction.update, payload: data);
   }
 }

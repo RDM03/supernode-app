@@ -1,8 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/widgets.dart';
 
-class EnterNonOTPSecurityCodeState implements Cloneable<EnterNonOTPSecurityCodeState> {
-
+class EnterNonOTPSecurityCodeState
+    implements Cloneable<EnterNonOTPSecurityCodeState> {
   GlobalKey formKey = GlobalKey<FormState>();
   bool isEnabled;
   TextEditingController secretCtl = TextEditingController();

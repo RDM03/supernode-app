@@ -5,7 +5,6 @@ import 'package:supernodeapp/page/settings_page/organizations_component/state.da
 import 'wallet_list_adapter/wallet_item_component/state.dart';
 
 class WalletState extends MutableSource implements Cloneable<WalletState> {
-
   bool expandedView = false;
   List<Token> displayTokens = [Token.MXC];
   Token selectedToken = Token.MXC;
@@ -46,10 +45,13 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   double withdrawFee = 0;
 
   List<dynamic> get _currentList {
-    List<dynamic> list =
-    (selectedToken == Token.MXC)
-      ? activeTabToken[selectedToken] == 0 ? walletList : stakeList
-      : activeTabToken[selectedToken] == 0 ? stakeDHXList : transactions;
+    List<dynamic> list = (selectedToken == Token.MXC)
+        ? activeTabToken[selectedToken] == 0
+            ? walletList
+            : stakeList
+        : activeTabToken[selectedToken] == 0
+            ? stakeDHXList
+            : transactions;
     int i = 0;
     for (dynamic item in list) {
       if (item is StakeItemState && item.historyEntity.type != 'STAKING') {
@@ -114,7 +116,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
       ..stakedAmount = stakedAmount
       ..totalRevenue = totalRevenue
       ..lockedAmount = lockedAmount
-      ..totalRevenueDHX =totalRevenueDHX
+      ..totalRevenueDHX = totalRevenueDHX
       ..mPower = mPower
       ..miningPower = miningPower
       ..withdrawFee = withdrawFee

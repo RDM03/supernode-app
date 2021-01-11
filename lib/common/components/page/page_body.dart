@@ -19,14 +19,12 @@ Widget pageBody(
   );
 }
 
-Widget pageBodySingleChild(
-    {Widget child, bool usePadding = true}) {
+Widget pageBodySingleChild({Widget child, bool usePadding = true}) {
   return Container(
       padding: usePadding ? const EdgeInsets.symmetric(horizontal: 20) : null,
       constraints: BoxConstraints.expand(),
       decoration: BoxDecoration(
         color: backgroundColor,
       ),
-      child: child
-  );
+      child: child);
 }

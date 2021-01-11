@@ -14,11 +14,13 @@ class CrashesDao {
   String appLaunchTimestamp = '';
   Map device = {};
   String deviceId = '';
-  
-  String type = Platform.isAndroid ? 'handledError' : 'appleError'; //The handledError is for android, the appleError is for iOS.
+
+  String type = Platform.isAndroid
+      ? 'handledError'
+      : 'appleError'; //The handledError is for android, the appleError is for iOS.
 
   // initialization
-  void init({String appSecretAndroid,String appSecretIOS}) async{
+  void init({String appSecretAndroid, String appSecretIOS}) async {
     dio.options.headers = {
       // 'Content-Type': 'application/json',
       'app-secret': Platform.isAndroid ? appSecretAndroid : appSecretIOS,
@@ -31,7 +33,7 @@ class CrashesDao {
 
     this.appLaunchTimestamp = DateTime.now().toIso8601String() + 'Z';
 
-    if(Platform.isAndroid){
+    if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
       deviceId = androidInfo.androidId;
       this.device = {
@@ -44,7 +46,7 @@ class CrashesDao {
         "model": androidInfo.model,
         "locale": Platform.localeName
       };
-    }else{
+    } else {
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
       deviceId = iosInfo.identifierForVendor;
       this.device = {
@@ -60,14 +62,13 @@ class CrashesDao {
     }
   }
 
-  void upload(dynamic err,{String userId = '',dynamic options}) async{
+  void upload(dynamic err, {String userId = '', dynamic options}) async {
     var now = DateTime.now().toIso8601String() + 'Z';
     var data;
 
-    if(Platform.isAndroid){
+    if (Platform.isAndroid) {
       data = {
-        "logs":
-        [
+        "logs": [
           {
             "type": "handledError",
             "timestamp": now,
@@ -77,14 +78,15 @@ class CrashesDao {
             "userId": "$userId-${this.deviceId}",
             "exception": {
               "type": "System.IO.AIPsException",
-              "message": "${err['message']}:${err['code']} ext: $userId-${this.deviceId}",
+              "message":
+                  "${err['message']}:${err['code']} ext: $userId-${this.deviceId}",
               "stackTrace": "${options.baseUrl}${options.path}",
               "innerExceptions": []
             }
           }
         ]
       };
-    }else{
+    } else {
       data = {
         "logs": [
           {
@@ -104,7 +106,8 @@ class CrashesDao {
             "binaries": [
               {
                 "id": Uuid().generateV4(),
-                "name": "${err['message']}:${err['code']} ext: $userId-${this.deviceId}",
+                "name":
+                    "${err['message']}:${err['code']} ext: $userId-${this.deviceId}",
                 "startAddress": "",
                 "endAddress": "",
                 "path": "${options.baseUrl}${options.path}",
@@ -117,12 +120,9 @@ class CrashesDao {
       };
     }
 
-    try{
-      dio.post(
-        Sys.crasheslog,
-        data: JsonEncoder().convert(data)
-      );
-    }catch(err){
+    try {
+      dio.post(Sys.crasheslog, data: JsonEncoder().convert(data));
+    } catch (err) {
       print('---crashes---:$err');
     }
   }

@@ -38,7 +38,8 @@ void _dispose(Action action, Context<SplashState> ctx) {
 }
 
 void _build(Action action, Context<SplashState> ctx) {
-  ScreenUtil.instance.init(Config.BLUE_PRINT_WIDTH, Config.BLUE_PRINT_HEIGHT, ctx.context);
+  ScreenUtil.instance
+      .init(Config.BLUE_PRINT_WIDTH, Config.BLUE_PRINT_HEIGHT, ctx.context);
 }
 
 void _goNextPage(Action action, Context<SplashState> ctx) async {
@@ -47,7 +48,9 @@ void _goNextPage(Action action, Context<SplashState> ctx) async {
     await settingsDao.open();
     SettingsState data = await settingsDao.getItem();
     await settingsDao.close();
-    if (data != null && data.userId.isNotEmpty && GlobalStore.state.superModel.currentNode != null) {
+    if (data != null &&
+        data.userId.isNotEmpty &&
+        GlobalStore.state.superModel.currentNode != null) {
       await PermissionUtil.getLocationPermission();
       Navigator.pushReplacementNamed(ctx.context, "home_page");
     } else {

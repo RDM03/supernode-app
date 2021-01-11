@@ -2,7 +2,13 @@ import 'dart:ui';
 
 import 'package:fish_redux/fish_redux.dart';
 
-enum AddGatewayAction { onQrScan, serialNumber, onAdd, onProfile, setNumberTextColor}
+enum AddGatewayAction {
+  onQrScan,
+  serialNumber,
+  onAdd,
+  onProfile,
+  setNumberTextColor
+}
 
 class AddGatewayActionCreator {
   static Action onQrScan() {
@@ -10,7 +16,7 @@ class AddGatewayActionCreator {
   }
 
   static Action serialNumber(String data) {
-    return Action(AddGatewayAction.serialNumber,payload: data);
+    return Action(AddGatewayAction.serialNumber, payload: data);
   }
 
   static Action onAdd() {

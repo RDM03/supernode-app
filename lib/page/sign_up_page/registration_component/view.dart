@@ -16,7 +16,8 @@ import '../action.dart';
 import 'action.dart';
 import 'state.dart';
 
-Widget buildView(RegistrationState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(
+    RegistrationState state, Dispatch dispatch, ViewService viewService) {
   final _ctx = viewService.context;
 
   return ScaffoldWidget(
@@ -55,8 +56,11 @@ Widget buildView(RegistrationState state, Dispatch dispatch, ViewService viewSer
                   validator: (value) => Reg.onValidPassword(_ctx, value),
                   controller: state.pwdCtl,
                   suffixChild: IconButton(
-                    icon: Icon(state.isObscureText ? Icons.visibility_off : Icons.visibility),
-                    onPressed: () => dispatch(RegistrationActionCreator.isObscureText()),
+                    icon: Icon(state.isObscureText
+                        ? Icons.visibility_off
+                        : Icons.visibility),
+                    onPressed: () =>
+                        dispatch(RegistrationActionCreator.isObscureText()),
                   ),
                 ),
               ),
@@ -101,7 +105,8 @@ Widget buildView(RegistrationState state, Dispatch dispatch, ViewService viewSer
         CheckboxLabelWidget(
           value: state.isCheckTerms,
           child: link(FlutterI18n.translate(_ctx, 'agree_conditions'),
-              onTap: () => Tools.launchURL(Sys.agreePolicy), alignment: Alignment.centerLeft),
+              onTap: () => Tools.launchURL(Sys.agreePolicy),
+              alignment: Alignment.centerLeft),
           onChanged: (_) => dispatch(RegistrationActionCreator.isCheckTerms()),
         ),
         CheckboxLabelWidget(
@@ -112,8 +117,9 @@ Widget buildView(RegistrationState state, Dispatch dispatch, ViewService viewSer
       ],
     ),
     footer: PrimaryButton(
-      onTap:
-          state.isCheckTerms ? () => dispatch(SignUpActionCreator.onRegistrationContinue()) : null,
+      onTap: state.isCheckTerms
+          ? () => dispatch(SignUpActionCreator.onRegistrationContinue())
+          : null,
       buttonTitle: FlutterI18n.translate(_ctx, 'next'),
       minHeight: 46,
     ),

@@ -4,7 +4,6 @@ import 'state.dart';
 
 Reducer<EnterNonOTPSecurityCodeState> buildReducer() {
   return asReducer(
-    <Object, Reducer<EnterNonOTPSecurityCodeState>>{
-    },
+    <Object, Reducer<EnterNonOTPSecurityCodeState>>{},
   );
 }

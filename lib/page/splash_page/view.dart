@@ -5,7 +5,8 @@ import 'package:supernodeapp/configs/images.dart';
 import 'state.dart';
 import 'animation.dart';
 
-Widget buildView(SplashState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(
+    SplashState state, Dispatch dispatch, ViewService viewService) {
   return Scaffold(
     body: Container(
       constraints: BoxConstraints.expand(),

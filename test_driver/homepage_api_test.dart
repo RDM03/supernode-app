@@ -21,13 +21,15 @@ homeAPITest() {
     await driver.waitUntilFirstFrameRasterized();
     await delay(10000);
     print('CHECKING FOR BALANCE');
-    var currentBalancePresent = await isPresent(f['homeCurrentBalance'], driver);
+    var currentBalancePresent =
+        await isPresent(f['homeCurrentBalance'], driver);
     expect(await currentBalancePresent, true);
     print('CHECKING FOR STAKED AMOUNT');
     var stakedAmountPresent = await isPresent(f['homeStakedAmount'], driver);
     expect(await stakedAmountPresent, true);
     print('CHECKING FOR STAKING REVENUE');
-    var stakingRevenuePresent = await isPresent(f['homeStakingRevenue'], driver);
+    var stakingRevenuePresent =
+        await isPresent(f['homeStakingRevenue'], driver);
     expect(await stakingRevenuePresent, true);
     print('CHECKING FOR MINERS');
     var minersPresent = await isPresent(f['totalGatewaysDashboard'], driver);

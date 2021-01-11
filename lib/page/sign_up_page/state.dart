@@ -5,7 +5,6 @@ import 'registration_component/state.dart';
 import 'verification_code_component/state.dart';
 
 class SignUpState implements Cloneable<SignUpState> {
-
   GlobalKey emailFormKey = GlobalKey<FormState>();
   GlobalKey codesFormKey = GlobalKey<FormState>();
   GlobalKey registerFormKey = GlobalKey<FormState>();
@@ -52,10 +51,10 @@ SignUpState initState(Map<String, dynamic> args) {
   return SignUpState();
 }
 
-class VerificationCodeConnector extends ConnOp<SignUpState, VerificationCodeState>{
-
+class VerificationCodeConnector
+    extends ConnOp<SignUpState, VerificationCodeState> {
   @override
-  VerificationCodeState get(SignUpState state){
+  VerificationCodeState get(SignUpState state) {
     return VerificationCodeState()
       ..formKey = state.codesFormKey
       ..listCtls = state.codeListCtls;
@@ -63,15 +62,13 @@ class VerificationCodeConnector extends ConnOp<SignUpState, VerificationCodeStat
 
   @override
   void set(SignUpState state, VerificationCodeState subState) {
-    state
-      ..codeListCtls = subState.listCtls;
+    state..codeListCtls = subState.listCtls;
   }
 }
 
-class RegistrationConnector extends ConnOp<SignUpState, RegistrationState>{
-
+class RegistrationConnector extends ConnOp<SignUpState, RegistrationState> {
   @override
-  RegistrationState get(SignUpState state){
+  RegistrationState get(SignUpState state) {
     return RegistrationState()
       ..emailCtl = state.emailCtl
       ..pwdCtl = state.pwdCtl

@@ -5,7 +5,7 @@ import 'package:supernodeapp/page/settings_page/state.dart';
 
 class SettingsApi {}
 
-class SettingsDao extends DbDao{
+class SettingsDao extends DbDao {
   static const String settingId = 'settingsId_20200413';
 
   static const String table = 'settings';
@@ -19,11 +19,11 @@ class SettingsDao extends DbDao{
   static const String expire = 'expire';
   static const String language = 'language';
   static const String theme = 'theme';
-  
+
   //local
-  static void updateLocal(settingsData) async{
+  static void updateLocal(settingsData) async {
     GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
-    
+
     SettingsDao settingsDao = SettingsDao();
     await settingsDao.open();
     await settingsDao.update(settingsData);
@@ -38,21 +38,28 @@ class SettingsDao extends DbDao{
       select * from sqlite_master where name = "$table" and sql like "%$username%"
     ''');
 
-    if(hasColumns == null || hasColumns.isEmpty){
+    if (hasColumns == null || hasColumns.isEmpty) {
       await db.execute('''
         alter table $table add $username text null
       ''');
     }
-  
   }
 
   Future<SettingsState> getItem() async {
-    List<Map> maps = await db.query(
-      table,
-      columns: [cId, userId, username, organizationId, expire, token, notification, language, theme],
-      where: '$id = ?',
-      whereArgs: [settingId]
-    );
+    List<Map> maps = await db.query(table,
+        columns: [
+          cId,
+          userId,
+          username,
+          organizationId,
+          expire,
+          token,
+          notification,
+          language,
+          theme
+        ],
+        where: '$id = ?',
+        whereArgs: [settingId]);
 
     if (maps.length > 0) {
       return SettingsState.fromMap(maps.first);
@@ -64,13 +71,12 @@ class SettingsDao extends DbDao{
   Future<SettingsState> update(SettingsState item) async {
     item.id = settingId;
     SettingsState res = await getItem();
-    if(res == null){
+    if (res == null) {
       await db.insert(table, item.toMap());
-    }else{
+    } else {
       await db.update(table, item.toMap(),
-      where: '$id = ?', whereArgs: [settingId]);
+          where: '$id = ?', whereArgs: [settingId]);
     }
     return item;
   }
-
 }

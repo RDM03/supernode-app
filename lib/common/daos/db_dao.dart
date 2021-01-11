@@ -31,7 +31,8 @@ class DbDao {
 
     // await deleteDatabase(path);
 
-    db = await openDatabase(path, version: 2, onCreate: (Database _db, int version) async {
+    db = await openDatabase(path, version: 2,
+        onCreate: (Database _db, int version) async {
       await _db.execute('pragma foreign_keys = ON');
 
       await _db.execute('''

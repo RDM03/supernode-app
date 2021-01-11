@@ -1,6 +1,11 @@
 import 'package:fish_redux/fish_redux.dart';
 
-enum SignUpAction { onEmailContinue, onVerificationContinue, onRegistrationContinue, registrationContinue }
+enum SignUpAction {
+  onEmailContinue,
+  onVerificationContinue,
+  onRegistrationContinue,
+  registrationContinue
+}
 
 class SignUpActionCreator {
   static Action onEmailContinue() {
@@ -16,6 +21,6 @@ class SignUpActionCreator {
   }
 
   static Action registrationContinue(Map data) {
-    return Action(SignUpAction.registrationContinue,payload: data);
+    return Action(SignUpAction.registrationContinue, payload: data);
   }
 }

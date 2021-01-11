@@ -8,12 +8,10 @@ import 'view.dart';
 class OrganizationsComponent extends Component<OrganizationsState> {
   OrganizationsComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<OrganizationsState>(
-                adapter: null,
-                slots: <String, Dependent<OrganizationsState>>{
-                }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<OrganizationsState>(
+              adapter: null, slots: <String, Dependent<OrganizationsState>>{}),
+        );
 }

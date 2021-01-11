@@ -18,7 +18,8 @@ class SuperNodesBean extends AbstractBaseData<SuperNodesBean> {
     return SuperNodesBean.fromJson(jsonDecode(jsonStr));
   }
 
-  factory SuperNodesBean.fromJson(Map<String, dynamic> json) => _$SuperNodesBeanFromJson(json);
+  factory SuperNodesBean.fromJson(Map<String, dynamic> json) =>
+      _$SuperNodesBeanFromJson(json);
 
   Map<String, dynamic> toJson() => _$SuperNodesBeanToJson(this);
 

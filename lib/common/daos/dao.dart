@@ -117,7 +117,7 @@ class Dao {
     }
   }
 
-  Future<dynamic> delete({String url}) async{
+  Future<dynamic> delete({String url}) async {
     try {
       Response response = await dio.delete(url);
 
@@ -126,7 +126,7 @@ class Dao {
       }
     } on DioError catch (e) {
       final message =
-        e.response != null ? e.response.data['message'] : e.message;
+          e.response != null ? e.response.data['message'] : e.message;
       final code = e.response != null ? e.response.data['code'] : -1;
       throw DaoException(message, code);
     }

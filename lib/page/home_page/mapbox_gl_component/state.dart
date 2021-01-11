@@ -5,8 +5,7 @@ class MapboxGlState implements Cloneable<MapboxGlState> {
 
   @override
   MapboxGlState clone() {
-    return MapboxGlState()
-      ..geojsonList = geojsonList;
+    return MapboxGlState()..geojsonList = geojsonList;
   }
 }
 

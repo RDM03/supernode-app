@@ -2,7 +2,6 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/widgets.dart';
 
 class VerificationCodeState implements Cloneable<VerificationCodeState> {
-
   GlobalKey formKey = GlobalKey<FormState>();
   List<TextEditingController> listCtls = [
     TextEditingController(),
@@ -12,7 +11,7 @@ class VerificationCodeState implements Cloneable<VerificationCodeState> {
     TextEditingController(),
     TextEditingController()
   ];
-  
+
   @override
   VerificationCodeState clone() {
     return VerificationCodeState()

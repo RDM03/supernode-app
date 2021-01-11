@@ -140,7 +140,8 @@ const kBigFontOfBlack = TextStyle(
   height: 1.5,
 );
 
-final TextStyle kBigBoldFontOfBlack = kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600);
+final TextStyle kBigBoldFontOfBlack =
+    kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600);
 
 const kVeryBigFontOfBlack = TextStyle(
   color: const Color.fromARGB(222, 0, 0, 0),
@@ -216,4 +217,5 @@ const kRowShodow = BoxDecoration(
 const kPrimaryBigFontOfBlack =
     TextStyle(fontSize: 18, fontWeight: FontWeight.w600);
 
-const kSuperBigBoldFont = TextStyle(color:Colors.black, fontSize: 22, fontWeight: FontWeight.w600);
+const kSuperBigBoldFont =
+    TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.w600);

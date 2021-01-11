@@ -4,7 +4,6 @@ import 'state.dart';
 
 Reducer<EnterSecurityCodeWithdrawState> buildReducer() {
   return asReducer(
-    <Object, Reducer<EnterSecurityCodeWithdrawState>>{
-    },
+    <Object, Reducer<EnterSecurityCodeWithdrawState>>{},
   );
 }

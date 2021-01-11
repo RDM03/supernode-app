@@ -14,12 +14,10 @@ Reducer<GatewayProfileState> buildReducer() {
 
 GatewayProfileState _miningInfo(GatewayProfileState state, Action action) {
   final GatewayProfileState newState = state.clone();
-  return newState
-    ..miningRevenve = action.payload;
+  return newState..miningRevenve = action.payload;
 }
 
 GatewayProfileState _gatewayFrame(GatewayProfileState state, Action action) {
   final GatewayProfileState newState = state.clone();
-  return newState
-    ..gatewayFrame = action.payload;
+  return newState..gatewayFrame = action.payload;
 }

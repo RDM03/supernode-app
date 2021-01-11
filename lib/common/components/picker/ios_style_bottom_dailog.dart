@@ -62,7 +62,7 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
   }) : super(key: key, context: context);
 
   @override
-  Widget buildDialog(){
+  Widget buildDialog() {
     return Column(
       children: <Widget>[
         _buildContentList(context),
@@ -132,7 +132,11 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
       child: Container(
         alignment: Alignment.center,
         padding: EdgeInsets.all(25),
-        child: Text(button?.title ?? '', style: kBigFontOfBlue, textAlign: TextAlign.center,),
+        child: Text(
+          button?.title ?? '',
+          style: kBigFontOfBlue,
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }
@@ -147,7 +151,11 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
         key: Key("delete_gateway_bottom_dialog_item$index"),
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
-        child: Text(button?.title ?? '', style: button.style, textAlign: TextAlign.center,),
+        child: Text(
+          button?.title ?? '',
+          style: button.style,
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }
@@ -171,8 +179,11 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
             ]),
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
-        child: Text(FlutterI18n.translate(context, 'device_cancel'),
-            style: kBigFontOfBlack, textAlign: TextAlign.center,),
+        child: Text(
+          FlutterI18n.translate(context, 'device_cancel'),
+          style: kBigFontOfBlack,
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }
@@ -192,15 +203,15 @@ class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
   }) : super(key: key, context: context);
 
   @override
-  Widget buildDialog(){
+  Widget buildDialog() {
     return GestureDetector(
-      onTap: (){
-        if(!isClosing){
+      onTap: () {
+        if (!isClosing) {
           isClosing = true;
           Navigator.pop(context);
         }
       },
-      onVerticalDragUpdate: (details){
+      onVerticalDragUpdate: (details) {
         if (details.delta.dy > 0.0) {
           //swipe down
           Navigator.pop(context);
@@ -210,7 +221,8 @@ class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
         key: Key("infoDialog"),
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
             boxShadow: [
               BoxShadow(
                 color: shodowColor,
@@ -219,7 +231,7 @@ class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
               ),
             ]),
         alignment: Alignment.center,
-        padding: EdgeInsets.only(left: 22, right:22, top: 28, bottom:60),
+        padding: EdgeInsets.only(left: 22, right: 22, top: 28, bottom: 60),
         child: child,
       ),
     );
@@ -239,7 +251,5 @@ void showInfoDialog(BuildContext context, IosStyleBottomDialog2 child) {
           child: FullScreenDialog(child: child),
         );
       },
-      transitionDuration: Duration(milliseconds: 200)
-  );
+      transitionDuration: Duration(milliseconds: 200));
 }
-

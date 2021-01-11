@@ -9,5 +9,4 @@ Effect<ConfirmState> buildEffect() {
   });
 }
 
-void _onAction(Action action, Context<ConfirmState> ctx) {
-}
+void _onAction(Action action, Context<ConfirmState> ctx) {}

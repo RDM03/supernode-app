@@ -88,16 +88,19 @@ void _process(Action action, Context<PrepareStakeState> ctx) async {
 
 Future<void> _balance(Context<PrepareStakeState> ctx) async {
   SettingsState settingsData = GlobalStore.store.getState().settings;
-  
+
   try {
     WalletDao dao = WalletDao();
-    Map data = {'userId': settingsData.userId, 'orgId': settingsData.selectedOrganizationId, 'currency': ''};
+    Map data = {
+      'userId': settingsData.userId,
+      'orgId': settingsData.selectedOrganizationId,
+      'currency': ''
+    };
 
     var res = await dao.balance(data);
     mLog('balance', res);
     double balance = Tools.convertDouble(res['balance']);
 
     ctx.dispatch(PrepareStakeActionCreator.balance(balance));
-  } catch (err) {
-  }
+  } catch (err) {}
 }

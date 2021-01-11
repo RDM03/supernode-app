@@ -21,6 +21,6 @@ OrganizationsState _selectedItem(OrganizationsState state, Action action) {
     ..selectedOrgId = id
     ..selectedOrgName = name
     ..orgListCtl.text = name
-    ..orgDisplayCtl.text=name
-  ..orgNameCtl.text=name;
+    ..orgDisplayCtl.text = name
+    ..orgNameCtl.text = name;
 }

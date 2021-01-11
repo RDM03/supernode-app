@@ -118,7 +118,7 @@ class HomeState implements Cloneable<HomeState> {
       ..lockedAmount = lockedAmount
       ..totalRevenueDHX = totalRevenueDHX
       ..mPower = mPower
-      ..miningPower  = miningPower
+      ..miningPower = miningPower
       ..stakedAmount = stakedAmount
       ..gatewaysTotal = gatewaysTotal
       ..gatewaysRevenue = gatewaysRevenue
@@ -312,12 +312,9 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
 class MapboxGlConnector extends ConnOp<HomeState, MapboxGlState> {
   @override
   MapboxGlState get(HomeState state) {
-    return MapboxGlState()
-      ..geojsonList = state.geojsonList;
+    return MapboxGlState()..geojsonList = state.geojsonList;
   }
 
   @override
-  void set(HomeState state, MapboxGlState subState) {
-    
-  }
+  void set(HomeState state, MapboxGlState subState) {}
 }

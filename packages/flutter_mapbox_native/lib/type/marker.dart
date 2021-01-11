@@ -177,6 +177,7 @@ class Marker {
   final MarkerId markerId;
 
   final String iconImage;
+
   /// The opacity of the marker, between 0.0 and 1.0 inclusive.
   ///
   /// 0.0 means fully transparent, 1.0 means fully opaque.

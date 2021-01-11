@@ -16,61 +16,52 @@ import 'package:supernodeapp/theme/spacing.dart';
 import 'action.dart';
 import 'state.dart';
 
-Widget buildView(AddGatewayState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(
+    AddGatewayState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
-  
-  return state.fromPage == 'home' ? 
-    pageFrame(
-      context: viewService.context,
-      children: _body(
-        state: state,
-        context: _ctx,
-        dispatch: dispatch
-      )
-    ) :
-    Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: cardBackgroundColor,
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: <Widget>[
-          GestureDetector(
-            child:  Container(
-              alignment: Alignment.center,
-              child: Text(
-                FlutterI18n.translate(_ctx,'skip'),
-                style: kBigFontOfBlack,
+
+  return state.fromPage == 'home'
+      ? pageFrame(
+          context: viewService.context,
+          children: _body(state: state, context: _ctx, dispatch: dispatch))
+      : Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: cardBackgroundColor,
+          appBar: AppBar(
+            iconTheme: IconThemeData(color: Colors.black),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            actions: <Widget>[
+              GestureDetector(
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    FlutterI18n.translate(_ctx, 'skip'),
+                    style: kBigFontOfBlack,
+                  ),
+                ),
+                onTap: () => Navigator.of(viewService.context)
+                    .pushNamedAndRemoveUntil('home_page', (_) => false),
               ),
-            ),
-            onTap:  () => Navigator.of(viewService.context).pushNamedAndRemoveUntil('home_page', (_) => false),
+              IconButton(
+                icon: Icon(Icons.arrow_forward_ios),
+                onPressed: () => Navigator.of(viewService.context)
+                    .pushNamedAndRemoveUntil('home_page', (_) => false),
+              )
+            ],
           ),
-          IconButton(
-            icon: Icon(Icons.arrow_forward_ios),
-            onPressed: () => Navigator.of(viewService.context).pushNamedAndRemoveUntil('home_page', (_) => false),
-          )
-        ],
-      ),
-      body: SafeArea(
-        child: Container(
-          padding: kRoundRow202,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: _body(
-              state: state,
-              context: _ctx,
-              dispatch: dispatch
-            )
-          )
-        )
-      )
-  );
-  
+          body: SafeArea(
+              child: Container(
+                  padding: kRoundRow202,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: _body(
+                          state: state, context: _ctx, dispatch: dispatch)))));
 }
 
-List<Widget> _body({AddGatewayState state,BuildContext context,Dispatch dispatch}){
-  _onChangedSetTextColor (text) {
+List<Widget> _body(
+    {AddGatewayState state, BuildContext context, Dispatch dispatch}) {
+  _onChangedSetTextColor(text) {
     var color;
     if (text.length == 9 || text.length == 24) {
       color = Colors.green;
@@ -81,49 +72,38 @@ List<Widget> _body({AddGatewayState state,BuildContext context,Dispatch dispatch
     print("First text field: $text");
   }
 
-    return [
-      Visibility(
-        visible: state.fromPage != 'home',
-        child: paragraph(FlutterI18n.translate(context,'add_gateway_tip')),
-      ),
-      Visibility(
-        visible: state.fromPage == 'home',
-        child: pageNavBar(
-          FlutterI18n.translate(context,'gateway'),
-          onTap: () => Navigator.pop(context)
-        ),
-      ),
-      Visibility(
-        visible: state.fromPage == 'home',
-        child: introduction(FlutterI18n.translate(context,'add_gateway_tip')),
-      ),
-      submitButton(
-        FlutterI18n.translate(context,'scan_qrcode'),
-        top: 20,
-        onPressed: () => dispatch(AddGatewayActionCreator.onQrScan())
-      ),
-      pageContent(
-        FlutterI18n.translate(context,'input_serial_number'),
-        top: 10
-      ),
-      Form(
+  return [
+    Visibility(
+      visible: state.fromPage != 'home',
+      child: paragraph(FlutterI18n.translate(context, 'add_gateway_tip')),
+    ),
+    Visibility(
+      visible: state.fromPage == 'home',
+      child: pageNavBar(FlutterI18n.translate(context, 'gateway'),
+          onTap: () => Navigator.pop(context)),
+    ),
+    Visibility(
+      visible: state.fromPage == 'home',
+      child: introduction(FlutterI18n.translate(context, 'add_gateway_tip')),
+    ),
+    submitButton(FlutterI18n.translate(context, 'scan_qrcode'),
+        top: 20, onPressed: () => dispatch(AddGatewayActionCreator.onQrScan())),
+    pageContent(FlutterI18n.translate(context, 'input_serial_number'), top: 10),
+    Form(
         key: state.formKey,
         child: TextFieldWithTitle(
           title: '',
           key: ValueKey('addMinerSerialNumber'),
-          hint: FlutterI18n.translate(context,'serial_number_hint'),
+          hint: FlutterI18n.translate(context, 'serial_number_hint'),
           textInputAction: TextInputAction.done,
           validator: (value) => Reg.onNotEmpty(context, value),
           textColor: state.numberTextColor,
-          onChanged:  _onChangedSetTextColor,
+          onChanged: _onChangedSetTextColor,
           controller: state.serialNumberCtl,
-        )
-      ),
-      submitButton(
-        FlutterI18n.translate(context,'add_gateway'),
+        )),
+    submitButton(FlutterI18n.translate(context, 'add_gateway'),
         key: ValueKey('addMinerSubmit'),
         top: 10,
-        onPressed: () => dispatch(AddGatewayActionCreator.onProfile())
-      ),
-    ];
-  }
+        onPressed: () => dispatch(AddGatewayActionCreator.onProfile())),
+  ];
+}

@@ -88,9 +88,14 @@ Widget _buildSmartDetail(ctx) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _buildSmartDetailItem(title: FlutterI18n.translate(ctx, 'description'), des: 'Test'),
-        _buildSmartDetailItem(title: FlutterI18n.translate(ctx, 'last_seen'), des: '2020-05-22 09:39:12'),
-        _buildSmartDetailItem(title: FlutterI18n.translate(ctx, 'device_ID'),des: 'SmartWatch02436'),
+        _buildSmartDetailItem(
+            title: FlutterI18n.translate(ctx, 'description'), des: 'Test'),
+        _buildSmartDetailItem(
+            title: FlutterI18n.translate(ctx, 'last_seen'),
+            des: '2020-05-22 09:39:12'),
+        _buildSmartDetailItem(
+            title: FlutterI18n.translate(ctx, 'device_ID'),
+            des: 'SmartWatch02436'),
         Container(
           margin: EdgeInsets.only(top: 20),
           child: Text(

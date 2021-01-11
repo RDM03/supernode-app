@@ -105,8 +105,10 @@ class Stake {
 class StakeItem extends StatelessWidget {
   final VoidCallback onTap;
   final String amount;
+
   /// default MXC
   final String currency;
+
   /// for StakeDHXItemState/StakeDHXItemEntity
   final String stakedAmount;
   final String id;
@@ -261,7 +263,9 @@ class StakeItem extends StatelessWidget {
                           ),
                         ],
                       ),
-                      (stakedAmount.isNotEmpty) ? Text('$stakedAmount', style: kSmallFontOfGrey) : SizedBox(),
+                      (stakedAmount.isNotEmpty)
+                          ? Text('$stakedAmount', style: kSmallFontOfGrey)
+                          : SizedBox(),
                       Text('ID: ' + id, style: kSmallFontOfGrey),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

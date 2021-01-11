@@ -17,8 +17,7 @@ Widget buildView(
     ),
     child: ListTile(
       onTap: () {
-        if (state.isDemo())
-          dispatch(DeviceActionCreator.onOpen());
+        if (state.isDemo()) dispatch(DeviceActionCreator.onOpen());
       },
       // onTap: () => dispatch(GatewayItemActionCreator.onProfile()),
       title: Container(

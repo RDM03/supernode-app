@@ -3,7 +3,14 @@ import 'package:flutter/widgets.dart';
 
 class PasswordResetState implements Cloneable<PasswordResetState> {
   GlobalKey formKey = GlobalKey<FormState>();
-  List<TextEditingController> listCtls = [TextEditingController(), TextEditingController(), TextEditingController(), TextEditingController(), TextEditingController(), TextEditingController()];
+  List<TextEditingController> listCtls = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController()
+  ];
   TextEditingController newPwdCtl = TextEditingController();
   TextEditingController confirmNewPwdCtl = TextEditingController();
   bool isObscureConPWDText = true;

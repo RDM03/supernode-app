@@ -13,20 +13,19 @@ import 'view.dart';
 class HomePage extends Page<HomeState, Map<String, dynamic>> {
   HomePage()
       : super(
-            initState: initState,
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<HomeState>(
-                adapter: null,
-                slots: <String, Dependent<HomeState>>{
-                  'user': UserConnector() + UserComponent(),
-                  'gateway': GatewayConnector() + GatewayComponent(),
-                  'device': DeviceConnector() + DeviceComponent(),
-                  'wallet': WalletConnector() + WalletComponent(),
-                  'mapbox': MapboxGlConnector() + MapboxGlComponent(),
-                }),
-            middleware: <Middleware<HomeState>>[
-            ],);
-
+          initState: initState,
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<HomeState>(
+              adapter: null,
+              slots: <String, Dependent<HomeState>>{
+                'user': UserConnector() + UserComponent(),
+                'gateway': GatewayConnector() + GatewayComponent(),
+                'device': DeviceConnector() + DeviceComponent(),
+                'wallet': WalletConnector() + WalletComponent(),
+                'mapbox': MapboxGlConnector() + MapboxGlComponent(),
+              }),
+          middleware: <Middleware<HomeState>>[],
+        );
 }

@@ -8,7 +8,9 @@ abstract class GlobalBaseState {
   set settings(SettingsState settings);
 }
 
-class GlobalState with SuperNodeStore implements Cloneable<GlobalState>, GlobalBaseState {
+class GlobalState
+    with SuperNodeStore
+    implements Cloneable<GlobalState>, GlobalBaseState {
   @override
   SettingsState settings;
 

@@ -14,7 +14,8 @@ import 'package:supernodeapp/theme/spacing.dart';
 import '../action.dart';
 import 'state.dart';
 
-Widget buildView(PasswordResetState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(
+    PasswordResetState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
 
   return Scaffold(
@@ -57,25 +58,42 @@ Widget buildView(PasswordResetState state, Dispatch dispatch, ViewService viewSe
                         isObscureText: state.isObscureNewPWDText,
                         validator: (value) => Reg.onValidPassword(_ctx, value),
                         controller: state.newPwdCtl,
-                        suffixChild: IconButton(icon: Icon(state.isObscureNewPWDText ? Icons.visibility_off : Icons.visibility), onPressed: () => dispatch(PasswordResetActionCreator.isObscureNewPWDText())),
+                        suffixChild: IconButton(
+                            icon: Icon(state.isObscureNewPWDText
+                                ? Icons.visibility_off
+                                : Icons.visibility),
+                            onPressed: () => dispatch(PasswordResetActionCreator
+                                .isObscureNewPWDText())),
                       ),
                       smallColumnSpacer(),
                       TextFieldWithTitle(
-                        title: FlutterI18n.translate(_ctx, 'confirm_new_password'),
+                        title:
+                            FlutterI18n.translate(_ctx, 'confirm_new_password'),
                         isObscureText: state.isObscureConPWDText,
-                        validator: (value) => _onValidConfirmPassword(_ctx, value, state.newPwdCtl.text),
+                        validator: (value) => _onValidConfirmPassword(
+                            _ctx, value, state.newPwdCtl.text),
                         controller: state.confirmNewPwdCtl,
-                        suffixChild: IconButton(icon: Icon(state.isObscureConPWDText ? Icons.visibility_off : Icons.visibility), onPressed: () => dispatch(PasswordResetActionCreator.isObscureConPWDText())),
+                        suffixChild: IconButton(
+                            icon: Icon(state.isObscureConPWDText
+                                ? Icons.visibility_off
+                                : Icons.visibility),
+                            onPressed: () => dispatch(PasswordResetActionCreator
+                                .isObscureConPWDText())),
                       ),
                     ]),
                   ),
                   Spacer(),
-                  PrimaryButton(onTap: () => dispatch(ForgotPasswordActionCreator.onVerificationContinue()), buttonTitle: FlutterI18n.translate(_ctx, 'confirm'), minHeight: 46),
+                  PrimaryButton(
+                      onTap: () => dispatch(
+                          ForgotPasswordActionCreator.onVerificationContinue()),
+                      buttonTitle: FlutterI18n.translate(_ctx, 'confirm'),
+                      minHeight: 46),
                 ],
               ))));
 }
 
-String _onValidConfirmPassword(BuildContext context, String value1, String value2) {
+String _onValidConfirmPassword(
+    BuildContext context, String value1, String value2) {
   String res = Reg.isEmpty(value1);
   if (res != null) return FlutterI18n.translate(context, res);
 

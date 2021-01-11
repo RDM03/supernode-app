@@ -17,7 +17,9 @@ Reducer<SplashState> buildReducer() {
 
 SplashState _initAnimate(SplashState state, Action action) {
   final SplashState newState = state.clone();
-  newState.logoController = AnimationController(duration: Duration(milliseconds: 2000), vsync:  action.payload as TickerProvider);
+  newState.logoController = AnimationController(
+      duration: Duration(milliseconds: 2000),
+      vsync: action.payload as TickerProvider);
   return newState;
 }
 

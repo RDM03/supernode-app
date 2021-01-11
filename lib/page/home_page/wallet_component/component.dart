@@ -7,8 +7,8 @@ import 'state.dart';
 import 'view.dart';
 import 'wallet_list_adapter/adapter.dart';
 
-class TabComponentState extends ComponentState<WalletState> with SingleTickerProviderStateMixin {
-}
+class TabComponentState extends ComponentState<WalletState>
+    with SingleTickerProviderStateMixin {}
 
 class TabComponent extends Component<WalletState> {
   @override
@@ -18,13 +18,13 @@ class TabComponent extends Component<WalletState> {
 class WalletComponent extends Component<WalletState> {
   WalletComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<WalletState>(
-                adapter: NoneConn<WalletState>() + WalletListAdapter(),
-                slots: <String, Dependent<WalletState>>{
-                }),);
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<WalletState>(
+              adapter: NoneConn<WalletState>() + WalletListAdapter(),
+              slots: <String, Dependent<WalletState>>{}),
+        );
 
   @override
   ComponentState<WalletState> createState() {

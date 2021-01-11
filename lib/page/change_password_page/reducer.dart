@@ -13,20 +13,20 @@ Reducer<ChangePasswordState> buildReducer() {
   );
 }
 
-ChangePasswordState _isObscureOldPWDText(ChangePasswordState state, Action action) {
+ChangePasswordState _isObscureOldPWDText(
+    ChangePasswordState state, Action action) {
   final ChangePasswordState newState = state.clone();
-  return newState
-    ..isObscureOldPWDText = !state.isObscureOldPWDText;
+  return newState..isObscureOldPWDText = !state.isObscureOldPWDText;
 }
 
-ChangePasswordState _isObscureNewPWDText(ChangePasswordState state, Action action) {
+ChangePasswordState _isObscureNewPWDText(
+    ChangePasswordState state, Action action) {
   final ChangePasswordState newState = state.clone();
-  return newState
-    ..isObscureNewPWDText = !state.isObscureNewPWDText;
+  return newState..isObscureNewPWDText = !state.isObscureNewPWDText;
 }
 
-ChangePasswordState _isObscureConPWDText(ChangePasswordState state, Action action) {
+ChangePasswordState _isObscureConPWDText(
+    ChangePasswordState state, Action action) {
   final ChangePasswordState newState = state.clone();
-  return newState
-    ..isObscureConPWDText = !state.isObscureConPWDText;
+  return newState..isObscureConPWDText = !state.isObscureConPWDText;
 }

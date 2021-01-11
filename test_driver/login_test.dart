@@ -11,7 +11,6 @@ loginPageTests(String server, String password) {
   group('login page', () {
     setUpAll(() async {
       driver = await FlutterDriver.connect();
-
     });
 
     tearDownAll(() async {
@@ -42,7 +41,7 @@ loginPageTests(String server, String password) {
       await driver.waitUntilFirstFrameRasterized();
       print('LOCATING THE MXC LOGO');
       await driver.waitFor(f['logoFinder']);
-      if(server == 'MXCtest' || server == 'MXCbuild') {
+      if (server == 'MXCtest' || server == 'MXCbuild') {
         print('LOADED, BEGINNING THE TAP');
         for (var i = 0; i < 7; i++) {
           await driver.tap(f['logoFinder']);
@@ -54,8 +53,9 @@ loginPageTests(String server, String password) {
       await driver.tap(f['menuFinder']);
       await delay(2000);
       var openMenuState = await canTap(find.byValueKey(server), driver);
-      if(openMenuState == false){
-        await driver.scrollUntilVisible(f['scrollMenu'], find.byValueKey(server));
+      if (openMenuState == false) {
+        await driver.scrollUntilVisible(
+            f['scrollMenu'], find.byValueKey(server));
         openMenuState = await canTap(find.byValueKey(server), driver);
       }
       print('DELAY');
@@ -83,7 +83,8 @@ loginPageTests(String server, String password) {
       print('THE MOMENT HAS COME, WILL IT WORK?');
       await driver.tap(f['loginFinder']);
       print('HOUSTON, WE ARE LOGGED IN');
-      expect(await driver.getText(f['homeProfile']), 'Hi, ' + env['DRIVE_TESTING_USER']);
+      expect(await driver.getText(f['homeProfile']),
+          'Hi, ' + env['DRIVE_TESTING_USER']);
     }, timeout: Timeout(Duration(seconds: 180)));
   });
 }

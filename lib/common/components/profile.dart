@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/font.dart';
 
-Widget profile({keyTitle, keySubtitle, String name = '',String position = '',EdgeInsetsGeometry contentPadding,Widget trailing,Function onTap}){
+Widget profile(
+    {keyTitle,
+    keySubtitle,
+    String name = '',
+    String position = '',
+    EdgeInsetsGeometry contentPadding,
+    Widget trailing,
+    Function onTap}) {
   return ListTile(
     contentPadding: contentPadding,
     leading: Icon(

@@ -2,7 +2,6 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/daos/gateways_dao.dart';
 
 class GatewayItemState implements Cloneable<GatewayItemState> {
-
   String id = '';
   String name = '';
   String description = '';
@@ -22,7 +21,7 @@ class GatewayItemState implements Cloneable<GatewayItemState> {
   //profile
   // MapController mapCtl = MapController();
   bool isSelectIdType = true;
-  
+
   GatewayItemState();
 
   @override
@@ -46,13 +45,15 @@ class GatewayItemState implements Cloneable<GatewayItemState> {
       ..model = model;
   }
 
- GatewayItemState.fromMap(Map map) {
+  GatewayItemState.fromMap(Map map) {
     id = map[GatewaysDao.id] as String;
     name = map[GatewaysDao.name] as String;
     description = map[GatewaysDao.description] as String;
     location = map[GatewaysDao.location] as Map;
     organizationID = map[GatewaysDao.organizationID] as String;
-    discoveryEnabled = map[GatewaysDao.discoveryEnabled] == null ? false : map[GatewaysDao.discoveryEnabled] as bool;
+    discoveryEnabled = map[GatewaysDao.discoveryEnabled] == null
+        ? false
+        : map[GatewaysDao.discoveryEnabled] as bool;
     networkServerID = map[GatewaysDao.networkServerID] as String;
     gatewayProfileID = map[GatewaysDao.gatewayProfileID] as String;
     boards = map[GatewaysDao.boards];
@@ -64,8 +65,8 @@ class GatewayItemState implements Cloneable<GatewayItemState> {
     osversion = map[GatewaysDao.osversion] as String;
   }
 
-  Map<String,dynamic> toMap() {
-    var map = <String,dynamic>{
+  Map<String, dynamic> toMap() {
+    var map = <String, dynamic>{
       GatewaysDao.id: id,
       GatewaysDao.name: name,
       GatewaysDao.description: description,

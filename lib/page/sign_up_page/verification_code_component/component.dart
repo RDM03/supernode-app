@@ -8,12 +8,11 @@ import 'view.dart';
 class VerificationCodeComponent extends Component<VerificationCodeState> {
   VerificationCodeComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<VerificationCodeState>(
-                adapter: null,
-                slots: <String, Dependent<VerificationCodeState>>{
-                }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<VerificationCodeState>(
+              adapter: null,
+              slots: <String, Dependent<VerificationCodeState>>{}),
+        );
 }

@@ -2,7 +2,6 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 
 class OrganizationsState implements Cloneable<OrganizationsState> {
-
   String organizationID = '';
   String organizationName = '';
   bool isAdmin = false;
@@ -46,8 +45,8 @@ class OrganizationsState implements Cloneable<OrganizationsState> {
     updatedAt = map['updatedAt'] as String;
   }
 
-  Map<String,dynamic> toMap() {
-    var map = <String,dynamic>{
+  Map<String, dynamic> toMap() {
+    var map = <String, dynamic>{
       'organizationID': organizationID,
       'organizationName': organizationName,
       'isAdmin': isAdmin,

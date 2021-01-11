@@ -8,12 +8,10 @@ import 'view.dart';
 class ProfileComponent extends Component<ProfileState> {
   ProfileComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<ProfileState>(
-                adapter: null,
-                slots: <String, Dependent<ProfileState>>{
-                }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<ProfileState>(
+              adapter: null, slots: <String, Dependent<ProfileState>>{}),
+        );
 }

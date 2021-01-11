@@ -4,7 +4,6 @@ import 'state.dart';
 
 Reducer<UserState> buildReducer() {
   return asReducer(
-    <Object, Reducer<UserState>>{
-    },
+    <Object, Reducer<UserState>>{},
   );
 }

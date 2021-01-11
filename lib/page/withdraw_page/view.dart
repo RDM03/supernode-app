@@ -76,7 +76,8 @@ Widget buildView(
           onTap: () => _showInfoDialog(_ctx),
           child: Padding(
             key: Key("questionCircle"),
-            padding: EdgeInsets.only(top: 30+s(5), bottom: s(5), left: s(5), right: s(5)),
+            padding: EdgeInsets.only(
+                top: 30 + s(5), bottom: s(5), left: s(5), right: s(5)),
             child: Image.asset(AppImages.questionCircle, height: s(20)),
           ),
         )
@@ -131,7 +132,8 @@ void _showInfoDialog(BuildContext context) {
               Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: Text(
-                    FlutterI18n.translate(context, 'info_current_transaction_fee'),
+                    FlutterI18n.translate(
+                        context, 'info_current_transaction_fee'),
                     key: ValueKey('helpText'),
                     style: TextStyle(
                       color: Colors.black,
@@ -139,10 +141,7 @@ void _showInfoDialog(BuildContext context) {
                       fontWeight: FontWeight.w500,
                     ),
                     textAlign: TextAlign.center,
-                  )
-              ),
+                  )),
             ],
-          )
-      )
-  );
+          )));
 }

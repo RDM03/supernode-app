@@ -15,18 +15,15 @@ Reducer<RegistrationState> buildReducer() {
 
 RegistrationState _isCheckTerms(RegistrationState state, Action action) {
   final RegistrationState newState = state.clone();
-  return newState
-    ..isCheckTerms = !state.isCheckTerms;
+  return newState..isCheckTerms = !state.isCheckTerms;
 }
 
 RegistrationState _isCheckSend(RegistrationState state, Action action) {
   final RegistrationState newState = state.clone();
-  return newState
-    ..isCheckSend = !state.isCheckSend;
+  return newState..isCheckSend = !state.isCheckSend;
 }
 
 RegistrationState _isObscureText(RegistrationState state, Action action) {
   final RegistrationState newState = state.clone();
-  return newState
-    ..isObscureText = !state.isObscureText;
+  return newState..isObscureText = !state.isObscureText;
 }

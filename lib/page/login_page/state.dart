@@ -31,5 +31,6 @@ class LoginState implements Cloneable<LoginState> {
 }
 
 LoginState initState(Map<String, dynamic> args) {
-  return LoginState()..superNodes = GlobalStore.state.superModel.superNodesByCountry;
+  return LoginState()
+    ..superNodes = GlobalStore.state.superModel.superNodesByCountry;
 }

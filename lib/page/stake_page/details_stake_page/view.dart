@@ -58,10 +58,10 @@ Widget buildView(
             child: Text(
               months == null ? '~' : months.toString(),
               style: Theme.of(_ctx).textTheme.bodyText1.copyWith(
-                color: Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-              ),
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                  ),
             ),
             padding: EdgeInsets.only(top: 2),
             decoration: BoxDecoration(
@@ -72,24 +72,26 @@ Widget buildView(
           SizedBox(width: 16),
           months == null
               ? Row(
-            children: [
-              Text(
-                  FlutterI18n.translate(_ctx, 'flex_stake'),
-                  style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600)
-              ),
-              GestureDetector(
-                onTap: () => _showInfoDialog(_ctx),
-                child: Padding(
-                  key: Key("questionCircle"),
-                  padding: EdgeInsets.all(s(5)),
-                  child: Image.asset(AppImages.questionCircle, height: s(20)),
+                  children: [
+                    Text(FlutterI18n.translate(_ctx, 'flex_stake'),
+                        style: kBigFontOfBlack.copyWith(
+                            fontWeight: FontWeight.w600)),
+                    GestureDetector(
+                      onTap: () => _showInfoDialog(_ctx),
+                      child: Padding(
+                        key: Key("questionCircle"),
+                        padding: EdgeInsets.all(s(5)),
+                        child: Image.asset(AppImages.questionCircle,
+                            height: s(20)),
+                      ),
+                    )
+                  ],
+                )
+              : Text(
+                  FlutterI18n.translate(_ctx, 'x_month_stake')
+                      .replaceFirst('{0}', months.toString()),
+                  style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
                 ),
-              )
-            ],
-          )
-              : Text(FlutterI18n.translate(_ctx, 'x_month_stake').replaceFirst('{0}', months.toString()),
-            style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
-          ),
           Spacer(),
           Text('MXC/ETH'),
         ],
@@ -173,7 +175,7 @@ Widget buildView(
             alignment: Alignment.centerRight,
             child: Text(
               (double.parse(state.stake.amount) + state.stake.revenue)
-                  .toStringAsFixed(2) +
+                      .toStringAsFixed(2) +
                   ' MXC',
               style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
             ),
@@ -196,10 +198,10 @@ Widget buildView(
           width: double.infinity,
           child: PrimaryButton(
             onTap: (state.stake.lockTill == null ||
-                state.stake.lockTill.isBefore(DateTime.now()))
+                    state.stake.lockTill.isBefore(DateTime.now()))
                 ? () {
-              dispatch(DetailsStakeActionCreator.unstake());
-            }
+                    dispatch(DetailsStakeActionCreator.unstake());
+                  }
                 : null,
             buttonTitle: submitText(_ctx, state),
             key: ValueKey('primaryButton'),
@@ -220,12 +222,13 @@ void _showInfoDialog(BuildContext context) {
               height: 80,
               width: 80,
               alignment: Alignment.center,
-              child: Text('~',
+              child: Text(
+                '~',
                 style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  color: Colors.white,
-                  fontSize: 40,
-                  fontWeight: FontWeight.w600,
-                ),
+                      color: Colors.white,
+                      fontSize: 40,
+                      fontWeight: FontWeight.w600,
+                    ),
               ),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
@@ -242,11 +245,9 @@ void _showInfoDialog(BuildContext context) {
                     fontWeight: FontWeight.w500,
                   ),
                   textAlign: TextAlign.center,
-                )
-            ),
+                )),
           ],
-        )
-    ),
+        )),
   );
 }
 
@@ -261,4 +262,3 @@ String submitText(BuildContext ctx, DetailsStakeState state) {
       FlutterI18n.translate(ctx, 'required_2FA_general') +
       ')';
 }
-

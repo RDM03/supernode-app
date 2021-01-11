@@ -40,29 +40,35 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                         children: <Widget>[
                           GestureDetector(
                             key: Key('homeLogo'),
-                            onTap: () => dispatch(LoginActionCreator.clickLogo()),
+                            onTap: () =>
+                                dispatch(LoginActionCreator.clickLogo()),
                             child: Container(
                               color: darkBackground,
                               height: s(218),
                               padding: EdgeInsets.only(bottom: s(106)),
                               alignment: Alignment.bottomCenter,
-                              child: Image.asset(AppImages.splashLogo, height: s(48)),
+                              child: Image.asset(AppImages.splashLogo,
+                                  height: s(48)),
                             ),
                           ),
                           SizedBox(height: s(100)),
                           Row(
-                            mainAxisAlignment : MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 FlutterI18n.translate(_ctx, 'choose_supernode'),
-                                style: TextStyle(fontSize: s(14), fontWeight: FontWeight.w400, color: Colors.black),
+                                style: TextStyle(
+                                    fontSize: s(14),
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black),
                               ),
                               GestureDetector(
                                 onTap: () => _showInfoDialog(_ctx),
                                 child: Padding(
                                   key: Key("questionCircle"),
                                   padding: EdgeInsets.all(s(5)),
-                                  child: Image.asset(AppImages.questionCircle, height: s(20)),
+                                  child: Image.asset(AppImages.questionCircle,
+                                      height: s(20)),
                                 ),
                               )
                             ],
@@ -73,7 +79,8 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                         top: s(133),
                         child: GestureDetector(
                           key: Key('homeSupernodeMenu'),
-                          onTap: () => dispatch(LoginActionCreator.superNodeListVisible(true)),
+                          onTap: () => dispatch(
+                              LoginActionCreator.superNodeListVisible(true)),
                           child: ClipOval(
                             child: Container(
                               width: s(171),
@@ -87,23 +94,26 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                                 width: s(134),
                                 height: s(134),
                                 alignment: Alignment.center,
-                                decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle, boxShadow: [
-                                  BoxShadow(
-                                    color: darkBackground,
-                                    offset: Offset(0, 2),
-                                    blurRadius: 20,
-                                    spreadRadius: 10,
-                                  )
-                                ]),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: darkBackground,
+                                        offset: Offset(0, 2),
+                                        blurRadius: 20,
+                                        spreadRadius: 10,
+                                      )
+                                    ]),
                                 child: (state.currentSuperNode != null)
                                     ? CachedNetworkImage(
-                                  imageUrl: state.currentSuperNode.logo,
-                                  placeholder: (a, b) => Image.asset(
-                                    AppImages.placeholder,
-                                    width: s(100),
-                                  ),
-                                  width: s(100),
-                                )
+                                        imageUrl: state.currentSuperNode.logo,
+                                        placeholder: (a, b) => Image.asset(
+                                          AppImages.placeholder,
+                                          width: s(100),
+                                        ),
+                                        width: s(100),
+                                      )
                                     : Icon(Icons.add, size: s(25)),
                               ),
                             ),
@@ -127,7 +137,8 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                                 title: FlutterI18n.translate(_ctx, 'email'),
                                 hint: FlutterI18n.translate(_ctx, 'email_hint'),
                                 textInputAction: TextInputAction.next,
-                                validator: (value) => Reg.onValidEmail(_ctx, value),
+                                validator: (value) =>
+                                    Reg.onValidEmail(_ctx, value),
                                 controller: state.usernameCtl,
                               ),
                             ),
@@ -136,11 +147,18 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                               child: TextFieldWithTitle(
                                 key: Key('homePassword'),
                                 title: FlutterI18n.translate(_ctx, 'password'),
-                                hint: FlutterI18n.translate(_ctx, 'password_hint'),
+                                hint: FlutterI18n.translate(
+                                    _ctx, 'password_hint'),
                                 isObscureText: state.isObscureText,
-                                validator: (value) => Reg.onValidPassword(_ctx, value),
+                                validator: (value) =>
+                                    Reg.onValidPassword(_ctx, value),
                                 controller: state.passwordCtl,
-                                suffixChild: IconButton(icon: Icon(state.isObscureText ? Icons.visibility_off : Icons.visibility), onPressed: () => dispatch(LoginActionCreator.isObscureText())),
+                                suffixChild: IconButton(
+                                    icon: Icon(state.isObscureText
+                                        ? Icons.visibility_off
+                                        : Icons.visibility),
+                                    onPressed: () => dispatch(
+                                        LoginActionCreator.isObscureText())),
                               ),
                             ),
                           ]),
@@ -150,25 +168,35 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             GestureDetector(
-                              onTap: () => dispatch(LoginActionCreator.onDemo()),
+                              onTap: () =>
+                                  dispatch(LoginActionCreator.onDemo()),
                               child: Text(
                                 FlutterI18n.translate(_ctx, 'demo'),
-                                style: TextStyle(fontSize: s(12), color: hintFont),
+                                style:
+                                    TextStyle(fontSize: s(12), color: hintFont),
                               ),
                             ),
                             GestureDetector(
-                              onTap: () => dispatch(LoginActionCreator.onForgotPasswordAction()),
+                              onTap: () => dispatch(
+                                  LoginActionCreator.onForgotPasswordAction()),
                               child: Text(
                                 FlutterI18n.translate(_ctx, 'forgot_hint'),
-                                style: TextStyle(fontSize: s(12), color: hintFont),
+                                style:
+                                    TextStyle(fontSize: s(12), color: hintFont),
                               ),
                             ),
                           ],
                         ),
                         SizedBox(height: s(18)),
-                        PrimaryButton(key: Key('homeLogin'), onTap: () => dispatch(LoginActionCreator.onLogin()), buttonTitle: FlutterI18n.translate(_ctx, 'login'), minHeight: s(46), minWidget: double.infinity),
+                        PrimaryButton(
+                            key: Key('homeLogin'),
+                            onTap: () => dispatch(LoginActionCreator.onLogin()),
+                            buttonTitle: FlutterI18n.translate(_ctx, 'login'),
+                            minHeight: s(46),
+                            minWidget: double.infinity),
                         Container(
-                          margin: EdgeInsets.only(top: s(28.5), bottom: s(17.5)),
+                          margin:
+                              EdgeInsets.only(top: s(28.5), bottom: s(17.5)),
                           height: s(1),
                           color: darkBackground,
                         ),
@@ -181,8 +209,13 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             CircleButton(
-                              onTap: () => dispatch(LoginActionCreator.onSignUp()),
-                              icon: Image.asset(AppImages.email, width: 22, height: 22,),
+                              onTap: () =>
+                                  dispatch(LoginActionCreator.onSignUp()),
+                              icon: Image.asset(
+                                AppImages.email,
+                                width: 22,
+                                height: 22,
+                              ),
                             ),
                             SizedBox(width: s(30)),
                             CircleButton(icon: null),
@@ -199,7 +232,8 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
             ),
             if (state.showSuperNodeList)
               GestureDetector(
-                onTap: () => dispatch(LoginActionCreator.superNodeListVisible(false)),
+                onTap: () =>
+                    dispatch(LoginActionCreator.superNodeListVisible(false)),
                 child: Container(
                   color: Color(0x33000000),
                 ),
@@ -239,7 +273,9 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                           Positioned(
                             right: s(15),
                             child: GestureDetector(
-                              onTap: () => dispatch(LoginActionCreator.superNodeListVisible(false)),
+                              onTap: () => dispatch(
+                                  LoginActionCreator.superNodeListVisible(
+                                      false)),
                               child: Icon(Icons.close, size: 24),
                             ),
                           ),
@@ -251,11 +287,13 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                         for (var key in state.superNodes?.keys ?? [])
                           if (key != "Test" || state.count == 7)
                             ExpansionSuperNodesTile(
-                              title: Text(FlutterI18n.translate(_ctx, key), style: TextStyle(color: Colors.black)),
+                              title: Text(FlutterI18n.translate(_ctx, key),
+                                  style: TextStyle(color: Colors.black)),
                               initiallyExpanded: true,
                               backgroundColor: darkBackground,
                               children: <Widget>[
-                                for (SuperNodeBean item in state.superNodes[key])
+                                for (SuperNodeBean item
+                                    in state.superNodes[key])
                                   GestureDetector(
                                     child: ListTile(
                                       title: Container(
@@ -272,7 +310,9 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                                         ),
                                       ),
                                     ),
-                                    onTap: () => dispatch(LoginActionCreator.selectedSuperNode(item)),
+                                    onTap: () => dispatch(
+                                        LoginActionCreator.selectedSuperNode(
+                                            item)),
                                   ),
                               ],
                             ),
@@ -309,20 +349,24 @@ void _showInfoDialog(BuildContext context) {
                   width: s(67),
                   height: s(67),
                   alignment: Alignment.center,
-                  decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle, boxShadow: [
-                    BoxShadow(
-                      color: darkBackground,
-                      offset: Offset(0, 1),
-                      blurRadius: 10,
-                      spreadRadius: 5,
-                    )
-                  ]),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: darkBackground,
+                          offset: Offset(0, 1),
+                          blurRadius: 10,
+                          spreadRadius: 5,
+                        )
+                      ]),
                   child: Icon(Icons.add, size: s(12)),
                 ),
               ),
               Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Text(FlutterI18n.translate(context, 'info_supernode'),
+                  child: Text(
+                    FlutterI18n.translate(context, 'info_supernode'),
                     key: ValueKey("helpText"),
                     style: TextStyle(
                       color: Colors.black,
@@ -330,12 +374,9 @@ void _showInfoDialog(BuildContext context) {
                       fontWeight: FontWeight.w500,
                     ),
                     textAlign: TextAlign.center,
-                  )
-              ),
+                  )),
             ],
-          )
-      )
-  );
+          )));
 }
 
 //Sys.superNodes.keys
@@ -345,4 +386,3 @@ void _showInfoDialog(BuildContext context) {
 //),
 //)
 //.toList(),
-

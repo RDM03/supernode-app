@@ -18,7 +18,8 @@ Reducer<LoginState> buildReducer() {
 
 LoginState _selectedSuperNode(LoginState state, Action action) {
   final LoginState newState = state.clone();
-  GlobalStore.store.dispatch(GlobalActionCreator.choiceSuperNode(action.payload));
+  GlobalStore.store
+      .dispatch(GlobalActionCreator.choiceSuperNode(action.payload));
   return newState
     ..currentSuperNode = action.payload
     ..showSuperNodeList = false;
@@ -32,8 +33,7 @@ LoginState _isObscureText(LoginState state, Action action) {
 LoginState _superNodeListVisible(LoginState state, Action action) {
   final LoginState newState = state.clone();
   newState.showSuperNodeList = action.payload;
-  if (newState.count != 7)
-    newState.count = 0;
+  if (newState.count != 7) newState.count = 0;
   return newState;
 }
 

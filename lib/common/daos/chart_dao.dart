@@ -20,9 +20,11 @@ class Mining {
       data[realDate] = double.parse(item['amount']);
     }
 
-    final weekStart = DateTime.utc(weekStartDate.year, weekStartDate.month, weekStartDate.day);
+    final weekStart = DateTime.utc(
+        weekStartDate.year, weekStartDate.month, weekStartDate.day);
     final futureDayTemp = weekEndDate.add(Duration(days: 1));
-    final futureDay = DateTime.utc(futureDayTemp.year, futureDayTemp.month, futureDayTemp.day);
+    final futureDay = DateTime.utc(
+        futureDayTemp.year, futureDayTemp.month, futureDayTemp.day);
 
     for (var i = weekStart;
         i.isBefore(futureDay);

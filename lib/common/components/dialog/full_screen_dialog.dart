@@ -12,7 +12,7 @@ class FullScreenDialog extends StatelessWidget {
       child: InkWell(
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
-        onTap: ()=>Navigator.pop(context),
+        onTap: () => Navigator.pop(context),
         child: Container(
           width: double.infinity,
           height: double.infinity,
@@ -22,6 +22,7 @@ class FullScreenDialog extends StatelessWidget {
     );
   }
 }
+
 //Copy form Dialog
 class CustomDialog extends StatelessWidget {
   /// Creates a dialog.
@@ -86,7 +87,9 @@ class CustomDialog extends StatelessWidget {
   final Widget child;
 
   // TODO(johnsonmh): Update default dialog border radius to 4.0 to match material spec.
-  static const RoundedRectangleBorder _defaultDialogShape = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(2.0)));
+  static const RoundedRectangleBorder _defaultDialogShape =
+      RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(2.0)));
   static const double _defaultElevation = 24.0;
 
   @override
@@ -106,8 +109,11 @@ class CustomDialog extends StatelessWidget {
           child: ConstrainedBox(
             constraints: const BoxConstraints(minWidth: 280.0),
             child: Material(
-              color: backgroundColor ?? dialogTheme.backgroundColor ?? Theme.of(context).dialogBackgroundColor,
-              elevation: elevation ?? dialogTheme.elevation ?? _defaultElevation,
+              color: backgroundColor ??
+                  dialogTheme.backgroundColor ??
+                  Theme.of(context).dialogBackgroundColor,
+              elevation:
+                  elevation ?? dialogTheme.elevation ?? _defaultElevation,
               shape: shape ?? dialogTheme.shape ?? _defaultDialogShape,
               type: MaterialType.card,
               child: child,

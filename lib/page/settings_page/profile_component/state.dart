@@ -2,7 +2,6 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 
 class ProfileState implements Cloneable<ProfileState> {
-
   TextEditingController usernameCtl = TextEditingController();
   TextEditingController emailCtl = TextEditingController();
   GlobalKey formKey = GlobalKey<FormState>();

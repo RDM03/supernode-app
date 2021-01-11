@@ -36,5 +36,5 @@ addMinerTest() {
     var MinerExists = await isPresent(f['minersNewMiner'], driver);
     expect(await MinerExists, true);
     driver.tap(f['navbarHomeButton']);
-  }, timeout:Timeout(Duration(seconds: 60)));
+  }, timeout: Timeout(Duration(seconds: 60)));
 }

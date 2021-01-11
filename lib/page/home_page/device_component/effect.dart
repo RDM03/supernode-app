@@ -15,13 +15,17 @@ Effect<DeviceState> buildEffect() {
 }
 
 void _onOpen(Action action, Context<DeviceState> ctx) {
-  Navigator.pushNamed(ctx.context, 'device_mapbox_page', arguments: {
-    'isDemo': ctx.state.isDemo
-  });
+  Navigator.pushNamed(ctx.context, 'device_mapbox_page',
+      arguments: {'isDemo': ctx.state.isDemo});
 }
 
-void _onQrScan(Action action, Context<DeviceState> ctx) async{
-  String qrResult = await MajaScan.startScan(title: FlutterI18n.translate(ctx.context, 'scan_code'), barColor: buttonPrimaryColor, titleColor: backgroundColor, qRCornerColor: buttonPrimaryColor, qRScannerColor: buttonPrimaryColorAccent);
+void _onQrScan(Action action, Context<DeviceState> ctx) async {
+  String qrResult = await MajaScan.startScan(
+      title: FlutterI18n.translate(ctx.context, 'scan_code'),
+      barColor: buttonPrimaryColor,
+      titleColor: backgroundColor,
+      qRCornerColor: buttonPrimaryColor,
+      qRScannerColor: buttonPrimaryColorAccent);
 //  try {
 //    List itemData = qrResult.split(',');
 //    List snData = itemData[0].split(':');

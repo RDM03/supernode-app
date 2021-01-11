@@ -64,19 +64,19 @@ Widget buildView(
           Container(
             height: 120 * (state.gatewaysTotal).toDouble(),
             constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(viewService.context).size.height - 305
-            ),
+                maxHeight:
+                    MediaQuery.of(viewService.context).size.height - 305),
             child: panelFrame(
               child: !state.loadingMap.contains('gatewaysTotal')
                   ? LoadingList()
                   : (state.gatewaysTotal != 0
                       ? Padding(
-                        padding: kOuterRowTop10,
-                        child: GatewaysList(
+                          padding: kOuterRowTop10,
+                          child: GatewaysList(
                             dispatch: dispatch,
                             state: state,
                           ),
-                      )
+                        )
                       : empty(_ctx)),
             ),
           ),
@@ -106,50 +106,52 @@ class _GatewaysListState extends State<GatewaysList> {
     return PaginationView<GatewayItemState>(
       itemBuilder: (BuildContext context, GatewayItemState state, int index) =>
           Slidable(
-            key: Key("slide_gateway$index"),
-            actionPane: SlidableDrawerActionPane(),//SlidableBehindActionPane
-            actionExtentRatio: 0.25,
-            child: GatewayListTile(
-              state: state,
-              onTap: () => dispatch(GatewayActionCreator.onProfile(state)),
-            ),
-            secondaryActions: <Widget>[
-              IconSlideAction(
-                key: ValueKey("delete_gateway_button$index"),
-                caption: FlutterI18n.translate(context, 'delete'),
-                color: Colors.red,
-                icon: Icons.delete,
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext ctx) {
-                      var lst = List<IosButtonStyle>();
-                      lst.add(IosButtonStyle(
-                          title: FlutterI18n.translate(context, 'confirm_deleting_miner_title'),
-                          style:kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600)));
-                      lst.add(IosButtonStyle(
-                          title: FlutterI18n.translate(context, 'confirm_deleting_miner_message')));
-                      lst.add(IosButtonStyle(
-                          title: FlutterI18n.translate(context, 'delete_miner'),
-                          style:kBigFontOfBlack.copyWith(color:Colors.red)));
-                      return FullScreenDialog(
-                        child: IosStyleBottomDialog(
-                          context: context,
-                          blueActionIndex: 0,
-                          list: lst,
-                          onItemClickListener: (itemIndex) {
-                            if(itemIndex == lst.length-1) {
-                              dispatch(GatewayActionCreator.onDelete(state));
-                            }
+        key: Key("slide_gateway$index"),
+        actionPane: SlidableDrawerActionPane(), //SlidableBehindActionPane
+        actionExtentRatio: 0.25,
+        child: GatewayListTile(
+          state: state,
+          onTap: () => dispatch(GatewayActionCreator.onProfile(state)),
+        ),
+        secondaryActions: <Widget>[
+          IconSlideAction(
+            key: ValueKey("delete_gateway_button$index"),
+            caption: FlutterI18n.translate(context, 'delete'),
+            color: Colors.red,
+            icon: Icons.delete,
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext ctx) {
+                  var lst = List<IosButtonStyle>();
+                  lst.add(IosButtonStyle(
+                      title: FlutterI18n.translate(
+                          context, 'confirm_deleting_miner_title'),
+                      style: kBigFontOfBlack.copyWith(
+                          fontWeight: FontWeight.w600)));
+                  lst.add(IosButtonStyle(
+                      title: FlutterI18n.translate(
+                          context, 'confirm_deleting_miner_message')));
+                  lst.add(IosButtonStyle(
+                      title: FlutterI18n.translate(context, 'delete_miner'),
+                      style: kBigFontOfBlack.copyWith(color: Colors.red)));
+                  return FullScreenDialog(
+                    child: IosStyleBottomDialog(
+                        context: context,
+                        blueActionIndex: 0,
+                        list: lst,
+                        onItemClickListener: (itemIndex) {
+                          if (itemIndex == lst.length - 1) {
+                            dispatch(GatewayActionCreator.onDelete(state));
                           }
-                        ),
-                      );
-                    },
+                        }),
                   );
                 },
-              )
-            ],
-          ),
+              );
+            },
+          )
+        ],
+      ),
       pageFetch: (page) {
         final completer = Completer<List<GatewayItemState>>();
         dispatch(GatewayActionCreator.onLoadPage(page, completer));

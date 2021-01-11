@@ -8,6 +8,6 @@ class RecoveryCodeActionCreator {
   }
 
   static Action isAgreed(bool data) {
-    return Action(RecoveryCodeAction.isAgreed,payload: data);
+    return Action(RecoveryCodeAction.isAgreed, payload: data);
   }
 }

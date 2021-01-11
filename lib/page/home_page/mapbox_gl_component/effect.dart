@@ -20,9 +20,9 @@ void _initState(Action action, Context<MapboxGlState> ctx) {
   _gatewaysLocationsFromRemote(ctx);
 }
 
-
 Future<void> _gatewaysLocationsFromRemote(Context<MapboxGlState> ctx) async {
-  Map<String, List<SuperNodeBean>> superNodes = GlobalStore.state.superModel.superNodesByCountry;
+  Map<String, List<SuperNodeBean>> superNodes =
+      GlobalStore.state.superModel.superNodesByCountry;
   GatewaysLocationDao gatewayLocationDao = GatewaysLocationDao();
   List geojsonList = [];
   List allGeojsonList = [];
@@ -31,15 +31,19 @@ Future<void> _gatewaysLocationsFromRemote(Context<MapboxGlState> ctx) async {
   Dao dao = Dao();
   List superNodesKeys = superNodes.keys.toList();
 
-  for(int i = 0;i < superNodesKeys.length;i++){
+  for (int i = 0; i < superNodesKeys.length; i++) {
     String key = superNodesKeys[i];
-    if(key.toLowerCase() == 'test'){
+    if (key.toLowerCase() == 'test') {
       Map localGeojsonMap = LocalStorageDao.loadUserData('geojson');
       localGeojsonMap ??= {};
 
-      if((localGeojsonMap['data'] == null && geojsonList.length > 0) || (localGeojsonMap['data'] != null && localGeojsonMap['data'].length > 0 && geojsonList.length > 0 && localGeojsonMap['data'].length != geojsonList.length)){
+      if ((localGeojsonMap['data'] == null && geojsonList.length > 0) ||
+          (localGeojsonMap['data'] != null &&
+              localGeojsonMap['data'].length > 0 &&
+              geojsonList.length > 0 &&
+              localGeojsonMap['data'].length != geojsonList.length)) {
         LocalStorageDao.saveUserData('geojson', {'data': geojsonList});
-        
+
         allGeojsonList = await gatewayLocationDao.listFromLocal();
         allGeojsonList.addAll(geojsonList);
         ctx.dispatch(HomeActionCreator.geojsonList(allGeojsonList));
@@ -49,18 +53,15 @@ Future<void> _gatewaysLocationsFromRemote(Context<MapboxGlState> ctx) async {
     }
 
     List nodes = superNodes[key];
-    for(int j = 0;j < nodes.length;j++){
-      if(nodes[j].region.toLowerCase() != 'test'){
-        var res = await dao.get(
-          url: nodes[j].url + GatewaysApi.locations
-        );
+    for (int j = 0; j < nodes.length; j++) {
+      if (nodes[j].region.toLowerCase() != 'test') {
+        var res = await dao.get(url: nodes[j].url + GatewaysApi.locations);
 
         //the link of ausn.matchx.io returns null
-        if(res != null && res['result'] != null && res['result'].length > 0){
+        if (res != null && res['result'] != null && res['result'].length > 0) {
           List geojsonRes = gatewayLocationDao.geojsonList(res['result']);
           geojsonList.addAll(geojsonRes);
         }
-
       }
     }
   }

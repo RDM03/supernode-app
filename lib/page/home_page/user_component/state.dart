@@ -116,7 +116,5 @@ class UserState implements Cloneable<UserState> {
 }
 
 UserState initState(Map<String, dynamic> args) {
-  
-
   return UserState();
 }

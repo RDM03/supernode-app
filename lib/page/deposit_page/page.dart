@@ -8,15 +8,12 @@ import 'view.dart';
 class DepositPage extends Page<DepositState, Map<String, dynamic>> {
   DepositPage()
       : super(
-            initState: initState,
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<DepositState>(
-                adapter: null,
-                slots: <String, Dependent<DepositState>>{
-                }),
-            middleware: <Middleware<DepositState>>[
-            ],);
-
+          initState: initState,
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<DepositState>(
+              adapter: null, slots: <String, Dependent<DepositState>>{}),
+          middleware: <Middleware<DepositState>>[],
+        );
 }

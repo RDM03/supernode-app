@@ -8,12 +8,10 @@ import 'view.dart';
 class MapboxGlComponent extends Component<MapboxGlState> {
   MapboxGlComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<MapboxGlState>(
-                adapter: null,
-                slots: <String, Dependent<MapboxGlState>>{
-                }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<MapboxGlState>(
+              adapter: null, slots: <String, Dependent<MapboxGlState>>{}),
+        );
 }

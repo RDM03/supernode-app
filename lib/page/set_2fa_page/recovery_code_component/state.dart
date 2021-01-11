@@ -2,11 +2,10 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/widgets.dart';
 
 class RecoveryCodeState implements Cloneable<RecoveryCodeState> {
-
   GlobalKey formKey = GlobalKey<FormState>();
   List<dynamic> recoveryCode = [];
   bool isAgreed;
-  
+
   @override
   RecoveryCodeState clone() {
     return RecoveryCodeState()
