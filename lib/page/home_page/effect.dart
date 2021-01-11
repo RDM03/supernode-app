@@ -458,11 +458,14 @@ void _onSettings(Action action, Context<HomeState> ctx) {
       'isDemo': curState.isDemo,
     },
   ).then((res) {
-    if (res != null) {
-      ctx.dispatch(HomeActionCreator.updateUsername(res));
+    if (res != null && res is Map) {
+      if (res['jwtUpdated']) {
+        //update username and email in state locally
+        ctx.dispatch(HomeActionCreator.updateUsernameEmail(res));
+        //refresh profile
+        _profile(ctx);
+      }
     }
-
-    _profile(ctx);
   });
 }
 

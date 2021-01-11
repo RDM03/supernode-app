@@ -12,6 +12,7 @@ class ProfileState implements Cloneable<ProfileState> {
   String userId = '';
   String username = '';
   String email = '';
+  bool jwtUpdated = false;
   String wechatExternalUsername = '';
   bool isAdmin = false;
 
@@ -21,6 +22,7 @@ class ProfileState implements Cloneable<ProfileState> {
       ..userId = userId
       ..username = username
       ..email = email
+      ..jwtUpdated = jwtUpdated
       ..usernameCtl = usernameCtl
       ..emailCtl = emailCtl
       ..wechatExternalUsername = wechatExternalUsername

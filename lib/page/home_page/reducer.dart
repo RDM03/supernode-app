@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/daos/dao.dart';
+import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 
@@ -20,7 +21,7 @@ Reducer<HomeState> buildReducer() {
       HomeAction.miningIncome: _miningIncome,
       HomeAction.gatewaysLocations: _gatewaysLocations,
       HomeAction.devices: _devices,
-      HomeAction.updateUsername: _updateUsername,
+      HomeAction.updateUsernameEmail: _updateUsernameEmail,
       HomeAction.convertUSD: _convertUSD,
       HomeAction.totalRevenue: _totalRevenue,
       HomeAction.isUpdate: _isUpdate,
@@ -152,11 +153,13 @@ HomeState _devices(HomeState state, Action action) {
     ..devicesRevenue = value;
 }
 
-HomeState _updateUsername(HomeState state, Action action) {
+HomeState _updateUsernameEmail(HomeState state, Action action) {
   Map data = action.payload;
 
   final HomeState newState = state.clone();
-  return newState..username = data['username'];
+  return newState
+    ..username = data['username']
+    ..email = data['email'];
 }
 
 HomeState _convertUSD(HomeState state, Action action) {

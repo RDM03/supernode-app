@@ -26,7 +26,7 @@ Widget buildView(
             ),
             onPressed: () => {
                   Navigator.of(viewService.context)
-                      .pop({'username': state.username, 'email': state.email})
+                      .pop({'username': state.username, 'email': state.email, 'jwtUpdated': state.jwtUpdated})
                 }),
         backgroundColor: backgroundColor,
         elevation: 0,
@@ -35,7 +35,12 @@ Widget buildView(
           style: kBigFontOfBlack,
         ),
       ),
-      body: pageBody(children: [
+      body: WillPopScope(
+        onWillPop: () async {
+          Navigator.pop(_ctx, {'username': state.username, 'email': state.email, 'jwtUpdated': state.jwtUpdated});
+          return false;
+        },
+        child: pageBody(children: [
         panelFrame(
           child: profile(
             name: state.username,
@@ -110,5 +115,7 @@ Widget buildView(
                     dispatch(SettingsActionCreator.onSettings('logout'))),
           ],
         ))
-      ]));
+        ])
+      )
+  );
 }

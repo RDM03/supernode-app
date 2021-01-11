@@ -6,17 +6,18 @@ import 'state.dart';
 Reducer<ProfileState> buildReducer() {
   return asReducer(
     <Object, Reducer<ProfileState>>{
-      ProfileAction.update: _update,
+      ProfileAction.jwtUpdate: _jwtUpdate,
       ProfileAction.unbind: _unbind,
     },
   );
 }
 
-ProfileState _update(ProfileState state, Action action) {
+ProfileState _jwtUpdate(ProfileState state, Action action) {
   Map data = action.payload;
 
   final ProfileState newState = state.clone();
   return newState
+    ..jwtUpdated = true
     ..username = data['username']
     ..email = data['email'];
 }
