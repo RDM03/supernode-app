@@ -1,6 +1,6 @@
 name: flutter drive
 on:
-  pull_request:
+  push:
   workflow_dispatch:
 
 jobs:
