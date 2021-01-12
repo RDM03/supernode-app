@@ -9,6 +9,7 @@ jobs:
         device:
         - "iPhone SE (2nd generation) (14.3)"
         - "iPhone 11 Pro Max (14.3)"
+      fail-fast: false
     runs-on: ["self-hosted", "macOS"]
     steps:
     - name: "List all simulators"
@@ -68,6 +69,7 @@ jobs:
         device:
         - "Pixel_3a_API_30"
         - "Pixel_3_API_29"
+      fail-fast: false
     runs-on: ["self-hosted", "android"]
     steps:
     - name: "List all simulators"
