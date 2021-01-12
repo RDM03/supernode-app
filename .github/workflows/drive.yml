@@ -24,6 +24,7 @@ jobs:
             '$1 == device { print $2 }'
         )
         xcrun simctl boot "${UDID:?No Simulator with this name found}"
+      continue-on-error: true
     - name: Checkout
       uses: actions/checkout@v1
       with:
@@ -78,6 +79,7 @@ jobs:
       run: /usr/local/bin/adb start-server   
     - name: "Start Simulator" 
       run: "/usr/local/bin/emulator -avd ${{ matrix.device }} -id ${{ matrix.device }} -no-audio -gpu host &"
+      continue-on-error: true
     - name: Checkout
       uses: actions/checkout@v1
       with:
