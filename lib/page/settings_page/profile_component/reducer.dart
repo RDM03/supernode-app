@@ -17,7 +17,7 @@ ProfileState _jwtUpdate(ProfileState state, Action action) {
 
   final ProfileState newState = state.clone();
   return newState
-    ..jwtUpdated = true
+    ..reloadProfile = true
     ..username = data['username']
     ..email = data['email'];
 }
@@ -25,5 +25,6 @@ ProfileState _jwtUpdate(ProfileState state, Action action) {
 ProfileState _unbind(ProfileState state, Action action) {
   final ProfileState newState = state.clone();
   return newState
+    ..reloadProfile = true
     ..wechatExternalUsername = '';
 }

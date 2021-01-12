@@ -459,7 +459,7 @@ void _onSettings(Action action, Context<HomeState> ctx) {
     },
   ).then((res) {
     if (res != null && res is Map) {
-      if (res['jwtUpdated']) {
+      if (res['reloadProfile']) {
         //update username and email in state locally
         ctx.dispatch(HomeActionCreator.updateUsernameEmail(res));
         //refresh profile

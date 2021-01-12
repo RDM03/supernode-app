@@ -26,7 +26,7 @@ Widget buildView(
             ),
             onPressed: () => {
                   Navigator.of(viewService.context)
-                      .pop({'username': state.username, 'email': state.email, 'jwtUpdated': state.jwtUpdated})
+                      .pop({'username': state.username, 'email': state.email, 'reloadProfile': state.reloadProfile})
                 }),
         backgroundColor: backgroundColor,
         elevation: 0,
@@ -37,7 +37,7 @@ Widget buildView(
       ),
       body: WillPopScope(
         onWillPop: () async {
-          Navigator.pop(_ctx, {'username': state.username, 'email': state.email, 'jwtUpdated': state.jwtUpdated});
+          Navigator.pop(_ctx, {'username': state.username, 'email': state.email, 'reloadProfile': state.reloadProfile});
           return false;
         },
         child: pageBody(children: [

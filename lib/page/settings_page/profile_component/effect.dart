@@ -8,7 +8,6 @@ import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/global_store/store.dart';
-import 'package:supernodeapp/page/home_page/action.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -58,7 +57,7 @@ void _onUpdate(Action action, Context<ProfileState> ctx) async {
 }
 
 void _onUnbind(Action action, Context<ProfileState> ctx) async {
-  final loading = await Loading.show(ctx.context);
+  //final loading = await Loading.show(ctx.context);
 
   Map data = {
     "organizationId": GlobalStore.store.getState().settings.selectedOrganizationId,
@@ -68,11 +67,10 @@ void _onUnbind(Action action, Context<ProfileState> ctx) async {
   UserDao dao = UserDao();
 
   dao.unbindExternalUser(data).then((res) {
-    //returns new jwt in res['status']
-    loading.hide();
+    //loading.hide();
     ctx.dispatch(ProfileActionCreator.unbind());
   }).catchError((err) {
-    loading.hide();
-    tip(ctx.context,'Unbind: $err');
+    //loading.hide();
+    //tip(ctx.context,'Unbind: $err');
   });
 }
