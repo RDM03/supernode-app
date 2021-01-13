@@ -173,10 +173,6 @@ Future<void> _profile(Context<HomeState> ctx) async {
   Dao.ctx = ctx;
   SettingsState settingsData = GlobalStore.store.getState().settings;
 
-  if(settingsData.userId.isNotEmpty && settingsData.selectedOrganizationId.isNotEmpty){
-    await _requestUserFinance(ctx,settingsData.userId,settingsData.selectedOrganizationId);
-  }
-
   try {
     UserDao dao = _buildUserDao(ctx);
     SettingsState settingsData = GlobalStore.store.getState().settings;
