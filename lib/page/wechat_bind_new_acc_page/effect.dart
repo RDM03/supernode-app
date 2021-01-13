@@ -37,7 +37,7 @@ void _onBindNewAcc(Action action, Context<WechatBindNewAccState> ctx) async {
       await _handleBindNewAccRequest(dao, email, orgName, orgDisplayName, apiRoot);
 
       loading.hide();
-      Navigator.pushReplacementNamed(ctx.context, 'home_page');
+      Navigator.pushNamedAndRemoveUntil(ctx.context, 'home_page', (_) => false);
     } catch (err) {
       loading.hide();
       final res = await checkMaintenance();
@@ -59,5 +59,5 @@ Future<void> _handleBindNewAccRequest(UserDao dao, String email, String orgName,
 
   var registerExtUserResult = await dao.registerExternalUser(data);
 
-  await saveLoginResult(dao, registerExtUserResult['jwt'], email, '', apiRoot);
+  await saveLoginResult(dao, registerExtUserResult['jwt'], '', '', apiRoot);
 }

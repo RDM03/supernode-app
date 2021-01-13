@@ -36,7 +36,7 @@ void _onBind(Action action, Context<WechatBindState> ctx) async {
       await _handleBindRequest(dao, email, password, apiRoot);
 
       loading.hide();
-      Navigator.pushReplacementNamed(ctx.context, 'home_page');
+      Navigator.pushNamedAndRemoveUntil(ctx.context, 'home_page', (_) => false);
     } catch (err) {
       loading.hide();
       final res = await checkMaintenance();
@@ -54,5 +54,5 @@ Future<void> _handleBindRequest(UserDao dao, String email, String password, Stri
 
   var bindExtUserResult = await dao.bindExternalUser(data);
 
-  await saveLoginResult(dao, bindExtUserResult['jwt'], email, password, apiRoot);
+  await saveLoginResult(dao, bindExtUserResult['jwt'], '', '', apiRoot);
 }
