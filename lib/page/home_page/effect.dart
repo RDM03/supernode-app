@@ -158,13 +158,10 @@ void _onGateways(Action action, Context<HomeState> ctx) async {
 
 Future<void> _profile(Context<HomeState> ctx) async {
   Dao.ctx = ctx;
-  SettingsState settingsData = GlobalStore.store.getState().settings;
-
-  if(settingsData.userId.isNotEmpty && settingsData.selectedOrganizationId.isNotEmpty){
-    await _requestUserFinance(ctx,settingsData.userId,settingsData.selectedOrganizationId);
-  }
 
   try {
+    ctx.dispatch(HomeActionCreator.loadingMap('profile', type: 'remove'));
+
     UserDao dao = _buildUserDao(ctx);
     SettingsState settingsData = GlobalStore.store.getState().settings;
 
@@ -189,10 +186,6 @@ Future<void> _profile(Context<HomeState> ctx) async {
           .add(OrganizationsState.fromMap(res['organizations'][index]));
     }
 
-    if(settingsData.userId.isEmpty || settingsData.selectedOrganizationId.isEmpty){
-      await _requestUserFinance(ctx,userData.id,organizationsData.first.organizationID);
-    }
-
     settingsData = GlobalStore.store.getState().settings;
     settingsData.userId = userData.id;
     settingsData.organizations = organizationsData;
@@ -203,14 +196,18 @@ Future<void> _profile(Context<HomeState> ctx) async {
 
     SettingsDao.updateLocal(settingsData);
     ctx.dispatch(HomeActionCreator.profile(userData, wechatExternalUsername, organizationsData));
+    ctx.dispatch(HomeActionCreator.loadingMap('profile'));
+
+    if (settingsData.userId.isNotEmpty && organizationsData.first.organizationID.isNotEmpty) {
+      await _requestUserFinance(ctx, settingsData.userId, organizationsData.first.organizationID);
+    }
   } catch (e) {
+    ctx.dispatch(HomeActionCreator.loadingMap('profile'));
     ctx.dispatch(HomeActionCreator.onReLogin());
   }
 }
 
 Future<void> _requestUserFinance(Context<HomeState> ctx,String userId,String orgId) async{
-  ctx.dispatch(HomeActionCreator.loadingMap(''));
-
   await _balance(ctx, userId, orgId);
   await _stakeAmount(ctx, userId, orgId);
   await _stakingRevenue(ctx, userId, orgId);
@@ -249,6 +246,7 @@ Future<void> _balance(
   if (orgId.isEmpty) return;
 
   try {
+    ctx.dispatch(HomeActionCreator.loadingMap('balance', type: 'remove'));
     WalletDao dao = _buildWalletDao(ctx);
     Map data = {'userId': userId, 'orgId': orgId, 'currency': ''};
 
@@ -260,6 +258,7 @@ Future<void> _balance(
     ctx.dispatch(HomeActionCreator.balance(balance));
     ctx.dispatch(HomeActionCreator.loadingMap('balance'));
   } catch (err) {
+    ctx.dispatch(HomeActionCreator.loadingMap('balance'));
     // tip(ctx.context, 'WalletDao balance: $err');
   }
 }
@@ -299,6 +298,7 @@ Future<void> _stakeAmount(
   assert(orgId.isNotEmpty);
 
   try {
+    ctx.dispatch(HomeActionCreator.loadingMap('stakedAmount', type: 'remove'));
     StakeDao dao = _buildStakeDao(ctx);
 
     final res = await dao.activestakes({
@@ -439,6 +439,9 @@ void _mapbox(Action action, Context<HomeState> ctx) async{
 void _onSettings(Action action, Context<HomeState> ctx) {
   var curState = ctx.state;
 
+  if (!curState.loadingMap.contains('profile'))
+    return;
+
   Map user = {
     'userId': curState.userId,
     'username': curState.username,
@@ -492,6 +495,7 @@ Future<void> _convertUSD(
 Future<void> _stakingRevenue(
     Context<HomeState> ctx, String userId, String orgId) async {
   try {
+    ctx.dispatch(HomeActionCreator.loadingMap('totalRevenue', type: 'remove'));
     StakeDao dao = _buildStakeDao(ctx);
     Map data = {
       'orgId': orgId,
