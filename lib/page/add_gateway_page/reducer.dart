@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:fish_redux/fish_redux.dart';
 
 import 'action.dart';
@@ -7,6 +9,7 @@ Reducer<AddGatewayState> buildReducer() {
   return asReducer(
     <Object, Reducer<AddGatewayState>>{
       AddGatewayAction.serialNumber: _serialNumber,
+      AddGatewayAction.setNumberTextColor: _setNumberTextColor,
     },
   );
 }
@@ -26,4 +29,11 @@ AddGatewayState _serialNumber(AddGatewayState state, Action action) {
   return newState
     ..serialNumberCtl.text = number
     ..idCtl.text = macAddress.trim();
+}
+
+AddGatewayState _setNumberTextColor(AddGatewayState state, Action action) {
+  Color color = action.payload;
+  final AddGatewayState newState = state.clone();
+
+  return newState..numberTextColor = color;
 }

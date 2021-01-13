@@ -6,10 +6,11 @@ import 'package:supernodeapp/theme/spacing.dart';
 
 class PrimaryTextField extends StatelessWidget {
   PrimaryTextField({
-    @required this.hint,
+    this.hint,
     this.isObscureText = false,
     this.textInputAction = TextInputAction.done,
     this.validator,
+    this.textColor,
     this.controller,
     this.initialValue,
     this.readOnly = false,
@@ -19,14 +20,19 @@ class PrimaryTextField extends StatelessWidget {
     this.maxLength,
     this.borderColor = c.borderColor,
     this.counterText,
+    this.fillColor,
+    this.suffixText,
+    this.suffixStyle,
     Key key,
   }) : super(key: key);
 
   final Color borderColor;
+  final Color fillColor;
   final String hint;
   final bool isObscureText;
   final TextInputAction textInputAction;
   final Function(String) validator;
+  final Color textColor;
   final TextEditingController controller;
   final String initialValue;
   final bool readOnly;
@@ -35,6 +41,8 @@ class PrimaryTextField extends StatelessWidget {
   final Function(String) onChanged;
   final int maxLength;
   final String counterText;
+  final String suffixText;
+  final TextStyle suffixStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +54,10 @@ class PrimaryTextField extends StatelessWidget {
       decoration: InputDecoration(
         contentPadding: kRoundRow105,
         hintText: hint,
+        errorMaxLines: 2,
         counterText: counterText,
+        suffixText: suffixText,
+        suffixStyle: suffixStyle,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: borderColor,
@@ -59,11 +70,13 @@ class PrimaryTextField extends StatelessWidget {
           ),
           borderRadius: BorderRadius.all(Radius.circular(3)),
         ),
+        fillColor: fillColor,
+        filled: fillColor != null,
       ),
       onFieldSubmitted: (_) => textInputAction == TextInputAction.next
           ? FocusScope.of(context).nextFocus()
           : FocusScope.of(context).unfocus(),
-      style: kMiddleFontOfBlack,
+      style: MiddleFontOfColor(color: textColor),
       textAlignVertical: TextAlignVertical.center,
       maxLines: 1,
       obscureText: isObscureText,

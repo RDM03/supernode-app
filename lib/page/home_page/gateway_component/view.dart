@@ -44,6 +44,10 @@ Widget buildView(
         children: [
           panelFrame(
             child: panelBody(
+              keyIcon: ValueKey('minersAddIcon'),
+              keyTitle: ValueKey('totalMinersTitle'),
+              keySubtitle: ValueKey('totalMinersSubtitle'),
+              keyTrailSubtitle: ValueKey('minersRevenue'),
               loading: !state.loadingMap.contains('gatewaysTotal'),
               icon: Icons.add_circle,
               onPressed: state.isDemo

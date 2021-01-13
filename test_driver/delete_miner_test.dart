@@ -18,6 +18,8 @@ deleteMinerTest() {
   });
 
   test('delete miner', () async {
+    await driver.tap(f['navBarMiners']);
+    await driver.scrollIntoView(f['minersNewMiner']);
     await driver.waitFor(f['minersNewMiner']);
     await driver.scroll(f['minersNewMiner'], -100, 0, Duration(seconds: 1));
     print('SWIPE GATEWAY TO REVEAL DELETE');

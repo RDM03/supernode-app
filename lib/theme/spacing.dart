@@ -11,5 +11,6 @@ const kInnerRowRight10 = const EdgeInsets.only(right: 10);
 const kRoundRow2 = const EdgeInsets.all(2);
 const kRoundRow5 = const EdgeInsets.all(5);
 const kRoundRow105 = const EdgeInsets.symmetric(horizontal: 10,vertical: 5);
+const kRoundRow15_5 = const EdgeInsets.symmetric(horizontal: 15,vertical: 5);
 const kRoundRow202 = const EdgeInsets.symmetric(horizontal: 20,vertical: 2);
 const kRoundRow205 = const EdgeInsets.symmetric(horizontal: 20,vertical: 5);

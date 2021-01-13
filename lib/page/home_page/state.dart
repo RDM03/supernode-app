@@ -1,7 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/daos/time_dao.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/global_store/store.dart';
@@ -40,19 +40,27 @@ class HomeState implements Cloneable<HomeState> {
   String wechatExternalUsername = '';
 
   //wallet
+  bool expandedView = false;
+  List<Token> displayTokens = [Token.MXC];
+  Token selectedToken;
   bool isFirstRequest = true;
   bool loadingHistory = true;
-  TabController tabController;
   double balance = 0;
+  double balanceDHX = 0;
   double totalRevenue = 0;
-  int walletTabIndex = 0;
-  double tabHeight = 100;
+  double lockedAmount = 0;
+  double totalRevenueDHX = 0;
+  double mPower = 0;
+  double miningPower = 0;
+  Map<Token, int> walletActiveTabToken = {Token.MXC: 0, Token.DHX: 0};
   bool isSetDate1 = false;
   bool isSetDate2 = false;
   int selectedIndexBtn1 = -1;
   int selectedIndexBtn2 = -1;
   List<WalletItemState> walletList = [];
   List<StakeItemState> stakeList = [];
+  List<StakeDHXItemState> stakeDHXList = [];
+  List<WalletItemState> transactions = [];
   double withdrawFee = 0;
   String firstTime = TimeDao.getDatetime(new DateTime.now(), type: 'date');
   String secondTime = TimeDao.getDatetime(new DateTime.now(), type: 'date');
@@ -95,7 +103,6 @@ class HomeState implements Cloneable<HomeState> {
     return HomeState()
       ..reloginCount = reloginCount
       ..isUpdate = isUpdate
-      ..tabController = tabController
       ..tabIndex = tabIndex
       ..loading = loading
       ..loadingMap = loadingMap
@@ -110,8 +117,12 @@ class HomeState implements Cloneable<HomeState> {
       ..wechatExternalUsername = wechatExternalUsername
       ..superNode = superNode
       ..balance = balance
+      ..balanceDHX = balanceDHX
       ..totalRevenue = totalRevenue
-      ..stakedAmount = stakedAmount
+      ..lockedAmount = lockedAmount
+      ..totalRevenueDHX = totalRevenueDHX
+      ..mPower = mPower
+      ..miningPower  = miningPower
       ..stakedAmount = stakedAmount
       ..gatewaysTotal = gatewaysTotal
       ..gatewaysRevenue = gatewaysRevenue
@@ -123,10 +134,11 @@ class HomeState implements Cloneable<HomeState> {
       ..mapCtl = mapCtl
       ..gatewaysList = gatewaysList
       ..geojsonList = geojsonList
-      ..tabHeight = tabHeight
-      ..walletTabIndex = walletTabIndex
+      ..walletActiveTabToken = walletActiveTabToken
       ..walletList = walletList ?? []
       ..stakeList = stakeList ?? []
+      ..stakeDHXList = stakeDHXList ?? []
+      ..transactions = transactions ?? []
       ..withdrawFee = withdrawFee
       ..firstTime = firstTime
       ..secondTime = secondTime
@@ -134,6 +146,9 @@ class HomeState implements Cloneable<HomeState> {
       ..isSetDate2 = isSetDate2
       ..selectedIndexBtn1 = selectedIndexBtn1
       ..selectedIndexBtn2 = selectedIndexBtn2
+      ..expandedView = expandedView
+      ..displayTokens = displayTokens
+      ..selectedToken = selectedToken
       ..isFirstRequest = isFirstRequest
       ..isDemo = isDemo
       ..profile = profile
@@ -173,6 +188,7 @@ class UserConnector extends ConnOp<HomeState, UserState> {
       ..balance = state.balance
       ..stakedAmount = state.stakedAmount
       ..totalRevenue = state.totalRevenue
+      ..lockedAmount = state.lockedAmount
       ..gatewaysTotal = state.gatewaysTotal
       ..gatewaysRevenue = state.gatewaysRevenue
       ..gatewaysUSDRevenue = state.gatewaysUSDRevenue
@@ -238,23 +254,32 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
   @override
   WalletState get(HomeState state) {
     return WalletState()
+      ..expandedView = state.expandedView
+      ..displayTokens = state.displayTokens
+      ..selectedToken = state.selectedToken
       ..isFirstRequest = state.isFirstRequest
       ..loading = state.loading
       ..loadingMap = state.loadingMap
       ..loadingHistory = state.loadingHistory
-      ..tabController = state.tabController
       ..balance = state.balance
+      ..balanceDHX = state.balanceDHX
       ..totalRevenue = state.totalRevenue
+      ..lockedAmount = state.lockedAmount
+      ..totalRevenueDHX = state.totalRevenueDHX
+      ..gatewaysTotal = state.gatewaysTotal
+      ..mPower = state.mPower
+      ..miningPower = state.miningPower
       ..organizations = state.organizations
       ..stakedAmount = state.stakedAmount
       ..isSetDate1 = state.isSetDate1
       ..isSetDate2 = state.isSetDate2
       ..selectedIndexBtn1 = state.selectedIndexBtn1
       ..selectedIndexBtn2 = state.selectedIndexBtn2
-      ..tabIndex = state.walletTabIndex
-      ..tabHeight = state.tabHeight
+      ..activeTabToken = state.walletActiveTabToken
       ..walletList = state.walletList
       ..stakeList = state.stakeList
+      ..stakeDHXList = state.stakeDHXList
+      ..transactions = state.transactions
       ..withdrawFee = state.withdrawFee
       ..firstTime = state.firstTime
       ..secondTime = state.secondTime
@@ -266,18 +291,20 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
   @override
   void set(HomeState state, WalletState subState) {
     state
+      ..expandedView = subState.expandedView
+      ..displayTokens = subState.displayTokens
+      ..selectedToken = subState.selectedToken
       ..isFirstRequest = subState.isFirstRequest
       ..loadingHistory = subState.loadingHistory
-      ..tabController = subState.tabController
       ..totalRevenue = subState.totalRevenue
       ..isSetDate1 = subState.isSetDate1
       ..isSetDate2 = subState.isSetDate2
       ..selectedIndexBtn1 = subState.selectedIndexBtn1
       ..selectedIndexBtn2 = subState.selectedIndexBtn2
-      ..walletTabIndex = subState.tabIndex
-      ..tabHeight = subState.tabHeight
+      ..walletActiveTabToken = subState.activeTabToken
       ..walletList = subState.walletList
       ..stakeList = subState.stakeList
+      ..transactions = subState.transactions
       ..withdrawFee = subState.withdrawFee
       ..firstTime = subState.firstTime
       ..secondTime = subState.secondTime

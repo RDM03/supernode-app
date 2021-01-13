@@ -105,6 +105,10 @@ class Stake {
 class StakeItem extends StatelessWidget {
   final VoidCallback onTap;
   final String amount;
+  /// default MXC
+  final String currency;
+  /// for StakeDHXItemState/StakeDHXItemEntity
+  final String stakedAmount;
   final String id;
 
   final DateTime startDate;
@@ -120,6 +124,8 @@ class StakeItem extends StatelessWidget {
   StakeItem({
     this.onTap,
     this.amount,
+    this.currency = 'MXC',
+    this.stakedAmount = '',
     this.id,
     this.startDate,
     this.endDate,
@@ -211,10 +217,7 @@ class StakeItem extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 15,
-              vertical: 10,
-            ),
+            padding: kRoundRow15_5,
             child: Row(
               children: [
                 Container(
@@ -242,7 +245,7 @@ class StakeItem extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Text('$amount MXC', style: kBigFontOfBlack),
+                          Text('$amount $currency', style: kBigFontOfBlack),
                           SizedBox(
                             width: 5,
                           ),
@@ -258,6 +261,7 @@ class StakeItem extends StatelessWidget {
                           ),
                         ],
                       ),
+                      (stakedAmount.isNotEmpty) ? Text('$stakedAmount', style: kSmallFontOfGrey) : SizedBox(),
                       Text('ID: ' + id, style: kSmallFontOfGrey),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

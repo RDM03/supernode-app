@@ -1,5 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:supernodeapp/common/daos/time_dao.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -8,9 +8,10 @@ import 'wallet_list_adapter/wallet_item_component/state.dart';
 Reducer<WalletState> buildReducer() {
   return asReducer(
     <Object, Reducer<WalletState>>{
+      WalletAction.expand: _expand,
+      WalletAction.selectToken: _selectToken,
       WalletAction.loadingHistory: _loadingHistory,
       WalletAction.tab: _tab,
-      WalletAction.tabController: _tabController,
       WalletAction.isSetDate: _isSetDate,
       WalletAction.updateSelectedButton: _updateSelectedButton,
       WalletAction.updateStakeList: _updateStakeList,
@@ -21,6 +22,21 @@ Reducer<WalletState> buildReducer() {
       WalletAction.saveLastSearch: _saveLastSearch
     },
   );
+}
+
+WalletState _expand(WalletState state, Action action) {
+  Token tkn = action.payload;
+  final WalletState newState = state.clone();
+  return newState
+    ..expandedView = true
+    ..selectedToken = tkn;
+}
+
+WalletState _selectToken(WalletState state, Action action) {
+  Token tkn = action.payload;
+  final WalletState newState = state.clone();
+  return newState
+    ..selectedToken = tkn;
 }
 
 WalletState _loadingHistory(WalletState state, Action action) {
@@ -34,37 +50,24 @@ WalletState _loadingHistory(WalletState state, Action action) {
 WalletState _tab(WalletState state, Action action) {
   int tabIndex = action.payload;
 
-  final WalletState newState = state.clone();
-
-  if (state.tabIndex == tabIndex) {
+  if (state.activeTabToken[state.selectedToken] == tabIndex) {
     return state;
   }
 
-  return newState
-    ..tabIndex = tabIndex
-    ..selectedIndexBtn1 = -1
-    ..selectedIndexBtn2 = -1
-    ..isSetDate1 = false
-    ..isSetDate2 = false
-    ..tabHeight = tabIndex == 0 ? 100 : 140;
-}
-
-WalletState _tabController(WalletState state, Action action) {
-  dynamic controller = action.payload;
-
   final WalletState newState = state.clone();
 
-  return newState..tabController = controller;
+  return newState
+    ..activeTabToken[state.selectedToken] = tabIndex;
 }
 
 WalletState _isSetDate(WalletState state, Action action) {
   final WalletState newState = state.clone();
 
-  if (state.tabIndex == 0 && !state.isSetDate1) {
+  if (state.activeTabToken[Token.MXC] == 0 && !state.isSetDate1) {
     return newState
       ..selectedIndexBtn1 = 2
       ..isSetDate1 = !state.isSetDate1;
-  } else if (state.tabIndex == 1 && !state.isSetDate2) {
+  } else if (state.activeTabToken[Token.MXC] == 1 && !state.isSetDate2) {
     return newState
       ..selectedIndexBtn2 = 2
       ..isSetDate2 = !state.isSetDate2;
@@ -76,9 +79,13 @@ WalletState _isSetDate(WalletState state, Action action) {
 WalletState _updateSelectedButton(WalletState state, Action action) {
   int index = action.payload;
 
+  if (state.selectedToken == Token.DHX) {
+    return state;
+  }
+
   final WalletState newState = state.clone();
 
-  if (state.tabIndex == 0) {
+  if (state.activeTabToken[state.selectedToken] == 0) {
     return newState
       ..isSetDate1 = false
       ..isSetDate2 = false

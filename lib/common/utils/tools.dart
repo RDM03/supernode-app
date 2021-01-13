@@ -22,9 +22,8 @@ class Tools {
     return newSource;
   }
 
-  static LatLng convertLatLng(Map location){
-
-    if(location['latitude'] is String){
+  static LatLng convertLatLng(Map location) {
+    if (location['latitude'] is String) {
       location['latitude'] = double.parse(location['latitude']);
       location['longitude'] = double.parse(location['longitude']);
     }
@@ -42,11 +41,11 @@ class Tools {
   }
 
   static String priceFormat(double number, {int range = 1}) {
-    if(number == null || number == 0){
+    if (number == null || number == 0) {
       return '0.0';
     }
     String newNumber = number?.toStringAsFixed((range + 1)) ?? '0.0';
-    return newNumber.substring(0,newNumber.lastIndexOf('.') + range + 1);
+    return newNumber.substring(0, newNumber.lastIndexOf('.') + range + 1);
   }
 
   static double convertDouble(dynamic number) {
@@ -60,5 +59,33 @@ class Tools {
     final month = date.month.toString().padLeft(2, '0');
     final day = date.day.toString().padLeft(2, '0');
     return '${date.year}-$month-$day';
+  }
+
+  static String numberRounded(double number) {
+    String round(double val, int order, {int afterDot = 0}) {
+      final divided = (val / order);
+      if (afterDot == 0) return divided.round().toString();
+      final wholePart = divided.floor();
+      final fractionPart = divided - wholePart;
+      final fractionPartRounded =
+          (fractionPart * 10 * afterDot).roundToDouble();
+      var fractionPartTruncated = fractionPartRounded;
+      while (fractionPartTruncated % 10 == 0 && fractionPartTruncated > 0)
+        fractionPartTruncated /= 10.0;
+
+      if (fractionPartTruncated == 0) return wholePart.toString();
+      return '$wholePart.${fractionPartTruncated.toStringAsFixed(0)}';
+    }
+
+    if (number >= 1000000000) {
+      return '${round(number, 1000000000, afterDot: 1)}b';
+    }
+    if (number >= 1000000) {
+      return '${round(number, 1000000, afterDot: 1)}m';
+    }
+    if (number >= 10000) {
+      return '${round(number, 1000)}k';
+    }
+    return number.round().toString();
   }
 }

@@ -11,6 +11,8 @@ import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/profile.dart';
 import 'package:supernodeapp/common/components/row_right.dart';
 import 'package:supernodeapp/common/components/summary_row.dart';
+import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
+import 'package:supernodeapp/common/daos/local_storage_dao.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
@@ -27,6 +29,7 @@ bool isUpdate = true;
 
 Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
   final _ctx = viewService.context;
+  bool isOrgIDloaded() => GlobalStore.store.getState().settings.selectedOrganizationId!= null && GlobalStore.store.getState().settings.selectedOrganizationId.isNotEmpty;
 
   return Scaffold(
     appBar: AppBar(
@@ -56,6 +59,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
       onRefresh: () async {
         await Future.delayed(Duration(seconds: 1), () {
           dispatch(HomeActionCreator.onProfile());
+          dispatch(HomeActionCreator.onDataDHX());
         });
       },
       child: pageBody(
@@ -64,6 +68,8 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
             child: Column(
               children: [
                 profile(
+                  keyTitle:ValueKey('homeProfile'),
+                  keySubtitle:ValueKey('homeProfileSubtitle'),
                   name:
                       '${FlutterI18n.translate(_ctx, 'hi')}, ${state.username}',
                   loading: !state.loadingMap.contains('profile'),
@@ -90,43 +96,42 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                     ),
                   ),
                 ),
-                rowRight(
-                  FlutterI18n.translate(_ctx, 'current_balance'),
-                  style: kSmallFontOfGrey,
-                ),
-                rowRight(
-                  '${Tools.priceFormat(state.balance)} MXC',
-                  style: kBigFontOfBlack,
+                titleDetailRow(
                   loading: !state.loadingMap.contains('balance'),
-                ),
-                rowRight(
-                  FlutterI18n.translate(_ctx, 'staked_amount'),
-                  style: kSmallFontOfGrey,
-                ),
-                rowRight(
-                  '${Tools.priceFormat(state.stakedAmount)} MXC',
-                  style: kBigFontOfBlack,
+                  name: FlutterI18n.translate(_ctx, 'current_balance'),
+                  value: Tools.priceFormat(state.balance),
+                  key: Key('homeCurrentBalance')),
+                titleDetailRow(
                   loading: !state.loadingMap.contains('stakedAmount'),
-                ),
-                rowRight(
-                  FlutterI18n.translate(_ctx, 'staking_revenue'),
-                  style: kSmallFontOfGrey,
-                ),
-                rowRight(
-                  '${Tools.priceFormat(state.totalRevenue, range: 2)} MXC',
-                  style: kBigFontOfBlack,
+                  name: FlutterI18n.translate(_ctx, 'staked_amount'),
+                  value: Tools.priceFormat(state.stakedAmount),
+                  key: Key('homeStakedAmount')),
+                (state.lockedAmount > 0)
+                    ? titleDetailRow(
+                    name: FlutterI18n.translate(_ctx, 'locked_amount'),
+                    value: Tools.priceFormat(state.lockedAmount),
+                    loading: !state.loadingMap.contains(LocalStorageDao.lockedAmountKey),
+                    key: Key('homeLockedAmount'))
+                    : SizedBox(),
+                titleDetailRow(
                   loading: !state.loadingMap.contains('totalRevenue'),
-                ),
+                  name: FlutterI18n.translate(_ctx, 'staking_revenue'),
+                  value: Tools.priceFormat(state.totalRevenue, range: 2),
+                key: Key('homeStakingRevenue')),
                 Container(
                   margin: kRoundRow5,
                   child: Row(
                     children: <Widget>[
                       Spacer(),
                       PrimaryButton(
-                        key: Key('depositButtonDashboard'),
-                        buttonTitle: FlutterI18n.translate(_ctx, 'deposit'),
+                        key: Key(isOrgIDloaded() ? 'depositButtonDashboard' : 'depositButtonLoading'),
+                        buttonTitle: FlutterI18n.translate(_ctx, isOrgIDloaded() ? 'deposit' : 'loading'),
                         onTap: () =>
+                        {
+                          if (isOrgIDloaded()) {
                             dispatch(HomeActionCreator.onOperate('deposit')),
+                          }
+                        }
                       ),
                       Spacer(),
                       PrimaryButton(
@@ -163,6 +168,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
           ),
           panelFrame(
             child: summaryRow(
+              key: Key('totalDevicesDashboard'),
               loading: false,
               image: AppImages.devices,
               title: FlutterI18n.translate(_ctx, 'total_devices'),
@@ -187,6 +193,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
           //   )
           // ),
           panelFrame(
+            key: ValueKey('homeMapbox'),
             height: 263,
             child: FutureBuilder(
               builder: (context,builder) {

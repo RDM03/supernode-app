@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 
 final appTheme = ThemeData(
   primarySwatch: Colors.blue,
@@ -51,6 +52,8 @@ const iconCircularBackgroundColor = Color.fromARGB(51, 77, 137, 229);
 
 //wallet
 const selectedTabColor = Color.fromARGB(255, 77, 137, 229);
+const Map<Token, Color> colorToken = const {Token.MXC: Color(0xFF1C1478), Token.DHX: Color(0xFF4665EA)};
+const transparentWhite = Color.fromARGB(0, 255, 255, 255);
 
 // login
 const Color darkBackground = Color(0xFFEBEFF2);
@@ -75,3 +78,10 @@ final stake12Color = Color(0xFF494393);
 final stake9Color = Color(0xFF7772AE);
 final stake6Color = Color(0xFFA4A1C9);
 final stakeFlexColor = Color(0xFFD2D0E4);
+
+final tutorialBubble = Color(0x334665EA);
+
+final lock24Color = Color(0xFF4D64E2);
+final lock12Color = Color(0xFF7183E7);
+final lock9Color = Color(0xFF94A2EC);
+final lock3Color = Color(0xFFADB5E4);

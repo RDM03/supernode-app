@@ -28,7 +28,8 @@ class AddGatewayState implements Cloneable<AddGatewayState> {
   LatLng markerPoint;
   String networkServerID = '';
   String gatewayProfileID = '';
-  
+  Color numberTextColor;
+
   @override
   AddGatewayState clone() {
     return AddGatewayState()
@@ -49,7 +50,8 @@ class AddGatewayState implements Cloneable<AddGatewayState> {
       ..location = location
       ..markerPoint = markerPoint
       ..networkServerID = networkServerID
-      ..gatewayProfileID = gatewayProfileID;
+      ..gatewayProfileID = gatewayProfileID
+      ..numberTextColor = numberTextColor;
   }
 }
 
@@ -59,7 +61,7 @@ AddGatewayState initState(Map<String, dynamic> args) {
   if(args['location'] != null){
     location = args['location'];
   }
-  
+
   return AddGatewayState()
     ..fromPage = fromPage
     ..location = location;

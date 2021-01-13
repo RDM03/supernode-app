@@ -59,7 +59,7 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
       );
     } catch (err) {
       loading.hide();
-      if (err is DaoException && err.code == 7) {
+      if (err is DaoException && err.code == 13) {
         final scaffold = Scaffold.of(ctx.state.emailFormKey.currentContext);
         scaffold.showSnackBar(SnackBar(
           content: Text(
