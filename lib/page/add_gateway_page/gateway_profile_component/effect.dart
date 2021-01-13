@@ -11,7 +11,7 @@ import 'package:supernodeapp/common/daos/organization_dao.dart';
 import 'package:supernodeapp/common/daos/settings_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/global_store/store.dart';
-import 'package:supernodeapp/page/home_page/action.dart';
+import 'package:supernodeapp/page/home_page/legacy/action.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 
 import 'action.dart';

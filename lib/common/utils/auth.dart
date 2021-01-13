@@ -5,7 +5,9 @@ import 'package:supernodeapp/common/daos/settings_dao.dart';
 import 'package:supernodeapp/data/super_node_bean.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/main.dart';
+import 'package:supernodeapp/page/login_page/bloc/view.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
+import 'package:supernodeapp/route.dart';
 
 import 'navigator.dart';
 
@@ -22,7 +24,8 @@ Future<void> logOut(BuildContext context) async {
   Locale locale = Localizations.localeOf(context);
   await FlutterI18n.refresh(context, locale);
 
-  Navigator.of(context).pushNamedAndRemoveUntil('login_page', (_) => false);
+  Navigator.of(context)
+      .pushAndRemoveUntil(route((c) => LoginPage()), (_) => false);
 }
 
 Future<void> _pushMaintenance() async {

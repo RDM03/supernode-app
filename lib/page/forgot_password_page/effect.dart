@@ -9,6 +9,8 @@ import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/configs/config.dart';
+import 'package:supernodeapp/page/login_page/bloc/view.dart';
+import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 import 'action.dart';
@@ -116,7 +118,8 @@ void _onVerificationContinue(
 
       tip(ctx.context, FlutterI18n.translate(ctx.context, 'update_success'),
           success: true);
-      Navigator.popUntil(ctx.context, ModalRoute.withName("login_page"));
+      Navigator.of(ctx.context)
+          .pushAndRemoveUntil(route((c) => LoginPage()), (_) => false);
     } catch (e) {
       loading.hide();
       // tip(ctx.context, 'UserDao registerConfirm: $e');

@@ -4,12 +4,22 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action, Page;
 import 'package:flutter/services.dart';
 import 'package:flutter_appcenter/flutter_appcenter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/daos/crashes_dao.dart';
+import 'package:supernodeapp/common/daos/demo/gateways_dao.dart';
+import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
+import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
+import 'package:supernodeapp/common/daos/gateways_dao.dart';
+import 'package:supernodeapp/common/daos/gateways_location_dao.dart';
+import 'package:supernodeapp/common/daos/stake_dao.dart';
+import 'package:supernodeapp/common/daos/wallet_dao.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
+import 'package:supernodeapp/page/supernode_repository.dart';
 import 'package:supernodeapp/page/feedback_page/feedback.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/address_book_page/add_address_page/page.dart';
@@ -34,6 +44,7 @@ import 'package:supernodeapp/page/stake_page/list_unstake_page/page.dart';
 import 'package:supernodeapp/page/stake_page/prepare_stake_page/page.dart';
 import 'package:supernodeapp/page/under_maintenance_page/page.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'app_state.dart';
 import 'common/utils/no_glow_behavior.dart';
 import 'global_store/state.dart';
 import 'page/add_gateway_page/page.dart';
@@ -44,8 +55,6 @@ import 'page/set_2fa_page/page.dart';
 import 'page/confirm_page/page.dart';
 import 'page/deposit_page/page.dart';
 import 'page/forgot_password_page/page.dart';
-import 'page/home_page/page.dart';
-import 'page/login_page/page.dart';
 import 'page/settings_page/page.dart';
 import 'page/splash_page/page.dart';
 import 'page/stake_page/page.dart';
@@ -56,7 +65,17 @@ Future<void> main() async {
   await DotEnv().load('assets/.env');
   await StorageManager.init();
 
-  runApp(MxcApp());
+  final appCubit = AppCubit();
+
+  runApp(
+    BlocProvider<AppCubit>.value(
+      value: appCubit,
+      child: RepositoryProvider<SupernodeRepository>(
+        create: (ctx) => SupernodeRepository(appCubit),
+        child: MxcApp(),
+      ),
+    ),
+  );
 
   Stream.fromFuture(FlutterAppCenter.init(
     appSecretAndroid: Sys.appSecretAndroid,
@@ -89,10 +108,8 @@ class MxcApp extends StatelessWidget {
   final AbstractRoutes routes = PageRoutes(
       pages: <String, Page<Object, dynamic>>{
         'splash_page': SplashPage(),
-        'login_page': LoginPage(),
         'sign_up_page': SignUpPage(),
         'forgot_password_page': ForgotPasswordPage(),
-        'home_page': HomePage(),
         'deposit_page': DepositPage(),
         'withdraw_page': WithdrawPage(),
         'confirm_page': ConfirmPage(),

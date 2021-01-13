@@ -18,7 +18,7 @@ Widget buildView(
   return pageFrame(context: viewService.context, children: [
     pageNavBar(FlutterI18n.translate(_ctx, 'profile_setting'),
         onTap: () => Navigator.of(viewService.context).pop()),
-    profile(
+    ProfileRow(
       contentPadding: const EdgeInsets.symmetric(vertical: 20),
       name: state.username,
       position: state.isAdmin ? FlutterI18n.translate(_ctx, 'admin') : '',

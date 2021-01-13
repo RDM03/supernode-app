@@ -203,7 +203,7 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
         onPressed: () => list(),
         child: Icon(Icons.add),
       ),
-      body: pageBody(
+      body: PageBody(
         usePadding: false,
         useColumn: true,
         children: [

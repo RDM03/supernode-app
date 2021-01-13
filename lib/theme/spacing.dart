@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// RETHINK.TODO rename (remove k-prefix)
 const kOuterRowTop5 = const EdgeInsets.only(top: 5);
 const kOuterRowTop10 = const EdgeInsets.only(top: 10);
 const kOuterRowTop20 = const EdgeInsets.only(top: 20);

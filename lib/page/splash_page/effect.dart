@@ -6,8 +6,11 @@ import 'package:supernodeapp/common/daos/settings_dao.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/global_store/store.dart';
+import 'package:supernodeapp/page/home_page/bloc/view.dart';
+import 'package:supernodeapp/page/login_page/bloc/view.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 import 'package:supernodeapp/page/splash_page/action.dart';
+import 'package:supernodeapp/route.dart';
 
 import 'state.dart';
 
@@ -52,9 +55,10 @@ void _goNextPage(Action action, Context<SplashState> ctx) async {
         data.userId.isNotEmpty &&
         GlobalStore.state.superModel.currentNode != null) {
       await PermissionUtil.getLocationPermission();
-      Navigator.pushReplacementNamed(ctx.context, "home_page");
+      Navigator.of(ctx.context)
+          .pushAndRemoveUntil(route((_) => HomePage()), (_) => false);
     } else {
-      Navigator.pushReplacementNamed(ctx.context, "login_page");
+      Navigator.of(ctx.context).pushReplacement(route((_) => LoginPage()));
     }
   }
 }

@@ -45,7 +45,7 @@ Widget buildView(
             style: kMiddleFontOfGrey,
           ),
           SizedBox(height: 20),
-          panelFrame(
+          PanelFrame(
             rowTop: EdgeInsets.zero,
             child: state.isLoading
                 ? LoadingList()

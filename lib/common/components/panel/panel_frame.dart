@@ -2,13 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
-Widget panelFrame(
-    {key,
-    double height,
-    Widget child,
-    EdgeInsetsGeometry rowTop,
-    Color customPanelColor}) {
-  return Container(
+// RETHINK.QUESTION what is the panel frame? mb rename?,
+class PanelFrame extends StatelessWidget {
+  final double height;
+  final Widget child;
+  final EdgeInsetsGeometry rowTop;
+  final Color customPanelColor;
+
+  const PanelFrame({
+    Key key,
+    this.height,
+    this.rowTop,
+    this.customPanelColor,
+    this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
       key: key,
       height: height,
       margin: rowTop != null ? rowTop : kOuterRowTop20,
@@ -23,5 +34,7 @@ Widget panelFrame(
           ),
         ],
       ),
-      child: child);
+      child: child,
+    );
+  }
 }

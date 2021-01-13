@@ -3,13 +3,25 @@ import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
-Widget titleDetailRow(
-    {String name = '',
-    dynamic value,
-    bool loading = false,
-    String token = 'MXC',
-    bool disabled = false}) {
-  return Container(
+class TitleDetailRow extends StatelessWidget {
+  final String name;
+  final dynamic value;
+  final bool loading;
+  final String token;
+  final bool disabled;
+
+  const TitleDetailRow({
+    Key key,
+    this.name = '',
+    this.value,
+    this.loading = false,
+    this.token = 'MXC',
+    this.disabled = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
       padding: kRoundRow15_5,
       child: Row(
         children: <Widget>[
@@ -32,5 +44,7 @@ Widget titleDetailRow(
                   style: disabled ? kBigFontOfGrey : kBigFontOfBlack,
                 )
         ],
-      ));
+      ),
+    );
+  }
 }

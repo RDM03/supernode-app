@@ -9,7 +9,7 @@ import 'package:supernodeapp/common/daos/dao.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/global_store/store.dart';
-import 'package:supernodeapp/page/home_page/action.dart';
+import 'package:supernodeapp/page/home_page/legacy/action.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 
 class TokenInterceptors extends InterceptorsWrapper {

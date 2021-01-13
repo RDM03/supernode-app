@@ -9,6 +9,8 @@ import 'package:supernodeapp/common/components/page/paragraph.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
+import 'package:supernodeapp/page/home_page/bloc/view.dart';
+import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
@@ -41,12 +43,12 @@ Widget buildView(
                   ),
                 ),
                 onTap: () => Navigator.of(viewService.context)
-                    .pushNamedAndRemoveUntil('home_page', (_) => false),
+                    .pushAndRemoveUntil(route((_) => HomePage()), (_) => false),
               ),
               IconButton(
                 icon: Icon(Icons.arrow_forward_ios),
                 onPressed: () => Navigator.of(viewService.context)
-                    .pushNamedAndRemoveUntil('home_page', (_) => false),
+                    .pushAndRemoveUntil(route((_) => HomePage()), (_) => false),
               )
             ],
           ),

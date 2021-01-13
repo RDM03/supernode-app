@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:supernodeapp/common/daos/interceptors/log_interceptor.dart';
 import 'package:supernodeapp/common/daos/interceptors/token_interceptor.dart';
 import 'package:supernodeapp/common/daos/isolate_dao.dart';
-import 'package:supernodeapp/page/home_page/action.dart';
+import 'package:supernodeapp/page/home_page/legacy/action.dart';
 
 class DaoException implements Exception {
   final String message;

@@ -195,7 +195,7 @@ Widget _lockCard({
   Dispatch dispatch,
   Key key,
 }) {
-  return panelFrame(
+  return PanelFrame(
     rowTop: first ? EdgeInsets.only(top: 10) : null,
     child: ListTile(
       key: key,

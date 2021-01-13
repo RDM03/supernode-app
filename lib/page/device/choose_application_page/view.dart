@@ -25,7 +25,7 @@ Widget buildView(
   return Builder(
     builder: (context) {
       return Scaffold(
-        body: pageBody(children: [
+        body: PageBody(children: [
           Container(
             padding: EdgeInsets.only(top: kToolbarHeight, bottom: 10, left: 10),
             child: Text(
@@ -33,7 +33,7 @@ Widget buildView(
               style: kBigFontOfBlack,
             ),
           ),
-          panelFrame(
+          PanelFrame(
             child: _buildPanelItem(
               icon: Icons.camera_enhance,
               title: list[state.selectCameraIndex].title,
@@ -63,7 +63,7 @@ Widget buildView(
               },
             ),
           ),
-          panelFrame(
+          PanelFrame(
             customPanelColor: (state.smartWatchName?.isEmpty ?? true)
                 ? null
                 : Color.fromRGBO(77, 137, 229, 0.2),
@@ -82,7 +82,7 @@ Widget buildView(
               },
             ),
           ),
-          panelFrame(
+          PanelFrame(
             child: _buildImagePanelItem(
               leading: ImageIcon(
                 AssetImage('assets/images/device/solid-camera.png'),
@@ -91,7 +91,7 @@ Widget buildView(
               title: FlutterI18n.translate(_ctx, 'smart_door_lock'),
             ),
           ),
-          panelFrame(
+          PanelFrame(
             child: _buildPanelItem(
               icon: Icons.directions_car,
               title: FlutterI18n.translate(_ctx, 'smart_parking'),

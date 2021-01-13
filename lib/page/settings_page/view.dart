@@ -35,9 +35,9 @@ Widget buildView(
           style: kBigFontOfBlack,
         ),
       ),
-      body: pageBody(children: [
-        panelFrame(
-          child: profile(
+      body: PageBody(children: [
+        PanelFrame(
+          child: ProfileRow(
             name: state.username,
             position: state.isAdmin ? FlutterI18n.translate(_ctx, 'admin') : '',
             trailing: state.isDemo
@@ -48,7 +48,7 @@ Widget buildView(
                 : () => dispatch(SettingsActionCreator.onSettings('profile')),
           ),
         ),
-        panelFrame(
+        PanelFrame(
             child: Column(
           children: <Widget>[
             listItem(FlutterI18n.translate(_ctx, 'organization_setting'),
