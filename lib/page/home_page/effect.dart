@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:decimal/decimal.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
@@ -613,6 +615,7 @@ void _requestLockedAmount_TotalRevenue (Context<HomeState> ctx) async {
         totalRevenueDHX += Tools.convertDouble(stake.dhxMined);
         list.add(StakeDHXItemState(StakeDHXItemEntity.fromStake(stake)));
       }
+      mPower += min(mPower, ctx.state.gatewaysTotal * 1000000);
       if (list.length > 0) list[list.length - 1].isLast = true;
 
       Map dataDHX = {lockedAmountLabel: lockedAmount,
