@@ -98,21 +98,25 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                 titleDetailRow(
                   loading: !state.loadingMap.contains('balance'),
                   name: FlutterI18n.translate(_ctx, 'current_balance'),
-                  value: Tools.priceFormat(state.balance)),
+                  value: Tools.priceFormat(state.balance),
+                  key: Key('homeCurrentBalance')),
                 titleDetailRow(
                   loading: !state.loadingMap.contains('stakedAmount'),
                   name: FlutterI18n.translate(_ctx, 'staked_amount'),
-                  value: Tools.priceFormat(state.stakedAmount)),
+                  value: Tools.priceFormat(state.stakedAmount),
+                  key: Key('homeStakedAmount')),
                 (state.lockedAmount > 0)
                     ? titleDetailRow(
                     name: FlutterI18n.translate(_ctx, 'locked_amount'),
                     value: Tools.priceFormat(state.lockedAmount),
-                    loading: !state.loadingMap.contains(LocalStorageDao.lockedAmountKey))
+                    loading: !state.loadingMap.contains(LocalStorageDao.lockedAmountKey),
+                    key: Key('homeLockedAmount'))
                     : SizedBox(),
                 titleDetailRow(
                   loading: !state.loadingMap.contains('totalRevenue'),
                   name: FlutterI18n.translate(_ctx, 'staking_revenue'),
-                  value: Tools.priceFormat(state.totalRevenue, range: 2)),
+                  value: Tools.priceFormat(state.totalRevenue, range: 2),
+                key: Key('homeStakingRevenue')),
                 Container(
                   margin: kRoundRow5,
                   child: Row(
