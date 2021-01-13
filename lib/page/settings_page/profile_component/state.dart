@@ -15,6 +15,7 @@ class ProfileState implements Cloneable<ProfileState> {
   bool reloadProfile = false;
   String wechatExternalUsername = '';
   bool isAdmin = false;
+  bool showConfirmation = false;
 
   @override
   ProfileState clone() {
@@ -26,7 +27,8 @@ class ProfileState implements Cloneable<ProfileState> {
       ..usernameCtl = usernameCtl
       ..emailCtl = emailCtl
       ..wechatExternalUsername = wechatExternalUsername
-      ..isAdmin = isAdmin;
+      ..isAdmin = isAdmin
+      ..showConfirmation = showConfirmation;
   }
 }
 

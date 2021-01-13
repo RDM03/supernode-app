@@ -1,6 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 
-enum ProfileAction { onUpdate, jwtUpdate, onUnbind, unbind }
+enum ProfileAction { onUpdate, jwtUpdate, showConfirmation, onUnbind, unbind }
 
 class ProfileActionCreator {
   static Action onUpdate() {
@@ -9,6 +9,10 @@ class ProfileActionCreator {
 
   static Action jwtUpdate(Map data) {
     return Action(ProfileAction.jwtUpdate,payload: data);
+  }
+
+  static Action showConfirmation(bool data) {
+    return Action(ProfileAction.showConfirmation, payload: data);
   }
 
   static Action onUnbind() {

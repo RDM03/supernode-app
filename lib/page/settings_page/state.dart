@@ -21,6 +21,7 @@ class SettingsState implements Cloneable<SettingsState> {
   String email = '';
   bool reloadProfile = false;
   bool isAdmin = false;
+  bool showConfirmation = false;
   int theme = 0;
 
   String token = '';
@@ -64,6 +65,7 @@ class SettingsState implements Cloneable<SettingsState> {
       ..email = email
       ..reloadProfile = reloadProfile
       ..isAdmin = isAdmin
+      ..showConfirmation = showConfirmation
       ..notification = notification
       ..language = language
       ..theme = theme
@@ -143,6 +145,7 @@ class ProfileConnector extends ConnOp<SettingsState, ProfileState> {
       ..reloadProfile = state.reloadProfile
       ..wechatExternalUsername = state.wechatExternalUsername
       ..isAdmin = state.isAdmin
+      ..showConfirmation = state.showConfirmation
       ..usernameCtl = state.usernameCtl
       ..emailCtl = state.emailCtl
       ..formKey = state.profileFormKey;
@@ -154,6 +157,7 @@ class ProfileConnector extends ConnOp<SettingsState, ProfileState> {
       ..username = subState.username
       ..email = subState.email
       ..reloadProfile = subState.reloadProfile
+      ..showConfirmation = subState.showConfirmation
       ..usernameCtl = subState.usernameCtl
       ..wechatExternalUsername = subState.wechatExternalUsername
       ..emailCtl = subState.emailCtl;

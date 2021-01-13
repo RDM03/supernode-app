@@ -57,7 +57,8 @@ void _onUpdate(Action action, Context<ProfileState> ctx) async {
 }
 
 void _onUnbind(Action action, Context<ProfileState> ctx) async {
-  //final loading = await Loading.show(ctx.context);
+  ctx.dispatch(ProfileActionCreator.showConfirmation(false));
+  final loading = await Loading.show(ctx.context);
 
   Map data = {
     "organizationId": GlobalStore.store.getState().settings.selectedOrganizationId,
@@ -67,10 +68,10 @@ void _onUnbind(Action action, Context<ProfileState> ctx) async {
   UserDao dao = UserDao();
 
   dao.unbindExternalUser(data).then((res) {
-    //loading.hide();
+    loading.hide();
     ctx.dispatch(ProfileActionCreator.unbind());
   }).catchError((err) {
-    //loading.hide();
-    //tip(ctx.context,'Unbind: $err');
+    loading.hide();
+    tip(ctx.context,'Unbind: $err');
   });
 }
