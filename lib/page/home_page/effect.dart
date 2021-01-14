@@ -173,6 +173,7 @@ void _onGateways(Action action, Context<HomeState> ctx) async {
 
 Future<void> _profile(Context<HomeState> ctx) async {
   Dao.ctx = ctx;
+  SettingsState settingsData = GlobalStore.store.getState().settings;
 
   try {
     ctx.dispatch(HomeActionCreator.loadingMap('profile', type: 'remove'));
