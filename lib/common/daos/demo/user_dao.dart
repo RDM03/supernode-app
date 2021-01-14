@@ -93,4 +93,29 @@ class DemoUserDao extends DemoDao implements UserDao {
   Future update(Map data) {
     throw UnimplementedError('update not supported in demo');
   }
+
+  @override
+  Future<dynamic> authenticateWeChatUser(Map data) {
+    throw UnimplementedError('update not supported in demo');
+  }
+
+  @override
+  Future<dynamic> debugAuthenticateWeChatUser(Map data) {
+    throw UnimplementedError('update not supported in demo');
+  }
+
+  @override
+  Future<dynamic> bindExternalUser(Map data) {
+    throw UnimplementedError('update not supported in demo');
+  }
+
+  @override
+  Future<dynamic> registerExternalUser(Map data) {
+    throw UnimplementedError('update not supported in demo');
+  }
+
+  @override
+  Future<dynamic> unbindExternalUser(Map data) {
+    throw UnimplementedError('update not supported in demo');
+  }
 }

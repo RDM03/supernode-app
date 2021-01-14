@@ -12,6 +12,7 @@ Reducer<LoginState> buildReducer() {
       LoginAction.isObscureText: _isObscureText,
       LoginAction.superNodeListVisible: _superNodeListVisible,
       LoginAction.clickLogo: _clickLogo,
+      LoginAction.showWeChat: _showWeChat,
     },
   );
 }
@@ -42,4 +43,10 @@ LoginState _clickLogo(LoginState state, Action action) {
   newState.count = state.count + 1;
   mLog("count", "${newState.count}");
   return newState..count;
+}
+
+LoginState _showWeChat(LoginState state, Action action) {
+  final LoginState newState = state.clone();
+  newState.showWeChatLoginOption = action.payload;
+  return newState;
 }

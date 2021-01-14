@@ -23,7 +23,7 @@ enum HomeAction {
   gatewaysLocations,
   onOperate,
   onSettings,
-  updateUsername,
+  updateUsernameEmail,
   miningIncome,
   convertUSD,
   location,
@@ -60,12 +60,12 @@ class HomeActionCreator {
     return const Action(HomeAction.onProfile);
   }
 
-  static Action profile(UserState user, List<OrganizationsState> organizations) {
-    return Action(HomeAction.profile, payload: {'user': user, 'organizations': organizations});
+  static Action profile(UserState user, String wechatExternalUsername, List<OrganizationsState> organizations) {
+    return Action(HomeAction.profile, payload: {'user': user, 'wechatExternalUsername': wechatExternalUsername, 'organizations': organizations});
   }
 
-  static Action updateUsername(Map data) {
-    return Action(HomeAction.updateUsername, payload: data);
+  static Action updateUsernameEmail(Map data) {
+    return Action(HomeAction.updateUsernameEmail, payload: data);
   }
 
   static Action balance(double balance) {

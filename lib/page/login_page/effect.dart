@@ -1,8 +1,9 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:supernodeapp/common/components/loading.dart';
-import 'package:supernodeapp/common/components/permission_utils.dart';
+import 'package:supernodeapp/common/constants.dart';
 import 'package:supernodeapp/common/daos/demo/user_dao.dart';
 import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/common/utils/log.dart';
@@ -22,9 +23,11 @@ import 'state.dart';
 
 Effect<LoginState> buildEffect() {
   return combineEffects(<Object, Effect<LoginState>>{
+    Lifecycle.initState: _initWeChat,
     Lifecycle.dispose: _dispose,
     LoginAction.onLogin: _onLogin,
     LoginAction.onSignUp: _onSignUp,
+    LoginAction.onWeChat: _onWeChat,
     LoginAction.onForgotPassword: _onForgotPassword,
     LoginAction.onDemo: _onDemo,
   });
@@ -33,41 +36,11 @@ Effect<LoginState> buildEffect() {
 Future<void> _handleLoginRequest(
     UserDao dao, String username, String password, String apiRoot) async {
   Map data = {'username': username, 'password': password};
-  SettingsState settingsData = GlobalStore.store.getState().settings;
 
   var loginResult = await dao.login(data);
   mLog('login', loginResult);
 
-  if (settingsData == null) {
-    settingsData = SettingsState().clone();
-  }
-
-  Dao.token = loginResult['jwt'];
-  settingsData.token = loginResult['jwt'];
-  settingsData.username = data['username'];
-  List<String> users =
-      StorageManager.sharedPreferences.getStringList(Config.USER_KEY) ?? [];
-  if (!users.contains(data['username'])) {
-    users.add(data['username']);
-  }
-  StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
-  StorageManager.sharedPreferences
-      .setString(Config.TOKEN_KEY, loginResult['jwt']);
-  StorageManager.sharedPreferences
-      .setString(Config.USERNAME_KEY, data['username']);
-  StorageManager.sharedPreferences
-      .setString(Config.PASSWORD_KEY, data['password']);
-  StorageManager.sharedPreferences.setString(Config.API_ROOT, apiRoot);
-  GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
-
-  var totpStatus = await dao.getTOTPStatus({});
-  mLog('totp', totpStatus);
-
-  settingsData.is2FAEnabled = totpStatus['enabled'];
-  if ((totpStatus as Map).containsKey('enabled')) {
-    GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
-  }
-  await PermissionUtil.getLocationPermission();
+  await saveLoginResult(dao, loginResult['jwt'], data['username'], data['password'], apiRoot);
 }
 
 void _onLogin(Action action, Context<LoginState> ctx) async {
@@ -158,6 +131,33 @@ void _onSignUp(Action action, Context<LoginState> ctx) async {
   Navigator.pushNamed(ctx.context, 'sign_up_page');
 }
 
+void _onWeChat(Action action, Context<LoginState> ctx) async {
+  var curState = ctx.state;
+  if (curState.currentSuperNode == null) {
+    tip(ctx.context,
+        FlutterI18n.translate(ctx.context, 'reg_select_supernode'));
+    return;
+  }
+
+  final res = await checkMaintenance(curState.currentSuperNode);
+  if (!res) return;
+
+  String apiRoot = curState.currentSuperNode.url;
+  Dao.baseUrl = apiRoot;
+
+  SettingsState settingsData = GlobalStore.store.getState().settings;
+
+  if (settingsData == null) {
+    settingsData = SettingsState().clone();
+  }
+
+  GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
+  await StorageManager.sharedPreferences.setBool(Config.DEMO_MODE, false);
+
+  fluwx.sendWeChatAuth(scope: "snsapi_userinfo", state: "wechat_sdk_demo_test");
+  //weChatResponseEventHandler defined in _initWeChat
+}
+
 void _onForgotPassword(Action action, Context<LoginState> ctx) async {
   if (ctx.state.currentSuperNode == null) {
     tip(ctx.context,
@@ -184,4 +184,69 @@ void _onForgotPassword(Action action, Context<LoginState> ctx) async {
 void _dispose(Action action, Context<LoginState> ctx) {
   ctx.state.passwordCtl?.dispose();
   ctx.state.usernameCtl?.dispose();
+}
+
+void _initWeChat(Action action, Context<LoginState> ctx) async {
+  await fluwx.registerWxApi(
+      appId: WECHAT_APP_ID,
+      doOnAndroid: true,
+      doOnIOS: true,
+      universalLink: "https://www.mxc.org/mxcdatadash/");
+  var wxInstalled = await fluwx.isWeChatInstalled;
+  ctx.dispatch(LoginActionCreator.showWeChat(wxInstalled));
+
+  if (wxInstalled) {
+    fluwx.weChatResponseEventHandler.distinct((a, b) => a == b).listen((
+        res) async {
+      if (res is fluwx.WeChatAuthResponse) {
+        final loading = await Loading.show(ctx.context);
+        try {
+          if (res.errCode == 0) {
+            UserDao dao = UserDao();
+            Map data = {'code': res.code};
+            var authWeChatUserRes =
+            (WECHAT_APP_ID == 'wx7fcea6540bed2f37')
+                ? await dao.debugAuthenticateWeChatUser(data)
+                : await dao.authenticateWeChatUser(data);
+
+            if (authWeChatUserRes['bindingIsRequired']) {
+              // bind DataDash and WeChat accounts
+              loading.hide();
+              Navigator.pushNamed(ctx.context, 'wechat_login_page');
+            } else {
+              // accounts already bound - proceed with login
+              String apiRoot = ctx.state.currentSuperNode.url;
+
+              await saveLoginResult(dao, authWeChatUserRes['jwt'], '', '', apiRoot);
+
+              loading.hide();
+              Navigator.pushReplacementNamed(ctx.context, 'home_page');
+            }
+          } else {
+            tip(ctx.context, res.errStr);
+          }
+        } catch (err) {
+          final res = await checkMaintenance();
+          loading.hide();
+          if (!res) return;
+          String msg;
+          try {
+            msg = err?.message ?? FlutterI18n.translate(ctx.context,'error_tip');
+          } catch (e) {
+            msg = FlutterI18n.translate(ctx.context,'error_tip');
+          }
+          ctx.state.scaffoldKey.currentState.showSnackBar(SnackBar(
+            content: Text(
+              msg,
+              style: Theme.of(ctx.context).textTheme.bodyText1.copyWith(color: Colors.white),
+            ),
+            duration: Duration(seconds: 2),
+            backgroundColor: errorColor,
+          ));
+        } finally {
+          loading.hide();
+        }
+      }
+    });
+  }
 }

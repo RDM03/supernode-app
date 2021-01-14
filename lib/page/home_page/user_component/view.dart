@@ -72,6 +72,7 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
                   keySubtitle:ValueKey('homeProfileSubtitle'),
                   name:
                       '${FlutterI18n.translate(_ctx, 'hi')}, ${state.username}',
+                  loading: !state.loadingMap.contains('profile'),
                   position: (state.organizations.length > 0 &&
                           state.organizations.first.isAdmin)
                       ? FlutterI18n.translate(_ctx, 'admin')

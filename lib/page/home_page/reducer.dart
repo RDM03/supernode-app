@@ -25,7 +25,7 @@ Reducer<HomeState> buildReducer() {
       HomeAction.miningIncome: _miningIncome,
       HomeAction.gatewaysLocations: _gatewaysLocations,
       HomeAction.devices: _devices,
-      HomeAction.updateUsername: _updateUsername,
+      HomeAction.updateUsernameEmail: _updateUsernameEmail,
       HomeAction.convertUSD: _convertUSD,
       HomeAction.totalRevenue: _totalRevenue,
       HomeAction.isUpdate: _isUpdate,
@@ -94,6 +94,7 @@ HomeState _profile(HomeState state, Action action) {
   Map data = action.payload;
   UserState user = data['user'];
   List<OrganizationsState> organizations = data['organizations'];
+  String wechatExternalUsername = data['wechatExternalUsername'];
 
   final HomeState newState = state.clone();
   return newState
@@ -102,7 +103,8 @@ HomeState _profile(HomeState state, Action action) {
     ..email = user.email
     ..isAdmin = user.isAdmin
     ..isActive = user.isActive
-    ..organizations = organizations;
+    ..organizations = organizations
+    ..wechatExternalUsername = wechatExternalUsername;
 }
 
 HomeState _balance(HomeState state, Action action) {
@@ -181,11 +183,13 @@ HomeState _devices(HomeState state, Action action) {
     ..devicesRevenue = value;
 }
 
-HomeState _updateUsername(HomeState state, Action action) {
+HomeState _updateUsernameEmail(HomeState state, Action action) {
   Map data = action.payload;
 
   final HomeState newState = state.clone();
-  return newState..username = data['username'];
+  return newState
+    ..username = data['username']
+    ..email = data['email'];
 }
 
 HomeState _convertUSD(HomeState state, Action action) {

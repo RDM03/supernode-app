@@ -185,7 +185,10 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                               icon: Image.asset(AppImages.email, width: 22, height: 22,),
                             ),
                             SizedBox(width: s(30)),
-                            CircleButton(icon: null),
+                            CircleButton(
+                              onTap: () => dispatch(LoginActionCreator.onWeChat()),
+                              icon: (state.showWeChatLoginOption ? Image.asset(AppImages.wechat, width: 22, height: 22,) :  null),
+                            ),
                             SizedBox(width: s(30)),
                             CircleButton(icon: null),
                           ],

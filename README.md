@@ -15,6 +15,21 @@ You can install `fish-redux-template` of the extension in the Visual Studio code
 
 Select a fold and right click and then it will display some menus: `Generate Adapter Template`,`Generate Component Template`,`Generate Page Template`.
 
+## WeChat plugin
+
+DataDash app uses a local fork of WeChat flutter plugin i.e. fluwx, as a git submodule in [supernode-app ROOT]/packages folder.
+
+The fork is in mxc-foundation repository:
+https://github.com/mxc-foundation/fluwx
+
+### Working with fluwx submodule
+
+In folder [supernode-app ROOT]/packages execute:
+
+git clone https://github.com/mxc-foundation/fluwx
+git submodule init
+git submodule update
+
 ## Running in the Android Simulator
 
 Now right it temporary only use the command `flutter run --flavor prod` or `flutter run --flavor play` to run in the Android Simulator.
