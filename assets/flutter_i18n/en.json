@@ -442,7 +442,7 @@
 	"lock_mxc": "Lock MXC",
 	"mining_boost": "Mining Boost",
 	"lock_amount": "Lock Amount",
-	"lock_tip_detailed": "Boost your mining power by {0}% with a {1} month lock. You will be able to claim your earned DHX as soon as the lock period is complete.",
+	"lock_tip_detailed": "Boost your mining power by {0}% with a {1} month lock. You will be able to claim your locked token as soon as the lock period is complete.",
 	"number_of_miner": "Number of Miner",
 	"current_m2proto_own": "Current M2Pro own",
 	"potential_mining_power": "Potential Mining Power",
