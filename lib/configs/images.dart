@@ -27,6 +27,7 @@ class AppImages {
   //login
   static const String placeholder = "assets/images/login/placeholder.png";
   static const String email = 'assets/images/login/email.png';
+  static const String wechat = 'assets/images/login/wechat.png';
 
   //wallet
   static const String logoMXC = 'assets/images/wallet/logo-mxc.png';
@@ -43,4 +44,6 @@ class AppImages {
   //gateway
   static const String infoDownlinkPrice = 'assets/images/gateway/info-downloadlink_price.png';
 
+  //settings
+  static const String warningRobot= 'assets/images/settings/robot_warning.png';
 }

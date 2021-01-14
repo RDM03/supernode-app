@@ -12,6 +12,7 @@ class LoginState implements Cloneable<LoginState> {
   TextEditingController passwordCtl = TextEditingController();
   bool isObscureText = true;
   bool showSuperNodeList = false;
+  bool showWeChatLoginOption = false;
   Map<String, List<SuperNodeBean>> superNodes;
   SuperNodeBean currentSuperNode;
 
@@ -22,6 +23,7 @@ class LoginState implements Cloneable<LoginState> {
       ..count = count
       ..superNodes = superNodes
       ..showSuperNodeList = showSuperNodeList
+      ..showWeChatLoginOption = showWeChatLoginOption
       ..isObscureText = isObscureText
       ..currentSuperNode = currentSuperNode
       ..formKey = formKey

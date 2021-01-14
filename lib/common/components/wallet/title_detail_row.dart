@@ -3,7 +3,7 @@ import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
-Widget titleDetailRow ({String name = '', dynamic value, bool loading = false, String token = 'MXC', bool disabled = false}) {
+Widget titleDetailRow ({Key key, String name = '', dynamic value, bool loading = false, String token = 'MXC', bool disabled = false}) {
   return Container(
     padding: kRoundRow15_5,
     child: Row(
@@ -16,12 +16,14 @@ Widget titleDetailRow ({String name = '', dynamic value, bool loading = false, S
         Spacer(),
         loading ? loadingFlash(
           child: Text(
-            '$value $token',
+            '$value${token.isNotEmpty?' $token':''}',
+            key: key,
             textAlign: TextAlign.left,
             style: kBigFontOfBlack,
           )
         ) : Text(
           '$value${token.isNotEmpty?' $token':''}',
+          key: key,
           textAlign: TextAlign.left,
           style: disabled? kBigFontOfGrey : kBigFontOfBlack,
         )

@@ -64,7 +64,7 @@ Widget buildView(RegistrationState state, Dispatch dispatch, ViewService viewSer
                 margin: kOuterRowTop10,
                 child: TextFieldWithTitle(
                   title: FlutterI18n.translate(_ctx, 'organization_name'),
-                  // hint: FlutterI18n.translate(_ctx, 'organization_name_hint'),
+                  hint: FlutterI18n.translate(_ctx, 'organization_name_hint'),
                   textInputAction: TextInputAction.next,
                   validator: (value) => Reg.onNotEmpty(_ctx, value),
                   controller: state.orgCtl
@@ -77,7 +77,7 @@ Widget buildView(RegistrationState state, Dispatch dispatch, ViewService viewSer
                 margin: kOuterRowTop10,
                 child: TextFieldWithTitle(
                   title: FlutterI18n.translate(_ctx, 'display_name'),
-                  // hint: FlutterI18n.translate(_ctx, 'display_name_hint'),
+                  hint: FlutterI18n.translate(_ctx, 'display_name_hint'),
                   textInputAction: TextInputAction.done,
                   validator: (value) => Reg.onNotEmpty(_ctx, value),
                   controller: state.displayCtl

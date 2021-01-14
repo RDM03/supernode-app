@@ -19,7 +19,9 @@ class SettingsState implements Cloneable<SettingsState> {
   String userId = '';
   String username = '';
   String email = '';
+  bool reloadProfile = false;
   bool isAdmin = false;
+  bool showConfirmation = false;
   int theme = 0;
 
   String token = '';
@@ -33,6 +35,9 @@ class SettingsState implements Cloneable<SettingsState> {
   TextEditingController usernameCtl = TextEditingController();
   TextEditingController emailCtl = TextEditingController();
   GlobalKey profileFormKey = GlobalKey<FormState>();
+
+  //external
+  String wechatExternalUsername = '';
 
   //organiztion
   TextEditingController orgNameCtl = TextEditingController();
@@ -58,7 +63,9 @@ class SettingsState implements Cloneable<SettingsState> {
       ..userId = userId
       ..username = username
       ..email = email
+      ..reloadProfile = reloadProfile
       ..isAdmin = isAdmin
+      ..showConfirmation = showConfirmation
       ..notification = notification
       ..language = language
       ..theme = theme
@@ -69,6 +76,7 @@ class SettingsState implements Cloneable<SettingsState> {
       ..usernameCtl = usernameCtl
       ..emailCtl = emailCtl
       ..profileFormKey = profileFormKey
+      ..wechatExternalUsername = wechatExternalUsername
       ..orgFormKey = orgFormKey
       ..selectedOrgId = selectedOrgId
       ..selectedOrgName = selectedOrgName
@@ -120,6 +128,8 @@ SettingsState initState(Map<String, dynamic> args) {
     ..username = user['username']
     ..email = user['email']
     ..usernameCtl.text = user['username']
+    ..emailCtl.text = user['email']
+    ..wechatExternalUsername = user['wechatExternalUsername']
     ..isAdmin = orgs.length > 0 && orgs.first.isAdmin
     ..organizations = orgs
     ..isDemo = isDemo;
@@ -132,7 +142,10 @@ class ProfileConnector extends ConnOp<SettingsState, ProfileState> {
       ..userId = state.userId
       ..username = state.username
       ..email = state.email
+      ..reloadProfile = state.reloadProfile
+      ..wechatExternalUsername = state.wechatExternalUsername
       ..isAdmin = state.isAdmin
+      ..showConfirmation = state.showConfirmation
       ..usernameCtl = state.usernameCtl
       ..emailCtl = state.emailCtl
       ..formKey = state.profileFormKey;
@@ -143,7 +156,10 @@ class ProfileConnector extends ConnOp<SettingsState, ProfileState> {
     state
       ..username = subState.username
       ..email = subState.email
+      ..reloadProfile = subState.reloadProfile
+      ..showConfirmation = subState.showConfirmation
       ..usernameCtl = subState.usernameCtl
+      ..wechatExternalUsername = subState.wechatExternalUsername
       ..emailCtl = subState.emailCtl;
   }
 }

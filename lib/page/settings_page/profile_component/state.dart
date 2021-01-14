@@ -1,5 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/global_store/store.dart';
+import 'package:supernodeapp/page/settings_page/state.dart';
 
 class ProfileState implements Cloneable<ProfileState> {
 
@@ -10,7 +12,10 @@ class ProfileState implements Cloneable<ProfileState> {
   String userId = '';
   String username = '';
   String email = '';
+  bool reloadProfile = false;
+  String wechatExternalUsername = '';
   bool isAdmin = false;
+  bool showConfirmation = false;
 
   @override
   ProfileState clone() {
@@ -18,7 +23,12 @@ class ProfileState implements Cloneable<ProfileState> {
       ..userId = userId
       ..username = username
       ..email = email
-      ..isAdmin = isAdmin;
+      ..reloadProfile = reloadProfile
+      ..usernameCtl = usernameCtl
+      ..emailCtl = emailCtl
+      ..wechatExternalUsername = wechatExternalUsername
+      ..isAdmin = isAdmin
+      ..showConfirmation = showConfirmation;
   }
 }
 
