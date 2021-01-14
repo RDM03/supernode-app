@@ -1,8 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/daos/demo/dhx_dao.dart';
 import 'package:supernodeapp/common/daos/dhx_dao.dart';
-import 'package:supernodeapp/global_store/store.dart';
-import 'package:supernodeapp/page/settings_page/state.dart';
 import 'action.dart';
 import 'state.dart';
 
