@@ -36,6 +36,9 @@ class HomeState implements Cloneable<HomeState> {
   List<OrganizationsState> organizations = [];
   String selectedOrganizationId = '';
 
+  //external
+  String wechatExternalUsername = '';
+
   //wallet
   bool expandedView = false;
   List<Token> displayTokens = [Token.MXC];
@@ -111,6 +114,7 @@ class HomeState implements Cloneable<HomeState> {
       ..isActive = isActive
       ..organizations = organizations ?? []
       ..selectedOrganizationId = selectedOrganizationId
+      ..wechatExternalUsername = wechatExternalUsername
       ..superNode = superNode
       ..balance = balance
       ..balanceDHX = balanceDHX

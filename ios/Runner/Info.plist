@@ -2,6 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>weixin</string>
+		<string>weixinULAPI</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -28,7 +33,7 @@
 		<string>id</string>
 	</array>
 	<key>CFBundleName</key>
-	<string>MXC DataDash</string>
+	<string>DataDash</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -41,6 +46,16 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>appcenter-f69d3fff-c177-4cef-81bd-b306f910edd7</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>weixin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx496db1d33c8fda79</string>
 			</array>
 		</dict>
 	</array>
@@ -60,16 +75,16 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>Would you allow MXC SmartCity to use the Calendar?</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Enable MXC DataDash to access your camera roll to scan the QR code of your LPWAN devices</string>
+	<string>Enable DataDash to access your camera roll to scan the QR code of your LPWAN devices</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Would you allow MXC SmartCity to use the Contacts?</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Would you allow MXC SmartCity to use the Biometric?</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Turn on location services to find LPWAN devices near you</string>
 	<key>NSLocationUsageDescription</key>
 	<string>Turn on location services to find LPWAN devices near you</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Turn on location services to find LPWAN devices near you</string>
-	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Turn on location services to find LPWAN devices near you</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Would you allow MXC SmartCity to use the Motion?</string>

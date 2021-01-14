@@ -3,6 +3,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:supernodeapp/common/daos/dhx_dao.dart';
+import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class CouncilCard extends StatelessWidget {
@@ -64,7 +65,7 @@ class CouncilCard extends StatelessWidget {
                       style: kBigFontOfBlue,
                     ),
                     Text(
-                      '${FlutterI18n.translate(context, 'latest_mpower')} : ${FlutterI18n.translate(context, 'coming')}',
+                      '${FlutterI18n.translate(context, 'latest_mpower')} : ${Tools.numberRounded(Tools.convertDouble(council.lastMpower))}',
                       style: kMiddleFontOfBlack,
                     ),
                   ],

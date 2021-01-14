@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:decimal/decimal.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
@@ -171,13 +173,10 @@ void _onGateways(Action action, Context<HomeState> ctx) async {
 
 Future<void> _profile(Context<HomeState> ctx) async {
   Dao.ctx = ctx;
-  SettingsState settingsData = GlobalStore.store.getState().settings;
-
-  if(settingsData.userId.isNotEmpty && settingsData.selectedOrganizationId.isNotEmpty){
-    await _requestUserFinance(ctx,settingsData.userId,settingsData.selectedOrganizationId);
-  }
 
   try {
+    ctx.dispatch(HomeActionCreator.loadingMap('profile', type: 'remove'));
+
     UserDao dao = _buildUserDao(ctx);
     SettingsState settingsData = GlobalStore.store.getState().settings;
 
@@ -186,14 +185,20 @@ Future<void> _profile(Context<HomeState> ctx) async {
     mLog('profile', res);
     UserState userData = UserState.fromMap(res['user'], type: 'remote');
 
+    String wechatExternalUsername = '';
+    if (res.containsKey('externalUserAccounts')) {
+      for (var extAcc in res['externalUserAccounts']) {
+        if (extAcc['service'] == 'wechat') {
+          wechatExternalUsername = extAcc['externalUsername'];
+          break;
+        }
+      }
+    }
+
     List<OrganizationsState> organizationsData = [];
     for (int index = 0; index < res['organizations'].length; index++) {
       organizationsData
           .add(OrganizationsState.fromMap(res['organizations'][index]));
-    }
-
-    if(settingsData.userId.isEmpty || settingsData.selectedOrganizationId.isEmpty){
-      await _requestUserFinance(ctx,userData.id,organizationsData.first.organizationID);
     }
 
     settingsData = GlobalStore.store.getState().settings;
@@ -205,8 +210,14 @@ Future<void> _profile(Context<HomeState> ctx) async {
     }
 
     SettingsDao.updateLocal(settingsData);
-    ctx.dispatch(HomeActionCreator.profile(userData, organizationsData));
+    ctx.dispatch(HomeActionCreator.profile(userData, wechatExternalUsername, organizationsData));
+    ctx.dispatch(HomeActionCreator.loadingMap('profile'));
+
+    if (settingsData.userId.isNotEmpty && organizationsData.first.organizationID.isNotEmpty) {
+      await _requestUserFinance(ctx, settingsData.userId, organizationsData.first.organizationID);
+    }
   } catch (e) {
+    ctx.dispatch(HomeActionCreator.loadingMap('profile'));
     ctx.dispatch(HomeActionCreator.onReLogin());
   }
 }
@@ -467,10 +478,14 @@ void _mapbox(Action action, Context<HomeState> ctx) async{
 void _onSettings(Action action, Context<HomeState> ctx) {
   var curState = ctx.state;
 
+  if (!curState.loadingMap.contains('profile'))
+    return;
+
   Map user = {
     'userId': curState.userId,
     'username': curState.username,
     'email': curState.email,
+    'wechatExternalUsername': curState.wechatExternalUsername,
     'isAdmin': curState.isAdmin
   };
 
@@ -485,12 +500,15 @@ void _onSettings(Action action, Context<HomeState> ctx) {
       'isDemo': curState.isDemo,
     },
   ).then((res) {
-    if (res != null) {
-      ctx.dispatch(HomeActionCreator.updateUsername(res));
+    if (res != null && res is Map) {
+      if (res['reloadProfile']) {
+        //update username and email in state locally
+        ctx.dispatch(HomeActionCreator.updateUsernameEmail(res));
+        //refresh profile
+        _profile(ctx);
+        ctx.dispatch(HomeActionCreator.onDataDHX());
+      }
     }
-
-    _profile(ctx);
-    ctx.dispatch(HomeActionCreator.onDataDHX());
   });
 }
 
@@ -613,6 +631,7 @@ void _requestLockedAmount_TotalRevenue (Context<HomeState> ctx) async {
         totalRevenueDHX += Tools.convertDouble(stake.dhxMined);
         list.add(StakeDHXItemState(StakeDHXItemEntity.fromStake(stake)));
       }
+      mPower += min(mPower, ctx.state.gatewaysTotal * 1000000);
       if (list.length > 0) list[list.length - 1].isLast = true;
 
       Map dataDHX = {lockedAmountLabel: lockedAmount,

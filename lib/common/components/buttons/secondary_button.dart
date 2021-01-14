@@ -28,6 +28,7 @@ class SecondaryButton extends StatelessWidget {
       ),
       // color: buttonSecondaryColor,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
             buttonTitle,
