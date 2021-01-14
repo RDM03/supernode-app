@@ -41,7 +41,7 @@ class AppImages {
   static const String minerBubble = 'assets/images/wallet/miner_bubble.png';
   static const String rocket = 'assets/images/wallet/rocket.png';
   static const String minerBoostGraph =
-      'assets/images/wallet/mining_boost_graph_n.png';
+      'assets/images/wallet/mining_boost_graph.png';
 
   //gateway
   static const String infoDownlinkPrice =

@@ -1,7 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
-
 import 'confirm_component/state.dart';
 import 'enter_securitycode_withdraw_component/state.dart';
 
@@ -15,7 +13,6 @@ class WithdrawState implements Cloneable<WithdrawState> {
   bool isEnabled = false;
   double balance = 0;
   double fee;
-  List<OrganizationsState> organizations = [];
   bool isDemo;
 
   DateTime confirmTime;
@@ -39,7 +36,6 @@ class WithdrawState implements Cloneable<WithdrawState> {
       ..fee = fee
       ..isEnabled = isEnabled
       ..listCtls = listCtls
-      ..organizations = organizations
       ..isDemo = isDemo
       ..confirmTime = confirmTime
       ..amountCtl = amountCtl
@@ -49,12 +45,10 @@ class WithdrawState implements Cloneable<WithdrawState> {
 
 WithdrawState initState(Map<String, dynamic> args) {
   double balance = args['balance'];
-  List<OrganizationsState> organizations = args['organizations'];
   bool isDemo = args['isDemo'] ?? false;
 
   return WithdrawState()
     ..balance = balance
-    ..organizations = organizations
     ..isDemo = isDemo;
 }
 

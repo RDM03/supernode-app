@@ -39,7 +39,7 @@ void _onUnstake(Action action, Context<DetailsStakeState> ctx) async {
 
 Future<void> _unstake(Context<DetailsStakeState> ctx, String otpCode) async {
   var curState = ctx.state;
-  final loading = await Loading.show(ctx.context);
+  final loading = Loading.show(ctx.context);
 
   final orgId = ctx.context.read<SupernodeCubit>().state.orgId;
 

@@ -115,7 +115,7 @@ void _register(Context<AddGatewayState> ctx, String serialNumber) async {
   GatewaysDao dao = _buildGatewaysDao(ctx);
 
   Map data = {"organizationId": orgId, "sn": serialNumber.trim()};
-  final loading = await Loading.show(ctx.context);
+  final loading = Loading.show(ctx.context);
   dao.register(data).then((res) {
     loading.hide();
     mLog('Gateway register', res);
@@ -138,7 +138,7 @@ void _registerReseller(
   GatewaysDao dao = _buildGatewaysDao(ctx);
 
   Map data = {"manufacturerNr": manufacturerNr.trim(), "organizationId": orgId};
-  final loading = await Loading.show(ctx.context);
+  final loading = Loading.show(ctx.context);
   dao.registerReseller(data).then((res) {
     loading.hide();
     mLog('Reseller register', res);

@@ -13,31 +13,27 @@ class DemoUserDao extends DemoDao implements UserDao {
   }
 
   @override
-  Future profile() {
-    return Future.value({
-      'user': {
-        'id': 'demo',
-        'username': username,
-        'sessionTTL': 0,
-        'isAdmin': false,
-        'isActive': true,
-        'isDemo': true,
-        'email': 'demo@email.net',
-        'note': 'User used for demo',
-      },
-      'organizations': [
-        {
-          'organizationID': 'demo-organization',
-          'organizationName': 'Demo organization',
-          'isAdmin': false,
-          'isDeviceAdmin': false,
-          'isGatewayAdmin': false,
-          'createdAt': '2020-07-09T15:23:33.162Z',
-          'updatedAt': '2020-07-09T15:23:33.162Z'
-        }
-      ],
-      'settings': {'disableAssignExistingUsers': true}
-    });
+  Future<ProfileResponse> profile() {
+    return Future.value(ProfileResponse(user: {
+      'id': 'demo',
+      'username': username,
+      'sessionTTL': 0,
+      'isAdmin': false,
+      'isActive': true,
+      'isDemo': true,
+      'email': 'demo@email.net',
+      'note': 'User used for demo',
+    }, organizations: [
+      UserOrganization(
+        createdAt: '2020-07-09T15:23:33.162Z',
+        upadatedAt: '2021-01-14T15:23:33.162Z',
+        isAdmin: false,
+        isDeviceAdmin: false,
+        isGatewayAdmin: false,
+        organizationID: 'demo-organization',
+        organizationName: 'Demo organization',
+      )
+    ]));
   }
 
   @override

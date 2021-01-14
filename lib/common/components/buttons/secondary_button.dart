@@ -5,12 +5,14 @@ import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
 class SecondaryButton extends StatelessWidget {
-  SecondaryButton(
-      {@required this.onTap,
-      @required this.buttonTitle,
-      this.color,
-      this.icon,
-      this.isSelected = false});
+  SecondaryButton({
+    @required this.onTap,
+    @required this.buttonTitle,
+    this.color,
+    this.icon,
+    this.isSelected = false,
+    Key key,
+  }) : super(key: key);
 
   final String buttonTitle;
   final Function onTap;

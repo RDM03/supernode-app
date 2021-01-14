@@ -1,5 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:supernodeapp/common/components/stake/stake_item.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/stake.dart';
 
 enum ListUnstakeAction {
   setStakes,

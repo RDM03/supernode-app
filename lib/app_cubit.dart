@@ -34,4 +34,5 @@ class AppCubit extends Cubit<AppState> {
   AppCubit({bool isDemo = false}) : super(AppState(isDemo: isDemo));
 
   void setDemo(bool val) => emit(state.copyWith(isDemo: val));
+  void setLoading(bool val) => emit(state.copyWith(showLoading: val));
 }

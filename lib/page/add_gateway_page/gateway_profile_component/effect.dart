@@ -12,8 +12,6 @@ import 'package:supernodeapp/common/repositories/supernode/dao/network_server.da
 import 'package:supernodeapp/common/repositories/supernode/dao/organization.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/log.dart';
-import 'package:supernodeapp/page/home_page/legacy/action.dart';
-import 'package:supernodeapp/page/settings_page/state.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -136,7 +134,7 @@ void _update(Action action, Context<GatewayProfileState> ctx) async {
   }
 
   if ((curState.formKey.currentState as FormState).validate()) {
-    final loading = await Loading.show(ctx.context);
+    final loading = Loading.show(ctx.context);
 
     GatewaysDao dao = _buildGatewaysDao(ctx);
 
@@ -197,7 +195,7 @@ Future<void> _getOrganizations(
 
 void _onNetworkServerList(
     Action action, Context<GatewayProfileState> ctx) async {
-  final loading = await Loading.show(ctx.context);
+  final loading = Loading.show(ctx.context);
 
   NetworkServerDao dao = _buildNetworkServerDao(ctx);
   String orgId = ctx.context.read<SupernodeCubit>().state.orgId;
@@ -226,7 +224,6 @@ void _onNetworkServerList(
     }
   }).catchError((err) {
     loading.hide();
-    ctx.dispatch(HomeActionCreator.loading(false));
     // tip(ctx.context,'NetworkServerDao list: $err');
   });
 }

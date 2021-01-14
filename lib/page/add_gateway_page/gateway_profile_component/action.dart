@@ -1,6 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
-import 'package:supernodeapp/page/home_page/legacy/gateway_component/item_state.dart';
 
 enum GatewayProfileAction {
   initState,
@@ -47,9 +46,9 @@ class GatewayProfileActionCreator {
     return const Action(GatewayProfileAction.selectIdType);
   }
 
-  static Action updateItem(GatewayItemState data) {
-    return Action(GatewayProfileAction.updateItem, payload: data);
-  }
+  // static Action updateItem(GatewayItemState data) {
+  //   return Action(GatewayProfileAction.updateItem, payload: data);
+  // }
 
   static Action update() {
     return const Action(GatewayProfileAction.update);

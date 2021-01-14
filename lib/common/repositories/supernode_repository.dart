@@ -156,7 +156,7 @@ class SupernodeRepository implements SupernodeDaoHolder {
   }
 
   Future<Map<String, Supernode>> loadSupernodes() {
-    return SuperNodeGithubDao(client).superNodes();
+    return SuperNodeGithubDao(_sharedClient()).superNodes();
   }
 
   SupernodeDaoHolder get _currentHolder => appCubit.state.isDemo ? demo : main;

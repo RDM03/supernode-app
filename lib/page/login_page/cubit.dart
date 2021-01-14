@@ -4,6 +4,7 @@ import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
+import 'package:supernodeapp/common/wrap.dart';
 import 'package:supernodeapp/page/login_page/state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
@@ -38,6 +39,7 @@ class LoginCubit extends Cubit<LoginState> {
       if (byRegion[s.region] == null) byRegion[s.region] = [];
       byRegion[s.region].add(s);
     }
+    emit(state.copyWith(supernodes: Wrap(byRegion)));
   }
 
   Future<void> login(String username, String password) async {
@@ -57,6 +59,11 @@ class LoginCubit extends Cubit<LoginState> {
         userId: res.parsedJwt.userId,
         node: state.selectedSuperNode,
       ));
+
+      final profile = await dao.main.user.profile();
+      supernodeCubit.setOrganizationId(
+        profile.organizations.first.organizationID,
+      );
 
       setResult(LoginResult.home);
     } finally {

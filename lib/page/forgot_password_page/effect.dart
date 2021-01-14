@@ -31,7 +31,7 @@ UserDao _buildUserDao(Context<ForgotPasswordState> ctx) {
 void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
   var curState = ctx.state;
   if ((curState.emailFormKey.currentState as FormState).validate()) {
-    final loading = await Loading.show(ctx.context);
+    final loading = Loading.show(ctx.context);
 
     UserDao dao = _buildUserDao(ctx);
 
@@ -97,7 +97,7 @@ void _onVerificationContinue(
 
   if ((curState.codesFormKey.currentState as FormState).validate()) {
     String confirmNewPwd = curState.confirmNewPwdCtl.text;
-    final loading = await Loading.show(ctx.context);
+    final loading = Loading.show(ctx.context);
 
     List<String> codes =
         curState.codeListCtls.map((code) => code.text).toList();

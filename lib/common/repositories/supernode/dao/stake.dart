@@ -1,7 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:supernodeapp/common/repositories/shared/clients/client.dart';
 import 'package:supernodeapp/common/utils/url.dart';
 
 import '../../shared/dao/dao.dart';
+
+import 'stake.model.dart';
+export 'stake.model.dart';
 
 class StakeApi {
   static const String stake = '/api/staking/{orgId}/stake';
@@ -25,8 +29,21 @@ class StakeDao extends HttpDao {
         .then((res) => res);
   }
 
-  Future<dynamic> history(Map data) {
-    return get(url: Api.url(StakeApi.history, data['orgId']), data: data);
+  Future<List<StakeHistoryEntity>> history({
+    @required String orgId,
+    String currency,
+    DateTime from,
+    DateTime till,
+  }) {
+    return get(url: Api.url(StakeApi.history, orgId), data: {
+      'currency': currency,
+      'from': from?.toUtc()?.toIso8601String(),
+      'till': till?.toUtc()?.toIso8601String(),
+    }).then(
+      (value) => (value['stakingHist'] as List)
+          .map((e) => StakeHistoryEntity.fromMap(e))
+          .toList(),
+    );
   }
 
   Future<dynamic> activestakes(Map data) {

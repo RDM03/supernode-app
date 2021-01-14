@@ -11,7 +11,6 @@ import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
-import 'package:supernodeapp/page/settings_page/state.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -53,7 +52,7 @@ void _resultPage(Context<PrepareLockState> ctx, String type, dynamic res) {
 
 Future<void> _stake(Context<PrepareLockState> ctx) async {
   var curState = ctx.state;
-  final loading = await Loading.show(ctx.context);
+  final loading = Loading.show(ctx.context);
 
   String orgId = ctx.context.read<SupernodeCubit>().state.orgId;
   String amount = curState.amountCtl.text;

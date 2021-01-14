@@ -44,14 +44,22 @@ Instead use `[...list, newEntity]` and `list.where((t) => t != entityToRemove).t
 * DAOs changes - no static instances, no sql db (??), no singletons
   * Remove Isolate Dao (from my personal experience json decoding in isolates leads to bugs very often)
   * Remove Settings Dao 
+
+-----
+
 * No email suggest feature on login screen, but we will have multiuser soon.
+* No error tips
+* TransactionsHistory wasn't implemented yet?
+* No time filter for stakes/tx
+
+HomePage is moved to BLOC
+LoginPage is moved to BLOC
+
+No static singletones for global states, it's rewrited to BLOC and it's ready to DHX implementation
 
 We store user password in shared pref
 
-Comments related to RETHINK are marked with RETHINK. prefix (e.g. RETHINK.TODO).
-
-{
-      await PermissionUtil.getLocationPermission();
+Comments related to update are marked with RETHINK. prefix (e.g. RETHINK.TODO).
 
 ----------------------------------------------------
 

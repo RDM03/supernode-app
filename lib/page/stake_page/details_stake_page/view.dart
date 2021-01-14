@@ -174,7 +174,7 @@ Widget buildView(
           Align(
             alignment: Alignment.centerRight,
             child: Text(
-              (double.parse(state.stake.amount) + state.stake.revenue)
+              (double.parse(state.stake.amount) + (state.stake.revenue ?? 0))
                       .toStringAsFixed(2) +
                   ' MXC',
               style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),

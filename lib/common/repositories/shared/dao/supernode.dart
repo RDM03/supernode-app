@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:supernodeapp/common/repositories/shared/clients/client.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/dao.dart';
 
@@ -14,7 +16,7 @@ class SuperNodeGithubDao extends HttpDao {
 
   Future<Map<String, Supernode>> superNodes() {
     return get(url: SupernodeGithubApi.superNodes).then(
-      (v) => Map<String, dynamic>.from(v).map(
+      (v) => Map<String, dynamic>.from(jsonDecode(v)).map(
         (key, value) => MapEntry(
           key,
           Supernode.fromMap({

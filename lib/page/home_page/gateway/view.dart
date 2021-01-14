@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,14 +16,14 @@ import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
-import 'package:supernodeapp/page/home_page/gateway/cubit.dart';
-import 'package:supernodeapp/page/home_page/user/cubit.dart';
-import 'package:supernodeapp/page/home_page/user/state.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
 import '../shared.dart';
-import 'state.dart';
 
 class GatewayTab extends StatelessWidget {
   @override
@@ -45,7 +44,8 @@ class GatewayTab extends StatelessWidget {
           children: [
             BlocBuilder<GatewayCubit, GatewayState>(
               buildWhen: (a, b) => a.gatewaysTotal != b.gatewaysTotal,
-              builder: (ctx, gatewayState) => BlocBuilder<UserCubit, UserState>(
+              builder: (ctx, gatewayState) =>
+                  BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
                 buildWhen: (a, b) =>
                     a.gatewaysRevenueUsd != b.gatewaysRevenueUsd ||
                     a.gatewaysRevenue != b.gatewaysRevenue,
@@ -61,7 +61,7 @@ class GatewayTab extends StatelessWidget {
                       //RETHINK.TODO
                     },
                     titleText: FlutterI18n.translate(context, 'total_gateways'),
-                    subtitleText: '${gatewayState.gatewaysTotal}',
+                    subtitleText: '${gatewayState.gatewaysTotal.value}',
                     trailTitle: FlutterI18n.translate(context, 'profit'),
                     trailLoading: state.gatewaysRevenue.loading,
                     trailSubtitle:

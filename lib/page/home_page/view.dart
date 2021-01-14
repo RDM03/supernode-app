@@ -6,13 +6,17 @@ import 'package:supernodeapp/common/repositories/cache_repository.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/wallet/cubit.dart';
 import 'package:supernodeapp/page/home_page/device/view.dart';
-import 'package:supernodeapp/page/home_page/gateway/cubit.dart';
+import 'package:supernodeapp/page/home_page/gateway/view.dart';
+import 'package:supernodeapp/page/home_page/wallet/view.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 import 'cubit.dart';
 import 'state.dart';
-import 'user/cubit.dart';
+import 'bloc/supernode/user/cubit.dart';
 import 'user/view.dart';
 
 class HomePage extends StatelessWidget {
@@ -28,8 +32,25 @@ class HomePage extends StatelessWidget {
           ),
         ),
         BlocProvider(
-          create: (ctx) => UserCubit(
+          create: (ctx) => SupernodeUserCubit(
             user: ctx.read<SupernodeCubit>().state.user,
+            orgId: ctx.read<SupernodeCubit>().state.orgId,
+            supernodeRepository: ctx.read<SupernodeRepository>(),
+            cacheRepository: ctx.read<CacheRepository>(),
+            homeCubit: ctx.read<HomeCubit>(),
+          )..initState(),
+        ),
+        BlocProvider(
+          create: (ctx) => SupernodeDhxCubit(
+            user: ctx.read<SupernodeCubit>().state.user,
+            orgId: ctx.read<SupernodeCubit>().state.orgId,
+            supernodeRepository: ctx.read<SupernodeRepository>(),
+            cacheRepository: ctx.read<CacheRepository>(),
+            homeCubit: ctx.read<HomeCubit>(),
+          )..initState(),
+        ),
+        BlocProvider(
+          create: (ctx) => WalletCubit(
             orgId: ctx.read<SupernodeCubit>().state.orgId,
             supernodeRepository: ctx.read<SupernodeRepository>(),
             cacheRepository: ctx.read<CacheRepository>(),
@@ -58,8 +79,12 @@ class _HomePageContent extends StatelessWidget {
           switch (s.tabIndex) {
             case 0:
               return UserTab();
+            case 1:
+              return GatewayTab();
             case 2:
               return DeviceTab();
+            case 3:
+              return WalletTab();
             default:
               throw UnimplementedError('Unknown tab ${s.tabIndex}');
           }

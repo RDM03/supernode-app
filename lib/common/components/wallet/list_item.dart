@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/common/daos/time_dao.dart';
+import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -30,12 +30,12 @@ Widget listItem({
   Function onTap,
 }) {
   final subtitle = revenue != null
-      ? '${Tools.priceFormat(revenue, range: 2)} MXC ${TimeDao.getDatetime(datetime)}'
-      : TimeDao.getDatetime(datetime);
+      ? '${Tools.priceFormat(revenue, range: 2)} MXC ${TimeUtil.getDatetime(datetime)}'
+      : TimeUtil.getDatetime(datetime);
   amountColor ??=
       amount <= 0 || type.contains('STAKE') ? withdrawColor : depositColor;
   amountText ??=
-      secondDateTime != null ? TimeDao.getDatetime(secondDateTime) : null;
+      secondDateTime != null ? TimeUtil.getDatetime(secondDateTime) : null;
   if (!type.contains('SEARCH') &&
       !type.contains('STAKE') &&
       !type.contains('UNSTAKE')) {

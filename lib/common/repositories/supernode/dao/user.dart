@@ -64,10 +64,10 @@ class UserDao extends HttpDao {
     // .catchError((err) => !isMock ? err : Mock.login);
   }
 
-  Future<dynamic> profile() {
+  Future<ProfileResponse> profile() {
     return get(
       url: UserApi.profile,
-    );
+    ).then((value) => ProfileResponse.fromMap(value));
   }
 
   Future<dynamic> update(Map data) {

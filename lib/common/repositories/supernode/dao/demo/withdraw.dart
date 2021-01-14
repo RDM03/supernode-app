@@ -8,7 +8,7 @@ class DemoWithdrawDao extends DemoDao implements WithdrawDao {
   }
 
   @override
-  Future history(Map data) {
+  Future<List<WithdrawHistoryEntity>> history(Map data) {
     return Future.value({
       "count": "string",
       "withdrawHistory": [
@@ -212,7 +212,9 @@ class DemoWithdrawDao extends DemoDao implements WithdrawDao {
           "withdrawFee": "20"
         }
       ]
-    });
+    }).then((value) => (value['withdrawHistory'] as List)
+        .map((e) => WithdrawHistoryEntity.fromMap(e))
+        .toList());
   }
 
   @override

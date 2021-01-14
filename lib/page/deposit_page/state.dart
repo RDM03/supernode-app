@@ -1,9 +1,9 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 
 class DepositState implements Cloneable<DepositState> {
   String userId = '';
-  List<OrganizationsState> organizations = [];
+  String orgId = '';
   String address = '';
   bool isDemo;
 
@@ -11,19 +11,19 @@ class DepositState implements Cloneable<DepositState> {
   DepositState clone() {
     return DepositState()
       ..userId = userId
-      ..organizations = organizations
+      ..orgId = orgId
       ..address = address
       ..isDemo = isDemo;
   }
 }
 
 DepositState initState(Map<String, dynamic> args) {
-  String userId = args['userId'];
-  List<OrganizationsState> organizations = args['organizations'];
+  String userId = args['userId'].toString();
+  String orgId = args['orgId'];
   bool isDemo = args['isDemo'] ?? false;
 
   return DepositState()
     ..userId = userId
-    ..organizations = organizations
+    ..orgId = orgId
     ..isDemo = isDemo;
 }

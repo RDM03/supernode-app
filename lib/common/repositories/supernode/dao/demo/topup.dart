@@ -1,3 +1,4 @@
+import '../topup.model.dart';
 import 'demo.dart';
 import '../topup.dart';
 
@@ -8,7 +9,7 @@ class DemoTopupDao extends DemoDao implements TopupDao {
   }
 
   @override
-  Future history(Map data) {
+  Future<List<TopupEntity>> history(Map data) {
     return Future.value({
       "count": "100",
       "topupHistory": [
@@ -37,6 +38,8 @@ class DemoTopupDao extends DemoDao implements TopupDao {
           "amount": "20"
         }
       ]
-    });
+    }).then((value) => (value['topupHistory'] as List)
+        .map((e) => TopupEntity.fromMap(e))
+        .toList());
   }
 }

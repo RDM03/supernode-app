@@ -6,7 +6,6 @@ import 'package:supernodeapp/common/repositories/supernode/dao/dhx.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/page/lock_page/join_council/action.dart';
 import 'package:supernodeapp/page/lock_page/join_council/view.dart';
-import 'package:supernodeapp/page/settings_page/state.dart';
 import 'state.dart';
 
 Effect<JoinCouncilState> buildEffect() {

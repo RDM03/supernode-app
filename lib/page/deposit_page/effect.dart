@@ -25,7 +25,7 @@ _buildTopupDao(Context<DepositState> ctx) {
 void _initState(Action action, Context<DepositState> ctx) async {
   String orgId = ctx.context.read<SupernodeCubit>().state.orgId;
   if (orgId == null || orgId.isEmpty) {
-    orgId = ctx.state.organizations.first.organizationID;
+    orgId = ctx.state.orgId;
   }
 
   Future.delayed(Duration(seconds: 3), () async {

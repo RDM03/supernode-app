@@ -27,8 +27,9 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       child: _LoginPageContent(),
-      create: (c) => LoginCubit(
+      create: (context) => LoginCubit(
         appCubit: context.read<AppCubit>(),
+        supernodeCubit: context.read<SupernodeCubit>(),
         dao: context.read<SupernodeRepository>(),
       )..initState(),
     );
@@ -105,7 +106,7 @@ class _LoginPageContentState extends State<_LoginPageContent> {
           listener: (ctx, state) async {
             loading?.hide();
             if (state.showLoading) {
-              loading = await Loading.show(ctx);
+              loading = Loading.show(ctx);
             }
           },
         ),
@@ -114,7 +115,8 @@ class _LoginPageContentState extends State<_LoginPageContent> {
           listener: (ctx, state) async {
             switch (state.result) {
               case LoginResult.home:
-                Navigator.of(context).push(route((c) => HomePage()));
+                Navigator.of(context)
+                    .pushAndRemoveUntil(route((c) => HomePage()), (_) => false);
                 break;
               case LoginResult.resetPassword:
                 Navigator.of(context).pushNamed("forgot_password_page");
@@ -374,104 +376,105 @@ class _LoginPageContentState extends State<_LoginPageContent> {
                 },
               ),
               BlocBuilder<LoginCubit, LoginState>(
-                  buildWhen: (a, b) =>
-                      a.supernodeListVisible != b.supernodeListVisible ||
-                      a.showTestNodes != b.showTestNodes ||
-                      a.supernodes != b.supernodes,
-                  builder: (context, state) {
-                    return AnimatedPositioned(
-                      duration: Duration(milliseconds: 300),
-                      left: state.supernodeListVisible
-                          ? 0
-                          : -ScreenUtil.instance.width,
-                      child: Container(
-                        height: ScreenUtil.instance.height,
-                        width: s(304),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(s(10)),
-                            bottomRight: Radius.circular(s(10)),
-                          ),
-                        ),
-                        child: SingleChildScrollView(
-                          key: Key('scrollMenu'),
-                          child: Column(children: <Widget>[
-                            SizedBox(
-                              height: s(114),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      FlutterI18n.translate(
-                                          context, 'super_node'),
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: s(16),
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    right: s(15),
-                                    child: GestureDetector(
-                                      onTap: () => context
-                                          .read<LoginCubit>()
-                                          .setSuperNodeListVisible(false),
-                                      child: Icon(Icons.close, size: 24),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            if (!state.supernodes.loading)
-                              Column(
-                                children: <Widget>[
-                                  for (var key
-                                      in state.supernodes.value?.keys ?? [])
-                                    if (key != "Test" || state.showTestNodes)
-                                      ExpansionSuperNodesTile(
-                                        title: Text(
-                                            FlutterI18n.translate(context, key),
-                                            style:
-                                                TextStyle(color: Colors.black)),
-                                        initiallyExpanded: true,
-                                        backgroundColor: darkBackground,
-                                        children: <Widget>[
-                                          for (Supernode item
-                                              in state.supernodes.value[key])
-                                            GestureDetector(
-                                              child: ListTile(
-                                                title: Container(
-                                                  key: Key(item.name),
-                                                  alignment: Alignment.center,
-                                                  height: s(65),
-                                                  child: CachedNetworkImage(
-                                                    imageUrl: "${item.logo}",
-                                                    placeholder: (a, b) =>
-                                                        Image.asset(
-                                                      AppImages.placeholder,
-                                                      height: s(30),
-                                                    ),
-                                                    height: s(30),
-                                                  ),
-                                                ),
-                                              ),
-                                              onTap: () {
-                                                onSupernodeSelect(item);
-                                              },
-                                            ),
-                                        ],
-                                      ),
-                                ],
-                              ),
-                          ]),
+                buildWhen: (a, b) =>
+                    a.supernodeListVisible != b.supernodeListVisible ||
+                    a.showTestNodes != b.showTestNodes ||
+                    a.supernodes != b.supernodes,
+                builder: (context, state) {
+                  return AnimatedPositioned(
+                    duration: Duration(milliseconds: 300),
+                    left: state.supernodeListVisible
+                        ? 0
+                        : -ScreenUtil.instance.width,
+                    child: Container(
+                      height: ScreenUtil.instance.height,
+                      width: s(304),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(s(10)),
+                          bottomRight: Radius.circular(s(10)),
                         ),
                       ),
-                    );
-                  })
+                      child: SingleChildScrollView(
+                        key: Key('scrollMenu'),
+                        child: Column(children: <Widget>[
+                          SizedBox(
+                            height: s(114),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: <Widget>[
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    FlutterI18n.translate(
+                                        context, 'super_node'),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: s(16),
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  right: s(15),
+                                  child: GestureDetector(
+                                    onTap: () => context
+                                        .read<LoginCubit>()
+                                        .setSuperNodeListVisible(false),
+                                    child: Icon(Icons.close, size: 24),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          if (!state.supernodes.loading)
+                            Column(
+                              children: <Widget>[
+                                for (var key
+                                    in state.supernodes.value?.keys ?? [])
+                                  if (key != "Test" || state.showTestNodes)
+                                    ExpansionSuperNodesTile(
+                                      title: Text(
+                                        FlutterI18n.translate(context, key),
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                      initiallyExpanded: true,
+                                      backgroundColor: darkBackground,
+                                      children: <Widget>[
+                                        for (Supernode item
+                                            in state.supernodes.value[key])
+                                          GestureDetector(
+                                            child: ListTile(
+                                              title: Container(
+                                                key: Key(item.name),
+                                                alignment: Alignment.center,
+                                                height: s(65),
+                                                child: CachedNetworkImage(
+                                                  imageUrl: "${item.logo}",
+                                                  placeholder: (a, b) =>
+                                                      Image.asset(
+                                                    AppImages.placeholder,
+                                                    height: s(30),
+                                                  ),
+                                                  height: s(30),
+                                                ),
+                                              ),
+                                            ),
+                                            onTap: () {
+                                              onSupernodeSelect(item);
+                                            },
+                                          ),
+                                      ],
+                                    ),
+                              ],
+                            ),
+                        ]),
+                      ),
+                    ),
+                  );
+                },
+              )
             ],
           ),
           onTap: () {

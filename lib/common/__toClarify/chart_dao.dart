@@ -1,5 +1,5 @@
-import 'package:supernodeapp/common/daos/time_dao.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 
 class Mining {
@@ -80,7 +80,7 @@ class GatewayFrame {
         id: 'Transmitted',
         colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
         domainFn: (GatewayFrame frame, _) =>
-            TimeDao.getDatetime(frame.datetime, type: 'day'),
+            TimeUtil.getDatetime(frame.datetime, type: 'day'),
         measureFn: (GatewayFrame frame, _) => frame.txData,
         data: transmittedData,
       ),
@@ -88,7 +88,7 @@ class GatewayFrame {
         id: 'Received',
         colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
         domainFn: (GatewayFrame frame, _) =>
-            TimeDao.getDatetime(frame.datetime, type: 'day'),
+            TimeUtil.getDatetime(frame.datetime, type: 'day'),
         measureFn: (GatewayFrame frame, _) => frame.txData,
         data: reveivedData,
       )..setAttribute(charts.measureAxisIdKey, secondaryMeasureAxisId)

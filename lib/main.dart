@@ -2,14 +2,19 @@ import 'dart:io';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action, Page;
+import 'package:flutter/material.dart' as m show Page;
 import 'package:flutter/services.dart';
 import 'package:flutter_appcenter/flutter_appcenter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/repositories/cache_repository.dart';
+import 'package:supernodeapp/common/repositories/coingecko_repository.dart';
 import 'package:supernodeapp/common/utils/no_glow_behavior.dart';
+import 'package:supernodeapp/common/utils/screen_util.dart';
+import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/repositories/storage_repository.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
@@ -22,7 +27,7 @@ import 'package:supernodeapp/page/calculator_list_page/page.dart';
 import 'package:supernodeapp/page/calculator_page/page.dart';
 import 'package:supernodeapp/page/connectivity_lost_page/page.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
-import 'package:supernodeapp/page/home_page/legacy/page.dart';
+import 'package:supernodeapp/page/home_page/view.dart';
 import 'package:supernodeapp/page/list_councils/page.dart';
 import 'package:supernodeapp/page/login_page/view.dart';
 import 'package:supernodeapp/page/mining_simulator_page/page.dart';
@@ -49,7 +54,6 @@ import 'page/set_2fa_page/page.dart';
 import 'page/confirm_page/page.dart';
 import 'page/deposit_page/page.dart';
 import 'page/forgot_password_page/page.dart';
-import 'page/settings_page/page.dart';
 import 'page/stake_page/page.dart';
 import 'page/withdraw_page/page.dart';
 
@@ -64,11 +68,12 @@ List<BlocListener> listeners() => [
         listenWhen: (a, b) => a.user != b.user,
         listener: (context, state) {
           context.read<StorageRepository>().setSupernodeUser(
-              jwt: state.user?.token,
-              userId: state.user?.userId,
-              username: state.user?.username,
-              password: state.user?.password,
-              supernode: state.user?.node);
+                jwt: state.user?.token,
+                userId: state.user?.userId,
+                username: state.user?.username,
+                password: state.user?.password,
+                supernode: state.user?.node,
+              );
         },
       ),
       BlocListener<AppCubit, AppState>(
@@ -89,7 +94,7 @@ Future<void> main() async {
   final cacheRepository = CacheRepository();
   await cacheRepository.init();
 
-  final appCubit = AppCubit(isDemo: storageRepository.isDemo());
+  final appCubit = AppCubit(isDemo: storageRepository.isDemo() ?? false);
 
   final supernodeUser = storageRepository.supernodeUser();
   final supernodeCubit = SupernodeCubit(
@@ -120,6 +125,9 @@ Future<void> main() async {
           RepositoryProvider<SupernodeRepository>(
             create: (ctx) => SupernodeRepository(
                 appCubit: appCubit, supernodeCubit: supernodeCubit),
+          ),
+          RepositoryProvider<ExchangeRepository>(
+            create: (ctx) => ExchangeRepository(),
           ),
           RepositoryProvider.value(
             value: storageRepository,
@@ -175,7 +183,6 @@ class MxcApp extends StatelessWidget {
       'withdraw_page': WithdrawPage(),
       'confirm_page': ConfirmPage(),
       'stake_page': StakePage(),
-      'settings_page': SettingsPage(),
       'change_password_page': ChangePasswordPage(),
       'set_2fa_page': Set2FAPage(),
       'get_2fa_page': Get2FAPage(),
@@ -239,10 +246,55 @@ class MxcApp extends StatelessWidget {
           const Locale.fromSubtags(languageCode: 'tl'), // Philippines
         ],
         theme: appTheme,
-        home: AppPage(
-          child: context.read<SupernodeCubit>().state.user == null
-              ? LoginPage()
-              : HomePage(),
+        home: Builder(
+          builder: (ctx) {
+            ScreenUtil.instance
+                .init(Config.BLUE_PRINT_WIDTH, Config.BLUE_PRINT_HEIGHT, ctx);
+            return BlocListener<AppCubit, AppState>(
+              listener: (context, state) {
+                if (!state.showLoading && Navigator.of(context).canPop()) {
+                  Navigator.of(context).pop();
+                } else {
+                  Navigator.of(context).pushAndRemoveUntil(
+                    PageRouteBuilder(
+                      opaque: false,
+                      pageBuilder: (_, __, ___) => Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: WillPopScope(
+                          onWillPop: () async => false,
+                          child: GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            child: loadingView(),
+                          ),
+                        ),
+                      ),
+                    ),
+                    (r) => r.isFirst,
+                  );
+                }
+              },
+              child: Navigator(
+                onPopPage: (route, result) => route.didPop(result),
+                onGenerateRoute: (RouteSettings settings) {
+                  return MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return routes.buildPage(
+                          settings.name, settings.arguments);
+                    },
+                    settings: settings,
+                  );
+                },
+                pages: [
+                  MaterialPage(
+                    child: context.read<SupernodeCubit>().state.user == null
+                        ? LoginPage()
+                        : HomePage(),
+                  ),
+                ],
+              ),
+            );
+          },
         ),
         builder: (context, child) {
           if (Platform.isAndroid) {
@@ -252,14 +304,6 @@ class MxcApp extends StatelessWidget {
             );
           }
           return child;
-        },
-        onGenerateRoute: (RouteSettings settings) {
-          return MaterialPageRoute(
-            builder: (BuildContext context) {
-              return routes.buildPage(settings.name, settings.arguments);
-            },
-            settings: settings,
-          );
         },
       ),
     );

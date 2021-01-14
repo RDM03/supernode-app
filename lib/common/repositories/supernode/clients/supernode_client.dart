@@ -17,8 +17,8 @@ class SupernodeHttpClient extends SharedHttpClient implements HttpClient {
     this.getSupernode,
     Dio dio,
   }) : super(dio: dio) {
-    dio.interceptors.add(headersInterceptor);
-    dio.interceptors.add(errorInterceptor);
+    this.dio.interceptors.add(headersInterceptor);
+    this.dio.interceptors.add(errorInterceptor);
   }
 
   @override

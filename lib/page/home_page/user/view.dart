@@ -17,12 +17,14 @@ import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/sys.dart';
-import 'package:supernodeapp/page/home_page/gateway/cubit.dart';
-import 'package:supernodeapp/page/home_page/gateway/state.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
-import 'cubit.dart';
-import 'state.dart';
+
+import '../shared.dart';
 
 class UserTab extends StatelessWidget {
   isOrgIDloaded() => false;
@@ -31,7 +33,7 @@ class UserTab extends StatelessWidget {
     return PanelFrame(
       child: Column(
         children: [
-          BlocBuilder<UserCubit, UserState>(
+          BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
             buildWhen: (a, b) => a.username != b.username,
             builder: (ctx, state) => ProfileRow(
               keyTitle: ValueKey('homeProfile'),
@@ -50,20 +52,41 @@ class UserTab extends StatelessWidget {
                     FontAwesomeIcons.calculator,
                     color: Colors.black,
                   ),
-                  onPressed: () => Navigator.of(context)
-                      .pushNamed('calculator_page', arguments: {
-                    'balance': context.read<UserState>().balance,
-                    'staking': context.read<UserState>().stakedAmount,
-                    'mining': context.read<UserState>().gatewaysRevenue.value +
-                        context.read<UserState>().devicesRevenue.value,
-                    'isDemo': context.read<AppState>().isDemo,
-                  }),
+                  onPressed: () {
+                    final gatewaysRevenue = context
+                            .read<SupernodeUserCubit>()
+                            .state
+                            .gatewaysRevenue
+                            .value ??
+                        0;
+                    final mining = context
+                            .read<SupernodeUserCubit>()
+                            .state
+                            .devicesRevenue
+                            .value ??
+                        0;
+                    return Navigator.of(context)
+                        .pushNamed('calculator_page', arguments: {
+                      'balance': context
+                          .read<SupernodeUserCubit>()
+                          .state
+                          .balance
+                          .value,
+                      'staking': context
+                          .read<SupernodeUserCubit>()
+                          .state
+                          .stakedAmount
+                          .value,
+                      'mining': gatewaysRevenue + mining,
+                      'isDemo': context.read<AppCubit>().state.isDemo,
+                    });
+                  },
                   iconSize: 20,
                 ),
               ),
             ),
           ),
-          BlocBuilder<UserCubit, UserState>(
+          BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
             buildWhen: (a, b) => a.balance != b.balance,
             builder: (ctx, state) => TitleDetailRow(
               loading: state.balance.loading,
@@ -71,7 +94,7 @@ class UserTab extends StatelessWidget {
               value: Tools.priceFormat(state.balance.value),
             ),
           ),
-          BlocBuilder<UserCubit, UserState>(
+          BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
             buildWhen: (a, b) => a.stakedAmount != b.stakedAmount,
             builder: (ctx, state) => TitleDetailRow(
               loading: state.stakedAmount.loading,
@@ -79,10 +102,10 @@ class UserTab extends StatelessWidget {
               value: Tools.priceFormat(state.stakedAmount.value),
             ),
           ),
-          BlocBuilder<UserCubit, UserState>(
+          BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
             buildWhen: (a, b) => a.lockedAmount != b.lockedAmount,
             builder: (ctx, state) =>
-                state.lockedAmount != null && state.lockedAmount.value > 0
+                state.lockedAmount.value != null && state.lockedAmount.value > 0
                     ? TitleDetailRow(
                         loading: state.lockedAmount.loading,
                         name: FlutterI18n.translate(context, 'staked_amount'),
@@ -90,7 +113,7 @@ class UserTab extends StatelessWidget {
                       )
                     : Container(),
           ),
-          BlocBuilder<UserCubit, UserState>(
+          BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
             buildWhen: (a, b) => a.totalRevenue != b.totalRevenue,
             builder: (ctx, state) => TitleDetailRow(
               loading: state.totalRevenue.loading,
@@ -104,24 +127,31 @@ class UserTab extends StatelessWidget {
               children: <Widget>[
                 Spacer(),
                 PrimaryButton(
-                  key: Key(isOrgIDloaded()
-                      ? 'depositButtonDashboard'
-                      : 'depositButtonLoading'),
-                  buttonTitle: FlutterI18n.translate(
-                      context, isOrgIDloaded() ? 'deposit' : 'loading'),
-                  onTap: () => null, // RETHINK.TODO
+                  key: Key('depositButtonDashboard'),
+                  buttonTitle: FlutterI18n.translate(context, 'deposit'),
+                  onTap: () => openSupernodeDeposit(context),
                 ),
                 Spacer(),
-                PrimaryButton(
-                  key: Key('withdrawButtonDashboard'),
-                  buttonTitle: FlutterI18n.translate(context, 'withdraw'),
-                  onTap: () => null, // RETHINK.TODO
+                BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
+                  buildWhen: (a, b) => a.balance != b.balance,
+                  builder: (ctx, state) => PrimaryButton(
+                    key: Key('withdrawButtonDashboard'),
+                    buttonTitle: FlutterI18n.translate(context, 'withdraw'),
+                    onTap: state.balance.loading
+                        ? null
+                        : () => openSupernodeWithdraw(context),
+                  ),
                 ),
                 Spacer(),
-                PrimaryButton(
-                  key: Key('stakeButtonDashboard'),
-                  buttonTitle: FlutterI18n.translate(context, 'stake'),
-                  onTap: () => null, // RETHINK.TODO
+                BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
+                  buildWhen: (a, b) => a.balance != b.balance,
+                  builder: (ctx, state) => PrimaryButton(
+                    key: Key('stakeButtonDashboard'),
+                    buttonTitle: FlutterI18n.translate(context, 'stake'),
+                    onTap: state.balance.loading
+                        ? null
+                        : () => openSupernodeStake(context),
+                  ),
                 ),
                 Spacer(),
               ],
@@ -162,13 +192,14 @@ class UserTab extends StatelessWidget {
       ),
       body: RefreshIndicator(
         displacement: 10,
-        onRefresh: () => context.read<UserCubit>().refresh(),
+        onRefresh: () => context.read<SupernodeUserCubit>().refresh(),
         child: PageBody(
           children: [
             mainPanel(context),
             BlocBuilder<GatewayCubit, GatewayState>(
               buildWhen: (a, b) => a.gatewaysTotal != b.gatewaysTotal,
-              builder: (ctx, gatewayState) => BlocBuilder<UserCubit, UserState>(
+              builder: (ctx, gatewayState) =>
+                  BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
                 buildWhen: (a, b) =>
                     a.gatewaysRevenueUsd != b.gatewaysRevenueUsd ||
                     a.gatewaysRevenue != b.gatewaysRevenue,
@@ -186,7 +217,7 @@ class UserTab extends StatelessWidget {
                 ),
               ),
             ),
-            BlocBuilder<UserCubit, UserState>(
+            BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
               buildWhen: (a, b) =>
                   a.devicesRevenueUsd != b.devicesRevenueUsd ||
                   a.devicesRevenue != b.devicesRevenue ||
@@ -204,29 +235,29 @@ class UserTab extends StatelessWidget {
                 ),
               ),
             ),
-            BlocBuilder<UserCubit, UserState>(
-              buildWhen: (a, b) => a.geojsonList != b.geojsonList,
+            BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
+              buildWhen: (a, b) =>
+                  a.geojsonList != b.geojsonList ||
+                  a.locationPermissionsGranted != b.locationPermissionsGranted,
               builder: (ctx, state) => PanelFrame(
                 key: ValueKey('homeMapbox'),
                 height: 263,
-                child: FutureBuilder(
-                  builder: (context, builder) {
-                    return FlutterMapboxNative(
-                      mapStyle: Sys.mapTileStyle,
-                      center: CenterPosition(
-                        target: LatLng(0, 0),
-                        zoom: 0,
-                        animated: true,
-                      ),
-                      // minimumZoomLevel: 1,
-                      maximumZoomLevel: 12,
-                      clusters: state.geojsonList,
-                      myLocationEnabled: true,
-                      myLocationTrackingMode: MyLocationTrackingMode.None,
-                      onFullScreenTap: () => null, // RETHINK.TODO,
-                    );
-                  },
-                ),
+                child: state.locationPermissionsGranted
+                    ? FlutterMapboxNative(
+                        mapStyle: Sys.mapTileStyle,
+                        center: CenterPosition(
+                          target: LatLng(0, 0),
+                          zoom: 0,
+                          animated: true,
+                        ),
+                        // minimumZoomLevel: 1,
+                        maximumZoomLevel: 12,
+                        clusters: state.geojsonList ?? [],
+                        myLocationEnabled: true,
+                        myLocationTrackingMode: MyLocationTrackingMode.None,
+                        onFullScreenTap: () => null, // RETHINK.TODO,
+                      )
+                    : Container(),
               ),
             ),
             smallColumnSpacer(),

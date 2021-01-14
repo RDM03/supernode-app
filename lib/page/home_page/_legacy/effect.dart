@@ -92,7 +92,7 @@ void _relogin(Action action, Context<HomeState> ctx) async {
     Dao.baseUrl = apiRoot;
 
     UserDao dao = _buildUserDao(ctx);
-    loading = await Loading.show(ctx.context);
+    loading = Loading.show(ctx.context);
     var res = await dao.login(data);
     mLog('login', res);
     loading.hide();

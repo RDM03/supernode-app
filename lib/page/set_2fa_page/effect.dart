@@ -5,7 +5,6 @@ import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/log.dart';
-import 'package:supernodeapp/page/settings_page/state.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -100,7 +99,7 @@ void _onGetTOTPConfig(Action action, Context<Set2FAState> ctx) async {
   };
 
   UserDao dao = buildUserDao(ctx);
-  final loading = await Loading.show(ctx.context);
+  final loading = Loading.show(ctx.context);
   dao.getTOTPConfig(data).then((res) {
     loading.hide();
     mLog('changePassword', res);
@@ -136,7 +135,7 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx) async {
   List<String> codes = curState.listCtls.map((code) => code.text).toList();
 
   Map data = {"otp_code": codes.join()};
-  final loading = await Loading.show(ctx.context);
+  final loading = Loading.show(ctx.context);
   dao.setEnable(data).then((res) {
     loading.hide();
     mLog('setEnable status', res);
@@ -180,7 +179,7 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx) async {
   String codes = curState.otpCodeCtl.text;
 
   Map data = {"otp_code": codes};
-  final loading = await Loading.show(ctx.context);
+  final loading = Loading.show(ctx.context);
   dao.setDisable(data).then((res) {
     loading.hide();
     mLog('setDisable status', res);

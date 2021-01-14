@@ -32,7 +32,7 @@ void _onConfirm(Action action, Context<ChangePasswordState> ctx) async {
   int userId = ctx.context.read<SupernodeCubit>().state.user.userId;
   String confirmNewPwd = curState.confirmNewPwdCtl.text;
 
-  final loading = await Loading.show(ctx.context);
+  final loading = Loading.show(ctx.context);
 
   Map data = {"userId": userId, "password": confirmNewPwd};
 

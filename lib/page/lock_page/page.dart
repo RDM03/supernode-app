@@ -8,5 +8,7 @@ class LockPage extends Page<LockState, Map<String, dynamic>> {
       : super(
           initState: initState,
           view: buildView,
+          effect: combineEffects(<Object, Effect<LockState>>{}),
+          reducer: asReducer(<Object, Reducer<LockState>>{}),
         );
 }

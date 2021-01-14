@@ -20,6 +20,7 @@ abstract class AppState with _$AppState {
   factory AppState({
     Locale locale,
     @Default(false) bool isDemo,
+    @Default(false) bool showLoading,
   }) = _AppState;
 }
 

@@ -22,7 +22,19 @@ class UserLoginResponse {
     if (jwt == null) return null;
     final splitted = jwt.split('.');
     if (splitted.length < 2) return null;
-    final encoded = splitted[1];
+    var encoded = splitted[1];
+
+    // need to add tail, otherwise base64 throws.
+    switch (encoded.length % 4) {
+      case 1:
+        break;
+      case 2:
+        encoded += "==";
+        break;
+      case 3:
+        encoded += "=";
+        break;
+    }
     final json = utf8.decode(base64.decode(encoded));
     return SupernodeJwt.fromJson(json);
   }
@@ -76,4 +88,61 @@ class RegistrationConfirmResponse {
       username: map['username'],
     );
   }
+}
+
+class UserOrganization {
+  final String organizationID;
+  final String organizationName;
+  final bool isAdmin;
+  final bool isDeviceAdmin;
+  final bool isGatewayAdmin;
+  final String createdAt;
+  final String upadatedAt;
+
+  UserOrganization({
+    this.organizationID,
+    this.organizationName,
+    this.isAdmin,
+    this.isDeviceAdmin,
+    this.createdAt,
+    this.upadatedAt,
+    this.isGatewayAdmin,
+  });
+
+  factory UserOrganization.fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    return UserOrganization(
+      organizationID: map['organizationID'],
+      organizationName: map['organizationName'],
+      isAdmin: map['isAdmin'],
+      isDeviceAdmin: map['isDeviceAdmin'],
+      isGatewayAdmin: map['isGatewayAdmin'],
+      createdAt: map['createdAt'],
+      upadatedAt: map['upadatedAt'],
+    );
+  }
+
+  factory UserOrganization.fromJson(String source) =>
+      UserOrganization.fromMap(json.decode(source));
+}
+
+class ProfileResponse {
+  final dynamic user;
+  final List<UserOrganization> organizations;
+
+  ProfileResponse({this.user, this.organizations});
+
+  factory ProfileResponse.fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    return ProfileResponse(
+      user: map['user'],
+      organizations: List<UserOrganization>.from(
+          map['organizations']?.map((x) => UserOrganization.fromMap(x))),
+    );
+  }
+
+  factory ProfileResponse.fromJson(String source) =>
+      ProfileResponse.fromMap(json.decode(source));
 }

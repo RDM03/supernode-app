@@ -89,7 +89,8 @@ class StorageRepository {
     final username = _sharedPreferences.getString(_userNameKey);
     final password = _sharedPreferences.getString(_passwordKey);
     final supernodeString = _sharedPreferences.getString(_supernodeKey);
-    final supernode = Supernode.fromJson(supernodeString);
+    final supernode =
+        supernodeString == null ? null : Supernode.fromJson(supernodeString);
 
     if (token == null ||
         userId == null ||

@@ -28,7 +28,7 @@ UserDao buildUserDao(Context<SignUpState> ctx) {
 void _onEmailContinue(Action action, Context<SignUpState> ctx) async {
   var curState = ctx.state;
   if ((curState.emailFormKey.currentState as FormState).validate()) {
-    final loading = await Loading.show(ctx.context);
+    final loading = Loading.show(ctx.context);
 
     UserDao dao = buildUserDao(ctx);
 
@@ -64,7 +64,7 @@ void _onVerificationContinue(Action action, Context<SignUpState> ctx) async {
   var curState = ctx.state;
 
   if ((curState.codesFormKey.currentState as FormState).validate()) {
-    final loading = await Loading.show(ctx.context);
+    final loading = Loading.show(ctx.context);
 
     List<String> codes =
         curState.codeListCtls.map((code) => code.text).toList();
@@ -107,7 +107,7 @@ void _onRegistrationContinue(Action action, Context<SignUpState> ctx) async {
     if (!curState.isCheckTerms) {
       return;
     }
-    final loading = await Loading.show(ctx.context);
+    final loading = Loading.show(ctx.context);
     UserDao dao = buildUserDao(ctx);
     Map data = {
       "organizationName": curState.orgCtl.text,

@@ -2,7 +2,8 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
-import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/organization.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 
 import 'gateway_profile_component/state.dart';
 
@@ -21,7 +22,7 @@ class AddGatewayState implements Cloneable<AddGatewayState> {
   List networkServerList = [];
   List gatewayProfileList = [];
   bool discoveryEnabled = true;
-  List<OrganizationsState> organizations = [];
+  List<UserOrganization> organizations = [];
   MapViewController mapCtl = MapViewController();
   LatLng location;
   LatLng markerPoint;

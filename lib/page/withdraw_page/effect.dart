@@ -138,7 +138,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
         "availableBalance": balance,
         "otp_code": codes.join('')
       };
-      final loading = await Loading.show(ctx.context);
+      final loading = Loading.show(ctx.context);
       dao.withdraw(data).then((res) async {
         loading.hide();
         mLog('withdraw', res);

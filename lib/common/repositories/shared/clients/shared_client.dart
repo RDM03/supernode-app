@@ -7,7 +7,7 @@ class SharedHttpClient implements HttpClient {
   final Dio dio;
 
   SharedHttpClient({Dio dio}) : dio = dio ?? Dio() {
-    dio.interceptors.add(PrettyDioLogger());
+    this.dio.interceptors.add(PrettyDioLogger());
   }
 
   RequestOptions getOptions() {
@@ -15,15 +15,20 @@ class SharedHttpClient implements HttpClient {
   }
 
   void _handleDioError(DioError e) {
-    final message = e.response != null ? e.response.data['message'] : e.message;
-    final code = e.response != null ? e.response.data['code'] : -1;
+    final message =
+        e.response != null ? e.response.data['message'].toString() : e.message;
+    final code =
+        e.response != null ? int.tryParse(e.response.data['code']) : -1;
     throw HttpException(message, code);
   }
 
   @override
   Future get({@required String url, Map data}) async {
     try {
-      final res = await dio.get(url, options: getOptions());
+      final res = await dio.get(url,
+          queryParameters:
+              data != null ? new Map<String, dynamic>.from(data) : null,
+          options: getOptions());
       return res.data;
     } on DioError catch (e) {
       _handleDioError(e);

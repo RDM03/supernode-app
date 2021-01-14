@@ -4,49 +4,56 @@ import '../gateways.dart';
 class DemoGatewaysDao extends DemoDao implements GatewaysDao {
   @override
   Future list(Map data) {
+    final offset = data['offset'] ?? 0;
     return Future.value({
       'totalCount': '2',
       'result': [
-        {
-          'id': '1',
-          'name': 'gateways',
-          'description': 'string',
-          'createdAt': '2020-04-15T13:01:41.617Z',
-          'updatedAt': '2020-04-15T13:01:41.617Z',
-          'firstSeenAt': '2020-04-15T13:01:41.617Z',
-          'lastSeenAt': '2020-04-15T13:01:41.617Z',
-          'organizationID': 'organizationID',
-          'networkServerID': 'networkServerID',
-          'model': 'MX1901',
-          'osversion': '0.1.1',
-          'location': {
-            'latitude': 52.512270,
-            'longitude': 13.417280,
-            'altitude': 0.0,
-            'source': 'UNKNOWN',
-            'accuracy': 0.0,
+        if (offset == 0)
+          {
+            'id': '1',
+            'discoveryEnabled': false,
+            'gatewayProfileId': '123',
+            'name': 'gateways',
+            'description': 'string',
+            'createdAt': '2020-04-15T13:01:41.617Z',
+            'updatedAt': '2020-04-15T13:01:41.617Z',
+            'firstSeenAt': '2020-04-15T13:01:41.617Z',
+            'lastSeenAt': '2020-04-15T13:01:41.617Z',
+            'organizationID': 'organizationID',
+            'networkServerID': 'networkServerID',
+            'model': 'MX1901',
+            'osversion': '0.1.1',
+            'location': {
+              'latitude': 52.512270,
+              'longitude': 13.417280,
+              'altitude': 0.0,
+              'source': 'UNKNOWN',
+              'accuracy': 0.0,
+            }
+          },
+        if (offset == 0 || offset == 1)
+          {
+            'id': '2',
+            'discoveryEnabled': false,
+            'gatewayProfileId': '123',
+            'name': 'gateways2',
+            'description': 'string',
+            'createdAt': '2020-04-15T13:01:41.617Z',
+            'updatedAt': '2020-04-15T13:01:41.617Z',
+            'firstSeenAt': '2020-04-15T13:01:41.617Z',
+            'lastSeenAt': '2020-04-15T13:01:41.617Z',
+            'organizationID': 'organizationID',
+            'networkServerID': 'networkServerID',
+            'model': 'MX1901',
+            'osversion': '0.1.1',
+            'location': {
+              'latitude': 52.512270,
+              'longitude': 13.417280,
+              'altitude': 0.0,
+              'source': 'UNKNOWN',
+              'accuracy': 200,
+            }
           }
-        },
-        {
-          'id': '2',
-          'name': 'gateways2',
-          'description': 'string',
-          'createdAt': '2020-04-15T13:01:41.617Z',
-          'updatedAt': '2020-04-15T13:01:41.617Z',
-          'firstSeenAt': '2020-04-15T13:01:41.617Z',
-          'lastSeenAt': '2020-04-15T13:01:41.617Z',
-          'organizationID': 'organizationID',
-          'networkServerID': 'networkServerID',
-          'model': 'MX1901',
-          'osversion': '0.1.1',
-          'location': {
-            'latitude': 52.512270,
-            'longitude': 13.417280,
-            'altitude': 0.0,
-            'source': 'UNKNOWN',
-            'accuracy': 200,
-          }
-        }
       ]
     });
   }

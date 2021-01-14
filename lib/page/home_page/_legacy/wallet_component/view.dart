@@ -485,72 +485,74 @@ void _showAddTokenDialog(BuildContext context, dispatch) {
 
 void _showStakeDialog(BuildContext context, dispatch) {
   showInfoDialog(
-      context,
-      IosStyleBottomDialog2(
-          context: context,
-          child: Column(
-            children: [
-              Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: Text(
-                    FlutterI18n.translate(context, 'staking'),
+    context,
+    IosStyleBottomDialog2(
+      context: context,
+      child: Column(
+        children: [
+          Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: Text(
+                FlutterI18n.translate(context, 'staking'),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: s(16),
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+              )),
+          Divider(color: Colors.grey),
+          GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                dispatch(WalletActionCreator.onStake());
+              },
+              child: Row(
+                children: [
+                  CircleButton(
+                      icon: Image.asset(AppImages.iconMine,
+                          color: colorToken[Token.MXC])),
+                  SizedBox(width: s(10)),
+                  Text(
+                    FlutterI18n.translate(context, 'new_stake'),
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: s(16),
                       fontWeight: FontWeight.w500,
                     ),
                     textAlign: TextAlign.center,
-                  )),
-              Divider(color: Colors.grey),
-              GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                    dispatch(WalletActionCreator.onStake());
-                  },
-                  child: Row(
-                    children: [
-                      CircleButton(
-                          icon: Image.asset(AppImages.iconMine,
-                              color: colorToken[Token.MXC])),
-                      SizedBox(width: s(10)),
-                      Text(
-                        FlutterI18n.translate(context, 'new_stake'),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: s(16),
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  )),
-              Divider(color: Colors.grey),
-              GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    Navigator.pop(context);
-                    dispatch(WalletActionCreator.onUnstake());
-                  },
-                  child: Row(
-                    children: [
-                      CircleButton(
-                          icon: Icon(Icons.arrow_back,
-                              color: colorToken[Token.MXC])),
-                      SizedBox(width: s(10)),
-                      Text(
-                        FlutterI18n.translate(context, 'unstake'),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: s(16),
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  )),
-              Divider(color: Colors.grey),
-            ],
-          )));
+                  ),
+                ],
+              )),
+          Divider(color: Colors.grey),
+          GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                Navigator.pop(context);
+                dispatch(WalletActionCreator.onUnstake());
+              },
+              child: Row(
+                children: [
+                  CircleButton(
+                      icon:
+                          Icon(Icons.arrow_back, color: colorToken[Token.MXC])),
+                  SizedBox(width: s(10)),
+                  Text(
+                    FlutterI18n.translate(context, 'unstake'),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: s(16),
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              )),
+          Divider(color: Colors.grey),
+        ],
+      ),
+    ),
+  );
 }
 
 void _showMineDXHDialog(BuildContext context, bool isDemo) {

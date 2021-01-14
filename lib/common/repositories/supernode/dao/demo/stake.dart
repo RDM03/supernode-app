@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/demo/user.dart';
 
 import 'demo.dart';
@@ -117,7 +118,12 @@ class DemoStakeDao extends DemoDao implements StakeDao {
   }
 
   @override
-  Future history(Map data) {
+  Future<List<StakeHistoryEntity>> history({
+    @required String orgId,
+    String currency,
+    DateTime from,
+    DateTime till,
+  }) {
     return Future.value({
       "stakingHist": [
         {
@@ -1060,6 +1066,10 @@ class DemoStakeDao extends DemoDao implements StakeDao {
         }
       ],
       "count": "string"
-    });
+    }).then(
+      (value) => (value['stakingHist'] as List)
+          .map((e) => StakeHistoryEntity.fromMap(e))
+          .toList(),
+    );
   }
 }
