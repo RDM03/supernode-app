@@ -65,7 +65,7 @@ Future<void> _raise2Fa(Context<DetailsStakeState> ctx) async {
     ctx.dispatch(DetailsStakeActionCreator.unstakeProcess(otpCode));
   } else {
     await Navigator.pushNamed(ctx.context, 'set_2fa_page',
-        arguments: {'isEnabled': false});
+        arguments: {'isEnabled': GlobalStore.state?.settings?.is2FAEnabled});
     ctx.dispatch(DetailsStakeActionCreator.refreshOtpStatus());
   }
 }
@@ -73,13 +73,11 @@ Future<void> _raise2Fa(Context<DetailsStakeState> ctx) async {
 void _refreshOtpStatus(Action action, Context<DetailsStakeState> ctx) async {
   UserDao dao = UserDao();
 
-  Map data = {};
-
-  dao.getTOTPStatus(data).then((res) {
+  dao.getTOTPStatus().then((res) {
     mLog('totp', res);
 
-    if ((res as Map).containsKey('enabled')) {
-      ctx.dispatch(DetailsStakeActionCreator.setOtpEnabled(res['enabled']));
+    if (res.enabled != null) {
+      ctx.dispatch(DetailsStakeActionCreator.setOtpEnabled(res.enabled));
     }
   }).catchError((err) {
     tip(ctx.context, '$err');

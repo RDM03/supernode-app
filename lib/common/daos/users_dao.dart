@@ -1,6 +1,22 @@
+import 'dart:convert';
+
 import 'package:supernodeapp/common/daos/dao.dart';
 
 import 'api.dart';
+
+class TotpEnabledResponse {
+  final bool enabled;
+
+  TotpEnabledResponse(this.enabled);
+
+  factory TotpEnabledResponse.fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+  
+    return TotpEnabledResponse(
+      map['enabled'],
+    );
+  }
+}
 
 class UserApi {
   static const String login = '/api/internal/login';
@@ -93,16 +109,17 @@ class UserDao extends Dao {
   }
 
   //get TOTP Status by Namgyeong
-  Future<dynamic> getTOTPStatus(Map data) {
-    return get(url: UserApi.getTOTPStatus, data: data).then((res) => res);
+  Future<TotpEnabledResponse> getTOTPStatus() {
+    return get(url: UserApi.getTOTPStatus, data: {}).then((res) => TotpEnabledResponse.fromMap(res));
   }
 
   Future<dynamic> getTOTPConfig(Map data) {
     return post(url: UserApi.getTOTPConfig, data: data).then((res) => res);
   }
 
-  Future<dynamic> setEnable(Map data) {
-    return post(url: UserApi.setEnable, data: data).then((res) => res);
+  Future<TotpEnabledResponse> setEnable(String otp) {
+    final data = {"otp_code": otp};
+    return post(url: UserApi.setEnable, data: data).then((res) => TotpEnabledResponse.fromMap(res));
   }
 
   Future<dynamic> setDisable(Map data) {

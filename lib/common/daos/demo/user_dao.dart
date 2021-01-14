@@ -5,10 +5,8 @@ class DemoUserDao extends DemoDao implements UserDao {
   static const String username = 'demo user';
 
   @override
-  Future getTOTPStatus(Map data) {
-    return Future.value({
-      'enabled': true,
-    });
+  Future<TotpEnabledResponse> getTOTPStatus() {
+    return Future.value(TotpEnabledResponse(true));
   }
 
   @override
@@ -85,7 +83,7 @@ class DemoUserDao extends DemoDao implements UserDao {
   }
 
   @override
-  Future setEnable(Map data) {
+  Future<TotpEnabledResponse> setEnable(String code) {
     throw UnimplementedError('setEnable not supported in demo');
   }
 

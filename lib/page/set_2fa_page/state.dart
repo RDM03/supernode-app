@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/global_store/store.dart';
 
 import 'enter_recoverycode_component/state.dart';
 import 'enter_securitycode_component/state.dart';

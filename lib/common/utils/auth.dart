@@ -64,7 +64,8 @@ Future<bool> checkMaintenance([SuperNodeBean node]) async {
   return true;
 }
 
-Future<void> saveLoginResult(UserDao dao, String jwt, String email, String password, String apiRoot) async {
+Future<void> saveLoginResult(UserDao dao, String jwt, String email,
+    String password, String apiRoot) async {
   SettingsState settingsData = GlobalStore.store.getState().settings;
 
   if (settingsData == null) {
@@ -80,20 +81,17 @@ Future<void> saveLoginResult(UserDao dao, String jwt, String email, String passw
     users.add(email);
   }
   StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
-  StorageManager.sharedPreferences
-      .setString(Config.TOKEN_KEY, jwt);
-  StorageManager.sharedPreferences
-      .setString(Config.USERNAME_KEY, email);
-  StorageManager.sharedPreferences
-      .setString(Config.PASSWORD_KEY, password);
+  StorageManager.sharedPreferences.setString(Config.TOKEN_KEY, jwt);
+  StorageManager.sharedPreferences.setString(Config.USERNAME_KEY, email);
+  StorageManager.sharedPreferences.setString(Config.PASSWORD_KEY, password);
   StorageManager.sharedPreferences.setString(Config.API_ROOT, apiRoot);
   GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
 
-  var totpStatus = await dao.getTOTPStatus({});
+  var totpStatus = await dao.getTOTPStatus();
   mLog('totp', totpStatus);
 
-  settingsData.is2FAEnabled = totpStatus['enabled'];
-  if ((totpStatus as Map).containsKey('enabled')) {
+  settingsData.is2FAEnabled = totpStatus.enabled;
+  if (totpStatus.enabled != null) {
     GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
   }
   await PermissionUtil.getLocationPermission();

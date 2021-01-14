@@ -40,7 +40,8 @@ Future<void> _handleLoginRequest(
   var loginResult = await dao.login(data);
   mLog('login', loginResult);
 
-  await saveLoginResult(dao, loginResult['jwt'], data['username'], data['password'], apiRoot);
+  await saveLoginResult(
+      dao, loginResult['jwt'], data['username'], data['password'], apiRoot);
 }
 
 void _onLogin(Action action, Context<LoginState> ctx) async {
@@ -73,7 +74,7 @@ void _onLogin(Action action, Context<LoginState> ctx) async {
       if (!res) return;
       ctx.state.scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text(
-          err?.message ?? FlutterI18n.translate(ctx.context,'error_tip'),
+          err?.message ?? FlutterI18n.translate(ctx.context, 'error_tip'),
           style: Theme.of(ctx.context)
               .textTheme
               .bodyText1
@@ -196,16 +197,16 @@ void _initWeChat(Action action, Context<LoginState> ctx) async {
   ctx.dispatch(LoginActionCreator.showWeChat(wxInstalled));
 
   if (wxInstalled) {
-    fluwx.weChatResponseEventHandler.distinct((a, b) => a == b).listen((
-        res) async {
+    fluwx.weChatResponseEventHandler
+        .distinct((a, b) => a == b)
+        .listen((res) async {
       if (res is fluwx.WeChatAuthResponse) {
         final loading = await Loading.show(ctx.context);
         try {
           if (res.errCode == 0) {
             UserDao dao = UserDao();
             Map data = {'code': res.code};
-            var authWeChatUserRes =
-            (WECHAT_APP_ID == 'wx7fcea6540bed2f37')
+            var authWeChatUserRes = (WECHAT_APP_ID == 'wx7fcea6540bed2f37')
                 ? await dao.debugAuthenticateWeChatUser(data)
                 : await dao.authenticateWeChatUser(data);
 
@@ -217,7 +218,8 @@ void _initWeChat(Action action, Context<LoginState> ctx) async {
               // accounts already bound - proceed with login
               String apiRoot = ctx.state.currentSuperNode.url;
 
-              await saveLoginResult(dao, authWeChatUserRes['jwt'], '', '', apiRoot);
+              await saveLoginResult(
+                  dao, authWeChatUserRes['jwt'], '', '', apiRoot);
 
               loading.hide();
               Navigator.pushReplacementNamed(ctx.context, 'home_page');
@@ -231,14 +233,18 @@ void _initWeChat(Action action, Context<LoginState> ctx) async {
           if (!res) return;
           String msg;
           try {
-            msg = err?.message ?? FlutterI18n.translate(ctx.context,'error_tip');
+            msg =
+                err?.message ?? FlutterI18n.translate(ctx.context, 'error_tip');
           } catch (e) {
-            msg = FlutterI18n.translate(ctx.context,'error_tip');
+            msg = FlutterI18n.translate(ctx.context, 'error_tip');
           }
           ctx.state.scaffoldKey.currentState.showSnackBar(SnackBar(
             content: Text(
               msg,
-              style: Theme.of(ctx.context).textTheme.bodyText1.copyWith(color: Colors.white),
+              style: Theme.of(ctx.context)
+                  .textTheme
+                  .bodyText1
+                  .copyWith(color: Colors.white),
             ),
             duration: Duration(seconds: 2),
             backgroundColor: errorColor,
