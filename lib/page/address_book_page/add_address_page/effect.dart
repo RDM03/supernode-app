@@ -1,9 +1,10 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:majascan/majascan.dart';
 import 'package:supernodeapp/common/utils/address_entity.dart';
-import 'package:supernodeapp/common/utils/storage_manager_native.dart';
+import 'package:supernodeapp/common/repositories/storage_repository.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'action.dart';
 import 'state.dart';
@@ -18,13 +19,13 @@ Effect<AddAddressState> buildEffect() {
 void _onSave(Action action, Context<AddAddressState> ctx) async {
   if (!ctx.state.formKey.currentState.validate()) return;
   ctx.state.formKey.currentState.save();
-  final addresses = StorageManager.addressBook();
+  final addresses = ctx.context.read<StorageRepository>().addressBook();
   addresses.add(AddressEntity(
     address: ctx.state.addressController.text,
     memo: ctx.state.memoController.text,
     name: ctx.state.nameController.text,
   ));
-  StorageManager.setAddressBook(addresses);
+  ctx.context.read<StorageRepository>().setAddressBook(addresses);
   Navigator.of(ctx.context).pop();
 }
 

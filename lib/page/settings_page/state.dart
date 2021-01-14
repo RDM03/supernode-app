@@ -1,7 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
-import 'package:supernodeapp/common/daos/settings_dao.dart';
+import 'package:supernodeapp/common/deprecated/settings_dao.dart';
 
 import 'about_component/state.dart';
 import 'language_component/state.dart';
@@ -82,28 +82,28 @@ class SettingsState implements Cloneable<SettingsState> {
   // columns: [cId, notification, superNode, lanuage, userId, theme]
 
   SettingsState.fromMap(Map map) {
-    id = map[SettingsDao.id] as String;
-    notification = map[SettingsDao.notification] == 1 ? true : false;
-    language = map[SettingsDao.language] as String;
-    userId = map[SettingsDao.userId] as String;
-    username = map[SettingsDao.username] as String;
-    selectedOrganizationId = map[SettingsDao.organizationId] as String;
-    expire = map[SettingsDao.expire] as String;
-    token = map[SettingsDao.token] as String;
-    theme = map[SettingsDao.theme] as int;
+    id = map[DbDao.id] as String;
+    notification = map[DbDao.notification] == 1 ? true : false;
+    language = map[DbDao.language] as String;
+    userId = map[DbDao.userId] as String;
+    username = map[DbDao.username] as String;
+    selectedOrganizationId = map[DbDao.organizationId] as String;
+    expire = map[DbDao.expire] as String;
+    token = map[DbDao.token] as String;
+    theme = map[DbDao.theme] as int;
   }
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      SettingsDao.id: id,
-      SettingsDao.notification: notification ? 1 : 0,
-      SettingsDao.language: language,
-      SettingsDao.userId: userId,
-      SettingsDao.username: username,
-      SettingsDao.organizationId: selectedOrganizationId,
-      SettingsDao.expire: expire,
-      SettingsDao.token: token,
-      SettingsDao.theme: theme
+      DbDao.id: id,
+      DbDao.notification: notification ? 1 : 0,
+      DbDao.language: language,
+      DbDao.userId: userId,
+      DbDao.username: username,
+      DbDao.organizationId: selectedOrganizationId,
+      DbDao.expire: expire,
+      DbDao.token: token,
+      DbDao.theme: theme
     };
 
     return map;

@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'action.dart';
@@ -14,12 +15,12 @@ Effect<AddressDetailsState> buildEffect() {
 }
 
 void _onDelete(Action action, Context<AddressDetailsState> ctx) async {
-  final addresses = StorageManager.addressBook();
+  final addresses = ctx.context.read<StorageRepository>().addressBook();
   final equal = addresses.firstWhere((e) => e == ctx.state.entity);
 
   if (equal != null) {
     addresses.remove(equal);
-    StorageManager.setAddressBook(addresses);
+    ctx.context.read<StorageRepository>().setAddressBook(addresses);
   }
 
   Navigator.of(ctx.context).pop();

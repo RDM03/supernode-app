@@ -1,21 +1,20 @@
 import 'package:ethereum_address/ethereum_address.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:majascan/majascan.dart';
+import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/security/biometrics.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/daos/demo/user_dao.dart';
-import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
-import 'package:supernodeapp/common/daos/demo/withdraw_dao.dart';
-import 'package:supernodeapp/common/daos/users_dao.dart';
-import 'package:supernodeapp/common/daos/wallet_dao.dart';
-import 'package:supernodeapp/common/daos/withdraw_dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/wallet.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/withdraw.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/address_entity.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
-import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 import 'action.dart';
@@ -35,15 +34,15 @@ Effect<WithdrawState> buildEffect() {
 }
 
 WithdrawDao _buildWithdrawDao(Context<WithdrawState> ctx) {
-  return ctx.state.isDemo ? DemoWithdrawDao() : WithdrawDao();
+  return ctx.context.read<SupernodeRepository>().withdraw;
 }
 
 UserDao _buildUserDao(Context<WithdrawState> ctx) {
-  return ctx.state.isDemo ? DemoUserDao() : UserDao();
+  return ctx.context.read<SupernodeRepository>().user;
 }
 
 WalletDao _buildWalletDao(Context<WithdrawState> ctx) {
-  return ctx.state.isDemo ? DemoWalletDao() : WalletDao();
+  return ctx.context.read<SupernodeRepository>().wallet;
 }
 
 Future<void> _requestTOTPStatus(Context<WithdrawState> ctx) async {
@@ -124,7 +123,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
   String amount = curState.amountCtl.text;
   String address = curState.addressCtl.text;
   // OrganizationsState org = curState.organizations.first;
-  String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
+  String orgId = ctx.context.read<SupernodeCubit>().state.orgId;
 
   List<String> codes = curState.listCtls.map((code) => code.text).toList();
 
@@ -166,9 +165,10 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
 
 Future<void> _updateBalance(Context<WithdrawState> ctx) async {
   WalletDao dao = _buildWalletDao(ctx);
-  var settingsData = GlobalStore.store.getState().settings;
-  String userId = settingsData.userId;
-  String orgId = settingsData.selectedOrganizationId;
+
+  final settingsData = ctx.context.read<SupernodeCubit>().state;
+  int userId = settingsData.user.userId;
+  String orgId = settingsData.orgId;
 
   try {
     Map data = {'userId': userId, 'orgId': orgId};

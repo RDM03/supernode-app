@@ -1,16 +1,17 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/widgets.dart' hide Action;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/select_picker.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/daos/gateways_dao.dart';
-import 'package:supernodeapp/common/daos/network_server_dao.dart';
-import 'package:supernodeapp/common/daos/organization_dao.dart';
-import 'package:supernodeapp/common/daos/settings_dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/gateways.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/network_server.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/organization.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/log.dart';
-import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/home_page/legacy/action.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 
@@ -26,6 +27,18 @@ Effect<GatewayProfileState> buildEffect() {
     GatewayProfileAction.onGatewayProfilePicker: _onGatewayProfilePicker,
     GatewayProfileAction.update: _update,
   });
+}
+
+GatewaysDao _buildGatewaysDao(Context<GatewayProfileState> ctx) {
+  return ctx.context.read<SupernodeRepository>().gateways;
+}
+
+NetworkServerDao _buildNetworkServerDao(Context<GatewayProfileState> ctx) {
+  return ctx.context.read<SupernodeRepository>().networkServer;
+}
+
+OrganizationDao _buildOrganizationDao(Context<GatewayProfileState> ctx) {
+  return ctx.context.read<SupernodeRepository>().organization;
 }
 
 void _initState(Action action, Context<GatewayProfileState> ctx) {
@@ -84,7 +97,7 @@ void _onGatewayProfilePicker(Action action, Context<GatewayProfileState> ctx) {
 }
 
 void _gatewayProfile(Context<GatewayProfileState> ctx, String id) {
-  GatewaysDao dao = GatewaysDao();
+  GatewaysDao dao = _buildGatewaysDao(ctx);
 
   Map data = {"networkServerID": id, "offset": 0, "limit": 999};
 
@@ -125,9 +138,9 @@ void _update(Action action, Context<GatewayProfileState> ctx) async {
   if ((curState.formKey.currentState as FormState).validate()) {
     final loading = await Loading.show(ctx.context);
 
-    GatewaysDao dao = GatewaysDao();
+    GatewaysDao dao = _buildGatewaysDao(ctx);
 
-    String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
+    String orgId = ctx.context.read<SupernodeCubit>().state.orgId;
 
     Map data = {
       "gateway": {
@@ -171,17 +184,14 @@ void _update(Action action, Context<GatewayProfileState> ctx) async {
 
 Future<void> _getOrganizations(
     Action action, Context<GatewayProfileState> ctx) async {
-  OrganizationDao dao = OrganizationDao();
+  OrganizationDao dao = _buildOrganizationDao(ctx);
 
   Map data = {"offset": 0, "limit": 999};
 
   final res = await dao.list(data);
   mLog('OrganizationDao list', res);
 
-  SettingsState settingsData = GlobalStore.store.getState().settings;
-  settingsData.selectedOrganizationId = res['result'][0]['id'];
-  SettingsDao.updateLocal(settingsData);
-
+  ctx.context.read<SupernodeCubit>().setOrganizationId(res['result'][0]['id']);
   _onNetworkServerList(action, ctx);
 }
 
@@ -189,8 +199,8 @@ void _onNetworkServerList(
     Action action, Context<GatewayProfileState> ctx) async {
   final loading = await Loading.show(ctx.context);
 
-  NetworkServerDao dao = NetworkServerDao();
-  String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
+  NetworkServerDao dao = _buildNetworkServerDao(ctx);
+  String orgId = ctx.context.read<SupernodeCubit>().state.orgId;
 
   if (orgId.isEmpty) {
     try {

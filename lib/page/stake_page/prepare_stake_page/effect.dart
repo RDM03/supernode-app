@@ -1,14 +1,14 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/loading.dart';
-import 'package:supernodeapp/common/components/security/biometrics.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
-import 'package:supernodeapp/common/daos/stake_dao.dart';
-import 'package:supernodeapp/common/daos/wallet_dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/stake.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/wallet.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
-import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 
 import 'action.dart';
@@ -22,7 +22,11 @@ Effect<PrepareStakeState> buildEffect() {
 }
 
 StakeDao _buildStakeDao(Context<PrepareStakeState> ctx) {
-  return ctx.state.isDemo ? DemoStakeDao() : StakeDao();
+  return ctx.context.read<SupernodeRepository>().stake;
+}
+
+WalletDao _buildWalletDao(Context<PrepareStakeState> ctx) {
+  return ctx.context.read<SupernodeRepository>().wallet;
 }
 
 void _resultPage(Context<PrepareStakeState> ctx, String type, dynamic res) {
@@ -41,7 +45,7 @@ Future<void> _stake(Context<PrepareStakeState> ctx) async {
   var curState = ctx.state;
   final loading = await Loading.show(ctx.context);
 
-  String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
+  String orgId = ctx.context.read<SupernodeCubit>().state.orgId;
   String amount = curState.amountCtl.text;
 
   StakeDao dao = _buildStakeDao(ctx);
@@ -87,13 +91,13 @@ void _process(Action action, Context<PrepareStakeState> ctx) async {
 }
 
 Future<void> _balance(Context<PrepareStakeState> ctx) async {
-  SettingsState settingsData = GlobalStore.store.getState().settings;
+  final settingsData = ctx.context.read<SupernodeCubit>().state;
 
   try {
-    WalletDao dao = WalletDao();
+    WalletDao dao = _buildWalletDao(ctx);
     Map data = {
-      'userId': settingsData.userId,
-      'orgId': settingsData.selectedOrganizationId,
+      'userId': settingsData.user.userId,
+      'orgId': settingsData.orgId,
       'currency': ''
     };
 

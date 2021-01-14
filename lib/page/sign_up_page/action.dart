@@ -20,7 +20,8 @@ class SignUpActionCreator {
     return const Action(SignUpAction.onRegistrationContinue);
   }
 
-  static Action registrationContinue(Map data) {
-    return Action(SignUpAction.registrationContinue, payload: data);
+  static Action registrationContinue(String email, String userId) {
+    return Action(SignUpAction.registrationContinue,
+        payload: {'email': email, 'userId': userId});
   }
 }

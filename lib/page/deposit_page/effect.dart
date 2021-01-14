@@ -1,11 +1,12 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/daos/demo/topup_dao.dart';
-import 'package:supernodeapp/common/daos/topup_dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/topup.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/log.dart';
-import 'package:supernodeapp/global_store/store.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -18,11 +19,11 @@ Effect<DepositState> buildEffect() {
 }
 
 _buildTopupDao(Context<DepositState> ctx) {
-  return ctx.state.isDemo ? DemoTopupDao() : TopupDao();
+  return ctx.context.read<SupernodeRepository>().topup;
 }
 
 void _initState(Action action, Context<DepositState> ctx) async {
-  String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
+  String orgId = ctx.context.read<SupernodeCubit>().state.orgId;
   if (orgId == null || orgId.isEmpty) {
     orgId = ctx.state.organizations.first.organizationID;
   }

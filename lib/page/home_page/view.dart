@@ -1,0 +1,104 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/app_cubit.dart';
+import 'package:supernodeapp/common/repositories/cache_repository.dart';
+import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/configs/sys.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
+import 'package:supernodeapp/page/home_page/device/view.dart';
+import 'package:supernodeapp/page/home_page/gateway/cubit.dart';
+import 'package:supernodeapp/theme/colors.dart';
+
+import 'cubit.dart';
+import 'state.dart';
+import 'user/cubit.dart';
+import 'user/view.dart';
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      child: _HomePageContent(),
+      providers: [
+        BlocProvider(
+          create: (ctx) => HomeCubit(
+            username: ctx.read<SupernodeCubit>().state.user.username,
+            cacheRepository: ctx.read<CacheRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (ctx) => UserCubit(
+            user: ctx.read<SupernodeCubit>().state.user,
+            orgId: ctx.read<SupernodeCubit>().state.orgId,
+            supernodeRepository: ctx.read<SupernodeRepository>(),
+            cacheRepository: ctx.read<CacheRepository>(),
+            homeCubit: ctx.read<HomeCubit>(),
+          )..initState(),
+        ),
+        BlocProvider(
+          create: (ctx) => GatewayCubit(
+            orgId: ctx.read<SupernodeCubit>().state.orgId,
+            supernodeRepository: ctx.read<SupernodeRepository>(),
+            homeCubit: ctx.read<HomeCubit>(),
+          )..initState(),
+        ),
+      ],
+    );
+  }
+}
+
+class _HomePageContent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: BlocBuilder<HomeCubit, HomeState>(
+        buildWhen: (a, b) => a.tabIndex != b.tabIndex,
+        builder: (ctx, s) {
+          switch (s.tabIndex) {
+            case 0:
+              return UserTab();
+            case 2:
+              return DeviceTab();
+            default:
+              throw UnimplementedError('Unknown tab ${s.tabIndex}');
+          }
+        },
+      ),
+      bottomNavigationBar: Theme(
+        data: ThemeData(
+          brightness: Brightness.light,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        child: BlocBuilder<HomeCubit, HomeState>(
+          buildWhen: (a, b) => a.tabIndex != b.tabIndex,
+          builder: (ctx, s) => BottomNavigationBar(
+            key: ValueKey('bottomNavBar'),
+            type: BottomNavigationBarType.fixed,
+            currentIndex: s.tabIndex,
+            selectedItemColor: selectedColor,
+            unselectedItemColor: unselectedColor,
+            onTap: (i) => context.read<HomeCubit>().changeTab(i),
+            items: Sys.mainMenus
+                .map(
+                  (String item) => BottomNavigationBarItem(
+                    icon: Image.asset(
+                      AppImages.bottomBarMenus[item.toLowerCase()],
+                      color: Sys.mainMenus.indexOf(item) == s.tabIndex
+                          ? selectedColor
+                          : unselectedColor,
+                      key: ValueKey('bottomNavBar_$item'),
+                    ),
+                    title: Text(
+                      FlutterI18n.translate(ctx, item.toLowerCase()),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        ),
+      ),
+    );
+  }
+}

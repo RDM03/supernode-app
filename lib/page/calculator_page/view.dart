@@ -1,15 +1,17 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:collection/collection.dart';
+import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/wallet/tab_buttons.dart';
-import 'package:supernodeapp/common/daos/coingecko_dao.dart';
-import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
-import 'package:supernodeapp/common/daos/wallet_dao.dart';
+import 'package:supernodeapp/common/repositories/coingecko_repository.dart';
+import 'package:supernodeapp/common/repositories/shared/dao/coingecko.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/wallet.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
-import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 import 'reorderable_list_custom.dart';
@@ -67,19 +69,23 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
   }
 
   WalletDao _buildWalletDao() {
-    return isDemo ? DemoWalletDao() : WalletDao();
+    return context.read<SupernodeRepository>().wallet;
+  }
+
+  ExchangeRepository _exchangeRepository() {
+    return context.read<ExchangeRepository>();
   }
 
   void _loadSelectedCurrencies() {
-    selectedCurrencies = StorageManager.selectedCurrencies();
+    selectedCurrencies = context.read<StorageRepository>().selectedCurrencies();
   }
 
   Future<double> _getMxcPrice() async {
     final walletDao = _buildWalletDao();
 
-    final settingsData = GlobalStore.store.getState().settings;
-    final userId = settingsData.userId;
-    final orgId = settingsData.selectedOrganizationId;
+    //final settingsData = GlobalStore.store.getState().settings;
+    final userId = context.read<SupernodeCubit>().state.user.userId;
+    final orgId = context.read<SupernodeCubit>().state.orgId;
     Map data = {
       'userId': userId,
       'orgId': orgId,
@@ -92,7 +98,7 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
   }
 
   Future<void> _refreshRates() async {
-    final dao = CoingeckoDao();
+    final dao = _exchangeRepository();
     final rates = await dao.exchangeRates();
     final mxcPrice = await _getMxcPrice();
     setState(() {
@@ -163,7 +169,9 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
       final currency = selectedCurrencies.removeAt(oldIndex);
       selectedCurrencies.insert(newIndex, currency);
     });
-    await StorageManager.setSelectedCurrencies(selectedCurrencies);
+    await context
+        .read<StorageRepository>()
+        .setSelectedCurrencies(selectedCurrencies);
   }
 
   @override
@@ -407,7 +415,7 @@ class _CurrencyCardState extends State<CurrencyCard> {
                           double.tryParse(s) == null && s != _loadingStr
                               ? FlutterI18n.translate(context, 'invalid_value')
                               : null,
-                      autovalidate: true,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       readOnly: false,
                     ),
                     width: 180,

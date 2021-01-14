@@ -2,13 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/theme/font.dart';
 
-Widget empty(BuildContext context) {
-  return Container(
-    alignment: Alignment.center,
-    height: 50,
-    child: Text(
-      FlutterI18n.translate(context, 'no_data'),
-      style: kMiddleFontOfGrey,
-    ),
-  );
+class Empty extends StatefulWidget {
+  @override
+  _EmptyState createState() => _EmptyState();
+}
+
+class _EmptyState extends State<Empty> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      height: 50,
+      child: Text(
+        FlutterI18n.translate(context, 'no_data'),
+        style: kMiddleFontOfGrey,
+      ),
+    );
+  }
 }

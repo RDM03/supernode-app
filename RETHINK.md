@@ -39,5 +39,26 @@ Instead use `[...list, newEntity]` and `list.where((t) => t != entityToRemove).t
 
 ### Other changes:
 * loading map changed with Wrap<T> class, please check user state.
+* No Global Actions. Everything that is global are placed in app_state, every action in app_cubit.
+* No monster called 'SettingsState'. It was a state for settings page. And static global state that can be accesed from everywhere. It contained info about user, info about app theme (hey, we have only one theme in app), some parts of the state was stored in SQLite database (yes, we have sqlite database with only one table with only one row - for this state), some part (mostly the same fields, backup? :D ) was stored in shared preferences. 
+* DAOs changes - no static instances, no sql db (??), no singletons
+  * Remove Isolate Dao (from my personal experience json decoding in isolates leads to bugs very often)
+  * Remove Settings Dao 
+* No email suggest feature on login screen, but we will have multiuser soon.
+
+We store user password in shared pref
 
 Comments related to RETHINK are marked with RETHINK. prefix (e.g. RETHINK.TODO).
+
+{
+      await PermissionUtil.getLocationPermission();
+
+----------------------------------------------------
+
+## How to Navigate with Bloc?
+
+https://bloclibrary.dev/#/recipesflutternavigation
+
+But!
+
+> For the sake of this example we are adding an event just for navigation. In a real application, you should not create explicit navigation events. If there is no "business logic" necessary in order to trigger navigation you should always directly navigate in response to user input (in the onPressed callback, etc...). Only navigate in response to state changes if some "business logic" is required in order to determine where to navigate.

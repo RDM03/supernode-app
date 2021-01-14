@@ -1,12 +1,15 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/security/biometrics.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/daos/app_dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/stake.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/log.dart';
-import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/stake_page/details_stake_page/action.dart';
 import 'state.dart';
 
@@ -17,6 +20,14 @@ Effect<DetailsStakeState> buildEffect() {
     DetailsStakeAction.unstake: _onUnstake,
     DetailsStakeAction.unstakeProcess: _process,
   });
+}
+
+StakeDao _buildStakeDao(Context<DetailsStakeState> ctx) {
+  return ctx.context.read<SupernodeRepository>().stake;
+}
+
+UserDao _buildUserDao(Context<DetailsStakeState> ctx) {
+  return ctx.context.read<SupernodeRepository>().user;
 }
 
 void _onUnstake(Action action, Context<DetailsStakeState> ctx) async {
@@ -30,9 +41,9 @@ Future<void> _unstake(Context<DetailsStakeState> ctx, String otpCode) async {
   var curState = ctx.state;
   final loading = await Loading.show(ctx.context);
 
-  String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
+  final orgId = ctx.context.read<SupernodeCubit>().state.orgId;
 
-  StakeDao dao = StakeDao();
+  StakeDao dao = _buildStakeDao(ctx);
   Map data = {
     "orgId": orgId,
     "stakeId": curState.stake.id,
@@ -71,7 +82,7 @@ Future<void> _raise2Fa(Context<DetailsStakeState> ctx) async {
 }
 
 void _refreshOtpStatus(Action action, Context<DetailsStakeState> ctx) async {
-  UserDao dao = UserDao();
+  UserDao dao = _buildUserDao(ctx);
 
   Map data = {};
 

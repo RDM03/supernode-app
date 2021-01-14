@@ -8,29 +8,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:supernodeapp/app_state.dart';
-import 'package:supernodeapp/common/daos/crashes_dao.dart';
-import 'package:supernodeapp/common/daos/demo/gateways_dao.dart';
-import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
-import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
-import 'package:supernodeapp/common/daos/gateways_dao.dart';
-import 'package:supernodeapp/common/daos/gateways_location_dao.dart';
-import 'package:supernodeapp/common/daos/stake_dao.dart';
-import 'package:supernodeapp/common/daos/wallet_dao.dart';
+import 'package:supernodeapp/common/repositories/cache_repository.dart';
+import 'package:supernodeapp/common/utils/no_glow_behavior.dart';
 import 'package:supernodeapp/configs/sys.dart';
-import 'package:supernodeapp/common/utils/storage_manager_native.dart';
-import 'package:supernodeapp/page/supernode_repository.dart';
+import 'package:supernodeapp/common/repositories/storage_repository.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/page/feedback_page/feedback.dart';
-import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/address_book_page/add_address_page/page.dart';
 import 'package:supernodeapp/page/address_book_page/address_details_page/page.dart';
 import 'package:supernodeapp/page/address_book_page/page.dart';
-import 'package:supernodeapp/page/app.dart';
+import 'package:supernodeapp/app.dart';
 import 'package:supernodeapp/page/calculator_list_page/page.dart';
 import 'package:supernodeapp/page/calculator_page/page.dart';
 import 'package:supernodeapp/page/connectivity_lost_page/page.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
+import 'package:supernodeapp/page/home_page/legacy/page.dart';
 import 'package:supernodeapp/page/list_councils/page.dart';
+import 'package:supernodeapp/page/login_page/view.dart';
 import 'package:supernodeapp/page/mining_simulator_page/page.dart';
 import 'package:supernodeapp/page/lock_page/join_council/page.dart';
 import 'package:supernodeapp/page/lock_page/confirm_lock_page/page.dart';
@@ -44,9 +38,9 @@ import 'package:supernodeapp/page/stake_page/list_unstake_page/page.dart';
 import 'package:supernodeapp/page/stake_page/prepare_stake_page/page.dart';
 import 'package:supernodeapp/page/under_maintenance_page/page.dart';
 import 'package:supernodeapp/theme/colors.dart';
+
+import 'app_cubit.dart';
 import 'app_state.dart';
-import 'common/utils/no_glow_behavior.dart';
-import 'global_store/state.dart';
 import 'page/add_gateway_page/page.dart';
 import 'page/change_password_page/page.dart';
 import 'page/device/choose_application_page/page.dart';
@@ -56,23 +50,88 @@ import 'page/confirm_page/page.dart';
 import 'page/deposit_page/page.dart';
 import 'page/forgot_password_page/page.dart';
 import 'page/settings_page/page.dart';
-import 'page/splash_page/page.dart';
 import 'page/stake_page/page.dart';
 import 'page/withdraw_page/page.dart';
+
+List<BlocListener> listeners() => [
+      BlocListener<SupernodeCubit, SupernodeState>(
+        listenWhen: (a, b) => a.orgId != b.orgId,
+        listener: (context, state) {
+          context.read<StorageRepository>().setOrganizationId(state.orgId);
+        },
+      ),
+      BlocListener<SupernodeCubit, SupernodeState>(
+        listenWhen: (a, b) => a.user != b.user,
+        listener: (context, state) {
+          context.read<StorageRepository>().setSupernodeUser(
+              jwt: state.user?.token,
+              userId: state.user?.userId,
+              username: state.user?.username,
+              password: state.user?.password,
+              supernode: state.user?.node);
+        },
+      ),
+      BlocListener<AppCubit, AppState>(
+        listenWhen: (a, b) => a.isDemo != b.isDemo,
+        listener: (context, state) {
+          context.read<StorageRepository>().setIsDemo(state.isDemo);
+        },
+      ),
+    ];
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DotEnv().load('assets/.env');
-  await StorageManager.init();
 
-  final appCubit = AppCubit();
+  final storageRepository = StorageRepository();
+  await storageRepository.init();
+
+  final cacheRepository = CacheRepository();
+  await cacheRepository.init();
+
+  final appCubit = AppCubit(isDemo: storageRepository.isDemo());
+
+  final supernodeUser = storageRepository.supernodeUser();
+  final supernodeCubit = SupernodeCubit(
+    orgId: storageRepository.organizationId(),
+    user: supernodeUser != null
+        ? SupernodeUser(
+            token: supernodeUser.jwt,
+            username: supernodeUser.username,
+            password: supernodeUser.password,
+            userId: supernodeUser.userId,
+            node: supernodeUser.supernode,
+          )
+        : null,
+  );
 
   runApp(
-    BlocProvider<AppCubit>.value(
-      value: appCubit,
-      child: RepositoryProvider<SupernodeRepository>(
-        create: (ctx) => SupernodeRepository(appCubit),
-        child: MxcApp(),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<AppCubit>.value(
+          value: appCubit,
+        ),
+        BlocProvider<SupernodeCubit>.value(
+          value: supernodeCubit,
+        ),
+      ],
+      child: MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider<SupernodeRepository>(
+            create: (ctx) => SupernodeRepository(
+                appCubit: appCubit, supernodeCubit: supernodeCubit),
+          ),
+          RepositoryProvider.value(
+            value: storageRepository,
+          ),
+          RepositoryProvider.value(
+            value: cacheRepository,
+          ),
+        ],
+        child: MultiBlocListener(
+          listeners: listeners(),
+          child: MxcApp(),
+        ),
       ),
     ),
   );
@@ -96,69 +155,53 @@ Future<void> main() async {
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
 
-  CrashesDao().init(
-    appSecretAndroid: Sys.appSecretAndroid,
-    appSecretIOS: Sys.appSecretIOS,
-  );
+  // RETHINK.TODO
+  // CrashesDao().init(
+  //   appSecretAndroid: Sys.appSecretAndroid,
+  //   appSecretIOS: Sys.appSecretIOS,
+  // );
 }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class MxcApp extends StatelessWidget {
   final AbstractRoutes routes = PageRoutes(
-      pages: <String, Page<Object, dynamic>>{
-        'splash_page': SplashPage(),
-        'sign_up_page': SignUpPage(),
-        'forgot_password_page': ForgotPasswordPage(),
-        'deposit_page': DepositPage(),
-        'withdraw_page': WithdrawPage(),
-        'confirm_page': ConfirmPage(),
-        'stake_page': StakePage(),
-        'settings_page': SettingsPage(),
-        'change_password_page': ChangePasswordPage(),
-        'set_2fa_page': Set2FAPage(),
-        'get_2fa_page': Get2FAPage(),
-        'add_gateway_page': AddGatewayPage(),
-        'choose_application_page': ChooseApplicationPage(),
-        'device_mapbox_page': DeviceMapBoxPage(),
-        'calculator_page': CalculatorPage(),
-        'calculator_list_page': CalculatorListPage(),
-        'address_book_page': AddressBookPage(),
-        'add_address_page': AddAddressPage(),
-        'address_details_page': AddressDetailsPage(),
-        'connectivity_lost_page': ConnectivityLostPage(),
-        'prepare_stake_page': PrepareStakePage(),
-        'confirm_stake_page': ConfirmStakePage(),
-        'details_stake_page': DetailsStakePage(),
-        'list_unstake_page': ListUnstakePage(),
-        'under_maintenance_page': UnderMaintenancePage(),
-        'list_councils_page': ListCouncilsPage(),
-        'mining_simulator_page': MiningSimulatorPage(),
-        'lock_page': LockPage(),
-        'prepare_lock_page': PrepareLockPage(),
-        'join_council_page': JoinCouncilPage(),
-        'confirm_lock_page': ConfirmLockPage(),
-        'result_lock_page': ResultLockPage(),
-      },
-      visitor: (String path, Page<Object, dynamic> page) {
-        if (page.isTypeof<GlobalBaseState>()) {
-          page.connectExtraStore<GlobalState>(GlobalStore.store,
-              (Object pagestate, GlobalState appState) {
-            final GlobalBaseState p = pagestate;
+    pages: <String, Page<Object, dynamic>>{
+      // THESE ARE ONLY FISH REDUX PAGES.
 
-            if (!(p.settings == appState.settings)) {
-              if (pagestate is Cloneable) {
-                final Object copy = pagestate.clone();
-                final GlobalBaseState newState = copy;
-
-                return newState..settings = appState.settings;
-              }
-            }
-
-            return pagestate;
-          });
-        }
-      });
+      'sign_up_page': SignUpPage(),
+      'forgot_password_page': ForgotPasswordPage(),
+      'deposit_page': DepositPage(),
+      'withdraw_page': WithdrawPage(),
+      'confirm_page': ConfirmPage(),
+      'stake_page': StakePage(),
+      'settings_page': SettingsPage(),
+      'change_password_page': ChangePasswordPage(),
+      'set_2fa_page': Set2FAPage(),
+      'get_2fa_page': Get2FAPage(),
+      'add_gateway_page': AddGatewayPage(),
+      'choose_application_page': ChooseApplicationPage(),
+      'device_mapbox_page': DeviceMapBoxPage(),
+      'calculator_page': CalculatorPage(),
+      'calculator_list_page': CalculatorListPage(),
+      'address_book_page': AddressBookPage(),
+      'add_address_page': AddAddressPage(),
+      'address_details_page': AddressDetailsPage(),
+      'connectivity_lost_page': ConnectivityLostPage(),
+      'prepare_stake_page': PrepareStakePage(),
+      'confirm_stake_page': ConfirmStakePage(),
+      'details_stake_page': DetailsStakePage(),
+      'list_unstake_page': ListUnstakePage(),
+      'under_maintenance_page': UnderMaintenancePage(),
+      'list_councils_page': ListCouncilsPage(),
+      'mining_simulator_page': MiningSimulatorPage(),
+      'lock_page': LockPage(),
+      'prepare_lock_page': PrepareLockPage(),
+      'join_council_page': JoinCouncilPage(),
+      'confirm_lock_page': ConfirmLockPage(),
+      'result_lock_page': ResultLockPage(),
+    },
+  );
 
   Widget build(BuildContext context) {
     return DatadashFeedback(
@@ -166,15 +209,10 @@ class MxcApp extends StatelessWidget {
         navigatorKey: navigatorKey,
         localizationsDelegates: [
           FlutterI18nDelegate(
-              translationLoader: FileTranslationLoader(
-            useCountryCode: true,
-            // forcedLocale: Locale()
-          )
-              // translationLoader: NamespaceFileTranslationLoader(
-              //   useCountryCode: true,
-              //   namespaces: [ 'login' ]
-              // )
-              ),
+            translationLoader: FileTranslationLoader(
+              useCountryCode: true,
+            ),
+          ),
           GlobalMaterialLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
@@ -202,7 +240,9 @@ class MxcApp extends StatelessWidget {
         ],
         theme: appTheme,
         home: AppPage(
-          child: routes.buildPage('splash_page', null),
+          child: context.read<SupernodeCubit>().state.user == null
+              ? LoginPage()
+              : HomePage(),
         ),
         builder: (context, child) {
           if (Platform.isAndroid) {
@@ -226,7 +266,6 @@ class MxcApp extends StatelessWidget {
   }
 }
 
-/// 只针对页面的生命周期进行打印
 EffectMiddleware<T> _pageAnalyticsMiddleware<T>({String tag = 'redux'}) {
   return (AbstractLogic<dynamic> logic, Store<T> store) {
     return (Effect<dynamic> effect) {

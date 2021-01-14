@@ -1,11 +1,10 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/common/components/loading.dart';
-import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/daos/users_dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/log.dart';
-import 'package:supernodeapp/global_store/action.dart';
-import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 
 import 'action.dart';
@@ -24,8 +23,12 @@ Effect<Set2FAState> buildEffect() {
   });
 }
 
+UserDao buildUserDao(Context<Set2FAState> ctx) {
+  return ctx.context.read<SupernodeRepository>().user;
+}
+
 void _initState(Action action, Context<Set2FAState> ctx) {
-  UserDao dao = UserDao();
+  UserDao dao = buildUserDao(ctx);
 
   Map data = {};
 
@@ -96,7 +99,7 @@ void _onGetTOTPConfig(Action action, Context<Set2FAState> ctx) async {
     "qrCodeSize": qrCodeSize,
   };
 
-  UserDao dao = UserDao();
+  UserDao dao = buildUserDao(ctx);
   final loading = await Loading.show(ctx.context);
   dao.getTOTPConfig(data).then((res) {
     loading.hide();
@@ -128,16 +131,9 @@ void _onGetTOTPConfig(Action action, Context<Set2FAState> ctx) async {
 void _onSetEnable(Action action, Context<Set2FAState> ctx) async {
   var curState = ctx.state;
 
-  UserDao dao = UserDao();
+  UserDao dao = buildUserDao(ctx);
 
   List<String> codes = curState.listCtls.map((code) => code.text).toList();
-  SettingsState settingsData = GlobalStore.store.getState().settings;
-
-  if (settingsData == null) {
-    settingsData = SettingsState().clone();
-  }
-
-  settingsData.otpCode = codes.join();
 
   Map data = {"otp_code": codes.join()};
   final loading = await Loading.show(ctx.context);
@@ -148,24 +144,13 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx) async {
   }).then((res) {
     loading.hide();
     mLog('login saf', res);
-    UserDao dao = UserDao();
+    UserDao dao = buildUserDao(ctx);
 
     Map data = {};
 
     dao.getTOTPStatus(data).then((res) {
       loading.hide();
       mLog('totp', res);
-      SettingsState settingsData = GlobalStore.store.getState().settings;
-
-      if (settingsData == null) {
-        settingsData = SettingsState().clone();
-      }
-
-      settingsData.is2FAEnabled = res['enabled'];
-      if ((res as Map).containsKey('enabled')) {
-        GlobalStore.store
-            .dispatch(GlobalActionCreator.onSettings(settingsData));
-      }
 
       Navigator.push(
         ctx.context,
@@ -190,47 +175,26 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx) async {
 void _onSetDisable(Action action, Context<Set2FAState> ctx) async {
   var curState = ctx.state;
 
-  UserDao dao = UserDao();
+  UserDao dao = buildUserDao(ctx);
 
   String codes = curState.otpCodeCtl.text;
-  SettingsState settingsData = GlobalStore.store.getState().settings;
-
-  if (settingsData == null) {
-    settingsData = SettingsState().clone();
-  }
-
-  settingsData.otpCode = codes;
 
   Map data = {"otp_code": codes};
   final loading = await Loading.show(ctx.context);
   dao.setDisable(data).then((res) {
     loading.hide();
     mLog('setDisable status', res);
-
-    settingsData.is2FAEnabled = false;
-    GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
   }).then((res) {
     loading.hide();
     print(res);
     mLog('get 2fa status ', res);
-    UserDao dao = UserDao();
+    UserDao dao = buildUserDao(ctx);
 
     Map data = {};
 
     dao.getTOTPStatus(data).then((res) {
       loading.hide();
       mLog('totp', res);
-      SettingsState settingsData = GlobalStore.store.getState().settings;
-
-      if (settingsData == null) {
-        settingsData = SettingsState().clone();
-      }
-
-      settingsData.is2FAEnabled = res['enabled'];
-      if ((res as Map).containsKey('enabled')) {
-        GlobalStore.store
-            .dispatch(GlobalActionCreator.onSettings(settingsData));
-      }
       var count = 0;
       Navigator.popUntil(ctx.context, (route) {
         print(route);

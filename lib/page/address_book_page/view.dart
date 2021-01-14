@@ -66,7 +66,9 @@ Widget buildView(
                 child: CustomScrollView(
                   key: ValueKey('addressesScrollView'),
                   slivers: [
-                    if (state.addresses.isEmpty)
+                    if (state.addresses == null)
+                      SliverFillRemaining()
+                    else if (state.addresses.isEmpty)
                       SliverFillRemaining(
                         child: Center(
                           child: Text(FlutterI18n.translate(_ctx, 'no_data')),

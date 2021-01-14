@@ -1,16 +1,16 @@
-import 'package:bloc/bloc.dart';
+import 'dart:ui';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
-import 'package:supernodeapp/data/super_node_bean.dart';
-
+import 'package:supernodeapp/common/repositories/shared/dao/supernode.model.dart';
 part 'app_state.freezed.dart';
 
 @freezed
 abstract class SupernodeState with _$SupernodeState {
+  SupernodeState._();
   factory SupernodeState({
-    SuperNodeBean currentNode,
-    String userId,
-    String username,
+    SupernodeUser user,
+    Supernode selectedNode,
     String orgId,
   }) = _SupernodeState;
 }
@@ -18,15 +18,19 @@ abstract class SupernodeState with _$SupernodeState {
 @freezed
 abstract class AppState with _$AppState {
   factory AppState({
-    SupernodeState supernode,
+    Locale locale,
     @Default(false) bool isDemo,
   }) = _AppState;
 }
 
-class AppCubit extends Cubit<AppState> {
-  AppCubit() : super(AppState());
-
-  void setDemo(bool val) => emit(state.copyWith(isDemo: val));
-  void setNode(SuperNodeBean val) =>
-      emit(state.copyWith.supernode(currentNode: val));
+@freezed
+abstract class SupernodeUser with _$SupernodeUser {
+  factory SupernodeUser({
+    int userId,
+    String username,
+    String token,
+    String password,
+    Supernode node,
+    @Default(false) bool tfaEnabled,
+  }) = _SupernodeUser;
 }

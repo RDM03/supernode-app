@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:supernodeapp/common/daos/app_dao.dart';
-import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/stake.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/page/stake_page/action.dart';
 import 'state.dart';
 
@@ -11,7 +12,7 @@ Effect<StakeState> buildEffect() {
 }
 
 StakeDao _buildStakeDao(Context<StakeState> ctx) {
-  return ctx.state.isDemo ? DemoStakeDao() : StakeDao();
+  return ctx.context.read<SupernodeRepository>().stake;
 }
 
 void _initState(Action action, Context<StakeState> ctx) async {

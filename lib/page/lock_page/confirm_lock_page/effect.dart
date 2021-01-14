@@ -1,12 +1,12 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/daos/dao.dart';
-import 'package:supernodeapp/common/daos/demo/dhx_dao.dart';
-import 'package:supernodeapp/common/daos/dhx_dao.dart';
-import 'package:supernodeapp/global_store/store.dart';
-import 'package:supernodeapp/page/settings_page/state.dart';
+import 'package:supernodeapp/common/repositories/shared/clients/client.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/dhx.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -17,7 +17,7 @@ Effect<ConfirmLockState> buildEffect() {
 }
 
 DhxDao _buildDhxDao(Context<ConfirmLockState> ctx) =>
-    ctx.state.isDemo ? DemoDhxDao() : DhxDao();
+    ctx.context.read<SupernodeRepository>().dhx;
 
 void _onConfirm(Action action, Context<ConfirmLockState> ctx) async {
   final council = ctx.state.council;
@@ -36,14 +36,12 @@ void _onConfirm(Action action, Context<ConfirmLockState> ctx) async {
       ctx.dispatch(ConfirmLockActionCreator.setCouncil(
           ctx.state.council.copyWith(id: res.councilId)));
     } else {
-      SettingsState settingsData = GlobalStore.store.getState().settings;
-
       final res = await dao.createStake(
         amount: ctx.state.amount,
         boost: ctx.state.boostRate.toString(),
         councilId: council.id,
         lockMonths: ctx.state.months.toString(),
-        organizationId: settingsData.selectedOrganizationId,
+        organizationId: ctx.context.read<SupernodeCubit>().state.orgId,
       );
       stakeId = res;
     }
@@ -53,7 +51,7 @@ void _onConfirm(Action action, Context<ConfirmLockState> ctx) async {
           arguments: {'isDemo': ctx.state.isDemo, 'stakeId': stakeId});
       Navigator.of(ctx.context).pop(true);
     }
-  } on DaoException catch (e) {
+  } on HttpException catch (e) {
     tip(ctx.context, FlutterI18n.translate(ctx.context, e.message),
         duration: 5);
     print(e);

@@ -1,18 +1,20 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:majascan/majascan.dart';
+import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/daos/gateways_dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/gateways.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/configs/images.dart';
-import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -25,6 +27,10 @@ Effect<AddGatewayState> buildEffect() {
     AddGatewayAction.onQrScan: _onQrScan,
     AddGatewayAction.onProfile: _onProfile,
   });
+}
+
+GatewaysDao _buildGatewaysDao(Context<AddGatewayState> ctx) {
+  return ctx.context.read<SupernodeRepository>().gateways;
 }
 
 void _initState(Action action, Context<AddGatewayState> ctx) {
@@ -105,8 +111,8 @@ void _onProfile(Action action, Context<AddGatewayState> ctx) {
 }
 
 void _register(Context<AddGatewayState> ctx, String serialNumber) async {
-  String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-  GatewaysDao dao = GatewaysDao();
+  String orgId = ctx.context.read<SupernodeCubit>().state.orgId;
+  GatewaysDao dao = _buildGatewaysDao(ctx);
 
   Map data = {"organizationId": orgId, "sn": serialNumber.trim()};
   final loading = await Loading.show(ctx.context);
@@ -128,8 +134,8 @@ void _register(Context<AddGatewayState> ctx, String serialNumber) async {
 
 void _registerReseller(
     Context<AddGatewayState> ctx, String manufacturerNr) async {
-  String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-  GatewaysDao dao = GatewaysDao();
+  String orgId = ctx.context.read<SupernodeCubit>().state.orgId;
+  GatewaysDao dao = _buildGatewaysDao(ctx);
 
   Map data = {"manufacturerNr": manufacturerNr.trim(), "organizationId": orgId};
   final loading = await Loading.show(ctx.context);

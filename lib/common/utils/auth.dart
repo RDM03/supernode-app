@@ -1,32 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/common/daos/settings_dao.dart';
-import 'package:supernodeapp/data/super_node_bean.dart';
-import 'package:supernodeapp/global_store/store.dart';
+import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
 import 'package:supernodeapp/main.dart';
-import 'package:supernodeapp/page/login_page/bloc/view.dart';
-import 'package:supernodeapp/page/settings_page/state.dart';
-import 'package:supernodeapp/route.dart';
 
 import 'navigator.dart';
-
-Future<void> logOut(BuildContext context) async {
-  SettingsState settingsData = GlobalStore.store.getState().settings;
-  if (settingsData != null) {
-    settingsData.userId = '';
-    settingsData.selectedOrganizationId = '';
-    settingsData.organizations = [];
-    settingsData.language = '';
-    SettingsDao.updateLocal(settingsData);
-  }
-
-  Locale locale = Localizations.localeOf(context);
-  await FlutterI18n.refresh(context, locale);
-
-  Navigator.of(context)
-      .pushAndRemoveUntil(route((c) => LoginPage()), (_) => false);
-}
 
 Future<void> _pushMaintenance() async {
   if (!isCurrent(navigatorKey.currentState, 'under_maintenance_page')) {
@@ -34,11 +10,7 @@ Future<void> _pushMaintenance() async {
   }
 }
 
-Future<bool> checkMaintenance([SuperNodeBean node]) async {
-  if (node == null) {
-    await GlobalStore.store.getState().superModel.networkLoad();
-    node = GlobalStore.store.getState().superModel.currentNode;
-  }
+Future<bool> checkMaintenance(Supernode node) async {
   if (node == null) return true;
   if (node.status == 'maintenance') {
     if (SchedulerBinding.instance.schedulerPhase ==

@@ -29,7 +29,6 @@ CalculatorListState initState(Map<String, dynamic> args) {
       Currency.values.where((c) => c.type == CurrencyType.crypto).toList();
   state.fiatCurrencies =
       Currency.values.where((c) => c.type == CurrencyType.fiat).toList();
-  state.selectedCurrencies = StorageManager.selectedCurrencies();
 
   return state;
 }

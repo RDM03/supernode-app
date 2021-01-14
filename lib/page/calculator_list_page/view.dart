@@ -77,126 +77,129 @@ Widget buildView(
                 ),
               ),
               SizedBox(height: 10),
-              Expanded(
-                flex: 1,
-                child: CustomScrollView(
-                  key: ValueKey('currenciesScrollView'),
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 20,
-                        ),
-                        child: TextField(
-                          key: ValueKey('searchField'),
-                          controller: state.searchController,
-                          decoration: InputDecoration(
-                            isDense: true,
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5)),
-                              borderSide: BorderSide(
-                                color: Color(0x0000001A),
+              if (state.selectedCurrencies != null)
+                Expanded(
+                  flex: 1,
+                  child: CustomScrollView(
+                    key: ValueKey('currenciesScrollView'),
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 20,
+                          ),
+                          child: TextField(
+                            key: ValueKey('searchField'),
+                            controller: state.searchController,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5)),
+                                borderSide: BorderSide(
+                                  color: Color(0x0000001A),
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5)),
+                                borderSide: BorderSide(
+                                  color: Color.fromRGBO(0, 0, 0, 0.2),
+                                ),
+                              ),
+                              hintText: FlutterI18n.translate(_ctx, 'search'),
+                              hintStyle: TextStyle(fontSize: 12),
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 12,
+                                horizontal: 15,
                               ),
                             ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5)),
-                              borderSide: BorderSide(
-                                color: Color.fromRGBO(0, 0, 0, 0.2),
+                          ),
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: _Title(
+                            FlutterI18n.translate(_ctx, 'my_currencies')),
+                      ),
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (ctx, i) => ListTile(
+                            key: ValueKey(
+                                'selected_${selectedCurrencies[i].shortName}'),
+                            leading:
+                                Image.asset(selectedCurrencies[i].iconPath),
+                            title: Text(
+                              FlutterI18n.translate(
+                                _ctx,
+                                selectedCurrencies[i].shortName,
                               ),
                             ),
-                            hintText: FlutterI18n.translate(_ctx, 'search'),
-                            hintStyle: TextStyle(fontSize: 12),
-                            contentPadding: EdgeInsets.symmetric(
-                              vertical: 12,
-                              horizontal: 15,
+                            trailing: Icon(
+                              Icons.check,
+                              color: Colors.black,
+                            ),
+                            onTap: () => dispatch(
+                              CalculatorListActionCreator.selectCurrency(
+                                  selectedCurrencies[i]),
                             ),
                           ),
+                          childCount: selectedCurrencies.length,
                         ),
                       ),
-                    ),
-                    SliverToBoxAdapter(
-                      child:
-                          _Title(FlutterI18n.translate(_ctx, 'my_currencies')),
-                    ),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (ctx, i) => ListTile(
-                          key: ValueKey(
-                              'selected_${selectedCurrencies[i].shortName}'),
-                          leading: Image.asset(selectedCurrencies[i].iconPath),
-                          title: Text(
-                            FlutterI18n.translate(
-                              _ctx,
-                              selectedCurrencies[i].shortName,
-                            ),
-                          ),
-                          trailing: Icon(
-                            Icons.check,
-                            color: Colors.black,
-                          ),
-                          onTap: () => dispatch(
-                            CalculatorListActionCreator.selectCurrency(
-                                selectedCurrencies[i]),
-                          ),
-                        ),
-                        childCount: selectedCurrencies.length,
+                      SliverToBoxAdapter(
+                        child: _Title(
+                            FlutterI18n.translate(_ctx, 'fiat_currencies')),
                       ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: _Title(
-                          FlutterI18n.translate(_ctx, 'fiat_currencies')),
-                    ),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (ctx, i) => ListTile(
-                          key: ValueKey('fiat_${fiatCurrencies[i].shortName}'),
-                          leading: Image.asset(fiatCurrencies[i].iconPath),
-                          title: Text(
-                            FlutterI18n.translate(
-                              _ctx,
-                              fiatCurrencies[i].shortName,
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (ctx, i) => ListTile(
+                            key:
+                                ValueKey('fiat_${fiatCurrencies[i].shortName}'),
+                            leading: Image.asset(fiatCurrencies[i].iconPath),
+                            title: Text(
+                              FlutterI18n.translate(
+                                _ctx,
+                                fiatCurrencies[i].shortName,
+                              ),
+                            ),
+                            onTap: () => dispatch(
+                              CalculatorListActionCreator.selectCurrency(
+                                fiatCurrencies[i],
+                              ),
                             ),
                           ),
-                          onTap: () => dispatch(
-                            CalculatorListActionCreator.selectCurrency(
-                              fiatCurrencies[i],
-                            ),
-                          ),
+                          childCount: fiatCurrencies.length,
                         ),
-                        childCount: fiatCurrencies.length,
                       ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: _Title(
-                          FlutterI18n.translate(_ctx, 'cryptocurrencies')),
-                    ),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (ctx, i) => ListTile(
-                          key: ValueKey(
-                              'crypto_${selectedCurrencies[i].shortName}'),
-                          leading: Image.asset(cryptoCurrencies[i].iconPath),
-                          title: Text(
-                            FlutterI18n.translate(
-                              _ctx,
-                              cryptoCurrencies[i].shortName,
+                      SliverToBoxAdapter(
+                        child: _Title(
+                            FlutterI18n.translate(_ctx, 'cryptocurrencies')),
+                      ),
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (ctx, i) => ListTile(
+                            key: ValueKey(
+                                'crypto_${selectedCurrencies[i].shortName}'),
+                            leading: Image.asset(cryptoCurrencies[i].iconPath),
+                            title: Text(
+                              FlutterI18n.translate(
+                                _ctx,
+                                cryptoCurrencies[i].shortName,
+                              ),
+                            ),
+                            onTap: () => dispatch(
+                              CalculatorListActionCreator.selectCurrency(
+                                cryptoCurrencies[i],
+                              ),
                             ),
                           ),
-                          onTap: () => dispatch(
-                            CalculatorListActionCreator.selectCurrency(
-                              cryptoCurrencies[i],
-                            ),
-                          ),
+                          childCount: cryptoCurrencies.length,
                         ),
-                        childCount: cryptoCurrencies.length,
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
             ],
           ),
         ),

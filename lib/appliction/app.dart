@@ -87,7 +87,7 @@ mixin AppLifecycle {
     await settingsDao.close();
 
     if (data != null && data.userId.isNotEmpty) {
-      Dao.baseUrl = GlobalStore.state.superModel.currentNode.url;
+      Dao.baseUrl = GlobalStore.state.superModel.user.node.url;
       Dao.token = data.token;
 
       GlobalStore.store.dispatch(GlobalActionCreator.onSettings(data));

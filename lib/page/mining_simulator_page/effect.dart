@@ -1,14 +1,11 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter/material.dart' hide Action;
-import 'package:supernodeapp/common/daos/demo/dhx_dao.dart';
-import 'package:supernodeapp/common/daos/demo/gateways_dao.dart';
-import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
-import 'package:supernodeapp/common/daos/dhx_dao.dart';
-import 'package:supernodeapp/common/daos/gateways_dao.dart';
-import 'package:supernodeapp/common/daos/wallet_dao.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supernodeapp/app_cubit.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/dhx.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/gateways.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/wallet.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
-import 'package:supernodeapp/global_store/store.dart';
-import 'package:supernodeapp/page/settings_page/state.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -20,15 +17,15 @@ Effect<MiningSimulatorState> buildEffect() {
 }
 
 WalletDao _buildWalletDao(Context<MiningSimulatorState> ctx) {
-  return ctx.state.isDemo ? DemoWalletDao() : WalletDao();
+  return ctx.context.read<SupernodeRepository>().wallet;
 }
 
 DhxDao _buildDhxDao(Context<MiningSimulatorState> ctx) {
-  return ctx.state.isDemo ? DemoDhxDao() : DhxDao();
+  return ctx.context.read<SupernodeRepository>().dhx;
 }
 
 GatewaysDao _buildGatewaysDao(Context<MiningSimulatorState> ctx) =>
-    ctx.state.isDemo ? DemoGatewaysDao() : GatewaysDao();
+    ctx.context.read<SupernodeRepository>().gateways;
 
 void _onInitState(Action action, Context<MiningSimulatorState> ctx) async {
   await _lastMining(ctx);
@@ -45,9 +42,8 @@ Future<void> _lastMining(Context<MiningSimulatorState> ctx) async {
 
 Future<void> _minersOwned(Context<MiningSimulatorState> ctx) async {
   final dao = _buildGatewaysDao(ctx);
-  SettingsState settingsData = GlobalStore.store.getState().settings;
   Map data = {
-    "organizationID": settingsData.selectedOrganizationId,
+    "organizationID": ctx.context.read<SupernodeCubit>().state.orgId,
     "offset": 0,
     "limit": 1,
   };
@@ -57,11 +53,10 @@ Future<void> _minersOwned(Context<MiningSimulatorState> ctx) async {
 }
 
 Future<void> _balance(Context<MiningSimulatorState> ctx) async {
-  SettingsState settingsData = GlobalStore.store.getState().settings;
   WalletDao dao = _buildWalletDao(ctx);
   Map data = {
-    'userId': settingsData.userId,
-    'orgId': settingsData.selectedOrganizationId,
+    'userId': ctx.context.read<SupernodeCubit>().state.user.userId,
+    'orgId': ctx.context.read<SupernodeCubit>().state.orgId,
     'currency': ''
   };
 

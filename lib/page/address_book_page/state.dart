@@ -1,6 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/common/utils/address_entity.dart';
-import 'package:supernodeapp/common/utils/storage_manager_native.dart';
+import 'package:supernodeapp/common/repositories/storage_repository.dart';
 
 class AddressBookState implements Cloneable<AddressBookState> {
   List<AddressEntity> addresses;
@@ -16,9 +16,7 @@ class AddressBookState implements Cloneable<AddressBookState> {
 
 AddressBookState initState(Map<String, dynamic> args) {
   args ??= {};
-  final addresses = StorageManager.addressBook();
-
   return AddressBookState()
-    ..addresses = addresses
+    ..addresses = null
     ..selectionMode = args['selection'] ?? false;
 }

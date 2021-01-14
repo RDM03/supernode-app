@@ -25,6 +25,9 @@ class SignUpState implements Cloneable<SignUpState> {
   TextEditingController displayCtl = TextEditingController();
   String userId = '';
 
+  String username;
+  String jwtToken;
+
   bool isCheckTerms = false;
   bool isCheckSend = false;
   bool isObscureText = true;
@@ -43,7 +46,9 @@ class SignUpState implements Cloneable<SignUpState> {
       ..codeListCtls = codeListCtls
       ..isCheckTerms = isCheckTerms
       ..isCheckSend = isCheckSend
-      ..isObscureText = isObscureText;
+      ..isObscureText = isObscureText
+      ..username = username
+      ..jwtToken = jwtToken;
   }
 }
 

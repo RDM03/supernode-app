@@ -7,11 +7,16 @@ enum CalculatorListAction {
   onDone,
   initListener,
   setSearchValue,
+  setSelectedCurrencies,
 }
 
 class CalculatorListActionCreator {
   static Action selectCurrency(Currency currency) {
     return Action(CalculatorListAction.selectCurrency, payload: currency);
+  }
+
+  static Action setSelectedCurrencies(List<Currency> currencies) {
+    return Action(CalculatorListAction.selectCurrency, payload: currencies);
   }
 
   static Action onDone() {

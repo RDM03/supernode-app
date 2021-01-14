@@ -116,6 +116,8 @@ dependencies:
   # rethink
   flutter_bloc: ^6.1.1
   freezed_annotation: ^0.12.0
+  pretty_dio_logger: ^1.1.1
+  logger: ^0.9.4
 
 
 dependency_overrides:

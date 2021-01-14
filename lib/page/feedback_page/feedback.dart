@@ -4,14 +4,15 @@ import 'dart:typed_data';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share/share.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/text_field/primary_text_field.dart';
-import 'package:supernodeapp/common/daos/jira_dao.dart';
-import 'package:supernodeapp/common/utils/storage_manager_native.dart';
+import 'package:supernodeapp/common/repositories/jira_repository.dart';
+import 'package:supernodeapp/common/repositories/shared/dao/jira_dao.dart';
+import 'package:supernodeapp/common/repositories/storage_repository.dart';
 import 'package:supernodeapp/main.dart';
 import 'package:supernodeapp/page/feedback_page/feedback_result.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -166,13 +167,13 @@ class DatadashFeedbackState extends State<DatadashFeedback> {
 
   Future<void> setShowScreenshot(bool value) async {
     setState(() => _showScreenshot = value);
-    await StorageManager.setShowFeedback(value);
+    await context.read<StorageRepository>().setShowFeedback(value);
   }
 
   @override
   void initState() {
     super.initState();
-    _showScreenshot = StorageManager.showFeedback();
+    _showScreenshot = context.read<StorageRepository>().showFeedback();
   }
 
   @override
@@ -257,7 +258,7 @@ Future<bool> submitJiraFeedback(
   image = res.image;
   if (res.resultType == FeedbackResultType.feedback) {
     params = params.copyWith(type: res.feedbackType);
-    final dao = JiraDao();
+    final dao = ctx.read<JiraRepository>();
     final issueId = await dao.createIssue(params);
     await dao.addImage(issueId, image);
   } else if (res.resultType == FeedbackResultType.share) {
