@@ -53,7 +53,7 @@ void _onBecomeCouncilChair(Action action, Context<JoinCouncilState> ctx) async {
       moveNext(
         ctx,
         Council(
-          name: ctx.context.read<SupernodeCubit>().state.user.username,
+          name: ctx.context.read<SupernodeCubit>().state.session.username,
           chairOrgId: ctx.context.read<SupernodeCubit>().state.orgId,
         ),
       );

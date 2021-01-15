@@ -23,6 +23,18 @@ class UserApi {
   static const String passwordReset = "/api/internal/request-password-reset";
   static const String passwordResetConfirm =
       "/api/internal/confirm-password-reset";
+
+  //ExternalUserService
+  static const String authenticateWeChatUser =
+      "/api/external-login/authenticate-wechat-user";
+  static const String debugAuthenticateWeChatUser =
+      "/api/external-login/debug-authenticate-wechat-user";
+  static const String bindExternalUser =
+      "/api/external-login/bind-external-user";
+  static const String registerExternalUser =
+      "/api/external-login/register-external-user";
+  static const String unbindExternalUser =
+      "/api/external-login/unbind-external-user";
 }
 
 class UserDao extends HttpDao {
@@ -103,5 +115,25 @@ class UserDao extends HttpDao {
 
   Future<dynamic> passwordResetConfirm(Map data) {
     return post(url: UserApi.passwordResetConfirm, data: data);
+  }
+
+  Future<dynamic> authenticateWeChatUser(Map data) {
+    return post(url: UserApi.authenticateWeChatUser, data: data);
+  }
+
+  Future<dynamic> debugAuthenticateWeChatUser(Map data) {
+    return post(url: UserApi.debugAuthenticateWeChatUser, data: data);
+  }
+
+  Future<dynamic> bindExternalUser(Map data) {
+    return post(url: UserApi.bindExternalUser, data: data);
+  }
+
+  Future<dynamic> registerExternalUser(Map data) {
+    return post(url: UserApi.registerExternalUser, data: data);
+  }
+
+  Future<dynamic> unbindExternalUser(Map data) {
+    return post(url: UserApi.unbindExternalUser, data: data);
   }
 }

@@ -128,7 +128,7 @@ class UserOrganization {
 }
 
 class ProfileResponse {
-  final dynamic user;
+  final ProfileUser user;
   final List<UserOrganization> organizations;
 
   ProfileResponse({this.user, this.organizations});
@@ -137,7 +137,7 @@ class ProfileResponse {
     if (map == null) return null;
 
     return ProfileResponse(
-      user: map['user'],
+      user: ProfileUser.fromMap(map['user']),
       organizations: List<UserOrganization>.from(
           map['organizations']?.map((x) => UserOrganization.fromMap(x))),
     );
@@ -145,4 +145,44 @@ class ProfileResponse {
 
   factory ProfileResponse.fromJson(String source) =>
       ProfileResponse.fromMap(json.decode(source));
+}
+
+class ProfileUser {
+  final String email;
+  final String admin;
+  final bool isActive;
+  final bool isAdmin;
+  final String lastLoginService;
+  final String note;
+  final int sessionTTL;
+  final String username;
+
+  ProfileUser({
+    this.email,
+    this.admin,
+    this.isActive,
+    this.isAdmin,
+    this.lastLoginService,
+    this.note,
+    this.sessionTTL,
+    this.username,
+  });
+
+  factory ProfileUser.fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    return ProfileUser(
+      email: map['email'],
+      admin: map['admin'],
+      isActive: map['isActive'],
+      isAdmin: map['isAdmin'],
+      lastLoginService: map['lastLoginService'],
+      note: map['note'],
+      sessionTTL: map['sessionTTL'],
+      username: map['username'],
+    );
+  }
+
+  factory ProfileUser.fromJson(String source) =>
+      ProfileUser.fromMap(json.decode(source));
 }

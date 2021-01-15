@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pagination_view/pagination_view.dart';
+import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/app_bars/home_bar.dart';
 import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/common/components/empty.dart';
@@ -57,8 +58,12 @@ class GatewayTab extends StatelessWidget {
                     keyTrailSubtitle: ValueKey('minersRevenue'),
                     loading: gatewayState.gatewaysTotal.loading,
                     icon: Icons.add_circle,
-                    onPressed: () {
-                      //RETHINK.TODO
+                    onPressed: () async {
+                      await Navigator.of(context)
+                          .pushNamed('add_gateway_page', arguments: {
+                        'fromPage': 'home',
+                      });
+                      await context.read<GatewayCubit>().refreshGateways();
                     },
                     titleText: FlutterI18n.translate(context, 'total_gateways'),
                     subtitleText: '${gatewayState.gatewaysTotal.value}',
@@ -126,11 +131,7 @@ class GatewaysList extends StatelessWidget {
           context: context,
           blueActionIndex: 0,
           list: list,
-          onItemClickListener: (itemIndex) {
-            // if (itemIndex == list.length - 1) {
-            //   dispatch(GatewayActionCreator.onDelete(state));
-            // } RETHINK.TODO
-          },
+          onItemClickListener: (itemIndex) {},
         ),
       ),
     );
@@ -146,17 +147,12 @@ class GatewaysList extends StatelessWidget {
         actionExtentRatio: 0.25,
         child: GatewayListTile(
           state: state,
-          onTap: () {
-            // RETHINK.TODO
-            // Navigator.push(
-            //   ctx.context,
-            //   MaterialPageRoute(
-            //       maintainState: false,
-            //       fullscreenDialog: true,
-            //       builder: (context) {
-            //         return ctx.buildComponent('profile');
-            //       }),
-            // );
+          onTap: () async {
+            await Navigator.pushNamed(context, 'gateway_profile_page',
+                arguments: {
+                  'item': state,
+                  'isDemo': context.read<AppCubit>().state.isDemo,
+                });
           },
         ),
         secondaryActions: <Widget>[

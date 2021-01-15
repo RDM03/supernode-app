@@ -27,15 +27,18 @@ import 'package:supernodeapp/page/calculator_list_page/page.dart';
 import 'package:supernodeapp/page/calculator_page/page.dart';
 import 'package:supernodeapp/page/connectivity_lost_page/page.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
+import 'package:supernodeapp/page/gateway_profile_page/page.dart';
 import 'package:supernodeapp/page/home_page/view.dart';
 import 'package:supernodeapp/page/list_councils/page.dart';
 import 'package:supernodeapp/page/login_page/view.dart';
+import 'package:supernodeapp/page/mapbox_gl_page/page.dart';
 import 'package:supernodeapp/page/mining_simulator_page/page.dart';
 import 'package:supernodeapp/page/lock_page/join_council/page.dart';
 import 'package:supernodeapp/page/lock_page/confirm_lock_page/page.dart';
 import 'package:supernodeapp/page/lock_page/page.dart';
 import 'package:supernodeapp/page/lock_page/prepare_lock_page/page.dart';
 import 'package:supernodeapp/page/lock_page/result_lock_page/page.dart';
+import 'package:supernodeapp/page/settings_page/page.dart';
 import 'package:supernodeapp/page/sign_up_page/page.dart';
 import 'package:supernodeapp/page/stake_page/confirm_stake_page/page.dart';
 import 'package:supernodeapp/page/stake_page/details_stake_page/page.dart';
@@ -65,19 +68,25 @@ List<BlocListener> listeners() => [
         },
       ),
       BlocListener<SupernodeCubit, SupernodeState>(
-        listenWhen: (a, b) => a.user != b.user,
+        listenWhen: (a, b) => a.session != b.session,
         listener: (context, state) {
-          context.read<StorageRepository>().setSupernodeUser(
-                jwt: state.user?.token,
-                userId: state.user?.userId,
-                username: state.user?.username,
-                password: state.user?.password,
-                supernode: state.user?.node,
+          context.read<StorageRepository>().setSupernodeSession(
+                jwt: state.session?.token,
+                userId: state.session?.userId,
+                username: state.session?.username,
+                password: state.session?.password,
+                supernode: state.session?.node,
               );
         },
       ),
       BlocListener<AppCubit, AppState>(
         listenWhen: (a, b) => a.isDemo != b.isDemo,
+        listener: (context, state) {
+          context.read<StorageRepository>().setIsDemo(state.isDemo);
+        },
+      ),
+      BlocListener<AppCubit, AppState>(
+        listenWhen: (a, b) => a.locale != b.locale,
         listener: (context, state) {
           context.read<StorageRepository>().setIsDemo(state.isDemo);
         },
@@ -96,16 +105,16 @@ Future<void> main() async {
 
   final appCubit = AppCubit(isDemo: storageRepository.isDemo() ?? false);
 
-  final supernodeUser = storageRepository.supernodeUser();
+  final supernodeSession = storageRepository.supernodeSession();
   final supernodeCubit = SupernodeCubit(
     orgId: storageRepository.organizationId(),
-    user: supernodeUser != null
-        ? SupernodeUser(
-            token: supernodeUser.jwt,
-            username: supernodeUser.username,
-            password: supernodeUser.password,
-            userId: supernodeUser.userId,
-            node: supernodeUser.supernode,
+    session: supernodeSession != null
+        ? SupernodeSession(
+            token: supernodeSession.jwt,
+            username: supernodeSession.username,
+            password: supernodeSession.password,
+            userId: supernodeSession.userId,
+            node: supernodeSession.supernode,
           )
         : null,
   );
@@ -207,6 +216,9 @@ class MxcApp extends StatelessWidget {
       'join_council_page': JoinCouncilPage(),
       'confirm_lock_page': ConfirmLockPage(),
       'result_lock_page': ResultLockPage(),
+      'settings_page': SettingsPage(),
+      'gateway_profile_page': GatewayProfilePage(),
+      'mapbox_gl_page': MapboxGlPage(),
     },
   );
 
@@ -287,7 +299,7 @@ class MxcApp extends StatelessWidget {
                 },
                 pages: [
                   MaterialPage(
-                    child: context.read<SupernodeCubit>().state.user == null
+                    child: context.read<SupernodeCubit>().state.session == null
                         ? LoginPage()
                         : HomePage(),
                   ),

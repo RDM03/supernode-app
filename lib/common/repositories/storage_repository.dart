@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
@@ -83,7 +85,7 @@ class StorageRepository {
   static const String _demoModeKey = 'demo_mode';
   static const String _supernodeKey = 'supernode';
 
-  StorageManagerSupernodeUser supernodeUser() {
+  StorageManagerSupernodeUser supernodeSession() {
     final token = _sharedPreferences.getString(_tokenKey);
     final userId = _sharedPreferences.getInt(_userIdKey);
     final username = _sharedPreferences.getString(_userNameKey);
@@ -107,7 +109,7 @@ class StorageRepository {
     );
   }
 
-  Future<void> setSupernodeUser({
+  Future<void> setSupernodeSession({
     @required String jwt,
     @required int userId,
     @required String username,
@@ -127,6 +129,14 @@ class StorageRepository {
 
   Future<void> setIsDemo(bool val) async {
     await _sharedPreferences.setBool(_demoModeKey, val);
+  }
+
+  Locale locale() {
+    return Locale(_sharedPreferences.getString('locale'));
+  }
+
+  Future<void> setLocale(Locale locale) async {
+    await _sharedPreferences.setString('locale', locale.languageCode);
   }
 }
 

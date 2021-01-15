@@ -167,7 +167,7 @@ Future<void> _updateBalance(Context<WithdrawState> ctx) async {
   WalletDao dao = _buildWalletDao(ctx);
 
   final settingsData = ctx.context.read<SupernodeCubit>().state;
-  int userId = settingsData.user.userId;
+  int userId = settingsData.session.userId;
   String orgId = settingsData.orgId;
 
   try {

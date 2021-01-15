@@ -3,7 +3,9 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:location/location.dart';
 import 'package:majascan/majascan.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
@@ -33,7 +35,10 @@ GatewaysDao _buildGatewaysDao(Context<AddGatewayState> ctx) {
   return ctx.context.read<SupernodeRepository>().gateways;
 }
 
-void _initState(Action action, Context<AddGatewayState> ctx) {
+void _initState(Action action, Context<AddGatewayState> ctx) async {
+  final location = await Location.instance.getLocation();
+  final latlng = LatLng(location.latitude, location.longitude);
+  ctx.dispatch(AddGatewayActionCreator.setLocation(latlng));
   SchedulerBinding.instance.addPostFrameCallback((_) {
     ctx.state.mapCtl.addSymbol(MapMarker(
       point: ctx.state.markerPoint,

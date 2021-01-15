@@ -15,9 +15,9 @@ class _$SupernodeStateTearOff {
 
 // ignore: unused_element
   _SupernodeState call(
-      {SupernodeUser user, Supernode selectedNode, String orgId}) {
+      {SupernodeSession session, Supernode selectedNode, String orgId}) {
     return _SupernodeState(
-      user: user,
+      session: session,
       selectedNode: selectedNode,
       orgId: orgId,
     );
@@ -30,7 +30,7 @@ const $SupernodeState = _$SupernodeStateTearOff();
 
 /// @nodoc
 mixin _$SupernodeState {
-  SupernodeUser get user;
+  SupernodeSession get session;
   Supernode get selectedNode;
   String get orgId;
 
@@ -42,9 +42,9 @@ abstract class $SupernodeStateCopyWith<$Res> {
   factory $SupernodeStateCopyWith(
           SupernodeState value, $Res Function(SupernodeState) then) =
       _$SupernodeStateCopyWithImpl<$Res>;
-  $Res call({SupernodeUser user, Supernode selectedNode, String orgId});
+  $Res call({SupernodeSession session, Supernode selectedNode, String orgId});
 
-  $SupernodeUserCopyWith<$Res> get user;
+  $SupernodeSessionCopyWith<$Res> get session;
 }
 
 /// @nodoc
@@ -58,12 +58,13 @@ class _$SupernodeStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object user = freezed,
+    Object session = freezed,
     Object selectedNode = freezed,
     Object orgId = freezed,
   }) {
     return _then(_value.copyWith(
-      user: user == freezed ? _value.user : user as SupernodeUser,
+      session:
+          session == freezed ? _value.session : session as SupernodeSession,
       selectedNode: selectedNode == freezed
           ? _value.selectedNode
           : selectedNode as Supernode,
@@ -72,12 +73,12 @@ class _$SupernodeStateCopyWithImpl<$Res>
   }
 
   @override
-  $SupernodeUserCopyWith<$Res> get user {
-    if (_value.user == null) {
+  $SupernodeSessionCopyWith<$Res> get session {
+    if (_value.session == null) {
       return null;
     }
-    return $SupernodeUserCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value));
+    return $SupernodeSessionCopyWith<$Res>(_value.session, (value) {
+      return _then(_value.copyWith(session: value));
     });
   }
 }
@@ -89,10 +90,10 @@ abstract class _$SupernodeStateCopyWith<$Res>
           _SupernodeState value, $Res Function(_SupernodeState) then) =
       __$SupernodeStateCopyWithImpl<$Res>;
   @override
-  $Res call({SupernodeUser user, Supernode selectedNode, String orgId});
+  $Res call({SupernodeSession session, Supernode selectedNode, String orgId});
 
   @override
-  $SupernodeUserCopyWith<$Res> get user;
+  $SupernodeSessionCopyWith<$Res> get session;
 }
 
 /// @nodoc
@@ -108,12 +109,13 @@ class __$SupernodeStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object user = freezed,
+    Object session = freezed,
     Object selectedNode = freezed,
     Object orgId = freezed,
   }) {
     return _then(_SupernodeState(
-      user: user == freezed ? _value.user : user as SupernodeUser,
+      session:
+          session == freezed ? _value.session : session as SupernodeSession,
       selectedNode: selectedNode == freezed
           ? _value.selectedNode
           : selectedNode as Supernode,
@@ -124,10 +126,10 @@ class __$SupernodeStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_SupernodeState extends _SupernodeState with DiagnosticableTreeMixin {
-  _$_SupernodeState({this.user, this.selectedNode, this.orgId}) : super._();
+  _$_SupernodeState({this.session, this.selectedNode, this.orgId}) : super._();
 
   @override
-  final SupernodeUser user;
+  final SupernodeSession session;
   @override
   final Supernode selectedNode;
   @override
@@ -135,7 +137,7 @@ class _$_SupernodeState extends _SupernodeState with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SupernodeState(user: $user, selectedNode: $selectedNode, orgId: $orgId)';
+    return 'SupernodeState(session: $session, selectedNode: $selectedNode, orgId: $orgId)';
   }
 
   @override
@@ -143,7 +145,7 @@ class _$_SupernodeState extends _SupernodeState with DiagnosticableTreeMixin {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'SupernodeState'))
-      ..add(DiagnosticsProperty('user', user))
+      ..add(DiagnosticsProperty('session', session))
       ..add(DiagnosticsProperty('selectedNode', selectedNode))
       ..add(DiagnosticsProperty('orgId', orgId));
   }
@@ -152,8 +154,9 @@ class _$_SupernodeState extends _SupernodeState with DiagnosticableTreeMixin {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _SupernodeState &&
-            (identical(other.user, user) ||
-                const DeepCollectionEquality().equals(other.user, user)) &&
+            (identical(other.session, session) ||
+                const DeepCollectionEquality()
+                    .equals(other.session, session)) &&
             (identical(other.selectedNode, selectedNode) ||
                 const DeepCollectionEquality()
                     .equals(other.selectedNode, selectedNode)) &&
@@ -164,7 +167,7 @@ class _$_SupernodeState extends _SupernodeState with DiagnosticableTreeMixin {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(user) ^
+      const DeepCollectionEquality().hash(session) ^
       const DeepCollectionEquality().hash(selectedNode) ^
       const DeepCollectionEquality().hash(orgId);
 
@@ -176,12 +179,12 @@ class _$_SupernodeState extends _SupernodeState with DiagnosticableTreeMixin {
 abstract class _SupernodeState extends SupernodeState {
   _SupernodeState._() : super._();
   factory _SupernodeState(
-      {SupernodeUser user,
+      {SupernodeSession session,
       Supernode selectedNode,
       String orgId}) = _$_SupernodeState;
 
   @override
-  SupernodeUser get user;
+  SupernodeSession get session;
   @override
   Supernode get selectedNode;
   @override
@@ -350,18 +353,18 @@ abstract class _AppState implements AppState {
 }
 
 /// @nodoc
-class _$SupernodeUserTearOff {
-  const _$SupernodeUserTearOff();
+class _$SupernodeSessionTearOff {
+  const _$SupernodeSessionTearOff();
 
 // ignore: unused_element
-  _SupernodeUser call(
+  _SupernodeSession call(
       {int userId,
       String username,
       String token,
       String password,
       Supernode node,
       bool tfaEnabled = false}) {
-    return _SupernodeUser(
+    return _SupernodeSession(
       userId: userId,
       username: username,
       token: token,
@@ -374,10 +377,10 @@ class _$SupernodeUserTearOff {
 
 /// @nodoc
 // ignore: unused_element
-const $SupernodeUser = _$SupernodeUserTearOff();
+const $SupernodeSession = _$SupernodeSessionTearOff();
 
 /// @nodoc
-mixin _$SupernodeUser {
+mixin _$SupernodeSession {
   int get userId;
   String get username;
   String get token;
@@ -385,14 +388,14 @@ mixin _$SupernodeUser {
   Supernode get node;
   bool get tfaEnabled;
 
-  $SupernodeUserCopyWith<SupernodeUser> get copyWith;
+  $SupernodeSessionCopyWith<SupernodeSession> get copyWith;
 }
 
 /// @nodoc
-abstract class $SupernodeUserCopyWith<$Res> {
-  factory $SupernodeUserCopyWith(
-          SupernodeUser value, $Res Function(SupernodeUser) then) =
-      _$SupernodeUserCopyWithImpl<$Res>;
+abstract class $SupernodeSessionCopyWith<$Res> {
+  factory $SupernodeSessionCopyWith(
+          SupernodeSession value, $Res Function(SupernodeSession) then) =
+      _$SupernodeSessionCopyWithImpl<$Res>;
   $Res call(
       {int userId,
       String username,
@@ -403,13 +406,13 @@ abstract class $SupernodeUserCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SupernodeUserCopyWithImpl<$Res>
-    implements $SupernodeUserCopyWith<$Res> {
-  _$SupernodeUserCopyWithImpl(this._value, this._then);
+class _$SupernodeSessionCopyWithImpl<$Res>
+    implements $SupernodeSessionCopyWith<$Res> {
+  _$SupernodeSessionCopyWithImpl(this._value, this._then);
 
-  final SupernodeUser _value;
+  final SupernodeSession _value;
   // ignore: unused_field
-  final $Res Function(SupernodeUser) _then;
+  final $Res Function(SupernodeSession) _then;
 
   @override
   $Res call({
@@ -433,11 +436,11 @@ class _$SupernodeUserCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$SupernodeUserCopyWith<$Res>
-    implements $SupernodeUserCopyWith<$Res> {
-  factory _$SupernodeUserCopyWith(
-          _SupernodeUser value, $Res Function(_SupernodeUser) then) =
-      __$SupernodeUserCopyWithImpl<$Res>;
+abstract class _$SupernodeSessionCopyWith<$Res>
+    implements $SupernodeSessionCopyWith<$Res> {
+  factory _$SupernodeSessionCopyWith(
+          _SupernodeSession value, $Res Function(_SupernodeSession) then) =
+      __$SupernodeSessionCopyWithImpl<$Res>;
   @override
   $Res call(
       {int userId,
@@ -449,15 +452,15 @@ abstract class _$SupernodeUserCopyWith<$Res>
 }
 
 /// @nodoc
-class __$SupernodeUserCopyWithImpl<$Res>
-    extends _$SupernodeUserCopyWithImpl<$Res>
-    implements _$SupernodeUserCopyWith<$Res> {
-  __$SupernodeUserCopyWithImpl(
-      _SupernodeUser _value, $Res Function(_SupernodeUser) _then)
-      : super(_value, (v) => _then(v as _SupernodeUser));
+class __$SupernodeSessionCopyWithImpl<$Res>
+    extends _$SupernodeSessionCopyWithImpl<$Res>
+    implements _$SupernodeSessionCopyWith<$Res> {
+  __$SupernodeSessionCopyWithImpl(
+      _SupernodeSession _value, $Res Function(_SupernodeSession) _then)
+      : super(_value, (v) => _then(v as _SupernodeSession));
 
   @override
-  _SupernodeUser get _value => super._value as _SupernodeUser;
+  _SupernodeSession get _value => super._value as _SupernodeSession;
 
   @override
   $Res call({
@@ -468,7 +471,7 @@ class __$SupernodeUserCopyWithImpl<$Res>
     Object node = freezed,
     Object tfaEnabled = freezed,
   }) {
-    return _then(_SupernodeUser(
+    return _then(_SupernodeSession(
       userId: userId == freezed ? _value.userId : userId as int,
       username: username == freezed ? _value.username : username as String,
       token: token == freezed ? _value.token : token as String,
@@ -481,8 +484,10 @@ class __$SupernodeUserCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_SupernodeUser with DiagnosticableTreeMixin implements _SupernodeUser {
-  _$_SupernodeUser(
+class _$_SupernodeSession
+    with DiagnosticableTreeMixin
+    implements _SupernodeSession {
+  _$_SupernodeSession(
       {this.userId,
       this.username,
       this.token,
@@ -507,14 +512,14 @@ class _$_SupernodeUser with DiagnosticableTreeMixin implements _SupernodeUser {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SupernodeUser(userId: $userId, username: $username, token: $token, password: $password, node: $node, tfaEnabled: $tfaEnabled)';
+    return 'SupernodeSession(userId: $userId, username: $username, token: $token, password: $password, node: $node, tfaEnabled: $tfaEnabled)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'SupernodeUser'))
+      ..add(DiagnosticsProperty('type', 'SupernodeSession'))
       ..add(DiagnosticsProperty('userId', userId))
       ..add(DiagnosticsProperty('username', username))
       ..add(DiagnosticsProperty('token', token))
@@ -526,7 +531,7 @@ class _$_SupernodeUser with DiagnosticableTreeMixin implements _SupernodeUser {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SupernodeUser &&
+        (other is _SupernodeSession &&
             (identical(other.userId, userId) ||
                 const DeepCollectionEquality().equals(other.userId, userId)) &&
             (identical(other.username, username) ||
@@ -555,18 +560,18 @@ class _$_SupernodeUser with DiagnosticableTreeMixin implements _SupernodeUser {
       const DeepCollectionEquality().hash(tfaEnabled);
 
   @override
-  _$SupernodeUserCopyWith<_SupernodeUser> get copyWith =>
-      __$SupernodeUserCopyWithImpl<_SupernodeUser>(this, _$identity);
+  _$SupernodeSessionCopyWith<_SupernodeSession> get copyWith =>
+      __$SupernodeSessionCopyWithImpl<_SupernodeSession>(this, _$identity);
 }
 
-abstract class _SupernodeUser implements SupernodeUser {
-  factory _SupernodeUser(
+abstract class _SupernodeSession implements SupernodeSession {
+  factory _SupernodeSession(
       {int userId,
       String username,
       String token,
       String password,
       Supernode node,
-      bool tfaEnabled}) = _$_SupernodeUser;
+      bool tfaEnabled}) = _$_SupernodeSession;
 
   @override
   int get userId;
@@ -581,5 +586,5 @@ abstract class _SupernodeUser implements SupernodeUser {
   @override
   bool get tfaEnabled;
   @override
-  _$SupernodeUserCopyWith<_SupernodeUser> get copyWith;
+  _$SupernodeSessionCopyWith<_SupernodeSession> get copyWith;
 }

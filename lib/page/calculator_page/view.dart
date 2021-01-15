@@ -84,7 +84,7 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
     final walletDao = _buildWalletDao();
 
     //final settingsData = GlobalStore.store.getState().settings;
-    final userId = context.read<SupernodeCubit>().state.user.userId;
+    final userId = context.read<SupernodeCubit>().state.session.userId;
     final orgId = context.read<SupernodeCubit>().state.orgId;
     Map data = {
       'userId': userId,

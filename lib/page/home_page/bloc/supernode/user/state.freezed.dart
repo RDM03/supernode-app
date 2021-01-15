@@ -26,7 +26,9 @@ class _$SupernodeUserStateTearOff {
       Wrap<double> devicesRevenue = const Wrap.pending(),
       Wrap<double> devicesRevenueUsd = const Wrap.pending(),
       Wrap<double> totalRevenue = const Wrap.pending(),
-      Wrap<int> devicesTotal = const Wrap.pending()}) {
+      Wrap<int> devicesTotal = const Wrap.pending(),
+      Wrap<bool> isAdmin = const Wrap.pending(),
+      Wrap<List<UserOrganization>> organizations = const Wrap.pending()}) {
     return _SupernodeUserState(
       username: username,
       geojsonList: geojsonList,
@@ -40,6 +42,8 @@ class _$SupernodeUserStateTearOff {
       devicesRevenueUsd: devicesRevenueUsd,
       totalRevenue: totalRevenue,
       devicesTotal: devicesTotal,
+      isAdmin: isAdmin,
+      organizations: organizations,
     );
   }
 }
@@ -63,6 +67,8 @@ mixin _$SupernodeUserState {
   Wrap<double> get devicesRevenueUsd;
   Wrap<double> get totalRevenue;
   Wrap<int> get devicesTotal;
+  Wrap<bool> get isAdmin;
+  Wrap<List<UserOrganization>> get organizations;
 
   $SupernodeUserStateCopyWith<SupernodeUserState> get copyWith;
 }
@@ -84,7 +90,9 @@ abstract class $SupernodeUserStateCopyWith<$Res> {
       Wrap<double> devicesRevenue,
       Wrap<double> devicesRevenueUsd,
       Wrap<double> totalRevenue,
-      Wrap<int> devicesTotal});
+      Wrap<int> devicesTotal,
+      Wrap<bool> isAdmin,
+      Wrap<List<UserOrganization>> organizations});
 }
 
 /// @nodoc
@@ -110,6 +118,8 @@ class _$SupernodeUserStateCopyWithImpl<$Res>
     Object devicesRevenueUsd = freezed,
     Object totalRevenue = freezed,
     Object devicesTotal = freezed,
+    Object isAdmin = freezed,
+    Object organizations = freezed,
   }) {
     return _then(_value.copyWith(
       username: username == freezed ? _value.username : username as String,
@@ -144,6 +154,10 @@ class _$SupernodeUserStateCopyWithImpl<$Res>
       devicesTotal: devicesTotal == freezed
           ? _value.devicesTotal
           : devicesTotal as Wrap<int>,
+      isAdmin: isAdmin == freezed ? _value.isAdmin : isAdmin as Wrap<bool>,
+      organizations: organizations == freezed
+          ? _value.organizations
+          : organizations as Wrap<List<UserOrganization>>,
     ));
   }
 }
@@ -167,7 +181,9 @@ abstract class _$SupernodeUserStateCopyWith<$Res>
       Wrap<double> devicesRevenue,
       Wrap<double> devicesRevenueUsd,
       Wrap<double> totalRevenue,
-      Wrap<int> devicesTotal});
+      Wrap<int> devicesTotal,
+      Wrap<bool> isAdmin,
+      Wrap<List<UserOrganization>> organizations});
 }
 
 /// @nodoc
@@ -195,6 +211,8 @@ class __$SupernodeUserStateCopyWithImpl<$Res>
     Object devicesRevenueUsd = freezed,
     Object totalRevenue = freezed,
     Object devicesTotal = freezed,
+    Object isAdmin = freezed,
+    Object organizations = freezed,
   }) {
     return _then(_SupernodeUserState(
       username: username == freezed ? _value.username : username as String,
@@ -229,6 +247,10 @@ class __$SupernodeUserStateCopyWithImpl<$Res>
       devicesTotal: devicesTotal == freezed
           ? _value.devicesTotal
           : devicesTotal as Wrap<int>,
+      isAdmin: isAdmin == freezed ? _value.isAdmin : isAdmin as Wrap<bool>,
+      organizations: organizations == freezed
+          ? _value.organizations
+          : organizations as Wrap<List<UserOrganization>>,
     ));
   }
 }
@@ -249,7 +271,9 @@ class _$_SupernodeUserState
       this.devicesRevenue = const Wrap.pending(),
       this.devicesRevenueUsd = const Wrap.pending(),
       this.totalRevenue = const Wrap.pending(),
-      this.devicesTotal = const Wrap.pending()})
+      this.devicesTotal = const Wrap.pending(),
+      this.isAdmin = const Wrap.pending(),
+      this.organizations = const Wrap.pending()})
       : assert(username != null),
         assert(locationPermissionsGranted != null),
         assert(balance != null),
@@ -260,7 +284,9 @@ class _$_SupernodeUserState
         assert(devicesRevenue != null),
         assert(devicesRevenueUsd != null),
         assert(totalRevenue != null),
-        assert(devicesTotal != null);
+        assert(devicesTotal != null),
+        assert(isAdmin != null),
+        assert(organizations != null);
 
   @override
   final String username;
@@ -296,10 +322,16 @@ class _$_SupernodeUserState
   @JsonKey(defaultValue: const Wrap.pending())
   @override
   final Wrap<int> devicesTotal;
+  @JsonKey(defaultValue: const Wrap.pending())
+  @override
+  final Wrap<bool> isAdmin;
+  @JsonKey(defaultValue: const Wrap.pending())
+  @override
+  final Wrap<List<UserOrganization>> organizations;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SupernodeUserState(username: $username, geojsonList: $geojsonList, locationPermissionsGranted: $locationPermissionsGranted, balance: $balance, stakedAmount: $stakedAmount, lockedAmount: $lockedAmount, gatewaysRevenue: $gatewaysRevenue, gatewaysRevenueUsd: $gatewaysRevenueUsd, devicesRevenue: $devicesRevenue, devicesRevenueUsd: $devicesRevenueUsd, totalRevenue: $totalRevenue, devicesTotal: $devicesTotal)';
+    return 'SupernodeUserState(username: $username, geojsonList: $geojsonList, locationPermissionsGranted: $locationPermissionsGranted, balance: $balance, stakedAmount: $stakedAmount, lockedAmount: $lockedAmount, gatewaysRevenue: $gatewaysRevenue, gatewaysRevenueUsd: $gatewaysRevenueUsd, devicesRevenue: $devicesRevenue, devicesRevenueUsd: $devicesRevenueUsd, totalRevenue: $totalRevenue, devicesTotal: $devicesTotal, isAdmin: $isAdmin, organizations: $organizations)';
   }
 
   @override
@@ -319,7 +351,9 @@ class _$_SupernodeUserState
       ..add(DiagnosticsProperty('devicesRevenue', devicesRevenue))
       ..add(DiagnosticsProperty('devicesRevenueUsd', devicesRevenueUsd))
       ..add(DiagnosticsProperty('totalRevenue', totalRevenue))
-      ..add(DiagnosticsProperty('devicesTotal', devicesTotal));
+      ..add(DiagnosticsProperty('devicesTotal', devicesTotal))
+      ..add(DiagnosticsProperty('isAdmin', isAdmin))
+      ..add(DiagnosticsProperty('organizations', organizations));
   }
 
   @override
@@ -363,7 +397,13 @@ class _$_SupernodeUserState
                     .equals(other.totalRevenue, totalRevenue)) &&
             (identical(other.devicesTotal, devicesTotal) ||
                 const DeepCollectionEquality()
-                    .equals(other.devicesTotal, devicesTotal)));
+                    .equals(other.devicesTotal, devicesTotal)) &&
+            (identical(other.isAdmin, isAdmin) ||
+                const DeepCollectionEquality()
+                    .equals(other.isAdmin, isAdmin)) &&
+            (identical(other.organizations, organizations) ||
+                const DeepCollectionEquality()
+                    .equals(other.organizations, organizations)));
   }
 
   @override
@@ -380,7 +420,9 @@ class _$_SupernodeUserState
       const DeepCollectionEquality().hash(devicesRevenue) ^
       const DeepCollectionEquality().hash(devicesRevenueUsd) ^
       const DeepCollectionEquality().hash(totalRevenue) ^
-      const DeepCollectionEquality().hash(devicesTotal);
+      const DeepCollectionEquality().hash(devicesTotal) ^
+      const DeepCollectionEquality().hash(isAdmin) ^
+      const DeepCollectionEquality().hash(organizations);
 
   @override
   _$SupernodeUserStateCopyWith<_SupernodeUserState> get copyWith =>
@@ -400,7 +442,9 @@ abstract class _SupernodeUserState implements SupernodeUserState {
       Wrap<double> devicesRevenue,
       Wrap<double> devicesRevenueUsd,
       Wrap<double> totalRevenue,
-      Wrap<int> devicesTotal}) = _$_SupernodeUserState;
+      Wrap<int> devicesTotal,
+      Wrap<bool> isAdmin,
+      Wrap<List<UserOrganization>> organizations}) = _$_SupernodeUserState;
 
   @override
   String get username;
@@ -426,6 +470,10 @@ abstract class _SupernodeUserState implements SupernodeUserState {
   Wrap<double> get totalRevenue;
   @override
   Wrap<int> get devicesTotal;
+  @override
+  Wrap<bool> get isAdmin;
+  @override
+  Wrap<List<UserOrganization>> get organizations;
   @override
   _$SupernodeUserStateCopyWith<_SupernodeUserState> get copyWith;
 }

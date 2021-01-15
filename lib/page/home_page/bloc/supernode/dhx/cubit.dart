@@ -1,9 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:decimal/decimal.dart';
 import 'package:supernodeapp/app_state.dart';
-import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'package:supernodeapp/common/repositories/cache_repository.dart';
-import 'package:supernodeapp/common/repositories/supernode/dao/dhx.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/wrap.dart';
@@ -17,12 +14,12 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
     this.supernodeRepository,
     this.cacheRepository,
     this.orgId,
-    this.user,
+    this.session,
     this.homeCubit,
   }) : super(SupernodeDhxState());
 
   final HomeCubit homeCubit;
-  final SupernodeUser user;
+  final SupernodeSession session;
   final String orgId;
   final SupernodeRepository supernodeRepository;
   final CacheRepository cacheRepository;
@@ -69,7 +66,7 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
     emit(state.copyWith(balance: state.balance.withLoading()));
     try {
       final balanceData = await supernodeRepository.wallet.balance({
-        'userId': user.userId,
+        'userId': session.userId,
         'orgId': orgId,
         'currency': 'DHX',
       });

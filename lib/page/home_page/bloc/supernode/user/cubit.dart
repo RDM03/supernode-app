@@ -3,6 +3,7 @@ import 'package:decimal/decimal.dart';
 import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'package:supernodeapp/common/repositories/cache_repository.dart';
+import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/wrap.dart';
@@ -15,15 +16,15 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
   SupernodeUserCubit({
     this.supernodeRepository,
     this.cacheRepository,
-    this.user,
+    this.session,
     this.orgId,
     this.homeCubit,
   }) : super(SupernodeUserState(
-          username: user.username,
+          username: session.username,
         ));
 
   final HomeCubit homeCubit;
-  final SupernodeUser user;
+  final SupernodeSession session;
   final String orgId;
   final SupernodeRepository supernodeRepository;
   final CacheRepository cacheRepository;
@@ -44,11 +45,24 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
     if (await PermissionUtil.getLocationPermission()) {
       emit(state.copyWith(locationPermissionsGranted: true));
     }
+
+    // get geojsonList from cache
+    List geojsonList = [];
+    geojsonList = await supernodeRepository.gatewaysLocation.listFromLocal();
+    Map localGeojsonMap = cacheRepository.loadUserData('geojson');
+    localGeojsonMap ??= {};
+
+    if (localGeojsonMap['data'] != null && localGeojsonMap['data'].length > 0) {
+      geojsonList.addAll(localGeojsonMap['data']);
+    }
+    emit(state.copyWith(geojsonList: geojsonList));
+
     await refresh();
   }
 
   Future<void> refresh() async {
     await Future.wait([
+      refreshUser(),
       refreshBalance(),
       refreshGatewaysLocations(),
       refreshGatewaysRevenue(),
@@ -57,11 +71,27 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
     ]);
   }
 
+  Future<void> refreshUser() async {
+    emit(state.copyWith(isAdmin: state.isAdmin.withLoading()));
+    emit(state.copyWith(organizations: state.organizations.withLoading()));
+    try {
+      final profile = await supernodeRepository.user.profile();
+      final isAdmin = profile.user.isAdmin;
+      final organizations = profile.organizations;
+      emit(state.copyWith(isAdmin: Wrap(isAdmin)));
+      emit(state.copyWith(organizations: Wrap(organizations)));
+    } catch (e, s) {
+      logger.e('refresh error', e, s);
+      emit(state.copyWith(isAdmin: state.isAdmin.withError(e)));
+      emit(state.copyWith(organizations: state.organizations.withError(e)));
+    }
+  }
+
   Future<void> refreshBalance() async {
     emit(state.copyWith(balance: state.balance.withLoading()));
     try {
       final balanceData = await supernodeRepository.wallet.balance({
-        'userId': user.userId,
+        'userId': session.userId,
         'orgId': orgId,
         'currency': '',
       });
@@ -79,7 +109,7 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
     try {
       final gatewaysRevenueData =
           await supernodeRepository.wallet.miningIncome({
-        'userId': user.userId,
+        'userId': session.userId,
         'orgId': orgId,
         'currency': '',
       });
@@ -139,23 +169,60 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
   }
 
   Future<void> refreshGatewaysLocations() async {
+    final supernodesMap = await supernodeRepository.loadSupernodes();
+    final supernodes = <String, List<Supernode>>{};
     List geojsonList = [];
+    List allGeojsonList = [];
 
-    //local data
-    geojsonList = await supernodeRepository.gatewaysLocation.listFromLocal();
-    Map localGeojsonMap = cacheRepository.loadUserData('geojson');
-    localGeojsonMap ??= {};
-
-    if (localGeojsonMap['data'] != null && localGeojsonMap['data'].length > 0) {
-      geojsonList.addAll(localGeojsonMap['data']);
+    for (final s in supernodesMap.values) {
+      if (supernodes[s.region] == null) supernodes[s.region] = [];
+      supernodes[s.region].add(s);
     }
+    List superNodesKeys = supernodes.keys.toList();
 
-    emit(state.copyWith(geojsonList: state.geojsonList));
+    for (int i = 0; i < superNodesKeys.length; i++) {
+      String key = superNodesKeys[i];
+      if (key.toLowerCase() == 'test') {
+        Map localGeojsonMap = homeCubit.loadCache('geojson');
+        localGeojsonMap ??= {};
+
+        if ((localGeojsonMap['data'] == null && geojsonList.length > 0) ||
+            (localGeojsonMap['data'] != null &&
+                localGeojsonMap['data'].length > 0 &&
+                geojsonList.length > 0 &&
+                localGeojsonMap['data'].length != geojsonList.length)) {
+          homeCubit.saveCache('data', geojsonList, userKey: 'geojson');
+
+          allGeojsonList =
+              await supernodeRepository.gatewaysLocation.listFromLocal();
+          allGeojsonList.addAll(geojsonList);
+          emit(state.copyWith(geojsonList: allGeojsonList));
+        }
+
+        return;
+      }
+
+      // List nodes = supernodes[key];
+      // for (int j = 0; j < nodes.length; j++) {
+      //   if (nodes[j].region.toLowerCase() != 'test') {
+      //     var res = await supernodeRepository.client
+      //         .get(url: nodes[j].url + GatewaysApi.locations);
+
+      //     if (res != null &&
+      //         res['result'] != null &&
+      //         res['result'].length > 0) {
+      //       List geojsonRes =
+      //           supernodeRepository.gatewaysLocation.geojsonList(res['result']);
+      //       geojsonList.addAll(geojsonRes);
+      //     }
+      //   }
+      // }
+    }
   }
 
   Future<double> _convertUsd(double value) async {
     final data = await supernodeRepository.wallet.convertUSD({
-      'userId': user.userId,
+      'userId': session.userId,
       'orgId': orgId,
       'currency': '',
       'mxcPrice': '${value == 0.0 ? value.toInt() : value}'

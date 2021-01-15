@@ -46,4 +46,7 @@ class AppImages {
   //gateway
   static const String infoDownlinkPrice =
       'assets/images/gateway/info-downloadlink_price.png';
+
+  //settings
+  static const String warningRobot = 'assets/images/settings/robot_warning.png';
 }

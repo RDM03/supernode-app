@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
+import 'package:supernodeapp/common/utils/auth.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -18,8 +19,7 @@ SupernodeRepository buildSupernodeDao(Context<UnderMaintenanceState> ctx) {
 }
 
 void _logOut(Action action, Context<UnderMaintenanceState> ctx) async {
-  // RETHINK.TODO
-  //await logOut(ctx.context);
+  await logOut(ctx.context);
 }
 
 void _refresh(Action action, Context<UnderMaintenanceState> ctx) async {
@@ -28,7 +28,7 @@ void _refresh(Action action, Context<UnderMaintenanceState> ctx) async {
     final deserializedNodes = await buildSupernodeDao(ctx).loadSupernodes();
 
     final state = ctx.context.read<SupernodeCubit>().state;
-    final currentNode = state.user?.node ?? state.selectedNode;
+    final currentNode = state.session?.node ?? state.selectedNode;
     final currentFreshNode = deserializedNodes[currentNode.name];
 
     if (currentFreshNode?.status != 'maintenance') {

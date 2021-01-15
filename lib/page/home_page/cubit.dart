@@ -15,11 +15,11 @@ class HomeCubit extends Cubit<HomeState> {
 
   void changeTab(int tab) => emit(state.copyWith(tabIndex: tab));
 
-  void saveCache(String key, dynamic value) {
-    cacheRepository.saveUserData('user_$username', {key: value});
+  void saveCache(String key, dynamic value, {String userKey}) {
+    cacheRepository.saveUserData(userKey ?? 'user_$username', {key: value});
   }
 
-  Map<String, dynamic> loadCache() {
-    return cacheRepository.loadUserData('user_$username') ?? {};
+  Map<String, dynamic> loadCache([String key]) {
+    return cacheRepository.loadUserData(key ?? 'user_$username') ?? {};
   }
 }

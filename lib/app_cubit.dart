@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.model.dart';
 
@@ -5,27 +6,28 @@ import 'app_state.dart';
 
 class SupernodeCubit extends Cubit<SupernodeState> {
   SupernodeCubit({
-    SupernodeUser user,
+    SupernodeSession session,
     String orgId,
   }) : super(SupernodeState(
-          user: user,
+          session: session,
           orgId: orgId,
-          selectedNode: user?.node,
+          selectedNode: session?.node,
         ));
 
   void setSupernode(Supernode supernode) =>
       emit(state.copyWith(selectedNode: supernode));
 
-  void setSupernodeUser(SupernodeUser user) => emit(state.copyWith(user: user));
+  void setSupernodeSession(SupernodeSession session) =>
+      emit(state.copyWith(session: session));
 
   void setOrganizationId(String orgId) => emit(state.copyWith(orgId: orgId));
 
-  void setSupernodeToken(String token) => emit(state.copyWith.user(
+  void setSupernodeToken(String token) => emit(state.copyWith.session(
         token: token,
       ));
 
   void logout() => emit(state.copyWith(
-        user: null,
+        session: null,
         orgId: null,
       ));
 }
@@ -35,4 +37,5 @@ class AppCubit extends Cubit<AppState> {
 
   void setDemo(bool val) => emit(state.copyWith(isDemo: val));
   void setLoading(bool val) => emit(state.copyWith(showLoading: val));
+  void setLocale(Locale locale) => emit(state.copyWith(locale: locale));
 }

@@ -55,7 +55,7 @@ Future<void> _minersOwned(Context<MiningSimulatorState> ctx) async {
 Future<void> _balance(Context<MiningSimulatorState> ctx) async {
   WalletDao dao = _buildWalletDao(ctx);
   Map data = {
-    'userId': ctx.context.read<SupernodeCubit>().state.user.userId,
+    'userId': ctx.context.read<SupernodeCubit>().state.session.userId,
     'orgId': ctx.context.read<SupernodeCubit>().state.orgId,
     'currency': ''
   };

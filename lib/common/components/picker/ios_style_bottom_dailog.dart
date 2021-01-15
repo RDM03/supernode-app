@@ -127,62 +127,68 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
   }
 
   Widget _buildSelectedItem(context, {IosButtonStyle button}) {
-    return InkWell(
-      onTap: () => Navigator.pop(context),
-      child: Container(
-        alignment: Alignment.center,
-        padding: EdgeInsets.all(25),
-        child: Text(
-          button?.title ?? '',
-          style: kBigFontOfBlue,
-          textAlign: TextAlign.center,
+    return Builder(
+      builder: (ctx) => InkWell(
+        onTap: () => Navigator.pop(ctx),
+        child: Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(25),
+          child: Text(
+            button?.title ?? '',
+            style: kBigFontOfBlue,
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
   }
 
   Widget _buildItem(BuildContext context, {IosButtonStyle button, int index}) {
-    return InkWell(
-      onTap: () {
-        onItemClickListener(index);
-        Navigator.pop(context);
-      },
-      child: Container(
-        key: Key("delete_gateway_bottom_dialog_item$index"),
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
-        child: Text(
-          button?.title ?? '',
-          style: button.style,
-          textAlign: TextAlign.center,
+    return Builder(
+      builder: (ctx) => InkWell(
+        onTap: () {
+          onItemClickListener(index);
+          Navigator.pop(ctx);
+        },
+        child: Container(
+          key: Key("delete_gateway_bottom_dialog_item$index"),
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
+          child: Text(
+            button?.title ?? '',
+            style: button.style,
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
   }
 
   Widget _buildCancelItem(context) {
-    return InkWell(
-      onTap: () {
-        Navigator.pop(context);
-      },
-      child: Container(
-        margin: EdgeInsets.only(top: 20, bottom: 43),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            boxShadow: [
-              BoxShadow(
-                color: shodowColor,
-                offset: Offset(0, 2),
-                blurRadius: 7,
-              ),
-            ]),
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
-        child: Text(
-          FlutterI18n.translate(context, 'device_cancel'),
-          style: kBigFontOfBlack,
-          textAlign: TextAlign.center,
+    return Builder(
+      builder: (ctx) => InkWell(
+        onTap: () {
+          Navigator.pop(ctx);
+        },
+        child: Container(
+          margin: EdgeInsets.only(top: 20, bottom: 43),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              boxShadow: [
+                BoxShadow(
+                  color: shodowColor,
+                  offset: Offset(0, 2),
+                  blurRadius: 7,
+                ),
+              ]),
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
+          child: Text(
+            FlutterI18n.translate(context, 'device_cancel'),
+            style: kBigFontOfBlack,
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );

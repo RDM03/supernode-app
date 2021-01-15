@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
-import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/repositories/cache_repository.dart';
 
 import 'bloc/supernode/user/cubit.dart';
@@ -11,16 +10,17 @@ Future<void> openSettings(BuildContext context) {
     context,
     'settings_page',
     arguments: {
-      'user': context.read<SupernodeCubit>().state.user,
-      //'organizations': organizations, // RETHINK.TODO
+      'user': context.read<SupernodeCubit>().state.session,
       'isDemo': context.read<AppCubit>().state.isDemo,
+      'organizations':
+          context.read<SupernodeUserCubit>().state.organizations.value,
     },
   );
 }
 
 Future<void> openSupernodeDeposit(BuildContext context) async {
   final orgId = context.read<SupernodeCubit>().state.orgId;
-  final userId = context.read<SupernodeCubit>().state.user.userId;
+  final userId = context.read<SupernodeCubit>().state.session.userId;
   final isDemo = context.read<AppCubit>().state.isDemo;
   await Navigator.of(context).pushNamed(
     'deposit_page',

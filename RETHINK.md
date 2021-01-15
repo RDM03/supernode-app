@@ -51,6 +51,7 @@ Instead use `[...list, newEntity]` and `list.where((t) => t != entityToRemove).t
 * No error tips
 * TransactionsHistory wasn't implemented yet?
 * No time filter for stakes/tx
+* Gateway Deleting wasn't implemented, it's doesnt have translation
 
 HomePage is moved to BLOC
 LoginPage is moved to BLOC

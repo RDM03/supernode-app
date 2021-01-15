@@ -14,26 +14,28 @@ class DemoUserDao extends DemoDao implements UserDao {
 
   @override
   Future<ProfileResponse> profile() {
-    return Future.value(ProfileResponse(user: {
-      'id': 'demo',
-      'username': username,
-      'sessionTTL': 0,
-      'isAdmin': false,
-      'isActive': true,
-      'isDemo': true,
-      'email': 'demo@email.net',
-      'note': 'User used for demo',
-    }, organizations: [
-      UserOrganization(
-        createdAt: '2020-07-09T15:23:33.162Z',
-        upadatedAt: '2021-01-14T15:23:33.162Z',
-        isAdmin: false,
-        isDeviceAdmin: false,
-        isGatewayAdmin: false,
-        organizationID: 'demo-organization',
-        organizationName: 'Demo organization',
-      )
-    ]));
+    return Future.value(ProfileResponse(
+        user: ProfileUser.fromMap({
+          'id': 'demo',
+          'username': username,
+          'sessionTTL': 0,
+          'isAdmin': false,
+          'isActive': true,
+          'isDemo': true,
+          'email': 'demo@email.net',
+          'note': 'User used for demo',
+        }),
+        organizations: [
+          UserOrganization(
+            createdAt: '2020-07-09T15:23:33.162Z',
+            upadatedAt: '2021-01-14T15:23:33.162Z',
+            isAdmin: false,
+            isDeviceAdmin: false,
+            isGatewayAdmin: false,
+            organizationID: 'demo-organization',
+            organizationName: 'Demo organization',
+          )
+        ]));
   }
 
   @override
@@ -89,5 +91,30 @@ class DemoUserDao extends DemoDao implements UserDao {
   @override
   Future registerFinish(Map data, String token) {
     throw UnimplementedError('registerFinish not supported in demo');
+  }
+
+  @override
+  Future authenticateWeChatUser(Map data) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future bindExternalUser(Map data) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future debugAuthenticateWeChatUser(Map data) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future registerExternalUser(Map data) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future unbindExternalUser(Map data) {
+    throw UnimplementedError();
   }
 }

@@ -27,13 +27,13 @@ class HomePage extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (ctx) => HomeCubit(
-            username: ctx.read<SupernodeCubit>().state.user.username,
+            username: ctx.read<SupernodeCubit>().state.session.username,
             cacheRepository: ctx.read<CacheRepository>(),
           ),
         ),
         BlocProvider(
           create: (ctx) => SupernodeUserCubit(
-            user: ctx.read<SupernodeCubit>().state.user,
+            session: ctx.read<SupernodeCubit>().state.session,
             orgId: ctx.read<SupernodeCubit>().state.orgId,
             supernodeRepository: ctx.read<SupernodeRepository>(),
             cacheRepository: ctx.read<CacheRepository>(),
@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
         ),
         BlocProvider(
           create: (ctx) => SupernodeDhxCubit(
-            user: ctx.read<SupernodeCubit>().state.user,
+            session: ctx.read<SupernodeCubit>().state.session,
             orgId: ctx.read<SupernodeCubit>().state.orgId,
             supernodeRepository: ctx.read<SupernodeRepository>(),
             cacheRepository: ctx.read<CacheRepository>(),

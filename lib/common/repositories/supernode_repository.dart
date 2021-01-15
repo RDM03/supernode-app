@@ -4,9 +4,11 @@ import 'package:supernodeapp/common/repositories/shared/clients/shared_client.da
 import 'package:supernodeapp/common/repositories/supernode/clients/interceptors/error_interceptor.dart';
 import 'package:supernodeapp/common/repositories/supernode/clients/interceptors/headers_interceptor.dart';
 import 'package:supernodeapp/common/repositories/supernode/clients/supernode_client.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/demo/server_info.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/network_server.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/organization.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/server_info.dart';
 
 import 'supernode/dao/dhx.dart';
 import 'supernode/dao/gateways.dart';
@@ -36,6 +38,7 @@ abstract class SupernodeDaoHolder {
   GatewaysLocationDao get gatewaysLocation;
   OrganizationDao get organization;
   NetworkServerDao get networkServer;
+  ServerInfoDao get serverInfo;
 }
 
 class SupernodeDemoDao implements SupernodeDaoHolder {
@@ -62,6 +65,9 @@ class SupernodeDemoDao implements SupernodeDaoHolder {
 
   @override
   DemoWithdrawDao get withdraw => DemoWithdrawDao();
+
+  @override
+  DemoServerInfoDao get serverInfo => DemoServerInfoDao();
 
 // No demo wrappers:
   @override
@@ -107,6 +113,9 @@ class SupernodeMainDao implements SupernodeDaoHolder {
 
   @override
   NetworkServerDao get networkServer => NetworkServerDao(client);
+
+  @override
+  ServerInfoDao get serverInfo => ServerInfoDao(client);
 }
 
 class SupernodeRepository implements SupernodeDaoHolder {
@@ -190,4 +199,7 @@ class SupernodeRepository implements SupernodeDaoHolder {
 
   @override
   NetworkServerDao get networkServer => _currentHolder.networkServer;
+
+  @override
+  ServerInfoDao get serverInfo => _currentHolder.serverInfo;
 }

@@ -52,7 +52,7 @@ class LoginCubit extends Cubit<LoginState> {
 
       appCubit.setDemo(false);
       supernodeCubit.setOrganizationId('todo');
-      supernodeCubit.setSupernodeUser(SupernodeUser(
+      supernodeCubit.setSupernodeSession(SupernodeSession(
         username: username,
         password: password,
         token: jwt,
@@ -76,7 +76,7 @@ class LoginCubit extends Cubit<LoginState> {
     try {
       appCubit.setDemo(true);
       supernodeCubit.setOrganizationId('todo');
-      supernodeCubit.setSupernodeUser(SupernodeUser(
+      supernodeCubit.setSupernodeSession(SupernodeSession(
         userId: -1,
         username: 'username',
         token: 'demo-token',

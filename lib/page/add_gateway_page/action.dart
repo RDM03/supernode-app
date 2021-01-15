@@ -1,13 +1,15 @@
 import 'dart:ui';
 
 import 'package:fish_redux/fish_redux.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 
 enum AddGatewayAction {
   onQrScan,
   serialNumber,
   onAdd,
   onProfile,
-  setNumberTextColor
+  setNumberTextColor,
+  setLocation,
 }
 
 class AddGatewayActionCreator {
@@ -25,6 +27,10 @@ class AddGatewayActionCreator {
 
   static Action onProfile() {
     return const Action(AddGatewayAction.onProfile);
+  }
+
+  static Action setLocation(LatLng location) {
+    return Action(AddGatewayAction.setLocation, payload: location);
   }
 
   static Action setNumberTextColor(Color color) {

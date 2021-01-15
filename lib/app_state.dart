@@ -9,7 +9,7 @@ part 'app_state.freezed.dart';
 abstract class SupernodeState with _$SupernodeState {
   SupernodeState._();
   factory SupernodeState({
-    SupernodeUser user,
+    SupernodeSession session,
     Supernode selectedNode,
     String orgId,
   }) = _SupernodeState;
@@ -25,13 +25,13 @@ abstract class AppState with _$AppState {
 }
 
 @freezed
-abstract class SupernodeUser with _$SupernodeUser {
-  factory SupernodeUser({
+abstract class SupernodeSession with _$SupernodeSession {
+  factory SupernodeSession({
     int userId,
     String username,
     String token,
     String password,
     Supernode node,
     @Default(false) bool tfaEnabled,
-  }) = _SupernodeUser;
+  }) = _SupernodeSession;
 }

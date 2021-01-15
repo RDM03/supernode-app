@@ -29,7 +29,7 @@ void _onConfirm(Action action, Context<ChangePasswordState> ctx) async {
     return;
   }
 
-  int userId = ctx.context.read<SupernodeCubit>().state.user.userId;
+  int userId = ctx.context.read<SupernodeCubit>().state.session.userId;
   String confirmNewPwd = curState.confirmNewPwdCtl.text;
 
   final loading = Loading.show(ctx.context);

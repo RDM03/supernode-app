@@ -121,7 +121,7 @@ void _onRegistrationContinue(Action action, Context<SignUpState> ctx) async {
       mLog('UserDao registerFinish', res);
 
       ctx.context.read<SupernodeCubit>().setOrganizationId('todo');
-      ctx.context.read<SupernodeCubit>().setSupernodeUser(SupernodeUser(
+      ctx.context.read<SupernodeCubit>().setSupernodeSession(SupernodeSession(
             username: curState.username,
             password: curState.pwdCtl.text,
             token: curState.jwtToken,

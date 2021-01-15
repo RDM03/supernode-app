@@ -95,7 +95,7 @@ Future<void> _balance(Context<PrepareStakeState> ctx) async {
   try {
     WalletDao dao = _buildWalletDao(ctx);
     Map data = {
-      'userId': settingsData.user.userId,
+      'userId': settingsData.session.userId,
       'orgId': settingsData.orgId,
       'currency': ''
     };

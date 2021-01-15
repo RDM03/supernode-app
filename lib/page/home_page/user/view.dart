@@ -34,16 +34,16 @@ class UserTab extends StatelessWidget {
       child: Column(
         children: [
           BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-            buildWhen: (a, b) => a.username != b.username,
+            buildWhen: (a, b) =>
+                a.username != b.username || a.isAdmin != b.isAdmin,
             builder: (ctx, state) => ProfileRow(
               keyTitle: ValueKey('homeProfile'),
               keySubtitle: ValueKey('homeProfileSubtitle'),
               name:
                   '${FlutterI18n.translate(context, 'hi')}, ${state.username}',
-              // position: (state.organizations.length > 0 &&
-              //         state.organizations.first.isAdmin)
-              //     ? FlutterI18n.translate(context, 'admin')
-              //     : '', RETHINK.TODO
+              position: (state.isAdmin.value ?? false)
+                  ? FlutterI18n.translate(context, 'admin')
+                  : '',
               trailing: SizedBox(
                 width: 30,
                 child: IconButton(
@@ -169,9 +169,9 @@ class UserTab extends StatelessWidget {
         backgroundColor: backgroundColor,
         elevation: 0,
         title: BlocBuilder<SupernodeCubit, SupernodeState>(
-          buildWhen: (a, b) => a.user.node != b.user.node,
+          buildWhen: (a, b) => a.session.node != b.session.node,
           builder: (ctx, state) => CachedNetworkImage(
-            imageUrl: state.user.node?.logo,
+            imageUrl: state.session.node?.logo,
             placeholder: (a, b) => Image.asset(
               AppImages.placeholder,
               height: s(40),
@@ -181,13 +181,13 @@ class UserTab extends StatelessWidget {
         ),
         actions: [
           IconButton(
-              key: Key('settingsButton'),
-              icon: Icon(
-                Icons.settings,
-                color: Colors.black,
-              ),
-              onPressed: () => null // RETHINK.TODO,
-              )
+            key: Key('settingsButton'),
+            icon: Icon(
+              Icons.settings,
+              color: Colors.black,
+            ),
+            onPressed: () => openSettings(context),
+          )
         ],
       ),
       body: RefreshIndicator(
@@ -255,7 +255,10 @@ class UserTab extends StatelessWidget {
                         clusters: state.geojsonList ?? [],
                         myLocationEnabled: true,
                         myLocationTrackingMode: MyLocationTrackingMode.None,
-                        onFullScreenTap: () => null, // RETHINK.TODO,
+                        onFullScreenTap: () {
+                          Navigator.of(context).pushNamed('mapbox_gl_page',
+                              arguments: {'list': state.geojsonList});
+                        },
                       )
                     : Container(),
               ),
