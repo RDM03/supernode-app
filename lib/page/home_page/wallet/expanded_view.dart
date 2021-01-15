@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/wallet/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/wallet/state.dart';
-import 'package:supernodeapp/page/home_page/wallet/view/supernode_dhx_token/page_content.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 import 'mxc_token/page_content.dart';
+import 'supernode_dhx_token/page_content.dart';
 
 class TokenExpandedView extends StatefulWidget {
   @override

@@ -15,6 +15,8 @@ import 'package:supernodeapp/module/base/model_manager.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
 import 'package:supernodeapp/main.dart';
 
+// RETHINK.TODO
+
 class App with AppLifecycle {
   factory App() => _getInstance();
 

@@ -45,6 +45,7 @@ import 'package:supernodeapp/page/stake_page/details_stake_page/page.dart';
 import 'package:supernodeapp/page/stake_page/list_unstake_page/page.dart';
 import 'package:supernodeapp/page/stake_page/prepare_stake_page/page.dart';
 import 'package:supernodeapp/page/under_maintenance_page/page.dart';
+import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 import 'app_cubit.dart';
@@ -297,12 +298,10 @@ class MxcApp extends StatelessWidget {
                     settings: settings,
                   );
                 },
-                pages: [
-                  MaterialPage(
-                    child: context.read<SupernodeCubit>().state.session == null
-                        ? LoginPage()
-                        : HomePage(),
-                  ),
+                onGenerateInitialRoutes: (state, s) => [
+                  context.read<SupernodeCubit>().state.session == null
+                      ? route((ctx) => LoginPage())
+                      : route((ctx) => HomePage()),
                 ],
               ),
             );

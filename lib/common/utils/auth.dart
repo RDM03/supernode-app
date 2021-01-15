@@ -19,7 +19,6 @@ Future<void> logOut(BuildContext context) async {
   context.read<SupernodeCubit>().logout();
   Navigator.of(context)
       .pushAndRemoveUntil(route((_) => LoginPage()), (route) => false);
-  await logOut(context);
 }
 
 Future<bool> checkMaintenance(Supernode node) async {

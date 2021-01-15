@@ -169,9 +169,9 @@ class UserTab extends StatelessWidget {
         backgroundColor: backgroundColor,
         elevation: 0,
         title: BlocBuilder<SupernodeCubit, SupernodeState>(
-          buildWhen: (a, b) => a.session.node != b.session.node,
+          buildWhen: (a, b) => a.session?.node != b.session?.node,
           builder: (ctx, state) => CachedNetworkImage(
-            imageUrl: state.session.node?.logo,
+            imageUrl: state.session?.node?.logo ?? '',
             placeholder: (a, b) => Image.asset(
               AppImages.placeholder,
               height: s(40),

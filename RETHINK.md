@@ -29,13 +29,13 @@ Instead use `[...list, newEntity]` and `list.where((t) => t != entityToRemove).t
 
 
 
-### Rethink steps
+### Goals
 
 1. Remove fish_redux, it's outdated - https://github.com/alibaba/fish-redux. Replace it with Bloc.
 2. Replace all states with states written using Freezed to increase readability, remove boilerplate and decrease potential errors number in future. 
 3. Rewrite DAOs using types and not maps.
 4. Check and remove unnecessary dependencies.
-5. Setup dart analyzer and fix problems
+5. Setup dart analyzer and fix problems that will appear
 
 ### Other changes:
 * loading map changed with Wrap<T> class, please check user state.
@@ -47,22 +47,26 @@ Instead use `[...list, newEntity]` and `list.where((t) => t != entityToRemove).t
 
 -----
 
+Known problems:
 * No email suggest feature on login screen, but we will have multiuser soon.
 * No error tips
-* TransactionsHistory wasn't implemented yet?
 * No time filter for stakes/tx
-* Gateway Deleting wasn't implemented, it's doesnt have translation
-
-HomePage is moved to BLOC
-LoginPage is moved to BLOC
-
-No static singletones for global states, it's rewrited to BLOC and it's ready to DHX implementation
+* No supernode maintenance and network problem pages
+* User probably will lost their session (they need to relogin in app again)
+* TransactionsHistory for DHX Wallet wasn't implemented yet (?)
+* Gateway Deleting wasn't implemented, it even doesnt have translation
+* In previous version the app forbid any connections when app is hided (when you press 'Home\ button on your phone). Do we need it?
+* No pull-to-refresh on wallet page (and there wasn't such functionallty before).
+* Wallet page can be laggy, it can contain huge list of transactions/stakes and renderes all this entities at one time, this is flutter bug - https://github.com/flutter/flutter/issues/26072. But we can show only few entities in a list and add a button 'Show all' that will redirect to new page that will not use ListView with shrinkWrap: true and will not lag.
 
 We store user password in shared pref
 
 Comments related to update are marked with RETHINK. prefix (e.g. RETHINK.TODO).
 
 ----------------------------------------------------
+
+Logic for Wallet Page has been changed. 
+Before, when you tap on 'Stake'/'Unstake', 'Deposit'/'Withdraws' filters, it loads data from backend. But state already have information about all stakes, unstakes, deposits and withdraws. We can just filter this information locally. And that's how it's done now.
 
 ## How to Navigate with Bloc?
 

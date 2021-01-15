@@ -120,7 +120,7 @@ class StorageRepository {
     await _sharedPreferences.setInt(_userIdKey, userId);
     await _sharedPreferences.setString(_userNameKey, username);
     await _sharedPreferences.setString(_passwordKey, password);
-    await _sharedPreferences.setString(_supernodeKey, supernode.toJson());
+    await _sharedPreferences.setString(_supernodeKey, supernode?.toJson());
   }
 
   bool isDemo() {

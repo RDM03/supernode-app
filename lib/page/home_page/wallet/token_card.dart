@@ -19,7 +19,7 @@ import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
-import '../../bloc/supernode/wallet/state.dart';
+import '../bloc/supernode/wallet/state.dart';
 
 class MxcTokenCard extends StatelessWidget {
   final bool isExpanded;

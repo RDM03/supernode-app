@@ -9,12 +9,12 @@ import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
-import 'package:supernodeapp/page/home_page/wallet/view/mxc_token/stake_history.dart';
-import 'package:supernodeapp/page/home_page/wallet/view/token_card.dart';
-import 'package:supernodeapp/page/home_page/wallet/view/mxc_token/transaction_history.dart';
+import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
-import '../../../shared.dart';
+import 'stake_history.dart';
+import 'transaction_history.dart';
+import '../../shared.dart';
 
 class MxcTokenPageContent extends StatefulWidget {
   const MxcTokenPageContent({Key key}) : super(key: key);

@@ -14,17 +14,23 @@ class SupernodeCubit extends Cubit<SupernodeState> {
           selectedNode: session?.node,
         ));
 
-  void setSupernode(Supernode supernode) =>
-      emit(state.copyWith(selectedNode: supernode));
+  void setSupernode(Supernode supernode) => emit(
+        state.copyWith(selectedNode: supernode),
+      );
 
-  void setSupernodeSession(SupernodeSession session) =>
-      emit(state.copyWith(session: session));
+  void setSupernodeSession(SupernodeSession session) => emit(
+        state.copyWith(session: session),
+      );
 
-  void setOrganizationId(String orgId) => emit(state.copyWith(orgId: orgId));
+  void setOrganizationId(String orgId) => emit(
+        state.copyWith(orgId: orgId),
+      );
 
-  void setSupernodeToken(String token) => emit(state.copyWith.session(
-        token: token,
-      ));
+  void setSupernodeToken(String token) => emit(
+        state.copyWith.session(
+          token: token,
+        ),
+      );
 
   void logout() => emit(state.copyWith(
         session: null,

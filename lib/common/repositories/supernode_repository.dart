@@ -132,7 +132,7 @@ class SupernodeRepository implements SupernodeDaoHolder {
   }) {
     final dio = Dio();
     final headersInterceptor = SupernodeHeadersInterceptor(
-      getToken: () => supernodeCubit.state?.user?.token,
+      getToken: () => supernodeCubit.state?.session?.token,
       onLogOut: () => supernodeCubit.logout(),
       onTokenRefresh: (dio) => _refreshToken(dio, supernodeCubit),
       dio: dio,
@@ -153,7 +153,7 @@ class SupernodeRepository implements SupernodeDaoHolder {
 
   static Future<String> _refreshToken(
       Dio dio, SupernodeCubit supernodeCubit) async {
-    final userInfo = supernodeCubit.state?.user;
+    final userInfo = supernodeCubit.state?.session;
     if (userInfo == null ||
         userInfo.username == null ||
         userInfo.password == null) return null;

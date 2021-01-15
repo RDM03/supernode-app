@@ -18,7 +18,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
-import 'package:supernodeapp/page/home_page/wallet/view/token_card.dart';
+import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
 import 'transactions_history.dart';
 import 'mining_income.dart';
 import 'package:supernodeapp/theme/colors.dart';

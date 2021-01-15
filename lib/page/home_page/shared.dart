@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
-import 'package:supernodeapp/common/repositories/cache_repository.dart';
-
 import 'bloc/supernode/user/cubit.dart';
 
 Future<void> openSettings(BuildContext context) {
@@ -70,9 +68,4 @@ Future<void> openSupernodeUnstake(BuildContext context) async {
   );
   context.read<SupernodeUserCubit>().refreshBalance();
   context.read<SupernodeUserCubit>().refreshStakedAmount();
-}
-
-void saveCache(String key, dynamic value,
-    {@required String username, @required CacheRepository cacheRepository}) {
-  cacheRepository.saveUserData('user_$username', {key: value});
 }
