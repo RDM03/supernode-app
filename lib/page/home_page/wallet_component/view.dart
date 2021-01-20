@@ -43,14 +43,14 @@ Widget buildView(
               Container(
                 padding: kRoundRow15_5,
                 child: Row(children: [
-                  Image.asset((tkn == Token.MXC) ? AppImages.logoMXC : AppImages.logoDHX),
+                  Image.asset(tkn.imagePath),
                   SizedBox(width: s(3)),
-                  Text((tkn == Token.MXC) ? "MXC" : "DHX", style: kBigBoldFontOfBlack),
+                  Text(tkn.name, style: kBigBoldFontOfBlack),
                   Spacer(),
                   state.expandedView
-                      ? (tkn == Token.DHX)
+                      ? (tkn == Token.supernodeDhx)
                         ? PrimaryButton(
-                      bgColor: colorToken[Token.DHX],
+                      bgColor: Token.supernodeDhx.color,
                       buttonTitle: FlutterI18n.translate(_ctx, 'simulate_mining'),
                       onTap: () => Navigator.pushNamed(_ctx, 'mining_simulator_page', arguments: {'isDemo': state.isDemo, 'balance': state.balance}))
                         : SizedBox()
@@ -58,30 +58,30 @@ Widget buildView(
                 ]),
               ),
               titleDetailRow(
-                loading: !state.loadingMap.contains((tkn == Token.MXC) ? 'balance' : LocalStorageDao.balanceDHXKey),
+                loading: !state.loadingMap.contains((tkn == Token.mxc) ? 'balance' : LocalStorageDao.balanceDHXKey),
                 name: FlutterI18n.translate(_ctx, 'current_balance'),
-                value: Tools.priceFormat((tkn == Token.MXC) ? state.balance : state.balanceDHX),
-                token: (tkn == Token.MXC) ? "MXC" : "DHX"),
+                value: Tools.priceFormat((tkn == Token.mxc) ? state.balance : state.balanceDHX),
+                token: tkn.name),
 
-              (tkn == Token.DHX)
+              (tkn == Token.supernodeDhx)
               ? titleDetailRow(
                   loading: !state.loadingMap.contains(LocalStorageDao.lockedAmountKey),
                   name: FlutterI18n.translate(_ctx, 'locked_amount'),
                   value: Tools.priceFormat(state.lockedAmount),
-                  token: "MXC")
+                  token: Token.mxc.name)
               : SizedBox(),
 
               titleDetailRow(
-                loading: (tkn == Token.MXC) && !state.loadingMap.contains('stakedAmount'),
+                loading: (tkn == Token.mxc) && !state.loadingMap.contains('stakedAmount'),
                 name: FlutterI18n.translate(_ctx, 'staked_amount'),
-                value: (tkn == Token.MXC) ? Tools.priceFormat(state.stakedAmount) : FlutterI18n.translate(_ctx, 'not_available'),
-                token: (tkn == Token.MXC) ? "MXC" : ""),
+                value: (tkn == Token.mxc) ? Tools.priceFormat(state.stakedAmount) : FlutterI18n.translate(_ctx, 'not_available'),
+                token: (tkn == Token.mxc) ? Token.mxc.name : ""),
 
               titleDetailRow(
-                loading: !state.loadingMap.contains((tkn == Token.MXC) ? 'totalRevenue' : LocalStorageDao.lockedAmountKey),
+                loading: !state.loadingMap.contains((tkn == Token.mxc) ? 'totalRevenue' : LocalStorageDao.lockedAmountKey),
                 name: FlutterI18n.translate(_ctx, 'total_revenue'),
-                value: Tools.priceFormat((tkn == Token.MXC) ? state.totalRevenue : state.totalRevenueDHX, range: 2),
-                token: (tkn == Token.MXC) ? "MXC" : "DHX")
+                value: Tools.priceFormat((tkn == Token.mxc) ? state.totalRevenue : state.totalRevenueDHX, range: 2),
+                token: tkn.name)
             ]),
           )
       )
@@ -119,7 +119,7 @@ Widget buildView(
                     children: [
                       Text(FlutterI18n.translate(_ctx, "daily_mining_capacity"), style: kSmallFontOfBlack),
                       SizedBox(height: s(5)),
-                      Text('5000 DHX', style: MiddleFontOfColor(color: colorToken[Token.DHX])),
+                      Text('5000 DHX', style: MiddleFontOfColor(color: Token.supernodeDhx.color)),
                     ],
                   ),
                 ]
@@ -133,7 +133,7 @@ Widget buildView(
               SizedBox(height: s(5)),
               Container(
                 decoration: BoxDecoration(
-                  color: colorToken[Token.DHX],
+                  color: Token.supernodeDhx.color,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
@@ -149,12 +149,12 @@ Widget buildView(
               SizedBox(height: s(5)),
               Container(
                 decoration: BoxDecoration(
-                  color: colorToken[Token.DHX],
+                  color: Token.supernodeDhx.color,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                   child: Stack(alignment: AlignmentDirectional.center, children: [
-                    Text(FlutterI18n.translate(_ctx, 'm2pro_miner'), style:TextStyle(color: colorToken[Token.DHX], fontFamily: "Roboto", fontSize: 14)),// invisible - sets width for Container
+                    Text(FlutterI18n.translate(_ctx, 'm2pro_miner'), style:TextStyle(color: Token.supernodeDhx.color, fontFamily: "Roboto", fontSize: 14)),// invisible - sets width for Container
                     Text(FlutterI18n.translate(_ctx, 'mpower'), style: kSecondaryButtonOfWhite)
                   ])
                 )
@@ -190,22 +190,22 @@ Widget buildView(
         Padding(
           padding: const EdgeInsets.only(top: 16.0),
           child: Row(children:[
-            (t == Token.MXC) ? Spacer() : SizedBox(),
-            CircleButton(icon: Icon(Icons.add, color: (t == Token.DHX) ? Colors.grey : colorToken[t]),
+            (t == Token.mxc) ? Spacer() : SizedBox(),
+            CircleButton(icon: Icon(Icons.add, color: (t == Token.supernodeDhx) ? Colors.grey : t.color),
                 label: FlutterI18n.translate(_ctx, 'deposit'),
-                onTap: () => (t == Token.DHX) ? 'disabled' : dispatch(HomeActionCreator.onOperate('deposit'))),
+                onTap: () => (t == Token.supernodeDhx) ? 'disabled' : dispatch(HomeActionCreator.onOperate('deposit'))),
             Spacer(),
-            CircleButton(icon: Icon(Icons.arrow_forward, color: (t == Token.DHX) ? Colors.grey : colorToken[t]),
+            CircleButton(icon: Icon(Icons.arrow_forward, color: (t == Token.supernodeDhx) ? Colors.grey : t.color),
                 label: FlutterI18n.translate(_ctx, 'withdraw'),
-                onTap: () => (t == Token.DHX) ? 'disabled' : dispatch(HomeActionCreator.onOperate('withdraw'))),
+                onTap: () => (t == Token.supernodeDhx) ? 'disabled' : dispatch(HomeActionCreator.onOperate('withdraw'))),
             Spacer(),
-            CircleButton(icon:Image.asset(AppImages.iconMine, color: colorToken[t]),
-                label: FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'stake' : 'mine'), 
-                onTap: () => (t == Token.DHX) ? _showMineDXHDialog(_ctx, state.isDemo) : _showStakeDialog(_ctx, dispatch)),
+            CircleButton(icon:Image.asset(AppImages.iconMine, color: t.color),
+                label: FlutterI18n.translate(_ctx, (t == Token.mxc) ? 'stake' : 'mine'), 
+                onTap: () => (t == Token.supernodeDhx) ? _showMineDXHDialog(_ctx, state.isDemo) : _showStakeDialog(_ctx, dispatch)),
             Spacer(),
-            (t == Token.DHX)
+            (t == Token.supernodeDhx)
               ? CircleButton(
-                icon:Image.asset(AppImages.iconCouncil, color: (state.stakeDHXList == []) ? Colors.grey : colorToken[t]),
+                icon:Image.asset(AppImages.iconCouncil, color: (state.stakeDHXList == []) ? Colors.grey : t.color),
                 label: FlutterI18n.translate(_ctx, 'council'),
                 onTap: () {
                   Set<String> argJoinedCouncils = state.stakeDHXList.where((e) => !e.historyEntity.closed).map((e) => e.historyEntity.councilId).toSet();
@@ -218,22 +218,22 @@ Widget buildView(
           ]),
         ),
         tokenCard(t),
-        (t == Token.DHX) ? miningDHXcard() : SizedBox(),
+        (t == Token.supernodeDhx) ? miningDHXcard() : SizedBox(),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0),
           child: CupertinoSlidingSegmentedControl(
               groupValue: state.activeTabToken[t],
               onValueChanged: (tabIndex) => dispatch(WalletActionCreator.onTab(tabIndex)),
-              thumbColor: colorToken[t],
+              thumbColor: t.color,
               children: <int, Widget> {
-                0: Text(FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'transaction_history' : "mining_income"), style: TextStyle(color: (state.activeTabToken[t] == 0) ? Colors.white: Colors.grey)),
-                1: Text(FlutterI18n.translate(_ctx, (t == Token.MXC) ? 'stake_assets' : 'transaction_history'), style: TextStyle(color: (state.activeTabToken[t] == 1) ? Colors.white: Colors.grey))
+                0: Text(FlutterI18n.translate(_ctx, (t == Token.mxc) ? 'transaction_history' : "mining_income"), style: TextStyle(color: (state.activeTabToken[t] == 0) ? Colors.white: Colors.grey)),
+                1: Text(FlutterI18n.translate(_ctx, (t == Token.mxc) ? 'stake_assets' : 'transaction_history'), style: TextStyle(color: (state.activeTabToken[t] == 1) ? Colors.white: Colors.grey))
               }
           ),
         ),
         //smallColumnSpacer(),
         Visibility(
-          visible: t == Token.MXC && state.activeTabToken[t] == 0,
+          visible: t == Token.mxc && state.activeTabToken[t] == 0,
           child: secondaryButtons(
               buttonLabel1:
                   FlutterI18n.translate(_ctx, 'deposit').toUpperCase(),
@@ -247,7 +247,7 @@ Widget buildView(
               onTap3: () => dispatch(WalletActionCreator.isSetDate())),
         ),
         Visibility(
-          visible: t == Token.MXC && state.activeTabToken[t] == 1,
+          visible: t == Token.mxc && state.activeTabToken[t] == 1,
           child: secondaryButtons(
               buttonLabel1: FlutterI18n.translate(_ctx, 'stake').toUpperCase(),
               buttonLabel2:
@@ -261,7 +261,7 @@ Widget buildView(
         ),
         Visibility(
           key: Key(''),
-          visible: t == Token.MXC ? (state.activeTabToken[t] == 0 ? state.isSetDate1 : state.isSetDate2) : false,
+          visible: t == Token.mxc ? (state.activeTabToken[t] == 0 ? state.isSetDate1 : state.isSetDate2) : false,
           child: Padding(
             padding: EdgeInsets.only(top: 5),
             child: dateButtons(_ctx,
@@ -300,7 +300,7 @@ Widget buildView(
       height: 5,
       width: isActive ? 20 : 19,
       decoration: BoxDecoration(
-          color: isActive ? colorToken[state.selectedToken] : Colors.grey,
+          color: isActive ? state.selectedToken.color : Colors.grey,
           borderRadius: BorderRadius.all(Radius.circular(2))),
     );
   }
@@ -352,7 +352,7 @@ Widget buildView(
   return Scaffold(
     appBar: homeBar(
       (state.expandedView)
-          ? (state.selectedToken == Token.MXC) ? "MXC" : "Datahighway DHX"
+          ? state.selectedToken.fullName
           : FlutterI18n.translate(_ctx, 'wallet'),
       onPressed: () => dispatch(HomeActionCreator.onSettings()),
     ),
@@ -390,7 +390,7 @@ void _showAddTokenDialog(BuildContext context, dispatch) {
                 children: [
                   Image.asset(AppImages.logoDHX, height: s(50)),
                   SizedBox(width: s(10)),
-                  Text('Datahighway DHX',
+                  Text(Token.supernodeDhx.fullName,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: s(16),
@@ -435,7 +435,7 @@ void _showStakeDialog(BuildContext context, dispatch) {
                   child:
                   Row(
                     children: [
-                      CircleButton(icon: Image.asset(AppImages.iconMine, color: colorToken[Token.MXC])),
+                      CircleButton(icon: Image.asset(AppImages.iconMine, color: Token.mxc.color)),
                       SizedBox(width: s(10)),
                       Text(FlutterI18n.translate(context, 'new_stake'),
                         style: TextStyle(
@@ -458,7 +458,7 @@ void _showStakeDialog(BuildContext context, dispatch) {
                   child:
                   Row(
                     children: [
-                      CircleButton(icon: Icon(Icons.arrow_back, color: colorToken[Token.MXC])),
+                      CircleButton(icon: Icon(Icons.arrow_back, color: Token.mxc.color)),
                       SizedBox(width: s(10)),
                       Text(FlutterI18n.translate(context, 'unstake'),
                         style: TextStyle(
@@ -519,7 +519,7 @@ void _showMineDXHDialog(BuildContext context, bool isDemo) {
                   child:
                   Row(
                     children: [
-                      CircleButton(icon: Image.asset(AppImages.iconMine, color: colorToken[Token.DHX])),
+                      CircleButton(icon: Image.asset(AppImages.iconMine, color: Token.supernodeDhx.color)),
                       SizedBox(width: s(10)),
                       Text(FlutterI18n.translate(context, 'new_mining'),
                         style: TextStyle(

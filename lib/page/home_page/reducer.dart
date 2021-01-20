@@ -116,7 +116,7 @@ HomeState _balance(HomeState state, Action action) {
 
 HomeState _addDHX(HomeState state, Action action) {
   final HomeState newState = state.clone();
-  newState.displayTokens = [...newState.displayTokens, Token.DHX];
+  newState.displayTokens = [...newState.displayTokens, Token.supernodeDhx];
   return newState;
 }
 

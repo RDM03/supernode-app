@@ -41,7 +41,7 @@ class HomeState implements Cloneable<HomeState> {
 
   //wallet
   bool expandedView = false;
-  List<Token> displayTokens = [Token.MXC];
+  List<Token> displayTokens = [Token.mxc];
   Token selectedToken;
   bool isFirstRequest = true;
   bool loadingHistory = true;
@@ -52,7 +52,7 @@ class HomeState implements Cloneable<HomeState> {
   double totalRevenueDHX = 0;
   double mPower = 0;
   double miningPower = 0;
-  Map<Token, int> walletActiveTabToken = {Token.MXC: 0, Token.DHX: 0};
+  Map<Token, int> walletActiveTabToken = {Token.mxc: 0, Token.supernodeDhx: 0};
   bool isSetDate1 = false;
   bool isSetDate2 = false;
   int selectedIndexBtn1 = -1;

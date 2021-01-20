@@ -58,7 +58,7 @@ void _onTab(Action action, Context<WalletState> ctx) {
     //list not initialised
     String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
     if (orgId.isEmpty) return;
-    if (ctx.state.selectedToken == Token.DHX) return;
+    if (ctx.state.selectedToken == Token.supernodeDhx) return;
 
     Map data = {
       'orgId': orgId,

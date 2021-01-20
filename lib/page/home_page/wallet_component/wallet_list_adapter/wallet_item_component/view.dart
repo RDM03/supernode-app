@@ -83,7 +83,7 @@ Widget buildView(
       startDate: state.historyEntity.created,
       durationDays: dateDiff,
       isLast: state.isLast,
-      iconColor: colorToken[Token.DHX],
+      iconColor: Token.supernodeDhx.color,
       months: month,
       showLockOpenIcon: showLockOpenIcon,
     );

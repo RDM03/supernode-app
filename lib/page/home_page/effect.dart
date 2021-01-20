@@ -558,7 +558,7 @@ Future<void> _stakingRevenue(
 
 void _onAddDHX (Action action, Context<HomeState> ctx) {
   bool saveLocally = action.payload;
-  if (!ctx.state.displayTokens.contains(Token.DHX)) {
+  if (!ctx.state.displayTokens.contains(Token.supernodeDhx)) {
     ctx.dispatch(HomeActionCreator.addDHX());
     ctx.dispatch(HomeActionCreator.onDataDHX(addingDHX: true));
   }
@@ -573,7 +573,7 @@ void _onAddDHX (Action action, Context<HomeState> ctx) {
 
 void _onDataDHX (Action action, Context<HomeState> ctx) async {
   bool addingDHX = action.payload;
-  if (addingDHX || ctx.state.displayTokens.contains(Token.DHX)) {
+  if (addingDHX || ctx.state.displayTokens.contains(Token.supernodeDhx)) {
     _requestUserDHXBalance(ctx);
     _requestLockedAmount_TotalRevenue(ctx);
     _requestLastMining(ctx);

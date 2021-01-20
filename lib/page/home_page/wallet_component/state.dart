@@ -7,15 +7,15 @@ import 'wallet_list_adapter/wallet_item_component/state.dart';
 class WalletState extends MutableSource implements Cloneable<WalletState> {
 
   bool expandedView = false;
-  List<Token> displayTokens = [Token.MXC];
-  Token selectedToken = Token.MXC;
+  List<Token> displayTokens = [Token.mxc];
+  Token selectedToken = Token.mxc;
   bool isFirstRequest = true;
   bool loading = true;
 
   /// labels for data being loaded ['balance', 'balanceDHX', 'stakeAmount', 'totalRevenue', 'lockedAmount']
   Set loadingMap = {};
   bool loadingHistory = true;
-  Map<Token, int> activeTabToken = {Token.MXC: 0, Token.DHX: 0};
+  Map<Token, int> activeTabToken = {Token.mxc: 0, Token.supernodeDhx: 0};
   bool isSetDate1 = false;
   bool isSetDate2 = false;
 
@@ -47,7 +47,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
 
   List<dynamic> get _currentList {
     List<dynamic> list =
-    (selectedToken == Token.MXC)
+    (selectedToken == Token.mxc)
       ? activeTabToken[selectedToken] == 0 ? walletList : stakeList
       : activeTabToken[selectedToken] == 0 ? stakeDHXList : transactions;
     int i = 0;

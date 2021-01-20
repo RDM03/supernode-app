@@ -63,11 +63,11 @@ WalletState _tab(WalletState state, Action action) {
 WalletState _isSetDate(WalletState state, Action action) {
   final WalletState newState = state.clone();
 
-  if (state.activeTabToken[Token.MXC] == 0 && !state.isSetDate1) {
+  if (state.activeTabToken[Token.mxc] == 0 && !state.isSetDate1) {
     return newState
       ..selectedIndexBtn1 = 2
       ..isSetDate1 = !state.isSetDate1;
-  } else if (state.activeTabToken[Token.MXC] == 1 && !state.isSetDate2) {
+  } else if (state.activeTabToken[Token.mxc] == 1 && !state.isSetDate2) {
     return newState
       ..selectedIndexBtn2 = 2
       ..isSetDate2 = !state.isSetDate2;
@@ -79,7 +79,7 @@ WalletState _isSetDate(WalletState state, Action action) {
 WalletState _updateSelectedButton(WalletState state, Action action) {
   int index = action.payload;
 
-  if (state.selectedToken == Token.DHX) {
+  if (state.selectedToken == Token.supernodeDhx) {
     return state;
   }
 
