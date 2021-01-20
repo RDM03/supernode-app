@@ -13,6 +13,8 @@ extension TokenExtension on Token {
         return 'Datahighway DHX';
       case Token.mxc:
         return 'MXC';
+      case Token.btc:
+        return 'Bitcoin BTC';
     }
     throw UnimplementedError('No name found for $this');
   }
@@ -23,6 +25,8 @@ extension TokenExtension on Token {
         return 'DHX';
       case Token.mxc:
         return 'MXC';
+      case Token.btc:
+        return 'BTC';
     }
     throw UnimplementedError('No name found for $this');
   }
@@ -33,6 +37,8 @@ extension TokenExtension on Token {
         return AppImages.logoDHX;
       case Token.mxc:
         return AppImages.logoMXC;
+      case Token.btc:
+        return AppImages.logoBTC;
     }
     throw UnimplementedError('No image found for $this');
   }
@@ -43,6 +49,8 @@ extension TokenExtension on Token {
         return colorSupernodeDhx;
       case Token.mxc:
         return colorMxc;
+      case Token.btc:
+        return colorBtc;
     }
     throw UnimplementedError('No color found for $this');
   }

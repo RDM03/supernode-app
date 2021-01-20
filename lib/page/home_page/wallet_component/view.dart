@@ -388,7 +388,7 @@ void _showAddTokenDialog(BuildContext context, dispatch) {
                 dispatch(HomeActionCreator.onAddDHX(true));},
               child: Row(
                 children: [
-                  Image.asset(AppImages.logoDHX, height: s(50)),
+                  Image.asset(Token.supernodeDhx.imagePath, height: s(50)),
                   SizedBox(width: s(10)),
                   Text(Token.supernodeDhx.fullName,
                     style: TextStyle(
