@@ -71,17 +71,21 @@ Widget buildView(
                   token: Token.mxc.name)
               : SizedBox(),
 
-              titleDetailRow(
+              (tkn != Token.btc)
+              ? titleDetailRow(
                 loading: (tkn == Token.mxc) && !state.loadingMap.contains('stakedAmount'),
                 name: FlutterI18n.translate(_ctx, 'staked_amount'),
                 value: (tkn == Token.mxc) ? Tools.priceFormat(state.stakedAmount) : FlutterI18n.translate(_ctx, 'not_available'),
-                token: (tkn == Token.mxc) ? Token.mxc.name : ""),
+                token: (tkn == Token.mxc) ? Token.mxc.name : "")
+              : SizedBox(),
 
-              titleDetailRow(
+              (tkn != Token.btc)
+              ? titleDetailRow(
                 loading: !state.loadingMap.contains((tkn == Token.mxc) ? 'totalRevenue' : LocalStorageDao.lockedAmountKey),
                 name: FlutterI18n.translate(_ctx, 'total_revenue'),
                 value: Tools.priceFormat((tkn == Token.mxc) ? state.totalRevenue : state.totalRevenueDHX, range: 2),
                 token: tkn.name)
+              : SizedBox()
             ]),
           )
       )
@@ -190,21 +194,32 @@ Widget buildView(
         Padding(
           padding: const EdgeInsets.only(top: 16.0),
           child: Row(children:[
-            (t == Token.mxc) ? Spacer() : SizedBox(),
-            CircleButton(icon: Icon(Icons.add, color: (t == Token.supernodeDhx) ? Colors.grey : t.color),
+            (t == Token.supernodeDhx) ? SizedBox() : Spacer(),
+
+            (t != Token.btc)
+                ? CircleButton(icon: Icon(Icons.add, color: (t == Token.supernodeDhx) ? Colors.grey : t.color),
                 label: FlutterI18n.translate(_ctx, 'deposit'),
-                onTap: () => (t == Token.supernodeDhx) ? 'disabled' : dispatch(HomeActionCreator.onOperate('deposit'))),
+                onTap: () => (t == Token.supernodeDhx) ? 'disabled' : dispatch(HomeActionCreator.onOperate('deposit')))
+                : SizedBox(),
+
             Spacer(),
+
             CircleButton(icon: Icon(Icons.arrow_forward, color: (t == Token.supernodeDhx) ? Colors.grey : t.color),
                 label: FlutterI18n.translate(_ctx, 'withdraw'),
                 onTap: () => (t == Token.supernodeDhx) ? 'disabled' : dispatch(HomeActionCreator.onOperate('withdraw'))),
+
             Spacer(),
-            CircleButton(icon:Image.asset(AppImages.iconMine, color: t.color),
-                label: FlutterI18n.translate(_ctx, (t == Token.mxc) ? 'stake' : 'mine'), 
-                onTap: () => (t == Token.supernodeDhx) ? _showMineDXHDialog(_ctx, state.isDemo) : _showStakeDialog(_ctx, dispatch)),
+
+            (t != Token.btc)
+                ? CircleButton(icon:Image.asset(AppImages.iconMine, color: t.color),
+                label: FlutterI18n.translate(_ctx, (t == Token.mxc) ? 'stake' : 'mine'),
+                onTap: () => (t == Token.supernodeDhx) ? _showMineDXHDialog(_ctx, state.isDemo) : _showStakeDialog(_ctx, dispatch))
+                : SizedBox(),
+
             Spacer(),
+
             (t == Token.supernodeDhx)
-              ? CircleButton(
+                ? CircleButton(
                 icon:Image.asset(AppImages.iconCouncil, color: (state.stakeDHXList == []) ? Colors.grey : t.color),
                 label: FlutterI18n.translate(_ctx, 'council'),
                 onTap: () {
@@ -212,16 +227,23 @@ Widget buildView(
                   (state.stakeDHXList == [])
                       ? "do nothing"
                       : Navigator.pushNamed(_ctx, 'list_councils_page', arguments: {'isDemo': state.isDemo, 'joinedCouncilsId': argJoinedCouncils});
-                    }
-            )
-              : SizedBox(),
+                    })
+                : SizedBox(),
           ]),
         ),
         tokenCard(t),
         (t == Token.supernodeDhx) ? miningDHXcard() : SizedBox(),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0),
-          child: CupertinoSlidingSegmentedControl(
+          child:
+          (t== Token.btc)
+              ? panelFrame(rowTop: EdgeInsets.only(top: 00),
+              customPanelColor: Token.btc.color,
+              child: Container(
+                  padding: kRoundRow15_5,
+                  alignment: Alignment.center,
+                  child: Text(FlutterI18n.translate(_ctx, 'transaction_history'), style: TextStyle(color: Colors.white))))
+              : CupertinoSlidingSegmentedControl(
               groupValue: state.activeTabToken[t],
               onValueChanged: (tabIndex) => dispatch(WalletActionCreator.onTab(tabIndex)),
               thumbColor: t.color,
