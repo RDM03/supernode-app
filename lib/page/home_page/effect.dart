@@ -24,7 +24,6 @@ import 'package:supernodeapp/common/utils/storage_manager_native.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/data/super_node_bean.dart';
 import 'package:supernodeapp/global_store/store.dart';
-import 'package:supernodeapp/page/home_page/wallet_component/action.dart';
 import 'package:supernodeapp/page/home_page/wallet_component/wallet_list_adapter/wallet_item_component/state.dart';
 import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
 import 'package:supernodeapp/page/settings_page/state.dart';
@@ -44,6 +43,8 @@ Effect<HomeState> buildEffect() {
     HomeAction.onGateways: _onGateways,
     HomeAction.onAddDHX: _onAddDHX,
     HomeAction.onDataDHX: _onDataDHX,
+    HomeAction.onAddBTC: _onAddBTC,
+    HomeAction.onDataBTC: _onDataBTC,
     HomeAction.relogin: _relogin,
     HomeAction.mapbox: _mapbox,
   });
@@ -109,6 +110,7 @@ void _relogin(Action action, Context<HomeState> ctx) async {
     settingsData.isDemo = res['isDemo'] ?? false;
     _profile(ctx);
     ctx.dispatch(HomeActionCreator.onDataDHX());
+    ctx.dispatch(HomeActionCreator.onDataBTC());
   } catch (err) {
     loading?.hide();
 
@@ -131,8 +133,6 @@ void _initState(Action action, Context<HomeState> ctx) async {
 
   await _gatewaysLocationsFromLocal(ctx);
   await _profile(ctx);
-  //add DHX to wallet
-  ctx.dispatch(HomeActionCreator.onAddDHX(false));
 }
 
 void _checkNodeStatus() async {
@@ -264,6 +264,13 @@ void _loadUserData(Context<HomeState> ctx) {
     if (dataDHX.isNotEmpty)
       ctx.dispatch(HomeActionCreator.dataDHX(dataDHX));
 
+    //add DHX to wallet
+    ctx.dispatch(HomeActionCreator.onAddDHX(false));
+  }
+
+  if (data[LocalStorageDao.walletBTC] != null && data[LocalStorageDao.walletBTC]) {
+    //add BTC to wallet
+    ctx.dispatch(HomeActionCreator.onAddBTC(false));
   }
 
   if (data['miningIncome'] != null)
@@ -508,6 +515,7 @@ void _onSettings(Action action, Context<HomeState> ctx) {
         //refresh profile
         _profile(ctx);
         ctx.dispatch(HomeActionCreator.onDataDHX());
+        ctx.dispatch(HomeActionCreator.onDataBTC());
       }
     }
   });
@@ -675,5 +683,53 @@ void _requestLastMining (Context<HomeState> ctx) async {
   } catch (err) {
     ctx.dispatch(HomeActionCreator.loadingMap(miningPowerLabel));
     tip(ctx.context, 'DhxDao lastMining: $err');
+  }
+}
+
+void _onAddBTC (Action action, Context<HomeState> ctx) {
+  bool saveLocally = action.payload;
+  if (!ctx.state.displayTokens.contains(Token.btc)) {
+    ctx.dispatch(HomeActionCreator.addBTC());
+    ctx.dispatch(HomeActionCreator.onDataBTC(addingBTC: true));
+  }
+  if (saveLocally) {
+    SettingsState settingsData = GlobalStore.store.getState().settings;
+    if (settingsData.username.isNotEmpty) {
+      LocalStorageDao.saveUserData(
+          'user_${settingsData.username}', {LocalStorageDao.walletBTC: true});
+    }
+  }
+}
+
+void _onDataBTC (Action action, Context<HomeState> ctx) async {
+  bool addingBTC = action.payload;
+  if (addingBTC || ctx.state.displayTokens.contains(Token.btc)) {
+    const String balanceBTClabel = LocalStorageDao.balanceBTCKey;
+    SettingsState settingsData = GlobalStore.store.getState().settings;
+    if (settingsData.userId.isNotEmpty && settingsData.selectedOrganizationId.isNotEmpty) {
+      ctx.dispatch(HomeActionCreator.loadingMap(balanceBTClabel, type:"remove"));
+
+      String userId = settingsData.userId;
+      String orgId = settingsData.selectedOrganizationId;
+      try {
+        WalletDao dao = _buildWalletDao(ctx);
+        Map data = {'userId': userId, 'orgId': orgId, 'currency': 'BTC'};
+
+        var res = await dao.balance(data);
+        mLog('balance BTC', res);
+        double balanceBTC = Tools.convertDouble(res['balance']);
+        Map dataBTC = {balanceBTClabel: balanceBTC};
+        if (settingsData.username.isNotEmpty) {
+          LocalStorageDao.saveUserData(
+              'user_${settingsData.username}', dataBTC);
+        }
+
+        ctx.dispatch(HomeActionCreator.dataBTC(dataBTC));
+        ctx.dispatch(HomeActionCreator.loadingMap(balanceBTClabel));
+      } catch (err) {
+        ctx.dispatch(HomeActionCreator.loadingMap(balanceBTClabel));
+        tip(ctx.context, 'WalletDao balance: $err');
+      }
+    }
   }
 }

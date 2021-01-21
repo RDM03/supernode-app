@@ -402,6 +402,26 @@ void _showAddTokenDialog(BuildContext context, dispatch) {
               )
             ),
             Divider(color: Colors.grey),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                dispatch(HomeActionCreator.onAddBTC(true));},
+              child: Row(
+                children: [
+                  Image.asset(Token.btc.imagePath, height: s(50)),
+                  SizedBox(width: s(10)),
+                  Text(Token.btc.fullName,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: s(16),
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              )
+            ),
+            Divider(color: Colors.grey),
           ],
         )
       )

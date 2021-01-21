@@ -20,6 +20,8 @@ Reducer<HomeState> buildReducer() {
       HomeAction.balance: _balance,
       HomeAction.addDHX: _addDHX,
       HomeAction.dataDHX: _dataDHX,
+      HomeAction.addBTC: _addBTC,
+      HomeAction.dataBTC: _dataBTC,
       HomeAction.stakedAmount: _stakedAmount,
       HomeAction.gateways: _gateways,
       HomeAction.miningIncome: _miningIncome,
@@ -136,6 +138,21 @@ HomeState _dataDHX(HomeState state, Action action) {
     newState.miningPower = data[LocalStorageDao.miningPowerKey];
   if (data.containsKey('list'))
     newState.stakeDHXList = data['list'];
+  return newState;
+}
+
+HomeState _addBTC(HomeState state, Action action) {
+  final HomeState newState = state.clone();
+  newState.displayTokens = [...newState.displayTokens, Token.btc];
+  return newState;
+}
+
+HomeState _dataBTC(HomeState state, Action action) {
+  Map data = action.payload;
+
+  final HomeState newState = state.clone();
+  if (data.containsKey(LocalStorageDao.balanceBTCKey))
+    newState.balanceBTC = data[LocalStorageDao.balanceBTCKey];
   return newState;
 }
 

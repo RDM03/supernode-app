@@ -47,6 +47,7 @@ class HomeState implements Cloneable<HomeState> {
   bool loadingHistory = true;
   double balance = 0;
   double balanceDHX = 0;
+  double balanceBTC = 0;
   double totalRevenue = 0;
   double lockedAmount = 0;
   double totalRevenueDHX = 0;
@@ -118,6 +119,7 @@ class HomeState implements Cloneable<HomeState> {
       ..superNode = superNode
       ..balance = balance
       ..balanceDHX = balanceDHX
+      ..balanceBTC = balanceBTC
       ..totalRevenue = totalRevenue
       ..lockedAmount = lockedAmount
       ..totalRevenueDHX = totalRevenueDHX
@@ -263,6 +265,7 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..loadingHistory = state.loadingHistory
       ..balance = state.balance
       ..balanceDHX = state.balanceDHX
+      ..balanceBTC = state.balanceBTC
       ..totalRevenue = state.totalRevenue
       ..lockedAmount = state.lockedAmount
       ..totalRevenueDHX = state.totalRevenueDHX

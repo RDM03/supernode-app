@@ -14,6 +14,10 @@ enum HomeAction {
   addDHX,
   onDataDHX,
   dataDHX,
+  onAddBTC,
+  addBTC,
+  onDataBTC,
+  dataBTC,
   mapbox,
   geojsonList,
   stakedAmount,
@@ -86,6 +90,22 @@ class HomeActionCreator {
 
   static Action dataDHX(Map data) {
     return Action(HomeAction.dataDHX, payload: data);
+  }
+
+  static Action onAddBTC(bool saveLocally) {
+    return Action(HomeAction.onAddBTC, payload: saveLocally);
+  }
+
+  static Action addBTC() {
+    return Action(HomeAction.addBTC);
+  }
+
+  static Action onDataBTC({bool addingBTC: false}) {
+    return Action(HomeAction.onDataBTC, payload: addingBTC);
+  }
+
+  static Action dataBTC(Map data) {
+    return Action(HomeAction.dataBTC, payload: data);
   }
 
   static Action mapbox(){

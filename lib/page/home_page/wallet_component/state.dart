@@ -12,7 +12,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   bool isFirstRequest = true;
   bool loading = true;
 
-  /// labels for data being loaded ['balance', 'balanceDHX', 'stakeAmount', 'totalRevenue', 'lockedAmount']
+  /// labels for data being loaded ['balance', 'balanceDHX', 'balanceBTC', 'stakeAmount', 'totalRevenue', 'lockedAmount']
   Set loadingMap = {};
   bool loadingHistory = true;
   Map<Token, int> activeTabToken = {Token.mxc: 0, Token.supernodeDhx: 0};
@@ -33,6 +33,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   //amount
   double balance = 0; // MXC
   double balanceDHX = 0;
+  double balanceBTC = 0;
 
   //stake
   double stakedAmount = 0;
@@ -111,6 +112,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
       ..selectedIndexBtn2 = selectedIndexBtn2
       ..balance = balance
       ..balanceDHX = balanceDHX
+      ..balanceBTC = balanceBTC
       ..stakedAmount = stakedAmount
       ..totalRevenue = totalRevenue
       ..lockedAmount = lockedAmount
