@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:supernodeapp/common/daos/local_storage_dao.dart';
 import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/page/home_page/wallet_component/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 enum CurrencyType { fiat, crypto }
@@ -53,6 +55,31 @@ extension TokenExtension on Token {
         return colorBtc;
     }
     throw UnimplementedError('No color found for $this');
+  }
+
+  String get balanceLoader {
+    switch (this) {
+      case Token.supernodeDhx:
+        return LocalStorageDao.balanceDHXKey;
+      case Token.mxc:
+        return 'balance';
+      case Token.btc:
+        return LocalStorageDao.balanceBTCKey;
+    }
+    throw UnimplementedError('No laoder label found for $this');
+  }
+
+  double balance (WalletState state) {
+    switch (this) {
+      case Token.supernodeDhx:
+        return state.balanceDHX;
+      case Token.mxc:
+        return state.balance;
+      case Token.btc:
+        return state.balanceBTC;
+    }
+    throw UnimplementedError('No balance field found for $this');
+
   }
 }
 
