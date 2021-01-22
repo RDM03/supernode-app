@@ -184,11 +184,14 @@ Future<void> _profile(Context<HomeState> ctx) async {
     UserState userData = UserState.fromMap(res['user'], type: 'remote');
 
     String wechatExternalUsername = '';
+    String shopifyExternalUsername = '';
     if (res.containsKey('externalUserAccounts')) {
       for (var extAcc in res['externalUserAccounts']) {
-        if (extAcc['service'] == 'wechat') {
+        if (extAcc['service'] == UserApi.extServiceWeChat) {
           wechatExternalUsername = extAcc['externalUsername'];
-          break;
+        }
+        if (extAcc['service'] == UserApi.extServiceShopify) {
+          shopifyExternalUsername = extAcc['externalUsername'];
         }
       }
     }
@@ -208,7 +211,7 @@ Future<void> _profile(Context<HomeState> ctx) async {
     }
 
     SettingsDao.updateLocal(settingsData);
-    ctx.dispatch(HomeActionCreator.profile(userData, wechatExternalUsername, organizationsData));
+    ctx.dispatch(HomeActionCreator.profile(userData, wechatExternalUsername, shopifyExternalUsername, organizationsData));
     ctx.dispatch(HomeActionCreator.loadingMap('profile'));
 
     if (settingsData.userId.isNotEmpty && organizationsData.first.organizationID.isNotEmpty) {
@@ -491,6 +494,7 @@ void _onSettings(Action action, Context<HomeState> ctx) {
     'username': curState.username,
     'email': curState.email,
     'wechatExternalUsername': curState.wechatExternalUsername,
+    'shopifyExternalUsername': curState.shopifyExternalUsername,
     'isAdmin': curState.isAdmin
   };
 

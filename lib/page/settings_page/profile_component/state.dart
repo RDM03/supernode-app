@@ -14,6 +14,7 @@ class ProfileState implements Cloneable<ProfileState> {
   String email = '';
   bool reloadProfile = false;
   String wechatExternalUsername = '';
+  String shopifyExternalUsername = '';
   bool isAdmin = false;
   bool showConfirmation = false;
 
@@ -27,6 +28,7 @@ class ProfileState implements Cloneable<ProfileState> {
       ..usernameCtl = usernameCtl
       ..emailCtl = emailCtl
       ..wechatExternalUsername = wechatExternalUsername
+      ..shopifyExternalUsername = shopifyExternalUsername
       ..isAdmin = isAdmin
       ..showConfirmation = showConfirmation;
   }

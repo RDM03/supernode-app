@@ -16,6 +16,7 @@ Effect<ProfileState> buildEffect() {
   return combineEffects(<Object, Effect<ProfileState>>{
     ProfileAction.onUpdate: _onUpdate,
     ProfileAction.onUnbind: _onUnbind,
+    ProfileAction.onBindShopify: _onBindShopify,
   });
 }
 
@@ -57,21 +58,25 @@ void _onUpdate(Action action, Context<ProfileState> ctx) async {
 }
 
 void _onUnbind(Action action, Context<ProfileState> ctx) async {
+  String service = action.payload;
   ctx.dispatch(ProfileActionCreator.showConfirmation(false));
   final loading = await Loading.show(ctx.context);
 
   Map data = {
     "organizationId": GlobalStore.store.getState().settings.selectedOrganizationId,
-    "service": "wechat"
+    "service": service
   };
 
   UserDao dao = UserDao();
 
   dao.unbindExternalUser(data).then((res) {
     loading.hide();
-    ctx.dispatch(ProfileActionCreator.unbind());
+    ctx.dispatch(ProfileActionCreator.unbind(service));
   }).catchError((err) {
     loading.hide();
     tip(ctx.context,'Unbind: $err');
   });
+}
+
+void _onBindShopify(Action action, Context<ProfileState> ctx) async {
 }

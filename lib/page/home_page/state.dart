@@ -38,6 +38,7 @@ class HomeState implements Cloneable<HomeState> {
 
   //external
   String wechatExternalUsername = '';
+  String shopifyExternalUsername = '';
 
   //wallet
   bool expandedView = false;
@@ -116,6 +117,7 @@ class HomeState implements Cloneable<HomeState> {
       ..organizations = organizations ?? []
       ..selectedOrganizationId = selectedOrganizationId
       ..wechatExternalUsername = wechatExternalUsername
+      ..shopifyExternalUsername = shopifyExternalUsername
       ..superNode = superNode
       ..balance = balance
       ..balanceDHX = balanceDHX

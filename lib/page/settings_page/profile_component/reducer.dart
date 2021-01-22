@@ -1,4 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:supernodeapp/common/daos/users_dao.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -32,8 +33,14 @@ ProfileState _showConfirmation(ProfileState state, Action action) {
 }
 
 ProfileState _unbind(ProfileState state, Action action) {
+  String service = action.payload;
   final ProfileState newState = state.clone();
+  if (service == UserApi.extServiceWeChat) {
+    newState.wechatExternalUsername = '';
+  }
+  if (service == UserApi.extServiceShopify) {
+    newState.shopifyExternalUsername = '';
+  }
   return newState
-    ..reloadProfile = true
-    ..wechatExternalUsername = '';
+    ..reloadProfile = true;
 }

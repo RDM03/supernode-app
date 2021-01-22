@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:supernodeapp/common/daos/dao.dart';
 
 import 'api.dart';
@@ -45,6 +43,9 @@ class UserApi {
   static const String bindExternalUser = "/api/external-login/bind-external-user";
   static const String registerExternalUser = "/api/external-login/register-external-user";
   static const String unbindExternalUser = "/api/external-login/unbind-external-user";
+
+  static const String extServiceWeChat = 'wechat';
+  static const String extServiceShopify = 'shopify';
 }
 
 class UserDao extends Dao {

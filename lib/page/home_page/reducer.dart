@@ -97,6 +97,7 @@ HomeState _profile(HomeState state, Action action) {
   UserState user = data['user'];
   List<OrganizationsState> organizations = data['organizations'];
   String wechatExternalUsername = data['wechatExternalUsername'];
+  String shopifyExternalUsername = data['shopifyExternalUsername'];
 
   final HomeState newState = state.clone();
   return newState
@@ -106,7 +107,8 @@ HomeState _profile(HomeState state, Action action) {
     ..isAdmin = user.isAdmin
     ..isActive = user.isActive
     ..organizations = organizations
-    ..wechatExternalUsername = wechatExternalUsername;
+    ..wechatExternalUsername = wechatExternalUsername
+    ..shopifyExternalUsername = shopifyExternalUsername;
 }
 
 HomeState _balance(HomeState state, Action action) {

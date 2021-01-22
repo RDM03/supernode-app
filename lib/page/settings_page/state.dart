@@ -38,6 +38,7 @@ class SettingsState implements Cloneable<SettingsState> {
 
   //external
   String wechatExternalUsername = '';
+  String shopifyExternalUsername = '';
 
   //organiztion
   TextEditingController orgNameCtl = TextEditingController();
@@ -77,6 +78,7 @@ class SettingsState implements Cloneable<SettingsState> {
       ..emailCtl = emailCtl
       ..profileFormKey = profileFormKey
       ..wechatExternalUsername = wechatExternalUsername
+      ..shopifyExternalUsername = shopifyExternalUsername
       ..orgFormKey = orgFormKey
       ..selectedOrgId = selectedOrgId
       ..selectedOrgName = selectedOrgName
@@ -130,6 +132,7 @@ SettingsState initState(Map<String, dynamic> args) {
     ..usernameCtl.text = user['username']
     ..emailCtl.text = user['email']
     ..wechatExternalUsername = user['wechatExternalUsername']
+    ..shopifyExternalUsername = user['shopifyExternalUsername']
     ..isAdmin = orgs.length > 0 && orgs.first.isAdmin
     ..organizations = orgs
     ..isDemo = isDemo;
@@ -144,6 +147,7 @@ class ProfileConnector extends ConnOp<SettingsState, ProfileState> {
       ..email = state.email
       ..reloadProfile = state.reloadProfile
       ..wechatExternalUsername = state.wechatExternalUsername
+      ..shopifyExternalUsername = state.shopifyExternalUsername
       ..isAdmin = state.isAdmin
       ..showConfirmation = state.showConfirmation
       ..usernameCtl = state.usernameCtl
@@ -160,6 +164,7 @@ class ProfileConnector extends ConnOp<SettingsState, ProfileState> {
       ..showConfirmation = subState.showConfirmation
       ..usernameCtl = subState.usernameCtl
       ..wechatExternalUsername = subState.wechatExternalUsername
+      ..shopifyExternalUsername = subState.shopifyExternalUsername
       ..emailCtl = subState.emailCtl;
   }
 }

@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/profile.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
+import 'package:supernodeapp/common/daos/users_dao.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -60,7 +61,7 @@ Widget buildView(ProfileState state, Dispatch dispatch, ViewService viewService)
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Divider(color: Colors.grey),
                 ),
-                PrimaryButton(
+                PrimaryButton( // WeChat account
                     onTap: () => dispatch(ProfileActionCreator.showConfirmation(true)),
                     buttonTitle: FlutterI18n.translate(_ctx,'unbind_wechat_button').replaceFirst('{0}', state.wechatExternalUsername),
                     minHeight: 45,
@@ -68,6 +69,23 @@ Widget buildView(ProfileState state, Dispatch dispatch, ViewService viewService)
                 ),
               ],
             ),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Divider(color: Colors.grey),
+          ),
+          PrimaryButton( // Shopify account
+              onTap: () => dispatch(
+                  (state.shopifyExternalUsername.isEmpty)
+                      ? ProfileActionCreator.onBindShopify()
+                      : ProfileActionCreator.onUnbind(UserApi.extServiceShopify)),
+              buttonTitle: FlutterI18n.translate(_ctx,
+                  (state.shopifyExternalUsername.isEmpty)
+                      ? 'bind_shopify_button'
+                      : 'unbind_shopify_button').replaceFirst('{0}', state.shopifyExternalUsername),
+              minHeight: 45,
+              minWidget: double.infinity
+          ),
         ]),
     Visibility(
       visible: state.showConfirmation,
@@ -97,7 +115,7 @@ Widget buildView(ProfileState state, Dispatch dispatch, ViewService viewService)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: PrimaryButton(
-                      onTap: () => dispatch(ProfileActionCreator.onUnbind()),
+                      onTap: () => dispatch(ProfileActionCreator.onUnbind(UserApi.extServiceWeChat)),
                       buttonTitle: FlutterI18n.translate(_ctx, 'unbind_wechat_button').replaceFirst('{0}', state.wechatExternalUsername),
                       minWidget: double.infinity
                   ),

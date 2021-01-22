@@ -62,8 +62,8 @@ class HomeActionCreator {
     return const Action(HomeAction.onProfile);
   }
 
-  static Action profile(UserState user, String wechatExternalUsername, List<OrganizationsState> organizations) {
-    return Action(HomeAction.profile, payload: {'user': user, 'wechatExternalUsername': wechatExternalUsername, 'organizations': organizations});
+  static Action profile(UserState user, String wechatExternalUsername, String shopifyExternalUsername, List<OrganizationsState> organizations) {
+    return Action(HomeAction.profile, payload: {'user': user, 'wechatExternalUsername': wechatExternalUsername, 'shopifyExternalUsername': shopifyExternalUsername, 'organizations': organizations});
   }
 
   static Action updateUsernameEmail(Map data) {
