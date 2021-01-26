@@ -1,6 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 
-enum ProfileAction { onUpdate, jwtUpdate, showConfirmation, onUnbind, unbind, onBindShopify }
+enum ProfileAction { onUpdate, jwtUpdate, showConfirmation, onUnbind, unbind, onShopifyEmail, onShopifyEmailVerification, bindShopifyStep}
 
 class ProfileActionCreator {
   static Action onUpdate() {
@@ -23,7 +23,15 @@ class ProfileActionCreator {
     return Action(ProfileAction.unbind, payload: service);
   }
 
-  static Action onBindShopify() {
-    return Action(ProfileAction.onBindShopify);
+  static Action onShopifyEmail(String email) {
+    return Action(ProfileAction.onShopifyEmail, payload: email);
+  }
+
+  static Action onShopifyEmailVerification(String verificationCode) {
+    return Action(ProfileAction.onShopifyEmailVerification, payload: verificationCode);
+  }
+
+  static Action bindShopifyStep(int step) {
+    return Action(ProfileAction.bindShopifyStep, payload: step);
   }
 }

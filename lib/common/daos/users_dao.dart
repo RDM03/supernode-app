@@ -43,6 +43,8 @@ class UserApi {
   static const String bindExternalUser = "/api/external-login/bind-external-user";
   static const String registerExternalUser = "/api/external-login/register-external-user";
   static const String unbindExternalUser = "/api/external-login/unbind-external-user";
+  static const String confirmExternalEmail = "/api/confirm-external-email";
+  static const String verifyExternalEmail = "/api/verify-external-email";
 
   static const String extServiceWeChat = 'wechat';
   static const String extServiceShopify = 'shopify';
@@ -153,5 +155,13 @@ class UserDao extends Dao {
 
   Future<dynamic> unbindExternalUser(Map data) {
     return post(url: UserApi.unbindExternalUser, data: data);
+  }
+
+  Future<dynamic> verifyExternalEmail(Map data) {
+    return post(url: UserApi.verifyExternalEmail, data: data);
+  }
+
+  Future<dynamic> confirmExternalEmail(Map data) {
+    return post(url: UserApi.confirmExternalEmail, data: data);
   }
 }

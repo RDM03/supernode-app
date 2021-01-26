@@ -21,7 +21,8 @@ class SettingsState implements Cloneable<SettingsState> {
   String email = '';
   bool reloadProfile = false;
   bool isAdmin = false;
-  bool showConfirmation = false;
+  bool showWechatUnbindConfirmation = false;
+  int showBindShopifyStep = 0;
   int theme = 0;
 
   String token = '';
@@ -34,6 +35,7 @@ class SettingsState implements Cloneable<SettingsState> {
   //profile
   TextEditingController usernameCtl = TextEditingController();
   TextEditingController emailCtl = TextEditingController();
+  TextEditingController shopifyEmailCtl = TextEditingController();
   GlobalKey profileFormKey = GlobalKey<FormState>();
 
   //external
@@ -66,7 +68,8 @@ class SettingsState implements Cloneable<SettingsState> {
       ..email = email
       ..reloadProfile = reloadProfile
       ..isAdmin = isAdmin
-      ..showConfirmation = showConfirmation
+      ..showWechatUnbindConfirmation = showWechatUnbindConfirmation
+      ..showBindShopifyStep = showBindShopifyStep
       ..notification = notification
       ..language = language
       ..theme = theme
@@ -76,6 +79,7 @@ class SettingsState implements Cloneable<SettingsState> {
       ..expire = expire
       ..usernameCtl = usernameCtl
       ..emailCtl = emailCtl
+      ..shopifyEmailCtl = shopifyEmailCtl
       ..profileFormKey = profileFormKey
       ..wechatExternalUsername = wechatExternalUsername
       ..shopifyExternalUsername = shopifyExternalUsername
@@ -149,9 +153,11 @@ class ProfileConnector extends ConnOp<SettingsState, ProfileState> {
       ..wechatExternalUsername = state.wechatExternalUsername
       ..shopifyExternalUsername = state.shopifyExternalUsername
       ..isAdmin = state.isAdmin
-      ..showConfirmation = state.showConfirmation
+      ..showWechatUnbindConfirmation = state.showWechatUnbindConfirmation
+      ..showBindShopifyStep = state.showBindShopifyStep
       ..usernameCtl = state.usernameCtl
       ..emailCtl = state.emailCtl
+      ..shopifyEmailCtl = state.shopifyEmailCtl
       ..formKey = state.profileFormKey;
   }
 
@@ -161,11 +167,13 @@ class ProfileConnector extends ConnOp<SettingsState, ProfileState> {
       ..username = subState.username
       ..email = subState.email
       ..reloadProfile = subState.reloadProfile
-      ..showConfirmation = subState.showConfirmation
+      ..showWechatUnbindConfirmation = subState.showWechatUnbindConfirmation
+      ..showBindShopifyStep = subState.showBindShopifyStep
       ..usernameCtl = subState.usernameCtl
       ..wechatExternalUsername = subState.wechatExternalUsername
       ..shopifyExternalUsername = subState.shopifyExternalUsername
-      ..emailCtl = subState.emailCtl;
+      ..emailCtl = subState.emailCtl
+      ..shopifyEmailCtl = subState.shopifyEmailCtl;
   }
 }
 

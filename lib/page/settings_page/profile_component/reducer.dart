@@ -10,6 +10,7 @@ Reducer<ProfileState> buildReducer() {
       ProfileAction.jwtUpdate: _jwtUpdate,
       ProfileAction.showConfirmation: _showConfirmation,
       ProfileAction.unbind: _unbind,
+      ProfileAction.bindShopifyStep : _bindShopifyStep,
     },
   );
 }
@@ -29,7 +30,7 @@ ProfileState _showConfirmation(ProfileState state, Action action) {
 
   final ProfileState newState = state.clone();
   return newState
-    ..showConfirmation = data;
+    ..showWechatUnbindConfirmation = data;
 }
 
 ProfileState _unbind(ProfileState state, Action action) {
@@ -43,4 +44,16 @@ ProfileState _unbind(ProfileState state, Action action) {
   }
   return newState
     ..reloadProfile = true;
+}
+
+ProfileState _bindShopifyStep(ProfileState state, Action action) {
+  int step = action.payload;
+  final ProfileState newState = state.clone();
+  if (step == 3)
+    return newState
+      ..shopifyExternalUsername = state.shopifyEmailCtl.text
+      ..reloadProfile = true
+      ..showBindShopifyStep = 0;
+  return newState
+    ..showBindShopifyStep = step;
 }

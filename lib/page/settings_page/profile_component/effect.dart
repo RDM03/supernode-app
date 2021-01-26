@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/users_dao.dart';
@@ -16,7 +17,8 @@ Effect<ProfileState> buildEffect() {
   return combineEffects(<Object, Effect<ProfileState>>{
     ProfileAction.onUpdate: _onUpdate,
     ProfileAction.onUnbind: _onUnbind,
-    ProfileAction.onBindShopify: _onBindShopify,
+    ProfileAction.onShopifyEmail: _onShopifyEmail,
+    ProfileAction.onShopifyEmailVerification: _onShopifyEmailVerification,
   });
 }
 
@@ -78,5 +80,55 @@ void _onUnbind(Action action, Context<ProfileState> ctx) async {
   });
 }
 
-void _onBindShopify(Action action, Context<ProfileState> ctx) async {
+void _onShopifyEmail(Action action, Context<ProfileState> ctx) async {
+  String email = action.payload;
+
+  if (email.isNotEmpty) {
+    final loading = await Loading.show(ctx.context);
+
+    String languageCode = FlutterI18n.currentLocale(ctx.context).languageCode;
+    String countryCode = FlutterI18n.currentLocale(ctx.context).countryCode;
+    if (languageCode.contains('zh')) {
+      languageCode = '$languageCode$countryCode';
+    }
+
+    Map apiData = {
+      "email": email,
+      "language": languageCode,
+      "organizationId": GlobalStore.store.getState().settings.selectedOrganizationId
+    };
+
+    UserDao dao = UserDao();
+
+    dao.verifyExternalEmail(apiData).then((res) {
+      loading.hide();
+      ctx.dispatch(ProfileActionCreator.bindShopifyStep(2));
+    }).catchError((err) {
+      loading.hide();
+      tip(ctx.context, 'verifyExternalEmail: $err');
+    });
+  }
+}
+
+void _onShopifyEmailVerification(Action action, Context<ProfileState> ctx) async {
+  String verificationCode = action.payload;
+
+  if (verificationCode.isNotEmpty) {
+    final loading = await Loading.show(ctx.context);
+
+    Map apiData = {
+      "organizationId": GlobalStore.store.getState().settings.selectedOrganizationId,
+      "token": verificationCode
+    };
+
+    UserDao dao = UserDao();
+
+    dao.confirmExternalEmail(apiData).then((res) {
+      loading.hide();
+      ctx.dispatch(ProfileActionCreator.bindShopifyStep(3));
+    }).catchError((err) {
+      loading.hide();
+      tip(ctx.context, 'confirmExternalEmail: $err');
+    });
+  }
 }

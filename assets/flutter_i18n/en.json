@@ -39,6 +39,7 @@
 	"unbind_wechat_button": "Unbind WeChat: {0}",
 	"bind_shopify_button": "Bind Shopify Account",
 	"unbind_shopify_button": "Unbind Shopify: {0}",
+	"shopify_email_instruction": "Please enter the email you used for purchasing M2 PRO on Shopify",
 	"confirm_wechat_unbind": "Please confirm that you have access to {0}. If you cannot access this email account, and if you continue unbinding, you will lose access to your Supernode account.",
 	"reg_network_server": "Please select a network server",
 	"reg_gateway_profile": "Please select an SMB Miner profile",
