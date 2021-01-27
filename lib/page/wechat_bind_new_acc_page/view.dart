@@ -8,7 +8,6 @@ import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/checkbox_with_label.dart';
 import 'package:supernodeapp/common/components/page/link.dart';
-import 'package:supernodeapp/common/components/text_field/text_field_with_list.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/components/widgets/component_widgets.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
@@ -111,7 +110,7 @@ Widget buildView(
           child: Column(children: <Widget>[
             Container(
               margin: kOuterRowTop35,
-              child: TextFieldWithList(
+              child: TextFieldWithTitle(
                 key: Key('homeEmail'),
                 title: FlutterI18n.translate(_ctx, 'email'),
                 hint: FlutterI18n.translate(_ctx, 'email_hint'),
