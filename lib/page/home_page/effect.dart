@@ -453,6 +453,8 @@ void _onOperate(Action action, Context<HomeState> ctx) {
   String act = action.payload;
   String page = '${act}_page';
   double balance = ctx.state.balance;
+  double balanceBTC = ctx.state.balanceBTC;
+  String tokenName = ctx.state.selectedToken.name;
   bool isDemo = ctx.state.isDemo;
   double stakedAmount = ctx.state.stakedAmount;
   List<OrganizationsState> organizations = ctx.state.organizations;
@@ -463,6 +465,8 @@ void _onOperate(Action action, Context<HomeState> ctx) {
 
   Navigator.pushNamed(ctx.context, page, arguments: {
     'balance': balance,
+    'balanceBTC': balanceBTC,
+    'tokenName': tokenName,
     'organizations': organizations,
     'type': act,
     'stakedAmount': stakedAmount,

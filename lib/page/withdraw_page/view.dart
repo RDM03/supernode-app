@@ -10,6 +10,7 @@ import 'package:supernodeapp/common/components/page/subtitle.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_button.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
@@ -27,7 +28,8 @@ Widget buildView(
     pageNavBar(FlutterI18n.translate(_ctx, 'withdraw'),
         onTap: () => Navigator.pop(viewService.context, state.status)),
     subtitle(FlutterI18n.translate(_ctx, 'current_balance')),
-    paragraph('${Tools.priceFormat(state.balance)} MXC'),
+    paragraph('${Tools.priceFormat(
+        (state.tokenName == Token.btc.name) ? state.balanceBTC : state.balance)} ${state.tokenName}'),
     Form(
       // autovalidate: true,
       key: state.formKey,
@@ -39,7 +41,7 @@ Widget buildView(
               title: FlutterI18n.translate(_ctx, 'withdraw_amount'),
               textInputAction: TextInputAction.next,
               validator: (value) =>
-                  _onValidAmount(_ctx, value, state.fee, state.balance),
+                  _onValidAmount(_ctx, value, state.fee, state.balance, state.balanceBTC, state.tokenName),
               controller: state.amountCtl,
             ),
           ),
@@ -103,18 +105,32 @@ Widget buildView(
 }
 
 String _onValidAmount(
-    BuildContext context, String value, double fee, double balance) {
+    BuildContext context, String value, double fee, double balance, double balanceBTC, String tokenName) {
   String res = Reg.isEmpty(value);
   if (res != null) return FlutterI18n.translate(context, res);
 
-  final amount = int.tryParse(value);
+  if (tokenName == Token.mxc.name) {
+    final amount = int.tryParse(value);
 
-  if (amount == null || amount <= 0) {
-    return FlutterI18n.translate(context, 'reg_amount');
+    if (amount == null || amount <= 0) {
+      return FlutterI18n.translate(context, 'reg_amount');
+    }
+
+    if (amount + fee > balance) {
+      return FlutterI18n.translate(context, 'insufficient_balance');
+    }
   }
 
-  if (amount + fee > balance) {
-    return FlutterI18n.translate(context, 'insufficient_balance');
+  if (tokenName == Token.btc.name) {
+    final amount = double.tryParse(value);
+
+    if (amount == null || amount <= 0) {
+      return FlutterI18n.translate(context, 'reg_amount');
+    }
+
+    if (amount > balanceBTC || fee > balance) {
+      return FlutterI18n.translate(context, 'insufficient_balance');
+    }
   }
 
   return null;

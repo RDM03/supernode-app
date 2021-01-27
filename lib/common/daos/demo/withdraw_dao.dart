@@ -3,7 +3,7 @@ import 'package:supernodeapp/common/daos/demo/demo_dao.dart';
 
 class DemoWithdrawDao extends DemoDao implements WithdrawDao {
   @override
-  Future fee() {
+  Future fee({String currency}) {
     return Future.value({"withdrawFee": 0});
   }
 
