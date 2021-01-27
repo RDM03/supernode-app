@@ -86,12 +86,9 @@ void _refreshOtpStatus(Action action, Context<DetailsStakeState> ctx) async {
 
   Map data = {};
 
-  dao.getTOTPStatus(data).then((res) {
+  dao.getTOTPStatus().then((res) {
     mLog('totp', res);
-
-    if ((res as Map).containsKey('enabled')) {
-      ctx.dispatch(DetailsStakeActionCreator.setOtpEnabled(res['enabled']));
-    }
+    ctx.dispatch(DetailsStakeActionCreator.setOtpEnabled(res.enabled));
   }).catchError((err) {
     tip(ctx.context, '$err');
   });

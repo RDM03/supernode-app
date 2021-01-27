@@ -47,16 +47,10 @@ WalletDao _buildWalletDao(Context<WithdrawState> ctx) {
 
 Future<void> _requestTOTPStatus(Context<WithdrawState> ctx) async {
   UserDao dao = _buildUserDao(ctx);
-
-  Map data = {};
-
   try {
-    var res = await dao.getTOTPStatus(data);
+    var res = await dao.getTOTPStatus();
     mLog('totp', res);
-
-    if ((res as Map).containsKey('enabled')) {
-      ctx.dispatch(WithdrawActionCreator.isEnabled(res['enabled']));
-    }
+    ctx.dispatch(WithdrawActionCreator.isEnabled(res.enabled));
   } catch (err) {
     tip(ctx.context, '$err');
   }

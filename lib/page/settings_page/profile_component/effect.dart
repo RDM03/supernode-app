@@ -30,7 +30,7 @@ void _onUpdate(Action action, Context<ProfileState> ctx) async {
   var curState = ctx.state;
 
   if ((curState.formKey.currentState as FormState).validate()) {
-    final loading = await Loading.show(ctx.context);
+    final loading = Loading.show(ctx.context);
     String username = curState.usernameCtl.text;
     String email = curState.emailCtl.text;
 

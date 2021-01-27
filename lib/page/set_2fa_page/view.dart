@@ -33,16 +33,18 @@ Widget buildView(
                   ),
                 ),
                 Switch(
-                  value: state.isEnabled,
-                  onChanged: (value) {
-                    if (value) {
-                      dispatch(Set2FAActionCreator.onGetTOTPConfig(240));
-                    } else {
-                      dispatch(Set2FAActionCreator.onEnterRecoveryContinue());
-                    }
-                  },
-                  activeTrackColor: Colors.lightGreenAccent,
-                  activeColor: Colors.green,
+                  value: state.isEnabled ?? false,
+                  onChanged: state.isEnabled == null
+                      ? null
+                      : (value) {
+                          if (value) {
+                            dispatch(Set2FAActionCreator.onGetTOTPConfig(240));
+                          } else {
+                            dispatch(
+                                Set2FAActionCreator.onEnterRecoveryContinue());
+                          }
+                        },
+                  activeColor: Color(0xFF1C1478),
                 ),
               ],
             ),

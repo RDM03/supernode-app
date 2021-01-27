@@ -186,3 +186,17 @@ class ProfileUser {
   factory ProfileUser.fromJson(String source) =>
       ProfileUser.fromMap(json.decode(source));
 }
+
+class TotpEnabledResponse {
+  final bool enabled;
+
+  TotpEnabledResponse(this.enabled);
+
+  factory TotpEnabledResponse.fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    return TotpEnabledResponse(
+      map['enabled'],
+    );
+  }
+}

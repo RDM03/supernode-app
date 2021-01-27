@@ -27,19 +27,13 @@ UserDao buildUserDao(Context<Set2FAState> ctx) {
 }
 
 void _initState(Action action, Context<Set2FAState> ctx) {
+  _loadTotpStatus(ctx);
+}
+
+Future<void> _loadTotpStatus(Context<Set2FAState> ctx) async {
   UserDao dao = buildUserDao(ctx);
-
-  Map data = {};
-
-  dao.getTOTPStatus(data).then((res) {
-    mLog('totp', res);
-
-    if ((res as Map).containsKey('enabled')) {
-      ctx.dispatch(Set2FAActionCreator.isEnabled(res['enabled']));
-    }
-  }).catchError((err) {
-    // tip(ctx.context,'$err');
-  });
+  final res = await dao.getTOTPStatus();
+  ctx.dispatch(Set2FAActionCreator.isEnabled(res.enabled));
 }
 
 void _onQRCodeContinue(Action action, Context<Set2FAState> ctx) async {
@@ -134,41 +128,29 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx) async {
 
   List<String> codes = curState.listCtls.map((code) => code.text).toList();
 
-  Map data = {"otp_code": codes.join()};
   final loading = Loading.show(ctx.context);
-  dao.setEnable(data).then((res) {
+  var goNext = false;
+
+  try {
+    final res = await dao.setEnable(codes.join());
+    ctx.dispatch(Set2FAActionCreator.isEnabled(res.enabled));
+    goNext = true;
+  } finally {
     loading.hide();
-    mLog('setEnable status', res);
-    ctx.dispatch(Set2FAActionCreator.isEnabled(true));
-  }).then((res) {
-    loading.hide();
-    mLog('login saf', res);
-    UserDao dao = buildUserDao(ctx);
+  }
 
-    Map data = {};
-
-    dao.getTOTPStatus(data).then((res) {
-      loading.hide();
-      mLog('totp', res);
-
-      Navigator.push(
-        ctx.context,
-        MaterialPageRoute(
-            maintainState: false,
-            fullscreenDialog: false,
-            builder: (context) {
-              return ctx.buildComponent('recoveryCode');
-            }),
-      );
-    }).catchError((err) {
-      loading.hide();
-      // tip(ctx.context,'$err');
-    });
-  })
-    ..catchError((err) {
-      loading.hide();
-      // tip(ctx.context,'Setting setEnable: $err');
-    });
+  if (goNext) {
+    Navigator.push(
+      ctx.context,
+      MaterialPageRoute(
+        maintainState: false,
+        fullscreenDialog: false,
+        builder: (context) {
+          return ctx.buildComponent('recoveryCode');
+        },
+      ),
+    );
+  }
 }
 
 void _onSetDisable(Action action, Context<Set2FAState> ctx) async {
@@ -189,9 +171,7 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx) async {
     mLog('get 2fa status ', res);
     UserDao dao = buildUserDao(ctx);
 
-    Map data = {};
-
-    dao.getTOTPStatus(data).then((res) {
+    dao.getTOTPStatus().then((res) {
       loading.hide();
       mLog('totp', res);
       var count = 0;

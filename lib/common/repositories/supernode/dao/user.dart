@@ -83,7 +83,7 @@ class UserDao extends HttpDao {
   }
 
   Future<dynamic> update(Map data) {
-    return put(url: Api.url(UserApi.update, data['id']), data: data)
+    return put(url: Api.url(UserApi.update, data['user']['id']), data: data)
         .then((res) => res);
   }
 
@@ -93,16 +93,19 @@ class UserDao extends HttpDao {
   }
 
   //get TOTP Status by Namgyeong
-  Future<dynamic> getTOTPStatus(Map data) {
-    return get(url: UserApi.getTOTPStatus, data: data).then((res) => res);
+  Future<TotpEnabledResponse> getTOTPStatus() {
+    return get(url: UserApi.getTOTPStatus, data: {})
+        .then((res) => TotpEnabledResponse.fromMap(res));
   }
 
   Future<dynamic> getTOTPConfig(Map data) {
     return post(url: UserApi.getTOTPConfig, data: data).then((res) => res);
   }
 
-  Future<dynamic> setEnable(Map data) {
-    return post(url: UserApi.setEnable, data: data).then((res) => res);
+  Future<TotpEnabledResponse> setEnable(String otp) {
+    final data = {"otp_code": otp};
+    return post(url: UserApi.setEnable, data: data)
+        .then((res) => TotpEnabledResponse.fromMap(res));
   }
 
   Future<dynamic> setDisable(Map data) {

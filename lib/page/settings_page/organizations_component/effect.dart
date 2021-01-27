@@ -61,7 +61,7 @@ void _updateData(Context<OrganizationsState> ctx) async {
     tip(ctx.context, FlutterI18n.translate(ctx.context, 'select_organization'));
     return;
   }
-  final loading = await Loading.show(ctx.context);
+  final loading = Loading.show(ctx.context);
 
   Map data = {
     "id": id,
