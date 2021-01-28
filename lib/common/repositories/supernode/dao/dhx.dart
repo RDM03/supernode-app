@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import '../../shared/clients/client.dart';
-import '../../shared/dao/dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/clients/supernode_client.dart';
+import 'dao.dart';
 
 import 'dhx.model.dart';
 export 'dhx.model.dart';
@@ -13,8 +13,8 @@ class DhxApi {
   static final String lastMining = '/api/dhx-mining/last-mining';
 }
 
-class DhxDao extends HttpDao {
-  DhxDao(HttpClient client) : super(client);
+class DhxDao extends SupernodeDao {
+  DhxDao(SupernodeHttpClient client) : super(client);
 
   Future<List<Council>> listCouncils() async {
     final res = await get(url: DhxApi.listCouncils);

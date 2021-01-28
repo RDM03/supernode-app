@@ -1,7 +1,8 @@
-import 'package:supernodeapp/common/repositories/shared/clients/client.dart';
-import 'package:supernodeapp/common/repositories/shared/dao/dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/clients/supernode_client.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 import 'package:supernodeapp/common/utils/url.dart';
+
+import 'dao.dart';
 
 class UserApi {
   static const String login = '/api/internal/login';
@@ -37,8 +38,8 @@ class UserApi {
       "/api/external-login/unbind-external-user";
 }
 
-class UserDao extends HttpDao {
-  UserDao(HttpClient client) : super(client);
+class UserDao extends SupernodeDao {
+  UserDao(SupernodeHttpClient client) : super(client);
 
   //remote
   Future<dynamic> register(Map data) {

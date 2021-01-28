@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'bloc/supernode/user/cubit.dart';
 
-Future<void> openSettings(BuildContext context) {
+Future<void> openSettings(BuildContext context) async {
+  if (context.read<SupernodeUserCubit>().state.organizations.loading) return;
   return Navigator.pushNamed(
     context,
     'settings_page',

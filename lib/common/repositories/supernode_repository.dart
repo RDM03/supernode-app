@@ -154,14 +154,25 @@ class SupernodeRepository implements SupernodeDaoHolder {
   static Future<String> _refreshToken(
       Dio dio, SupernodeCubit supernodeCubit) async {
     final userInfo = supernodeCubit.state?.session;
+    final node = supernodeCubit.state?.selectedNode;
     if (userInfo == null ||
         userInfo.username == null ||
-        userInfo.password == null) return null;
+        userInfo.password == null ||
+        node == null) return null;
     final username = userInfo.username;
     final password = userInfo.password;
-    final res = await UserDao(_sharedClient(dio)).login(username, password);
-    supernodeCubit.setSupernodeToken(res.jwt);
-    return res.jwt;
+    final client = SupernodeHttpClient(
+      errorInterceptor: null,
+      headersInterceptor: null,
+      getSupernode: () => node,
+    );
+    try {
+      final res = await UserDao(client).login(username, password);
+      supernodeCubit.setSupernodeToken(res.jwt);
+      return res.jwt;
+    } finally {
+      client.dispose();
+    }
   }
 
   Future<Map<String, Supernode>> loadSupernodes() {

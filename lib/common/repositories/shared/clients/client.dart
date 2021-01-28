@@ -16,8 +16,9 @@ abstract class HttpClient {
 class HttpException implements Exception {
   final String message;
   final int code;
+  final StackTrace innerStack;
 
-  HttpException(this.message, this.code);
+  HttpException(this.message, this.code, [this.innerStack]);
 
   @override
   String toString() {

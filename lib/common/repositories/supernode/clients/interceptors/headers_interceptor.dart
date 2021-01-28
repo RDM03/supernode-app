@@ -57,15 +57,15 @@ class SupernodeHeadersInterceptor extends InterceptorsWrapper {
         final request = err.request;
         setHeaders(request, token: token);
         return request;
-      } on Exception catch (e) {
+      } on Exception catch (e, stack) {
         if (e is DioError &&
             e.response?.statusCode != null &&
             e.response.statusCode == 401) {
-          logger.e(
+          logger.w(
               'Error 401 received while refreshing token. Logging out.', e);
           onLogOut();
         } else {
-          logger.e('Error while refreshing token.', e);
+          logger.e('Error while refreshing token.', e, stack);
         }
         return err;
       } finally {

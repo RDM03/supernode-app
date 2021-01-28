@@ -3,16 +3,16 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
+import 'package:supernodeapp/common/repositories/supernode/clients/supernode_client.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
-import '../../shared/clients/client.dart';
-import '../../shared/dao/dao.dart';
+import 'dao.dart';
 import 'gateways.dart';
 
-class GatewaysLocationDao extends HttpDao {
-  GatewaysLocationDao(HttpClient client) : super(client);
+class GatewaysLocationDao extends SupernodeDao {
+  GatewaysLocationDao(SupernodeHttpClient client) : super(client);
 
   Future<String> loadListJson() async {
     return await rootBundle.loadString(Sys.gateways_location_list);

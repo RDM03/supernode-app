@@ -1,7 +1,7 @@
-import 'package:supernodeapp/common/repositories/shared/clients/client.dart';
+import 'package:supernodeapp/common/repositories/supernode/clients/supernode_client.dart';
 import 'package:supernodeapp/common/utils/url.dart';
 
-import '../../shared/dao/dao.dart';
+import 'dao.dart';
 
 class WalletApi {
   static const String balance = '/api/wallet/balance';
@@ -12,7 +12,7 @@ class WalletApi {
   static const String miningIncomeGateway = '/api/wallet/mining_income_gw';
 }
 
-class WalletDao extends HttpDao {
+class WalletDao extends SupernodeDao {
   static const String amount = 'amount';
   static const String revenue = 'revenue';
   static const String createdAt = 'createdAt';
@@ -29,7 +29,7 @@ class WalletDao extends HttpDao {
   static const String start = 'start';
   static const String end = 'end';
 
-  WalletDao(HttpClient client) : super(client);
+  WalletDao(SupernodeHttpClient client) : super(client);
 
   //remote
   Future<dynamic> balance(Map data) {

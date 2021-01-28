@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
-import 'package:supernodeapp/common/repositories/shared/clients/client.dart';
+import 'package:supernodeapp/common/repositories/supernode/clients/supernode_client.dart';
 import 'package:supernodeapp/common/utils/url.dart';
 
-import '../../shared/dao/dao.dart';
+import 'dao.dart';
 
 import 'stake.model.dart';
 export 'stake.model.dart';
@@ -16,8 +16,8 @@ class StakeApi {
   static const String stakingPercentage = '/api/staking/staking_percentage';
 }
 
-class StakeDao extends HttpDao {
-  StakeDao(HttpClient client) : super(client);
+class StakeDao extends SupernodeDao {
+  StakeDao(SupernodeHttpClient client) : super(client);
 
   Future<dynamic> stake(Map data) {
     return post(url: Api.url(StakeApi.stake, data['orgId']), data: data)

@@ -17,8 +17,9 @@ class SupernodeHttpClient extends SharedHttpClient implements HttpClient {
     this.getSupernode,
     Dio dio,
   }) : super(dio: dio) {
-    this.dio.interceptors.add(headersInterceptor);
-    this.dio.interceptors.add(errorInterceptor);
+    if (headersInterceptor != null)
+      this.dio.interceptors.add(headersInterceptor);
+    if (errorInterceptor != null) this.dio.interceptors.add(errorInterceptor);
   }
 
   @override
@@ -28,7 +29,7 @@ class SupernodeHttpClient extends SharedHttpClient implements HttpClient {
       throw Exception('Supernode is unknown');
     }
     return RequestOptions(
-      baseUrl: getSupernode().url,
+      baseUrl: supernode.url,
     );
   }
 }

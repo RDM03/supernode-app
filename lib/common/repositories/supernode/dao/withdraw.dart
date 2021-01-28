@@ -1,6 +1,7 @@
-import 'package:supernodeapp/common/repositories/shared/clients/client.dart';
-import 'package:supernodeapp/common/repositories/shared/dao/dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/clients/supernode_client.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/withdraw.model.dart';
+
+import 'dao.dart';
 
 import 'withdraw.model.dart';
 export 'withdraw.model.dart';
@@ -11,8 +12,8 @@ class WithdrawApi {
   static final String fee = '/api/withdraw/get-withdraw-fee';
 }
 
-class WithdrawDao extends HttpDao {
-  WithdrawDao(HttpClient client) : super(client);
+class WithdrawDao extends SupernodeDao {
+  WithdrawDao(SupernodeHttpClient client) : super(client);
 
   //remote
   Future<dynamic> withdraw(Map data) {

@@ -1,12 +1,12 @@
-import 'package:supernodeapp/common/repositories/shared/clients/client.dart';
-import 'package:supernodeapp/common/repositories/shared/dao/dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/clients/supernode_client.dart';
+import 'dao.dart';
 
 class NetworkServerApi {
   static const String list = '/api/network-servers';
 }
 
-class NetworkServerDao extends HttpDao {
-  NetworkServerDao(HttpClient client) : super(client);
+class NetworkServerDao extends SupernodeDao {
+  NetworkServerDao(SupernodeHttpClient client) : super(client);
 
   //remote
   Future<dynamic> list(Map data) {

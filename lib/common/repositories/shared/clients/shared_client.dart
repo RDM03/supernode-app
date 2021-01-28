@@ -14,12 +14,12 @@ class SharedHttpClient implements HttpClient {
     return null; // can be implemented by inheritors.
   }
 
-  void _handleDioError(DioError e) {
+  void _handleDioError(DioError e, StackTrace innerStack) {
     final message =
         e.response != null ? e.response.data['message'].toString() : e.message;
     final code =
         e.response != null ? int.tryParse(e.response.data['code']) : -1;
-    throw HttpException(message, code);
+    throw HttpException(message, code, innerStack);
   }
 
   @override
@@ -30,8 +30,8 @@ class SharedHttpClient implements HttpClient {
               data != null ? new Map<String, dynamic>.from(data) : null,
           options: getOptions());
       return res.data;
-    } on DioError catch (e) {
-      _handleDioError(e);
+    } on DioError catch (e, stack) {
+      _handleDioError(e, stack);
     }
   }
 
@@ -45,8 +45,8 @@ class SharedHttpClient implements HttpClient {
     try {
       final res = await dio.post(url, data: data, options: getOptions());
       return res.data;
-    } on DioError catch (e) {
-      _handleDioError(e);
+    } on DioError catch (e, stack) {
+      _handleDioError(e, stack);
     }
   }
 
@@ -55,8 +55,8 @@ class SharedHttpClient implements HttpClient {
     try {
       final res = await dio.put(url, data: data, options: getOptions());
       return res.data;
-    } on DioError catch (e) {
-      _handleDioError(e);
+    } on DioError catch (e, stack) {
+      _handleDioError(e, stack);
     }
   }
 
@@ -65,8 +65,12 @@ class SharedHttpClient implements HttpClient {
     try {
       final res = await dio.delete(url, options: getOptions());
       return res.data;
-    } on DioError catch (e) {
-      _handleDioError(e);
+    } on DioError catch (e, stack) {
+      _handleDioError(e, stack);
     }
+  }
+
+  void dispose() {
+    dio.close();
   }
 }

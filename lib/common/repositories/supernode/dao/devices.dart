@@ -1,12 +1,13 @@
-import '../../shared/clients/client.dart';
-import '../../shared/dao/dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/clients/supernode_client.dart';
+
+import 'dao.dart';
 
 class DevicesApi {
   static final String list = '/api/devices';
 }
 
-class DevicesDao extends HttpDao {
-  DevicesDao(HttpClient client) : super(client);
+class DevicesDao extends SupernodeDao {
+  DevicesDao(SupernodeHttpClient client) : super(client);
 
   //remote
   Future<dynamic> list(Map data) {

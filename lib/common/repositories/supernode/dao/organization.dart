@@ -1,14 +1,14 @@
-import 'package:supernodeapp/common/repositories/shared/clients/client.dart';
-import 'package:supernodeapp/common/repositories/shared/dao/dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/clients/supernode_client.dart';
 import 'package:supernodeapp/common/utils/url.dart';
+import 'dao.dart';
 
 class OrganizationApi {
   static const String update = '/api/organizations/{organization.id}';
   static const String list = '/api/organizations';
 }
 
-class OrganizationDao extends HttpDao {
-  OrganizationDao(HttpClient client) : super(client);
+class OrganizationDao extends SupernodeDao {
+  OrganizationDao(SupernodeHttpClient client) : super(client);
 
   //remote
   Future<dynamic> update(Map data) {

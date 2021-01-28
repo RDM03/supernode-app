@@ -1,7 +1,7 @@
+import 'package:supernodeapp/common/repositories/supernode/clients/supernode_client.dart';
 import 'package:supernodeapp/common/utils/url.dart';
 
-import '../../shared/clients/client.dart';
-import '../../shared/dao/dao.dart';
+import 'dao.dart';
 
 class GatewaysApi {
   static final String list = '/api/gateways';
@@ -16,7 +16,7 @@ class GatewaysApi {
   static final String delete = '/api/gateways/{gateway.id}';
 }
 
-class GatewaysDao extends HttpDao {
+class GatewaysDao extends SupernodeDao {
   static final String id = 'id';
   static final String name = 'name';
   static final String description = 'description';
@@ -33,7 +33,7 @@ class GatewaysDao extends HttpDao {
   static final String model = 'model';
   static final String osversion = 'osversion';
 
-  GatewaysDao(HttpClient client) : super(client);
+  GatewaysDao(SupernodeHttpClient client) : super(client);
 
   //remote
   Future<dynamic> list(Map data) {
