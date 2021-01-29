@@ -28,8 +28,7 @@ Widget buildView(
     pageNavBar(FlutterI18n.translate(_ctx, 'withdraw'),
         onTap: () => Navigator.pop(viewService.context, state.status)),
     subtitle(FlutterI18n.translate(_ctx, 'current_balance')),
-    paragraph('${Tools.priceFormat(
-        (state.tokenName == Token.btc.name) ? state.balanceBTC : state.balance)} ${state.tokenName}'),
+    paragraph('${(state.tokenName == Token.btc.name) ? Tools.priceFormat(state.balanceBTC, range: 8) : Tools.priceFormat(state.balance)} ${state.tokenName}'),
     Form(
       // autovalidate: true,
       key: state.formKey,
@@ -130,6 +129,10 @@ String _onValidAmount(
 
     if (amount > balanceBTC || fee > balance) {
       return FlutterI18n.translate(context, 'insufficient_balance');
+    }
+
+    if (amount != double.parse(amount.toStringAsFixed(8))) {
+      return FlutterI18n.translate(context, 'amount_8decimal');
     }
   }
 

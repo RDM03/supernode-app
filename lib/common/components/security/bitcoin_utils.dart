@@ -85,6 +85,7 @@ class Bitcoin {
   }
 
   static isValidBtcAddress(String address) {
+    return true; // TODO delete for btc address validation - needs testing
     List<int> decoded = new List.from(_decodeBase58To25Bytes(address));
     List<int> temp = new List<int>.from(decoded);
     temp.insert(0, 0);

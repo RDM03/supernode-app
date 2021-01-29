@@ -17,6 +17,7 @@ Reducer<WalletState> buildReducer() {
       WalletAction.updateStakeList: _updateStakeList,
       WalletAction.updateWalletList: _updateWalletList,
       WalletAction.withdrawFee: _withdrawFee,
+      WalletAction.updateBtcList: _updateBtcList,
       WalletAction.firstTime: _firstTime,
       WalletAction.secondTime: _secondTime,
       WalletAction.saveLastSearch: _saveLastSearch
@@ -168,6 +169,25 @@ WalletState _withdrawFee(WalletState state, Action action) {
   final WalletState newState = state.clone();
 
   return newState..withdrawFee = fee;
+}
+
+WalletState _updateBtcList(WalletState state, Action action) {
+  List list = action.payload;
+
+  final sourceList = list.map((e) => WalletItemState.fromMap(e));
+
+  final List<WalletItemState> list2 = [];
+
+  list2.addAll(sourceList);
+  list2.forEach((e) => e.type = 'withdrawHistory');
+
+  list2.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+  if (list2.length > 0) list2[sourceList.length - 1].isLast = true;
+
+  final WalletState newState = state.clone();
+
+  return newState
+    ..btcList = list2;
 }
 
 WalletState _firstTime(WalletState state, Action action) {

@@ -102,24 +102,6 @@ Widget withdrawConfirm(
   );
 }
 
-String _onValidAmount(
-    BuildContext context, String value, double fee, double balance) {
-  String res = Reg.isEmpty(value);
-  if (res != null) return FlutterI18n.translate(context, res);
-
-  final amount = int.tryParse(value);
-
-  if (amount == null || amount <= 0) {
-    return FlutterI18n.translate(context, 'reg_amount');
-  }
-
-  if (amount + fee > balance) {
-    return FlutterI18n.translate(context, 'insufficient_balance');
-  }
-
-  return null;
-}
-
 Stream<Duration> timeLeftStream(DateTime time) async* {
   Duration difference() => time?.difference(DateTime.now());
   final stream = Stream.periodic(Duration(seconds: 1)).map((_) => difference());

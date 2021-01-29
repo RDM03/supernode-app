@@ -47,6 +47,9 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   double withdrawFee = 0;
 
   List<dynamic> get _currentList {
+    if (selectedToken == Token.btc)
+      return btcList;
+
     List<dynamic> list =
     (selectedToken == Token.mxc)
       ? activeTabToken[selectedToken] == 0 ? walletList : stakeList
@@ -65,6 +68,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   List<WalletItemState> walletList = [];
   List<StakeDHXItemState> stakeDHXList = [];
   List<WalletItemState> transactions = [];
+  List<WalletItemState> btcList = [];
 
   @override
   Object getItemData(int index) {
@@ -103,6 +107,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
       ..stakeList = stakeList
       ..stakeDHXList = stakeDHXList
       ..transactions = transactions
+      ..btcList = btcList
       ..organizations = organizations
       ..gatewaysTotal = gatewaysTotal
       ..activeTabToken = activeTabToken

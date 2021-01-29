@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:supernodeapp/common/daos/local_storage_dao.dart';
+import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/wallet_component/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
@@ -69,17 +70,16 @@ extension TokenExtension on Token {
     throw UnimplementedError('No laoder label found for $this');
   }
 
-  double balance (WalletState state) {
+  String balance (WalletState state) {
     switch (this) {
       case Token.supernodeDhx:
-        return state.balanceDHX;
+        return Tools.priceFormat(state.balanceDHX);
       case Token.mxc:
-        return state.balance;
+        return Tools.priceFormat(state.balance);
       case Token.btc:
-        return state.balanceBTC;
+        return Tools.priceFormat(state.balanceBTC, range: 8);
     }
     throw UnimplementedError('No balance field found for $this');
-
   }
 }
 

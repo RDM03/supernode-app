@@ -61,7 +61,7 @@ Widget buildView(
               titleDetailRow(
                 loading: !state.loadingMap.contains(tkn.balanceLoader),
                 name: FlutterI18n.translate(_ctx, 'current_balance'),
-                value: Tools.priceFormat(tkn.balance(state)),
+                value: tkn.balance(state),
                 token: tkn.name),
 
               (tkn == Token.supernodeDhx)
@@ -268,17 +268,6 @@ Widget buildView(
               onTap1: () => dispatch(WalletActionCreator.onFilter('DEPOSIT')),
               onTap2: () => dispatch(WalletActionCreator.onFilter('WITHDRAW')),
               onTap3: () => dispatch(WalletActionCreator.isSetDate())),
-        ),
-        Visibility(
-          visible: t == Token.btc,
-          child: secondaryButtons(
-              buttonLabel1:
-              FlutterI18n.translate(_ctx, 'withdraw').toUpperCase(),
-              buttonLabel2:
-              FlutterI18n.translate(_ctx, 'set_date').toUpperCase(),
-              selectedIndex: state.selectedIndexBtn1,
-              onTap1: () => dispatch(WalletActionCreator.onFilter('WITHDRAW')),
-              onTap2: () => dispatch(WalletActionCreator.isSetDate())),
         ),
         Visibility(
           visible: t == Token.mxc && state.activeTabToken[t] == 1,

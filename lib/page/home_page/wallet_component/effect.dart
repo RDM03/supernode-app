@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
 import 'package:supernodeapp/common/daos/demo/topup_dao.dart';
 import 'package:supernodeapp/common/daos/demo/withdraw_dao.dart';
@@ -22,6 +23,7 @@ Effect<WalletState> buildEffect() {
     Lifecycle.dispose: _dispose,
     WalletAction.onTab: _onTab,
     WalletAction.onFilter: _onFilter,
+    WalletAction.onHistoryBtc: _onHistoryBtc,
     WalletAction.onStake: _onStake,
     WalletAction.onUnstake: _onUnstake,
     WalletAction.onStakeDetails: _onStakeDetails,
@@ -44,6 +46,8 @@ void _initState(Action action, Context<WalletState> ctx) {
   if (!ctx.state.isFirstRequest) return;
 
   ctx.dispatch(WalletActionCreator.onFilter('SEARCH DEFUALT'));
+  if (ctx.state.displayTokens.contains(Token.btc))
+    ctx.dispatch(WalletActionCreator.onFilterBtc());
 }
 
 void _dispose(Action action, Context<WalletState> ctx) {
@@ -125,6 +129,36 @@ void _onFilter(Action action, Context<WalletState> ctx) async {
       break;
     default:
       _search(ctx, type, data, index: 2);
+  }
+}
+
+void _onHistoryBtc(Action action, Context<WalletState> ctx) async {
+  String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
+
+  if (orgId.isEmpty) return;
+
+  Map data = {
+    'orgId': orgId,
+    'offset': 0,
+    'limit': 999,
+    'from': DateTime(2000).toUtc().toIso8601String(),
+    'till': DateTime.now().add(Duration(days: 1)).toUtc().toIso8601String(),
+    'currency': 'BTC',
+  };
+
+  WithdrawDao dao = _buildWithdrawDao(ctx);
+  try {
+    var res = await dao.history(data);
+    mLog('btc history', res);
+
+    final list = [];
+    if ((res as Map).containsKey('withdrawHistory')) {
+      list.addAll(res['withdrawHistory'] as List);
+    }
+
+    ctx.dispatch(WalletActionCreator.updateBtcList(list));
+  } catch (err) {
+    tip(ctx.context,'btc history: $err');
   }
 }
 

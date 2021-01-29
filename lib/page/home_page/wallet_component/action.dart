@@ -10,6 +10,8 @@ enum WalletAction {
   onTab,
   isSetDate,
   onFilter,
+  onHistoryBtc,
+  updateBtcList,
   updateSelectedButton,
   updateWalletList,
   updateStakeList,
@@ -49,6 +51,14 @@ class WalletActionCreator {
 
   static Action onFilter(String type) {
     return Action(WalletAction.onFilter, payload: type);
+  }
+
+  static Action onFilterBtc() {
+    return Action(WalletAction.onHistoryBtc);
+  }
+
+  static Action updateBtcList(List list) {
+    return Action(WalletAction.updateBtcList, payload: list);
   }
 
   static Action updateSelectedButton(int index) {
