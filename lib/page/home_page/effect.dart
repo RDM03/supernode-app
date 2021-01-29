@@ -450,11 +450,12 @@ Future<void> _gatewaysLocationsFromLocal(Context<HomeState> ctx) async {
 }
 
 void _onOperate(Action action, Context<HomeState> ctx) {
-  String act = action.payload;
+  Map data = action.payload;
+  String act = data['act'];
   String page = '${act}_page';
   double balance = ctx.state.balance;
   double balanceBTC = ctx.state.balanceBTC;
-  String tokenName = ctx.state.selectedToken.name;
+  String tokenName = data['tokenName'];
   bool isDemo = ctx.state.isDemo;
   double stakedAmount = ctx.state.stakedAmount;
   List<OrganizationsState> organizations = ctx.state.organizations;

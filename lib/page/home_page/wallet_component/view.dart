@@ -207,7 +207,7 @@ Widget buildView(
 
             CircleButton(icon: Icon(Icons.arrow_forward, color: (t == Token.supernodeDhx) ? Colors.grey : t.color),
                 label: FlutterI18n.translate(_ctx, 'withdraw'),
-                onTap: () => (t == Token.supernodeDhx) ? 'disabled' : dispatch(HomeActionCreator.onOperate('withdraw'))),
+                onTap: () => (t == Token.supernodeDhx) ? 'disabled' : dispatch(HomeActionCreator.onOperate('withdraw', tokenName: t.name))),
 
             Spacer(),
 

@@ -134,8 +134,8 @@ class HomeActionCreator {
     return Action(HomeAction.tabIndex, payload: index);
   }
 
-  static Action onOperate(String act) {
-    return Action(HomeAction.onOperate, payload: act);
+  static Action onOperate(String act, {String tokenName: 'MXC'}) {
+    return Action(HomeAction.onOperate, payload: {'act': act, 'tokenName': tokenName});
   }
 
   static Action onSettings() {

@@ -43,7 +43,7 @@ class HomeState implements Cloneable<HomeState> {
   //wallet
   bool expandedView = false;
   List<Token> displayTokens = [Token.mxc];
-  Token selectedToken;
+  Token selectedToken = Token.mxc;
   bool isFirstRequest = true;
   bool loadingHistory = true;
   double balance = 0;
