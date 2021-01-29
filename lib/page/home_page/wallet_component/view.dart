@@ -332,8 +332,8 @@ Widget buildView(
       alignment: AlignmentDirectional.bottomCenter,
       children: [
         PageView(
-            controller: PageController(initialPage: state.selectedToken.index),
-            onPageChanged: (val) => dispatch(WalletActionCreator.selectToken(Token.values[val])),
+            controller: PageController(initialPage: state.displayTokens.indexOf(state.selectedToken)),
+            onPageChanged: (val) => dispatch(WalletActionCreator.selectToken(state.displayTokens[val])),
             children: state.displayTokens.map((t) => tokenPage(t)).toList()),
         (state.displayTokens.length > 1)
         // PageView indicator
