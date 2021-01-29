@@ -6,7 +6,9 @@ class LocalStorageDao {
 
   /// boolean field - if DHX token should be included in user's wallet
   static const walletDHX = 'walletDHX';
-  /// Key for mining power UI loader and for saving mining power value between sessions
+  /// boolean field - if BTC token should be included in user's wallet
+  static const walletBTC = 'walletBTC';
+  /// Key for mining power UI loader and for saving supernode mining power value between sessions
   static const miningPowerKey = 'miningPower';
   /// Key for DHX balance UI loader and for saving DHX balance value between sessions
   static const balanceDHXKey = 'balanceDHX';
@@ -16,6 +18,8 @@ class LocalStorageDao {
   static const totalRevenueDHXKey = 'totalRevenueDHX';
   /// Key for saving mPower value between sessions
   static const mPowerKey = 'mPower';
+  /// Key for BTC balance UI loader and for saving BTC balance value between sessions
+  static const balanceBTCKey = 'balanceBTC';
 
   static void saveUserData(String name, Map data) {
     final existed = loadUserData(name);

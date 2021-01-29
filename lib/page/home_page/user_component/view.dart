@@ -59,7 +59,6 @@ Widget buildView(UserState state, Dispatch dispatch, ViewService viewService) {
       onRefresh: () async {
         await Future.delayed(Duration(seconds: 1), () {
           dispatch(HomeActionCreator.onProfile());
-          dispatch(HomeActionCreator.onDataDHX());
         });
       },
       child: pageBody(

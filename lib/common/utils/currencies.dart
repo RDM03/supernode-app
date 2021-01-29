@@ -1,5 +1,87 @@
+import 'dart:ui';
+
+import 'package:supernodeapp/common/daos/local_storage_dao.dart';
+import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/page/home_page/wallet_component/state.dart';
+import 'package:supernodeapp/theme/colors.dart';
+
 enum CurrencyType { fiat, crypto }
-enum Token {MXC, DHX}
+enum Token {mxc, supernodeDhx, btc}
+
+extension TokenExtension on Token {
+  String get fullName {
+    switch (this) {
+      case Token.supernodeDhx:
+        return 'Datahighway DHX';
+      case Token.mxc:
+        return 'MXC';
+      case Token.btc:
+        return 'Bitcoin BTC';
+    }
+    throw UnimplementedError('No name found for $this');
+  }
+
+  String get name {
+    switch (this) {
+      case Token.supernodeDhx:
+        return 'DHX';
+      case Token.mxc:
+        return 'MXC';
+      case Token.btc:
+        return 'BTC';
+    }
+    throw UnimplementedError('No name found for $this');
+  }
+
+  String get imagePath {
+    switch (this) {
+      case Token.supernodeDhx:
+        return AppImages.logoDHX;
+      case Token.mxc:
+        return AppImages.logoMXC;
+      case Token.btc:
+        return AppImages.logoBTC;
+    }
+    throw UnimplementedError('No image found for $this');
+  }
+
+  Color get color {
+    switch (this) {
+      case Token.supernodeDhx:
+        return colorSupernodeDhx;
+      case Token.mxc:
+        return colorMxc;
+      case Token.btc:
+        return colorBtc;
+    }
+    throw UnimplementedError('No color found for $this');
+  }
+
+  String get balanceLoader {
+    switch (this) {
+      case Token.supernodeDhx:
+        return LocalStorageDao.balanceDHXKey;
+      case Token.mxc:
+        return 'balance';
+      case Token.btc:
+        return LocalStorageDao.balanceBTCKey;
+    }
+    throw UnimplementedError('No laoder label found for $this');
+  }
+
+  String balance (WalletState state) {
+    switch (this) {
+      case Token.supernodeDhx:
+        return Tools.priceFormat(state.balanceDHX);
+      case Token.mxc:
+        return Tools.priceFormat(state.balance);
+      case Token.btc:
+        return Tools.priceFormat(state.balanceBTC, range: 8);
+    }
+    throw UnimplementedError('No balance field found for $this');
+  }
+}
 
 class Currency {
   final String iconPath;

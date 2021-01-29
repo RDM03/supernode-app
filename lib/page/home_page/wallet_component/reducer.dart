@@ -17,6 +17,7 @@ Reducer<WalletState> buildReducer() {
       WalletAction.updateStakeList: _updateStakeList,
       WalletAction.updateWalletList: _updateWalletList,
       WalletAction.withdrawFee: _withdrawFee,
+      WalletAction.updateBtcList: _updateBtcList,
       WalletAction.firstTime: _firstTime,
       WalletAction.secondTime: _secondTime,
       WalletAction.saveLastSearch: _saveLastSearch
@@ -63,11 +64,11 @@ WalletState _tab(WalletState state, Action action) {
 WalletState _isSetDate(WalletState state, Action action) {
   final WalletState newState = state.clone();
 
-  if (state.activeTabToken[Token.MXC] == 0 && !state.isSetDate1) {
+  if (state.activeTabToken[Token.mxc] == 0 && !state.isSetDate1) {
     return newState
       ..selectedIndexBtn1 = 2
       ..isSetDate1 = !state.isSetDate1;
-  } else if (state.activeTabToken[Token.MXC] == 1 && !state.isSetDate2) {
+  } else if (state.activeTabToken[Token.mxc] == 1 && !state.isSetDate2) {
     return newState
       ..selectedIndexBtn2 = 2
       ..isSetDate2 = !state.isSetDate2;
@@ -79,7 +80,7 @@ WalletState _isSetDate(WalletState state, Action action) {
 WalletState _updateSelectedButton(WalletState state, Action action) {
   int index = action.payload;
 
-  if (state.selectedToken == Token.DHX) {
+  if (state.selectedToken == Token.supernodeDhx) {
     return state;
   }
 
@@ -168,6 +169,25 @@ WalletState _withdrawFee(WalletState state, Action action) {
   final WalletState newState = state.clone();
 
   return newState..withdrawFee = fee;
+}
+
+WalletState _updateBtcList(WalletState state, Action action) {
+  List list = action.payload;
+
+  final sourceList = list.map((e) => WalletItemState.fromMap(e));
+
+  final List<WalletItemState> list2 = [];
+
+  list2.addAll(sourceList);
+  list2.forEach((e) => e.type = 'withdrawHistory_BTC');
+
+  list2.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+  if (list2.length > 0) list2[sourceList.length - 1].isLast = true;
+
+  final WalletState newState = state.clone();
+
+  return newState
+    ..btcList = list2;
 }
 
 WalletState _firstTime(WalletState state, Action action) {

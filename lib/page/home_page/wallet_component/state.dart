@@ -7,15 +7,15 @@ import 'wallet_list_adapter/wallet_item_component/state.dart';
 class WalletState extends MutableSource implements Cloneable<WalletState> {
 
   bool expandedView = false;
-  List<Token> displayTokens = [Token.MXC];
-  Token selectedToken = Token.MXC;
+  List<Token> displayTokens = [Token.mxc];
+  Token selectedToken = Token.mxc;
   bool isFirstRequest = true;
   bool loading = true;
 
-  /// labels for data being loaded ['balance', 'balanceDHX', 'stakeAmount', 'totalRevenue', 'lockedAmount']
+  /// labels for data being loaded ['balance', 'balanceDHX', 'balanceBTC', 'stakeAmount', 'totalRevenue', 'lockedAmount']
   Set loadingMap = {};
   bool loadingHistory = true;
-  Map<Token, int> activeTabToken = {Token.MXC: 0, Token.DHX: 0};
+  Map<Token, int> activeTabToken = {Token.mxc: 0, Token.supernodeDhx: 0};
   bool isSetDate1 = false;
   bool isSetDate2 = false;
 
@@ -33,6 +33,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   //amount
   double balance = 0; // MXC
   double balanceDHX = 0;
+  double balanceBTC = 0;
 
   //stake
   double stakedAmount = 0;
@@ -46,8 +47,11 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   double withdrawFee = 0;
 
   List<dynamic> get _currentList {
+    if (selectedToken == Token.btc)
+      return btcList;
+
     List<dynamic> list =
-    (selectedToken == Token.MXC)
+    (selectedToken == Token.mxc)
       ? activeTabToken[selectedToken] == 0 ? walletList : stakeList
       : activeTabToken[selectedToken] == 0 ? stakeDHXList : transactions;
     int i = 0;
@@ -64,6 +68,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
   List<WalletItemState> walletList = [];
   List<StakeDHXItemState> stakeDHXList = [];
   List<WalletItemState> transactions = [];
+  List<WalletItemState> btcList = [];
 
   @override
   Object getItemData(int index) {
@@ -102,6 +107,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
       ..stakeList = stakeList
       ..stakeDHXList = stakeDHXList
       ..transactions = transactions
+      ..btcList = btcList
       ..organizations = organizations
       ..gatewaysTotal = gatewaysTotal
       ..activeTabToken = activeTabToken
@@ -111,6 +117,7 @@ class WalletState extends MutableSource implements Cloneable<WalletState> {
       ..selectedIndexBtn2 = selectedIndexBtn2
       ..balance = balance
       ..balanceDHX = balanceDHX
+      ..balanceBTC = balanceBTC
       ..stakedAmount = stakedAmount
       ..totalRevenue = totalRevenue
       ..lockedAmount = lockedAmount

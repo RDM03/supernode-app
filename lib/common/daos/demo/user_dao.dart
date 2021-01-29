@@ -114,6 +114,14 @@ class DemoUserDao extends DemoDao implements UserDao {
 
   @override
   Future<dynamic> unbindExternalUser(Map data) {
-    throw UnimplementedError('update not supported in demo');
+    throw UnimplementedError('unbinding not supported in demo');
+  }
+
+  Future<dynamic> verifyExternalEmail(Map data) {
+    throw UnimplementedError('binding not supported in demo');
+  }
+
+  Future<dynamic> confirmExternalEmail(Map data) {
+    throw UnimplementedError('binding not supported in demo');
   }
 }

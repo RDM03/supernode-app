@@ -52,7 +52,10 @@ const iconCircularBackgroundColor = Color.fromARGB(51, 77, 137, 229);
 
 //wallet
 const selectedTabColor = Color.fromARGB(255, 77, 137, 229);
-const Map<Token, Color> colorToken = const {Token.MXC: Color(0xFF1C1478), Token.DHX: Color(0xFF4665EA)};
+const colorMxc = Color(0xFF1C1478);
+const colorSupernodeDhx = Color(0xFF4665EA);
+const colorBtc = Color(0xFFF7931A);
+const colorDhx = Color(0xFF6B0B92);
 const transparentWhite = Color.fromARGB(0, 255, 255, 255);
 
 // login

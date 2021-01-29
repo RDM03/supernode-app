@@ -38,21 +38,23 @@ class HomeState implements Cloneable<HomeState> {
 
   //external
   String wechatExternalUsername = '';
+  String shopifyExternalUsername = '';
 
   //wallet
   bool expandedView = false;
-  List<Token> displayTokens = [Token.MXC];
-  Token selectedToken;
+  List<Token> displayTokens = [Token.mxc];
+  Token selectedToken = Token.mxc;
   bool isFirstRequest = true;
   bool loadingHistory = true;
   double balance = 0;
   double balanceDHX = 0;
+  double balanceBTC = 0;
   double totalRevenue = 0;
   double lockedAmount = 0;
   double totalRevenueDHX = 0;
   double mPower = 0;
   double miningPower = 0;
-  Map<Token, int> walletActiveTabToken = {Token.MXC: 0, Token.DHX: 0};
+  Map<Token, int> walletActiveTabToken = {Token.mxc: 0, Token.supernodeDhx: 0};
   bool isSetDate1 = false;
   bool isSetDate2 = false;
   int selectedIndexBtn1 = -1;
@@ -61,6 +63,7 @@ class HomeState implements Cloneable<HomeState> {
   List<StakeItemState> stakeList = [];
   List<StakeDHXItemState> stakeDHXList = [];
   List<WalletItemState> transactions = [];
+  List<WalletItemState> btcList = [];
   double withdrawFee = 0;
   String firstTime = TimeDao.getDatetime(new DateTime.now(), type: 'date');
   String secondTime = TimeDao.getDatetime(new DateTime.now(), type: 'date');
@@ -115,9 +118,11 @@ class HomeState implements Cloneable<HomeState> {
       ..organizations = organizations ?? []
       ..selectedOrganizationId = selectedOrganizationId
       ..wechatExternalUsername = wechatExternalUsername
+      ..shopifyExternalUsername = shopifyExternalUsername
       ..superNode = superNode
       ..balance = balance
       ..balanceDHX = balanceDHX
+      ..balanceBTC = balanceBTC
       ..totalRevenue = totalRevenue
       ..lockedAmount = lockedAmount
       ..totalRevenueDHX = totalRevenueDHX
@@ -139,6 +144,7 @@ class HomeState implements Cloneable<HomeState> {
       ..stakeList = stakeList ?? []
       ..stakeDHXList = stakeDHXList ?? []
       ..transactions = transactions ?? []
+      ..btcList = btcList ?? []
       ..withdrawFee = withdrawFee
       ..firstTime = firstTime
       ..secondTime = secondTime
@@ -263,6 +269,7 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..loadingHistory = state.loadingHistory
       ..balance = state.balance
       ..balanceDHX = state.balanceDHX
+      ..balanceBTC = state.balanceBTC
       ..totalRevenue = state.totalRevenue
       ..lockedAmount = state.lockedAmount
       ..totalRevenueDHX = state.totalRevenueDHX
@@ -280,6 +287,7 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..stakeList = state.stakeList
       ..stakeDHXList = state.stakeDHXList
       ..transactions = state.transactions
+      ..btcList = state.btcList
       ..withdrawFee = state.withdrawFee
       ..firstTime = state.firstTime
       ..secondTime = state.secondTime
@@ -305,6 +313,7 @@ class WalletConnector extends ConnOp<HomeState, WalletState> {
       ..walletList = subState.walletList
       ..stakeList = subState.stakeList
       ..transactions = subState.transactions
+      ..btcList = subState.btcList
       ..withdrawFee = subState.withdrawFee
       ..firstTime = subState.firstTime
       ..secondTime = subState.secondTime

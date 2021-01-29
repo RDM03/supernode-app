@@ -20,6 +20,8 @@ Reducer<HomeState> buildReducer() {
       HomeAction.balance: _balance,
       HomeAction.addDHX: _addDHX,
       HomeAction.dataDHX: _dataDHX,
+      HomeAction.addBTC: _addBTC,
+      HomeAction.dataBTC: _dataBTC,
       HomeAction.stakedAmount: _stakedAmount,
       HomeAction.gateways: _gateways,
       HomeAction.miningIncome: _miningIncome,
@@ -95,6 +97,7 @@ HomeState _profile(HomeState state, Action action) {
   UserState user = data['user'];
   List<OrganizationsState> organizations = data['organizations'];
   String wechatExternalUsername = data['wechatExternalUsername'];
+  String shopifyExternalUsername = data['shopifyExternalUsername'];
 
   final HomeState newState = state.clone();
   return newState
@@ -104,7 +107,8 @@ HomeState _profile(HomeState state, Action action) {
     ..isAdmin = user.isAdmin
     ..isActive = user.isActive
     ..organizations = organizations
-    ..wechatExternalUsername = wechatExternalUsername;
+    ..wechatExternalUsername = wechatExternalUsername
+    ..shopifyExternalUsername = shopifyExternalUsername;
 }
 
 HomeState _balance(HomeState state, Action action) {
@@ -116,7 +120,7 @@ HomeState _balance(HomeState state, Action action) {
 
 HomeState _addDHX(HomeState state, Action action) {
   final HomeState newState = state.clone();
-  newState.displayTokens = [...newState.displayTokens, Token.DHX];
+  newState.displayTokens = [...newState.displayTokens, Token.supernodeDhx];
   return newState;
 }
 
@@ -136,6 +140,21 @@ HomeState _dataDHX(HomeState state, Action action) {
     newState.miningPower = data[LocalStorageDao.miningPowerKey];
   if (data.containsKey('list'))
     newState.stakeDHXList = data['list'];
+  return newState;
+}
+
+HomeState _addBTC(HomeState state, Action action) {
+  final HomeState newState = state.clone();
+  newState.displayTokens = [...newState.displayTokens, Token.btc];
+  return newState;
+}
+
+HomeState _dataBTC(HomeState state, Action action) {
+  Map data = action.payload;
+
+  final HomeState newState = state.clone();
+  if (data.containsKey(LocalStorageDao.balanceBTCKey))
+    newState.balanceBTC = data[LocalStorageDao.balanceBTCKey];
   return newState;
 }
 

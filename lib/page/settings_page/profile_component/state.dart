@@ -7,6 +7,8 @@ class ProfileState implements Cloneable<ProfileState> {
 
   TextEditingController usernameCtl = TextEditingController();
   TextEditingController emailCtl = TextEditingController();
+  TextEditingController shopifyEmailCtl = TextEditingController();
+  TextEditingController shopifyVerificationCodeCtl = TextEditingController();
   GlobalKey formKey = GlobalKey<FormState>();
 
   String userId = '';
@@ -14,8 +16,10 @@ class ProfileState implements Cloneable<ProfileState> {
   String email = '';
   bool reloadProfile = false;
   String wechatExternalUsername = '';
+  String shopifyExternalUsername = '';
   bool isAdmin = false;
-  bool showConfirmation = false;
+  bool showWechatUnbindConfirmation = false;
+  int showBindShopifyStep = 0;
 
   @override
   ProfileState clone() {
@@ -26,9 +30,13 @@ class ProfileState implements Cloneable<ProfileState> {
       ..reloadProfile = reloadProfile
       ..usernameCtl = usernameCtl
       ..emailCtl = emailCtl
+      ..shopifyEmailCtl = shopifyEmailCtl
+      ..shopifyVerificationCodeCtl = shopifyVerificationCodeCtl
       ..wechatExternalUsername = wechatExternalUsername
+      ..shopifyExternalUsername = shopifyExternalUsername
       ..isAdmin = isAdmin
-      ..showConfirmation = showConfirmation;
+      ..showWechatUnbindConfirmation = showWechatUnbindConfirmation
+      ..showBindShopifyStep = showBindShopifyStep;
   }
 }
 

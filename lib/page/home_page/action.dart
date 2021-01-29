@@ -12,8 +12,10 @@ enum HomeAction {
   balance,
   onAddDHX,
   addDHX,
-  onDataDHX,
   dataDHX,
+  onAddBTC,
+  addBTC,
+  dataBTC,
   mapbox,
   geojsonList,
   stakedAmount,
@@ -60,8 +62,8 @@ class HomeActionCreator {
     return const Action(HomeAction.onProfile);
   }
 
-  static Action profile(UserState user, String wechatExternalUsername, List<OrganizationsState> organizations) {
-    return Action(HomeAction.profile, payload: {'user': user, 'wechatExternalUsername': wechatExternalUsername, 'organizations': organizations});
+  static Action profile(UserState user, String wechatExternalUsername, String shopifyExternalUsername, List<OrganizationsState> organizations) {
+    return Action(HomeAction.profile, payload: {'user': user, 'wechatExternalUsername': wechatExternalUsername, 'shopifyExternalUsername': shopifyExternalUsername, 'organizations': organizations});
   }
 
   static Action updateUsernameEmail(Map data) {
@@ -72,20 +74,28 @@ class HomeActionCreator {
     return Action(HomeAction.balance, payload: balance);
   }
 
-  static Action onAddDHX(bool saveLocally) {
-    return Action(HomeAction.onAddDHX, payload: saveLocally);
+  static Action onAddDHX(bool saveLocally_LoadData) {
+    return Action(HomeAction.onAddDHX, payload: saveLocally_LoadData);
   }
 
   static Action addDHX() {
     return Action(HomeAction.addDHX);
   }
 
-  static Action onDataDHX({bool addingDHX: false}) {
-    return Action(HomeAction.onDataDHX, payload: addingDHX);
-  }
-
   static Action dataDHX(Map data) {
     return Action(HomeAction.dataDHX, payload: data);
+  }
+
+  static Action onAddBTC(bool saveLocally_LoadData) {
+    return Action(HomeAction.onAddBTC, payload: saveLocally_LoadData);
+  }
+
+  static Action addBTC() {
+    return Action(HomeAction.addBTC);
+  }
+
+  static Action dataBTC(Map data) {
+    return Action(HomeAction.dataBTC, payload: data);
   }
 
   static Action mapbox(){
@@ -124,8 +134,8 @@ class HomeActionCreator {
     return Action(HomeAction.tabIndex, payload: index);
   }
 
-  static Action onOperate(String act) {
-    return Action(HomeAction.onOperate, payload: act);
+  static Action onOperate(String act, {String tokenName: 'MXC'}) {
+    return Action(HomeAction.onOperate, payload: {'act': act, 'tokenName': tokenName});
   }
 
   static Action onSettings() {
