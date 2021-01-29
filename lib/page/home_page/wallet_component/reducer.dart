@@ -179,7 +179,7 @@ WalletState _updateBtcList(WalletState state, Action action) {
   final List<WalletItemState> list2 = [];
 
   list2.addAll(sourceList);
-  list2.forEach((e) => e.type = 'withdrawHistory');
+  list2.forEach((e) => e.type = 'withdrawHistory_BTC');
 
   list2.sort((a, b) => b.timestamp.compareTo(a.timestamp));
   if (list2.length > 0) list2[sourceList.length - 1].isLast = true;
