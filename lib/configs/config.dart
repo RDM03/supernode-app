@@ -2,7 +2,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class Config {
   static const bool debug = true;
-  static const String WECHAT_APP_ID = "wx496db1d33c8fda79"; //production
+  static const String WECHAT_APP_ID = "wx7fcea6540bed2f37"; //production
   static const String WECHAT_APP_ID_DEBUG = "wx7fcea6540bed2f37"; //debug
   static const double BLUE_PRINT_WIDTH = 375;
   static const double BLUE_PRINT_HEIGHT = 812;

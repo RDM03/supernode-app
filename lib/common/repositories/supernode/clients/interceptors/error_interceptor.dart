@@ -34,7 +34,7 @@ class SupernodeErrorInterceptor extends InterceptorsWrapper {
   @override
   onError(DioError err) async {
     final response = err.response;
-    final data = response.data;
+    // final data = response.data;
     // RETHINK.TODO
     // String userId = settingsData?.userId ?? '';
     // String userName = settingsData?.username ?? '';

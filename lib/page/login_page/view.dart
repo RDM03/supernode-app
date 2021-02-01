@@ -82,7 +82,6 @@ class _LoginPageContentState extends State<_LoginPageContent> {
       tip(context, FlutterI18n.translate(context, 'reg_select_supernode'));
       return;
     }
-    if (!formKey.currentState.validate()) return;
     context.read<LoginCubit>().weChatLogin();
   }
 
@@ -382,7 +381,9 @@ class _LoginPageContentState extends State<_LoginPageContent> {
                                     a.showWeChatLoginOption !=
                                     b.showWeChatLoginOption,
                                 builder: (context, state) => CircleButton(
-                                  onTap: onWeChatLogin,
+                                  onTap: state.showWeChatLoginOption
+                                      ? onWeChatLogin
+                                      : null,
                                   icon: (state.showWeChatLoginOption
                                       ? Image.asset(
                                           AppImages.wechat,

@@ -10,8 +10,10 @@ class SharedHttpClient implements HttpClient {
     this.dio.interceptors.add(PrettyDioLogger());
   }
 
-  RequestOptions getOptions() {
-    return null; // can be implemented by inheritors.
+  RequestOptions getOptions([Map<String, dynamic> headers]) {
+    return RequestOptions(
+      headers: headers,
+    );
   }
 
   void _handleDioError(DioError e, StackTrace innerStack) {
@@ -25,10 +27,12 @@ class SharedHttpClient implements HttpClient {
   @override
   Future get({@required String url, Map data}) async {
     try {
-      final res = await dio.get(url,
-          queryParameters:
-              data != null ? new Map<String, dynamic>.from(data) : null,
-          options: getOptions());
+      final res = await dio.get(
+        url,
+        queryParameters:
+            data != null ? new Map<String, dynamic>.from(data) : null,
+        options: getOptions(),
+      );
       return res.data;
     } on DioError catch (e, stack) {
       _handleDioError(e, stack);
@@ -43,7 +47,11 @@ class SharedHttpClient implements HttpClient {
     bool encodeJson = true,
   }) async {
     try {
-      final res = await dio.post(url, data: data, options: getOptions());
+      final res = await dio.post(
+        url,
+        data: data,
+        options: getOptions(headers),
+      );
       return res.data;
     } on DioError catch (e, stack) {
       _handleDioError(e, stack);

@@ -83,13 +83,13 @@ class LoginCubit extends Cubit<LoginState> {
       try {
         if (res.errCode == 0) {
           Map data = {'code': res.code};
+          appCubit.setDemo(false);
+          supernodeCubit.setSupernode(state.selectedSuperNode);
+
           var authWeChatUserRes =
               (Config.WECHAT_APP_ID == Config.WECHAT_APP_ID_DEBUG)
                   ? await dao.user.debugAuthenticateWeChatUser(data)
                   : await dao.user.authenticateWeChatUser(data);
-
-          appCubit.setDemo(false);
-          supernodeCubit.setSupernode(state.selectedSuperNode);
 
           if (authWeChatUserRes['bindingIsRequired']) {
             // bind DataDash and WeChat accounts

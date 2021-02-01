@@ -54,9 +54,17 @@ class SupernodeHeadersInterceptor extends InterceptorsWrapper {
         // we use new Dio client because current client is locked.
         final refreshTokenDio = Dio();
         final token = await onTokenRefresh(refreshTokenDio);
-        final request = err.request;
-        setHeaders(request, token: token);
-        return request;
+        if (token == null) throw Exception('Token can\'t be refreshed');
+        setHeaders(response.request, token: token);
+        return await dio.request<dynamic>(
+          response.request.path,
+          cancelToken: response.request.cancelToken,
+          data: response.request.data,
+          onReceiveProgress: response.request.onReceiveProgress,
+          onSendProgress: response.request.onSendProgress,
+          queryParameters: response.request.queryParameters,
+          options: response.request,
+        );
       } on Exception catch (e, stack) {
         if (e is DioError &&
             e.response?.statusCode != null &&
