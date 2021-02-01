@@ -46,7 +46,7 @@ Widget buildView(
       ),
       submitButton(FlutterI18n.translate(_ctx, 'update'),
           onPressed: () => dispatch(ProfileActionCreator.onUpdate())),
-      if (state.wechatExternalUsername.isNotEmpty)
+      if (state.weChatUser != null)
         Column(
           children: [
             Padding(
@@ -57,7 +57,7 @@ Widget buildView(
               onTap: () =>
                   dispatch(ProfileActionCreator.showConfirmation(true)),
               buttonTitle: FlutterI18n.translate(_ctx, 'unbind_wechat_button')
-                  .replaceFirst('{0}', state.wechatExternalUsername),
+                  .replaceFirst('{0}', state.weChatUser.externalUsername),
               minHeight: 45,
               minWidget: double.infinity,
             ),
@@ -92,9 +92,10 @@ Widget buildView(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: PrimaryButton(
                   onTap: () => dispatch(ProfileActionCreator.onUnbind()),
-                  buttonTitle:
-                      FlutterI18n.translate(_ctx, 'unbind_wechat_button')
-                          .replaceFirst('{0}', state.wechatExternalUsername),
+                  buttonTitle: FlutterI18n.translate(
+                          _ctx, 'unbind_wechat_button')
+                      .replaceFirst(
+                          '{0}', (state.weChatUser?.externalUsername ?? '')),
                   minWidget: double.infinity),
             ),
             Spacer(),

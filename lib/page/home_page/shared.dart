@@ -13,6 +13,7 @@ Future<void> openSettings(BuildContext context) async {
       'isDemo': context.read<AppCubit>().state.isDemo,
       'organizations':
           context.read<SupernodeUserCubit>().state.organizations.value,
+      'weChatUser': context.read<SupernodeUserCubit>().state.weChatUser,
     },
   );
 }

@@ -4,6 +4,7 @@ import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'package:supernodeapp/common/repositories/cache_repository.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/wrap.dart';
@@ -71,6 +72,10 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
     ]);
   }
 
+  void removeWeChatUser() {
+    emit(state.copyWith(weChatUser: null));
+  }
+
   Future<void> refreshUser() async {
     emit(state.copyWith(isAdmin: state.isAdmin.withLoading()));
     emit(state.copyWith(organizations: state.organizations.withLoading()));
@@ -78,7 +83,14 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
       final profile = await supernodeRepository.user.profile();
       final isAdmin = profile.user.isAdmin;
       final organizations = profile.organizations;
-      emit(state.copyWith(isAdmin: Wrap(isAdmin)));
+      final wechatUser = profile.externalUserAccounts.firstWhere(
+          (e) => e.service == ExternalUser.weChatService,
+          orElse: () => null);
+      emit(state.copyWith(
+        isAdmin: Wrap(isAdmin),
+        organizations: Wrap(organizations),
+        weChatUser: wechatUser,
+      ));
       emit(state.copyWith(organizations: Wrap(organizations)));
     } catch (e, s) {
       logger.e('refresh error', e, s);

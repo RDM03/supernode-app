@@ -18,6 +18,7 @@ class _$SupernodeUserStateTearOff {
       {@required String username,
       List<dynamic> geojsonList,
       bool locationPermissionsGranted = false,
+      @nullable ExternalUser weChatUser,
       Wrap<double> balance = const Wrap.pending(),
       Wrap<double> stakedAmount = const Wrap.pending(),
       Wrap<double> lockedAmount = const Wrap.pending(),
@@ -33,6 +34,7 @@ class _$SupernodeUserStateTearOff {
       username: username,
       geojsonList: geojsonList,
       locationPermissionsGranted: locationPermissionsGranted,
+      weChatUser: weChatUser,
       balance: balance,
       stakedAmount: stakedAmount,
       lockedAmount: lockedAmount,
@@ -58,6 +60,8 @@ mixin _$SupernodeUserState {
   List<dynamic>
       get geojsonList; // RETHINK.TODO If anyone can remove dynamic, please do it
   bool get locationPermissionsGranted;
+  @nullable
+  ExternalUser get weChatUser;
   Wrap<double> get balance;
   Wrap<double> get stakedAmount;
   Wrap<double> get lockedAmount;
@@ -82,6 +86,7 @@ abstract class $SupernodeUserStateCopyWith<$Res> {
       {String username,
       List<dynamic> geojsonList,
       bool locationPermissionsGranted,
+      @nullable ExternalUser weChatUser,
       Wrap<double> balance,
       Wrap<double> stakedAmount,
       Wrap<double> lockedAmount,
@@ -109,6 +114,7 @@ class _$SupernodeUserStateCopyWithImpl<$Res>
     Object username = freezed,
     Object geojsonList = freezed,
     Object locationPermissionsGranted = freezed,
+    Object weChatUser = freezed,
     Object balance = freezed,
     Object stakedAmount = freezed,
     Object lockedAmount = freezed,
@@ -129,6 +135,9 @@ class _$SupernodeUserStateCopyWithImpl<$Res>
       locationPermissionsGranted: locationPermissionsGranted == freezed
           ? _value.locationPermissionsGranted
           : locationPermissionsGranted as bool,
+      weChatUser: weChatUser == freezed
+          ? _value.weChatUser
+          : weChatUser as ExternalUser,
       balance: balance == freezed ? _value.balance : balance as Wrap<double>,
       stakedAmount: stakedAmount == freezed
           ? _value.stakedAmount
@@ -173,6 +182,7 @@ abstract class _$SupernodeUserStateCopyWith<$Res>
       {String username,
       List<dynamic> geojsonList,
       bool locationPermissionsGranted,
+      @nullable ExternalUser weChatUser,
       Wrap<double> balance,
       Wrap<double> stakedAmount,
       Wrap<double> lockedAmount,
@@ -202,6 +212,7 @@ class __$SupernodeUserStateCopyWithImpl<$Res>
     Object username = freezed,
     Object geojsonList = freezed,
     Object locationPermissionsGranted = freezed,
+    Object weChatUser = freezed,
     Object balance = freezed,
     Object stakedAmount = freezed,
     Object lockedAmount = freezed,
@@ -222,6 +233,9 @@ class __$SupernodeUserStateCopyWithImpl<$Res>
       locationPermissionsGranted: locationPermissionsGranted == freezed
           ? _value.locationPermissionsGranted
           : locationPermissionsGranted as bool,
+      weChatUser: weChatUser == freezed
+          ? _value.weChatUser
+          : weChatUser as ExternalUser,
       balance: balance == freezed ? _value.balance : balance as Wrap<double>,
       stakedAmount: stakedAmount == freezed
           ? _value.stakedAmount
@@ -263,6 +277,7 @@ class _$_SupernodeUserState
       {@required this.username,
       this.geojsonList,
       this.locationPermissionsGranted = false,
+      @nullable this.weChatUser,
       this.balance = const Wrap.pending(),
       this.stakedAmount = const Wrap.pending(),
       this.lockedAmount = const Wrap.pending(),
@@ -295,6 +310,9 @@ class _$_SupernodeUserState
   @JsonKey(defaultValue: false)
   @override // RETHINK.TODO If anyone can remove dynamic, please do it
   final bool locationPermissionsGranted;
+  @override
+  @nullable
+  final ExternalUser weChatUser;
   @JsonKey(defaultValue: const Wrap.pending())
   @override
   final Wrap<double> balance;
@@ -331,7 +349,7 @@ class _$_SupernodeUserState
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SupernodeUserState(username: $username, geojsonList: $geojsonList, locationPermissionsGranted: $locationPermissionsGranted, balance: $balance, stakedAmount: $stakedAmount, lockedAmount: $lockedAmount, gatewaysRevenue: $gatewaysRevenue, gatewaysRevenueUsd: $gatewaysRevenueUsd, devicesRevenue: $devicesRevenue, devicesRevenueUsd: $devicesRevenueUsd, totalRevenue: $totalRevenue, devicesTotal: $devicesTotal, isAdmin: $isAdmin, organizations: $organizations)';
+    return 'SupernodeUserState(username: $username, geojsonList: $geojsonList, locationPermissionsGranted: $locationPermissionsGranted, weChatUser: $weChatUser, balance: $balance, stakedAmount: $stakedAmount, lockedAmount: $lockedAmount, gatewaysRevenue: $gatewaysRevenue, gatewaysRevenueUsd: $gatewaysRevenueUsd, devicesRevenue: $devicesRevenue, devicesRevenueUsd: $devicesRevenueUsd, totalRevenue: $totalRevenue, devicesTotal: $devicesTotal, isAdmin: $isAdmin, organizations: $organizations)';
   }
 
   @override
@@ -343,6 +361,7 @@ class _$_SupernodeUserState
       ..add(DiagnosticsProperty('geojsonList', geojsonList))
       ..add(DiagnosticsProperty(
           'locationPermissionsGranted', locationPermissionsGranted))
+      ..add(DiagnosticsProperty('weChatUser', weChatUser))
       ..add(DiagnosticsProperty('balance', balance))
       ..add(DiagnosticsProperty('stakedAmount', stakedAmount))
       ..add(DiagnosticsProperty('lockedAmount', lockedAmount))
@@ -371,6 +390,9 @@ class _$_SupernodeUserState
                 const DeepCollectionEquality().equals(
                     other.locationPermissionsGranted,
                     locationPermissionsGranted)) &&
+            (identical(other.weChatUser, weChatUser) ||
+                const DeepCollectionEquality()
+                    .equals(other.weChatUser, weChatUser)) &&
             (identical(other.balance, balance) ||
                 const DeepCollectionEquality()
                     .equals(other.balance, balance)) &&
@@ -412,6 +434,7 @@ class _$_SupernodeUserState
       const DeepCollectionEquality().hash(username) ^
       const DeepCollectionEquality().hash(geojsonList) ^
       const DeepCollectionEquality().hash(locationPermissionsGranted) ^
+      const DeepCollectionEquality().hash(weChatUser) ^
       const DeepCollectionEquality().hash(balance) ^
       const DeepCollectionEquality().hash(stakedAmount) ^
       const DeepCollectionEquality().hash(lockedAmount) ^
@@ -434,6 +457,7 @@ abstract class _SupernodeUserState implements SupernodeUserState {
       {@required String username,
       List<dynamic> geojsonList,
       bool locationPermissionsGranted,
+      @nullable ExternalUser weChatUser,
       Wrap<double> balance,
       Wrap<double> stakedAmount,
       Wrap<double> lockedAmount,
@@ -452,6 +476,9 @@ abstract class _SupernodeUserState implements SupernodeUserState {
   List<dynamic> get geojsonList;
   @override // RETHINK.TODO If anyone can remove dynamic, please do it
   bool get locationPermissionsGranted;
+  @override
+  @nullable
+  ExternalUser get weChatUser;
   @override
   Wrap<double> get balance;
   @override

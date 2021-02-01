@@ -13,6 +13,7 @@ class DemoUserDao extends DemoDao implements UserDao {
   @override
   Future<ProfileResponse> profile() {
     return Future.value(ProfileResponse(
+        externalUserAccounts: [],
         user: ProfileUser.fromMap({
           'id': 'demo',
           'username': username,

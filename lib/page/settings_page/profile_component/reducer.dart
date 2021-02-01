@@ -27,13 +27,12 @@ ProfileState _showConfirmation(ProfileState state, Action action) {
   bool data = action.payload;
 
   final ProfileState newState = state.clone();
-  return newState
-    ..showConfirmation = data;
+  return newState..showConfirmation = data;
 }
 
 ProfileState _unbind(ProfileState state, Action action) {
   final ProfileState newState = state.clone();
   return newState
     ..reloadProfile = true
-    ..wechatExternalUsername = '';
+    ..weChatUser = null;
 }

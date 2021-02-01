@@ -9,6 +9,7 @@ import 'package:supernodeapp/common/repositories/supernode/dao/organization.dart
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -75,8 +76,9 @@ void _updateData(Context<OrganizationsState> ctx) async {
 
   OrganizationDao dao = _buildOrganizationDao(ctx);
 
-  dao.update(data).then((res) {
+  dao.update(data).then((res) async {
     mLog('update', res);
+    // TODO await ctx.context.read<SupernodeUserCubit>().refreshUser();
     loading.hide();
 
     tip(ctx.context, FlutterI18n.translate(ctx.context, 'update_success'),

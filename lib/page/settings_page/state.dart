@@ -31,8 +31,8 @@ class SettingsState implements Cloneable<SettingsState> {
   TextEditingController emailCtl = TextEditingController();
   GlobalKey profileFormKey = GlobalKey<FormState>();
 
-  //external
-  String wechatExternalUsername = '';
+  // external
+  ExternalUser weChatUser;
 
   //organiztion
   TextEditingController orgNameCtl = TextEditingController();
@@ -66,7 +66,7 @@ class SettingsState implements Cloneable<SettingsState> {
       ..usernameCtl = usernameCtl
       ..emailCtl = emailCtl
       ..profileFormKey = profileFormKey
-      ..wechatExternalUsername = wechatExternalUsername
+      ..weChatUser = weChatUser
       ..orgFormKey = orgFormKey
       ..selectedOrgId = selectedOrgId
       ..selectedOrgName = selectedOrgName
@@ -81,6 +81,7 @@ class SettingsState implements Cloneable<SettingsState> {
 SettingsState initState(Map<String, dynamic> args) {
   SupernodeSession user = args['user'];
   List<UserOrganization> orgs = args['organizations'];
+  ExternalUser weChatUser = args['weChatUser'];
   bool isDemo = args['isDemo'] ?? false;
 
   return SettingsState()
@@ -89,10 +90,10 @@ SettingsState initState(Map<String, dynamic> args) {
     ..email = user.username
     ..usernameCtl.text = user.username
     ..emailCtl.text = user.username
-    //..wechatExternalUsername = user['wechatExternalUsername']
     ..isAdmin = orgs.length > 0 && orgs.first.isAdmin
     ..organizations = orgs
-    ..isDemo = isDemo;
+    ..isDemo = isDemo
+    ..weChatUser = weChatUser;
 }
 
 class ProfileConnector extends ConnOp<SettingsState, ProfileState> {
@@ -103,7 +104,7 @@ class ProfileConnector extends ConnOp<SettingsState, ProfileState> {
       ..username = state.username
       ..email = state.email
       ..reloadProfile = state.reloadProfile
-      ..wechatExternalUsername = state.wechatExternalUsername
+      ..weChatUser = state.weChatUser
       ..isAdmin = state.isAdmin
       ..showConfirmation = state.showConfirmation
       ..usernameCtl = state.usernameCtl
@@ -119,7 +120,7 @@ class ProfileConnector extends ConnOp<SettingsState, ProfileState> {
       ..reloadProfile = subState.reloadProfile
       ..showConfirmation = subState.showConfirmation
       ..usernameCtl = subState.usernameCtl
-      ..wechatExternalUsername = subState.wechatExternalUsername
+      ..weChatUser = subState.weChatUser
       ..emailCtl = subState.emailCtl;
   }
 }

@@ -7,6 +7,7 @@ import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/log.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -42,7 +43,7 @@ void _onUpdate(Action action, Context<ProfileState> ctx) async {
 
     UserDao dao = _buildUserDao(ctx);
 
-    dao.update({"user": data}).then((res) {
+    dao.update({"user": data}).then((res) async {
       mLog('update', res);
 
       String jwt = res['jwt'];
@@ -55,6 +56,7 @@ void _onUpdate(Action action, Context<ProfileState> ctx) async {
             );
         ctx.dispatch(ProfileActionCreator.jwtUpdate(data));
       }
+      await ctx.context.read<SupernodeUserCubit>().refreshUser();
       loading.hide();
       Navigator.of(ctx.context).pop();
     }).catchError((err) {
@@ -77,6 +79,7 @@ void _onUnbind(Action action, Context<ProfileState> ctx) async {
 
   dao.unbindExternalUser(data).then((res) {
     loading.hide();
+    // TODO ctx.context.read<SupernodeUserCubit>().removeWeChatUser();
     ctx.dispatch(ProfileActionCreator.unbind());
   }).catchError((err) {
     loading.hide();

@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 
 class ProfileState implements Cloneable<ProfileState> {
   TextEditingController usernameCtl = TextEditingController();
@@ -10,7 +11,7 @@ class ProfileState implements Cloneable<ProfileState> {
   String username = '';
   String email = '';
   bool reloadProfile = false;
-  String wechatExternalUsername = '';
+  ExternalUser weChatUser;
   bool isAdmin = false;
   bool showConfirmation = false;
 
@@ -23,7 +24,7 @@ class ProfileState implements Cloneable<ProfileState> {
       ..reloadProfile = reloadProfile
       ..usernameCtl = usernameCtl
       ..emailCtl = emailCtl
-      ..wechatExternalUsername = wechatExternalUsername
+      ..weChatUser = weChatUser
       ..isAdmin = isAdmin
       ..showConfirmation = showConfirmation;
   }

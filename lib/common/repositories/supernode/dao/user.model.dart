@@ -113,8 +113,13 @@ class UserOrganization {
 class ProfileResponse {
   final ProfileUser user;
   final List<UserOrganization> organizations;
+  final List<ExternalUser> externalUserAccounts;
 
-  ProfileResponse({this.user, this.organizations});
+  ProfileResponse({
+    this.user,
+    this.organizations,
+    this.externalUserAccounts,
+  });
 
   factory ProfileResponse.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
@@ -123,11 +128,41 @@ class ProfileResponse {
       user: ProfileUser.fromMap(map['user']),
       organizations: List<UserOrganization>.from(
           map['organizations']?.map((x) => UserOrganization.fromMap(x))),
+      externalUserAccounts: List<ExternalUser>.from(
+          map['externalUserAccounts']?.map((x) => ExternalUser.fromMap(x))),
     );
   }
 
   factory ProfileResponse.fromJson(String source) =>
       ProfileResponse.fromMap(json.decode(source));
+}
+
+class ExternalUser {
+  static const String weChatService = 'wechat';
+  static const String shopifyService = 'shopify';
+
+  final String externalUserId;
+  final String externalUsername;
+  final String service;
+
+  ExternalUser({
+    this.externalUserId,
+    this.externalUsername,
+    this.service,
+  });
+
+  factory ExternalUser.fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    return ExternalUser(
+      externalUserId: map['externalUserId'],
+      externalUsername: map['externalUsername'],
+      service: map['service'],
+    );
+  }
+
+  factory ExternalUser.fromJson(String source) =>
+      ExternalUser.fromMap(json.decode(source));
 }
 
 class ProfileUser {
