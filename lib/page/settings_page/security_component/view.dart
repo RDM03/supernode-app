@@ -12,24 +12,25 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return pageFrame(
-      context: viewService.context,
-      padding: EdgeInsets.zero,
-      children: [
-        pageNavBar(FlutterI18n.translate(_ctx, 'security_setting'),
-            padding: const EdgeInsets.all(20),
-            onTap: () => Navigator.of(viewService.context).pop()),
-        listItem(FlutterI18n.translate(_ctx, 'change_password'),
-            onTap: () => Navigator.of(viewService.context)
-                .pushNamed('change_password_page')),
-        listItem(
-          FlutterI18n.translate(_ctx, 'set_fa_02'),
-          onTap: () => Navigator.of(viewService.context).pushNamed(
-            'set_2fa_page',
-            // arguments: {
-            //   'isEnabled': GlobalStore.state?.settings?.is2FAEnabled,
-            // },
-          ),
+    context: viewService.context,
+    padding: EdgeInsets.zero,
+    children: [
+      pageNavBar(FlutterI18n.translate(_ctx, 'security_setting'),
+          padding: const EdgeInsets.all(20),
+          onTap: () => Navigator.of(viewService.context).pop()),
+      listItem(FlutterI18n.translate(_ctx, 'change_password'),
+          onTap: () => Navigator.of(viewService.context)
+              .pushNamed('change_password_page')),
+      listItem(
+        FlutterI18n.translate(_ctx, 'set_fa_02'),
+        onTap: () => Navigator.of(viewService.context).pushNamed(
+          'set_2fa_page',
+          // arguments: {
+          //   'isEnabled': GlobalStore.state?.settings?.is2FAEnabled,
+          // },
         ),
-        Divider()
-      ]);
+      ),
+      Divider()
+    ],
+  );
 }

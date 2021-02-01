@@ -50,7 +50,10 @@ Future<void> _requestTOTPStatus(Context<WithdrawState> ctx) async {
   try {
     var res = await dao.getTOTPStatus();
     mLog('totp', res);
-    ctx.dispatch(WithdrawActionCreator.isEnabled(res.enabled));
+
+    if (res.enabled != null) {
+      ctx.dispatch(WithdrawActionCreator.isEnabled(res.enabled));
+    }
   } catch (err) {
     tip(ctx.context, '$err');
   }
@@ -105,7 +108,7 @@ void _onEnterSecurityWithdrawContinue(
 
 void _onGotoSet2FA(Action action, Context<WithdrawState> ctx) async {
   Navigator.pushNamed(ctx.context, 'set_2fa_page',
-      arguments: {'isEnabled': false}).then((_) {
+      arguments: {'isEnabled': null}).then((_) {
     _requestTOTPStatus(ctx);
   });
   //Navigator.of(viewService.context).pushNamed('set_2fa_page', arguments:{'isEnabled': false})

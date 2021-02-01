@@ -54,12 +54,13 @@ Widget buildView(
               child: Divider(color: Colors.grey),
             ),
             PrimaryButton(
-                onTap: () =>
-                    dispatch(ProfileActionCreator.showConfirmation(true)),
-                buttonTitle: FlutterI18n.translate(_ctx, 'unbind_wechat_button')
-                    .replaceFirst('{0}', state.wechatExternalUsername),
-                minHeight: 45,
-                minWidget: double.infinity),
+              onTap: () =>
+                  dispatch(ProfileActionCreator.showConfirmation(true)),
+              buttonTitle: FlutterI18n.translate(_ctx, 'unbind_wechat_button')
+                  .replaceFirst('{0}', state.wechatExternalUsername),
+              minHeight: 45,
+              minWidget: double.infinity,
+            ),
           ],
         ),
     ]),

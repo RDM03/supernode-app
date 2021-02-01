@@ -4,11 +4,13 @@ class Council {
   final String id;
   final String chairOrgId;
   final String name;
+  final String lastMpower;
 
   Council({
     this.id,
     this.chairOrgId,
     this.name,
+    this.lastMpower
   });
 
   factory Council.fromMap(Map<String, dynamic> map) {
@@ -18,6 +20,7 @@ class Council {
       id: map['id'],
       chairOrgId: map['chairOrgId'],
       name: map['name'],
+      lastMpower: map['lastMpower'],
     );
   }
 
@@ -25,11 +28,13 @@ class Council {
     String id,
     String chairOrgId,
     String name,
+    double lastMpower,
   }) {
     return Council(
       id: id ?? this.id,
       chairOrgId: chairOrgId ?? this.chairOrgId,
       name: name ?? this.name,
+      lastMpower: lastMpower?? this.lastMpower,
     );
   }
 }

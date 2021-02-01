@@ -4,13 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
-import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/common/utils/log.dart';
-import 'package:supernodeapp/common/utils/utils.dart';
-import 'package:supernodeapp/configs/config.dart';
 
 import 'action.dart';
 import 'state.dart';

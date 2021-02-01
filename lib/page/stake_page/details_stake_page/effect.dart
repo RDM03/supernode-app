@@ -76,7 +76,7 @@ Future<void> _raise2Fa(Context<DetailsStakeState> ctx) async {
     ctx.dispatch(DetailsStakeActionCreator.unstakeProcess(otpCode));
   } else {
     await Navigator.pushNamed(ctx.context, 'set_2fa_page',
-        arguments: {'isEnabled': false});
+        arguments: {'isEnabled': null});
     ctx.dispatch(DetailsStakeActionCreator.refreshOtpStatus());
   }
 }

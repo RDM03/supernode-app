@@ -89,6 +89,7 @@ class UserTab extends StatelessWidget {
           BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
             buildWhen: (a, b) => a.balance != b.balance,
             builder: (ctx, state) => TitleDetailRow(
+              key: ValueKey('homeCurrentBalance'),
               loading: state.balance.loading,
               name: FlutterI18n.translate(context, 'current_balance'),
               value: Tools.priceFormat(state.balance.value),
@@ -97,6 +98,7 @@ class UserTab extends StatelessWidget {
           BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
             buildWhen: (a, b) => a.stakedAmount != b.stakedAmount,
             builder: (ctx, state) => TitleDetailRow(
+              key: ValueKey('homeStakedAmount'),
               loading: state.stakedAmount.loading,
               name: FlutterI18n.translate(context, 'staked_amount'),
               value: Tools.priceFormat(state.stakedAmount.value),
@@ -107,8 +109,9 @@ class UserTab extends StatelessWidget {
             builder: (ctx, state) =>
                 state.lockedAmount.value != null && state.lockedAmount.value > 0
                     ? TitleDetailRow(
+                        key: ValueKey('homeLockedAmount'),
                         loading: state.lockedAmount.loading,
-                        name: FlutterI18n.translate(context, 'staked_amount'),
+                        name: FlutterI18n.translate(context, 'locked_amount'),
                         value: Tools.priceFormat(state.lockedAmount.value),
                       )
                     : Container(),
@@ -116,6 +119,7 @@ class UserTab extends StatelessWidget {
           BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
             buildWhen: (a, b) => a.totalRevenue != b.totalRevenue,
             builder: (ctx, state) => TitleDetailRow(
+              key: ValueKey('homeStakingRevenue'),
               loading: state.totalRevenue.loading,
               name: FlutterI18n.translate(context, 'staking_revenue'),
               value: Tools.priceFormat(state.totalRevenue.value, range: 2),

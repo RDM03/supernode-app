@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class ProfileRow extends StatelessWidget {
@@ -8,6 +9,7 @@ class ProfileRow extends StatelessWidget {
   final String position;
   final EdgeInsetsGeometry contentPadding;
   final Widget trailing;
+  final bool loading;
   final Function onTap;
 
   const ProfileRow({
@@ -19,6 +21,7 @@ class ProfileRow extends StatelessWidget {
     this.contentPadding,
     this.trailing,
     this.onTap,
+    this.loading = false,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -28,16 +31,27 @@ class ProfileRow extends StatelessWidget {
         Icons.account_circle,
         size: 44,
       ),
-      title: Text(
-        name,
-        key: keyTitle,
-        style: kBigFontOfBlack,
-      ),
-      subtitle: Text(
-        position,
-        key: keySubtitle,
-        style: kMiddleFontOfGrey,
-      ),
+      title: loading
+          ? loadingFlash(
+              child: Text(name, style: kBigFontOfBlack),
+            )
+          : Text(
+              name,
+              key: keyTitle,
+              style: kBigFontOfBlack,
+            ),
+      subtitle: loading
+          ? loadingFlash(
+              child: Text(
+                position,
+                style: kMiddleFontOfGrey,
+              ),
+            )
+          : Text(
+              position,
+              key: keySubtitle,
+              style: kMiddleFontOfGrey,
+            ),
       trailing: trailing,
       onTap: onTap,
     );
