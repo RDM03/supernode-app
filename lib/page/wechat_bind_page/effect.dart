@@ -9,6 +9,8 @@ import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/auth.dart';
+import 'package:supernodeapp/page/home_page/view.dart';
+import 'package:supernodeapp/route.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -34,7 +36,8 @@ void _onBind(Action action, Context<WechatBindState> ctx) async {
 
       await _handleBindRequest(dao, email, password, ctx);
 
-      Navigator.pushNamedAndRemoveUntil(ctx.context, 'home_page', (_) => false);
+      Navigator.pushAndRemoveUntil(
+          ctx.context, route((ctx) => HomePage()), (_) => false);
     } catch (err) {
       loading.hide();
       final res = await checkMaintenance(

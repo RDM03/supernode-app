@@ -91,17 +91,24 @@ class LoginCubit extends Cubit<LoginState> {
                   ? await dao.user.debugAuthenticateWeChatUser(data)
                   : await dao.user.authenticateWeChatUser(data);
 
+          final jwt = authWeChatUserRes['jwt'];
+          supernodeCubit.setSupernodeSession(SupernodeSession(
+            node: state.selectedSuperNode,
+            token: jwt,
+          ));
+
           if (authWeChatUserRes['bindingIsRequired']) {
             // bind DataDash and WeChat accounts
             setResult(LoginResult.wechat);
           } else {
             final jwt = authWeChatUserRes['jwt'];
+            final parsedJwt = parseJwt(jwt);
 
             supernodeCubit.setSupernodeSession(SupernodeSession(
-              username: '',
+              username: parsedJwt.username,
               password: '',
               token: jwt,
-              userId: parseJwt(jwt).userId,
+              userId: parsedJwt.userId,
               node: state.selectedSuperNode,
             ));
 
