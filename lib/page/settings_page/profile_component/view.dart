@@ -168,7 +168,7 @@ Widget buildView(
               onTap: () =>
                   dispatch(ProfileActionCreator.showConfirmation(true)),
               buttonTitle: FlutterI18n.translate(_ctx, 'unbind_wechat_button')
-                  .replaceFirst('{0}', state.weChatUser.externalUsername),
+                  .replaceFirst('{0}', state.weChatUser?.externalUsername),
               minHeight: 45,
               minWidget: double.infinity,
             ),
@@ -180,15 +180,15 @@ Widget buildView(
       ),
       PrimaryButton(
           // Shopify account
-          onTap: () => dispatch((state.shopifyUser.externalUsername == null)
+          onTap: () => dispatch((state.shopifyUser == null)
               ? ProfileActionCreator.bindShopifyStep(1)
               : ProfileActionCreator.onUnbind(ExternalUser.shopifyService)),
           buttonTitle: FlutterI18n.translate(
                   _ctx,
-                  (state.shopifyUser.externalUsername == null)
+                  (state.shopifyUser == null)
                       ? 'bind_shopify_button'
                       : 'unbind_shopify_button')
-              .replaceFirst('{0}', state.shopifyUser.externalUsername),
+              .replaceFirst('{0}', state.shopifyUser?.externalUsername ?? ''),
           minHeight: 45,
           minWidget: double.infinity),
     ]),

@@ -220,7 +220,7 @@ class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
       onVerticalDragUpdate: (details) {
         if (details.delta.dy > 0.0) {
           //swipe down
-          Navigator.pop(context);
+          // Navigator.pop(context);
         }
       },
       child: Container(
@@ -244,10 +244,15 @@ class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
   }
 }
 
-void showInfoDialog(BuildContext context, IosStyleBottomDialog2 child) {
+void showInfoDialog(BuildContext context, Widget child) {
   showGeneralDialog(
       context: context,
-      pageBuilder: (context, anim1, anim2) {},
+      pageBuilder: (context, anim1, anim2) {
+        return Transform.translate(
+          offset: Offset(0, 200 - anim1.value * 200),
+          child: FullScreenDialog(child: child),
+        );
+      },
       barrierDismissible: true,
       barrierColor: Colors.black.withOpacity(0.4),
       barrierLabel: '',
