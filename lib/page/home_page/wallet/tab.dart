@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/app_bars/home_bar.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/page/home_page/wallet/expanded_view.dart';
 import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -41,10 +42,12 @@ class WalletTab extends StatelessWidget {
               ),
               body: BlocBuilder<WalletCubit, WalletState>(
                 builder: (ctx, state) => PageBody(children: [
-                  if (state.displayTokens.contains(WalletToken.mxc))
+                  if (state.displayTokens.contains(Token.mxc))
                     MxcTokenCard(isExpanded: false),
-                  if (state.displayTokens.contains(WalletToken.supernodeDhx))
+                  if (state.displayTokens.contains(Token.supernodeDhx))
                     SupernodeDhxTokenCard(isExpanded: false),
+                  if (state.displayTokens.contains(Token.btc))
+                    BtcTokenCard(isExpanded: false),
                   AddNewTokenCard(),
                 ]),
               ),

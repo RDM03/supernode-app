@@ -76,6 +76,10 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
     emit(state.copyWith(weChatUser: null));
   }
 
+  void removeShopifyUser() {
+    emit(state.copyWith(shopifyUser: null));
+  }
+
   Future<void> refreshUser() async {
     emit(state.copyWith(isAdmin: state.isAdmin.withLoading()));
     emit(state.copyWith(organizations: state.organizations.withLoading()));
@@ -86,10 +90,14 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
       final wechatUser = profile.externalUserAccounts.firstWhere(
           (e) => e.service == ExternalUser.weChatService,
           orElse: () => null);
+      final shopifyUser = profile.externalUserAccounts.firstWhere(
+          (e) => e.service == ExternalUser.shopifyService,
+          orElse: () => null);
       emit(state.copyWith(
         isAdmin: Wrap(isAdmin),
         organizations: Wrap(organizations),
         weChatUser: wechatUser,
+        shopifyUser: shopifyUser,
       ));
       emit(state.copyWith(organizations: Wrap(organizations)));
     } catch (e, s) {

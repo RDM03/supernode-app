@@ -16,8 +16,8 @@ class _$WalletStateTearOff {
 // ignore: unused_element
   _WalletState call(
       {bool expanded = false,
-      @nullable WalletToken selectedToken,
-      List<WalletToken> displayTokens = const [WalletToken.mxc],
+      @nullable Token selectedToken,
+      List<Token> displayTokens = const [Token.mxc],
       Wrap<List<StakeHistoryEntity>> stakes = const Wrap.pending(),
       Wrap<List<WithdrawHistoryEntity>> withdraws = const Wrap.pending(),
       Wrap<List<TopupEntity>> topups = const Wrap.pending()}) {
@@ -40,8 +40,8 @@ const $WalletState = _$WalletStateTearOff();
 mixin _$WalletState {
   bool get expanded;
   @nullable
-  WalletToken get selectedToken;
-  List<WalletToken> get displayTokens;
+  Token get selectedToken;
+  List<Token> get displayTokens;
   Wrap<List<StakeHistoryEntity>> get stakes;
   Wrap<List<WithdrawHistoryEntity>> get withdraws;
   Wrap<List<TopupEntity>> get topups;
@@ -56,8 +56,8 @@ abstract class $WalletStateCopyWith<$Res> {
       _$WalletStateCopyWithImpl<$Res>;
   $Res call(
       {bool expanded,
-      @nullable WalletToken selectedToken,
-      List<WalletToken> displayTokens,
+      @nullable Token selectedToken,
+      List<Token> displayTokens,
       Wrap<List<StakeHistoryEntity>> stakes,
       Wrap<List<WithdrawHistoryEntity>> withdraws,
       Wrap<List<TopupEntity>> topups});
@@ -84,10 +84,10 @@ class _$WalletStateCopyWithImpl<$Res> implements $WalletStateCopyWith<$Res> {
       expanded: expanded == freezed ? _value.expanded : expanded as bool,
       selectedToken: selectedToken == freezed
           ? _value.selectedToken
-          : selectedToken as WalletToken,
+          : selectedToken as Token,
       displayTokens: displayTokens == freezed
           ? _value.displayTokens
-          : displayTokens as List<WalletToken>,
+          : displayTokens as List<Token>,
       stakes: stakes == freezed
           ? _value.stakes
           : stakes as Wrap<List<StakeHistoryEntity>>,
@@ -109,8 +109,8 @@ abstract class _$WalletStateCopyWith<$Res>
   @override
   $Res call(
       {bool expanded,
-      @nullable WalletToken selectedToken,
-      List<WalletToken> displayTokens,
+      @nullable Token selectedToken,
+      List<Token> displayTokens,
       Wrap<List<StakeHistoryEntity>> stakes,
       Wrap<List<WithdrawHistoryEntity>> withdraws,
       Wrap<List<TopupEntity>> topups});
@@ -139,10 +139,10 @@ class __$WalletStateCopyWithImpl<$Res> extends _$WalletStateCopyWithImpl<$Res>
       expanded: expanded == freezed ? _value.expanded : expanded as bool,
       selectedToken: selectedToken == freezed
           ? _value.selectedToken
-          : selectedToken as WalletToken,
+          : selectedToken as Token,
       displayTokens: displayTokens == freezed
           ? _value.displayTokens
-          : displayTokens as List<WalletToken>,
+          : displayTokens as List<Token>,
       stakes: stakes == freezed
           ? _value.stakes
           : stakes as Wrap<List<StakeHistoryEntity>>,
@@ -160,7 +160,7 @@ class _$_WalletState implements _WalletState {
   _$_WalletState(
       {this.expanded = false,
       @nullable this.selectedToken,
-      this.displayTokens = const [WalletToken.mxc],
+      this.displayTokens = const [Token.mxc],
       this.stakes = const Wrap.pending(),
       this.withdraws = const Wrap.pending(),
       this.topups = const Wrap.pending()})
@@ -175,10 +175,10 @@ class _$_WalletState implements _WalletState {
   final bool expanded;
   @override
   @nullable
-  final WalletToken selectedToken;
-  @JsonKey(defaultValue: const [WalletToken.mxc])
+  final Token selectedToken;
+  @JsonKey(defaultValue: const [Token.mxc])
   @override
-  final List<WalletToken> displayTokens;
+  final List<Token> displayTokens;
   @JsonKey(defaultValue: const Wrap.pending())
   @override
   final Wrap<List<StakeHistoryEntity>> stakes;
@@ -234,8 +234,8 @@ class _$_WalletState implements _WalletState {
 abstract class _WalletState implements WalletState {
   factory _WalletState(
       {bool expanded,
-      @nullable WalletToken selectedToken,
-      List<WalletToken> displayTokens,
+      @nullable Token selectedToken,
+      List<Token> displayTokens,
       Wrap<List<StakeHistoryEntity>> stakes,
       Wrap<List<WithdrawHistoryEntity>> withdraws,
       Wrap<List<TopupEntity>> topups}) = _$_WalletState;
@@ -244,9 +244,9 @@ abstract class _WalletState implements WalletState {
   bool get expanded;
   @override
   @nullable
-  WalletToken get selectedToken;
+  Token get selectedToken;
   @override
-  List<WalletToken> get displayTokens;
+  List<Token> get displayTokens;
   @override
   Wrap<List<StakeHistoryEntity>> get stakes;
   @override

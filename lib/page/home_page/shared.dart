@@ -14,6 +14,7 @@ Future<void> openSettings(BuildContext context) async {
       'organizations':
           context.read<SupernodeUserCubit>().state.organizations.value,
       'weChatUser': context.read<SupernodeUserCubit>().state.weChatUser,
+      'shopifyUser': context.read<SupernodeUserCubit>().state.shopifyUser,
     },
   );
 }

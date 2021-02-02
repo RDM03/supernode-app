@@ -1,5 +1,60 @@
+import 'dart:ui';
+
+import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/theme/colors.dart';
+
 enum CurrencyType { fiat, crypto }
-enum Token { MXC, DHX }
+enum Token { mxc, supernodeDhx, btc }
+
+extension TokenExtension on Token {
+  String get fullName {
+    switch (this) {
+      case Token.supernodeDhx:
+        return 'Datahighway DHX';
+      case Token.mxc:
+        return 'MXC';
+      case Token.btc:
+        return 'Bitcoin BTC';
+    }
+    throw UnimplementedError('No name found for $this');
+  }
+
+  String get name {
+    switch (this) {
+      case Token.supernodeDhx:
+        return 'DHX';
+      case Token.mxc:
+        return 'MXC';
+      case Token.btc:
+        return 'BTC';
+    }
+    throw UnimplementedError('No name found for $this');
+  }
+
+  String get imagePath {
+    switch (this) {
+      case Token.supernodeDhx:
+        return AppImages.logoDHX;
+      case Token.mxc:
+        return AppImages.logoMXC;
+      case Token.btc:
+        return AppImages.logoBTC;
+    }
+    throw UnimplementedError('No image found for $this');
+  }
+
+  Color get color {
+    switch (this) {
+      case Token.supernodeDhx:
+        return colorSupernodeDhx;
+      case Token.mxc:
+        return colorMxc;
+      case Token.btc:
+        return colorBtc;
+    }
+    throw UnimplementedError('No color found for $this');
+  }
+}
 
 class Currency {
   final String iconPath;

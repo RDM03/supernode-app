@@ -1,16 +1,10 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
-import 'package:supernodeapp/common/components/page/paragraph.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
-import 'package:supernodeapp/common/components/page/subtitle.dart';
-import 'package:supernodeapp/common/components/text_field/text_field_with_button.dart';
-import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
-import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import '../action.dart';
@@ -56,7 +50,7 @@ Widget withdrawConfirm(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(FlutterI18n.translate(_ctx, 'amount') + ':'),
-              Text(state.amount + ' MXC'),
+              Text('${state.amount} ${state.tokenName}'),
             ],
           ),
           SizedBox(height: 15),
@@ -106,24 +100,6 @@ Widget withdrawConfirm(
       ),
     ],
   );
-}
-
-String _onValidAmount(
-    BuildContext context, String value, double fee, double balance) {
-  String res = Reg.isEmpty(value);
-  if (res != null) return FlutterI18n.translate(context, res);
-
-  final amount = int.tryParse(value);
-
-  if (amount == null || amount <= 0) {
-    return FlutterI18n.translate(context, 'reg_amount');
-  }
-
-  if (amount + fee > balance) {
-    return FlutterI18n.translate(context, 'insufficient_balance');
-  }
-
-  return null;
 }
 
 Stream<Duration> timeLeftStream(DateTime time) async* {

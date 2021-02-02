@@ -10,16 +10,15 @@ import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/btc/cubit.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/btc/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/wallet/cubit.dart';
-import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
-
-import '../bloc/supernode/wallet/state.dart';
 
 class MxcTokenCard extends StatelessWidget {
   final bool isExpanded;
@@ -31,7 +30,7 @@ class MxcTokenCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (!context.read<WalletCubit>().state.expanded) {
-          context.read<WalletCubit>().expandTo(WalletToken.mxc);
+          context.read<WalletCubit>().expandTo(Token.mxc);
         }
       },
       child: PanelFrame(
@@ -43,9 +42,9 @@ class MxcTokenCard extends StatelessWidget {
                 padding: kRoundRow15_5,
                 child: Row(
                   children: [
-                    Image.asset(WalletToken.mxc.imagePath),
+                    Image.asset(Token.mxc.imagePath),
                     SizedBox(width: s(3)),
-                    Text(WalletToken.mxc.name, style: kBigBoldFontOfBlack),
+                    Text(Token.mxc.name, style: kBigBoldFontOfBlack),
                     Spacer(),
                     if (isExpanded)
                       SizedBox()
@@ -98,7 +97,7 @@ class SupernodeDhxTokenCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (!context.read<WalletCubit>().state.expanded) {
-          context.read<WalletCubit>().expandTo(WalletToken.supernodeDhx);
+          context.read<WalletCubit>().expandTo(Token.supernodeDhx);
         }
       },
       child: PanelFrame(
@@ -109,14 +108,13 @@ class SupernodeDhxTokenCard extends StatelessWidget {
               Container(
                 padding: kRoundRow15_5,
                 child: Row(children: [
-                  Image.asset(WalletToken.supernodeDhx.imagePath),
+                  Image.asset(Token.supernodeDhx.imagePath),
                   SizedBox(width: s(3)),
-                  Text(WalletToken.supernodeDhx.name,
-                      style: kBigBoldFontOfBlack),
+                  Text(Token.supernodeDhx.name, style: kBigBoldFontOfBlack),
                   Spacer(),
                   if (isExpanded)
                     PrimaryButton(
-                      bgColor: colorToken[Token.DHX],
+                      bgColor: Token.supernodeDhx.color,
                       buttonTitle:
                           FlutterI18n.translate(context, 'simulate_mining'),
                       onTap: () => Navigator.pushNamed(
@@ -186,6 +184,51 @@ class SupernodeDhxTokenCard extends StatelessWidget {
   }
 }
 
+class BtcTokenCard extends StatelessWidget {
+  final bool isExpanded;
+  const BtcTokenCard({Key key, this.isExpanded}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        if (!context.read<WalletCubit>().state.expanded) {
+          context.read<WalletCubit>().expandTo(Token.btc);
+        }
+      },
+      child: PanelFrame(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 10),
+          child: Column(
+            children: [
+              Container(
+                padding: kRoundRow15_5,
+                child: Row(
+                  children: [
+                    Image.asset(Token.btc.imagePath),
+                    SizedBox(width: s(3)),
+                    Text(Token.btc.name, style: kBigBoldFontOfBlack),
+                    Spacer(),
+                  ],
+                ),
+              ),
+              BlocBuilder<SupernodeBtcCubit, SupernodeBtcState>(
+                buildWhen: (a, b) => a.balance != b.balance,
+                builder: (ctx, state) => TitleDetailRow(
+                  loading: state.balance.loading,
+                  name: FlutterI18n.translate(context, 'current_balance'),
+                  value: Tools.priceFormat(state.balance.value),
+                  token: 'BTC',
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class AddNewTokenCard extends StatelessWidget {
   void _showAddTokenDialog(BuildContext context) {
     showInfoDialog(
@@ -219,6 +262,28 @@ class AddNewTokenCard extends StatelessWidget {
                   SizedBox(width: s(10)),
                   Text(
                     'Datahighway DHX',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: s(16),
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Divider(color: Colors.grey),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                context.read<WalletCubit>().addBtc();
+              },
+              child: Row(
+                children: [
+                  Image.asset(Token.btc.imagePath, height: s(50)),
+                  SizedBox(width: s(10)),
+                  Text(
+                    Token.btc.fullName,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: s(16),

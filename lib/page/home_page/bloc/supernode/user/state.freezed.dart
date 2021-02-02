@@ -19,6 +19,7 @@ class _$SupernodeUserStateTearOff {
       List<dynamic> geojsonList,
       bool locationPermissionsGranted = false,
       @nullable ExternalUser weChatUser,
+      @nullable ExternalUser shopifyUser,
       Wrap<double> balance = const Wrap.pending(),
       Wrap<double> stakedAmount = const Wrap.pending(),
       Wrap<double> lockedAmount = const Wrap.pending(),
@@ -35,6 +36,7 @@ class _$SupernodeUserStateTearOff {
       geojsonList: geojsonList,
       locationPermissionsGranted: locationPermissionsGranted,
       weChatUser: weChatUser,
+      shopifyUser: shopifyUser,
       balance: balance,
       stakedAmount: stakedAmount,
       lockedAmount: lockedAmount,
@@ -62,6 +64,8 @@ mixin _$SupernodeUserState {
   bool get locationPermissionsGranted;
   @nullable
   ExternalUser get weChatUser;
+  @nullable
+  ExternalUser get shopifyUser;
   Wrap<double> get balance;
   Wrap<double> get stakedAmount;
   Wrap<double> get lockedAmount;
@@ -87,6 +91,7 @@ abstract class $SupernodeUserStateCopyWith<$Res> {
       List<dynamic> geojsonList,
       bool locationPermissionsGranted,
       @nullable ExternalUser weChatUser,
+      @nullable ExternalUser shopifyUser,
       Wrap<double> balance,
       Wrap<double> stakedAmount,
       Wrap<double> lockedAmount,
@@ -115,6 +120,7 @@ class _$SupernodeUserStateCopyWithImpl<$Res>
     Object geojsonList = freezed,
     Object locationPermissionsGranted = freezed,
     Object weChatUser = freezed,
+    Object shopifyUser = freezed,
     Object balance = freezed,
     Object stakedAmount = freezed,
     Object lockedAmount = freezed,
@@ -138,6 +144,9 @@ class _$SupernodeUserStateCopyWithImpl<$Res>
       weChatUser: weChatUser == freezed
           ? _value.weChatUser
           : weChatUser as ExternalUser,
+      shopifyUser: shopifyUser == freezed
+          ? _value.shopifyUser
+          : shopifyUser as ExternalUser,
       balance: balance == freezed ? _value.balance : balance as Wrap<double>,
       stakedAmount: stakedAmount == freezed
           ? _value.stakedAmount
@@ -183,6 +192,7 @@ abstract class _$SupernodeUserStateCopyWith<$Res>
       List<dynamic> geojsonList,
       bool locationPermissionsGranted,
       @nullable ExternalUser weChatUser,
+      @nullable ExternalUser shopifyUser,
       Wrap<double> balance,
       Wrap<double> stakedAmount,
       Wrap<double> lockedAmount,
@@ -213,6 +223,7 @@ class __$SupernodeUserStateCopyWithImpl<$Res>
     Object geojsonList = freezed,
     Object locationPermissionsGranted = freezed,
     Object weChatUser = freezed,
+    Object shopifyUser = freezed,
     Object balance = freezed,
     Object stakedAmount = freezed,
     Object lockedAmount = freezed,
@@ -236,6 +247,9 @@ class __$SupernodeUserStateCopyWithImpl<$Res>
       weChatUser: weChatUser == freezed
           ? _value.weChatUser
           : weChatUser as ExternalUser,
+      shopifyUser: shopifyUser == freezed
+          ? _value.shopifyUser
+          : shopifyUser as ExternalUser,
       balance: balance == freezed ? _value.balance : balance as Wrap<double>,
       stakedAmount: stakedAmount == freezed
           ? _value.stakedAmount
@@ -278,6 +292,7 @@ class _$_SupernodeUserState
       this.geojsonList,
       this.locationPermissionsGranted = false,
       @nullable this.weChatUser,
+      @nullable this.shopifyUser,
       this.balance = const Wrap.pending(),
       this.stakedAmount = const Wrap.pending(),
       this.lockedAmount = const Wrap.pending(),
@@ -313,6 +328,9 @@ class _$_SupernodeUserState
   @override
   @nullable
   final ExternalUser weChatUser;
+  @override
+  @nullable
+  final ExternalUser shopifyUser;
   @JsonKey(defaultValue: const Wrap.pending())
   @override
   final Wrap<double> balance;
@@ -349,7 +367,7 @@ class _$_SupernodeUserState
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SupernodeUserState(username: $username, geojsonList: $geojsonList, locationPermissionsGranted: $locationPermissionsGranted, weChatUser: $weChatUser, balance: $balance, stakedAmount: $stakedAmount, lockedAmount: $lockedAmount, gatewaysRevenue: $gatewaysRevenue, gatewaysRevenueUsd: $gatewaysRevenueUsd, devicesRevenue: $devicesRevenue, devicesRevenueUsd: $devicesRevenueUsd, totalRevenue: $totalRevenue, devicesTotal: $devicesTotal, isAdmin: $isAdmin, organizations: $organizations)';
+    return 'SupernodeUserState(username: $username, geojsonList: $geojsonList, locationPermissionsGranted: $locationPermissionsGranted, weChatUser: $weChatUser, shopifyUser: $shopifyUser, balance: $balance, stakedAmount: $stakedAmount, lockedAmount: $lockedAmount, gatewaysRevenue: $gatewaysRevenue, gatewaysRevenueUsd: $gatewaysRevenueUsd, devicesRevenue: $devicesRevenue, devicesRevenueUsd: $devicesRevenueUsd, totalRevenue: $totalRevenue, devicesTotal: $devicesTotal, isAdmin: $isAdmin, organizations: $organizations)';
   }
 
   @override
@@ -362,6 +380,7 @@ class _$_SupernodeUserState
       ..add(DiagnosticsProperty(
           'locationPermissionsGranted', locationPermissionsGranted))
       ..add(DiagnosticsProperty('weChatUser', weChatUser))
+      ..add(DiagnosticsProperty('shopifyUser', shopifyUser))
       ..add(DiagnosticsProperty('balance', balance))
       ..add(DiagnosticsProperty('stakedAmount', stakedAmount))
       ..add(DiagnosticsProperty('lockedAmount', lockedAmount))
@@ -385,14 +404,16 @@ class _$_SupernodeUserState
             (identical(other.geojsonList, geojsonList) ||
                 const DeepCollectionEquality()
                     .equals(other.geojsonList, geojsonList)) &&
-            (identical(other.locationPermissionsGranted,
-                    locationPermissionsGranted) ||
+            (identical(other.locationPermissionsGranted, locationPermissionsGranted) ||
                 const DeepCollectionEquality().equals(
                     other.locationPermissionsGranted,
                     locationPermissionsGranted)) &&
             (identical(other.weChatUser, weChatUser) ||
                 const DeepCollectionEquality()
                     .equals(other.weChatUser, weChatUser)) &&
+            (identical(other.shopifyUser, shopifyUser) ||
+                const DeepCollectionEquality()
+                    .equals(other.shopifyUser, shopifyUser)) &&
             (identical(other.balance, balance) ||
                 const DeepCollectionEquality()
                     .equals(other.balance, balance)) &&
@@ -435,6 +456,7 @@ class _$_SupernodeUserState
       const DeepCollectionEquality().hash(geojsonList) ^
       const DeepCollectionEquality().hash(locationPermissionsGranted) ^
       const DeepCollectionEquality().hash(weChatUser) ^
+      const DeepCollectionEquality().hash(shopifyUser) ^
       const DeepCollectionEquality().hash(balance) ^
       const DeepCollectionEquality().hash(stakedAmount) ^
       const DeepCollectionEquality().hash(lockedAmount) ^
@@ -458,6 +480,7 @@ abstract class _SupernodeUserState implements SupernodeUserState {
       List<dynamic> geojsonList,
       bool locationPermissionsGranted,
       @nullable ExternalUser weChatUser,
+      @nullable ExternalUser shopifyUser,
       Wrap<double> balance,
       Wrap<double> stakedAmount,
       Wrap<double> lockedAmount,
@@ -479,6 +502,9 @@ abstract class _SupernodeUserState implements SupernodeUserState {
   @override
   @nullable
   ExternalUser get weChatUser;
+  @override
+  @nullable
+  ExternalUser get shopifyUser;
   @override
   Wrap<double> get balance;
   @override

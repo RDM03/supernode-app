@@ -55,7 +55,7 @@ class MiningIncomeContent extends StatelessWidget {
                 id: stake.id,
                 startDate: stake.created,
                 durationDays: dateDiff,
-                iconColor: colorToken[Token.DHX],
+                iconColor: Token.supernodeDhx.color,
                 months: month,
                 showLockOpenIcon: showLockOpenIcon,
               );

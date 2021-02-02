@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/wallet/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/wallet/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
@@ -14,14 +15,14 @@ class TokenExpandedView extends StatefulWidget {
 }
 
 class _TokenExpandedViewState extends State<TokenExpandedView> {
-  Widget pageviewIndicator(bool isActive, WalletToken token) {
+  Widget pageviewIndicator(bool isActive, Token token) {
     return AnimatedContainer(
       duration: Duration(milliseconds: 150),
       margin: EdgeInsets.symmetric(horizontal: 3),
       height: 5,
       width: isActive ? 20 : 19,
       decoration: BoxDecoration(
-        color: isActive ? colorToken[token.toGeneralToken()] : Colors.grey,
+        color: isActive ? token : Colors.grey,
         borderRadius: BorderRadius.all(
           Radius.circular(2),
         ),
@@ -59,12 +60,12 @@ class _TokenExpandedViewState extends State<TokenExpandedView> {
             itemCount: state.displayTokens.length,
             controller: controller,
             itemBuilder: (ctx, i) {
-              if (state.displayTokens[i] == WalletToken.mxc)
+              if (state.displayTokens[i] == Token.mxc)
                 return MxcTokenPageContent(
                   key: ValueKey('mxcPage'),
                 );
 
-              if (state.displayTokens[i] == WalletToken.supernodeDhx)
+              if (state.displayTokens[i] == Token.supernodeDhx)
                 return SupernodeDhxTokenPageContent(
                   key: ValueKey('supernodeDhxPage'),
                 );

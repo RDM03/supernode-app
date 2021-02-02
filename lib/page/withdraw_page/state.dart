@@ -12,6 +12,8 @@ class WithdrawState implements Cloneable<WithdrawState> {
   bool status = false;
   bool isEnabled = false;
   double balance = 0;
+  double balanceBTC = 0;
+  String tokenName = '';
   double fee;
   bool isDemo;
 
@@ -33,6 +35,8 @@ class WithdrawState implements Cloneable<WithdrawState> {
     return WithdrawState()
       ..status = status
       ..balance = balance
+      ..balanceBTC = balanceBTC
+      ..tokenName = tokenName
       ..fee = fee
       ..isEnabled = isEnabled
       ..listCtls = listCtls
@@ -45,10 +49,14 @@ class WithdrawState implements Cloneable<WithdrawState> {
 
 WithdrawState initState(Map<String, dynamic> args) {
   double balance = args['balance'];
+  double balanceBTC = args['balanceBTC'];
+  String tokenName = args['tokenName'];
   bool isDemo = args['isDemo'] ?? false;
 
   return WithdrawState()
     ..balance = balance
+    ..balanceBTC = balanceBTC
+    ..tokenName = tokenName
     ..isDemo = isDemo;
 }
 
@@ -73,6 +81,7 @@ class ConfirmConnector extends ConnOp<WithdrawState, ConfirmState> {
     return ConfirmState()
       ..address = state.addressCtl.text
       ..amount = state.amountCtl.text
+      ..tokenName = state.tokenName
       ..confirmTime = state.confirmTime
       ..fee = state.fee.toString()
       ..isEnabled = state.isEnabled;

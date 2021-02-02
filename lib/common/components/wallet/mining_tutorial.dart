@@ -72,8 +72,10 @@ class MiningTutorial extends StatefulWidget {
                   CircleButton(
                       onTap: () => launch(
                           'https://www.matchx.io/product/m2-pro-lpwan-crypto-miner/'),
-                      icon: Icon(Icons.shopping_basket,
-                          color: colorToken[Token.DHX]),
+                      icon: Icon(
+                        Icons.shopping_basket,
+                        color: Token.supernodeDhx.color,
+                      ),
                       label: FlutterI18n.translate(ctx, "shop_miner")),
                 ],
               ),
@@ -104,7 +106,7 @@ class MiningTutorial extends StatefulWidget {
           SizedBox(height: s(10)),
           Container(
               decoration: BoxDecoration(
-                  color: colorToken[Token.DHX],
+                  color: Token.supernodeDhx.color,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
               child: Padding(
                 padding:
@@ -121,7 +123,7 @@ class MiningTutorial extends StatefulWidget {
           SizedBox(height: s(10)),
           Container(
               decoration: BoxDecoration(
-                  color: colorToken[Token.DHX],
+                  color: Token.supernodeDhx.color,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
               child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -130,7 +132,7 @@ class MiningTutorial extends StatefulWidget {
                       Stack(alignment: AlignmentDirectional.center, children: [
                     Text(FlutterI18n.translate(ctx, 'mxc_locked'),
                         style: TextStyle(
-                            color: colorToken[Token.DHX],
+                            color: Token.supernodeDhx.color,
                             fontFamily: "Roboto",
                             fontSize:
                                 14)), // invisible - sets width for Container
@@ -151,7 +153,7 @@ class MiningTutorial extends StatefulWidget {
           SizedBox(height: s(10)),
           Container(
               decoration: BoxDecoration(
-                  color: colorToken[Token.DHX],
+                  color: Token.supernodeDhx.color,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
               child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -174,7 +176,7 @@ class MiningTutorial extends StatefulWidget {
           SizedBox(height: s(10)),
           Container(
               decoration: BoxDecoration(
-                  color: colorToken[Token.DHX],
+                  color: Token.supernodeDhx.color,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
               child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -183,7 +185,7 @@ class MiningTutorial extends StatefulWidget {
                       Stack(alignment: AlignmentDirectional.center, children: [
                     Text(FlutterI18n.translate(ctx, 'm2pro_miner'),
                         style: TextStyle(
-                            color: colorToken[Token.DHX],
+                            color: Token.supernodeDhx.color,
                             fontFamily: "Roboto",
                             fontSize:
                                 14)), // invisible - sets width for Container
@@ -202,7 +204,7 @@ class MiningTutorial extends StatefulWidget {
         SizedBox(height: s(10)),
         Container(
             decoration: BoxDecoration(
-                color: colorToken[Token.DHX],
+                color: Token.supernodeDhx.color,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
             child: Padding(
                 padding:
@@ -230,7 +232,7 @@ class MiningTutorial extends StatefulWidget {
       Row(children: [
         Container(
             decoration: BoxDecoration(
-                color: colorToken[Token.DHX],
+                color: Token.supernodeDhx.color,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
             child: Padding(
               padding:
@@ -241,7 +243,7 @@ class MiningTutorial extends StatefulWidget {
         Spacer(),
         Container(
             decoration: BoxDecoration(
-                color: colorToken[Token.DHX],
+                color: Token.supernodeDhx.color,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
             child: Padding(
               padding:
@@ -254,7 +256,7 @@ class MiningTutorial extends StatefulWidget {
       Row(children: [
         Container(
             decoration: BoxDecoration(
-                color: colorToken[Token.DHX],
+                color: Token.supernodeDhx.color,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
             child: Padding(
               padding:
@@ -265,7 +267,7 @@ class MiningTutorial extends StatefulWidget {
         Spacer(),
         Container(
             decoration: BoxDecoration(
-                color: colorToken[Token.DHX],
+                color: Token.supernodeDhx.color,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
             child: Padding(
               padding:
@@ -304,7 +306,7 @@ class MiningTutorial extends StatefulWidget {
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 35),
                   decoration: BoxDecoration(
-                      color: colorToken[Token.DHX],
+                      color: Token.supernodeDhx.color,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(5),
                           bottomLeft: Radius.circular(5))),
@@ -386,7 +388,7 @@ class _MiningTutorialState extends State<MiningTutorial> {
       height: isActive ? 12 : 8,
       width: isActive ? 12 : 8,
       decoration: BoxDecoration(
-          color: isActive ? colorToken[Token.DHX] : Colors.grey,
+          color: isActive ? Token.supernodeDhx.color : Colors.grey,
           borderRadius: BorderRadius.all(Radius.circular(12))),
     );
   }

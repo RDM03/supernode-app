@@ -10,7 +10,6 @@ import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
-import 'package:supernodeapp/theme/colors.dart';
 
 import 'stake_history.dart';
 import 'transaction_history.dart';
@@ -55,7 +54,7 @@ class _MxcTokenPageContentState extends State<MxcTokenPageContent>
                   CircleButton(
                     icon: Image.asset(
                       AppImages.iconMine,
-                      color: colorToken[Token.MXC],
+                      color: Token.mxc.color,
                     ),
                   ),
                   SizedBox(
@@ -85,7 +84,7 @@ class _MxcTokenPageContentState extends State<MxcTokenPageContent>
                   CircleButton(
                     icon: Icon(
                       Icons.arrow_back,
-                      color: colorToken[Token.MXC],
+                      color: Token.mxc.color,
                     ),
                   ),
                   SizedBox(
@@ -131,7 +130,7 @@ class _MxcTokenPageContentState extends State<MxcTokenPageContent>
                 CircleButton(
                   icon: Icon(
                     Icons.add,
-                    color: colorToken[Token.MXC],
+                    color: Token.mxc.color,
                   ),
                   label: FlutterI18n.translate(context, 'deposit'),
                   onTap: () => openSupernodeDeposit(context),
@@ -142,7 +141,7 @@ class _MxcTokenPageContentState extends State<MxcTokenPageContent>
                   builder: (ctx, state) => CircleButton(
                     icon: Icon(
                       Icons.arrow_forward,
-                      color: colorToken[Token.MXC],
+                      color: Token.mxc.color,
                     ),
                     label: FlutterI18n.translate(context, 'withdraw'),
                     onTap: state.balance.loading
@@ -156,7 +155,7 @@ class _MxcTokenPageContentState extends State<MxcTokenPageContent>
                   builder: (ctx, state) => CircleButton(
                     icon: Image.asset(
                       AppImages.iconMine,
-                      color: colorToken[Token.MXC],
+                      color: Token.mxc.color,
                     ),
                     label: FlutterI18n.translate(context, 'stake'),
                     onTap: state.balance.loading
@@ -175,7 +174,7 @@ class _MxcTokenPageContentState extends State<MxcTokenPageContent>
                 groupValue: selectedTab,
                 onValueChanged: (tabIndex) =>
                     setState(() => selectedTab = tabIndex),
-                thumbColor: colorToken[Token.MXC],
+                thumbColor: Token.mxc.color,
                 children: <int, Widget>{
                   0: Text(
                     FlutterI18n.translate(context, 'transaction_history'),

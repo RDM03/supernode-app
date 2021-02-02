@@ -1,6 +1,5 @@
 import 'demo.dart';
 import '../user.dart';
-import '../user.model.dart';
 
 class DemoUserDao extends DemoDao implements UserDao {
   static const String username = 'demo user';
@@ -115,5 +114,13 @@ class DemoUserDao extends DemoDao implements UserDao {
   @override
   Future unbindExternalUser(Map data) {
     throw UnimplementedError();
+  }
+
+  Future<dynamic> verifyExternalEmail(Map data) {
+    throw UnimplementedError('binding not supported in demo');
+  }
+
+  Future<dynamic> confirmExternalEmail(Map data) {
+    throw UnimplementedError('binding not supported in demo');
   }
 }

@@ -3,7 +3,7 @@ import '../withdraw.dart';
 
 class DemoWithdrawDao extends DemoDao implements WithdrawDao {
   @override
-  Future fee() {
+  Future fee({String currency = 'ETH_MXC'}) {
     return Future.value({"withdrawFee": 0});
   }
 

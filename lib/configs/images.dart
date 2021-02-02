@@ -33,6 +33,7 @@ class AppImages {
   //wallet
   static const String logoMXC = 'assets/images/wallet/logo-mxc.png';
   static const String logoDHX = 'assets/images/wallet/logo-dhx.png';
+  static const String logoBTC = 'assets/images/wallet/logo-btc.png';
   static const String iconMine = 'assets/images/wallet/icon-mine.png';
   static const String iconCouncil = 'assets/images/wallet/icon-council.png';
   static const String infoMXCVault = 'assets/images/wallet/info-mxc-vault.png';

@@ -163,6 +163,18 @@ class ExternalUser {
 
   factory ExternalUser.fromJson(String source) =>
       ExternalUser.fromMap(json.decode(source));
+
+  ExternalUser copyWith({
+    String externalUserId,
+    String externalUsername,
+    String service,
+  }) {
+    return ExternalUser(
+      externalUserId: externalUserId ?? this.externalUserId,
+      externalUsername: externalUsername ?? this.externalUsername,
+      service: service ?? this.service,
+    );
+  }
 }
 
 class ProfileUser {

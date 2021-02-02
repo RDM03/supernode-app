@@ -22,6 +22,7 @@ class SettingsState implements Cloneable<SettingsState> {
   bool reloadProfile = false;
   bool isAdmin = false;
   bool showConfirmation = false;
+  int showBindShopifyStep = 0;
 
   List<UserOrganization> organizations = [];
   bool is2FAEnabled;
@@ -29,10 +30,12 @@ class SettingsState implements Cloneable<SettingsState> {
   //profile
   TextEditingController usernameCtl = TextEditingController();
   TextEditingController emailCtl = TextEditingController();
+  TextEditingController shopifyEmailCtl = TextEditingController();
   GlobalKey profileFormKey = GlobalKey<FormState>();
 
   // external
   ExternalUser weChatUser;
+  ExternalUser shopifyUser;
 
   //organiztion
   TextEditingController orgNameCtl = TextEditingController();
@@ -48,6 +51,7 @@ class SettingsState implements Cloneable<SettingsState> {
   String mxVersion;
 
   bool isDemo = false;
+  bool showWechatUnbindConfirmation = false;
 
   SettingsState();
 
@@ -65,8 +69,10 @@ class SettingsState implements Cloneable<SettingsState> {
       ..organizations = organizations
       ..usernameCtl = usernameCtl
       ..emailCtl = emailCtl
+      ..shopifyEmailCtl = shopifyEmailCtl
       ..profileFormKey = profileFormKey
       ..weChatUser = weChatUser
+      ..shopifyUser = shopifyUser
       ..orgFormKey = orgFormKey
       ..selectedOrgId = selectedOrgId
       ..selectedOrgName = selectedOrgName
@@ -74,7 +80,8 @@ class SettingsState implements Cloneable<SettingsState> {
       ..orgDisplayCtl = orgDisplayCtl
       ..orgListCtl = orgListCtl
       ..isDemo = isDemo
-      ..info = info;
+      ..info = info
+      ..showWechatUnbindConfirmation = showWechatUnbindConfirmation;
   }
 }
 
@@ -82,6 +89,7 @@ SettingsState initState(Map<String, dynamic> args) {
   SupernodeSession user = args['user'];
   List<UserOrganization> orgs = args['organizations'];
   ExternalUser weChatUser = args['weChatUser'];
+  ExternalUser shopifyUser = args['shopifyUser'];
   bool isDemo = args['isDemo'] ?? false;
 
   return SettingsState()
@@ -93,7 +101,8 @@ SettingsState initState(Map<String, dynamic> args) {
     ..isAdmin = orgs.length > 0 && orgs.first.isAdmin
     ..organizations = orgs
     ..isDemo = isDemo
-    ..weChatUser = weChatUser;
+    ..weChatUser = weChatUser
+    ..shopifyUser = shopifyUser;
 }
 
 class ProfileConnector extends ConnOp<SettingsState, ProfileState> {
@@ -105,10 +114,13 @@ class ProfileConnector extends ConnOp<SettingsState, ProfileState> {
       ..email = state.email
       ..reloadProfile = state.reloadProfile
       ..weChatUser = state.weChatUser
+      ..shopifyUser = state.shopifyUser
       ..isAdmin = state.isAdmin
-      ..showConfirmation = state.showConfirmation
+      ..showWechatUnbindConfirmation = state.showWechatUnbindConfirmation
+      ..showBindShopifyStep = state.showBindShopifyStep
       ..usernameCtl = state.usernameCtl
       ..emailCtl = state.emailCtl
+      ..shopifyEmailCtl = state.shopifyEmailCtl
       ..formKey = state.profileFormKey;
   }
 
@@ -118,10 +130,12 @@ class ProfileConnector extends ConnOp<SettingsState, ProfileState> {
       ..username = subState.username
       ..email = subState.email
       ..reloadProfile = subState.reloadProfile
-      ..showConfirmation = subState.showConfirmation
+      ..showWechatUnbindConfirmation = subState.showWechatUnbindConfirmation
+      ..showBindShopifyStep = subState.showBindShopifyStep
       ..usernameCtl = subState.usernameCtl
       ..weChatUser = subState.weChatUser
-      ..emailCtl = subState.emailCtl;
+      ..emailCtl = subState.emailCtl
+      ..shopifyEmailCtl = subState.shopifyEmailCtl;
   }
 }
 

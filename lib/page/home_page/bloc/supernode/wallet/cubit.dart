@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/common/repositories/cache_repository.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/wrap.dart';
 import 'package:supernodeapp/log.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
@@ -24,12 +25,18 @@ class WalletCubit extends Cubit<WalletState> {
   void addDhx() {
     homeCubit.saveCache(CacheRepository.walletDHX, true);
     emit(state.copyWith(
-      displayTokens:
-          {...state.displayTokens, WalletToken.supernodeDhx}.toList(),
+      displayTokens: {...state.displayTokens, Token.supernodeDhx}.toList(),
     ));
   }
 
-  void expandTo(WalletToken token) {
+  void addBtc() {
+    homeCubit.saveCache(CacheRepository.walletBTC, true);
+    emit(state.copyWith(
+      displayTokens: {...state.displayTokens, Token.btc}.toList(),
+    ));
+  }
+
+  void expandTo(Token token) {
     emit(state.copyWith(
       expanded: true,
       selectedToken: token,
@@ -41,7 +48,13 @@ class WalletCubit extends Cubit<WalletState> {
     final dhxUsed = data[CacheRepository.walletDHX] ?? false;
     if (dhxUsed) {
       emit(state.copyWith(
-        displayTokens: [...state.displayTokens, WalletToken.supernodeDhx],
+        displayTokens: [...state.displayTokens, Token.supernodeDhx],
+      ));
+    }
+    final btcUsed = data[CacheRepository.walletDHX] ?? false;
+    if (btcUsed) {
+      emit(state.copyWith(
+        displayTokens: [...state.displayTokens, Token.btc],
       ));
     }
     await refresh();

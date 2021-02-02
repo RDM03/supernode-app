@@ -7,12 +7,14 @@ import 'package:majascan/majascan.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/security/biometrics.dart';
+import 'package:supernodeapp/common/components/security/bitcoin_utils.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/wallet.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/withdraw.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/address_entity.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/colors.dart';
@@ -32,6 +34,8 @@ Effect<WithdrawState> buildEffect() {
     WithdrawAction.goToConfirmation: _goToConfirmation,
   });
 }
+
+const Map map2serverCurrency = {'MXC': 'ETH_MXC', 'BTC': 'BTC'};
 
 WithdrawDao _buildWithdrawDao(Context<WithdrawState> ctx) {
   return ctx.context.read<SupernodeRepository>().withdraw;
@@ -67,7 +71,7 @@ void _initState(Action action, Context<WithdrawState> ctx) async {
 Future<void> _withdrawFee(Context<WithdrawState> ctx) async {
   try {
     WithdrawDao dao = _buildWithdrawDao(ctx);
-    var res = await dao.fee();
+    var res = await dao.fee(currency: map2serverCurrency[ctx.state.tokenName]);
     mLog('WithdrawDao fee', res);
 
     if ((res as Map).containsKey('withdrawFee')) {
@@ -131,6 +135,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
       Map data = {
         "orgId": orgId,
         "amount": amount,
+        "currency": map2serverCurrency[curState.tokenName],
         "ethAddress": address,
         "availableBalance": balance,
         "otp_code": codes.join('')
@@ -199,7 +204,8 @@ Future<void> _goToConfirmation(
       tip(ctx.context, 'The field of "To" is required.');
       return;
     }
-    if (!isValidEthereumAddress(address.trim())) {
+    dynamic isValidAddress = (ctx.state.tokenName == Token.mxc.name) ? isValidEthereumAddress : Bitcoin.isValidBtcAddress;
+    if (!isValidAddress(address.trim())) {
       tip(ctx.context, FlutterI18n.translate(ctx.context, 'invalid_address'));
       return;
     }

@@ -7,6 +7,7 @@ import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/main.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/btc/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/wallet/cubit.dart';
@@ -74,6 +75,14 @@ class HomePage extends StatelessWidget {
             orgId: ctx.read<SupernodeCubit>().state.orgId,
             supernodeRepository: ctx.read<SupernodeRepository>(),
             cacheRepository: ctx.read<CacheRepository>(),
+            homeCubit: ctx.read<HomeCubit>(),
+          )..initState(),
+        ),
+        BlocProvider(
+          create: (ctx) => SupernodeBtcCubit(
+            session: ctx.read<SupernodeCubit>().state.session,
+            orgId: ctx.read<SupernodeCubit>().state.orgId,
+            supernodeRepository: ctx.read<SupernodeRepository>(),
             homeCubit: ctx.read<HomeCubit>(),
           )..initState(),
         ),

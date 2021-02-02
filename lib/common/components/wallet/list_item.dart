@@ -53,7 +53,7 @@ Widget listItem({
         title: Row(
           children: <Widget>[
             Text(
-              'MXC/ETH',
+              type?.contains('BTC') ? 'BTC': 'MXC/ETH',
               style: kBigFontOfBlack,
             ),
             smallRowSpacer(),
@@ -80,7 +80,7 @@ Widget listItem({
                 borderRadius: BorderRadius.all(Radius.circular(7)),
               ),
               child: Text(
-                '${Tools.convertDouble(amount)} MXC',
+                '${Tools.convertDouble(amount)} ${type.contains('BTC') ? 'BTC': 'MXC'}',
                 style: kBigFontOfBlack,
               ),
             ),

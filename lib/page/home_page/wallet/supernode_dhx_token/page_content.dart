@@ -79,7 +79,7 @@ class _SupernodeDhxTokenPageContentState
                     children: [
                       CircleButton(
                           icon: Image.asset(AppImages.iconMine,
-                              color: colorToken[Token.DHX])),
+                              color: Token.supernodeDhx.color)),
                       SizedBox(width: s(10)),
                       Text(
                         FlutterI18n.translate(context, 'new_mining'),
@@ -159,7 +159,7 @@ class _SupernodeDhxTokenPageContentState
                 CircleButton(
                   icon: Image.asset(
                     AppImages.iconMine,
-                    color: colorToken[Token.DHX],
+                    color: Token.supernodeDhx.color,
                   ),
                   label: FlutterI18n.translate(context, 'mine'),
                   onTap: () => _showMineDXHDialog(
@@ -174,7 +174,7 @@ class _SupernodeDhxTokenPageContentState
                                 state.stakes.value == null ||
                                 state.stakes.value.isEmpty)
                             ? Colors.grey
-                            : colorToken[Token.DHX],
+                            : Token.supernodeDhx.color,
                       ),
                       label: FlutterI18n.translate(context, 'council'),
                       onTap: () {
@@ -210,7 +210,7 @@ class _SupernodeDhxTokenPageContentState
                 groupValue: selectedTab,
                 onValueChanged: (tabIndex) =>
                     setState(() => selectedTab = tabIndex),
-                thumbColor: colorToken[Token.DHX],
+                thumbColor: Token.supernodeDhx.color,
                 children: <int, Widget>{
                   0: Text(
                     FlutterI18n.translate(context, 'mining_income'),
@@ -264,8 +264,8 @@ class DhxMiningCard extends StatelessWidget {
                           style: kSmallFontOfBlack),
                       SizedBox(height: s(5)),
                       Text('5000 DHX',
-                          style:
-                              MiddleFontOfColor(color: colorToken[Token.DHX])),
+                          style: MiddleFontOfColor(
+                              color: Token.supernodeDhx.color)),
                     ],
                   ),
                 ],
@@ -284,7 +284,7 @@ class DhxMiningCard extends StatelessWidget {
                       SizedBox(height: s(5)),
                       Container(
                         decoration: BoxDecoration(
-                            color: colorToken[Token.DHX],
+                            color: Token.supernodeDhx.color,
                             borderRadius: BorderRadius.all(Radius.circular(5))),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -322,7 +322,7 @@ class DhxMiningCard extends StatelessWidget {
                       SizedBox(height: s(5)),
                       Container(
                         decoration: BoxDecoration(
-                            color: colorToken[Token.DHX],
+                            color: Token.supernodeDhx.color,
                             borderRadius: BorderRadius.all(Radius.circular(5))),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -333,7 +333,7 @@ class DhxMiningCard extends StatelessWidget {
                               Text(
                                 FlutterI18n.translate(context, 'm2pro_miner'),
                                 style: TextStyle(
-                                  color: colorToken[Token.DHX],
+                                  color: Token.supernodeDhx.color,
                                   fontFamily: "Roboto",
                                   fontSize: 14,
                                 ),

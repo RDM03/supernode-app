@@ -1,6 +1,7 @@
 import 'package:supernodeapp/common/repositories/supernode/clients/supernode_client.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 import 'package:supernodeapp/common/utils/url.dart';
+export 'user.model.dart';
 
 import 'dao.dart';
 
@@ -36,6 +37,8 @@ class UserApi {
       "/api/external-login/register-external-user";
   static const String unbindExternalUser =
       "/api/external-login/unbind-external-user";
+  static const String confirmExternalEmail = "/api/confirm-external-email";
+  static const String verifyExternalEmail = "/api/verify-external-email";
 }
 
 class UserDao extends SupernodeDao {
@@ -139,5 +142,13 @@ class UserDao extends SupernodeDao {
 
   Future<dynamic> unbindExternalUser(Map data) {
     return post(url: UserApi.unbindExternalUser, data: data);
+  }
+
+  Future<dynamic> verifyExternalEmail(Map data) {
+    return post(url: UserApi.verifyExternalEmail, data: data);
+  }
+
+  Future<dynamic> confirmExternalEmail(Map data) {
+    return post(url: UserApi.confirmExternalEmail, data: data);
   }
 }

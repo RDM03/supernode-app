@@ -28,9 +28,10 @@ class WithdrawDao extends SupernodeDao {
     );
   }
 
-  Future<dynamic> fee() {
+  Future<dynamic> fee({String currency = 'ETH_MXC'}) {
     return get(
       url: WithdrawApi.fee,
+      data: {'currency': currency},
     ).then((res) => res);
   }
 }

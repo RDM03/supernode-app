@@ -13,6 +13,7 @@ abstract class SupernodeUserState with _$SupernodeUserState {
         geojsonList, // RETHINK.TODO If anyone can remove dynamic, please do it
     @Default(false) bool locationPermissionsGranted,
     @nullable ExternalUser weChatUser,
+    @nullable ExternalUser shopifyUser,
     @Default(Wrap.pending()) Wrap<double> balance,
     @Default(Wrap.pending()) Wrap<double> stakedAmount,
     @Default(Wrap.pending()) Wrap<double> lockedAmount,
