@@ -6,12 +6,14 @@ import 'package:supernodeapp/common/repositories/cache_repository.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
+import 'package:supernodeapp/main.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/wallet/cubit.dart';
 import 'package:supernodeapp/page/home_page/device/view.dart';
 import 'package:supernodeapp/page/home_page/gateway/view.dart';
 import 'package:supernodeapp/page/home_page/wallet/view.dart';
+import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 import 'cubit.dart';
@@ -23,7 +25,33 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      child: _HomePageContent(),
+      child: WillPopScope(
+        onWillPop: () async {
+          if (homeNavigatorKey.currentState.canPop()) {
+            homeNavigatorKey.currentState.pop();
+            return false;
+          }
+          return true;
+        },
+        child: Navigator(
+          key: homeNavigatorKey,
+          onPopPage: (route, result) {
+            return route.didPop(result);
+          },
+          onGenerateRoute: (RouteSettings settings) {
+            return MaterialPageRoute(
+              builder: (BuildContext context) {
+                return MxcApp.fishRoutes
+                    .buildPage(settings.name, settings.arguments);
+              },
+              settings: settings,
+            );
+          },
+          onGenerateInitialRoutes: (state, s) => [
+            route((ctx) => _HomePageContent()),
+          ],
+        ),
+      ),
       providers: [
         BlocProvider(
           create: (ctx) => HomeCubit(

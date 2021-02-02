@@ -139,21 +139,23 @@ class _LoginPageContentState extends State<_LoginPageContent> {
         BlocListener<LoginCubit, LoginState>(
           listenWhen: (a, b) => a.result != b.result,
           listener: (ctx, state) async {
+            if (state.result == null) return;
             switch (state.result) {
               case LoginResult.home:
-                Navigator.of(context)
+                await Navigator.of(context)
                     .pushAndRemoveUntil(route((c) => HomePage()), (_) => false);
                 break;
               case LoginResult.resetPassword:
-                Navigator.of(context).pushNamed("forgot_password_page");
+                await Navigator.of(context).pushNamed("forgot_password_page");
                 break;
               case LoginResult.wechat:
-                Navigator.of(context).pushNamed("wechat_login_page");
+                await Navigator.of(context).pushNamed("wechat_login_page");
                 break;
               case LoginResult.signUp:
-                Navigator.of(context).pushNamed("sign_up_page");
+                await Navigator.of(context).pushNamed("sign_up_page");
                 break;
             }
+            state.copyWith(result: null);
           },
         ),
       ],

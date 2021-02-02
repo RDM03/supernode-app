@@ -13,8 +13,8 @@ import 'package:supernodeapp/common/components/text_field/primary_text_field.dar
 import 'package:supernodeapp/common/repositories/jira_repository.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/jira_dao.dart';
 import 'package:supernodeapp/common/repositories/storage_repository.dart';
-import 'package:supernodeapp/main.dart';
 import 'package:supernodeapp/page/feedback_page/feedback_result.dart';
+import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class DatadashFeedbackWidgetForm extends StatefulWidget {

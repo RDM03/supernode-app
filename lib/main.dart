@@ -181,10 +181,8 @@ Future<void> main() async {
   // );
 }
 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
 class MxcApp extends StatelessWidget {
-  final AbstractRoutes routes = PageRoutes(
+  static final AbstractRoutes fishRoutes = PageRoutes(
     pages: <String, Page<Object, dynamic>>{
       // THESE ARE ONLY FISH REDUX PAGES.
 
@@ -230,7 +228,7 @@ class MxcApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DatadashFeedback(
       child: MaterialApp(
-        navigatorKey: navigatorKey,
+        navigatorKey: rootNavigatorKey,
         localizationsDelegates: [
           FlutterI18nDelegate(
             translationLoader: FileTranslationLoader(
@@ -268,6 +266,7 @@ class MxcApp extends StatelessWidget {
             ScreenUtil.instance
                 .init(Config.BLUE_PRINT_WIDTH, Config.BLUE_PRINT_HEIGHT, ctx);
             return BlocListener<AppCubit, AppState>(
+              listenWhen: (a, b) => a.showLoading != b.showLoading,
               listener: (context, state) {
                 if (!state.showLoading && Navigator.of(context).canPop()) {
                   Navigator.of(context).pop();
@@ -291,22 +290,36 @@ class MxcApp extends StatelessWidget {
                   );
                 }
               },
-              child: Navigator(
-                onPopPage: (route, result) => route.didPop(result),
-                onGenerateRoute: (RouteSettings settings) {
-                  return MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return routes.buildPage(
-                          settings.name, settings.arguments);
-                    },
-                    settings: settings,
-                  );
+              child: WillPopScope(
+                onWillPop: () async {
+                  if (homeNavigatorKey.currentState?.canPop() ?? false) {
+                    homeNavigatorKey.currentState.maybePop();
+                    return false;
+                  }
+                  if (navigatorKey.currentState.canPop()) {
+                    navigatorKey.currentState.maybePop();
+                    return false;
+                  }
+                  return true;
                 },
-                onGenerateInitialRoutes: (state, s) => [
-                  context.read<SupernodeCubit>().state.session == null
-                      ? route((ctx) => LoginPage())
-                      : route((ctx) => HomePage()),
-                ],
+                child: Navigator(
+                  key: navigatorKey,
+                  onPopPage: (route, result) => route.didPop(result),
+                  onGenerateRoute: (RouteSettings settings) {
+                    return MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return fishRoutes.buildPage(
+                            settings.name, settings.arguments);
+                      },
+                      settings: settings,
+                    );
+                  },
+                  onGenerateInitialRoutes: (state, s) => [
+                    context.read<SupernodeCubit>().state.session == null
+                        ? route((ctx) => LoginPage())
+                        : route((ctx) => HomePage()),
+                  ],
+                ),
               ),
             );
           },

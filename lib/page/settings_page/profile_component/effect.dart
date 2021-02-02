@@ -79,7 +79,7 @@ void _onUnbind(Action action, Context<ProfileState> ctx) async {
 
   dao.unbindExternalUser(data).then((res) {
     loading.hide();
-    // TODO ctx.context.read<SupernodeUserCubit>().removeWeChatUser();
+    ctx.context.read<SupernodeUserCubit>().removeWeChatUser();
     ctx.dispatch(ProfileActionCreator.unbind());
   }).catchError((err) {
     loading.hide();

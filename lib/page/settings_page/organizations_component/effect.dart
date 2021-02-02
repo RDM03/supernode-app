@@ -78,7 +78,7 @@ void _updateData(Context<OrganizationsState> ctx) async {
 
   dao.update(data).then((res) async {
     mLog('update', res);
-    // TODO await ctx.context.read<SupernodeUserCubit>().refreshUser();
+    await ctx.context.read<SupernodeUserCubit>().refreshUser();
     loading.hide();
 
     tip(ctx.context, FlutterI18n.translate(ctx.context, 'update_success'),
