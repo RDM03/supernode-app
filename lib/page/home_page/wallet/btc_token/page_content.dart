@@ -70,7 +70,7 @@ class _BtcTokenPageContentState extends State<BtcTokenPageContent>
               ),
             ),
           ),
-          TransactionsHistoryContent()
+          TransactionsHistoryContent(),
         ],
       ),
     );

@@ -38,6 +38,7 @@ class SupernodeBtcCubit extends Cubit<SupernodeBtcState> {
   Future<void> refresh() async {
     await Future.wait([
       refreshBalance(),
+      refreshWithdraws(),
     ]);
   }
 
@@ -55,6 +56,23 @@ class SupernodeBtcCubit extends Cubit<SupernodeBtcState> {
     } catch (e, s) {
       logger.e('refresh error', e, s);
       emit(state.copyWith(balance: state.balance.withError(e)));
+    }
+  }
+
+  Future<void> refreshWithdraws() async {
+    emit(state.copyWith(withdraws: state.withdraws.withLoading()));
+    try {
+      final data = {
+        'orgId': orgId,
+        'from': DateTime(2000).toUtc().toIso8601String(),
+        'till': DateTime.now().toUtc().add(Duration(days: 1)).toIso8601String(),
+        'currency': 'BTC',
+      };
+      var history = await supernodeRepository.withdraw.history(data);
+      emit(state.copyWith(withdraws: Wrap(history)));
+    } catch (e, s) {
+      logger.e('refresh error', e, s);
+      emit(state.copyWith(withdraws: state.withdraws.withError(e)));
     }
   }
 }

@@ -11,11 +11,11 @@ import 'package:supernodeapp/common/components/wallet/date_buttons.dart';
 import 'package:supernodeapp/common/components/wallet/list_item.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/topup.model.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/withdraw.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/wallet/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/wallet/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 
 class TransactionHistoryContent extends StatefulWidget {
   @override
@@ -158,6 +158,7 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
                               return WithdrawListItem(
                                 key: ValueKey('walletItem_$i'),
                                 entity: list[i],
+                                token: Token.mxc,
                               );
                             }
                             return Container();
@@ -171,69 +172,6 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
           ],
         );
       },
-    );
-  }
-}
-
-class TopupListItem extends StatelessWidget {
-  final TopupEntity entity;
-
-  const TopupListItem({Key key, this.entity}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    String followText;
-    TextStyle followStyle;
-    if (entity.amountDouble > 0) {
-      followText = '(' + FlutterI18n.translate(context, 'deposit') + ')';
-      followStyle = kSmallFontOfGreen;
-    }
-    if (entity.amountDouble < 0) {
-      followText = '(' + FlutterI18n.translate(context, 'withdraw') + ')';
-      followStyle = kSmallFontOfRed;
-    }
-    return listItem(
-      context: context,
-      amount: entity.amountDouble,
-      datetime: entity.timestamp.toIso8601String(),
-      txHashAddress: entity.txHash,
-      followText: followText,
-      followStyle: followStyle,
-      status: FlutterI18n.translate(context, 'completed'),
-    );
-  }
-}
-
-class WithdrawListItem extends StatelessWidget {
-  final WithdrawHistoryEntity entity;
-
-  const WithdrawListItem({Key key, this.entity}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    String followText;
-    TextStyle followStyle;
-    if (entity.amountDouble > 0) {
-      followText = '(' + FlutterI18n.translate(context, 'deposit') + ')';
-      followStyle = kSmallFontOfGreen;
-    }
-
-    if (entity.amountDouble < 0) {
-      followText = '(' + FlutterI18n.translate(context, 'withdraw') + ')';
-      followStyle = kSmallFontOfRed;
-    }
-
-    return listItem(
-      context: context,
-      amount: entity.amountDouble,
-      //fee: entity.withdrawFee,
-      datetime: entity.timestamp.toIso8601String(),
-      txHashAddress: entity.txHash,
-      followText: followText,
-      followStyle: followStyle,
-      status: entity.txStatus != null
-          ? FlutterI18n.translate(context, entity.txStatus)
-          : FlutterI18n.translate(context, 'completed'),
     );
   }
 }
