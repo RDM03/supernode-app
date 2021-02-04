@@ -146,7 +146,7 @@ class _MxcTokenPageContentState extends State<MxcTokenPageContent>
                     label: FlutterI18n.translate(context, 'withdraw'),
                     onTap: state.balance.loading
                         ? null
-                        : () => openSupernodeWithdraw(context),
+                        : () => openSupernodeWithdraw(context, Token.mxc),
                   ),
                 ),
                 Spacer(),

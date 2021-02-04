@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/circle_button.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/btc/cubit.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/btc/state.dart';
+import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
 import 'transactions_history.dart';
 import 'package:supernodeapp/theme/spacing.dart';
@@ -33,13 +37,18 @@ class _BtcTokenPageContentState extends State<BtcTokenPageContent>
             child: Row(
               children: [
                 Spacer(),
-                CircleButton(
-                  icon: Icon(
-                    Icons.arrow_forward,
-                    color: Colors.grey,
+                BlocBuilder<SupernodeBtcCubit, SupernodeBtcState>(
+                  buildWhen: (a, b) => a.balance != b.balance,
+                  builder: (ctx, state) => CircleButton(
+                    icon: Icon(
+                      Icons.arrow_forward,
+                      color: Token.btc.color,
+                    ),
+                    label: FlutterI18n.translate(context, 'withdraw'),
+                    onTap: state.balance.loading
+                        ? null
+                        : () => openSupernodeWithdraw(context, Token.btc),
                   ),
-                  label: FlutterI18n.translate(context, 'withdraw'),
-                  onTap: () {},
                 ),
                 Spacer(),
               ],

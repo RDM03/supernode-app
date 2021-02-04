@@ -13,6 +13,7 @@ import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/profile.dart';
 import 'package:supernodeapp/common/components/summary_row.dart';
 import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
@@ -143,7 +144,7 @@ class UserTab extends StatelessWidget {
                     buttonTitle: FlutterI18n.translate(context, 'withdraw'),
                     onTap: state.balance.loading
                         ? null
-                        : () => openSupernodeWithdraw(context),
+                        : () => openSupernodeWithdraw(context, Token.mxc),
                   ),
                 ),
                 Spacer(),

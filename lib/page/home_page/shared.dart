@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/btc/cubit.dart';
 import 'bloc/supernode/user/cubit.dart';
 
 Future<void> openSettings(BuildContext context) async {
@@ -34,14 +36,17 @@ Future<void> openSupernodeDeposit(BuildContext context) async {
   context.read<SupernodeUserCubit>().refreshBalance();
 }
 
-Future<void> openSupernodeWithdraw(BuildContext context) async {
+Future<void> openSupernodeWithdraw(BuildContext context, Token token) async {
   final balance = context.read<SupernodeUserCubit>().state.balance;
+  final balanceBTC = context.read<SupernodeBtcCubit>().state.balance;
   final isDemo = context.read<AppCubit>().state.isDemo;
   await Navigator.of(context).pushNamed(
     'withdraw_page',
     arguments: {
       'balance': balance.value,
+      'balanceBTC': balanceBTC.value,
       'isDemo': isDemo,
+      'tokenName': token.name,
     },
   );
   context.read<SupernodeUserCubit>().refreshBalance();
