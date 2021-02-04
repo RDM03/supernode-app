@@ -1,13 +1,9 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:package_info/package_info.dart';
-import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/page/feedback_page/feedback.dart';
-import 'package:supernodeapp/page/login_page/view.dart';
-import 'package:supernodeapp/route.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -46,18 +42,19 @@ void _onSetScreenshot(Action action, Context<SettingsState> ctx) async {
 }
 
 void _onSettings(Action action, Context<SettingsState> ctx) async {
-  String page = action.payload;
+  SettingsOption option = action.payload;
 
-  if (page == 'logout') {
+  if (option == SettingsOption.logout) {
     await logOut(ctx.context);
     return;
   }
 
-  if (page == 'address_book') {
+  if (option == SettingsOption.address_book) {
     Navigator.of(ctx.context).pushNamed('address_book_page');
     return;
   }
 
+  String page = option.label;
   Navigator.push(
     ctx.context,
     MaterialPageRoute(

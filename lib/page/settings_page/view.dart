@@ -2,13 +2,10 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
-import 'package:supernodeapp/common/components/profile.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
-import 'package:supernodeapp/page/feedback_page/feedback.dart';
-import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -18,26 +15,15 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
-            ),
-            onPressed: () => {
-                  Navigator.of(viewService.context).pop({
-                    'username': state.username,
-                    'email': state.email,
-                    'reloadProfile': state.reloadProfile
-                  })
-                }),
-        backgroundColor: backgroundColor,
-        elevation: 0,
-        title: Text(
-          FlutterI18n.translate(_ctx, 'settings'),
-          style: kBigFontOfBlack,
-        ),
-      ),
+      appBar: AppBars.backArrowAppBar(
+          title: FlutterI18n.translate(_ctx, 'settings'),
+          onPress: () => {
+                Navigator.of(viewService.context).pop({
+                  'username': state.username,
+                  'email': state.email,
+                  'reloadProfile': state.reloadProfile
+                })
+              }),
       body: WillPopScope(
           onWillPop: () async {
             Navigator.pop(_ctx, {
@@ -49,82 +35,64 @@ Widget buildView(
           },
           child: PageBody(children: [
             PanelFrame(
-              child: ProfileRow(
-                name: state.username,
-                position:
-                    state.isAdmin ? FlutterI18n.translate(_ctx, 'admin') : '',
-                trailing: state.isDemo
-                    ? Icon(Icons.do_not_disturb_alt)
-                    : Icon(Icons.chevron_right),
-                onTap: state.isDemo
-                    ? null
-                    : () =>
-                        dispatch(SettingsActionCreator.onSettings('profile')),
-              ),
-            ),
-            PanelFrame(
                 child: Column(
               children: <Widget>[
-                listItem(FlutterI18n.translate(_ctx, 'organization_setting'),
+                listItem(
+                    FlutterI18n.translate(
+                        _ctx, SettingsOption.manage_account.label),
                     trailing:
                         state.isDemo ? Icon(Icons.do_not_disturb_alt) : null,
                     onTap: state.isDemo
                         ? null
-                        : () => dispatch(
-                            SettingsActionCreator.onSettings('organization'))),
-                Divider(),
-                listItem(FlutterI18n.translate(_ctx, 'security_setting'),
-                    trailing:
-                        state.isDemo ? Icon(Icons.do_not_disturb_alt) : null,
-                    onTap: state.isDemo
-                        ? null
-                        : () => dispatch(
-                            SettingsActionCreator.onSettings('security'))),
+                        : () => dispatch(SettingsActionCreator.onSettings(
+                            SettingsOption.manage_account))),
                 Divider(),
                 listItem(
-                  FlutterI18n.translate(_ctx, 'address_book'),
-                  onTap: () => dispatch(
-                      SettingsActionCreator.onSettings('address_book')),
+                    FlutterI18n.translate(
+                        _ctx, SettingsOption.app_settings.label),
+                    trailing:
+                        state.isDemo ? Icon(Icons.do_not_disturb_alt) : null,
+                    onTap: state.isDemo
+                        ? null
+                        : () => dispatch(SettingsActionCreator.onSettings(
+                            SettingsOption.app_settings))),
+                Divider(),
+                listItem(
+                  FlutterI18n.translate(
+                      _ctx, SettingsOption.address_book.label),
+                  onTap: () => dispatch(SettingsActionCreator.onSettings(
+                      SettingsOption.address_book)),
                   key: ValueKey('addressBookItem'),
                 ),
                 Divider(),
-                // listItem(
-                //   FlutterI18n.translate(_ctx,'notification'),
-                //   trailing: CupertinoSwitch(
-                //     activeColor: selectedColor,
-                //     value: state.notification,
-                //     onChanged: (_) => dispatch(SettingsActionCreator.onSettings('notification'))
-                //   )
-                // ),
-                // Divider(),
-                listItem(FlutterI18n.translate(_ctx, 'language'),
-                    onTap: () =>
-                        dispatch(SettingsActionCreator.onSettings('language'))),
-                Divider(),
-                listItem(FlutterI18n.translate(_ctx, 'about'),
-                    onTap: () =>
-                        dispatch(SettingsActionCreator.onSettings('about'))),
+                listItem(
+                    FlutterI18n.translate(_ctx, SettingsOption.about.label),
+                    onTap: () => dispatch(SettingsActionCreator.onSettings(
+                        SettingsOption.about))),
                 Divider(),
                 listItem(FlutterI18n.translate(_ctx, 'connect_with_us'),
-                    onTap: () =>
-                        dispatch(SettingsActionCreator.onSettings('links'))),
+                    onTap: () => dispatch(SettingsActionCreator.onSettings(
+                        SettingsOption.links))),
                 Divider(),
                 listItem(
-                  FlutterI18n.translate(_ctx, 'screenshot'),
-                  trailing: Switch(
-                    activeColor: Color(0xFF1C1478),
-                    value: DatadashFeedback.of(_ctx).showScreenshot,
-                    onChanged: (v) =>
-                        dispatch(SettingsActionCreator.onSetScreenshot(v)),
-                  ),
-                ),
+                    FlutterI18n.translate(_ctx, SettingsOption.rate_app.label),
+                    onTap: () => dispatch(SettingsActionCreator.onSettings(
+                        SettingsOption.rate_app))),
                 Divider(),
-                listItem(FlutterI18n.translate(_ctx, 'logout'),
+                listItem(
+                    FlutterI18n.translate(
+                        _ctx, SettingsOption.export_mining_data.label),
+                    onTap: () => dispatch(SettingsActionCreator.onSettings(
+                        SettingsOption.export_mining_data))),
+                Divider(),
+                listItem(
+                    FlutterI18n.translate(_ctx, SettingsOption.logout.label),
                     key: Key('logout'),
                     trailing: Text(''),
-                    onTap: () =>
-                        dispatch(SettingsActionCreator.onSettings('logout'))),
+                    onTap: () => dispatch(SettingsActionCreator.onSettings(
+                        SettingsOption.logout))),
               ],
-            ))
+            )),
+            SizedBox(height: 15)
           ])));
 }

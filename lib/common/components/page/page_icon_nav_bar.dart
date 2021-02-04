@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/theme/font.dart';
 
 Widget pageIconNavBar(
     {Widget title,

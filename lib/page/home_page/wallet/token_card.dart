@@ -9,7 +9,6 @@ import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
-import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/btc/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/btc/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
@@ -260,7 +259,7 @@ class AddNewTokenCard extends StatelessWidget {
                   behavior: HitTestBehavior.opaque,
                   child: Row(
                     children: [
-                      Image.asset(AppImages.logoDHX, height: s(50)),
+                      Image.asset(Token.supernodeDhx.imagePath, height: s(50)),
                       SizedBox(width: s(10)),
                       Text(
                         'Datahighway DHX',

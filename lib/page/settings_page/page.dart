@@ -1,4 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:supernodeapp/page/settings_page/account_component/component.dart';
 import 'package:supernodeapp/page/settings_page/links_component/component.dart';
 
 import 'about_component/component.dart';
@@ -21,6 +22,7 @@ class SettingsPage extends Page<SettingsState, Map<String, dynamic>> {
           dependencies: Dependencies<SettingsState>(
             adapter: null,
             slots: <String, Dependent<SettingsState>>{
+              'manage_account': AccountConnector() + AccountComponent(),
               'profile': ProfileConnector() + ProfileComponent(),
               'organization':
                   OrganizationConnector() + OrganizationsComponent(),
