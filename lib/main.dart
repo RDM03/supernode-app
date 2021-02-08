@@ -26,7 +26,7 @@ import 'package:supernodeapp/page/calculator_page/page.dart';
 import 'package:supernodeapp/page/connectivity_lost_page/page.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
 import 'package:supernodeapp/page/gateway_profile_page/page.dart';
-import 'package:supernodeapp/page/home_page/view.dart';
+import 'package:supernodeapp/page/home_page/home_page.dart';
 import 'package:supernodeapp/page/list_councils/page.dart';
 import 'package:supernodeapp/page/login_page/view.dart';
 import 'package:supernodeapp/page/mapbox_gl_page/page.dart';
@@ -36,7 +36,6 @@ import 'package:supernodeapp/page/lock_page/confirm_lock_page/page.dart';
 import 'package:supernodeapp/page/lock_page/page.dart';
 import 'package:supernodeapp/page/lock_page/prepare_lock_page/page.dart';
 import 'package:supernodeapp/page/lock_page/result_lock_page/page.dart';
-import 'package:supernodeapp/page/settings_page/page.dart';
 import 'package:supernodeapp/page/sign_up_page/page.dart';
 import 'package:supernodeapp/page/stake_page/confirm_stake_page/page.dart';
 import 'package:supernodeapp/page/stake_page/details_stake_page/page.dart';
@@ -216,7 +215,6 @@ class MxcApp extends StatelessWidget {
       'join_council_page': JoinCouncilPage(),
       'confirm_lock_page': ConfirmLockPage(),
       'result_lock_page': ResultLockPage(),
-      'settings_page': SettingsPage(),
       'gateway_profile_page': GatewayProfilePage(),
       'mapbox_gl_page': MapboxGlPage(),
       'wechat_login_page': WechatLoginPage(),

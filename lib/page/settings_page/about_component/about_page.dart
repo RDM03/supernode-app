@@ -1,5 +1,5 @@
-import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
@@ -8,25 +8,24 @@ import 'package:supernodeapp/common/components/settings/list_item.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
+import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
-import 'action.dart';
-import 'state.dart';
-
-Widget buildView(AboutState state, Dispatch dispatch, ViewService viewService) {
-  final _ctx = viewService.context;
-
+class AboutPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
   return Stack(
     children: <Widget>[
       pageFrame(
-        context: viewService.context,
+        context: context,
         padding: EdgeInsets.zero,
         children: [
           pageNavBar(
-            FlutterI18n.translate(_ctx, 'about'),
+            FlutterI18n.translate(context, 'about'),
             padding: const EdgeInsets.all(20),
-            onTap: () => Navigator.of(viewService.context).pop(),
+            onTap: () => Navigator.of(context).pop(),
           ),
           Container(
             alignment: Alignment.center,
@@ -35,38 +34,42 @@ Widget buildView(AboutState state, Dispatch dispatch, ViewService viewService) {
           ),
           Divider(),
           listItem(
-            FlutterI18n.translate(_ctx, 'impressum'),
+            FlutterI18n.translate(context, 'impressum'),
             onTap: () => Tools.launchURL(Sys.impressum),
           ),
           Divider(),
           listItem(
-            FlutterI18n.translate(_ctx, 'privacy_policy'),
+            FlutterI18n.translate(context, 'privacy_policy'),
             onTap: () => Tools.launchURL(Sys.privacyPolicy),
           ),
           Divider(),
           listItem(
-            FlutterI18n.translate(_ctx, 'version'),
-            onTap: () => dispatch(AboutActionCreator.onCheckForUpdate()),
+            FlutterI18n.translate(context, 'version'),
+            onTap: () => context.read<SettingsCubit>().checkForUpdate(context),
             trailing: Container(
               padding: kInnerRowRight10,
-              child: Text(
-                state.info?.version == null
-                    ? FlutterI18n.translate(_ctx, 'loading')
-                    : '${state.info.version} (${state.info.buildNumber})',
-                style: kMiddleFontOfGrey,
+              child: BlocBuilder<SettingsCubit, SettingsState> (
+                  buildWhen: (a,b) => a.info != b.info,
+                  builder: (ctx, s) => Text(s.info?.version == null
+                      ? FlutterI18n.translate(context, 'loading')
+                      : '${s.info.version} (${s.info.buildNumber})',
+                  style: kMiddleFontOfGrey,
+                ),
               ),
             ),
           ),
           Divider(),
           listItem(
-            FlutterI18n.translate(_ctx, 'mxversion'),
+            FlutterI18n.translate(context, 'mxversion'),
             trailing: Container(
               padding: kInnerRowRight10,
-              child: Text(
-                state.mxVersion == null
-                    ? FlutterI18n.translate(_ctx, 'loading')
-                    : state.mxVersion,
-                style: kMiddleFontOfGrey,
+              child: BlocBuilder<SettingsCubit, SettingsState> (
+                buildWhen: (a,b) => a.mxVersion != b.mxVersion,
+                builder: (ctx, s) => Text(s.mxVersion == null
+                      ? FlutterI18n.translate(context, 'loading')
+                      : s.mxVersion,
+                  style: kMiddleFontOfGrey,
+                ),
               ),
             ),
           ),
@@ -79,10 +82,13 @@ Widget buildView(AboutState state, Dispatch dispatch, ViewService viewService) {
         bottom: 30,
         child: Center(
           child: subtitle(
-            '© 2020 ${FlutterI18n.translate(_ctx, 'foundation')}. ${FlutterI18n.translate(_ctx, 'all_rights')}',
+            '© 2020 ${FlutterI18n.translate(
+                context, 'foundation')}. ${FlutterI18n.translate(
+                context, 'all_rights')}',
           ),
         ),
       )
     ],
   );
+}
 }

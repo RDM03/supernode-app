@@ -3,22 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/btc/cubit.dart';
+import 'package:supernodeapp/page/settings_page/settings_page.dart';
+import '../../route.dart';
 import 'bloc/supernode/user/cubit.dart';
 
-Future<void> openSettings(BuildContext context) async {
+void openSettings(BuildContext context) async {
   if (context.read<SupernodeUserCubit>().state.organizations.loading) return;
-  return Navigator.pushNamed(
-    context,
-    'settings_page',
-    arguments: {
-      'user': context.read<SupernodeCubit>().state.session,
-      'isDemo': context.read<AppCubit>().state.isDemo,
-      'organizations':
-          context.read<SupernodeUserCubit>().state.organizations.value,
-      'weChatUser': context.read<SupernodeUserCubit>().state.weChatUser,
-      'shopifyUser': context.read<SupernodeUserCubit>().state.shopifyUser,
-    },
-  );
+  Navigator.push(context, route((context) => SettingsPage()));
 }
 
 Future<void> openSupernodeDeposit(BuildContext context) async {
