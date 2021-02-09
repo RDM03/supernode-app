@@ -45,7 +45,6 @@ class _DeviceTabState extends State<DeviceTab> {
       context: context,
       builder: (BuildContext context) => FullScreenDialog(
         child: IosStyleBottomDialog(
-          context: context,
           blueActionIndex: 0,
           list: buttonsList,
           onItemClickListener: (index) {},
