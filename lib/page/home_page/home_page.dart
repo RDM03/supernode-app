@@ -14,6 +14,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/wallet/cubit.dart';
 import 'package:supernodeapp/page/home_page/device/view.dart';
 import 'package:supernodeapp/page/home_page/gateway/view.dart';
 import 'package:supernodeapp/page/home_page/wallet/view.dart';
+import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
@@ -58,6 +59,11 @@ class HomePage extends StatelessWidget {
           create: (ctx) => HomeCubit(
             username: ctx.read<SupernodeCubit>().state.session.username,
             cacheRepository: ctx.read<CacheRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (ctx) => SettingsCubit(
+            supernodeRepository: ctx.read<SupernodeRepository>(),
           ),
         ),
         BlocProvider(
