@@ -149,16 +149,7 @@ class SupernodeDhxTokenCard extends StatelessWidget {
                   loading: state.balance.loading,
                   name: FlutterI18n.translate(context, 'locked_amount'),
                   value: Tools.priceFormat(state.balance.value),
-                  token: 'DHX',
-                ),
-              ),
-              BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-                buildWhen: (a, b) => a.lockedAmount != b.lockedAmount,
-                builder: (ctx, state) => TitleDetailRow(
-                  loading: state.lockedAmount.loading,
-                  name: FlutterI18n.translate(context, 'locked_amount'),
-                  value: Tools.priceFormat(state.lockedAmount.value),
-                  token: 'DHX',
+                  token: 'MXC',
                 ),
               ),
               TitleDetailRow(
