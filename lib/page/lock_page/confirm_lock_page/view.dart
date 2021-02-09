@@ -257,8 +257,7 @@ void _showInfoDialog(BuildContext context) {
   showInfoDialog(
     context,
     IosStyleBottomDialog2(
-      context: context,
-      child: Column(
+      builder: (context) => Column(
         children: [
           Image.asset(
             AppImages.gateways,

@@ -233,10 +233,7 @@ class AddNewTokenCard extends StatelessWidget {
   void _showAddTokenDialog(BuildContext context) {
     showInfoDialog(
       context,
-      Builder(
-        builder: (ctx) => IosStyleBottomDialog2(
-          context: context,
-          child: Builder(
+      IosStyleBottomDialog2(
         builder: (ctx) => Column(
           children: [
             Padding(

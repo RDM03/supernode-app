@@ -215,8 +215,7 @@ void _showInfoDialog(BuildContext context) {
   showInfoDialog(
     context,
     IosStyleBottomDialog2(
-        context: context,
-        child: Column(
+      builder: (context) => Column(
         children: [
           Container(
             height: 80,
@@ -247,7 +246,8 @@ void _showInfoDialog(BuildContext context) {
                 textAlign: TextAlign.center,
               )),
         ],
-        )),
+      ),
+    ),
   );
 }
 

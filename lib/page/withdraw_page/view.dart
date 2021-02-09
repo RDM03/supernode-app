@@ -145,15 +145,13 @@ void _showInfoDialog(BuildContext context) {
   showInfoDialog(
     context,
     IosStyleBottomDialog2(
-          context: context,
-          child: Column(
+      builder: (context) => Column(
         children: [
           Image.asset(AppImages.infoCurrentTransactionFee, height: s(80)),
           Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Text(
-                    FlutterI18n.translate(
-                        context, 'info_current_transaction_fee'),
+                FlutterI18n.translate(context, 'info_current_transaction_fee'),
                 key: ValueKey('helpText'),
                 style: TextStyle(
                   color: Colors.black,
@@ -163,5 +161,7 @@ void _showInfoDialog(BuildContext context) {
                 textAlign: TextAlign.center,
               )),
         ],
-          )));
+      ),
+    ),
+  );
 }

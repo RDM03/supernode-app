@@ -150,15 +150,16 @@ void _registerReseller(
 
     if (res.containsKey('status')) {
       showInfoDialog(
-          ctx.context,
-          IosStyleBottomDialog2(
-              context: ctx.context,
-              child: Text(
-                  FlutterI18n.translate(
-                          ctx.context, 'register_reseller_success')
-                  .replaceFirst('{0}', manufacturerNr),
-              style: kBigFontOfBlack,
-                  textAlign: TextAlign.center)));
+        ctx.context,
+        IosStyleBottomDialog2(
+          builder: (context) => Text(
+            FlutterI18n.translate(ctx.context, 'register_reseller_success')
+                .replaceFirst('{0}', manufacturerNr),
+            style: kBigFontOfBlack,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
       ctx.state.serialNumberCtl.text = "";
     }
   }).catchError((err) {

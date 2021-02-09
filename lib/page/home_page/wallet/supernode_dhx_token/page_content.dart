@@ -40,8 +40,6 @@ class _SupernodeDhxTokenPageContentState
     showInfoDialog(
       context,
       IosStyleBottomDialog2(
-        context: context,
-        child: Builder(
         builder: (ctx) => Column(
           children: [
             Padding(

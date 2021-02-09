@@ -28,8 +28,7 @@ class _MxcTokenPageContentState extends State<MxcTokenPageContent>
     showInfoDialog(
       context,
       IosStyleBottomDialog2(
-        context: context,
-        child: Column(
+        builder: (context) => Column(
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12),
