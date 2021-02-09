@@ -7,19 +7,26 @@ import 'state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit({
     @required this.cacheRepository,
-    @required this.username,
-  }) : super(HomeState(tabIndex: 0));
+    @required this.supernodeUsername,
+    @required bool supernodeUsed = false,
+    @required bool parachainUsed = false,
+  }) : super(HomeState(
+          tabIndex: 0,
+          supernodeUsed: supernodeUsed,
+          parachainUsed: parachainUsed,
+        ));
 
   final CacheRepository cacheRepository;
-  final String username;
+  final String supernodeUsername;
 
   void changeTab(int tab) => emit(state.copyWith(tabIndex: tab));
 
-  void saveCache(String key, dynamic value, {String userKey}) {
-    cacheRepository.saveUserData(userKey ?? 'user_$username', {key: value});
+  void saveSNCache(String key, dynamic value, {String userKey}) {
+    cacheRepository
+        .saveUserData(userKey ?? 'user_$supernodeUsername', {key: value});
   }
 
-  Map<String, dynamic> loadCache([String key]) {
-    return cacheRepository.loadUserData(key ?? 'user_$username') ?? {};
+  Map<String, dynamic> loadSNCache([String key]) {
+    return cacheRepository.loadUserData(key ?? 'user_$supernodeUsername') ?? {};
   }
 }

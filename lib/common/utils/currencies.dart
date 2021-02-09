@@ -4,13 +4,15 @@ import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 enum CurrencyType { fiat, crypto }
-enum Token { mxc, supernodeDhx, btc }
+enum Token { mxc, supernodeDhx, parachainDhx, btc }
 
 extension TokenExtension on Token {
   String get fullName {
     switch (this) {
       case Token.supernodeDhx:
-        return 'Datahighway DHX';
+        return 'DataHighway DHX';
+      case Token.parachainDhx:
+        return 'DataHighway DHX';
       case Token.mxc:
         return 'MXC';
       case Token.btc:
@@ -22,6 +24,8 @@ extension TokenExtension on Token {
   String get name {
     switch (this) {
       case Token.supernodeDhx:
+        return 'DHX';
+      case Token.parachainDhx:
         return 'DHX';
       case Token.mxc:
         return 'MXC';
@@ -35,6 +39,8 @@ extension TokenExtension on Token {
     switch (this) {
       case Token.supernodeDhx:
         return AppImages.logoDHX;
+      case Token.parachainDhx:
+        return AppImages.logoDHX;
       case Token.mxc:
         return AppImages.logoMXC;
       case Token.btc:
@@ -47,6 +53,8 @@ extension TokenExtension on Token {
     switch (this) {
       case Token.supernodeDhx:
         return colorSupernodeDhx;
+      case Token.parachainDhx:
+        return colorDhx;
       case Token.mxc:
         return colorMxc;
       case Token.btc:

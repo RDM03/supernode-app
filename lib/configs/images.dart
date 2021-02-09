@@ -29,6 +29,13 @@ class AppImages {
   static const String placeholder = "assets/images/login/placeholder.png";
   static const String email = 'assets/images/login/email.png';
   static const String wechat = 'assets/images/login/wechat.png';
+  static const String datadash = 'assets/images/login/datadash.png';
+  static const String dhx = 'assets/images/login/dhx.png';
+  static const String mxc = 'assets/images/login/mxc.png';
+  static const String mxcSite1 = 'assets/images/login/mxc_1.png';
+  static const String mxcSite2 = 'assets/images/login/mxc_2.png';
+  static const String mxcSite3 = 'assets/images/login/mxc_3.png';
+  static const String dhxSite = 'assets/images/login/dhx_site.png';
 
   //wallet
   static const String logoMXC = 'assets/images/wallet/logo-mxc.png';

@@ -28,7 +28,8 @@ Widget buildView(
     pageNavBar(FlutterI18n.translate(_ctx, 'withdraw'),
         onTap: () => Navigator.pop(viewService.context, state.status)),
     subtitle(FlutterI18n.translate(_ctx, 'current_balance')),
-    paragraph('${(state.tokenName == Token.btc.name) ? Tools.priceFormat(state.balanceBTC, range: 8) : Tools.priceFormat(state.balance)} ${state.tokenName}'),
+    paragraph(
+        '${(state.tokenName == Token.btc.name) ? Tools.priceFormat(state.balanceBTC, range: 8) : Tools.priceFormat(state.balance)} ${state.tokenName}'),
     Form(
       // autovalidate: true,
       key: state.formKey,
@@ -39,8 +40,8 @@ Widget buildView(
             child: TextFieldWithTitle(
               title: FlutterI18n.translate(_ctx, 'withdraw_amount'),
               textInputAction: TextInputAction.next,
-              validator: (value) =>
-                  _onValidAmount(_ctx, value, state.fee, state.balance, state.balanceBTC, state.tokenName),
+              validator: (value) => _onValidAmount(_ctx, value, state.fee,
+                  state.balance, state.balanceBTC, state.tokenName),
               controller: state.amountCtl,
             ),
           ),
@@ -104,8 +105,8 @@ Widget buildView(
   ]);
 }
 
-String _onValidAmount(
-    BuildContext context, String value, double fee, double balance, double balanceBTC, String tokenName) {
+String _onValidAmount(BuildContext context, String value, double fee,
+    double balance, double balanceBTC, String tokenName) {
   String res = Reg.isEmpty(value);
   if (res != null) return FlutterI18n.translate(context, res);
 
@@ -142,25 +143,25 @@ String _onValidAmount(
 
 void _showInfoDialog(BuildContext context) {
   showInfoDialog(
-      context,
-      IosStyleBottomDialog2(
+    context,
+    IosStyleBottomDialog2(
           context: context,
           child: Column(
-            children: [
-              Image.asset(AppImages.infoCurrentTransactionFee, height: s(80)),
-              Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Text(
+        children: [
+          Image.asset(AppImages.infoCurrentTransactionFee, height: s(80)),
+          Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Text(
                     FlutterI18n.translate(
                         context, 'info_current_transaction_fee'),
-                    key: ValueKey('helpText'),
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: s(16),
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.center,
-                  )),
-            ],
+                key: ValueKey('helpText'),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: s(16),
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+              )),
+        ],
           )));
 }

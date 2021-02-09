@@ -42,80 +42,79 @@ class _SupernodeDhxTokenPageContentState
       IosStyleBottomDialog2(
         context: context,
         child: Builder(
-          builder: (ctx) => Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Text(
-                  FlutterI18n.translate(context, 'mining'),
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: s(16),
-                    fontWeight: FontWeight.w500,
-                  ),
-                  textAlign: TextAlign.center,
+        builder: (ctx) => Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: Text(
+                FlutterI18n.translate(context, 'mining'),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: s(16),
+                  fontWeight: FontWeight.w500,
                 ),
+                textAlign: TextAlign.center,
               ),
-              Divider(color: Colors.grey),
-              GestureDetector(
-                  onTap: () {
-                    Navigator.pop(ctx);
+            ),
+            Divider(color: Colors.grey),
+            GestureDetector(
+                onTap: () {
+                  Navigator.of(ctx).pop();
 
-                    Navigator.pushNamed(context, 'lock_page',
-                        arguments: {'isDemo': isDemo});
+                  Navigator.pushNamed(context, 'lock_page',
+                      arguments: {'isDemo': isDemo});
 
-                    Navigator.push(context, MaterialPageRoute<void>(
-                      builder: (BuildContext context) {
-                        return Scaffold(
-                          appBar: AppBars.backArrowSkipAppBar(
-                              onPress: () => Navigator.pop(context),
-                              action: FlutterI18n.translate(context, "skip")),
-                          body: MiningTutorial(context),
-                        );
-                      },
-                    ));
-                  },
-                  child: Row(
-                    children: [
-                      CircleButton(
-                          icon: Image.asset(AppImages.iconMine,
-                              color: Token.supernodeDhx.color)),
-                      SizedBox(width: s(10)),
-                      Text(
-                        FlutterI18n.translate(context, 'new_mining'),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: s(16),
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.center,
+                  Navigator.push(context, MaterialPageRoute<void>(
+                    builder: (BuildContext context) {
+                      return Scaffold(
+                        appBar: AppBars.backArrowSkipAppBar(
+                            onPress: () => Navigator.pop(context),
+                            action: FlutterI18n.translate(context, "skip")),
+                        body: MiningTutorial(context),
+                      );
+                    },
+                  ));
+                },
+                child: Row(
+                  children: [
+                    CircleButton(
+                        icon: Image.asset(AppImages.iconMine,
+                            color: Token.supernodeDhx.color)),
+                    SizedBox(width: s(10)),
+                    Text(
+                      FlutterI18n.translate(context, 'new_mining'),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: s(16),
+                        fontWeight: FontWeight.w500,
                       ),
-                    ],
-                  )),
-              Divider(color: Colors.grey),
-              GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Row(
-                    children: [
-                      CircleButton(
-                          icon: Icon(Icons.arrow_back, color: Colors.grey)),
-                      SizedBox(width: s(10)),
-                      Text(
-                        FlutterI18n.translate(context, 'unlock'),
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: s(16),
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.center,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                )),
+            Divider(color: Colors.grey),
+            GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Row(
+                  children: [
+                    CircleButton(
+                        icon: Icon(Icons.arrow_back, color: Colors.grey)),
+                    SizedBox(width: s(10)),
+                    Text(
+                      FlutterI18n.translate(context, 'unlock'),
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: s(16),
+                        fontWeight: FontWeight.w500,
                       ),
-                    ],
-                  )),
-              Divider(color: Colors.grey),
-            ],
-          ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                )),
+            Divider(color: Colors.grey),
+          ],
         ),
       ),
     );

@@ -156,8 +156,8 @@ void _registerReseller(
               child: Text(
                   FlutterI18n.translate(
                           ctx.context, 'register_reseller_success')
-                      .replaceFirst('{0}', manufacturerNr),
-                  style: kBigFontOfBlack,
+                  .replaceFirst('{0}', manufacturerNr),
+              style: kBigFontOfBlack,
                   textAlign: TextAlign.center)));
       ctx.state.serialNumberCtl.text = "";
     }

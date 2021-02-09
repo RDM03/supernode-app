@@ -10,6 +10,165 @@ part of 'app_state.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
+class _$AppStateTearOff {
+  const _$AppStateTearOff();
+
+// ignore: unused_element
+  _AppState call(
+      {Locale locale, bool isDemo = false, bool showLoading = false}) {
+    return _AppState(
+      locale: locale,
+      isDemo: isDemo,
+      showLoading: showLoading,
+    );
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $AppState = _$AppStateTearOff();
+
+/// @nodoc
+mixin _$AppState {
+  Locale get locale;
+  bool get isDemo;
+  bool get showLoading;
+
+  $AppStateCopyWith<AppState> get copyWith;
+}
+
+/// @nodoc
+abstract class $AppStateCopyWith<$Res> {
+  factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
+      _$AppStateCopyWithImpl<$Res>;
+  $Res call({Locale locale, bool isDemo, bool showLoading});
+}
+
+/// @nodoc
+class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
+  _$AppStateCopyWithImpl(this._value, this._then);
+
+  final AppState _value;
+  // ignore: unused_field
+  final $Res Function(AppState) _then;
+
+  @override
+  $Res call({
+    Object locale = freezed,
+    Object isDemo = freezed,
+    Object showLoading = freezed,
+  }) {
+    return _then(_value.copyWith(
+      locale: locale == freezed ? _value.locale : locale as Locale,
+      isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
+      showLoading:
+          showLoading == freezed ? _value.showLoading : showLoading as bool,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
+  factory _$AppStateCopyWith(_AppState value, $Res Function(_AppState) then) =
+      __$AppStateCopyWithImpl<$Res>;
+  @override
+  $Res call({Locale locale, bool isDemo, bool showLoading});
+}
+
+/// @nodoc
+class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+    implements _$AppStateCopyWith<$Res> {
+  __$AppStateCopyWithImpl(_AppState _value, $Res Function(_AppState) _then)
+      : super(_value, (v) => _then(v as _AppState));
+
+  @override
+  _AppState get _value => super._value as _AppState;
+
+  @override
+  $Res call({
+    Object locale = freezed,
+    Object isDemo = freezed,
+    Object showLoading = freezed,
+  }) {
+    return _then(_AppState(
+      locale: locale == freezed ? _value.locale : locale as Locale,
+      isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
+      showLoading:
+          showLoading == freezed ? _value.showLoading : showLoading as bool,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_AppState with DiagnosticableTreeMixin implements _AppState {
+  _$_AppState({this.locale, this.isDemo = false, this.showLoading = false})
+      : assert(isDemo != null),
+        assert(showLoading != null);
+
+  @override
+  final Locale locale;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isDemo;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool showLoading;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'AppState(locale: $locale, isDemo: $isDemo, showLoading: $showLoading)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AppState'))
+      ..add(DiagnosticsProperty('locale', locale))
+      ..add(DiagnosticsProperty('isDemo', isDemo))
+      ..add(DiagnosticsProperty('showLoading', showLoading));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _AppState &&
+            (identical(other.locale, locale) ||
+                const DeepCollectionEquality().equals(other.locale, locale)) &&
+            (identical(other.isDemo, isDemo) ||
+                const DeepCollectionEquality().equals(other.isDemo, isDemo)) &&
+            (identical(other.showLoading, showLoading) ||
+                const DeepCollectionEquality()
+                    .equals(other.showLoading, showLoading)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(locale) ^
+      const DeepCollectionEquality().hash(isDemo) ^
+      const DeepCollectionEquality().hash(showLoading);
+
+  @override
+  _$AppStateCopyWith<_AppState> get copyWith =>
+      __$AppStateCopyWithImpl<_AppState>(this, _$identity);
+}
+
+abstract class _AppState implements AppState {
+  factory _AppState({Locale locale, bool isDemo, bool showLoading}) =
+      _$_AppState;
+
+  @override
+  Locale get locale;
+  @override
+  bool get isDemo;
+  @override
+  bool get showLoading;
+  @override
+  _$AppStateCopyWith<_AppState> get copyWith;
+}
+
+/// @nodoc
 class _$SupernodeStateTearOff {
   const _$SupernodeStateTearOff();
 
@@ -191,165 +350,6 @@ abstract class _SupernodeState extends SupernodeState {
   String get orgId;
   @override
   _$SupernodeStateCopyWith<_SupernodeState> get copyWith;
-}
-
-/// @nodoc
-class _$AppStateTearOff {
-  const _$AppStateTearOff();
-
-// ignore: unused_element
-  _AppState call(
-      {Locale locale, bool isDemo = false, bool showLoading = false}) {
-    return _AppState(
-      locale: locale,
-      isDemo: isDemo,
-      showLoading: showLoading,
-    );
-  }
-}
-
-/// @nodoc
-// ignore: unused_element
-const $AppState = _$AppStateTearOff();
-
-/// @nodoc
-mixin _$AppState {
-  Locale get locale;
-  bool get isDemo;
-  bool get showLoading;
-
-  $AppStateCopyWith<AppState> get copyWith;
-}
-
-/// @nodoc
-abstract class $AppStateCopyWith<$Res> {
-  factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
-      _$AppStateCopyWithImpl<$Res>;
-  $Res call({Locale locale, bool isDemo, bool showLoading});
-}
-
-/// @nodoc
-class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
-  _$AppStateCopyWithImpl(this._value, this._then);
-
-  final AppState _value;
-  // ignore: unused_field
-  final $Res Function(AppState) _then;
-
-  @override
-  $Res call({
-    Object locale = freezed,
-    Object isDemo = freezed,
-    Object showLoading = freezed,
-  }) {
-    return _then(_value.copyWith(
-      locale: locale == freezed ? _value.locale : locale as Locale,
-      isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
-      showLoading:
-          showLoading == freezed ? _value.showLoading : showLoading as bool,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
-  factory _$AppStateCopyWith(_AppState value, $Res Function(_AppState) then) =
-      __$AppStateCopyWithImpl<$Res>;
-  @override
-  $Res call({Locale locale, bool isDemo, bool showLoading});
-}
-
-/// @nodoc
-class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
-    implements _$AppStateCopyWith<$Res> {
-  __$AppStateCopyWithImpl(_AppState _value, $Res Function(_AppState) _then)
-      : super(_value, (v) => _then(v as _AppState));
-
-  @override
-  _AppState get _value => super._value as _AppState;
-
-  @override
-  $Res call({
-    Object locale = freezed,
-    Object isDemo = freezed,
-    Object showLoading = freezed,
-  }) {
-    return _then(_AppState(
-      locale: locale == freezed ? _value.locale : locale as Locale,
-      isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
-      showLoading:
-          showLoading == freezed ? _value.showLoading : showLoading as bool,
-    ));
-  }
-}
-
-/// @nodoc
-class _$_AppState with DiagnosticableTreeMixin implements _AppState {
-  _$_AppState({this.locale, this.isDemo = false, this.showLoading = false})
-      : assert(isDemo != null),
-        assert(showLoading != null);
-
-  @override
-  final Locale locale;
-  @JsonKey(defaultValue: false)
-  @override
-  final bool isDemo;
-  @JsonKey(defaultValue: false)
-  @override
-  final bool showLoading;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppState(locale: $locale, isDemo: $isDemo, showLoading: $showLoading)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'AppState'))
-      ..add(DiagnosticsProperty('locale', locale))
-      ..add(DiagnosticsProperty('isDemo', isDemo))
-      ..add(DiagnosticsProperty('showLoading', showLoading));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _AppState &&
-            (identical(other.locale, locale) ||
-                const DeepCollectionEquality().equals(other.locale, locale)) &&
-            (identical(other.isDemo, isDemo) ||
-                const DeepCollectionEquality().equals(other.isDemo, isDemo)) &&
-            (identical(other.showLoading, showLoading) ||
-                const DeepCollectionEquality()
-                    .equals(other.showLoading, showLoading)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(locale) ^
-      const DeepCollectionEquality().hash(isDemo) ^
-      const DeepCollectionEquality().hash(showLoading);
-
-  @override
-  _$AppStateCopyWith<_AppState> get copyWith =>
-      __$AppStateCopyWithImpl<_AppState>(this, _$identity);
-}
-
-abstract class _AppState implements AppState {
-  factory _AppState({Locale locale, bool isDemo, bool showLoading}) =
-      _$_AppState;
-
-  @override
-  Locale get locale;
-  @override
-  bool get isDemo;
-  @override
-  bool get showLoading;
-  @override
-  _$AppStateCopyWith<_AppState> get copyWith;
 }
 
 /// @nodoc
@@ -587,4 +587,279 @@ abstract class _SupernodeSession implements SupernodeSession {
   bool get tfaEnabled;
   @override
   _$SupernodeSessionCopyWith<_SupernodeSession> get copyWith;
+}
+
+/// @nodoc
+class _$DataHighwayStateTearOff {
+  const _$DataHighwayStateTearOff();
+
+// ignore: unused_element
+  _DataHighwayState call({DataHighwaySession session}) {
+    return _DataHighwayState(
+      session: session,
+    );
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $DataHighwayState = _$DataHighwayStateTearOff();
+
+/// @nodoc
+mixin _$DataHighwayState {
+  DataHighwaySession get session;
+
+  $DataHighwayStateCopyWith<DataHighwayState> get copyWith;
+}
+
+/// @nodoc
+abstract class $DataHighwayStateCopyWith<$Res> {
+  factory $DataHighwayStateCopyWith(
+          DataHighwayState value, $Res Function(DataHighwayState) then) =
+      _$DataHighwayStateCopyWithImpl<$Res>;
+  $Res call({DataHighwaySession session});
+
+  $DataHighwaySessionCopyWith<$Res> get session;
+}
+
+/// @nodoc
+class _$DataHighwayStateCopyWithImpl<$Res>
+    implements $DataHighwayStateCopyWith<$Res> {
+  _$DataHighwayStateCopyWithImpl(this._value, this._then);
+
+  final DataHighwayState _value;
+  // ignore: unused_field
+  final $Res Function(DataHighwayState) _then;
+
+  @override
+  $Res call({
+    Object session = freezed,
+  }) {
+    return _then(_value.copyWith(
+      session:
+          session == freezed ? _value.session : session as DataHighwaySession,
+    ));
+  }
+
+  @override
+  $DataHighwaySessionCopyWith<$Res> get session {
+    if (_value.session == null) {
+      return null;
+    }
+    return $DataHighwaySessionCopyWith<$Res>(_value.session, (value) {
+      return _then(_value.copyWith(session: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$DataHighwayStateCopyWith<$Res>
+    implements $DataHighwayStateCopyWith<$Res> {
+  factory _$DataHighwayStateCopyWith(
+          _DataHighwayState value, $Res Function(_DataHighwayState) then) =
+      __$DataHighwayStateCopyWithImpl<$Res>;
+  @override
+  $Res call({DataHighwaySession session});
+
+  @override
+  $DataHighwaySessionCopyWith<$Res> get session;
+}
+
+/// @nodoc
+class __$DataHighwayStateCopyWithImpl<$Res>
+    extends _$DataHighwayStateCopyWithImpl<$Res>
+    implements _$DataHighwayStateCopyWith<$Res> {
+  __$DataHighwayStateCopyWithImpl(
+      _DataHighwayState _value, $Res Function(_DataHighwayState) _then)
+      : super(_value, (v) => _then(v as _DataHighwayState));
+
+  @override
+  _DataHighwayState get _value => super._value as _DataHighwayState;
+
+  @override
+  $Res call({
+    Object session = freezed,
+  }) {
+    return _then(_DataHighwayState(
+      session:
+          session == freezed ? _value.session : session as DataHighwaySession,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_DataHighwayState extends _DataHighwayState
+    with DiagnosticableTreeMixin {
+  _$_DataHighwayState({this.session}) : super._();
+
+  @override
+  final DataHighwaySession session;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'DataHighwayState(session: $session)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'DataHighwayState'))
+      ..add(DiagnosticsProperty('session', session));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _DataHighwayState &&
+            (identical(other.session, session) ||
+                const DeepCollectionEquality().equals(other.session, session)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(session);
+
+  @override
+  _$DataHighwayStateCopyWith<_DataHighwayState> get copyWith =>
+      __$DataHighwayStateCopyWithImpl<_DataHighwayState>(this, _$identity);
+}
+
+abstract class _DataHighwayState extends DataHighwayState {
+  _DataHighwayState._() : super._();
+  factory _DataHighwayState({DataHighwaySession session}) = _$_DataHighwayState;
+
+  @override
+  DataHighwaySession get session;
+  @override
+  _$DataHighwayStateCopyWith<_DataHighwayState> get copyWith;
+}
+
+/// @nodoc
+class _$DataHighwaySessionTearOff {
+  const _$DataHighwaySessionTearOff();
+
+// ignore: unused_element
+  _DataHighwaySession call({String address}) {
+    return _DataHighwaySession(
+      address: address,
+    );
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $DataHighwaySession = _$DataHighwaySessionTearOff();
+
+/// @nodoc
+mixin _$DataHighwaySession {
+  String get address;
+
+  $DataHighwaySessionCopyWith<DataHighwaySession> get copyWith;
+}
+
+/// @nodoc
+abstract class $DataHighwaySessionCopyWith<$Res> {
+  factory $DataHighwaySessionCopyWith(
+          DataHighwaySession value, $Res Function(DataHighwaySession) then) =
+      _$DataHighwaySessionCopyWithImpl<$Res>;
+  $Res call({String address});
+}
+
+/// @nodoc
+class _$DataHighwaySessionCopyWithImpl<$Res>
+    implements $DataHighwaySessionCopyWith<$Res> {
+  _$DataHighwaySessionCopyWithImpl(this._value, this._then);
+
+  final DataHighwaySession _value;
+  // ignore: unused_field
+  final $Res Function(DataHighwaySession) _then;
+
+  @override
+  $Res call({
+    Object address = freezed,
+  }) {
+    return _then(_value.copyWith(
+      address: address == freezed ? _value.address : address as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$DataHighwaySessionCopyWith<$Res>
+    implements $DataHighwaySessionCopyWith<$Res> {
+  factory _$DataHighwaySessionCopyWith(
+          _DataHighwaySession value, $Res Function(_DataHighwaySession) then) =
+      __$DataHighwaySessionCopyWithImpl<$Res>;
+  @override
+  $Res call({String address});
+}
+
+/// @nodoc
+class __$DataHighwaySessionCopyWithImpl<$Res>
+    extends _$DataHighwaySessionCopyWithImpl<$Res>
+    implements _$DataHighwaySessionCopyWith<$Res> {
+  __$DataHighwaySessionCopyWithImpl(
+      _DataHighwaySession _value, $Res Function(_DataHighwaySession) _then)
+      : super(_value, (v) => _then(v as _DataHighwaySession));
+
+  @override
+  _DataHighwaySession get _value => super._value as _DataHighwaySession;
+
+  @override
+  $Res call({
+    Object address = freezed,
+  }) {
+    return _then(_DataHighwaySession(
+      address: address == freezed ? _value.address : address as String,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_DataHighwaySession extends _DataHighwaySession
+    with DiagnosticableTreeMixin {
+  _$_DataHighwaySession({this.address}) : super._();
+
+  @override
+  final String address;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'DataHighwaySession(address: $address)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'DataHighwaySession'))
+      ..add(DiagnosticsProperty('address', address));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _DataHighwaySession &&
+            (identical(other.address, address) ||
+                const DeepCollectionEquality().equals(other.address, address)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(address);
+
+  @override
+  _$DataHighwaySessionCopyWith<_DataHighwaySession> get copyWith =>
+      __$DataHighwaySessionCopyWithImpl<_DataHighwaySession>(this, _$identity);
+}
+
+abstract class _DataHighwaySession extends DataHighwaySession {
+  _DataHighwaySession._() : super._();
+  factory _DataHighwaySession({String address}) = _$_DataHighwaySession;
+
+  @override
+  String get address;
+  @override
+  _$DataHighwaySessionCopyWith<_DataHighwaySession> get copyWith;
 }

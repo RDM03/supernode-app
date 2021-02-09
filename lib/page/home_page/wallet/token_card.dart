@@ -237,70 +237,68 @@ class AddNewTokenCard extends StatelessWidget {
         builder: (ctx) => IosStyleBottomDialog2(
           context: context,
           child: Builder(
-            builder: (ctx) => Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Text(
-                    FlutterI18n.translate(context, 'add_token_title'),
+        builder: (ctx) => Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Text(
+                FlutterI18n.translate(context, 'add_token_title'),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: s(16),
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Divider(color: Colors.grey),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(ctx);
+                context.read<WalletCubit>().addDhx();
+              },
+              behavior: HitTestBehavior.opaque,
+              child: Row(
+                children: [
+                  Image.asset(AppImages.logoDHX, height: s(50)),
+                  SizedBox(width: s(10)),
+                  Text(
+                    'DataHighway DHX',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: s(16),
                       fontWeight: FontWeight.w500,
                     ),
                     textAlign: TextAlign.center,
-                  ),
-                ),
-                Divider(color: Colors.grey),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(ctx);
-                    context.read<WalletCubit>().addDhx();
-                  },
-                  behavior: HitTestBehavior.opaque,
-                  child: Row(
-                    children: [
-                      Image.asset(AppImages.logoDHX, height: s(50)),
-                      SizedBox(width: s(10)),
-                      Text(
-                        'Datahighway DHX',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: s(16),
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.center,
-                      )
-                    ],
-                  ),
-                ),
-                Divider(color: Colors.grey),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(ctx);
-                    context.read<WalletCubit>().addBtc();
-                  },
-                  behavior: HitTestBehavior.opaque,
-                  child: Row(
-                    children: [
-                      Image.asset(Token.btc.imagePath, height: s(50)),
-                      SizedBox(width: s(10)),
-                      Text(
-                        Token.btc.fullName,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: s(16),
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.center,
-                      )
-                    ],
-                  ),
-                ),
-                Divider(color: Colors.grey),
-              ],
+                  )
+                ],
+              ),
             ),
-          ),
+            Divider(color: Colors.grey),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(ctx);
+                context.read<WalletCubit>().addBtc();
+              },
+              behavior: HitTestBehavior.opaque,
+              child: Row(
+                children: [
+                  Image.asset(Token.btc.imagePath, height: s(50)),
+                  SizedBox(width: s(10)),
+                  Text(
+                    Token.btc.fullName,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: s(16),
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+            Divider(color: Colors.grey),
+          ],
         ),
       ),
     );

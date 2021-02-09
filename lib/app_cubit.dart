@@ -4,6 +4,14 @@ import 'package:supernodeapp/common/repositories/shared/dao/supernode.model.dart
 
 import 'app_state.dart';
 
+class AppCubit extends Cubit<AppState> {
+  AppCubit({bool isDemo = false}) : super(AppState(isDemo: isDemo));
+
+  void setDemo(bool val) => emit(state.copyWith(isDemo: val));
+  void setLoading(bool val) => emit(state.copyWith(showLoading: val));
+  void setLocale(Locale locale) => emit(state.copyWith(locale: locale));
+}
+
 class SupernodeCubit extends Cubit<SupernodeState> {
   SupernodeCubit({
     SupernodeSession session,
@@ -38,10 +46,17 @@ class SupernodeCubit extends Cubit<SupernodeState> {
       ));
 }
 
-class AppCubit extends Cubit<AppState> {
-  AppCubit({bool isDemo = false}) : super(AppState(isDemo: isDemo));
+class DataHighwayCubit extends Cubit<DataHighwayState> {
+  DataHighwayCubit({
+    DataHighwaySession session,
+    String orgId,
+  }) : super(DataHighwayState(
+          session: session,
+        ));
 
-  void setDemo(bool val) => emit(state.copyWith(isDemo: val));
-  void setLoading(bool val) => emit(state.copyWith(showLoading: val));
-  void setLocale(Locale locale) => emit(state.copyWith(locale: locale));
+  void setDataHighwaySession(DataHighwaySession session) => emit(
+        state.copyWith(session: session),
+      );
+
+  void logout() => emit(state.copyWith(session: null));
 }

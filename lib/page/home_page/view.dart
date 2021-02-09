@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_cubit.dart';
+import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/repositories/cache_repository.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
@@ -25,88 +26,124 @@ import 'user/view.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      child: WillPopScope(
-        onWillPop: () async {
-          if (homeNavigatorKey.currentState.canPop()) {
-            homeNavigatorKey.currentState.pop();
-            return false;
-          }
-          return true;
-        },
-        child: Navigator(
-          key: homeNavigatorKey,
-          onPopPage: (route, result) {
-            return route.didPop(result);
-          },
-          onGenerateRoute: (RouteSettings settings) {
-            return MaterialPageRoute(
-              builder: (BuildContext context) {
-                return MxcApp.fishRoutes
-                    .buildPage(settings.name, settings.arguments);
+    return BlocBuilder<SupernodeCubit, SupernodeState>(
+      buildWhen: (a, b) => a.session != b.session,
+      builder: (ctx, supernode) =>
+          BlocBuilder<DataHighwayCubit, DataHighwayState>(
+        builder: (ctx, datahighway) => MultiBlocProvider(
+          child: WillPopScope(
+            onWillPop: () async {
+              if (homeNavigatorKey.currentState.canPop()) {
+                homeNavigatorKey.currentState.pop();
+                return false;
+              }
+              return true;
+            },
+            child: Navigator(
+              key: homeNavigatorKey,
+              onPopPage: (route, result) {
+                return route.didPop(result);
               },
-              settings: settings,
-            );
-          },
-          onGenerateInitialRoutes: (state, s) => [
-            route((ctx) => _HomePageContent()),
+              onGenerateRoute: (RouteSettings settings) {
+                return MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return MxcApp.fishRoutes
+                        .buildPage(settings.name, settings.arguments);
+                  },
+                  settings: settings,
+                );
+              },
+              onGenerateInitialRoutes: (state, s) => [
+                route((ctx) => _HomePageContent()),
+              ],
+            ),
+          ),
+          providers: [
+            BlocProvider(
+              create: (ctx) => HomeCubit(
+                supernodeUsername: supernode?.session?.username,
+                cacheRepository: ctx.read<CacheRepository>(),
+                supernodeUsed: supernode.session != null,
+                parachainUsed: datahighway.session != null,
+              ),
+            ),
+            BlocProvider(
+              create: (ctx) => supernode.session == null
+                  ? null
+                  : (SupernodeUserCubit(
+                      session: ctx.read<SupernodeCubit>().state.session,
+                      orgId: ctx.read<SupernodeCubit>().state.orgId,
+                      supernodeRepository: ctx.read<SupernodeRepository>(),
+                      cacheRepository: ctx.read<CacheRepository>(),
+                      homeCubit: ctx.read<HomeCubit>(),
+                    )..initState()),
+            ),
+            BlocProvider(
+              create: (ctx) => supernode.session == null
+                  ? null
+                  : (SupernodeDhxCubit(
+                      session: ctx.read<SupernodeCubit>().state.session,
+                      orgId: ctx.read<SupernodeCubit>().state.orgId,
+                      supernodeRepository: ctx.read<SupernodeRepository>(),
+                      cacheRepository: ctx.read<CacheRepository>(),
+                      homeCubit: ctx.read<HomeCubit>(),
+                    )..initState()),
+            ),
+            BlocProvider(
+              create: (ctx) => supernode.session == null
+                  ? null
+                  : (SupernodeBtcCubit(
+                      session: ctx.read<SupernodeCubit>().state.session,
+                      orgId: ctx.read<SupernodeCubit>().state.orgId,
+                      supernodeRepository: ctx.read<SupernodeRepository>(),
+                      homeCubit: ctx.read<HomeCubit>(),
+                    )..initState()),
+            ),
+            BlocProvider(
+              create: (ctx) => supernode.session == null
+                  ? null
+                  : (WalletCubit(
+                      orgId: ctx.read<SupernodeCubit>().state.orgId,
+                      supernodeRepository: ctx.read<SupernodeRepository>(),
+                      cacheRepository: ctx.read<CacheRepository>(),
+                      homeCubit: ctx.read<HomeCubit>(),
+                    )..initState()),
+            ),
+            BlocProvider(
+              create: (ctx) => supernode.session == null
+                  ? null
+                  : (GatewayCubit(
+                      orgId: ctx.read<SupernodeCubit>().state.orgId,
+                      supernodeRepository: ctx.read<SupernodeRepository>(),
+                      homeCubit: ctx.read<HomeCubit>(),
+                    )..initState()),
+            ),
           ],
         ),
       ),
-      providers: [
-        BlocProvider(
-          create: (ctx) => HomeCubit(
-            username: ctx.read<SupernodeCubit>().state.session.username,
-            cacheRepository: ctx.read<CacheRepository>(),
-          ),
-        ),
-        BlocProvider(
-          create: (ctx) => SupernodeUserCubit(
-            session: ctx.read<SupernodeCubit>().state.session,
-            orgId: ctx.read<SupernodeCubit>().state.orgId,
-            supernodeRepository: ctx.read<SupernodeRepository>(),
-            cacheRepository: ctx.read<CacheRepository>(),
-            homeCubit: ctx.read<HomeCubit>(),
-          )..initState(),
-        ),
-        BlocProvider(
-          create: (ctx) => SupernodeDhxCubit(
-            session: ctx.read<SupernodeCubit>().state.session,
-            orgId: ctx.read<SupernodeCubit>().state.orgId,
-            supernodeRepository: ctx.read<SupernodeRepository>(),
-            cacheRepository: ctx.read<CacheRepository>(),
-            homeCubit: ctx.read<HomeCubit>(),
-          )..initState(),
-        ),
-        BlocProvider(
-          create: (ctx) => SupernodeBtcCubit(
-            session: ctx.read<SupernodeCubit>().state.session,
-            orgId: ctx.read<SupernodeCubit>().state.orgId,
-            supernodeRepository: ctx.read<SupernodeRepository>(),
-            homeCubit: ctx.read<HomeCubit>(),
-          )..initState(),
-        ),
-        BlocProvider(
-          create: (ctx) => WalletCubit(
-            orgId: ctx.read<SupernodeCubit>().state.orgId,
-            supernodeRepository: ctx.read<SupernodeRepository>(),
-            cacheRepository: ctx.read<CacheRepository>(),
-            homeCubit: ctx.read<HomeCubit>(),
-          )..initState(),
-        ),
-        BlocProvider(
-          create: (ctx) => GatewayCubit(
-            orgId: ctx.read<SupernodeCubit>().state.orgId,
-            supernodeRepository: ctx.read<SupernodeRepository>(),
-            homeCubit: ctx.read<HomeCubit>(),
-          )..initState(),
-        ),
-      ],
     );
   }
 }
 
 class _HomePageContent extends StatelessWidget {
+  BottomNavigationBarItem _menuItem(
+          BuildContext ctx, String text, bool selected,
+          {bool disabled = false}) =>
+      BottomNavigationBarItem(
+        icon: Image.asset(
+          AppImages.bottomBarMenus[text.toLowerCase()],
+          color: () {
+            if (selected) return selectedColor;
+            if (disabled) return Colors.grey.shade200;
+            return unselectedColor;
+          }(),
+          key: ValueKey('bottomNavBar_$text'),
+        ),
+        title: Text(
+          FlutterI18n.translate(ctx, text.toLowerCase()),
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,31 +171,38 @@ class _HomePageContent extends StatelessWidget {
           highlightColor: Colors.transparent,
         ),
         child: BlocBuilder<HomeCubit, HomeState>(
-          buildWhen: (a, b) => a.tabIndex != b.tabIndex,
+          buildWhen: (a, b) =>
+              a.tabIndex != b.tabIndex || a.parachainUsed != b.parachainUsed,
           builder: (ctx, s) => BottomNavigationBar(
-            key: ValueKey('bottomNavBar'),
-            type: BottomNavigationBarType.fixed,
-            currentIndex: s.tabIndex,
-            selectedItemColor: selectedColor,
-            unselectedItemColor: unselectedColor,
-            onTap: (i) => context.read<HomeCubit>().changeTab(i),
-            items: Sys.mainMenus
-                .map(
-                  (String item) => BottomNavigationBarItem(
-                    icon: Image.asset(
-                      AppImages.bottomBarMenus[item.toLowerCase()],
-                      color: Sys.mainMenus.indexOf(item) == s.tabIndex
-                          ? selectedColor
-                          : unselectedColor,
-                      key: ValueKey('bottomNavBar_$item'),
-                    ),
-                    title: Text(
-                      FlutterI18n.translate(ctx, item.toLowerCase()),
-                    ),
-                  ),
-                )
-                .toList(),
-          ),
+              key: ValueKey('bottomNavBar'),
+              type: BottomNavigationBarType.fixed,
+              currentIndex: s.tabIndex,
+              selectedItemColor: selectedColor,
+              unselectedItemColor: unselectedColor,
+              onTap: (i) {
+                if (i == 1 || i == 2) return;
+                context.read<HomeCubit>().changeTab(i);
+              },
+              items: [
+                _menuItem(ctx, 'Home', s.tabIndex == 0),
+                _menuItem(
+                  ctx,
+                  'Gateway',
+                  s.tabIndex == 1,
+                  disabled: !s.supernodeUsed,
+                ),
+                _menuItem(
+                  ctx,
+                  'Device',
+                  s.tabIndex == 2,
+                  disabled: !s.supernodeUsed,
+                ),
+                _menuItem(
+                  ctx,
+                  'Wallet',
+                  s.tabIndex == 3,
+                ),
+              ]),
         ),
       ),
     );

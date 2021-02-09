@@ -1,586 +1,759 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/app_cubit.dart';
-import 'package:supernodeapp/common/components/buttons/circle_button.dart';
-import 'package:supernodeapp/common/components/buttons/primary_button.dart';
-import 'package:supernodeapp/common/components/expansion_super_node_tile.dart';
-import 'package:supernodeapp/common/components/loading.dart';
-import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
-import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
-import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/configs/images.dart';
-import 'package:supernodeapp/common/utils/reg.dart';
-import 'package:supernodeapp/common/utils/screen_util.dart';
-import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
-import 'package:supernodeapp/page/home_page/view.dart';
-import 'package:supernodeapp/page/login_page/cubit.dart';
-import 'package:supernodeapp/page/login_page/state.dart';
-import 'package:supernodeapp/common/repositories/supernode_repository.dart';
-import 'package:supernodeapp/route.dart';
-import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/spacing.dart';
+import 'dart:math';
 
-class LoginPage extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
+import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/page/login_page/datahighway_create_page/page_1.dart';
+import 'package:supernodeapp/page/login_page/datahighway_import_page/page_1.dart';
+import 'package:supernodeapp/page/login_page/supernode_login_page/view.dart';
+import 'package:supernodeapp/route.dart';
+
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class RectClipper extends CustomClipper<Rect> {
+  final double width;
+
+  RectClipper(this.width);
+
+  @override
+  Rect getClip(Size size) {
+    return Rect.fromLTWH(size.width - 50, 0, 40, size.height);
+  }
+
+  @override
+  bool shouldReclip(covariant RectClipper oldClipper) {
+    return oldClipper.width != width;
+  }
+}
+
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      child: _LoginPageContent(),
-      create: (context) => LoginCubit(
-        appCubit: context.read<AppCubit>(),
-        supernodeCubit: context.read<SupernodeCubit>(),
-        dao: context.read<SupernodeRepository>(),
-      )..initState(),
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(height: 60),
+            Center(child: Image.asset(AppImages.datadash)),
+            SizedBox(height: 35),
+            Expanded(
+              child: LayoutBuilder(
+                builder: (ctx, cnstr) => LoginPageContent(
+                  width: cnstr.maxWidth,
+                ),
+              ),
+            ),
+            SizedBox(height: 30),
+          ],
+        ),
+      ),
     );
   }
 }
 
-class _LoginPageContent extends StatefulWidget {
+class LoginPageContent extends StatefulWidget {
+  const LoginPageContent({Key key, this.width}) : super(key: key);
+  final double width;
+
   @override
   _LoginPageContentState createState() => _LoginPageContentState();
 }
 
-class _LoginPageContentState extends State<_LoginPageContent> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-  final GlobalKey<FormState> formKey = GlobalKey();
-
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
-  Loading loading;
-
-  void clickLogo() {
-    context.read<LoginCubit>().increaseTestCounter();
-  }
-
-  void onOpenDemo() {
-    context.read<LoginCubit>().demoLogin();
-  }
-
-  void onForgotPassword() {
-    if (context.read<LoginCubit>().state.selectedSuperNode == null) {
-      tip(context, FlutterI18n.translate(context, 'reg_select_supernode'));
-      return;
-    }
-    context.read<LoginCubit>().forgotPassword();
-  }
-
-  void onLogin() {
-    if (context.read<LoginCubit>().state.selectedSuperNode == null) {
-      tip(context, FlutterI18n.translate(context, 'reg_select_supernode'));
-      return;
-    }
-    if (!formKey.currentState.validate()) return;
-    final username = usernameController.text.trim();
-    final password = passwordController.text.trim();
-    context.read<LoginCubit>().login(username, password);
-  }
-
-  Future<void> onWeChatLogin() async {
-    if (context.read<LoginCubit>().state.selectedSuperNode == null) {
-      tip(context, FlutterI18n.translate(context, 'reg_select_supernode'));
-      return;
-    }
-    context.read<LoginCubit>().weChatLogin();
-  }
-
-  void onSignUp() {
-    if (context.read<LoginCubit>().state.selectedSuperNode == null) {
-      tip(context, FlutterI18n.translate(context, 'reg_select_supernode'));
-      return;
-    }
-    context.read<LoginCubit>().signUp();
-  }
-
-  void onSupernodeSelect(Supernode item) {
-    context.read<LoginCubit>().setSelectedSuperNode(item);
-    context.read<LoginCubit>().setSuperNodeListVisible(false);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    usernameController.dispose();
-    passwordController.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<LoginCubit, LoginState>(
-          listenWhen: (a, b) => a.showLoading != b.showLoading,
-          listener: (ctx, state) async {
-            loading?.hide();
-            if (state.showLoading) {
-              loading = Loading.show(ctx);
-            }
-          },
-        ),
-        BlocListener<LoginCubit, LoginState>(
-          listenWhen: (a, b) => a.errorMessage != b.errorMessage,
-          listener: (ctx, state) async {
-            if (state.errorMessage == null) return;
-            final message = FlutterI18n.translate(context, state.errorMessage);
-            scaffoldKey.currentState.showSnackBar(SnackBar(
-              content: Text(
-                message,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1
-                    .copyWith(color: Colors.white),
-              ),
-              duration: Duration(seconds: 2),
-              backgroundColor: errorColor,
-            ));
-          },
-        ),
-        BlocListener<LoginCubit, LoginState>(
-          listenWhen: (a, b) => a.result != b.result,
-          listener: (ctx, state) async {
-            if (state.result == null) return;
-            switch (state.result) {
-              case LoginResult.home:
-                await Navigator.of(context)
-                    .pushAndRemoveUntil(route((c) => HomePage()), (_) => false);
-                break;
-              case LoginResult.resetPassword:
-                await Navigator.of(context).pushNamed("forgot_password_page");
-                break;
-              case LoginResult.wechat:
-                await Navigator.of(context).pushNamed("wechat_login_page");
-                break;
-              case LoginResult.signUp:
-                await Navigator.of(context).pushNamed("sign_up_page");
-                break;
-            }
-            state.copyWith(result: null);
-          },
-        ),
-      ],
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: cardBackgroundColor,
-        body: GestureDetector(
-          child: Stack(
-            alignment: Alignment.topCenter,
-            children: <Widget>[
-              SingleChildScrollView(
-                padding: EdgeInsets.zero,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Stack(
-                      alignment: Alignment.center,
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            GestureDetector(
-                              key: Key('homeLogo'),
-                              onTap: clickLogo,
-                              child: Container(
-                                color: darkBackground,
-                                height: s(218),
-                                padding: EdgeInsets.only(bottom: s(106)),
-                                alignment: Alignment.bottomCenter,
-                                child: Image.asset(AppImages.splashLogo,
-                                    height: s(48)),
-                              ),
-                            ),
-                            SizedBox(height: s(100)),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  FlutterI18n.translate(
-                                      context, 'choose_supernode'),
-                                  style: TextStyle(
-                                      fontSize: s(14),
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.black),
-                                ),
-                                GestureDetector(
-                                  onTap: () => _showInfoDialog(context),
-                                  child: Padding(
-                                    key: Key("questionCircle"),
-                                    padding: EdgeInsets.all(s(5)),
-                                    child: Image.asset(AppImages.questionCircle,
-                                        height: s(20)),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                        Positioned(
-                          top: s(133),
-                          child: GestureDetector(
-                            key: Key('homeSupernodeMenu'),
-                            onTap: () => context
-                                .read<LoginCubit>()
-                                .setSuperNodeListVisible(true),
-                            child: ClipOval(
-                              child: Container(
-                                width: s(171),
-                                height: s(171),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Container(
-                                  width: s(134),
-                                  height: s(134),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: darkBackground,
-                                          offset: Offset(0, 2),
-                                          blurRadius: 20,
-                                          spreadRadius: 10,
-                                        )
-                                      ]),
-                                  child: BlocBuilder<LoginCubit, LoginState>(
-                                    buildWhen: (a, b) =>
-                                        a.selectedSuperNode !=
-                                        b.selectedSuperNode,
-                                    builder: (context, state) =>
-                                        state.selectedSuperNode != null
-                                            ? CachedNetworkImage(
-                                                imageUrl: state
-                                                    .selectedSuperNode.logo,
-                                                placeholder: (a, b) =>
-                                                    Image.asset(
-                                                  AppImages.placeholder,
-                                                  width: s(100),
-                                                ),
-                                                width: s(100),
-                                              )
-                                            : Icon(
-                                                Icons.add,
-                                                size: s(25),
-                                              ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: s(16)),
-                      child: Column(
-                        children: <Widget>[
-                          Form(
-                            key: formKey,
-                            autovalidateMode: AutovalidateMode.disabled,
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  margin: kOuterRowTop35,
-                                  child: TextFieldWithTitle(
-                                    key: Key('homeEmail'),
-                                    title:
-                                        FlutterI18n.translate(context, 'email'),
-                                    hint: FlutterI18n.translate(
-                                        context, 'email_hint'),
-                                    textInputAction: TextInputAction.next,
-                                    validator: (value) =>
-                                        Reg.onValidEmail(context, value),
-                                    controller: usernameController,
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 16),
-                                  child: BlocBuilder<LoginCubit, LoginState>(
-                                    buildWhen: (a, b) =>
-                                        a.obscureText != b.obscureText,
-                                    builder: (context, state) =>
-                                        TextFieldWithTitle(
-                                      key: Key('homePassword'),
-                                      title: FlutterI18n.translate(
-                                          context, 'password'),
-                                      hint: FlutterI18n.translate(
-                                          context, 'password_hint'),
-                                      isObscureText: state.obscureText,
-                                      validator: (value) =>
-                                          Reg.onValidPassword(context, value),
-                                      controller: passwordController,
-                                      suffixChild: IconButton(
-                                        icon: Icon(state.obscureText
-                                            ? Icons.visibility_off
-                                            : Icons.visibility),
-                                        onPressed: () => context
-                                            .read<LoginCubit>()
-                                            .setObscureText(!state.obscureText),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: s(12)),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              GestureDetector(
-                                onTap: onOpenDemo,
-                                child: Text(
-                                  FlutterI18n.translate(context, 'demo'),
-                                  style: TextStyle(
-                                      fontSize: s(12), color: hintFont),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: onForgotPassword,
-                                child: Text(
-                                  FlutterI18n.translate(context, 'forgot_hint'),
-                                  style: TextStyle(
-                                      fontSize: s(12), color: hintFont),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: s(18)),
-                          PrimaryButton(
-                              key: Key('homeLogin'),
-                              onTap: onLogin,
-                              buttonTitle:
-                                  FlutterI18n.translate(context, 'login'),
-                              minHeight: s(46),
-                              minWidget: double.infinity),
-                          Container(
-                            margin:
-                                EdgeInsets.only(top: s(28.5), bottom: s(17.5)),
-                            height: s(1),
-                            color: darkBackground,
-                          ),
-                          Text(
-                            FlutterI18n.translate(context, 'access_using'),
-                            style: TextStyle(fontSize: s(14), color: tipFont),
-                          ),
-                          SizedBox(height: s(29)),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              CircleButton(
-                                onTap: onSignUp,
-                                icon: Image.asset(
-                                  AppImages.email,
-                                  width: 22,
-                                  height: 22,
-                                ),
-                              ),
-                              SizedBox(width: s(30)),
-                              BlocBuilder<LoginCubit, LoginState>(
-                                buildWhen: (a, b) =>
-                                    a.showWeChatLoginOption !=
-                                    b.showWeChatLoginOption,
-                                builder: (context, state) => CircleButton(
-                                  onTap: state.showWeChatLoginOption
-                                      ? onWeChatLogin
-                                      : null,
-                                  icon: (state.showWeChatLoginOption
-                                      ? Image.asset(
-                                          AppImages.wechat,
-                                          width: 22,
-                                          height: 22,
-                                        )
-                                      : null),
-                                ),
-                              ),
-                              SizedBox(width: s(30)),
-                              CircleButton(icon: null),
-                            ],
-                          ),
-                          SizedBox(height: s(20)),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              BlocBuilder<LoginCubit, LoginState>(
-                buildWhen: (a, b) =>
-                    a.supernodeListVisible != b.supernodeListVisible,
-                builder: (context, state) {
-                  if (state.supernodeListVisible)
-                    return GestureDetector(
-                      onTap: () => context
-                          .read<LoginCubit>()
-                          .setSuperNodeListVisible(false),
-                      child: Container(
-                        color: Color(0x33000000),
-                      ),
-                    );
-                  return Container();
-                },
-              ),
-              BlocBuilder<LoginCubit, LoginState>(
-                buildWhen: (a, b) =>
-                    a.supernodeListVisible != b.supernodeListVisible ||
-                    a.showTestNodes != b.showTestNodes ||
-                    a.supernodes != b.supernodes,
-                builder: (context, state) {
-                  return AnimatedPositioned(
-                    duration: Duration(milliseconds: 300),
-                    left: state.supernodeListVisible
-                        ? 0
-                        : -ScreenUtil.instance.width,
-                    child: Container(
-                      height: ScreenUtil.instance.height,
-                      width: s(304),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(s(10)),
-                          bottomRight: Radius.circular(s(10)),
-                        ),
-                      ),
-                      child: SingleChildScrollView(
-                        key: Key('scrollMenu'),
-                        child: Column(children: <Widget>[
-                          SizedBox(
-                            height: s(114),
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: <Widget>[
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    FlutterI18n.translate(
-                                        context, 'super_node'),
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: s(16),
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  right: s(15),
-                                  child: GestureDetector(
-                                    onTap: () => context
-                                        .read<LoginCubit>()
-                                        .setSuperNodeListVisible(false),
-                                    child: Icon(Icons.close, size: 24),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          if (!state.supernodes.loading)
-                            Column(
-                              children: <Widget>[
-                                for (var key
-                                    in state.supernodes.value?.keys ?? [])
-                                  if (key != "Test" || state.showTestNodes)
-                                    ExpansionSuperNodesTile(
-                                      title: Text(
-                                        FlutterI18n.translate(context, key),
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                      initiallyExpanded: true,
-                                      backgroundColor: darkBackground,
-                                      children: <Widget>[
-                                        for (Supernode item
-                                            in state.supernodes.value[key])
-                                          GestureDetector(
-                                            child: ListTile(
-                                              title: Container(
-                                                key: Key(item.name),
-                                                alignment: Alignment.center,
-                                                height: s(65),
-                                                child: CachedNetworkImage(
-                                                  imageUrl: "${item.logo}",
-                                                  placeholder: (a, b) =>
-                                                      Image.asset(
-                                                    AppImages.placeholder,
-                                                    height: s(30),
-                                                  ),
-                                                  height: s(30),
-                                                ),
-                                              ),
-                                            ),
-                                            onTap: () {
-                                              onSupernodeSelect(item);
-                                            },
-                                          ),
-                                      ],
-                                    ),
-                              ],
-                            ),
-                        ]),
-                      ),
-                    ),
-                  );
-                },
-              )
-            ],
-          ),
-          onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-        ),
-      ),
-    );
-  }
-}
-
-void _showInfoDialog(BuildContext context) {
-  showInfoDialog(
-    context,
-    IosStyleBottomDialog2(
-      context: context,
+class _LoginPageContentState extends State<LoginPageContent>
+    with TickerProviderStateMixin {
+  Widget circleButton(String text, IconData icon, {VoidCallback onPressed}) {
+    return GestureDetector(
+      onTap: onPressed,
       child: Column(
         children: [
           Container(
-            width: s(86),
-            height: s(86),
-            alignment: Alignment.center,
             decoration: BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,
             ),
-            child: Container(
-              width: s(67),
-              height: s(67),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: darkBackground,
-                      offset: Offset(0, 1),
-                      blurRadius: 10,
-                      spreadRadius: 5,
-                    )
-                  ]),
-              child: Icon(Icons.add, size: s(12)),
+            height: 50,
+            width: 50,
+            child: Icon(
+              icon,
+              size: 40,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Text(
-              FlutterI18n.translate(context, 'info_supernode'),
-              key: ValueKey("helpText"),
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: s(16),
-                fontWeight: FontWeight.w500,
-              ),
-              textAlign: TextAlign.center,
+          SizedBox(height: 8),
+          Text(
+            text,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 14,
             ),
           ),
         ],
       ),
-    ),
-  );
+    );
+  }
+
+  Widget imageWithText(String text, ImageProvider image,
+      {double fontSize = 16}) {
+    return Stack(
+      children: [
+        Positioned.fill(child: Image(image: image)),
+        AspectRatio(
+          aspectRatio: 2.82,
+          child: Center(
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: fontSize,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Animation<double> mxcAnimation() => AlwaysStoppedAnimation(
+        max(min(mxcWidth / minCardWidth - 1, 1), 0),
+      );
+
+  Widget mxcCardContent(BuildContext context) {
+    final animation = mxcAnimation();
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(
+              Tween<double>(begin: 80, end: 20).evaluate(animation)),
+          topLeft: Radius.circular(20),
+          bottomRight: Radius.circular(
+              Tween<double>(begin: 30, end: 20).evaluate(animation)),
+          bottomLeft: Radius.circular(20),
+        ),
+        gradient: LinearGradient(
+          colors: [
+            Color(0xFF02FFD8),
+            Color(0xFF1C1478),
+          ],
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+        ),
+      ),
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Container(
+            height: TweenSequence([
+              TweenSequenceItem(
+                tween: Tween<double>(begin: 300, end: 250),
+                weight: 40.0,
+              ),
+              TweenSequenceItem(
+                tween: Tween<double>(begin: 250, end: 60),
+                weight: 60.0,
+              ),
+            ]).evaluate(animation),
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                final animationValue = animation.value;
+                if (animationValue <= 0.01) {
+                  openMxc();
+                }
+                if (animationValue >= 0.99) {
+                  closeCards();
+                }
+              },
+              child: LayoutBuilder(builder: (ctx, cnstr) {
+                final Size biggest = cnstr.biggest;
+                return Stack(
+                  children: [
+                    PositionedTransition(
+                      rect: RelativeRectTween(
+                        begin: RelativeRect.fromSize(
+                          Rect.fromLTWH(biggest.width - 130 - 16, 16, 130, 130),
+                          biggest,
+                        ),
+                        end: RelativeRect.fromSize(
+                          Rect.fromLTWH(16, 15, 40, 40),
+                          biggest,
+                        ),
+                      ).animate(animation),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                        ),
+                        child: Image.asset(AppImages.mxc),
+                      ),
+                    ),
+                    PositionedTransition(
+                      rect: RelativeRectTween(
+                        begin: RelativeRect.fromSize(
+                          Rect.fromLTWH(biggest.width - 130 - 16, 162, 130, 30),
+                          biggest,
+                        ),
+                        end: RelativeRect.fromSize(
+                          Rect.fromLTWH((biggest.width - 130) / 2, 26, 130, 30),
+                          biggest,
+                        ),
+                      ).animate(animation),
+                      child: Text(
+                        'SUPERNODE',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      right: 36,
+                      top: 190,
+                      child: FadeTransition(
+                        opacity: TweenSequence<double>([
+                          TweenSequenceItem(
+                            tween: Tween<double>(begin: 1, end: 0),
+                            weight: 30.0,
+                          ),
+                          TweenSequenceItem(
+                            tween: ConstantTween(0),
+                            weight: 70.0,
+                          ),
+                        ]).animate(animation),
+                        child: Text(
+                          'Learn More',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                    PositionedTransition(
+                      rect: RelativeRectTween(
+                        begin: RelativeRect.fromSize(
+                          Rect.fromLTWH(biggest.width - 18 - 16, 191, 18, 18),
+                          biggest,
+                        ),
+                        end: RelativeRect.fromSize(
+                          Rect.fromLTWH(biggest.width - 40 - 16, 16, 40, 40),
+                          biggest,
+                        ),
+                      ).animate(animation),
+                      child: RotationTransition(
+                        turns: Tween<double>(begin: 0, end: 0.5)
+                            .animate(animation),
+                        child: Icon(
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                          size: Tween<double>(begin: 16, end: 40)
+                              .evaluate(animation),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }),
+            ),
+          ),
+          Expanded(
+            child: FadeTransition(
+              opacity: TweenSequence<double>([
+                TweenSequenceItem(
+                  tween: ConstantTween(0),
+                  weight: 50.0,
+                ),
+                TweenSequenceItem(
+                  tween: Tween<double>(begin: 0, end: 1),
+                  weight: 50.0,
+                ),
+              ]).animate(animation),
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Spacer(),
+                    Expanded(
+                      flex: 3,
+                      child: imageWithText(
+                        'What is a Supernode?',
+                        AssetImage(AppImages.mxcSite1),
+                        fontSize: Tween<double>(begin: 3, end: 16)
+                            .evaluate(animation),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    Expanded(
+                      flex: 3,
+                      child: imageWithText(
+                        'How to Become a Supernode',
+                        AssetImage(AppImages.mxcSite2),
+                        fontSize: Tween<double>(begin: 3, end: 16)
+                            .evaluate(animation),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    Expanded(
+                      flex: 3,
+                      child: imageWithText(
+                        'Supernode Staking and Profit Sharing',
+                        AssetImage(AppImages.mxcSite3),
+                        fontSize: Tween<double>(begin: 3, end: 16)
+                            .evaluate(animation),
+                      ),
+                    ),
+                    Spacer(),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              circleButton(
+                'Signup',
+                Icons.add,
+              ),
+              SizedBox(width: 23),
+              circleButton(
+                'Login',
+                Icons.arrow_forward,
+                onPressed: () => Navigator.of(context)
+                    .push(route((ctx) => SupernodeLoginPage())),
+              ),
+              SizedBox(width: 20),
+            ],
+          ),
+          SizedBox(
+            height: 60,
+          )
+        ],
+      ),
+    );
+  }
+
+  Animation<double> dhxAnimation() => AlwaysStoppedAnimation(
+        max(min(dhxWidth / minCardWidth - 1, 1), 0),
+      );
+
+  Widget dhxCardContent(BuildContext context) {
+    final animation = dhxAnimation();
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(
+              Tween<double>(begin: 80, end: 20).evaluate(animation)),
+          topRight: Radius.circular(20),
+          bottomLeft: Radius.circular(
+              Tween<double>(begin: 30, end: 20).evaluate(animation)),
+          bottomRight: Radius.circular(20),
+        ),
+        gradient: LinearGradient(
+          colors: [
+            Color(0xFF6B0B92),
+            Color(0xFF4665EA),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Container(
+            height: TweenSequence([
+              TweenSequenceItem(
+                tween: Tween<double>(begin: 300, end: 250),
+                weight: 40.0,
+              ),
+              TweenSequenceItem(
+                tween: Tween<double>(begin: 250, end: 60),
+                weight: 60.0,
+              ),
+            ]).evaluate(animation),
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                final animationValue = animation.value;
+                if (animationValue <= 0.01) {
+                  openDhx();
+                }
+                if (animationValue >= 0.99) {
+                  closeCards();
+                }
+              },
+              child: LayoutBuilder(builder: (ctx, cnstr) {
+                final Size biggest = cnstr.biggest;
+                return Stack(
+                  children: [
+                    PositionedTransition(
+                      rect: RelativeRectTween(
+                        begin: RelativeRect.fromSize(
+                          Rect.fromLTWH(16, 16, 130, 130),
+                          biggest,
+                        ),
+                        end: RelativeRect.fromSize(
+                          Rect.fromLTWH(biggest.width - 44 - 16, 15, 40, 40),
+                          biggest,
+                        ),
+                      ).animate(animation),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                        ),
+                        child: Image.asset(AppImages.dhx),
+                      ),
+                    ),
+                    PositionedTransition(
+                      rect: RelativeRectTween(
+                        begin: RelativeRect.fromSize(
+                          Rect.fromLTWH(16, 162, 160, 30),
+                          biggest,
+                        ),
+                        end: RelativeRect.fromSize(
+                          Rect.fromLTWH((biggest.width - 142) / 2, 26, 160, 30),
+                          biggest,
+                        ),
+                      ).animate(animation),
+                      child: Text(
+                        'DATAHIGHWAY',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: 36,
+                      top: 190,
+                      child: FadeTransition(
+                        opacity: TweenSequence<double>([
+                          TweenSequenceItem(
+                            tween: Tween<double>(begin: 1, end: 0),
+                            weight: 30.0,
+                          ),
+                          TweenSequenceItem(
+                            tween: ConstantTween(0),
+                            weight: 70.0,
+                          ),
+                        ]).animate(animation),
+                        child: Text(
+                          'Learn More',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                    PositionedTransition(
+                      rect: RelativeRectTween(
+                        begin: RelativeRect.fromSize(
+                          Rect.fromLTWH(16, 191, 18, 18),
+                          biggest,
+                        ),
+                        end: RelativeRect.fromSize(
+                          Rect.fromLTWH(16, 16, 40, 40),
+                          biggest,
+                        ),
+                      ).animate(animation),
+                      child: RotationTransition(
+                        turns: Tween<double>(begin: 0, end: 0.5)
+                            .animate(animation),
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                          size: Tween<double>(begin: 16, end: 40)
+                              .evaluate(animation),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }),
+            ),
+          ),
+          Expanded(
+            child: FadeTransition(
+              opacity: TweenSequence<double>([
+                TweenSequenceItem(
+                  tween: ConstantTween(0),
+                  weight: 50.0,
+                ),
+                TweenSequenceItem(
+                  tween: Tween<double>(begin: 0, end: 1),
+                  weight: 50.0,
+                ),
+              ]).animate(animation),
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Spacer(),
+                    Expanded(
+                      flex: 3,
+                      child: imageWithText(
+                        'Visit website :\nTHE NEXT GENERATION DATA TOKEN',
+                        AssetImage(AppImages.dhxSite),
+                        fontSize: Tween<double>(begin: 3, end: 16)
+                            .evaluate(animation),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    Expanded(
+                      flex: 3,
+                      child: imageWithText(
+                        'Lead more :\nDHX Staking, Mining, and Earning Boosts',
+                        AssetImage(AppImages.dhxSite),
+                        fontSize: Tween<double>(begin: 3, end: 16)
+                            .evaluate(animation),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    Spacer(flex: 3),
+                    Spacer(),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(width: 20),
+              circleButton(
+                'Import',
+                Icons.arrow_back,
+                onPressed: () => Navigator.of(context)
+                    .push(route((ctx) => DataHighwayImportPage())),
+              ),
+              SizedBox(width: 23),
+              circleButton(
+                'Create',
+                Icons.add,
+                onPressed: () => Navigator.of(context)
+                    .push(route((ctx) => DataHighwayCreatePage())),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 60,
+          )
+        ],
+      ),
+    );
+  }
+
+  double calcCardWidth() {
+    return (widget.width - spaceBetweenCards) / 2;
+  }
+
+  static const double spaceBetweenCards = 5;
+
+  @override
+  void initState() {
+    super.initState();
+    controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 200));
+    controller.addListener(() {
+      if (animation?.value != null) setMxcWidth(animation.value);
+    });
+    initWidths();
+  }
+
+  @override
+  void didUpdateWidget(covariant LoginPageContent oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.width != widget.width) {
+      initWidths();
+    }
+  }
+
+  void initWidths() {
+    controller.stop();
+    mxcWidth = calcCardWidth();
+    dhxWidth = calcCardWidth();
+    minCardWidth = calcCardWidth();
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  void runAnimationMxc(Offset pixelsPerSecond) {
+    final unitsPerSecondX = pixelsPerSecond.dx / mxcWidth;
+
+    final movingToOpen = mxcWidth - mxcWidthAtStart > 0;
+
+    if (((movingToOpen && unitsPerSecondX > -1) &&
+            (mxcWidth - minCardWidth) / minCardWidth > 0.2) ||
+        ((!movingToOpen && unitsPerSecondX > -2) &&
+            (mxcWidth - minCardWidth) / minCardWidth > 0.8)) {
+      animation = controller.drive(
+        Tween(begin: mxcWidth, end: widget.width),
+      );
+    } else {
+      animation = controller.drive(
+        Tween(begin: mxcWidth, end: minCardWidth),
+      );
+    }
+
+    final spring = SpringDescription.withDampingRatio(
+      mass: 30,
+      stiffness: 1,
+      ratio: 0.2,
+    );
+
+    final simulation = SpringSimulation(spring, 0, 1, -unitsPerSecondX);
+    controller.animateWith(simulation);
+  }
+
+  void runAnimationDhx(Offset pixelsPerSecond) {
+    final unitsPerSecondX = pixelsPerSecond.dx / dhxWidth;
+
+    final movingToOpen = dhxWidth - dhxWidthAtStart > 0;
+
+    if (((movingToOpen && unitsPerSecondX < 1) &&
+            (dhxWidth - minCardWidth) / minCardWidth > 0.2) ||
+        ((!movingToOpen && unitsPerSecondX < 2) &&
+            (dhxWidth - minCardWidth) / minCardWidth > 0.8)) {
+      animation = controller.drive(
+        Tween(begin: mxcWidth, end: -spaceBetweenCards),
+      );
+    } else {
+      animation = controller.drive(
+        Tween(begin: mxcWidth, end: minCardWidth),
+      );
+    }
+
+    final spring = SpringDescription.withDampingRatio(
+      mass: 30,
+      stiffness: 1,
+      ratio: 0.2,
+    );
+
+    final simulation = SpringSimulation(spring, 0, 1, -unitsPerSecondX);
+    controller.animateWith(simulation);
+  }
+
+  Animation<double> animation;
+
+  double mxcWidthAtStart;
+  double dhxWidthAtStart;
+  double mxcWidth;
+  double dhxWidth;
+  double minCardWidth;
+
+  AnimationController controller;
+
+  void setMxcWidth(double width) {
+    setState(() {
+      mxcWidth = width;
+      dhxWidth = widget.width - spaceBetweenCards - mxcWidth;
+    });
+  }
+
+  void setDhxWidth(double width) {
+    setState(() {
+      mxcWidth = widget.width - spaceBetweenCards - dhxWidth;
+      dhxWidth = width;
+    });
+  }
+
+  void closeCards() {
+    animation = controller.drive(
+      Tween(begin: mxcWidth, end: minCardWidth),
+    );
+    controller.reset();
+    controller.animateTo(1, curve: Curves.easeInOut);
+  }
+
+  void openDhx() {
+    animation = controller.drive(
+      Tween(begin: mxcWidth, end: -spaceBetweenCards),
+    );
+    controller.reset();
+    controller.animateTo(1, curve: Curves.easeInOut);
+  }
+
+  void openMxc() {
+    animation = controller.drive(
+      Tween(begin: mxcWidth, end: widget.width),
+    );
+    controller.reset();
+    controller.animateTo(1, curve: Curves.easeInOut);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned(
+          left: -widget.width + mxcWidth,
+          width: widget.width,
+          bottom: 0,
+          top: 0,
+          child: GestureDetector(
+            onHorizontalDragDown: (details) {
+              mxcWidthAtStart = mxcWidth;
+            },
+            onHorizontalDragEnd: (details) {
+              runAnimationMxc(details.velocity.pixelsPerSecond);
+            },
+            onHorizontalDragUpdate: (d) {
+              controller.stop();
+              final newMxcWidth = mxcWidth + d.delta.dx;
+              if (newMxcWidth < minCardWidth)
+                setState(() {
+                  mxcWidth = minCardWidth;
+                  dhxWidth = minCardWidth;
+                });
+              else
+                setMxcWidth(newMxcWidth);
+            },
+            child: mxcCardContent(context),
+          ),
+        ),
+        Positioned(
+          right: -widget.width + dhxWidth,
+          width: widget.width,
+          bottom: 0,
+          top: 0,
+          child: GestureDetector(
+            onHorizontalDragDown: (details) {
+              dhxWidthAtStart = dhxWidth;
+            },
+            onHorizontalDragEnd: (details) {
+              runAnimationDhx(details.velocity.pixelsPerSecond);
+            },
+            onHorizontalDragUpdate: (d) {
+              controller.stop();
+              final newDhxWidth = dhxWidth - d.delta.dx;
+              if (newDhxWidth < minCardWidth)
+                setState(() {
+                  mxcWidth = minCardWidth;
+                  dhxWidth = minCardWidth;
+                });
+              else
+                setDhxWidth(newDhxWidth);
+            },
+            child: dhxCardContent(context),
+          ),
+        ),
+      ],
+    );
+  }
 }

@@ -9,5 +9,7 @@ abstract class HomeState with _$HomeState {
   factory HomeState({
     @required int tabIndex,
     PageRoute routeTo,
+    bool supernodeUsed,
+    bool parachainUsed,
   }) = _HomeState;
 }

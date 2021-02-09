@@ -257,20 +257,20 @@ void _showInfoDialog(BuildContext context) {
     IosStyleBottomDialog2(
         context: context,
         child: Column(
-          children: [
-            Image.asset(AppImages.infoDownlinkPrice, height: s(80)),
-            Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Text(
-                  FlutterI18n.translate(context, 'info_downlink_price'),
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: s(16),
-                    fontWeight: FontWeight.w500,
-                  ),
-                  textAlign: TextAlign.center,
-                )),
-          ],
+        children: [
+          Image.asset(AppImages.infoDownlinkPrice, height: s(80)),
+          Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Text(
+                FlutterI18n.translate(context, 'info_downlink_price'),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: s(16),
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+              )),
+        ],
         )),
   );
 }

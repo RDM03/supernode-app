@@ -23,14 +23,14 @@ class WalletCubit extends Cubit<WalletState> {
   final HomeCubit homeCubit;
 
   void addDhx() {
-    homeCubit.saveCache(CacheRepository.walletDHX, true);
+    homeCubit.saveSNCache(CacheRepository.walletDHX, true);
     emit(state.copyWith(
       displayTokens: {...state.displayTokens, Token.supernodeDhx}.toList(),
     ));
   }
 
   void addBtc() {
-    homeCubit.saveCache(CacheRepository.walletBTC, true);
+    homeCubit.saveSNCache(CacheRepository.walletBTC, true);
     emit(state.copyWith(
       displayTokens: {...state.displayTokens, Token.btc}.toList(),
     ));
@@ -44,7 +44,7 @@ class WalletCubit extends Cubit<WalletState> {
   }
 
   Future<void> initState() async {
-    final data = homeCubit.loadCache();
+    final data = homeCubit.loadSNCache();
     final dhxUsed = data[CacheRepository.walletDHX] ?? false;
     if (dhxUsed) {
       emit(state.copyWith(

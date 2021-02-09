@@ -121,6 +121,13 @@ Future<void> main() async {
         : null,
   );
 
+  final dataHighwaySession = storageRepository.dataHighwaySession();
+  final dataHighwayCubit = DataHighwayCubit(
+    session: dataHighwaySession != null
+        ? DataHighwaySession(address: dataHighwaySession)
+        : null,
+  );
+
   runApp(
     MultiBlocProvider(
       providers: [
@@ -129,6 +136,9 @@ Future<void> main() async {
         ),
         BlocProvider<SupernodeCubit>.value(
           value: supernodeCubit,
+        ),
+        BlocProvider<DataHighwayCubit>.value(
+          value: dataHighwayCubit,
         ),
       ],
       child: MultiRepositoryProvider(

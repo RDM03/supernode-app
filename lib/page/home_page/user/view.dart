@@ -22,6 +22,8 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
+import 'package:supernodeapp/page/home_page/cubit.dart';
+import 'package:supernodeapp/page/home_page/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
@@ -174,9 +176,9 @@ class UserTab extends StatelessWidget {
         backgroundColor: backgroundColor,
         elevation: 0,
         title: BlocBuilder<SupernodeCubit, SupernodeState>(
-          buildWhen: (a, b) => a.session?.node != b.session?.node,
+          buildWhen: (a, b) => a?.session?.node != b?.session?.node,
           builder: (ctx, state) => CachedNetworkImage(
-            imageUrl: state.session?.node?.logo ?? '',
+            imageUrl: state?.session?.node?.logo ?? '',
             placeholder: (a, b) => Image.asset(
               AppImages.placeholder,
               height: s(40),
@@ -195,82 +197,95 @@ class UserTab extends StatelessWidget {
           )
         ],
       ),
-      body: RefreshIndicator(
-        displacement: 10,
-        onRefresh: () => context.read<SupernodeUserCubit>().refresh(),
-        child: PageBody(
-          children: [
-            mainPanel(context),
-            BlocBuilder<GatewayCubit, GatewayState>(
-              buildWhen: (a, b) => a.gatewaysTotal != b.gatewaysTotal,
-              builder: (ctx, gatewayState) =>
-                  BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-                buildWhen: (a, b) =>
-                    a.gatewaysRevenueUsd != b.gatewaysRevenueUsd ||
-                    a.gatewaysRevenue != b.gatewaysRevenue,
-                builder: (ctx, state) => PanelFrame(
-                  child: SummaryRow(
-                    key: Key('totalGatewaysDashboard'),
-                    loading: state.gatewaysRevenueUsd.loading,
-                    image: AppImages.gateways,
-                    title: FlutterI18n.translate(context, 'total_gateways'),
-                    number: '${gatewayState.gatewaysTotal.value ?? '0'}',
-                    subtitle: FlutterI18n.translate(context, 'profit'),
-                    price:
-                        '${Tools.priceFormat(state.gatewaysRevenue.value)} MXC (${Tools.priceFormat(state.gatewaysRevenueUsd.value)} USD)',
-                  ),
-                ),
-              ),
-            ),
-            BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-              buildWhen: (a, b) =>
-                  a.devicesRevenueUsd != b.devicesRevenueUsd ||
-                  a.devicesRevenue != b.devicesRevenue ||
-                  a.devicesTotal != b.devicesTotal,
-              builder: (ctx, state) => PanelFrame(
-                child: SummaryRow(
-                  key: Key('totalDevicesDashboard'),
-                  loading: false,
-                  image: AppImages.devices,
-                  title: FlutterI18n.translate(context, 'total_devices'),
-                  number: '${state.devicesTotal.value ?? '0'}',
-                  subtitle: FlutterI18n.translate(context, 'cost'),
-                  price:
-                      '${Tools.priceFormat(state.devicesRevenue.value)} MXC (${Tools.priceFormat(state.devicesRevenueUsd.value)} USD)',
-                ),
-              ),
-            ),
-            BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-              buildWhen: (a, b) =>
-                  a.geojsonList != b.geojsonList ||
-                  a.locationPermissionsGranted != b.locationPermissionsGranted,
-              builder: (ctx, state) => PanelFrame(
-                key: ValueKey('homeMapbox'),
-                height: 263,
-                child: state.locationPermissionsGranted
-                    ? FlutterMapboxNative(
-                        mapStyle: Sys.mapTileStyle,
-                        center: CenterPosition(
-                          target: LatLng(0, 0),
-                          zoom: 0,
-                          animated: true,
+      body: BlocBuilder<HomeCubit, HomeState>(
+        buildWhen: (a, b) =>
+            a.parachainUsed != b.parachainUsed ||
+            a.supernodeUsed != b.supernodeUsed,
+        builder: (ctx, s) => !s.supernodeUsed
+            ? Text('TODO')
+            : RefreshIndicator(
+                displacement: 10,
+                onRefresh: () => context.read<SupernodeUserCubit>().refresh(),
+                child: PageBody(
+                  children: [
+                    mainPanel(context),
+                    BlocBuilder<GatewayCubit, GatewayState>(
+                      buildWhen: (a, b) => a.gatewaysTotal != b.gatewaysTotal,
+                      builder: (ctx, gatewayState) =>
+                          BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
+                        buildWhen: (a, b) =>
+                            a.gatewaysRevenueUsd != b.gatewaysRevenueUsd ||
+                            a.gatewaysRevenue != b.gatewaysRevenue,
+                        builder: (ctx, state) => PanelFrame(
+                          child: SummaryRow(
+                            key: Key('totalGatewaysDashboard'),
+                            loading: state.gatewaysRevenueUsd.loading,
+                            image: AppImages.gateways,
+                            title: FlutterI18n.translate(
+                                context, 'total_gateways'),
+                            number:
+                                '${gatewayState.gatewaysTotal.value ?? '0'}',
+                            subtitle: FlutterI18n.translate(context, 'profit'),
+                            price:
+                                '${Tools.priceFormat(state.gatewaysRevenue.value)} MXC (${Tools.priceFormat(state.gatewaysRevenueUsd.value)} USD)',
+                          ),
                         ),
-                        // minimumZoomLevel: 1,
-                        maximumZoomLevel: 12,
-                        clusters: state.geojsonList ?? [],
-                        myLocationEnabled: true,
-                        myLocationTrackingMode: MyLocationTrackingMode.None,
-                        onFullScreenTap: () {
-                          Navigator.of(context).pushNamed('mapbox_gl_page',
-                              arguments: {'list': state.geojsonList});
-                        },
-                      )
-                    : Container(),
+                      ),
+                    ),
+                    BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
+                      buildWhen: (a, b) =>
+                          a.devicesRevenueUsd != b.devicesRevenueUsd ||
+                          a.devicesRevenue != b.devicesRevenue ||
+                          a.devicesTotal != b.devicesTotal,
+                      builder: (ctx, state) => PanelFrame(
+                        child: SummaryRow(
+                          key: Key('totalDevicesDashboard'),
+                          loading: false,
+                          image: AppImages.devices,
+                          title:
+                              FlutterI18n.translate(context, 'total_devices'),
+                          number: '${state.devicesTotal.value ?? '0'}',
+                          subtitle: FlutterI18n.translate(context, 'cost'),
+                          price:
+                              '${Tools.priceFormat(state.devicesRevenue.value)} MXC (${Tools.priceFormat(state.devicesRevenueUsd.value)} USD)',
+                        ),
+                      ),
+                    ),
+                    BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
+                      buildWhen: (a, b) =>
+                          a.geojsonList != b.geojsonList ||
+                          a.locationPermissionsGranted !=
+                              b.locationPermissionsGranted,
+                      builder: (ctx, state) => PanelFrame(
+                        key: ValueKey('homeMapbox'),
+                        height: 263,
+                        child: state.locationPermissionsGranted
+                            ? FlutterMapboxNative(
+                                mapStyle: Sys.mapTileStyle,
+                                center: CenterPosition(
+                                  target: LatLng(0, 0),
+                                  zoom: 0,
+                                  animated: true,
+                                ),
+                                // minimumZoomLevel: 1,
+                                maximumZoomLevel: 12,
+                                clusters: state.geojsonList ?? [],
+                                myLocationEnabled: true,
+                                myLocationTrackingMode:
+                                    MyLocationTrackingMode.None,
+                                onFullScreenTap: () {
+                                  Navigator.of(context).pushNamed(
+                                      'mapbox_gl_page',
+                                      arguments: {'list': state.geojsonList});
+                                },
+                              )
+                            : Container(),
+                      ),
+                    ),
+                    smallColumnSpacer(),
+                  ],
+                ),
               ),
-            ),
-            smallColumnSpacer(),
-          ],
-        ),
       ),
     );
   }

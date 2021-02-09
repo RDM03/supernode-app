@@ -123,6 +123,19 @@ class StorageRepository {
     await _sharedPreferences.setString(_supernodeKey, supernode?.toJson());
   }
 
+  static const String _dataHighwayAddress = 'dataHighwayAddress';
+
+  String dataHighwaySession() {
+    final address = _sharedPreferences.getString(_dataHighwayAddress);
+    return address;
+  }
+
+  Future<void> setDataHighwaySession({
+    @required String address,
+  }) async {
+    await _sharedPreferences.setString(_dataHighwayAddress, address);
+  }
+
   bool isDemo() {
     return _sharedPreferences.getBool(_demoModeKey);
   }
