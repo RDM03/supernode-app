@@ -46,6 +46,7 @@ class _DataHighwayCreatePageState extends State<DataHighwayCreatePage> {
       appBar: AppBars.backArrowAppBar(
         color: Colors.white,
         title: 'Create Account',
+        onPress: () => Navigator.of(context).pop(),
       ),
       backgroundColor: Colors.white,
       body: Theme(

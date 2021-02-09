@@ -48,6 +48,7 @@ class _DataHighwayImport2PageState extends State<DataHighwayImport2Page> {
       appBar: AppBars.backArrowAppBar(
         color: Colors.white,
         title: 'Import Account',
+        onPress: () => Navigator.of(context).pop(),
       ),
       backgroundColor: Colors.white,
       body: Theme(

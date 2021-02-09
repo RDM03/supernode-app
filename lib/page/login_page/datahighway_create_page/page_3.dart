@@ -8,7 +8,6 @@ import 'package:supernodeapp/common/components/mnemonic_list.dart';
 import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/page/home_page/view.dart';
-import 'package:supernodeapp/page/login_page/datahighway_import_page/page_2.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -84,6 +83,7 @@ class _DataHighwayCreate3PageState extends State<DataHighwayCreate3Page> {
       appBar: AppBars.backArrowAppBar(
         color: Colors.white,
         title: 'Create Account',
+        onPress: () => Navigator.of(context).pop(),
       ),
       backgroundColor: Colors.white,
       body: Theme(

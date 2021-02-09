@@ -22,6 +22,7 @@ class _DataHighwayCreate2PageState extends State<DataHighwayCreate2Page> {
       appBar: AppBars.backArrowAppBar(
         color: Colors.white,
         title: 'Create Account',
+        onPress: () => Navigator.of(context).pop(),
       ),
       backgroundColor: Colors.white,
       body: Theme(
@@ -89,6 +90,7 @@ class _DataHighwayCreate2PageState extends State<DataHighwayCreate2Page> {
                 contentPadding: EdgeInsets.zero,
                 value: wordsSaved,
                 onChanged: (v) => setState(() => wordsSaved = v),
+                activeColor: Token.parachainDhx.color,
                 title: Text(
                   'I wrote it down and put it in a safe place.',
                   style: kMiddleFontOfBlack,
