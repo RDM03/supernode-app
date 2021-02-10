@@ -15,6 +15,7 @@ import 'package:supernodeapp/page/home_page/device/view.dart';
 import 'package:supernodeapp/page/home_page/gateway/view.dart';
 import 'package:supernodeapp/page/home_page/wallet/view.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
+import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
@@ -50,7 +51,9 @@ class HomePage extends StatelessWidget {
             );
           },
           onGenerateInitialRoutes: (state, s) => [
-            route((ctx) => _HomePageContent()),
+            route((ctx) => BlocBuilder<SettingsCubit, SettingsState>(
+                buildWhen: (a, b) => a.language != b.language,
+                builder: (ctx, s) =>  _HomePageContent())),
           ],
         ),
       ),

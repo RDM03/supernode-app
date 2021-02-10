@@ -13,43 +13,46 @@ import '../../../route.dart';
 class AppSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return pageFrame(
-        context: context,
-        padding: EdgeInsets.all(0.0),
-        children: <Widget>[
-          ListTile(
-            title: Center(
-                child: Text(FlutterI18n.translate(context, 'app_settings'),
-                    style: kBigBoldFontOfBlack)),
-            trailing: GestureDetector(
-                child: Icon(Icons.close, color: Colors.black),
-                onTap: () => Navigator.of(context).pop()),
-          ),
-          Divider(),
-          listItem(FlutterI18n.translate(context, 'language'),
-              onTap: () =>
-                  Navigator.push(context, route((_) => LanguagePage()))),
-          Divider(),
-          listItem(
-            FlutterI18n.translate(context, 'use_face_id'),
-            trailing: Switch(
-                activeColor: Color(0xFF1C1478),
-                value: true,
-                onChanged: (v) => 'TODO'),
-          ),
-          Divider(),
-          listItem(
-            FlutterI18n.translate(context, 'screenshot'),
-            trailing: BlocBuilder<SettingsCubit, SettingsState>(
-              buildWhen: (a, b) => a.screenShot != b.screenShot,
-              builder: (ctx, s) => Switch(
-                activeColor: Color(0xFF1C1478),
-                value: s.screenShot,
-                onChanged: (v) =>
-                    context.read<SettingsCubit>().setScreenShot(v, context),
+    return BlocBuilder<SettingsCubit, SettingsState>(
+      buildWhen: (a, b) => a.language != b.language,
+      builder: (ctx, s) => pageFrame(
+          context: context,
+          padding: EdgeInsets.all(0.0),
+          children: <Widget>[
+            ListTile(
+              title: Center(
+                  child: Text(FlutterI18n.translate(context, 'app_settings'),
+                      style: kBigBoldFontOfBlack)),
+              trailing: GestureDetector(
+                  child: Icon(Icons.close, color: Colors.black),
+                  onTap: () => Navigator.of(context).pop()),
+            ),
+            Divider(),
+            listItem(FlutterI18n.translate(context, 'language'),
+                onTap: () =>
+                    Navigator.push(context, route((_) => LanguagePage()))),
+            Divider(),
+            listItem(
+              FlutterI18n.translate(context, 'use_face_id'),
+              trailing: Switch(
+                  activeColor: Color(0xFF1C1478),
+                  value: true,
+                  onChanged: (v) => 'TODO'),
+            ),
+            Divider(),
+            listItem(
+              FlutterI18n.translate(context, 'screenshot'),
+              trailing: BlocBuilder<SettingsCubit, SettingsState>(
+                buildWhen: (a, b) => a.screenShot != b.screenShot,
+                builder: (ctx, s) => Switch(
+                  activeColor: Color(0xFF1C1478),
+                  value: s.screenShot,
+                  onChanged: (v) =>
+                      context.read<SettingsCubit>().setScreenShot(v, context),
+                ),
               ),
             ),
-          ),
-        ]);
+          ]),
+    );
   }
 }

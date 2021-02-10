@@ -19,10 +19,13 @@ class LanguagePage extends StatelessWidget {
         context: context,
         padding: EdgeInsets.zero,
         children: [
-          pageNavBar(
-            FlutterI18n.translate(context, 'language'),
-            padding: const EdgeInsets.all(20),
-            onTap: () => Navigator.of(context).pop(),
+          BlocBuilder<SettingsCubit, SettingsState>(
+            buildWhen: (a, b) => a.language != b.language,
+            builder: (ctx, s) => pageNavBar(
+              FlutterI18n.translate(context, 'language'),
+              padding: const EdgeInsets.all(20),
+              onTap: () => Navigator.of(context).pop(),
+            ),
           ),
           BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (a, b) => a.language != b.language,
