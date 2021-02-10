@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
-
-import 'links_component/state.dart';
 import 'organizations_component/state.dart';
 import 'profile_component/state.dart';
 import 'security_component/state.dart';
@@ -169,14 +167,4 @@ class SecurityConnector extends ConnOp<SettingsState, SecurityState> {
 
   @override
   void set(SettingsState state, SecurityState subState) {}
-}
-
-class LinksConnector extends ConnOp<SettingsState, LinksState> {
-  @override
-  LinksState get(SettingsState state) {
-    return LinksState();
-  }
-
-  @override
-  void set(SettingsState state, LinksState subState) {}
 }

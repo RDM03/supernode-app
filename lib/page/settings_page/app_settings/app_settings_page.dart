@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
+import 'package:supernodeapp/page/feedback_page/feedback.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
 import 'package:supernodeapp/page/settings_page/language_component/language_page.dart';
@@ -47,8 +48,9 @@ class AppSettingsPage extends StatelessWidget {
                 builder: (ctx, s) => Switch(
                   activeColor: Color(0xFF1C1478),
                   value: s.screenShot,
-                  onChanged: (v) =>
-                      context.read<SettingsCubit>().setScreenShot(v, context),
+                  onChanged: (v) async {
+                      await DatadashFeedback.of(context).setShowScreenshot(v);
+                      context.read<SettingsCubit>().setScreenShot(v);},
                 ),
               ),
             ),

@@ -68,8 +68,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(state.copyWith(language: language));
   }
 
-  Future<void> setScreenShot(bool value, BuildContext context) async {
-    await DatadashFeedback.of(context).setShowScreenshot(value);
+  void setScreenShot(bool value) {
     emit(state.copyWith(screenShot: value));
   }
 

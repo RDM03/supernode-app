@@ -15,6 +15,7 @@ import 'about_component/about_page.dart';
 import 'account_component/account_page.dart';
 import 'app_settings/app_settings_page.dart';
 import 'bloc/settings/cubit.dart';
+import 'links_component/links_page.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -73,9 +74,7 @@ class SettingsPage extends StatelessWidget {
                             }),
                         Divider(),
                         listItem(FlutterI18n.translate(context, 'connect_with_us'),
-                            onTap: () =>
-                                context.read<SettingsCubit>().toBeImplemented()),
-                        //dispatch(SettingsActionCreator.onSettings(SettingsOption.links))),
+                            onTap: () => Navigator.push(context, route((context) => LinksPage()))),
                         Divider(),
                         listItem(
                             FlutterI18n.translate(
