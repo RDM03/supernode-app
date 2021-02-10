@@ -63,6 +63,7 @@ class HomePage extends StatelessWidget {
         ),
         BlocProvider(
           create: (ctx) => SettingsCubit(
+            appCubit: ctx.read<AppCubit>(),
             supernodeRepository: ctx.read<SupernodeRepository>(),
           ),
         ),

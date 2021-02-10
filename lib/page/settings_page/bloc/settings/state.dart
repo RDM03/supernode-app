@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:package_info/package_info.dart';
@@ -13,5 +15,8 @@ abstract class SettingsState with _$SettingsState {
     @nullable String version,
     @nullable String buildNumber,
     @nullable String mxVersion,
+
+    @nullable String language,
+    bool screenShot,
   }) = _SettingsState;
 }

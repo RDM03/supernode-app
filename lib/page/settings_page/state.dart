@@ -4,7 +4,6 @@ import 'package:package_info/package_info.dart';
 import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 
-import 'language_component/state.dart';
 import 'links_component/state.dart';
 import 'organizations_component/state.dart';
 import 'profile_component/state.dart';
@@ -170,18 +169,6 @@ class SecurityConnector extends ConnOp<SettingsState, SecurityState> {
 
   @override
   void set(SettingsState state, SecurityState subState) {}
-}
-
-class LanguageConnector extends ConnOp<SettingsState, LanguageState> {
-  @override
-  LanguageState get(SettingsState state) {
-    return LanguageState()..language = state.language;
-  }
-
-  @override
-  void set(SettingsState state, LanguageState subState) {
-    state.language = subState.language;
-  }
 }
 
 class LinksConnector extends ConnOp<SettingsState, LinksState> {

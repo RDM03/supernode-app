@@ -12,6 +12,7 @@ import '../../app_state.dart';
 import '../../route.dart';
 import 'about_component/about_page.dart';
 import 'account_component/account_page.dart';
+import 'app_settings/app_settings_page.dart';
 import 'bloc/settings/cubit.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -39,9 +40,7 @@ class SettingsPage extends StatelessWidget {
                             onTap: s.isDemo
                                 ? null
                                 : () =>  Navigator.push(context, route((context) => AccountPage()))),
-                            //context.read<SettingsCubit>().refresh()),
                       ),
-                      //dispatch(SettingsActionCreator.onSettings(SettingsOption.manage_account))),
                       Divider(),
                       BlocBuilder<AppCubit, AppState>(
                         buildWhen: (a, b) => a.isDemo != b.isDemo,
@@ -52,17 +51,13 @@ class SettingsPage extends StatelessWidget {
                                 s.isDemo ? Icon(Icons.do_not_disturb_alt) : null,
                             onTap: s.isDemo
                                 ? null
-                                : () =>
-                                    context.read<SettingsCubit>().toBeImplemented()),
+                                : () => Navigator.push(context, route((context) => AppSettingsPage()))),
                       ),
-                      //dispatch(SettingsActionCreator.onSettings(SettingsOption.app_settings))),
                       Divider(),
                       listItem(
                         FlutterI18n.translate(
                             context, 'address_book'),
                         onTap: () => Navigator.of(context).pushNamed('address_book_page'),
-                          //context.read<SettingsCubit>().refresh(),
-                        // dispatch(SettingsActionCreator.onSettings(SettingsOption.address_book)),
                         key: ValueKey('addressBookItem'),
                       ),
                       Divider(),
@@ -73,7 +68,6 @@ class SettingsPage extends StatelessWidget {
                             context.read<SettingsCubit>().initAboutPage();
                             Navigator.push(context, route((context) => AboutPage()));
                           }),
-                      //dispatch(SettingsActionCreator.onSettings(SettingsOption.about))),
                       Divider(),
                       listItem(FlutterI18n.translate(context, 'connect_with_us'),
                           onTap: () =>

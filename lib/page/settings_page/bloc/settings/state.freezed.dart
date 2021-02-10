@@ -18,12 +18,16 @@ class _$SettingsStateTearOff {
       {@nullable PackageInfo info,
       @nullable String version,
       @nullable String buildNumber,
-      @nullable String mxVersion}) {
+      @nullable String mxVersion,
+      @nullable String language,
+      bool screenShot}) {
     return _SettingsState(
       info: info,
       version: version,
       buildNumber: buildNumber,
       mxVersion: mxVersion,
+      language: language,
+      screenShot: screenShot,
     );
   }
 }
@@ -42,6 +46,9 @@ mixin _$SettingsState {
   String get buildNumber;
   @nullable
   String get mxVersion;
+  @nullable
+  String get language;
+  bool get screenShot;
 
   $SettingsStateCopyWith<SettingsState> get copyWith;
 }
@@ -55,7 +62,9 @@ abstract class $SettingsStateCopyWith<$Res> {
       {@nullable PackageInfo info,
       @nullable String version,
       @nullable String buildNumber,
-      @nullable String mxVersion});
+      @nullable String mxVersion,
+      @nullable String language,
+      bool screenShot});
 }
 
 /// @nodoc
@@ -73,6 +82,8 @@ class _$SettingsStateCopyWithImpl<$Res>
     Object version = freezed,
     Object buildNumber = freezed,
     Object mxVersion = freezed,
+    Object language = freezed,
+    Object screenShot = freezed,
   }) {
     return _then(_value.copyWith(
       info: info == freezed ? _value.info : info as PackageInfo,
@@ -80,6 +91,9 @@ class _$SettingsStateCopyWithImpl<$Res>
       buildNumber:
           buildNumber == freezed ? _value.buildNumber : buildNumber as String,
       mxVersion: mxVersion == freezed ? _value.mxVersion : mxVersion as String,
+      language: language == freezed ? _value.language : language as String,
+      screenShot:
+          screenShot == freezed ? _value.screenShot : screenShot as bool,
     ));
   }
 }
@@ -95,7 +109,9 @@ abstract class _$SettingsStateCopyWith<$Res>
       {@nullable PackageInfo info,
       @nullable String version,
       @nullable String buildNumber,
-      @nullable String mxVersion});
+      @nullable String mxVersion,
+      @nullable String language,
+      bool screenShot});
 }
 
 /// @nodoc
@@ -115,6 +131,8 @@ class __$SettingsStateCopyWithImpl<$Res>
     Object version = freezed,
     Object buildNumber = freezed,
     Object mxVersion = freezed,
+    Object language = freezed,
+    Object screenShot = freezed,
   }) {
     return _then(_SettingsState(
       info: info == freezed ? _value.info : info as PackageInfo,
@@ -122,6 +140,9 @@ class __$SettingsStateCopyWithImpl<$Res>
       buildNumber:
           buildNumber == freezed ? _value.buildNumber : buildNumber as String,
       mxVersion: mxVersion == freezed ? _value.mxVersion : mxVersion as String,
+      language: language == freezed ? _value.language : language as String,
+      screenShot:
+          screenShot == freezed ? _value.screenShot : screenShot as bool,
     ));
   }
 }
@@ -132,7 +153,9 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
       {@nullable this.info,
       @nullable this.version,
       @nullable this.buildNumber,
-      @nullable this.mxVersion});
+      @nullable this.mxVersion,
+      @nullable this.language,
+      this.screenShot});
 
   @override
   @nullable
@@ -146,10 +169,15 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
   @override
   @nullable
   final String mxVersion;
+  @override
+  @nullable
+  final String language;
+  @override
+  final bool screenShot;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SettingsState(info: $info, version: $version, buildNumber: $buildNumber, mxVersion: $mxVersion)';
+    return 'SettingsState(info: $info, version: $version, buildNumber: $buildNumber, mxVersion: $mxVersion, language: $language, screenShot: $screenShot)';
   }
 
   @override
@@ -160,7 +188,9 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
       ..add(DiagnosticsProperty('info', info))
       ..add(DiagnosticsProperty('version', version))
       ..add(DiagnosticsProperty('buildNumber', buildNumber))
-      ..add(DiagnosticsProperty('mxVersion', mxVersion));
+      ..add(DiagnosticsProperty('mxVersion', mxVersion))
+      ..add(DiagnosticsProperty('language', language))
+      ..add(DiagnosticsProperty('screenShot', screenShot));
   }
 
   @override
@@ -177,7 +207,13 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
                     .equals(other.buildNumber, buildNumber)) &&
             (identical(other.mxVersion, mxVersion) ||
                 const DeepCollectionEquality()
-                    .equals(other.mxVersion, mxVersion)));
+                    .equals(other.mxVersion, mxVersion)) &&
+            (identical(other.language, language) ||
+                const DeepCollectionEquality()
+                    .equals(other.language, language)) &&
+            (identical(other.screenShot, screenShot) ||
+                const DeepCollectionEquality()
+                    .equals(other.screenShot, screenShot)));
   }
 
   @override
@@ -186,7 +222,9 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
       const DeepCollectionEquality().hash(info) ^
       const DeepCollectionEquality().hash(version) ^
       const DeepCollectionEquality().hash(buildNumber) ^
-      const DeepCollectionEquality().hash(mxVersion);
+      const DeepCollectionEquality().hash(mxVersion) ^
+      const DeepCollectionEquality().hash(language) ^
+      const DeepCollectionEquality().hash(screenShot);
 
   @override
   _$SettingsStateCopyWith<_SettingsState> get copyWith =>
@@ -198,7 +236,9 @@ abstract class _SettingsState implements SettingsState {
       {@nullable PackageInfo info,
       @nullable String version,
       @nullable String buildNumber,
-      @nullable String mxVersion}) = _$_SettingsState;
+      @nullable String mxVersion,
+      @nullable String language,
+      bool screenShot}) = _$_SettingsState;
 
   @override
   @nullable
@@ -212,6 +252,11 @@ abstract class _SettingsState implements SettingsState {
   @override
   @nullable
   String get mxVersion;
+  @override
+  @nullable
+  String get language;
+  @override
+  bool get screenShot;
   @override
   _$SettingsStateCopyWith<_SettingsState> get copyWith;
 }
