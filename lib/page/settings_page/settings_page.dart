@@ -7,6 +7,7 @@ import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
+import 'package:supernodeapp/page/login_page/view.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
 
 import '../../app_state.dart';
@@ -95,8 +96,10 @@ class SettingsPage extends StatelessWidget {
                                 context, 'logout'),
                             key: Key('logout'),
                             trailing: Text(''),
-                            onTap: () => context.read<SettingsCubit>().toBeImplemented())
-                        //,dispatch(SettingsActionCreator.onSettings(SettingsOption.logout))),
+                            onTap: () {
+                              context.read<SupernodeCubit>().logout();
+                              navigatorKey.currentState.pushAndRemoveUntil(route((_) => LoginPage()), (route) => false);
+                            }),
                       ],
                     )),
                     SizedBox(height: 15)
