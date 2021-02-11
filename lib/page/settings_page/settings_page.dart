@@ -80,15 +80,13 @@ class SettingsPage extends StatelessWidget {
                         listItem(
                             FlutterI18n.translate(
                                 context, 'rate_app'),
-                            onTap: () =>
-                                context.read<SettingsCubit>().toBeImplemented()),
+                            onTap: () => 'TODO'),
                         //dispatch(SettingsActionCreator.onSettings(SettingsOption.rate_app))),
                         Divider(),
                         listItem(
                             FlutterI18n.translate(
                                 context, 'export_mining_data'),
-                            onTap: () =>
-                                context.read<SettingsCubit>().toBeImplemented()),
+                            onTap: () => 'TODO'),
                         //dispatch(SettingsActionCreator.onSettings(SettingsOption.export_mining_data))),
                         Divider(),
                         listItem(

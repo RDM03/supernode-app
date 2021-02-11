@@ -65,12 +65,6 @@ class HomePage extends StatelessWidget {
           ),
         ),
         BlocProvider(
-          create: (ctx) => SettingsCubit(
-            appCubit: ctx.read<AppCubit>(),
-            supernodeRepository: ctx.read<SupernodeRepository>(),
-          ),
-        ),
-        BlocProvider(
           create: (ctx) => SupernodeUserCubit(
             session: ctx.read<SupernodeCubit>().state.session,
             orgId: ctx.read<SupernodeCubit>().state.orgId,
@@ -78,6 +72,13 @@ class HomePage extends StatelessWidget {
             cacheRepository: ctx.read<CacheRepository>(),
             homeCubit: ctx.read<HomeCubit>(),
           )..initState(),
+        ),
+        BlocProvider(
+          create: (ctx) => SettingsCubit(
+            appCubit: ctx.read<AppCubit>(),
+            supernodeUserCubit: ctx.read<SupernodeUserCubit>(),
+            supernodeRepository: ctx.read<SupernodeRepository>(),
+          ),
         ),
         BlocProvider(
           create: (ctx) => SupernodeDhxCubit(

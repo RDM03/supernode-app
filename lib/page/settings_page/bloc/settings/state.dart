@@ -18,5 +18,8 @@ abstract class SettingsState with _$SettingsState {
 
     @nullable String language,
     bool screenShot,
+    bool showWechatUnbindConfirmation,
+    int showBindShopifyStep,
+    bool showLoading,
   }) = _SettingsState;
 }

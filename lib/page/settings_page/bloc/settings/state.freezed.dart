@@ -20,7 +20,10 @@ class _$SettingsStateTearOff {
       @nullable String buildNumber,
       @nullable String mxVersion,
       @nullable String language,
-      bool screenShot}) {
+      bool screenShot,
+      bool showWechatUnbindConfirmation,
+      int showBindShopifyStep,
+      bool showLoading}) {
     return _SettingsState(
       info: info,
       version: version,
@@ -28,6 +31,9 @@ class _$SettingsStateTearOff {
       mxVersion: mxVersion,
       language: language,
       screenShot: screenShot,
+      showWechatUnbindConfirmation: showWechatUnbindConfirmation,
+      showBindShopifyStep: showBindShopifyStep,
+      showLoading: showLoading,
     );
   }
 }
@@ -49,6 +55,9 @@ mixin _$SettingsState {
   @nullable
   String get language;
   bool get screenShot;
+  bool get showWechatUnbindConfirmation;
+  int get showBindShopifyStep;
+  bool get showLoading;
 
   $SettingsStateCopyWith<SettingsState> get copyWith;
 }
@@ -64,7 +73,10 @@ abstract class $SettingsStateCopyWith<$Res> {
       @nullable String buildNumber,
       @nullable String mxVersion,
       @nullable String language,
-      bool screenShot});
+      bool screenShot,
+      bool showWechatUnbindConfirmation,
+      int showBindShopifyStep,
+      bool showLoading});
 }
 
 /// @nodoc
@@ -84,6 +96,9 @@ class _$SettingsStateCopyWithImpl<$Res>
     Object mxVersion = freezed,
     Object language = freezed,
     Object screenShot = freezed,
+    Object showWechatUnbindConfirmation = freezed,
+    Object showBindShopifyStep = freezed,
+    Object showLoading = freezed,
   }) {
     return _then(_value.copyWith(
       info: info == freezed ? _value.info : info as PackageInfo,
@@ -94,6 +109,14 @@ class _$SettingsStateCopyWithImpl<$Res>
       language: language == freezed ? _value.language : language as String,
       screenShot:
           screenShot == freezed ? _value.screenShot : screenShot as bool,
+      showWechatUnbindConfirmation: showWechatUnbindConfirmation == freezed
+          ? _value.showWechatUnbindConfirmation
+          : showWechatUnbindConfirmation as bool,
+      showBindShopifyStep: showBindShopifyStep == freezed
+          ? _value.showBindShopifyStep
+          : showBindShopifyStep as int,
+      showLoading:
+          showLoading == freezed ? _value.showLoading : showLoading as bool,
     ));
   }
 }
@@ -111,7 +134,10 @@ abstract class _$SettingsStateCopyWith<$Res>
       @nullable String buildNumber,
       @nullable String mxVersion,
       @nullable String language,
-      bool screenShot});
+      bool screenShot,
+      bool showWechatUnbindConfirmation,
+      int showBindShopifyStep,
+      bool showLoading});
 }
 
 /// @nodoc
@@ -133,6 +159,9 @@ class __$SettingsStateCopyWithImpl<$Res>
     Object mxVersion = freezed,
     Object language = freezed,
     Object screenShot = freezed,
+    Object showWechatUnbindConfirmation = freezed,
+    Object showBindShopifyStep = freezed,
+    Object showLoading = freezed,
   }) {
     return _then(_SettingsState(
       info: info == freezed ? _value.info : info as PackageInfo,
@@ -143,6 +172,14 @@ class __$SettingsStateCopyWithImpl<$Res>
       language: language == freezed ? _value.language : language as String,
       screenShot:
           screenShot == freezed ? _value.screenShot : screenShot as bool,
+      showWechatUnbindConfirmation: showWechatUnbindConfirmation == freezed
+          ? _value.showWechatUnbindConfirmation
+          : showWechatUnbindConfirmation as bool,
+      showBindShopifyStep: showBindShopifyStep == freezed
+          ? _value.showBindShopifyStep
+          : showBindShopifyStep as int,
+      showLoading:
+          showLoading == freezed ? _value.showLoading : showLoading as bool,
     ));
   }
 }
@@ -155,7 +192,10 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
       @nullable this.buildNumber,
       @nullable this.mxVersion,
       @nullable this.language,
-      this.screenShot});
+      this.screenShot,
+      this.showWechatUnbindConfirmation,
+      this.showBindShopifyStep,
+      this.showLoading});
 
   @override
   @nullable
@@ -174,10 +214,16 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
   final String language;
   @override
   final bool screenShot;
+  @override
+  final bool showWechatUnbindConfirmation;
+  @override
+  final int showBindShopifyStep;
+  @override
+  final bool showLoading;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SettingsState(info: $info, version: $version, buildNumber: $buildNumber, mxVersion: $mxVersion, language: $language, screenShot: $screenShot)';
+    return 'SettingsState(info: $info, version: $version, buildNumber: $buildNumber, mxVersion: $mxVersion, language: $language, screenShot: $screenShot, showWechatUnbindConfirmation: $showWechatUnbindConfirmation, showBindShopifyStep: $showBindShopifyStep, showLoading: $showLoading)';
   }
 
   @override
@@ -190,7 +236,11 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
       ..add(DiagnosticsProperty('buildNumber', buildNumber))
       ..add(DiagnosticsProperty('mxVersion', mxVersion))
       ..add(DiagnosticsProperty('language', language))
-      ..add(DiagnosticsProperty('screenShot', screenShot));
+      ..add(DiagnosticsProperty('screenShot', screenShot))
+      ..add(DiagnosticsProperty(
+          'showWechatUnbindConfirmation', showWechatUnbindConfirmation))
+      ..add(DiagnosticsProperty('showBindShopifyStep', showBindShopifyStep))
+      ..add(DiagnosticsProperty('showLoading', showLoading));
   }
 
   @override
@@ -213,7 +263,18 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
                     .equals(other.language, language)) &&
             (identical(other.screenShot, screenShot) ||
                 const DeepCollectionEquality()
-                    .equals(other.screenShot, screenShot)));
+                    .equals(other.screenShot, screenShot)) &&
+            (identical(other.showWechatUnbindConfirmation,
+                    showWechatUnbindConfirmation) ||
+                const DeepCollectionEquality().equals(
+                    other.showWechatUnbindConfirmation,
+                    showWechatUnbindConfirmation)) &&
+            (identical(other.showBindShopifyStep, showBindShopifyStep) ||
+                const DeepCollectionEquality()
+                    .equals(other.showBindShopifyStep, showBindShopifyStep)) &&
+            (identical(other.showLoading, showLoading) ||
+                const DeepCollectionEquality()
+                    .equals(other.showLoading, showLoading)));
   }
 
   @override
@@ -224,7 +285,10 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
       const DeepCollectionEquality().hash(buildNumber) ^
       const DeepCollectionEquality().hash(mxVersion) ^
       const DeepCollectionEquality().hash(language) ^
-      const DeepCollectionEquality().hash(screenShot);
+      const DeepCollectionEquality().hash(screenShot) ^
+      const DeepCollectionEquality().hash(showWechatUnbindConfirmation) ^
+      const DeepCollectionEquality().hash(showBindShopifyStep) ^
+      const DeepCollectionEquality().hash(showLoading);
 
   @override
   _$SettingsStateCopyWith<_SettingsState> get copyWith =>
@@ -238,7 +302,10 @@ abstract class _SettingsState implements SettingsState {
       @nullable String buildNumber,
       @nullable String mxVersion,
       @nullable String language,
-      bool screenShot}) = _$_SettingsState;
+      bool screenShot,
+      bool showWechatUnbindConfirmation,
+      int showBindShopifyStep,
+      bool showLoading}) = _$_SettingsState;
 
   @override
   @nullable
@@ -257,6 +324,12 @@ abstract class _SettingsState implements SettingsState {
   String get language;
   @override
   bool get screenShot;
+  @override
+  bool get showWechatUnbindConfirmation;
+  @override
+  int get showBindShopifyStep;
+  @override
+  bool get showLoading;
   @override
   _$SettingsStateCopyWith<_SettingsState> get copyWith;
 }
