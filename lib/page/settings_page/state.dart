@@ -4,7 +4,6 @@ import 'package:package_info/package_info.dart';
 import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 import 'organizations_component/state.dart';
-import 'profile_component/state.dart';
 import 'security_component/state.dart';
 
 class SettingsState implements Cloneable<SettingsState> {
@@ -99,40 +98,6 @@ SettingsState initState(Map<String, dynamic> args) {
     ..isDemo = isDemo
     ..weChatUser = weChatUser
     ..shopifyUser = shopifyUser;
-}
-
-class ProfileConnector extends ConnOp<SettingsState, ProfileState> {
-  @override
-  ProfileState get(SettingsState state) {
-    return ProfileState()
-      ..userId = state.userId
-      ..username = state.username
-      ..email = state.email
-      ..reloadProfile = state.reloadProfile
-      ..weChatUser = state.weChatUser
-      ..shopifyUser = state.shopifyUser
-      ..isAdmin = state.isAdmin
-      ..showWechatUnbindConfirmation = state.showWechatUnbindConfirmation
-      ..showBindShopifyStep = state.showBindShopifyStep
-      ..usernameCtl = state.usernameCtl
-      ..emailCtl = state.emailCtl
-      ..shopifyEmailCtl = state.shopifyEmailCtl
-      ..formKey = state.profileFormKey;
-  }
-
-  @override
-  void set(SettingsState state, ProfileState subState) {
-    state
-      ..username = subState.username
-      ..email = subState.email
-      ..reloadProfile = subState.reloadProfile
-      ..showWechatUnbindConfirmation = subState.showWechatUnbindConfirmation
-      ..showBindShopifyStep = subState.showBindShopifyStep
-      ..usernameCtl = subState.usernameCtl
-      ..weChatUser = subState.weChatUser
-      ..emailCtl = subState.emailCtl
-      ..shopifyEmailCtl = subState.shopifyEmailCtl;
-  }
 }
 
 class OrganizationConnector extends ConnOp<SettingsState, OrganizationsState> {

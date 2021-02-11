@@ -13,34 +13,34 @@ import 'package:toast/toast.dart';
 import 'state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
-  SettingsCubit({
-    this.appCubit,
-    this.supernodeUserCubit,
-    this.supernodeRepository
-  }) : super(SettingsState(
-      screenShot: false,
-      showWechatUnbindConfirmation: false,
-      showBindShopifyStep: 0,
-      showLoading: false)
-  );
+  SettingsCubit(
+      {this.appCubit,
+      this.supernodeUserCubit,
+      this.supernodeCubit,
+      this.supernodeRepository})
+      : super(SettingsState(
+            screenShot: false,
+            showWechatUnbindConfirmation: false,
+            showBindShopifyStep: 0,
+            showLoading: false));
 
   final AppCubit appCubit;
   final SupernodeUserCubit supernodeUserCubit;
+  final SupernodeCubit supernodeCubit;
   final SupernodeRepository supernodeRepository;
 
-  Future<void> initState() async {
-  }
+  Future<void> initState() async {}
 
   ServerInfoDao _buildServerInfoDao() {
     return supernodeRepository.serverInfo;
   }
 
   Future<void> initAboutPage() async {
-    PackageInfo.fromPlatform().then(
-            (info) => emit(state.copyWith(info: info)));
+    PackageInfo.fromPlatform().then((info) => emit(state.copyWith(info: info)));
 
-    _buildServerInfoDao().appServerVersion().then(
-            (info) => emit(state.copyWith(mxVersion: info.version)));
+    _buildServerInfoDao()
+        .appServerVersion()
+        .then((info) => emit(state.copyWith(mxVersion: info.version)));
   }
 
   Future<void> checkForUpdate(BuildContext ctx) async {
@@ -66,7 +66,8 @@ class SettingsCubit extends Cubit<SettingsState> {
       return;
     }
 
-    final locale = language == 'auto' ? Localizations.localeOf(context) : Locale(language);
+    final locale =
+        language == 'auto' ? Localizations.localeOf(context) : Locale(language);
     await FlutterI18n.refresh(context, locale);
 
     appCubit.setLocale(locale);
@@ -80,17 +81,11 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(state.copyWith(screenShot: value));
   }
 
-  void bindShopifyStep(int step) {
-    emit(state.copyWith(showBindShopifyStep: step));
-  }
+  void onUnbind(String service) {
+    emit(
+        state.copyWith(showWechatUnbindConfirmation: false, showLoading: true));
 
-  void onUnbind(String service, String orgId) {
-    emit(state.copyWith(showWechatUnbindConfirmation: false, showLoading: true));
-
-    Map data = {
-      "organizationId": orgId,
-      "service": service
-    };
+    Map data = {"organizationId": supernodeCubit.state.orgId, "service": service};
 
     supernodeRepository.user.unbindExternalUser(data).then((res) {
       emit(state.copyWith(showLoading: false));
@@ -109,29 +104,15 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(state.copyWith(showWechatUnbindConfirmation: confirm));
   }
 
-  void shopifyEmailVerification(String verificationCode, String orgId) {
-    //if (verificationCode.isNotEmpty) {
-      //final loading = Loading.show(ctx.context);
-
-      Map apiData = {
-        "organizationId": orgId,
-        "token": verificationCode
-      };
-
-      //UserDao dao = _buildUserDao(ctx);
-
-      //dao.confirmExternalEmail(apiData).then((res) {
-        //loading.hide();
-        emit(state.copyWith(showBindShopifyStep: 3));
-        //ctx.dispatch(ProfileActionCreator.bindShopifyStep(3));
-      //}).catchError((err) {
-        //loading.hide();
-        //tip(ctx.context, 'confirmExternalEmail: $err');
-      //});
-    //}
+  void bindShopifyStep(int step) {
+    if (step == 0 || step == 1) emit(state.copyWith(showBindShopifyStep: step));
+    //TODO else
+    //TODO exception;
   }
 
-  void shopifyEmail(String email, String orgId, String languageCode, String countryCode) {
+  void shopifyEmail(
+      String email, String languageCode, String countryCode) {
+    emit(state.copyWith(showLoading: true));
     if (languageCode.contains('zh')) {
       languageCode = '$languageCode$countryCode';
     }
@@ -139,58 +120,62 @@ class SettingsCubit extends Cubit<SettingsState> {
     Map apiData = {
       "email": email,
       "language": languageCode,
-      "organizationId": orgId
+      "organizationId": supernodeCubit.state.orgId
     };
 
-    //UserDao dao = _buildUserDao(ctx);
-    supernodeRepository;
+    supernodeRepository.user.verifyExternalEmail(apiData).then((res) {
+      emit(state.copyWith(showBindShopifyStep: 2, showLoading: false));
+    }).catchError((err) {
+      emit(state.copyWith(showLoading: false));
+      //tip(ctx.context, 'verifyExternalEmail: $err');
+    });
+  }
 
-    //dao.verifyExternalEmail(apiData).then((res) {
-    //loading.hide();
-    emit(state.copyWith(showBindShopifyStep: 2));
-    //TODO delete ctx.dispatch(ProfileActionCreator.bindShopifyStep(2));
-    //}).catchError((err) {
-    //loading.hide();
-    //tip(ctx.context, 'verifyExternalEmail: $err');
-    //});
+  void shopifyEmailVerification(String verificationCode) {
+    if (verificationCode.isNotEmpty) {
+      emit(state.copyWith(showLoading: true));
+
+      Map apiData = {"organizationId": supernodeCubit.state.orgId, "token": verificationCode};
+
+      supernodeRepository.user.confirmExternalEmail(apiData).then((res) {
+        emit(state.copyWith(showBindShopifyStep: 3, showLoading: false));
+      }).catchError((err) {
+        emit(state.copyWith(showLoading: false));
+        //tip(ctx.context, 'confirmExternalEmail: $err');
+      });
     }
+  }
 
   void update(String username, String email) {
-    /*if ((curState.formKey.currentState as FormState).validate()) {
-      final loading = Loading.show(ctx.context);
+    //TODO if ((curState.formKey.currentState as FormState).validate()) {
+    emit(state.copyWith(showLoading: true));
 
-      Map data = {
-        "id": curState.userId,
-        "username": username,
-        "email": email,
-        "sessionTTL": 0,
-        "isAdmin": true,
-        "isActive": true,
-        "note": ""
-      };
+    Map data = {
+      "id": supernodeCubit.state.session.userId,
+      "username": username,
+      "email": email,
+      "sessionTTL": 0,
+      "isAdmin": true,
+      "isActive": true,
+      "note": ""
+    };
 
-      UserDao dao = _buildUserDao(ctx);
-
-      dao.update({"user": data}).then((res) async {
-        mLog('update', res);
-
-        String jwt = res['jwt'];
-        if (jwt != null && jwt.isNotEmpty) {
-          ctx.context.read<SupernodeCubit>().setSupernodeSession(
-            ctx.context.read<SupernodeCubit>().state.session.copyWith(
-              token: jwt,
-              username: username,
-            ),
-          );
-          ctx.dispatch(ProfileActionCreator.jwtUpdate(data));
-        }
-        await ctx.context.read<SupernodeUserCubit>().refreshUser();
-        loading.hide();
-        Navigator.of(ctx.context).pop();
-      }).catchError((err) {
-        loading.hide();
-        tip(ctx.context, 'UserDao update: $err');
-      });
-    }*/
+    supernodeRepository.user.update({"user": data}).then((res) async {
+      String jwt = res['jwt'];
+      if (jwt != null && jwt.isNotEmpty) {
+        supernodeCubit.setSupernodeSession(
+          supernodeCubit.state.session.copyWith(
+            token: jwt,
+            username: username,
+          ),
+        );
+        //ctx.dispatch(ProfileActionCreator.jwtUpdate(data));
+      }
+      await supernodeUserCubit.refreshUser();
+      emit(state.copyWith(showLoading: false));
+    }).catchError((err) {
+      emit(state.copyWith(showLoading: false));
+      //TODO tip(ctx.context, 'UserDao update: $err');
+    });
   }
 }

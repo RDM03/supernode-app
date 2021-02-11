@@ -77,6 +77,7 @@ class HomePage extends StatelessWidget {
           create: (ctx) => SettingsCubit(
             appCubit: ctx.read<AppCubit>(),
             supernodeUserCubit: ctx.read<SupernodeUserCubit>(),
+            supernodeCubit: ctx.read<SupernodeCubit>(),
             supernodeRepository: ctx.read<SupernodeRepository>(),
           ),
         ),
