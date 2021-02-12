@@ -1,14 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:package_info/package_info.dart';
 import 'package:supernodeapp/app_cubit.dart';
-import 'package:supernodeapp/common/components/update_dialog.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/server_info.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
-import 'package:toast/toast.dart';
 
 import 'state.dart';
 
@@ -43,37 +40,8 @@ class SettingsCubit extends Cubit<SettingsState> {
         .then((info) => emit(state.copyWith(mxVersion: info.version)));
   }
 
-  Future<void> checkForUpdate(BuildContext ctx) async {
-    updateDialog(ctx).then((isLatest) {
-      if (!isLatest) {
-        Toast.show(FlutterI18n.translate(ctx, 'tip_latest_version'), ctx,
-            duration: 5);
-      }
-    });
-  }
-
-  void _rebuildAllChildren(BuildContext context) {
-    void rebuild(Element el) {
-      el.markNeedsBuild();
-      el.visitChildren(rebuild);
-    }
-
-    (context as Element).visitChildren(rebuild);
-  }
-
-  Future<void> updateLanguage(String language, BuildContext context) async {
-    if (language == state.language) {
-      return;
-    }
-
-    final locale =
-        language == 'auto' ? Localizations.localeOf(context) : Locale(language);
-    await FlutterI18n.refresh(context, locale);
-
+  Future<void> updateLanguage(String language, Locale locale) async {
     appCubit.setLocale(locale);
-
-    _rebuildAllChildren(context);
-
     emit(state.copyWith(language: language));
   }
 
@@ -149,7 +117,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   void update(String username, String email) {
     if (supernodeUserCubit.state.username == username && supernodeUserCubit.state.email == email)
       return;
-    
+
     emit(state.copyWith(showLoading: true));
 
     Map data = {

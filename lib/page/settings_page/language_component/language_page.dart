@@ -10,6 +10,30 @@ import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 class LanguagePage extends StatelessWidget {
+
+  void _rebuildAllChildren(BuildContext context) {
+    void rebuild(Element el) {
+      el.markNeedsBuild();
+      el.visitChildren(rebuild);
+    }
+
+    (context as Element).visitChildren(rebuild);
+  }
+
+  Future <void> _updateLanguage(String language, BuildContext context) async {
+    if (language == context.read<SettingsCubit>().state.language) {
+      return;
+    }
+
+    final locale =
+    language == 'auto' ? Localizations.localeOf(context) : Locale(language);
+    await FlutterI18n.refresh(context, locale);
+
+    context.read<SettingsCubit>().updateLanguage(language, locale);
+
+    _rebuildAllChildren(context);
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -34,7 +58,7 @@ class LanguagePage extends StatelessWidget {
                     name: 'Auto Detect',
                     type: AppLanguage.auto,
                     value: s.language,
-                    onTap: () => context.read<SettingsCubit>().updateLanguage(AppLanguage.auto, context))),
+                    onTap: () => _updateLanguage(AppLanguage.auto, context))),
           Divider(),
           BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (a, b) => a.language != b.language,
@@ -42,7 +66,7 @@ class LanguagePage extends StatelessWidget {
                 name: 'English',
                 type: AppLanguage.en,
                 value: s.language,
-                onTap: () => context.read<SettingsCubit>().updateLanguage(AppLanguage.en, context))),
+                onTap: () => _updateLanguage(AppLanguage.en, context))),
           Divider(),
           BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (a, b) => a.language != b.language,
@@ -50,7 +74,7 @@ class LanguagePage extends StatelessWidget {
                 name: '简体中文',
                 type: AppLanguage.zh_Hans_CN,
                 value: s.language,
-                onTap: () => context.read<SettingsCubit>().updateLanguage(AppLanguage.zh_Hans_CN, context))),
+                onTap: () => _updateLanguage(AppLanguage.zh_Hans_CN, context))),
           Divider(),
           BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (a, b) => a.language != b.language,
@@ -58,7 +82,7 @@ class LanguagePage extends StatelessWidget {
                 name: '繁体中文',
                 type: AppLanguage.zh_Hant_TW,
                 value: s.language,
-                onTap: () => context.read<SettingsCubit>().updateLanguage(AppLanguage.zh_Hant_TW, context))),
+                onTap: () => _updateLanguage(AppLanguage.zh_Hant_TW, context))),
           Divider(),
           BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (a, b) => a.language != b.language,
@@ -66,7 +90,7 @@ class LanguagePage extends StatelessWidget {
                 name: '한국어',
                 type: AppLanguage.ko,
                 value: s.language,
-                onTap: () => context.read<SettingsCubit>().updateLanguage(AppLanguage.ko, context))),
+                onTap: () => _updateLanguage(AppLanguage.ko, context))),
           Divider(),
           BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (a, b) => a.language != b.language,
@@ -74,7 +98,7 @@ class LanguagePage extends StatelessWidget {
                 name: 'Türkçe',
                 type: AppLanguage.tr,
                 value: s.language,
-                onTap: () => context.read<SettingsCubit>().updateLanguage(AppLanguage.tr, context))),
+                onTap: () => _updateLanguage(AppLanguage.tr, context))),
           Divider(),
           BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (a, b) => a.language != b.language,
@@ -82,7 +106,7 @@ class LanguagePage extends StatelessWidget {
                 name: 'Deutsch',
                 type: AppLanguage.de,
                 value: s.language,
-                onTap: () => context.read<SettingsCubit>().updateLanguage(AppLanguage.de, context))),
+                onTap: () => _updateLanguage(AppLanguage.de, context))),
           Divider(),
           BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (a, b) => a.language != b.language,
@@ -90,7 +114,7 @@ class LanguagePage extends StatelessWidget {
                 name: '日本語',
                 type: AppLanguage.ja,
                 value: s.language,
-                onTap: () => context.read<SettingsCubit>().updateLanguage(AppLanguage.ja, context))),
+                onTap: () => _updateLanguage(AppLanguage.ja, context))),
           Divider(),
           BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (a, b) => a.language != b.language,
@@ -98,7 +122,7 @@ class LanguagePage extends StatelessWidget {
                 name: 'Русский',
                 type: AppLanguage.ru,
                 value: s.language,
-                onTap: () => context.read<SettingsCubit>().updateLanguage(AppLanguage.ru, context))),
+                onTap: () => _updateLanguage(AppLanguage.ru, context))),
           Divider(),
           BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (a, b) => a.language != b.language,
@@ -106,7 +130,7 @@ class LanguagePage extends StatelessWidget {
                 name: 'Español',
                 type: AppLanguage.es,
                 value: s.language,
-                onTap: () => context.read<SettingsCubit>().updateLanguage(AppLanguage.es, context))),
+                onTap: () => _updateLanguage(AppLanguage.es, context))),
           Divider(),
           BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (a, b) => a.language != b.language,
@@ -114,7 +138,7 @@ class LanguagePage extends StatelessWidget {
                 name: 'Portugués',
                 type: AppLanguage.pt,
                 value: s.language,
-                onTap: () => context.read<SettingsCubit>().updateLanguage(AppLanguage.pt, context))),
+                onTap: () => _updateLanguage(AppLanguage.pt, context))),
           Divider(),
           BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (a, b) => a.language != b.language,
@@ -122,7 +146,7 @@ class LanguagePage extends StatelessWidget {
                 name: 'Indonesio',
                 type: AppLanguage.id,
                 value: s.language,
-                onTap: () => context.read<SettingsCubit>().updateLanguage(AppLanguage.id, context))),
+                onTap: () => _updateLanguage(AppLanguage.id, context))),
           Divider(),
           BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (a, b) => a.language != b.language,
@@ -130,7 +154,7 @@ class LanguagePage extends StatelessWidget {
                 name: 'Tagalog',
                 type: AppLanguage.tl,
                 value: s.language,
-                onTap: () => context.read<SettingsCubit>().updateLanguage(AppLanguage.tl, context))),
+                onTap: () => _updateLanguage(AppLanguage.tl, context))),
           Divider(),
           BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (a, b) => a.language != b.language,
@@ -138,7 +162,7 @@ class LanguagePage extends StatelessWidget {
                 name: 'Tiếng Việt',
                 type: AppLanguage.vi,
                 value: s.language,
-                onTap: () => context.read<SettingsCubit>().updateLanguage(AppLanguage.vi, context))),
+                onTap: () => _updateLanguage(AppLanguage.vi, context))),
         ],
       ),
     ],

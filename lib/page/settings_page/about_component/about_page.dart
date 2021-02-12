@@ -5,6 +5,8 @@ import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/subtitle.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
+import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/components/update_dialog.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
@@ -45,7 +47,10 @@ class AboutPage extends StatelessWidget {
           Divider(),
           listItem(
             FlutterI18n.translate(context, 'version'),
-            onTap: () => context.read<SettingsCubit>().checkForUpdate(context),
+            onTap: () => updateDialog(context).then((isLatest) {
+              if (!isLatest)
+                tip(context, FlutterI18n.translate(context, 'tip_latest_version'), success: true);
+            }),
             trailing: Container(
               padding: kInnerRowRight10,
               child: BlocBuilder<SettingsCubit, SettingsState> (
