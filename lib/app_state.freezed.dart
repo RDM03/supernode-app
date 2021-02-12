@@ -10,6 +10,194 @@ part of 'app_state.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
+class _$AppStateTearOff {
+  const _$AppStateTearOff();
+
+// ignore: unused_element
+  _AppState call(
+      {Locale locale,
+      bool isDemo = false,
+      bool showLoading = false,
+      @nullable String error}) {
+    return _AppState(
+      locale: locale,
+      isDemo: isDemo,
+      showLoading: showLoading,
+      error: error,
+    );
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $AppState = _$AppStateTearOff();
+
+/// @nodoc
+mixin _$AppState {
+  Locale get locale;
+  bool get isDemo;
+  bool get showLoading;
+  @nullable
+  String get error;
+
+  $AppStateCopyWith<AppState> get copyWith;
+}
+
+/// @nodoc
+abstract class $AppStateCopyWith<$Res> {
+  factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
+      _$AppStateCopyWithImpl<$Res>;
+  $Res call(
+      {Locale locale, bool isDemo, bool showLoading, @nullable String error});
+}
+
+/// @nodoc
+class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
+  _$AppStateCopyWithImpl(this._value, this._then);
+
+  final AppState _value;
+  // ignore: unused_field
+  final $Res Function(AppState) _then;
+
+  @override
+  $Res call({
+    Object locale = freezed,
+    Object isDemo = freezed,
+    Object showLoading = freezed,
+    Object error = freezed,
+  }) {
+    return _then(_value.copyWith(
+      locale: locale == freezed ? _value.locale : locale as Locale,
+      isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
+      showLoading:
+          showLoading == freezed ? _value.showLoading : showLoading as bool,
+      error: error == freezed ? _value.error : error as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
+  factory _$AppStateCopyWith(_AppState value, $Res Function(_AppState) then) =
+      __$AppStateCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {Locale locale, bool isDemo, bool showLoading, @nullable String error});
+}
+
+/// @nodoc
+class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+    implements _$AppStateCopyWith<$Res> {
+  __$AppStateCopyWithImpl(_AppState _value, $Res Function(_AppState) _then)
+      : super(_value, (v) => _then(v as _AppState));
+
+  @override
+  _AppState get _value => super._value as _AppState;
+
+  @override
+  $Res call({
+    Object locale = freezed,
+    Object isDemo = freezed,
+    Object showLoading = freezed,
+    Object error = freezed,
+  }) {
+    return _then(_AppState(
+      locale: locale == freezed ? _value.locale : locale as Locale,
+      isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
+      showLoading:
+          showLoading == freezed ? _value.showLoading : showLoading as bool,
+      error: error == freezed ? _value.error : error as String,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_AppState with DiagnosticableTreeMixin implements _AppState {
+  _$_AppState(
+      {this.locale,
+      this.isDemo = false,
+      this.showLoading = false,
+      @nullable this.error})
+      : assert(isDemo != null),
+        assert(showLoading != null);
+
+  @override
+  final Locale locale;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isDemo;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool showLoading;
+  @override
+  @nullable
+  final String error;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'AppState(locale: $locale, isDemo: $isDemo, showLoading: $showLoading, error: $error)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AppState'))
+      ..add(DiagnosticsProperty('locale', locale))
+      ..add(DiagnosticsProperty('isDemo', isDemo))
+      ..add(DiagnosticsProperty('showLoading', showLoading))
+      ..add(DiagnosticsProperty('error', error));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _AppState &&
+            (identical(other.locale, locale) ||
+                const DeepCollectionEquality().equals(other.locale, locale)) &&
+            (identical(other.isDemo, isDemo) ||
+                const DeepCollectionEquality().equals(other.isDemo, isDemo)) &&
+            (identical(other.showLoading, showLoading) ||
+                const DeepCollectionEquality()
+                    .equals(other.showLoading, showLoading)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(locale) ^
+      const DeepCollectionEquality().hash(isDemo) ^
+      const DeepCollectionEquality().hash(showLoading) ^
+      const DeepCollectionEquality().hash(error);
+
+  @override
+  _$AppStateCopyWith<_AppState> get copyWith =>
+      __$AppStateCopyWithImpl<_AppState>(this, _$identity);
+}
+
+abstract class _AppState implements AppState {
+  factory _AppState(
+      {Locale locale,
+      bool isDemo,
+      bool showLoading,
+      @nullable String error}) = _$_AppState;
+
+  @override
+  Locale get locale;
+  @override
+  bool get isDemo;
+  @override
+  bool get showLoading;
+  @override
+  @nullable
+  String get error;
+  @override
+  _$AppStateCopyWith<_AppState> get copyWith;
+}
+
+/// @nodoc
 class _$SupernodeStateTearOff {
   const _$SupernodeStateTearOff();
 
@@ -191,165 +379,6 @@ abstract class _SupernodeState extends SupernodeState {
   String get orgId;
   @override
   _$SupernodeStateCopyWith<_SupernodeState> get copyWith;
-}
-
-/// @nodoc
-class _$AppStateTearOff {
-  const _$AppStateTearOff();
-
-// ignore: unused_element
-  _AppState call(
-      {Locale locale, bool isDemo = false, bool showLoading = false}) {
-    return _AppState(
-      locale: locale,
-      isDemo: isDemo,
-      showLoading: showLoading,
-    );
-  }
-}
-
-/// @nodoc
-// ignore: unused_element
-const $AppState = _$AppStateTearOff();
-
-/// @nodoc
-mixin _$AppState {
-  Locale get locale;
-  bool get isDemo;
-  bool get showLoading;
-
-  $AppStateCopyWith<AppState> get copyWith;
-}
-
-/// @nodoc
-abstract class $AppStateCopyWith<$Res> {
-  factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
-      _$AppStateCopyWithImpl<$Res>;
-  $Res call({Locale locale, bool isDemo, bool showLoading});
-}
-
-/// @nodoc
-class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
-  _$AppStateCopyWithImpl(this._value, this._then);
-
-  final AppState _value;
-  // ignore: unused_field
-  final $Res Function(AppState) _then;
-
-  @override
-  $Res call({
-    Object locale = freezed,
-    Object isDemo = freezed,
-    Object showLoading = freezed,
-  }) {
-    return _then(_value.copyWith(
-      locale: locale == freezed ? _value.locale : locale as Locale,
-      isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
-      showLoading:
-          showLoading == freezed ? _value.showLoading : showLoading as bool,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
-  factory _$AppStateCopyWith(_AppState value, $Res Function(_AppState) then) =
-      __$AppStateCopyWithImpl<$Res>;
-  @override
-  $Res call({Locale locale, bool isDemo, bool showLoading});
-}
-
-/// @nodoc
-class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
-    implements _$AppStateCopyWith<$Res> {
-  __$AppStateCopyWithImpl(_AppState _value, $Res Function(_AppState) _then)
-      : super(_value, (v) => _then(v as _AppState));
-
-  @override
-  _AppState get _value => super._value as _AppState;
-
-  @override
-  $Res call({
-    Object locale = freezed,
-    Object isDemo = freezed,
-    Object showLoading = freezed,
-  }) {
-    return _then(_AppState(
-      locale: locale == freezed ? _value.locale : locale as Locale,
-      isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
-      showLoading:
-          showLoading == freezed ? _value.showLoading : showLoading as bool,
-    ));
-  }
-}
-
-/// @nodoc
-class _$_AppState with DiagnosticableTreeMixin implements _AppState {
-  _$_AppState({this.locale, this.isDemo = false, this.showLoading = false})
-      : assert(isDemo != null),
-        assert(showLoading != null);
-
-  @override
-  final Locale locale;
-  @JsonKey(defaultValue: false)
-  @override
-  final bool isDemo;
-  @JsonKey(defaultValue: false)
-  @override
-  final bool showLoading;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppState(locale: $locale, isDemo: $isDemo, showLoading: $showLoading)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'AppState'))
-      ..add(DiagnosticsProperty('locale', locale))
-      ..add(DiagnosticsProperty('isDemo', isDemo))
-      ..add(DiagnosticsProperty('showLoading', showLoading));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _AppState &&
-            (identical(other.locale, locale) ||
-                const DeepCollectionEquality().equals(other.locale, locale)) &&
-            (identical(other.isDemo, isDemo) ||
-                const DeepCollectionEquality().equals(other.isDemo, isDemo)) &&
-            (identical(other.showLoading, showLoading) ||
-                const DeepCollectionEquality()
-                    .equals(other.showLoading, showLoading)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(locale) ^
-      const DeepCollectionEquality().hash(isDemo) ^
-      const DeepCollectionEquality().hash(showLoading);
-
-  @override
-  _$AppStateCopyWith<_AppState> get copyWith =>
-      __$AppStateCopyWithImpl<_AppState>(this, _$identity);
-}
-
-abstract class _AppState implements AppState {
-  factory _AppState({Locale locale, bool isDemo, bool showLoading}) =
-      _$_AppState;
-
-  @override
-  Locale get locale;
-  @override
-  bool get isDemo;
-  @override
-  bool get showLoading;
-  @override
-  _$AppStateCopyWith<_AppState> get copyWith;
 }
 
 /// @nodoc

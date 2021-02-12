@@ -6,6 +6,16 @@ import 'package:supernodeapp/common/repositories/shared/dao/supernode.model.dart
 part 'app_state.freezed.dart';
 
 @freezed
+abstract class AppState with _$AppState {
+  factory AppState({
+    Locale locale,
+    @Default(false) bool isDemo,
+    @Default(false) bool showLoading,
+    @nullable String error,
+  }) = _AppState;
+}
+
+@freezed
 abstract class SupernodeState with _$SupernodeState {
   SupernodeState._();
   factory SupernodeState({
@@ -13,15 +23,6 @@ abstract class SupernodeState with _$SupernodeState {
     Supernode selectedNode,
     String orgId,
   }) = _SupernodeState;
-}
-
-@freezed
-abstract class AppState with _$AppState {
-  factory AppState({
-    Locale locale,
-    @Default(false) bool isDemo,
-    @Default(false) bool showLoading,
-  }) = _AppState;
 }
 
 @freezed

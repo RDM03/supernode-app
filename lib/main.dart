@@ -9,6 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:supernodeapp/common/components/loading.dart';
+import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/repositories/cache_repository.dart';
 import 'package:supernodeapp/common/repositories/coingecko_repository.dart';
 import 'package:supernodeapp/common/utils/no_glow_behavior.dart';
@@ -223,6 +224,34 @@ class MxcApp extends StatelessWidget {
     },
   );
 
+  void showLoading(BuildContext context, AppState state) {
+    if (!state.showLoading && Navigator.of(context).canPop()) {
+      Navigator.of(context).pop();
+    } else {
+      Navigator.of(context).pushAndRemoveUntil(
+        PageRouteBuilder(
+          opaque: false,
+          pageBuilder: (_, __, ___) => Container(
+            width: double.infinity,
+            height: double.infinity,
+            child: WillPopScope(
+              onWillPop: () async => false,
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                child: loadingView(),
+              ),
+            ),
+          ),
+        ),
+        (r) => r.isFirst,
+      );
+    }
+  }
+
+  void showError(BuildContext context, AppState state) {
+    tip(context, state.error, success: false);
+  }
+
   Widget build(BuildContext context) {
     return DatadashFeedback(
       child: MaterialApp(
@@ -263,31 +292,17 @@ class MxcApp extends StatelessWidget {
           builder: (ctx) {
             ScreenUtil.instance
                 .init(Config.BLUE_PRINT_WIDTH, Config.BLUE_PRINT_HEIGHT, ctx);
-            return BlocListener<AppCubit, AppState>(
-              listenWhen: (a, b) => a.showLoading != b.showLoading,
-              listener: (context, state) {
-                if (!state.showLoading && Navigator.of(context).canPop()) {
-                  Navigator.of(context).pop();
-                } else {
-                  Navigator.of(context).pushAndRemoveUntil(
-                    PageRouteBuilder(
-                      opaque: false,
-                      pageBuilder: (_, __, ___) => Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        child: WillPopScope(
-                          onWillPop: () async => false,
-                          child: GestureDetector(
-                            behavior: HitTestBehavior.opaque,
-                            child: loadingView(),
-                          ),
-                        ),
-                      ),
-                    ),
-                    (r) => r.isFirst,
-                  );
-                }
-              },
+            return MultiBlocListener(
+              listeners: [
+                BlocListener<AppCubit, AppState>(
+                  listenWhen: (a, b) => a.showLoading != b.showLoading,
+                  listener: showLoading,
+                ),
+                BlocListener<AppCubit, AppState>(
+                  listenWhen: (a, b) => a.error != b.error,
+                  listener: showError,
+                ),
+              ],
               child: WillPopScope(
                 onWillPop: () async {
                   if (homeNavigatorKey.currentState?.canPop() ?? false) {
