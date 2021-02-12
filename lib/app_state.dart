@@ -11,7 +11,7 @@ abstract class AppState with _$AppState {
     Locale locale,
     @Default(false) bool isDemo,
     @Default(false) bool showLoading,
-    @nullable String error,
+    @nullable ErrorInfo error,
   }) = _AppState;
 }
 
@@ -51,4 +51,10 @@ abstract class DataHighwaySession with _$DataHighwaySession {
   factory DataHighwaySession({
     String address,
   }) = _DataHighwaySession;
+}
+
+class ErrorInfo {
+  final String text;
+
+  ErrorInfo(this.text);
 }

@@ -18,7 +18,7 @@ class _$AppStateTearOff {
       {Locale locale,
       bool isDemo = false,
       bool showLoading = false,
-      @nullable String error}) {
+      @nullable ErrorInfo error}) {
     return _AppState(
       locale: locale,
       isDemo: isDemo,
@@ -38,7 +38,7 @@ mixin _$AppState {
   bool get isDemo;
   bool get showLoading;
   @nullable
-  String get error;
+  ErrorInfo get error;
 
   $AppStateCopyWith<AppState> get copyWith;
 }
@@ -48,7 +48,10 @@ abstract class $AppStateCopyWith<$Res> {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
       _$AppStateCopyWithImpl<$Res>;
   $Res call(
-      {Locale locale, bool isDemo, bool showLoading, @nullable String error});
+      {Locale locale,
+      bool isDemo,
+      bool showLoading,
+      @nullable ErrorInfo error});
 }
 
 /// @nodoc
@@ -71,7 +74,7 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
       isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
-      error: error == freezed ? _value.error : error as String,
+      error: error == freezed ? _value.error : error as ErrorInfo,
     ));
   }
 }
@@ -82,7 +85,10 @@ abstract class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
       __$AppStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Locale locale, bool isDemo, bool showLoading, @nullable String error});
+      {Locale locale,
+      bool isDemo,
+      bool showLoading,
+      @nullable ErrorInfo error});
 }
 
 /// @nodoc
@@ -106,7 +112,7 @@ class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
       isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
-      error: error == freezed ? _value.error : error as String,
+      error: error == freezed ? _value.error : error as ErrorInfo,
     ));
   }
 }
@@ -131,7 +137,7 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
   final bool showLoading;
   @override
   @nullable
-  final String error;
+  final ErrorInfo error;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -182,7 +188,7 @@ abstract class _AppState implements AppState {
       {Locale locale,
       bool isDemo,
       bool showLoading,
-      @nullable String error}) = _$_AppState;
+      @nullable ErrorInfo error}) = _$_AppState;
 
   @override
   Locale get locale;
@@ -192,7 +198,7 @@ abstract class _AppState implements AppState {
   bool get showLoading;
   @override
   @nullable
-  String get error;
+  ErrorInfo get error;
   @override
   _$AppStateCopyWith<_AppState> get copyWith;
 }

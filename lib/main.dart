@@ -261,7 +261,7 @@ class MxcApp extends StatelessWidget {
   }
 
   void showError(BuildContext context, AppState state) {
-    tip(context, state.error, success: false);
+    tip(context, state.error.text, success: false);
   }
 
   Widget build(BuildContext context) {
