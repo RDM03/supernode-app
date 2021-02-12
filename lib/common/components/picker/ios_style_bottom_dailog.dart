@@ -200,14 +200,19 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
 class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
   final WidgetBuilder builder;
 
+  final EdgeInsets padding;
+
   IosStyleBottomDialog2({
     Key key,
     @required this.builder,
+    this.padding =
+        const EdgeInsets.only(left: 22, right: 22, top: 28, bottom: 60),
   }) : super(key: key);
 
   @override
   Widget buildDialog() {
     return IosStyleBottomDialog2Content(
+      padding: padding,
       child: Builder(builder: builder),
     );
   }
@@ -215,10 +220,12 @@ class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
 
 class IosStyleBottomDialog2Content extends StatefulWidget {
   final Widget child;
+  final EdgeInsets padding;
 
   IosStyleBottomDialog2Content({
     Key key,
     this.child,
+    this.padding,
   }) : super(key: key);
 
   @override
@@ -258,7 +265,7 @@ class _IosStyleBottomDialog2ContentState
               ),
             ]),
         alignment: Alignment.center,
-        padding: EdgeInsets.only(left: 22, right: 22, top: 28, bottom: 60),
+        padding: widget.padding,
         child: widget.child,
       ),
     );

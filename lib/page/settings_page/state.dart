@@ -87,17 +87,17 @@ class SettingsState implements Cloneable<SettingsState> {
 
 SettingsState initState(Map<String, dynamic> args) {
   SupernodeSession user = args['user'];
-  List<UserOrganization> orgs = args['organizations'];
+  List<UserOrganization> orgs = args['organizations'] ?? [];
   ExternalUser weChatUser = args['weChatUser'];
   ExternalUser shopifyUser = args['shopifyUser'];
   bool isDemo = args['isDemo'] ?? false;
 
   return SettingsState()
-    ..userId = user.userId.toString()
-    ..username = user.username
-    ..email = user.username
-    ..usernameCtl.text = user.username
-    ..emailCtl.text = user.username
+    ..userId = user?.userId?.toString()
+    ..username = user?.username
+    ..email = user?.username
+    ..usernameCtl.text = user?.username
+    ..emailCtl.text = user?.username
     ..isAdmin = orgs.length > 0 && orgs.first.isAdmin
     ..organizations = orgs
     ..isDemo = isDemo

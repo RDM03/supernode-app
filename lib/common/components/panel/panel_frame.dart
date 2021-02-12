@@ -34,6 +34,7 @@ class PanelFrame extends StatelessWidget {
           ),
         ],
       ),
+      clipBehavior: Clip.antiAlias,
       child: child,
     );
   }

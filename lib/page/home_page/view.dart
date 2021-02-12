@@ -5,13 +5,12 @@ import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/repositories/cache_repository.dart';
 import 'package:supernodeapp/configs/images.dart';
-import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/main.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/btc/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
-import 'package:supernodeapp/page/home_page/bloc/supernode/wallet/cubit.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/mxc/cubit.dart';
 import 'package:supernodeapp/page/home_page/device/view.dart';
 import 'package:supernodeapp/page/home_page/gateway/view.dart';
 import 'package:supernodeapp/page/home_page/wallet/view.dart';
@@ -65,7 +64,7 @@ class HomePage extends StatelessWidget {
                 cacheRepository: ctx.read<CacheRepository>(),
                 supernodeUsed: supernode.session != null,
                 parachainUsed: datahighway.session != null,
-              ),
+              )..initState(),
             ),
             BlocProvider(
               create: (ctx) => supernode.session == null
@@ -102,7 +101,7 @@ class HomePage extends StatelessWidget {
             BlocProvider(
               create: (ctx) => supernode.session == null
                   ? null
-                  : (WalletCubit(
+                  : (SupernodeMxcCubit(
                       orgId: ctx.read<SupernodeCubit>().state.orgId,
                       supernodeRepository: ctx.read<SupernodeRepository>(),
                       cacheRepository: ctx.read<CacheRepository>(),

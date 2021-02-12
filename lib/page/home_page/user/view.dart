@@ -1,22 +1,16 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mapbox_native/flutter_mapbox_native.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supernodeapp/app_cubit.dart';
-import 'package:supernodeapp/app_state.dart';
-import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
-import 'package:supernodeapp/common/components/profile.dart';
 import 'package:supernodeapp/common/components/summary_row.dart';
-import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
-import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
@@ -25,148 +19,207 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/font.dart';
 
 import '../shared.dart';
+import 'account_widget.dart';
+import 'token_widget.dart';
 
 class UserTab extends StatelessWidget {
-  isOrgIDloaded() => false;
-
-  Widget mainPanel(BuildContext context) {
+  Widget totalGateways(BuildContext context, SupernodeUserState snState,
+      GatewayState gatewayState) {
     return PanelFrame(
-      child: Column(
-        children: [
-          BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-            buildWhen: (a, b) =>
-                a.username != b.username || a.isAdmin != b.isAdmin,
-            builder: (ctx, state) => ProfileRow(
-              keyTitle: ValueKey('homeProfile'),
-              keySubtitle: ValueKey('homeProfileSubtitle'),
-              name:
-                  '${FlutterI18n.translate(context, 'hi')}, ${state.username}',
-              position: (state.isAdmin.value ?? false)
-                  ? FlutterI18n.translate(context, 'admin')
-                  : '',
-              trailing: SizedBox(
-                width: 30,
-                child: IconButton(
-                  key: ValueKey('calculatorButton'),
-                  icon: FaIcon(
-                    FontAwesomeIcons.calculator,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {
-                    final gatewaysRevenue = context
-                            .read<SupernodeUserCubit>()
-                            .state
-                            .gatewaysRevenue
-                            .value ??
-                        0;
-                    final mining = context
-                            .read<SupernodeUserCubit>()
-                            .state
-                            .devicesRevenue
-                            .value ??
-                        0;
-                    return Navigator.of(context)
-                        .pushNamed('calculator_page', arguments: {
-                      'balance': context
-                          .read<SupernodeUserCubit>()
-                          .state
-                          .balance
-                          .value,
-                      'staking': context
-                          .read<SupernodeUserCubit>()
-                          .state
-                          .stakedAmount
-                          .value,
-                      'mining': gatewaysRevenue + mining,
-                      'isDemo': context.read<AppCubit>().state.isDemo,
-                    });
-                  },
-                  iconSize: 20,
+      child: SummaryRow(
+        key: Key('totalGatewaysDashboard'),
+        loading: snState.gatewaysRevenueUsd.loading,
+        image: AppImages.gateways,
+        title: FlutterI18n.translate(context, 'total_gateways'),
+        number: '${gatewayState.gatewaysTotal.value ?? '0'}',
+        subtitle: FlutterI18n.translate(context, 'profit'),
+        price:
+            '${Tools.priceFormat(snState.gatewaysRevenue.value)} MXC (${Tools.priceFormat(snState.gatewaysRevenueUsd.value)} USD)',
+      ),
+    );
+  }
+
+  Widget totalGatewaysDemo(BuildContext context) {
+    return PanelFrame(
+      child: unlockDhxLayer(
+        context,
+        SummaryRow(
+          key: Key('totalGatewaysDashboard'),
+          image: AppImages.gateways,
+          title: FlutterI18n.translate(context, 'total_gateways'),
+          number: '3',
+          subtitle: FlutterI18n.translate(context, 'profit'),
+          price: '200 USD',
+        ),
+      ),
+    );
+  }
+
+  Widget totalDevices(BuildContext context, SupernodeUserState state) {
+    return PanelFrame(
+      child: SummaryRow(
+        key: Key('totalDevicesDashboard'),
+        loading: false,
+        image: AppImages.devices,
+        title: FlutterI18n.translate(context, 'total_devices'),
+        number: '${state.devicesTotal.value ?? '0'}',
+        subtitle: FlutterI18n.translate(context, 'cost'),
+        price:
+            '${Tools.priceFormat(state.devicesRevenue.value)} MXC (${Tools.priceFormat(state.devicesRevenueUsd.value)} USD)',
+      ),
+    );
+  }
+
+  Widget totalDevicesDemo(BuildContext context) {
+    return PanelFrame(
+      child: unlockDhxLayer(
+        context,
+        SummaryRow(
+          key: Key('totalDevicesDashboard'),
+          loading: false,
+          image: AppImages.devices,
+          title: FlutterI18n.translate(context, 'total_devices'),
+          number: '0',
+          subtitle: FlutterI18n.translate(context, 'cost'),
+          price: '0 USD',
+        ),
+      ),
+    );
+  }
+
+  Widget unlockDhxLayer(BuildContext context, Widget child) {
+    return Stack(
+      children: [
+        child,
+        Positioned.fill(
+          child: Container(
+            color: colorDhx.withOpacity(0.85),
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.lock_open,
+                  color: Colors.white,
                 ),
-              ),
-            ),
-          ),
-          BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-            buildWhen: (a, b) => a.balance != b.balance,
-            builder: (ctx, state) => TitleDetailRow(
-              key: ValueKey('homeCurrentBalance'),
-              loading: state.balance.loading,
-              name: FlutterI18n.translate(context, 'current_balance'),
-              value: Tools.priceFormat(state.balance.value),
-            ),
-          ),
-          BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-            buildWhen: (a, b) => a.stakedAmount != b.stakedAmount,
-            builder: (ctx, state) => TitleDetailRow(
-              key: ValueKey('homeStakedAmount'),
-              loading: state.stakedAmount.loading,
-              name: FlutterI18n.translate(context, 'staked_amount'),
-              value: Tools.priceFormat(state.stakedAmount.value),
-            ),
-          ),
-          BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-            buildWhen: (a, b) => a.lockedAmount != b.lockedAmount,
-            builder: (ctx, state) =>
-                state.lockedAmount.value != null && state.lockedAmount.value > 0
-                    ? TitleDetailRow(
-                        key: ValueKey('homeLockedAmount'),
-                        loading: state.lockedAmount.loading,
-                        name: FlutterI18n.translate(context, 'locked_amount'),
-                        value: Tools.priceFormat(state.lockedAmount.value),
-                      )
-                    : Container(),
-          ),
-          BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-            buildWhen: (a, b) => a.totalRevenue != b.totalRevenue,
-            builder: (ctx, state) => TitleDetailRow(
-              key: ValueKey('homeStakingRevenue'),
-              loading: state.totalRevenue.loading,
-              name: FlutterI18n.translate(context, 'staking_revenue'),
-              value: Tools.priceFormat(state.totalRevenue.value, range: 2),
-            ),
-          ),
-          Container(
-            margin: kRoundRow5,
-            child: Row(
-              children: <Widget>[
-                Spacer(),
-                PrimaryButton(
-                  key: Key('depositButtonDashboard'),
-                  buttonTitle: FlutterI18n.translate(context, 'deposit'),
-                  onTap: () => openSupernodeDeposit(context),
+                Text(
+                  'Unlock Supernode Account',
+                  style: kSmallFontOfWhite,
                 ),
-                Spacer(),
-                BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-                  buildWhen: (a, b) => a.balance != b.balance,
-                  builder: (ctx, state) => PrimaryButton(
-                    key: Key('withdrawButtonDashboard'),
-                    buttonTitle: FlutterI18n.translate(context, 'withdraw'),
-                    onTap: state.balance.loading
-                        ? null
-                        : () => openSupernodeWithdraw(context, Token.mxc),
-                  ),
-                ),
-                Spacer(),
-                BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-                  buildWhen: (a, b) => a.balance != b.balance,
-                  builder: (ctx, state) => PrimaryButton(
-                    key: Key('stakeButtonDashboard'),
-                    buttonTitle: FlutterI18n.translate(context, 'stake'),
-                    onTap: state.balance.loading
-                        ? null
-                        : () => openSupernodeStake(context),
-                  ),
-                ),
-                Spacer(),
               ],
             ),
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget body(BuildContext context,
+      {bool parachainConnected, bool supernodeConnected}) {
+    return RefreshIndicator(
+      displacement: 10,
+      onRefresh: () => context.read<SupernodeUserCubit>().refresh(),
+      child: PageBody(
+        children: [
+          AccountWidget(),
+          TokenWidget(),
+          if (supernodeConnected)
+            BlocBuilder<GatewayCubit, GatewayState>(
+              buildWhen: (a, b) => a.gatewaysTotal != b.gatewaysTotal,
+              builder: (ctx, gatewayState) =>
+                  BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
+                buildWhen: (a, b) =>
+                    a.gatewaysRevenueUsd != b.gatewaysRevenueUsd ||
+                    a.gatewaysRevenue != b.gatewaysRevenue,
+                builder: (ctx, state) =>
+                    totalGateways(context, state, gatewayState),
+              ),
+            )
+          else
+            totalGatewaysDemo(context),
+          if (supernodeConnected)
+            BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
+              buildWhen: (a, b) =>
+                  a?.devicesRevenueUsd != b?.devicesRevenueUsd ||
+                  a?.devicesRevenue != b?.devicesRevenue ||
+                  a?.devicesTotal != b?.devicesTotal,
+              builder: (ctx, state) => totalDevices(context, state),
+            )
+          else
+            totalDevicesDemo(context),
+          if (supernodeConnected)
+            BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
+              buildWhen: (a, b) =>
+                  a?.geojsonList != b?.geojsonList ||
+                  a?.locationPermissionsGranted !=
+                      b?.locationPermissionsGranted,
+              builder: (ctx, state) => PanelFrame(
+                key: ValueKey('homeMapbox'),
+                height: 263,
+                child: state.locationPermissionsGranted
+                    ? FlutterMapboxNative(
+                        mapStyle: Sys.mapTileStyle,
+                        center: CenterPosition(
+                          target: LatLng(0, 0),
+                          zoom: 0,
+                          animated: true,
+                        ),
+                        maximumZoomLevel: 12,
+                        clusters: state?.geojsonList ?? [],
+                        myLocationEnabled: true,
+                        myLocationTrackingMode: MyLocationTrackingMode.None,
+                        onFullScreenTap: () {
+                          Navigator.of(context).pushNamed('mapbox_gl_page',
+                              arguments: {'list': state?.geojsonList});
+                        },
+                      )
+                    : Container(),
+              ),
+            )
+          else
+            PanelFrame(
+              key: ValueKey('homeMapbox'),
+              height: 263,
+              child: unlockDhxLayer(
+                context,
+                FlutterMapboxNative(
+                  mapStyle: Sys.mapTileStyle,
+                  center: CenterPosition(
+                    target: LatLng(0, 0),
+                    zoom: 0,
+                    animated: true,
+                  ),
+                  maximumZoomLevel: 12,
+                  clusters: [],
+                  myLocationEnabled: true,
+                  myLocationTrackingMode: MyLocationTrackingMode.None,
+                  onFullScreenTap: () {
+                    Navigator.of(context)
+                        .pushNamed('mapbox_gl_page', arguments: {'list': []});
+                  },
+                ),
+              ),
+            ),
+          smallColumnSpacer(),
         ],
       ),
     );
+  }
+
+  Future<void> openCalculator(BuildContext context) {
+    final gatewaysRevenue =
+        context.read<SupernodeUserCubit>().state.gatewaysRevenue.value ?? 0;
+    final mining =
+        context.read<SupernodeUserCubit>().state.devicesRevenue.value ?? 0;
+    return Navigator.of(context).pushNamed('calculator_page', arguments: {
+      'balance': context.read<SupernodeUserCubit>().state.balance.value,
+      'staking': context.read<SupernodeUserCubit>().state.stakedAmount.value,
+      'mining': gatewaysRevenue + mining,
+      'isDemo': context.read<AppCubit>().state.isDemo,
+    });
   }
 
   @override
@@ -175,16 +228,15 @@ class UserTab extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: backgroundColor,
         elevation: 0,
-        title: BlocBuilder<SupernodeCubit, SupernodeState>(
-          buildWhen: (a, b) => a?.session?.node != b?.session?.node,
-          builder: (ctx, state) => CachedNetworkImage(
-            imageUrl: state?.session?.node?.logo ?? '',
-            placeholder: (a, b) => Image.asset(
-              AppImages.placeholder,
-              height: s(40),
-            ),
-            height: s(40),
+        title: Text('Home', style: kBigBoldFontOfBlack),
+        centerTitle: true,
+        leading: IconButton(
+          key: Key('calculatorButton'),
+          icon: FaIcon(
+            FontAwesomeIcons.calculator,
+            color: Colors.black,
           ),
+          onPressed: () => openCalculator(context),
         ),
         actions: [
           IconButton(
@@ -197,95 +249,16 @@ class UserTab extends StatelessWidget {
           )
         ],
       ),
+      backgroundColor: Color(0xFFEBEFF2),
       body: BlocBuilder<HomeCubit, HomeState>(
         buildWhen: (a, b) =>
             a.parachainUsed != b.parachainUsed ||
             a.supernodeUsed != b.supernodeUsed,
-        builder: (ctx, s) => !s.supernodeUsed
-            ? Text('TODO')
-            : RefreshIndicator(
-                displacement: 10,
-                onRefresh: () => context.read<SupernodeUserCubit>().refresh(),
-                child: PageBody(
-                  children: [
-                    mainPanel(context),
-                    BlocBuilder<GatewayCubit, GatewayState>(
-                      buildWhen: (a, b) => a.gatewaysTotal != b.gatewaysTotal,
-                      builder: (ctx, gatewayState) =>
-                          BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-                        buildWhen: (a, b) =>
-                            a.gatewaysRevenueUsd != b.gatewaysRevenueUsd ||
-                            a.gatewaysRevenue != b.gatewaysRevenue,
-                        builder: (ctx, state) => PanelFrame(
-                          child: SummaryRow(
-                            key: Key('totalGatewaysDashboard'),
-                            loading: state.gatewaysRevenueUsd.loading,
-                            image: AppImages.gateways,
-                            title: FlutterI18n.translate(
-                                context, 'total_gateways'),
-                            number:
-                                '${gatewayState.gatewaysTotal.value ?? '0'}',
-                            subtitle: FlutterI18n.translate(context, 'profit'),
-                            price:
-                                '${Tools.priceFormat(state.gatewaysRevenue.value)} MXC (${Tools.priceFormat(state.gatewaysRevenueUsd.value)} USD)',
-                          ),
-                        ),
-                      ),
-                    ),
-                    BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-                      buildWhen: (a, b) =>
-                          a.devicesRevenueUsd != b.devicesRevenueUsd ||
-                          a.devicesRevenue != b.devicesRevenue ||
-                          a.devicesTotal != b.devicesTotal,
-                      builder: (ctx, state) => PanelFrame(
-                        child: SummaryRow(
-                          key: Key('totalDevicesDashboard'),
-                          loading: false,
-                          image: AppImages.devices,
-                          title:
-                              FlutterI18n.translate(context, 'total_devices'),
-                          number: '${state.devicesTotal.value ?? '0'}',
-                          subtitle: FlutterI18n.translate(context, 'cost'),
-                          price:
-                              '${Tools.priceFormat(state.devicesRevenue.value)} MXC (${Tools.priceFormat(state.devicesRevenueUsd.value)} USD)',
-                        ),
-                      ),
-                    ),
-                    BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-                      buildWhen: (a, b) =>
-                          a.geojsonList != b.geojsonList ||
-                          a.locationPermissionsGranted !=
-                              b.locationPermissionsGranted,
-                      builder: (ctx, state) => PanelFrame(
-                        key: ValueKey('homeMapbox'),
-                        height: 263,
-                        child: state.locationPermissionsGranted
-                            ? FlutterMapboxNative(
-                                mapStyle: Sys.mapTileStyle,
-                                center: CenterPosition(
-                                  target: LatLng(0, 0),
-                                  zoom: 0,
-                                  animated: true,
-                                ),
-                                // minimumZoomLevel: 1,
-                                maximumZoomLevel: 12,
-                                clusters: state.geojsonList ?? [],
-                                myLocationEnabled: true,
-                                myLocationTrackingMode:
-                                    MyLocationTrackingMode.None,
-                                onFullScreenTap: () {
-                                  Navigator.of(context).pushNamed(
-                                      'mapbox_gl_page',
-                                      arguments: {'list': state.geojsonList});
-                                },
-                              )
-                            : Container(),
-                      ),
-                    ),
-                    smallColumnSpacer(),
-                  ],
-                ),
-              ),
+        builder: (ctx, s) => body(
+          context,
+          supernodeConnected: s.supernodeUsed,
+          parachainConnected: s.parachainUsed,
+        ),
       ),
     );
   }

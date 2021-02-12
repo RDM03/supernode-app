@@ -13,7 +13,7 @@ import 'package:supernodeapp/common/components/wallet/date_buttons.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/stake.dart';
 import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/wrap.dart';
-import 'package:supernodeapp/page/home_page/bloc/supernode/wallet/cubit.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/mxc/cubit.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 class StakeHistoryContent extends StatefulWidget {
@@ -36,13 +36,13 @@ class _StakeHistoryContentState extends State<StakeHistoryContent> {
   @override
   void initState() {
     super.initState();
-    context.read<WalletCubit>().listen((w) {
+    context.read<SupernodeMxcCubit>().listen((w) {
       if (w.stakes != originalHistory) {
         originalHistory = w.stakes;
         filterHistory();
       }
     });
-    originalHistory = context.read<WalletCubit>().state.stakes;
+    originalHistory = context.read<SupernodeMxcCubit>().state.stakes;
     filterHistory();
   }
 

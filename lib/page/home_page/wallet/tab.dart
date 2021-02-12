@@ -4,52 +4,64 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/app_bars/home_bar.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/page/home_page/cubit.dart';
+import 'package:supernodeapp/page/home_page/state.dart';
 import 'package:supernodeapp/page/home_page/wallet/expanded_view.dart';
 import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import '../shared.dart';
-import '../bloc/supernode/wallet/cubit.dart';
-import '../bloc/supernode/wallet/state.dart';
 
-class WalletTab extends StatelessWidget {
+class WalletTab extends StatefulWidget {
+  @override
+  _WalletTabState createState() => _WalletTabState();
+}
+
+class _WalletTabState extends State<WalletTab> {
+  Token selectedToken;
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WalletCubit, WalletState>(
-      buildWhen: (a, b) => a.expanded != b.expanded,
-      builder: (ctx, state) => state.expanded
-          ? Scaffold(
-              appBar: homeBar(
-                null,
-                title: BlocBuilder<WalletCubit, WalletState>(
-                  buildWhen: (a, b) => a.selectedToken != b.selectedToken,
-                  builder: (ctx, state) => Text(
-                    state.selectedToken.fullName,
-                    style: kBigFontOfBlack,
-                  ),
-                ),
-                onPressed: () => openSettings(context),
+    return Scaffold(
+      appBar: selectedToken == null
+          ? homeBar(
+              FlutterI18n.translate(context, 'wallet'),
+              onPressed: () => openSettings(context),
+            )
+          : homeBar(
+              null,
+              title: Text(
+                selectedToken.fullName,
+                style: kBigFontOfBlack,
               ),
-              body: PageBodySingleChild(
-                usePadding: false,
-                child: TokenExpandedView(),
+              onPressed: () => openSettings(context),
+            ),
+      body: selectedToken == null
+          ? BlocBuilder<HomeCubit, HomeState>(
+              builder: (ctx, state) => PageBody(
+                children: [
+                  if (state.displayTokens.contains(Token.mxc))
+                    MxcTokenCard(
+                      expand: () => setState(() => selectedToken = Token.mxc),
+                    ),
+                  if (state.displayTokens.contains(Token.supernodeDhx))
+                    SupernodeDhxTokenCard(
+                      expand: () =>
+                          setState(() => selectedToken = Token.supernodeDhx),
+                    ),
+                  if (state.displayTokens.contains(Token.btc))
+                    BtcTokenCard(
+                      expand: () => setState(() => selectedToken = Token.btc),
+                    ),
+                  AddNewTokenCard(),
+                ],
               ),
             )
-          : Scaffold(
-              appBar: homeBar(
-                FlutterI18n.translate(context, 'wallet'),
-                onPressed: () => openSettings(context),
-              ),
-              body: BlocBuilder<WalletCubit, WalletState>(
-                builder: (ctx, state) => PageBody(children: [
-                  if (state.displayTokens.contains(Token.mxc))
-                    MxcTokenCard(isExpanded: false),
-                  if (state.displayTokens.contains(Token.supernodeDhx))
-                    SupernodeDhxTokenCard(isExpanded: false),
-                  if (state.displayTokens.contains(Token.btc))
-                    BtcTokenCard(isExpanded: false),
-                  AddNewTokenCard(),
-                ]),
+          : PageBodySingleChild(
+              usePadding: false,
+              child: TokenExpandedView(
+                selectedToken: selectedToken,
+                onTokenChanged: (t) => setState(() => selectedToken = t),
               ),
             ),
     );

@@ -8,7 +8,6 @@ import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
-import 'package:supernodeapp/theme/colors.dart';
 
 class MiningIncomeContent extends StatelessWidget {
   @override

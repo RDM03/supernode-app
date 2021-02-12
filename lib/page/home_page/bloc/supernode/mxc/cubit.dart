@@ -9,54 +9,20 @@ import 'package:supernodeapp/page/home_page/cubit.dart';
 
 import 'state.dart';
 
-class WalletCubit extends Cubit<WalletState> {
-  WalletCubit({
+class SupernodeMxcCubit extends Cubit<SupernodeMxcState> {
+  SupernodeMxcCubit({
     @required this.cacheRepository,
     @required this.supernodeRepository,
     @required this.orgId,
     @required this.homeCubit,
-  }) : super(WalletState());
+  }) : super(SupernodeMxcState());
 
   final CacheRepository cacheRepository;
   final SupernodeRepository supernodeRepository;
   final String orgId;
   final HomeCubit homeCubit;
 
-  void addDhx() {
-    homeCubit.saveSNCache(CacheRepository.walletDHX, true);
-    emit(state.copyWith(
-      displayTokens: {...state.displayTokens, Token.supernodeDhx}.toList(),
-    ));
-  }
-
-  void addBtc() {
-    homeCubit.saveSNCache(CacheRepository.walletBTC, true);
-    emit(state.copyWith(
-      displayTokens: {...state.displayTokens, Token.btc}.toList(),
-    ));
-  }
-
-  void expandTo(Token token) {
-    emit(state.copyWith(
-      expanded: true,
-      selectedToken: token,
-    ));
-  }
-
   Future<void> initState() async {
-    final data = homeCubit.loadSNCache();
-    final dhxUsed = data[CacheRepository.walletDHX] ?? false;
-    if (dhxUsed) {
-      emit(state.copyWith(
-        displayTokens: [...state.displayTokens, Token.supernodeDhx],
-      ));
-    }
-    final btcUsed = data[CacheRepository.walletDHX] ?? false;
-    if (btcUsed) {
-      emit(state.copyWith(
-        displayTokens: [...state.displayTokens, Token.btc],
-      ));
-    }
     await refresh();
   }
 
