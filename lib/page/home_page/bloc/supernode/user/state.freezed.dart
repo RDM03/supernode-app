@@ -16,6 +16,7 @@ class _$SupernodeUserStateTearOff {
 // ignore: unused_element
   _SupernodeUserState call(
       {@required String username,
+      @nullable String email,
       List<dynamic> geojsonList,
       bool locationPermissionsGranted = false,
       @nullable ExternalUser weChatUser,
@@ -33,6 +34,7 @@ class _$SupernodeUserStateTearOff {
       Wrap<List<UserOrganization>> organizations = const Wrap.pending()}) {
     return _SupernodeUserState(
       username: username,
+      email: email,
       geojsonList: geojsonList,
       locationPermissionsGranted: locationPermissionsGranted,
       weChatUser: weChatUser,
@@ -59,6 +61,8 @@ const $SupernodeUserState = _$SupernodeUserStateTearOff();
 /// @nodoc
 mixin _$SupernodeUserState {
   String get username;
+  @nullable
+  String get email;
   List<dynamic>
       get geojsonList; // RETHINK.TODO If anyone can remove dynamic, please do it
   bool get locationPermissionsGranted;
@@ -88,6 +92,7 @@ abstract class $SupernodeUserStateCopyWith<$Res> {
       _$SupernodeUserStateCopyWithImpl<$Res>;
   $Res call(
       {String username,
+      @nullable String email,
       List<dynamic> geojsonList,
       bool locationPermissionsGranted,
       @nullable ExternalUser weChatUser,
@@ -117,6 +122,7 @@ class _$SupernodeUserStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object username = freezed,
+    Object email = freezed,
     Object geojsonList = freezed,
     Object locationPermissionsGranted = freezed,
     Object weChatUser = freezed,
@@ -135,6 +141,7 @@ class _$SupernodeUserStateCopyWithImpl<$Res>
   }) {
     return _then(_value.copyWith(
       username: username == freezed ? _value.username : username as String,
+      email: email == freezed ? _value.email : email as String,
       geojsonList: geojsonList == freezed
           ? _value.geojsonList
           : geojsonList as List<dynamic>,
@@ -189,6 +196,7 @@ abstract class _$SupernodeUserStateCopyWith<$Res>
   @override
   $Res call(
       {String username,
+      @nullable String email,
       List<dynamic> geojsonList,
       bool locationPermissionsGranted,
       @nullable ExternalUser weChatUser,
@@ -220,6 +228,7 @@ class __$SupernodeUserStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object username = freezed,
+    Object email = freezed,
     Object geojsonList = freezed,
     Object locationPermissionsGranted = freezed,
     Object weChatUser = freezed,
@@ -238,6 +247,7 @@ class __$SupernodeUserStateCopyWithImpl<$Res>
   }) {
     return _then(_SupernodeUserState(
       username: username == freezed ? _value.username : username as String,
+      email: email == freezed ? _value.email : email as String,
       geojsonList: geojsonList == freezed
           ? _value.geojsonList
           : geojsonList as List<dynamic>,
@@ -289,6 +299,7 @@ class _$_SupernodeUserState
     implements _SupernodeUserState {
   _$_SupernodeUserState(
       {@required this.username,
+      @nullable this.email,
       this.geojsonList,
       this.locationPermissionsGranted = false,
       @nullable this.weChatUser,
@@ -320,6 +331,9 @@ class _$_SupernodeUserState
 
   @override
   final String username;
+  @override
+  @nullable
+  final String email;
   @override
   final List<dynamic> geojsonList;
   @JsonKey(defaultValue: false)
@@ -367,7 +381,7 @@ class _$_SupernodeUserState
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SupernodeUserState(username: $username, geojsonList: $geojsonList, locationPermissionsGranted: $locationPermissionsGranted, weChatUser: $weChatUser, shopifyUser: $shopifyUser, balance: $balance, stakedAmount: $stakedAmount, lockedAmount: $lockedAmount, gatewaysRevenue: $gatewaysRevenue, gatewaysRevenueUsd: $gatewaysRevenueUsd, devicesRevenue: $devicesRevenue, devicesRevenueUsd: $devicesRevenueUsd, totalRevenue: $totalRevenue, devicesTotal: $devicesTotal, isAdmin: $isAdmin, organizations: $organizations)';
+    return 'SupernodeUserState(username: $username, email: $email, geojsonList: $geojsonList, locationPermissionsGranted: $locationPermissionsGranted, weChatUser: $weChatUser, shopifyUser: $shopifyUser, balance: $balance, stakedAmount: $stakedAmount, lockedAmount: $lockedAmount, gatewaysRevenue: $gatewaysRevenue, gatewaysRevenueUsd: $gatewaysRevenueUsd, devicesRevenue: $devicesRevenue, devicesRevenueUsd: $devicesRevenueUsd, totalRevenue: $totalRevenue, devicesTotal: $devicesTotal, isAdmin: $isAdmin, organizations: $organizations)';
   }
 
   @override
@@ -376,6 +390,7 @@ class _$_SupernodeUserState
     properties
       ..add(DiagnosticsProperty('type', 'SupernodeUserState'))
       ..add(DiagnosticsProperty('username', username))
+      ..add(DiagnosticsProperty('email', email))
       ..add(DiagnosticsProperty('geojsonList', geojsonList))
       ..add(DiagnosticsProperty(
           'locationPermissionsGranted', locationPermissionsGranted))
@@ -401,6 +416,8 @@ class _$_SupernodeUserState
             (identical(other.username, username) ||
                 const DeepCollectionEquality()
                     .equals(other.username, username)) &&
+            (identical(other.email, email) ||
+                const DeepCollectionEquality().equals(other.email, email)) &&
             (identical(other.geojsonList, geojsonList) ||
                 const DeepCollectionEquality()
                     .equals(other.geojsonList, geojsonList)) &&
@@ -453,6 +470,7 @@ class _$_SupernodeUserState
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(username) ^
+      const DeepCollectionEquality().hash(email) ^
       const DeepCollectionEquality().hash(geojsonList) ^
       const DeepCollectionEquality().hash(locationPermissionsGranted) ^
       const DeepCollectionEquality().hash(weChatUser) ^
@@ -477,6 +495,7 @@ class _$_SupernodeUserState
 abstract class _SupernodeUserState implements SupernodeUserState {
   factory _SupernodeUserState(
       {@required String username,
+      @nullable String email,
       List<dynamic> geojsonList,
       bool locationPermissionsGranted,
       @nullable ExternalUser weChatUser,
@@ -495,6 +514,9 @@ abstract class _SupernodeUserState implements SupernodeUserState {
 
   @override
   String get username;
+  @override
+  @nullable
+  String get email;
   @override
   List<dynamic> get geojsonList;
   @override // RETHINK.TODO If anyone can remove dynamic, please do it

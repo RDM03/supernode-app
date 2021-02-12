@@ -12,6 +12,7 @@ import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
 import 'package:supernodeapp/common/components/text_field/primary_text_field.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
+import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
@@ -29,6 +30,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController shopifyEmailController = TextEditingController();
@@ -36,6 +38,13 @@ class _ProfilePageState extends State<ProfilePage> {
       TextEditingController();
 
   Loading loading;
+
+  @override
+  void initState() {
+    super.initState();
+    usernameController.text = context.read<SupernodeUserCubit>().state.username;
+    emailController.text = context.read<SupernodeUserCubit>().state.email;
+  }
 
   @override
   void dispose() {
@@ -226,7 +235,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 SizedBox(height: 30),
                 Form(
-                  //TODO key: state.formKey,
+                  key: formKey,
                   child: Column(children: <Widget>[
                     TextFieldWithTitle(
                       title: FlutterI18n.translate(context, 'username'),
@@ -243,10 +252,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 SizedBox(height: 30),
                 PrimaryButton(
-                  // WeChat account
-                  onTap: () => context
+                  onTap: ()  {
+                    if (!formKey.currentState.validate()) return;
+                    context
                       .read<SettingsCubit>()
-                      .update(usernameController.text, emailController.text),
+                      .update(usernameController.text.trim(),
+                      emailController.text.trim());
+                  },
                   buttonTitle: FlutterI18n.translate(context, 'update'),
                   minHeight: 45,
                   minWidget: double.infinity,

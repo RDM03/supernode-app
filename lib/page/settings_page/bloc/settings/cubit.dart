@@ -147,7 +147,6 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   void update(String username, String email) {
-    //TODO if ((curState.formKey.currentState as FormState).validate()) {
     emit(state.copyWith(showLoading: true));
 
     Map data = {
@@ -169,8 +168,8 @@ class SettingsCubit extends Cubit<SettingsState> {
             username: username,
           ),
         );
-        //ctx.dispatch(ProfileActionCreator.jwtUpdate(data));
       }
+      supernodeUserCubit.emit(supernodeUserCubit.state.copyWith(username: username, email: email));
       await supernodeUserCubit.refreshUser();
       emit(state.copyWith(showLoading: false));
     }).catchError((err) {

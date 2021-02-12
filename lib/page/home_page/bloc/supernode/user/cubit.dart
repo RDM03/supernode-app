@@ -85,6 +85,7 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
     emit(state.copyWith(organizations: state.organizations.withLoading()));
     try {
       final profile = await supernodeRepository.user.profile();
+      final email = profile.user.email;
       final isAdmin = profile.user.isAdmin;
       final organizations = profile.organizations;
       final wechatUser = profile.externalUserAccounts.firstWhere(
@@ -94,6 +95,7 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
           (e) => e.service == ExternalUser.shopifyService,
           orElse: () => null);
       emit(state.copyWith(
+        email: email,
         isAdmin: Wrap(isAdmin),
         organizations: Wrap(organizations),
         weChatUser: wechatUser,
