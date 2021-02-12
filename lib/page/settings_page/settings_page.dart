@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
 import 'package:supernodeapp/page/login_page/view.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../app_state.dart';
 import '../../route.dart';
@@ -80,14 +82,17 @@ class SettingsPage extends StatelessWidget {
                         listItem(
                             FlutterI18n.translate(
                                 context, 'rate_app'),
-                            onTap: () => 'TODO'),
-                        //dispatch(SettingsActionCreator.onSettings(SettingsOption.rate_app))),
+                            onTap: () async {
+                              try {
+                                await launch("itms-apps://itunes.apple.com/app/id1509218470");
+                              } on PlatformException catch(e) {
+                                launch("https://play.google.com/store/apps/details?id=com.mxc.smartcity");
+                              }}),
                         Divider(),
                         listItem(
                             FlutterI18n.translate(
                                 context, 'export_mining_data'),
                             onTap: () => 'TODO'),
-                        //dispatch(SettingsActionCreator.onSettings(SettingsOption.export_mining_data))),
                         Divider(),
                         listItem(
                             FlutterI18n.translate(
