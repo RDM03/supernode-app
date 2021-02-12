@@ -96,7 +96,7 @@ class SettingsCubit extends Cubit<SettingsState> {
       }
     }).catchError((err) {
       emit(state.copyWith(showLoading: false));
-      //tip(ctx.context, 'Unbind: $err');
+      appCubit.setError('Unbind: $err');
     });
   }
 
@@ -106,8 +106,8 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   void bindShopifyStep(int step) {
     if (step == 0 || step == 1) emit(state.copyWith(showBindShopifyStep: step));
-    //TODO else
-    //TODO exception;
+    else
+      appCubit.setError('Invalid step');
   }
 
   void shopifyEmail(
@@ -127,7 +127,7 @@ class SettingsCubit extends Cubit<SettingsState> {
       emit(state.copyWith(showBindShopifyStep: 2, showLoading: false));
     }).catchError((err) {
       emit(state.copyWith(showLoading: false));
-      //tip(ctx.context, 'verifyExternalEmail: $err');
+      appCubit.setError('verifyExternalEmail: $err');
     });
   }
 
@@ -141,12 +141,15 @@ class SettingsCubit extends Cubit<SettingsState> {
         emit(state.copyWith(showBindShopifyStep: 3, showLoading: false));
       }).catchError((err) {
         emit(state.copyWith(showLoading: false));
-        //tip(ctx.context, 'confirmExternalEmail: $err');
+        appCubit.setError('confirmExternalEmail: $err');
       });
     }
   }
 
   void update(String username, String email) {
+    if (supernodeUserCubit.state.username == username && supernodeUserCubit.state.email == email)
+      return;
+    
     emit(state.copyWith(showLoading: true));
 
     Map data = {
@@ -174,7 +177,7 @@ class SettingsCubit extends Cubit<SettingsState> {
       emit(state.copyWith(showLoading: false));
     }).catchError((err) {
       emit(state.copyWith(showLoading: false));
-      //TODO tip(ctx.context, 'UserDao update: $err');
+      appCubit.setError('user.update: $err');
     });
   }
 }
