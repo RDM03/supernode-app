@@ -87,7 +87,7 @@ class _DataHighwayImport2PageState extends State<DataHighwayImport2Page> {
                     context.read<DataHighwayCubit>().setDataHighwaySession(
                           DataHighwaySession(address: 'mock-account'),
                         );
-                    Navigator.of(context).pushAndRemoveUntil(
+                    navigatorKey.currentState.pushAndRemoveUntil(
                         route((c) => HomePage()), (_) => false);
                   },
                 ),

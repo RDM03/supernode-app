@@ -29,7 +29,7 @@ import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
 import 'package:supernodeapp/page/gateway_profile_page/page.dart';
 import 'package:supernodeapp/page/home_page/view.dart';
 import 'package:supernodeapp/page/list_councils/page.dart';
-import 'package:supernodeapp/page/login_page/view.dart';
+import 'package:supernodeapp/page/login_page/login_generic.dart';
 import 'package:supernodeapp/page/mapbox_gl_page/page.dart';
 import 'package:supernodeapp/page/mining_simulator_page/page.dart';
 import 'package:supernodeapp/page/lock_page/join_council/page.dart';

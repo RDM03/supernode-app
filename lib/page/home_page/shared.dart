@@ -7,6 +7,9 @@ import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/btc/cubit.dart';
+import 'package:supernodeapp/page/login_page/entry_parachain.dart';
+import 'package:supernodeapp/page/login_page/entry_supernode.dart';
+import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'bloc/supernode/user/cubit.dart';
 import 'cubit.dart';
@@ -84,6 +87,14 @@ Future<void> openSupernodeUnstake(BuildContext context) async {
   context.read<SupernodeUserCubit>().refreshBalance();
   context.read<SupernodeUserCubit>().refreshStakedAmount();
 }
+
+void loginSupernode(BuildContext context) => Navigator.of(context).push(
+      route((ctx) => EntrySupernodePage()),
+    );
+
+void loginParachain(BuildContext context) => Navigator.of(context).push(
+      route((ctx) => EntryParachainPage()),
+    );
 
 Widget tokenItem(
   BuildContext context, {
@@ -181,7 +192,7 @@ void addTokenDialog(
             color: Token.mxc.color,
             onPressed: () {
               Navigator.pop(ctx);
-              context.read<HomeCubit>().addSupernodeDhx();
+              // MXC goes by default
             },
           ),
           tokenItem(
@@ -197,7 +208,11 @@ void addTokenDialog(
             color: Token.supernodeDhx.color,
             onPressed: () {
               Navigator.pop(ctx);
-              context.read<HomeCubit>().addSupernodeDhx();
+              if (!supernodeConnected) {
+                loginSupernode(context);
+              } else {
+                context.read<HomeCubit>().addSupernodeDhx();
+              }
             },
           ),
           tokenItem(
@@ -212,7 +227,11 @@ void addTokenDialog(
             color: Token.btc.color,
             onPressed: () {
               Navigator.pop(ctx);
-              context.read<HomeCubit>().addSupernodeBtc();
+              if (!supernodeConnected) {
+                loginSupernode(context);
+              } else {
+                context.read<HomeCubit>().addSupernodeBtc();
+              }
             },
           ),
           tokenItem(
@@ -228,7 +247,9 @@ void addTokenDialog(
             color: Token.parachainDhx.color,
             onPressed: () {
               Navigator.pop(ctx);
-              context.read<HomeCubit>().addSupernodeDhx();
+              if (!parachainConnected) {
+                loginParachain(context);
+              }
             },
             showTrailingLine: false,
           ),

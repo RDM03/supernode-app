@@ -6,7 +6,7 @@ import 'package:package_info/package_info.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/page/feedback_page/feedback.dart';
-import 'package:supernodeapp/page/login_page/view.dart';
+import 'package:supernodeapp/page/login_page/login_generic.dart';
 import 'package:supernodeapp/route.dart';
 
 import 'action.dart';

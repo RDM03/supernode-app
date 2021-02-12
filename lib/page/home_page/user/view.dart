@@ -18,6 +18,9 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
+import 'package:supernodeapp/page/login_page/entry_supernode.dart';
+import 'package:supernodeapp/page/login_page/supernode_login_page/view.dart';
+import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -91,29 +94,33 @@ class UserTab extends StatelessWidget {
   }
 
   Widget unlockDhxLayer(BuildContext context, Widget child) {
-    return Stack(
-      children: [
-        child,
-        Positioned.fill(
-          child: Container(
-            color: colorDhx.withOpacity(0.85),
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.lock_open,
-                  color: Colors.white,
-                ),
-                Text(
-                  'Unlock Supernode Account',
-                  style: kSmallFontOfWhite,
-                ),
-              ],
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => loginSupernode(context),
+      child: Stack(
+        children: [
+          child,
+          Positioned.fill(
+            child: Container(
+              color: colorDhx.withOpacity(0.85),
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.lock_open,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    'Unlock Supernode Account',
+                    style: kSmallFontOfWhite,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

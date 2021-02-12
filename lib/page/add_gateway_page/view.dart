@@ -42,12 +42,12 @@ Widget buildView(
                     style: kBigFontOfBlack,
                   ),
                 ),
-                onTap: () => Navigator.of(viewService.context)
+                onTap: () => navigatorKey.currentState
                     .pushAndRemoveUntil(route((_) => HomePage()), (_) => false),
               ),
               IconButton(
                 icon: Icon(Icons.arrow_forward_ios),
-                onPressed: () => Navigator.of(viewService.context)
+                onPressed: () => navigatorKey.currentState
                     .pushAndRemoveUntil(route((_) => HomePage()), (_) => false),
               )
             ],

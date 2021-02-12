@@ -5,4 +5,4 @@ MaterialPageRoute route(WidgetBuilder builder) =>
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-final GlobalKey<NavigatorState> homeNavigatorKey = GlobalKey<NavigatorState>();
+GlobalKey<NavigatorState> homeNavigatorKey = GlobalKey<NavigatorState>();

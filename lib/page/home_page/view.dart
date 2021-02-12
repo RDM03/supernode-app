@@ -22,7 +22,26 @@ import 'state.dart';
 import 'bloc/supernode/user/cubit.dart';
 import 'user/view.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  GlobalKey<NavigatorState> navigatorKey;
+
+  @override
+  void initState() {
+    super.initState();
+    final oldHomeNavigatorKey = homeNavigatorKey;
+    navigatorKey = homeNavigatorKey = GlobalKey();
+    if (oldHomeNavigatorKey != null) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        oldHomeNavigatorKey.currentState?.dispose();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SupernodeCubit, SupernodeState>(
@@ -32,14 +51,14 @@ class HomePage extends StatelessWidget {
         builder: (ctx, datahighway) => MultiBlocProvider(
           child: WillPopScope(
             onWillPop: () async {
-              if (homeNavigatorKey.currentState.canPop()) {
-                homeNavigatorKey.currentState.pop();
+              if (navigatorKey.currentState.canPop()) {
+                navigatorKey.currentState.pop();
                 return false;
               }
               return true;
             },
             child: Navigator(
-              key: homeNavigatorKey,
+              key: navigatorKey,
               onPopPage: (route, result) {
                 return route.didPop(result);
               },
@@ -179,7 +198,8 @@ class _HomePageContent extends StatelessWidget {
               selectedItemColor: selectedColor,
               unselectedItemColor: unselectedColor,
               onTap: (i) {
-                if (i == 1 || i == 2) return;
+                if ((i == 1 || i == 2) &&
+                    !context.read<HomeCubit>().state.supernodeUsed) return;
                 context.read<HomeCubit>().changeTab(i);
               },
               items: [

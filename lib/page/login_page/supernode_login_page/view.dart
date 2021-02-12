@@ -145,7 +145,7 @@ class _SupernodeLoginPageContentState
             if (state.result == null) return;
             switch (state.result) {
               case LoginResult.home:
-                await Navigator.of(context)
+                await navigatorKey.currentState
                     .pushAndRemoveUntil(route((c) => HomePage()), (_) => false);
                 break;
               case LoginResult.resetPassword:
