@@ -18,7 +18,7 @@ class _$AppStateTearOff {
       {Locale locale,
       bool isDemo = false,
       bool showLoading = false,
-      @nullable String error}) {
+      @nullable ErrorInfo error}) {
     return _AppState(
       locale: locale,
       isDemo: isDemo,
@@ -38,7 +38,7 @@ mixin _$AppState {
   bool get isDemo;
   bool get showLoading;
   @nullable
-  String get error;
+  ErrorInfo get error;
 
   $AppStateCopyWith<AppState> get copyWith;
 }
@@ -48,7 +48,10 @@ abstract class $AppStateCopyWith<$Res> {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
       _$AppStateCopyWithImpl<$Res>;
   $Res call(
-      {Locale locale, bool isDemo, bool showLoading, @nullable String error});
+      {Locale locale,
+      bool isDemo,
+      bool showLoading,
+      @nullable ErrorInfo error});
 }
 
 /// @nodoc
@@ -71,7 +74,7 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
       isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
-      error: error == freezed ? _value.error : error as String,
+      error: error == freezed ? _value.error : error as ErrorInfo,
     ));
   }
 }
@@ -82,7 +85,10 @@ abstract class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
       __$AppStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Locale locale, bool isDemo, bool showLoading, @nullable String error});
+      {Locale locale,
+      bool isDemo,
+      bool showLoading,
+      @nullable ErrorInfo error});
 }
 
 /// @nodoc
@@ -106,7 +112,7 @@ class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
       isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
-      error: error == freezed ? _value.error : error as String,
+      error: error == freezed ? _value.error : error as ErrorInfo,
     ));
   }
 }
@@ -131,7 +137,7 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
   final bool showLoading;
   @override
   @nullable
-  final String error;
+  final ErrorInfo error;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -182,7 +188,7 @@ abstract class _AppState implements AppState {
       {Locale locale,
       bool isDemo,
       bool showLoading,
-      @nullable String error}) = _$_AppState;
+      @nullable ErrorInfo error}) = _$_AppState;
 
   @override
   Locale get locale;
@@ -192,7 +198,7 @@ abstract class _AppState implements AppState {
   bool get showLoading;
   @override
   @nullable
-  String get error;
+  ErrorInfo get error;
   @override
   _$AppStateCopyWith<_AppState> get copyWith;
 }
@@ -616,4 +622,279 @@ abstract class _SupernodeSession implements SupernodeSession {
   bool get tfaEnabled;
   @override
   _$SupernodeSessionCopyWith<_SupernodeSession> get copyWith;
+}
+
+/// @nodoc
+class _$DataHighwayStateTearOff {
+  const _$DataHighwayStateTearOff();
+
+// ignore: unused_element
+  _DataHighwayState call({DataHighwaySession session}) {
+    return _DataHighwayState(
+      session: session,
+    );
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $DataHighwayState = _$DataHighwayStateTearOff();
+
+/// @nodoc
+mixin _$DataHighwayState {
+  DataHighwaySession get session;
+
+  $DataHighwayStateCopyWith<DataHighwayState> get copyWith;
+}
+
+/// @nodoc
+abstract class $DataHighwayStateCopyWith<$Res> {
+  factory $DataHighwayStateCopyWith(
+          DataHighwayState value, $Res Function(DataHighwayState) then) =
+      _$DataHighwayStateCopyWithImpl<$Res>;
+  $Res call({DataHighwaySession session});
+
+  $DataHighwaySessionCopyWith<$Res> get session;
+}
+
+/// @nodoc
+class _$DataHighwayStateCopyWithImpl<$Res>
+    implements $DataHighwayStateCopyWith<$Res> {
+  _$DataHighwayStateCopyWithImpl(this._value, this._then);
+
+  final DataHighwayState _value;
+  // ignore: unused_field
+  final $Res Function(DataHighwayState) _then;
+
+  @override
+  $Res call({
+    Object session = freezed,
+  }) {
+    return _then(_value.copyWith(
+      session:
+          session == freezed ? _value.session : session as DataHighwaySession,
+    ));
+  }
+
+  @override
+  $DataHighwaySessionCopyWith<$Res> get session {
+    if (_value.session == null) {
+      return null;
+    }
+    return $DataHighwaySessionCopyWith<$Res>(_value.session, (value) {
+      return _then(_value.copyWith(session: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$DataHighwayStateCopyWith<$Res>
+    implements $DataHighwayStateCopyWith<$Res> {
+  factory _$DataHighwayStateCopyWith(
+          _DataHighwayState value, $Res Function(_DataHighwayState) then) =
+      __$DataHighwayStateCopyWithImpl<$Res>;
+  @override
+  $Res call({DataHighwaySession session});
+
+  @override
+  $DataHighwaySessionCopyWith<$Res> get session;
+}
+
+/// @nodoc
+class __$DataHighwayStateCopyWithImpl<$Res>
+    extends _$DataHighwayStateCopyWithImpl<$Res>
+    implements _$DataHighwayStateCopyWith<$Res> {
+  __$DataHighwayStateCopyWithImpl(
+      _DataHighwayState _value, $Res Function(_DataHighwayState) _then)
+      : super(_value, (v) => _then(v as _DataHighwayState));
+
+  @override
+  _DataHighwayState get _value => super._value as _DataHighwayState;
+
+  @override
+  $Res call({
+    Object session = freezed,
+  }) {
+    return _then(_DataHighwayState(
+      session:
+          session == freezed ? _value.session : session as DataHighwaySession,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_DataHighwayState extends _DataHighwayState
+    with DiagnosticableTreeMixin {
+  _$_DataHighwayState({this.session}) : super._();
+
+  @override
+  final DataHighwaySession session;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'DataHighwayState(session: $session)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'DataHighwayState'))
+      ..add(DiagnosticsProperty('session', session));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _DataHighwayState &&
+            (identical(other.session, session) ||
+                const DeepCollectionEquality().equals(other.session, session)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(session);
+
+  @override
+  _$DataHighwayStateCopyWith<_DataHighwayState> get copyWith =>
+      __$DataHighwayStateCopyWithImpl<_DataHighwayState>(this, _$identity);
+}
+
+abstract class _DataHighwayState extends DataHighwayState {
+  _DataHighwayState._() : super._();
+  factory _DataHighwayState({DataHighwaySession session}) = _$_DataHighwayState;
+
+  @override
+  DataHighwaySession get session;
+  @override
+  _$DataHighwayStateCopyWith<_DataHighwayState> get copyWith;
+}
+
+/// @nodoc
+class _$DataHighwaySessionTearOff {
+  const _$DataHighwaySessionTearOff();
+
+// ignore: unused_element
+  _DataHighwaySession call({String address}) {
+    return _DataHighwaySession(
+      address: address,
+    );
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $DataHighwaySession = _$DataHighwaySessionTearOff();
+
+/// @nodoc
+mixin _$DataHighwaySession {
+  String get address;
+
+  $DataHighwaySessionCopyWith<DataHighwaySession> get copyWith;
+}
+
+/// @nodoc
+abstract class $DataHighwaySessionCopyWith<$Res> {
+  factory $DataHighwaySessionCopyWith(
+          DataHighwaySession value, $Res Function(DataHighwaySession) then) =
+      _$DataHighwaySessionCopyWithImpl<$Res>;
+  $Res call({String address});
+}
+
+/// @nodoc
+class _$DataHighwaySessionCopyWithImpl<$Res>
+    implements $DataHighwaySessionCopyWith<$Res> {
+  _$DataHighwaySessionCopyWithImpl(this._value, this._then);
+
+  final DataHighwaySession _value;
+  // ignore: unused_field
+  final $Res Function(DataHighwaySession) _then;
+
+  @override
+  $Res call({
+    Object address = freezed,
+  }) {
+    return _then(_value.copyWith(
+      address: address == freezed ? _value.address : address as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$DataHighwaySessionCopyWith<$Res>
+    implements $DataHighwaySessionCopyWith<$Res> {
+  factory _$DataHighwaySessionCopyWith(
+          _DataHighwaySession value, $Res Function(_DataHighwaySession) then) =
+      __$DataHighwaySessionCopyWithImpl<$Res>;
+  @override
+  $Res call({String address});
+}
+
+/// @nodoc
+class __$DataHighwaySessionCopyWithImpl<$Res>
+    extends _$DataHighwaySessionCopyWithImpl<$Res>
+    implements _$DataHighwaySessionCopyWith<$Res> {
+  __$DataHighwaySessionCopyWithImpl(
+      _DataHighwaySession _value, $Res Function(_DataHighwaySession) _then)
+      : super(_value, (v) => _then(v as _DataHighwaySession));
+
+  @override
+  _DataHighwaySession get _value => super._value as _DataHighwaySession;
+
+  @override
+  $Res call({
+    Object address = freezed,
+  }) {
+    return _then(_DataHighwaySession(
+      address: address == freezed ? _value.address : address as String,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_DataHighwaySession extends _DataHighwaySession
+    with DiagnosticableTreeMixin {
+  _$_DataHighwaySession({this.address}) : super._();
+
+  @override
+  final String address;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'DataHighwaySession(address: $address)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'DataHighwaySession'))
+      ..add(DiagnosticsProperty('address', address));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _DataHighwaySession &&
+            (identical(other.address, address) ||
+                const DeepCollectionEquality().equals(other.address, address)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(address);
+
+  @override
+  _$DataHighwaySessionCopyWith<_DataHighwaySession> get copyWith =>
+      __$DataHighwaySessionCopyWithImpl<_DataHighwaySession>(this, _$identity);
+}
+
+abstract class _DataHighwaySession extends DataHighwaySession {
+  _DataHighwaySession._() : super._();
+  factory _DataHighwaySession({String address}) = _$_DataHighwaySession;
+
+  @override
+  String get address;
+  @override
+  _$DataHighwaySessionCopyWith<_DataHighwaySession> get copyWith;
 }

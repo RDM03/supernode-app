@@ -11,7 +11,7 @@ abstract class AppState with _$AppState {
     Locale locale,
     @Default(false) bool isDemo,
     @Default(false) bool showLoading,
-    @nullable String error,
+    @nullable ErrorInfo error,
   }) = _AppState;
 }
 
@@ -35,4 +35,26 @@ abstract class SupernodeSession with _$SupernodeSession {
     Supernode node,
     @Default(false) bool tfaEnabled,
   }) = _SupernodeSession;
+}
+
+@freezed
+abstract class DataHighwayState with _$DataHighwayState {
+  DataHighwayState._();
+  factory DataHighwayState({
+    DataHighwaySession session,
+  }) = _DataHighwayState;
+}
+
+@freezed
+abstract class DataHighwaySession with _$DataHighwaySession {
+  DataHighwaySession._();
+  factory DataHighwaySession({
+    String address,
+  }) = _DataHighwaySession;
+}
+
+class ErrorInfo {
+  final String text;
+
+  ErrorInfo(this.text);
 }
