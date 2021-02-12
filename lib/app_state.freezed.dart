@@ -15,11 +15,15 @@ class _$AppStateTearOff {
 
 // ignore: unused_element
   _AppState call(
-      {Locale locale, bool isDemo = false, bool showLoading = false}) {
+      {Locale locale,
+      bool isDemo = false,
+      bool showLoading = false,
+      @nullable String error}) {
     return _AppState(
       locale: locale,
       isDemo: isDemo,
       showLoading: showLoading,
+      error: error,
     );
   }
 }
@@ -33,6 +37,8 @@ mixin _$AppState {
   Locale get locale;
   bool get isDemo;
   bool get showLoading;
+  @nullable
+  String get error;
 
   $AppStateCopyWith<AppState> get copyWith;
 }
@@ -41,7 +47,8 @@ mixin _$AppState {
 abstract class $AppStateCopyWith<$Res> {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
       _$AppStateCopyWithImpl<$Res>;
-  $Res call({Locale locale, bool isDemo, bool showLoading});
+  $Res call(
+      {Locale locale, bool isDemo, bool showLoading, @nullable String error});
 }
 
 /// @nodoc
@@ -57,12 +64,14 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
     Object locale = freezed,
     Object isDemo = freezed,
     Object showLoading = freezed,
+    Object error = freezed,
   }) {
     return _then(_value.copyWith(
       locale: locale == freezed ? _value.locale : locale as Locale,
       isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
+      error: error == freezed ? _value.error : error as String,
     ));
   }
 }
@@ -72,7 +81,8 @@ abstract class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
   factory _$AppStateCopyWith(_AppState value, $Res Function(_AppState) then) =
       __$AppStateCopyWithImpl<$Res>;
   @override
-  $Res call({Locale locale, bool isDemo, bool showLoading});
+  $Res call(
+      {Locale locale, bool isDemo, bool showLoading, @nullable String error});
 }
 
 /// @nodoc
@@ -89,19 +99,25 @@ class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
     Object locale = freezed,
     Object isDemo = freezed,
     Object showLoading = freezed,
+    Object error = freezed,
   }) {
     return _then(_AppState(
       locale: locale == freezed ? _value.locale : locale as Locale,
       isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
+      error: error == freezed ? _value.error : error as String,
     ));
   }
 }
 
 /// @nodoc
 class _$_AppState with DiagnosticableTreeMixin implements _AppState {
-  _$_AppState({this.locale, this.isDemo = false, this.showLoading = false})
+  _$_AppState(
+      {this.locale,
+      this.isDemo = false,
+      this.showLoading = false,
+      @nullable this.error})
       : assert(isDemo != null),
         assert(showLoading != null);
 
@@ -113,10 +129,13 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
   @JsonKey(defaultValue: false)
   @override
   final bool showLoading;
+  @override
+  @nullable
+  final String error;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppState(locale: $locale, isDemo: $isDemo, showLoading: $showLoading)';
+    return 'AppState(locale: $locale, isDemo: $isDemo, showLoading: $showLoading, error: $error)';
   }
 
   @override
@@ -126,7 +145,8 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
       ..add(DiagnosticsProperty('type', 'AppState'))
       ..add(DiagnosticsProperty('locale', locale))
       ..add(DiagnosticsProperty('isDemo', isDemo))
-      ..add(DiagnosticsProperty('showLoading', showLoading));
+      ..add(DiagnosticsProperty('showLoading', showLoading))
+      ..add(DiagnosticsProperty('error', error));
   }
 
   @override
@@ -139,7 +159,9 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
                 const DeepCollectionEquality().equals(other.isDemo, isDemo)) &&
             (identical(other.showLoading, showLoading) ||
                 const DeepCollectionEquality()
-                    .equals(other.showLoading, showLoading)));
+                    .equals(other.showLoading, showLoading)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)));
   }
 
   @override
@@ -147,7 +169,8 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(locale) ^
       const DeepCollectionEquality().hash(isDemo) ^
-      const DeepCollectionEquality().hash(showLoading);
+      const DeepCollectionEquality().hash(showLoading) ^
+      const DeepCollectionEquality().hash(error);
 
   @override
   _$AppStateCopyWith<_AppState> get copyWith =>
@@ -155,8 +178,11 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
 }
 
 abstract class _AppState implements AppState {
-  factory _AppState({Locale locale, bool isDemo, bool showLoading}) =
-      _$_AppState;
+  factory _AppState(
+      {Locale locale,
+      bool isDemo,
+      bool showLoading,
+      @nullable String error}) = _$_AppState;
 
   @override
   Locale get locale;
@@ -164,6 +190,9 @@ abstract class _AppState implements AppState {
   bool get isDemo;
   @override
   bool get showLoading;
+  @override
+  @nullable
+  String get error;
   @override
   _$AppStateCopyWith<_AppState> get copyWith;
 }

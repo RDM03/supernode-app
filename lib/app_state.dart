@@ -11,6 +11,7 @@ abstract class AppState with _$AppState {
     Locale locale,
     @Default(false) bool isDemo,
     @Default(false) bool showLoading,
+    @nullable String error,
   }) = _AppState;
 }
 
