@@ -52,23 +52,20 @@ class PrimaryTextField extends StatelessWidget {
       readOnly: readOnly,
       keyboardType: keyboardType,
       decoration: InputDecoration(
-        contentPadding: kRoundRow105,
         hintText: hint,
         errorMaxLines: 2,
         counterText: counterText,
         suffixText: suffixText,
         suffixStyle: suffixStyle,
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             color: borderColor,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(3)),
         ),
-        border: OutlineInputBorder(
+        border: UnderlineInputBorder(
           borderSide: BorderSide(
             color: borderColor,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(3)),
         ),
         fillColor: fillColor,
         filled: fillColor != null,

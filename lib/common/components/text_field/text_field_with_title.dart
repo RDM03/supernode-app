@@ -62,35 +62,31 @@ class TextFieldWithTitle extends StatelessWidget {
             )
           ],
         ),
-        Container(
-          margin: const EdgeInsets.only(top: 10),
-          // height: 45,
-          child: Stack(
-            children: <Widget>[
-              PrimaryTextField(
-                borderColor: borderColor,
-                maxLength: maxLength,
-                counterText: counterText,
-                readOnly: readOnly,
-                textAlign: textAlign,
-                keyboardType: keyboardType,
-                hint: hint,
-                isObscureText: isObscureText,
-                validator: validator,
-                textColor: textColor,
-                controller: controller,
-                onChanged: onChanged,
+        Stack(
+          children: <Widget>[
+            PrimaryTextField(
+              borderColor: borderColor,
+              maxLength: maxLength,
+              counterText: counterText,
+              readOnly: readOnly,
+              textAlign: textAlign,
+              keyboardType: keyboardType,
+              hint: hint,
+              isObscureText: isObscureText,
+              validator: validator,
+              textColor: textColor,
+              controller: controller,
+              onChanged: onChanged,
+            ),
+            Positioned(
+              right: 0,
+              child: Visibility(
+                visible: suffixChild != null,
+                child: suffixChild ?? Container(),
               ),
-              Positioned(
-                right: 0,
-                child: Visibility(
-                  visible: suffixChild != null,
-                  child: suffixChild ?? Container(),
-                ),
-              ),
-            ],
-          ),
-        )
+            ),
+          ],
+        ),
       ],
     );
   }
