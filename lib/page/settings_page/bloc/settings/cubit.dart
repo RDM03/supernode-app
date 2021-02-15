@@ -116,38 +116,63 @@ class SettingsCubit extends Cubit<SettingsState> {
     }
   }
 
-  void update(String username, String email) {
-    if (supernodeUserCubit.state.username == username && supernodeUserCubit.state.email == email)
+  void update(String username, String email, String orgName) {
+    if (supernodeUserCubit.state.username == username
+        && supernodeUserCubit.state.email == email
+        && supernodeUserCubit.state.organizations.value[0]?.organizationName == orgName)
       return;
 
-    emit(state.copyWith(showLoading: true));
+    if (supernodeUserCubit.state.username != username || supernodeUserCubit.state.email != email) {
+      emit(state.copyWith(showLoading: true));
+      Map data = {
+        "id": supernodeCubit.state.session.userId,
+        "username": username,
+        "email": email,
+        "sessionTTL": 0,
+        "isAdmin": true,
+        "isActive": true,
+        "note": ""
+      };
 
-    Map data = {
-      "id": supernodeCubit.state.session.userId,
-      "username": username,
-      "email": email,
-      "sessionTTL": 0,
-      "isAdmin": true,
-      "isActive": true,
-      "note": ""
-    };
+      supernodeRepository.user.update({"user": data}).then((res) async {
+        String jwt = res['jwt'];
+        if (jwt != null && jwt.isNotEmpty) {
+          supernodeCubit.setSupernodeSession(
+            supernodeCubit.state.session.copyWith(
+              token: jwt,
+              username: username,
+            ),
+          );
+        }
+        supernodeUserCubit.emit(supernodeUserCubit.state.copyWith(
+            username: username, email: email));
+        await supernodeUserCubit.refreshUser();
+        emit(state.copyWith(showLoading: false));
+      }).catchError((err) {
+        emit(state.copyWith(showLoading: false));
+        appCubit.setError('user.update: $err');
+      });
+    }
 
-    supernodeRepository.user.update({"user": data}).then((res) async {
-      String jwt = res['jwt'];
-      if (jwt != null && jwt.isNotEmpty) {
-        supernodeCubit.setSupernodeSession(
-          supernodeCubit.state.session.copyWith(
-            token: jwt,
-            username: username,
-          ),
-        );
-      }
-      supernodeUserCubit.emit(supernodeUserCubit.state.copyWith(username: username, email: email));
-      await supernodeUserCubit.refreshUser();
-      emit(state.copyWith(showLoading: false));
-    }).catchError((err) {
-      emit(state.copyWith(showLoading: false));
-      appCubit.setError('user.update: $err');
-    });
+    if (supernodeUserCubit.state.organizations.value[0]?.organizationName != orgName) {
+      emit(state.copyWith(showLoading: true));
+
+      Map dataOrg = {
+        "id": supernodeUserCubit.orgId,
+        "organization": {
+          "id": supernodeUserCubit.orgId,
+          "name": orgName,
+          "canHaveGateways": true
+        }
+      };
+
+      supernodeRepository.organization.update(dataOrg).then((res) async {
+        await supernodeUserCubit.refreshUser();
+        emit(state.copyWith(showLoading: false));
+      }).catchError((err) {
+        emit(state.copyWith(showLoading: false));
+        appCubit.setError('Organization update: $err');
+      });
+    }
   }
 }

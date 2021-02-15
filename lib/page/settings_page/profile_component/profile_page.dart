@@ -33,6 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController orgnameController = TextEditingController();
   final TextEditingController shopifyEmailController = TextEditingController();
   final TextEditingController shopifyVerificationCodeControler =
       TextEditingController();
@@ -44,6 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     usernameController.text = context.read<SupernodeUserCubit>().state.username;
     emailController.text = context.read<SupernodeUserCubit>().state.email;
+    orgnameController.text = context.read<SupernodeUserCubit>().state.organizations.value[0]?.organizationName;
   }
 
   @override
@@ -51,6 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
     super.dispose();
     usernameController.dispose();
     emailController.dispose();
+    orgnameController.dispose();
     shopifyEmailController.dispose();
     shopifyVerificationCodeControler.dispose();
   }
@@ -248,6 +251,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       validator: (value) => _validEmail(context, value),
                       controller: emailController,
                     ),
+                    smallColumnSpacer(),
+                    TextFieldWithTitle(
+                      title: FlutterI18n.translate(context,'organization_name'),
+                      validator: (value) => _validName(context,value),
+                      controller: orgnameController,
+                    ),
                   ]),
                 ),
                 SizedBox(height: 30),
@@ -257,7 +266,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     context
                       .read<SettingsCubit>()
                       .update(usernameController.text.trim(),
-                      emailController.text.trim());
+                        emailController.text.trim(),
+                        orgnameController.text.trim());
                   },
                   buttonTitle: FlutterI18n.translate(context, 'update'),
                   minHeight: 45,
@@ -354,6 +364,15 @@ class _ProfilePageState extends State<ProfilePage> {
     res = Reg.isEmail(value);
     if (res != null) {
       return FlutterI18n.translate(context, res);
+    }
+
+    return null;
+  }
+
+  String _validName(BuildContext context,String value){
+    String res = Reg.isEmpty(value);
+    if(res != null){
+      return FlutterI18n.translate(context,res);
     }
 
     return null;
