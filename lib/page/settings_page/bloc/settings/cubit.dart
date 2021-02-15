@@ -55,13 +55,14 @@ class SettingsCubit extends Cubit<SettingsState> {
 
     Map data = {"organizationId": supernodeCubit.state.orgId, "service": service};
 
-    supernodeRepository.user.unbindExternalUser(data).then((res) {
-      emit(state.copyWith(showLoading: false));
+    supernodeRepository.user.unbindExternalUser(data).then((res) async {
       if (service == ExternalUser.weChatService) {
         supernodeUserCubit.removeWeChatUser();
       } else if (service == ExternalUser.shopifyService) {
         supernodeUserCubit.removeShopifyUser();
       }
+      await supernodeUserCubit.refreshUser();
+      emit(state.copyWith(showLoading: false));
     }).catchError((err) {
       emit(state.copyWith(showLoading: false));
       appCubit.setError('Unbind: $err');
@@ -105,7 +106,8 @@ class SettingsCubit extends Cubit<SettingsState> {
 
       Map apiData = {"organizationId": supernodeCubit.state.orgId, "token": verificationCode};
 
-      supernodeRepository.user.confirmExternalEmail(apiData).then((res) {
+      supernodeRepository.user.confirmExternalEmail(apiData).then((res) async {
+        await supernodeUserCubit.refreshUser();
         emit(state.copyWith(showBindShopifyStep: 3, showLoading: false));
       }).catchError((err) {
         emit(state.copyWith(showLoading: false));
