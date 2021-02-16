@@ -22,48 +22,52 @@ class _WalletTabState extends State<WalletTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: selectedToken == null
-          ? homeBar(
-              FlutterI18n.translate(context, 'wallet'),
-              onPressed: () => openSettings(context),
-            )
-          : homeBar(
-              null,
-              title: Text(
-                selectedToken.fullName,
-                style: kBigFontOfBlack,
+    return BlocListener<HomeCubit, HomeState> (
+      listenWhen: (a, b) => a.walletTabClicked != b.walletTabClicked,// Wallet tab
+      listener: (context, state) => setState(() => selectedToken = null),
+      child: Scaffold(
+        appBar: selectedToken == null
+            ? homeBar(
+                FlutterI18n.translate(context, 'wallet'),
+                onPressed: () => openSettings(context),
+              )
+            : homeBar(
+                null,
+                title: Text(
+                  selectedToken.fullName,
+                  style: kBigFontOfBlack,
+                ),
+                onPressed: () => openSettings(context),
               ),
-              onPressed: () => openSettings(context),
-            ),
-      body: selectedToken == null
-          ? BlocBuilder<HomeCubit, HomeState>(
-              builder: (ctx, state) => PageBody(
-                children: [
-                  if (state.displayTokens.contains(Token.mxc))
-                    MxcTokenCard(
-                      expand: () => setState(() => selectedToken = Token.mxc),
-                    ),
-                  if (state.displayTokens.contains(Token.supernodeDhx))
-                    SupernodeDhxTokenCard(
-                      expand: () =>
-                          setState(() => selectedToken = Token.supernodeDhx),
-                    ),
-                  if (state.displayTokens.contains(Token.btc))
-                    BtcTokenCard(
-                      expand: () => setState(() => selectedToken = Token.btc),
-                    ),
-                  AddNewTokenCard(),
-                ],
+        body: selectedToken == null
+            ? BlocBuilder<HomeCubit, HomeState>(
+                builder: (ctx, state) => PageBody(
+                  children: [
+                    if (state.displayTokens.contains(Token.mxc))
+                      MxcTokenCard(
+                        expand: () => setState(() => selectedToken = Token.mxc),
+                      ),
+                    if (state.displayTokens.contains(Token.supernodeDhx))
+                      SupernodeDhxTokenCard(
+                        expand: () =>
+                            setState(() => selectedToken = Token.supernodeDhx),
+                      ),
+                    if (state.displayTokens.contains(Token.btc))
+                      BtcTokenCard(
+                        expand: () => setState(() => selectedToken = Token.btc),
+                      ),
+                    AddNewTokenCard(),
+                  ],
+                ),
+              )
+            : PageBodySingleChild(
+                usePadding: false,
+                child: TokenExpandedView(
+                  selectedToken: selectedToken,
+                  onTokenChanged: (t) => setState(() => selectedToken = t),
+                ),
               ),
-            )
-          : PageBodySingleChild(
-              usePadding: false,
-              child: TokenExpandedView(
-                selectedToken: selectedToken,
-                onTokenChanged: (t) => setState(() => selectedToken = t),
-              ),
-            ),
+      ),
     );
   }
 }
