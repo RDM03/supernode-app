@@ -99,22 +99,25 @@ class _TokenExpandedViewState extends State<TokenExpandedView>
               controller: controller,
             ),
           ),
-          Container(
-            width: double.infinity,
-            height: 20,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: shodowColor,
-                  offset: Offset(0, 2),
-                  blurRadius: 7,
-                ),
-              ],
-            ),
-            child: TabIndicators(
-              colors: state.displayTokens.map((c) => c.color).toList(),
-              controller: controller,
+          Visibility(
+            visible: state.displayTokens.length > 1,
+            child: Container(
+              width: double.infinity,
+              height: 20,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: shodowColor,
+                    offset: Offset(0, 2),
+                    blurRadius: 7,
+                  ),
+                ],
+              ),
+              child: TabIndicators(
+                colors: state.displayTokens.map((c) => c.color).toList(),
+                controller: controller,
+              ),
             ),
           ),
         ],
