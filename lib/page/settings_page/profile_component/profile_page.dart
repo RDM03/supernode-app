@@ -34,6 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController orgnameController = TextEditingController();
+  final TextEditingController orgDisplayController = TextEditingController();
   final TextEditingController shopifyEmailController = TextEditingController();
   final TextEditingController shopifyVerificationCodeControler =
       TextEditingController();
@@ -46,6 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
     usernameController.text = context.read<SupernodeUserCubit>().state.username;
     emailController.text = context.read<SupernodeUserCubit>().state.email;
     orgnameController.text = context.read<SupernodeUserCubit>().state.organizations.value[0]?.organizationName;
+    orgDisplayController.text = context.read<SupernodeUserCubit>().state.organizations.value[0]?.orgDisplayName;
   }
 
   @override
@@ -54,6 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
     usernameController.dispose();
     emailController.dispose();
     orgnameController.dispose();
+    orgDisplayController.dispose();
     shopifyEmailController.dispose();
     shopifyVerificationCodeControler.dispose();
   }
@@ -260,6 +263,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       controller: orgnameController,
                       textInputAction: TextInputAction.next,
                     ),
+                    middleColumnSpacer(),
+                    TextFieldWithTitle(
+                      title: FlutterI18n.translate(context,'display_name'),
+                      validator: (value) => _validName(context,value),
+                      controller: orgDisplayController,
+                      textInputAction: TextInputAction.next,
+                    ),
                   ]),
                 ),
                 SizedBox(height: 30),
@@ -270,7 +280,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       .read<SettingsCubit>()
                       .update(usernameController.text.trim(),
                         emailController.text.trim(),
-                        orgnameController.text.trim());
+                        orgnameController.text.trim(),
+                        orgDisplayController.text.trim());
                   },
                   buttonTitle: FlutterI18n.translate(context, 'update'),
                   minHeight: 45,

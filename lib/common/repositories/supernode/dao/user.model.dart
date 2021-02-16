@@ -76,6 +76,7 @@ class RegistrationConfirmResponse {
 class UserOrganization {
   final String organizationID;
   final String organizationName;
+  final String orgDisplayName;
   final bool isAdmin;
   final bool isDeviceAdmin;
   final bool isGatewayAdmin;
@@ -85,6 +86,7 @@ class UserOrganization {
   UserOrganization({
     this.organizationID,
     this.organizationName,
+    this.orgDisplayName,
     this.isAdmin,
     this.isDeviceAdmin,
     this.createdAt,
@@ -98,6 +100,7 @@ class UserOrganization {
     return UserOrganization(
       organizationID: map['organizationID'],
       organizationName: map['organizationName'],
+      orgDisplayName: map['organizationDisplayName'],
       isAdmin: map['isAdmin'],
       isDeviceAdmin: map['isDeviceAdmin'],
       isGatewayAdmin: map['isGatewayAdmin'],

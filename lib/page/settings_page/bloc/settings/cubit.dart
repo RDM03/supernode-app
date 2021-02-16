@@ -116,10 +116,11 @@ class SettingsCubit extends Cubit<SettingsState> {
     }
   }
 
-  void update(String username, String email, String orgName) {
+  void update(String username, String email, String orgName, String orgDisplayName) {
     if (supernodeUserCubit.state.username == username
         && supernodeUserCubit.state.email == email
-        && supernodeUserCubit.state.organizations.value[0]?.organizationName == orgName)
+        && supernodeUserCubit.state.organizations.value[0]?.organizationName == orgName
+        && supernodeUserCubit.state.organizations.value[0]?.orgDisplayName == orgDisplayName)
       return;
 
     if (supernodeUserCubit.state.username != username || supernodeUserCubit.state.email != email) {
@@ -154,7 +155,8 @@ class SettingsCubit extends Cubit<SettingsState> {
       });
     }
 
-    if (supernodeUserCubit.state.organizations.value[0]?.organizationName != orgName) {
+    if (supernodeUserCubit.state.organizations.value[0]?.organizationName != orgName
+        || supernodeUserCubit.state.organizations.value[0]?.orgDisplayName != orgDisplayName) {
       emit(state.copyWith(showLoading: true));
 
       Map dataOrg = {
@@ -162,6 +164,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         "organization": {
           "id": supernodeUserCubit.orgId,
           "name": orgName,
+          "displayName": orgDisplayName,
           "canHaveGateways": true
         }
       };
