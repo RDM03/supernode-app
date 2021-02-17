@@ -19,8 +19,9 @@ class LoginCubit extends Cubit<LoginState> {
     this.supernodeCubit,
   }) : super(LoginState());
 
-  void setSuperNodeListVisible(bool val) =>
-      emit(state.copyWith(supernodeListVisible: val));
+  void setSuperNodeListVisible(bool val) => (val)
+      ? emit(state.copyWith(supernodeListVisible: val))
+      : emit(state.copyWith(showTestNodesCounter: 0, supernodeListVisible: val));
 
   void setObscureText(bool val) => emit(state.copyWith(obscureText: val));
 
