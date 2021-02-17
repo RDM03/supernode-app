@@ -9,6 +9,7 @@ part 'state.freezed.dart';
 abstract class HomeState with _$HomeState {
   factory HomeState({
     @required int tabIndex,
+    int walletTabClicked,
     PageRoute routeTo,
     bool supernodeUsed,
     bool parachainUsed,
