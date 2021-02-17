@@ -92,6 +92,7 @@ class _HomePageState extends State<HomePage> {
                       session: ctx.read<SupernodeCubit>().state.session,
                       orgId: ctx.read<SupernodeCubit>().state.orgId,
                       supernodeRepository: ctx.read<SupernodeRepository>(),
+                      supernodeCubit: ctx.read<SupernodeCubit>(),
                       cacheRepository: ctx.read<CacheRepository>(),
                       homeCubit: ctx.read<HomeCubit>(),
                     )..initState()),

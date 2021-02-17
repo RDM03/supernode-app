@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:decimal/decimal.dart';
+import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'package:supernodeapp/common/repositories/cache_repository.dart';
@@ -16,6 +17,7 @@ import 'state.dart';
 class SupernodeUserCubit extends Cubit<SupernodeUserState> {
   SupernodeUserCubit({
     this.supernodeRepository,
+    this.supernodeCubit,
     this.cacheRepository,
     this.session,
     this.orgId,
@@ -25,6 +27,7 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
         ));
 
   final HomeCubit homeCubit;
+  final SupernodeCubit supernodeCubit;
   final SupernodeSession session;
   final String orgId;
   final SupernodeRepository supernodeRepository;
@@ -94,11 +97,13 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
           (e) => e.service == ExternalUser.shopifyService,
           orElse: () => null);
       emit(state.copyWith(
+        username: profile.user.username,
         isAdmin: Wrap(isAdmin),
         organizations: Wrap(organizations),
         weChatUser: wechatUser,
         shopifyUser: shopifyUser,
       ));
+      supernodeCubit.setSupernodeSession(supernodeCubit.state.session.copyWith(username: profile.user.username));
       emit(state.copyWith(organizations: Wrap(organizations)));
     } catch (e, s) {
       logger.e('refresh error', e, s);
