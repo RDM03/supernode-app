@@ -9,6 +9,7 @@ class TitleDetailRow extends StatelessWidget {
   final bool loading;
   final String token;
   final bool disabled;
+  final Widget trail;
 
   const TitleDetailRow({
     Key key,
@@ -17,6 +18,7 @@ class TitleDetailRow extends StatelessWidget {
     this.loading = false,
     this.token = 'MXC',
     this.disabled = false,
+    this.trail,
   }) : super(key: key);
 
   @override
@@ -42,7 +44,8 @@ class TitleDetailRow extends StatelessWidget {
                   '$value${token.isNotEmpty ? ' $token' : ''}',
                   textAlign: TextAlign.left,
                   style: disabled ? kBigFontOfGrey : kBigFontOfBlack,
-                )
+                ),
+          trail != null ? trail : SizedBox()
         ],
       ),
     );

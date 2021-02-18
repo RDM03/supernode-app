@@ -5,6 +5,8 @@ import 'package:supernodeapp/common/repositories/supernode/dao/withdraw.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/page/home_page/wallet/mxc_token/transaction_history_detail_page.dart';
+import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
@@ -207,14 +209,19 @@ class TopupListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     String followText;
     TextStyle followStyle;
+    String deposit_withdraw;
+    IconData icon;
     if (entity.amountDouble > 0) {
-      followText = '(' + FlutterI18n.translate(context, 'deposit') + ')';
+      deposit_withdraw = FlutterI18n.translate(context, 'deposit');
+      icon = Icons.add;
       followStyle = kSmallFontOfGreen;
     }
     if (entity.amountDouble < 0) {
-      followText = '(' + FlutterI18n.translate(context, 'withdraw') + ')';
+      deposit_withdraw = FlutterI18n.translate(context, 'withdraw');
+      icon = Icons.arrow_forward;
       followStyle = kSmallFontOfRed;
     }
+    followText = '(' + deposit_withdraw + ')';
     return listItem(
       context: context,
       amount: entity.amountDouble,
@@ -223,6 +230,17 @@ class TopupListItem extends StatelessWidget {
       followText: followText,
       followStyle: followStyle,
       status: FlutterI18n.translate(context, 'completed'),
+      onTap: () => Navigator.of(context).push(
+        route((context) => DepositDetailPage(
+            icon: icon,
+            title: deposit_withdraw,
+            currency: 'MXC/ETH',
+            amount: entity.amount,
+            date: entity.timestamp.toIso8601String(),
+            status: FlutterI18n.translate(context, 'completed'),
+            to_from: entity.txHash,
+            hash: entity.txHash)),
+      ),
     );
   }
 }
@@ -241,15 +259,19 @@ class WithdrawListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     String followText;
     TextStyle followStyle;
+    String deposit_withdraw = '';
+    IconData icon;
     if (entity.amountDouble > 0) {
-      followText = '(' + FlutterI18n.translate(context, 'deposit') + ')';
+      deposit_withdraw = FlutterI18n.translate(context, 'deposit');
+      icon = Icons.add;
       followStyle = kSmallFontOfGreen;
     }
-
     if (entity.amountDouble < 0) {
-      followText = '(' + FlutterI18n.translate(context, 'withdraw') + ')';
+      deposit_withdraw = FlutterI18n.translate(context, 'withdraw');
+      icon = Icons.arrow_forward;
       followStyle = kSmallFontOfRed;
     }
+    followText = '(' + deposit_withdraw + ')';
 
     return listItem(
       context: context,
@@ -263,6 +285,21 @@ class WithdrawListItem extends StatelessWidget {
       status: entity.txStatus != null
           ? FlutterI18n.translate(context, entity.txStatus)
           : FlutterI18n.translate(context, 'completed'),
+      onTap: () => Navigator.of(context).push(
+        route((context) => DepositDetailPage(
+          icon: icon,
+          title: deposit_withdraw,
+          currency: 'MXC/ETH',
+          amount: entity.amount,
+          fee: entity.withdrawFee,
+          date: entity.timestamp.toIso8601String(),
+          status: entity.txStatus != null
+              ? FlutterI18n.translate(context, entity.txStatus)
+              : FlutterI18n.translate(context, 'completed'),
+          to_from: entity.txHash,
+          hash: entity.txHash,
+        )),
+      ),
     );
   }
 }

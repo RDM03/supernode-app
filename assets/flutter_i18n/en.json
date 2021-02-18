@@ -95,6 +95,8 @@
 	"denied": "Denied",
 	"pending": "Pending",
 	"transaction_fee": "Transaction Fee",
+	"date": "Date",
+	"status": "Status",
 	"from": "From",
 	"to": "To",
 	"txhash": "TxHash",
