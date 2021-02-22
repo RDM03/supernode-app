@@ -7,7 +7,7 @@ import 'package:supernodeapp/common/components/buttons/rounded_button.dart';
 import 'package:supernodeapp/common/components/mnemonic_list.dart';
 import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
-import 'package:supernodeapp/page/home_page/view.dart';
+import 'package:supernodeapp/page/home_page/home_page.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/font.dart';
 
