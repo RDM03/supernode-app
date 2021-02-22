@@ -14,7 +14,7 @@ import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
-import 'package:supernodeapp/page/home_page/view.dart';
+import 'package:supernodeapp/page/home_page/home_page.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';

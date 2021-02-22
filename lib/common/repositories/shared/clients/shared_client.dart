@@ -20,7 +20,11 @@ class SharedHttpClient implements HttpClient {
     final message =
         e.response != null ? e.response.data['message'].toString() : e.message;
     final code =
-        e.response != null ? int.tryParse(e.response.data['code']) : -1;
+        e.response != null
+            ? (e.response.data['code'] is int
+            ? e.response.data['code']
+            : int.tryParse(e.response.data['code']))
+            : -1;
     throw HttpException(message, code, innerStack);
   }
 

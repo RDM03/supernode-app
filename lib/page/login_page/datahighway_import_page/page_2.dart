@@ -5,7 +5,7 @@ import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
-import 'package:supernodeapp/page/home_page/view.dart';
+import 'package:supernodeapp/page/home_page/home_page.dart';
 import 'package:supernodeapp/route.dart';
 
 class DataHighwayImport2Page extends StatefulWidget {

@@ -9,6 +9,7 @@ part 'state.freezed.dart';
 abstract class SupernodeUserState with _$SupernodeUserState {
   factory SupernodeUserState({
     @required String username,
+    @nullable String email,
     List<dynamic>
         geojsonList, // RETHINK.TODO If anyone can remove dynamic, please do it
     @Default(false) bool locationPermissionsGranted,

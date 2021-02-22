@@ -14,6 +14,8 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/mxc/cubit.dart';
 import 'package:supernodeapp/page/home_page/device/view.dart';
 import 'package:supernodeapp/page/home_page/gateway/view.dart';
 import 'package:supernodeapp/page/home_page/wallet/view.dart';
+import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
+import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
@@ -48,97 +50,105 @@ class _HomePageState extends State<HomePage> {
       buildWhen: (a, b) => a.session != b.session,
       builder: (ctx, supernode) =>
           BlocBuilder<DataHighwayCubit, DataHighwayState>(
-        builder: (ctx, datahighway) => MultiBlocProvider(
-          child: WillPopScope(
-            onWillPop: () async {
-              if (navigatorKey.currentState.canPop()) {
-                navigatorKey.currentState.pop();
-                return false;
-              }
-              return true;
-            },
-            child: Navigator(
-              key: navigatorKey,
-              onPopPage: (route, result) {
-                return route.didPop(result);
-              },
-              onGenerateRoute: (RouteSettings settings) {
-                return MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return MxcApp.fishRoutes
-                        .buildPage(settings.name, settings.arguments);
+            builder: (ctx, datahighway) => MultiBlocProvider(
+              child: WillPopScope(
+                onWillPop: () async {
+                  if (navigatorKey.currentState.canPop()) {
+                    navigatorKey.currentState.pop();
+                    return false;
+                  }
+                  return true;
+                },
+                child: Navigator(
+                  key: navigatorKey,
+                  onPopPage: (route, result) {
+                    return route.didPop(result);
                   },
-                  settings: settings,
-                );
-              },
-              onGenerateInitialRoutes: (state, s) => [
-                route((ctx) => _HomePageContent()),
+                  onGenerateRoute: (RouteSettings settings) {
+                    return MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return MxcApp.fishRoutes
+                            .buildPage(settings.name, settings.arguments);
+                      },
+                      settings: settings,
+                    );
+                  },
+                  onGenerateInitialRoutes: (state, s) => [
+                    route((ctx) => _HomePageContent()),
+                  ],
+                ),
+              ),
+              providers: [
+                BlocProvider(
+                  create: (ctx) => HomeCubit(
+                    supernodeUsername: supernode?.session?.username,
+                    cacheRepository: ctx.read<CacheRepository>(),
+                    supernodeUsed: supernode.session != null,
+                    parachainUsed: datahighway.session != null,
+                  )..initState(),
+                ),
+                BlocProvider(
+                  create: (ctx) => supernode.session == null
+                      ? null
+                      : (SupernodeUserCubit(
+                    session: ctx.read<SupernodeCubit>().state.session,
+                    orgId: ctx.read<SupernodeCubit>().state.orgId,
+                    supernodeRepository: ctx.read<SupernodeRepository>(),
+                    cacheRepository: ctx.read<CacheRepository>(),
+                    homeCubit: ctx.read<HomeCubit>(),
+                  )..initState()),
+                ),
+                BlocProvider(
+                  create: (ctx) => SettingsCubit(
+                    appCubit: ctx.read<AppCubit>(),
+                    supernodeUserCubit: ctx.read<SupernodeUserCubit>(),
+                    supernodeCubit: ctx.read<SupernodeCubit>(),
+                    supernodeRepository: ctx.read<SupernodeRepository>(),
+                  ),
+                ),
+                BlocProvider(
+                  create: (ctx) => supernode.session == null
+                      ? null
+                      : (SupernodeDhxCubit(
+                    session: ctx.read<SupernodeCubit>().state.session,
+                    orgId: ctx.read<SupernodeCubit>().state.orgId,
+                    supernodeRepository: ctx.read<SupernodeRepository>(),
+                    cacheRepository: ctx.read<CacheRepository>(),
+                    homeCubit: ctx.read<HomeCubit>(),
+                  )..initState()),
+                ),
+                BlocProvider(
+                  create: (ctx) => supernode.session == null
+                      ? null
+                      : (SupernodeBtcCubit(
+                    session: ctx.read<SupernodeCubit>().state.session,
+                    orgId: ctx.read<SupernodeCubit>().state.orgId,
+                    supernodeRepository: ctx.read<SupernodeRepository>(),
+                    homeCubit: ctx.read<HomeCubit>(),
+                  )..initState()),
+                ),
+                BlocProvider(
+                  create: (ctx) => supernode.session == null
+                      ? null
+                      : (SupernodeMxcCubit(
+                    orgId: ctx.read<SupernodeCubit>().state.orgId,
+                    supernodeRepository: ctx.read<SupernodeRepository>(),
+                    cacheRepository: ctx.read<CacheRepository>(),
+                    homeCubit: ctx.read<HomeCubit>(),
+                  )..initState()),
+                ),
+                BlocProvider(
+                  create: (ctx) => supernode.session == null
+                      ? null
+                      : (GatewayCubit(
+                    orgId: ctx.read<SupernodeCubit>().state.orgId,
+                    supernodeRepository: ctx.read<SupernodeRepository>(),
+                    homeCubit: ctx.read<HomeCubit>(),
+                  )..initState()),
+                ),
               ],
             ),
           ),
-          providers: [
-            BlocProvider(
-              create: (ctx) => HomeCubit(
-                supernodeUsername: supernode?.session?.username,
-                cacheRepository: ctx.read<CacheRepository>(),
-                supernodeUsed: supernode.session != null,
-                parachainUsed: datahighway.session != null,
-              )..initState(),
-            ),
-            BlocProvider(
-              create: (ctx) => supernode.session == null
-                  ? null
-                  : (SupernodeUserCubit(
-                      session: ctx.read<SupernodeCubit>().state.session,
-                      orgId: ctx.read<SupernodeCubit>().state.orgId,
-                      supernodeRepository: ctx.read<SupernodeRepository>(),
-                      cacheRepository: ctx.read<CacheRepository>(),
-                      homeCubit: ctx.read<HomeCubit>(),
-                    )..initState()),
-            ),
-            BlocProvider(
-              create: (ctx) => supernode.session == null
-                  ? null
-                  : (SupernodeDhxCubit(
-                      session: ctx.read<SupernodeCubit>().state.session,
-                      orgId: ctx.read<SupernodeCubit>().state.orgId,
-                      supernodeRepository: ctx.read<SupernodeRepository>(),
-                      cacheRepository: ctx.read<CacheRepository>(),
-                      homeCubit: ctx.read<HomeCubit>(),
-                    )..initState()),
-            ),
-            BlocProvider(
-              create: (ctx) => supernode.session == null
-                  ? null
-                  : (SupernodeBtcCubit(
-                      session: ctx.read<SupernodeCubit>().state.session,
-                      orgId: ctx.read<SupernodeCubit>().state.orgId,
-                      supernodeRepository: ctx.read<SupernodeRepository>(),
-                      homeCubit: ctx.read<HomeCubit>(),
-                    )..initState()),
-            ),
-            BlocProvider(
-              create: (ctx) => supernode.session == null
-                  ? null
-                  : (SupernodeMxcCubit(
-                      orgId: ctx.read<SupernodeCubit>().state.orgId,
-                      supernodeRepository: ctx.read<SupernodeRepository>(),
-                      cacheRepository: ctx.read<CacheRepository>(),
-                      homeCubit: ctx.read<HomeCubit>(),
-                    )..initState()),
-            ),
-            BlocProvider(
-              create: (ctx) => supernode.session == null
-                  ? null
-                  : (GatewayCubit(
-                      orgId: ctx.read<SupernodeCubit>().state.orgId,
-                      supernodeRepository: ctx.read<SupernodeRepository>(),
-                      homeCubit: ctx.read<HomeCubit>(),
-                    )..initState()),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
