@@ -128,7 +128,6 @@ class GatewaysList extends StatelessWidget {
       context: context,
       builder: (BuildContext ctx) => FullScreenDialog(
         child: IosStyleBottomDialog(
-          context: context,
           blueActionIndex: 0,
           list: list,
           onItemClickListener: (itemIndex) {},

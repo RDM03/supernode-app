@@ -13,8 +13,8 @@ import 'package:supernodeapp/common/repositories/supernode/dao/topup.model.dart'
 import 'package:supernodeapp/common/repositories/supernode/dao/withdraw.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/time.dart';
-import 'package:supernodeapp/page/home_page/bloc/supernode/wallet/cubit.dart';
-import 'package:supernodeapp/page/home_page/bloc/supernode/wallet/state.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/mxc/cubit.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/mxc/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 class TransactionHistoryContent extends StatefulWidget {
@@ -34,7 +34,7 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WalletCubit, WalletState>(
+    return BlocBuilder<SupernodeMxcCubit, SupernodeMxcState>(
       buildWhen: (a, b) => a.topups != b.topups || a.withdraws != b.withdraws,
       builder: (ctx, state) {
         final withdraws = state.withdraws.value;

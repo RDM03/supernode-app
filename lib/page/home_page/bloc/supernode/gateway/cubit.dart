@@ -19,7 +19,7 @@ class GatewayCubit extends Cubit<GatewayState> {
   final String orgId;
 
   Future<void> initState() async {
-    var data = homeCubit.loadCache();
+    var data = homeCubit.loadSNCache();
 
     final newState = state.copyWith(
       gatewaysTotal: Wrap(data['gatewaysTotal']?.toInt(), loading: true),
@@ -53,7 +53,7 @@ class GatewayCubit extends Cubit<GatewayState> {
           gateways: Wrap(gateways),
         ),
       );
-      homeCubit.saveCache('gatewaysTotal', total);
+      homeCubit.saveSNCache('gatewaysTotal', total);
     } catch (e, s) {
       logger.e('refresh error', e, s);
       emit(state.copyWith(

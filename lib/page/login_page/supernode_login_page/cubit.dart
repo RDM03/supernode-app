@@ -8,8 +8,9 @@ import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/wrap.dart';
 import 'package:supernodeapp/configs/config.dart';
-import 'package:supernodeapp/page/login_page/state.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
+
+import 'state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit({

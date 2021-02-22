@@ -161,26 +161,27 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
 
 void _showInfoDialog(BuildContext context) {
   showInfoDialog(
-      context,
-      IosStyleBottomDialog2(
-          context: context,
-          child: Column(
-            children: [
-              Image.asset(AppImages.infoMXCVault, height: s(80)),
-              Padding(
-                  key: Key('helpText'),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Text(
-                    FlutterI18n.translate(context, 'info_mxc_vault'),
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: s(16),
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.center,
-                  )),
-            ],
-          )));
+    context,
+    IosStyleBottomDialog2(
+      builder: (context) => Column(
+        children: [
+          Image.asset(AppImages.infoMXCVault, height: s(80)),
+          Padding(
+              key: Key('helpText'),
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Text(
+                FlutterI18n.translate(context, 'info_mxc_vault'),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: s(16),
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+              )),
+        ],
+      ),
+    ),
+  );
 }
 
 int round(double v) {

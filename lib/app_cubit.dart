@@ -46,3 +46,18 @@ class SupernodeCubit extends Cubit<SupernodeState> {
         orgId: null,
       ));
 }
+
+class DataHighwayCubit extends Cubit<DataHighwayState> {
+  DataHighwayCubit({
+    DataHighwaySession session,
+    String orgId,
+  }) : super(DataHighwayState(
+          session: session,
+        ));
+
+  void setDataHighwaySession(DataHighwaySession session) => emit(
+        state.copyWith(session: session),
+      );
+
+  void logout() => emit(state.copyWith(session: null));
+}

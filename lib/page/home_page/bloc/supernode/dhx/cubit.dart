@@ -25,7 +25,7 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
   final CacheRepository cacheRepository;
 
   Future<void> initState() async {
-    var data = homeCubit.loadCache();
+    var data = homeCubit.loadSNCache();
 
     final newState = state.copyWith(
       balance: Wrap(
@@ -72,7 +72,7 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       });
       final value = double.tryParse(balanceData['balance']);
       emit(state.copyWith(balance: Wrap(value)));
-      homeCubit.saveCache(CacheRepository.balanceDHXKey, value);
+      homeCubit.saveSNCache(CacheRepository.balanceDHXKey, value);
     } catch (e, s) {
       logger.e('refresh error', e, s);
       emit(state.copyWith(balance: state.balance.withError(e)));
@@ -85,7 +85,7 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       final lastMiningPowerData = await supernodeRepository.dhx.lastMining();
       final value = double.tryParse(lastMiningPowerData.dhxAmount);
       emit(state.copyWith(lastMiningPower: Wrap(value)));
-      homeCubit.saveCache(CacheRepository.miningPowerKey, value);
+      homeCubit.saveSNCache(CacheRepository.miningPowerKey, value);
     } catch (e, s) {
       logger.e('refresh error', e, s);
       emit(state.copyWith(lastMiningPower: state.lastMiningPower.withError(e)));
@@ -122,9 +122,10 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
         stakes: Wrap(stakes),
       ));
 
-      homeCubit.saveCache(CacheRepository.lockedAmountKey, lockedAmount);
-      homeCubit.saveCache(CacheRepository.totalRevenueDHXKey, totalRevenueDHX);
-      homeCubit.saveCache(CacheRepository.mPowerKey, mPower);
+      homeCubit.saveSNCache(CacheRepository.lockedAmountKey, lockedAmount);
+      homeCubit.saveSNCache(
+          CacheRepository.totalRevenueDHXKey, totalRevenueDHX);
+      homeCubit.saveSNCache(CacheRepository.mPowerKey, mPower);
     } catch (e, s) {
       logger.e('refresh error', e, s);
       emit(state.copyWith(

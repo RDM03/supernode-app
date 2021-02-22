@@ -26,9 +26,16 @@ class SummaryRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var temp = price.split('(');
-    String mxcPrice = temp[0].substring(0, temp[0].length - 1);
-    print(mxcPrice);
-    String usdPrice = temp[1].substring(0, temp[1].length - 1);
+    String mxcPrice;
+    String usdPrice;
+    if (temp.length == 1) {
+      usdPrice = price;
+      mxcPrice = '';
+    } else {
+      mxcPrice = temp[0].substring(0, temp[0].length - 1);
+      print(mxcPrice);
+      usdPrice = temp[1].substring(0, temp[1].length - 1);
+    }
 
     return ListTile(
       leading: Stack(

@@ -31,7 +31,7 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
   final CacheRepository cacheRepository;
 
   Future<void> initState() async {
-    var data = homeCubit.loadCache();
+    var data = homeCubit.loadSNCache();
 
     final newState = state.copyWith(
       balance: Wrap(data['balance']?.toDouble(), loading: true),
@@ -119,7 +119,7 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
       });
       final value = Tools.convertDouble(balanceData['balance']);
       emit(state.copyWith(balance: Wrap(value)));
-      homeCubit.saveCache('balance', value);
+      homeCubit.saveSNCache('balance', value);
     } catch (e, s) {
       logger.e('refresh error', e, s);
       emit(state.copyWith(balance: state.balance.withError(e)));
@@ -139,7 +139,7 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
       emit(state.copyWith(gatewaysRevenue: Wrap(value)));
       final valueUsd = await _convertUsd(value);
       emit(state.copyWith(gatewaysRevenueUsd: Wrap(valueUsd)));
-      homeCubit.saveCache('miningIncome', value);
+      homeCubit.saveSNCache('miningIncome', value);
     } catch (e, s) {
       logger.e('refresh error', e, s);
       emit(state.copyWith(gatewaysRevenue: state.gatewaysRevenue.withError(e)));
@@ -165,7 +165,7 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
       }
 
       emit(state.copyWith(stakedAmount: Wrap(value)));
-      homeCubit.saveCache('stakedAmount', value);
+      homeCubit.saveSNCache('stakedAmount', value);
     } catch (e, s) {
       logger.e('refresh error', e, s);
       emit(state.copyWith(stakedAmount: state.stakedAmount.withError(e)));
@@ -183,7 +183,7 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
       final value = Tools.convertDouble(res['amount']);
 
       emit(state.copyWith(totalRevenue: Wrap(value)));
-      homeCubit.saveCache('totalRevenue', value);
+      homeCubit.saveSNCache('totalRevenue', value);
     } catch (e, s) {
       logger.e('refresh error', e, s);
       emit(state.copyWith(totalRevenue: state.totalRevenue.withError(e)));
@@ -205,7 +205,7 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
     for (int i = 0; i < superNodesKeys.length; i++) {
       String key = superNodesKeys[i];
       if (key.toLowerCase() == 'test') {
-        Map localGeojsonMap = homeCubit.loadCache('geojson');
+        Map localGeojsonMap = homeCubit.loadSNCache('geojson');
         localGeojsonMap ??= {};
 
         if ((localGeojsonMap['data'] == null && geojsonList.length > 0) ||
@@ -213,7 +213,7 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
                 localGeojsonMap['data'].length > 0 &&
                 geojsonList.length > 0 &&
                 localGeojsonMap['data'].length != geojsonList.length)) {
-          homeCubit.saveCache('data', geojsonList, userKey: 'geojson');
+          homeCubit.saveSNCache('data', geojsonList, userKey: 'geojson');
 
           allGeojsonList =
               await supernodeRepository.gatewaysLocation.listFromLocal();

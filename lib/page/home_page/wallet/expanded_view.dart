@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
-import 'package:supernodeapp/page/home_page/bloc/supernode/wallet/cubit.dart';
-import 'package:supernodeapp/page/home_page/bloc/supernode/wallet/state.dart';
+import 'package:supernodeapp/page/home_page/cubit.dart';
+import 'package:supernodeapp/page/home_page/state.dart';
 import 'package:supernodeapp/page/home_page/wallet/btc_token/page_content.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
@@ -11,37 +11,59 @@ import 'mxc_token/page_content.dart';
 import 'supernode_dhx_token/page_content.dart';
 
 class TokenExpandedView extends StatefulWidget {
+  final Token selectedToken;
+  final void Function(Token token) onTokenChanged;
+
+  const TokenExpandedView({
+    Key key,
+    this.selectedToken,
+    this.onTokenChanged,
+  }) : super(key: key);
+
   @override
   _TokenExpandedViewState createState() => _TokenExpandedViewState();
 }
 
-class _TokenExpandedViewState extends State<TokenExpandedView> {
-  Widget pageviewIndicator(bool isActive, Token token) {
-    return AnimatedContainer(
-      duration: Duration(milliseconds: 150),
-      margin: EdgeInsets.symmetric(horizontal: 3),
-      height: 5,
-      width: isActive ? 20 : 19,
-      decoration: BoxDecoration(
-        color: isActive ? token.color : Colors.grey,
-        borderRadius: BorderRadius.all(
-          Radius.circular(2),
-        ),
-      ),
-    );
-  }
+class _TokenExpandedViewState extends State<TokenExpandedView>
+    with SingleTickerProviderStateMixin {
+  TabController controller;
 
-  PageController controller;
   @override
   void initState() {
-    controller = PageController(
-      initialPage: context
-          .read<WalletCubit>()
-          .state
-          .displayTokens
-          .indexOf(context.read<WalletCubit>().state.selectedToken),
-    );
     super.initState();
+    final pageIndex = getSelectedTokenIndex();
+    controller = TabController(
+      initialIndex: pageIndex,
+      vsync: this,
+      length: context.read<HomeCubit>().state.displayTokens.length,
+    );
+    controller.addListener(controllerListener);
+  }
+
+  void switchController(int pagesCount) {
+    final oldController = controller;
+    controller = TabController(
+        length: pagesCount, vsync: this, initialIndex: getSelectedTokenIndex());
+    controller.addListener(controllerListener);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      oldController.dispose();
+    });
+  }
+
+  void controllerListener() {
+    if (controller.previousIndex != controller.index) {
+      widget.onTokenChanged(
+        context.read<HomeCubit>().state.displayTokens[controller.index],
+      );
+    }
+  }
+
+  int getSelectedTokenIndex() {
+    return context
+        .read<HomeCubit>()
+        .state
+        .displayTokens
+        .indexOf(widget.selectedToken);
   }
 
   @override
@@ -52,46 +74,34 @@ class _TokenExpandedViewState extends State<TokenExpandedView> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: AlignmentDirectional.bottomCenter,
-      children: [
-        BlocBuilder<WalletCubit, WalletState>(
-          buildWhen: (a, b) => a.displayTokens != b.displayTokens,
-          builder: (ctx, state) => PageView.builder(
-            itemCount: state.displayTokens.length,
-            controller: controller,
-            itemBuilder: (ctx, i) {
-              if (state.displayTokens[i] == Token.mxc)
-                return MxcTokenPageContent(
-                  key: ValueKey('mxcPage'),
-                );
-
-              if (state.displayTokens[i] == Token.supernodeDhx)
-                return SupernodeDhxTokenPageContent(
-                  key: ValueKey('supernodeDhxPage'),
-                );
-
-              if (state.displayTokens[i] == Token.btc)
-                return BtcTokenPageContent(
-                  key: ValueKey('btcPage'),
-                );
-
-              return Container();
-            },
-            onPageChanged: (i) {
-              context.read<WalletCubit>().expandTo(
-                    state.displayTokens[i],
-                  );
-            },
+    return BlocConsumer<HomeCubit, HomeState>(
+      buildWhen: (a, b) => a.displayTokens != b.displayTokens,
+      listenWhen: (a, b) => a.displayTokens?.length != b.displayTokens?.length,
+      listener: (ctx, state) => switchController(state.displayTokens.length),
+      builder: (ctx, state) => Column(
+        children: [
+          Expanded(
+            child: TabBarView(
+              children: [
+                if (state.displayTokens.contains(Token.mxc))
+                  MxcTokenPageContent(
+                    key: ValueKey('mxcPage'),
+                  ),
+                if (state.displayTokens.contains(Token.supernodeDhx))
+                  SupernodeDhxTokenPageContent(
+                    key: ValueKey('supernodeDhxPage'),
+                  ),
+                if (state.displayTokens.contains(Token.btc))
+                  BtcTokenPageContent(
+                    key: ValueKey('btcPage'),
+                  ),
+              ],
+              controller: controller,
+            ),
           ),
-        ),
-        BlocBuilder<WalletCubit, WalletState>(
-          buildWhen: (a, b) =>
-              a.displayTokens != b.displayTokens ||
-              a.selectedToken != b.selectedToken,
-          builder: (ctx, state) {
-            if (state.displayTokens.length == 0) return Container();
-            return Container(
+          Visibility(
+            visible: state.displayTokens.length > 1,
+            child: Container(
               width: double.infinity,
               height: 20,
               decoration: BoxDecoration(
@@ -104,31 +114,82 @@ class _TokenExpandedViewState extends State<TokenExpandedView> {
                   ),
                 ],
               ),
-              child: Stack(
-                alignment: AlignmentDirectional.center,
-                children: <Widget>[
-                  Container(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        for (int i = 0; i < state.displayTokens.length; i++)
-                          if (state.displayTokens[i] == state.selectedToken)
-                            pageviewIndicator(true, state.displayTokens[i])
-                          else
-                            pageviewIndicator(
-                              false,
-                              state.displayTokens[i],
-                            ),
-                      ],
-                    ),
-                  ),
-                ],
+              child: TabIndicators(
+                colors: state.displayTokens.map((c) => c.color).toList(),
+                controller: controller,
               ),
-            );
-          },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TabIndicators extends StatefulWidget {
+  final TabController controller;
+  final List<Color> colors;
+
+  const TabIndicators({Key key, this.controller, this.colors})
+      : super(key: key);
+
+  @override
+  _TabIndicatorsState createState() => _TabIndicatorsState();
+}
+
+class _TabIndicatorsState extends State<TabIndicators> {
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(listener);
+  }
+
+  @override
+  void dispose() {
+    try {
+      widget.controller.removeListener(listener);
+    } catch (e) {}
+    super.dispose();
+  }
+
+  void listener() {
+    if (widget.controller.index != widget.controller.previousIndex && mounted) {
+      setState(() {});
+    }
+  }
+
+  Widget pageviewIndicator(bool isActive, Color color) {
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 150),
+      margin: EdgeInsets.symmetric(horizontal: 3),
+      height: 5,
+      width: isActive ? 20 : 19,
+      decoration: BoxDecoration(
+        color: isActive ? color : Colors.grey,
+        borderRadius: BorderRadius.all(
+          Radius.circular(2),
         ),
-      ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          for (int i = 0; i < widget.colors.length; i++)
+            if (i == widget.controller.index)
+              pageviewIndicator(true, widget.colors[i])
+            else
+              pageviewIndicator(
+                false,
+                widget.colors[i],
+              ),
+        ],
+      ),
     );
   }
 }

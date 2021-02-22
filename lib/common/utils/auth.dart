@@ -4,8 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
-import 'package:supernodeapp/main.dart';
-import 'package:supernodeapp/page/login_page/view.dart';
+import 'package:supernodeapp/page/login_page/login_generic.dart';
 import 'package:supernodeapp/route.dart';
 import 'dart:convert';
 

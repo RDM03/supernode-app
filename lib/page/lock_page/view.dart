@@ -131,8 +131,7 @@ void _showInfoDialog(BuildContext context) {
   showInfoDialog(
     context,
     IosStyleBottomDialog2(
-      context: context,
-      child: Column(
+      builder: (context) => Column(
         children: [
           Image.asset(AppImages.infoMXCVault, height: s(80)),
           Padding(

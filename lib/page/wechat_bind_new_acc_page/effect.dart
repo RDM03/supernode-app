@@ -38,8 +38,8 @@ void _onBindNewAcc(Action action, Context<WechatBindNewAccState> ctx) async {
 
       await _handleBindNewAccRequest(dao, email, orgName, orgDisplayName, ctx);
 
-      Navigator.pushAndRemoveUntil(
-          ctx.context, route((ctx) => HomePage()), (_) => false);
+      navigatorKey.currentState
+          .pushAndRemoveUntil(route((ctx) => HomePage()), (_) => false);
     } catch (err) {
       loading.hide();
       final res = await checkMaintenance(

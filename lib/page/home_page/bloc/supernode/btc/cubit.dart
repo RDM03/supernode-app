@@ -22,7 +22,7 @@ class SupernodeBtcCubit extends Cubit<SupernodeBtcState> {
   final SupernodeRepository supernodeRepository;
 
   Future<void> initState() async {
-    var data = homeCubit.loadCache();
+    var data = homeCubit.loadSNCache();
 
     final newState = state.copyWith(
       balance: Wrap(
@@ -52,7 +52,7 @@ class SupernodeBtcCubit extends Cubit<SupernodeBtcState> {
       });
       final value = double.tryParse(balanceData['balance']);
       emit(state.copyWith(balance: Wrap(value)));
-      homeCubit.saveCache(CacheRepository.balanceBTCKey, value);
+      homeCubit.saveSNCache(CacheRepository.balanceBTCKey, value);
     } catch (e, s) {
       logger.e('refresh error', e, s);
       emit(state.copyWith(balance: state.balance.withError(e)));

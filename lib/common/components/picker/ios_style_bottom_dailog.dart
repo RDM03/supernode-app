@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+
 import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 abstract class _IosStyleBottomDialogBase extends StatelessWidget {
-  final BuildContext context;
-
   _IosStyleBottomDialogBase({
     Key key,
-    this.context,
   }) : super(key: key);
 
   @override
@@ -58,16 +56,17 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
     @required this.list,
     this.onItemClickListener,
     this.blueActionIndex = -1,
-    BuildContext context,
-  }) : super(key: key, context: context);
+  }) : super(key: key);
 
   @override
   Widget buildDialog() {
-    return Column(
-      children: <Widget>[
-        _buildContentList(context),
-        _buildCancelItem(context),
-      ],
+    return Builder(
+      builder: (context) => Column(
+        children: <Widget>[
+          _buildContentList(context),
+          _buildCancelItem(context),
+        ],
+      ),
     );
   }
 
@@ -199,17 +198,46 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
 /// iOS style Bottom Dialog with UI defined by param child
 ///
 class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
-  final Widget child;
-  bool isClosing = false;
+  final WidgetBuilder builder;
+
+  final EdgeInsets padding;
 
   IosStyleBottomDialog2({
     Key key,
-    @required this.child,
-    BuildContext context,
-  }) : super(key: key, context: context);
+    @required this.builder,
+    this.padding =
+        const EdgeInsets.only(left: 22, right: 22, top: 28, bottom: 60),
+  }) : super(key: key);
 
   @override
   Widget buildDialog() {
+    return IosStyleBottomDialog2Content(
+      padding: padding,
+      child: Builder(builder: builder),
+    );
+  }
+}
+
+class IosStyleBottomDialog2Content extends StatefulWidget {
+  final Widget child;
+  final EdgeInsets padding;
+
+  IosStyleBottomDialog2Content({
+    Key key,
+    this.child,
+    this.padding,
+  }) : super(key: key);
+
+  @override
+  _IosStyleBottomDialog2ContentState createState() =>
+      _IosStyleBottomDialog2ContentState();
+}
+
+class _IosStyleBottomDialog2ContentState
+    extends State<IosStyleBottomDialog2Content> {
+  bool isClosing = false;
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         if (!isClosing) {
@@ -220,7 +248,7 @@ class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
       onVerticalDragUpdate: (details) {
         if (details.delta.dy > 0.0) {
           //swipe down
-          // Navigator.pop(context);
+          Navigator.pop(context);
         }
       },
       child: Container(
@@ -237,8 +265,8 @@ class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
               ),
             ]),
         alignment: Alignment.center,
-        padding: EdgeInsets.only(left: 22, right: 22, top: 28, bottom: 60),
-        child: child,
+        padding: widget.padding,
+        child: widget.child,
       ),
     );
   }
@@ -246,21 +274,20 @@ class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
 
 void showInfoDialog(BuildContext context, Widget child) {
   showGeneralDialog(
-      context: context,
-      pageBuilder: (context, anim1, anim2) {
-        return Transform.translate(
+    context: context,
+    pageBuilder: (context, anim1, anim2) {
+      return AnimatedBuilder(
+        animation: anim1,
+        builder: (ctx, child) => Transform.translate(
           offset: Offset(0, 200 - anim1.value * 200),
-          child: FullScreenDialog(child: child),
-        );
-      },
-      barrierDismissible: true,
-      barrierColor: Colors.black.withOpacity(0.4),
-      barrierLabel: '',
-      transitionBuilder: (context, anim1, anim2, ch) {
-        return Transform.translate(
-          offset: Offset(0, 200 - anim1.value * 200),
-          child: FullScreenDialog(child: child),
-        );
-      },
-      transitionDuration: Duration(milliseconds: 200));
+          child: child,
+        ),
+        child: FullScreenDialog(child: child),
+      );
+    },
+    barrierDismissible: true,
+    barrierColor: Colors.black.withOpacity(0.4),
+    barrierLabel: '',
+    transitionDuration: Duration(milliseconds: 200),
+  );
 }

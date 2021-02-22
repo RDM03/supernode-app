@@ -29,7 +29,7 @@ import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
 import 'package:supernodeapp/page/gateway_profile_page/page.dart';
 import 'package:supernodeapp/page/home_page/home_page.dart';
 import 'package:supernodeapp/page/list_councils/page.dart';
-import 'package:supernodeapp/page/login_page/view.dart';
+import 'package:supernodeapp/page/login_page/login_generic.dart';
 import 'package:supernodeapp/page/mapbox_gl_page/page.dart';
 import 'package:supernodeapp/page/mining_simulator_page/page.dart';
 import 'package:supernodeapp/page/lock_page/join_council/page.dart';
@@ -121,6 +121,13 @@ Future<void> main() async {
         : null,
   );
 
+  final dataHighwaySession = storageRepository.dataHighwaySession();
+  final dataHighwayCubit = DataHighwayCubit(
+    session: dataHighwaySession != null
+        ? DataHighwaySession(address: dataHighwaySession)
+        : null,
+  );
+
   runApp(
     MultiBlocProvider(
       providers: [
@@ -129,6 +136,9 @@ Future<void> main() async {
         ),
         BlocProvider<SupernodeCubit>.value(
           value: supernodeCubit,
+        ),
+        BlocProvider<DataHighwayCubit>.value(
+          value: dataHighwayCubit,
         ),
       ],
       child: MultiRepositoryProvider(

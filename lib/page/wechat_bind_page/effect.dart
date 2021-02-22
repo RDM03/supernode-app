@@ -36,8 +36,8 @@ void _onBind(Action action, Context<WechatBindState> ctx) async {
 
       await _handleBindRequest(dao, email, password, ctx);
 
-      Navigator.pushAndRemoveUntil(
-          ctx.context, route((ctx) => HomePage()), (_) => false);
+      navigatorKey.currentState
+          .pushAndRemoveUntil(route((ctx) => HomePage()), (_) => false);
     } catch (err) {
       loading.hide();
       final res = await checkMaintenance(

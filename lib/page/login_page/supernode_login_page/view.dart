@@ -15,18 +15,19 @@ import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
 import 'package:supernodeapp/page/home_page/home_page.dart';
-import 'package:supernodeapp/page/login_page/cubit.dart';
-import 'package:supernodeapp/page/login_page/state.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
-class LoginPage extends StatelessWidget {
+import 'cubit.dart';
+import 'state.dart';
+
+class SupernodeLoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      child: _LoginPageContent(),
+      child: _SupernodeLoginPageContent(),
       create: (context) => LoginCubit(
         appCubit: context.read<AppCubit>(),
         supernodeCubit: context.read<SupernodeCubit>(),
@@ -36,12 +37,14 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-class _LoginPageContent extends StatefulWidget {
+class _SupernodeLoginPageContent extends StatefulWidget {
   @override
-  _LoginPageContentState createState() => _LoginPageContentState();
+  _SupernodeLoginPageContentState createState() =>
+      _SupernodeLoginPageContentState();
 }
 
-class _LoginPageContentState extends State<_LoginPageContent> {
+class _SupernodeLoginPageContentState
+    extends State<_SupernodeLoginPageContent> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   final GlobalKey<FormState> formKey = GlobalKey();
 
@@ -142,7 +145,7 @@ class _LoginPageContentState extends State<_LoginPageContent> {
             if (state.result == null) return;
             switch (state.result) {
               case LoginResult.home:
-                await Navigator.of(context)
+                await navigatorKey.currentState
                     .pushAndRemoveUntil(route((c) => HomePage()), (_) => false);
                 break;
               case LoginResult.resetPassword:
@@ -537,8 +540,7 @@ void _showInfoDialog(BuildContext context) {
   showInfoDialog(
     context,
     IosStyleBottomDialog2(
-      context: context,
-      child: Column(
+      builder: (context) => Column(
         children: [
           Container(
             width: s(86),
