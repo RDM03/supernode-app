@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/buttons/circle_button.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/expansion_super_node_tile.dart';
@@ -15,7 +14,6 @@ import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
 import 'package:supernodeapp/page/home_page/home_page.dart';
-import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
@@ -26,14 +24,7 @@ import 'state.dart';
 class SupernodeLoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      child: _SupernodeLoginPageContent(),
-      create: (context) => LoginCubit(
-        appCubit: context.read<AppCubit>(),
-        supernodeCubit: context.read<SupernodeCubit>(),
-        dao: context.read<SupernodeRepository>(),
-      )..initState(),
-    );
+    return _SupernodeLoginPageContent();
   }
 }
 

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/page/login_page/supernode_login_page/cubit.dart';
+import 'package:supernodeapp/page/login_page/supernode_login_page/view.dart';
+import 'package:supernodeapp/page/sign_up_page/supernode_signup_page.dart';
 import 'package:supernodeapp/route.dart';
 
+import '../../app_cubit.dart';
 import 'shared.dart';
-import 'supernode_login_page/view.dart';
 
-class SupernodeLoginCard extends StatelessWidget {
+class SupernodeLoginCard extends StatefulWidget {
   final Animation<double> animation;
   final VoidCallback onTap;
   final bool fixed;
@@ -16,6 +21,42 @@ class SupernodeLoginCard extends StatelessWidget {
     this.onTap,
     this.fixed = false,
   }) : super(key: key);
+
+  @override
+  _SupernodeLoginCardContentState createState() =>
+      _SupernodeLoginCardContentState(
+          animation: animation,
+          onTap: onTap,
+          fixed: fixed);
+}
+
+class _SupernodeLoginCardContentState
+    extends State<SupernodeLoginCard> {
+  final Animation<double> animation;
+  final VoidCallback onTap;
+  final bool fixed;
+  LoginCubit loginCubit;
+
+  _SupernodeLoginCardContentState({
+    this.animation,
+    this.onTap,
+    this.fixed = false,
+  });
+
+  @override
+  void initState() {
+    loginCubit = LoginCubit(
+      appCubit: context.read<AppCubit>(),
+      supernodeCubit: context.read<SupernodeCubit>(),
+      dao: context.read<SupernodeRepository>(),
+    )..initState();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    loginCubit.close();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -208,13 +249,18 @@ class SupernodeLoginCard extends StatelessWidget {
               CircleButton(
                 text: 'Signup',
                 icon: Icons.add,
+                onPressed: () => Navigator.of(context).push(route((ctx) => BlocProvider<LoginCubit>.value(
+                    value: loginCubit,
+                    child: SupernodeSignupPage()))),
               ),
               SizedBox(width: 23),
               CircleButton(
                 text: 'Login',
                 icon: Icons.arrow_forward,
                 onPressed: () => Navigator.of(context)
-                    .push(route((ctx) => SupernodeLoginPage())),
+                    .push(route((ctx) => BlocProvider<LoginCubit>.value(
+                    value: loginCubit,
+                    child: SupernodeLoginPage()))),
               ),
               SizedBox(width: 20),
             ],
