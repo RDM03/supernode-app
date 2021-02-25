@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
-import 'package:supernodeapp/common/components/buttons/circle_button.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/expansion_super_node_tile.dart';
 import 'package:supernodeapp/common/components/loading.dart';
@@ -46,7 +45,7 @@ class _SupernodeLoginPageContentState
 
   Loading loading;
 
-  void clickLogo() {
+  void clickTitle() {
     context.read<LoginCubit>().increaseTestCounter();
   }
 
@@ -228,6 +227,7 @@ class _SupernodeLoginPageContentState
                               color: Colors.white,
                               title: FlutterI18n.translate(context, 'login'),
                               onPress: () => Navigator.of(context).pop(),
+                              onTitlePress: () => clickTitle(),
                             ),
                             SizedBox(height: s(230)),
                             Row(

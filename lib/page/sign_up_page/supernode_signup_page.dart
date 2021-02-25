@@ -19,6 +19,10 @@ import 'package:supernodeapp/theme/spacing.dart';
 
 class SupernodeSignupPage extends StatelessWidget {
 
+  void clickTitle(BuildContext context) {
+    context.read<LoginCubit>().increaseTestCounter();
+  }
+
   void onSupernodeSelect(Supernode item, BuildContext context) {
     context.read<LoginCubit>().setSelectedSuperNode(item);
     context.read<LoginCubit>().setSuperNodeListVisible(false);
@@ -93,6 +97,7 @@ class SupernodeSignupPage extends StatelessWidget {
                             color: Colors.white,
                             title: FlutterI18n.translate(context, 'create_account'),
                             onPress: () => Navigator.of(context).pop(),
+                            onTitlePress: () => clickTitle(context),
                           ),
                           SizedBox(height: s(230)),
                           Row(
