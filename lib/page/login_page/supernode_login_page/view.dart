@@ -16,6 +16,7 @@ import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
 import 'package:supernodeapp/page/home_page/home_page.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
 import 'cubit.dart';
@@ -400,6 +401,8 @@ class _SupernodeLoginPageContentState
                   ],
                 ),
               ),
+
+              /* Drawer */
               BlocBuilder<LoginCubit, LoginState>(
                 buildWhen: (a, b) =>
                     a.supernodeListVisible != b.supernodeListVisible,
@@ -440,34 +443,35 @@ class _SupernodeLoginPageContentState
                       child: SingleChildScrollView(
                         key: Key('scrollMenu'),
                         child: Column(children: <Widget>[
-                          SizedBox(
-                            height: s(114),
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: <Widget>[
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    FlutterI18n.translate(
-                                        context, 'super_node'),
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: s(16),
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
+                          SizedBox(height: 50),
+                          Stack(
+                            alignment: Alignment.center,
+                            children: <Widget>[
+                              Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  FlutterI18n.translate(
+                                      context, 'super_node'),
+                                  style: kBigBoldFontOfBlack
                                 ),
-                                Positioned(
-                                  right: s(15),
-                                  child: GestureDetector(
-                                    onTap: () => context
-                                        .read<LoginCubit>()
-                                        .setSuperNodeListVisible(false),
-                                    child: Icon(Icons.close, size: 24),
-                                  ),
+                              ),
+                              Positioned(
+                                right: s(15),
+                                child: GestureDetector(
+                                  onTap: () => context
+                                      .read<LoginCubit>()
+                                      .setSuperNodeListVisible(false),
+                                  child: Icon(Icons.close, size: 24),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              FlutterI18n.translate(context, 'supernode_instructions'),
+                              style: kSecondaryButtonOfBlack,
+                              textAlign: TextAlign.center,),
                           ),
                           if (!state.supernodes.loading)
                             Column(
@@ -480,7 +484,7 @@ class _SupernodeLoginPageContentState
                                         FlutterI18n.translate(context, key),
                                         style: TextStyle(color: Colors.black),
                                       ),
-                                      initiallyExpanded: true,
+                                      initiallyExpanded: false,
                                       backgroundColor: darkBackground,
                                       children: <Widget>[
                                         for (Supernode item

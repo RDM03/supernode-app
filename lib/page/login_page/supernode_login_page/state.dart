@@ -21,7 +21,7 @@ abstract class LoginState with _$LoginState {
     @nullable LoginResult result,
   }) = _LoginState;
 
-  bool get showTestNodes => showTestNodesCounter % 7 == 0;
+  bool get showTestNodes => (showTestNodesCounter % 7 == 0) && (showTestNodesCounter != 0);
 }
 
 enum LoginResult { home, signUp, resetPassword, wechat }
