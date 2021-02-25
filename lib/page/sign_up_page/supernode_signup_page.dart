@@ -45,44 +45,39 @@ class SupernodeSignupPage extends StatelessWidget {
                       height: s(171),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: darkBackground,
                         shape: BoxShape.circle,
                       ),
-                      child: Container(
-                        width: s(134),
-                        height: s(134),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: darkBackground,
-                                offset: Offset(0, 2),
-                                blurRadius: 20,
-                                spreadRadius: 10,
-                              )
-                            ]),
-                        child: BlocBuilder<LoginCubit, LoginState>(
-                          buildWhen: (a, b) =>
-                          a.selectedSuperNode !=
-                              b.selectedSuperNode,
-                          builder: (context, state) =>
-                          state.selectedSuperNode != null
-                              ? CachedNetworkImage(
-                            imageUrl: state
-                                .selectedSuperNode.logo,
-                            placeholder: (a, b) =>
-                                Image.asset(
-                                  AppImages.placeholder,
-                                  width: s(100),
-                                ),
-                            width: s(100),
-                          )
-                              : Icon(
-                            Icons.add,
-                            size: s(25),
-                          ),
+                      child: BlocBuilder<LoginCubit, LoginState>(
+                        buildWhen: (a, b) =>
+                        a.selectedSuperNode !=
+                            b.selectedSuperNode,
+                        builder: (context, state) =>
+                        state.selectedSuperNode != null
+                            ? Container(
+                            width: s(134),
+                            height: s(134),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: darkBackground2,
+                                    offset: Offset(0, 2),
+                                    blurRadius: 5,
+                                    spreadRadius: 5,
+                                  )
+                                ]),
+                            child: CachedNetworkImage(
+                              imageUrl: state
+                                  .selectedSuperNode.logo,
+                              placeholder: (ctx, url) => Icon(Icons.add, size: s(40)),
+                              width: s(100),
+                            ))
+                            : Image.asset(
+                          AppImages.supernode_placeholder,
+                          width: s(171),
                         ),
                       ),
                     ),
@@ -122,6 +117,7 @@ class SupernodeSignupPage extends StatelessWidget {
                               )
                             ],
                           ),
+                          SizedBox(height: s(16)),
                           Form(
                             //TODO key: state.emailFormKey,
                             autovalidate: false,
@@ -130,7 +126,6 @@ class SupernodeSignupPage extends StatelessWidget {
                                 padding: kRoundRow202,
                                 child: TextFieldWithTitle(
                                   title: FlutterI18n.translate(context, 'email'),
-                                  hint: FlutterI18n.translate(context, 'email_hint'),
                                   textInputAction: TextInputAction.done,
                                   validator: (value) => Reg.onValidEmail(context, value),
                                   //TODO controller: state.emailCtl,
@@ -140,7 +135,7 @@ class SupernodeSignupPage extends StatelessWidget {
                           ),
                           Spacer(),
                           PrimaryButton(
-                              padding: kRoundRow202,
+                              padding: kRoundRow205,
                               onTap: () => 'TODO',//dispatch(SignUpActionCreator.onEmailContinue()),
                               buttonTitle: FlutterI18n.translate(context, 'continue'),
                               minHeight: 46),

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/components/buttons/circle_button.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/expansion_super_node_tile.dart';
@@ -169,21 +170,66 @@ class _SupernodeLoginPageContentState
                     Stack(
                       alignment: Alignment.center,
                       children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            GestureDetector(
-                              key: Key('homeLogo'),
-                              onTap: clickLogo,
+                        Positioned(
+                          top: s(133),
+                          child: GestureDetector(
+                            key: Key('homeSupernodeMenu'),
+                            onTap: () => context
+                                .read<LoginCubit>()
+                                .setSuperNodeListVisible(true),
+                            child: ClipOval(
                               child: Container(
-                                color: darkBackground,
-                                height: s(218),
-                                padding: EdgeInsets.only(bottom: s(106)),
-                                alignment: Alignment.bottomCenter,
-                                child: Image.asset(AppImages.splashLogo,
-                                    height: s(48)),
+                                width: s(171),
+                                height: s(171),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: darkBackground,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: BlocBuilder<LoginCubit, LoginState>(
+                                  buildWhen: (a, b) =>
+                                  a.selectedSuperNode !=
+                                      b.selectedSuperNode,
+                                  builder: (context, state) =>
+                                  state.selectedSuperNode != null
+                                      ? Container(
+                                      width: s(134),
+                                      height: s(134),
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          shape: BoxShape.circle,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: darkBackground2,
+                                              offset: Offset(0, 2),
+                                              blurRadius: 5,
+                                              spreadRadius: 5,
+                                            )
+                                          ]),
+                                      child: CachedNetworkImage(
+                                        imageUrl: state
+                                            .selectedSuperNode.logo,
+                                        placeholder: (ctx, url) => Icon(Icons.add, size: s(40)),
+                                        width: s(100),
+                                      ))
+                                      : Image.asset(
+                                    AppImages.supernode_placeholder,
+                                    width: s(171),
+                                  ),
+                                ),
                               ),
                             ),
-                            SizedBox(height: s(100)),
+                          ),
+                        ),
+                        Column(
+                          children: <Widget>[
+                            AppBars.backArrowAppBar(
+                              color: Colors.white,
+                              title: FlutterI18n.translate(context, 'login'),
+                              onPress: () => Navigator.of(context).pop(),
+                            ),
+                            SizedBox(height: s(230)),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -208,63 +254,6 @@ class _SupernodeLoginPageContentState
                             ),
                           ],
                         ),
-                        Positioned(
-                          top: s(133),
-                          child: GestureDetector(
-                            key: Key('homeSupernodeMenu'),
-                            onTap: () => context
-                                .read<LoginCubit>()
-                                .setSuperNodeListVisible(true),
-                            child: ClipOval(
-                              child: Container(
-                                width: s(171),
-                                height: s(171),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Container(
-                                  width: s(134),
-                                  height: s(134),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: darkBackground,
-                                          offset: Offset(0, 2),
-                                          blurRadius: 20,
-                                          spreadRadius: 10,
-                                        )
-                                      ]),
-                                  child: BlocBuilder<LoginCubit, LoginState>(
-                                    buildWhen: (a, b) =>
-                                        a.selectedSuperNode !=
-                                        b.selectedSuperNode,
-                                    builder: (context, state) =>
-                                        state.selectedSuperNode != null
-                                            ? CachedNetworkImage(
-                                                imageUrl: state
-                                                    .selectedSuperNode.logo,
-                                                placeholder: (a, b) =>
-                                                    Image.asset(
-                                                  AppImages.placeholder,
-                                                  width: s(100),
-                                                ),
-                                                width: s(100),
-                                              )
-                                            : Icon(
-                                                Icons.add,
-                                                size: s(25),
-                                              ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                     Padding(
@@ -277,13 +266,11 @@ class _SupernodeLoginPageContentState
                             child: Column(
                               children: <Widget>[
                                 Container(
-                                  margin: kOuterRowTop35,
+                                  margin: kOuterRowTop20,
                                   child: TextFieldWithTitle(
                                     key: Key('homeEmail'),
                                     title:
                                         FlutterI18n.translate(context, 'email'),
-                                    hint: FlutterI18n.translate(
-                                        context, 'email_hint'),
                                     textInputAction: TextInputAction.next,
                                     validator: (value) =>
                                         Reg.onValidEmail(context, value),
@@ -300,8 +287,6 @@ class _SupernodeLoginPageContentState
                                       key: Key('homePassword'),
                                       title: FlutterI18n.translate(
                                           context, 'password'),
-                                      hint: FlutterI18n.translate(
-                                          context, 'password_hint'),
                                       isObscureText: state.obscureText,
                                       validator: (value) =>
                                           Reg.onValidPassword(context, value),
@@ -322,79 +307,47 @@ class _SupernodeLoginPageContentState
                           ),
                           SizedBox(height: s(12)),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
-                              GestureDetector(
-                                onTap: onOpenDemo,
-                                child: Text(
-                                  FlutterI18n.translate(context, 'demo'),
-                                  style: TextStyle(
-                                      fontSize: s(12), color: hintFont),
-                                ),
-                              ),
                               GestureDetector(
                                 onTap: onForgotPassword,
                                 child: Text(
                                   FlutterI18n.translate(context, 'forgot_hint'),
-                                  style: TextStyle(
-                                      fontSize: s(12), color: hintFont),
+                                  style: kMiddleFontOfGrey,
                                 ),
                               ),
                             ],
                           ),
                           SizedBox(height: s(18)),
+                          BlocBuilder<LoginCubit, LoginState>(
+                            buildWhen: (a, b) =>
+                            a.showWeChatLoginOption !=
+                                b.showWeChatLoginOption,
+                            builder: (context, state) => state.showWeChatLoginOption
+                                ? GestureDetector(
+                                onTap: onWeChatLogin,
+                                child:  Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      AppImages.wechat,
+                                      width: 20,
+                                      height: 20,
+                                    ),
+                                    SizedBox(height: 70, width: 5),
+                                    Text(FlutterI18n.translate(context, 'wechat_login_title'), style: kMiddleFontOfGreyLink,)
+                                  ],
+                                ))
+                                : SizedBox(),
+                          ),
                           PrimaryButton(
                               key: Key('homeLogin'),
+                              padding: EdgeInsets.symmetric(vertical: 5),
                               onTap: onLogin,
                               buttonTitle:
                                   FlutterI18n.translate(context, 'login'),
                               minHeight: s(46),
                               minWidget: double.infinity),
-                          Container(
-                            margin:
-                                EdgeInsets.only(top: s(28.5), bottom: s(17.5)),
-                            height: s(1),
-                            color: darkBackground,
-                          ),
-                          Text(
-                            FlutterI18n.translate(context, 'access_using'),
-                            style: TextStyle(fontSize: s(14), color: tipFont),
-                          ),
-                          SizedBox(height: s(29)),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              CircleButton(
-                                onTap: onSignUp,
-                                icon: Image.asset(
-                                  AppImages.email,
-                                  width: 22,
-                                  height: 22,
-                                ),
-                              ),
-                              SizedBox(width: s(30)),
-                              BlocBuilder<LoginCubit, LoginState>(
-                                buildWhen: (a, b) =>
-                                    a.showWeChatLoginOption !=
-                                    b.showWeChatLoginOption,
-                                builder: (context, state) => CircleButton(
-                                  onTap: state.showWeChatLoginOption
-                                      ? onWeChatLogin
-                                      : null,
-                                  icon: (state.showWeChatLoginOption
-                                      ? Image.asset(
-                                          AppImages.wechat,
-                                          width: 22,
-                                          height: 22,
-                                        )
-                                      : null),
-                                ),
-                              ),
-                              SizedBox(width: s(30)),
-                              CircleButton(icon: null),
-                            ],
-                          ),
-                          SizedBox(height: s(20)),
                         ],
                       ),
                     ),
