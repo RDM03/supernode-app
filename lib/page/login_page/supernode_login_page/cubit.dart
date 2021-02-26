@@ -237,4 +237,8 @@ class LoginCubit extends Cubit<LoginState> {
       appCubit.setError(err);
     }
   }
+
+  Future<void> verifySignupEmail(String verificationCode) async {
+
+  }
 }

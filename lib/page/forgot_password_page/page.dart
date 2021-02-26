@@ -1,6 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:supernodeapp/page/forgot_password_page/password_reset_component/component.dart';
-import 'package:supernodeapp/page/sign_up_page/verification_code_component/component.dart';
 
 import 'effect.dart';
 import 'reducer.dart';

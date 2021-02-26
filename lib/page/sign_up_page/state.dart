@@ -2,7 +2,6 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 
 import 'registration_component/state.dart';
-import 'verification_code_component/state.dart';
 
 class SignUpState implements Cloneable<SignUpState> {
   GlobalKey emailFormKey = GlobalKey<FormState>();
@@ -54,21 +53,6 @@ class SignUpState implements Cloneable<SignUpState> {
 
 SignUpState initState(Map<String, dynamic> args) {
   return SignUpState();
-}
-
-class VerificationCodeConnector
-    extends ConnOp<SignUpState, VerificationCodeState> {
-  @override
-  VerificationCodeState get(SignUpState state) {
-    return VerificationCodeState()
-      ..formKey = state.codesFormKey
-      ..listCtls = state.codeListCtls;
-  }
-
-  @override
-  void set(SignUpState state, VerificationCodeState subState) {
-    state..codeListCtls = subState.listCtls;
-  }
 }
 
 class RegistrationConnector extends ConnOp<SignUpState, RegistrationState> {
