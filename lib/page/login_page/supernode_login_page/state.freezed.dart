@@ -23,7 +23,8 @@ class _$LoginStateTearOff {
       bool showLoading = false,
       bool showWeChatLoginOption = false,
       @nullable String errorMessage,
-      @nullable LoginResult result}) {
+      @nullable LoginResult loginResult,
+      @nullable SignupResult signupResult}) {
     return _LoginState(
       supernodeListVisible: supernodeListVisible,
       obscureText: obscureText,
@@ -33,7 +34,8 @@ class _$LoginStateTearOff {
       showLoading: showLoading,
       showWeChatLoginOption: showWeChatLoginOption,
       errorMessage: errorMessage,
-      result: result,
+      loginResult: loginResult,
+      signupResult: signupResult,
     );
   }
 }
@@ -55,7 +57,9 @@ mixin _$LoginState {
   @nullable
   String get errorMessage;
   @nullable
-  LoginResult get result;
+  LoginResult get loginResult;
+  @nullable
+  SignupResult get signupResult;
 
   $LoginStateCopyWith<LoginState> get copyWith;
 }
@@ -74,7 +78,8 @@ abstract class $LoginStateCopyWith<$Res> {
       bool showLoading,
       bool showWeChatLoginOption,
       @nullable String errorMessage,
-      @nullable LoginResult result});
+      @nullable LoginResult loginResult,
+      @nullable SignupResult signupResult});
 }
 
 /// @nodoc
@@ -95,7 +100,8 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
     Object showLoading = freezed,
     Object showWeChatLoginOption = freezed,
     Object errorMessage = freezed,
-    Object result = freezed,
+    Object loginResult = freezed,
+    Object signupResult = freezed,
   }) {
     return _then(_value.copyWith(
       supernodeListVisible: supernodeListVisible == freezed
@@ -120,7 +126,12 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
       errorMessage: errorMessage == freezed
           ? _value.errorMessage
           : errorMessage as String,
-      result: result == freezed ? _value.result : result as LoginResult,
+      loginResult: loginResult == freezed
+          ? _value.loginResult
+          : loginResult as LoginResult,
+      signupResult: signupResult == freezed
+          ? _value.signupResult
+          : signupResult as SignupResult,
     ));
   }
 }
@@ -140,7 +151,8 @@ abstract class _$LoginStateCopyWith<$Res> implements $LoginStateCopyWith<$Res> {
       bool showLoading,
       bool showWeChatLoginOption,
       @nullable String errorMessage,
-      @nullable LoginResult result});
+      @nullable LoginResult loginResult,
+      @nullable SignupResult signupResult});
 }
 
 /// @nodoc
@@ -163,7 +175,8 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
     Object showLoading = freezed,
     Object showWeChatLoginOption = freezed,
     Object errorMessage = freezed,
-    Object result = freezed,
+    Object loginResult = freezed,
+    Object signupResult = freezed,
   }) {
     return _then(_LoginState(
       supernodeListVisible: supernodeListVisible == freezed
@@ -188,7 +201,12 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
       errorMessage: errorMessage == freezed
           ? _value.errorMessage
           : errorMessage as String,
-      result: result == freezed ? _value.result : result as LoginResult,
+      loginResult: loginResult == freezed
+          ? _value.loginResult
+          : loginResult as LoginResult,
+      signupResult: signupResult == freezed
+          ? _value.signupResult
+          : signupResult as SignupResult,
     ));
   }
 }
@@ -204,7 +222,8 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
       this.showLoading = false,
       this.showWeChatLoginOption = false,
       @nullable this.errorMessage,
-      @nullable this.result})
+      @nullable this.loginResult,
+      @nullable this.signupResult})
       : assert(supernodeListVisible != null),
         assert(obscureText != null),
         assert(showTestNodesCounter != null),
@@ -239,11 +258,14 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
   final String errorMessage;
   @override
   @nullable
-  final LoginResult result;
+  final LoginResult loginResult;
+  @override
+  @nullable
+  final SignupResult signupResult;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LoginState(supernodeListVisible: $supernodeListVisible, obscureText: $obscureText, selectedSuperNode: $selectedSuperNode, showTestNodesCounter: $showTestNodesCounter, supernodes: $supernodes, showLoading: $showLoading, showWeChatLoginOption: $showWeChatLoginOption, errorMessage: $errorMessage, result: $result)';
+    return 'LoginState(supernodeListVisible: $supernodeListVisible, obscureText: $obscureText, selectedSuperNode: $selectedSuperNode, showTestNodesCounter: $showTestNodesCounter, supernodes: $supernodes, showLoading: $showLoading, showWeChatLoginOption: $showWeChatLoginOption, errorMessage: $errorMessage, loginResult: $loginResult, signupResult: $signupResult)';
   }
 
   @override
@@ -259,7 +281,8 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('showLoading', showLoading))
       ..add(DiagnosticsProperty('showWeChatLoginOption', showWeChatLoginOption))
       ..add(DiagnosticsProperty('errorMessage', errorMessage))
-      ..add(DiagnosticsProperty('result', result));
+      ..add(DiagnosticsProperty('loginResult', loginResult))
+      ..add(DiagnosticsProperty('signupResult', signupResult));
   }
 
   @override
@@ -290,8 +313,12 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
             (identical(other.errorMessage, errorMessage) ||
                 const DeepCollectionEquality()
                     .equals(other.errorMessage, errorMessage)) &&
-            (identical(other.result, result) ||
-                const DeepCollectionEquality().equals(other.result, result)));
+            (identical(other.loginResult, loginResult) ||
+                const DeepCollectionEquality()
+                    .equals(other.loginResult, loginResult)) &&
+            (identical(other.signupResult, signupResult) ||
+                const DeepCollectionEquality()
+                    .equals(other.signupResult, signupResult)));
   }
 
   @override
@@ -305,7 +332,8 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(showLoading) ^
       const DeepCollectionEquality().hash(showWeChatLoginOption) ^
       const DeepCollectionEquality().hash(errorMessage) ^
-      const DeepCollectionEquality().hash(result);
+      const DeepCollectionEquality().hash(loginResult) ^
+      const DeepCollectionEquality().hash(signupResult);
 
   @override
   _$LoginStateCopyWith<_LoginState> get copyWith =>
@@ -323,7 +351,8 @@ abstract class _LoginState extends LoginState {
       bool showLoading,
       bool showWeChatLoginOption,
       @nullable String errorMessage,
-      @nullable LoginResult result}) = _$_LoginState;
+      @nullable LoginResult loginResult,
+      @nullable SignupResult signupResult}) = _$_LoginState;
 
   @override
   bool get supernodeListVisible;
@@ -345,7 +374,10 @@ abstract class _LoginState extends LoginState {
   String get errorMessage;
   @override
   @nullable
-  LoginResult get result;
+  LoginResult get loginResult;
+  @override
+  @nullable
+  SignupResult get signupResult;
   @override
   _$LoginStateCopyWith<_LoginState> get copyWith;
 }

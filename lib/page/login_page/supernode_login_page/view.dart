@@ -80,14 +80,6 @@ class _SupernodeLoginPageContentState
     context.read<LoginCubit>().weChatLogin();
   }
 
-  void onSignUp() {
-    if (context.read<LoginCubit>().state.selectedSuperNode == null) {
-      tip(context, FlutterI18n.translate(context, 'reg_select_supernode'));
-      return;
-    }
-    context.read<LoginCubit>().signUp();
-  }
-
   void onSupernodeSelect(Supernode item) {
     context.read<LoginCubit>().setSelectedSuperNode(item);
     context.read<LoginCubit>().setSuperNodeListVisible(false);
@@ -132,10 +124,10 @@ class _SupernodeLoginPageContentState
           },
         ),
         BlocListener<LoginCubit, LoginState>(
-          listenWhen: (a, b) => a.result != b.result,
+          listenWhen: (a, b) => a.loginResult != b.loginResult,
           listener: (ctx, state) async {
-            if (state.result == null) return;
-            switch (state.result) {
+            if (state.loginResult == null) return;
+            switch (state.loginResult) {
               case LoginResult.home:
                 await navigatorKey.currentState
                     .pushAndRemoveUntil(route((c) => HomePage()), (_) => false);
@@ -146,11 +138,7 @@ class _SupernodeLoginPageContentState
               case LoginResult.wechat:
                 await Navigator.of(context).pushNamed("wechat_login_page");
                 break;
-              case LoginResult.signUp:
-                await Navigator.of(context).pushNamed("sign_up_page");
-                break;
             }
-            state.copyWith(result: null);
           },
         ),
       ],
