@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/theme/font.dart';
 
 class ImageWithText extends StatelessWidget {
   final ImageProvider image;
@@ -64,10 +65,7 @@ class CircleButton extends StatelessWidget {
           SizedBox(height: 8),
           Text(
             text,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-            ),
+            style: kSecondaryButtonOfWhite,
           ),
         ],
       ),
