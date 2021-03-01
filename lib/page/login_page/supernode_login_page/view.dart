@@ -49,10 +49,6 @@ class _SupernodeLoginPageContentState
     context.read<LoginCubit>().increaseTestCounter();
   }
 
-  void onOpenDemo() {
-    context.read<LoginCubit>().demoLogin();
-  }
-
   void onForgotPassword() {
     if (context.read<LoginCubit>().state.selectedSuperNode == null) {
       tip(context, FlutterI18n.translate(context, 'reg_select_supernode'));
@@ -158,7 +154,7 @@ class _SupernodeLoginPageContentState
                       alignment: Alignment.center,
                       children: <Widget>[
                         Positioned(
-                          top: s(133),
+                          top: s(110),
                           child: GestureDetector(
                             key: Key('homeSupernodeMenu'),
                             onTap: () => context
@@ -217,7 +213,7 @@ class _SupernodeLoginPageContentState
                               onPress: () => Navigator.of(context).pop(),
                               onTitlePress: () => clickTitle(),
                             ),
-                            SizedBox(height: s(230)),
+                            SizedBox(height: s(220)),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -478,31 +474,9 @@ void _showInfoDialog(BuildContext context) {
     IosStyleBottomDialog2(
       builder: (context) => Column(
         children: [
-          Container(
+          Image.asset(
+            AppImages.supernode_placeholder,
             width: s(86),
-            height: s(86),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: Container(
-              width: s(67),
-              height: s(67),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: darkBackground,
-                      offset: Offset(0, 1),
-                      blurRadius: 10,
-                      spreadRadius: 5,
-                    )
-                  ]),
-              child: Icon(Icons.add, size: s(12)),
-            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
