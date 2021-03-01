@@ -75,76 +75,23 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
           },
         ),
         BlocListener<LoginCubit, LoginState>(
-          listenWhen: (a, b) => a.signupResult != b.signupResult,
-          listener: (ctx, state) async {
-            if (state.signupResult == null) return;
-            if (state.signupResult == SignupResult.verifyEmail)
-              await Navigator.of(context).push(route((ctx) => BlocProvider<LoginCubit>.value(
-                  value: context.read<LoginCubit>(),
-                  child: EmailVerificationPage())));
+            listenWhen: (a, b) => a.signupResult != b.signupResult,
+            listener: (ctx, state) async {
+              if (state.signupResult == null) return;
+              if (state.signupResult == SignupResult.verifyEmail)
+                await Navigator.of(context).push(route((ctx) => BlocProvider<LoginCubit>.value(
+                    value: context.read<LoginCubit>(),
+                    child: EmailVerificationPage())));
             }
         ),
       ],
       child: Scaffold(
           key: scaffoldKey,
-          resizeToAvoidBottomInset: false,
           backgroundColor: cardBackgroundColor,
           body: Stack(
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               children: [
-                Positioned(
-                  top: s(133),
-                  child: GestureDetector(
-                    key: Key('homeSupernodeMenu'),
-                    onTap: () => context
-                        .read<LoginCubit>()
-                        .setSuperNodeListVisible(true),
-                    child: ClipOval(
-                      child: Container(
-                        width: s(171),
-                        height: s(171),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: darkBackground,
-                          shape: BoxShape.circle,
-                        ),
-                        child: BlocBuilder<LoginCubit, LoginState>(
-                          buildWhen: (a, b) =>
-                          a.selectedSuperNode !=
-                              b.selectedSuperNode,
-                          builder: (context, state) =>
-                          state.selectedSuperNode != null
-                              ? Container(
-                              width: s(134),
-                              height: s(134),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: darkBackground2,
-                                      offset: Offset(0, 2),
-                                      blurRadius: 5,
-                                      spreadRadius: 5,
-                                    )
-                                  ]),
-                              child: CachedNetworkImage(
-                                imageUrl: state
-                                    .selectedSuperNode.logo,
-                                placeholder: (ctx, url) => Icon(Icons.add, size: s(40)),
-                                width: s(100),
-                              ))
-                              : Image.asset(
-                            AppImages.supernode_placeholder,
-                            width: s(171),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SafeArea(
+                SingleChildScrollView(
                     child: Container(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -155,7 +102,57 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                               onPress: () => Navigator.of(context).pop(),
                               onTitlePress: () => clickTitle(),
                             ),
-                            SizedBox(height: s(230)),
+                            SizedBox(height: 30),
+                            GestureDetector(
+                              key: Key('homeSupernodeMenu'),
+                              onTap: () => context
+                                  .read<LoginCubit>()
+                                  .setSuperNodeListVisible(true),
+                              child: ClipOval(
+                                child: Container(
+                                  width: s(171),
+                                  height: s(171),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: darkBackground,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: BlocBuilder<LoginCubit, LoginState>(
+                                    buildWhen: (a, b) =>
+                                    a.selectedSuperNode !=
+                                        b.selectedSuperNode,
+                                    builder: (context, state) =>
+                                    state.selectedSuperNode != null
+                                        ? Container(
+                                        width: s(134),
+                                        height: s(134),
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            shape: BoxShape.circle,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: darkBackground2,
+                                                offset: Offset(0, 2),
+                                                blurRadius: 5,
+                                                spreadRadius: 5,
+                                              )
+                                            ]),
+                                        child: CachedNetworkImage(
+                                          imageUrl: state
+                                              .selectedSuperNode.logo,
+                                          placeholder: (ctx, url) => Icon(Icons.add, size: s(40)),
+                                          width: s(100),
+                                        ))
+                                        : Image.asset(
+                                      AppImages.supernode_placeholder,
+                                      width: s(171),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: s(24)),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -194,7 +191,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                                 ),
                               ]),
                             ),
-                            Spacer(),
+                            SizedBox(height: s(50)),
                             PrimaryButton(
                                 padding: kRoundRow205,
                                 onTap: () => onSignupEmail(),
@@ -334,31 +331,9 @@ void _showInfoDialog(BuildContext context) {
     IosStyleBottomDialog2(
       builder: (context) => Column(
         children: [
-          Container(
+          Image.asset(
+            AppImages.supernode_placeholder,
             width: s(86),
-            height: s(86),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: Container(
-              width: s(67),
-              height: s(67),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: darkBackground,
-                      offset: Offset(0, 1),
-                      blurRadius: 10,
-                      spreadRadius: 5,
-                    )
-                  ]),
-              child: Icon(Icons.add, size: s(12)),
-            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
