@@ -2,8 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/app_cubit.dart';
-import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/expansion_super_node_tile.dart';
@@ -76,38 +74,15 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
             }
           },
         ),
-        BlocListener<AppCubit, AppState>(
-          listenWhen: (a, b) => a.error != b.error,
-          listener: (ctx, state) async {
-            if (state.error == null) return;
-            final message = state.error.text;
-            scaffoldKey.currentState.showSnackBar(SnackBar(
-              content: Text(
-                message,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1
-                    .copyWith(color: Colors.white),
-              ),
-              duration: Duration(seconds: 2),
-              backgroundColor: errorColor,
-            ));
-          },
-        ),
         BlocListener<LoginCubit, LoginState>(
           listenWhen: (a, b) => a.signupResult != b.signupResult,
           listener: (ctx, state) async {
             if (state.signupResult == null) return;
-            switch (state.signupResult) {
-              case SignupResult.home:
-                await navigatorKey.currentState
-                    .pushAndRemoveUntil(route((c) => HomePage()), (_) => false);
-                break;
-              case SignupResult.verifyEmail:
-                Navigator.of(context).push(route((ctx) => EmailVerificationPage()));
-                break;
+            if (state.signupResult == SignupResult.verifyEmail)
+              await Navigator.of(context).push(route((ctx) => BlocProvider<LoginCubit>.value(
+                  value: context.read<LoginCubit>(),
+                  child: EmailVerificationPage())));
             }
-          },
         ),
       ],
       child: Scaffold(

@@ -66,7 +66,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
           ],
           child: SafeArea(
               child: Container(
-                  padding: kRoundRow202,
+                  padding: kRoundRow205,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
@@ -85,7 +85,6 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                       ),
                       Spacer(),
                       PrimaryButton(
-                          padding: kRoundRow205,
                           onTap: () => context.read<LoginCubit>().verifySignupEmail(verificationCodeController.text.trim()),
                           buttonTitle: FlutterI18n.translate(context, 'confirm'),
                           minHeight: 46),
