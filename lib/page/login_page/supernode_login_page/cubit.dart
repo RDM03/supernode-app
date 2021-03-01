@@ -175,7 +175,7 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(showLoading: true));
     try {
       appCubit.setDemo(true);
-      supernodeCubit.setOrganizationId('todo');
+      //supernodeCubit.setOrganizationId('todo');
       supernodeCubit.setSupernodeSession(SupernodeSession(
         userId: -1,
         username: 'username',
@@ -268,6 +268,7 @@ class LoginCubit extends Cubit<LoginState> {
     await dao.main.user.registerFinish(data, state.jwtToken).then((res) {
       emit(state.copyWith(showLoading: false));
 
+      //supernodeCubit.setOrganizationId('todo');
       supernodeCubit.setSupernodeSession(SupernodeSession(
         username: email,
         password: password,
