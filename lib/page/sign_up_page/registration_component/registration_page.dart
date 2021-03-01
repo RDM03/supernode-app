@@ -32,6 +32,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController orgDisplayNameController = TextEditingController();
   Loading loading;
   bool isCheckTerms = false;
+  bool isCheckPrivacy = false;
   bool isCheckSend = false;
 
   @override
@@ -143,20 +144,20 @@ class _RegistrationPageState extends State<RegistrationPage> {
               ),
             ),
             SizedBox(height: 30.0),
-            Container(
-              padding: kRoundRow202,
-              child: link(
-                FlutterI18n.translate(context, 'privacy_policy'),
-                onTap: () => Tools.launchURL(Sys.privacyPolicy),
-                alignment: Alignment.centerLeft,
-              ),
-            ),
             CheckboxLabelWidget(
               value: isCheckTerms,
               child: link(FlutterI18n.translate(context, 'agree_conditions'),
                   onTap: () => Tools.launchURL(Sys.agreePolicy),
                   alignment: Alignment.centerLeft),
               onChanged: (_) => setState(() {isCheckTerms = !isCheckTerms;}),
+            ),
+            CheckboxLabelWidget(
+              value: isCheckPrivacy,
+              child: link(
+                  FlutterI18n.translate(context, 'read_privacy_policy'),
+                  onTap: () => Tools.launchURL(Sys.privacyPolicy),
+                  alignment: Alignment.centerLeft),
+              onChanged: (_) => setState(() {isCheckPrivacy = !isCheckPrivacy;}),
             ),
             CheckboxLabelWidget(
               value: isCheckSend,
@@ -169,9 +170,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
       footer: PrimaryButton(
         buttonTitle: FlutterI18n.translate(context, 'next'),
         minHeight: 46,
-        onTap: isCheckTerms
+        onTap: (isCheckTerms && isCheckPrivacy)
             ? () {
-          if (!formKey.currentState.validate() || !isCheckTerms) return;
+          if (!formKey.currentState.validate() || !isCheckTerms|| !isCheckPrivacy) return;
           String email = emailController.text.trim();
           String password = passController.text.trim();
           String orgName = orgNameController.text.trim();
