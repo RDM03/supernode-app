@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/app_state.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
@@ -229,16 +230,56 @@ class LoginCubit extends Cubit<LoginState> {
       Map data = {"email": email, "language": language};
       await dao.main.user.register(data);
 
-      emit(state.copyWith(showLoading: false));
+      emit(state.copyWith(email: email, showLoading: false));
       setSignupResult(SignupResult.verifyEmail);
     }
     catch(err) {
       emit(state.copyWith(showLoading: false));
-      appCubit.setError(err);
+      appCubit.setError(err.toString());
     }
   }
 
-  Future<void> verifySignupEmail(String verificationCode) async {
+  Future<void> verifySignupEmail (String verificationCode) async {
+    emit(state.copyWith(showLoading: true));
+    Map data = {"token": verificationCode};
 
+    try {
+      RegistrationConfirmResponse rcr = await dao.main.user.registerConfirm(data);
+
+      emit(state.copyWith(jwtToken: rcr.jwt, email: rcr.username, userId: rcr.id, showLoading: false));
+      setSignupResult(SignupResult.registration);
+    }
+    catch(err) {
+      emit(state.copyWith(showLoading: false));
+      appCubit.setError(err.toString());
+    }
+  }
+
+  Future<void> registerFinish(String email, String password, String orgName, String orgDisplayName) async {
+    emit(state.copyWith(showLoading: true));
+
+    Map data = {
+      "organizationName": orgName,
+      "organizationDisplayName": orgDisplayName,
+      "userId": state.userId,
+      "password": password
+    };
+
+    await dao.main.user.registerFinish(data, state.jwtToken).then((res) {
+      emit(state.copyWith(showLoading: false));
+
+      supernodeCubit.setSupernodeSession(SupernodeSession(
+        username: email,
+        password: password,
+        token: state.jwtToken,
+        userId: int.tryParse(state.userId),
+        node: supernodeCubit.state.selectedNode,
+      ));
+
+      setSignupResult(SignupResult.addGateway);
+    }).catchError((err) {
+      emit(state.copyWith(showLoading: false));
+      appCubit.setError(err.toString());
+    });
   }
 }

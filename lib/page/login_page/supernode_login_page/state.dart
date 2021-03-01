@@ -15,6 +15,9 @@ abstract class LoginState with _$LoginState {
     @nullable Supernode selectedSuperNode,
     @Default(0) int showTestNodesCounter,
     @Default(Wrap.pending()) Wrap<Map<String, List<Supernode>>> supernodes,
+    @nullable String email,
+    @nullable String userId,
+    @nullable String jwtToken,
     @Default(false) bool showLoading,
     @Default(false) bool showWeChatLoginOption,
     @nullable String errorMessage,
@@ -26,4 +29,4 @@ abstract class LoginState with _$LoginState {
 }
 
 enum LoginResult { home, resetPassword, wechat }
-enum SignupResult { home, verifyEmail }
+enum SignupResult { home, verifyEmail, registration, addGateway }
