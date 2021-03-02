@@ -43,7 +43,7 @@ class AccountWidget extends StatelessWidget {
       );
 
   Widget parachain(BuildContext context) => Container(
-        color: Colors.green,
+        color: Token.parachainDhx.color,
       );
 
   @override

@@ -88,7 +88,8 @@ class _TabbedViewState extends State<TabbedView> with TickerProviderStateMixin {
             ),
           ),
           SizedBox(height: 5),
-          Row(
+          (controller.length > 1)
+              ? Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               for (var i = 0; i < widget.tabsColors.length; i++) ...[
@@ -96,7 +97,8 @@ class _TabbedViewState extends State<TabbedView> with TickerProviderStateMixin {
                 if (i != widget.tabsColors.length - 1) SizedBox(width: 4)
               ],
             ],
-          ),
+          )
+              : SizedBox(),
           SizedBox(height: 5),
         ],
       ),
