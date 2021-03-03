@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/loading_flash.dart';
+import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -37,58 +38,43 @@ class SummaryRow extends StatelessWidget {
       usdPrice = temp[1].substring(0, temp[1].length - 1);
     }
 
-    return ListTile(
-      leading: Stack(
-        alignment: Alignment.center,
+    return Row(
         children: [
-          Image.asset(
-            AppImages.blueCircle,
-            fit: BoxFit.none,
-            color: lightBlue,
+          Padding(
+            padding: const EdgeInsets.only(left: 15.0, top: 15, bottom: 15),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Image.asset(
+                  AppImages.blueCircle,
+                  fit: BoxFit.none,
+                  color: lightBlue,
+                ),
+                Image.asset(
+                  image,
+                  fit: BoxFit.none,
+                )
+              ],
+            ),
           ),
-          Image.asset(
-            image,
-            fit: BoxFit.none,
+          Expanded(
+            child:
+            Column(children: [
+              TitleDetailRow(
+                loading: loading,
+                name: title,
+                value: number,
+                token: '',
+              ),
+              TitleDetailRow(
+                loading: loading,
+                name: subtitle,
+                value: usdPrice,
+                token: '',
+              ),
+            ],),
           )
-        ],
-      ),
-      title: Text(
-        title,
-        style: kMiddleFontOfBlack,
-      ),
-      subtitle: loading
-          ? loadingFlash(
-              child: Text(
-              number,
-              style: kBigFontOfBlue,
-            ))
-          : Text(
-              number,
-              style: kBigFontOfBlue,
-            ),
-      trailing: Container(
-        margin: kOuterRowTop10,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            Text(
-              subtitle,
-              style: kSmallFontOfGrey,
-            ),
-            loading
-                ? loadingFlash(
-                    child: Text(
-                    '≈ ' + usdPrice,
-                    style: kMiddleFontOfBlack,
-                  ))
-                : Text(
-                    '≈ ' + usdPrice,
-                    key: key,
-                    style: kMiddleFontOfBlack,
-                  )
-          ],
-        ),
-      ),
+        ]
     );
   }
 }
