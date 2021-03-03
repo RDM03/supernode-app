@@ -13,7 +13,6 @@ import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
 class TokenWidget extends StatelessWidget {
   Widget mxc(BuildContext context) => Column(
         children: [
-          SizedBox(height: 16),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -33,7 +32,6 @@ class TokenWidget extends StatelessWidget {
 
   Widget supernodeDhx(BuildContext context) => Column(
         children: [
-          SizedBox(height: 16),
           SupernodeDhxTokenCardContent(
             showSimulateMining: false,
           ),
@@ -48,7 +46,6 @@ class TokenWidget extends StatelessWidget {
 
   Widget btc(BuildContext context) => Column(
         children: [
-          SizedBox(height: 16),
           BtcTokenCardContent(),
           Spacer(),
           Padding(

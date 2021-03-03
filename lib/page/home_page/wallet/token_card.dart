@@ -30,12 +30,7 @@ class MxcTokenCard extends StatelessWidget {
     return GestureDetector(
       onTap: expand,
       child: PanelFrame(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
-          child: MxcTokenCardContent(
-            showArrow: expand != null,
-          ),
-        ),
+        child: MxcTokenCardContent(showArrow: expand != null, showTitle: true),
       ),
     );
   }
@@ -43,14 +38,26 @@ class MxcTokenCard extends StatelessWidget {
 
 class MxcTokenCardContent extends StatelessWidget {
   final bool showArrow;
+  final bool showTitle;
 
-  const MxcTokenCardContent({Key key, this.showArrow = false})
-      : super(key: key);
+  const MxcTokenCardContent({
+    Key key,
+    this.showArrow = false,
+    this.showTitle = false
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        (showTitle)
+            ? Container(
+            width: double.infinity,
+            padding: kRoundRow15_5,
+            color: Token.mxc.color,
+            child: Text('Supernode Server', style: kBigFontOfWhite,))
+            : SizedBox(),
+        SizedBox(height: 10),
         Container(
           padding: kRoundRow15_5,
           child: Row(
@@ -90,6 +97,7 @@ class MxcTokenCardContent extends StatelessWidget {
             token: "MXC",
           ),
         ),
+        SizedBox(height: 5)
       ],
     );
   }
@@ -105,12 +113,7 @@ class SupernodeDhxTokenCard extends StatelessWidget {
     return GestureDetector(
       onTap: expand,
       child: PanelFrame(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
-          child: SupernodeDhxTokenCardContent(
-            showArrow: expand != null,
-          ),
-        ),
+        child: SupernodeDhxTokenCardContent(showArrow: expand != null, showTitle: true),
       ),
     );
   }
@@ -118,11 +121,13 @@ class SupernodeDhxTokenCard extends StatelessWidget {
 
 class SupernodeDhxTokenCardContent extends StatelessWidget {
   final bool showArrow;
+  final bool showTitle;
   final bool showSimulateMining;
 
   const SupernodeDhxTokenCardContent({
     Key key,
     this.showArrow = false,
+    this.showTitle = false,
     this.showSimulateMining = true,
   }) : super(key: key);
 
@@ -130,6 +135,14 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        (showTitle)
+            ? Container(
+            width: double.infinity,
+            padding: kRoundRow15_5,
+            color: Token.supernodeDhx.color,
+            child: Text('Supernode Server', style: kBigFontOfWhite,))
+            : SizedBox(),
+        SizedBox(height: 10),
         Container(
           padding: kRoundRow15_5,
           child: Row(children: [
@@ -188,6 +201,7 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
             token: 'DHX',
           ),
         ),
+        SizedBox(height: 5)
       ],
     );
   }
@@ -203,20 +217,34 @@ class BtcTokenCard extends StatelessWidget {
     return GestureDetector(
       onTap: expand,
       child: PanelFrame(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
-          child: BtcTokenCardContent(),
-        ),
+        child: BtcTokenCardContent(showArrow: expand != null, showTitle: true),
       ),
     );
   }
 }
 
 class BtcTokenCardContent extends StatelessWidget {
+  final bool showArrow;
+  final bool showTitle;
+
+  const BtcTokenCardContent({
+    Key key,
+    this.showArrow = false,
+    this.showTitle = false
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        (showTitle)
+            ? Container(
+            width: double.infinity,
+            padding: kRoundRow15_5,
+            color: Token.btc.color,
+            child: Text('Supernode Server', style: kBigFontOfWhite,))
+            : SizedBox(),
+        SizedBox(height: 10),
         Container(
           padding: kRoundRow15_5,
           child: Row(
@@ -225,6 +253,7 @@ class BtcTokenCardContent extends StatelessWidget {
               SizedBox(width: s(3)),
               Text(Token.btc.name, style: kBigBoldFontOfBlack),
               Spacer(),
+              if (showArrow) Icon(Icons.arrow_forward_ios)
             ],
           ),
         ),
@@ -237,6 +266,7 @@ class BtcTokenCardContent extends StatelessWidget {
             token: 'BTC',
           ),
         ),
+        SizedBox(height: 5)
       ],
     );
   }
