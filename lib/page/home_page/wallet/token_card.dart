@@ -183,7 +183,7 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
             loading: state.lockedAmount.loading,
             name: FlutterI18n.translate(context, 'locked_amount'),
             value: Tools.priceFormat(state.lockedAmount.value),
-            token: 'DHX',
+            token: 'MXC',
           ),
         ),
         TitleDetailRow(
@@ -262,7 +262,7 @@ class BtcTokenCardContent extends StatelessWidget {
           builder: (ctx, state) => TitleDetailRow(
             loading: state.balance.loading,
             name: FlutterI18n.translate(context, 'current_balance'),
-            value: Tools.priceFormat(state.balance.value),
+            value: Tools.priceFormat(state.balance.value, range: 8),
             token: 'BTC',
           ),
         ),

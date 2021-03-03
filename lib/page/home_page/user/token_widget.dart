@@ -63,7 +63,7 @@ class TokenWidget extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(
       buildWhen: (a, b) => a.displayTokens != b.displayTokens,
       builder: (ctx, wallet) => TabbedView(
-        contentHeight: 300,
+        contentHeight: 285,
         tabs: [
           if (wallet.displayTokens.contains(Token.mxc)) ColorCodedWidget(mxc(context), Token.mxc.color),
           if (wallet.displayTokens.contains(Token.supernodeDhx))
