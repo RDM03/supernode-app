@@ -68,20 +68,12 @@ class TokenWidget extends StatelessWidget {
       builder: (ctx, wallet) => TabbedView(
         contentHeight: 300,
         tabs: [
-          if (wallet.displayTokens.contains(Token.mxc)) mxc(context),
+          if (wallet.displayTokens.contains(Token.mxc)) ColorCodedWidget(mxc(context), Token.mxc.color),
           if (wallet.displayTokens.contains(Token.supernodeDhx))
-            supernodeDhx(context),
-          if (wallet.displayTokens.contains(Token.btc)) btc(context),
+            ColorCodedWidget(supernodeDhx(context), Token.supernodeDhx.color),
+          if (wallet.displayTokens.contains(Token.btc)) ColorCodedWidget(btc(context), Token.btc.color),
           if (wallet.displayTokens.contains(Token.parachainDhx))
-            parachainDhx(context),
-        ],
-        tabsColors: [
-          if (wallet.displayTokens.contains(Token.mxc)) Token.mxc.color,
-          if (wallet.displayTokens.contains(Token.supernodeDhx))
-            Token.supernodeDhx.color,
-          if (wallet.displayTokens.contains(Token.btc)) Token.btc.color,
-          if (wallet.displayTokens.contains(Token.parachainDhx))
-            Token.parachainDhx.color,
+            ColorCodedWidget(parachainDhx(context), Token.parachainDhx.color),
         ],
         menu: IconButton(
           icon: Icon(Icons.more_vert),

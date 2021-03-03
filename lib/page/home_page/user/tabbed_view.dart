@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
+class ColorCodedWidget {
+  final Widget widget;
+  final Color color;
+
+  const ColorCodedWidget(this.widget, this.color);
+}
+
 class TabbedView extends StatefulWidget {
-  final List<Widget> tabs;
-  final List<Color> tabsColors;
+  final List<ColorCodedWidget> tabs;
   final IconButton menu;
 
   final double contentHeight;
@@ -12,7 +18,6 @@ class TabbedView extends StatefulWidget {
   const TabbedView({
     Key key,
     this.tabs,
-    this.tabsColors,
     this.menu,
     this.contentHeight = 150,
   }) : super(key: key);
@@ -47,6 +52,10 @@ class _TabbedViewState extends State<TabbedView> with TickerProviderStateMixin {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       oldController.dispose();
     });
+    if (selectedTab == controller.length && selectedTab > 0)
+      setState(() {
+        selectedTab = selectedTab - 1;
+      });
   }
 
   void controllerListener() {
@@ -89,7 +98,7 @@ class _TabbedViewState extends State<TabbedView> with TickerProviderStateMixin {
                     height: widget.contentHeight,
                     child: TabBarView(
                       controller: controller,
-                      children: widget.tabs,
+                      children: widget.tabs.map((e) => e.widget).toList(),
                     ),
                   ),
                   SizedBox(height: 5),
@@ -97,9 +106,9 @@ class _TabbedViewState extends State<TabbedView> with TickerProviderStateMixin {
                       ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      for (var i = 0; i < widget.tabsColors.length; i++) ...[
-                        tabIcon(widget.tabsColors[i], i),
-                        if (i != widget.tabsColors.length - 1) SizedBox(width: 4)
+                      for (var i = 0; i < widget.tabs.length; i++) ...[
+                        tabIcon(widget.tabs[i].color, i),
+                        if (i != widget.tabs.length - 1) SizedBox(width: 4)
                       ],
                     ],
                   )
