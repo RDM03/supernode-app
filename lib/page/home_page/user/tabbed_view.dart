@@ -5,6 +5,7 @@ import 'package:supernodeapp/theme/colors.dart';
 class TabbedView extends StatefulWidget {
   final List<Widget> tabs;
   final List<Color> tabsColors;
+  final IconButton menu;
 
   final double contentHeight;
 
@@ -12,6 +13,7 @@ class TabbedView extends StatefulWidget {
     Key key,
     this.tabs,
     this.tabsColors,
+    this.menu,
     this.contentHeight = 150,
   }) : super(key: key);
 
@@ -78,30 +80,35 @@ class _TabbedViewState extends State<TabbedView> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return PanelFrame(
-      child: Column(
-        children: [
-          SizedBox(
-            height: widget.contentHeight,
-            child: TabBarView(
-              controller: controller,
-              children: widget.tabs,
-            ),
-          ),
-          SizedBox(height: 5),
-          (controller.length > 1)
-              ? Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
+            alignment: AlignmentDirectional.topEnd,
             children: [
-              for (var i = 0; i < widget.tabsColors.length; i++) ...[
-                tabIcon(widget.tabsColors[i], i),
-                if (i != widget.tabsColors.length - 1) SizedBox(width: 4)
-              ],
-            ],
-          )
-              : SizedBox(),
-          SizedBox(height: 5),
-        ],
-      ),
+              Column(
+                children: [
+                  SizedBox(
+                    height: widget.contentHeight,
+                    child: TabBarView(
+                      controller: controller,
+                      children: widget.tabs,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  (controller.length > 1)
+                      ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      for (var i = 0; i < widget.tabsColors.length; i++) ...[
+                        tabIcon(widget.tabsColors[i], i),
+                        if (i != widget.tabsColors.length - 1) SizedBox(width: 4)
+                      ],
+                    ],
+                  )
+                      : SizedBox(),
+                  SizedBox(height: 5),
+                ],
+              ),
+              (widget.menu != null) ? widget.menu : SizedBox(),
+            ])
     );
   }
 }
