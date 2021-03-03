@@ -25,18 +25,6 @@ class TokenWidget extends StatelessWidget {
               Expanded(
                 child: MxcTokenCardContent(),
               ),
-              IconButton(
-                icon: Icon(Icons.more_vert),
-                onPressed: () => addTokenDialog(
-                  context,
-                  displayedTokens:
-                      context.read<HomeCubit>().state.displayTokens,
-                  parachainConnected:
-                      context.read<HomeCubit>().state.parachainUsed,
-                  supernodeConnected:
-                      context.read<HomeCubit>().state.supernodeUsed,
-                ),
-              )
             ],
           ),
           Spacer(),
@@ -100,6 +88,18 @@ class TokenWidget extends StatelessWidget {
           if (wallet.displayTokens.contains(Token.parachainDhx))
             Token.parachainDhx.color,
         ],
+        menu: IconButton(
+          icon: Icon(Icons.more_vert),
+          onPressed: () => addTokenDialog(
+            context,
+            displayedTokens:
+            context.read<HomeCubit>().state.displayTokens,
+            parachainConnected:
+            context.read<HomeCubit>().state.parachainUsed,
+            supernodeConnected:
+            context.read<HomeCubit>().state.supernodeUsed,
+          ),
+        ),
       ),
     );
   }
