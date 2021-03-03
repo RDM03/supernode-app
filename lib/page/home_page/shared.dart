@@ -88,14 +88,16 @@ void loginParachain(BuildContext context) => Navigator.of(context).push(
     );
 
 Widget tokenItem(
-  BuildContext context, {
-  Image image,
-  String title,
-  String subtitle,
-  Color color,
-  VoidCallback onPressed,
-  bool showTrailingLine = true,
-}) =>
+    BuildContext context,
+    {
+      Image image,
+      String title,
+      String subtitle,
+      Color color,
+      bool isSelected,
+      VoidCallback onPressed,
+      bool showTrailingLine = true,
+    }) =>
     SizedBox(
       height: s(62),
       child: GestureDetector(
@@ -131,6 +133,8 @@ Widget tokenItem(
                             ),
                           ],
                         ),
+                        Spacer(),
+                        (isSelected != null) ? Checkbox(value: isSelected): SizedBox(),
                       ],
                     ),
                   ),
@@ -197,12 +201,13 @@ void addTokenDialog(
               return 'Available';
             }(),
             color: Token.supernodeDhx.color,
+            isSelected: displayedTokens.contains(Token.supernodeDhx),
             onPressed: () {
               Navigator.pop(ctx);
               if (!supernodeConnected) {
                 loginSupernode(context);
               } else {
-                context.read<HomeCubit>().addSupernodeDhx();
+                context.read<HomeCubit>().toggleSupernodeDhx();
               }
             },
           ),
@@ -216,12 +221,13 @@ void addTokenDialog(
               return 'Available';
             }(),
             color: Token.btc.color,
+            isSelected: displayedTokens.contains(Token.btc),
             onPressed: () {
               Navigator.pop(ctx);
               if (!supernodeConnected) {
                 loginSupernode(context);
               } else {
-                context.read<HomeCubit>().addSupernodeBtc();
+                context.read<HomeCubit>().toggleSupernodeBtc();
               }
             },
           ),
@@ -236,6 +242,7 @@ void addTokenDialog(
               return 'Available';
             }(),
             color: Token.parachainDhx.color,
+            isSelected: displayedTokens.contains(Token.parachainDhx),
             onPressed: () {
               Navigator.pop(ctx);
               if (!parachainConnected) {

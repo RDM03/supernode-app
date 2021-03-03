@@ -4,12 +4,10 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
-import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
-import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/btc/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/btc/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
@@ -19,6 +17,8 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+
+import '../shared.dart';
 
 class MxcTokenCard extends StatelessWidget {
   final VoidCallback expand;
@@ -243,81 +243,18 @@ class BtcTokenCardContent extends StatelessWidget {
 }
 
 class AddNewTokenCard extends StatelessWidget {
-  void _showAddTokenDialog(BuildContext context) {
-    showInfoDialog(
-      context,
-      IosStyleBottomDialog2(
-        builder: (ctx) => Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Text(
-                FlutterI18n.translate(context, 'add_token_title'),
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: s(16),
-                  fontWeight: FontWeight.w500,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Divider(color: Colors.grey),
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(ctx);
-                context.read<HomeCubit>().addSupernodeDhx();
-              },
-              behavior: HitTestBehavior.opaque,
-              child: Row(
-                children: [
-                  Image.asset(AppImages.logoDHX, height: s(50)),
-                  SizedBox(width: s(10)),
-                  Text(
-                    Token.supernodeDhx.fullName,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: s(16),
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
-            Divider(color: Colors.grey),
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(ctx);
-                context.read<HomeCubit>().addSupernodeBtc();
-              },
-              behavior: HitTestBehavior.opaque,
-              child: Row(
-                children: [
-                  Image.asset(Token.btc.imagePath, height: s(50)),
-                  SizedBox(width: s(10)),
-                  Text(
-                    Token.btc.fullName,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: s(16),
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
-            Divider(color: Colors.grey),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _showAddTokenDialog(context),
+      onTap: () => addTokenDialog(
+        context,
+        displayedTokens:
+        context.read<HomeCubit>().state.displayTokens,
+        parachainConnected:
+        context.read<HomeCubit>().state.parachainUsed,
+        supernodeConnected:
+        context.read<HomeCubit>().state.supernodeUsed,
+      ),
       child: PanelFrame(
         child: Padding(
             padding: kRoundRow105,
