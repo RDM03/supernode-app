@@ -26,9 +26,7 @@ jobs:
         xcrun simctl boot "${UDID:?No Simulator with this name found}"
       continue-on-error: true
     - name: Checkout
-      uses: actions/checkout@v1
-      with:
-        fetch-depth: 0
+      uses: actions/checkout@v2
     - name: Setup subosito/flutter-action@v1
       uses: subosito/flutter-action@v1
       with:
@@ -81,9 +79,7 @@ jobs:
       run: "/usr/local/bin/emulator -avd ${{ matrix.device }} -id ${{ matrix.device }} -no-audio -gpu host &"
       continue-on-error: true
     - name: Checkout
-      uses: actions/checkout@v1
-      with:
-        fetch-depth: 0
+      uses: actions/checkout@v2
     - name: Setup Java
       uses: actions/setup-java@v1
       with:
