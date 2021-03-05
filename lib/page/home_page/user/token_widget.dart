@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
-import 'package:supernodeapp/common/utils/screen_util.dart';
-import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
@@ -13,30 +9,16 @@ import 'package:supernodeapp/page/home_page/wallet/btc_token/actions.dart';
 import 'package:supernodeapp/page/home_page/wallet/mxc_token/actions.dart';
 import 'package:supernodeapp/page/home_page/wallet/supernode_dhx_token/actions.dart';
 import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
-import 'package:supernodeapp/theme/font.dart';
 
 class TokenWidget extends StatelessWidget {
   Widget mxc(BuildContext context) => Column(
         children: [
-          SizedBox(height: 16),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: MxcTokenCardContent(),
               ),
-              IconButton(
-                icon: Icon(Icons.more_vert),
-                onPressed: () => addTokenDialog(
-                  context,
-                  displayedTokens:
-                      context.read<HomeCubit>().state.displayTokens,
-                  parachainConnected:
-                      context.read<HomeCubit>().state.parachainUsed,
-                  supernodeConnected:
-                      context.read<HomeCubit>().state.supernodeUsed,
-                ),
-              )
             ],
           ),
           Spacer(),
@@ -50,7 +32,6 @@ class TokenWidget extends StatelessWidget {
 
   Widget supernodeDhx(BuildContext context) => Column(
         children: [
-          SizedBox(height: 16),
           SupernodeDhxTokenCardContent(
             showSimulateMining: false,
           ),
@@ -65,7 +46,6 @@ class TokenWidget extends StatelessWidget {
 
   Widget btc(BuildContext context) => Column(
         children: [
-          SizedBox(height: 16),
           BtcTokenCardContent(),
           Spacer(),
           Padding(
@@ -83,23 +63,27 @@ class TokenWidget extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(
       buildWhen: (a, b) => a.displayTokens != b.displayTokens,
       builder: (ctx, wallet) => TabbedView(
-        contentHeight: 300,
+        contentHeight: 285,
         tabs: [
-          if (wallet.displayTokens.contains(Token.mxc)) mxc(context),
+          if (wallet.displayTokens.contains(Token.mxc)) ColorCodedWidget(mxc(context), Token.mxc.color),
           if (wallet.displayTokens.contains(Token.supernodeDhx))
-            supernodeDhx(context),
-          if (wallet.displayTokens.contains(Token.btc)) btc(context),
+            ColorCodedWidget(supernodeDhx(context), Token.supernodeDhx.color),
+          if (wallet.displayTokens.contains(Token.btc)) ColorCodedWidget(btc(context), Token.btc.color),
           if (wallet.displayTokens.contains(Token.parachainDhx))
-            parachainDhx(context),
+            ColorCodedWidget(parachainDhx(context), Token.parachainDhx.color),
         ],
-        tabsColors: [
-          if (wallet.displayTokens.contains(Token.mxc)) Token.mxc.color,
-          if (wallet.displayTokens.contains(Token.supernodeDhx))
-            Token.supernodeDhx.color,
-          if (wallet.displayTokens.contains(Token.btc)) Token.btc.color,
-          if (wallet.displayTokens.contains(Token.parachainDhx))
-            Token.parachainDhx.color,
-        ],
+        menu: IconButton(
+          icon: Icon(Icons.more_vert),
+          onPressed: () => addTokenDialog(
+            context,
+            displayedTokens:
+            context.read<HomeCubit>().state.displayTokens,
+            parachainConnected:
+            context.read<HomeCubit>().state.parachainUsed,
+            supernodeConnected:
+            context.read<HomeCubit>().state.supernodeUsed,
+          ),
+        ),
       ),
     );
   }

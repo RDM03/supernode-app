@@ -34,18 +34,32 @@ class HomeCubit extends Cubit<HomeState> {
       emit(state.copyWith(tabIndex: tab));
   }
 
-  void addSupernodeDhx() {
-    saveSNCache(CacheRepository.walletDHX, true);
-    emit(state.copyWith(
-      displayTokens: {...state.displayTokens, Token.supernodeDhx}.toList(),
-    ));
+  void toggleSupernodeDhx() {
+    if (state.displayTokens.contains(Token.supernodeDhx)) {
+      saveSNCache(CacheRepository.walletDHX, false);
+      emit(state.copyWith(
+        displayTokens: state.displayTokens.where((t) => (t != Token.supernodeDhx)).toList()
+      ));
+    } else {
+      saveSNCache(CacheRepository.walletDHX, true);
+      emit(state.copyWith(
+        displayTokens: {...state.displayTokens, Token.supernodeDhx}.toList(),
+      ));
+    }
   }
 
-  void addSupernodeBtc() {
-    saveSNCache(CacheRepository.walletBTC, true);
-    emit(state.copyWith(
-      displayTokens: {...state.displayTokens, Token.btc}.toList(),
-    ));
+  void toggleSupernodeBtc() {
+    if (state.displayTokens.contains(Token.btc)) {
+      saveSNCache(CacheRepository.walletBTC, false);
+      emit(state.copyWith(
+        displayTokens: state.displayTokens.where((t) => (t != Token.btc)).toList()
+      ));
+    } else {
+      saveSNCache(CacheRepository.walletBTC, true);
+      emit(state.copyWith(
+        displayTokens: {...state.displayTokens, Token.btc}.toList(),
+      ));
+    }
   }
 
   void saveSNCache(String key, dynamic value, {String userKey}) {

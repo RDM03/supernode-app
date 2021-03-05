@@ -4,12 +4,10 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
-import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
-import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/btc/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/btc/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
@@ -19,6 +17,8 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+
+import '../shared.dart';
 
 class MxcTokenCard extends StatelessWidget {
   final VoidCallback expand;
@@ -30,12 +30,7 @@ class MxcTokenCard extends StatelessWidget {
     return GestureDetector(
       onTap: expand,
       child: PanelFrame(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
-          child: MxcTokenCardContent(
-            showArrow: expand != null,
-          ),
-        ),
+        child: MxcTokenCardContent(showArrow: expand != null, showTitle: true),
       ),
     );
   }
@@ -43,14 +38,26 @@ class MxcTokenCard extends StatelessWidget {
 
 class MxcTokenCardContent extends StatelessWidget {
   final bool showArrow;
+  final bool showTitle;
 
-  const MxcTokenCardContent({Key key, this.showArrow = false})
-      : super(key: key);
+  const MxcTokenCardContent({
+    Key key,
+    this.showArrow = false,
+    this.showTitle = false
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        (showTitle)
+            ? Container(
+            width: double.infinity,
+            padding: kRoundRow15_5,
+            color: Token.mxc.color,
+            child: Text('Supernode Server', style: kBigFontOfWhite,))
+            : SizedBox(),
+        SizedBox(height: 10),
         Container(
           padding: kRoundRow15_5,
           child: Row(
@@ -90,6 +97,7 @@ class MxcTokenCardContent extends StatelessWidget {
             token: "MXC",
           ),
         ),
+        SizedBox(height: 5)
       ],
     );
   }
@@ -105,12 +113,7 @@ class SupernodeDhxTokenCard extends StatelessWidget {
     return GestureDetector(
       onTap: expand,
       child: PanelFrame(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
-          child: SupernodeDhxTokenCardContent(
-            showArrow: expand != null,
-          ),
-        ),
+        child: SupernodeDhxTokenCardContent(showArrow: expand != null, showTitle: true),
       ),
     );
   }
@@ -118,11 +121,13 @@ class SupernodeDhxTokenCard extends StatelessWidget {
 
 class SupernodeDhxTokenCardContent extends StatelessWidget {
   final bool showArrow;
+  final bool showTitle;
   final bool showSimulateMining;
 
   const SupernodeDhxTokenCardContent({
     Key key,
     this.showArrow = false,
+    this.showTitle = false,
     this.showSimulateMining = true,
   }) : super(key: key);
 
@@ -130,6 +135,14 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        (showTitle)
+            ? Container(
+            width: double.infinity,
+            padding: kRoundRow15_5,
+            color: Token.supernodeDhx.color,
+            child: Text('Supernode Server', style: kBigFontOfWhite,))
+            : SizedBox(),
+        SizedBox(height: 10),
         Container(
           padding: kRoundRow15_5,
           child: Row(children: [
@@ -170,7 +183,7 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
             loading: state.lockedAmount.loading,
             name: FlutterI18n.translate(context, 'locked_amount'),
             value: Tools.priceFormat(state.lockedAmount.value),
-            token: 'DHX',
+            token: 'MXC',
           ),
         ),
         TitleDetailRow(
@@ -188,6 +201,7 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
             token: 'DHX',
           ),
         ),
+        SizedBox(height: 5)
       ],
     );
   }
@@ -203,20 +217,34 @@ class BtcTokenCard extends StatelessWidget {
     return GestureDetector(
       onTap: expand,
       child: PanelFrame(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
-          child: BtcTokenCardContent(),
-        ),
+        child: BtcTokenCardContent(showArrow: expand != null, showTitle: true),
       ),
     );
   }
 }
 
 class BtcTokenCardContent extends StatelessWidget {
+  final bool showArrow;
+  final bool showTitle;
+
+  const BtcTokenCardContent({
+    Key key,
+    this.showArrow = false,
+    this.showTitle = false
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        (showTitle)
+            ? Container(
+            width: double.infinity,
+            padding: kRoundRow15_5,
+            color: Token.btc.color,
+            child: Text('Supernode Server', style: kBigFontOfWhite,))
+            : SizedBox(),
+        SizedBox(height: 10),
         Container(
           padding: kRoundRow15_5,
           child: Row(
@@ -225,6 +253,7 @@ class BtcTokenCardContent extends StatelessWidget {
               SizedBox(width: s(3)),
               Text(Token.btc.name, style: kBigBoldFontOfBlack),
               Spacer(),
+              if (showArrow) Icon(Icons.arrow_forward_ios)
             ],
           ),
         ),
@@ -233,91 +262,29 @@ class BtcTokenCardContent extends StatelessWidget {
           builder: (ctx, state) => TitleDetailRow(
             loading: state.balance.loading,
             name: FlutterI18n.translate(context, 'current_balance'),
-            value: Tools.priceFormat(state.balance.value),
+            value: Tools.priceFormat(state.balance.value, range: 8),
             token: 'BTC',
           ),
         ),
+        SizedBox(height: 5)
       ],
     );
   }
 }
 
 class AddNewTokenCard extends StatelessWidget {
-  void _showAddTokenDialog(BuildContext context) {
-    showInfoDialog(
-      context,
-      IosStyleBottomDialog2(
-        builder: (ctx) => Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Text(
-                FlutterI18n.translate(context, 'add_token_title'),
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: s(16),
-                  fontWeight: FontWeight.w500,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Divider(color: Colors.grey),
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(ctx);
-                context.read<HomeCubit>().addSupernodeDhx();
-              },
-              behavior: HitTestBehavior.opaque,
-              child: Row(
-                children: [
-                  Image.asset(AppImages.logoDHX, height: s(50)),
-                  SizedBox(width: s(10)),
-                  Text(
-                    Token.supernodeDhx.fullName,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: s(16),
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
-            Divider(color: Colors.grey),
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(ctx);
-                context.read<HomeCubit>().addSupernodeBtc();
-              },
-              behavior: HitTestBehavior.opaque,
-              child: Row(
-                children: [
-                  Image.asset(Token.btc.imagePath, height: s(50)),
-                  SizedBox(width: s(10)),
-                  Text(
-                    Token.btc.fullName,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: s(16),
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
-            Divider(color: Colors.grey),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _showAddTokenDialog(context),
+      onTap: () => addTokenDialog(
+        context,
+        displayedTokens:
+        context.read<HomeCubit>().state.displayTokens,
+        parachainConnected:
+        context.read<HomeCubit>().state.parachainUsed,
+        supernodeConnected:
+        context.read<HomeCubit>().state.supernodeUsed,
+      ),
       child: PanelFrame(
         child: Padding(
             padding: kRoundRow105,

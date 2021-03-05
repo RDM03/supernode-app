@@ -57,6 +57,7 @@ class _WalletTabState extends State<WalletTab> {
                         expand: () => setState(() => selectedToken = Token.btc),
                       ),
                     AddNewTokenCard(),
+                    SizedBox(height: 15)
                   ],
                 ),
               )
