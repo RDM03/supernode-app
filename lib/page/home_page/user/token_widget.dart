@@ -63,12 +63,14 @@ class TokenWidget extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(
       buildWhen: (a, b) => a.displayTokens != b.displayTokens,
       builder: (ctx, wallet) => TabbedView(
-        contentHeight: 285,
+        contentHeight: 290,
         tabs: [
-          if (wallet.displayTokens.contains(Token.mxc)) ColorCodedWidget(mxc(context), Token.mxc.color),
+          if (wallet.displayTokens.contains(Token.mxc))
+            ColorCodedWidget(mxc(context), Token.mxc.color),
           if (wallet.displayTokens.contains(Token.supernodeDhx))
             ColorCodedWidget(supernodeDhx(context), Token.supernodeDhx.color),
-          if (wallet.displayTokens.contains(Token.btc)) ColorCodedWidget(btc(context), Token.btc.color),
+          if (wallet.displayTokens.contains(Token.btc))
+            ColorCodedWidget(btc(context), Token.btc.color),
           if (wallet.displayTokens.contains(Token.parachainDhx))
             ColorCodedWidget(parachainDhx(context), Token.parachainDhx.color),
         ],
@@ -76,12 +78,9 @@ class TokenWidget extends StatelessWidget {
           icon: Icon(Icons.more_vert),
           onPressed: () => addTokenDialog(
             context,
-            displayedTokens:
-            context.read<HomeCubit>().state.displayTokens,
-            parachainConnected:
-            context.read<HomeCubit>().state.parachainUsed,
-            supernodeConnected:
-            context.read<HomeCubit>().state.supernodeUsed,
+            displayedTokens: context.read<HomeCubit>().state.displayTokens,
+            parachainConnected: context.read<HomeCubit>().state.parachainUsed,
+            supernodeConnected: context.read<HomeCubit>().state.supernodeUsed,
           ),
         ),
       ),
