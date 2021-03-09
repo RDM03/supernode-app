@@ -10,7 +10,9 @@ set -x
 
 cd ..
 git clone -b beta https://github.com/flutter/flutter.git
-git reset --hard 198df796aa80073ef22bdf249e614e2ff33c6895
+cd flutter
+git reset --hard 1.23.0-18.1.pre
+cd ..
 export PATH=`pwd`/flutter/bin:$PATH
 
 flutter clean
