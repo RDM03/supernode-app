@@ -3,9 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/page/deposit_page/bloc/cubit.dart';
+import 'package:supernodeapp/page/deposit_page/deposit_page.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/btc/cubit.dart';
 import 'package:supernodeapp/page/settings_page/settings_page.dart';
 import '../../route.dart';
@@ -22,18 +25,10 @@ void openSettings(BuildContext context) async {
   Navigator.push(context, route((context) => SettingsPage()));
 }
 
-Future<void> openSupernodeDeposit(BuildContext context) async {
-  final orgId = context.read<SupernodeCubit>().state.orgId;
-  final userId = context.read<SupernodeCubit>().state.session.userId;
-  final isDemo = context.read<AppCubit>().state.isDemo;
-  await Navigator.of(context).pushNamed(
-    'deposit_page',
-    arguments: {
-      'userId': userId,
-      'orgId': orgId,
-      'isDemo': isDemo,
-    },
-  );
+Future<void> openSupernodeDeposit(BuildContext context, Token tkn) async {
+  await Navigator.of(context).push(route((_) => BlocProvider(
+      create: (ctx) => DepositCubit(context.read<SupernodeUserCubit>(), context.read<AppCubit>(), context.read<SupernodeRepository>()),
+      child: DepositPage(tkn))));
   context.read<SupernodeUserCubit>().refreshBalance();
 }
 
