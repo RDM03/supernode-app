@@ -11,6 +11,7 @@ import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
+import 'package:supernodeapp/page/home_page/shared.dart';
 
 class SupernodeDhxActions extends StatelessWidget {
   void _showMineDXHDialog(BuildContext context, bool isDemo) {
@@ -103,10 +104,10 @@ class SupernodeDhxActions extends StatelessWidget {
         CircleButton(
           icon: Icon(
             Icons.add,
-            color: Colors.grey,
+            color: Token.supernodeDhx.color,
           ),
           label: FlutterI18n.translate(context, 'deposit'),
-          onTap: () {},
+          onTap: () => openSupernodeDeposit(context, Token.supernodeDhx),
         ),
         Spacer(),
         CircleButton(
