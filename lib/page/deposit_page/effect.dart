@@ -5,6 +5,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/topup.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/topup.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 
@@ -36,11 +37,11 @@ void _initState(Action action, Context<DepositState> ctx) async {
         "currency": '',
       };
 
-      var res = await dao.account(data);
+      TopupAccount res = await dao.account(data);
       mLog('account', res);
 
       if ((res as Map).containsKey('activeAccount')) {
-        ctx.dispatch(DepositActionCreator.address(res['activeAccount']));
+        ctx.dispatch(DepositActionCreator.address(res.activeAccount));
       }
     } catch (err) {
       tip(ctx.context, 'TopupDao account: $err');

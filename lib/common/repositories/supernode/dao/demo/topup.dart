@@ -4,8 +4,8 @@ import '../topup.dart';
 
 class DemoTopupDao extends DemoDao implements TopupDao {
   @override
-  Future account(Map data) {
-    return Future.value({"activeAccount": "0x00000000000000"});
+  Future<TopupAccount> account(Map data) {
+    return Future.value(TopupAccount("0x00000000000000"));
   }
 
   @override

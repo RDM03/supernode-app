@@ -19,7 +19,8 @@ class TopupDao extends SupernodeDao {
     );
   }
 
-  Future<dynamic> account(Map data) {
-    return get(url: TopupApi.account, data: data);
+  Future<TopupAccount> account(Map data) {
+    return get(url: TopupApi.account, data: data).then(
+            (value) => TopupAccount.fromMap(value));
   }
 }
