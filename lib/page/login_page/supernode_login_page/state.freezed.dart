@@ -20,20 +20,28 @@ class _$LoginStateTearOff {
       @nullable Supernode selectedSuperNode,
       int showTestNodesCounter = 0,
       Wrap<Map<String, List<Supernode>>> supernodes = const Wrap.pending(),
+      @nullable String email,
+      @nullable String userId,
+      @nullable String jwtToken,
       bool showLoading = false,
       bool showWeChatLoginOption = false,
       @nullable String errorMessage,
-      @nullable LoginResult result}) {
+      @nullable LoginResult loginResult,
+      @nullable SignupResult signupResult}) {
     return _LoginState(
       supernodeListVisible: supernodeListVisible,
       obscureText: obscureText,
       selectedSuperNode: selectedSuperNode,
       showTestNodesCounter: showTestNodesCounter,
       supernodes: supernodes,
+      email: email,
+      userId: userId,
+      jwtToken: jwtToken,
       showLoading: showLoading,
       showWeChatLoginOption: showWeChatLoginOption,
       errorMessage: errorMessage,
-      result: result,
+      loginResult: loginResult,
+      signupResult: signupResult,
     );
   }
 }
@@ -50,12 +58,20 @@ mixin _$LoginState {
   Supernode get selectedSuperNode;
   int get showTestNodesCounter;
   Wrap<Map<String, List<Supernode>>> get supernodes;
+  @nullable
+  String get email;
+  @nullable
+  String get userId;
+  @nullable
+  String get jwtToken;
   bool get showLoading;
   bool get showWeChatLoginOption;
   @nullable
   String get errorMessage;
   @nullable
-  LoginResult get result;
+  LoginResult get loginResult;
+  @nullable
+  SignupResult get signupResult;
 
   $LoginStateCopyWith<LoginState> get copyWith;
 }
@@ -71,10 +87,14 @@ abstract class $LoginStateCopyWith<$Res> {
       @nullable Supernode selectedSuperNode,
       int showTestNodesCounter,
       Wrap<Map<String, List<Supernode>>> supernodes,
+      @nullable String email,
+      @nullable String userId,
+      @nullable String jwtToken,
       bool showLoading,
       bool showWeChatLoginOption,
       @nullable String errorMessage,
-      @nullable LoginResult result});
+      @nullable LoginResult loginResult,
+      @nullable SignupResult signupResult});
 }
 
 /// @nodoc
@@ -92,10 +112,14 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
     Object selectedSuperNode = freezed,
     Object showTestNodesCounter = freezed,
     Object supernodes = freezed,
+    Object email = freezed,
+    Object userId = freezed,
+    Object jwtToken = freezed,
     Object showLoading = freezed,
     Object showWeChatLoginOption = freezed,
     Object errorMessage = freezed,
-    Object result = freezed,
+    Object loginResult = freezed,
+    Object signupResult = freezed,
   }) {
     return _then(_value.copyWith(
       supernodeListVisible: supernodeListVisible == freezed
@@ -112,6 +136,9 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
       supernodes: supernodes == freezed
           ? _value.supernodes
           : supernodes as Wrap<Map<String, List<Supernode>>>,
+      email: email == freezed ? _value.email : email as String,
+      userId: userId == freezed ? _value.userId : userId as String,
+      jwtToken: jwtToken == freezed ? _value.jwtToken : jwtToken as String,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
       showWeChatLoginOption: showWeChatLoginOption == freezed
@@ -120,7 +147,12 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
       errorMessage: errorMessage == freezed
           ? _value.errorMessage
           : errorMessage as String,
-      result: result == freezed ? _value.result : result as LoginResult,
+      loginResult: loginResult == freezed
+          ? _value.loginResult
+          : loginResult as LoginResult,
+      signupResult: signupResult == freezed
+          ? _value.signupResult
+          : signupResult as SignupResult,
     ));
   }
 }
@@ -137,10 +169,14 @@ abstract class _$LoginStateCopyWith<$Res> implements $LoginStateCopyWith<$Res> {
       @nullable Supernode selectedSuperNode,
       int showTestNodesCounter,
       Wrap<Map<String, List<Supernode>>> supernodes,
+      @nullable String email,
+      @nullable String userId,
+      @nullable String jwtToken,
       bool showLoading,
       bool showWeChatLoginOption,
       @nullable String errorMessage,
-      @nullable LoginResult result});
+      @nullable LoginResult loginResult,
+      @nullable SignupResult signupResult});
 }
 
 /// @nodoc
@@ -160,10 +196,14 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
     Object selectedSuperNode = freezed,
     Object showTestNodesCounter = freezed,
     Object supernodes = freezed,
+    Object email = freezed,
+    Object userId = freezed,
+    Object jwtToken = freezed,
     Object showLoading = freezed,
     Object showWeChatLoginOption = freezed,
     Object errorMessage = freezed,
-    Object result = freezed,
+    Object loginResult = freezed,
+    Object signupResult = freezed,
   }) {
     return _then(_LoginState(
       supernodeListVisible: supernodeListVisible == freezed
@@ -180,6 +220,9 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
       supernodes: supernodes == freezed
           ? _value.supernodes
           : supernodes as Wrap<Map<String, List<Supernode>>>,
+      email: email == freezed ? _value.email : email as String,
+      userId: userId == freezed ? _value.userId : userId as String,
+      jwtToken: jwtToken == freezed ? _value.jwtToken : jwtToken as String,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
       showWeChatLoginOption: showWeChatLoginOption == freezed
@@ -188,7 +231,12 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
       errorMessage: errorMessage == freezed
           ? _value.errorMessage
           : errorMessage as String,
-      result: result == freezed ? _value.result : result as LoginResult,
+      loginResult: loginResult == freezed
+          ? _value.loginResult
+          : loginResult as LoginResult,
+      signupResult: signupResult == freezed
+          ? _value.signupResult
+          : signupResult as SignupResult,
     ));
   }
 }
@@ -201,10 +249,14 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
       @nullable this.selectedSuperNode,
       this.showTestNodesCounter = 0,
       this.supernodes = const Wrap.pending(),
+      @nullable this.email,
+      @nullable this.userId,
+      @nullable this.jwtToken,
       this.showLoading = false,
       this.showWeChatLoginOption = false,
       @nullable this.errorMessage,
-      @nullable this.result})
+      @nullable this.loginResult,
+      @nullable this.signupResult})
       : assert(supernodeListVisible != null),
         assert(obscureText != null),
         assert(showTestNodesCounter != null),
@@ -228,6 +280,15 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
   @JsonKey(defaultValue: const Wrap.pending())
   @override
   final Wrap<Map<String, List<Supernode>>> supernodes;
+  @override
+  @nullable
+  final String email;
+  @override
+  @nullable
+  final String userId;
+  @override
+  @nullable
+  final String jwtToken;
   @JsonKey(defaultValue: false)
   @override
   final bool showLoading;
@@ -239,11 +300,14 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
   final String errorMessage;
   @override
   @nullable
-  final LoginResult result;
+  final LoginResult loginResult;
+  @override
+  @nullable
+  final SignupResult signupResult;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LoginState(supernodeListVisible: $supernodeListVisible, obscureText: $obscureText, selectedSuperNode: $selectedSuperNode, showTestNodesCounter: $showTestNodesCounter, supernodes: $supernodes, showLoading: $showLoading, showWeChatLoginOption: $showWeChatLoginOption, errorMessage: $errorMessage, result: $result)';
+    return 'LoginState(supernodeListVisible: $supernodeListVisible, obscureText: $obscureText, selectedSuperNode: $selectedSuperNode, showTestNodesCounter: $showTestNodesCounter, supernodes: $supernodes, email: $email, userId: $userId, jwtToken: $jwtToken, showLoading: $showLoading, showWeChatLoginOption: $showWeChatLoginOption, errorMessage: $errorMessage, loginResult: $loginResult, signupResult: $signupResult)';
   }
 
   @override
@@ -256,10 +320,14 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('selectedSuperNode', selectedSuperNode))
       ..add(DiagnosticsProperty('showTestNodesCounter', showTestNodesCounter))
       ..add(DiagnosticsProperty('supernodes', supernodes))
+      ..add(DiagnosticsProperty('email', email))
+      ..add(DiagnosticsProperty('userId', userId))
+      ..add(DiagnosticsProperty('jwtToken', jwtToken))
       ..add(DiagnosticsProperty('showLoading', showLoading))
       ..add(DiagnosticsProperty('showWeChatLoginOption', showWeChatLoginOption))
       ..add(DiagnosticsProperty('errorMessage', errorMessage))
-      ..add(DiagnosticsProperty('result', result));
+      ..add(DiagnosticsProperty('loginResult', loginResult))
+      ..add(DiagnosticsProperty('signupResult', signupResult));
   }
 
   @override
@@ -281,6 +349,13 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
             (identical(other.supernodes, supernodes) ||
                 const DeepCollectionEquality()
                     .equals(other.supernodes, supernodes)) &&
+            (identical(other.email, email) ||
+                const DeepCollectionEquality().equals(other.email, email)) &&
+            (identical(other.userId, userId) ||
+                const DeepCollectionEquality().equals(other.userId, userId)) &&
+            (identical(other.jwtToken, jwtToken) ||
+                const DeepCollectionEquality()
+                    .equals(other.jwtToken, jwtToken)) &&
             (identical(other.showLoading, showLoading) ||
                 const DeepCollectionEquality()
                     .equals(other.showLoading, showLoading)) &&
@@ -290,8 +365,12 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
             (identical(other.errorMessage, errorMessage) ||
                 const DeepCollectionEquality()
                     .equals(other.errorMessage, errorMessage)) &&
-            (identical(other.result, result) ||
-                const DeepCollectionEquality().equals(other.result, result)));
+            (identical(other.loginResult, loginResult) ||
+                const DeepCollectionEquality()
+                    .equals(other.loginResult, loginResult)) &&
+            (identical(other.signupResult, signupResult) ||
+                const DeepCollectionEquality()
+                    .equals(other.signupResult, signupResult)));
   }
 
   @override
@@ -302,10 +381,14 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(selectedSuperNode) ^
       const DeepCollectionEquality().hash(showTestNodesCounter) ^
       const DeepCollectionEquality().hash(supernodes) ^
+      const DeepCollectionEquality().hash(email) ^
+      const DeepCollectionEquality().hash(userId) ^
+      const DeepCollectionEquality().hash(jwtToken) ^
       const DeepCollectionEquality().hash(showLoading) ^
       const DeepCollectionEquality().hash(showWeChatLoginOption) ^
       const DeepCollectionEquality().hash(errorMessage) ^
-      const DeepCollectionEquality().hash(result);
+      const DeepCollectionEquality().hash(loginResult) ^
+      const DeepCollectionEquality().hash(signupResult);
 
   @override
   _$LoginStateCopyWith<_LoginState> get copyWith =>
@@ -320,10 +403,14 @@ abstract class _LoginState extends LoginState {
       @nullable Supernode selectedSuperNode,
       int showTestNodesCounter,
       Wrap<Map<String, List<Supernode>>> supernodes,
+      @nullable String email,
+      @nullable String userId,
+      @nullable String jwtToken,
       bool showLoading,
       bool showWeChatLoginOption,
       @nullable String errorMessage,
-      @nullable LoginResult result}) = _$_LoginState;
+      @nullable LoginResult loginResult,
+      @nullable SignupResult signupResult}) = _$_LoginState;
 
   @override
   bool get supernodeListVisible;
@@ -337,6 +424,15 @@ abstract class _LoginState extends LoginState {
   @override
   Wrap<Map<String, List<Supernode>>> get supernodes;
   @override
+  @nullable
+  String get email;
+  @override
+  @nullable
+  String get userId;
+  @override
+  @nullable
+  String get jwtToken;
+  @override
   bool get showLoading;
   @override
   bool get showWeChatLoginOption;
@@ -345,7 +441,10 @@ abstract class _LoginState extends LoginState {
   String get errorMessage;
   @override
   @nullable
-  LoginResult get result;
+  LoginResult get loginResult;
+  @override
+  @nullable
+  SignupResult get signupResult;
   @override
   _$LoginStateCopyWith<_LoginState> get copyWith;
 }

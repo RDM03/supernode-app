@@ -26,6 +26,7 @@ class AppImages {
       'assets/images/app/ic-question-circle.png';
 
   //login
+  static const String supernode_placeholder = "assets/images/login/supernode_placeholder.png";
   static const String placeholder = "assets/images/login/placeholder.png";
   static const String email = 'assets/images/login/email.png';
   static const String wechat = 'assets/images/login/wechat.png';

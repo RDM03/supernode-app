@@ -24,15 +24,16 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: minHeight, minWidth: minWidget),
-      child: RaisedButton(
-        onPressed: onTap,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(3)),
-        ),
-        color: bgColor,
-        child: Container(
+    return Container(
+      padding: padding,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: minHeight, minWidth: minWidget),
+        child: RaisedButton(
+          onPressed: onTap,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(3)),
+          ),
+          color: bgColor,
           child: Text(
             buttonTitle,
             textAlign: TextAlign.center,
