@@ -74,10 +74,8 @@ Future<void> _withdrawFee(Context<WithdrawState> ctx) async {
     var res = await dao.fee(currency: map2serverCurrency[ctx.state.tokenName]);
     mLog('WithdrawDao fee', res);
 
-    if ((res as Map).containsKey('withdrawFee')) {
-      ctx.dispatch(
-          WithdrawActionCreator.fee(Tools.convertDouble(res['withdrawFee'])));
-    }
+    ctx.dispatch(
+        WithdrawActionCreator.fee(Tools.convertDouble(res.withdrawFee)));
   } catch (err) {
     tip(ctx.context, 'WithdrawDao fee: $err');
   }
@@ -145,7 +143,7 @@ void _onSubmit(Action action, Context<WithdrawState> ctx) async {
         loading.hide();
         mLog('withdraw', res);
 
-        if (res.containsKey('status') && res['status']) {
+        if (res.status) {
           Navigator.pushNamed(ctx.context, 'confirm_page', arguments: {
             'title': 'withdraw',
             'content': 'withdraw_submit_tip'
