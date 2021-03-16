@@ -27,11 +27,6 @@ const $DepositState = _$DepositStateTearOff();
 
 /// @nodoc
 mixin _$DepositState {
-/*@Default(false) bool supernodeListVisible,
-    @Default(false) bool obscureText,
-    @nullable Supernode selectedSuperNode,
-    @Default(0) int showTestNodesCounter,
-    @Default(0) int tabIndex,*/
   Wrap<String> get address;
 
   $DepositStateCopyWith<DepositState> get copyWith;
@@ -101,11 +96,6 @@ class _$_DepositState extends _DepositState with DiagnosticableTreeMixin {
 
   @JsonKey(defaultValue: const Wrap.pending())
   @override
-  /*@Default(false) bool supernodeListVisible,
-    @Default(false) bool obscureText,
-    @nullable Supernode selectedSuperNode,
-    @Default(0) int showTestNodesCounter,
-    @Default(0) int tabIndex,*/
   final Wrap<String> address;
 
   @override
@@ -143,11 +133,6 @@ abstract class _DepositState extends DepositState {
   factory _DepositState({Wrap<String> address}) = _$_DepositState;
 
   @override
-  /*@Default(false) bool supernodeListVisible,
-    @Default(false) bool obscureText,
-    @nullable Supernode selectedSuperNode,
-    @Default(0) int showTestNodesCounter,
-    @Default(0) int tabIndex,*/
   Wrap<String> get address;
   @override
   _$DepositStateCopyWith<_DepositState> get copyWith;
