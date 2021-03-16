@@ -59,7 +59,6 @@ import 'page/set_2fa_page/page.dart';
 import 'page/confirm_page/page.dart';
 import 'page/forgot_password_page/page.dart';
 import 'page/stake_page/page.dart';
-import 'page/withdraw_page/page.dart';
 
 List<BlocListener> listeners() => [
       BlocListener<SupernodeCubit, SupernodeState>(
@@ -197,7 +196,6 @@ class MxcApp extends StatelessWidget {
 
       'sign_up_page': SignUpPage(),
       'forgot_password_page': ForgotPasswordPage(),
-      'withdraw_page': WithdrawPage(),
       'confirm_page': ConfirmPage(),
       'stake_page': StakePage(),
       'change_password_page': ChangePasswordPage(),

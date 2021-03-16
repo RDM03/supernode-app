@@ -110,13 +110,18 @@ class SupernodeDhxActions extends StatelessWidget {
           onTap: () => openSupernodeDeposit(context, Token.supernodeDhx),
         ),
         Spacer(),
-        CircleButton(
-          icon: Icon(
-            Icons.arrow_forward,
-            color: Colors.grey,
-          ),
-          label: FlutterI18n.translate(context, 'withdraw'),
-          onTap: () {},
+        BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+          buildWhen: (a, b) => a.balance != b.balance,
+          builder: (ctx, state) => CircleButton(
+            icon: Icon(
+              Icons.arrow_forward,
+              color: Token.supernodeDhx.color,
+            ),
+            label: FlutterI18n.translate(context, 'withdraw'),
+            onTap: state.balance.loading
+                ? null
+                : () => openSupernodeWithdraw(context, Token.supernodeDhx),
+          )
         ),
         Spacer(),
         CircleButton(
