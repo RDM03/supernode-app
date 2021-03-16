@@ -101,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           FlutterI18n.translate(context, 'unbind_wechat_button')
                               .replaceFirst(
                                   '{0}', s.weChatUser?.externalUsername ?? ''),
-                      minWidget: double.infinity),
+                      minWidth: double.infinity),
                 )),
             Spacer(),
           ])
@@ -133,7 +133,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       FlutterI18n.currentLocale(context).languageCode,
                       FlutterI18n.currentLocale(context).countryCode),
                   minHeight: 45,
-                  minWidget: double.infinity)
+                  minWidth: double.infinity)
             ]),
           ),
           Padding(
@@ -168,7 +168,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       .shopifyEmailVerification(
                           shopifyVerificationCodeControler.text),
                   minHeight: 45,
-                  minWidget: double.infinity)
+                  minWidth: double.infinity)
             ]),
           ),
           Padding(
@@ -284,7 +284,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                   buttonTitle: FlutterI18n.translate(context, 'update'),
                   minHeight: 45,
-                  minWidget: double.infinity,
+                  minWidth: double.infinity,
                 ),
               ],
             ),

@@ -41,4 +41,21 @@ class AppBars {
       elevation: 0,
     );
   }
+
+  static backArrowAndActionAppBar({String title, Function onPress, Widget action}) {
+    return AppBar(
+      title: Text(
+        title,
+        style: kBigFontOfBlack,
+      ),
+      centerTitle: true,
+      leading: IconButton(
+        onPressed: onPress,
+        icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+      ),
+      actions: <Widget>[action],
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    );
+  }
 }
