@@ -69,7 +69,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
   void submit(String orgId, String otpCode) {
     Map data = {
       "orgId": orgId,
-      "amount": state.amount,
+      "amount": state.amount.toString(),
       "currency": map2serverCurrency[state.token.name],
       "ethAddress": state.address,
       "otp_code": otpCode
