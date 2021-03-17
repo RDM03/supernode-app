@@ -41,8 +41,8 @@ class WithdrawCubit extends Cubit<WithdrawState> {
 
   onAddressBook() {}
 
-  void qrResult(String qrResult) {
-    emit(state.copyWith(address: qrResult));
+  void setAddress(String address) {
+    emit(state.copyWith(address: address));
   }
 
   void goToConfirmation(double amount, String address) {

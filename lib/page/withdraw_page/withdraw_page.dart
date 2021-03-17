@@ -11,6 +11,7 @@ import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/security/bitcoin_utils.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
+import 'package:supernodeapp/common/utils/address_entity.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
@@ -109,7 +110,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                             titleColor: backgroundColor,
                             qRCornerColor: buttonPrimaryColor,
                             qRScannerColor: buttonPrimaryColorAccent);
-                        context.read<WithdrawCubit>().qrResult(qrResult);
+                        context.read<WithdrawCubit>().setAddress(qrResult);
                       },
                       child: Icon(
                           Icons.center_focus_weak,
@@ -169,12 +170,24 @@ class _WithdrawPageState extends State<WithdrawPage> {
                                 ),
                                 smallColumnSpacer(),
                                 TextFieldWithTitle(
-                                  title: FlutterI18n.translate(
-                                      context, 'send_to_address'),
-                                  textInputAction: TextInputAction.next,
-                                  validator: (address) =>
-                                      _onValidateAddress(address),
-                                  controller: addressCtrl,
+                                    title: FlutterI18n.translate(
+                                        context, 'send_to_address'),
+                                    textInputAction: TextInputAction.next,
+                                    validator: (address) =>
+                                        _onValidateAddress(address),
+                                    controller: addressCtrl,
+                                    suffixChild: IconButton(
+                                        icon: Icon(Icons.assignment_ind, color: widget.token.color),
+                                        onPressed: () async {
+                                          final res = await Navigator.of(context).pushNamed(
+                                            'address_book_page',
+                                            arguments: {'selection': true},
+                                          );
+                                          if (res == null) return;
+                                          if (res is AddressEntity)
+                                            context.read<WithdrawCubit>().setAddress(res.address);
+                                        }
+                                    )
                                 ),
                                 middleColumnSpacer(),
                                 Row(
