@@ -138,6 +138,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                           child: Form(
                             key: formKey,
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   FlutterI18n.translate(

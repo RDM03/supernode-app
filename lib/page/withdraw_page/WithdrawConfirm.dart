@@ -76,12 +76,16 @@ class WithdrawConfirm extends StatelessWidget {
             ),
             middleColumnSpacer(),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.baseline,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(FlutterI18n.translate(context, 'recipient')),
+                SizedBox(width: 5),
                 BlocBuilder<WithdrawCubit, WithdrawState>(
                     buildWhen: (a, b) => a.address != b.address,
-                    builder: (ctx, st) => Text(st.address, style: kBigFontOfBlack)),
+                    builder: (ctx, st) => Flexible(
+                      child: Text(st.address, style: kBigFontOfBlack, maxLines: 2, textAlign: TextAlign.end),
+                    )),
               ],
             ),
           ],
