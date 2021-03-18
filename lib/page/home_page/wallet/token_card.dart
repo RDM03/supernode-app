@@ -122,12 +122,14 @@ class SupernodeDhxTokenCard extends StatelessWidget {
 class SupernodeDhxTokenCardContent extends StatelessWidget {
   final bool showArrow;
   final bool showTitle;
+  final bool miningPageVersion;
   final bool showSimulateMining;
 
   const SupernodeDhxTokenCardContent({
     Key key,
     this.showArrow = false,
     this.showTitle = false,
+    this.miningPageVersion = false,
     this.showSimulateMining = true,
   }) : super(key: key);
 
@@ -143,7 +145,9 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
             child: Text('Supernode Server', style: kBigFontOfWhite,))
             : SizedBox(),
         SizedBox(height: 10),
-        Container(
+        (miningPageVersion)
+            ? SizedBox()
+            : Container(
           padding: kRoundRow15_5,
           child: Row(children: [
             Image.asset(Token.supernodeDhx.imagePath),
@@ -159,8 +163,7 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
                   'mining_simulator_page',
                   arguments: {
                     'isDemo': context.read<AppCubit>().state.isDemo,
-                    'balance':
-                        context.read<SupernodeUserCubit>().state.balance.value,
+                    'balance': context.read<SupernodeUserCubit>().state.balance.value,
                   },
                 ),
               )
@@ -192,6 +195,9 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
           value: FlutterI18n.translate(context, 'not_available'),
           token: "",
         ),
+        (miningPageVersion)
+            ? Divider(color: Colors.grey)
+            : SizedBox(),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
           buildWhen: (a, b) => a.totalRevenue != b.totalRevenue,
           builder: (ctx, state) => TitleDetailRow(
