@@ -37,7 +37,7 @@ class _DepositPageState extends State<DepositPage> {
     return Scaffold(
       appBar: AppBars.backArrowAppBar(
           title: FlutterI18n.translate(context, 'deposit'),
-          onPress: () => {Navigator.of(context).pop()}),
+          onPress: () => Navigator.of(context).pop()),
       backgroundColor: backgroundColor,
       body: BlocBuilder<DepositCubit, DepositState>(
         buildWhen: (a, b) => a.address != b.address,
@@ -81,6 +81,30 @@ class _DepositPageState extends State<DepositPage> {
                         ),
                       ),
                       middleColumnSpacer(),
+                      s.address.loading
+                          ? SizedBox()
+                          : GestureDetector(
+                        child: Container(
+                            padding: const EdgeInsets.all(5),
+                            child: Row(
+                              mainAxisSize:MainAxisSize.min,
+                              children: [
+                                Icon(Icons.copy, color: widget.tkn.color),
+                                SizedBox(width: 5),
+                                Text(FlutterI18n.translate(context, 'copy_address'), style: MiddleFontOfColor(color: widget.tkn.color)),
+                              ],
+                            ),
+                            decoration: BoxDecoration(
+                              color: widget.tkn.color.withOpacity(0.2),
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                            )
+                        ),
+                        onTap: () {
+                          context.read<DepositCubit>().copy();
+                          tip(context, FlutterI18n.translate(context, 'has_copied'), success: true);
+                        },
+                      ),
+                      middleColumnSpacer(),
                     ],
                   ),
                   decoration: BoxDecoration(
@@ -98,12 +122,10 @@ class _DepositPageState extends State<DepositPage> {
             ),
             middleColumnSpacer(),
             PrimaryButton(
-                buttonTitle: FlutterI18n.translate(context, 'copy_address'),
+                buttonTitle: FlutterI18n.translate(context, 'done'),
                 bgColor: widget.tkn.color,
-                onTap: () {
-                  context.read<DepositCubit>().copy();
-                  tip(context, FlutterI18n.translate(context, 'has_copied'), success: true);
-                })
+                onTap: () => Navigator.of(context).pop()),
+            smallColumnSpacer(),
           ]);
         },
       ),

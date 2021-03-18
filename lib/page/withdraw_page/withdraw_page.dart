@@ -248,6 +248,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                             addressCtrl.text.trim());
                       }
                   ),
+                  smallColumnSpacer(),
                 ])
             );
 
