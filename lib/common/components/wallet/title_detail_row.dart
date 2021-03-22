@@ -41,6 +41,7 @@ class TitleDetailRow extends StatelessWidget {
               : Text(
                   '$value${token.isNotEmpty ? ' $token' : ''}',
                   textAlign: TextAlign.left,
+                  key: key,
                   style: disabled ? kBigFontOfGrey : kBigFontOfBlack,
                 )
         ],

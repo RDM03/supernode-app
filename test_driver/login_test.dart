@@ -3,7 +3,7 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
 import 'finders.dart' show f;
-import 'utils.dart' show delay, canTap, isPresent;
+import 'utils.dart' show delay, canTap;
 
 loginPageTests(String server, String password) {
   FlutterDriver driver;
@@ -19,39 +19,31 @@ loginPageTests(String server, String password) {
       }
     });
 
-    test('login help bubble works', () async {
-      print('STARTING ' + server + ' TESTING');
-      await driver.waitUntilFirstFrameRasterized();
-
-      print('LOCATING THE MXC LOGO');
-
-      await driver.waitFor(f['logoFinder']);
-
-      print('CLICK QUESTION CIRCLE');
-      await driver.waitFor(f['questionCircle']);
-      await driver.tap(f['questionCircle']);
-      // find solution for testing all languages
-      await driver.waitFor(f['helpTextFinder']);
-      final helpTextExists = await isPresent(f['helpTextFinder'], driver);
-      expect(helpTextExists, true);
-      await driver.tap(f['infoDialog']);
-    });
-
     test('can login', () async {
       await driver.waitUntilFirstFrameRasterized();
+      await driver.waitFor(f['homeMXCLogin']);
+      await driver.tap(f['homeMXCLogin']);
       print('LOCATING THE MXC LOGO');
       await driver.waitFor(f['logoFinder']);
-      if (server == 'MXCtest' || server == 'MXCbuild') {
-        print('LOADED, BEGINNING THE TAP');
-        for (var i = 0; i < 7; i++) {
-          await driver.tap(f['logoFinder']);
-          delay(20);
-          print('TAP ${i + 1}');
-        }
+      for (var i = 0; i < 7; i++) {
+        await driver.tap(f['logoFinder']);
+        delay(20);
+        print('TAP ${i + 1}');
       }
       print('LETS SELECT THAT SERVER');
+      // Need a more elegant solution to going through all categories
       await driver.tap(f['menuFinder']);
       await delay(2000);
+      await driver.tap(f['Korea']);
+      await driver.tap(f['China']);
+      await driver.scrollIntoView(f['Test']);
+      await driver.tap(f['Europe']);
+      await driver.tap(f['Oceania']);
+      await driver.scrollIntoView(f['Test']);
+      await driver.tap(f['Asia']);
+      await driver.tap(f['America']);
+      await driver.scrollIntoView(f['Test']);
+      await driver.tap(f['Test']);
       var openMenuState = await canTap(find.byValueKey(server), driver);
       if (openMenuState == false) {
         await driver.scrollUntilVisible(
@@ -83,8 +75,8 @@ loginPageTests(String server, String password) {
       print('THE MOMENT HAS COME, WILL IT WORK?');
       await driver.tap(f['loginFinder']);
       print('HOUSTON, WE ARE LOGGED IN');
-      expect(await driver.getText(f['homeProfile']),
-          'Hi, ' + env['DRIVE_TESTING_USER']);
+      expect(await driver.getText(f['mxcProfile']),
+          env['DRIVE_TESTING_USER']);
     }, timeout: Timeout(Duration(seconds: 180)));
   });
 }

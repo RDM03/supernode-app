@@ -259,6 +259,7 @@ class _SupernodeLoginCardContentState
               children: [
                 CircleButton(
                   text: 'Signup',
+                  key: ValueKey('homeMXCSignUp'),
                   icon: Icons.add,
                   onPressed: () => Navigator.of(context).push(route((ctx) => BlocProvider<LoginCubit>.value(
                       value: loginCubit,
@@ -267,6 +268,7 @@ class _SupernodeLoginCardContentState
                 SizedBox(width: 23),
                 CircleButton(
                   text: 'Login',
+                  key: ValueKey('homeMXCLogin'),
                   icon: Icons.arrow_forward,
                   onPressed: () => Navigator.of(context)
                       .push(route((ctx) => BlocProvider<LoginCubit>.value(
@@ -279,7 +281,7 @@ class _SupernodeLoginCardContentState
             Padding(
               padding: const EdgeInsets.all(20),
               child: GestureDetector(
-                child: Text(FlutterI18n.translate(context, 'supernode_demo'), style: kSecondaryButtonOfWhite,textAlign: TextAlign.right),
+                child: Text(FlutterI18n.translate(context, 'supernode_demo'), key: ValueKey('homeMXCDemo'), style: kSecondaryButtonOfWhite,textAlign: TextAlign.right),
                 onTap: () => loginCubit.demoLogin(),
               ),
             ),

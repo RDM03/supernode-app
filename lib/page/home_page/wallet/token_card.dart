@@ -75,6 +75,7 @@ class MxcTokenCardContent extends StatelessWidget {
           builder: (ctx, state) => TitleDetailRow(
             loading: state.balance.loading,
             name: FlutterI18n.translate(context, 'current_balance'),
+            key: ValueKey('homeMXCCurrentBalance'),
             value: Tools.priceFormat(state.balance.value),
             token: 'MXC',
           ),
@@ -83,6 +84,7 @@ class MxcTokenCardContent extends StatelessWidget {
           buildWhen: (a, b) => a.stakedAmount != b.stakedAmount,
           builder: (ctx, state) => TitleDetailRow(
             loading: state.stakedAmount.loading,
+            key: ValueKey('homeMXCStakedAmount'),
             name: FlutterI18n.translate(context, 'staked_amount'),
             value: Tools.priceFormat(state.stakedAmount.value),
             token: "MXC",
@@ -92,6 +94,7 @@ class MxcTokenCardContent extends StatelessWidget {
           buildWhen: (a, b) => a.totalRevenue != b.totalRevenue,
           builder: (ctx, state) => TitleDetailRow(
             loading: state.totalRevenue.loading,
+            key: ValueKey('homeMXCTotalRevenue'),
             name: FlutterI18n.translate(context, 'total_revenue'),
             value: Tools.priceFormat(state.totalRevenue.value, range: 2),
             token: "MXC",
@@ -289,6 +292,7 @@ class AddNewTokenCard extends StatelessWidget {
         child: Padding(
             padding: kRoundRow105,
             child: Column(
+              key: ValueKey('walletAddCurrencies'),
               children: [
                 Icon(Icons.add_circle, size: 50),
                 Text(FlutterI18n.translate(context, 'add_new_token'),

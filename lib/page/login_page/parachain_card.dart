@@ -202,6 +202,7 @@ class ParachainLoginCard extends StatelessWidget {
               SizedBox(width: 20),
               CircleButton(
                 text: 'Import',
+                key: ValueKey('homeDHXImport'),
                 icon: Icons.arrow_back,
                 onPressed: () => Navigator.of(context)
                     .push(route((ctx) => DataHighwayImportPage())),
@@ -209,6 +210,7 @@ class ParachainLoginCard extends StatelessWidget {
               SizedBox(width: 23),
               CircleButton(
                 text: 'Create',
+                key: ValueKey('homeDHXCreate'),
                 icon: Icons.add,
                 onPressed: () => Navigator.of(context)
                     .push(route((ctx) => DataHighwayCreatePage())),

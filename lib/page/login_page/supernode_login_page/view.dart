@@ -421,6 +421,7 @@ class _SupernodeLoginPageContentState
                                         FlutterI18n.translate(context, key),
                                         style: TextStyle(color: Colors.black),
                                       ),
+                                      key: ValueKey(key),
                                       initiallyExpanded: false,
                                       backgroundColor: darkBackground,
                                       children: <Widget>[

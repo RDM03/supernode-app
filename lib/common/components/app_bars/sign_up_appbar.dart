@@ -16,11 +16,13 @@ class AppBars {
       centerTitle: true,
       backgroundColor: color ?? backgroundColor,
       elevation: 0,
+
       title: (onTitlePress == null)
           ? Text(title, style: kBigFontOfBlack)
           : GestureDetector(
         onTap: onTitlePress,
-        child: Text(title, style: kBigFontOfBlack)
+        child: Text(title, style: kBigFontOfBlack),
+        key: ValueKey('logoFinder')
       ),
     );
   }
