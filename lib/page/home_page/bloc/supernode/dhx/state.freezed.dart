@@ -20,7 +20,8 @@ class _$SupernodeDhxStateTearOff {
       Wrap<double> totalRevenue = const Wrap.pending(),
       Wrap<double> lastMiningPower = const Wrap.pending(),
       Wrap<double> currentMiningPower = const Wrap.pending(),
-      Wrap<List<StakeDHX>> stakes = const Wrap.pending()}) {
+      Wrap<List<StakeDHX>> stakes = const Wrap.pending(),
+      List<CalendarModel> calendarBondInfo = const []}) {
     return _SupernodeDhxState(
       balance: balance,
       lockedAmount: lockedAmount,
@@ -28,6 +29,7 @@ class _$SupernodeDhxStateTearOff {
       lastMiningPower: lastMiningPower,
       currentMiningPower: currentMiningPower,
       stakes: stakes,
+      calendarBondInfo: calendarBondInfo,
     );
   }
 }
@@ -44,6 +46,7 @@ mixin _$SupernodeDhxState {
   Wrap<double> get lastMiningPower;
   Wrap<double> get currentMiningPower;
   Wrap<List<StakeDHX>> get stakes;
+  List<CalendarModel> get calendarBondInfo;
 
   $SupernodeDhxStateCopyWith<SupernodeDhxState> get copyWith;
 }
@@ -59,7 +62,8 @@ abstract class $SupernodeDhxStateCopyWith<$Res> {
       Wrap<double> totalRevenue,
       Wrap<double> lastMiningPower,
       Wrap<double> currentMiningPower,
-      Wrap<List<StakeDHX>> stakes});
+      Wrap<List<StakeDHX>> stakes,
+      List<CalendarModel> calendarBondInfo});
 }
 
 /// @nodoc
@@ -79,6 +83,7 @@ class _$SupernodeDhxStateCopyWithImpl<$Res>
     Object lastMiningPower = freezed,
     Object currentMiningPower = freezed,
     Object stakes = freezed,
+    Object calendarBondInfo = freezed,
   }) {
     return _then(_value.copyWith(
       balance: balance == freezed ? _value.balance : balance as Wrap<double>,
@@ -96,6 +101,9 @@ class _$SupernodeDhxStateCopyWithImpl<$Res>
           : currentMiningPower as Wrap<double>,
       stakes:
           stakes == freezed ? _value.stakes : stakes as Wrap<List<StakeDHX>>,
+      calendarBondInfo: calendarBondInfo == freezed
+          ? _value.calendarBondInfo
+          : calendarBondInfo as List<CalendarModel>,
     ));
   }
 }
@@ -113,7 +121,8 @@ abstract class _$SupernodeDhxStateCopyWith<$Res>
       Wrap<double> totalRevenue,
       Wrap<double> lastMiningPower,
       Wrap<double> currentMiningPower,
-      Wrap<List<StakeDHX>> stakes});
+      Wrap<List<StakeDHX>> stakes,
+      List<CalendarModel> calendarBondInfo});
 }
 
 /// @nodoc
@@ -135,6 +144,7 @@ class __$SupernodeDhxStateCopyWithImpl<$Res>
     Object lastMiningPower = freezed,
     Object currentMiningPower = freezed,
     Object stakes = freezed,
+    Object calendarBondInfo = freezed,
   }) {
     return _then(_SupernodeDhxState(
       balance: balance == freezed ? _value.balance : balance as Wrap<double>,
@@ -152,6 +162,9 @@ class __$SupernodeDhxStateCopyWithImpl<$Res>
           : currentMiningPower as Wrap<double>,
       stakes:
           stakes == freezed ? _value.stakes : stakes as Wrap<List<StakeDHX>>,
+      calendarBondInfo: calendarBondInfo == freezed
+          ? _value.calendarBondInfo
+          : calendarBondInfo as List<CalendarModel>,
     ));
   }
 }
@@ -166,13 +179,15 @@ class _$_SupernodeDhxState
       this.totalRevenue = const Wrap.pending(),
       this.lastMiningPower = const Wrap.pending(),
       this.currentMiningPower = const Wrap.pending(),
-      this.stakes = const Wrap.pending()})
+      this.stakes = const Wrap.pending(),
+      this.calendarBondInfo = const []})
       : assert(balance != null),
         assert(lockedAmount != null),
         assert(totalRevenue != null),
         assert(lastMiningPower != null),
         assert(currentMiningPower != null),
-        assert(stakes != null);
+        assert(stakes != null),
+        assert(calendarBondInfo != null);
 
   @JsonKey(defaultValue: const Wrap.pending())
   @override
@@ -192,10 +207,13 @@ class _$_SupernodeDhxState
   @JsonKey(defaultValue: const Wrap.pending())
   @override
   final Wrap<List<StakeDHX>> stakes;
+  @JsonKey(defaultValue: const [])
+  @override
+  final List<CalendarModel> calendarBondInfo;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SupernodeDhxState(balance: $balance, lockedAmount: $lockedAmount, totalRevenue: $totalRevenue, lastMiningPower: $lastMiningPower, currentMiningPower: $currentMiningPower, stakes: $stakes)';
+    return 'SupernodeDhxState(balance: $balance, lockedAmount: $lockedAmount, totalRevenue: $totalRevenue, lastMiningPower: $lastMiningPower, currentMiningPower: $currentMiningPower, stakes: $stakes, calendarBondInfo: $calendarBondInfo)';
   }
 
   @override
@@ -208,7 +226,8 @@ class _$_SupernodeDhxState
       ..add(DiagnosticsProperty('totalRevenue', totalRevenue))
       ..add(DiagnosticsProperty('lastMiningPower', lastMiningPower))
       ..add(DiagnosticsProperty('currentMiningPower', currentMiningPower))
-      ..add(DiagnosticsProperty('stakes', stakes));
+      ..add(DiagnosticsProperty('stakes', stakes))
+      ..add(DiagnosticsProperty('calendarBondInfo', calendarBondInfo));
   }
 
   @override
@@ -231,7 +250,10 @@ class _$_SupernodeDhxState
                 const DeepCollectionEquality()
                     .equals(other.currentMiningPower, currentMiningPower)) &&
             (identical(other.stakes, stakes) ||
-                const DeepCollectionEquality().equals(other.stakes, stakes)));
+                const DeepCollectionEquality().equals(other.stakes, stakes)) &&
+            (identical(other.calendarBondInfo, calendarBondInfo) ||
+                const DeepCollectionEquality()
+                    .equals(other.calendarBondInfo, calendarBondInfo)));
   }
 
   @override
@@ -242,7 +264,8 @@ class _$_SupernodeDhxState
       const DeepCollectionEquality().hash(totalRevenue) ^
       const DeepCollectionEquality().hash(lastMiningPower) ^
       const DeepCollectionEquality().hash(currentMiningPower) ^
-      const DeepCollectionEquality().hash(stakes);
+      const DeepCollectionEquality().hash(stakes) ^
+      const DeepCollectionEquality().hash(calendarBondInfo);
 
   @override
   _$SupernodeDhxStateCopyWith<_SupernodeDhxState> get copyWith =>
@@ -256,7 +279,8 @@ abstract class _SupernodeDhxState implements SupernodeDhxState {
       Wrap<double> totalRevenue,
       Wrap<double> lastMiningPower,
       Wrap<double> currentMiningPower,
-      Wrap<List<StakeDHX>> stakes}) = _$_SupernodeDhxState;
+      Wrap<List<StakeDHX>> stakes,
+      List<CalendarModel> calendarBondInfo}) = _$_SupernodeDhxState;
 
   @override
   Wrap<double> get balance;
@@ -270,6 +294,8 @@ abstract class _SupernodeDhxState implements SupernodeDhxState {
   Wrap<double> get currentMiningPower;
   @override
   Wrap<List<StakeDHX>> get stakes;
+  @override
+  List<CalendarModel> get calendarBondInfo;
   @override
   _$SupernodeDhxStateCopyWith<_SupernodeDhxState> get copyWith;
 }

@@ -136,4 +136,31 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       ));
     }
   }
+
+  Future<void> getBondInfo() async {
+    try {
+      final res = await supernodeRepository.dhx.bondInfo(
+        organizationId: orgId,
+      );
+
+      List<CalendarModel> list = [CalendarModel(day: 15),
+        CalendarModel(left: true, day: 16),
+        CalendarModel(middle: true, day: 17),
+        CalendarModel(middle: true, day: 18),
+        CalendarModel(middle: true, day: 19, minedAmount: 1, unbondAmount: 15),
+        CalendarModel(middle: true, day: 20, minedAmount: 1),
+        CalendarModel(right: true, day: 21, unbondAmount: 215),
+        CalendarModel(today: true, day: 22),
+        CalendarModel(day: 23),
+        CalendarModel(day: 24),
+        CalendarModel(day: 25),
+        CalendarModel(day: 26),
+        CalendarModel(day: 27),
+        CalendarModel(day: 28),
+      ];
+      emit(state.copyWith(calendarBondInfo: list));
+    } catch (e, s) {
+      logger.e('refresh error', e, s);
+    }
+  }
 }

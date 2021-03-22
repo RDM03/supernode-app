@@ -58,4 +58,9 @@ class DemoDhxDao extends DemoDao implements DhxDao {
       )
     ];
   }
+
+  @override
+  Future<void> bondInfo({String organizationId = '0'}) {
+    throw UnimplementedError();
+  }
 }
