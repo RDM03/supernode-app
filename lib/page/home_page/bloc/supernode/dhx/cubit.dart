@@ -73,6 +73,9 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       final value = double.tryParse(balanceData['balance']);
       emit(state.copyWith(balance: Wrap(value)));
       homeCubit.saveSNCache(CacheRepository.balanceDHXKey, value);
+
+      getBondInfo();
+
     } catch (e, s) {
       logger.e('refresh error', e, s);
       emit(state.copyWith(balance: state.balance.withError(e)));
@@ -142,6 +145,10 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       final res = await supernodeRepository.dhx.bondInfo(
         organizationId: orgId,
       );
+      final double dhxBonded = double.parse(res["dhxBonded"]);
+      double dhxUnbonding = 0;
+      for (dynamic rec in res["dhxUnbonding"])
+        dhxUnbonding += double.parse(rec["amount"]);
 
       List<CalendarModel> list = [CalendarModel(day: 15),
         CalendarModel(left: true, day: 16),
@@ -158,14 +165,16 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
         CalendarModel(day: 27),
         CalendarModel(day: 28),
       ];
-      emit(state.copyWith(calendarBondInfo: list));
+
+      emit(state.copyWith(dhxBonded: Wrap(dhxBonded), dhxUnbonding: Wrap(dhxUnbonding), calendarBondInfo: list));
+
     } catch (e, s) {
       logger.e('refresh error', e, s);
     }
   }
 
-  Future<void> bondConfirm(String value) async {
-    emit(state.copyWith(confirm: true, bondAmount: double.parse(value)));
+  Future<void> confirmBondUnbond({String bond = '0', String unbond = '0'}) async {
+    emit(state.copyWith(confirm: true, bondAmount: double.parse(bond), unbondAmount: double.parse(unbond)));
     emit(state.copyWith(confirm: false));
   }
 
@@ -173,6 +182,21 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
     try {
       emit(state.copyWith(showLoading: true));
       await supernodeRepository.dhx.bondDhx(state.bondAmount.toString(), orgId);
+
+      refreshBalance();
+
+      emit(state.copyWith(success: true, showLoading: false));
+      emit(state.copyWith(success: false));
+    } catch (e, s) {
+      emit(state.copyWith(showLoading: false));
+      logger.e('refresh error', e, s);
+    }
+  }
+
+  Future<void> unbondDhx() async {
+    try {
+      emit(state.copyWith(showLoading: true));
+      await supernodeRepository.dhx.unbondDhx(state.unbondAmount.toString(), orgId);
 
       refreshBalance();
 
