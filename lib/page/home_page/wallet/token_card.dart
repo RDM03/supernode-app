@@ -177,7 +177,7 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
             loading: state.balance.loading,
             name: FlutterI18n.translate(context, 'current_balance'),
             value: Tools.priceFormat(state.balance.value),
-            token: 'DHX',
+            token: Token.supernodeDhx.name,
           ),
         ),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
@@ -186,14 +186,30 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
             loading: state.lockedAmount.loading,
             name: FlutterI18n.translate(context, 'locked_amount'),
             value: Tools.priceFormat(state.lockedAmount.value),
-            token: 'MXC',
+            token: Token.mxc.name,
           ),
         ),
-        TitleDetailRow(
-          loading: false,
-          name: FlutterI18n.translate(context, 'staked_amount'),
-          value: FlutterI18n.translate(context, 'not_available'),
-          token: "",
+        BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+          buildWhen: (a, b) => a.dhxBonded != b.dhxBonded,
+          builder: (ctx, state) => (state.dhxBonded.loading || state.dhxBonded.value > 0)
+              ? TitleDetailRow(
+            loading: state.dhxBonded.loading,
+            name: FlutterI18n.translate(context, 'dhx_bonded'),
+            value: Tools.priceFormat(state.dhxBonded.value),
+            token: Token.supernodeDhx.name,
+          )
+              : SizedBox(),
+        ),
+        BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+          buildWhen: (a, b) => a.dhxUnbonding != b.dhxUnbonding,
+          builder: (ctx, state) => (state.dhxUnbonding.loading || state.dhxUnbonding.value > 0)
+              ? TitleDetailRow(
+            loading: state.dhxUnbonding.loading,
+            name: FlutterI18n.translate(context, 'dhx_unbonding'),
+            value: Tools.priceFormat(state.dhxUnbonding.value),
+            token: Token.supernodeDhx.name,
+          )
+              : SizedBox(),
         ),
         (miningPageVersion)
             ? Divider(color: Colors.grey)
@@ -204,7 +220,7 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
             loading: state.totalRevenue.loading,
             name: FlutterI18n.translate(context, 'total_revenue'),
             value: Tools.priceFormat(state.totalRevenue.value, range: 2),
-            token: 'DHX',
+            token: Token.supernodeDhx.name,
           ),
         ),
         SizedBox(height: 5)
