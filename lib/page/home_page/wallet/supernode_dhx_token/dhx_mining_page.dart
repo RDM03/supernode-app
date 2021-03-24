@@ -73,6 +73,8 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
                   Text("Mar '21", style: kBigFontOfBlack,),
                   smallColumnSpacer(),
                   BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+                    buildWhen: (a, b) =>
+                      a.calendarBondInfo != b.calendarBondInfo,
                     builder: (context, state) => GridView.count(
                       crossAxisCount: 7,
                       childAspectRatio: (1 / 2),
@@ -123,12 +125,7 @@ class _CalendarElement extends StatelessWidget {
           ? Row(children: [Image.asset(AppImages.iconUnbond, scale: 1.5, color: Colors.red), Text('${model.unbondAmount}', style: kMiddleFontOfBlack)])
           : SizedBox(),
       (model.left)
-          ? Text(FlutterI18n.translate(context, 'cool_off'), style: TextStyle(
-          color: Token.supernodeDhx.color,
-          fontFamily: "Roboto",
-          fontSize: 12,
-          height: 1.33333,
-          decoration: TextDecoration.none))
+          ? Text(FlutterI18n.translate(context, 'cool_off'), style: kSmallFontOfDhxColor)
           : SizedBox(),
       Container(
           height: 25,

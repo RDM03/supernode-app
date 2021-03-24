@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 
 import 'colors.dart';
 
@@ -14,6 +15,13 @@ class MiddleFontOfColor extends TextStyle {
     );
   }
 }
+
+final kSmallFontOfDhxColor = TextStyle(
+    color: Token.supernodeDhx.color,
+    fontFamily: "Roboto",
+    fontSize: 12,
+    height: 1.33333,
+    decoration: TextDecoration.none);
 
 const kSmallFontOfWhite = TextStyle(
     color: Colors.white,
@@ -130,6 +138,13 @@ const kMiddleFontOfWhite = TextStyle(
   color: const Color.fromARGB(255, 255, 255, 255),
   fontFamily: "Roboto",
   fontSize: 15,
+  height: 1.5,
+);
+
+final kBigFontOfDhxColor = TextStyle(
+  color: Token.supernodeDhx.color,
+  fontFamily: "Roboto",
+  fontSize: 16,
   height: 1.5,
 );
 

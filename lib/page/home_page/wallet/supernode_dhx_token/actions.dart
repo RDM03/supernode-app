@@ -10,6 +10,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/route.dart';
 
+import 'dhx_bonding_page.dart';
 import 'dhx_mining_page.dart';
 
 class SupernodeDhxActions extends StatelessWidget {
@@ -102,7 +103,7 @@ class SupernodeDhxMineActions extends StatelessWidget {
             color: Token.supernodeDhx.color,
           ),
           label: FlutterI18n.translate(context, 'bond'),
-          onTap: () => 'TODO',
+          onTap: () => Navigator.push(context, route((c) => DhxBondingPage())),
         ),
         Spacer(),
         CircleButton(
