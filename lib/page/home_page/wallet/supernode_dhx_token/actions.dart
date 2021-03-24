@@ -11,6 +11,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/route.dart';
 
 import 'dhx_bonding_page.dart';
+import 'dhx_unbonding_page.dart';
 import 'dhx_mining_page.dart';
 
 class SupernodeDhxActions extends StatelessWidget {
@@ -112,7 +113,7 @@ class SupernodeDhxMineActions extends StatelessWidget {
             color: Token.supernodeDhx.color,
           ),
           label: FlutterI18n.translate(context, 'unbond'),
-          onTap: () => 'TODO',
+          onTap: () => Navigator.push(context, route((c) => DhxUnbondingPage())),
         ),
         Spacer(),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(

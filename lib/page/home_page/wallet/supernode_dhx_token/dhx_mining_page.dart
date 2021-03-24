@@ -23,12 +23,6 @@ class DhxMiningPage extends StatefulWidget {
 
 class _DhxMiningPageState extends State<DhxMiningPage> {
   @override
-  void initState() {
-    context.read<SupernodeDhxCubit>().getBondInfo();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBars.backArrowAppBar(
