@@ -101,10 +101,7 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
             listContent.add(Divider(color: borderColor, height: 1));
           }
         }
-        listContent.add(_buildItem(
-          context,
-          button: list[i],
-        ));
+        listContent.add(_buildItem(context, button: list[i], index: i));
       }
     }
 
