@@ -20,7 +20,7 @@ Widget buildView(
     title(FlutterI18n.translate(_ctx, state.title)),
     done(
         success:
-        state.content.contains('successful') || state.content.contains('Congratulations') || state.title == 'confirmed'),
+        state.success || state.content.contains('successful') || state.title == 'confirmed'),
     pageContent(FlutterI18n.translate(_ctx, state.content)),
     submitButton(
       FlutterI18n.translate(_ctx, 'done'),

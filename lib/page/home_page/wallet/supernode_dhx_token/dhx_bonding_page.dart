@@ -61,8 +61,8 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
               if (state.success) {
                 await Navigator.pushNamed(context, 'confirm_page', arguments: {
                   'title': FlutterI18n.translate(context, 'bond_dhx'),
-                  'content': FlutterI18n.translate(
-                      context, 'bond_dhx_successful')
+                  'content': FlutterI18n.translate(context, 'bond_dhx_successful'),
+                  'success': true
                 });
                 Navigator.of(context).pop(true);
               }
