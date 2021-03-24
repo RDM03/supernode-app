@@ -163,4 +163,24 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       logger.e('refresh error', e, s);
     }
   }
+
+  Future<void> bondConfirm(String value) async {
+    emit(state.copyWith(confirm: true, bondAmount: double.parse(value)));
+    emit(state.copyWith(confirm: false));
+  }
+
+  Future<void> bondDhx() async {
+    try {
+      emit(state.copyWith(showLoading: true));
+      await supernodeRepository.dhx.bondDhx(state.bondAmount.toString(), orgId);
+
+      refreshBalance();
+
+      emit(state.copyWith(success: true, showLoading: false));
+      emit(state.copyWith(success: false));
+    } catch (e, s) {
+      emit(state.copyWith(showLoading: false));
+      logger.e('refresh error', e, s);
+    }
+  }
 }

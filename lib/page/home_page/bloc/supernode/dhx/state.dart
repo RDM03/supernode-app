@@ -15,6 +15,10 @@ abstract class SupernodeDhxState with _$SupernodeDhxState {
     @Default(Wrap.pending()) Wrap<double> currentMiningPower,
     @Default(Wrap.pending()) Wrap<List<StakeDHX>> stakes,
     @Default([]) List<CalendarModel> calendarBondInfo,
+    @Default(false) bool confirm,
+    @Default(false) bool success,
+    @Default(false) bool showLoading,
+    double bondAmount,
   }) = _SupernodeDhxState;
 }
 
