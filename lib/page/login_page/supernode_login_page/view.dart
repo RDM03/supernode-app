@@ -331,7 +331,7 @@ class _SupernodeLoginPageContentState
                               buttonTitle:
                                   FlutterI18n.translate(context, 'login'),
                               minHeight: s(46),
-                              minWidget: double.infinity),
+                              minWidth: double.infinity),
                         ],
                       ),
                     ),

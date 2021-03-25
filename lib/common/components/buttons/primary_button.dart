@@ -27,7 +27,7 @@ class PrimaryButton extends StatelessWidget {
     return Container(
       padding: padding,
       child: ConstrainedBox(
-        constraints: BoxConstraints(minHeight: minHeight, minWidth: minWidget),
+        constraints: BoxConstraints(minHeight: minHeight, minWidth: minWidth),
         child: RaisedButton(
           onPressed: onTap,
           shape: RoundedRectangleBorder(
