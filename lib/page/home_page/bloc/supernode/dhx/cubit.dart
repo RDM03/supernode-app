@@ -142,6 +142,7 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
 
   Future<void> getBondInfo() async {
     try {
+      emit(state.copyWith(dhxBonded:state.dhxBonded.withLoading(), dhxUnbonding: state.dhxUnbonding.withLoading()));
       final res = await supernodeRepository.dhx.bondInfo(
         organizationId: orgId,
       );
