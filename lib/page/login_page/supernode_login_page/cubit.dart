@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/app_state.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
@@ -101,7 +102,7 @@ class LoginCubit extends Cubit<LoginState> {
 
           if (authWeChatUserRes['bindingIsRequired']) {
             // bind DataDash and WeChat accounts
-            setResult(LoginResult.wechat);
+            setLoginResult(LoginResult.wechat);
           } else {
             final jwt = authWeChatUserRes['jwt'];
             final parsedJwt = parseJwt(jwt);
@@ -118,7 +119,7 @@ class LoginCubit extends Cubit<LoginState> {
             supernodeCubit.setOrganizationId(
               profile.organizations.first.organizationID,
             );
-            setResult(LoginResult.home);
+            setLoginResult(LoginResult.home);
           }
         } else {
           //tip(ctx.context, res.errStr);
@@ -164,7 +165,7 @@ class LoginCubit extends Cubit<LoginState> {
         profile.organizations.first.organizationID,
       );
 
-      setResult(LoginResult.home);
+      setLoginResult(LoginResult.home);
     } finally {
       emit(state.copyWith(showLoading: false));
     }
@@ -174,7 +175,7 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(showLoading: true));
     try {
       appCubit.setDemo(true);
-      supernodeCubit.setOrganizationId('todo');
+      //supernodeCubit.setOrganizationId('todo');
       supernodeCubit.setSupernodeSession(SupernodeSession(
         userId: -1,
         username: 'username',
@@ -183,7 +184,7 @@ class LoginCubit extends Cubit<LoginState> {
         node: Supernode.demo,
       ));
 
-      setResult(LoginResult.home);
+      setLoginResult(LoginResult.home);
     } finally {
       emit(state.copyWith(showLoading: false));
     }
@@ -196,21 +197,90 @@ class LoginCubit extends Cubit<LoginState> {
         scope: "snsapi_userinfo", state: "wechat_sdk_demo_test");
   }
 
-  Future<void> signUp() async {
-    final res = await checkMaintenance(state.selectedSuperNode);
-    if (!res) return;
-    appCubit.setDemo(false);
-    supernodeCubit.setSupernode(state.selectedSuperNode);
-    setResult(LoginResult.signUp);
-  }
-
   Future<void> forgotPassword() async {
     final res = await checkMaintenance(state.selectedSuperNode);
     if (!res) return;
     appCubit.setDemo(false);
     supernodeCubit.setSupernode(state.selectedSuperNode);
-    setResult(LoginResult.resetPassword);
+    setLoginResult(LoginResult.resetPassword);
   }
 
-  void setResult(LoginResult result) => emit(state.copyWith(result: result));
+  void setLoginResult(LoginResult result) {
+    emit(state.copyWith(loginResult: null));
+    emit(state.copyWith(loginResult: result));
+  }
+
+  /* Sign Up */
+  void setSignupResult(SignupResult result) {
+    emit(state.copyWith(signupResult: null));
+    emit(state.copyWith(signupResult: result));
+  }
+
+  Future<void> signupEmail(String email, String lang) async {
+    final maintenance = await checkMaintenance(state.selectedSuperNode);
+    if (!maintenance) return;
+
+    if (state.selectedSuperNode == null) return;
+    emit(state.copyWith(showLoading: true));
+    try {
+      supernodeCubit.setSupernode(state.selectedSuperNode);
+      String language = appCubit.state.locale != null
+          ? appCubit.state.locale.languageCode
+          : lang;
+      Map data = {"email": email, "language": language};
+      await dao.main.user.register(data);
+
+      emit(state.copyWith(email: email, showLoading: false));
+      setSignupResult(SignupResult.verifyEmail);
+    }
+    catch(err) {
+      emit(state.copyWith(showLoading: false));
+      appCubit.setError(err.toString());
+    }
+  }
+
+  Future<void> verifySignupEmail (String verificationCode) async {
+    emit(state.copyWith(showLoading: true));
+    Map data = {"token": verificationCode};
+
+    try {
+      RegistrationConfirmResponse rcr = await dao.main.user.registerConfirm(data);
+
+      emit(state.copyWith(jwtToken: rcr.jwt, email: rcr.username, userId: rcr.id, showLoading: false));
+      setSignupResult(SignupResult.registration);
+    }
+    catch(err) {
+      emit(state.copyWith(showLoading: false));
+      appCubit.setError(err.toString());
+    }
+  }
+
+  Future<void> registerFinish(String email, String password, String orgName, String orgDisplayName) async {
+    emit(state.copyWith(showLoading: true));
+
+    Map data = {
+      "organizationName": orgName,
+      "organizationDisplayName": orgDisplayName,
+      "userId": state.userId,
+      "password": password
+    };
+
+    await dao.main.user.registerFinish(data, state.jwtToken).then((res) {
+      emit(state.copyWith(showLoading: false));
+
+      //supernodeCubit.setOrganizationId('todo');
+      supernodeCubit.setSupernodeSession(SupernodeSession(
+        username: email,
+        password: password,
+        token: state.jwtToken,
+        userId: int.tryParse(state.userId),
+        node: supernodeCubit.state.selectedNode,
+      ));
+
+      setSignupResult(SignupResult.addGateway);
+    }).catchError((err) {
+      emit(state.copyWith(showLoading: false));
+      appCubit.setError(err.toString());
+    });
+  }
 }

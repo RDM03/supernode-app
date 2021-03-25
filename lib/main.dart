@@ -37,7 +37,6 @@ import 'package:supernodeapp/page/lock_page/confirm_lock_page/page.dart';
 import 'package:supernodeapp/page/lock_page/page.dart';
 import 'package:supernodeapp/page/lock_page/prepare_lock_page/page.dart';
 import 'package:supernodeapp/page/lock_page/result_lock_page/page.dart';
-import 'package:supernodeapp/page/sign_up_page/page.dart';
 import 'package:supernodeapp/page/stake_page/confirm_stake_page/page.dart';
 import 'package:supernodeapp/page/stake_page/details_stake_page/page.dart';
 import 'package:supernodeapp/page/stake_page/list_unstake_page/page.dart';
@@ -194,7 +193,6 @@ class MxcApp extends StatelessWidget {
     pages: <String, Page<Object, dynamic>>{
       // THESE ARE ONLY FISH REDUX PAGES.
 
-      'sign_up_page': SignUpPage(),
       'forgot_password_page': ForgotPasswordPage(),
       'confirm_page': ConfirmPage(),
       'stake_page': StakePage(),

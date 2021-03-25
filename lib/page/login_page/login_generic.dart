@@ -35,9 +35,9 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(height: 60),
+            SizedBox(height: 40),
             Center(child: Image.asset(AppImages.datadash)),
-            SizedBox(height: 35),
+            SizedBox(height: 25),
             Expanded(
               child: LayoutBuilder(
                 builder: (ctx, cnstr) => LoginPageContent(
