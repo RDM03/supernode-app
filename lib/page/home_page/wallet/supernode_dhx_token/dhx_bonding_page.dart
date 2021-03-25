@@ -14,6 +14,7 @@ import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
+import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/mining_simulator_page/widgets/value_editor.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -120,7 +121,7 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
                                   TextSpan(text: FlutterI18n.translate(context, 'bond_dhx_instruction_1')),
                                   TextSpan(text: FlutterI18n.translate(context, 'click_here'),
                                       style: kMiddleFontOfBlueLink,
-                                      recognizer: new TapGestureRecognizer()..onTap = () => 'Navigator.push(context, route((c) => DepositPage())'),
+                                      recognizer: new TapGestureRecognizer()..onTap = () => openSupernodeDeposit(context, Token.supernodeDhx)),
                                 ],
                               ),
                             ),
