@@ -3,16 +3,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/page/deposit_page/bloc/cubit.dart';
+import 'package:supernodeapp/page/deposit_page/deposit_page.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/btc/cubit.dart';
 import 'package:supernodeapp/page/settings_page/settings_page.dart';
+import 'package:supernodeapp/page/withdraw_page/bloc/cubit.dart';
+import 'package:supernodeapp/page/withdraw_page/withdraw_page.dart';
 import '../../route.dart';
 import 'package:supernodeapp/page/login_page/entry_parachain.dart';
 import 'package:supernodeapp/page/login_page/entry_supernode.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'bloc/supernode/dhx/cubit.dart';
 import 'bloc/supernode/user/cubit.dart';
 import 'cubit.dart';
 
@@ -22,35 +28,20 @@ void openSettings(BuildContext context) async {
   Navigator.push(context, route((context) => SettingsPage()));
 }
 
-Future<void> openSupernodeDeposit(BuildContext context) async {
-  final orgId = context.read<SupernodeCubit>().state.orgId;
-  final userId = context.read<SupernodeCubit>().state.session.userId;
-  final isDemo = context.read<AppCubit>().state.isDemo;
-  await Navigator.of(context).pushNamed(
-    'deposit_page',
-    arguments: {
-      'userId': userId,
-      'orgId': orgId,
-      'isDemo': isDemo,
-    },
-  );
+Future<void> openSupernodeDeposit(BuildContext context, Token tkn) async {
+  await Navigator.of(context).push(route((_) => BlocProvider(
+      create: (ctx) => DepositCubit(context.read<SupernodeUserCubit>(), context.read<AppCubit>(), context.read<SupernodeRepository>()),
+      child: DepositPage(tkn))));
   context.read<SupernodeUserCubit>().refreshBalance();
 }
 
 Future<void> openSupernodeWithdraw(BuildContext context, Token token) async {
-  final balance = context.read<SupernodeUserCubit>().state.balance;
-  final balanceBTC = context.read<SupernodeBtcCubit>().state.balance;
-  final isDemo = context.read<AppCubit>().state.isDemo;
-  await Navigator.of(context).pushNamed(
-    'withdraw_page',
-    arguments: {
-      'balance': balance.value,
-      'balanceBTC': balanceBTC.value,
-      'isDemo': isDemo,
-      'tokenName': token.name,
-    },
-  );
+  await Navigator.of(context).push(route((_) => BlocProvider(
+      create: (ctx) => WithdrawCubit(context.read<SupernodeUserCubit>(), context.read<AppCubit>(), context.read<SupernodeRepository>()),
+      child: WithdrawPage(token))));
   context.read<SupernodeUserCubit>().refreshBalance();
+  context.read<SupernodeDhxCubit>().refreshBalance();
+  context.read<SupernodeBtcCubit>().refreshBalance();
 }
 
 Future<void> openSupernodeStake(BuildContext context) async {

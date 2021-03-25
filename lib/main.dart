@@ -56,10 +56,8 @@ import 'page/device/choose_application_page/page.dart';
 import 'page/get_2fa_page/page.dart';
 import 'page/set_2fa_page/page.dart';
 import 'page/confirm_page/page.dart';
-import 'page/deposit_page/page.dart';
 import 'page/forgot_password_page/page.dart';
 import 'page/stake_page/page.dart';
-import 'page/withdraw_page/page.dart';
 
 List<BlocListener> listeners() => [
       BlocListener<SupernodeCubit, SupernodeState>(
@@ -196,8 +194,6 @@ class MxcApp extends StatelessWidget {
       // THESE ARE ONLY FISH REDUX PAGES.
 
       'forgot_password_page': ForgotPasswordPage(),
-      'deposit_page': DepositPage(),
-      'withdraw_page': WithdrawPage(),
       'confirm_page': ConfirmPage(),
       'stake_page': StakePage(),
       'change_password_page': ChangePasswordPage(),

@@ -1,6 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/buttons/primary_button.dart';
+import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/page/done.dart';
 import 'package:supernodeapp/common/components/page/page_content.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
@@ -26,5 +28,4 @@ Widget buildView(
       FlutterI18n.translate(_ctx, 'done'),
       onPressed: () => Navigator.pop(viewService.context),
     )
-  ]);
-}
+  ]);}

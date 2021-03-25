@@ -9,6 +9,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/route.dart';
+import 'package:supernodeapp/page/home_page/shared.dart';
 
 import 'dhx_bonding_page.dart';
 import 'dhx_unbonding_page.dart';
@@ -22,19 +23,24 @@ class SupernodeDhxActions extends StatelessWidget {
         CircleButton(
           icon: Icon(
             Icons.add,
-            color: Colors.grey,
+            color: Token.supernodeDhx.color,
           ),
           label: FlutterI18n.translate(context, 'deposit'),
-          onTap: () {},
+          onTap: () => openSupernodeDeposit(context, Token.supernodeDhx),
         ),
         Spacer(),
-        CircleButton(
-          icon: Icon(
-            Icons.arrow_forward,
-            color: Colors.grey,
-          ),
-          label: FlutterI18n.translate(context, 'withdraw'),
-          onTap: () {},
+        BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+          buildWhen: (a, b) => a.balance != b.balance,
+          builder: (ctx, state) => CircleButton(
+            icon: Icon(
+              Icons.arrow_forward,
+              color: Token.supernodeDhx.color,
+            ),
+            label: FlutterI18n.translate(context, 'withdraw'),
+            onTap: state.balance.loading
+                ? null
+                : () => openSupernodeWithdraw(context, Token.supernodeDhx),
+          )
         ),
         Spacer(),
         CircleButton(

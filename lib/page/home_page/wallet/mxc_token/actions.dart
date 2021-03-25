@@ -113,7 +113,7 @@ class MxcActions extends StatelessWidget {
             color: Token.mxc.color,
           ),
           label: FlutterI18n.translate(context, 'deposit'),
-          onTap: () => openSupernodeDeposit(context),
+          onTap: () => openSupernodeDeposit(context, Token.mxc),
         ),
         Spacer(),
         BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
