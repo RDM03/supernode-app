@@ -15,7 +15,6 @@ import 'package:supernodeapp/page/home_page/device/view.dart';
 import 'package:supernodeapp/page/home_page/gateway/view.dart';
 import 'package:supernodeapp/page/home_page/wallet/view.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
-import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 

@@ -175,6 +175,6 @@ Widget buildView(
         buttonTitle:
             FlutterI18n.translate(_ctx, 'bind_new_account2wechat_button'),
         minHeight: s(46),
-        minWidget: double.infinity),
+        minWidth: double.infinity),
   );
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:supernodeapp/common/repositories/shared/clients/client.dart';
 
 class HttpDao {
@@ -13,7 +15,7 @@ class HttpDao {
   }) {
     return client.post(
       url: url,
-      data: data,
+      data:  encodeJson ? JsonEncoder().convert(data) : data,
       headers: headers,
       encodeJson: encodeJson,
     );

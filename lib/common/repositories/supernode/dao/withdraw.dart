@@ -16,8 +16,8 @@ class WithdrawDao extends SupernodeDao {
   WithdrawDao(SupernodeHttpClient client) : super(client);
 
   //remote
-  Future<dynamic> withdraw(Map data) {
-    return post(url: WithdrawApi.withdraw, data: data).then((res) => res);
+  Future<WithdrawReq> withdraw(Map data) {
+    return post(url: WithdrawApi.withdraw, data: data).then((res) => WithdrawReq.fromMap(res));
   }
 
   Future<List<WithdrawHistoryEntity>> history(Map data) {
@@ -28,10 +28,10 @@ class WithdrawDao extends SupernodeDao {
     );
   }
 
-  Future<dynamic> fee({String currency = 'ETH_MXC'}) {
+  Future<WithdrawFee> fee({String currency = 'ETH_MXC'}) {
     return get(
       url: WithdrawApi.fee,
       data: {'currency': currency},
-    ).then((res) => res);
+    ).then((res) => WithdrawFee.fromMap(res));
   }
 }

@@ -21,3 +21,17 @@ class TopupEntity {
     );
   }
 }
+
+class TopupAccount {
+  final String activeAccount;
+
+  TopupAccount(this.activeAccount);
+
+  factory TopupAccount.fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    return TopupAccount(
+      map['activeAccount'],
+    );
+  }
+}

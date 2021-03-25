@@ -8,7 +8,7 @@ class PrimaryButton extends StatelessWidget {
     @required this.onTap,
     @required this.buttonTitle,
     this.minHeight = 36,
-    this.minWidget = 0,
+    this.minWidth = 0,
     this.bgColor = buttonPrimaryColor,
     this.textColor = Colors.white,
     this.padding = const EdgeInsets.symmetric(vertical: 0),
@@ -19,7 +19,7 @@ class PrimaryButton extends StatelessWidget {
   final String buttonTitle;
   final Function onTap;
   final double minHeight;
-  final double minWidget;
+  final double minWidth;
   final EdgeInsets padding;
 
   @override
