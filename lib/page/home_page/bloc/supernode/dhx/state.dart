@@ -26,10 +26,10 @@ abstract class SupernodeDhxState with _$SupernodeDhxState {
 }
 
 class CalendarModel {
-  final bool left, right, middle, today;
-  final int day;
-  final int minedAmount;
-  final int unbondAmount;
+  bool left, right, middle, today;
+  final DateTime date;
+  double minedAmount;
+  double unbondAmount;
 
-  CalendarModel({this.left = false, this.right = false, this.middle = false, this.today = false, this.day, this.minedAmount = 0, this.unbondAmount = 0});
+  CalendarModel({this.left = false, this.right = false, this.middle = false, this.today = false, this.date, this.minedAmount = 0, this.unbondAmount = 0});
 }

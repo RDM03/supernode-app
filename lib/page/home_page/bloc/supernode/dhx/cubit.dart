@@ -146,28 +146,68 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       final res = await supernodeRepository.dhx.bondInfo(
         organizationId: orgId,
       );
+
       final double dhxBonded = double.parse(res["dhxBonded"]);
-      double dhxUnbonding = 0;
-      for (dynamic rec in res["dhxUnbonding"])
-        dhxUnbonding += double.parse(rec["amount"]);
+      final double dhxUnbonding = double.parse(res["dhxUnbondingTotal"]);
 
-      List<CalendarModel> list = [CalendarModel(day: 15),
-        CalendarModel(left: true, day: 16),
-        CalendarModel(middle: true, day: 17),
-        CalendarModel(middle: true, day: 18),
-        CalendarModel(middle: true, day: 19, minedAmount: 1, unbondAmount: 15),
-        CalendarModel(middle: true, day: 20, minedAmount: 1),
-        CalendarModel(right: true, day: 21, unbondAmount: 215),
-        CalendarModel(today: true, day: 22),
-        CalendarModel(day: 23),
-        CalendarModel(day: 24),
-        CalendarModel(day: 25),
-        CalendarModel(day: 26),
-        CalendarModel(day: 27),
-        CalendarModel(day: 28),
-      ];
+      final List<CalendarModel> listCalendarData = [];
+      try { // parsing response for calendar component on DhxMiningPage
+        final Map<DateTime, CalendarModel> parsed = {};
+        DateTime dateTmp;
 
-      emit(state.copyWith(dhxBonded: Wrap(dhxBonded), dhxUnbonding: Wrap(dhxUnbonding), calendarBondInfo: list));
+        for (dynamic rec in res["dhxUnbonding"]) {
+          dateTmp = DateTime.tryParse(rec["created"]) ?? DateTime.now();
+          dateTmp = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
+          if (!parsed.containsKey(dateTmp))
+            parsed[dateTmp] = CalendarModel(date: dateTmp);
+          parsed[dateTmp].unbondAmount += double.parse(rec["amount"]);
+        }
+
+        for (dynamic rec in res["dhxCoolingOff"]) {
+          dateTmp = DateTime.tryParse(rec["created"]) ?? DateTime.now();
+          dateTmp = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
+          if (!parsed.containsKey(dateTmp))
+            parsed[dateTmp] = CalendarModel(date: dateTmp);
+          parsed[dateTmp].minedAmount += double.parse(rec["amount"]);
+        }
+
+        final List<DateTime> datesParsed = parsed.keys.toList()..sort();
+
+        dateTmp = DateTime.now();
+        final today = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
+        final DateTime firstDayOfRange = (datesParsed.length > 0) ? datesParsed[0] : today;
+        final DateTime mondayBeforeFirstDay = firstDayOfRange.subtract(
+            Duration(days: firstDayOfRange.weekday - 1));
+
+        int indexDatesParsed = 0;
+        for (int i = 0; i < 14; i++) {
+          // 2 weeks range starting on Monday before bond-info data
+          dateTmp = mondayBeforeFirstDay.add(Duration(days: i));
+          if (indexDatesParsed < datesParsed.length &&
+              dateTmp == datesParsed[indexDatesParsed]) {
+            listCalendarData.add(parsed[dateTmp]
+              ..today = (today
+                  .difference(dateTmp)
+                  .inDays == 0));
+            if (indexDatesParsed == 0) {
+              parsed[dateTmp].left = true;
+            } else if (indexDatesParsed == datesParsed.length - 1) {
+              parsed[dateTmp].right = true;
+            } else {
+              parsed[dateTmp].middle = true;
+            }
+            indexDatesParsed++;
+          } else {
+            listCalendarData.add(CalendarModel(date: dateTmp, today: (today
+                .difference(dateTmp)
+                .inDays == 0)));
+          }
+        }
+      } catch (e, s) {
+        logger.e('refresh error', e, s);
+      }
+
+      emit(state.copyWith(dhxBonded: Wrap(dhxBonded), dhxUnbonding: Wrap(dhxUnbonding), calendarBondInfo: listCalendarData));
 
     } catch (e, s) {
       logger.e('refresh error', e, s);

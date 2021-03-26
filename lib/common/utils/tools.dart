@@ -61,6 +61,12 @@ class Tools {
     return '${date.year}-$month-$day';
   }
 
+  static String dateMonthYearFormat(DateTime date) {
+    if (date == null) return '?';
+    final month = date.month.toString().padLeft(2, '0');
+    return '$month/${date.year}';
+  }
+
   static String numberRounded(double number) {
     String round(double val, int order, {int afterDot = 0}) {
       final divided = (val / order);

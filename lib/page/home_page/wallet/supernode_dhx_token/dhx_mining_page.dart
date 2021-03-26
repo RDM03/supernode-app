@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
@@ -64,7 +65,18 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Mar '21", style: kBigFontOfBlack,),
+                  BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+                    buildWhen: (a, b) =>
+                    a.calendarBondInfo != b.calendarBondInfo,
+                    builder: (context, state) =>
+                    (state.calendarBondInfo != null && state.calendarBondInfo.length > 0)
+                        ? Text('${Tools.dateMonthYearFormat(state.calendarBondInfo[0].date)}'
+                        '${(state.calendarBondInfo[0].date.month != state.calendarBondInfo[state.calendarBondInfo.length-1].date.month)
+                        ? ' - ' + Tools.dateMonthYearFormat(state.calendarBondInfo[state.calendarBondInfo.length-1].date)
+                        : ''}',
+                        style: kPrimaryBigFontOfBlack)
+                        : SizedBox(),
+                ),
                   smallColumnSpacer(),
                   BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
                     buildWhen: (a, b) =>
@@ -116,7 +128,7 @@ class _CalendarElement extends StatelessWidget {
 
     return Column(mainAxisAlignment: MainAxisAlignment.end, children: [
       (model.unbondAmount > 0)
-          ? Row(children: [Image.asset(AppImages.iconUnbond, scale: 1.5, color: Colors.red), Text('${model.unbondAmount}', style: kMiddleFontOfBlack)])
+          ? Row(children: [Image.asset(AppImages.iconUnbond, scale: 1.5, color: Colors.red), Text('${7 - DateTime.now().difference(model.date).inDays}', style: kMiddleFontOfBlack)])
           : SizedBox(),
       (model.left)
           ? Text(FlutterI18n.translate(context, 'cool_off'), style: kSmallFontOfDhxColor)
@@ -125,9 +137,9 @@ class _CalendarElement extends StatelessWidget {
           height: 25,
           width: double.infinity,
           decoration: getDecoration(),
-          child: Center(child: Text('${model.day}', style: (model.today) ? kMiddleFontOfWhite : kMiddleFontOfBlack))),
+          child: Center(child: Text('${model.date.day}', style: (model.today && !model.left && !model.middle && !model.right) ? kMiddleFontOfWhite : kMiddleFontOfBlack))),
       Text(
-          ((model.minedAmount > 0) ? '+${model.minedAmount}' : '') +
+          ((model.minedAmount > 0) ? '+${Tools.priceFormat(model.minedAmount)}' : '') +
               ((model.today) ? FlutterI18n.translate(context, 'today') : ''),
           style: kSmallFontOfBlack),
       Divider(thickness: 2),
