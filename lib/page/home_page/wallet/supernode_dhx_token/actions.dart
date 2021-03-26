@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_cubit.dart';
+import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/components/buttons/circle_button.dart';
+import 'package:supernodeapp/common/components/wallet/mining_tutorial.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
@@ -49,7 +51,20 @@ class SupernodeDhxActions extends StatelessWidget {
             color: Token.supernodeDhx.color,
           ),
           label: FlutterI18n.translate(context, 'mine'),
-          onTap: () => Navigator.push(context, route((c) => DhxMiningPage())),
+          onTap: () {
+            Navigator.push(context, route((c) => DhxMiningPage()));
+            Navigator.push(context, MaterialPageRoute<void>(
+              builder: (BuildContext context) {
+                return Scaffold(
+                  appBar: AppBars.backArrowSkipAppBar(
+                      title: FlutterI18n.translate(context, 'tutorial_title'),
+                      onPress: () => Navigator.pop(context),
+                      action: FlutterI18n.translate(context, "skip")),
+                  body: MiningTutorial(context),
+                );
+              },
+            ));
+          },
         ),
         Spacer(),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
