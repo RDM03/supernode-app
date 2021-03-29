@@ -489,7 +489,7 @@
 	"status": "Status",
 	"today": "Today",
 	"unbonded": "Unbonded/days left to cool-off",
-	"bonding_calendar_note": "Note : +(Value) is only example, your income will differ by mPower and bonded DHX amount and partial unbonding is possible.",
+	"bonding_calendar_note": "Note: +(value) - amount of DHX mined on given day",
 	"cool_off": "Cool-off",
 	"bond_dhx": "Bond DHX",
 	"bond_dhx_instruction_1": "You will need DHX in your wallet, if you haven’t deposit DHX yet please ",

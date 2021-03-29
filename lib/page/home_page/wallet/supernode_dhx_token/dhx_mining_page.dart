@@ -139,7 +139,7 @@ class _CalendarElement extends StatelessWidget {
           decoration: getDecoration(),
           child: Center(child: Text('${model.date.day}', style: (model.today && !model.left && !model.middle && !model.right) ? kMiddleFontOfWhite : kMiddleFontOfBlack))),
       Text(
-          ((model.minedAmount > 0) ? '+${Tools.priceFormat(model.minedAmount)}' : '') +
+          ((model.minedAmount > 0) ? '+${Tools.priceFormat(model.minedAmount, range: Tools.max3DecimalPlaces(model.minedAmount))}' : '') +
               ((model.today) ? FlutterI18n.translate(context, 'today') : ''),
           style: kSmallFontOfBlack),
       Divider(thickness: 2),
