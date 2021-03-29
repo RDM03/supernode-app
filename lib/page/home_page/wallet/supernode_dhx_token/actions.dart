@@ -4,99 +4,20 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/components/buttons/circle_button.dart';
-import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/wallet/mining_tutorial.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
-import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
+import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
 
+import 'dhx_bonding_page.dart';
+import 'dhx_unbonding_page.dart';
+import 'dhx_mining_page.dart';
+
 class SupernodeDhxActions extends StatelessWidget {
-  void _showMineDXHDialog(BuildContext context, bool isDemo) {
-    showInfoDialog(
-      context,
-      IosStyleBottomDialog2(
-        builder: (ctx) => Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              child: Text(
-                FlutterI18n.translate(context, 'mining'),
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: s(16),
-                  fontWeight: FontWeight.w500,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Divider(color: Colors.grey),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(ctx).pop();
-
-                Navigator.pushNamed(context, 'lock_page',
-                    arguments: {'isDemo': isDemo});
-
-                Navigator.push(context, MaterialPageRoute<void>(
-                  builder: (BuildContext context) {
-                    return Scaffold(
-                      appBar: AppBars.backArrowSkipAppBar(
-                          onPress: () => Navigator.pop(context),
-                          action: FlutterI18n.translate(context, "skip")),
-                      body: MiningTutorial(context),
-                    );
-                  },
-                ));
-              },
-              child: Row(
-                children: [
-                  CircleButton(
-                      icon: Image.asset(AppImages.iconMine,
-                          color: Token.supernodeDhx.color)),
-                  SizedBox(width: s(10)),
-                  Text(
-                    FlutterI18n.translate(context, 'new_mining'),
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: s(16),
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-            Divider(color: Colors.grey),
-            GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Row(
-                  children: [
-                    CircleButton(
-                        icon: Icon(Icons.arrow_back, color: Colors.grey)),
-                    SizedBox(width: s(10)),
-                    Text(
-                      FlutterI18n.translate(context, 'unlock'),
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: s(16),
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                )),
-            Divider(color: Colors.grey),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -130,8 +51,20 @@ class SupernodeDhxActions extends StatelessWidget {
             color: Token.supernodeDhx.color,
           ),
           label: FlutterI18n.translate(context, 'mine'),
-          onTap: () => _showMineDXHDialog(
-              context, context.read<AppCubit>().state.isDemo),
+          onTap: () {
+            Navigator.push(context, route((c) => DhxMiningPage()));
+            Navigator.push(context, MaterialPageRoute<void>(
+              builder: (BuildContext context) {
+                return Scaffold(
+                  appBar: AppBars.backArrowSkipAppBar(
+                      title: FlutterI18n.translate(context, 'tutorial_title'),
+                      onPress: () => Navigator.pop(context),
+                      action: FlutterI18n.translate(context, "skip")),
+                  body: MiningTutorial(context),
+                );
+              },
+            ));
+          },
         ),
         Spacer(),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
@@ -139,8 +72,8 @@ class SupernodeDhxActions extends StatelessWidget {
               icon: Image.asset(
                 AppImages.iconCouncil,
                 color: (state.stakes.loading ||
-                        state.stakes.value == null ||
-                        state.stakes.value.isEmpty)
+                    state.stakes.value == null ||
+                    state.stakes.value.isEmpty)
                     ? Colors.grey
                     : Token.supernodeDhx.color,
               ),
@@ -164,6 +97,71 @@ class SupernodeDhxActions extends StatelessWidget {
                     'joinedCouncilsId': argJoinedCouncils,
                   },
                 );
+              }),
+        ),
+      ],
+    );
+  }
+}
+
+class SupernodeDhxMineActions extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        CircleButton(
+          icon: Icon(
+            Icons.lock,
+            color: Token.supernodeDhx.color,
+          ),
+          label: FlutterI18n.translate(context, 'lock_mxc'),
+          onTap: () => Navigator.pushNamed(context, 'lock_page',
+              arguments: {'isDemo': context.read<AppCubit>().state.isDemo}),
+        ),
+        Spacer(),
+        CircleButton(
+          icon: Image.asset(
+            AppImages.iconBond,
+            color: Token.supernodeDhx.color,
+          ),
+          label: FlutterI18n.translate(context, 'bond'),
+          onTap: () => Navigator.push(context, route((c) => DhxBondingPage())),
+        ),
+        Spacer(),
+        CircleButton(
+          icon: Image.asset(
+            AppImages.iconUnbond,
+            color: Token.supernodeDhx.color,
+          ),
+          label: FlutterI18n.translate(context, 'unbond'),
+          onTap: () => Navigator.push(context, route((c) => DhxUnbondingPage())),
+        ),
+        Spacer(),
+        BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+          builder: (ctx, state) => CircleButton(
+              icon: Icon(
+                Icons.tune,
+                color: (state.stakes.loading ||
+                    state.stakes.value == null ||
+                    state.stakes.value.isEmpty)
+                    ? Colors.grey
+                    : Token.supernodeDhx.color,
+              ),
+              label: FlutterI18n.translate(context, 'simulate_mining'),
+              onTap: () {
+                final stakes = context.read<SupernodeDhxCubit>().state.stakes;
+                if (stakes.loading ||
+                    stakes.value == null ||
+                    stakes.value.isEmpty) return;
+
+                Navigator.pushNamed(
+                    context,
+                    'mining_simulator_page',
+                    arguments: {
+                    'isDemo': context.read<AppCubit>().state.isDemo,
+                    'balance':
+                    context.read<SupernodeUserCubit>().state.balance.value,
+                    });
               }),
         ),
       ],

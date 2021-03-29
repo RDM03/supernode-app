@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -61,6 +63,12 @@ class Tools {
     return '${date.year}-$month-$day';
   }
 
+  static String dateMonthYearFormat(DateTime date) {
+    if (date == null) return '?';
+    final month = date.month.toString().padLeft(2, '0');
+    return '$month/${date.year}';
+  }
+
   static String numberRounded(double number) {
     String round(double val, int order, {int afterDot = 0}) {
       final divided = (val / order);
@@ -87,5 +95,11 @@ class Tools {
       return '${round(number, 1000)}k';
     }
     return number.round().toString();
+  }
+
+  /// Function calculated number of decimal places [1-3]
+  /// in order to represent double in format: maximum xxx.x, and minimum x.xxx
+  static int max3DecimalPlaces(double minedAmount) {
+    return min(3, max(1, (3 - (log(minedAmount) / ln10).floor())));
   }
 }

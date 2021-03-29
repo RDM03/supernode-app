@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
@@ -116,90 +117,9 @@ class DhxMiningCard extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: s(20)),
-            Row(
-              children: [
-                Spacer(),
-                BlocBuilder<GatewayCubit, GatewayState>(
-                  buildWhen: (a, b) => a.gatewaysTotal != b.gatewaysTotal,
-                  builder: (ctx, state) => Column(
-                    children: [
-                      Text('${state.gatewaysTotal.value}',
-                          style: kSuperBigBoldFont),
-                      SizedBox(height: s(5)),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Token.supernodeDhx.color,
-                            borderRadius: BorderRadius.all(Radius.circular(5))),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 4.0),
-                          child: Text(
-                            FlutterI18n.translate(context, 'm2pro_miner'),
-                            style: kSecondaryButtonOfWhite,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Spacer(),
-                BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-                  buildWhen: (a, b) =>
-                      a.currentMiningPower != b.currentMiningPower,
-                  builder: (ctx, state) => Column(
-                    children: [
-                      state.currentMiningPower.loading
-                          ? loadingFlash(
-                              child: Text(
-                                Tools.numberRounded(
-                                  state.currentMiningPower.value,
-                                ),
-                                style: kPrimaryBigFontOfBlack,
-                              ),
-                            )
-                          : Text(
-                              Tools.numberRounded(
-                                state.currentMiningPower.value,
-                              ),
-                              style: kSuperBigBoldFont,
-                            ),
-                      SizedBox(height: s(5)),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Token.supernodeDhx.color,
-                            borderRadius: BorderRadius.all(Radius.circular(5))),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 4.0),
-                          child: Stack(
-                            alignment: AlignmentDirectional.center,
-                            children: [
-                              Text(
-                                FlutterI18n.translate(context, 'm2pro_miner'),
-                                style: TextStyle(
-                                  color: Token.supernodeDhx.color,
-                                  fontFamily: "Roboto",
-                                  fontSize: 14,
-                                ),
-                              ), // invisible - sets width for Container
-                              Text(
-                                FlutterI18n.translate(context, 'mpower'),
-                                style: kSecondaryButtonOfWhite,
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Spacer()
-              ],
-            ),
-            SizedBox(
-              height: s(10),
-            ),
+            middleColumnSpacer(),
+            NumberMinersAndMPower(),
+            smallColumnSpacer(),
             TitleDetailRow(
               name:
                   FlutterI18n.translate(context, 'estimated_dxh_daily_return'),
@@ -219,6 +139,96 @@ class DhxMiningCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class NumberMinersAndMPower extends StatelessWidget {
+  const NumberMinersAndMPower({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Spacer(),
+        BlocBuilder<GatewayCubit, GatewayState>(
+          buildWhen: (a, b) => a.gatewaysTotal != b.gatewaysTotal,
+          builder: (ctx, state) => Column(
+            children: [
+              Text('${state.gatewaysTotal.value}',
+                  style: kSuperBigBoldFont),
+              SizedBox(height: s(5)),
+              Container(
+                decoration: BoxDecoration(
+                    color: Token.supernodeDhx.color,
+                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 4.0),
+                  child: Text(
+                    FlutterI18n.translate(context, 'm2pro_miner'),
+                    style: kSecondaryButtonOfWhite,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        Spacer(),
+        BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+          buildWhen: (a, b) =>
+              a.currentMiningPower != b.currentMiningPower,
+          builder: (ctx, state) => Column(
+            children: [
+              state.currentMiningPower.loading
+                  ? loadingFlash(
+                      child: Text(
+                        Tools.numberRounded(
+                          state.currentMiningPower.value,
+                        ),
+                        style: kPrimaryBigFontOfBlack,
+                      ),
+                    )
+                  : Text(
+                      Tools.numberRounded(
+                        state.currentMiningPower.value,
+                      ),
+                      style: kSuperBigBoldFont,
+                    ),
+              SizedBox(height: s(5)),
+              Container(
+                decoration: BoxDecoration(
+                    color: Token.supernodeDhx.color,
+                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 4.0),
+                  child: Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      Text(
+                        FlutterI18n.translate(context, 'm2pro_miner'),
+                        style: TextStyle(
+                          color: Token.supernodeDhx.color,
+                          fontFamily: "Roboto",
+                          fontSize: 14,
+                        ),
+                      ), // invisible - sets width for Container
+                      Text(
+                        FlutterI18n.translate(context, 'mpower'),
+                        style: kSecondaryButtonOfWhite,
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        Spacer()
+      ],
     );
   }
 }

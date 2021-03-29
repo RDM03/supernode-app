@@ -11,6 +11,9 @@ class DhxApi {
   static final String createCouncil = '/api/dhx-mining/create-council';
   static final String createStake = '/api/dhx-mining/create-stake';
   static final String lastMining = '/api/dhx-mining/last-mining';
+  static final String bondDhx = '/api/dhx-mining/bond';
+  static final String unbondDhx = '/api/dhx-mining/unbond';
+  static final String bondInfo = '/api/dhx-mining/bond-info';
 }
 
 class DhxDao extends SupernodeDao {
@@ -36,6 +39,18 @@ class DhxDao extends SupernodeDao {
     return list
         .map((l) => StakeDHX.fromMap(Map<String, dynamic>.from(l)))
         .toList();
+  }
+
+  Future<dynamic> bondInfo({String organizationId = '0'}) {
+    return post(url: DhxApi.bondInfo, data: {'orgId': organizationId});
+  }
+
+  Future<dynamic> bondDhx(String amount, String organizationId) {
+    return post(url: DhxApi.bondDhx, data: {'amount': amount, 'orgId': organizationId});
+  }
+
+  Future<dynamic> unbondDhx(String amount, String organizationId) {
+    return post(url: DhxApi.unbondDhx, data: {'amount': amount, 'orgId': organizationId});
   }
 
   Future<CreateCouncilResponse> createCouncil({

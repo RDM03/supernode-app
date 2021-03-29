@@ -8,9 +8,12 @@ import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/summary_row.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/btc/cubit.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
@@ -124,7 +127,13 @@ class UserTab extends StatelessWidget {
       {bool parachainConnected, bool supernodeConnected}) {
     return RefreshIndicator(
       displacement: 10,
-      onRefresh: () => context.read<SupernodeUserCubit>().refresh(),
+      onRefresh: () async {
+        await context.read<SupernodeUserCubit>().refresh();
+        if (context.read<HomeCubit>().state.displayTokens.contains(Token.supernodeDhx))
+          await context.read<SupernodeDhxCubit>().refresh();
+        if (context.read<HomeCubit>().state.displayTokens.contains(Token.btc))
+          await context.read<SupernodeBtcCubit>().refresh();
+      },
       child: PageBody(
         children: [
           AccountWidget(),

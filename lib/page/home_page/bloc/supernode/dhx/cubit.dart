@@ -73,6 +73,9 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       final value = double.tryParse(balanceData['balance']);
       emit(state.copyWith(balance: Wrap(value)));
       homeCubit.saveSNCache(CacheRepository.balanceDHXKey, value);
+
+      getBondInfo();
+
     } catch (e, s) {
       logger.e('refresh error', e, s);
       emit(state.copyWith(balance: state.balance.withError(e)));
@@ -134,6 +137,115 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
         currentMiningPower: state.currentMiningPower.withError(e),
         stakes: state.stakes.withError(e),
       ));
+    }
+  }
+
+  Future<void> getBondInfo() async {
+    try {
+      emit(state.copyWith(dhxBonded:state.dhxBonded.withLoading(), dhxUnbonding: state.dhxUnbonding.withLoading()));
+      final res = await supernodeRepository.dhx.bondInfo(
+        organizationId: orgId,
+      );
+
+      final double dhxBonded = double.parse(res["dhxBonded"]);
+      final double dhxUnbonding = double.parse(res["dhxUnbondingTotal"]);
+
+      final List<CalendarModel> listCalendarData = [];
+      try { // parsing response for calendar component on DhxMiningPage
+        final Map<DateTime, CalendarModel> parsed = {};
+        DateTime dateTmp;
+
+        for (dynamic rec in res["dhxUnbonding"]) {
+          dateTmp = DateTime.tryParse(rec["created"]) ?? DateTime.now();
+          dateTmp = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
+          if (!parsed.containsKey(dateTmp))
+            parsed[dateTmp] = CalendarModel(date: dateTmp);
+          parsed[dateTmp].unbondAmount += double.parse(rec["amount"]);
+        }
+
+        for (dynamic rec in res["dhxCoolingOff"]) {
+          dateTmp = DateTime.tryParse(rec["created"]) ?? DateTime.now();
+          dateTmp = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
+          if (!parsed.containsKey(dateTmp))
+            parsed[dateTmp] = CalendarModel(date: dateTmp);
+          parsed[dateTmp].minedAmount += double.parse(rec["amount"]);
+        }
+
+        final List<DateTime> datesParsed = parsed.keys.toList()..sort();
+
+        dateTmp = DateTime.now();
+        final today = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
+        final DateTime firstDayOfRange = (datesParsed.length > 0) ? datesParsed[0] : today;
+        final DateTime mondayBeforeFirstDay = firstDayOfRange.subtract(
+            Duration(days: firstDayOfRange.weekday - 1));
+
+        int indexDatesParsed = 0;
+        for (int i = 0; i < 14; i++) {
+          // 2 weeks range starting on Monday before bond-info data
+          dateTmp = mondayBeforeFirstDay.add(Duration(days: i));
+          if (indexDatesParsed < datesParsed.length &&
+              dateTmp == datesParsed[indexDatesParsed]) {
+            listCalendarData.add(parsed[dateTmp]
+              ..today = (today
+                  .difference(dateTmp)
+                  .inDays == 0));
+            if (indexDatesParsed == 0) {
+              parsed[dateTmp].left = true;
+            } else if (indexDatesParsed == datesParsed.length - 1) {
+              parsed[dateTmp].right = true;
+            } else {
+              parsed[dateTmp].middle = true;
+            }
+            indexDatesParsed++;
+          } else {
+            listCalendarData.add(CalendarModel(date: dateTmp, today: (today
+                .difference(dateTmp)
+                .inDays == 0)));
+          }
+        }
+      } catch (e, s) {
+        logger.e('refresh error', e, s);
+      }
+
+      emit(state.copyWith(dhxBonded: Wrap(dhxBonded), dhxUnbonding: Wrap(dhxUnbonding), calendarBondInfo: listCalendarData));
+
+    } catch (e, s) {
+      logger.e('refresh error', e, s);
+    }
+  }
+
+  Future<void> confirmBondUnbond({String bond = '0', String unbond = '0'}) async {
+    emit(state.copyWith(confirm: true, bondAmount: double.parse(bond), unbondAmount: double.parse(unbond)));
+    emit(state.copyWith(confirm: false));
+  }
+
+  Future<void> bondDhx() async {
+    try {
+      emit(state.copyWith(showLoading: true));
+      await supernodeRepository.dhx.bondDhx(state.bondAmount.toString(), orgId);
+
+      refreshBalance();
+
+      emit(state.copyWith(success: true, showLoading: false));
+      emit(state.copyWith(success: false));
+    } catch (e, s) {
+      emit(state.copyWith(showLoading: false));
+      logger.e('refresh error', e, s);
+    }
+  }
+
+  Future<void> unbondDhx() async {
+    try {
+      emit(state.copyWith(showLoading: true));
+      await supernodeRepository.dhx.unbondDhx(state.unbondAmount.toString(), orgId);
+
+      refreshBalance();
+
+      emit(state.copyWith(success: true, showLoading: false));
+      emit(state.copyWith(success: false));
+    } catch (e, s) {
+      emit(state.copyWith(showLoading: false));
+      logger.e('refresh error', e, s);
     }
   }
 }
