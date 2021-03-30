@@ -43,7 +43,7 @@ class HomeCubit extends Cubit<HomeState> {
     } else {
       saveSNCache(CacheRepository.walletDHX, true);
       emit(state.copyWith(
-        displayTokens: {...state.displayTokens, Token.supernodeDhx}.toList(),
+        displayTokens: orderMxcDhxBtcParachain([...state.displayTokens, Token.supernodeDhx]),
       ));
     }
   }
@@ -57,7 +57,7 @@ class HomeCubit extends Cubit<HomeState> {
     } else {
       saveSNCache(CacheRepository.walletBTC, true);
       emit(state.copyWith(
-        displayTokens: {...state.displayTokens, Token.btc}.toList(),
+        displayTokens: orderMxcDhxBtcParachain([...state.displayTokens, Token.btc]),
       ));
     }
   }
@@ -72,13 +72,13 @@ class HomeCubit extends Cubit<HomeState> {
     final dhxUsed = data[CacheRepository.walletDHX] ?? false;
     if (dhxUsed) {
       emit(state.copyWith(
-        displayTokens: [...state.displayTokens, Token.supernodeDhx],
+        displayTokens: orderMxcDhxBtcParachain([...state.displayTokens, Token.supernodeDhx]),
       ));
     }
     final btcUsed = data[CacheRepository.walletDHX] ?? false;
     if (btcUsed) {
       emit(state.copyWith(
-        displayTokens: [...state.displayTokens, Token.btc],
+        displayTokens: orderMxcDhxBtcParachain([...state.displayTokens, Token.btc]),
       ));
     }
   }
@@ -86,4 +86,18 @@ class HomeCubit extends Cubit<HomeState> {
   Map<String, dynamic> loadSNCache([String key]) {
     return cacheRepository.loadUserData(key ?? 'user_$supernodeUsername') ?? {};
   }
+}
+
+List<Token> orderMxcDhxBtcParachain(List<Token> list) {
+  final List<Token> listSorted = [];
+  if (list.contains(Token.mxc))
+    listSorted.add(Token.mxc);
+  if (list.contains(Token.supernodeDhx))
+    listSorted.add(Token.supernodeDhx);
+  if (list.contains(Token.btc))
+    listSorted.add(Token.btc);
+  if (list.contains(Token.parachainDhx))
+    listSorted.add(Token.parachainDhx);
+
+  return listSorted;
 }
