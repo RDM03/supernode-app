@@ -158,9 +158,9 @@ class SupernodeDhxMineActions extends StatelessWidget {
                     context,
                     'mining_simulator_page',
                     arguments: {
-                    'isDemo': context.read<AppCubit>().state.isDemo,
-                    'balance':
-                    context.read<SupernodeUserCubit>().state.balance.value,
+                      'isDemo': context.read<AppCubit>().state.isDemo,
+                      'mxc_balance': context.read<SupernodeUserCubit>().state.balance.value,
+                      'dhx_balance': context.read<SupernodeDhxCubit>().state.balance.value,
                     });
               }),
         ),

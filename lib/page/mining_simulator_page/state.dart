@@ -6,17 +6,17 @@ enum CalculateExpandState { notExpanded, dhx, mPower }
 
 class MiningSimulatorState implements Cloneable<MiningSimulatorState> {
   GlobalKey<FormState> formKey = GlobalKey();
-  TextEditingController mxcAmountCtl;
+  TextEditingController mxcLockedCtl;
   TextEditingController minersAmountCtl;
   int months;
-  TextEditingController dhxFuelCtl;
+  TextEditingController dhxBondedCtl;
   double dhxFuel;
   bool isDemo = false;
 
-  double mxcTotal;
+  double mxcBalance;
   int minersTotal;
 
-  double dhxTotal;
+  double dhxBalance;
   double yesterdayMining;
   CalculateExpandState calculateExpandState;
 
@@ -24,15 +24,15 @@ class MiningSimulatorState implements Cloneable<MiningSimulatorState> {
   MiningSimulatorState clone() {
     return MiningSimulatorState()
       ..formKey = formKey
-      ..mxcAmountCtl = mxcAmountCtl
+      ..mxcLockedCtl = mxcLockedCtl
       ..minersAmountCtl = minersAmountCtl
       ..months = months
       ..dhxFuel = dhxFuel
       ..isDemo = isDemo
-      ..mxcTotal = mxcTotal
+      ..mxcBalance = mxcBalance
       ..minersTotal = minersTotal
-      ..dhxFuelCtl = dhxFuelCtl
-      ..dhxTotal = dhxTotal
+      ..dhxBondedCtl = dhxBondedCtl
+      ..dhxBalance = dhxBalance
       ..yesterdayMining = yesterdayMining
       ..calculateExpandState = calculateExpandState;
   }
@@ -40,14 +40,16 @@ class MiningSimulatorState implements Cloneable<MiningSimulatorState> {
 
 MiningSimulatorState initState(Map<String, dynamic> args) {
   bool isDemo = args['isDemo'] ?? false;
-  double balance = args['balance'] ?? 0;
+  double mxcBalance = args['mxc_balance'] ?? 0;
+  double dhxBalance = args['dhx_balance'] ?? 0;
 
   return MiningSimulatorState()
     ..isDemo = isDemo
-    ..mxcAmountCtl = TextEditingController(text: '0')
+    ..mxcLockedCtl = TextEditingController(text: '0')
     ..minersAmountCtl = TextEditingController(text: '0')
     ..months = monthsOptions.first
-    ..dhxFuelCtl = TextEditingController(text: '')
-    ..mxcTotal = balance
+    ..dhxBondedCtl = TextEditingController(text: '')
+    ..mxcBalance = mxcBalance
+    ..dhxBalance = dhxBalance
     ..calculateExpandState = CalculateExpandState.notExpanded;
 }

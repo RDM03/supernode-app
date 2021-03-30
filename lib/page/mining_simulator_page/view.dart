@@ -10,6 +10,7 @@ import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/slider.dart';
 import 'package:supernodeapp/common/components/value_listenable.dart';
 import 'package:supernodeapp/common/components/wallet/mining_tutorial.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/page/mining_simulator_page/widgets/action_button.dart';
@@ -34,26 +35,17 @@ Widget buildView(
         resizeToAvoidBottomInset: true,
         children: [
           pageNavBar(FlutterI18n.translate(_ctx, 'mining_simulator'),
+              leadingWidget: SizedBox(),
               onTap: () => Navigator.pop(viewService.context)),
           SizedBox(height: 35),
           ValueEditor(
-            key: ValueKey('amountValueEditor'),
-            controller: state.mxcAmountCtl,
-            total: state.mxcTotal,
-            title: FlutterI18n.translate(_ctx, 'lock_amount'),
-            subtitle: FlutterI18n.translate(_ctx, 'current_balance'),
+            key: ValueKey('mxcValueEditor'),
+            controller: state.mxcLockedCtl,
+            total: state.mxcBalance,
+            title: FlutterI18n.translate(_ctx, 'mxc_locked'),
+            subtitle: FlutterI18n.translate(_ctx, 'current_mxc_balance'),
             textFieldSuffix: 'MXC',
             totalSuffix: 'MXC',
-          ),
-          SizedBox(height: 35),
-          ValueEditor(
-            key: ValueKey('minersValueEditor'),
-            controller: state.minersAmountCtl,
-            total: state.minersTotal,
-            title: FlutterI18n.translate(_ctx, 'amount_of_miner'),
-            subtitle: FlutterI18n.translate(_ctx, 'amount_of_miner_desc'),
-            textFieldSuffix: FlutterI18n.translate(_ctx, 'miner'),
-            showSlider: false,
           ),
           SizedBox(height: 35),
           Text(
@@ -66,8 +58,8 @@ Widget buildView(
               value: monthsOptions.indexOf(state.months).toDouble(),
               max: (monthsOptions.length - 1).toDouble(),
               divisions: (monthsOptions.length - 1),
-              activeColor: Color(0xFF4665EA),
-              inactiveColor: Color(0xFF4665EA).withOpacity(0.2),
+              activeColor: Token.supernodeDhx.color,
+              inactiveColor: Token.supernodeDhx.color.withOpacity(0.2),
               onChanged: (v) => dispatch(MiningSimulatorActionCreator.months(
                   monthsOptions[v.toInt()])),
             ),
@@ -87,15 +79,23 @@ Widget buildView(
           ),
           SizedBox(height: 35),
           ValueEditor(
-            key: ValueKey('fuelValueEditor'),
-            controller: state.dhxFuelCtl,
-            total: 0.0,
-            title: FlutterI18n.translate(_ctx, 'dhx_fuel'),
-            subtitle: FlutterI18n.translate(_ctx, 'current_balance'),
+            key: ValueKey('minersValueEditor'),
+            controller: state.minersAmountCtl,
+            total: state.minersTotal,
+            title: FlutterI18n.translate(_ctx, 'amount_of_miner'),
+            subtitle: FlutterI18n.translate(_ctx, 'amount_of_miner_desc'),
+            textFieldSuffix: FlutterI18n.translate(_ctx, 'miner'),
+            showSlider: false,
+          ),
+          SizedBox(height: 35),
+          ValueEditor(
+            key: ValueKey('dhxValueEditor'),
+            controller: state.dhxBondedCtl,
+            total: state.dhxBalance,
+            title: FlutterI18n.translate(_ctx, 'dhx_bonded'),
+            subtitle: FlutterI18n.translate(_ctx, 'current_dhx_balance'),
             textFieldSuffix: 'DHX',
             totalSuffix: 'DHX',
-            hintText: FlutterI18n.translate(_ctx, 'not_activated_yet'),
-            enabled: false,
           ),
           SizedBox(height: 20),
           Column(
@@ -133,12 +133,13 @@ Widget buildView(
                 children: [
                   Expanded(
                     child: Center(
-                      child: ValueListenableBuilder2(
-                          state.minersAmountCtl, state.mxcAmountCtl, builder:
+                      child: ValueListenableBuilder3(
+                          state.minersAmountCtl, state.mxcLockedCtl, state.dhxBondedCtl, builder:
                               (ctx, TextEditingValue miners,
-                                  TextEditingValue mxc, _) {
+                          TextEditingValue mxc,
+                          TextEditingValue dhx, _) {
                         final dailyReturn =
-                            getDailyReturn(state, mxc.text, miners.text);
+                            getDailyReturn(state, mxc.text, dhx.text, miners.text);
                         final res = dailyReturn == null || dailyReturn.isNaN
                             ? null
                             : Tools.numberRounded(dailyReturn);
@@ -153,7 +154,7 @@ Widget buildView(
                   Expanded(
                     child: Center(
                       child: ValueListenableBuilder2(
-                          state.minersAmountCtl, state.mxcAmountCtl, builder:
+                          state.minersAmountCtl, state.mxcLockedCtl, builder:
                               (ctx, TextEditingValue miners,
                                   TextEditingValue mxc, _) {
                         final mPower = getMPower(state, mxc.text, miners.text);
@@ -199,11 +200,11 @@ Widget buildView(
                   ],
                 ),
               if (state.calculateExpandState == CalculateExpandState.dhx)
-                ValueListenableBuilder2(
-                    state.minersAmountCtl, state.mxcAmountCtl, builder: (ctx,
-                        TextEditingValue miners, TextEditingValue mxc, _) {
+                ValueListenableBuilder3(
+                    state.minersAmountCtl, state.mxcLockedCtl, state.dhxBondedCtl, builder: (ctx,
+                        TextEditingValue miners, TextEditingValue mxc,  TextEditingValue dhx, _) {
                   final dailyReturn =
-                      getDailyReturn(state, mxc.text, miners.text);
+                      getDailyReturn(state, mxc.text, dhx.text, miners.text);
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32),
                     child: SmallActionButton(
@@ -221,7 +222,7 @@ Widget buildView(
                 }),
               if (state.calculateExpandState == CalculateExpandState.mPower)
                 ValueListenableBuilder2(
-                    state.minersAmountCtl, state.mxcAmountCtl, builder: (ctx,
+                    state.minersAmountCtl, state.mxcLockedCtl, builder: (ctx,
                         TextEditingValue miners, TextEditingValue mxc, _) {
                   final mPower = getMPower(state, mxc.text, miners.text);
                   return Padding(
@@ -261,7 +262,7 @@ Widget buildView(
                     text: FlutterI18n.translate(_ctx, 'mine_dhx'),
                     onTap: () {
                       Navigator.of(_ctx).pushNamed('lock_page', arguments: {
-                        'balance': state.mxcTotal,
+                        'balance': state.mxcBalance,
                         'isDemo': state.isDemo,
                       });
                       Navigator.push(_ctx, MaterialPageRoute<void>(
@@ -290,14 +291,15 @@ Widget buildView(
 }
 
 double getDailyReturn(
-    MiningSimulatorState state, String mxcText, String minersText) {
-  final mxcValue = double.tryParse(mxcText);
+    MiningSimulatorState state, String mxcText, String dhxText, String minersText) {
+  final mxcLocked = double.tryParse(mxcText);
+  final dhxBonded = double.tryParse(dhxText);
   final minersCount = int.tryParse(minersText);
   return calculateDhxDaily(
-    dhxTotal: state.dhxTotal,
+    dhxBonded: dhxBonded,
     minersCount: minersCount,
     months: state.months,
-    mxcValue: mxcValue,
+    mxcLocked: mxcLocked,
     yesterdayMining: state.yesterdayMining,
   );
 }
