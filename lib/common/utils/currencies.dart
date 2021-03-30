@@ -10,7 +10,7 @@ extension TokenExtension on Token {
   String get fullName {
     switch (this) {
       case Token.supernodeDhx:
-        return 'DataHighway DHX';
+        return 'DHX';
       case Token.parachainDhx:
         return 'DataHighway DHX';
       case Token.mxc:

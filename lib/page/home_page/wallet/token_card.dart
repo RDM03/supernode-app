@@ -30,7 +30,7 @@ class MxcTokenCard extends StatelessWidget {
     return GestureDetector(
       onTap: expand,
       child: PanelFrame(
-        child: MxcTokenCardContent(showArrow: expand != null, showTitle: true),
+        child: MxcTokenCardContent(showArrow: expand != null),
       ),
     );
   }
@@ -38,25 +38,16 @@ class MxcTokenCard extends StatelessWidget {
 
 class MxcTokenCardContent extends StatelessWidget {
   final bool showArrow;
-  final bool showTitle;
 
   const MxcTokenCardContent({
     Key key,
     this.showArrow = false,
-    this.showTitle = false
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        (showTitle)
-            ? Container(
-            width: double.infinity,
-            padding: kRoundRow15_5,
-            color: Token.mxc.color,
-            child: Text('Supernode Server', style: kBigFontOfWhite,))
-            : SizedBox(),
         SizedBox(height: 10),
         Container(
           padding: kRoundRow15_5,
@@ -113,7 +104,7 @@ class SupernodeDhxTokenCard extends StatelessWidget {
     return GestureDetector(
       onTap: expand,
       child: PanelFrame(
-        child: SupernodeDhxTokenCardContent(showArrow: expand != null, showTitle: true),
+        child: SupernodeDhxTokenCardContent(showArrow: expand != null),
       ),
     );
   }
@@ -121,14 +112,13 @@ class SupernodeDhxTokenCard extends StatelessWidget {
 
 class SupernodeDhxTokenCardContent extends StatelessWidget {
   final bool showArrow;
-  final bool showTitle;
+
   final bool miningPageVersion;
   final bool showSimulateMining;
 
   const SupernodeDhxTokenCardContent({
     Key key,
     this.showArrow = false,
-    this.showTitle = false,
     this.miningPageVersion = false,
     this.showSimulateMining = true,
   }) : super(key: key);
@@ -137,13 +127,6 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        (showTitle)
-            ? Container(
-            width: double.infinity,
-            padding: kRoundRow15_5,
-            color: Token.supernodeDhx.color,
-            child: Text('Supernode Server', style: kBigFontOfWhite,))
-            : SizedBox(),
         SizedBox(height: 10),
         (miningPageVersion)
             ? SizedBox()
@@ -239,7 +222,7 @@ class BtcTokenCard extends StatelessWidget {
     return GestureDetector(
       onTap: expand,
       child: PanelFrame(
-        child: BtcTokenCardContent(showArrow: expand != null, showTitle: true),
+        child: BtcTokenCardContent(showArrow: expand != null),
       ),
     );
   }
@@ -247,25 +230,16 @@ class BtcTokenCard extends StatelessWidget {
 
 class BtcTokenCardContent extends StatelessWidget {
   final bool showArrow;
-  final bool showTitle;
 
   const BtcTokenCardContent({
     Key key,
     this.showArrow = false,
-    this.showTitle = false
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        (showTitle)
-            ? Container(
-            width: double.infinity,
-            padding: kRoundRow15_5,
-            color: Token.btc.color,
-            child: Text('Supernode Server', style: kBigFontOfWhite,))
-            : SizedBox(),
         SizedBox(height: 10),
         Container(
           padding: kRoundRow15_5,
