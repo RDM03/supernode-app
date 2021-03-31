@@ -83,11 +83,12 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
                       a.calendarBondInfo != b.calendarBondInfo,
                     builder: (context, state) => GridView.count(
                       crossAxisCount: 7,
-                      childAspectRatio: (1 / 2),
+                      childAspectRatio: (2 / 5),
                       shrinkWrap: true,
                       children: state.calendarBondInfo.map((e) => _CalendarElement(e)).toList(),
                     ),
                   ),
+                  Divider(thickness: 2),
                   smallColumnSpacer(),
                   Text(FlutterI18n.translate(context, 'bonding_calendar_note'), style: kSmallFontOfBlack),
                 ],
@@ -108,6 +109,8 @@ class _CalendarElement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Radius radius = Radius.circular(12);
+    DateTime today = DateTime.now();
+    today = DateTime.utc(today.year, today.month, today.day);
 
     BoxDecoration getDecoration() {
       if (model.left || model.right || model.middle)
@@ -126,10 +129,15 @@ class _CalendarElement extends StatelessWidget {
       return BoxDecoration();
     }
 
-    return Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-      (model.unbondAmount > 0)
-          ? Row(children: [Image.asset(AppImages.iconUnbond, scale: 1.5, color: Colors.red), Text('${7 - DateTime.now().difference(model.date).inDays}', style: kMiddleFontOfBlack)])
+    return Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
+      Divider(thickness: 2),
+      (!model.left)
+          ? Text(FlutterI18n.translate(context, 'cool_off'), style: kSmallFontOfWhite)
           : SizedBox(),
+      Row(mainAxisAlignment:MainAxisAlignment.center,
+          children: [
+            Image.asset(AppImages.iconUnbond, scale: 1.5, color: (model.unbondAmount > 0) ? Colors.red : Colors.white),
+            Text('${7 - today.difference(model.date).inDays}', style: (model.unbondAmount > 0) ? kMiddleFontOfBlack : kMiddleFontOfWhite)]),
       (model.left)
           ? Text(FlutterI18n.translate(context, 'cool_off'), style: kSmallFontOfDhxColor)
           : SizedBox(),
@@ -142,7 +150,6 @@ class _CalendarElement extends StatelessWidget {
           ((model.minedAmount > 0) ? '+${Tools.priceFormat(model.minedAmount, range: Tools.max3DecimalPlaces(model.minedAmount))}' : '') +
               ((model.today) ? FlutterI18n.translate(context, 'today') : ''),
           style: kSmallFontOfBlack),
-      Divider(thickness: 2),
     ]);
   }
 }
