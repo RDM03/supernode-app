@@ -61,7 +61,7 @@ Future<void> openSupernodeStake(BuildContext context) async {
 Future<void> openSupernodeUnstake(BuildContext context) async {
   final isDemo = context.read<AppCubit>().state.isDemo;
   await Navigator.of(context).pushNamed(
-    'unstake_page',
+    'list_unstake_page',
     arguments: {
       'isDemo': isDemo,
     },

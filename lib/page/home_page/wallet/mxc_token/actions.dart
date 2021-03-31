@@ -18,9 +18,9 @@ class MxcActions extends StatelessWidget {
     this.spaceOut = false,
   }) : super(key: key);
 
-  void _showStakeDialog(BuildContext context) {
+  void _showStakeDialog(BuildContext ctx) {
     showInfoDialog(
-      context,
+      ctx,
       IosStyleBottomDialog2(
         builder: (context) => Column(
           children: [
@@ -40,7 +40,7 @@ class MxcActions extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Navigator.pop(context);
-                openSupernodeStake(context);
+                openSupernodeStake(ctx);
               },
               child: Row(
                 children: [
@@ -70,7 +70,7 @@ class MxcActions extends StatelessWidget {
               behavior: HitTestBehavior.opaque,
               onTap: () {
                 Navigator.pop(context);
-                openSupernodeUnstake(context);
+                openSupernodeUnstake(ctx);
               },
               child: Row(
                 children: [
