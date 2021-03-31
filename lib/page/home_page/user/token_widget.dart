@@ -32,9 +32,7 @@ class TokenWidget extends StatelessWidget {
 
   Widget supernodeDhx(BuildContext context) => Column(
         children: [
-          SupernodeDhxTokenCardContent(
-            showSimulateMining: false,
-          ),
+          SupernodeDhxTokenCardContent(),
           Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18),
