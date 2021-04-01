@@ -14,19 +14,6 @@ import 'package:supernodeapp/page/home_page/user/tabbed_view.dart';
 class AccountWidget extends StatelessWidget {
   Widget supernode(BuildContext context) => Column(
         children: [
-          SizedBox(height: 16),
-          BlocBuilder<SupernodeCubit, SupernodeState>(
-            buildWhen: (a, b) => a?.session?.node != b?.session?.node,
-            builder: (ctx, state) => CachedNetworkImage(
-              imageUrl: state?.session?.node?.logo ?? '',
-              placeholder: (a, b) => Image.asset(
-                AppImages.placeholder,
-                height: s(40),
-              ),
-              height: s(40),
-            ),
-          ),
-          SizedBox(height: 18),
           BlocBuilder<SupernodeCubit, SupernodeState>(
             buildWhen: (a, b) => a?.session?.username != b?.session?.username,
             builder: (ctx, state) => ProfileRow(
@@ -53,7 +40,7 @@ class AccountWidget extends StatelessWidget {
           a.parachainUsed != b.parachainUsed ||
           a.supernodeUsed != b.supernodeUsed,
       builder: (ctx, state) => TabbedView(
-        contentHeight: 150,
+        contentHeight: 75,
         tabs: [
           if (state.supernodeUsed) ColorCodedWidget(supernode(context), Token.supernodeDhx.color),
           if (state.parachainUsed) ColorCodedWidget(parachain(context), Token.parachainDhx.color),

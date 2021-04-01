@@ -1,14 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mapbox_native/flutter_mapbox_native.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supernodeapp/app_cubit.dart';
+import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/summary_row.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
@@ -240,7 +243,17 @@ class UserTab extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: backgroundColor,
         elevation: 0,
-        title: Text('Home', style: kBigBoldFontOfBlack),
+        title: BlocBuilder<SupernodeCubit, SupernodeState>(
+          buildWhen: (a, b) => a?.session?.node != b?.session?.node,
+          builder: (ctx, state) => CachedNetworkImage(
+            imageUrl: state?.session?.node?.logo ?? '',
+            placeholder: (a, b) => Image.asset(
+              AppImages.placeholder,
+              height: s(40),
+            ),
+            height: s(40),
+          ),
+        ),
         centerTitle: true,
         leading: IconButton(
           key: Key('calculatorButton'),
