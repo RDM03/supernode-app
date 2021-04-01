@@ -272,6 +272,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
           ),
           Divider(color: Colors.grey),
           GestureDetector(
+            behavior: HitTestBehavior.opaque,
             onTap: () {
               Navigator.pop(context);
               launch('https://www.matchx.io/product/m2-pro-lpwan-crypto-miner/');
@@ -299,10 +300,6 @@ void showBoostMPowerDialog(BuildContext ctx) {
           Divider(color: Colors.grey),
           GestureDetector(
             behavior: HitTestBehavior.opaque,
-            /*onTap: () {
-                Navigator.pop(context);
-                openSupernodeStake(ctx);
-              },*/
             onTap: () {
               Navigator.pop(context);
               Navigator.of(ctx).pushNamed('lock_page', arguments: {
