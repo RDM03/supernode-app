@@ -46,11 +46,13 @@ class AppImages {
   static const String iconBond = 'assets/images/wallet/bond.png';
   static const String iconUnbond = 'assets/images/wallet/unbond.png';
   static const String iconCouncil = 'assets/images/wallet/icon-council.png';
+  static const String council = 'assets/images/wallet/council.png';
   static const String infoMXCVault = 'assets/images/wallet/info-mxc-vault.png';
   static const String infoCurrentTransactionFee =
       'assets/images/wallet/info-current-transaction-fee.png';
   static const String mcxBubble = 'assets/images/wallet/mxc_bubble.png';
   static const String minerBubble = 'assets/images/wallet/miner_bubble.png';
+  static const String dhxMiningDiagram = 'assets/images/wallet/dhx_mining_diagram.png';
   static const String rocket = 'assets/images/wallet/rocket.png';
   static const String minerBoostGraph =
       'assets/images/wallet/mining_boost_graph.png';
