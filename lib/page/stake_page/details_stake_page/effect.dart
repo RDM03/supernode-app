@@ -52,12 +52,12 @@ Future<void> _unstake(Context<DetailsStakeState> ctx, String otpCode) async {
 
   try {
     final res = await dao.unstake(data);
+    loading.hide();
     if (res.containsKey('status')) {
       await Navigator.pushNamed(ctx.context, 'confirm_page', arguments: {
         'title': FlutterI18n.translate(ctx.context, 'unstake'),
         'content': res['status']
       });
-      Navigator.of(ctx.context).pop(true);
       Navigator.of(ctx.context).pop(true);
     } else {
       tip(ctx.context, res);

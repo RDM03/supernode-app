@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/stake.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
-import 'package:supernodeapp/common/components/stake/stake_item.dart';
 import 'action.dart';
 import 'state.dart';
 
