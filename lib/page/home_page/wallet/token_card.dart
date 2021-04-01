@@ -67,7 +67,7 @@ class MxcTokenCardContent extends StatelessWidget {
             loading: state.balance.loading,
             name: FlutterI18n.translate(context, 'current_balance'),
             value: Tools.priceFormat(state.balance.value),
-            token: 'MXC',
+            token: Token.mxc.name,
           ),
         ),
         BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
@@ -76,7 +76,7 @@ class MxcTokenCardContent extends StatelessWidget {
             loading: state.stakedAmount.loading,
             name: FlutterI18n.translate(context, 'staked_amount'),
             value: Tools.priceFormat(state.stakedAmount.value),
-            token: "MXC",
+            token: Token.mxc.name,
           ),
         ),
         BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
@@ -85,7 +85,7 @@ class MxcTokenCardContent extends StatelessWidget {
             loading: state.totalRevenue.loading,
             name: FlutterI18n.translate(context, 'total_revenue'),
             value: Tools.priceFormat(state.totalRevenue.value, range: 2),
-            token: "MXC",
+            token: Token.mxc.name,
           ),
         ),
         SizedBox(height: 5)
@@ -260,7 +260,7 @@ class BtcTokenCardContent extends StatelessWidget {
             loading: state.balance.loading,
             name: FlutterI18n.translate(context, 'current_balance'),
             value: Tools.priceFormat(state.balance.value, range: 8),
-            token: 'BTC',
+            token: Token.btc.name,
           ),
         ),
         SizedBox(height: 5)

@@ -137,7 +137,7 @@ class UserTab extends StatelessWidget {
       child: PageBody(
         children: [
           AccountWidget(),
-          TokenWidget(),
+          TokenHomePageWidget(),
           if (supernodeConnected)
             BlocBuilder<GatewayCubit, GatewayState>(
               buildWhen: (a, b) => a.gatewaysTotal != b.gatewaysTotal,

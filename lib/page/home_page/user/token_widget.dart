@@ -1,60 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/panel/panel_frame.dart';
+import 'package:supernodeapp/common/components/summary_row.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/btc/cubit.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/btc/state.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
-import 'package:supernodeapp/page/home_page/user/tabbed_view.dart';
-import 'package:supernodeapp/page/home_page/wallet/btc_token/actions.dart';
-import 'package:supernodeapp/page/home_page/wallet/mxc_token/actions.dart';
-import 'package:supernodeapp/page/home_page/wallet/supernode_dhx_token/actions.dart';
-import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
+import 'package:supernodeapp/theme/font.dart';
 
-class TokenWidget extends StatelessWidget {
-  Widget mxc(BuildContext context) => Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: MxcTokenCardContent(),
-              ),
-            ],
-          ),
-          Spacer(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: MxcActions(),
-          ),
-          SizedBox(height: 10),
-        ],
-      );
+class TokenHomePageWidget extends StatelessWidget {
+  Widget mxc(BuildContext context) => BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
+      buildWhen: (a, b) => a.balance != b.balance,
+      builder: (ctx, state) => PanelFrame(rowTop: EdgeInsets.only(top: 10),
+        child: TokenSummaryRow(
+          key: Key('mxcDashboard'),
+          loading: state.balance.loading,
+          image: Token.mxc.imagePath,
+          name: Token.mxc.name,
+          balance: Tools.priceFormat(state.balance.value),
+        ),
+      ));
 
-  Widget supernodeDhx(BuildContext context) => Column(
-        children: [
-          SupernodeDhxTokenCardContent(
-            showSimulateMining: false,
-          ),
-          Spacer(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: SupernodeDhxActions(),
-          ),
-          SizedBox(height: 10),
-        ],
-      );
+  Widget supernodeDhx(BuildContext context) => BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+      buildWhen: (a, b) => a.balance != b.balance,
+      builder: (ctx, state) => PanelFrame(rowTop: EdgeInsets.only(top: 10),
+        child: TokenSummaryRow(
+          key: Key('dhxDashboard'),
+          loading: state.balance.loading,
+          image: Token.supernodeDhx.imagePath,
+          name: Token.supernodeDhx.name,
+          balance: Tools.priceFormat(state.balance.value),
+        ),
+      ));
 
-  Widget btc(BuildContext context) => Column(
-        children: [
-          BtcTokenCardContent(),
-          Spacer(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: BtcActions(),
-          ),
-          SizedBox(height: 10),
-        ],
-      );
+  Widget btc(BuildContext context) => BlocBuilder<SupernodeBtcCubit, SupernodeBtcState>(
+      buildWhen: (a, b) => a.balance != b.balance,
+      builder: (ctx, state) => PanelFrame(rowTop: EdgeInsets.only(top: 10),
+        child: TokenSummaryRow(
+          key: Key('btcDashboard'),
+          loading: state.balance.loading,
+          image: Token.btc.imagePath,
+          name: Token.btc.name,
+          balance: Tools.priceFormat(state.balance.value, range: 8),
+        ),
+      ));
 
   Widget parachainDhx(BuildContext context) => Container(color: Colors.green);
 
@@ -62,28 +59,48 @@ class TokenWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       buildWhen: (a, b) => a.displayTokens != b.displayTokens,
-      builder: (ctx, wallet) => TabbedView(
-        contentHeight: 285,
-        tabs: [
-          if (wallet.displayTokens.contains(Token.mxc)) ColorCodedWidget(mxc(context), Token.mxc.color),
-          if (wallet.displayTokens.contains(Token.supernodeDhx))
-            ColorCodedWidget(supernodeDhx(context), Token.supernodeDhx.color),
-          if (wallet.displayTokens.contains(Token.btc)) ColorCodedWidget(btc(context), Token.btc.color),
-          if (wallet.displayTokens.contains(Token.parachainDhx))
-            ColorCodedWidget(parachainDhx(context), Token.parachainDhx.color),
-        ],
-        menu: IconButton(
-          icon: Icon(Icons.more_vert),
-          onPressed: () => addTokenDialog(
-            context,
-            displayedTokens:
-            context.read<HomeCubit>().state.displayTokens,
-            parachainConnected:
-            context.read<HomeCubit>().state.parachainUsed,
-            supernodeConnected:
-            context.read<HomeCubit>().state.supernodeUsed,
-          ),
-        ),
+      builder: (ctx, wallet) => Column(
+          children: [
+            Container(
+              padding: EdgeInsets.only(top: 30),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(FlutterI18n.translate(context, "wallet"),
+                      style: kBigBoldFontOfBlack),
+                  Spacer(),
+                  GestureDetector(
+                    onTap: () => addTokenDialog(
+                      context,
+                      displayedTokens:
+                      context.read<HomeCubit>().state.displayTokens,
+                      parachainConnected:
+                      context.read<HomeCubit>().state.parachainUsed,
+                      supernodeConnected:
+                      context.read<HomeCubit>().state.supernodeUsed,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Token.supernodeDhx.color.withOpacity(.2),
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 4.0),
+                        child: Text(
+                          '+ ${FlutterI18n.translate(context, 'add_token_title')}',
+                          style: MiddleFontOfColor(color: Token.supernodeDhx.color),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (wallet.displayTokens.contains(Token.mxc)) mxc(context),
+            if (wallet.displayTokens.contains(Token.supernodeDhx)) supernodeDhx(context),
+            if (wallet.displayTokens.contains(Token.btc)) btc(context),
+            if (wallet.displayTokens.contains(Token.parachainDhx)) PanelFrame(child: parachainDhx(context), rowTop: EdgeInsets.only(top: 10)),
+          ]
       ),
     );
   }
