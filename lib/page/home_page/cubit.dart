@@ -14,7 +14,6 @@ class HomeCubit extends Cubit<HomeState> {
   }) : super(
           HomeState(
             tabIndex: 0,
-            walletTabClicked: 0,
             supernodeUsed: supernodeUsed,
             parachainUsed: parachainUsed,
             displayTokens: [
@@ -27,9 +26,9 @@ class HomeCubit extends Cubit<HomeState> {
   final CacheRepository cacheRepository;
   final String supernodeUsername;
 
-  void changeTab(int tab) {
+  void changeTab(int tab, {Token walletSelToken}) {
     if (tab == 3)
-      emit(state.copyWith(tabIndex: tab, walletTabClicked: state.walletTabClicked + 1));
+      emit(state.copyWith(tabIndex: tab, walletSelectedToken: walletSelToken));
     else
       emit(state.copyWith(tabIndex: tab));
   }

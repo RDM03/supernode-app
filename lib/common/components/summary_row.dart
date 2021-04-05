@@ -83,6 +83,7 @@ class TokenSummaryRow extends StatelessWidget {
   final String name;
   final String balance;
   final bool loading;
+  final VoidCallback onTap;
 
   const TokenSummaryRow({
     Key key,
@@ -90,34 +91,39 @@ class TokenSummaryRow extends StatelessWidget {
     this.name = '',
     this.balance = '',
     this.loading = false,
+    this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-        children: [
-          Padding(
-              padding: const EdgeInsets.only(left: 15.0, top: 15, bottom: 15),
-              child: Image.asset(
-                image,
-                fit: BoxFit.none,
-              )
-          ),
-          Expanded(
-            child:
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: Text(name, style: kBigBoldFontOfBlack)),
-              TitleDetailRow(
-                loading: loading,
-                name: FlutterI18n.translate(context, 'balance'),
-                value: balance,
-                token: name,
-              ),
-            ]),
-          )
-        ]
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: onTap,
+      child: Row(
+          children: [
+            Padding(
+                padding: const EdgeInsets.only(left: 15.0, top: 15, bottom: 15),
+                child: Image.asset(
+                  image,
+                  fit: BoxFit.none,
+                )
+            ),
+            Expanded(
+              child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: Text(name, style: kBigBoldFontOfBlack)),
+                TitleDetailRow(
+                  loading: loading,
+                  name: FlutterI18n.translate(context, 'balance'),
+                  value: balance,
+                  token: name,
+                ),
+              ]),
+            )
+          ]
+      ),
     );
   }
 }

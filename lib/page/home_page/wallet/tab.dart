@@ -18,15 +18,11 @@ class WalletTab extends StatefulWidget {
 }
 
 class _WalletTabState extends State<WalletTab> {
-  Token selectedToken;
-
   @override
   Widget build(BuildContext context) {
-    return BlocListener<HomeCubit, HomeState> (
-      listenWhen: (a, b) => a.walletTabClicked != b.walletTabClicked,// Wallet tab
-      listener: (context, state) => setState(() => selectedToken = null),
-      child: Scaffold(
-        appBar: selectedToken == null
+    return BlocBuilder<HomeCubit, HomeState> (
+      builder: (ctx, state) => Scaffold(
+        appBar: state.walletSelectedToken == null
             ? homeBar(
                 FlutterI18n.translate(context, 'wallet'),
                 onPressed: () => openSettings(context),
@@ -34,27 +30,26 @@ class _WalletTabState extends State<WalletTab> {
             : homeBar(
                 null,
                 title: Text(
-                  selectedToken.fullName,
+                  state.walletSelectedToken.fullName,
                   style: kBigFontOfBlack,
                 ),
                 onPressed: () => openSettings(context),
               ),
-        body: selectedToken == null
+        body: state.walletSelectedToken == null
             ? BlocBuilder<HomeCubit, HomeState>(
                 builder: (ctx, state) => PageBody(
                   children: [
                     if (state.displayTokens.contains(Token.mxc))
                       MxcTokenCard(
-                        expand: () => setState(() => selectedToken = Token.mxc),
+                        expand: () => context.read<HomeCubit>().changeTab(3, walletSelToken: Token.mxc),
                       ),
                     if (state.displayTokens.contains(Token.supernodeDhx))
                       SupernodeDhxTokenCard(
-                        expand: () =>
-                            setState(() => selectedToken = Token.supernodeDhx),
+                        expand: () => context.read<HomeCubit>().changeTab(3, walletSelToken: Token.supernodeDhx),
                       ),
                     if (state.displayTokens.contains(Token.btc))
                       BtcTokenCard(
-                        expand: () => setState(() => selectedToken = Token.btc),
+                        expand: () => context.read<HomeCubit>().changeTab(3, walletSelToken: Token.btc),
                       ),
                     AddNewTokenCard(),
                     SizedBox(height: 15)
@@ -64,8 +59,8 @@ class _WalletTabState extends State<WalletTab> {
             : PageBodySingleChild(
                 usePadding: false,
                 child: TokenExpandedView(
-                  selectedToken: selectedToken,
-                  onTokenChanged: (t) => setState(() => selectedToken = t),
+                  selectedToken: state.walletSelectedToken,
+                  onTokenChanged: (t) => context.read<HomeCubit>().changeTab(3, walletSelToken: t),
                 ),
               ),
       ),
