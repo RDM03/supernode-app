@@ -26,7 +26,7 @@ class TokenHomePageWidget extends StatelessWidget {
           image: Token.mxc.imagePath,
           name: Token.mxc.name,
           balance: Tools.priceFormat(state.balance.value),
-          onTap: () => context.read<HomeCubit>().changeTab(3, walletSelToken: Token.mxc),
+          onTap: () => context.read<HomeCubit>().changeTab(HomeCubit.WALLET_TAB, walletSelToken: Token.mxc),
         ),
       ));
 
@@ -39,7 +39,7 @@ class TokenHomePageWidget extends StatelessWidget {
           image: Token.supernodeDhx.imagePath,
           name: Token.supernodeDhx.name,
           balance: Tools.priceFormat(state.balance.value),
-          onTap: () => context.read<HomeCubit>().changeTab(3, walletSelToken: Token.supernodeDhx),
+          onTap: () => context.read<HomeCubit>().changeTab(HomeCubit.WALLET_TAB, walletSelToken: Token.supernodeDhx),
         ),
       ));
 
@@ -52,7 +52,7 @@ class TokenHomePageWidget extends StatelessWidget {
           image: Token.btc.imagePath,
           name: Token.btc.name,
           balance: Tools.priceFormat(state.balance.value, range: 8),
-          onTap: () => context.read<HomeCubit>().changeTab(3, walletSelToken: Token.btc),
+          onTap: () => context.read<HomeCubit>().changeTab(HomeCubit.WALLET_TAB, walletSelToken: Token.btc),
         ),
       ));
 

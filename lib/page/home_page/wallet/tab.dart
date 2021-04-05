@@ -41,15 +41,15 @@ class _WalletTabState extends State<WalletTab> {
                   children: [
                     if (state.displayTokens.contains(Token.mxc))
                       MxcTokenCard(
-                        expand: () => context.read<HomeCubit>().changeTab(3, walletSelToken: Token.mxc),
+                        expand: () => context.read<HomeCubit>().changeTab(HomeCubit.WALLET_TAB, walletSelToken: Token.mxc),
                       ),
                     if (state.displayTokens.contains(Token.supernodeDhx))
                       SupernodeDhxTokenCard(
-                        expand: () => context.read<HomeCubit>().changeTab(3, walletSelToken: Token.supernodeDhx),
+                        expand: () => context.read<HomeCubit>().changeTab(HomeCubit.WALLET_TAB, walletSelToken: Token.supernodeDhx),
                       ),
                     if (state.displayTokens.contains(Token.btc))
                       BtcTokenCard(
-                        expand: () => context.read<HomeCubit>().changeTab(3, walletSelToken: Token.btc),
+                        expand: () => context.read<HomeCubit>().changeTab(HomeCubit.WALLET_TAB, walletSelToken: Token.btc),
                       ),
                     AddNewTokenCard(),
                     SizedBox(height: 15)
@@ -60,7 +60,7 @@ class _WalletTabState extends State<WalletTab> {
                 usePadding: false,
                 child: TokenExpandedView(
                   selectedToken: state.walletSelectedToken,
-                  onTokenChanged: (t) => context.read<HomeCubit>().changeTab(3, walletSelToken: t),
+                  onTokenChanged: (t) => context.read<HomeCubit>().changeTab(HomeCubit.WALLET_TAB, walletSelToken: t),
                 ),
               ),
       ),

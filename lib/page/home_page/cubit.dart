@@ -6,6 +6,11 @@ import 'package:supernodeapp/common/utils/currencies.dart';
 import 'state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
+  static const int HOME_TAB = 0;
+  static const int WALLET_TAB = 1;
+  static const int MINER_TAB = 2;
+  static const int DEVICE_TAB = 3;
+
   HomeCubit({
     @required this.cacheRepository,
     @required this.supernodeUsername,
@@ -13,7 +18,7 @@ class HomeCubit extends Cubit<HomeState> {
     bool parachainUsed = false,
   }) : super(
           HomeState(
-            tabIndex: 0,
+            tabIndex: HOME_TAB,
             supernodeUsed: supernodeUsed,
             parachainUsed: parachainUsed,
             displayTokens: [
@@ -27,7 +32,7 @@ class HomeCubit extends Cubit<HomeState> {
   final String supernodeUsername;
 
   void changeTab(int tab, {Token walletSelToken}) {
-    if (tab == 3)
+    if (tab == WALLET_TAB)
       emit(state.copyWith(tabIndex: tab, walletSelectedToken: walletSelToken));
     else
       emit(state.copyWith(tabIndex: tab));
