@@ -460,7 +460,7 @@ class _MiningTutorialState extends State<MiningTutorial> {
             Flexible(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(FlutterI18n.translate(context, 'tutorial_page2_subtitle2'), style: kBigBoldFontOfBlack),
+                    Text('2. ${FlutterI18n.translate(context, 'add_miner')}', style: kBigBoldFontOfBlack),
                     Text(FlutterI18n.translate(context, 'tutorial_page2_txt2'), style: kMiddleFontOfBlack),
                   ]),
             )
