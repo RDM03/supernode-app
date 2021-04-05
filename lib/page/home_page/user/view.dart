@@ -99,38 +99,6 @@ class UserTab extends StatelessWidget {
     );
   }
 
-  Widget totalDevices(BuildContext context, SupernodeUserState state) {
-    return PanelFrame(
-      child: SummaryRow(
-        key: Key('totalDevicesDashboard'),
-        loading: false,
-        image: AppImages.devices,
-        title: FlutterI18n.translate(context, 'total_devices'),
-        number: '${state.devicesTotal.value ?? '0'}',
-        subtitle: FlutterI18n.translate(context, 'cost'),
-        price:
-            '${Tools.priceFormat(state.devicesRevenue.value)} MXC (${Tools.priceFormat(state.devicesRevenueUsd.value)} USD)',
-      ),
-    );
-  }
-
-  Widget totalDevicesDemo(BuildContext context) {
-    return PanelFrame(
-      child: unlockDhxLayer(
-        context,
-        SummaryRow(
-          key: Key('totalDevicesDashboard'),
-          loading: false,
-          image: AppImages.devices,
-          title: FlutterI18n.translate(context, 'total_devices'),
-          number: '0',
-          subtitle: FlutterI18n.translate(context, 'cost'),
-          price: '0 USD',
-        ),
-      ),
-    );
-  }
-
   Widget unlockDhxLayer(BuildContext context, Widget child) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
@@ -191,16 +159,6 @@ class UserTab extends StatelessWidget {
             )
           else
             totalGatewaysDemo(context),
-          if (supernodeConnected)
-            BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-              buildWhen: (a, b) =>
-                  a?.devicesRevenueUsd != b?.devicesRevenueUsd ||
-                  a?.devicesRevenue != b?.devicesRevenue ||
-                  a?.devicesTotal != b?.devicesTotal,
-              builder: (ctx, state) => totalDevices(context, state),
-            )
-          else
-            totalDevicesDemo(context),
           if (supernodeConnected)
             BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
               buildWhen: (a, b) =>
