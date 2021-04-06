@@ -33,7 +33,7 @@ Widget listItem({
   Function onTap,
   Token token,
 }) {
-  final subtitle = revenue != null
+  final subtitle = (revenue != null && revenue != 0.0)
       ? '${Tools.priceFormat(revenue, range: 2)} MXC ${TimeUtil.getDatetime(datetime)}'
       : TimeUtil.getDatetime(datetime);
   amountColor ??=

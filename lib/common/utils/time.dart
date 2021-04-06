@@ -74,20 +74,20 @@ class TimeUtil {
 
     if (type == 'date') {
       convertTime =
-          "${time.year.toString()}-${time.month.toString().padLeft(2, '0')}-${time.date.toString().padLeft(2, '0')}";
+          "${time.year.toString()}-${time.month.toString().padLeft(2, '0')}-${time.day.toString().padLeft(2, '0')}";
     } else if (type == 'md') {
       convertTime =
-          "${time.month.toString().padLeft(2, '0')}-${time.date.toString().padLeft(2, '0')}";
+          "${time.month.toString().padLeft(2, '0')}-${time.day.toString().padLeft(2, '0')}";
     } else if (type == 'month') {
       convertTime = "${time.month.toString().padLeft(2, '0')}";
     } else if (type == 'day') {
-      convertTime = "${time.date.toString().padLeft(2, '0')}";
+      convertTime = "${time.day.toString().padLeft(2, '0')}";
     } else if (type == 'time') {
       convertTime =
           "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:${time.second.toString().padLeft(2, '0')}";
     } else {
       convertTime =
-          "${time.year.toString()}-${time.month.toString().padLeft(2, '0')}-${time.date.toString().padLeft(2, '0')} ${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:${time.second.toString().padLeft(2, '0')}";
+          "${time.year.toString()}-${time.month.toString().padLeft(2, '0')}-${time.day.toString().padLeft(2, '0')} ${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:${time.second.toString().padLeft(2, '0')}";
     }
 
     return convertTime;
