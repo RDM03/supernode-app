@@ -114,13 +114,11 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
   final bool showArrow;
 
   final bool miningPageVersion;
-  final bool showSimulateMining;
 
   const SupernodeDhxTokenCardContent({
     Key key,
     this.showArrow = false,
     this.miningPageVersion = false,
-    this.showSimulateMining = true,
   }) : super(key: key);
 
   @override
@@ -137,21 +135,7 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
             SizedBox(width: s(3)),
             Text(Token.supernodeDhx.name, style: kBigBoldFontOfBlack),
             Spacer(),
-            if (!showArrow && showSimulateMining)
-              PrimaryButton(
-                bgColor: Token.supernodeDhx.color,
-                buttonTitle: FlutterI18n.translate(context, 'simulate_mining'),
-                onTap: () => Navigator.pushNamed(
-                  context,
-                  'mining_simulator_page',
-                  arguments: {
-                    'isDemo': context.read<AppCubit>().state.isDemo,
-                    'mxc_balance': context.read<SupernodeUserCubit>().state.balance.value,
-                    'dhx_balance': context.read<SupernodeDhxCubit>().state.balance.value,
-                  },
-                ),
-              )
-            else if (showArrow)
+            if (showArrow)
               Icon(Icons.arrow_forward_ios)
           ]),
         ),

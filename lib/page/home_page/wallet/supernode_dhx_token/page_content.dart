@@ -13,12 +13,12 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
+import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/home_page/wallet/supernode_dhx_token/actions.dart';
 import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
 import 'transactions_history.dart';
 import 'mining_income.dart';
 import 'package:supernodeapp/theme/font.dart';
-import 'package:supernodeapp/theme/spacing.dart';
 
 class SupernodeDhxTokenPageContent extends StatefulWidget {
   const SupernodeDhxTokenPageContent({Key key}) : super(key: key);
@@ -51,7 +51,7 @@ class _SupernodeDhxTokenPageContentState
           SupernodeDhxTokenCard(),
           DhxMiningCard(),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12.0),
+            padding: const EdgeInsets.only(top: 30, bottom: 10),
             child: CupertinoSlidingSegmentedControl(
                 groupValue: selectedTab,
                 onValueChanged: (tabIndex) =>
@@ -85,60 +85,64 @@ class _SupernodeDhxTokenPageContentState
 class DhxMiningCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return PanelFrame(
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10),
-        child: Column(
-          children: [
-            SizedBox(height: s(5)),
-            Container(
-              padding: kRoundRow15_5,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(FlutterI18n.translate(context, "mining"),
-                      style: kBigBoldFontOfBlack),
-                  Spacer(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                          FlutterI18n.translate(
-                            context,
-                            "daily_mining_capacity",
-                          ),
-                          style: kSmallFontOfBlack),
-                      SizedBox(height: s(5)),
-                      Text('5000 DHX',
-                          style: MiddleFontOfColor(
-                              color: Token.supernodeDhx.color)),
-                    ],
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 30, bottom: 10),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(FlutterI18n.translate(context, "mining_ability"),
+                  style: kBigBoldFontOfBlack),
+              Spacer(),
+              GestureDetector(
+                onTap: () => showBoostMPowerDialog(context),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Token.supernodeDhx.color.withOpacity(.2),
+                      borderRadius: BorderRadius.all(Radius.circular(5))),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 4.0),
+                    child: Text(
+                      '+ ${FlutterI18n.translate(context, 'boost_mpower')}',
+                      style: MiddleFontOfColor(color: Token.supernodeDhx.color),
+                    ),
                   ),
-                ],
+                ),
               ),
-            ),
-            middleColumnSpacer(),
-            NumberMinersAndMPower(),
-            smallColumnSpacer(),
-            TitleDetailRow(
-              name:
-                  FlutterI18n.translate(context, 'estimated_dxh_daily_return'),
-              value: FlutterI18n.translate(context, 'coming'),
-              token: "",
-              disabled: true,
-            ),
-            BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-              buildWhen: (a, b) => a.lastMiningPower != b.lastMiningPower,
-              builder: (ctx, state) => TitleDetailRow(
-                loading: state.lastMiningPower.loading,
-                name: FlutterI18n.translate(context, 'supernode_mining_power'),
-                value: Tools.numberRounded(state.lastMiningPower.value),
-                token: "mPower",
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
+        PanelFrame(
+          rowTop: EdgeInsets.all(0),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Column(
+              children: [
+                SizedBox(height: s(5)),
+                NumberMinersAndMPower(),
+                smallColumnSpacer(),
+                TitleDetailRow(
+                  name:
+                      FlutterI18n.translate(context, 'estimated_dxh_daily_return'),
+                  value: '5000.00',
+                  token: Token.supernodeDhx.name,
+                ),
+                BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+                  buildWhen: (a, b) => a.lastMiningPower != b.lastMiningPower,
+                  builder: (ctx, state) => TitleDetailRow(
+                    loading: state.lastMiningPower.loading,
+                    name: FlutterI18n.translate(context, 'supernode_mining_power'),
+                    value: Tools.numberRounded(state.lastMiningPower.value),
+                    token: "mPower",
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

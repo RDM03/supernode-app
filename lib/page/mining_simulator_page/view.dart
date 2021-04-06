@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
+import 'package:supernodeapp/common/components/buttons/primary_button.dart';
+import 'package:supernodeapp/common/components/column_spacer.dart';
 
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
@@ -13,6 +15,7 @@ import 'package:supernodeapp/common/components/wallet/mining_tutorial.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
+import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/mining_simulator_page/widgets/action_button.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -242,48 +245,14 @@ Widget buildView(
                 }),
             ],
           ),
-          SizedBox(height: 35),
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  child: ActionButton(
-                    text: FlutterI18n.translate(_ctx, 'back'),
-                    onTap: () => Navigator.of(_ctx).pop(),
-                    primary: false,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  child: ActionButton(
-                    text: FlutterI18n.translate(_ctx, 'mine_dhx'),
-                    onTap: () {
-                      Navigator.of(_ctx).pushNamed('lock_page', arguments: {
-                        'balance': state.mxcBalance,
-                        'isDemo': state.isDemo,
-                      });
-                      Navigator.push(_ctx, MaterialPageRoute<void>(
-                        builder: (BuildContext context) {
-                          return Scaffold(
-                            appBar: AppBars.backArrowSkipAppBar(
-                                onPress: () => Navigator.pop(context),
-                                action: FlutterI18n.translate(context, "skip")),
-                            body: MiningTutorial(context),
-                          );
-                        },
-                      ));
-                    },
-                  ),
-                ),
-              ),
-            ],
+          xbigColumnSpacer(),
+          PrimaryButton(
+            buttonTitle: FlutterI18n.translate(_ctx, 'boost_mpower'),
+            bgColor: Token.supernodeDhx.color,
+            minWidth: double.infinity,
+            onTap: () => showBoostMPowerDialog(_ctx),
           ),
-          SizedBox(
-            height: 30,
-          ),
+          middleColumnSpacer(),
         ],
       ),
     ),
