@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/repositories/supernode/dao/topup.model.dart'
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/wrap.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
+import 'package:supernodeapp/page/withdraw_page/bloc/cubit.dart';
 
 import 'state.dart';
 
@@ -22,7 +23,7 @@ class DepositCubit extends Cubit<DepositState> {
     try {
       Map data = {
         "orgId": orgId,
-        "currency": currency,
+        "currency": map2serverCurrency[currency],
       };
 
       TopupAccount res = await supernodeRepository.topup.account(data);
