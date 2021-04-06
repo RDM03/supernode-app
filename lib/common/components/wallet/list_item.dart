@@ -84,7 +84,7 @@ Widget listItem({
                 borderRadius: BorderRadius.all(Radius.circular(7)),
               ),
               child: Text(
-                '${Tools.convertDouble(amount)} ${type.contains('BTC') ? 'BTC' : 'MXC'}',
+                '${Tools.convertDouble(amount)} ${token?.name}',
                 style: kBigFontOfBlack,
               ),
             ),
