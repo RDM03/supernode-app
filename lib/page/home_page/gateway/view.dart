@@ -59,11 +59,13 @@ class GatewayTab extends StatelessWidget {
                     loading: gatewayState.gatewaysTotal.loading,
                     icon: Icons.add_circle,
                     onPressed: () async {
-                      await Navigator.of(context)
-                          .pushNamed('add_gateway_page', arguments: {
-                        'fromPage': 'home',
-                      });
-                      await context.read<GatewayCubit>().refreshGateways();
+                      if (!context.read<AppCubit>().state.isDemo) {
+                        await Navigator.of(context)
+                            .pushNamed('add_gateway_page', arguments: {
+                          'fromPage': 'home',
+                        });
+                        await context.read<GatewayCubit>().refreshGateways();
+                      }
                     },
                     titleText: FlutterI18n.translate(context, 'total_gateways'),
                     subtitleText: '${gatewayState.gatewaysTotal.value}',

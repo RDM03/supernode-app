@@ -13,7 +13,6 @@ import 'package:supernodeapp/common/repositories/shared/dao/supernode.model.dart
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/images.dart';
-import 'package:supernodeapp/page/home_page/home_page.dart';
 import 'package:supernodeapp/page/login_page/supernode_login_page/cubit.dart';
 import 'package:supernodeapp/page/login_page/supernode_login_page/state.dart';
 import 'package:supernodeapp/page/sign_up_page/verification_code_component/email_verification_page.dart';

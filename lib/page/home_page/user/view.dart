@@ -45,11 +45,13 @@ class UserTab extends StatelessWidget {
                 Spacer(),
                 GestureDetector(
                   onTap: () async {
-                    await Navigator.of(context)
-                        .pushNamed('add_gateway_page', arguments: {
-                      'fromPage': 'home',
-                    });
-                    await context.read<GatewayCubit>().refreshGateways();
+                    if (!context.read<AppCubit>().state.isDemo) {
+                      await Navigator.of(context)
+                          .pushNamed('add_gateway_page', arguments: {
+                        'fromPage': 'home',
+                      });
+                      await context.read<GatewayCubit>().refreshGateways();
+                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(

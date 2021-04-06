@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/repositories/cache_repository.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
+import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/common/wrap.dart';
 import 'package:supernodeapp/log.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
@@ -50,7 +51,7 @@ class SupernodeBtcCubit extends Cubit<SupernodeBtcState> {
         'orgId': orgId,
         'currency': 'BTC',
       });
-      final value = double.tryParse(balanceData['balance']);
+      final value = Tools.convertDouble(balanceData['balance']);
       emit(state.copyWith(balance: Wrap(value)));
       homeCubit.saveSNCache(CacheRepository.balanceBTCKey, value);
     } catch (e, s) {

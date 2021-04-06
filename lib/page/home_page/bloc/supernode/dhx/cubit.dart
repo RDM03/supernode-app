@@ -70,7 +70,7 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
         'orgId': orgId,
         'currency': 'DHX',
       });
-      final value = double.tryParse(balanceData['balance']);
+      final value = Tools.convertDouble(balanceData['balance']);
       emit(state.copyWith(balance: Wrap(value)));
       homeCubit.saveSNCache(CacheRepository.balanceDHXKey, value);
 
