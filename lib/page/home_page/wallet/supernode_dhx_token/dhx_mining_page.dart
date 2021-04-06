@@ -46,8 +46,6 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
           ),
           middleColumnSpacer(),
           Row(children: [
-            Text(FlutterI18n.translate(context, 'status'), style: kSmallFontOfBlack),
-            Spacer(),
             Icon(Icons.circle, color: Token.supernodeDhx.color, size: 12),
             Text(FlutterI18n.translate(context, "today"), style: kSmallFontOfBlack),
             Spacer(),

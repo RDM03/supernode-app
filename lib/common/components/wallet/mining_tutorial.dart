@@ -249,9 +249,14 @@ class MiningTutorial extends StatefulWidget {
             TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span2"), style: kPrimaryBigFontOfBlack.copyWith(color: Token.supernodeDhx.color)),
             TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span3"), style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
           ])),
-      SizedBox(height: s(10)),
-      SizedBox(height: s(40)),
-      SizedBox(height: 25)
+      RichText(
+          text: TextSpan(children: [
+            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span4"), style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span5"), style: kPrimaryBigFontOfBlack.copyWith(color: Token.supernodeDhx.color)),
+            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span6"), style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+          ])),
+      SizedBox(height: s(30)),
+      Image.asset(AppImages.calendar1),
     ]);
   }
 
@@ -266,8 +271,8 @@ class MiningTutorial extends StatefulWidget {
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pv5_text"),
           style: kBigFontOfBlack),
-      SizedBox(height: s(40)),
-      SizedBox(height: 25)
+      SizedBox(height: s(30)),
+      Image.asset(AppImages.calendar2),
     ]);
   }
 
@@ -283,8 +288,8 @@ class MiningTutorial extends StatefulWidget {
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pv6_text"),
           style: kBigFontOfBlack),
-      SizedBox(height: s(40)),
-      SizedBox(height: 25)
+      SizedBox(height: s(30)),
+      Image.asset(AppImages.calendar3),
     ]);
   }
 

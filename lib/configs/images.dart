@@ -57,6 +57,9 @@ class AppImages {
   static const String rocket = 'assets/images/wallet/rocket.png';
   static const String minerBoostGraph =
       'assets/images/wallet/mining_boost_graph.png';
+  static const String calendar1 = 'assets/images/wallet/calendar1.png';
+  static const String calendar2 = 'assets/images/wallet/calendar2.png';
+  static const String calendar3 = 'assets/images/wallet/calendar3.png';
 
   //gateway
   static const String infoDownlinkPrice =
