@@ -16,7 +16,7 @@ class _$LoginStateTearOff {
 // ignore: unused_element
   _LoginState call(
       {bool supernodeListVisible = false,
-      bool obscureText = false,
+      bool obscureText = true,
       @nullable Supernode selectedSuperNode,
       int showTestNodesCounter = 0,
       Wrap<Map<String, List<Supernode>>> supernodes = const Wrap.pending(),
@@ -245,7 +245,7 @@ class __$LoginStateCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
 class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
   _$_LoginState(
       {this.supernodeListVisible = false,
-      this.obscureText = false,
+      this.obscureText = true,
       @nullable this.selectedSuperNode,
       this.showTestNodesCounter = 0,
       this.supernodes = const Wrap.pending(),
@@ -268,7 +268,7 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
   @JsonKey(defaultValue: false)
   @override
   final bool supernodeListVisible;
-  @JsonKey(defaultValue: false)
+  @JsonKey(defaultValue: true)
   @override
   final bool obscureText;
   @override

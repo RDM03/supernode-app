@@ -11,7 +11,7 @@ abstract class LoginState with _$LoginState {
 
   factory LoginState({
     @Default(false) bool supernodeListVisible,
-    @Default(false) bool obscureText,
+    @Default(true) bool obscureText,
     @nullable Supernode selectedSuperNode,
     @Default(0) int showTestNodesCounter,
     @Default(Wrap.pending()) Wrap<Map<String, List<Supernode>>> supernodes,

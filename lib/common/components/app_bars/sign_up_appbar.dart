@@ -19,8 +19,9 @@ class AppBars {
       title: (onTitlePress == null)
           ? Text(title, style: kBigFontOfBlack)
           : GestureDetector(
-        onTap: onTitlePress,
-        child: Text(title, style: kBigFontOfBlack)
+          behavior: HitTestBehavior.opaque,
+          onTap: onTitlePress,
+          child: Text(title, style: kBigFontOfBlack)
       ),
     );
   }
