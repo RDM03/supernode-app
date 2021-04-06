@@ -225,7 +225,7 @@ void addTokenDialog(
                 context.read<HomeCubit>().toggleSupernodeBtc();
               }
             },
-          ),
+/*TODO uncomment for parachainDhx          ),
           tokenItem(
             context,
             image: Image.asset(AppImages.logoDHX, height: s(50)),
@@ -243,7 +243,7 @@ void addTokenDialog(
               if (!parachainConnected) {
                 loginParachain(context);
               }
-            },
+            },*/
             showTrailingLine: false,
           ),
         ],
