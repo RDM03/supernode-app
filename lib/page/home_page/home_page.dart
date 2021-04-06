@@ -178,14 +178,14 @@ class _HomePageContent extends StatelessWidget {
         buildWhen: (a, b) => a.tabIndex != b.tabIndex,
         builder: (ctx, s) {
           switch (s.tabIndex) {
-            case 0:
+            case HomeCubit.HOME_TAB:
               return UserTab();
-            case 1:
-              return GatewayTab();
-            case 2:
-              return DeviceTab();
-            case 3:
+            case HomeCubit.WALLET_TAB:
               return WalletTab();
+            case HomeCubit.MINER_TAB:
+              return GatewayTab();
+            case HomeCubit.DEVICE_TAB:
+              return DeviceTab();
             default:
               throw UnimplementedError('Unknown tab ${s.tabIndex}');
           }
@@ -207,29 +207,15 @@ class _HomePageContent extends StatelessWidget {
               selectedItemColor: selectedColor,
               unselectedItemColor: unselectedColor,
               onTap: (i) {
-                if ((i == 1 || i == 2) &&
+                if ((i == HomeCubit.MINER_TAB || i == HomeCubit.DEVICE_TAB) &&
                     !context.read<HomeCubit>().state.supernodeUsed) return;
                 context.read<HomeCubit>().changeTab(i);
               },
               items: [
-                _menuItem(ctx, 'Home', s.tabIndex == 0),
-                _menuItem(
-                  ctx,
-                  'Gateway',
-                  s.tabIndex == 1,
-                  disabled: !s.supernodeUsed,
-                ),
-                _menuItem(
-                  ctx,
-                  'Device',
-                  s.tabIndex == 2,
-                  disabled: !s.supernodeUsed,
-                ),
-                _menuItem(
-                  ctx,
-                  'Wallet',
-                  s.tabIndex == 3,
-                ),
+                _menuItem(ctx, 'Home', s.tabIndex == HomeCubit.HOME_TAB),
+                _menuItem(ctx, 'Wallet', s.tabIndex == HomeCubit.WALLET_TAB),
+                _menuItem(ctx, 'Gateway', s.tabIndex == HomeCubit.MINER_TAB, disabled: !s.supernodeUsed),
+                _menuItem(ctx, 'Device', s.tabIndex == HomeCubit.DEVICE_TAB, disabled: !s.supernodeUsed),
               ]),
         ),
       ),

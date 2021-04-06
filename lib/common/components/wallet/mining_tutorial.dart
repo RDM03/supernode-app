@@ -225,7 +225,7 @@ class MiningTutorial extends StatefulWidget {
     return _pageBase([
       Text(FlutterI18n.translate(ctx, "tutorial_pv3_title"),
           style: kPrimaryBigFontOfBlack),
-      SizedBox(height: s(10)),
+      smallColumnSpacer(),
       RichText(
           text: TextSpan(children: [
             TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span1"), style: kBigFontOfBlack),
@@ -236,10 +236,8 @@ class MiningTutorial extends StatefulWidget {
             TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span6"), style: kBigFontOfDhxColor),
             TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span7"), style: kBigFontOfBlack),
           ])),
-      Text(FlutterI18n.translate(ctx, "tutorial_pv3_text_span1"),
-          style: kBigFontOfBlack),
-      Image.asset(AppImages.iconCouncil, color: Token.supernodeDhx.color, scale: 0.2),
-      SizedBox(height: 25)
+      Image.asset(AppImages.council, color: Token.supernodeDhx.color),
+      middleColumnSpacer(),
     ]);
   }
 
@@ -411,9 +409,12 @@ class _MiningTutorialState extends State<MiningTutorial> {
 
   Widget _page_1(BuildContext ctx) {
     return widget._pageBase([
+      smallColumnSpacer(),
       Text(FlutterI18n.translate(ctx, "tutorial_page1_title"),
           style: kPrimaryBigFontOfBlack),
-      SizedBox(height: s(10)),
+      middleColumnSpacer(),
+      Image.asset(AppImages.dhxMiningDiagram),
+      middleColumnSpacer(),
       PrimaryButton(
           buttonTitle: FlutterI18n.translate(context, 'next'),
           bgColor: Token.supernodeDhx.color,
@@ -459,7 +460,7 @@ class _MiningTutorialState extends State<MiningTutorial> {
             Flexible(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(FlutterI18n.translate(context, 'tutorial_page2_subtitle2'), style: kBigBoldFontOfBlack),
+                    Text('2. ${FlutterI18n.translate(context, 'add_miner')}', style: kBigBoldFontOfBlack),
                     Text(FlutterI18n.translate(context, 'tutorial_page2_txt2'), style: kMiddleFontOfBlack),
                   ]),
             )

@@ -386,7 +386,7 @@
 	"tutorial_page1_title": "How DHX Mining Works",
 	"tutorial_page2_title": "Mining Steps",
 	"tutorial_page2_txt1": "Locking MXC generates mPower (Mining Power) and your DHX Mining income will differ by your mPower",
-	"tutorial_page2_subtitle2": "2. Add Miner",
+	"add_miner": "Add Miner",
 	"tutorial_page2_txt2": "If you wish to further boost your potential DHX Mining rewards, you will require an M2 Pro Hardware",
 	"deposit_dhx": "Deposit DHX",
 	"tutorial_page2_txt3": "Yes, you need some DHX to mine DHX. You can purchase DHX from a crypto exchange",

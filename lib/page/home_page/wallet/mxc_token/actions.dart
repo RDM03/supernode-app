@@ -38,6 +38,7 @@ class MxcActions extends StatelessWidget {
             ),
             Divider(color: Colors.grey),
             GestureDetector(
+              behavior: HitTestBehavior.opaque,
               onTap: () {
                 Navigator.pop(context);
                 openSupernodeStake(ctx);

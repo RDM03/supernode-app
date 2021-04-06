@@ -16,14 +16,14 @@ class _$HomeStateTearOff {
 // ignore: unused_element
   _HomeState call(
       {@required int tabIndex,
-      int walletTabClicked,
+      Token walletSelectedToken,
       PageRoute<dynamic> routeTo,
       bool supernodeUsed,
       bool parachainUsed,
       @required List<Token> displayTokens}) {
     return _HomeState(
       tabIndex: tabIndex,
-      walletTabClicked: walletTabClicked,
+      walletSelectedToken: walletSelectedToken,
       routeTo: routeTo,
       supernodeUsed: supernodeUsed,
       parachainUsed: parachainUsed,
@@ -39,7 +39,7 @@ const $HomeState = _$HomeStateTearOff();
 /// @nodoc
 mixin _$HomeState {
   int get tabIndex;
-  int get walletTabClicked;
+  Token get walletSelectedToken;
   PageRoute<dynamic> get routeTo;
   bool get supernodeUsed;
   bool get parachainUsed;
@@ -54,7 +54,7 @@ abstract class $HomeStateCopyWith<$Res> {
       _$HomeStateCopyWithImpl<$Res>;
   $Res call(
       {int tabIndex,
-      int walletTabClicked,
+      Token walletSelectedToken,
       PageRoute<dynamic> routeTo,
       bool supernodeUsed,
       bool parachainUsed,
@@ -72,7 +72,7 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
   @override
   $Res call({
     Object tabIndex = freezed,
-    Object walletTabClicked = freezed,
+    Object walletSelectedToken = freezed,
     Object routeTo = freezed,
     Object supernodeUsed = freezed,
     Object parachainUsed = freezed,
@@ -80,9 +80,9 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
   }) {
     return _then(_value.copyWith(
       tabIndex: tabIndex == freezed ? _value.tabIndex : tabIndex as int,
-      walletTabClicked: walletTabClicked == freezed
-          ? _value.walletTabClicked
-          : walletTabClicked as int,
+      walletSelectedToken: walletSelectedToken == freezed
+          ? _value.walletSelectedToken
+          : walletSelectedToken as Token,
       routeTo:
           routeTo == freezed ? _value.routeTo : routeTo as PageRoute<dynamic>,
       supernodeUsed: supernodeUsed == freezed
@@ -106,7 +106,7 @@ abstract class _$HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
   @override
   $Res call(
       {int tabIndex,
-      int walletTabClicked,
+      Token walletSelectedToken,
       PageRoute<dynamic> routeTo,
       bool supernodeUsed,
       bool parachainUsed,
@@ -125,7 +125,7 @@ class __$HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object tabIndex = freezed,
-    Object walletTabClicked = freezed,
+    Object walletSelectedToken = freezed,
     Object routeTo = freezed,
     Object supernodeUsed = freezed,
     Object parachainUsed = freezed,
@@ -133,9 +133,9 @@ class __$HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
   }) {
     return _then(_HomeState(
       tabIndex: tabIndex == freezed ? _value.tabIndex : tabIndex as int,
-      walletTabClicked: walletTabClicked == freezed
-          ? _value.walletTabClicked
-          : walletTabClicked as int,
+      walletSelectedToken: walletSelectedToken == freezed
+          ? _value.walletSelectedToken
+          : walletSelectedToken as Token,
       routeTo:
           routeTo == freezed ? _value.routeTo : routeTo as PageRoute<dynamic>,
       supernodeUsed: supernodeUsed == freezed
@@ -155,7 +155,7 @@ class __$HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
 class _$_HomeState with DiagnosticableTreeMixin implements _HomeState {
   _$_HomeState(
       {@required this.tabIndex,
-      this.walletTabClicked,
+      this.walletSelectedToken,
       this.routeTo,
       this.supernodeUsed,
       this.parachainUsed,
@@ -166,7 +166,7 @@ class _$_HomeState with DiagnosticableTreeMixin implements _HomeState {
   @override
   final int tabIndex;
   @override
-  final int walletTabClicked;
+  final Token walletSelectedToken;
   @override
   final PageRoute<dynamic> routeTo;
   @override
@@ -178,7 +178,7 @@ class _$_HomeState with DiagnosticableTreeMixin implements _HomeState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HomeState(tabIndex: $tabIndex, walletTabClicked: $walletTabClicked, routeTo: $routeTo, supernodeUsed: $supernodeUsed, parachainUsed: $parachainUsed, displayTokens: $displayTokens)';
+    return 'HomeState(tabIndex: $tabIndex, walletSelectedToken: $walletSelectedToken, routeTo: $routeTo, supernodeUsed: $supernodeUsed, parachainUsed: $parachainUsed, displayTokens: $displayTokens)';
   }
 
   @override
@@ -187,7 +187,7 @@ class _$_HomeState with DiagnosticableTreeMixin implements _HomeState {
     properties
       ..add(DiagnosticsProperty('type', 'HomeState'))
       ..add(DiagnosticsProperty('tabIndex', tabIndex))
-      ..add(DiagnosticsProperty('walletTabClicked', walletTabClicked))
+      ..add(DiagnosticsProperty('walletSelectedToken', walletSelectedToken))
       ..add(DiagnosticsProperty('routeTo', routeTo))
       ..add(DiagnosticsProperty('supernodeUsed', supernodeUsed))
       ..add(DiagnosticsProperty('parachainUsed', parachainUsed))
@@ -201,9 +201,9 @@ class _$_HomeState with DiagnosticableTreeMixin implements _HomeState {
             (identical(other.tabIndex, tabIndex) ||
                 const DeepCollectionEquality()
                     .equals(other.tabIndex, tabIndex)) &&
-            (identical(other.walletTabClicked, walletTabClicked) ||
+            (identical(other.walletSelectedToken, walletSelectedToken) ||
                 const DeepCollectionEquality()
-                    .equals(other.walletTabClicked, walletTabClicked)) &&
+                    .equals(other.walletSelectedToken, walletSelectedToken)) &&
             (identical(other.routeTo, routeTo) ||
                 const DeepCollectionEquality()
                     .equals(other.routeTo, routeTo)) &&
@@ -222,7 +222,7 @@ class _$_HomeState with DiagnosticableTreeMixin implements _HomeState {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(tabIndex) ^
-      const DeepCollectionEquality().hash(walletTabClicked) ^
+      const DeepCollectionEquality().hash(walletSelectedToken) ^
       const DeepCollectionEquality().hash(routeTo) ^
       const DeepCollectionEquality().hash(supernodeUsed) ^
       const DeepCollectionEquality().hash(parachainUsed) ^
@@ -236,7 +236,7 @@ class _$_HomeState with DiagnosticableTreeMixin implements _HomeState {
 abstract class _HomeState implements HomeState {
   factory _HomeState(
       {@required int tabIndex,
-      int walletTabClicked,
+      Token walletSelectedToken,
       PageRoute<dynamic> routeTo,
       bool supernodeUsed,
       bool parachainUsed,
@@ -245,7 +245,7 @@ abstract class _HomeState implements HomeState {
   @override
   int get tabIndex;
   @override
-  int get walletTabClicked;
+  Token get walletSelectedToken;
   @override
   PageRoute<dynamic> get routeTo;
   @override

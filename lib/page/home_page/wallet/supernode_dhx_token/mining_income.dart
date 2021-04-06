@@ -20,7 +20,7 @@ class MiningIncomeContent extends StatelessWidget {
           if (state.stakes.loading) {
             return LoadingList();
           }
-          if (state.stakes.value.isEmpty) {
+          if (state.stakes.value == null || state.stakes.value.isEmpty) {
             return Empty();
           }
           return ListView.builder(

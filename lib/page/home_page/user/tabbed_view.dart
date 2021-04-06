@@ -101,7 +101,9 @@ class _TabbedViewState extends State<TabbedView> with TickerProviderStateMixin {
                       children: widget.tabs.map((e) => e.widget).toList(),
                     ),
                   ),
-                  SizedBox(height: 5),
+                  (controller.length > 1)
+                      ? SizedBox(height: 5)
+                      : SizedBox(),
                   (controller.length > 1)
                       ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,

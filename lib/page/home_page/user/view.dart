@@ -1,14 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mapbox_native/flutter_mapbox_native.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supernodeapp/app_cubit.dart';
+import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/summary_row.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
@@ -30,18 +33,54 @@ import 'token_widget.dart';
 class UserTab extends StatelessWidget {
   Widget totalGateways(BuildContext context, SupernodeUserState snState,
       GatewayState gatewayState) {
-    return PanelFrame(
-      child: SummaryRow(
-        key: Key('totalGatewaysDashboard'),
-        loading: snState.gatewaysRevenueUsd.loading,
-        image: AppImages.gateways,
-        title: FlutterI18n.translate(context, 'total_gateways'),
-        number: '${gatewayState.gatewaysTotal.value ?? '0'}',
-        subtitle: FlutterI18n.translate(context, 'profit'),
-        price:
-            '${Tools.priceFormat(snState.gatewaysRevenue.value)} MXC (${Tools.priceFormat(snState.gatewaysRevenueUsd.value)} USD)',
-      ),
-    );
+    return Column(
+        children: [
+          Container(
+            padding: EdgeInsets.only(top: 30),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(FlutterI18n.translate(context, "miner"),
+                    style: kBigBoldFontOfBlack),
+                Spacer(),
+                GestureDetector(
+                  onTap: () async {
+                    await Navigator.of(context)
+                        .pushNamed('add_gateway_page', arguments: {
+                      'fromPage': 'home',
+                    });
+                    await context.read<GatewayCubit>().refreshGateways();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Token.supernodeDhx.color.withOpacity(.2),
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 4.0),
+                      child: Text(
+                        '+ ${FlutterI18n.translate(context, 'add_miner')}',
+                        style: MiddleFontOfColor(color: Token.supernodeDhx.color),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          PanelFrame(rowTop: EdgeInsets.only(top: 10),
+            child: SummaryRow(
+              key: Key('totalGatewaysDashboard'),
+              loading: snState.gatewaysRevenueUsd.loading,
+              image: AppImages.gateways,
+              title: FlutterI18n.translate(context, 'total_gateways'),
+              number: '${gatewayState.gatewaysTotal.value ?? '0'}',
+              subtitle: FlutterI18n.translate(context, 'profit'),
+              price:
+              '${Tools.priceFormat(snState.gatewaysRevenue.value)} MXC (${Tools.priceFormat(snState.gatewaysRevenueUsd.value)} USD)',
+            ),
+          )
+        ]);
   }
 
   Widget totalGatewaysDemo(BuildContext context) {
@@ -55,38 +94,6 @@ class UserTab extends StatelessWidget {
           number: '3',
           subtitle: FlutterI18n.translate(context, 'profit'),
           price: '200 USD',
-        ),
-      ),
-    );
-  }
-
-  Widget totalDevices(BuildContext context, SupernodeUserState state) {
-    return PanelFrame(
-      child: SummaryRow(
-        key: Key('totalDevicesDashboard'),
-        loading: false,
-        image: AppImages.devices,
-        title: FlutterI18n.translate(context, 'total_devices'),
-        number: '${state.devicesTotal.value ?? '0'}',
-        subtitle: FlutterI18n.translate(context, 'cost'),
-        price:
-            '${Tools.priceFormat(state.devicesRevenue.value)} MXC (${Tools.priceFormat(state.devicesRevenueUsd.value)} USD)',
-      ),
-    );
-  }
-
-  Widget totalDevicesDemo(BuildContext context) {
-    return PanelFrame(
-      child: unlockDhxLayer(
-        context,
-        SummaryRow(
-          key: Key('totalDevicesDashboard'),
-          loading: false,
-          image: AppImages.devices,
-          title: FlutterI18n.translate(context, 'total_devices'),
-          number: '0',
-          subtitle: FlutterI18n.translate(context, 'cost'),
-          price: '0 USD',
         ),
       ),
     );
@@ -137,7 +144,7 @@ class UserTab extends StatelessWidget {
       child: PageBody(
         children: [
           AccountWidget(),
-          TokenWidget(),
+          TokenHomePageWidget(),
           if (supernodeConnected)
             BlocBuilder<GatewayCubit, GatewayState>(
               buildWhen: (a, b) => a.gatewaysTotal != b.gatewaysTotal,
@@ -152,16 +159,6 @@ class UserTab extends StatelessWidget {
             )
           else
             totalGatewaysDemo(context),
-          if (supernodeConnected)
-            BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-              buildWhen: (a, b) =>
-                  a?.devicesRevenueUsd != b?.devicesRevenueUsd ||
-                  a?.devicesRevenue != b?.devicesRevenue ||
-                  a?.devicesTotal != b?.devicesTotal,
-              builder: (ctx, state) => totalDevices(context, state),
-            )
-          else
-            totalDevicesDemo(context),
           if (supernodeConnected)
             BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
               buildWhen: (a, b) =>
@@ -240,7 +237,17 @@ class UserTab extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: backgroundColor,
         elevation: 0,
-        title: Text('Home', style: kBigBoldFontOfBlack),
+        title: BlocBuilder<SupernodeCubit, SupernodeState>(
+          buildWhen: (a, b) => a?.session?.node != b?.session?.node,
+          builder: (ctx, state) => CachedNetworkImage(
+            imageUrl: state?.session?.node?.logo ?? '',
+            placeholder: (a, b) => Image.asset(
+              AppImages.placeholder,
+              height: s(40),
+            ),
+            height: s(40),
+          ),
+        ),
         centerTitle: true,
         leading: IconButton(
           key: Key('calculatorButton'),
