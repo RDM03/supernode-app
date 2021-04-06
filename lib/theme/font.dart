@@ -217,6 +217,12 @@ const kSecondaryButtonOfWhite = TextStyle(
   fontSize: 14,
 );
 
+const kSecondaryButtonOfGrey = TextStyle(
+  color: Colors.grey,
+  fontFamily: "Roboto",
+  fontSize: 14,
+);
+
 const kRowShodow = BoxDecoration(
   color: panelColor,
   borderRadius: BorderRadius.all(Radius.circular(12)),

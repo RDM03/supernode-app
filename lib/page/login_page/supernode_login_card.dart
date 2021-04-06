@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/home_page.dart';
@@ -9,7 +10,6 @@ import 'package:supernodeapp/page/login_page/supernode_login_page/state.dart';
 import 'package:supernodeapp/page/login_page/supernode_login_page/view.dart';
 import 'package:supernodeapp/page/sign_up_page/supernode_signup_page.dart';
 import 'package:supernodeapp/route.dart';
-import 'package:supernodeapp/theme/font.dart';
 
 import '../../app_cubit.dart';
 import 'shared.dart';
@@ -278,10 +278,9 @@ class _SupernodeLoginCardContentState
             ),
             Padding(
               padding: const EdgeInsets.all(20),
-              child: GestureDetector(
-                child: Text(FlutterI18n.translate(context, 'supernode_demo'), style: kSecondaryButtonOfWhite,textAlign: TextAlign.right),
-                onTap: () => loginCubit.demoLogin(),
-              ),
+              child: whiteBorderButton(
+                  FlutterI18n.translate(context, 'demo_login'),
+                  onPressed: () => loginCubit.demoLogin()),
             ),
           ],
         ),

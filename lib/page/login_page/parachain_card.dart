@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/route.dart';
 
@@ -41,7 +43,7 @@ class ParachainLoginCard extends StatelessWidget {
       ),
       margin: EdgeInsets.symmetric(horizontal: 10),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             height: TweenSequence([
@@ -139,7 +141,7 @@ class ParachainLoginCard extends StatelessWidget {
                         turns: Tween<double>(begin: 0, end: 0.5)
                             .animate(animation),
                         child: Icon(
-                          fixed ? Icons.close : Icons.arrow_forward,
+                          fixed ? Icons.close : Icons.arrow_back,
                           color: Colors.white,
                           size: Tween<double>(begin: 16, end: 40)
                               .evaluate(animation),
@@ -203,21 +205,20 @@ class ParachainLoginCard extends StatelessWidget {
               CircleButton(
                 text: 'Import',
                 icon: Icons.arrow_back,
-                onPressed: () => Navigator.of(context)
-                    .push(route((ctx) => DataHighwayImportPage())),
+                //onPressed: () => Navigator.of(context).push(route((ctx) => DataHighwayImportPage())),
               ),
               SizedBox(width: 23),
               CircleButton(
                 text: 'Create',
                 icon: Icons.add,
-                onPressed: () => Navigator.of(context)
-                    .push(route((ctx) => DataHighwayCreatePage())),
+                //onPressed: () => Navigator.of(context).push(route((ctx) => DataHighwayCreatePage())),
               ),
             ],
           ),
-          SizedBox(
-            height: 60,
-          )
+          Padding(
+              padding: const EdgeInsets.all(20),
+              child: whiteBorderButton(
+                  FlutterI18n.translate(context, 'demo_login')))
         ],
       ),
     );
