@@ -117,7 +117,7 @@ class ParachainLoginCard extends StatelessWidget {
                           ),
                         ]).animate(animation),
                         child: Text(
-                          'Learn More',
+                          FlutterI18n.translate(context, 'learn_more'),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -279,7 +279,12 @@ class ParachainLoginCard extends StatelessWidget {
                       weight: 50.0,
                     ),
                   ]).animate(animation),
-                  child: Text(FlutterI18n.translate(context, 'coming').toUpperCase(), style: kBigFontOfWhite))
+                  child: Text(FlutterI18n.translate(context, 'coming').toUpperCase(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      )))
             ],
           ),
           FadeTransition(
