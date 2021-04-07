@@ -180,6 +180,7 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
             Duration(days: firstDayOfRange.weekday - 1));
 
         int indexDatesParsed = 0;
+        final int lastDayBeforeToday = (today == datesParsed[datesParsed.length - 1]) ? datesParsed.length - 2 : datesParsed.length - 1;
         for (int i = 0; i < 14; i++) {
           // 2 weeks range starting on Monday before bond-info data
           dateTmp = mondayBeforeFirstDay.add(Duration(days: i));
@@ -191,9 +192,11 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
                   .inDays == 0));
             if (indexDatesParsed == 0) {
               parsed[dateTmp].left = true;
-            } else if (indexDatesParsed == datesParsed.length - 1) {
+            }
+            if (indexDatesParsed == lastDayBeforeToday) {
               parsed[dateTmp].right = true;
-            } else {
+            }
+            if (indexDatesParsed != 0 && indexDatesParsed < lastDayBeforeToday){
               parsed[dateTmp].middle = true;
             }
             indexDatesParsed++;
