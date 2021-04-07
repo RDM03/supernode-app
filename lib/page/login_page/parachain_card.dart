@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/configs/images.dart';
-import 'package:supernodeapp/route.dart';
+import 'package:supernodeapp/theme/font.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import 'datahighway_create_page/page_1.dart';
-import 'datahighway_import_page/page_1.dart';
 import 'shared.dart';
 
 class ParachainLoginCard extends StatelessWidget {
@@ -171,27 +170,52 @@ class ParachainLoginCard extends StatelessWidget {
                   children: [
                     Spacer(),
                     Expanded(
-                      flex: 3,
-                      child: ImageWithText(
-                        text: 'Visit website :\nTHE NEXT GENERATION DATA TOKEN',
-                        image: AssetImage(AppImages.dhxSite),
-                        fontSize: Tween<double>(begin: 3, end: 16)
-                            .evaluate(animation),
+                      flex: 5,
+                      child: GestureDetector(
+                        onTap: () => launch('https://www.datahighway.com/'),
+                        child: Container(
+                            width: double.infinity,
+                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: Tween<double>(begin: 0, end: 10).evaluate(animation)),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: Column(children: [
+                              Icon(Icons.home, size: Tween<double>(begin: 0, end: 24).evaluate(animation)),
+                              SizedBox(height: Tween<double>(begin: 0, end: 5).evaluate(animation)),
+                              Text(FlutterI18n.translate(context, 'next_gen_data_token'),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: Tween<double>(begin: 0, end: 16).evaluate(animation),))
+                            ])
+                        ),
                       ),
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: Tween<double>(begin: 0, end: 16).evaluate(animation)),
                     Expanded(
-                      flex: 3,
-                      child: ImageWithText(
-                        text:
-                            'Lead more :\nDHX Staking, Mining, and Earning Boosts',
-                        image: AssetImage(AppImages.dhxSite),
-                        fontSize: Tween<double>(begin: 3, end: 16)
-                            .evaluate(animation),
+                      flex: 5,
+                      child: GestureDetector(
+                        onTap: () => launch('https://datahighway-dhx.medium.com/dhx-staking-mining-and-earning-boosts-c4f88c060014'),
+                        child: Container(
+                            width: double.infinity,
+                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: Tween<double>(begin: 0, end: 10).evaluate(animation)),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: Column(children: [
+                              Image.asset(AppImages.medium,
+                                  width: Tween<double>(begin: 0, end: 24).evaluate(animation),
+                                  height: Tween<double>(begin: 0, end: 24).evaluate(animation)),
+                              SizedBox(height: Tween<double>(begin: 0, end: 5).evaluate(animation)),
+                              Text(FlutterI18n.translate(context, 'dhx_staking_mining_earning'),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: Tween<double>(begin: 0, end: 16).evaluate(animation),))
+                            ])
+                        ),
                       ),
                     ),
-                    SizedBox(height: 16),
-                    Spacer(flex: 3),
                     Spacer(),
                   ],
                 ),
@@ -200,25 +224,83 @@ class ParachainLoginCard extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(width: 20),
-              CircleButton(
-                text: 'Import',
-                icon: Icons.arrow_back,
-                //onPressed: () => Navigator.of(context).push(route((ctx) => DataHighwayImportPage())),
-              ),
+              FadeTransition(
+                  opacity: TweenSequence<double>([
+                    TweenSequenceItem(
+                      tween: ConstantTween(1),
+                      weight: 20.0,
+                    ),
+                    TweenSequenceItem(
+                      tween: Tween<double>(begin: 1, end: 0),
+                      weight: 60.0,
+                    ),
+                    TweenSequenceItem(
+                      tween: ConstantTween(0),
+                      weight: 20.0,
+                    ),
+                  ]).animate(animation),
+                  child: CircleButton(
+                    text: FlutterI18n.translate(context, 'import'),
+                    icon: Icons.arrow_back,
+                    //onPressed: () => Navigator.of(context).push(route((ctx) => DataHighwayImportPage())),
+                  )),
               SizedBox(width: 23),
-              CircleButton(
-                text: 'Create',
-                icon: Icons.add,
-                //onPressed: () => Navigator.of(context).push(route((ctx) => DataHighwayCreatePage())),
-              ),
+              FadeTransition(
+                  opacity: TweenSequence<double>([
+                    TweenSequenceItem(
+                      tween: ConstantTween(1),
+                      weight: 20.0,
+                    ),
+                    TweenSequenceItem(
+                      tween: Tween<double>(begin: 1, end: 0),
+                      weight: 60.0,
+                    ),
+                    TweenSequenceItem(
+                      tween: ConstantTween(0),
+                      weight: 20.0,
+                    ),
+                  ]).animate(animation),
+                  child: CircleButton(
+                    text: FlutterI18n.translate(context, 'create'),
+                    icon: Icons.add,
+                    //onPressed: () => Navigator.of(context).push(route((ctx) => DataHighwayCreatePage())),
+                  )),
+              FadeTransition(
+                  opacity: TweenSequence<double>([
+                    TweenSequenceItem(
+                      tween: ConstantTween(0),
+                      weight: 50.0,
+                    ),
+                    TweenSequenceItem(
+                      tween: Tween<double>(begin: 0, end: 1),
+                      weight: 50.0,
+                    ),
+                  ]).animate(animation),
+                  child: Text(FlutterI18n.translate(context, 'coming').toUpperCase(), style: kBigFontOfWhite))
             ],
           ),
-          Padding(
-              padding: const EdgeInsets.all(20),
-              child: whiteBorderButton(
-                  FlutterI18n.translate(context, 'demo_login')))
+          FadeTransition(
+              opacity: TweenSequence<double>([
+                TweenSequenceItem(
+                  tween: ConstantTween(1),
+                  weight: 20.0,
+                ),
+                TweenSequenceItem(
+                  tween: Tween<double>(begin: 1, end: 0),
+                  weight: 60.0,
+                ),
+                TweenSequenceItem(
+                  tween: ConstantTween(0),
+                  weight: 20.0,
+                ),
+              ]).animate(animation),
+              child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: whiteBorderButton(
+                      FlutterI18n.translate(context, 'demo_login'))))
         ],
       ),
     );

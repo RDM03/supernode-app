@@ -37,6 +37,7 @@ class AppImages {
   static const String mxcSite2 = 'assets/images/login/mxc_2.png';
   static const String mxcSite3 = 'assets/images/login/mxc_3.png';
   static const String dhxSite = 'assets/images/login/dhx_site.png';
+  static const String medium = 'assets/images/login/medium.png';
 
   //wallet
   static const String logoMXC = 'assets/images/wallet/logo-mxc.png';
