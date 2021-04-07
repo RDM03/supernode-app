@@ -336,7 +336,7 @@ _proceed(Dispatch dispatch, ConfirmLockState state) {
       ],
       cancelButton: CupertinoActionSheetAction(
         child: Text(
-          FlutterI18n.translate(ctx, 'got_it'),
+          FlutterI18n.translate(ctx, 'device_cancel'),
           style: kBigFontOfGrey,
         ),
         onPressed: () => Navigator.of(ctx).pop(),
