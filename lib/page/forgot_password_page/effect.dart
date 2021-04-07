@@ -1,14 +1,16 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart' hide Action;
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/daos/app_dao.dart';
-import 'package:supernodeapp/common/daos/users_dao.dart';
+import 'package:supernodeapp/common/repositories/shared/clients/client.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/log.dart';
-import 'package:supernodeapp/common/utils/storage_manager_native.dart';
-import 'package:supernodeapp/configs/config.dart';
+import 'package:supernodeapp/page/login_page/login_generic.dart';
+import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 import 'action.dart';
@@ -22,12 +24,16 @@ Effect<ForgotPasswordState> buildEffect() {
   });
 }
 
+UserDao _buildUserDao(Context<ForgotPasswordState> ctx) {
+  return ctx.context.read<SupernodeRepository>().user;
+}
+
 void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
   var curState = ctx.state;
   if ((curState.emailFormKey.currentState as FormState).validate()) {
-    final loading = await Loading.show(ctx.context);
+    final loading = Loading.show(ctx.context);
 
-    UserDao dao = UserDao();
+    UserDao dao = _buildUserDao(ctx);
 
     String languageCode = FlutterI18n.currentLocale(ctx.context).languageCode;
     String countryCode = FlutterI18n.currentLocale(ctx.context).countryCode;
@@ -37,12 +43,6 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
     var email = curState.emailCtl.text;
     Map data = {"language": languageCode, "username": email};
     ctx.dispatch(ForgotPasswordActionCreator.setEmail(email));
-    List<String> users =
-        StorageManager.sharedPreferences.getStringList(Config.USER_KEY) ?? [];
-    if (!users.contains(email)) {
-      users.add(email);
-    }
-    StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
     try {
       var res = await dao.passwordReset(data);
       loading.hide();
@@ -59,7 +59,7 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
       );
     } catch (err) {
       loading.hide();
-      if (err is DaoException && err.code == 13) {
+      if (err is HttpException && err.code == 13) {
         final scaffold = Scaffold.of(ctx.state.emailFormKey.currentContext);
         scaffold.showSnackBar(SnackBar(
           content: Text(
@@ -97,12 +97,12 @@ void _onVerificationContinue(
 
   if ((curState.codesFormKey.currentState as FormState).validate()) {
     String confirmNewPwd = curState.confirmNewPwdCtl.text;
-    final loading = await Loading.show(ctx.context);
+    final loading = Loading.show(ctx.context);
 
     List<String> codes =
         curState.codeListCtls.map((code) => code.text).toList();
 
-    UserDao dao = UserDao();
+    UserDao dao = _buildUserDao(ctx);
     Map data = {
       "otp": codes.join(),
       "newPassword": confirmNewPwd,
@@ -116,7 +116,8 @@ void _onVerificationContinue(
 
       tip(ctx.context, FlutterI18n.translate(ctx.context, 'update_success'),
           success: true);
-      Navigator.popUntil(ctx.context, ModalRoute.withName("login_page"));
+      Navigator.of(ctx.context)
+          .pushAndRemoveUntil(route((c) => LoginPage()), (_) => false);
     } catch (e) {
       loading.hide();
       // tip(ctx.context, 'UserDao registerConfirm: $e');

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget pageContent(String text,{double top: 50}){
+Widget pageContent(String text, {double top: 50}) {
   return Container(
     margin: EdgeInsets.only(top: top),
     alignment: Alignment.center,

@@ -5,11 +5,9 @@ import 'package:meta/meta.dart' show required;
 import 'latlng.dart';
 
 class CenterPosition {
-  const CenterPosition({
-    @required this.target,
-    this.zoom = 0.0,
-    this.animated = false
-  })  : assert(target != null),
+  const CenterPosition(
+      {@required this.target, this.zoom = 0.0, this.animated = false})
+      : assert(target != null),
         assert(zoom != null),
         assert(animated != null);
 

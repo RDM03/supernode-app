@@ -29,9 +29,13 @@ minerListAPITest() {
     var revenuePresent = await isPresent(f['minersRevenue'], driver);
     expect(await revenuePresent, true);
 
-    for(var i = 0; i < minerCount; i++){
-      await driver.scrollIntoView(find.byValueKey('slide_gateway' + i.toString()));
-      expect(await isPresent(find.byValueKey('slide_gateway' + i.toString()), driver), true);
+    for (var i = 0; i < minerCount; i++) {
+      await driver
+          .scrollIntoView(find.byValueKey('slide_gateway' + i.toString()));
+      expect(
+          await isPresent(
+              find.byValueKey('slide_gateway' + i.toString()), driver),
+          true);
     }
     await driver.tap(f['navbarHomeButton']);
   });

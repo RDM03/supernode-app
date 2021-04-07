@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/common/utils/currencies.dart';
 
 final appTheme = ThemeData(
   primarySwatch: Colors.blue,
@@ -37,7 +36,7 @@ const primaryColor = Color.fromARGB(255, 16, 196, 105);
 
 const scaffoldBackgroundColor = Color.fromARGB(255, 16, 196, 105);
 const shodowColor = const Color.fromARGB(26, 0, 0, 0);
-const borderColor = const Color.fromARGB(26, 0, 0, 0);
+const borderColor = const Color.fromARGB(70, 0, 0, 0);
 final withdrawColor = Colors.red[200];
 const depositColor = const Color.fromARGB(51, 16, 196, 105);
 
@@ -60,6 +59,7 @@ const transparentWhite = Color.fromARGB(0, 255, 255, 255);
 
 // login
 const Color darkBackground = Color(0xFFEBEFF2);
+const Color darkBackground2 = Color(0xFFDBDFE2);
 const Color hintFont = Color(0xFF98A6AD);
 const Color tipFont = Color(0xDE000000);
 

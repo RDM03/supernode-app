@@ -310,12 +310,12 @@ Widget buildView(
   }
 
   Widget _buildPage(
-      {Widget pageBody, int selectIndex = 0, bool showSkip = false}) {
+      {Widget PageBody, int selectIndex = 0, bool showSkip = false}) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16),
       child: Stack(
         children: <Widget>[
-          panelFrame(
+          PanelFrame(
             child: Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -341,7 +341,7 @@ Widget buildView(
                           )
                         : SizedBox(),
                   ),
-                  Expanded(child: pageBody),
+                  Expanded(child: PageBody),
                   _buildButtonHeight(),
                 ],
               ),
@@ -365,16 +365,16 @@ Widget buildView(
     controller: state.pageController,
     children: <Widget>[
       _buildPage(
-        pageBody: _buildFirstBody(),
+        PageBody: _buildFirstBody(),
         selectIndex: 0,
       ),
       _buildPage(
-        pageBody: _buildSecondBody(),
+        PageBody: _buildSecondBody(),
         selectIndex: 1,
       ),
       _buildPage(
         showSkip: true,
-        pageBody: _buildThirdBody(),
+        PageBody: _buildThirdBody(),
         selectIndex: 2,
       ),
     ],

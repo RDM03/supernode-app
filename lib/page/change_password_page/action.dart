@@ -1,6 +1,11 @@
 import 'package:fish_redux/fish_redux.dart';
 
-enum ChangePasswordAction { isObscureOldPWDText, isObscureNewPWDText, isObscureConPWDText, onConfirm }
+enum ChangePasswordAction {
+  isObscureOldPWDText,
+  isObscureNewPWDText,
+  isObscureConPWDText,
+  onConfirm
+}
 
 class ChangePasswordActionCreator {
   static Action onConfirm() {

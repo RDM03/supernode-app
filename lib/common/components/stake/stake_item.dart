@@ -1,112 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/stake.model.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
-class Stake {
-  final String id;
-  final DateTime startTime;
-  final DateTime endTime;
-  final String amount;
-  final bool active;
-  final DateTime lockTill;
-  final String boost;
-  final double revenue;
-
-  int get months {
-    if (lockTill == null) return null;
-    return (lockTill.difference(startTime).inDays / 30).floor();
-  }
-
-  Stake({
-    this.id,
-    this.startTime,
-    this.endTime,
-    this.amount,
-    this.active,
-    this.lockTill,
-    this.boost,
-    this.revenue,
-  });
-
-  factory Stake.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
-    return Stake(
-      id: map['id'],
-      amount: map['amount'],
-      active: map['active'] ?? false,
-      lockTill:
-          map['lockTill'] != null ? DateTime.tryParse(map['lockTill']) : null,
-      boost: map['boost'],
-      startTime:
-          map['startTime'] != null ? DateTime.tryParse(map['startTime']) : null,
-      endTime:
-          map['endTime'] != null ? DateTime.tryParse(map['endTime']) : null,
-      revenue: map['revenue'] != null ? double.tryParse(map['revenue']) : null,
-    );
-  }
-
-  Stake copyWith({
-    String id,
-    DateTime startTime,
-    DateTime endTime,
-    String amount,
-    bool active,
-  }) {
-    return Stake(
-      id: id ?? this.id,
-      startTime: startTime ?? this.startTime,
-      endTime: endTime ?? this.endTime,
-      amount: amount ?? this.amount,
-      active: active ?? this.active,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'startTime': startTime?.toIso8601String(),
-      'endTime': endTime?.toIso8601String(),
-      'amount': amount,
-      'active': active,
-    };
-  }
-
-  @override
-  String toString() {
-    return 'Stake(id: $id, startTime: $startTime, endTime: $endTime, amount: $amount, active: $active)';
-  }
-
-  @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-
-    return o is Stake &&
-        o.id == id &&
-        o.startTime == startTime &&
-        o.endTime == endTime &&
-        o.amount == amount &&
-        o.active == active;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-        startTime.hashCode ^
-        endTime.hashCode ^
-        amount.hashCode ^
-        active.hashCode;
-  }
-}
-
 class StakeItem extends StatelessWidget {
   final VoidCallback onTap;
   final String amount;
+
   /// default MXC
   final String currency;
+
   /// for StakeDHXItemState/StakeDHXItemEntity
   final String stakedAmount;
   final String id;
@@ -261,7 +167,9 @@ class StakeItem extends StatelessWidget {
                           ),
                         ],
                       ),
-                      (stakedAmount.isNotEmpty) ? Text('$stakedAmount', style: kSmallFontOfGrey) : SizedBox(),
+                      (stakedAmount.isNotEmpty)
+                          ? Text('$stakedAmount', style: kSmallFontOfGrey)
+                          : SizedBox(),
                       Text('ID: ' + id, style: kSmallFontOfGrey),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

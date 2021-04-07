@@ -2,7 +2,6 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 
 class ChangePasswordState implements Cloneable<ChangePasswordState> {
-
   GlobalKey formKey = GlobalKey<FormState>();
   TextEditingController oldPwdCtl = TextEditingController();
   TextEditingController newPwdCtl = TextEditingController();

@@ -58,7 +58,9 @@ class ScaffoldWidget extends StatelessWidget {
       );
     }
 
-    return this.useSafeArea ? SafeArea(child: _buildContent()) : _buildContent();
+    return this.useSafeArea
+        ? SafeArea(child: _buildContent())
+        : _buildContent();
   }
 
   Widget _buildFooter(BuildContext context, Widget footer) {

@@ -3,7 +3,5 @@ import 'action.dart';
 import 'state.dart';
 
 Effect<ChooseApplicationState> buildEffect() {
-  return combineEffects(<Object, Effect<ChooseApplicationState>>{
-  });
+  return combineEffects(<Object, Effect<ChooseApplicationState>>{});
 }
-

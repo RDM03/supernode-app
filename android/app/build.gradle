@@ -53,7 +53,7 @@ android {
         applicationId "com.mxc.smartcity"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode System.getenv('APPCENTER_BUILD_ID').toInteger()
+        versionCode System.getenv('APPCENTER_BUILD_ID')?.toInteger() ?: 404
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -64,6 +64,12 @@ android {
             storePassword System.getenv("APPCENTER_KEYSTORE_PASSWORD")
             keyAlias System.getenv("APPCENTER_KEY_ALIAS")
             keyPassword System.getenv("APPCENTER_KEY_PASSWORD")
+        }
+        debug {
+            storeFile rootProject.file("app/debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
         }
     }
 

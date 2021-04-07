@@ -12,8 +12,8 @@ import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/global_store/action.dart';
 import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/module/base/model_manager.dart';
-import 'package:supernodeapp/page/settings_page/state.dart';
-import 'package:supernodeapp/main.dart';
+
+// RETHINK.TODO
 
 class App with AppLifecycle {
   factory App() => _getInstance();
@@ -87,7 +87,7 @@ mixin AppLifecycle {
     await settingsDao.close();
 
     if (data != null && data.userId.isNotEmpty) {
-      Dao.baseUrl = GlobalStore.state.superModel.currentNode.url;
+      Dao.baseUrl = GlobalStore.state.superModel.user.node.url;
       Dao.token = data.token;
 
       GlobalStore.store.dispatch(GlobalActionCreator.onSettings(data));

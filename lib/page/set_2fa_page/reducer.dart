@@ -17,16 +17,14 @@ Set2FAState _isEnabled(Set2FAState state, Action action) {
   bool isEnabled = action.payload;
 
   final Set2FAState newState = state.clone();
-  return newState
-    ..isEnabled = isEnabled;
+  return newState..isEnabled = isEnabled;
 }
 
 Set2FAState _isRegenerate(Set2FAState state, Action action) {
   bool regenerate = action.payload;
 
   final Set2FAState newState = state.clone();
-  return newState
-    ..regenerate = regenerate;
+  return newState..regenerate = regenerate;
 }
 
 Set2FAState _getTOTPConfig(Set2FAState state, Action action) {

@@ -9,7 +9,8 @@ import 'package:supernodeapp/theme/spacing.dart';
 import '../action.dart';
 import 'state.dart';
 
-Widget buildView(EnterRecoveryCodeState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(
+    EnterRecoveryCodeState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
 
   return Scaffold(
@@ -17,7 +18,10 @@ Widget buildView(EnterRecoveryCodeState state, Dispatch dispatch, ViewService vi
       backgroundColor: cardBackgroundColor,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
-        title: Text(state.isEnabled?FlutterI18n.translate(_ctx,'disable_2FA'):FlutterI18n.translate(_ctx,'enable_2FA'),
+        title: Text(
+            state.isEnabled
+                ? FlutterI18n.translate(_ctx, 'disable_2FA')
+                : FlutterI18n.translate(_ctx, 'enable_2FA'),
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.w400,
@@ -38,46 +42,37 @@ Widget buildView(EnterRecoveryCodeState state, Dispatch dispatch, ViewService vi
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Text(
-                              FlutterI18n.translate(_ctx,'wthdr_ent_code_01'),
+                          Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_01'),
                               style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w400,
                                 fontSize: 24,
-                              )
-                          ),
-                        ]
-                    ),
+                              )),
+                        ]),
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 5.0),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Text(
-                              FlutterI18n.translate(_ctx,'wthdr_ent_code_02'),
+                          Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_02'),
                               style: TextStyle(
                                 color: Colors.grey[600],
                                 fontWeight: FontWeight.w400,
-                              )
-                          ),
-                        ]
-                    ),
+                              )),
+                        ]),
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 80.0),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Text(
-                              FlutterI18n.translate(_ctx,'wthdr_ent_code_03'),
+                          Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_03'),
                               style: TextStyle(
                                 color: Colors.grey[600],
                                 fontWeight: FontWeight.w400,
-                              )
-                          ),
-                        ]
-                    ),
+                              )),
+                        ]),
                   ),
                   Form(
                     key: state.formKey,
@@ -86,25 +81,22 @@ Widget buildView(EnterRecoveryCodeState state, Dispatch dispatch, ViewService vi
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                            margin: const EdgeInsets.only(top: 0, left: 40,right: 40),
+                            margin: const EdgeInsets.only(
+                                top: 0, left: 40, right: 40),
                             child: TextFieldWithTitle(
-                              title: FlutterI18n.translate(_ctx,'wthdr_ent_code_04'),
+                              title: FlutterI18n.translate(
+                                  _ctx, 'wthdr_ent_code_04'),
                               textInputAction: TextInputAction.next,
                               controller: state.otpCodeCtl,
                             ),
                           ),
-                        ]
-                    ),
+                        ]),
                   ),
                   Spacer(),
                   PrimaryButton(
                       onTap: () => dispatch(Set2FAActionCreator.onSetDisable()),
                       buttonTitle: FlutterI18n.translate(_ctx, 'confirm'),
-                      minHeight: 46
-                  )
+                      minHeight: 46)
                 ],
-              )
-          )
-      )
-  );
+              ))));
 }

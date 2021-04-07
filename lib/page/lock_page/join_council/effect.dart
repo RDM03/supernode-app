@@ -1,11 +1,11 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
-import 'package:supernodeapp/common/daos/demo/dhx_dao.dart';
-import 'package:supernodeapp/common/daos/dhx_dao.dart';
-import 'package:supernodeapp/global_store/store.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supernodeapp/app_cubit.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/dhx.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/page/lock_page/join_council/action.dart';
 import 'package:supernodeapp/page/lock_page/join_council/view.dart';
-import 'package:supernodeapp/page/settings_page/state.dart';
 import 'state.dart';
 
 Effect<JoinCouncilState> buildEffect() {
@@ -18,7 +18,7 @@ Effect<JoinCouncilState> buildEffect() {
 }
 
 DhxDao _buildDhxDao(Context<JoinCouncilState> ctx) =>
-    ctx.state.isDemo ? DemoDhxDao() : DhxDao();
+    ctx.context.read<SupernodeRepository>().dhx;
 
 void _onInitState(Action action, Context<JoinCouncilState> ctx) {
   _listCouncils(ctx);
@@ -47,16 +47,14 @@ void _onBecomeCouncilChair(Action action, Context<JoinCouncilState> ctx) async {
   if (!councilChairMeets(ctx.state)) {
     showDoesntMeetRequirmentsDialog(ctx.state.scaffoldKey?.currentState);
   } else {
-    SettingsState settingsData = GlobalStore.store.getState().settings;
-
     final become =
         await showBecomeCouncilChairDialog(ctx.state.scaffoldKey?.currentState);
     if (become)
       moveNext(
         ctx,
         Council(
-          name: settingsData.username,
-          chairOrgId: settingsData.selectedOrganizationId,
+          name: ctx.context.read<SupernodeCubit>().state.session.username,
+          chairOrgId: ctx.context.read<SupernodeCubit>().state.orgId,
         ),
       );
   }

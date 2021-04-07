@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 
 import 'colors.dart';
 
@@ -14,6 +15,13 @@ class MiddleFontOfColor extends TextStyle {
     );
   }
 }
+
+final kSmallFontOfDhxColor = TextStyle(
+    color: Token.supernodeDhx.color,
+    fontFamily: "Roboto",
+    fontSize: 12,
+    height: 1.33333,
+    decoration: TextDecoration.none);
 
 const kSmallFontOfWhite = TextStyle(
     color: Colors.white,
@@ -133,6 +141,13 @@ const kMiddleFontOfWhite = TextStyle(
   height: 1.5,
 );
 
+final kBigFontOfDhxColor = TextStyle(
+  color: Token.supernodeDhx.color,
+  fontFamily: "Roboto",
+  fontSize: 16,
+  height: 1.5,
+);
+
 const kBigFontOfBlack = TextStyle(
   color: const Color.fromARGB(222, 0, 0, 0),
   fontFamily: "Roboto",
@@ -140,7 +155,8 @@ const kBigFontOfBlack = TextStyle(
   height: 1.5,
 );
 
-final TextStyle kBigBoldFontOfBlack = kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600);
+final TextStyle kBigBoldFontOfBlack =
+    kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600);
 
 const kVeryBigFontOfBlack = TextStyle(
   color: const Color.fromARGB(222, 0, 0, 0),
@@ -201,6 +217,12 @@ const kSecondaryButtonOfWhite = TextStyle(
   fontSize: 14,
 );
 
+const kSecondaryButtonOfGrey = TextStyle(
+  color: Colors.grey,
+  fontFamily: "Roboto",
+  fontSize: 14,
+);
+
 const kRowShodow = BoxDecoration(
   color: panelColor,
   borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -216,4 +238,5 @@ const kRowShodow = BoxDecoration(
 const kPrimaryBigFontOfBlack =
     TextStyle(fontSize: 18, fontWeight: FontWeight.w600);
 
-const kSuperBigBoldFont = TextStyle(color:Colors.black, fontSize: 22, fontWeight: FontWeight.w600);
+const kSuperBigBoldFont =
+    TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.w600);

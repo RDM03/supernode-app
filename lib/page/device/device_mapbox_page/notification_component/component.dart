@@ -8,12 +8,10 @@ import 'view.dart';
 class NotificationComponent extends Component<NotificationState> {
   NotificationComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<NotificationState>(
-                adapter: null,
-                slots: <String, Dependent<NotificationState>>{
-                }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<NotificationState>(
+              adapter: null, slots: <String, Dependent<NotificationState>>{}),
+        );
 }

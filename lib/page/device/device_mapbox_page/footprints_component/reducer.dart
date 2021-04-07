@@ -13,6 +13,6 @@ Reducer<FootprintsState> buildReducer() {
 
 FootprintsState _onChangeFootPrintsType(FootprintsState state, Action action) {
   final FootprintsState newState = state.clone();
-  newState.footPrintsType=action.payload;
+  newState.footPrintsType = action.payload;
   return newState;
 }

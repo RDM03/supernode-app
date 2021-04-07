@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget smallRowSpacer(){
+Widget smallRowSpacer() {
   return Container(
     width: 10.0,
   );

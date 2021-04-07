@@ -1,19 +1,18 @@
 import 'dart:ui';
 
-import 'package:supernodeapp/common/daos/local_storage_dao.dart';
-import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
-import 'package:supernodeapp/page/home_page/wallet_component/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 enum CurrencyType { fiat, crypto }
-enum Token {mxc, supernodeDhx, btc}
+enum Token { mxc, supernodeDhx, parachainDhx, btc }
 
 extension TokenExtension on Token {
   String get fullName {
     switch (this) {
       case Token.supernodeDhx:
-        return 'Datahighway DHX';
+        return 'DHX';
+      case Token.parachainDhx:
+        return 'DataHighway DHX';
       case Token.mxc:
         return 'MXC';
       case Token.btc:
@@ -25,6 +24,8 @@ extension TokenExtension on Token {
   String get name {
     switch (this) {
       case Token.supernodeDhx:
+        return 'DHX';
+      case Token.parachainDhx:
         return 'DHX';
       case Token.mxc:
         return 'MXC';
@@ -38,6 +39,8 @@ extension TokenExtension on Token {
     switch (this) {
       case Token.supernodeDhx:
         return AppImages.logoDHX;
+      case Token.parachainDhx:
+        return AppImages.logoDHX;
       case Token.mxc:
         return AppImages.logoMXC;
       case Token.btc:
@@ -50,36 +53,14 @@ extension TokenExtension on Token {
     switch (this) {
       case Token.supernodeDhx:
         return colorSupernodeDhx;
+      case Token.parachainDhx:
+        return colorDhx;
       case Token.mxc:
         return colorMxc;
       case Token.btc:
         return colorBtc;
     }
     throw UnimplementedError('No color found for $this');
-  }
-
-  String get balanceLoader {
-    switch (this) {
-      case Token.supernodeDhx:
-        return LocalStorageDao.balanceDHXKey;
-      case Token.mxc:
-        return 'balance';
-      case Token.btc:
-        return LocalStorageDao.balanceBTCKey;
-    }
-    throw UnimplementedError('No laoder label found for $this');
-  }
-
-  String balance (WalletState state) {
-    switch (this) {
-      case Token.supernodeDhx:
-        return Tools.priceFormat(state.balanceDHX);
-      case Token.mxc:
-        return Tools.priceFormat(state.balance);
-      case Token.btc:
-        return Tools.priceFormat(state.balanceBTC, range: 8);
-    }
-    throw UnimplementedError('No balance field found for $this');
   }
 }
 

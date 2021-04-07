@@ -1,5 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:supernodeapp/common/daos/dhx_dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/dhx.dart';
 
 enum ListCouncilsAction {
   councils,

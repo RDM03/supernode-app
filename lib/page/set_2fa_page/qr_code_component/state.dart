@@ -2,7 +2,6 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/widgets.dart';
 
 class QRCodeState implements Cloneable<QRCodeState> {
-
   GlobalKey formKey = GlobalKey<FormState>();
   bool isEnabled;
   String url = '';

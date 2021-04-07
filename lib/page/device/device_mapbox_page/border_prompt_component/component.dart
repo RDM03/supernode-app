@@ -8,12 +8,10 @@ import 'view.dart';
 class BorderPromptComponent extends Component<BorderPromptState> {
   BorderPromptComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<BorderPromptState>(
-                adapter: null,
-                slots: <String, Dependent<BorderPromptState>>{
-                }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<BorderPromptState>(
+              adapter: null, slots: <String, Dependent<BorderPromptState>>{}),
+        );
 }

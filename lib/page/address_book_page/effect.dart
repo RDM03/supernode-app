@@ -1,7 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supernodeapp/common/repositories/storage_repository.dart';
 import 'package:supernodeapp/common/utils/address_entity.dart';
-import 'package:supernodeapp/common/utils/utils.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -10,7 +11,14 @@ Effect<AddressBookState> buildEffect() {
     AddressBookAction.onAdd: _onAdd,
     AddressBookAction.onSelect: _onSelect,
     AddressBookAction.onDetails: _onDetails,
+    Lifecycle.initState: _onInitState,
   });
+}
+
+//ctx.context.read<StorageRepository>()
+void _onInitState(Action action, Context<AddressBookState> ctx) async {
+  ctx.dispatch(AddressBookActionCreator.setAddresses(
+      ctx.context.read<StorageRepository>().addressBook()));
 }
 
 void _onAdd(Action action, Context<AddressBookState> ctx) async {
@@ -18,8 +26,8 @@ void _onAdd(Action action, Context<AddressBookState> ctx) async {
     ctx.context,
     'add_address_page',
   );
-  ctx.dispatch(
-      AddressBookActionCreator.setAddresses(StorageManager.addressBook()));
+  ctx.dispatch(AddressBookActionCreator.setAddresses(
+      ctx.context.read<StorageRepository>().addressBook()));
 }
 
 void _onSelect(Action action, Context<AddressBookState> ctx) async {
@@ -40,6 +48,6 @@ Future<void> _openDetails(
     'address_details_page',
     arguments: {'entity': entity.toMap()},
   );
-  ctx.dispatch(
-      AddressBookActionCreator.setAddresses(StorageManager.addressBook()));
+  ctx.dispatch(AddressBookActionCreator.setAddresses(
+      ctx.context.read<StorageRepository>().addressBook()));
 }

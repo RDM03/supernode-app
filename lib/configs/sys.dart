@@ -22,9 +22,6 @@ class AppLanguage {
 }
 
 class Sys {
-  /// Main Menus
-  static const List<String> mainMenus = ['Home', 'Gateway', 'Device', 'Wallet'];
-
   /// Using the Test Url When debugging
   static const testBaseUrl = 'https://lora.test.cloud.mxc.org';
   static const buildBaseUrl = 'https://lora.build.cloud.mxc.org';

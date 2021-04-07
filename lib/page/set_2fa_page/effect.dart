@@ -1,12 +1,10 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/common/components/loading.dart';
-import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/daos/users_dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/log.dart';
-import 'package:supernodeapp/global_store/action.dart';
-import 'package:supernodeapp/global_store/store.dart';
-import 'package:supernodeapp/page/settings_page/state.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -24,27 +22,19 @@ Effect<Set2FAState> buildEffect() {
   });
 }
 
+UserDao buildUserDao(Context<Set2FAState> ctx) {
+  return ctx.context.read<SupernodeRepository>().user;
+}
+
 void _initState(Action action, Context<Set2FAState> ctx) {
   _loadTotpStatus(ctx);
 }
 
-SettingsState getGlobalSettings() {
-  var settingsData = GlobalStore.store.getState().settings;
-  if (settingsData == null) {
-    settingsData = SettingsState().clone();
-  }
-  return settingsData;
-}
-
 Future<void> _loadTotpStatus(Context<Set2FAState> ctx) async {
-  UserDao dao = UserDao();
+  UserDao dao = buildUserDao(ctx);
   final res = await dao.getTOTPStatus();
   ctx.dispatch(Set2FAActionCreator.isEnabled(res.enabled));
-  
-  final globalSettings = getGlobalSettings();
-  globalSettings.is2FAEnabled = res.enabled;
-  GlobalStore.store.dispatch(GlobalActionCreator.onSettings(globalSettings));
-} 
+}
 
 void _onQRCodeContinue(Action action, Context<Set2FAState> ctx) async {
   Navigator.push(
@@ -102,8 +92,8 @@ void _onGetTOTPConfig(Action action, Context<Set2FAState> ctx) async {
     "qrCodeSize": qrCodeSize,
   };
 
-  UserDao dao = UserDao();
-  final loading = await Loading.show(ctx.context);
+  UserDao dao = buildUserDao(ctx);
+  final loading = Loading.show(ctx.context);
   dao.getTOTPConfig(data).then((res) {
     loading.hide();
     mLog('changePassword', res);
@@ -131,33 +121,19 @@ void _onGetTOTPConfig(Action action, Context<Set2FAState> ctx) async {
   });
 }
 
-
 void _onSetEnable(Action action, Context<Set2FAState> ctx) async {
-  
   var curState = ctx.state;
 
-  UserDao dao = UserDao();
+  UserDao dao = buildUserDao(ctx);
 
   List<String> codes = curState.listCtls.map((code) => code.text).toList();
 
-  var settingsData = GlobalStore.store.getState().settings;
-  if (settingsData == null) {
-    settingsData = SettingsState().clone();
-  }
-
-  settingsData.otpCode = codes.join();
-
-  final loading = await Loading.show(ctx.context);
+  final loading = Loading.show(ctx.context);
   var goNext = false;
 
   try {
     final res = await dao.setEnable(codes.join());
-
     ctx.dispatch(Set2FAActionCreator.isEnabled(res.enabled));
-    settingsData.is2FAEnabled = res.enabled;
-    
-    GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
-
     goNext = true;
   } finally {
     loading.hide();
@@ -180,45 +156,24 @@ void _onSetEnable(Action action, Context<Set2FAState> ctx) async {
 void _onSetDisable(Action action, Context<Set2FAState> ctx) async {
   var curState = ctx.state;
 
-  UserDao dao = UserDao();
+  UserDao dao = buildUserDao(ctx);
 
   String codes = curState.otpCodeCtl.text;
-  SettingsState settingsData = GlobalStore.store.getState().settings;
-
-  if (settingsData == null) {
-    settingsData = SettingsState().clone();
-  }
-
-  settingsData.otpCode = codes;
 
   Map data = {"otp_code": codes};
-  final loading = await Loading.show(ctx.context);
+  final loading = Loading.show(ctx.context);
   dao.setDisable(data).then((res) {
     loading.hide();
     mLog('setDisable status', res);
-
-    settingsData.is2FAEnabled = false;
-    GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
   }).then((res) {
     loading.hide();
     print(res);
     mLog('get 2fa status ', res);
-    UserDao dao = UserDao();
-
-    Map data = {};
+    UserDao dao = buildUserDao(ctx);
 
     dao.getTOTPStatus().then((res) {
       loading.hide();
       mLog('totp', res);
-      SettingsState settingsData = GlobalStore.store.getState().settings;
-
-      if (settingsData == null) {
-        settingsData = SettingsState().clone();
-      }
-
-      settingsData.is2FAEnabled = res.enabled;
-      GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
-      
       var count = 0;
       Navigator.popUntil(ctx.context, (route) {
         print(route);

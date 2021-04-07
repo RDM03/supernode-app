@@ -8,12 +8,11 @@ import 'view.dart';
 class DiscoveryBorderComponent extends Component<DiscoveryBorderState> {
   DiscoveryBorderComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<DiscoveryBorderState>(
-                adapter: null,
-                slots: <String, Dependent<DiscoveryBorderState>>{
-                }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<DiscoveryBorderState>(
+              adapter: null,
+              slots: <String, Dependent<DiscoveryBorderState>>{}),
+        );
 }

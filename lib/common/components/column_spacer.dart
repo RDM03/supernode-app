@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
-Widget smallColumnSpacer(){
+Widget smallColumnSpacer() {
   return SizedBox(height: 10);
 }
 
-Widget middleColumnSpacer(){
+Widget middleColumnSpacer() {
   return SizedBox(height: 20);
 }
 
-Widget bigColumnSpacer(){
+Widget bigColumnSpacer() {
   return SizedBox(height: 30);
+}
+
+Widget xbigColumnSpacer() {
+  return SizedBox(height: 40);
 }

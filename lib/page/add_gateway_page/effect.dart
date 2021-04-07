@@ -1,18 +1,22 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:location/location.dart';
 import 'package:majascan/majascan.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/daos/gateways_dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/gateways.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/configs/images.dart';
-import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -27,7 +31,14 @@ Effect<AddGatewayState> buildEffect() {
   });
 }
 
-void _initState(Action action, Context<AddGatewayState> ctx) {
+GatewaysDao _buildGatewaysDao(Context<AddGatewayState> ctx) {
+  return ctx.context.read<SupernodeRepository>().gateways;
+}
+
+void _initState(Action action, Context<AddGatewayState> ctx) async {
+  final location = await Location.instance.getLocation();
+  final latlng = LatLng(location.latitude, location.longitude);
+  ctx.dispatch(AddGatewayActionCreator.setLocation(latlng));
   SchedulerBinding.instance.addPostFrameCallback((_) {
     ctx.state.mapCtl.addSymbol(MapMarker(
       point: ctx.state.markerPoint,
@@ -105,11 +116,11 @@ void _onProfile(Action action, Context<AddGatewayState> ctx) {
 }
 
 void _register(Context<AddGatewayState> ctx, String serialNumber) async {
-  String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-  GatewaysDao dao = GatewaysDao();
+  String orgId = ctx.context.read<SupernodeCubit>().state.orgId;
+  GatewaysDao dao = _buildGatewaysDao(ctx);
 
   Map data = {"organizationId": orgId, "sn": serialNumber.trim()};
-  final loading = await Loading.show(ctx.context);
+  final loading = Loading.show(ctx.context);
   dao.register(data).then((res) {
     loading.hide();
     mLog('Gateway register', res);
@@ -126,12 +137,13 @@ void _register(Context<AddGatewayState> ctx, String serialNumber) async {
   });
 }
 
-void _registerReseller(Context<AddGatewayState> ctx, String manufacturerNr) async {
-  String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
-  GatewaysDao dao = GatewaysDao();
+void _registerReseller(
+    Context<AddGatewayState> ctx, String manufacturerNr) async {
+  String orgId = ctx.context.read<SupernodeCubit>().state.orgId;
+  GatewaysDao dao = _buildGatewaysDao(ctx);
 
   Map data = {"manufacturerNr": manufacturerNr.trim(), "organizationId": orgId};
-  final loading = await Loading.show(ctx.context);
+  final loading = Loading.show(ctx.context);
   dao.registerReseller(data).then((res) {
     loading.hide();
     mLog('Reseller register', res);
@@ -139,14 +151,14 @@ void _registerReseller(Context<AddGatewayState> ctx, String manufacturerNr) asyn
     if (res.containsKey('status')) {
       showInfoDialog(
         ctx.context,
-        IosStyleBottomDialog2 (
-            context: ctx.context,
-            child: Text(
-              FlutterI18n.translate(ctx.context, 'register_reseller_success').replaceFirst('{0}', manufacturerNr),
-              style: kBigFontOfBlack,
-              textAlign: TextAlign.center
-            )
-        )
+        IosStyleBottomDialog2(
+          builder: (context) => Text(
+            FlutterI18n.translate(ctx.context, 'register_reseller_success')
+                .replaceFirst('{0}', manufacturerNr),
+            style: kBigFontOfBlack,
+            textAlign: TextAlign.center,
+          ),
+        ),
       );
       ctx.state.serialNumberCtl.text = "";
     }

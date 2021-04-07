@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:fish_redux/fish_redux.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -10,6 +11,7 @@ Reducer<AddGatewayState> buildReducer() {
     <Object, Reducer<AddGatewayState>>{
       AddGatewayAction.serialNumber: _serialNumber,
       AddGatewayAction.setNumberTextColor: _setNumberTextColor,
+      AddGatewayAction.setLocation: _setLocation,
     },
   );
 }
@@ -22,7 +24,9 @@ AddGatewayState _serialNumber(AddGatewayState state, Action action) {
   String number = snData[1];
 
   List macData = itemData[itemData.length - 1].split(':');
-  String macAddress = macData.sublist(1,4).join().toLowerCase() + 'fffe' + macData.sublist(4).join().toLowerCase();
+  String macAddress = macData.sublist(1, 4).join().toLowerCase() +
+      'fffe' +
+      macData.sublist(4).join().toLowerCase();
 
   final AddGatewayState newState = state.clone();
 
@@ -36,4 +40,11 @@ AddGatewayState _setNumberTextColor(AddGatewayState state, Action action) {
   final AddGatewayState newState = state.clone();
 
   return newState..numberTextColor = color;
+}
+
+AddGatewayState _setLocation(AddGatewayState state, Action action) {
+  LatLng location = action.payload;
+  final AddGatewayState newState = state.clone();
+
+  return newState..location = location;
 }

@@ -12,7 +12,8 @@ import 'package:supernodeapp/theme/spacing.dart';
 import '../action.dart';
 import 'state.dart';
 
-Widget buildView(QRCodeState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(
+    QRCodeState state, Dispatch dispatch, ViewService viewService) {
   var _ctx = viewService.context;
   print('chocho state.secret');
   print(state.secret);
@@ -34,72 +35,74 @@ Widget buildView(QRCodeState state, Dispatch dispatch, ViewService viewService) 
                   Form(
                     key: state.formKey,
                     autovalidate: false,
-                    child: Column(
+                    child: Column(children: <Widget>[
+                      Wrap(
+                        runSpacing: 10.0,
                         children: <Widget>[
-                          Wrap(
-                            runSpacing: 10.0,
+                          paragraph(FlutterI18n.translate(_ctx, 'qr_desc_01')),
+                          paragraph(FlutterI18n.translate(_ctx, 'qr_desc_02')),
+                          Column(
                             children: <Widget>[
-                              paragraph(FlutterI18n.translate(_ctx,'qr_desc_01')),
-                              paragraph(FlutterI18n.translate(_ctx,'qr_desc_02')),
-                              Column(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                    child: Text(FlutterI18n.translate(_ctx,'qr_desc_03')),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                    child: Text(FlutterI18n.translate(_ctx,'qr_desc_04')),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 20.0),
-                                    child: Text(FlutterI18n.translate(_ctx,'qr_desc_05')),
-                                  )
-                                ],
-                              ),
-                              Center(
-                                child: QrImage(
-                                  data: state.url,
-                                  version: QrVersions.auto,
-                                  size: 240.0,
-                                ),
-                              ),
-                              SizedBox(height: 10.0),
-                              Center(
-                                child: SelectableText(state.secret,
-                                  textAlign: TextAlign.center,
-                                  style: kMiddleFontOfGrey,
-                                )
-                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                child: Text(
+                                    FlutterI18n.translate(_ctx, 'qr_desc_03')),
+                              )
                             ],
                           ),
-                        ]
-                    ),
+                          Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                child: Text(
+                                    FlutterI18n.translate(_ctx, 'qr_desc_04')),
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                    20.0, 0.0, 0.0, 20.0),
+                                child: Text(
+                                    FlutterI18n.translate(_ctx, 'qr_desc_05')),
+                              )
+                            ],
+                          ),
+                          Center(
+                            child: QrImage(
+                              data: state.url,
+                              version: QrVersions.auto,
+                              size: 240.0,
+                            ),
+                          ),
+                          SizedBox(height: 10.0),
+                          Center(
+                              child: SelectableText(
+                            state.secret,
+                            textAlign: TextAlign.center,
+                            style: kMiddleFontOfGrey,
+                          )),
+                        ],
+                      ),
+                    ]),
                   ),
                   // Spacer(),
                   smallColumnSpacer(),
-                  state.isEnabled ?
-                  PrimaryButton(
-                      onTap: () => dispatch(Set2FAActionCreator.onSetDisable()),
-                      buttonTitle: FlutterI18n.translate(_ctx, 'continue'),
-                      minHeight: 46
-                  ):
-                  PrimaryButton(
-                      onTap: () => dispatch(Set2FAActionCreator.onEnterSecurityContinue('disable')),
-                      buttonTitle: FlutterI18n.translate(_ctx, 'continue'),
-                      minHeight: 46
-                  ),
+                  state.isEnabled
+                      ? PrimaryButton(
+                          onTap: () =>
+                              dispatch(Set2FAActionCreator.onSetDisable()),
+                          buttonTitle: FlutterI18n.translate(_ctx, 'continue'),
+                          minHeight: 46)
+                      : PrimaryButton(
+                          onTap: () => dispatch(
+                              Set2FAActionCreator.onEnterSecurityContinue(
+                                  'disable')),
+                          buttonTitle: FlutterI18n.translate(_ctx, 'continue'),
+                          minHeight: 46),
                 ],
-              )
-          )
-      )
-  );
+              ))));
 }

@@ -35,10 +35,14 @@ class Biometrics {
 
     final biometricTypes = await Biometrics._getAvailableBiometricTypes();
 
-    if (biometricTypes != null && biometricTypes.isNotEmpty && canCheckBiometrics) {
+    if (biometricTypes != null &&
+        biometricTypes.isNotEmpty &&
+        canCheckBiometrics) {
       try {
-        final didAuthenticate = await _localAuthentication.authenticateWithBiometrics(
-          localizedReason: localizedReason ?? FlutterI18n.translate(context, 'verify'),
+        final didAuthenticate =
+            await _localAuthentication.authenticateWithBiometrics(
+          localizedReason:
+              localizedReason ?? FlutterI18n.translate(context, 'verify'),
           useErrorDialogs: false,
         );
         if (didAuthenticate) {
@@ -55,13 +59,14 @@ class Biometrics {
     }
   }
 
-  static Future<bool> authenticateAsync(BuildContext context, {String localizedReason}) async {
+  static Future<bool> authenticateAsync(BuildContext context,
+      {String localizedReason}) async {
     final completer = Completer<bool>();
 
-    final authenticateFuture = authenticate(context, 
-      authenticateCallback: () => completer.complete(true), 
-      failAuthenticateCallBack: () => completer.complete(false));
-    
+    final authenticateFuture = authenticate(context,
+        authenticateCallback: () => completer.complete(true),
+        failAuthenticateCallBack: () => completer.complete(false));
+
     await Future.wait([authenticateFuture, completer.future]);
     return await completer.future;
   }

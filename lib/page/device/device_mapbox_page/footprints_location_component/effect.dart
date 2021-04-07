@@ -13,7 +13,7 @@ Effect<FootPrintsLocationState> buildEffect() {
 
 void _resetToDefault(Action action, Context<FootPrintsLocationState> ctx) {
   ctx.state.mapCtl.removeAll();
-  var center= LatLng(37.386, -122.083);
+  var center = LatLng(37.386, -122.083);
   ctx.state.mapCtl?.removeAll();
   ctx.state.mapCtl.removeAll();
   ctx.state.mapCtl.addCircle(

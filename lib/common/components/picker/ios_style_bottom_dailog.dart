@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+
 import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 abstract class _IosStyleBottomDialogBase extends StatelessWidget {
-  final BuildContext context;
-
   _IosStyleBottomDialogBase({
     Key key,
-    this.context,
   }) : super(key: key);
 
   @override
@@ -58,16 +56,17 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
     @required this.list,
     this.onItemClickListener,
     this.blueActionIndex = -1,
-    BuildContext context,
-  }) : super(key: key, context: context);
+  }) : super(key: key);
 
   @override
-  Widget buildDialog(){
-    return Column(
-      children: <Widget>[
-        _buildContentList(context),
-        _buildCancelItem(context),
-      ],
+  Widget buildDialog() {
+    return Builder(
+      builder: (context) => Column(
+        children: <Widget>[
+          _buildContentList(context),
+          _buildCancelItem(context),
+        ],
+      ),
     );
   }
 
@@ -102,10 +101,7 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
             listContent.add(Divider(color: borderColor, height: 1));
           }
         }
-        listContent.add(_buildItem(
-          context,
-          button: list[i],
-        ));
+        listContent.add(_buildItem(context, button: list[i], index: i));
       }
     }
 
@@ -127,52 +123,69 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
   }
 
   Widget _buildSelectedItem(context, {IosButtonStyle button}) {
-    return InkWell(
-      onTap: () => Navigator.pop(context),
-      child: Container(
-        alignment: Alignment.center,
-        padding: EdgeInsets.all(25),
-        child: Text(button?.title ?? '', style: kBigFontOfBlue, textAlign: TextAlign.center,),
+    return Builder(
+      builder: (ctx) => InkWell(
+        onTap: () => Navigator.pop(ctx),
+        child: Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(25),
+          child: Text(
+            button?.title ?? '',
+            style: kBigFontOfBlue,
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
     );
   }
 
   Widget _buildItem(BuildContext context, {IosButtonStyle button, int index}) {
-    return InkWell(
-      onTap: () {
-        onItemClickListener(index);
-        Navigator.pop(context);
-      },
-      child: Container(
-        key: Key("delete_gateway_bottom_dialog_item$index"),
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
-        child: Text(button?.title ?? '', style: button.style, textAlign: TextAlign.center,),
+    return Builder(
+      builder: (ctx) => InkWell(
+        onTap: () {
+          onItemClickListener(index);
+          Navigator.pop(ctx);
+        },
+        child: Container(
+          key: Key("delete_gateway_bottom_dialog_item$index"),
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
+          child: Text(
+            button?.title ?? '',
+            style: button.style,
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
     );
   }
 
   Widget _buildCancelItem(context) {
-    return InkWell(
-      onTap: () {
-        Navigator.pop(context);
-      },
-      child: Container(
-        margin: EdgeInsets.only(top: 20, bottom: 43),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            boxShadow: [
-              BoxShadow(
-                color: shodowColor,
-                offset: Offset(0, 2),
-                blurRadius: 7,
-              ),
-            ]),
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
-        child: Text(FlutterI18n.translate(context, 'device_cancel'),
-            style: kBigFontOfBlack, textAlign: TextAlign.center,),
+    return Builder(
+      builder: (ctx) => InkWell(
+        onTap: () {
+          Navigator.pop(ctx);
+        },
+        child: Container(
+          margin: EdgeInsets.only(top: 20, bottom: 43),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              boxShadow: [
+                BoxShadow(
+                  color: shodowColor,
+                  offset: Offset(0, 2),
+                  blurRadius: 7,
+                ),
+              ]),
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
+          child: Text(
+            FlutterI18n.translate(context, 'device_cancel'),
+            style: kBigFontOfBlack,
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
     );
   }
@@ -182,25 +195,54 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
 /// iOS style Bottom Dialog with UI defined by param child
 ///
 class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
-  final Widget child;
-  bool isClosing = false;
+  final WidgetBuilder builder;
+
+  final EdgeInsets padding;
 
   IosStyleBottomDialog2({
     Key key,
-    @required this.child,
-    BuildContext context,
-  }) : super(key: key, context: context);
+    @required this.builder,
+    this.padding =
+        const EdgeInsets.only(left: 22, right: 22, top: 28, bottom: 60),
+  }) : super(key: key);
 
   @override
-  Widget buildDialog(){
+  Widget buildDialog() {
+    return IosStyleBottomDialog2Content(
+      padding: padding,
+      child: Builder(builder: builder),
+    );
+  }
+}
+
+class IosStyleBottomDialog2Content extends StatefulWidget {
+  final Widget child;
+  final EdgeInsets padding;
+
+  IosStyleBottomDialog2Content({
+    Key key,
+    this.child,
+    this.padding,
+  }) : super(key: key);
+
+  @override
+  _IosStyleBottomDialog2ContentState createState() =>
+      _IosStyleBottomDialog2ContentState();
+}
+
+class _IosStyleBottomDialog2ContentState
+    extends State<IosStyleBottomDialog2Content> {
+  bool isClosing = false;
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        if(!isClosing){
+      onTap: () {
+        if (!isClosing) {
           isClosing = true;
           Navigator.pop(context);
         }
       },
-      onVerticalDragUpdate: (details){
+      onVerticalDragUpdate: (details) {
         if (details.delta.dy > 0.0) {
           //swipe down
           Navigator.pop(context);
@@ -210,7 +252,8 @@ class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
         key: Key("infoDialog"),
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
             boxShadow: [
               BoxShadow(
                 color: shodowColor,
@@ -219,27 +262,29 @@ class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
               ),
             ]),
         alignment: Alignment.center,
-        padding: EdgeInsets.only(left: 22, right:22, top: 28, bottom:60),
-        child: child,
+        padding: widget.padding,
+        child: widget.child,
       ),
     );
   }
 }
 
-void showInfoDialog(BuildContext context, IosStyleBottomDialog2 child) {
+void showInfoDialog(BuildContext context, Widget child) {
   showGeneralDialog(
-      context: context,
-      pageBuilder: (context, anim1, anim2) {},
-      barrierDismissible: true,
-      barrierColor: Colors.black.withOpacity(0.4),
-      barrierLabel: '',
-      transitionBuilder: (context, anim1, anim2, ch) {
-        return Transform.translate(
+    context: context,
+    pageBuilder: (context, anim1, anim2) {
+      return AnimatedBuilder(
+        animation: anim1,
+        builder: (ctx, child) => Transform.translate(
           offset: Offset(0, 200 - anim1.value * 200),
-          child: FullScreenDialog(child: child),
-        );
-      },
-      transitionDuration: Duration(milliseconds: 200)
+          child: child,
+        ),
+        child: FullScreenDialog(child: child),
+      );
+    },
+    barrierDismissible: true,
+    barrierColor: Colors.black.withOpacity(0.4),
+    barrierLabel: '',
+    transitionDuration: Duration(milliseconds: 200),
   );
 }
-

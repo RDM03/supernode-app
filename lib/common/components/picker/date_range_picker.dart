@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/buttons/secondary_shadow_button.dart';
-import 'package:supernodeapp/common/daos/time_dao.dart';
+import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
@@ -40,7 +40,7 @@ class DateRangePicker extends StatelessWidget {
                     lastDate: new DateTime.now())
                 .then((DateTime value) {
               if (value != null) {
-                firstTimeOnTap(TimeDao.getDatetime(value, type: 'date'));
+                firstTimeOnTap(TimeUtil.getDatetime(value, type: 'date'));
               }
             });
           },
@@ -63,7 +63,7 @@ class DateRangePicker extends StatelessWidget {
                     lastDate: new DateTime.now())
                 .then((DateTime value) {
               if (value != null) {
-                secondTimeOnTap(TimeDao.getDatetime(value, type: 'date'));
+                secondTimeOnTap(TimeUtil.getDatetime(value, type: 'date'));
               }
             });
           },

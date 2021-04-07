@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/common/daos/time_dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/topup.model.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/withdraw.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -28,14 +31,15 @@ Widget listItem({
   bool isExpand = true,
   bool isLast = false,
   Function onTap,
+  Token token,
 }) {
-  final subtitle = revenue != null
-      ? '${Tools.priceFormat(revenue, range: 2)} MXC ${TimeDao.getDatetime(datetime)}'
-      : TimeDao.getDatetime(datetime);
+  final subtitle = (revenue != null && revenue != 0.0)
+      ? '${Tools.priceFormat(revenue, range: 2)} MXC ${TimeUtil.getDatetime(datetime)}'
+      : TimeUtil.getDatetime(datetime);
   amountColor ??=
       amount <= 0 || type.contains('STAKE') ? withdrawColor : depositColor;
   amountText ??=
-      secondDateTime != null ? TimeDao.getDatetime(secondDateTime) : null;
+      secondDateTime != null ? TimeUtil.getDatetime(secondDateTime) : null;
   if (!type.contains('SEARCH') &&
       !type.contains('STAKE') &&
       !type.contains('UNSTAKE')) {
@@ -53,7 +57,7 @@ Widget listItem({
         title: Row(
           children: <Widget>[
             Text(
-              type?.contains('BTC') ? 'BTC': 'MXC/ETH',
+              token == Token.btc ? 'BTC' : 'MXC/ETH',
               style: kBigFontOfBlack,
             ),
             smallRowSpacer(),
@@ -80,7 +84,7 @@ Widget listItem({
                 borderRadius: BorderRadius.all(Radius.circular(7)),
               ),
               child: Text(
-                '${Tools.convertDouble(amount)} ${type.contains('BTC') ? 'BTC': 'MXC'}',
+                '${Tools.convertDouble(amount)} ${token?.name}',
                 style: kBigFontOfBlack,
               ),
             ),
@@ -192,4 +196,73 @@ Widget listItem({
       isLast ? Container() : Divider(),
     ],
   );
+}
+
+class TopupListItem extends StatelessWidget {
+  final TopupEntity entity;
+
+  const TopupListItem({Key key, this.entity}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    String followText;
+    TextStyle followStyle;
+    if (entity.amountDouble > 0) {
+      followText = '(' + FlutterI18n.translate(context, 'deposit') + ')';
+      followStyle = kSmallFontOfGreen;
+    }
+    if (entity.amountDouble < 0) {
+      followText = '(' + FlutterI18n.translate(context, 'withdraw') + ')';
+      followStyle = kSmallFontOfRed;
+    }
+    return listItem(
+      context: context,
+      amount: entity.amountDouble,
+      datetime: entity.timestamp.toIso8601String(),
+      txHashAddress: entity.txHash,
+      followText: followText,
+      followStyle: followStyle,
+      status: FlutterI18n.translate(context, 'completed'),
+    );
+  }
+}
+
+class WithdrawListItem extends StatelessWidget {
+  final WithdrawHistoryEntity entity;
+  final Token token;
+
+  const WithdrawListItem({
+    Key key,
+    this.entity,
+    @required this.token,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    String followText;
+    TextStyle followStyle;
+    if (entity.amountDouble > 0) {
+      followText = '(' + FlutterI18n.translate(context, 'deposit') + ')';
+      followStyle = kSmallFontOfGreen;
+    }
+
+    if (entity.amountDouble < 0) {
+      followText = '(' + FlutterI18n.translate(context, 'withdraw') + ')';
+      followStyle = kSmallFontOfRed;
+    }
+
+    return listItem(
+      context: context,
+      amount: entity.amountDouble,
+      //fee: entity.withdrawFee,
+      datetime: entity.timestamp.toIso8601String(),
+      txHashAddress: entity.txHash,
+      followText: followText,
+      followStyle: followStyle,
+      token: token,
+      status: entity.txStatus != null
+          ? FlutterI18n.translate(context, entity.txStatus)
+          : FlutterI18n.translate(context, 'completed'),
+    );
+  }
 }

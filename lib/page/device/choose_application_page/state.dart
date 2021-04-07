@@ -6,8 +6,7 @@ class ChooseApplicationState implements Cloneable<ChooseApplicationState> {
 
   @override
   ChooseApplicationState clone() {
-    return ChooseApplicationState()
-    ..selectCameraIndex=selectCameraIndex;
+    return ChooseApplicationState()..selectCameraIndex = selectCameraIndex;
   }
 }
 

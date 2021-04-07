@@ -1,9 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 
-enum StakeAction {
-  setRates,
-  balance
-}
+enum StakeAction { setRates, balance }
 
 class StakeActionCreator {
   static Action setRates({

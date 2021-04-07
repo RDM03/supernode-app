@@ -8,5 +8,4 @@ Effect<BorderPromptState> buildEffect() {
   });
 }
 
-void _onAction(Action action, Context<BorderPromptState> ctx) {
-}
+void _onAction(Action action, Context<BorderPromptState> ctx) {}

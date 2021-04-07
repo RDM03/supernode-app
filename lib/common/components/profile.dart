@@ -2,36 +2,58 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/theme/font.dart';
 
-Widget profile({keyTitle, keySubtitle, String name = '', bool loading = false, String position = '', EdgeInsetsGeometry contentPadding, Widget trailing, Function onTap}){
-  return ListTile(
-    contentPadding: contentPadding,
-    leading: Icon(
-      Icons.account_circle,
-      size: 44,
-    ),
-    title: loading ? loadingFlash(
-      child: Text(
-          name,
-          key: keyTitle,
-          style: kBigFontOfBlack
+class ProfileRow extends StatelessWidget {
+  final keyTitle;
+  final keySubtitle;
+  final String name;
+  final String position;
+  final EdgeInsetsGeometry contentPadding;
+  final Widget trailing;
+  final bool loading;
+  final Function onTap;
+
+  const ProfileRow({
+    Key key,
+    this.keyTitle,
+    this.keySubtitle,
+    this.name = '',
+    this.position = '',
+    this.contentPadding,
+    this.trailing,
+    this.onTap,
+    this.loading = false,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      contentPadding: contentPadding,
+      leading: Icon(
+        Icons.account_circle,
+        size: 44,
       ),
-    ) : Text(
-      name,
-      key: keyTitle,
-      style: kBigFontOfBlack,
-    ),
-    subtitle: loading ? loadingFlash(
-      child: Text(
-        position,
-        key: keySubtitle,
-        style: kMiddleFontOfGrey,
-      ),
-    ) : Text(
-      position,
-      key: keySubtitle,
-      style: kMiddleFontOfGrey,
-    ),
-    trailing: trailing,
-    onTap: onTap,
-  );
+      title: loading
+          ? loadingFlash(
+              child: Text(name, style: kBigFontOfBlack),
+            )
+          : Text(
+              name,
+              key: keyTitle,
+              style: kBigFontOfBlack,
+            ),
+      subtitle: loading
+          ? loadingFlash(
+              child: Text(
+                position,
+                style: kMiddleFontOfGrey,
+              ),
+            )
+          : Text(
+              position,
+              key: keySubtitle,
+              style: kMiddleFontOfGrey,
+            ),
+      trailing: trailing,
+      onTap: onTap,
+    );
+  }
 }

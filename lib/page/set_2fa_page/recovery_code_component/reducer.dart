@@ -15,6 +15,5 @@ RecoveryCodeState _isAgreed(RecoveryCodeState state, Action action) {
   bool isAgreed = action.payload;
 
   final RecoveryCodeState newState = state.clone();
-  return newState
-    ..isAgreed = isAgreed;
+  return newState..isAgreed = isAgreed;
 }

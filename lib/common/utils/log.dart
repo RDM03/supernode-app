@@ -45,15 +45,19 @@ class L {
     }
   }
 
-  static void _log(String mode, String tag, String prefixMessage, String message) {
+  static void _log(
+      String mode, String tag, String prefixMessage, String message) {
     if (_mode[mode] || (!_mode.containsKey(mode) && _mode["DEBUG"])) {
-      log("$prefixMessage : $message", name: "$mode] [ $tag ", time: DateTime.now());
+      log("$prefixMessage : $message",
+          name: "$mode] [ $tag ", time: DateTime.now());
     }
   }
 
-  static void _tag(String mode, String tag, String message) => _log(mode, tag, "", message);
+  static void _tag(String mode, String tag, String message) =>
+      _log(mode, tag, "", message);
 
-  static void _notTag(String mode, String message) => _log(mode, "", "", message);
+  static void _notTag(String mode, String message) =>
+      _log(mode, "", "", message);
 
   static void dTag(String tag, String message) => _tag("DEBUG", tag, message);
 
@@ -71,5 +75,6 @@ class L {
 
   static void e(String message) => _notTag("ERROR", message);
 
-  static void runtime() => _log("PROJECT", "${WidgetsBinding.instance.runtimeType}", "", "RUNTIME MESSAGE");
+  static void runtime() => _log("PROJECT",
+      "${WidgetsBinding.instance.runtimeType}", "", "RUNTIME MESSAGE");
 }

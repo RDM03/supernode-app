@@ -5,18 +5,17 @@ import 'reducer.dart';
 import 'state.dart';
 import 'view.dart';
 
-class SmartWatchDetailPage extends Page<SmartWatchDetailState, Map<String, dynamic>> {
+class SmartWatchDetailPage
+    extends Page<SmartWatchDetailState, Map<String, dynamic>> {
   SmartWatchDetailPage()
       : super(
-            initState: initState,
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<SmartWatchDetailState>(
-                adapter: null,
-                slots: <String, Dependent<SmartWatchDetailState>>{
-                }),
-            middleware: <Middleware<SmartWatchDetailState>>[
-            ],);
-
+          initState: initState,
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<SmartWatchDetailState>(
+              adapter: null,
+              slots: <String, Dependent<SmartWatchDetailState>>{}),
+          middleware: <Middleware<SmartWatchDetailState>>[],
+        );
 }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:supernodeapp/common/daos/dhx_dao.dart';
-import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/dhx.dart';
+import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class CouncilCard extends StatelessWidget {

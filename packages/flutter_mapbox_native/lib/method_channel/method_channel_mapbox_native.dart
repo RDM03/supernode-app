@@ -70,11 +70,9 @@ class MethodChannelMapboxFlutter extends MapboxNativePlatform {
     assert(clusterUpdates != null);
     return channel(mapId).invokeMethod<void>(
       'clusters#update',
-       <String, dynamic>{
-        'clusters': jsonEncode({
-          "type": "FeatureCollection",
-          "features": clusterUpdates
-        })
+      <String, dynamic>{
+        'clusters': jsonEncode(
+            {"type": "FeatureCollection", "features": clusterUpdates})
       },
     );
   }
@@ -99,14 +97,12 @@ class MethodChannelMapboxFlutter extends MapboxNativePlatform {
     @required int mapId,
   }) {
     assert(name != null && bytes != null);
-    return channel(mapId).invokeMethod<void>(
-      'style#addImage',
-       <String, dynamic>{
-        "name": name,
-        "bytes": bytes,
-        "length": bytes.length,
-        }
-    );
+    return channel(mapId)
+        .invokeMethod<void>('style#addImage', <String, dynamic>{
+      "name": name,
+      "bytes": bytes,
+      "length": bytes.length,
+    });
   }
 
   @override
@@ -120,15 +116,19 @@ class MethodChannelMapboxFlutter extends MapboxNativePlatform {
   }
 
   @override
-  Future<void> moveCameraToMyLocation({@required int mapId,
+  Future<void> moveCameraToMyLocation({
+    @required int mapId,
   }) {
     return channel(mapId).invokeMethod<void>('camera#moveToMyLocation');
   }
 
   @override
-  Future<void> isMyLocationVisible(bool visible,{@required int mapId,
+  Future<void> isMyLocationVisible(
+    bool visible, {
+    @required int mapId,
   }) {
-    return channel(mapId).invokeMethod<void>('myLocation#visiable', <String,bool>{
+    return channel(mapId)
+        .invokeMethod<void>('myLocation#visiable', <String, bool>{
       'visiable': visible,
     });
   }
@@ -138,15 +138,15 @@ class MethodChannelMapboxFlutter extends MapboxNativePlatform {
     MyLocationTrackingMode myLocationTrackingMode, {
     @required int mapId,
   }) {
-    return channel(mapId).invokeMethod<void>('map#updateMyLocationTrackingMode', <String,MyLocationTrackingMode>{
+    return channel(mapId).invokeMethod<void>(
+        'map#updateMyLocationTrackingMode', <String, MyLocationTrackingMode>{
       'mode': myLocationTrackingMode,
     });
   }
-  
+
   /// Dispose of the native resources.
   @override
-  void dispose({int mapId}) {
-  }
+  void dispose({int mapId}) {}
 
   // The controller we need to broadcast the different events coming
   // from handleMethodCall.
@@ -179,9 +179,7 @@ class MethodChannelMapboxFlutter extends MapboxNativePlatform {
         ));
         break;
       case 'map#onStyleLoaded':
-        _mapEventStreamController.add(MapStyleLoadedEvent(
-          mapId
-        ));
+        _mapEventStreamController.add(MapStyleLoadedEvent(mapId));
         break;
       default:
         throw MissingPluginException();
@@ -213,5 +211,4 @@ class MethodChannelMapboxFlutter extends MapboxNativePlatform {
     return Text(
         '$defaultTargetPlatform is not yet supported by the maps plugin');
   }
-
 }

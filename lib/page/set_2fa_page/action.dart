@@ -1,31 +1,30 @@
 import 'package:fish_redux/fish_redux.dart';
 
 enum Set2FAAction {
-    initState
-  , onSettings
-  , onEnterSecurityContinue
-  , onEnterRecoveryContinue
-  , onQRCodeContinue
-  , onSetEnable
-  , onSetDisable
-  , onSetDisableWithRecoveryCode
-  , onRecoveryCodeContinue
-  , onVerificationContinue
-  , isEnabled
-  , isRegenerate
-  , onGetTOTPConfig
-  , getTOTPConfig
-  , onConfirm
+  initState,
+  onSettings,
+  onEnterSecurityContinue,
+  onEnterRecoveryContinue,
+  onQRCodeContinue,
+  onSetEnable,
+  onSetDisable,
+  onSetDisableWithRecoveryCode,
+  onRecoveryCodeContinue,
+  onVerificationContinue,
+  isEnabled,
+  isRegenerate,
+  onGetTOTPConfig,
+  getTOTPConfig,
+  onConfirm
 }
 
 class Set2FAActionCreator {
-
   static Action onSettings(String page) {
-    return Action(Set2FAAction.onSettings,payload: page);
+    return Action(Set2FAAction.onSettings, payload: page);
   }
 
   static Action onEnterSecurityContinue(String origin) {
-    return Action(Set2FAAction.onEnterSecurityContinue,payload: origin);
+    return Action(Set2FAAction.onEnterSecurityContinue, payload: origin);
   }
 
   static Action onEnterRecoveryContinue() {
@@ -49,21 +48,19 @@ class Set2FAActionCreator {
   }
 
   static Action isEnabled(bool data) {
-    return Action(Set2FAAction.isEnabled,payload: data);
+    return Action(Set2FAAction.isEnabled, payload: data);
   }
 
   static Action isRegenerate(bool data) {
-    return Action(Set2FAAction.isRegenerate,payload: data);
+    return Action(Set2FAAction.isRegenerate, payload: data);
   }
 
-
-
   static Action onGetTOTPConfig(int qrCodeSize) {
-    return Action(Set2FAAction.onGetTOTPConfig,payload: qrCodeSize);
+    return Action(Set2FAAction.onGetTOTPConfig, payload: qrCodeSize);
   }
 
   static Action getTOTPConfig(Map data) {
-    return Action(Set2FAAction.getTOTPConfig,payload: data);
+    return Action(Set2FAAction.getTOTPConfig, payload: data);
   }
 
   static Action onSetEnable() {
@@ -77,5 +74,4 @@ class Set2FAActionCreator {
   static Action onSetDisableWithRecoveryCode() {
     return Action(Set2FAAction.onSetDisableWithRecoveryCode);
   }
-
 }

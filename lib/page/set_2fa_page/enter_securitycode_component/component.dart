@@ -8,13 +8,11 @@ import 'view.dart';
 class EnterSecurityCodeComponent extends Component<EnterSecurityCodeState> {
   EnterSecurityCodeComponent()
       : super(
-    effect: buildEffect(),
-    reducer: buildReducer(),
-    view: buildView,
-    dependencies: Dependencies<EnterSecurityCodeState>(
-        adapter: null,
-        slots: <String, Dependent<EnterSecurityCodeState>>{
-        }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<EnterSecurityCodeState>(
+              adapter: null,
+              slots: <String, Dependent<EnterSecurityCodeState>>{}),
+        );
 }
-

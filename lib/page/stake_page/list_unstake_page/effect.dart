@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:fish_redux/fish_redux.dart';
-import 'package:supernodeapp/common/daos/app_dao.dart';
-import 'package:supernodeapp/common/daos/demo/stake_dao.dart';
-import 'package:supernodeapp/global_store/store.dart';
-import 'package:supernodeapp/common/components/stake/stake_item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supernodeapp/app_cubit.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/stake.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -15,7 +13,7 @@ Effect<ListUnstakeState> buildEffect() {
 }
 
 StakeDao _buildStakeDao(Context<ListUnstakeState> ctx) {
-  return ctx.state.isDemo ? DemoStakeDao() : StakeDao();
+  return ctx.context.read<SupernodeRepository>().stake;
 }
 
 void _initState(Action action, Context<ListUnstakeState> ctx) async {
@@ -24,7 +22,7 @@ void _initState(Action action, Context<ListUnstakeState> ctx) async {
 
 Future<void> loadStakes(Context<ListUnstakeState> ctx) async {
   final dao = _buildStakeDao(ctx);
-  String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
+  final orgId = ctx.context.read<SupernodeCubit>().state.orgId;
   final activeStakesRes = await dao.activestakes({
     "orgId": orgId,
   });

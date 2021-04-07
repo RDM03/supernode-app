@@ -1,36 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/common/components/permission_utils.dart';
-import 'package:supernodeapp/common/daos/dao.dart';
-import 'package:supernodeapp/common/daos/settings_dao.dart';
-import 'package:supernodeapp/common/daos/users_dao.dart';
-import 'package:supernodeapp/common/utils/log.dart';
-import 'package:supernodeapp/common/utils/storage_manager_native.dart';
-import 'package:supernodeapp/configs/config.dart';
-import 'package:supernodeapp/global_store/action.dart';
-import 'package:supernodeapp/data/super_node_bean.dart';
-import 'package:supernodeapp/global_store/store.dart';
-import 'package:supernodeapp/main.dart';
-import 'package:supernodeapp/page/settings_page/state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supernodeapp/app_cubit.dart';
+import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
+import 'package:supernodeapp/page/login_page/login_generic.dart';
+import 'package:supernodeapp/route.dart';
+import 'dart:convert';
 
 import 'navigator.dart';
-
-Future<void> logOut(BuildContext context) async {
-  SettingsState settingsData = GlobalStore.store.getState().settings;
-  if (settingsData != null) {
-    settingsData.userId = '';
-    settingsData.selectedOrganizationId = '';
-    settingsData.organizations = [];
-    settingsData.language = '';
-    SettingsDao.updateLocal(settingsData);
-  }
-
-  Locale locale = Localizations.localeOf(context);
-  await FlutterI18n.refresh(context, locale);
-
-  Navigator.of(context).pushNamedAndRemoveUntil('login_page', (_) => false);
-}
 
 Future<void> _pushMaintenance() async {
   if (!isCurrent(navigatorKey.currentState, 'under_maintenance_page')) {
@@ -38,11 +16,34 @@ Future<void> _pushMaintenance() async {
   }
 }
 
-Future<bool> checkMaintenance([SuperNodeBean node]) async {
-  if (node == null) {
-    await GlobalStore.store.getState().superModel.networkLoad();
-    node = GlobalStore.store.getState().superModel.currentNode;
+SupernodeJwt parseJwt(String jwt) {
+  if (jwt == null) return null;
+  final splitted = jwt.split('.');
+  if (splitted.length < 2) return null;
+  var encoded = splitted[1];
+
+  // need to add tail, otherwise base64 throws.
+  switch (encoded.length % 4) {
+    case 1:
+      break;
+    case 2:
+      encoded += "==";
+      break;
+    case 3:
+      encoded += "=";
+      break;
   }
+  final json = utf8.decode(base64.decode(encoded));
+  return SupernodeJwt.fromJson(json);
+}
+
+Future<void> logOut(BuildContext context) async {
+  context.read<SupernodeCubit>().logout();
+  navigatorKey.currentState
+      .pushAndRemoveUntil(route((_) => LoginPage()), (route) => false);
+}
+
+Future<bool> checkMaintenance(Supernode node) async {
   if (node == null) return true;
   if (node.status == 'maintenance') {
     if (SchedulerBinding.instance.schedulerPhase ==
@@ -62,37 +63,4 @@ Future<bool> checkMaintenance([SuperNodeBean node]) async {
     print('node status unknown');
   }
   return true;
-}
-
-Future<void> saveLoginResult(UserDao dao, String jwt, String email,
-    String password, String apiRoot) async {
-  SettingsState settingsData = GlobalStore.store.getState().settings;
-
-  if (settingsData == null) {
-    settingsData = SettingsState().clone();
-  }
-
-  Dao.token = jwt;
-  settingsData.token = jwt;
-  settingsData.username = email;
-  List<String> users =
-      StorageManager.sharedPreferences.getStringList(Config.USER_KEY) ?? [];
-  if (!users.contains(email)) {
-    users.add(email);
-  }
-  StorageManager.sharedPreferences.setStringList(Config.USER_KEY, users);
-  StorageManager.sharedPreferences.setString(Config.TOKEN_KEY, jwt);
-  StorageManager.sharedPreferences.setString(Config.USERNAME_KEY, email);
-  StorageManager.sharedPreferences.setString(Config.PASSWORD_KEY, password);
-  StorageManager.sharedPreferences.setString(Config.API_ROOT, apiRoot);
-  GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
-
-  var totpStatus = await dao.getTOTPStatus();
-  mLog('totp', totpStatus);
-
-  settingsData.is2FAEnabled = totpStatus.enabled;
-  if (totpStatus.enabled != null) {
-    GlobalStore.store.dispatch(GlobalActionCreator.onSettings(settingsData));
-  }
-  await PermissionUtil.getLocationPermission();
 }

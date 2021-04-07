@@ -37,7 +37,8 @@ bool _changeGatewaySliderValue(Action action, Context<DeviceMapBoxState> ctx) {
 }
 
 void _init(Action action, Context<DeviceMapBoxState> ctx) {
-  ctx.state.mapCtl.onZoomChanged = () => ctx.dispatch(DeviceMapBoxActionCreator.onZoomChanged());
+  ctx.state.mapCtl.onZoomChanged =
+      () => ctx.dispatch(DeviceMapBoxActionCreator.onZoomChanged());
   Future.delayed(Duration(seconds: 2), () {
     _setButtonTabMap(0, ctx);
   });
@@ -48,7 +49,8 @@ double metersToPixelsAtZoom(double meters, double latitude, double zoom) {
 }
 
 double calculateCircleRadius(MapViewController mapCtl, double km) {
-  return metersToPixelsAtZoom(km * 1000, mapCtl.realCirclePoint[0].options.geometry.latitude, mapCtl.actualZoom);
+  return metersToPixelsAtZoom(km * 1000,
+      mapCtl.realCirclePoint[0].options.geometry.latitude, mapCtl.actualZoom);
 }
 
 void _onZoomChanged(Action action, Context<DeviceMapBoxState> ctx) {
@@ -58,16 +60,17 @@ void _onZoomChanged(Action action, Context<DeviceMapBoxState> ctx) {
     final borderRadiusKm = ctx.state.gatewaySliderValue.roundToDouble();
     final radius = calculateCircleRadius(mapCtl, borderRadiusKm);
     final borderMarker = mapCtl.realSymbolPoint.firstWhere(
-      (e) => e.options.iconImage == 'assets/images/device/PIN.png', 
-      orElse: () => null
-    );
+        (e) => e.options.iconImage == 'assets/images/device/PIN.png',
+        orElse: () => null);
     if (borderMarker != null) {
       final gatewayGeometry = mapCtl.realCirclePoint[0].options.geometry;
-      final newLatitude  = gatewayGeometry.latitude  + (borderRadiusKm * 1000  / 6371000.0) * (180 / pi);
-      mapCtl.ctl.updateSymbol(borderMarker, SymbolOptions(
-        iconOffset: Offset(0, -10),
-        geometry: LatLng(newLatitude, gatewayGeometry.longitude)
-      ));
+      final newLatitude = gatewayGeometry.latitude +
+          (borderRadiusKm * 1000 / 6371000.0) * (180 / pi);
+      mapCtl.ctl.updateSymbol(
+          borderMarker,
+          SymbolOptions(
+              iconOffset: Offset(0, -10),
+              geometry: LatLng(newLatitude, gatewayGeometry.longitude)));
     }
     mapCtl.updateCircle(
       mapCtl.realCirclePoint[0],

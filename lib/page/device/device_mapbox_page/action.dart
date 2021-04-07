@@ -16,10 +16,10 @@ enum DeviceMapBoxAction {
 }
 
 class DeviceMapBoxActionCreator {
-
   static Action onMapBoxTap(LatLng coordinates) {
     return Action(DeviceMapBoxAction.onMapBoxTap, payload: coordinates);
   }
+
   static Action onZoomChanged() {
     return Action(DeviceMapBoxAction.onZoomChanged);
   }

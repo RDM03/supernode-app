@@ -4,7 +4,6 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
 
 class GatewayProfileState implements Cloneable<GatewayProfileState> {
-
   TextEditingController networkCtl = TextEditingController();
   TextEditingController gatewayProfileCtl = TextEditingController();
   TextEditingController nameCtl = TextEditingController();

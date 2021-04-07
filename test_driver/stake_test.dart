@@ -79,7 +79,7 @@ stakingTest(String secret) {
       var otp = getOtp(secret);
       print('Here is the OTP: $otp');
       //enter each number seperately
-      for(var i = 0; i < 6; i++){
+      for (var i = 0; i < 6; i++) {
         await driver.enterText(otp[i]);
         await delay(250);
       }

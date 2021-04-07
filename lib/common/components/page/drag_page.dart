@@ -13,7 +13,11 @@ class DragPage extends StatefulWidget {
   final Widget frontWidget;
   final bool showFrontWidget;
 
-  const DragPage({Key key, @required this.backChild, @required this.frontWidget, this.showFrontWidget = true})
+  const DragPage(
+      {Key key,
+      @required this.backChild,
+      @required this.frontWidget,
+      this.showFrontWidget = true})
       : super(key: key);
 
   @override
@@ -30,7 +34,8 @@ class DragPageState extends State<DragPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
   }
 
   @override
@@ -105,7 +110,8 @@ class DragPageState extends State<DragPage> with TickerProviderStateMixin {
               child: Container(
                 color: Colors.white,
                 // the color make Gesture sensitive
-                padding: EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 20),
+                padding:
+                    EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 20),
                 child: Container(
                   height: 4,
                   width: 42.4,
@@ -126,8 +132,12 @@ class DragPageState extends State<DragPage> with TickerProviderStateMixin {
     var realMinHeight = minHeight + (screenData?.padding?.bottom ?? 0);
     var realMiddleHeight = middleHeight + (screenData?.padding?.bottom ?? 0);
     final screenSize = MediaQuery.of(context).size;
-    _middleHeightAnimateValue = 1 - ((screenSize.height - realMiddleHeight) / (screenSize.height - realMinHeight));
-    _bigHeightAnimateValue = 1 - ((screenSize.height - screenSize.height + 100) / (screenSize.height - realMinHeight));
+    _middleHeightAnimateValue = 1 -
+        ((screenSize.height - realMiddleHeight) /
+            (screenSize.height - realMinHeight));
+    _bigHeightAnimateValue = 1 -
+        ((screenSize.height - screenSize.height + 100) /
+            (screenSize.height - realMinHeight));
 
     return Scaffold(
       body: Stack(
@@ -143,10 +153,9 @@ class DragPageState extends State<DragPage> with TickerProviderStateMixin {
                       left: 0.0,
                       right: 0.0,
                       bottom: 0.0,
-                      top: (1 - _animationController.value) * (screenSize.height - realMinHeight),
-                      child: ClipRect(
-                        child: body()
-                      ),
+                      top: (1 - _animationController.value) *
+                          (screenSize.height - realMinHeight),
+                      child: ClipRect(child: body()),
                     );
                   },
                 )

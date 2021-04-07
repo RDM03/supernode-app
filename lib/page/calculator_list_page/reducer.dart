@@ -10,6 +10,7 @@ Reducer<CalculatorListState> buildReducer() {
       CalculatorListAction.selectCurrency: _selectCurrency,
       CalculatorListAction.initListener: _initListener,
       CalculatorListAction.setSearchValue: _setSearchValue,
+      CalculatorListAction.setSelectedCurrencies: _setSelectedCurrencies,
     },
   );
 }
@@ -34,4 +35,10 @@ CalculatorListState _initListener(CalculatorListState state, Action action) {
 CalculatorListState _setSearchValue(CalculatorListState state, Action action) {
   final CalculatorListState newState = state.clone();
   return newState..searchValue = action.payload;
+}
+
+CalculatorListState _setSelectedCurrencies(
+    CalculatorListState state, Action action) {
+  final CalculatorListState newState = state.clone();
+  return newState..selectedCurrencies = action.payload;
 }

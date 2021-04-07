@@ -1,6 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/common/daos/dhx_dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/dhx.dart';
 
 class ListCouncilsState implements Cloneable<ListCouncilsState> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();

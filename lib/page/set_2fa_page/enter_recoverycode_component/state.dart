@@ -2,7 +2,6 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/widgets.dart';
 
 class EnterRecoveryCodeState implements Cloneable<EnterRecoveryCodeState> {
-
   GlobalKey formKey = GlobalKey<FormState>();
   bool isEnabled;
   TextEditingController otpCodeCtl = TextEditingController();

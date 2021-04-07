@@ -8,11 +8,12 @@ set -x
 
 cd ..
 git clone -b beta https://github.com/flutter/flutter.git
+cd flutter
+git reset --hard 1.23.0-18.1.pre
+cd ..
 export PATH=`pwd`/flutter/bin:$PATH
 
 flutter clean
-flutter channel stable
-flutter doctor -v
 
 echo "Installed flutter to `pwd`/flutter"
 

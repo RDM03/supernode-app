@@ -1,15 +1,16 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/app_cubit.dart';
+import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/auth.dart';
-import 'package:supernodeapp/common/daos/dao.dart';
-import 'package:supernodeapp/common/daos/users_dao.dart';
-import 'package:supernodeapp/common/utils/storage_manager_native.dart';
-import 'package:supernodeapp/configs/config.dart';
-import 'package:supernodeapp/global_store/store.dart';
-
+import 'package:supernodeapp/page/home_page/home_page.dart';
+import 'package:supernodeapp/route.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -19,40 +20,54 @@ Effect<WechatBindState> buildEffect() {
   });
 }
 
+UserDao _buildUserDao(Context<WechatBindState> ctx) {
+  return ctx.context.read<SupernodeRepository>().main.user;
+}
+
 void _onBind(Action action, Context<WechatBindState> ctx) async {
-  Dao.ctx = ctx;
   var curState = ctx.state;
 
   if ((curState.formKey.currentState as FormState).validate()) {
-    final loading = await Loading.show(ctx.context);
+    final loading = Loading.show(ctx.context);
     try {
-      String apiRoot = GlobalStore.state.superModel.currentNode.url;
-      Dao.baseUrl = apiRoot;
-      UserDao dao = UserDao();
+      UserDao dao = _buildUserDao(ctx);
       final email = curState.usernameCtl.text.trim();
       final password = curState.passwordCtl.text.trim();
 
-      StorageManager.sharedPreferences.setBool(Config.DEMO_MODE, false);
-      await _handleBindRequest(dao, email, password, apiRoot);
+      await _handleBindRequest(dao, email, password, ctx);
 
-      loading.hide();
-      Navigator.pushNamedAndRemoveUntil(ctx.context, 'home_page', (_) => false);
+      navigatorKey.currentState
+          .pushAndRemoveUntil(route((ctx) => HomePage()), (_) => false);
     } catch (err) {
       loading.hide();
-      final res = await checkMaintenance();
+      final res = await checkMaintenance(
+          ctx.context.read<SupernodeCubit>().state.selectedNode);
       if (!res) return;
       tip(ctx.context,
-          err?.message ?? FlutterI18n.translate(ctx.context,'error_tip'));
+          err?.message ?? FlutterI18n.translate(ctx.context, 'error_tip'));
     } finally {
       loading.hide();
     }
   }
 }
 
-Future<void> _handleBindRequest(UserDao dao, String email, String password, String apiRoot) async {
+Future<void> _handleBindRequest(UserDao dao, String email, String password,
+    Context<WechatBindState> ctx) async {
   Map data = {'email': email, 'password': password};
 
-  var bindExtUserResult = await dao.bindExternalUser(data);
+  final bindExtUserResult = await dao.bindExternalUser(data);
+  final jwt = bindExtUserResult['jwt'];
 
-  await saveLoginResult(dao, bindExtUserResult['jwt'], '', '', apiRoot);
+  ctx.context.read<SupernodeCubit>().setSupernodeSession(SupernodeSession(
+        username: email,
+        password: password,
+        token: jwt,
+        userId: parseJwt(jwt).userId,
+        node: ctx.context.read<SupernodeCubit>().state.selectedNode,
+      ));
+
+  final profile = await dao.profile();
+  ctx.context.read<SupernodeCubit>().setOrganizationId(
+        profile.organizations.first.organizationID,
+      );
 }

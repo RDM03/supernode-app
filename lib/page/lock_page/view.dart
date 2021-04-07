@@ -3,8 +3,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
+import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
+import 'package:supernodeapp/common/components/row_spacer.dart';
+import 'package:supernodeapp/common/components/wallet/mining_tutorial.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/theme/colors.dart';
@@ -30,31 +34,11 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: FlutterI18n.translate(context, 'lock_tip'),
-                    style: kMiddleFontOfGrey,
-                  ),
-                  WidgetSpan(
-                    child: SizedBox(width: 10),
-                  ),
-                  TextSpan(
-                      text: FlutterI18n.translate(context, 'learn_more'),
-                      style: kMiddleFontOfBlueLink,
-                      recognizer: TapGestureRecognizer()
-                      // ..onTap = () =>
-                      //     _showBottomSheet(state.scaffoldKey.currentState),
-                      ),
-                ],
-              ),
-            ),
-            SizedBox(height: 30),
             Row(
               children: [
-                Text(FlutterI18n.translate(context, 'dhx_lock'),
-                    style: kBigFontOfBlack),
+                Text(FlutterI18n.translate(context, 'lock_mxc'),
+                    style: kBigBoldFontOfBlack),
+                smallRowSpacer(),
                 GestureDetector(
                   onTap: () => _showInfoDialog(context),
                   child: Padding(
@@ -65,6 +49,32 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
                 )
               ],
             ),
+            smallColumnSpacer(),
+            Text(FlutterI18n.translate(context, 'lock_tip'), style: kMiddleFontOfGrey),
+            smallColumnSpacer(),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                      text: FlutterI18n.translate(context, 'learn_more'),
+                      style: kMiddleFontOfBlueLink.copyWith(color: Token.supernodeDhx.color),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => Navigator.push(context, MaterialPageRoute<void>(
+                          builder: (BuildContext context) {
+                            return Scaffold(
+                              appBar: AppBars.backArrowSkipAppBar(
+                                  title: FlutterI18n.translate(context, 'tutorial_title'),
+                                  onPress: () => Navigator.pop(context),
+                                  action: FlutterI18n.translate(context, "skip")),
+                              body: MiningTutorial(context),
+                            );
+                          },
+                        )),
+                  ),
+                ],
+              ),
+            ),
+            middleColumnSpacer(),
             Expanded(
               child: ListView(
                 padding: EdgeInsets.zero,
@@ -78,7 +88,7 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
                     color: lock24Color,
                     boostText: state.boost24m == null
                         ? null
-                        : '${round(state.boost24m)}% ' +
+                        : '${percentage(state.boost24m)}% ' +
                             FlutterI18n.translate(context, 'mining_boost'),
                     first: true,
                     boostRate: state.boost24m,
@@ -91,7 +101,7 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
                     color: lock12Color,
                     boostText: state.boost12m == null
                         ? null
-                        : '${round(state.boost12m)}% ' +
+                        : '${percentage(state.boost12m)}% ' +
                             FlutterI18n.translate(context, 'mining_boost'),
                     boostRate: state.boost12m,
                   ),
@@ -103,7 +113,7 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
                     color: lock9Color,
                     boostText: state.boost9m == null
                         ? null
-                        : '${round(state.boost9m)}% ' +
+                        : '${percentage(state.boost9m)}% ' +
                             FlutterI18n.translate(context, 'mining_boost'),
                     boostRate: state.boost9m,
                   ),
@@ -131,8 +141,7 @@ void _showInfoDialog(BuildContext context) {
   showInfoDialog(
     context,
     IosStyleBottomDialog2(
-      context: context,
-      child: Column(
+      builder: (context) => Column(
         children: [
           Image.asset(AppImages.infoMXCVault, height: s(80)),
           Padding(
@@ -154,33 +163,7 @@ void _showInfoDialog(BuildContext context) {
   );
 }
 
-// TODO
-// void _showBottomSheet(ScaffoldState scaffoldState) {
-//   scaffoldState.showBottomSheet(
-//     (ctx) => Padding(
-//       padding: EdgeInsets.only(
-//         left: 20,
-//         right: 20,
-//         top: 50,
-//       ),
-//       child: Container(
-//         color: Colors.white,
-//         width: double.infinity,
-//         height: double.infinity,
-//         child: Column(
-//           children: [
-//             Expanded(
-//               child: DhxMiningInfo(),
-//             )
-//           ],
-//         ),
-//       ),
-//     ),
-//     backgroundColor: Colors.black.withOpacity(0.8),
-//   );
-// }
-
-int round(double v) {
+int percentage(double v) {
   return (v * 100).round();
 }
 
@@ -195,7 +178,7 @@ Widget _lockCard({
   Dispatch dispatch,
   Key key,
 }) {
-  return panelFrame(
+  return PanelFrame(
     rowTop: first ? EdgeInsets.only(top: 10) : null,
     child: ListTile(
       key: key,
@@ -235,7 +218,7 @@ Widget _lockCard({
       subtitle: Text(
         boostText == null ? '...' : boostText,
         style: kMiddleFontOfBlack.copyWith(
-          color: Color(0xFF1C1478),
+          color: Token.supernodeDhx.color,
           fontWeight: FontWeight.w600,
         ),
         key: Key('setBoost'),

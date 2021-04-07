@@ -257,8 +257,7 @@ void _showInfoDialog(BuildContext context) {
   showInfoDialog(
     context,
     IosStyleBottomDialog2(
-      context: context,
-      child: Column(
+      builder: (context) => Column(
         children: [
           Image.asset(
             AppImages.gateways,
@@ -337,7 +336,7 @@ _proceed(Dispatch dispatch, ConfirmLockState state) {
       ],
       cancelButton: CupertinoActionSheetAction(
         child: Text(
-          FlutterI18n.translate(ctx, 'got_it'),
+          FlutterI18n.translate(ctx, 'device_cancel'),
           style: kBigFontOfGrey,
         ),
         onPressed: () => Navigator.of(ctx).pop(),

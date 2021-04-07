@@ -5,7 +5,14 @@ import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
 class SecondaryButton extends StatelessWidget {
-  SecondaryButton({@required this.onTap, @required this.buttonTitle,this.color,this.icon,this.isSelected = false});
+  SecondaryButton({
+    @required this.onTap,
+    @required this.buttonTitle,
+    this.color,
+    this.icon,
+    this.isSelected = false,
+    Key key,
+  }) : super(key: key);
 
   final String buttonTitle;
   final Function onTap;
@@ -33,18 +40,22 @@ class SecondaryButton extends StatelessWidget {
           Text(
             buttonTitle,
             textAlign: TextAlign.center,
-            style: color != null && !isSelected ? kSecondaryButtonOfBlack : kSecondaryButtonOfPurple,
+            style: color != null && !isSelected
+                ? kSecondaryButtonOfBlack
+                : kSecondaryButtonOfPurple,
           ),
-          icon != null ? 
-          Container(
-            margin: kInnerRowLeft5,
-            child: Icon(
-              icon,
-              color: color != null && !isSelected ?  Colors.black : buttonPrimaryColor,
-            ),
-          ) : 
-          Container()
-        ]
+          icon != null
+              ? Container(
+                  margin: kInnerRowLeft5,
+                  child: Icon(
+                    icon,
+                    color: color != null && !isSelected
+                        ? Colors.black
+                        : buttonPrimaryColor,
+                  ),
+                )
+              : Container()
+        ],
       ),
     );
   }

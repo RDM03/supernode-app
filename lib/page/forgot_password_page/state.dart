@@ -6,7 +6,14 @@ class ForgotPasswordState implements Cloneable<ForgotPasswordState> {
   GlobalKey emailFormKey = GlobalKey<FormState>();
   GlobalKey codesFormKey = GlobalKey<FormState>();
 
-  List<TextEditingController> codeListCtls = [TextEditingController(), TextEditingController(), TextEditingController(), TextEditingController(), TextEditingController(), TextEditingController()];
+  List<TextEditingController> codeListCtls = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController()
+  ];
 
   TextEditingController emailCtl = TextEditingController();
   TextEditingController newPwdCtl = TextEditingController();
@@ -35,7 +42,8 @@ ForgotPasswordState initState(Map<String, dynamic> args) {
   return ForgotPasswordState();
 }
 
-class PasswordResetConnector extends ConnOp<ForgotPasswordState, PasswordResetState> {
+class PasswordResetConnector
+    extends ConnOp<ForgotPasswordState, PasswordResetState> {
   @override
   PasswordResetState get(ForgotPasswordState state) {
     return PasswordResetState()

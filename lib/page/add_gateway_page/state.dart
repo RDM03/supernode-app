@@ -2,12 +2,12 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/map_box.dart';
-import 'package:supernodeapp/page/settings_page/organizations_component/state.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/organization.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 
 import 'gateway_profile_component/state.dart';
 
 class AddGatewayState implements Cloneable<AddGatewayState> {
-
   String fromPage = '';
   GlobalKey formKey = GlobalKey<FormState>();
   TextEditingController serialNumberCtl = TextEditingController();
@@ -22,7 +22,7 @@ class AddGatewayState implements Cloneable<AddGatewayState> {
   List networkServerList = [];
   List gatewayProfileList = [];
   bool discoveryEnabled = true;
-  List<OrganizationsState> organizations = [];
+  List<UserOrganization> organizations = [];
   MapViewController mapCtl = MapViewController();
   LatLng location;
   LatLng markerPoint;
@@ -58,7 +58,7 @@ class AddGatewayState implements Cloneable<AddGatewayState> {
 AddGatewayState initState(Map<String, dynamic> args) {
   String fromPage = args['fromPage'];
   LatLng location;
-  if(args['location'] != null){
+  if (args['location'] != null) {
     location = args['location'];
   }
 
@@ -67,12 +67,15 @@ AddGatewayState initState(Map<String, dynamic> args) {
     ..location = location;
 }
 
-class GatewayProfileConnector extends ConnOp<AddGatewayState,GatewayProfileState>{
-
+class GatewayProfileConnector
+    extends ConnOp<AddGatewayState, GatewayProfileState> {
   @override
-  GatewayProfileState get(AddGatewayState state){
-    state.altitudeCtl.text = state.altitudeCtl.text.isNotEmpty ? state.altitudeCtl.text : '0';
-    state.descriptionCtl.text = state.descriptionCtl.text.isNotEmpty ? state.descriptionCtl.text : state.serialNumberCtl.text;
+  GatewayProfileState get(AddGatewayState state) {
+    state.altitudeCtl.text =
+        state.altitudeCtl.text.isNotEmpty ? state.altitudeCtl.text : '0';
+    state.descriptionCtl.text = state.descriptionCtl.text.isNotEmpty
+        ? state.descriptionCtl.text
+        : state.serialNumberCtl.text;
 
     return GatewayProfileState()
       ..formKey = state.gatewayProfileFormKey
@@ -111,4 +114,3 @@ class GatewayProfileConnector extends ConnOp<AddGatewayState,GatewayProfileState
       ..gatewayProfileID = subState.gatewayProfileID;
   }
 }
-

@@ -1,8 +1,10 @@
-import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 class Loading {
@@ -13,24 +15,13 @@ class Loading {
 
   Loading._(this._loadingContext);
 
-  static Future<Loading> show(BuildContext context) {
-    final completer = Completer<Loading>();
-    showCupertinoDialog(
-      context: context,
-      builder: (ctx) {
-        final loading = Loading._(ctx);
-        completer.complete(loading);
-        return loadingView();
-      },
-    );
-    return completer.future;
+  static Loading show(BuildContext context) {
+    context.read<AppCubit>().setLoading(true);
+    return Loading._(context);
   }
 
   void hide() {
-    if (enabled) {
-      Navigator.of(_loadingContext).pop();
-      _enabled = false;
-    }
+    _loadingContext.read<AppCubit>().setLoading(false);
   }
 }
 
@@ -40,10 +31,6 @@ Widget loadingView() {
     child: Container(
       width: 100,
       height: 100,
-      // decoration: BoxDecoration(
-      //   color: Colors.white,
-      //   borderRadius: BorderRadius.all(Radius.circular(10)),
-      // ),
       alignment: Alignment.center,
       child: SizedBox(
         width: 50.0,

@@ -10,7 +10,8 @@ import 'package:supernodeapp/theme/spacing.dart';
 import '../action.dart';
 import 'state.dart';
 
-Widget buildView(EnterNonOTPSecurityCodeState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(EnterNonOTPSecurityCodeState state, Dispatch dispatch,
+    ViewService viewService) {
   var _ctx = viewService.context;
 
   return Scaffold(
@@ -27,38 +28,33 @@ Widget buildView(EnterNonOTPSecurityCodeState state, Dispatch dispatch, ViewServ
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  paragraph(FlutterI18n.translate(_ctx,'enter_security_01')),
+                  paragraph(FlutterI18n.translate(_ctx, 'enter_security_01')),
                   Form(
                     key: state.formKey,
                     autovalidate: false,
-                    child: Column(
-                        children: <Widget>[
-                          Container(
-                            margin: const EdgeInsets.only(top: 40),
-                            child: TextFieldWithTitle(
-                              title: FlutterI18n.translate(_ctx, 'withdraw_amount'),
-                              textInputAction: TextInputAction.next,
-                              controller: state.secretCtl,
-                            ),
-                          ),
-                        ]
-                    ),
+                    child: Column(children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.only(top: 40),
+                        child: TextFieldWithTitle(
+                          title: FlutterI18n.translate(_ctx, 'withdraw_amount'),
+                          textInputAction: TextInputAction.next,
+                          controller: state.secretCtl,
+                        ),
+                      ),
+                    ]),
                   ),
                   Spacer(),
-                  state.isEnabled ?
-                  PrimaryButton(
-                      onTap: () => dispatch(Set2FAActionCreator.onSetDisable()),
-                      buttonTitle: FlutterI18n.translate(_ctx, 'confirm'),
-                      minHeight: 46
-                  ):
-                  PrimaryButton(
-                      onTap: () => dispatch(Set2FAActionCreator.onSetEnable()),
-                      buttonTitle: FlutterI18n.translate(_ctx, 'confirm'),
-                      minHeight: 46
-                  ),
+                  state.isEnabled
+                      ? PrimaryButton(
+                          onTap: () =>
+                              dispatch(Set2FAActionCreator.onSetDisable()),
+                          buttonTitle: FlutterI18n.translate(_ctx, 'confirm'),
+                          minHeight: 46)
+                      : PrimaryButton(
+                          onTap: () =>
+                              dispatch(Set2FAActionCreator.onSetEnable()),
+                          buttonTitle: FlutterI18n.translate(_ctx, 'confirm'),
+                          minHeight: 46),
                 ],
-              )
-          )
-      )
-  );
+              ))));
 }

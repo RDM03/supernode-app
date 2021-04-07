@@ -4,26 +4,31 @@ import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class AppBars {
-  static backArrowAppBar({String title: '', Function onPress}){
+  static backArrowAppBar({String title: '', Function onPress, Function onTitlePress, Color color}) {
     return AppBar(
       leading: IconButton(
         onPressed: onPress,
-        icon: Icon(Icons.arrow_back_ios,
+        icon: Icon(
+          Icons.arrow_back_ios,
           color: Colors.black,
         ),
       ),
       centerTitle: true,
-      backgroundColor: backgroundColor,
+      backgroundColor: color ?? backgroundColor,
       elevation: 0,
-      title: Text(
-        title,
-        style: kBigFontOfBlack,
+      title: (onTitlePress == null)
+          ? Text(title, style: kBigFontOfBlack)
+          : GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: onTitlePress,
+          child: Text(title, style: kBigFontOfBlack)
       ),
     );
   }
 
-  static backArrowSkipAppBar({Function onPress, String action = ""}) {
+  static backArrowSkipAppBar({Function onPress, String action = "", String title = ''}) {
     return AppBar(
+      title: Center(child: Text(title, style: kBigFontOfBlack)),
       leading: IconButton(
         onPressed: onPress,
         icon: Icon(Icons.arrow_back_ios, color: Colors.black),
@@ -36,6 +41,23 @@ class AppBars {
           ),
         )
       ],
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    );
+  }
+
+  static backArrowAndActionAppBar({String title, Function onPress, Widget action}) {
+    return AppBar(
+      title: Text(
+        title,
+        style: kBigFontOfBlack,
+      ),
+      centerTitle: true,
+      leading: IconButton(
+        onPressed: onPress,
+        icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+      ),
+      actions: <Widget>[action],
       backgroundColor: Colors.transparent,
       elevation: 0,
     );

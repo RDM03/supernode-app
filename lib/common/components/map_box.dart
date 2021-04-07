@@ -99,14 +99,14 @@ class MapViewController {
         await addCircle(marker.circleOptions);
       }
     }
-    
+
     final symbolPoint = await ctl?.addSymbol(SymbolOptions(
       iconImage: marker.image,
       geometry: marker.point,
       iconSize: marker?.size ?? 1,
       iconOffset: offset,
     ));
-    
+
     if (symbolPoint == null) {
       print('symbol not loaded, trying again in 0.5 sec');
       Future.delayed(Duration(milliseconds: 500), () => addSymbol(marker));
@@ -247,21 +247,21 @@ class MapBoxWidget extends StatefulWidget {
   // delete field
 //  final BuildContext context;
 
-  const MapBoxWidget({
-    Key key,
-    @required this.config,
-    this.onTap,
-    this.zoomOutCallback,
-    this.clickLocation,
-    this.userLocationSwitch = true,
-    this.isFullScreen = false,
-    this.rowTop,
-    this.centerLocation,
-    this.isUserLocation = true,
-    this.isUserLocationSwitch = true,
-    this.isActionsTop = false,
-    this.needFirstPosition = true
-  }) : super(key: key);
+  const MapBoxWidget(
+      {Key key,
+      @required this.config,
+      this.onTap,
+      this.zoomOutCallback,
+      this.clickLocation,
+      this.userLocationSwitch = true,
+      this.isFullScreen = false,
+      this.rowTop,
+      this.centerLocation,
+      this.isUserLocation = true,
+      this.isUserLocationSwitch = true,
+      this.isActionsTop = false,
+      this.needFirstPosition = true})
+      : super(key: key);
 
   @override
   _MapBoxWidgetState createState() => _MapBoxWidgetState();
@@ -275,7 +275,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
   MapViewController get config => widget.config;
   bool get userLocationSwitch => widget.userLocationSwitch;
 
-  LatLng get centerLocation => widget.centerLocation; 
+  LatLng get centerLocation => widget.centerLocation;
   bool get isUserLocation => widget.isUserLocation;
   bool get isUserLocationSwitch => widget.isUserLocationSwitch;
 
@@ -342,7 +342,8 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
             width: _mediaData.size.width,
             height: _mediaData.size.height,
           )
-        : panelFrame(rowTop: widget.rowTop, height: 263, child: _buildMapView());
+        : PanelFrame(
+            rowTop: widget.rowTop, height: 263, child: _buildMapView());
   }
 
   Widget _buildMapView() {
@@ -351,7 +352,8 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
         MapboxMap(
           attributionButtonMargins: Point(-50, -50),
           initialCameraPosition: CameraPosition(
-              target: centerLocation ?? LatLng(37.386, -122.083), zoom: config.zoom),
+              target: centerLocation ?? LatLng(37.386, -122.083),
+              zoom: config.zoom),
           myLocationEnabled: _myLocationEnable,
           myLocationRenderMode: MyLocationRenderMode.NORMAL,
           myLocationTrackingMode: _myLocationTrackingMode,

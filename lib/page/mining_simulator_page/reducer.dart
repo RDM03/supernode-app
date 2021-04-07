@@ -6,20 +6,12 @@ import 'state.dart';
 Reducer<MiningSimulatorState> buildReducer() {
   return asReducer(
     <Object, Reducer<MiningSimulatorState>>{
-      MiningSimulatorAction.mxcTotal: _mxcTotal,
       MiningSimulatorAction.minersTotal: _minersTotal,
       MiningSimulatorAction.months: _months,
       MiningSimulatorAction.lastMining: _lastMining,
       MiningSimulatorAction.expandCalculation: _expandCalculation,
     },
   );
-}
-
-MiningSimulatorState _mxcTotal(MiningSimulatorState state, Action action) {
-  double val = action.payload;
-
-  final MiningSimulatorState newState = state.clone();
-  return newState..mxcTotal = val;
 }
 
 MiningSimulatorState _minersTotal(MiningSimulatorState state, Action action) {
@@ -37,12 +29,10 @@ MiningSimulatorState _months(MiningSimulatorState state, Action action) {
 }
 
 MiningSimulatorState _lastMining(MiningSimulatorState state, Action action) {
-  double totalDhx = action.payload[0];
-  double yesterdayMining = action.payload[1];
+  double yesterdayMining = action.payload;
 
   final MiningSimulatorState newState = state.clone();
   return newState
-    ..dhxTotal = totalDhx
     ..yesterdayMining = yesterdayMining;
 }
 

@@ -8,5 +8,4 @@ Effect<DiscoverState> buildEffect() {
   });
 }
 
-void _onAction(Action action, Context<DiscoverState> ctx) {
-}
+void _onAction(Action action, Context<DiscoverState> ctx) {}

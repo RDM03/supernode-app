@@ -1,18 +1,16 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/daos/demo/dhx_dao.dart';
-import 'package:supernodeapp/common/daos/demo/gateways_dao.dart';
-import 'package:supernodeapp/common/daos/demo/wallet_dao.dart';
-import 'package:supernodeapp/common/daos/dhx_dao.dart';
-import 'package:supernodeapp/common/daos/gateways_dao.dart';
-import 'package:supernodeapp/common/daos/wallet_dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/dhx.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/gateways.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/wallet.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
-import 'package:supernodeapp/global_store/store.dart';
-import 'package:supernodeapp/page/settings_page/state.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -25,15 +23,14 @@ Effect<PrepareLockState> buildEffect() {
   });
 }
 
-WalletDao _buildWalletDao(Context<PrepareLockState> ctx) {
-  return ctx.state.isDemo ? DemoWalletDao() : WalletDao();
-}
+WalletDao _buildWalletDao(Context<PrepareLockState> ctx) =>
+    ctx.context.read<SupernodeRepository>().wallet;
 
 GatewaysDao _buildGatewaysDao(Context<PrepareLockState> ctx) =>
-    ctx.state.isDemo ? DemoGatewaysDao() : GatewaysDao();
+    ctx.context.read<SupernodeRepository>().gateways;
 
 DhxDao _buildDhxDao(Context<PrepareLockState> ctx) =>
-    ctx.state.isDemo ? DemoDhxDao() : DhxDao();
+    ctx.context.read<SupernodeRepository>().dhx;
 
 void _onInitState(Action action, Context<PrepareLockState> ctx) async {
   await _minersOwned(ctx);
@@ -55,9 +52,9 @@ void _resultPage(Context<PrepareLockState> ctx, String type, dynamic res) {
 
 Future<void> _stake(Context<PrepareLockState> ctx) async {
   var curState = ctx.state;
-  final loading = await Loading.show(ctx.context);
+  final loading = Loading.show(ctx.context);
 
-  String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
+  String orgId = ctx.context.read<SupernodeCubit>().state.orgId;
   String amount = curState.amountCtl.text;
 
   final dao = null;
@@ -81,10 +78,10 @@ Future<void> _stake(Context<PrepareLockState> ctx) async {
 void _onConfirm(Action action, Context<PrepareLockState> ctx) async {
   final formValid = ctx.state.formKey.currentState.validate();
   final estimateDhx = calculateDhxDaily(
-    dhxTotal: ctx.state.lastMiningDhx,
+    dhxBonded: ctx.state.lastMiningDhx,
     minersCount: ctx.state.minersOwned,
     months: ctx.state.months,
-    mxcValue: double.tryParse(ctx.state.amountCtl.text),
+    mxcLocked: double.tryParse(ctx.state.amountCtl.text),
     yesterdayMining: ctx.state.lastMiningMPower,
   );
   if (!formValid) return;
@@ -115,9 +112,8 @@ void _process(Action action, Context<PrepareLockState> ctx) async {
 
 Future<void> _minersOwned(Context<PrepareLockState> ctx) async {
   final dao = _buildGatewaysDao(ctx);
-  SettingsState settingsData = GlobalStore.store.getState().settings;
   Map data = {
-    "organizationID": settingsData.selectedOrganizationId,
+    "organizationID": ctx.context.read<SupernodeCubit>().state.orgId,
     "offset": 0,
     "limit": 1,
   };
@@ -127,11 +123,10 @@ Future<void> _minersOwned(Context<PrepareLockState> ctx) async {
 }
 
 Future<void> _balance(Context<PrepareLockState> ctx) async {
-  SettingsState settingsData = GlobalStore.store.getState().settings;
   WalletDao dao = _buildWalletDao(ctx);
   Map data = {
-    'userId': settingsData.userId,
-    'orgId': settingsData.selectedOrganizationId,
+    'userId': ctx.context.read<SupernodeCubit>().state.session.userId,
+    'orgId': ctx.context.read<SupernodeCubit>().state.orgId,
     'currency': ''
   };
 

@@ -4,7 +4,7 @@ import 'package:feedback/feedback.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:supernodeapp/common/daos/jira_dao.dart';
+import 'package:supernodeapp/common/repositories/shared/dao/jira_dao.dart';
 import 'package:supernodeapp/page/feedback_page/feedback.dart';
 import 'package:supernodeapp/theme/font.dart';
 

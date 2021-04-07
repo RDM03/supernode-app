@@ -1,12 +1,15 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/security/biometrics.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/daos/app_dao.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/stake.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/log.dart';
-import 'package:supernodeapp/global_store/store.dart';
 import 'package:supernodeapp/page/stake_page/details_stake_page/action.dart';
 import 'state.dart';
 
@@ -19,6 +22,14 @@ Effect<DetailsStakeState> buildEffect() {
   });
 }
 
+StakeDao _buildStakeDao(Context<DetailsStakeState> ctx) {
+  return ctx.context.read<SupernodeRepository>().stake;
+}
+
+UserDao _buildUserDao(Context<DetailsStakeState> ctx) {
+  return ctx.context.read<SupernodeRepository>().user;
+}
+
 void _onUnstake(Action action, Context<DetailsStakeState> ctx) async {
   final authenticated = await Biometrics.authenticateAsync(ctx.context);
   if (!authenticated) return;
@@ -28,11 +39,11 @@ void _onUnstake(Action action, Context<DetailsStakeState> ctx) async {
 
 Future<void> _unstake(Context<DetailsStakeState> ctx, String otpCode) async {
   var curState = ctx.state;
-  final loading = await Loading.show(ctx.context);
+  final loading = Loading.show(ctx.context);
 
-  String orgId = GlobalStore.store.getState().settings.selectedOrganizationId;
+  final orgId = ctx.context.read<SupernodeCubit>().state.orgId;
 
-  StakeDao dao = StakeDao();
+  StakeDao dao = _buildStakeDao(ctx);
   Map data = {
     "orgId": orgId,
     "stakeId": curState.stake.id,
@@ -41,12 +52,12 @@ Future<void> _unstake(Context<DetailsStakeState> ctx, String otpCode) async {
 
   try {
     final res = await dao.unstake(data);
+    loading.hide();
     if (res.containsKey('status')) {
       await Navigator.pushNamed(ctx.context, 'confirm_page', arguments: {
         'title': FlutterI18n.translate(ctx.context, 'unstake'),
         'content': res['status']
       });
-      Navigator.of(ctx.context).pop(true);
       Navigator.of(ctx.context).pop(true);
     } else {
       tip(ctx.context, res);
@@ -65,20 +76,19 @@ Future<void> _raise2Fa(Context<DetailsStakeState> ctx) async {
     ctx.dispatch(DetailsStakeActionCreator.unstakeProcess(otpCode));
   } else {
     await Navigator.pushNamed(ctx.context, 'set_2fa_page',
-        arguments: {'isEnabled': GlobalStore.state?.settings?.is2FAEnabled});
+        arguments: {'isEnabled': null});
     ctx.dispatch(DetailsStakeActionCreator.refreshOtpStatus());
   }
 }
 
 void _refreshOtpStatus(Action action, Context<DetailsStakeState> ctx) async {
-  UserDao dao = UserDao();
+  UserDao dao = _buildUserDao(ctx);
+
+  Map data = {};
 
   dao.getTOTPStatus().then((res) {
     mLog('totp', res);
-
-    if (res.enabled != null) {
-      ctx.dispatch(DetailsStakeActionCreator.setOtpEnabled(res.enabled));
-    }
+    ctx.dispatch(DetailsStakeActionCreator.setOtpEnabled(res.enabled));
   }).catchError((err) {
     tip(ctx.context, '$err');
   });

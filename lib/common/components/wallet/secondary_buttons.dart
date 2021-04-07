@@ -4,12 +4,17 @@ import 'package:supernodeapp/theme/colors.dart';
 
 import '../row_spacer.dart';
 
-Widget secondaryButtons({String buttonLabel1 = '',String buttonLabel2 = '',String buttonLabel3 = '',Function onTap1,Function onTap2,Function onTap3,int selectedIndex = 0}){
+Widget secondaryButtons(
+    {String buttonLabel1 = '',
+    String buttonLabel2 = '',
+    String buttonLabel3 = '',
+    Function onTap1,
+    Function onTap2,
+    Function onTap3,
+    int selectedIndex = 0}) {
   return SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
+      scrollDirection: Axis.horizontal,
+      child: Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
         SecondaryButton(
           isSelected: selectedIndex == 0,
           buttonTitle: buttonLabel1,
@@ -31,7 +36,5 @@ Widget secondaryButtons({String buttonLabel1 = '',String buttonLabel2 = '',Strin
           icon: Icons.date_range,
           onTap: onTap3,
         )
-      ]
-    )
-  );
+      ]));
 }

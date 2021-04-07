@@ -8,15 +8,12 @@ import 'view.dart';
 class ConfirmPage extends Page<ConfirmState, Map<String, dynamic>> {
   ConfirmPage()
       : super(
-            initState: initState,
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<ConfirmState>(
-                adapter: null,
-                slots: <String, Dependent<ConfirmState>>{
-                }),
-            middleware: <Middleware<ConfirmState>>[
-            ],);
-
+          initState: initState,
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<ConfirmState>(
+              adapter: null, slots: <String, Dependent<ConfirmState>>{}),
+          middleware: <Middleware<ConfirmState>>[],
+        );
 }

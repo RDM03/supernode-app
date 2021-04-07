@@ -11,7 +11,8 @@ Reducer<FootPrintsLocationState> buildReducer() {
   );
 }
 
-FootPrintsLocationState _resetToDefault(FootPrintsLocationState state, Action action) {
+FootPrintsLocationState _resetToDefault(
+    FootPrintsLocationState state, Action action) {
   final FootPrintsLocationState newState = state.clone();
   return newState;
 }

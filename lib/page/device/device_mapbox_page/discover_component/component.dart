@@ -8,12 +8,10 @@ import 'view.dart';
 class DiscoverComponent extends Component<DiscoverState> {
   DiscoverComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<DiscoverState>(
-                adapter: null,
-                slots: <String, Dependent<DiscoverState>>{
-                }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<DiscoverState>(
+              adapter: null, slots: <String, Dependent<DiscoverState>>{}),
+        );
 }

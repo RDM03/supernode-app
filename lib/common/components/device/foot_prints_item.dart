@@ -11,22 +11,21 @@ class FootPrintsItem extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: 16),
       child: InkWell(
-        onTap: (){
+        onTap: () {
           onTap?.call();
         },
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            boxShadow: [
-              BoxShadow(
-                offset: Offset(0,2),
-                blurRadius: 7,
-                color: boxShadowColor,
-              )
-            ]
-          ),
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(0, 2),
+                  blurRadius: 7,
+                  color: boxShadowColor,
+                )
+              ]),
           child: ListTile(
             title: Text(
               '2020-05-20 09:39:12 14km -135dBm',

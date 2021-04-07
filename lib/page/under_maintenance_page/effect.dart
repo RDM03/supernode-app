@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
-import 'package:supernodeapp/common/daos/supernode_dao.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supernodeapp/app_cubit.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/auth.dart';
-import 'package:supernodeapp/data/super_node_bean.dart';
-import 'package:supernodeapp/global_store/store.dart';
-
 import 'action.dart';
 import 'state.dart';
 
@@ -17,6 +14,10 @@ Effect<UnderMaintenanceState> buildEffect() {
   });
 }
 
+SupernodeRepository buildSupernodeDao(Context<UnderMaintenanceState> ctx) {
+  return ctx.context.read<SupernodeRepository>();
+}
+
 void _logOut(Action action, Context<UnderMaintenanceState> ctx) async {
   await logOut(ctx.context);
 }
@@ -24,20 +25,10 @@ void _logOut(Action action, Context<UnderMaintenanceState> ctx) async {
 void _refresh(Action action, Context<UnderMaintenanceState> ctx) async {
   ctx.dispatch(UnderMaintenanceActionCreator.setLoading(true));
   try {
-    final deserializedNodes = <String, SuperNodeBean>{};
+    final deserializedNodes = await buildSupernodeDao(ctx).loadSupernodes();
 
-    var nodes = jsonDecode(await SuperNodeDao().superNodes());
-    for (var k in nodes.keys) {
-      deserializedNodes[k] = SuperNodeBean(
-        name: k,
-        logo: nodes[k]["logo"],
-        region: nodes[k]["region"],
-        url: nodes[k]["url"],
-        status: nodes[k]['status'],
-      );
-    }
-
-    final currentNode = GlobalStore.store.getState().superModel.currentNode;
+    final state = ctx.context.read<SupernodeCubit>().state;
+    final currentNode = state.session?.node ?? state.selectedNode;
     final currentFreshNode = deserializedNodes[currentNode.name];
 
     if (currentFreshNode?.status != 'maintenance') {

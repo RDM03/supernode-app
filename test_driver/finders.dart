@@ -26,7 +26,8 @@ Map f = {
   'addMinerSubmit': find.byValueKey('addMinerSubmit'),
   'minersNewMiner': find.text('Gateway_' + env['DRIVE_MINER_SERIAL']),
   'minerDeleteButton': find.text('Delete'),
-  'minerConfirmDeleteButton': find.byValueKey('delete_gateway_bottom_dialog_item2'),
+  'minerConfirmDeleteButton':
+      find.byValueKey('delete_gateway_bottom_dialog_item2'),
   'minerDetailsMapbox': find.byValueKey('minerDetailsMapbox'),
   'minerDetailsAltitude': find.byValueKey('minerDetailsAltitude'),
   'minerDetailsCoordinates': find.byValueKey('minerDetailsCoordinates'),
@@ -58,8 +59,6 @@ Map f = {
   'homeStakingRevenueLabel': find.byValueKey('homeStakingRevenueLabel'),
   'homeStakingRevenue': find.byValueKey('homeStakingRevenue'),
   'homeMapbox': find.byValueKey('homeMapbox'),
-
-
 
   // Later unstakeStakedToken will need to be managed directly in the staking_test.dart file
   // so that we can unstake specific to the recently created stake

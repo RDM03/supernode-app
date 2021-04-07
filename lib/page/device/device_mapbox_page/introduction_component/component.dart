@@ -8,12 +8,10 @@ import 'view.dart';
 class IntroductionComponent extends Component<IntroductionState> {
   IntroductionComponent()
       : super(
-            effect: buildEffect(),
-            reducer: buildReducer(),
-            view: buildView,
-            dependencies: Dependencies<IntroductionState>(
-                adapter: null,
-                slots: <String, Dependent<IntroductionState>>{
-                }),);
-
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<IntroductionState>(
+              adapter: null, slots: <String, Dependent<IntroductionState>>{}),
+        );
 }

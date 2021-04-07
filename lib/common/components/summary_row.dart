@@ -1,134 +1,129 @@
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/common/components/loading_flash.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
-import 'package:supernodeapp/theme/spacing.dart';
 
-Widget summaryRow({
-  key,
-  String image = '',
-  String title = '',
-  String subtitle = '',
-  String number = '',
-  String price = '',
-  bool loading = false,
-}) {
-  var temp = price.split('(');
-  String mxcPrice = temp[0].substring(0, temp[0].length - 1);
-  print(mxcPrice);
-  String usdPrice = temp[1].substring(0, temp[1].length - 1);
+class SummaryRow extends StatelessWidget {
+  final String image;
+  final String title;
+  final String subtitle;
+  final String number;
+  final String price;
+  final bool loading;
 
-  return ListTile(
-    leading: Stack(alignment: Alignment.center, children: [
-      Image.asset(
-        AppImages.blueCircle,
-        fit: BoxFit.none,
-        color: lightBlue,
-      ),
-      Image.asset(
-        image,
-        fit: BoxFit.none,
-      )
-    ]),
-    title: Text(
-      title,
-      style: kMiddleFontOfBlack,
-    ),
-    subtitle: loading
-        ? loadingFlash(
-            child: Text(
-            number,
-            style: kBigFontOfBlue,
-          ))
-        : Text(
-            number,
-            style: kBigFontOfBlue,
-          ),
-    trailing: Container(
-      margin: kOuterRowTop10,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          Text(
-            subtitle,
-            style: kSmallFontOfGrey,
-          ),
-          loading
-              ? loadingFlash(
-                  child: Text(
-                  '≈ ' + usdPrice,
-                  style: kMiddleFontOfBlack,
-                ))
-              : Text(
-                  '≈ ' + usdPrice,
-                  key: key,
-                  style: kMiddleFontOfBlack,
+  const SummaryRow({
+    Key key,
+    this.image = '',
+    this.title = '',
+    this.subtitle = '',
+    this.number = '',
+    this.price = '',
+    this.loading = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var temp = price.split('(');
+    String mxcPrice;
+    String usdPrice;
+    if (temp.length == 1) {
+      usdPrice = price;
+      mxcPrice = '';
+    } else {
+      mxcPrice = temp[0].substring(0, temp[0].length - 1);
+      print(mxcPrice);
+      usdPrice = temp[1].substring(0, temp[1].length - 1);
+    }
+
+    return Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 15.0, top: 15, bottom: 15),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Image.asset(
+                  AppImages.blueCircle,
+                  fit: BoxFit.none,
+                  color: lightBlue,
+                ),
+                Image.asset(
+                  image,
+                  fit: BoxFit.none,
                 )
-        ],
-      ),
-    ),
-  );
+              ],
+            ),
+          ),
+          Expanded(
+            child:
+            Column(children: [
+              TitleDetailRow(
+                loading: loading,
+                name: title,
+                value: number,
+                token: '',
+              ),
+              TitleDetailRow(
+                loading: loading,
+                name: subtitle,
+                value: usdPrice,
+                token: '',
+              ),
+            ],),
+          )
+        ]
+    );
+  }
 }
 
-// return Container(
-//     padding: EdgeInsets.all(10),
-//     child: Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//       children: <Widget>[
-//         Row(
-//           children: <Widget>[
-//             Stack(alignment: Alignment.center, children: [
-//               Image.asset(
-//                 AppImages.blueCircle,
-//                 fit: BoxFit.none,
-//                 color: lightBlue,
-//               ),
-//               Image.asset(
-//                 image,
-//                 fit: BoxFit.none,
-//               )
-//             ]),
-//             SizedBox(width: 12),
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: <Widget>[
-//                 Text(
-//                   title,
-//                   style: kMiddleFontOfBlack,
-//                 ),
-//                 Text(
-//                   number,
-//                   style: kBigFontOfBlue,
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//         Container(
-//           margin: kOuterRowTop10,
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.end,
-//             children: <Widget>[
-//               Text(
-//                 subtitle,
-//                 style: kSmallFontOfGrey,
-//               ),
-//               Column(
-//                 crossAxisAlignment: CrossAxisAlignment.end,
-//                 children: <Widget>[
-//                   // Text(
-//                   //   mxcPrice,
-//                   //   style: kMiddleFontOfBlack,
-//                   // ),
-//                   Text(
-//                     '≈ ' + usdPrice,
-//                     style: kMiddleFontOfBlack,
-//                   ),
-//                 ],
-//               )
-//             ],
-//           ),
-//         )
-//       ],
-//     ));
+class TokenSummaryRow extends StatelessWidget {
+  final String image;
+  final String name;
+  final String balance;
+  final bool loading;
+  final VoidCallback onTap;
+
+  const TokenSummaryRow({
+    Key key,
+    this.image = '',
+    this.name = '',
+    this.balance = '',
+    this.loading = false,
+    this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: onTap,
+      child: Row(
+          children: [
+            Padding(
+                padding: const EdgeInsets.only(left: 15.0, top: 15, bottom: 15),
+                child: Image.asset(
+                  image,
+                  fit: BoxFit.none,
+                )
+            ),
+            Expanded(
+              child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: Text(name, style: kBigBoldFontOfBlack)),
+                TitleDetailRow(
+                  loading: loading,
+                  name: FlutterI18n.translate(context, 'balance'),
+                  value: balance,
+                  token: name,
+                ),
+              ]),
+            )
+          ]
+      ),
+    );
+  }
+}

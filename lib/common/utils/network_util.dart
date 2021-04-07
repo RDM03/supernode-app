@@ -14,13 +14,18 @@ class NetworkUtil {
 
   ConnectivityResult get netState => _netState;
 
-  String get networkStr => hasNet ? _netState == ConnectivityResult.mobile ? "流量" : "wifi" : "无网络";
+  String get networkStr => hasNet
+      ? _netState == ConnectivityResult.mobile
+          ? "流量"
+          : "wifi"
+      : "无网络";
 
   bool get hasNet => _netState != null && _netState != ConnectivityResult.none;
 
   bool get isWifi => _netState != null && _netState == ConnectivityResult.wifi;
 
-  bool get isMobile => _netState != null && _netState == ConnectivityResult.mobile;
+  bool get isMobile =>
+      _netState != null && _netState == ConnectivityResult.mobile;
 
   void init() async {
     if (Platform.isAndroid || Platform.isIOS) {
@@ -53,8 +58,11 @@ class NetworkUtil {
 
   /// 监听网络状态改变
   void _listenNetworkChange() {
-    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) async {
-      if (_listenerList.isNotEmpty) _listenerList.forEach((onResult) => onResult(result));
+    Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) async {
+      if (_listenerList.isNotEmpty)
+        _listenerList.forEach((onResult) => onResult(result));
       _netState = result;
     });
   }
