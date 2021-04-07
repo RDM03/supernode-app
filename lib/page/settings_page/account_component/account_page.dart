@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/components/settings/list_item.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/page/settings_page/profile_component/profile_page.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import '../../../route.dart';
@@ -29,10 +30,14 @@ class AccountPage extends StatelessWidget {
               onTap: () => Navigator.push(context, route((_) => ProfilePage())),
               leading: Image.asset(Token.mxc.imagePath, height: s(50))),
           Divider(),
-          listItem(FlutterI18n.translate(context, 'datahighway_parachain'),
-              onTap: () => 'TODO',//TODO dispatch(SettingsActionCreator.onSettings(SettingsOption.profileDhx)),
-              leading: Image.asset(
-                  Token.supernodeDhx.imagePath, height: s(50))),
+          Container(
+            color: backgroundColor,
+            child: ListTile(
+                title: Text(FlutterI18n.translate(context, 'datahighway_parachain'), style: kBigFontOfGrey),
+                onTap: () => 'TODO',//TODO dispatch(SettingsActionCreator.onSettings(SettingsOption.profileDhx)),
+                leading: Image.asset(Token.supernodeDhx.imagePath, height: s(50)),
+                trailing: Icon(Icons.chevron_right, color: Colors.grey)),
+          ),
         ]);
   }
 }
