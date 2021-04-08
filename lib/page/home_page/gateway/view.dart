@@ -111,7 +111,7 @@ class GatewaysList extends StatelessWidget {
 
   const GatewaysList({Key key, this.state}) : super(key: key);
 
-  void showDeleteDialog(BuildContext context) {
+  void showDeleteDialog(BuildContext context, String gatewayId) {
     final list = [
       IosButtonStyle(
         title: FlutterI18n.translate(context, 'confirm_deleting_miner_title'),
@@ -132,7 +132,10 @@ class GatewaysList extends StatelessWidget {
         child: IosStyleBottomDialog(
           blueActionIndex: 0,
           list: list,
-          onItemClickListener: (itemIndex) {},
+          onItemClickListener: (itemIndex) {
+            if (itemIndex == 2)
+              context.read<GatewayCubit>().deleteGateway(gatewayId);
+          },
         ),
       ),
     );
@@ -162,7 +165,7 @@ class GatewaysList extends StatelessWidget {
             caption: FlutterI18n.translate(context, 'delete'),
             color: Colors.red,
             icon: Icons.delete,
-            onTap: () => showDeleteDialog(context),
+            onTap: () => showDeleteDialog(context, state.id),
           )
         ],
       ),

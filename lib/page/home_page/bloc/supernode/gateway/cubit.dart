@@ -79,4 +79,15 @@ class GatewayCubit extends Cubit<GatewayState> {
 
     return gateways;
   }
+
+  Future<void> deleteGateway(String gatewayId) async {
+    try {
+      await supernodeRepository.gateways.deleteGateway(gatewayId);
+
+      refreshGateways();
+    } catch (e, s) {
+      logger.e('rdelete gateway error', e, s);
+    }
+  }
+
 }
