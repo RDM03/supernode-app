@@ -65,7 +65,7 @@ class _SupernodeDhxTokenPageContentState
                     ),
                   ),
                   1: Text(
-                    FlutterI18n.translate(context, 'stake_assets'),
+                    FlutterI18n.translate(context, 'bonding_history'),
                     style: TextStyle(
                       color: (selectedTab == 1) ? Colors.white : Colors.grey,
                     ),
