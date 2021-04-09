@@ -36,7 +36,7 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
         data[CacheRepository.lockedAmountKey]?.toDouble(),
         loading: true,
       ),
-      lastMiningPower: Wrap(
+      yesterdayTotalMPower: Wrap(
         data[CacheRepository.miningPowerKey]?.toDouble(),
         loading: true,
       ),
@@ -83,15 +83,15 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
   }
 
   Future<void> refreshLastMining() async {
-    emit(state.copyWith(balance: state.lastMiningPower.withLoading()));
+    emit(state.copyWith(balance: state.yesterdayTotalMPower.withLoading()));
     try {
       final lastMiningPowerData = await supernodeRepository.dhx.lastMining();
-      final value = double.tryParse(lastMiningPowerData.dhxAmount);
-      emit(state.copyWith(lastMiningPower: Wrap(value)));
+      final value = double.tryParse(lastMiningPowerData.yesterdayTotalMPower);
+      emit(state.copyWith(yesterdayTotalMPower: Wrap(value)));
       homeCubit.saveSNCache(CacheRepository.miningPowerKey, value);
     } catch (e, s) {
       logger.e('refresh error', e, s);
-      emit(state.copyWith(lastMiningPower: state.lastMiningPower.withError(e)));
+      emit(state.copyWith(yesterdayTotalMPower: state.yesterdayTotalMPower.withError(e)));
     }
   }
 

@@ -130,11 +130,11 @@ class DhxMiningCard extends StatelessWidget {
                   token: Token.supernodeDhx.name,
                 ),
                 BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-                  buildWhen: (a, b) => a.lastMiningPower != b.lastMiningPower,
+                  buildWhen: (a, b) => a.yesterdayTotalMPower != b.yesterdayTotalMPower,
                   builder: (ctx, state) => TitleDetailRow(
-                    loading: state.lastMiningPower.loading,
+                    loading: state.yesterdayTotalMPower.loading,
                     name: FlutterI18n.translate(context, 'supernode_mining_power'),
-                    value: Tools.numberRounded(state.lastMiningPower.value),
+                    value: Tools.numberRounded(state.yesterdayTotalMPower.value),
                     token: "mPower",
                   ),
                 ),

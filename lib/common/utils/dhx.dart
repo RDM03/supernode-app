@@ -30,17 +30,17 @@ double getMinersBoost(double mxcValue, int minersCount) {
 double calculateDhxDaily({
   @required double mxcLocked,
   @required int minersCount,
-  @required double dhxBonded,
-  @required double yesterdayMining,
+  @required double yesterdayTotalDHX,
+  @required double yesterdayTotalMPower,
   @required int months,
 }) {
   final mPower = mxcLocked == null || minersCount == null
       ? null
       : calculateMiningPower(mxcLocked, minersCount, monthsToBoost(months));
 
-  return mPower == null || dhxBonded == null || yesterdayMining == null
+  return mPower == null || yesterdayTotalDHX == null || yesterdayTotalMPower == null
       ? null
-      : min(5000, dhxBonded/70);//your bonded DHX is a limit, even if you mined more DHX based on your mPower you could get only the maximum of DHX_bonded/70 per day
+      : mPower * (yesterdayTotalDHX / yesterdayTotalMPower);
 }
 
 double calculateMiningPower(

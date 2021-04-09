@@ -177,10 +177,10 @@ class CreateCouncilResponse {
 
 class LastMiningResponse {
   final DateTime date;
-  final String dhxAmount;
-  final String miningPower;
+  final String yesterdayTotalDHX;
+  final String yesterdayTotalMPower;
 
-  LastMiningResponse(this.date, this.dhxAmount, this.miningPower);
+  LastMiningResponse(this.date, this.yesterdayTotalDHX, this.yesterdayTotalMPower);
   factory LastMiningResponse.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 

@@ -18,7 +18,7 @@ class _$SupernodeDhxStateTearOff {
       {Wrap<double> balance = const Wrap.pending(),
       Wrap<double> lockedAmount = const Wrap.pending(),
       Wrap<double> totalRevenue = const Wrap.pending(),
-      Wrap<double> lastMiningPower = const Wrap.pending(),
+      Wrap<double> yesterdayTotalMPower = const Wrap.pending(),
       Wrap<double> currentMiningPower = const Wrap.pending(),
       Wrap<List<StakeDHX>> stakes = const Wrap.pending(),
       Wrap<double> dhxBonded = const Wrap.pending(),
@@ -33,7 +33,7 @@ class _$SupernodeDhxStateTearOff {
       balance: balance,
       lockedAmount: lockedAmount,
       totalRevenue: totalRevenue,
-      lastMiningPower: lastMiningPower,
+      yesterdayTotalMPower: yesterdayTotalMPower,
       currentMiningPower: currentMiningPower,
       stakes: stakes,
       dhxBonded: dhxBonded,
@@ -57,7 +57,7 @@ mixin _$SupernodeDhxState {
   Wrap<double> get balance;
   Wrap<double> get lockedAmount;
   Wrap<double> get totalRevenue;
-  Wrap<double> get lastMiningPower;
+  Wrap<double> get yesterdayTotalMPower;
   Wrap<double> get currentMiningPower;
   Wrap<List<StakeDHX>> get stakes;
   Wrap<double> get dhxBonded;
@@ -81,7 +81,7 @@ abstract class $SupernodeDhxStateCopyWith<$Res> {
       {Wrap<double> balance,
       Wrap<double> lockedAmount,
       Wrap<double> totalRevenue,
-      Wrap<double> lastMiningPower,
+      Wrap<double> yesterdayTotalMPower,
       Wrap<double> currentMiningPower,
       Wrap<List<StakeDHX>> stakes,
       Wrap<double> dhxBonded,
@@ -108,7 +108,7 @@ class _$SupernodeDhxStateCopyWithImpl<$Res>
     Object balance = freezed,
     Object lockedAmount = freezed,
     Object totalRevenue = freezed,
-    Object lastMiningPower = freezed,
+    Object yesterdayTotalMPower = freezed,
     Object currentMiningPower = freezed,
     Object stakes = freezed,
     Object dhxBonded = freezed,
@@ -128,9 +128,9 @@ class _$SupernodeDhxStateCopyWithImpl<$Res>
       totalRevenue: totalRevenue == freezed
           ? _value.totalRevenue
           : totalRevenue as Wrap<double>,
-      lastMiningPower: lastMiningPower == freezed
-          ? _value.lastMiningPower
-          : lastMiningPower as Wrap<double>,
+      yesterdayTotalMPower: yesterdayTotalMPower == freezed
+          ? _value.yesterdayTotalMPower
+          : yesterdayTotalMPower as Wrap<double>,
       currentMiningPower: currentMiningPower == freezed
           ? _value.currentMiningPower
           : currentMiningPower as Wrap<double>,
@@ -168,7 +168,7 @@ abstract class _$SupernodeDhxStateCopyWith<$Res>
       {Wrap<double> balance,
       Wrap<double> lockedAmount,
       Wrap<double> totalRevenue,
-      Wrap<double> lastMiningPower,
+      Wrap<double> yesterdayTotalMPower,
       Wrap<double> currentMiningPower,
       Wrap<List<StakeDHX>> stakes,
       Wrap<double> dhxBonded,
@@ -197,7 +197,7 @@ class __$SupernodeDhxStateCopyWithImpl<$Res>
     Object balance = freezed,
     Object lockedAmount = freezed,
     Object totalRevenue = freezed,
-    Object lastMiningPower = freezed,
+    Object yesterdayTotalMPower = freezed,
     Object currentMiningPower = freezed,
     Object stakes = freezed,
     Object dhxBonded = freezed,
@@ -217,9 +217,9 @@ class __$SupernodeDhxStateCopyWithImpl<$Res>
       totalRevenue: totalRevenue == freezed
           ? _value.totalRevenue
           : totalRevenue as Wrap<double>,
-      lastMiningPower: lastMiningPower == freezed
-          ? _value.lastMiningPower
-          : lastMiningPower as Wrap<double>,
+      yesterdayTotalMPower: yesterdayTotalMPower == freezed
+          ? _value.yesterdayTotalMPower
+          : yesterdayTotalMPower as Wrap<double>,
       currentMiningPower: currentMiningPower == freezed
           ? _value.currentMiningPower
           : currentMiningPower as Wrap<double>,
@@ -254,7 +254,7 @@ class _$_SupernodeDhxState
       {this.balance = const Wrap.pending(),
       this.lockedAmount = const Wrap.pending(),
       this.totalRevenue = const Wrap.pending(),
-      this.lastMiningPower = const Wrap.pending(),
+      this.yesterdayTotalMPower = const Wrap.pending(),
       this.currentMiningPower = const Wrap.pending(),
       this.stakes = const Wrap.pending(),
       this.dhxBonded = const Wrap.pending(),
@@ -268,7 +268,7 @@ class _$_SupernodeDhxState
       : assert(balance != null),
         assert(lockedAmount != null),
         assert(totalRevenue != null),
-        assert(lastMiningPower != null),
+        assert(yesterdayTotalMPower != null),
         assert(currentMiningPower != null),
         assert(stakes != null),
         assert(dhxBonded != null),
@@ -289,7 +289,7 @@ class _$_SupernodeDhxState
   final Wrap<double> totalRevenue;
   @JsonKey(defaultValue: const Wrap.pending())
   @override
-  final Wrap<double> lastMiningPower;
+  final Wrap<double> yesterdayTotalMPower;
   @JsonKey(defaultValue: const Wrap.pending())
   @override
   final Wrap<double> currentMiningPower;
@@ -321,7 +321,7 @@ class _$_SupernodeDhxState
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SupernodeDhxState(balance: $balance, lockedAmount: $lockedAmount, totalRevenue: $totalRevenue, lastMiningPower: $lastMiningPower, currentMiningPower: $currentMiningPower, stakes: $stakes, dhxBonded: $dhxBonded, dhxUnbonding: $dhxUnbonding, calendarBondInfo: $calendarBondInfo, confirm: $confirm, success: $success, showLoading: $showLoading, bondAmount: $bondAmount, unbondAmount: $unbondAmount)';
+    return 'SupernodeDhxState(balance: $balance, lockedAmount: $lockedAmount, totalRevenue: $totalRevenue, yesterdayTotalMPower: $yesterdayTotalMPower, currentMiningPower: $currentMiningPower, stakes: $stakes, dhxBonded: $dhxBonded, dhxUnbonding: $dhxUnbonding, calendarBondInfo: $calendarBondInfo, confirm: $confirm, success: $success, showLoading: $showLoading, bondAmount: $bondAmount, unbondAmount: $unbondAmount)';
   }
 
   @override
@@ -332,7 +332,7 @@ class _$_SupernodeDhxState
       ..add(DiagnosticsProperty('balance', balance))
       ..add(DiagnosticsProperty('lockedAmount', lockedAmount))
       ..add(DiagnosticsProperty('totalRevenue', totalRevenue))
-      ..add(DiagnosticsProperty('lastMiningPower', lastMiningPower))
+      ..add(DiagnosticsProperty('yesterdayTotalMPower', yesterdayTotalMPower))
       ..add(DiagnosticsProperty('currentMiningPower', currentMiningPower))
       ..add(DiagnosticsProperty('stakes', stakes))
       ..add(DiagnosticsProperty('dhxBonded', dhxBonded))
@@ -358,9 +358,9 @@ class _$_SupernodeDhxState
             (identical(other.totalRevenue, totalRevenue) ||
                 const DeepCollectionEquality()
                     .equals(other.totalRevenue, totalRevenue)) &&
-            (identical(other.lastMiningPower, lastMiningPower) ||
-                const DeepCollectionEquality()
-                    .equals(other.lastMiningPower, lastMiningPower)) &&
+            (identical(other.yesterdayTotalMPower, yesterdayTotalMPower) ||
+                const DeepCollectionEquality().equals(
+                    other.yesterdayTotalMPower, yesterdayTotalMPower)) &&
             (identical(other.currentMiningPower, currentMiningPower) ||
                 const DeepCollectionEquality()
                     .equals(other.currentMiningPower, currentMiningPower)) &&
@@ -398,7 +398,7 @@ class _$_SupernodeDhxState
       const DeepCollectionEquality().hash(balance) ^
       const DeepCollectionEquality().hash(lockedAmount) ^
       const DeepCollectionEquality().hash(totalRevenue) ^
-      const DeepCollectionEquality().hash(lastMiningPower) ^
+      const DeepCollectionEquality().hash(yesterdayTotalMPower) ^
       const DeepCollectionEquality().hash(currentMiningPower) ^
       const DeepCollectionEquality().hash(stakes) ^
       const DeepCollectionEquality().hash(dhxBonded) ^
@@ -420,7 +420,7 @@ abstract class _SupernodeDhxState implements SupernodeDhxState {
       {Wrap<double> balance,
       Wrap<double> lockedAmount,
       Wrap<double> totalRevenue,
-      Wrap<double> lastMiningPower,
+      Wrap<double> yesterdayTotalMPower,
       Wrap<double> currentMiningPower,
       Wrap<List<StakeDHX>> stakes,
       Wrap<double> dhxBonded,
@@ -439,7 +439,7 @@ abstract class _SupernodeDhxState implements SupernodeDhxState {
   @override
   Wrap<double> get totalRevenue;
   @override
-  Wrap<double> get lastMiningPower;
+  Wrap<double> get yesterdayTotalMPower;
   @override
   Wrap<double> get currentMiningPower;
   @override
