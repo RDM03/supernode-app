@@ -167,7 +167,7 @@ class _SupernodeLoginCardContentState
                             ),
                           ]).animate(animation),
                           child: Text(
-                            'Learn More',
+                            FlutterI18n.translate(context, 'learn_more'),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -222,7 +222,7 @@ class _SupernodeLoginCardContentState
                       Expanded(
                         flex: 3,
                         child: ImageWithText(
-                          text: 'What is a Supernode?',
+                          text: FlutterI18n.translate(context, 'what_is_supernode'),
                           image: AssetImage(AppImages.mxcSite1),
                           fontSize: Tween<double>(begin: 3, end: 16)
                               .evaluate(animation),
@@ -232,7 +232,7 @@ class _SupernodeLoginCardContentState
                       Expanded(
                         flex: 3,
                         child: ImageWithText(
-                          text: 'How to Become a Supernode',
+                          text: FlutterI18n.translate(context, 'how_to_become_supernode'),
                           image: AssetImage(AppImages.mxcSite2),
                           fontSize: Tween<double>(begin: 3, end: 16)
                               .evaluate(animation),
@@ -242,7 +242,7 @@ class _SupernodeLoginCardContentState
                       Expanded(
                         flex: 3,
                         child: ImageWithText(
-                          text: 'Supernode Staking and Profit Sharing',
+                          text: FlutterI18n.translate(context, 'supernode_staking_profit_share'),
                           image: AssetImage(AppImages.mxcSite3),
                           fontSize: Tween<double>(begin: 3, end: 16)
                               .evaluate(animation),
@@ -258,7 +258,7 @@ class _SupernodeLoginCardContentState
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 CircleButton(
-                  text: 'Signup',
+                  text: FlutterI18n.translate(context, 'signup'),
                   icon: Icons.add,
                   onPressed: () => Navigator.of(context).push(route((ctx) => BlocProvider<LoginCubit>.value(
                       value: loginCubit,
@@ -266,7 +266,7 @@ class _SupernodeLoginCardContentState
                 ),
                 SizedBox(width: 23),
                 CircleButton(
-                  text: 'Login',
+                  text: FlutterI18n.translate(context, 'login'),
                   icon: Icons.arrow_forward,
                   onPressed: () => Navigator.of(context)
                       .push(route((ctx) => BlocProvider<LoginCubit>.value(
