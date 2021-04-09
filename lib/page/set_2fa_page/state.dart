@@ -53,8 +53,7 @@ class Set2FAState implements Cloneable<Set2FAState> {
 }
 
 Set2FAState initState(Map<String, dynamic> args) {
-  bool isEnabled = args['isEnabled'];
-  return Set2FAState()..isEnabled = isEnabled;
+  return Set2FAState();
 }
 
 class EnterSecurityCodeConnector

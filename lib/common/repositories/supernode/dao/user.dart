@@ -92,7 +92,7 @@ class UserDao extends SupernodeDao {
   }
 
   Future<dynamic> changePassword(Map data) {
-    return put(url: Api.url(UserApi.password, data['userId']), data: data)
+    return put(url: Api.url(UserApi.password, data['userId'].toString()), data: data)
         .then((res) => res);
   }
 

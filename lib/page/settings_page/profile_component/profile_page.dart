@@ -334,6 +334,15 @@ class _ProfilePageState extends State<ProfilePage> {
                       Divider(),
                     ],
                   )),
+          listItem(
+              FlutterI18n.translate(context, 'change_password'),
+              onTap: () => Navigator.of(context).pushNamed('change_password_page')),
+          Divider(),
+          listItem(
+              FlutterI18n.translate(context, 'set_fa_02'),
+              onTap: () => Navigator.of(context).pushNamed(
+                'set_2fa_page')),
+          Divider(),
         ]),
         BlocBuilder<SettingsCubit, SettingsState>(
           buildWhen: (a, b) =>
