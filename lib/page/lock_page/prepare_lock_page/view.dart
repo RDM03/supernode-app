@@ -265,11 +265,11 @@ Widget buildView(
                 builder: (ctx, val, _) {
                   final amount = double.tryParse(val.text);
                   final dailyReturn = calculateDhxDaily(
-                    dhxBonded: state.lastMiningDhx,
                     minersCount: state.minersOwned,
                     months: state.months,
                     mxcLocked: amount,
-                    yesterdayMining: state.lastMiningMPower,
+                    yesterdayTotalDHX: state.yesterdayTotalDHX,
+                    yesterdayTotalMPower: state.yesterdayTotalMPower,
                   );
                   return Text(
                     (dailyReturn == null || dailyReturn.isNaN

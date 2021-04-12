@@ -78,11 +78,11 @@ Future<void> _stake(Context<PrepareLockState> ctx) async {
 void _onConfirm(Action action, Context<PrepareLockState> ctx) async {
   final formValid = ctx.state.formKey.currentState.validate();
   final estimateDhx = calculateDhxDaily(
-    dhxBonded: ctx.state.lastMiningDhx,
     minersCount: ctx.state.minersOwned,
     months: ctx.state.months,
     mxcLocked: double.tryParse(ctx.state.amountCtl.text),
-    yesterdayMining: ctx.state.lastMiningMPower,
+    yesterdayTotalDHX: ctx.state.yesterdayTotalDHX,
+    yesterdayTotalMPower: ctx.state.yesterdayTotalMPower,
   );
   if (!formValid) return;
   if (estimateDhx == null) return;
@@ -140,5 +140,5 @@ Future<void> _lastMining(Context<PrepareLockState> ctx) async {
   final dao = _buildDhxDao(ctx);
   final res = await dao.lastMining();
   ctx.dispatch(PrepareLockActionCreator.lastMining(
-      double.parse(res.dhxAmount), double.parse(res.miningPower)));
+      double.parse(res.yesterdayTotalDHX), double.parse(res.yesterdayTotalMPower)));
 }

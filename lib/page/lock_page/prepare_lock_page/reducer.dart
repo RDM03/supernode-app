@@ -36,11 +36,11 @@ PrepareLockState _minersOwned(PrepareLockState state, Action action) {
 }
 
 PrepareLockState _lastMining(PrepareLockState state, Action action) {
-  double totalDhx = action.payload[0];
-  double yesterdayMining = action.payload[1];
+  double yesterdayTotalDHX = action.payload[0];
+  double yesterdayTotalMPower = action.payload[1];
 
   final PrepareLockState newState = state.clone();
   return newState
-    ..lastMiningDhx = totalDhx
-    ..lastMiningMPower = yesterdayMining;
+    ..yesterdayTotalDHX = yesterdayTotalDHX
+    ..yesterdayTotalMPower = yesterdayTotalMPower;
 }

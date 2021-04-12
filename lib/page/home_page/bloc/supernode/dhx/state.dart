@@ -11,7 +11,7 @@ abstract class SupernodeDhxState with _$SupernodeDhxState {
     @Default(Wrap.pending()) Wrap<double> balance,
     @Default(Wrap.pending()) Wrap<double> lockedAmount,
     @Default(Wrap.pending()) Wrap<double> totalRevenue,
-    @Default(Wrap.pending()) Wrap<double> lastMiningPower,
+    @Default(Wrap.pending()) Wrap<double> yesterdayTotalMPower,
     @Default(Wrap.pending()) Wrap<double> currentMiningPower,
     @Default(Wrap.pending()) Wrap<List<StakeDHX>> stakes,
     @Default(Wrap.pending()) Wrap<double> dhxBonded,

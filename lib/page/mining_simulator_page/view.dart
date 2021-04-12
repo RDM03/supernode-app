@@ -142,7 +142,7 @@ Widget buildView(
                           TextEditingValue mxc,
                           TextEditingValue dhx, _) {
                         final dailyReturn =
-                            getDailyReturn(state, mxc.text, dhx.text, miners.text);
+                            getDailyReturn(state, mxc.text, miners.text);
                         final res = dailyReturn == null || dailyReturn.isNaN
                             ? null
                             : Tools.numberRounded(dailyReturn);
@@ -207,7 +207,7 @@ Widget buildView(
                     state.minersAmountCtl, state.mxcLockedCtl, state.dhxBondedCtl, builder: (ctx,
                         TextEditingValue miners, TextEditingValue mxc,  TextEditingValue dhx, _) {
                   final dailyReturn =
-                      getDailyReturn(state, mxc.text, dhx.text, miners.text);
+                      getDailyReturn(state, mxc.text, miners.text);
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32),
                     child: SmallActionButton(
@@ -260,16 +260,15 @@ Widget buildView(
 }
 
 double getDailyReturn(
-    MiningSimulatorState state, String mxcText, String dhxText, String minersText) {
+    MiningSimulatorState state, String mxcText, String minersText) {
   final mxcLocked = double.tryParse(mxcText);
-  final dhxBonded = double.tryParse(dhxText);
   final minersCount = int.tryParse(minersText);
   return calculateDhxDaily(
-    dhxBonded: dhxBonded,
     minersCount: minersCount,
     months: state.months,
     mxcLocked: mxcLocked,
-    yesterdayMining: state.yesterdayMining,
+    yesterdayTotalDHX: state.yesterdayTotalMPower,
+    yesterdayTotalMPower: state.yesterdayTotalMPower,
   );
 }
 
