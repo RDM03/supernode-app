@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/app_state.dart';
@@ -14,6 +16,8 @@ import 'package:fluwx/fluwx.dart' as fluwx;
 import 'state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
+  static const SUPER_NODES = "assets/others/super_node.json";
+
   LoginCubit({
     this.dao,
     this.appCubit,
@@ -55,9 +59,36 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> loadSupernodes() async {
-    final supernodes = await dao.loadSupernodes();
+    await _loadLocalSupernodes();
+
+    try {
+      final supernodes = await dao.loadSupernodes();
+      final byRegion = <String, List<Supernode>>{};
+      for (final s in supernodes.values) {
+        if (byRegion[s.region] == null) byRegion[s.region] = [];
+        byRegion[s.region].add(s);
+      }
+      emit(state.copyWith(supernodes: Wrap(byRegion)));
+    } catch(e) {
+      //loading network supernodes failed
+    }
+  }
+
+  @override
+  Future<void> _loadLocalSupernodes() async {
     final byRegion = <String, List<Supernode>>{};
-    for (final s in supernodes.values) {
+    Supernode s;
+
+    Map<String, dynamic> nodes =
+    jsonDecode(await rootBundle.loadString(SUPER_NODES));
+    for (var k in nodes.keys) {
+      s = Supernode(
+        name: k,
+        logo: nodes[k]["logo"],
+        region: nodes[k]["region"],
+        url: nodes[k]["url"],
+        status: nodes[k]['status'],
+      );
       if (byRegion[s.region] == null) byRegion[s.region] = [];
       byRegion[s.region].add(s);
     }
