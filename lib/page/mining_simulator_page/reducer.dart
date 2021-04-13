@@ -29,11 +29,13 @@ MiningSimulatorState _months(MiningSimulatorState state, Action action) {
 }
 
 MiningSimulatorState _lastMining(MiningSimulatorState state, Action action) {
-  double yesterdayTotalMPower = action.payload;
+  double yesterdayTotalMPower = action.payload[0];
+  double yesterdayTotalDHX = action.payload[1];
 
   final MiningSimulatorState newState = state.clone();
   return newState
-    ..yesterdayTotalMPower = yesterdayTotalMPower;
+    ..yesterdayTotalMPower = yesterdayTotalMPower
+    ..yesterdayTotalDHX = yesterdayTotalDHX;
 }
 
 MiningSimulatorState _expandCalculation(

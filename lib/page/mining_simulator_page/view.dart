@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
 
@@ -11,7 +10,6 @@ import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/slider.dart';
 import 'package:supernodeapp/common/components/value_listenable.dart';
-import 'package:supernodeapp/common/components/wallet/mining_tutorial.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
@@ -267,7 +265,7 @@ double getDailyReturn(
     minersCount: minersCount,
     months: state.months,
     mxcLocked: mxcLocked,
-    yesterdayTotalDHX: state.yesterdayTotalMPower,
+    yesterdayTotalDHX: state.yesterdayTotalDHX,
     yesterdayTotalMPower: state.yesterdayTotalMPower,
   );
 }
