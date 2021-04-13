@@ -180,7 +180,7 @@ Widget buildView(
                         delegate: SliverChildBuilderDelegate(
                           (ctx, i) => ListTile(
                             key: ValueKey(
-                                'crypto_${selectedCurrencies[i].shortName}'),
+                                'crypto_${cryptoCurrencies[i].shortName}'),
                             leading: Image.asset(cryptoCurrencies[i].iconPath),
                             title: Text(
                               FlutterI18n.translate(

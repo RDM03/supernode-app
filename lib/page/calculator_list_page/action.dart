@@ -16,7 +16,7 @@ class CalculatorListActionCreator {
   }
 
   static Action setSelectedCurrencies(List<Currency> currencies) {
-    return Action(CalculatorListAction.selectCurrency, payload: currencies);
+    return Action(CalculatorListAction.setSelectedCurrencies, payload: currencies);
   }
 
   static Action onDone() {
