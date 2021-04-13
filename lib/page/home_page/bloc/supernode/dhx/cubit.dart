@@ -112,9 +112,11 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       double mPower = 0.0;
 
       for (final stake in stakes) {
-        mPower += Tools.convertDouble(stake.amount) *
-            (1 + Tools.convertDouble(stake.boost));
-        lockedAmount += Tools.convertDouble(stake.amount);
+        if (!stake.closed) {
+          mPower += Tools.convertDouble(stake.amount) *
+              (1 + Tools.convertDouble(stake.boost));
+          lockedAmount += Tools.convertDouble(stake.amount);
+        }
         totalRevenueDHX += Tools.convertDouble(stake.dhxMined);
       }
 
