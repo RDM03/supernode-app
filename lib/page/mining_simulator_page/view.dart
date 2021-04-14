@@ -90,6 +90,7 @@ Widget buildView(
             textFieldSuffix: FlutterI18n.translate(_ctx, 'miner'),
             showSlider: false,
           ),
+          /* dhx bonded slider
           SizedBox(height: 35),
           ValueEditor(
             key: ValueKey('dhxValueEditor'),
@@ -99,7 +100,7 @@ Widget buildView(
             subtitle: FlutterI18n.translate(_ctx, 'current_dhx_balance'),
             textFieldSuffix: 'DHX',
             totalSuffix: 'DHX',
-          ),
+          ),*/
           SizedBox(height: 20),
           Column(
             children: [
