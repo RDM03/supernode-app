@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/repositories/cache_repository.dart';
@@ -119,6 +121,18 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
         }
         totalRevenueDHX += Tools.convertDouble(stake.dhxMined);
       }
+
+      int numGateways = 0;
+      try {
+        final res = await supernodeRepository.gateways
+            .list({"organizationID": orgId, "offset": 0, "limit": 10});
+
+        numGateways = int.parse(res['totalCount']);
+      } catch (e, s) {
+        logger.e('gateways error', e, s);
+      }
+
+      mPower += min(1000000 * numGateways, mPower);
 
       emit(state.copyWith(
         lockedAmount: Wrap(lockedAmount),
