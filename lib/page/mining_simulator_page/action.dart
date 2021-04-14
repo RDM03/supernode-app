@@ -17,8 +17,8 @@ class MiningSimulatorActionCreator {
     return Action(MiningSimulatorAction.months, payload: months);
   }
 
-  static Action lastMining(double lastMining) {
-    return Action(MiningSimulatorAction.lastMining, payload: lastMining);
+  static Action lastMining(double yesterdayTotalMPower, double yesterdayTotalDHX) {
+    return Action(MiningSimulatorAction.lastMining, payload: [yesterdayTotalMPower, yesterdayTotalDHX]);
   }
 
   static Action expandCalculation(CalculateExpandState state) {

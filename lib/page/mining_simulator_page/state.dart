@@ -18,6 +18,7 @@ class MiningSimulatorState implements Cloneable<MiningSimulatorState> {
 
   double dhxBalance;
   double yesterdayTotalMPower;
+  double yesterdayTotalDHX;
   CalculateExpandState calculateExpandState;
 
   @override
@@ -34,6 +35,7 @@ class MiningSimulatorState implements Cloneable<MiningSimulatorState> {
       ..dhxBondedCtl = dhxBondedCtl
       ..dhxBalance = dhxBalance
       ..yesterdayTotalMPower = yesterdayTotalMPower
+      ..yesterdayTotalDHX = yesterdayTotalDHX
       ..calculateExpandState = calculateExpandState;
   }
 }

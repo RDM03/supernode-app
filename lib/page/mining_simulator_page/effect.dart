@@ -29,7 +29,7 @@ void _onInitState(Action action, Context<MiningSimulatorState> ctx) async {
 Future<void> _lastMining(Context<MiningSimulatorState> ctx) async {
   final dao = _buildDhxDao(ctx);
   final res = await dao.lastMining();
-  ctx.dispatch(MiningSimulatorActionCreator.lastMining(double.parse(res.yesterdayTotalMPower)));
+  ctx.dispatch(MiningSimulatorActionCreator.lastMining(double.parse(res.yesterdayTotalMPower), double.parse(res.yesterdayTotalDHX)));
 }
 
 Future<void> _minersOwned(Context<MiningSimulatorState> ctx) async {
