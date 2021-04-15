@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/configs/images.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'shared.dart';

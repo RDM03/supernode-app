@@ -29,20 +29,17 @@ class SupernodeLoginCard extends StatefulWidget {
   @override
   _SupernodeLoginCardContentState createState() =>
       _SupernodeLoginCardContentState(
-          animation: animation,
           onTap: onTap,
           fixed: fixed);
 }
 
 class _SupernodeLoginCardContentState
     extends State<SupernodeLoginCard> {
-  final Animation<double> animation;
   final VoidCallback onTap;
   final bool fixed;
   LoginCubit loginCubit;
 
   _SupernodeLoginCardContentState({
-    this.animation,
     this.onTap,
     this.fixed = false,
   });
@@ -75,10 +72,10 @@ class _SupernodeLoginCardContentState
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(
-                Tween<double>(begin: 80, end: 20).evaluate(animation)),
+                Tween<double>(begin: 80, end: 20).evaluate(widget.animation)),
             topLeft: Radius.circular(20),
             bottomRight: Radius.circular(
-                Tween<double>(begin: 30, end: 20).evaluate(animation)),
+                Tween<double>(begin: 30, end: 20).evaluate(widget.animation)),
             bottomLeft: Radius.circular(20),
           ),
           gradient: LinearGradient(
@@ -104,7 +101,7 @@ class _SupernodeLoginCardContentState
                   tween: Tween<double>(begin: 250, end: 60),
                   weight: 60.0,
                 ),
-              ]).evaluate(animation),
+              ]).evaluate(widget.animation),
               child: GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: onTap,
@@ -122,7 +119,7 @@ class _SupernodeLoginCardContentState
                             Rect.fromLTWH(16, 15, 40, 40),
                             biggest,
                           ),
-                        ).animate(animation),
+                        ).animate(widget.animation),
                         child: Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -141,7 +138,7 @@ class _SupernodeLoginCardContentState
                             Rect.fromLTWH((biggest.width - 130) / 2, 26, 130, 30),
                             biggest,
                           ),
-                        ).animate(animation),
+                        ).animate(widget.animation),
                         child: Text(
                           'SUPERNODE',
                           textAlign: TextAlign.center,
@@ -165,7 +162,7 @@ class _SupernodeLoginCardContentState
                               tween: ConstantTween(0),
                               weight: 70.0,
                             ),
-                          ]).animate(animation),
+                          ]).animate(widget.animation),
                           child: Text(
                             FlutterI18n.translate(context, 'learn_more'),
                             style: TextStyle(
@@ -185,15 +182,15 @@ class _SupernodeLoginCardContentState
                             Rect.fromLTWH(biggest.width - 40 - 16, 16, 40, 40),
                             biggest,
                           ),
-                        ).animate(animation),
+                        ).animate(widget.animation),
                         child: RotationTransition(
                           turns: Tween<double>(begin: 0, end: 0.5)
-                              .animate(animation),
+                              .animate(widget.animation),
                           child: Icon(
                             fixed ? Icons.close : Icons.arrow_forward,
                             color: Colors.white,
                             size: Tween<double>(begin: 16, end: 40)
-                                .evaluate(animation),
+                                .evaluate(widget.animation),
                           ),
                         ),
                       ),
@@ -213,7 +210,7 @@ class _SupernodeLoginCardContentState
                     tween: Tween<double>(begin: 0, end: 1),
                     weight: 50.0,
                   ),
-                ]).animate(animation),
+                ]).animate(widget.animation),
                 child: Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -225,7 +222,7 @@ class _SupernodeLoginCardContentState
                           text: FlutterI18n.translate(context, 'what_is_supernode'),
                           image: AssetImage(AppImages.mxcSite1),
                           fontSize: Tween<double>(begin: 3, end: 16)
-                              .evaluate(animation),
+                              .evaluate(widget.animation),
                         ),
                       ),
                       SizedBox(height: 16),
@@ -235,7 +232,7 @@ class _SupernodeLoginCardContentState
                           text: FlutterI18n.translate(context, 'how_to_become_supernode'),
                           image: AssetImage(AppImages.mxcSite2),
                           fontSize: Tween<double>(begin: 3, end: 16)
-                              .evaluate(animation),
+                              .evaluate(widget.animation),
                         ),
                       ),
                       SizedBox(height: 16),
@@ -245,7 +242,7 @@ class _SupernodeLoginCardContentState
                           text: FlutterI18n.translate(context, 'supernode_staking_profit_share'),
                           image: AssetImage(AppImages.mxcSite3),
                           fontSize: Tween<double>(begin: 3, end: 16)
-                              .evaluate(animation),
+                              .evaluate(widget.animation),
                         ),
                       ),
                       Spacer(),
