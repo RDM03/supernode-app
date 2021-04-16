@@ -6,8 +6,8 @@ import '../dhx.dart';
 class DemoDhxDao extends DemoDao implements DhxDao {
   Future<List<Council>> listCouncils() async {
     return [
-      Council(chairOrgId: '123', name: 'Council', id: 'demo1'),
-      Council(chairOrgId: '123', name: 'Council 2', id: 'demo1'),
+      Council(chairOrgId: '123', name: 'Council', id: 'demo1', lastMpower: '1000000'),
+      Council(chairOrgId: '123', name: 'Council 2', id: 'demo1', lastMpower: '1500000'),
     ];
   }
 
