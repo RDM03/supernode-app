@@ -72,11 +72,10 @@ class _LoginPageContentState extends State<LoginPageContent>
     return SupernodeLoginCard(
       animation: animation,
       onTap: () {
-        final animationValue = animation.value;
-        if (animationValue <= 0.01) {
+        if (max(min(mxcWidth / minCardWidth - 1, 1), 0) == 0) {
           openMxc();
         }
-        if (animationValue >= 0.99) {
+        if (max(min(mxcWidth / minCardWidth - 1, 1), 0) == 1) {
           closeCards();
         }
       },
@@ -92,11 +91,10 @@ class _LoginPageContentState extends State<LoginPageContent>
     return ParachainLoginCard(
       animation: animation,
       onTap: () {
-        final animationValue = animation.value;
-        if (animationValue <= 0.01) {
+        if (max(min(dhxWidth / minCardWidth - 1, 1), 0) == 0) {
           openDhx();
         }
-        if (animationValue >= 0.99) {
+        if (max(min(dhxWidth / minCardWidth - 1, 1), 0) == 1) {
           closeCards();
         }
       },
