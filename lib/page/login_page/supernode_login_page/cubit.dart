@@ -296,10 +296,11 @@ class LoginCubit extends Cubit<LoginState> {
       "password": password
     };
 
-    await dao.main.user.registerFinish(data, state.jwtToken).then((res) {
-      emit(state.copyWith(showLoading: false));
+    try {
+      appCubit.setDemo(false);
 
-      //supernodeCubit.setOrganizationId('todo');
+      await dao.main.user.registerFinish(data, state.jwtToken);
+
       supernodeCubit.setSupernodeSession(SupernodeSession(
         username: email,
         password: password,
@@ -308,10 +309,17 @@ class LoginCubit extends Cubit<LoginState> {
         node: supernodeCubit.state.selectedNode,
       ));
 
+      final profile = await dao.main.user.profile();
+      supernodeCubit.setOrganizationId(
+        profile.organizations.first.organizationID,
+      );
+
+      emit(state.copyWith(showLoading: false));
+
       setSignupResult(SignupResult.addGateway);
-    }).catchError((err) {
+    } catch(err) {
       emit(state.copyWith(showLoading: false));
       appCubit.setError(err.toString());
-    });
+    };
   }
 }
