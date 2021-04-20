@@ -163,8 +163,8 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
         organizationId: orgId,
       );
 
-      final double dhxBonded = double.parse(res["dhxBonded"]);
-      final double dhxUnbonding = double.parse(res["dhxUnbondingTotal"]);
+      final double dhxBonded = double.parse('0' + res["dhxBonded"]);
+      final double dhxUnbonding = double.parse('0' + res["dhxUnbondingTotal"]);
 
       final List<CalendarModel> listCalendarData = [];
       try { // parsing response for calendar component on DhxMiningPage
@@ -196,7 +196,9 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
             Duration(days: firstDayOfRange.weekday - 1));
 
         int indexDatesParsed = 0;
-        final int lastDayBeforeToday = (today == datesParsed[datesParsed.length - 1]) ? datesParsed.length - 2 : datesParsed.length - 1;
+        int lastDayBeforeToday = 0;
+        if (datesParsed.length > 0)
+          lastDayBeforeToday = (today == datesParsed[datesParsed.length - 1]) ? datesParsed.length - 2 : datesParsed.length - 1;
         for (int i = 0; i < 14; i++) {
           // 2 weeks range starting on Monday before bond-info data
           dateTmp = mondayBeforeFirstDay.add(Duration(days: i));
