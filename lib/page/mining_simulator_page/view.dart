@@ -44,7 +44,7 @@ Widget buildView(
           ValueEditor(
             key: ValueKey('mxcValueEditor'),
             controller: state.mxcLockedCtl,
-            total: state.mxcBalance,
+            total: double.parse(Tools.priceFormat(state.mxcBalance, range: 2)),
             title: FlutterI18n.translate(_ctx, 'mxc_locked'),
             subtitle: FlutterI18n.translate(_ctx, 'current_mxc_balance'),
             textFieldSuffix: 'MXC',
