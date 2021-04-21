@@ -55,7 +55,7 @@ class _StakeHistoryContentState extends State<StakeHistoryContent> {
               : e.type == 'UNSTAKING')
           .toList();
     }
-    temp.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    temp.sort((a, b) => b.stake.startTime.compareTo(a.stake.startTime));
     this.filteredHistory = temp;
     if (mounted) setState(() {});
   }
