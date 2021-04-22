@@ -23,14 +23,11 @@ class SupernodeHttpClient extends SharedHttpClient implements HttpClient {
   }
 
   @override
-  RequestOptions getOptions([Map<String, dynamic> headers]) {
+  String get baseUrl {
     final supernode = getSupernode();
     if (supernode == null) {
       throw Exception('Supernode is unknown');
     }
-    return RequestOptions(
-      baseUrl: supernode.url,
-      headers: headers,
-    );
+    return supernode.url;
   }
 }

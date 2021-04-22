@@ -31,18 +31,21 @@ class SupernodeHeadersInterceptor extends InterceptorsWrapper {
   }
 
   @override
-  onRequest(RequestOptions options) async {
+  void onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     final json = jsonDecodeOrNull(options.data?.toString());
     setHeaders(
       options,
       otp: json == null ? null : json['otp_code'],
       token: getToken(),
     );
-    return options;
+    handler.next(options);
   }
 
   @override
-  onError(DioError err) async {
+  void onError(DioError err, ErrorInterceptorHandler handler) async {
     final response = err.response;
 
     if (response != null &&
@@ -55,16 +58,22 @@ class SupernodeHeadersInterceptor extends InterceptorsWrapper {
         final refreshTokenDio = Dio();
         final token = await onTokenRefresh(refreshTokenDio);
         if (token == null) throw Exception('Token can\'t be refreshed');
-        setHeaders(response.request, token: token);
-        return await dio.request<dynamic>(
-          response.request.path,
-          cancelToken: response.request.cancelToken,
-          data: response.request.data,
-          onReceiveProgress: response.request.onReceiveProgress,
-          onSendProgress: response.request.onSendProgress,
-          queryParameters: response.request.queryParameters,
-          options: response.request,
+        setHeaders(response.requestOptions, token: token);
+        final res = await dio.request<dynamic>(
+          response.requestOptions.path,
+          cancelToken: response.requestOptions.cancelToken,
+          data: response.requestOptions.data,
+          onReceiveProgress: response.requestOptions.onReceiveProgress,
+          onSendProgress: response.requestOptions.onSendProgress,
+          queryParameters: response.requestOptions.queryParameters,
+          options: Options(
+            headers: response.requestOptions.headers,
+            contentType: response.requestOptions.contentType,
+            extra: response.requestOptions.extra,
+            method: response.requestOptions.method,
+          ),
         );
+        handler.resolve(res);
       } on Exception catch (e, stack) {
         if (e is DioError &&
             e.response?.statusCode != null &&
@@ -75,7 +84,7 @@ class SupernodeHeadersInterceptor extends InterceptorsWrapper {
         } else {
           logger.e('Error while refreshing token.', e, stack);
         }
-        return err;
+        return handler.next(err);
       } finally {
         dio.interceptors.requestLock.unlock();
         dio.interceptors.responseLock.unlock();
