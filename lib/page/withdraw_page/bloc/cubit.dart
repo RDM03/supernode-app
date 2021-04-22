@@ -66,7 +66,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
     emit(state.copyWith(withdrawFlowStep: WithdrawFlow.confirm));
   }
 
-  void submit(String orgId, String otpCode) {
+  Future<void> submit(String orgId, String otpCode) async {
     Map data = {
       "orgId": orgId,
       "amount": state.amount.toString(),
@@ -76,16 +76,15 @@ class WithdrawCubit extends Cubit<WithdrawState> {
     };
 
     emit(state.copyWith(showLoading: true));
-    
-    supernodeUserCubit.supernodeRepository.withdraw.withdraw(data).then((withdrawReq) async {
+    try {
+      dynamic withdrawReq = await supernodeUserCubit.supernodeRepository.withdraw.withdraw(data);
       emit(state.copyWith(showLoading: false));
 
       if (withdrawReq.status)
         emit(state.copyWith(withdrawFlowStep: WithdrawFlow.finish));
-
-    }).catchError((err) {
+    } catch (err) {
       emit(state.copyWith(showLoading: false));
       appCubit.setError(err.toString());
-    });
+    };
   }
 }
