@@ -37,6 +37,9 @@ dependencies:
   modal_bottom_sheet: 0.2.0
   #https://pub.dev/packages/solid_bottom_sheet
   solid_bottom_sheet: ^0.1.9
+  # https://pub.dev/packages/web3dart
+  web3dart:
+    git: https://github.com/simolus3/web3dart # TODO
   # https://pub.dev/packages/dio
   dio: ^4.0.0
   # https://pub.dev/packages/flutter_i18n
@@ -47,6 +50,8 @@ dependencies:
   mapbox_gl: ^0.12.0
   # https://pub.dev/packages/fish_redux
   fish_redux: ^0.3.7
+  # https://pub.dev/packages/latlong
+  latlong: ^0.6.1
   # https://pub.dev/packages/majascan
   majascan: ^0.3.7
   # https://pub.dev/packages/package_info
@@ -78,13 +83,15 @@ dependencies:
   # https://pub.dev/packages/connectivity
   connectivity: ^3.0.3
   # https://pub.dev/packages/json_serializable
-  json_serializable: ^4.1.1
+  json_serializable: ^3.3.0
   # https://pub.dev/packages/font_awesome_flutter
   font_awesome_flutter: ^8.8.1
+  # https://pub.dev/packages/ethereum_address
+  ethereum_address: ^1.0.1
   # https://pub.dev/packages/decimal
   decimal: ^0.3.5
   # https://pub.dev/packages/share
-  share: ^2.0.1
+  share: ^0.6.5
   # https://pub.dev/packages/path_provider
   path_provider: ^2.0.1
   # https://pub.dev/packages/pagination_view
@@ -109,7 +116,7 @@ dependencies:
 
   # rethink
   flutter_bloc: ^6.1.1
-  freezed_annotation: ^0.14.0
+  freezed_annotation: ^0.12.0
   pretty_dio_logger: ^1.1.1
   logger: ^0.9.4
     
@@ -117,8 +124,8 @@ dev_dependencies:
   # otp: ^2.2.3 TODO
   dotenv: ^3.0.0-nullsafety.0
   flutter_launcher_icons: ^0.9.0
-  freezed: ^0.14.1+2
-  build_runner: ^1.12.2
+  freezed: ^0.12.6
+  build_runner: ^1.10.12
 
   flutter_test:
     sdk: flutter
