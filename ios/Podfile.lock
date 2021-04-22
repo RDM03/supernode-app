@@ -23,11 +23,14 @@ PODS:
     - Flutter
   - flutter_mapbox_native (0.0.1):
     - Flutter
-    - Mapbox-iOS-SDK (~> 5.6.0)
+    - Mapbox-iOS-SDK (~> 6.3.0)
+  - fluwx (0.0.1):
+    - Flutter
+    - WechatOpenSDK (= 1.8.7.1)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - "geolocator (6.0.0+4)":
+  - geolocator (6.2.0):
     - Flutter
   - install_plugin (0.0.1):
     - Flutter
@@ -37,15 +40,15 @@ PODS:
     - Flutter
   - majascan (0.0.4):
     - Flutter
-  - Mapbox-iOS-SDK (5.6.1):
-    - MapboxMobileEvents (= 0.10.2)
+  - Mapbox-iOS-SDK (6.3.0):
+    - MapboxMobileEvents (~> 0.10.4)
   - mapbox_gl (0.0.1):
     - Flutter
-    - Mapbox-iOS-SDK (~> 5.6.0)
+    - Mapbox-iOS-SDK (~> 6.3.0)
     - MapboxAnnotationExtension (~> 0.0.1-beta.1)
-  - MapboxAnnotationExtension (0.0.1-beta.1):
-    - Mapbox-iOS-SDK (~> 5.2)
-  - MapboxMobileEvents (0.10.2)
+  - MapboxAnnotationExtension (0.0.1-beta.2):
+    - Mapbox-iOS-SDK (~> 6.0)
+  - MapboxMobileEvents (0.10.8)
   - native_screenshot (0.0.1):
     - Flutter
   - open_appstore (0.0.1):
@@ -54,7 +57,7 @@ PODS:
     - Flutter
   - path_provider (0.0.1):
     - Flutter
-  - "permission_handler (5.0.1+1)":
+  - "permission_handler (5.1.0+2)":
     - Flutter
   - Reachability (3.2)
   - share (0.0.1):
@@ -68,6 +71,7 @@ PODS:
     - Flutter
   - webview_flutter (0.0.1):
     - Flutter
+  - WechatOpenSDK (1.8.7.1)
 
 DEPENDENCIES:
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
@@ -76,6 +80,7 @@ DEPENDENCIES:
   - flutter_appcenter (from `.symlinks/plugins/flutter_appcenter/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_mapbox_native (from `.symlinks/plugins/flutter_mapbox_native/ios`)
+  - fluwx (from `.symlinks/plugins/fluwx/ios`)
   - geolocator (from `.symlinks/plugins/geolocator/ios`)
   - install_plugin (from `.symlinks/plugins/install_plugin/ios`)
   - local_auth (from `.symlinks/plugins/local_auth/ios`)
@@ -101,6 +106,7 @@ SPEC REPOS:
     - MapboxAnnotationExtension
     - MapboxMobileEvents
     - Reachability
+    - WechatOpenSDK
 
 EXTERNAL SOURCES:
   connectivity:
@@ -115,6 +121,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_mapbox_native:
     :path: ".symlinks/plugins/flutter_mapbox_native/ios"
+  fluwx:
+    :path: ".symlinks/plugins/fluwx/ios"
   geolocator:
     :path: ".symlinks/plugins/geolocator/ios"
   install_plugin:
@@ -152,32 +160,34 @@ SPEC CHECKSUMS:
   AppCenter: ca66175050d538b157959382dd43f1ab96cdab84
   connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
-  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   flutter_appcenter: d705da821d33c17ad9d08ab070f32b9c39b48caf
-  flutter_local_notifications: 9e4738ce2471c5af910d961a6b7eadcf57c50186
-  flutter_mapbox_native: df706d36f51096d5720e6d7fac684a6960b3ad44
+  flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
+  flutter_mapbox_native: 566bfd7a7d8f29ceb4bf30ee29634f89393fcd43
+  fluwx: 07a55ed66bf3a4961e836a2a411b02dcada32902
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  geolocator: 1ae40084cc6c1586ce5ad12cfc3fd38c64d05f2f
+  geolocator: f5e3de65e241caba7ce3e8a618803387bda73384
   install_plugin: a13e7ddd2bab0c701b48cd359c26d0394125b6fb
   local_auth: 25938960984c3a7f6e3253e3f8d962fdd16852bd
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   majascan: 6ad3804777ac93f1ca09160e5d38197e4387081d
-  Mapbox-iOS-SDK: b31bd62a5dd5b7e688eab787acd3d093a122f4d6
-  mapbox_gl: 48d261b93d7dfc2367c2f93b493ea8f43df5ba96
-  MapboxAnnotationExtension: d66de5561562c9d940153c0135725e671407b781
-  MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
+  Mapbox-iOS-SDK: 2563ed87ead6ec08f1c2090873977b8a7be335a8
+  mapbox_gl: 4b91045a7fefc61a8813bad5248f54a8bd8bd1e5
+  MapboxAnnotationExtension: 4eee6c26349ef6d909f1a23a7eae2d0f7ca5fa7d
+  MapboxMobileEvents: 36ff53b135aac486eed94b61f813c7967a0c2c6f
   native_screenshot: 70900984bca8d5f42acf68611b8214b32a9f0deb
   open_appstore: 4eddfae38848002fdde8d42e1734d16cb34439de
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
-  permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
+  permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   share: 0b2c3e82132f5888bccca3351c504d0003b3b410
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
+  WechatOpenSDK: 6a4d1436c15b3b5fe2a0bd383f3046010186da44
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1
