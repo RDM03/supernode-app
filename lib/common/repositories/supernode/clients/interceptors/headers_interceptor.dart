@@ -47,7 +47,7 @@ class SupernodeHeadersInterceptor extends InterceptorsWrapper {
 
     if (response != null &&
         response.toString().contains(new RegExp(r'jwt|authentication')) &&
-        !response.toString().contains("The OTP")) {
+        !response.toString().contains("OTP")) {
       dio.interceptors.requestLock.lock();
       dio.interceptors.responseLock.lock();
 
