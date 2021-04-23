@@ -9,7 +9,7 @@ set -x
 cd ..
 git clone -b beta https://github.com/flutter/flutter.git
 cd flutter
-git reset --hard 1.23.0-18.1.pre
+git reset --hard 2.1.0-12.2.pre
 cd ..
 export PATH=`pwd`/flutter/bin:$PATH
 
@@ -26,5 +26,11 @@ echo "APPCENTER_SECRET_IOS=${APPCENTER_SECRET_IOS}" >> assets/.env
 echo "APPCENTER_TOKEN_ANDROID=${APPCENTER_TOKEN_ANDROID}" >> assets/.env
 echo "APPCENTER_TOKEN_IOS=${APPCENTER_TOKEN_IOS}" >> assets/.env
 echo "APPCENTER_APPID_IOS=${APPCENTER_APPID_IOS}" >> assets/.env
+
+cat > ~/.netrc <<- EOM
+machine api.mapbox.com
+   login mapbox
+   password ${MAP_BOX_SECRET_KEY}
+EOM
 
 flutter build ios --release --no-codesign

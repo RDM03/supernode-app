@@ -11,7 +11,7 @@ set -x
 cd ..
 git clone -b beta https://github.com/flutter/flutter.git
 cd flutter
-git reset --hard 1.23.0-18.1.pre
+git reset --hard 2.1.0-12.2.pre
 cd ..
 export PATH=`pwd`/flutter/bin:$PATH
 
@@ -37,6 +37,7 @@ echo "APPCENTER_APPID_IOS=${APPCENTER_APPID_IOS}" >> assets/.env
 echo "APPCENTER_KEYSTORE_PASSWORD=${APPCENTER_KEYSTORE_PASSWORD}" >> assets/.env
 echo "APPCENTER_KEY_ALIAS=${APPCENTER_KEY_ALIAS}" >> assets/.env
 echo "APPCENTER_KEY_PASSWORD=${APPCENTER_KEY_PASSWORD}" >> assets/.env
+export SDK_REGISTRY_TOKEN=${MAP_BOX_SECRET_KEY}
 
 # build APK
 flutter build apk --flavor prod
