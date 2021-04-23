@@ -48,7 +48,7 @@ class MiningIncomeContent extends StatelessWidget {
                   Tools.convertDouble(stake.dhxMined),
                   range: 2,
                 ),
-                currency: 'DHX',
+                currency: Token.supernodeDhx.name,
                 isLast: i + 1 == state.stakes.value.length,
                 stakedAmount: '${stake.amount} ${stake.currency}',
                 id: stake.id,
