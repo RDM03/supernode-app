@@ -48,14 +48,21 @@ class _StakeHistoryContentState extends State<StakeHistoryContent> {
 
   void filterHistory() {
     var temp = originalHistory.value;
-    if (filter != null) {
-      temp = temp
-          .where((e) => filter == StakeHistoryFilter.stake
-              ? e.type == 'STAKING'
-              : e.type == 'UNSTAKING')
-          .toList();
+    if (temp != null) {
+      if (filter == null) {
+        temp = temp
+            .where((e) => e.type == 'STAKING' || e.type == 'UNSTAKING')
+            .toList();
+      } else {
+        temp = temp
+            .where((e) => filter == StakeHistoryFilter.stake
+            ? e.type == 'STAKING'
+            : e.type == 'UNSTAKING')
+            .toList();
+      }
+
+      temp.sort((a, b) => b.timestamp.compareTo(a.timestamp));
     }
-    temp.sort((a, b) => b.timestamp.compareTo(a.timestamp));
     this.filteredHistory = temp;
     if (mounted) setState(() {});
   }
