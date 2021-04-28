@@ -21,6 +21,10 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  integration_test:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
 
   cupertino_icons: ^0.1.2
   # https://pub.dev/packages/device_info
