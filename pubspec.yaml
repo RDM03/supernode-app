@@ -97,8 +97,6 @@ dependencies:
   # https://pub.dev/packages/flutter_appcenter
   flutter_appcenter:
     path: packages/flutter_appcenter
-  native_screenshot: 
-    path: packages/native_screenshot
   # https://pub.dev/packages/feedback
   feedback:
     path: packages/feedback
