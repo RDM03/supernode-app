@@ -52,8 +52,7 @@ void _onConfirm(Action action, Context<ConfirmLockState> ctx) async {
       Navigator.of(ctx.context).pop(true);
     }
   } on HttpException catch (e) {
-    tip(ctx.context, FlutterI18n.translate(ctx.context, e.message),
-        duration: 5);
+    tip(FlutterI18n.translate(ctx.context, e.message), duration: 5);
     print(e);
   }
 }

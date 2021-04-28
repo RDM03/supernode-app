@@ -117,7 +117,7 @@ void _onGetTOTPConfig(Action action, Context<Set2FAState> ctx) async {
     );
   }).catchError((err) {
     loading.hide();
-    // tip(ctx.context,'UserDao getTOTPConfig: $err');
+    // tip('UserDao getTOTPConfig: $err');
   });
 }
 
@@ -181,11 +181,11 @@ void _onSetDisable(Action action, Context<Set2FAState> ctx) async {
       });
     }).catchError((err) {
       loading.hide();
-      // tip(ctx.context,'$err');
+      // tip('$err');
     });
   })
     ..catchError((err) {
       loading.hide();
-      // tip(ctx.context,'Setting setDisable: $err');
+      // tip('Setting setDisable: $err');
     });
 }

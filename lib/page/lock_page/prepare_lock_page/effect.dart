@@ -46,7 +46,7 @@ void _resultPage(Context<PrepareLockState> ctx, String type, dynamic res) {
     ctx.dispatch(PrepareLockActionCreator.resSuccess(
         res['status'].contains('successful')));
   } else {
-    tip(ctx.context, res);
+    tip(res);
   }
 }
 
@@ -71,7 +71,7 @@ Future<void> _stake(Context<PrepareLockState> ctx) async {
     _resultPage(ctx, 'stake', res);
   }).catchError((err) {
     loading.hide();
-    tip(ctx.context, 'LockDao stake: $err');
+    tip('LockDao stake: $err');
   });
 }
 
@@ -140,5 +140,6 @@ Future<void> _lastMining(Context<PrepareLockState> ctx) async {
   final dao = _buildDhxDao(ctx);
   final res = await dao.lastMining();
   ctx.dispatch(PrepareLockActionCreator.lastMining(
-      double.parse(res.yesterdayTotalDHX), double.parse(res.yesterdayTotalMPower)));
+      double.parse(res.yesterdayTotalDHX),
+      double.parse(res.yesterdayTotalMPower)));
 }

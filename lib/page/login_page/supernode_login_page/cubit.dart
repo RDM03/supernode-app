@@ -26,7 +26,8 @@ class LoginCubit extends Cubit<LoginState> {
 
   void setSuperNodeListVisible(bool val) => (val)
       ? emit(state.copyWith(supernodeListVisible: val))
-      : emit(state.copyWith(showTestNodesCounter: 0, supernodeListVisible: val));
+      : emit(
+          state.copyWith(showTestNodesCounter: 0, supernodeListVisible: val));
 
   void setObscureText(bool val) => emit(state.copyWith(obscureText: val));
 
@@ -69,7 +70,7 @@ class LoginCubit extends Cubit<LoginState> {
         byRegion[s.region].add(s);
       }
       emit(state.copyWith(supernodes: Wrap(byRegion)));
-    } catch(e) {
+    } catch (e) {
       //loading network supernodes failed
     }
   }
@@ -80,7 +81,7 @@ class LoginCubit extends Cubit<LoginState> {
     Supernode s;
 
     Map<String, dynamic> nodes =
-    jsonDecode(await rootBundle.loadString(SUPER_NODES));
+        jsonDecode(await rootBundle.loadString(SUPER_NODES));
     for (var k in nodes.keys) {
       s = Supernode(
         name: k,
@@ -153,7 +154,7 @@ class LoginCubit extends Cubit<LoginState> {
             setLoginResult(LoginResult.home);
           }
         } else {
-          //tip(ctx.context, res.errStr);
+          //tip(res.errStr);
         }
       } catch (err) {
         final maintenance = await checkMaintenance(state.selectedSuperNode);
@@ -263,30 +264,34 @@ class LoginCubit extends Cubit<LoginState> {
 
       emit(state.copyWith(email: email, showLoading: false));
       setSignupResult(SignupResult.verifyEmail);
-    }
-    catch(err) {
+    } catch (err) {
       emit(state.copyWith(showLoading: false));
       appCubit.setError(err.toString());
     }
   }
 
-  Future<void> verifySignupEmail (String verificationCode) async {
+  Future<void> verifySignupEmail(String verificationCode) async {
     emit(state.copyWith(showLoading: true));
     Map data = {"token": verificationCode};
 
     try {
-      RegistrationConfirmResponse rcr = await dao.main.user.registerConfirm(data);
+      RegistrationConfirmResponse rcr =
+          await dao.main.user.registerConfirm(data);
 
-      emit(state.copyWith(jwtToken: rcr.jwt, email: rcr.username, userId: rcr.id, showLoading: false));
+      emit(state.copyWith(
+          jwtToken: rcr.jwt,
+          email: rcr.username,
+          userId: rcr.id,
+          showLoading: false));
       setSignupResult(SignupResult.registration);
-    }
-    catch(err) {
+    } catch (err) {
       emit(state.copyWith(showLoading: false));
       appCubit.setError(err.toString());
     }
   }
 
-  Future<void> registerFinish(String email, String password, String orgName, String orgDisplayName) async {
+  Future<void> registerFinish(String email, String password, String orgName,
+      String orgDisplayName) async {
     emit(state.copyWith(showLoading: true));
 
     Map data = {
@@ -317,9 +322,10 @@ class LoginCubit extends Cubit<LoginState> {
       emit(state.copyWith(showLoading: false));
 
       setSignupResult(SignupResult.addGateway);
-    } catch(err) {
+    } catch (err) {
       emit(state.copyWith(showLoading: false));
       appCubit.setError(err.toString());
-    };
+    }
+    ;
   }
 }
