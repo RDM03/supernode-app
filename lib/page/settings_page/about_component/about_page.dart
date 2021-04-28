@@ -86,11 +86,14 @@ class AboutPage extends StatelessWidget {
         right: 0,
         bottom: 30,
         child: Center(
-          child: subtitle(
-            '© 2020 ${FlutterI18n.translate(
-                context, 'foundation')}. ${FlutterI18n.translate(
-                context, 'all_rights')}',
-          ),
+          child: BlocBuilder<SettingsCubit, SettingsState> (
+            buildWhen: (a,b) => a.copyrightYear != b.copyrightYear,
+            builder: (ctx, s) => subtitle(
+              '© ${s.copyrightYear} ${FlutterI18n.translate(
+                  context, 'foundation')}. ${FlutterI18n.translate(
+                  context, 'all_rights')}',
+            ),
+          )
         ),
       )
     ],

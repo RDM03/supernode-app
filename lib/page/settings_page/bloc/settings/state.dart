@@ -15,6 +15,7 @@ abstract class SettingsState with _$SettingsState {
     @nullable String mxVersion,
 
     @nullable String language,
+    @Default(2021) int copyrightYear,
     bool screenShot,
     bool showWechatUnbindConfirmation,
     int showBindShopifyStep,

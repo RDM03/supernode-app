@@ -33,6 +33,7 @@ mixin _$SupernodeBtcState {
   Wrap<double> get balance;
   Wrap<List<WithdrawHistoryEntity>> get withdraws;
 
+  @JsonKey(ignore: true)
   $SupernodeBtcStateCopyWith<SupernodeBtcState> get copyWith;
 }
 
@@ -153,6 +154,7 @@ class _$_SupernodeBtcState
       const DeepCollectionEquality().hash(balance) ^
       const DeepCollectionEquality().hash(withdraws);
 
+  @JsonKey(ignore: true)
   @override
   _$SupernodeBtcStateCopyWith<_SupernodeBtcState> get copyWith =>
       __$SupernodeBtcStateCopyWithImpl<_SupernodeBtcState>(this, _$identity);
@@ -168,5 +170,6 @@ abstract class _SupernodeBtcState implements SupernodeBtcState {
   @override
   Wrap<List<WithdrawHistoryEntity>> get withdraws;
   @override
+  @JsonKey(ignore: true)
   _$SupernodeBtcStateCopyWith<_SupernodeBtcState> get copyWith;
 }

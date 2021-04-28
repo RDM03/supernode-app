@@ -73,6 +73,7 @@ mixin _$LoginState {
   @nullable
   SignupResult get signupResult;
 
+  @JsonKey(ignore: true)
   $LoginStateCopyWith<LoginState> get copyWith;
 }
 
@@ -390,6 +391,7 @@ class _$_LoginState extends _LoginState with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(loginResult) ^
       const DeepCollectionEquality().hash(signupResult);
 
+  @JsonKey(ignore: true)
   @override
   _$LoginStateCopyWith<_LoginState> get copyWith =>
       __$LoginStateCopyWithImpl<_LoginState>(this, _$identity);
@@ -446,5 +448,6 @@ abstract class _LoginState extends LoginState {
   @nullable
   SignupResult get signupResult;
   @override
+  @JsonKey(ignore: true)
   _$LoginStateCopyWith<_LoginState> get copyWith;
 }
