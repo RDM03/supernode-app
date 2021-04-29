@@ -34,6 +34,8 @@ PODS:
     - Flutter
   - install_plugin (0.0.1):
     - Flutter
+  - integration_test (0.0.1):
+    - Flutter
   - local_auth (0.0.1):
     - Flutter
   - location (0.0.1):
@@ -83,6 +85,7 @@ DEPENDENCIES:
   - fluwx (from `.symlinks/plugins/fluwx/ios`)
   - geolocator (from `.symlinks/plugins/geolocator/ios`)
   - install_plugin (from `.symlinks/plugins/install_plugin/ios`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - local_auth (from `.symlinks/plugins/local_auth/ios`)
   - location (from `.symlinks/plugins/location/ios`)
   - majascan (from `.symlinks/plugins/majascan/ios`)
@@ -127,6 +130,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/geolocator/ios"
   install_plugin:
     :path: ".symlinks/plugins/install_plugin/ios"
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
   local_auth:
     :path: ".symlinks/plugins/local_auth/ios"
   location:
@@ -168,6 +173,7 @@ SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   geolocator: f5e3de65e241caba7ce3e8a618803387bda73384
   install_plugin: a13e7ddd2bab0c701b48cd359c26d0394125b6fb
+  integration_test: 6eb66a19f7104200dcfdd62bc0077e1b09686e4f
   local_auth: 25938960984c3a7f6e3253e3f8d962fdd16852bd
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   majascan: 6ad3804777ac93f1ca09160e5d38197e4387081d

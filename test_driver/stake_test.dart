@@ -3,7 +3,7 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
 import 'finders.dart' show f;
-import 'utils.dart' show delay, isPresent, getOtp;
+import 'utils.dart' show delay, isPresent;
 
 stakingTest(String secret) {
   load();
@@ -76,11 +76,14 @@ stakingTest(String secret) {
       print('TAPPED UNSTAKE');
       await driver.tap(f['otpEnterOtp']);
       print('READY TO ENTER OTP');
-      var otp = getOtp(secret);
+
+      //TODO: reconfigure OTP
+
+      var otp = 123456;
       print('Here is the OTP: $otp');
       //enter each number seperately
       for (var i = 0; i < 6; i++) {
-        await driver.enterText(otp[i]);
+        await driver.enterText('$otp');
         await delay(250);
       }
       print('KEY ENTERED');

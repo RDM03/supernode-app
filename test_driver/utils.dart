@@ -1,5 +1,5 @@
 import 'package:flutter_driver/flutter_driver.dart';
-import 'package:otp/otp.dart';
+// import 'package:otp/otp.dart';
 
 Future<void> delay([int milliseconds = 250]) async {
   await Future<void>.delayed(Duration(milliseconds: milliseconds));
@@ -25,7 +25,9 @@ canTap(SerializableFinder byValueKey, FlutterDriver driver,
   }
 }
 
+/*
 getOtp(secret) {
   final time = DateTime.now().millisecondsSinceEpoch;
   return OTP.generateTOTPCodeString('$secret', time);
 }
+*/
