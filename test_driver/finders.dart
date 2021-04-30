@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
 import 'package:dotenv/dotenv.dart' show env;
 
 // Naming Convention 'page' + 'DescribeItem'
@@ -27,7 +26,7 @@ Map f = {
   'minersRevenue': find.byKey(Key('minersRevenue')),
   'addMinerSerialNumber': find.byKey(Key('addMinerSerialNumber')),
   'addMinerSubmit': find.byKey(Key('addMinerSubmit')),
-  'minersNewMiner': find.text('Gateway_' + env['DRIVE_MINER_SERIAL']),
+  'minersNewMiner': find.text('Gateway_' + (env['DRIVE_MINER_SERIAL'] ?? '')),
   'minerDeleteButton': find.text('Delete'),
   'minerConfirmDeleteButton':
       find.byKey(Key('delete_gateway_bottom_dialog_item2')),
