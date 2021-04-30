@@ -264,6 +264,7 @@ class _SupernodeLoginCardContentState
                 SizedBox(width: 23),
                 CircleButton(
                   text: FlutterI18n.translate(context, 'login'),
+                  key: Key('landingLogin'),
                   icon: Icons.arrow_forward,
                   onPressed: () => Navigator.of(context)
                       .push(route((ctx) => BlocProvider<LoginCubit>.value(

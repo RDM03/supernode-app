@@ -6,6 +6,7 @@ import 'package:dotenv/dotenv.dart' show env;
 // Naming Convention 'page' + 'DescribeItem'
 
 Map f = {
+  'landingLogin': find.byKey(Key("landingLogin")),
   'logoFinder': find.byKey(Key('homeLogo')),
   'loginFinder': find.byKey(Key('homeLogin')),
   'menuFinder': find.byKey(Key('homeSupernodeMenu')),
