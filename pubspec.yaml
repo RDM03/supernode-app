@@ -108,7 +108,7 @@ dependencies:
     path: packages/feedback
   flutter_mapbox_native:
     path: packages/flutter_mapbox_native
-  # submodule https://github.com/festelo/majascan.git
+  # submodule https://github.com/festelo/majascan_flutter.git
   majascan: 
     path: packages/majascan_flutter
   # submodule https://github.com/mxc-foundation/fluwx.git
