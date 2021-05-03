@@ -57,6 +57,7 @@ class _SupernodeLoginCardContentState
   @override
   void dispose() {
     loginCubit.close();
+    super.dispose();
   }
 
   @override
@@ -278,6 +279,7 @@ class _SupernodeLoginCardContentState
               child: whiteBorderButton(
                   FlutterI18n.translate(context, 'demo_login'),
                   onPressed: () => loginCubit.demoLogin()),
+                  key: Key('demo_login'),
             ),
           ],
         ),

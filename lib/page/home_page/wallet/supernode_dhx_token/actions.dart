@@ -23,6 +23,7 @@ class SupernodeDhxActions extends StatelessWidget {
     return Row(
       children: [
         CircleButton(
+          key: Key('dhxDeposit'),
           icon: Icon(
             Icons.add,
             color: Token.supernodeDhx.color,

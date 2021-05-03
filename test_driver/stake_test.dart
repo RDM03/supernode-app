@@ -76,13 +76,13 @@ stakingTest(String secret) {
       print('TAPPED UNSTAKE');
       await driver.tap(f['otpEnterOtp']);
       print('READY TO ENTER OTP');
-      var otp = getOtp(secret);
-      print('Here is the OTP: $otp');
+      // var otp = getOtp(secret);
+      // print('Here is the OTP: $otp');
       //enter each number seperately
-      for (var i = 0; i < 6; i++) {
-        await driver.enterText(otp[i]);
-        await delay(250);
-      }
+      // for (var i = 0; i < 6; i++) {
+      //   await driver.enterText(otp[i]);
+      //   await delay(250);
+      // }
       print('KEY ENTERED');
       await driver.scrollIntoView(f['otpConfirmOtpButton']);
       await driver.tap(f['otpConfirmOtpButton']);

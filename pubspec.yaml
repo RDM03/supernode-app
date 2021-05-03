@@ -21,10 +21,6 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  integration_test:
-    sdk: flutter
-  flutter_test:
-    sdk: flutter
 
   cupertino_icons: ^0.1.2
   # https://pub.dev/packages/device_info
@@ -131,6 +127,8 @@ dev_dependencies:
   freezed: ^0.12.6
   build_runner: ^1.10.12
 
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
   flutter_driver:
