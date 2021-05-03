@@ -43,6 +43,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.5.0"
+  base32:
+    dependency: transitive
+    description:
+      name: base32
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0-nullsafety.1"
   bloc:
     dependency: transitive
     description:
@@ -451,7 +458,7 @@ packages:
     source: hosted
     version: "2.1.0"
   flutter_test:
-    dependency: "direct dev"
+    dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -570,6 +577,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  integration_test:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   intl:
     dependency: transitive
     description:
@@ -667,14 +679,14 @@ packages:
       name: logging
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.11.4"
+    version: "1.0.1"
   majascan:
     dependency: "direct main"
     description:
-      name: majascan
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.7"
+      path: "packages/majascan_flutter"
+      relative: true
+    source: path
+    version: "0.4.0"
   mapbox_gl:
     dependency: "direct main"
     description:
@@ -780,6 +792,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  otp:
+    dependency: "direct dev"
+    description:
+      name: otp
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0-nullsafety.0"
   package_config:
     dependency: transitive
     description:
@@ -1297,7 +1316,7 @@ packages:
       name: webkit_inspection_protocol
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.3"
+    version: "1.0.0"
   webview_flutter:
     dependency: "direct main"
     description:
