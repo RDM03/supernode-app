@@ -31,70 +31,78 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
         onPress: () => Navigator.pop(context),
       ),
       backgroundColor: backgroundColor,
-      body: PageBody(children: [
-        smallColumnSpacer(),
-        SupernodeDhxMineActions(),
-        PanelFrame(
-            child: Column(
-              children: [
-                middleColumnSpacer(),
-                NumberMinersAndMPower(),
-                smallColumnSpacer(),
-                SupernodeDhxTokenCardContent(miningPageVersion: true),
-              ],
-            ),
-          ),
-          middleColumnSpacer(),
-          Row(children: [
-            Icon(Icons.circle, color: Token.supernodeDhx.color, size: 12),
-            Text(FlutterI18n.translate(context, "today"), style: kSmallFontOfBlack),
-            Spacer(),
-            Icon(Icons.circle, color: Token.supernodeDhx.color.withOpacity(0.2), size: 12),
-            Text(FlutterI18n.translate(context, 'cool_off'), style: kSmallFontOfBlack),
-            Spacer(),
-            Image.asset(AppImages.iconUnbond, scale: 1.8, color: Colors.red),
-            Text(FlutterI18n.translate(context, 'unbonded'), style: kSmallFontOfBlack)
-          ]),
-          smallColumnSpacer(),
-          PanelFrame(
-            rowTop: const EdgeInsets.all(0.0),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+      body: RefreshIndicator(
+        displacement: 10,
+        onRefresh: () async {
+          await context.read<SupernodeDhxCubit>().refreshStakes();
+        },
+        child: PageBody(
+          children: [
+            smallColumnSpacer(),
+            SupernodeDhxMineActions(),
+            PanelFrame(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-                    buildWhen: (a, b) =>
-                    a.calendarBondInfo != b.calendarBondInfo,
-                    builder: (context, state) =>
-                    (state.calendarBondInfo != null && state.calendarBondInfo.length > 0)
-                        ? Text('   ${Tools.dateMonthYearFormat(state.calendarBondInfo[0].date)}'
-                        '${(state.calendarBondInfo[0].date.month != state.calendarBondInfo[state.calendarBondInfo.length-1].date.month)
-                        ? ' - ' + Tools.dateMonthYearFormat(state.calendarBondInfo[state.calendarBondInfo.length-1].date)
-                        : ''}',
-                        style: kPrimaryBigFontOfBlack)
-                        : SizedBox(),
-                ),
+                  middleColumnSpacer(),
+                  NumberMinersAndMPower(),
                   smallColumnSpacer(),
-                  BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-                    buildWhen: (a, b) =>
-                      a.calendarBondInfo != b.calendarBondInfo,
-                    builder: (context, state) => GridView.count(
-                      crossAxisCount: 7,
-                      childAspectRatio: (1 / 2),
-                      shrinkWrap: true,
-                      children: state.calendarBondInfo.map((e) => _CalendarElement(e)).toList(),
-                    ),
-                  ),
-                  Divider(thickness: 2),
-                  smallColumnSpacer(),
-                  Text(FlutterI18n.translate(context, 'bonding_calendar_note'), style: kSmallFontOfBlack),
+                  SupernodeDhxTokenCardContent(miningPageVersion: true),
                 ],
               ),
             ),
-          ),
-          middleColumnSpacer(),
-        ])
+            middleColumnSpacer(),
+            Row(children: [
+              Icon(Icons.circle, color: Token.supernodeDhx.color, size: 12),
+              Text(FlutterI18n.translate(context, "today"), style: kSmallFontOfBlack),
+              Spacer(),
+              Icon(Icons.circle, color: Token.supernodeDhx.color.withOpacity(0.2), size: 12),
+              Text(FlutterI18n.translate(context, 'cool_off'), style: kSmallFontOfBlack),
+              Spacer(),
+              Image.asset(AppImages.iconUnbond, scale: 1.8, color: Colors.red),
+              Text(FlutterI18n.translate(context, 'unbonded'), style: kSmallFontOfBlack)
+            ]),
+            smallColumnSpacer(),
+            PanelFrame(
+              rowTop: const EdgeInsets.all(0.0),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+                      buildWhen: (a, b) =>
+                      a.calendarBondInfo != b.calendarBondInfo,
+                      builder: (context, state) =>
+                      (state.calendarBondInfo != null && state.calendarBondInfo.length > 0)
+                          ? Text('   ${Tools.dateMonthYearFormat(state.calendarBondInfo[0].date)}'
+                          '${(state.calendarBondInfo[0].date.month != state.calendarBondInfo[state.calendarBondInfo.length-1].date.month)
+                          ? ' - ' + Tools.dateMonthYearFormat(state.calendarBondInfo[state.calendarBondInfo.length-1].date)
+                          : ''}',
+                          style: kPrimaryBigFontOfBlack)
+                          : SizedBox(),
+                  ),
+                    smallColumnSpacer(),
+                    BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+                      buildWhen: (a, b) =>
+                        a.calendarBondInfo != b.calendarBondInfo,
+                      builder: (context, state) => GridView.count(
+                        crossAxisCount: 7,
+                        childAspectRatio: (1 / 2),
+                        shrinkWrap: true,
+                        children: state.calendarBondInfo.map((e) => _CalendarElement(e)).toList(),
+                      ),
+                    ),
+                    Divider(thickness: 2),
+                    smallColumnSpacer(),
+                    Text(FlutterI18n.translate(context, 'bonding_calendar_note'), style: kSmallFontOfBlack),
+                  ],
+                ),
+              ),
+            ),
+            middleColumnSpacer(),
+          ]
+        )
+      )
     );
   }
 }

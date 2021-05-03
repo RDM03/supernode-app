@@ -32,8 +32,8 @@ class DhxDao extends SupernodeDao {
     String organizationId = '0',
   }) async {
     final res = await get(url: DhxApi.listStakes, data: {
-      'chairOrgId': chairOrgId,
-      'organizationId': organizationId,
+      'chairOrgId': chairOrgId ?? '0',
+      'organizationId': organizationId ?? '0',
     });
     final list = res['stake'] as List;
     return list
