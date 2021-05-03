@@ -5,19 +5,19 @@ import 'package:flutter/material.dart';
 
 class FeedbackIconButton extends StatelessWidget {
   const FeedbackIconButton({
-    Key key,
+    Key? key,
     this.iconSize = 24.0,
     this.minButtonSize = 30,
     this.padding = const EdgeInsets.all(8),
     this.alignment = Alignment.center,
-    @required this.icon,
+    required this.icon,
     this.color,
     this.focusColor,
     this.hoverColor,
     this.highlightColor,
     this.splashColor,
     this.disabledColor,
-    @required this.onPressed,
+    required this.onPressed,
     this.focusNode,
     this.autofocus = false,
     this.tooltip,
@@ -76,12 +76,12 @@ class FeedbackIconButton extends StatelessWidget {
   /// The color for the button's icon when it has the input focus.
   ///
   /// Defaults to [ThemeData.focusColor] of the ambient theme.
-  final Color focusColor;
+  final Color? focusColor;
 
   /// The color for the button's icon when a pointer is hovering over it.
   ///
   /// Defaults to [ThemeData.hoverColor] of the ambient theme.
-  final Color hoverColor;
+  final Color? hoverColor;
 
   /// The color to use for the icon inside the button, if the icon is enabled.
   /// Defaults to leaving this up to the [icon] widget.
@@ -97,7 +97,7 @@ class FeedbackIconButton extends StatelessWidget {
   ///   icon: Icons.widgets,
   /// )
   /// ```
-  final Color color;
+  final Color? color;
 
   /// The primary color of the button when the button is in the down (pressed) state.
   /// The splash is represented as a circular overlay that appears above the
@@ -107,7 +107,7 @@ class FeedbackIconButton extends StatelessWidget {
   /// color has transparency then the highlight and button color will show through.
   ///
   /// Defaults to the Theme's splash color, [ThemeData.splashColor].
-  final Color splashColor;
+  final Color? splashColor;
 
   /// The secondary color of the button when the button is in the down (pressed)
   /// state. The highlight color is represented as a solid color that is overlaid over the
@@ -115,7 +115,7 @@ class FeedbackIconButton extends StatelessWidget {
   /// will show through. The highlight fades in quickly as the button is held down.
   ///
   /// Defaults to the Theme's highlight color, [ThemeData.highlightColor].
-  final Color highlightColor;
+  final Color? highlightColor;
 
   /// The color to use for the icon inside the button, if the icon is disabled.
   /// Defaults to the [ThemeData.disabledColor] of the current [Theme].
@@ -123,15 +123,15 @@ class FeedbackIconButton extends StatelessWidget {
   /// The icon is disabled if [onPressed] is null.
   ///
   /// See also [color].
-  final Color disabledColor;
+  final Color? disabledColor;
 
   /// The callback that is called when the button is tapped or otherwise activated.
   ///
   /// If this is set to null, the button will be disabled.
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   /// {@macro flutter.widgets.Focus.focusNode}
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
 
   /// {@macro flutter.widgets.Focus.autofocus}
   final bool autofocus;
@@ -140,7 +140,7 @@ class FeedbackIconButton extends StatelessWidget {
   ///
   /// This text is displayed when the user long-presses on the button and is
   /// used for accessibility.
-  final String tooltip;
+  final String? tooltip;
 
   /// Whether detected gestures should provide acoustic and/or haptic feedback.
   ///
@@ -155,7 +155,7 @@ class FeedbackIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     assert(debugCheckHasMaterial(context));
-    Color currentColor;
+    Color? currentColor;
     if (onPressed != null)
       currentColor = color;
     else
@@ -187,7 +187,7 @@ class FeedbackIconButton extends StatelessWidget {
 
     if (tooltip != null) {
       result = Tooltip(
-        message: tooltip,
+        message: tooltip!,
         child: result,
       );
     }

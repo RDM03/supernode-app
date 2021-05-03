@@ -50,10 +50,6 @@ dependencies:
   flutter_local_notifications: ^5.0.0+1
   # https://pub.dev/packages/mapbox_gl
   mapbox_gl: ^0.12.0
-  # https://pub.dev/packages/fish_redux
-  fish_redux: ^0.3.7
-  # https://pub.dev/packages/majascan
-  majascan: ^0.3.7
   # https://pub.dev/packages/package_info
   package_info: ^0.4.1
   # https://pub.dev/packages/permission_handler
@@ -110,6 +106,9 @@ dependencies:
   # submodule https://github.com/mxc-foundation/fluwx.git
   fluwx:
     path: packages/fluwx
+  # https://pub.dev/packages/fish_redux
+  fish_redux: 
+    git: https://github.com/festelo/fish-redux 
   flutter_slidable:
   # https://pub.dev/packages/flutter_slidable
 

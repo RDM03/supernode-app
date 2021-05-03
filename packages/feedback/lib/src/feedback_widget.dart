@@ -14,9 +14,9 @@ typedef FeedbackButtonPress = void Function(BuildContext context);
 
 class FeedbackWidget<T> extends StatefulWidget {
   const FeedbackWidget({
-    Key key,
-    @required this.translation,
-    @required this.screenshot,
+    Key? key,
+    required this.translation,
+    required this.screenshot,
     this.backgroundColor,
     this.drawColors,
     this.formBuilder,
@@ -30,11 +30,11 @@ class FeedbackWidget<T> extends StatefulWidget {
         ),
         super(key: key);
 
-  final Color backgroundColor;
-  final List<Color> drawColors;
+  final Color? backgroundColor;
+  final List<Color>? drawColors;
   final FeedbackTranslation translation;
   final Uint8List screenshot;
-  final FeedbackFormBuilder<T> formBuilder;
+  final FeedbackFormBuilder<T>? formBuilder;
 
   @override
   FeedbackWidgetState createState() => FeedbackWidgetState<T>();
@@ -43,12 +43,12 @@ class FeedbackWidget<T> extends StatefulWidget {
 @visibleForTesting
 class FeedbackWidgetState<T> extends State<FeedbackWidget<T>>
     with SingleTickerProviderStateMixin {
-  PainterController painterController;
+  PainterController? painterController;
   ScreenshotController screenshotController = ScreenshotController();
 
   bool isNavigatingActive = false;
-  AnimationController _controller;
-  List<Color> drawColors;
+  late AnimationController _controller;
+  late List<Color> drawColors;
 
   PainterController create() {
     final PainterController controller = PainterController();
@@ -135,21 +135,21 @@ class FeedbackWidgetState<T> extends State<FeedbackWidget<T>>
                   -0.7,
                 ),
                 child: ControlsColumn(
-                  activeColor: painterController.drawColor,
+                  activeColor: painterController!.drawColor,
                   translation: widget.translation,
                   colors: drawColors,
                   onColorChanged: (color) {
                     setState(() {
-                      painterController.drawColor = color;
+                      painterController!.drawColor = color;
                     });
                     _hideKeyboard(context);
                   },
                   onUndo: () {
-                    painterController.undo();
+                    painterController!.undo();
                     _hideKeyboard(context);
                   },
                   onClearDrawing: () {
-                    painterController.clear();
+                    painterController!.clear();
                     _hideKeyboard(context);
                   },
                   onCloseFeedback: () {
@@ -169,14 +169,14 @@ class FeedbackWidgetState<T> extends State<FeedbackWidget<T>>
                   type: MaterialType.transparency,
                   child: Builder(
                     builder: (innerContext) {
-                      Future<void> fun(String text, [T params]) => sendFeedback(
+                      Future<void> fun(String text, [T? params]) => sendFeedback(
                             innerContext,
                             screenshotController,
                             text,
                             params: params,
                           );
                       return widget.formBuilder != null
-                          ? widget.formBuilder(fun)
+                          ? widget.formBuilder!(fun)
                           : FeedbackWidgetForm(widget.translation, fun);
                     },
                   ),
@@ -196,7 +196,7 @@ class FeedbackWidgetState<T> extends State<FeedbackWidget<T>>
     String feedbackText, {
     Duration delay = const Duration(milliseconds: 200),
     bool showKeyboard = false,
-    T params,
+    T? params,
   }) async {
     if (!showKeyboard) {
       _hideKeyboard(context);
@@ -214,7 +214,7 @@ class FeedbackWidgetState<T> extends State<FeedbackWidget<T>>
 
     // Give it to the developer
     // to do something with it.
-    Navigator.of(context).pop(FeedbackResponse<T>(
+    Navigator.of(context).pop(FeedbackResponse<T?>(
       feedbackText,
       screenshot,
       params,

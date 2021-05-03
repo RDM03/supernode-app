@@ -333,10 +333,12 @@ packages:
   fish_redux:
     dependency: "direct main"
     description:
-      name: fish_redux
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.7"
+      path: "."
+      ref: HEAD
+      resolved-ref: df1604a29a273a3c486b8a298141ba30a7d93e20
+      url: "https://github.com/festelo/fish-redux"
+    source: git
+    version: "0.4.0"
   fixnum:
     dependency: transitive
     description:

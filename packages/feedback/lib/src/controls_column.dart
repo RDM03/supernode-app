@@ -1,6 +1,6 @@
-import 'package:feedback/src/icon_button.dart';
-import 'package:feedback/src/translation.dart';
 import 'package:flutter/material.dart';
+import 'feedback_icon_button.dart';
+import 'translation.dart';
 
 enum ControlMode {
   draw,
@@ -10,20 +10,15 @@ enum ControlMode {
 /// is active.
 class ControlsColumn extends StatelessWidget {
   ControlsColumn({
-    Key key,
-    @required this.activeColor,
-    @required this.onColorChanged,
-    @required this.onUndo,
-    @required this.onCloseFeedback,
-    @required this.onClearDrawing,
-    @required this.colors,
-    @required this.translation,
-  })  : assert(onColorChanged != null),
-        assert(onUndo != null),
-        assert(onCloseFeedback != null),
-        assert(onClearDrawing != null),
-        assert(translation != null),
-        assert(
+    Key? key,
+    required this.activeColor,
+    required this.onColorChanged,
+    required this.onUndo,
+    required this.onCloseFeedback,
+    required this.onClearDrawing,
+    required this.colors,
+    required this.translation,
+  })   : assert(
           colors.isNotEmpty,
           'There must be at least one color to draw in colors',
         ),
@@ -63,7 +58,7 @@ class ControlsColumn extends StatelessWidget {
                 translation.draw,
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle1
+                    .subtitle1!
                     .copyWith(fontWeight: FontWeight.w500),
               ),
               onPressed: () {},
@@ -82,12 +77,12 @@ class ControlsColumn extends StatelessWidget {
             ),
           FeedbackIconButton(
             key: const Key('undo_button'),
-            icon: Icon(Icons.undo),
+            icon: const Icon(Icons.undo),
             onPressed: isNavigatingActive ? null : onUndo,
           ),
           FeedbackIconButton(
             key: const Key('clear_button'),
-            icon: Icon(Icons.delete),
+            icon: const Icon(Icons.delete),
             onPressed: isNavigatingActive ? null : onClearDrawing,
           ),
           const SizedBox(height: 10),
@@ -99,14 +94,14 @@ class ControlsColumn extends StatelessWidget {
 
 class _ColorSelectionIconButton extends StatelessWidget {
   const _ColorSelectionIconButton({
-    Key key,
-    this.color,
-    this.onPressed,
-    this.isActive,
+    Key? key,
+    required this.color,
+    required this.onPressed,
+    this.isActive = false,
   }) : super(key: key);
 
   final Color color;
-  final ValueChanged<Color> onPressed;
+  final ValueChanged<Color>? onPressed;
   final bool isActive;
 
   @override
@@ -114,18 +109,7 @@ class _ColorSelectionIconButton extends StatelessWidget {
     return FeedbackIconButton(
       icon: Icon(isActive ? Icons.lens : Icons.panorama_fish_eye),
       color: color,
-      onPressed: onPressed == null ? null : () => onPressed(color),
-    );
-  }
-}
-
-class _ColumnDivider extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 35,
-      height: 1,
-      color: Theme.of(context).dividerColor,
+      onPressed: onPressed == null ? null : () => onPressed!(color),
     );
   }
 }

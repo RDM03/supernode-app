@@ -14,18 +14,18 @@ class FeedbackResponse<T> {
 }
 
 typedef FeedbackFormBuilder<T> = Widget Function(
-    Future<void> Function(String text, [T params]) submit);
+    Future<void> Function(String text, [T? params]) submit);
 
 class BetterFeedback {
-  static Future<FeedbackResponse> show<T>(
+  static Future<FeedbackResponse?> show<T>(
     BuildContext context, {
-    FeedbackTranslation translation,
-    FeedbackFormBuilder<T> formBuilder,
-    List<Color> drawColors,
-    Color backgroundColor,
+    FeedbackTranslation? translation,
+    FeedbackFormBuilder<T>? formBuilder,
+    List<Color>? drawColors,
+    Color? backgroundColor,
   }) async {
     final path = await NativeScreenshot.takeScreenshot();
-    final file = File(path);
+    final file = File(path!);
     final screenshot = await file.readAsBytes();
     final res = await Navigator.of(context).push<FeedbackResponse>(
       MaterialPageRoute(

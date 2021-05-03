@@ -2,9 +2,9 @@ import 'package:flutter/widgets.dart' hide Image;
 
 class Painter extends StatefulWidget {
   Painter(this.painterController)
-      : super(key: ValueKey<PainterController>(painterController));
+      : super(key: ValueKey<PainterController?>(painterController));
 
-  final PainterController painterController;
+  final PainterController? painterController;
 
   @override
   _PainterState createState() => _PainterState();
@@ -23,7 +23,7 @@ class _PainterState extends State<Painter> {
         child: CustomPaint(
           willChange: true,
           painter: _PainterPainter(
-            widget.painterController._pathHistory,
+            widget.painterController!._pathHistory,
             repaint: widget.painterController,
           ),
         ),
@@ -34,34 +34,34 @@ class _PainterState extends State<Painter> {
   void _onPanStart(DragStartDetails start) {
     final Offset pos = (context.findRenderObject() as RenderBox)
         .globalToLocal(start.globalPosition);
-    widget.painterController._pathHistory.add(pos);
-    widget.painterController._notifyListeners();
+    widget.painterController!._pathHistory!.add(pos);
+    widget.painterController!._notifyListeners();
   }
 
   void _onPanUpdate(DragUpdateDetails update) {
     final Offset pos = (context.findRenderObject() as RenderBox)
         .globalToLocal(update.globalPosition);
-    widget.painterController._pathHistory.updateCurrent(pos);
-    widget.painterController._notifyListeners();
+    widget.painterController!._pathHistory!.updateCurrent(pos);
+    widget.painterController!._notifyListeners();
   }
 
   void _onPanEnd(DragEndDetails end) {
-    widget.painterController._pathHistory.endCurrent();
-    widget.painterController._notifyListeners();
+    widget.painterController!._pathHistory!.endCurrent();
+    widget.painterController!._notifyListeners();
   }
 }
 
 class _PainterPainter extends CustomPainter {
   _PainterPainter(
     this._path, {
-    Listenable repaint,
+    Listenable? repaint,
   }) : super(repaint: repaint);
 
-  final _PathHistory _path;
+  final _PathHistory? _path;
 
   @override
   void paint(Canvas canvas, Size size) {
-    _path.draw(canvas, size);
+    _path!.draw(canvas, size);
   }
 
   @override
@@ -76,9 +76,9 @@ class _PathHistory {
     _inDrag = false;
   }
 
-  List<MapEntry<Path, Paint>> _paths;
-  Paint currentPaint;
-  bool _inDrag;
+  late List<MapEntry<Path, Paint?>> _paths;
+  Paint? currentPaint;
+  late bool _inDrag;
 
   void undo() {
     if (!_inDrag && _paths.isNotEmpty) {
@@ -99,7 +99,7 @@ class _PathHistory {
     _inDrag = true;
     final Path path = Path();
     path.moveTo(startPoint.dx, startPoint.dy);
-    _paths.add(MapEntry<Path, Paint>(path, currentPaint));
+    _paths.add(MapEntry<Path, Paint?>(path, currentPaint));
   }
 
   void updateCurrent(Offset nextPoint) {
@@ -115,8 +115,8 @@ class _PathHistory {
   }
 
   void draw(Canvas canvas, Size size) {
-    for (final MapEntry<Path, Paint> path in _paths) {
-      canvas.drawPath(path.key, path.value);
+    for (final MapEntry<Path, Paint?> path in _paths) {
+      canvas.drawPath(path.key, path.value!);
     }
   }
 }
@@ -129,7 +129,7 @@ class PainterController extends ChangeNotifier {
   Color _drawColor = const Color.fromARGB(255, 0, 0, 0);
 
   double _thickness = 1;
-  _PathHistory _pathHistory;
+  _PathHistory? _pathHistory;
 
   Color get drawColor => _drawColor;
   set drawColor(Color color) {
@@ -149,12 +149,12 @@ class PainterController extends ChangeNotifier {
       ..style = PaintingStyle.stroke
       ..strokeWidth = thickness
       ..strokeCap = StrokeCap.round;
-    _pathHistory.currentPaint = paint;
+    _pathHistory!.currentPaint = paint;
     notifyListeners();
   }
 
   void undo() {
-    _pathHistory.undo();
+    _pathHistory!.undo();
     notifyListeners();
   }
 
@@ -163,7 +163,7 @@ class PainterController extends ChangeNotifier {
   }
 
   void clear() {
-    _pathHistory.clear();
+    _pathHistory!.clear();
     notifyListeners();
   }
 }
