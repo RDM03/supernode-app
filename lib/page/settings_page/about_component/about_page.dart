@@ -49,7 +49,7 @@ class AboutPage extends StatelessWidget {
             FlutterI18n.translate(context, 'version'),
             onTap: () => updateDialog(context).then((isLatest) {
               if (!isLatest)
-                tip(context, FlutterI18n.translate(context, 'tip_latest_version'), success: true);
+                tip( FlutterI18n.translate(context, 'tip_latest_version'), success: true);
             }),
             trailing: Container(
               padding: kInnerRowRight10,

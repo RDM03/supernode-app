@@ -73,7 +73,7 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
           backgroundColor: errorColor,
         ));
       }
-      // tip(ctx.context, 'UserDao register: $err');
+      // tip('UserDao register: $err');
     }
   }
 }
@@ -114,16 +114,15 @@ void _onVerificationContinue(
       loading.hide();
       mLog('passwordConfirm', res);
 
-      tip(ctx.context, FlutterI18n.translate(ctx.context, 'update_success'),
+      tip(FlutterI18n.translate(ctx.context, 'update_success'),
           success: true);
       Navigator.of(ctx.context)
           .pushAndRemoveUntil(route((c) => LoginPage()), (_) => false);
     } catch (e) {
       loading.hide();
-      // tip(ctx.context, 'UserDao registerConfirm: $e');
+      // tip('UserDao registerConfirm: $e');
     }
   } else {
-    tip(ctx.context,
-        FlutterI18n.translate(ctx.context, 'invalid verification code'));
+    tip(FlutterI18n.translate(ctx.context, 'invalid verification code'));
   }
 }

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
+import 'package:supernodeapp/common/repositories/supernode/clients/exceptions/exception_handler.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/withdraw.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
