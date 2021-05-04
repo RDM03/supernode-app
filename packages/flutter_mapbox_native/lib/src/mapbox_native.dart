@@ -6,8 +6,8 @@ typedef void OnStyleLoadedCallback();
 
 class FlutterMapboxNative extends StatefulWidget {
   const FlutterMapboxNative(
-      {Key key,
-      @required this.center,
+      {Key? key,
+      required this.center,
       this.mapStyle,
       this.gestureRecognizers,
       this.minimumZoomLevel,
@@ -29,7 +29,7 @@ class FlutterMapboxNative extends StatefulWidget {
       : super(key: key);
 
   /// Style of map to be rendered
-  final String mapStyle;
+  final String? mapStyle;
 
   /// Center of map
   /// target constains a pair of latitude and longitude coordinates;
@@ -37,8 +37,8 @@ class FlutterMapboxNative extends StatefulWidget {
   /// animated: bool;
   final CenterPosition center;
 
-  final double minimumZoomLevel;
-  final double maximumZoomLevel;
+  final double? minimumZoomLevel;
+  final double? maximumZoomLevel;
 
   final bool myLocationSwitch;
   final bool myLocationEnabled;
@@ -57,27 +57,26 @@ class FlutterMapboxNative extends StatefulWidget {
   final bool isFullScreen;
   final bool fullScreenEnabled;
 
-  final ArgumentCallback<LatLng> onTap;
+  final ArgumentCallback<LatLng>? onTap;
 
-  final Set<Marker> markers;
+  final Set<Marker>? markers;
 
   // final String clusterImage;
-  final List clusters;
+  final List? clusters;
 
-  final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers;
+  final Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers;
 
-  final MapCreatedCallback onMapCreated;
+  final MapCreatedCallback? onMapCreated;
 
-  final OnFullScreenTap onFullScreenTap;
-  final OnStyleLoadedCallback onStyleLoadedCallback;
+  final OnFullScreenTap? onFullScreenTap;
+  final OnStyleLoadedCallback? onStyleLoadedCallback;
 
   @override
   State createState() => _MapboxNativeState();
 }
 
 class _MapboxNativeState extends State<FlutterMapboxNative> {
-  _MapboxOptions _mapboxOptions;
-  MediaQueryData _mediaData;
+  late _MapboxOptions _mapboxOptions;
   bool _myLocationSwitch = true;
   bool _isFullScreen = false;
 
@@ -92,7 +91,7 @@ class _MapboxNativeState extends State<FlutterMapboxNative> {
       'clusters': jsonEncode(
           {"type": "FeatureCollection", "features": widget.clusters}),
       'mapStyle': widget.mapStyle,
-      'center': widget.center?.toMap(),
+      'center': widget.center.toMap(),
       'markersToAdd': serializeMarkerSet(widget.markers),
       'options': _mapboxOptions.toMap(),
     };
@@ -159,7 +158,7 @@ class _MapboxNativeState extends State<FlutterMapboxNative> {
 
   void _updateClusters() async {
     final MapboxController controller = await _controller.future;
-    controller._updateClusters(widget.clusters);
+    controller._updateClusters(widget.clusters!);
   }
 
   Future<void> onPlatformViewCreated(int id) async {
@@ -170,7 +169,7 @@ class _MapboxNativeState extends State<FlutterMapboxNative> {
     );
     _controller.complete(controller);
     if (widget.onMapCreated != null) {
-      widget.onMapCreated(controller);
+      widget.onMapCreated!(controller);
     }
   }
 
@@ -219,12 +218,13 @@ class _MapboxNativeState extends State<FlutterMapboxNative> {
             : Icons.close,
         onPressed: () => setState(() {
               if (widget.onFullScreenTap != null) {
-                widget.onFullScreenTap();
+                widget.onFullScreenTap!();
               }
             }));
   }
 
-  Widget _iconButton({IconData icon, Function onPressed, bool visible = true}) {
+  Widget _iconButton(
+      {IconData? icon, Function? onPressed, bool visible = true}) {
     return Visibility(
         visible: visible,
         child: Container(
@@ -237,7 +237,7 @@ class _MapboxNativeState extends State<FlutterMapboxNative> {
             boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
           ),
           child: IconButton(
-            onPressed: onPressed,
+            onPressed: onPressed as void Function()?,
             icon: Icon(
               icon,
               color: Colors.white,
@@ -247,15 +247,14 @@ class _MapboxNativeState extends State<FlutterMapboxNative> {
   }
 
   void onTap(LatLng position) {
-    assert(position != null);
     if (widget.onTap != null) {
-      widget.onTap(position);
+      widget.onTap!(position);
     }
   }
 
   void onStyleLoadedCallback() {
     if (widget.onStyleLoadedCallback != null) {
-      widget.onStyleLoadedCallback();
+      widget.onStyleLoadedCallback!();
     }
   }
 }
@@ -284,15 +283,15 @@ class _MapboxOptions {
     );
   }
 
-  final double minimumZoomLevel;
-  final double maximumZoomLevel;
+  final double? minimumZoomLevel;
+  final double? maximumZoomLevel;
 
-  final bool myLocationSwitch;
-  final bool myLocationEnabled;
-  final bool myLocationButtonEnabled;
+  final bool? myLocationSwitch;
+  final bool? myLocationEnabled;
+  final bool? myLocationButtonEnabled;
 
-  final MyLocationTrackingMode myLocationTrackingMode;
-  final MyLocationRenderMode myLocationRenderMode;
+  final MyLocationTrackingMode? myLocationTrackingMode;
+  final MyLocationRenderMode? myLocationRenderMode;
 
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> optionsMap = <String, dynamic>{};

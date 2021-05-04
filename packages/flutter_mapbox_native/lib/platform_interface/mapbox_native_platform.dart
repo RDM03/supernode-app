@@ -28,14 +28,14 @@ abstract class MapboxNativePlatform extends PlatformInterface {
 
   Future<void> updateMapOptions(
     Map<String, dynamic> optionsUpdate, {
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError('updateMapOptions() has not been implemented.');
   }
 
   Future<void> setMapStyle(
     String mapStyle, {
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError('setMapStyle() has not been implemented.');
   }
@@ -43,7 +43,7 @@ abstract class MapboxNativePlatform extends PlatformInterface {
   Future<void> addImage(
     String name,
     Uint8List bytes, {
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError('addImage() has not been implemented.');
   }
@@ -51,13 +51,13 @@ abstract class MapboxNativePlatform extends PlatformInterface {
   /// Changes the map camera position.
   Future<void> moveCamera(
     CenterPosition center, {
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError('moveCamera() has not been implemented.');
   }
 
   Future<void> moveCameraToMyLocation({
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError(
         'moveCameraToMyLocation() has not been implemented.');
@@ -65,14 +65,14 @@ abstract class MapboxNativePlatform extends PlatformInterface {
 
   Future<void> isMyLocationVisible(
     bool visible, {
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError('isMyLocationVisible() has not been implemented.');
   }
 
   Future<void> updateMyLocationTrackingMode(
     MyLocationTrackingMode myLocationTrackingMode, {
-    @required int mapId,
+    required int mapId,
   }) async {
     throw UnimplementedError(
         'updateMyLocationTrackingMode() has not been implemented.');
@@ -80,36 +80,36 @@ abstract class MapboxNativePlatform extends PlatformInterface {
 
   Future<void> updateMarkers(
     MarkerUpdates markerUpdates, {
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError('updateMarkers() has not been implemented.');
   }
 
   Future<void> updateClusters(
     List clusterUpdates, {
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError('updateClusters() has not been implemented.');
   }
 
   /// A Map has been tapped at a certain [LatLng].
-  Stream<MapTapEvent> onTap({@required int mapId}) {
+  Stream<MapTapEvent> onTap({required int mapId}) {
     throw UnimplementedError('onTap() has not been implemented.');
   }
 
-  Stream<MapStyleLoadedEvent> onMapStyleLoaded({@required int mapId}) {
+  Stream<MapStyleLoadedEvent> onMapStyleLoaded({required int mapId}) {
     throw UnimplementedError('onMapStyleLoaded() has not been implemented.');
   }
 
   /// Dispose of whatever resources the `mapId` is holding on to.
-  void dispose({@required int mapId}) {
+  void dispose({required int mapId}) {
     throw UnimplementedError('dispose() has not been implemented.');
   }
 
   /// Returns a widget displaying the map view
   Widget buildView(
       Map<String, dynamic> creationParams,
-      Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers,
+      Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers,
       PlatformViewCreatedCallback onPlatformViewCreated) {
     throw UnimplementedError('buildView() has not been implemented.');
   }

@@ -15,11 +15,7 @@ import 'utils/marker.dart';
 // (Do not re-export)
 class MarkerUpdates {
   /// Computes [MarkerUpdates] given previous and current [Marker]s.
-  MarkerUpdates.from(Set<Marker> previous, Set<Marker> current) {
-    if (previous == null) {
-      previous = Set<Marker>.identity();
-    }
-
+  MarkerUpdates.from(Set<Marker> previous, Set<Marker>? current) {
     if (current == null) {
       current = Set<Marker>.identity();
     }
@@ -30,26 +26,26 @@ class MarkerUpdates {
     final Set<MarkerId> prevMarkerIds = previousMarkers.keys.toSet();
     final Set<MarkerId> currentMarkerIds = currentMarkers.keys.toSet();
 
-    Marker idToCurrentMarker(MarkerId id) {
+    Marker? idToCurrentMarker(MarkerId id) {
       return currentMarkers[id];
     }
 
     final Set<MarkerId> _markerIdsToRemove =
         prevMarkerIds.difference(currentMarkerIds);
 
-    final Set<Marker> _markersToAdd = currentMarkerIds
+    final Set<Marker?> _markersToAdd = currentMarkerIds
         .difference(prevMarkerIds)
         .map(idToCurrentMarker)
         .toSet();
 
     /// Returns `true` if [current] is not equals to previous one with the
     /// same id.
-    bool hasChanged(Marker current) {
-      final Marker previous = previousMarkers[current.markerId];
+    bool hasChanged(Marker? current) {
+      final Marker? previous = previousMarkers[current!.markerId];
       return current != previous;
     }
 
-    final Set<Marker> _markersToChange = currentMarkerIds
+    final Set<Marker?> _markersToChange = currentMarkerIds
         .intersection(prevMarkerIds)
         .map(idToCurrentMarker)
         .where(hasChanged)
@@ -61,13 +57,13 @@ class MarkerUpdates {
   }
 
   /// Set of Markers to be added in this update.
-  Set<Marker> markersToAdd;
+  Set<Marker?>? markersToAdd;
 
   /// Set of MarkerIds to be removed in this update.
-  Set<MarkerId> markerIdsToRemove;
+  Set<MarkerId>? markerIdsToRemove;
 
   /// Set of Markers to be changed in this update.
-  Set<Marker> markersToChange;
+  Set<Marker?>? markersToChange;
 
   /// Converts this object to something serializable in JSON.
   Map<String, dynamic> toJson() {
@@ -82,7 +78,7 @@ class MarkerUpdates {
     addIfNonNull('markersToAdd', serializeMarkerSet(markersToAdd));
     addIfNonNull('markersToChange', serializeMarkerSet(markersToChange));
     addIfNonNull('markerIdsToRemove',
-        markerIdsToRemove.map<dynamic>((MarkerId m) => m.value).toList());
+        markerIdsToRemove!.map<dynamic>((MarkerId m) => m.value).toList());
 
     return updateMap;
   }
@@ -91,6 +87,7 @@ class MarkerUpdates {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other.runtimeType != runtimeType) return false;
+    if (!(other is MarkerUpdates)) return false;
     final MarkerUpdates typedOther = other;
     return setEquals(markersToAdd, typedOther.markersToAdd) &&
         setEquals(markerIdsToRemove, typedOther.markerIdsToRemove) &&

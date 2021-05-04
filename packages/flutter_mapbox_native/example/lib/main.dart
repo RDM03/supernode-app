@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:typed_data';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,7 +17,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   BitmapDescriptor _markerIcon;
   List _clusters;
-  List<Marker> _markers;
   MapboxController _controller;
 
   @override
@@ -89,18 +87,6 @@ class _MyAppState extends State<MyApp> {
           "coordinates": [15.86524030000001, 45.7283808]
         }
       }
-    ];
-
-    _markers = [
-      Marker(
-          iconImage: 'assets/images/gateways.png',
-          markerId: MarkerId('center-1'),
-          position: LatLng(0, 0)),
-      Marker(
-        iconImage: 'assets/images/gateways.png',
-        markerId: MarkerId('center-2'),
-        position: LatLng(0, 0.02),
-      )
     ];
   }
 
@@ -193,11 +179,5 @@ class _MyAppState extends State<MyApp> {
       //     .then(_updateBitmap);
 
     }
-  }
-
-  void _updateBitmap(BitmapDescriptor bitmap) {
-    setState(() {
-      _markerIcon = bitmap;
-    });
   }
 }

@@ -10,8 +10,8 @@ class MapboxController {
   MapboxController._(
     CenterPosition center,
     this._mapboxNativeState, {
-    @required this.mapId,
-  }) : assert(_mapboxNativePlatform != null) {
+    required this.mapId,
+  }) {
     _connectStreams(mapId);
   }
 
@@ -22,7 +22,6 @@ class MapboxController {
     CenterPosition center,
     _MapboxNativeState mapboxNativeState,
   ) async {
-    assert(id != null);
     await _mapboxNativePlatform.init(id);
     return MapboxController._(
       center,
@@ -34,7 +33,7 @@ class MapboxController {
   void _connectStreams(int mapId) {
     _mapboxNativePlatform
         .onTap(mapId: mapId)
-        .listen((MapTapEvent e) => _mapboxNativeState.onTap(e.position));
+        .listen((MapTapEvent e) => _mapboxNativeState.onTap(e.position!));
 
     _mapboxNativePlatform.onMapStyleLoaded(mapId: mapId).listen(
         (MapStyleLoadedEvent e) => _mapboxNativeState.onStyleLoadedCallback());
@@ -59,22 +58,18 @@ class MapboxController {
   }
 
   Future<void> _updateMapOptions(Map<String, dynamic> optionsUpdate) {
-    assert(optionsUpdate != null);
     return _mapboxNativePlatform.updateMapOptions(optionsUpdate, mapId: mapId);
   }
 
   Future<void> _updateMarkers(MarkerUpdates markerUpdates) {
-    assert(markerUpdates != null);
     return _mapboxNativePlatform.updateMarkers(markerUpdates, mapId: mapId);
   }
 
   Future<void> _updateClusters(List clusters) {
-    assert(clusters != null);
     return _mapboxNativePlatform.updateClusters(clusters, mapId: mapId);
   }
 
   Future<void> addImage(String name, Uint8List bytes) {
-    assert(name != null && bytes != null);
     return _mapboxNativePlatform.addImage(name, bytes, mapId: mapId);
   }
 

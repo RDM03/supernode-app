@@ -1,15 +1,13 @@
 import 'dart:ui' show hashValues;
 
-import 'package:meta/meta.dart' show required;
-
 import 'latlng.dart';
 
 class CenterPosition {
-  const CenterPosition(
-      {@required this.target, this.zoom = 0.0, this.animated = false})
-      : assert(target != null),
-        assert(zoom != null),
-        assert(animated != null);
+  const CenterPosition({
+    required this.target,
+    this.zoom = 0.0,
+    this.animated = false,
+  });
 
   final LatLng target;
 
@@ -23,12 +21,9 @@ class CenterPosition {
         'animated': animated
       };
 
-  static CenterPosition fromMap(dynamic json) {
-    if (json == null) {
-      return null;
-    }
+  static CenterPosition fromMap(Map json) {
     return CenterPosition(
-      target: LatLng.fromJson(json['target']),
+      target: LatLng.fromJson(json['target'])!,
       zoom: json['zoom'],
       animated: json['animated'],
     );

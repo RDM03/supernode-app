@@ -14,10 +14,10 @@ import 'package:stream_transform/stream_transform.dart';
 class MethodChannelMapboxFlutter extends MapboxNativePlatform {
   // Keep a collection of id -> channel
   // Every method call passes the int mapId
-  final Map<int, MethodChannel> _channels = {};
+  final Map<int, MethodChannel?> _channels = {};
 
   /// Accesses the MethodChannel associated to the passed mapId.
-  MethodChannel channel(int mapId) {
+  MethodChannel? channel(int mapId) {
     return _channels[mapId];
   }
 
@@ -26,23 +26,22 @@ class MethodChannelMapboxFlutter extends MapboxNativePlatform {
   /// This method is called when the plugin is first initialized.
   @override
   Future<void> init(int mapId) {
-    MethodChannel channel;
+    MethodChannel? channel;
     if (!_channels.containsKey(mapId)) {
       channel = MethodChannel('plugins.flutter.io/mapbox_native_$mapId');
       channel.setMethodCallHandler(
           (MethodCall call) => _handleMethodCall(call, mapId));
       _channels[mapId] = channel;
     }
-    return channel.invokeMethod<void>('map#init');
+    return channel!.invokeMethod<void>('map#init');
   }
 
   @override
   Future<void> updateMapOptions(
     Map<String, dynamic> optionsUpdate, {
-    @required int mapId,
+    required int mapId,
   }) {
-    assert(optionsUpdate != null);
-    return channel(mapId).invokeMethod<void>(
+    return channel(mapId)!.invokeMethod<void>(
       'map#update',
       <String, dynamic>{
         'options': optionsUpdate,
@@ -53,10 +52,9 @@ class MethodChannelMapboxFlutter extends MapboxNativePlatform {
   @override
   Future<void> updateMarkers(
     MarkerUpdates markerUpdates, {
-    @required int mapId,
+    required int mapId,
   }) {
-    assert(markerUpdates != null);
-    return channel(mapId).invokeMethod<void>(
+    return channel(mapId)!.invokeMethod<void>(
       'markers#update',
       markerUpdates.toJson(),
     );
@@ -65,10 +63,9 @@ class MethodChannelMapboxFlutter extends MapboxNativePlatform {
   @override
   Future<void> updateClusters(
     List clusterUpdates, {
-    @required int mapId,
+    required int mapId,
   }) {
-    assert(clusterUpdates != null);
-    return channel(mapId).invokeMethod<void>(
+    return channel(mapId)!.invokeMethod<void>(
       'clusters#update',
       <String, dynamic>{
         'clusters': jsonEncode(
@@ -80,10 +77,11 @@ class MethodChannelMapboxFlutter extends MapboxNativePlatform {
   @override
   Future<void> setMapStyle(
     String mapStyle, {
-    @required int mapId,
+    required int mapId,
   }) async {
-    final List<dynamic> successAndError = await channel(mapId)
-        .invokeMethod<List<dynamic>>('map#setStyle', mapStyle);
+    final List<dynamic> successAndError = await (channel(mapId)!
+            .invokeMethod<List<dynamic>>('map#setStyle', mapStyle)
+        as FutureOr<List<dynamic>>);
     final bool success = successAndError[0];
     if (!success) {
       throw Exception(successAndError[1]);
@@ -94,10 +92,9 @@ class MethodChannelMapboxFlutter extends MapboxNativePlatform {
   Future<void> addImage(
     String name,
     Uint8List bytes, {
-    @required int mapId,
+    required int mapId,
   }) {
-    assert(name != null && bytes != null);
-    return channel(mapId)
+    return channel(mapId)!
         .invokeMethod<void>('style#addImage', <String, dynamic>{
       "name": name,
       "bytes": bytes,
@@ -108,26 +105,26 @@ class MethodChannelMapboxFlutter extends MapboxNativePlatform {
   @override
   Future<void> moveCamera(
     CenterPosition center, {
-    @required int mapId,
+    required int mapId,
   }) {
-    return channel(mapId).invokeMethod<void>('camera#move', <String, dynamic>{
+    return channel(mapId)!.invokeMethod<void>('camera#move', <String, dynamic>{
       'cameraUpdate': center.toMap(),
     });
   }
 
   @override
   Future<void> moveCameraToMyLocation({
-    @required int mapId,
+    required int mapId,
   }) {
-    return channel(mapId).invokeMethod<void>('camera#moveToMyLocation');
+    return channel(mapId)!.invokeMethod<void>('camera#moveToMyLocation');
   }
 
   @override
   Future<void> isMyLocationVisible(
     bool visible, {
-    @required int mapId,
+    required int mapId,
   }) {
-    return channel(mapId)
+    return channel(mapId)!
         .invokeMethod<void>('myLocation#visiable', <String, bool>{
       'visiable': visible,
     });
@@ -136,9 +133,9 @@ class MethodChannelMapboxFlutter extends MapboxNativePlatform {
   @override
   Future<void> updateMyLocationTrackingMode(
     MyLocationTrackingMode myLocationTrackingMode, {
-    @required int mapId,
+    required int mapId,
   }) {
-    return channel(mapId).invokeMethod<void>(
+    return channel(mapId)!.invokeMethod<void>(
         'map#updateMyLocationTrackingMode', <String, MyLocationTrackingMode>{
       'mode': myLocationTrackingMode,
     });
@@ -146,7 +143,7 @@ class MethodChannelMapboxFlutter extends MapboxNativePlatform {
 
   /// Dispose of the native resources.
   @override
-  void dispose({int mapId}) {}
+  void dispose({int? mapId}) {}
 
   // The controller we need to broadcast the different events coming
   // from handleMethodCall.
@@ -161,12 +158,12 @@ class MethodChannelMapboxFlutter extends MapboxNativePlatform {
       _mapEventStreamController.stream.where((event) => event.mapId == mapId);
 
   @override
-  Stream<MapTapEvent> onTap({@required int mapId}) {
+  Stream<MapTapEvent> onTap({required int mapId}) {
     return _events(mapId).whereType<MapTapEvent>();
   }
 
   @override
-  Stream<MapStyleLoadedEvent> onMapStyleLoaded({@required int mapId}) {
+  Stream<MapStyleLoadedEvent> onMapStyleLoaded({required int mapId}) {
     return _events(mapId).whereType<MapStyleLoadedEvent>();
   }
 
@@ -189,7 +186,7 @@ class MethodChannelMapboxFlutter extends MapboxNativePlatform {
   @override
   Widget buildView(
       Map<String, dynamic> creationParams,
-      Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers,
+      Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers,
       PlatformViewCreatedCallback onPlatformViewCreated) {
     if (defaultTargetPlatform == TargetPlatform.android) {
       return AndroidView(

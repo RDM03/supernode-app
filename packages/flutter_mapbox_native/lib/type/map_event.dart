@@ -50,7 +50,7 @@ class MapEvent<T> {
 /// A `MapEvent` associated to a `position`.
 class _PositionedMapEvent<T> extends MapEvent<T> {
   /// The position where this event happened.
-  final LatLng position;
+  final LatLng? position;
 
   /// Build a Positioned MapEvent, that relates a mapId and a position with a value.
   ///
@@ -116,7 +116,7 @@ class MapTapEvent extends _PositionedMapEvent<void> {
   /// Build an MapTap Event triggered from the map represented by `mapId`.
   ///
   /// The `position` of this event is the LatLng where the Map was tapped.
-  MapTapEvent(int mapId, LatLng position) : super(mapId, position, null);
+  MapTapEvent(int mapId, LatLng? position) : super(mapId, position, null);
 }
 
 /// An event fired when a Map is long pressed.
@@ -127,6 +127,6 @@ class MapLongPressEvent extends _PositionedMapEvent<void> {
   MapLongPressEvent(int mapId, LatLng position) : super(mapId, position, null);
 }
 
-class MapStyleLoadedEvent extends MapEvent<MapStyleLoadedEvent> {
+class MapStyleLoadedEvent extends MapEvent<MapStyleLoadedEvent?> {
   MapStyleLoadedEvent(int mapId) : super(mapId, null);
 }
