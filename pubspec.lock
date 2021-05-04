@@ -21,7 +21,14 @@ packages:
       name: android_metadata
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.2"
+    version: "0.2.1"
+  app_installer:
+    dependency: transitive
+    description:
+      name: app_installer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   archive:
     dependency: transitive
     description:
@@ -572,13 +579,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
-  install_plugin:
-    dependency: transitive
-    description:
-      name: install_plugin
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1"
   integration_test:
     dependency: "direct main"
     description: flutter
@@ -633,6 +633,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.5.1"
+  launch_review:
+    dependency: transitive
+    description:
+      name: launch_review
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.1"
   local_auth:
     dependency: "direct main"
     description:
@@ -787,13 +794,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0+1"
-  open_appstore:
-    dependency: transitive
-    description:
-      name: open_appstore
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
   otp:
     dependency: "direct dev"
     description:
@@ -814,7 +814,7 @@ packages:
       name: package_info
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.3+2"
+    version: "2.0.0"
   pagination_view:
     dependency: "direct main"
     description:
@@ -891,14 +891,14 @@ packages:
       name: permission_handler
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.3"
+    version: "7.1.0"
   permission_handler_platform_interface:
     dependency: transitive
     description:
       name: permission_handler_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.2.0"
+    version: "3.3.0"
   petitparser:
     dependency: transitive
     description:
@@ -948,13 +948,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.1.0"
-  progress_dialog:
-    dependency: transitive
-    description:
-      name: progress_dialog
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.4"
   provider:
     dependency: transitive
     description:
