@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:majascan/majascan.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/components/app_bars/home_bar.dart';
@@ -11,8 +10,8 @@ import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
+import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/page/home_page/device/list_item/list_item.dart';
-import 'package:supernodeapp/theme/colors.dart';
 
 class DeviceTab extends StatefulWidget {
   @override
@@ -21,13 +20,7 @@ class DeviceTab extends StatefulWidget {
 
 class _DeviceTabState extends State<DeviceTab> {
   Future<void> onQrScan() async {
-    final qrResult = await MajaScan.startScan(
-      title: FlutterI18n.translate(context, 'scan_code'),
-      barColor: buttonPrimaryColor,
-      titleColor: backgroundColor,
-      qRCornerColor: buttonPrimaryColor,
-      qRScannerColor: buttonPrimaryColorAccent,
-    );
+    String qrResult = await Tools.scanQr(context);
     Navigator.pushNamed(context, 'choose_application_page');
   }
 
@@ -71,13 +64,13 @@ class _DeviceTabState extends State<DeviceTab> {
         onRefresh: () async {},
         child: PageBody(
           children: [
-            BlocBuilder<AppCubit, AppState>(
-              buildWhen: (a, b) => a.isDemo != b.isDemo,
+            BlocBuilder<SupernodeCubit, SupernodeState>(
+              buildWhen: (a, b) => a.session.isDemo != b.session.isDemo,
               builder: (context, state) => PanelFrame(
                 child: PanelBody(
                   loading: false,
                   icon: Icons.add_circle,
-                  onPressed: state.isDemo ? () => onQrScan() : null,
+                  onPressed: state.session.isDemo ? () => onQrScan() : null,
                   titleText: FlutterI18n.translate(context, 'total_device'),
                   subtitleText: '0',
                   trailTitle: FlutterI18n.translate(context, 'downlink_fee'),
@@ -85,10 +78,10 @@ class _DeviceTabState extends State<DeviceTab> {
                 ),
               ),
             ),
-            BlocBuilder<AppCubit, AppState>(
-              buildWhen: (a, b) => a.isDemo != b.isDemo,
+            BlocBuilder<SupernodeCubit, SupernodeState>(
+              buildWhen: (a, b) => a.session.isDemo != b.session.isDemo,
               builder: (context, state) => PanelFrame(
-                child: state.isDemo
+                child: state.session.isDemo
                     ? ListView.builder(
                         itemBuilder: (ctx, i) => DeviceListItem(),
                         itemCount: 3,

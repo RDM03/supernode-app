@@ -1,6 +1,9 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:supernodeapp/page/scan_qr_page/scan_qr_page.dart';
+import 'package:supernodeapp/route.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Tools {
@@ -101,5 +104,11 @@ class Tools {
   /// in order to represent double in format: maximum xxx.x, and minimum x.xxx
   static int max3DecimalPlaces(double minedAmount) {
     return min(3, max(1, (3 - (log(minedAmount) / ln10).floor())));
+  }
+
+  static Future<String> scanQr(BuildContext context) async {
+    final res = (await Navigator.of(context).push(route((_) => ScanQrPage())))
+        as String;
+    return res;
   }
 }

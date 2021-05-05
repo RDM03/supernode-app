@@ -2,9 +2,9 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:majascan/majascan.dart';
 import 'package:supernodeapp/common/utils/address_entity.dart';
 import 'package:supernodeapp/common/repositories/storage_repository.dart';
+import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'action.dart';
 import 'state.dart';
@@ -30,11 +30,6 @@ void _onSave(Action action, Context<AddAddressState> ctx) async {
 }
 
 void _onQr(Action action, Context<AddAddressState> ctx) async {
-  String qrResult = await MajaScan.startScan(
-      title: FlutterI18n.translate(ctx.context, 'scan_code'),
-      barColor: buttonPrimaryColor,
-      titleColor: backgroundColor,
-      qRCornerColor: buttonPrimaryColor,
-      qRScannerColor: buttonPrimaryColorAccent);
+  String qrResult = await Tools.scanQr(ctx.context);
   ctx.dispatch(AddAddressActionCreator.setAddress(qrResult));
 }

@@ -4,7 +4,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:location/location.dart';
-import 'package:majascan/majascan.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/loading.dart';
@@ -16,6 +15,7 @@ import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 
 import 'package:supernodeapp/common/utils/reg.dart';
+import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -49,12 +49,7 @@ void _initState(Action action, Context<AddGatewayState> ctx) async {
 }
 
 void _onQrScan(Action action, Context<AddGatewayState> ctx) async {
-  String qrResult = await MajaScan.startScan(
-      title: FlutterI18n.translate(ctx.context, 'scan_code'),
-      barColor: buttonPrimaryColor,
-      titleColor: backgroundColor,
-      qRCornerColor: buttonPrimaryColor,
-      qRScannerColor: buttonPrimaryColorAccent);
+  String qrResult = await Tools.scanQr(ctx.context);
   ctx.dispatch(AddGatewayActionCreator.serialNumber(qrResult));
 
   try {
