@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/text_field/primary_text_field.dart';
 import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
+import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import 'action.dart';
@@ -274,8 +275,7 @@ Widget buildView(
                   return Text(
                     (dailyReturn == null || dailyReturn.isNaN
                             ? '??'
-                            : dailyReturn.toStringAsFixed(0)) +
-                        ' DHX',
+                            : '${Tools.priceFormat(dailyReturn, range: 2)} DHX',
                     key: ValueKey('dailyReturnText'),
                     textAlign: TextAlign.right,
                     maxLines: 2,
