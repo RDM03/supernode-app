@@ -75,6 +75,7 @@ List<BlocListener> listeners() => [
                 username: state.session?.username,
                 password: state.session?.password,
                 supernode: state.session?.node,
+                isDemo: state.session?.isDemo,
               );
         },
       ),

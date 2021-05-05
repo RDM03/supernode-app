@@ -22,10 +22,6 @@ class SupernodeCubit extends Cubit<SupernodeState> {
           selectedNode: session?.node,
         ));
 
-  void setDemo(bool isDemo) => emit(
-        state.copyWith.session(isDemo: isDemo),
-      );
-
   void setSupernode(Supernode supernode) => emit(
         state.copyWith(selectedNode: supernode),
       );
