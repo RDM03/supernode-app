@@ -73,7 +73,7 @@ void _onConfirm(Action action, Context<PrepareLockState> ctx) async {
 
   _balance(ctx);
 
-  if (res == true)
+  if (res == true) 
     Navigator.of(ctx.context).pop(true);
 }
 
