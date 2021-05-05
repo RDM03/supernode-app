@@ -38,8 +38,7 @@ dependencies:
   # https://pub.dev/packages/modal_bottom_sheet
   modal_bottom_sheet: 0.2.0
   # https://pub.dev/packages/web3dart
-  web3dart:
-    git: https://github.com/simolus3/web3dart # TODO
+  web3dart: ^2.0.0
   # https://pub.dev/packages/dio
   dio: ^4.0.0
   # https://pub.dev/packages/flutter_i18n
@@ -78,8 +77,6 @@ dependencies:
   json_serializable: ^3.3.0
   # https://pub.dev/packages/font_awesome_flutter
   font_awesome_flutter: ^8.8.1
-  # https://pub.dev/packages/ethereum_address
-  ethereum_address: ^1.0.1
   # https://pub.dev/packages/decimal
   decimal: ^0.3.5
   # https://pub.dev/packages/share

@@ -1,4 +1,3 @@
-import 'package:ethereum_address/ethereum_address.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -6,6 +5,7 @@ import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
+import 'package:supernodeapp/common/components/security/ethereum_utils.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 
 import 'action.dart';
@@ -46,8 +46,8 @@ Widget buildView(
         TextFieldWithTitle(
           key: ValueKey('addressTextField'),
           title: FlutterI18n.translate(_ctx, 'address'),
-          validator: (v) => v != null && isValidEthereumAddress(v)
-              ? null
+          validator: (v) => v != null
+              ? null && Ethereum.isValidEthAddress(v)
               : FlutterI18n.translate(_ctx, 'invalid_address'),
           controller: state.addressController,
         ),

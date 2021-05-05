@@ -1,4 +1,3 @@
-import 'package:ethereum_address/ethereum_address.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -9,6 +8,7 @@ import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/security/bitcoin_utils.dart';
+import 'package:supernodeapp/common/components/security/ethereum_utils.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/utils/address_entity.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
@@ -292,7 +292,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
     if (res != null) return FlutterI18n.translate(context, res);
 
     dynamic isValidAddress = (_) => true;
-    if (widget.token == Token.mxc) isValidAddress = isValidEthereumAddress;
+    if (widget.token == Token.mxc) isValidAddress = Ethereum.isValidEthAddress;
     if (widget.token == Token.btc) isValidAddress = Bitcoin.isValidBtcAddress;
 
     if (!isValidAddress(address.trim()))

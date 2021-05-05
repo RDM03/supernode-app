@@ -217,7 +217,7 @@ packages:
       name: convert
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.1"
+    version: "3.0.0"
   coverage:
     dependency: transitive
     description:
@@ -288,13 +288,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
-  ethereum_address:
-    dependency: "direct main"
-    description:
-      name: ethereum_address
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -475,7 +468,7 @@ packages:
       path: "packages/fluwx"
       relative: true
     source: path
-    version: "2.4.0"
+    version: "3.4.2"
   font_awesome_flutter:
     dependency: "direct main"
     description:
@@ -584,13 +577,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.4"
-  isolate:
-    dependency: transitive
-    description:
-      name: isolate
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.3"
   js:
     dependency: transitive
     description:
@@ -611,7 +597,7 @@ packages:
       name: json_rpc_2
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.2"
+    version: "3.0.0"
   json_serializable:
     dependency: "direct main"
     description:
@@ -891,7 +877,7 @@ packages:
       name: pointycastle
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "3.0.1"
   pool:
     dependency: transitive
     description:
@@ -1257,12 +1243,10 @@ packages:
   web3dart:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: fe3b5be784318433994d16256964a4fa5de3d2fd
-      url: "https://github.com/simolus3/web3dart"
-    source: git
-    version: "2.0.0-dev.9"
+      name: web3dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   web_socket_channel:
     dependency: transitive
     description:
