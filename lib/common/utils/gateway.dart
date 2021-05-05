@@ -1,5 +1,5 @@
-import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:supernodeapp/common/utils/time.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 
 class Mining {
@@ -11,7 +11,7 @@ class Mining {
 
   Mining(this.date, this.amount);
 
-  static List<Mining> _mapData(List source) {
+  static List<Mining> mapData(List source) {
     Map<DateTime, double> data = {};
     for (final item in source) {
       final sourceDate = DateTime.parse(item['date']);
@@ -37,20 +37,25 @@ class Mining {
     return entries.map((e) => Mining(e.key, e.value)).toList();
   }
 
-  static List<charts.Series<Mining, DateTime>> getData(List data) {
+  static LineChartBarData getData(List data) {
     data ??= [];
-    final newData = _mapData(data);
-
-    return [
-      new charts.Series<Mining, DateTime>(
-        id: 'mining',
-        colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-        domainFn: (Mining mining, _) => mining.date,
-        measureFn: (Mining mining, _) => mining.amount,
-        data: newData,
-      )
-    ];
+    final newData = mapData(data);
+    return LineChartBarData(
+      spots: newData.map(
+          (e) => FlSpot(e.date.millisecondsSinceEpoch.toDouble(), e.amount)),
+      colors: [Colors.green],
+    );
   }
+}
+
+class GatewayFrameData {
+  final double received;
+  final double transmitted;
+
+  GatewayFrameData({
+    @required this.received,
+    @required this.transmitted,
+  });
 }
 
 class GatewayFrame {
@@ -61,37 +66,34 @@ class GatewayFrame {
 
   GatewayFrame(this.txData, this.datetime);
 
-  static List<charts.Series<GatewayFrame, String>> getData(List data) {
-    data ??= [];
-    final reveivedData = data
+  static Map<DateTime, GatewayFrameData> mapData(List source) {
+    final received = source
         .map((item) => new GatewayFrame(
             Tools.convertDouble(item['rxPacketsReceivedOK']),
             DateTime.parse(item['timestamp'])))
         .toList();
-
-    final transmittedData = data
+    final transmitted = source
         .map((item) => new GatewayFrame(
             Tools.convertDouble(item['txPacketsEmitted']),
             DateTime.parse(item['timestamp'])))
         .toList();
-
-    return [
-      new charts.Series<GatewayFrame, String>(
-        id: 'Transmitted',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (GatewayFrame frame, _) =>
-            TimeUtil.getDatetime(frame.datetime, type: 'day'),
-        measureFn: (GatewayFrame frame, _) => frame.txData,
-        data: transmittedData,
-      ),
-      new charts.Series<GatewayFrame, String>(
-        id: 'Received',
-        colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-        domainFn: (GatewayFrame frame, _) =>
-            TimeUtil.getDatetime(frame.datetime, type: 'day'),
-        measureFn: (GatewayFrame frame, _) => frame.txData,
-        data: reveivedData,
-      )..setAttribute(charts.measureAxisIdKey, secondaryMeasureAxisId)
-    ];
+    final res = <DateTime, GatewayFrameData>{};
+    for (final r in received) {
+      final dateTime =
+          DateTime(r.datetime.year, r.datetime.month, r.datetime.day);
+      res[dateTime] = GatewayFrameData(
+        received: r.txData,
+        transmitted: res[dateTime]?.transmitted,
+      );
+    }
+    for (final t in transmitted) {
+      final dateTime =
+          DateTime(t.datetime.year, t.datetime.month, t.datetime.day);
+      res[dateTime] = GatewayFrameData(
+        transmitted: t.txData,
+        received: res[dateTime]?.received,
+      );
+    }
+    return res;
   }
 }

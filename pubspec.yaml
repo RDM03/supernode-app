@@ -32,9 +32,7 @@ dependencies:
   # https://pub.dev/packages/geolocator
   geolocator: ^7.0.3
   # https://pub.dev/packages/fl_chart
-  fl_chart: ^0.10.1
-  # https://pub.dev/packages/charts_flutter
-  charts_flutter: ^0.10.0
+  fl_chart: ^0.36.0
   # https://pub.dev/packages/webview_flutter
   webview_flutter: ^0.3.22+1
   # https://pub.dev/packages/modal_bottom_sheet

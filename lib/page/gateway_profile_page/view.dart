@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:fish_redux/fish_redux.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
@@ -17,10 +18,6 @@ import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
-
-import 'package:charts_flutter/src/text_style.dart' as style;
-import 'package:charts_flutter/src/text_element.dart';
 
 import 'state.dart';
 
@@ -109,12 +106,7 @@ Widget buildView(
       child: Container(
         width: 300,
         height: 300,
-        child: charts.BarChart(
-          GatewayFrame.getData(state.gatewayFrame),
-          animate: true,
-          barGroupingType: charts.BarGroupingType.grouped,
-          behaviors: [new charts.SeriesLegend()],
-        ),
+        child: FrameChart(source: state.gatewayFrame),
       ),
     ),
     paragraph(FlutterI18n.translate(_ctx, 'gateway_model')),
@@ -126,128 +118,134 @@ Widget buildView(
   ]);
 }
 
-class MiningChart extends StatefulWidget {
-  final List miningRevenue;
-  MiningChart(this.miningRevenue, {Key key}) : super(key: key);
+class FrameChart extends StatelessWidget {
+  final List source;
 
-  @override
-  _MiningChartState createState() => _MiningChartState();
-}
-
-class _MiningChartState extends State<MiningChart> {
-  List _miningRevenue;
-  CustomCircleSymbolRenderer _renderer;
-
-  @override
-  void initState() {
-    _miningRevenue = widget.miningRevenue;
-    _renderer = CustomCircleSymbolRenderer(0);
-    super.initState();
-  }
-
-  @override
-  void didUpdateWidget(MiningChart oldWidget) {
-    if (oldWidget.miningRevenue != widget.miningRevenue) {
-      setState(() => _miningRevenue = widget.miningRevenue);
-    }
-    super.didUpdateWidget(oldWidget);
-  }
+  const FrameChart({Key key, this.source}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return charts.TimeSeriesChart(
-      Mining.getData(_miningRevenue),
-      animate: true,
-      defaultRenderer: charts.LineRendererConfig(includePoints: true),
-      behaviors: [
-        charts.LinePointHighlighter(
-          symbolRenderer: _renderer,
-        )
-      ],
-      selectionModels: [
-        charts.SelectionModelConfig(
-          changedListener: (charts.SelectionModel model) {
-            if (model.hasDatumSelection) {
-              _renderer.value = model.selectedSeries[0]
-                  .measureFn(model.selectedDatum[0].index);
-            }
-          },
+    final data = GatewayFrame.mapData(source);
+    return Column(
+      children: [
+        Row(
+          children: [
+            SizedBox(width: 40),
+            Container(
+              width: 10,
+              height: 10,
+              color: Colors.blue,
+            ),
+            SizedBox(width: 10),
+            Text('Transmitted'),
+            SizedBox(width: 25),
+            Container(
+              width: 10,
+              height: 10,
+              color: Colors.green,
+            ),
+            SizedBox(width: 10),
+            Text('Received'),
+          ],
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: BarChart(
+              BarChartData(
+                barGroups: data.entries
+                    .map(
+                      (entry) => BarChartGroupData(
+                        x: entry.key.millisecondsSinceEpoch,
+                        barRods: [
+                          BarChartRodData(
+                            y: entry.value.transmitted,
+                            colors: [Colors.blue],
+                            width: 70 / data.length,
+                            borderRadius: BorderRadius.zero,
+                          ),
+                          BarChartRodData(
+                            y: entry.value.received,
+                            colors: [Colors.green],
+                            width: 70 / data.length,
+                            borderRadius: BorderRadius.zero,
+                          ),
+                        ],
+                      ),
+                    )
+                    .toList(),
+                gridData: FlGridData(
+                  horizontalInterval: 5,
+                ),
+                borderData: FlBorderData(border: Border(bottom: BorderSide())),
+                titlesData: FlTitlesData(
+                  bottomTitles: SideTitles(
+                    showTitles: true,
+                    getTitles: (d) {
+                      final date =
+                          DateTime.fromMillisecondsSinceEpoch(d.round());
+                      return '${date.day}/${date.month}';
+                    },
+                  ),
+                  leftTitles: SideTitles(
+                    showTitles: true,
+                    interval: 5,
+                  ),
+                ),
+              ),
+            ),
+          ),
         ),
       ],
     );
   }
 }
 
-class CustomCircleSymbolRenderer extends charts.CircleSymbolRenderer {
-  double value;
-  CustomCircleSymbolRenderer(this.value);
+class MiningChart extends StatelessWidget {
+  final List miningRevenue;
+  MiningChart(this.miningRevenue, {Key key}) : super(key: key);
 
   @override
-  void paint(
-    charts.ChartCanvas canvas,
-    Rectangle<num> bounds, {
-    List<int> dashPattern,
-    charts.Color fillColor,
-    charts.FillPatternType fillPattern,
-    charts.Color strokeColor,
-    double strokeWidthPx,
-  }) {
-    super.paint(
-      canvas,
-      bounds,
-      dashPattern: dashPattern,
-      fillColor: fillColor,
-      strokeColor: strokeColor,
-      strokeWidthPx: strokeWidthPx,
+  Widget build(BuildContext context) {
+    final data = Mining.mapData(miningRevenue);
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: LineChart(
+        LineChartData(
+          minY: 0,
+          maxY:
+              (data.map((e) => e.amount).reduce(max) / 250).ceil() * 250.0 + 1,
+          titlesData: FlTitlesData(
+            bottomTitles: SideTitles(
+              showTitles: true,
+              interval: 172800000,
+              getTitles: (d) {
+                final date = DateTime.fromMillisecondsSinceEpoch(d.round());
+                return '${date.day}/${date.month}';
+              },
+            ),
+            leftTitles: SideTitles(
+              showTitles: true,
+              interval: 250,
+            ),
+          ),
+          gridData: FlGridData(
+            horizontalInterval: 100,
+          ),
+          borderData: FlBorderData(border: Border(bottom: BorderSide())),
+          lineBarsData: [
+            LineChartBarData(
+              spots: data
+                  .map((e) => FlSpot(
+                      e.date.millisecondsSinceEpoch.toDouble(), e.amount))
+                  .toList(),
+              colors: [Colors.green],
+            ),
+          ],
+        ),
+        swapAnimationDuration: Duration(milliseconds: 200),
+      ),
     );
-    final val = value.toStringAsFixed(0);
-    Rectangle rect;
-    int xTextOffset;
-    if (val.length >= 4) {
-      rect = Rectangle(
-        bounds.left - 13,
-        bounds.top - 30,
-        bounds.width + 25,
-        bounds.height + 10,
-      );
-      xTextOffset = (bounds.left - 11).round();
-    }
-    if (val.length == 3) {
-      rect = Rectangle(
-        bounds.left - 13,
-        bounds.top - 30,
-        bounds.width + 25,
-        bounds.height + 10,
-      );
-      xTextOffset = (bounds.left - 7).round();
-    }
-    if (val.length == 2) {
-      rect = Rectangle(
-        bounds.left - 13,
-        bounds.top - 30,
-        bounds.width + 25,
-        bounds.height + 10,
-      );
-      xTextOffset = (bounds.left - 3).round();
-    }
-    if (val.length <= 1) {
-      rect = Rectangle(
-        bounds.left - 13,
-        bounds.top - 30,
-        bounds.width + 25,
-        bounds.height + 10,
-      );
-      xTextOffset = (bounds.left + 2).round();
-    }
-    canvas.drawRect(
-      rect,
-      fill: charts.Color.fromHex(code: "#808080"),
-    );
-    var textStyle = style.TextStyle();
-    textStyle.color = charts.Color.white;
-    textStyle.fontSize = 15;
-    final el = TextElement(val, style: textStyle);
-    canvas.drawText(el, xTextOffset, (bounds.top - 28).round());
   }
 }
 
