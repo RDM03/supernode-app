@@ -59,7 +59,11 @@ class GatewayTab extends StatelessWidget {
                     loading: gatewayState.gatewaysTotal.loading,
                     icon: Icons.add_circle,
                     onPressed: () async {
-                      if (!context.read<AppCubit>().state.isDemo) {
+                      if (!context
+                          .read<SupernodeCubit>()
+                          .state
+                          .session
+                          .isDemo) {
                         await Navigator.of(context)
                             .pushNamed('add_gateway_page', arguments: {
                           'fromPage': 'home',
@@ -155,7 +159,7 @@ class GatewaysList extends StatelessWidget {
             await Navigator.pushNamed(context, 'gateway_profile_page',
                 arguments: {
                   'item': state,
-                  'isDemo': context.read<AppCubit>().state.isDemo,
+                  'isDemo': context.read<SupernodeCubit>().state.session.isDemo,
                 });
           },
         ),

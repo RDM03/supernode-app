@@ -39,77 +39,79 @@ class SettingsPage extends StatelessWidget {
                 context: context,
                 padding: EdgeInsets.all(0.0),
                 children: <Widget>[
-                  BlocBuilder<AppCubit, AppState>(
-                    buildWhen: (a, b) => a.isDemo != b.isDemo,
+                  BlocBuilder<SupernodeCubit, SupernodeState>(
+                    buildWhen: (a, b) => a.session.isDemo != b.session.isDemo,
                     builder: (ctx, s) => listItem(
                         FlutterI18n.translate(context, 'manage_account'),
-                        trailing:
-                        s.isDemo ? Icon(Icons.do_not_disturb_alt) : null,
-                        onTap: s.isDemo
+                        trailing: s.session.isDemo
+                            ? Icon(Icons.do_not_disturb_alt)
+                            : null,
+                        onTap: s.session.isDemo
                             ? null
-                            : () =>  Navigator.push(context, route((context) => AccountPage()))),
+                            : () => Navigator.push(
+                                context, route((context) => AccountPage()))),
                   ),
                   Divider(),
-                  BlocBuilder<AppCubit, AppState>(
-                    buildWhen: (a, b) => a.isDemo != b.isDemo,
+                  BlocBuilder<SupernodeCubit, SupernodeState>(
+                    buildWhen: (a, b) => a.session.isDemo != b.session.isDemo,
                     builder: (ctx, s) => listItem(
-                        FlutterI18n.translate(
-                            context, 'app_settings'),
-                        trailing:
-                        s.isDemo ? Icon(Icons.do_not_disturb_alt) : null,
-                        onTap: s.isDemo
+                        FlutterI18n.translate(context, 'app_settings'),
+                        trailing: s.session.isDemo
+                            ? Icon(Icons.do_not_disturb_alt)
+                            : null,
+                        onTap: s.session.isDemo
                             ? null
-                            : () => Navigator.push(context, route((context) => AppSettingsPage()))),
+                            : () => Navigator.push(context,
+                                route((context) => AppSettingsPage()))),
                   ),
                   Divider(),
                   listItem(
-                    FlutterI18n.translate(
-                        context, 'address_book'),
-                    onTap: () => Navigator.of(context).pushNamed('address_book_page'),
+                    FlutterI18n.translate(context, 'address_book'),
+                    onTap: () =>
+                        Navigator.of(context).pushNamed('address_book_page'),
                     key: ValueKey('addressBookItem'),
                   ),
                   Divider(),
-                  listItem(
-                      FlutterI18n.translate(
-                          context, 'about'),
-                      onTap: () {
-                        context.read<SettingsCubit>().initAboutPage();
-                        Navigator.push(context, route((context) => AboutPage()));
-                      }),
+                  listItem(FlutterI18n.translate(context, 'about'), onTap: () {
+                    context.read<SettingsCubit>().initAboutPage();
+                    Navigator.push(context, route((context) => AboutPage()));
+                  }),
                   Divider(),
                   listItem(FlutterI18n.translate(context, 'connect_with_us'),
-                      onTap: () => Navigator.push(context, route((context) => LinksPage()))),
+                      onTap: () => Navigator.push(
+                          context, route((context) => LinksPage()))),
                   Divider(),
-                  listItem(
-                      FlutterI18n.translate(
-                          context, 'rate_app'),
+                  listItem(FlutterI18n.translate(context, 'rate_app'),
                       onTap: () async {
-                        try {
-                          await launch("itms-apps://itunes.apple.com/app/id1509218470");
-                        } on PlatformException catch(e) {
-                          launch("https://play.google.com/store/apps/details?id=com.mxc.smartcity");
-                        }}),
+                    try {
+                      await launch(
+                          "itms-apps://itunes.apple.com/app/id1509218470");
+                    } on PlatformException catch (e) {
+                      launch(
+                          "https://play.google.com/store/apps/details?id=com.mxc.smartcity");
+                    }
+                  }),
                   Divider(),
                   Container(
                     color: backgroundColor,
                     child: ListTile(
-                        title: Text(FlutterI18n.translate(context, 'export_mining_data'), style: kBigFontOfGrey),
+                        title: Text(
+                            FlutterI18n.translate(
+                                context, 'export_mining_data'),
+                            style: kBigFontOfGrey),
                         onTap: () => 'TODO',
-                        trailing: Icon(Icons.chevron_right, color: Colors.grey)),
+                        trailing:
+                            Icon(Icons.chevron_right, color: Colors.grey)),
                   ),
                   Divider(),
-                  listItem(
-                      FlutterI18n.translate(
-                          context, 'logout'),
-                      key: Key('logout'),
-                      trailing: Text(''),
-                      onTap: () {
-                        context.read<SupernodeCubit>().logout();
-                        navigatorKey.currentState.pushAndRemoveUntil(route((_) => LoginPage()), (route) => false);
-                      }),
+                  listItem(FlutterI18n.translate(context, 'logout'),
+                      key: Key('logout'), trailing: Text(''), onTap: () {
+                    context.read<SupernodeCubit>().logout();
+                    navigatorKey.currentState.pushAndRemoveUntil(
+                        route((_) => LoginPage()), (route) => false);
+                  }),
                 ],
-              ))
-      ),
+              ))),
     );
   }
 }

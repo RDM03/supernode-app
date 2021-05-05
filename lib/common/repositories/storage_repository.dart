@@ -83,6 +83,7 @@ class StorageRepository {
   static const String _userNameKey = 'username';
   static const String _passwordKey = 'password';
   static const String _supernodeKey = 'supernode';
+  static const String _supernodeIsDemoKey = 'supernode_demo';
 
   StorageManagerSupernodeUser supernodeSession() {
     final token = _sharedPreferences.getString(_tokenKey);
@@ -90,6 +91,8 @@ class StorageRepository {
     final username = _sharedPreferences.getString(_userNameKey);
     final password = _sharedPreferences.getString(_passwordKey);
     final supernodeString = _sharedPreferences.getString(_supernodeKey);
+    final supernodeIsDemo =
+        _sharedPreferences.getBool(_supernodeIsDemoKey) ?? false;
     final supernode =
         supernodeString == null ? null : Supernode.fromJson(supernodeString);
 
@@ -105,6 +108,7 @@ class StorageRepository {
       username: username,
       password: password,
       supernode: supernode,
+      isDemo: supernodeIsDemo,
     );
   }
 
@@ -114,11 +118,13 @@ class StorageRepository {
     @required String username,
     @required String password,
     @required Supernode supernode,
+    @required bool isDemo,
   }) async {
     await _sharedPreferences.setString(_tokenKey, jwt);
     await _sharedPreferences.setInt(_userIdKey, userId);
     await _sharedPreferences.setString(_userNameKey, username);
     await _sharedPreferences.setString(_passwordKey, password);
+    await _sharedPreferences.setBool(_supernodeIsDemoKey, isDemo);
     await _sharedPreferences.setString(_supernodeKey, supernode?.toJson());
   }
 
@@ -150,12 +156,14 @@ class StorageManagerSupernodeUser {
   final String username;
   final String password;
   final Supernode supernode;
+  final bool isDemo;
 
   StorageManagerSupernodeUser({
-    this.jwt,
-    this.userId,
-    this.username,
-    this.password,
-    this.supernode,
+    @required this.jwt,
+    @required this.userId,
+    @required this.username,
+    @required this.password,
+    @required this.supernode,
+    @required this.isDemo,
   });
 }

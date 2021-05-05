@@ -22,7 +22,15 @@ class MiningTutorial extends StatefulWidget {
   List<Widget> _pages;
 
   MiningTutorial(this._ctx) {
-    this._pages = [_pageView_1(_ctx), _pageView_2(_ctx), _pageView_3(_ctx), _pageView_4(_ctx), _pageView_5(_ctx), _pageView_6(_ctx), _pageView_7(_ctx)];
+    this._pages = [
+      _pageView_1(_ctx),
+      _pageView_2(_ctx),
+      _pageView_3(_ctx),
+      _pageView_4(_ctx),
+      _pageView_5(_ctx),
+      _pageView_6(_ctx),
+      _pageView_7(_ctx)
+    ];
   }
 
   @override
@@ -166,9 +174,14 @@ class MiningTutorial extends StatefulWidget {
     return _pageBase([
       RichText(
           text: TextSpan(children: [
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv2_title_span1"), style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv2_title_span2"), style: kPrimaryBigFontOfBlack.copyWith(color: Token.supernodeDhx.color)),
-          ])),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv2_title_span1"),
+            style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv2_title_span2"),
+            style: kPrimaryBigFontOfBlack.copyWith(
+                color: Token.supernodeDhx.color)),
+      ])),
       SizedBox(height: 70),
       Row(children: [
         Container(
@@ -228,14 +241,28 @@ class MiningTutorial extends StatefulWidget {
       smallColumnSpacer(),
       RichText(
           text: TextSpan(children: [
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span1"), style: kBigFontOfBlack),
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span2"), style: kBigFontOfDhxColor),
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span3"), style: kBigFontOfBlack),
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span4"), style: kBigFontOfDhxColor),
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span5"), style: kBigFontOfBlack),
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span6"), style: kBigFontOfDhxColor),
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span7"), style: kBigFontOfBlack),
-          ])),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span1"),
+            style: kBigFontOfBlack),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span2"),
+            style: kBigFontOfDhxColor),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span3"),
+            style: kBigFontOfBlack),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span4"),
+            style: kBigFontOfDhxColor),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span5"),
+            style: kBigFontOfBlack),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span6"),
+            style: kBigFontOfDhxColor),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span7"),
+            style: kBigFontOfBlack),
+      ])),
       Image.asset(AppImages.council, color: Token.supernodeDhx.color),
       middleColumnSpacer(),
     ]);
@@ -245,16 +272,30 @@ class MiningTutorial extends StatefulWidget {
     return _pageBase([
       RichText(
           text: TextSpan(children: [
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span1"), style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span2"), style: kPrimaryBigFontOfBlack.copyWith(color: Token.supernodeDhx.color)),
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span3"), style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
-          ])),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span1"),
+            style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span2"),
+            style: kPrimaryBigFontOfBlack.copyWith(
+                color: Token.supernodeDhx.color)),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span3"),
+            style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+      ])),
       RichText(
           text: TextSpan(children: [
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span4"), style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span5"), style: kPrimaryBigFontOfBlack.copyWith(color: Token.supernodeDhx.color)),
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span6"), style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
-          ])),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span4"),
+            style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span5"),
+            style: kPrimaryBigFontOfBlack.copyWith(
+                color: Token.supernodeDhx.color)),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span6"),
+            style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+      ])),
       SizedBox(height: s(30)),
       Image.asset(AppImages.calendar1),
     ]);
@@ -264,10 +305,18 @@ class MiningTutorial extends StatefulWidget {
     return _pageBase([
       RichText(
           text: TextSpan(children: [
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv5_title_span1"), style: kPrimaryBigFontOfBlack.copyWith(color: Token.supernodeDhx.color)),
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv5_title_span2"), style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv5_title_span3"), style: kPrimaryBigFontOfBlack.copyWith(color: Token.supernodeDhx.color)),
-          ])),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv5_title_span1"),
+            style: kPrimaryBigFontOfBlack.copyWith(
+                color: Token.supernodeDhx.color)),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv5_title_span2"),
+            style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv5_title_span3"),
+            style: kPrimaryBigFontOfBlack.copyWith(
+                color: Token.supernodeDhx.color)),
+      ])),
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pv5_text"),
           style: kBigFontOfBlack),
@@ -280,11 +329,21 @@ class MiningTutorial extends StatefulWidget {
     return _pageBase([
       RichText(
           text: TextSpan(children: [
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span1"), style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span2"), style: kPrimaryBigFontOfBlack.copyWith(color: Token.supernodeDhx.color)),
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span3"), style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
-            TextSpan(text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span4"), style: kPrimaryBigFontOfBlack.copyWith(color: Token.supernodeDhx.color)),
-          ])),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span1"),
+            style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span2"),
+            style: kPrimaryBigFontOfBlack.copyWith(
+                color: Token.supernodeDhx.color)),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span3"),
+            style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+        TextSpan(
+            text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span4"),
+            style: kPrimaryBigFontOfBlack.copyWith(
+                color: Token.supernodeDhx.color)),
+      ])),
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pv6_text"),
           style: kBigFontOfBlack),
@@ -304,7 +363,8 @@ class MiningTutorial extends StatefulWidget {
             decoration: BoxDecoration(
                 color: Token.supernodeDhx.color,
                 borderRadius: BorderRadius.all(Radius.circular(8))),
-            child: Text(FlutterI18n.translate(ctx, 'dhx_mining').toUpperCase(), style: kBigFontOfWhite)),
+            child: Text(FlutterI18n.translate(ctx, 'dhx_mining').toUpperCase(),
+                style: kBigFontOfWhite)),
       ),
       middleColumnSpacer(),
       Text(FlutterI18n.translate(ctx, 'wallet'), style: kMiddleFontOfGrey),
@@ -323,28 +383,33 @@ class MiningTutorial extends StatefulWidget {
                       blurRadius: 7,
                       spreadRadius: 0.0)
                 ]),
-            child: Row(
+            child: Row(children: [
+              CircleButton(
+                icon: Icon(
+                  Icons.add,
+                  color: Token.supernodeDhx.color,
+                ),
+              ),
+              smallRowSpacer(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleButton(
-                    icon: Icon(
-                      Icons.add,
-                      color: Token.supernodeDhx.color,
-                    ),
-                  ),
-                  smallRowSpacer(),
-                  Column(crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                    Text(FlutterI18n.translate(ctx, 'deposit_dhx'), style: kBigFontOfBlack),
-                    Text(FlutterI18n.translate(ctx, 'tutorial_pv7_sub1'), style: kSmallFontOfBlack)
-                  ],)
-                ])),
+                  Text(FlutterI18n.translate(ctx, 'deposit_dhx'),
+                      style: kBigFontOfBlack),
+                  Text(FlutterI18n.translate(ctx, 'tutorial_pv7_sub1'),
+                      style: kSmallFontOfBlack)
+                ],
+              )
+            ])),
       ),
       middleColumnSpacer(),
-      Text(FlutterI18n.translate(ctx, 'tutorial_pv7_label'), style: kMiddleFontOfGrey),
+      Text(FlutterI18n.translate(ctx, 'tutorial_pv7_label'),
+          style: kMiddleFontOfGrey),
       smallColumnSpacer(),
       GestureDetector(
-        onTap: () => Navigator.pushNamed(ctx, 'lock_page',
-            arguments: {'isDemo': ctx.read<AppCubit>().state.isDemo}),
+        onTap: () => Navigator.pushNamed(ctx, 'lock_page', arguments: {
+          'isDemo': ctx.read<SupernodeCubit>().state.session.isDemo
+        }),
         child: Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -357,21 +422,24 @@ class MiningTutorial extends StatefulWidget {
                       blurRadius: 7,
                       spreadRadius: 0.0)
                 ]),
-            child: Row(
+            child: Row(children: [
+              CircleButton(
+                icon: Icon(
+                  Icons.lock,
+                  color: Token.supernodeDhx.color,
+                ),
+              ),
+              smallRowSpacer(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleButton(
-                    icon: Icon(
-                      Icons.lock,
-                      color: Token.supernodeDhx.color,
-                    ),
-                  ),
-                  smallRowSpacer(),
-                  Column(crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(FlutterI18n.translate(ctx, 'lock_mxc'), style: kBigFontOfBlack),
-                      Text(FlutterI18n.translate(ctx, 'tutorial_pv7_sub2'), style: kSmallFontOfBlack)
-                    ],)
-                ])),
+                  Text(FlutterI18n.translate(ctx, 'lock_mxc'),
+                      style: kBigFontOfBlack),
+                  Text(FlutterI18n.translate(ctx, 'tutorial_pv7_sub2'),
+                      style: kSmallFontOfBlack)
+                ],
+              )
+            ])),
       ),
       smallColumnSpacer(),
       GestureDetector(
@@ -388,21 +456,24 @@ class MiningTutorial extends StatefulWidget {
                       blurRadius: 7,
                       spreadRadius: 0.0)
                 ]),
-            child: Row(
+            child: Row(children: [
+              CircleButton(
+                icon: Image.asset(
+                  AppImages.iconBond,
+                  color: Token.supernodeDhx.color,
+                ),
+              ),
+              smallRowSpacer(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleButton(
-                    icon: Image.asset(
-                      AppImages.iconBond,
-                      color: Token.supernodeDhx.color,
-                    ),
-                  ),
-                  smallRowSpacer(),
-                  Column(crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(FlutterI18n.translate(ctx, 'bond_dhx'), style: kBigFontOfBlack),
-                      Text(FlutterI18n.translate(ctx, 'tutorial_pv7_sub3'), style: kSmallFontOfBlack)
-                    ],)
-                ])),
+                  Text(FlutterI18n.translate(ctx, 'bond_dhx'),
+                      style: kBigFontOfBlack),
+                  Text(FlutterI18n.translate(ctx, 'tutorial_pv7_sub3'),
+                      style: kSmallFontOfBlack)
+                ],
+              )
+            ])),
       ),
     ]);
   }
@@ -433,81 +504,85 @@ class _MiningTutorialState extends State<MiningTutorial> {
       Text(FlutterI18n.translate(ctx, "tutorial_page2_title"),
           style: kPrimaryBigFontOfBlack),
       bigColumnSpacer(),
-      Row(crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CircleButton(
-              icon: Icon(
-                Icons.lock,
-                color: Token.supernodeDhx.color,
-              ),
-              onTap: () => '',
-            ),
-            SizedBox(width: 20),
-            Flexible(
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('1. ${FlutterI18n.translate(context, 'lock_mxc')}', style: kBigBoldFontOfBlack),
-                    Text(FlutterI18n.translate(context, 'tutorial_page2_txt1'), style: kMiddleFontOfBlack),
-                  ]),
-            )
+      Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        CircleButton(
+          icon: Icon(
+            Icons.lock,
+            color: Token.supernodeDhx.color,
+          ),
+          onTap: () => '',
+        ),
+        SizedBox(width: 20),
+        Flexible(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text('1. ${FlutterI18n.translate(context, 'lock_mxc')}',
+                style: kBigBoldFontOfBlack),
+            Text(FlutterI18n.translate(context, 'tutorial_page2_txt1'),
+                style: kMiddleFontOfBlack),
           ]),
+        )
+      ]),
       middleColumnSpacer(),
-      Row(crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CircleButton(
-              icon: Image.asset(
-                AppImages.bottomBarMenus['gateway'],
-                color: Token.supernodeDhx.color,
-              ),
-              onTap: () => '',
-            ),
-            SizedBox(width: 20),
-            Flexible(
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('2. ${FlutterI18n.translate(context, 'add_miner')}', style: kBigBoldFontOfBlack),
-                    Text(FlutterI18n.translate(context, 'tutorial_page2_txt2'), style: kMiddleFontOfBlack),
-                  ]),
-            )
+      Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        CircleButton(
+          icon: Image.asset(
+            AppImages.bottomBarMenus['gateway'],
+            color: Token.supernodeDhx.color,
+          ),
+          onTap: () => '',
+        ),
+        SizedBox(width: 20),
+        Flexible(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text('2. ${FlutterI18n.translate(context, 'add_miner')}',
+                style: kBigBoldFontOfBlack),
+            Text(FlutterI18n.translate(context, 'tutorial_page2_txt2'),
+                style: kMiddleFontOfBlack),
           ]),
+        )
+      ]),
       middleColumnSpacer(),
-      Row(crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CircleButton(
-              icon: Icon(
-                Icons.add,
-                color: Token.supernodeDhx.color,
-              ),
-              onTap: () => '',
-            ),
-            SizedBox(width: 20),
-            Flexible(
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('3. ${FlutterI18n.translate(context, 'deposit_dhx')}', style: kBigBoldFontOfBlack),
-                    Text(FlutterI18n.translate(context, 'tutorial_page2_txt3'), style: kMiddleFontOfBlack),
-                  ]),
-            )
+      Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        CircleButton(
+          icon: Icon(
+            Icons.add,
+            color: Token.supernodeDhx.color,
+          ),
+          onTap: () => '',
+        ),
+        SizedBox(width: 20),
+        Flexible(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text('3. ${FlutterI18n.translate(context, 'deposit_dhx')}',
+                style: kBigBoldFontOfBlack),
+            Text(FlutterI18n.translate(context, 'tutorial_page2_txt3'),
+                style: kMiddleFontOfBlack),
           ]),
+        )
+      ]),
       middleColumnSpacer(),
-      Row(crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CircleButton(
-              icon: Image.asset(
-                AppImages.iconBond,
-                color: Token.supernodeDhx.color,
-              ),
-              onTap: () => '',
-            ),
-            SizedBox(width: 20),
-            Flexible(
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('4. ${FlutterI18n.translate(context, 'bond_dhx')}', style: kBigBoldFontOfBlack),
-                    Text(FlutterI18n.translate(context, 'tutorial_page2_txt4'), style: kMiddleFontOfBlack),
-                  ]),
-            )
+      Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        CircleButton(
+          icon: Image.asset(
+            AppImages.iconBond,
+            color: Token.supernodeDhx.color,
+          ),
+          onTap: () => '',
+        ),
+        SizedBox(width: 20),
+        Flexible(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text('4. ${FlutterI18n.translate(context, 'bond_dhx')}',
+                style: kBigBoldFontOfBlack),
+            Text(FlutterI18n.translate(context, 'tutorial_page2_txt4'),
+                style: kMiddleFontOfBlack),
           ]),
+        )
+      ]),
       xbigColumnSpacer(),
       PrimaryButton(
           buttonTitle: FlutterI18n.translate(context, 'lets_go_learn_button'),
@@ -519,57 +594,55 @@ class _MiningTutorialState extends State<MiningTutorial> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-        alignment: AlignmentDirectional.bottomCenter,
-        children: [
-          Visibility(
-              visible: (currentTutorialPageValue == 0),
-              child: _page_1(context)),
-         Visibility(
-              visible: (currentTutorialPageValue == 1),
-              child: _page_2(context)),
-          Visibility(
-            visible: (currentTutorialPageValue == 2),
-            child: Stack(
-              alignment: AlignmentDirectional.bottomCenter,
-              children: [
-                PageView(
-                  onPageChanged: (int page) {
-                    currentPageViewValue = page;
-                    setState(() {});
-                  },
-                  children: widget._pages,
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 50,
-                  decoration: new BoxDecoration(
-                    gradient: new LinearGradient(
-                        colors: [transparentWhite, Colors.white],
-                        begin: Alignment.topCenter,
-                        end: Alignment.center),
-                  ),
-                  child: Stack(
-                    alignment: AlignmentDirectional.center,
-                    children: <Widget>[
-                      Container(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            for (int i = 0; i < widget._pages.length; i++)
-                              if (i == currentPageViewValue) ...[circleBar(true)] else
-                                circleBar(false),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
+    return Stack(alignment: AlignmentDirectional.bottomCenter, children: [
+      Visibility(
+          visible: (currentTutorialPageValue == 0), child: _page_1(context)),
+      Visibility(
+          visible: (currentTutorialPageValue == 1), child: _page_2(context)),
+      Visibility(
+        visible: (currentTutorialPageValue == 2),
+        child: Stack(
+          alignment: AlignmentDirectional.bottomCenter,
+          children: [
+            PageView(
+              onPageChanged: (int page) {
+                currentPageViewValue = page;
+                setState(() {});
+              },
+              children: widget._pages,
             ),
-          )
-        ]);
+            Container(
+              width: double.infinity,
+              height: 50,
+              decoration: new BoxDecoration(
+                gradient: new LinearGradient(
+                    colors: [transparentWhite, Colors.white],
+                    begin: Alignment.topCenter,
+                    end: Alignment.center),
+              ),
+              child: Stack(
+                alignment: AlignmentDirectional.center,
+                children: <Widget>[
+                  Container(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        for (int i = 0; i < widget._pages.length; i++)
+                          if (i == currentPageViewValue) ...[
+                            circleBar(true)
+                          ] else
+                            circleBar(false),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      )
+    ]);
   }
 
   Widget circleBar(bool isActive) {

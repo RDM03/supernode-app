@@ -9,7 +9,6 @@ part 'app_state.freezed.dart';
 abstract class AppState with _$AppState {
   factory AppState({
     Locale locale,
-    @Default(false) bool isDemo,
     @Default(false) bool showLoading,
     @nullable ErrorInfo error,
   }) = _AppState;
@@ -34,6 +33,7 @@ abstract class SupernodeSession with _$SupernodeSession {
     String password,
     Supernode node,
     @Default(false) bool tfaEnabled,
+    @Default(false) bool isDemo,
   }) = _SupernodeSession;
 }
 

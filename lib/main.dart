@@ -108,6 +108,7 @@ Future<void> main() async {
             password: supernodeSession.password,
             userId: supernodeSession.userId,
             node: supernodeSession.supernode,
+            isDemo: supernodeSession.isDemo,
           )
         : null,
   );
@@ -135,8 +136,8 @@ Future<void> main() async {
       child: MultiRepositoryProvider(
         providers: [
           RepositoryProvider<SupernodeRepository>(
-            create: (ctx) => SupernodeRepository(
-                appCubit: appCubit, supernodeCubit: supernodeCubit),
+            create: (ctx) =>
+                SupernodeRepository(supernodeCubit: supernodeCubit),
           ),
           RepositoryProvider<ExchangeRepository>(
             create: (ctx) => ExchangeRepository(),

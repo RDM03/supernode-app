@@ -15,13 +15,9 @@ class _$AppStateTearOff {
 
 // ignore: unused_element
   _AppState call(
-      {Locale locale,
-      bool isDemo = false,
-      bool showLoading = false,
-      @nullable ErrorInfo error}) {
+      {Locale locale, bool showLoading = false, @nullable ErrorInfo error}) {
     return _AppState(
       locale: locale,
-      isDemo: isDemo,
       showLoading: showLoading,
       error: error,
     );
@@ -35,7 +31,6 @@ const $AppState = _$AppStateTearOff();
 /// @nodoc
 mixin _$AppState {
   Locale get locale;
-  bool get isDemo;
   bool get showLoading;
   @nullable
   ErrorInfo get error;
@@ -47,11 +42,7 @@ mixin _$AppState {
 abstract class $AppStateCopyWith<$Res> {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
       _$AppStateCopyWithImpl<$Res>;
-  $Res call(
-      {Locale locale,
-      bool isDemo,
-      bool showLoading,
-      @nullable ErrorInfo error});
+  $Res call({Locale locale, bool showLoading, @nullable ErrorInfo error});
 }
 
 /// @nodoc
@@ -65,13 +56,11 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
   @override
   $Res call({
     Object locale = freezed,
-    Object isDemo = freezed,
     Object showLoading = freezed,
     Object error = freezed,
   }) {
     return _then(_value.copyWith(
       locale: locale == freezed ? _value.locale : locale as Locale,
-      isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
       error: error == freezed ? _value.error : error as ErrorInfo,
@@ -84,11 +73,7 @@ abstract class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
   factory _$AppStateCopyWith(_AppState value, $Res Function(_AppState) then) =
       __$AppStateCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {Locale locale,
-      bool isDemo,
-      bool showLoading,
-      @nullable ErrorInfo error});
+  $Res call({Locale locale, bool showLoading, @nullable ErrorInfo error});
 }
 
 /// @nodoc
@@ -103,13 +88,11 @@ class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object locale = freezed,
-    Object isDemo = freezed,
     Object showLoading = freezed,
     Object error = freezed,
   }) {
     return _then(_AppState(
       locale: locale == freezed ? _value.locale : locale as Locale,
-      isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
       error: error == freezed ? _value.error : error as ErrorInfo,
@@ -119,19 +102,11 @@ class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_AppState with DiagnosticableTreeMixin implements _AppState {
-  _$_AppState(
-      {this.locale,
-      this.isDemo = false,
-      this.showLoading = false,
-      @nullable this.error})
-      : assert(isDemo != null),
-        assert(showLoading != null);
+  _$_AppState({this.locale, this.showLoading = false, @nullable this.error})
+      : assert(showLoading != null);
 
   @override
   final Locale locale;
-  @JsonKey(defaultValue: false)
-  @override
-  final bool isDemo;
   @JsonKey(defaultValue: false)
   @override
   final bool showLoading;
@@ -141,7 +116,7 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppState(locale: $locale, isDemo: $isDemo, showLoading: $showLoading, error: $error)';
+    return 'AppState(locale: $locale, showLoading: $showLoading, error: $error)';
   }
 
   @override
@@ -150,7 +125,6 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
     properties
       ..add(DiagnosticsProperty('type', 'AppState'))
       ..add(DiagnosticsProperty('locale', locale))
-      ..add(DiagnosticsProperty('isDemo', isDemo))
       ..add(DiagnosticsProperty('showLoading', showLoading))
       ..add(DiagnosticsProperty('error', error));
   }
@@ -161,8 +135,6 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
         (other is _AppState &&
             (identical(other.locale, locale) ||
                 const DeepCollectionEquality().equals(other.locale, locale)) &&
-            (identical(other.isDemo, isDemo) ||
-                const DeepCollectionEquality().equals(other.isDemo, isDemo)) &&
             (identical(other.showLoading, showLoading) ||
                 const DeepCollectionEquality()
                     .equals(other.showLoading, showLoading)) &&
@@ -174,7 +146,6 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(locale) ^
-      const DeepCollectionEquality().hash(isDemo) ^
       const DeepCollectionEquality().hash(showLoading) ^
       const DeepCollectionEquality().hash(error);
 
@@ -186,14 +157,11 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
 abstract class _AppState implements AppState {
   factory _AppState(
       {Locale locale,
-      bool isDemo,
       bool showLoading,
       @nullable ErrorInfo error}) = _$_AppState;
 
   @override
   Locale get locale;
-  @override
-  bool get isDemo;
   @override
   bool get showLoading;
   @override
@@ -398,7 +366,8 @@ class _$SupernodeSessionTearOff {
       String token,
       String password,
       Supernode node,
-      bool tfaEnabled = false}) {
+      bool tfaEnabled = false,
+      bool isDemo = false}) {
     return _SupernodeSession(
       userId: userId,
       username: username,
@@ -406,6 +375,7 @@ class _$SupernodeSessionTearOff {
       password: password,
       node: node,
       tfaEnabled: tfaEnabled,
+      isDemo: isDemo,
     );
   }
 }
@@ -422,6 +392,7 @@ mixin _$SupernodeSession {
   String get password;
   Supernode get node;
   bool get tfaEnabled;
+  bool get isDemo;
 
   $SupernodeSessionCopyWith<SupernodeSession> get copyWith;
 }
@@ -437,7 +408,8 @@ abstract class $SupernodeSessionCopyWith<$Res> {
       String token,
       String password,
       Supernode node,
-      bool tfaEnabled});
+      bool tfaEnabled,
+      bool isDemo});
 }
 
 /// @nodoc
@@ -457,6 +429,7 @@ class _$SupernodeSessionCopyWithImpl<$Res>
     Object password = freezed,
     Object node = freezed,
     Object tfaEnabled = freezed,
+    Object isDemo = freezed,
   }) {
     return _then(_value.copyWith(
       userId: userId == freezed ? _value.userId : userId as int,
@@ -466,6 +439,7 @@ class _$SupernodeSessionCopyWithImpl<$Res>
       node: node == freezed ? _value.node : node as Supernode,
       tfaEnabled:
           tfaEnabled == freezed ? _value.tfaEnabled : tfaEnabled as bool,
+      isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
     ));
   }
 }
@@ -483,7 +457,8 @@ abstract class _$SupernodeSessionCopyWith<$Res>
       String token,
       String password,
       Supernode node,
-      bool tfaEnabled});
+      bool tfaEnabled,
+      bool isDemo});
 }
 
 /// @nodoc
@@ -505,6 +480,7 @@ class __$SupernodeSessionCopyWithImpl<$Res>
     Object password = freezed,
     Object node = freezed,
     Object tfaEnabled = freezed,
+    Object isDemo = freezed,
   }) {
     return _then(_SupernodeSession(
       userId: userId == freezed ? _value.userId : userId as int,
@@ -514,6 +490,7 @@ class __$SupernodeSessionCopyWithImpl<$Res>
       node: node == freezed ? _value.node : node as Supernode,
       tfaEnabled:
           tfaEnabled == freezed ? _value.tfaEnabled : tfaEnabled as bool,
+      isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
     ));
   }
 }
@@ -528,8 +505,10 @@ class _$_SupernodeSession
       this.token,
       this.password,
       this.node,
-      this.tfaEnabled = false})
-      : assert(tfaEnabled != null);
+      this.tfaEnabled = false,
+      this.isDemo = false})
+      : assert(tfaEnabled != null),
+        assert(isDemo != null);
 
   @override
   final int userId;
@@ -544,10 +523,13 @@ class _$_SupernodeSession
   @JsonKey(defaultValue: false)
   @override
   final bool tfaEnabled;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isDemo;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SupernodeSession(userId: $userId, username: $username, token: $token, password: $password, node: $node, tfaEnabled: $tfaEnabled)';
+    return 'SupernodeSession(userId: $userId, username: $username, token: $token, password: $password, node: $node, tfaEnabled: $tfaEnabled, isDemo: $isDemo)';
   }
 
   @override
@@ -560,7 +542,8 @@ class _$_SupernodeSession
       ..add(DiagnosticsProperty('token', token))
       ..add(DiagnosticsProperty('password', password))
       ..add(DiagnosticsProperty('node', node))
-      ..add(DiagnosticsProperty('tfaEnabled', tfaEnabled));
+      ..add(DiagnosticsProperty('tfaEnabled', tfaEnabled))
+      ..add(DiagnosticsProperty('isDemo', isDemo));
   }
 
   @override
@@ -581,7 +564,9 @@ class _$_SupernodeSession
                 const DeepCollectionEquality().equals(other.node, node)) &&
             (identical(other.tfaEnabled, tfaEnabled) ||
                 const DeepCollectionEquality()
-                    .equals(other.tfaEnabled, tfaEnabled)));
+                    .equals(other.tfaEnabled, tfaEnabled)) &&
+            (identical(other.isDemo, isDemo) ||
+                const DeepCollectionEquality().equals(other.isDemo, isDemo)));
   }
 
   @override
@@ -592,7 +577,8 @@ class _$_SupernodeSession
       const DeepCollectionEquality().hash(token) ^
       const DeepCollectionEquality().hash(password) ^
       const DeepCollectionEquality().hash(node) ^
-      const DeepCollectionEquality().hash(tfaEnabled);
+      const DeepCollectionEquality().hash(tfaEnabled) ^
+      const DeepCollectionEquality().hash(isDemo);
 
   @override
   _$SupernodeSessionCopyWith<_SupernodeSession> get copyWith =>
@@ -606,7 +592,8 @@ abstract class _SupernodeSession implements SupernodeSession {
       String token,
       String password,
       Supernode node,
-      bool tfaEnabled}) = _$_SupernodeSession;
+      bool tfaEnabled,
+      bool isDemo}) = _$_SupernodeSession;
 
   @override
   int get userId;
@@ -620,6 +607,8 @@ abstract class _SupernodeSession implements SupernodeSession {
   Supernode get node;
   @override
   bool get tfaEnabled;
+  @override
+  bool get isDemo;
   @override
   _$SupernodeSessionCopyWith<_SupernodeSession> get copyWith;
 }

@@ -143,7 +143,11 @@ class _StakeHistoryContentState extends State<StakeHistoryContent> {
                             'details_stake_page',
                             arguments: {
                               'stake': filteredHistory[i].stake,
-                              'isDemo': context.read<AppCubit>().state.isDemo,
+                              'isDemo': context
+                                  .read<SupernodeCubit>()
+                                  .state
+                                  .session
+                                  .isDemo,
                             },
                           );
                         },

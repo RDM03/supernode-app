@@ -122,12 +122,10 @@ class SupernodeRepository implements SupernodeDaoHolder {
   SupernodeDemoDao get demo => SupernodeDemoDao(client);
   SupernodeMainDao get main => SupernodeMainDao(client);
 
-  final AppCubit appCubit;
   final SupernodeCubit supernodeCubit;
   final SupernodeHttpClient client;
 
   factory SupernodeRepository({
-    AppCubit appCubit,
     SupernodeCubit supernodeCubit,
   }) {
     final dio = Dio();
@@ -143,10 +141,10 @@ class SupernodeRepository implements SupernodeDaoHolder {
       errorInterceptor: SupernodeErrorInterceptor(),
     );
 
-    return SupernodeRepository._(appCubit, supernodeCubit, client);
+    return SupernodeRepository._(supernodeCubit, client);
   }
 
-  SupernodeRepository._(this.appCubit, this.supernodeCubit, this.client);
+  SupernodeRepository._(this.supernodeCubit, this.client);
 
   static SharedHttpClient _sharedClient([Dio dio]) =>
       SharedHttpClient(dio: dio);
@@ -179,7 +177,8 @@ class SupernodeRepository implements SupernodeDaoHolder {
     return SuperNodeGithubDao(_sharedClient()).superNodes();
   }
 
-  SupernodeDaoHolder get _currentHolder => appCubit.state.isDemo ? demo : main;
+  SupernodeDaoHolder get _currentHolder =>
+      supernodeCubit.state.session.isDemo ? demo : main;
 
   @override
   DhxDao get dhx => _currentHolder.dhx;

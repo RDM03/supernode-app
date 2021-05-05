@@ -118,7 +118,7 @@ class LoginCubit extends Cubit<LoginState> {
       try {
         if (res.errCode == 0) {
           Map data = {'code': res.code};
-          appCubit.setDemo(false);
+          supernodeCubit.setDemo(false);
           supernodeCubit.setSupernode(state.selectedSuperNode);
 
           var authWeChatUserRes =
@@ -183,7 +183,7 @@ class LoginCubit extends Cubit<LoginState> {
       final res = await dao.main.user.login(username, password);
       final jwt = res.jwt;
 
-      appCubit.setDemo(false);
+      supernodeCubit.setDemo(false);
       supernodeCubit.setSupernodeSession(SupernodeSession(
         username: username,
         password: password,
@@ -206,7 +206,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> demoLogin() async {
     emit(state.copyWith(showLoading: true));
     try {
-      appCubit.setDemo(true);
+      supernodeCubit.setDemo(true);
       //supernodeCubit.setOrganizationId('todo');
       supernodeCubit.setSupernodeSession(SupernodeSession(
         userId: -1,
@@ -232,7 +232,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> forgotPassword() async {
     final res = await checkMaintenance(state.selectedSuperNode);
     if (!res) return;
-    appCubit.setDemo(false);
+    supernodeCubit.setDemo(false);
     supernodeCubit.setSupernode(state.selectedSuperNode);
     setLoginResult(LoginResult.resetPassword);
   }
@@ -302,7 +302,7 @@ class LoginCubit extends Cubit<LoginState> {
     };
 
     try {
-      appCubit.setDemo(false);
+      supernodeCubit.setDemo(false);
 
       await dao.main.user.registerFinish(data, state.jwtToken);
 

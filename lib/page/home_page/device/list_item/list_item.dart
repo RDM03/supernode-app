@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -15,8 +16,9 @@ class DeviceListItem extends StatelessWidget {
       ),
       child: ListTile(
         onTap: () {
-          Navigator.pushNamed(context, 'device_mapbox_page',
-              arguments: {'isDemo': context.read<AppState>().isDemo});
+          Navigator.pushNamed(context, 'device_mapbox_page', arguments: {
+            'isDemo': context.read<SupernodeCubit>().state.session.isDemo
+          });
         },
         title: Container(
           padding: EdgeInsets.symmetric(vertical: 10),

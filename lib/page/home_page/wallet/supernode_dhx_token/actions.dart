@@ -32,18 +32,18 @@ class SupernodeDhxActions extends StatelessWidget {
         ),
         Spacer(),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-          buildWhen: (a, b) => a.balance != b.balance,
-          builder: (ctx, state) => CircleButton(
-            icon: Icon(
-              Icons.arrow_forward,
-              color: Token.supernodeDhx.color,
-            ),
-            label: FlutterI18n.translate(context, 'withdraw'),
-            onTap: state.balance.loading
-                ? null
-                : () => openSupernodeWithdraw(context, Token.supernodeDhx),
-          )
-        ),
+            buildWhen: (a, b) => a.balance != b.balance,
+            builder: (ctx, state) => CircleButton(
+                  icon: Icon(
+                    Icons.arrow_forward,
+                    color: Token.supernodeDhx.color,
+                  ),
+                  label: FlutterI18n.translate(context, 'withdraw'),
+                  onTap: state.balance.loading
+                      ? null
+                      : () =>
+                          openSupernodeWithdraw(context, Token.supernodeDhx),
+                )),
         Spacer(),
         CircleButton(
           icon: Image.asset(
@@ -72,8 +72,8 @@ class SupernodeDhxActions extends StatelessWidget {
               icon: Image.asset(
                 AppImages.iconCouncil,
                 color: (state.stakes.loading ||
-                    state.stakes.value == null ||
-                    state.stakes.value.isEmpty)
+                        state.stakes.value == null ||
+                        state.stakes.value.isEmpty)
                     ? Colors.grey
                     : Token.supernodeDhx.color,
               ),
@@ -93,7 +93,8 @@ class SupernodeDhxActions extends StatelessWidget {
                   context,
                   'list_councils_page',
                   arguments: {
-                    'isDemo': context.read<AppCubit>().state.isDemo,
+                    'isDemo':
+                        context.read<SupernodeCubit>().state.session.isDemo,
                     'joinedCouncilsId': argJoinedCouncils,
                   },
                 );
@@ -115,8 +116,9 @@ class SupernodeDhxMineActions extends StatelessWidget {
             color: Token.supernodeDhx.color,
           ),
           label: FlutterI18n.translate(context, 'lock_mxc'),
-          onTap: () => Navigator.pushNamed(context, 'lock_page',
-              arguments: {'isDemo': context.read<AppCubit>().state.isDemo}),
+          onTap: () => Navigator.pushNamed(context, 'lock_page', arguments: {
+            'isDemo': context.read<SupernodeCubit>().state.session.isDemo
+          }),
         ),
         Spacer(),
         CircleButton(
@@ -134,7 +136,8 @@ class SupernodeDhxMineActions extends StatelessWidget {
             color: Token.supernodeDhx.color,
           ),
           label: FlutterI18n.translate(context, 'unbond'),
-          onTap: () => Navigator.push(context, route((c) => DhxUnbondingPage())),
+          onTap: () =>
+              Navigator.push(context, route((c) => DhxUnbondingPage())),
         ),
         Spacer(),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
@@ -142,8 +145,8 @@ class SupernodeDhxMineActions extends StatelessWidget {
               icon: Icon(
                 Icons.tune,
                 color: (state.stakes.loading ||
-                    state.stakes.value == null ||
-                    state.stakes.value.isEmpty)
+                        state.stakes.value == null ||
+                        state.stakes.value.isEmpty)
                     ? Colors.grey
                     : Token.supernodeDhx.color,
               ),
@@ -154,13 +157,17 @@ class SupernodeDhxMineActions extends StatelessWidget {
                     stakes.value == null ||
                     stakes.value.isEmpty) return;
 
-                Navigator.pushNamed(
-                    context,
-                    'mining_simulator_page',
+                Navigator.pushNamed(context, 'mining_simulator_page',
                     arguments: {
-                      'isDemo': context.read<AppCubit>().state.isDemo,
-                      'mxc_balance': context.read<SupernodeUserCubit>().state.balance.value,
-                      'dhx_balance': context.read<SupernodeDhxCubit>().state.balance.value,
+                      'isDemo':
+                          context.read<SupernodeCubit>().state.session.isDemo,
+                      'mxc_balance': context
+                          .read<SupernodeUserCubit>()
+                          .state
+                          .balance
+                          .value,
+                      'dhx_balance':
+                          context.read<SupernodeDhxCubit>().state.balance.value,
                     });
               }),
         ),
