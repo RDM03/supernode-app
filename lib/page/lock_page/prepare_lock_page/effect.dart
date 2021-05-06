@@ -19,7 +19,6 @@ Effect<PrepareLockState> buildEffect() {
   return combineEffects(<Object, Effect<PrepareLockState>>{
     Lifecycle.initState: _onInitState,
     PrepareLockAction.onConfirm: _onConfirm,
-    PrepareLockAction.process: _process,
   });
 }
 
@@ -50,31 +49,6 @@ void _resultPage(Context<PrepareLockState> ctx, String type, dynamic res) {
   }
 }
 
-Future<void> _stake(Context<PrepareLockState> ctx) async {
-  var curState = ctx.state;
-  final loading = Loading.show(ctx.context);
-
-  String orgId = ctx.context.read<SupernodeCubit>().state.orgId;
-  String amount = curState.amountCtl.text;
-
-  final dao = null;
-  Map data = {
-    "orgId": orgId,
-    "amount": amount,
-    if (ctx.state.months != null) "boost": ctx.state.boostRate.toString(),
-    if (ctx.state.months != null) "lockPeriods": ctx.state.months.toString(),
-  };
-
-  await dao.stake(data).then((res) async {
-    loading.hide();
-    mLog('stake', res);
-    _resultPage(ctx, 'stake', res);
-  }).catchError((err) {
-    loading.hide();
-    tip(ctx.context, 'LockDao stake: $err');
-  });
-}
-
 void _onConfirm(Action action, Context<PrepareLockState> ctx) async {
   final formValid = ctx.state.formKey.currentState.validate();
   final estimateDhx = calculateDhxDaily(
@@ -99,15 +73,8 @@ void _onConfirm(Action action, Context<PrepareLockState> ctx) async {
 
   _balance(ctx);
 
-  if (res == true)
+  if (res == true) 
     Navigator.of(ctx.context).pop(true);
-  else {
-    ctx.dispatch(PrepareLockActionCreator.process());
-  }
-}
-
-void _process(Action action, Context<PrepareLockState> ctx) async {
-  await _stake(ctx);
 }
 
 Future<void> _minersOwned(Context<PrepareLockState> ctx) async {

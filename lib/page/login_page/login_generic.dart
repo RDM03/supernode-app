@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/login_page/parachain_card.dart';
 
@@ -110,6 +112,11 @@ class _LoginPageContentState extends State<LoginPageContent>
   @override
   void initState() {
     super.initState();
+    
+    // DemoMode => logout
+    if (context.read<SupernodeCubit>().state.session != null && context.read<SupernodeCubit>().state.session.userId == -1)
+      context.read<SupernodeCubit>().logout();
+
     controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 200));
     controller.addListener(() {
