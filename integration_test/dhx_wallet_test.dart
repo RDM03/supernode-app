@@ -21,6 +21,7 @@ dhxWalletPageTests(){
 
       await delay(3);
       await pumpUntilFound(tester,findByKey('ethAddressTopUp'));
+      
       expect(findByText('5FErYFbRFsQJyMVP4sMYCpFih6nYY4B1pSYKR2eB4TeqZ13J'), findsOneWidget);
     });
   });

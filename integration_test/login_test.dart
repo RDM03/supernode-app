@@ -33,6 +33,9 @@ loginPageTests(){
         await pumpAndEnterText(tester,'homePassword',DotEnv().env['DRIVE_MXCTEST_PASSWORD']);
 
         await pumpAndTap(tester,'homeLogin');
+
+        await delay(3);
+        expect(findByText(DotEnv().env['DRIVE_TESTING_USER']), findsOneWidget);
       }
 
     });
