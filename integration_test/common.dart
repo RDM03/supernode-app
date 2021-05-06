@@ -46,10 +46,17 @@ Future<void> pumpUntilFound(
 Future<void> pumpAndTap(
   WidgetTester tester,
   String key, {
-    int tapCount: 1
+    int tapCount: 1,
+    bool firstWidget: false
   }
 ) async {
-  final Finder finder = find.byKey(Key(key)).first;
+  Finder finder = null;
+  if (firstWidget) {
+    finder = find.byKey(Key(key)).first;
+  } else {
+    finder = find.byKey(Key(key));
+  }
+
   await tester.pumpAndSettle();
 
   if (tapCount > 1) {
