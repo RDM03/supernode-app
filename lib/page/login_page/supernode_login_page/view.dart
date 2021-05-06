@@ -208,6 +208,7 @@ class _SupernodeLoginPageContentState
                         Column(
                           children: <Widget>[
                             AppBars.backArrowAppBar(
+                              key: Key('login_title'),
                               color: Colors.white,
                               title: FlutterI18n.translate(context, 'login'),
                               onPress: () => Navigator.of(context).pop(),
@@ -417,6 +418,7 @@ class _SupernodeLoginPageContentState
                                     in state.supernodes.value?.keys ?? [])
                                   if (key != "Test" || state.showTestNodes)
                                     ExpansionSuperNodesTile(
+                                      key: Key(key),
                                       title: Text(
                                         FlutterI18n.translate(context, key),
                                         style: TextStyle(color: Colors.black),

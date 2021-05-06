@@ -4,7 +4,7 @@ import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class AppBars {
-  static backArrowAppBar({String title: '', Function onPress, Function onTitlePress, Color color}) {
+  static backArrowAppBar({Key key, String title: '', Function onPress, Function onTitlePress, Color color}) {
     return AppBar(
       leading: IconButton(
         onPressed: onPress,
@@ -19,6 +19,7 @@ class AppBars {
       title: (onTitlePress == null)
           ? Text(title, style: kBigFontOfBlack)
           : GestureDetector(
+          key: key,
           behavior: HitTestBehavior.opaque,
           onTap: onTitlePress,
           child: Text(title, style: kBigFontOfBlack)

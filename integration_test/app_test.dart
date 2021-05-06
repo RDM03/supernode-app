@@ -11,5 +11,5 @@ void main() async {
   binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
   await loginPageTests();
-  // await dhxWalletPageTests();
+  await dhxWalletPageTests();
 }

@@ -264,6 +264,7 @@ class _SupernodeLoginCardContentState
                 ),
                 SizedBox(width: 23),
                 CircleButton(
+                  key: Key('login'),
                   text: FlutterI18n.translate(context, 'login'),
                   icon: Icons.arrow_forward,
                   onPressed: () => Navigator.of(context)
@@ -278,8 +279,8 @@ class _SupernodeLoginCardContentState
               padding: const EdgeInsets.all(20),
               child: whiteBorderButton(
                   FlutterI18n.translate(context, 'demo_login'),
-                  onPressed: () => loginCubit.demoLogin()),
                   key: Key('demo_login'),
+                  onPressed: () => loginCubit.demoLogin()),
             ),
           ],
         ),
