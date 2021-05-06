@@ -188,7 +188,8 @@ class LastMiningResponse {
 
     return LastMiningResponse(
       DateTime.tryParse(map['date']),
-      map['dhxAmount'],
+      map['dhxAllocated'], //dhxAllocated is how much DHX was allocated for the supernode's mpower.
+      //map['dhxAmount'], //dhxAmount is how much of that DHX was actually distributed among the users, it is limited by the amount of DHX the user has bonded,
       map['miningPower'],
     );
   }
