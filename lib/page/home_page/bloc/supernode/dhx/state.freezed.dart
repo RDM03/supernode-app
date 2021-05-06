@@ -69,6 +69,7 @@ mixin _$SupernodeDhxState {
   double get bondAmount;
   double get unbondAmount;
 
+  @JsonKey(ignore: true)
   $SupernodeDhxStateCopyWith<SupernodeDhxState> get copyWith;
 }
 
@@ -410,6 +411,7 @@ class _$_SupernodeDhxState
       const DeepCollectionEquality().hash(bondAmount) ^
       const DeepCollectionEquality().hash(unbondAmount);
 
+  @JsonKey(ignore: true)
   @override
   _$SupernodeDhxStateCopyWith<_SupernodeDhxState> get copyWith =>
       __$SupernodeDhxStateCopyWithImpl<_SupernodeDhxState>(this, _$identity);
@@ -461,5 +463,6 @@ abstract class _SupernodeDhxState implements SupernodeDhxState {
   @override
   double get unbondAmount;
   @override
+  @JsonKey(ignore: true)
   _$SupernodeDhxStateCopyWith<_SupernodeDhxState> get copyWith;
 }

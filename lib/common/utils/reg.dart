@@ -58,7 +58,7 @@ class Reg {
     String res = isEmpty(value);
     if (res != null) return FlutterI18n.translate(context, res);
 
-    res = isEmail(value);
+    res = isEmail(value.toLowerCase());
     if (res != null) {
       return FlutterI18n.translate(context, res);
     }

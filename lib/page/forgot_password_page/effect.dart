@@ -40,7 +40,7 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
     if (languageCode.contains('zh')) {
       languageCode = '$languageCode$countryCode';
     }
-    var email = curState.emailCtl.text;
+    var email = curState.emailCtl.text.toLowerCase();
     Map data = {"language": languageCode, "username": email};
     ctx.dispatch(ForgotPasswordActionCreator.setEmail(email));
     try {

@@ -40,6 +40,7 @@ mixin _$AppState {
   @nullable
   ErrorInfo get error;
 
+  @JsonKey(ignore: true)
   $AppStateCopyWith<AppState> get copyWith;
 }
 
@@ -178,6 +179,7 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
       const DeepCollectionEquality().hash(showLoading) ^
       const DeepCollectionEquality().hash(error);
 
+  @JsonKey(ignore: true)
   @override
   _$AppStateCopyWith<_AppState> get copyWith =>
       __$AppStateCopyWithImpl<_AppState>(this, _$identity);
@@ -200,6 +202,7 @@ abstract class _AppState implements AppState {
   @nullable
   ErrorInfo get error;
   @override
+  @JsonKey(ignore: true)
   _$AppStateCopyWith<_AppState> get copyWith;
 }
 
@@ -228,6 +231,7 @@ mixin _$SupernodeState {
   Supernode get selectedNode;
   String get orgId;
 
+  @JsonKey(ignore: true)
   $SupernodeStateCopyWith<SupernodeState> get copyWith;
 }
 
@@ -365,6 +369,7 @@ class _$_SupernodeState extends _SupernodeState with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(selectedNode) ^
       const DeepCollectionEquality().hash(orgId);
 
+  @JsonKey(ignore: true)
   @override
   _$SupernodeStateCopyWith<_SupernodeState> get copyWith =>
       __$SupernodeStateCopyWithImpl<_SupernodeState>(this, _$identity);
@@ -384,6 +389,7 @@ abstract class _SupernodeState extends SupernodeState {
   @override
   String get orgId;
   @override
+  @JsonKey(ignore: true)
   _$SupernodeStateCopyWith<_SupernodeState> get copyWith;
 }
 
@@ -423,6 +429,7 @@ mixin _$SupernodeSession {
   Supernode get node;
   bool get tfaEnabled;
 
+  @JsonKey(ignore: true)
   $SupernodeSessionCopyWith<SupernodeSession> get copyWith;
 }
 
@@ -594,6 +601,7 @@ class _$_SupernodeSession
       const DeepCollectionEquality().hash(node) ^
       const DeepCollectionEquality().hash(tfaEnabled);
 
+  @JsonKey(ignore: true)
   @override
   _$SupernodeSessionCopyWith<_SupernodeSession> get copyWith =>
       __$SupernodeSessionCopyWithImpl<_SupernodeSession>(this, _$identity);
@@ -621,6 +629,7 @@ abstract class _SupernodeSession implements SupernodeSession {
   @override
   bool get tfaEnabled;
   @override
+  @JsonKey(ignore: true)
   _$SupernodeSessionCopyWith<_SupernodeSession> get copyWith;
 }
 
@@ -644,6 +653,7 @@ const $DataHighwayState = _$DataHighwayStateTearOff();
 mixin _$DataHighwayState {
   DataHighwaySession get session;
 
+  @JsonKey(ignore: true)
   $DataHighwayStateCopyWith<DataHighwayState> get copyWith;
 }
 
@@ -755,6 +765,7 @@ class _$_DataHighwayState extends _DataHighwayState
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(session);
 
+  @JsonKey(ignore: true)
   @override
   _$DataHighwayStateCopyWith<_DataHighwayState> get copyWith =>
       __$DataHighwayStateCopyWithImpl<_DataHighwayState>(this, _$identity);
@@ -767,6 +778,7 @@ abstract class _DataHighwayState extends DataHighwayState {
   @override
   DataHighwaySession get session;
   @override
+  @JsonKey(ignore: true)
   _$DataHighwayStateCopyWith<_DataHighwayState> get copyWith;
 }
 
@@ -790,6 +802,7 @@ const $DataHighwaySession = _$DataHighwaySessionTearOff();
 mixin _$DataHighwaySession {
   String get address;
 
+  @JsonKey(ignore: true)
   $DataHighwaySessionCopyWith<DataHighwaySession> get copyWith;
 }
 
@@ -884,6 +897,7 @@ class _$_DataHighwaySession extends _DataHighwaySession
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(address);
 
+  @JsonKey(ignore: true)
   @override
   _$DataHighwaySessionCopyWith<_DataHighwaySession> get copyWith =>
       __$DataHighwaySessionCopyWithImpl<_DataHighwaySession>(this, _$identity);
@@ -896,5 +910,6 @@ abstract class _DataHighwaySession extends DataHighwaySession {
   @override
   String get address;
   @override
+  @JsonKey(ignore: true)
   _$DataHighwaySessionCopyWith<_DataHighwaySession> get copyWith;
 }
