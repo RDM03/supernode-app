@@ -84,7 +84,7 @@ dependencies:
   # https://pub.dev/packages/cached_network_image
   cached_network_image: ^2.2.0+1
   # https://pub.dev/packages/connectivity
-  connectivity: ^0.4.8+6
+  connectivity: ^2.0.2
   # https://pub.dev/packages/json_serializable
   json_serializable: ^3.3.0
   # https://pub.dev/packages/font_awesome_flutter
@@ -124,7 +124,6 @@ dependencies:
 
 
 dependency_overrides:
-  android_metadata: 0.1.2
   local_auth:
     path: packages/local_auth
     

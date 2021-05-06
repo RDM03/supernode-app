@@ -16,7 +16,7 @@ packages:
     source: hosted
     version: "0.40.6"
   android_metadata:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: android_metadata
       url: "https://pub.dartlang.org"
@@ -203,7 +203,7 @@ packages:
       name: connectivity
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.9+5"
+    version: "2.0.2"
   connectivity_for_web:
     dependency: transitive
     description:
