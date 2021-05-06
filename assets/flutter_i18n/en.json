@@ -407,6 +407,8 @@
 	"mining_term": "Mining Term",
 	"tutorial_pg2_desc1": "(The more MXC locked the bigger mPower)",
 	"tutorial_pg2_desc2": "(if your miner is offline, your boost will be reduced)",
+	"tutorial_pg2_desc2_2": "(Can only be boosted by one miner at a time)",
+	"up_to": "Up to",
 	"tutorial_pg2_desc3": "(Extra boost with mining duration, 10%, 20%, 40%)",
 	"tutorial_pv2_title_span1": "Next, decide how long you want to lock your MXC. ",
 	"tutorial_pv2_title_span2": "The longer you lock your MXC, the more your mPower will be boosted",

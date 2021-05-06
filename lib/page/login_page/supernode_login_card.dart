@@ -66,7 +66,8 @@ class _SupernodeLoginCardContentState
       listenWhen: (a, b) => a.loginResult != b.loginResult,
       listener: (ctx, state) async {
         if (state.loginResult == LoginResult.home)
-          Navigator.of(context).push(route((ctx) => HomePage()));
+          await navigatorKey.currentState
+              .pushAndRemoveUntil(route((c) => HomePage()), (_) => false);
       },
       child: Container(
         decoration: BoxDecoration(
