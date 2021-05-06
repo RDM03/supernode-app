@@ -12,13 +12,13 @@ import 'common.dart';
 
 loginPageTests(){
 
-  group('can login', () {
-    testWidgets('with supernode', (WidgetTester tester) async {
+  group('Authentication', () {
+    testWidgets('can login with username/password', (WidgetTester tester) async {
 
       await app.main();
       await tester.pumpAndSettle();
     
-      bool hasLogin = find.byKey(Key('login')).precache();
+      bool hasLogin = isExisted('login');
 
       if (DotEnv().env['ENVIRONMENT'] == 'test' && hasLogin) {
         await pumpAndTap(tester,'login');

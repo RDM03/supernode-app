@@ -85,6 +85,7 @@ void loginParachain(BuildContext context) => Navigator.of(context).push(
 Widget tokenItem(
     BuildContext context,
     {
+      String key,
       Image image,
       String title,
       String subtitle,
@@ -96,6 +97,7 @@ Widget tokenItem(
     SizedBox(
       height: s(62),
       child: GestureDetector(
+        key: Key(key),
         onTap: onPressed,
         behavior: HitTestBehavior.opaque,
         child: Row(
@@ -172,6 +174,7 @@ void addTokenDialog(
           ),
           tokenItem(
             context,
+            key: 'addMXC',
             image: Image.asset(AppImages.logoMXC, height: s(50)),
             title: 'MXC',
             subtitle: () {
@@ -187,6 +190,7 @@ void addTokenDialog(
           ),
           tokenItem(
             context,
+            key: 'addDHX',
             image: Image.asset(AppImages.logoDHX, height: s(50)),
             title: 'DHX',
             subtitle: () {
@@ -208,6 +212,7 @@ void addTokenDialog(
           ),
           tokenItem(
             context,
+            key: 'addBTC',
             image: Image.asset(Token.btc.imagePath, height: s(50)),
             title: 'BTC',
             subtitle: () {

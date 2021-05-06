@@ -5,14 +5,23 @@ import 'package:supernodeapp/main.dart' as app;
 import 'common.dart';
 
 dhxWalletPageTests(){
-  group('can get top-up information', () {
-    testWidgets('with DHX Wallet', (WidgetTester tester) async {
-      await delay(3);
+  group('DHX Wallet', () {
+    testWidgets('can get top-up information', (WidgetTester tester) async {
+      await delay(5);
       await app.main();
 
-      await pumpAndTap(tester,'addTokenTitle');
+      if (!isExisted('dhxDashboard')) {
+        await pumpAndTap(tester,'addTokenTitle');
+        await pumpAndTap(tester,'addDHX');
+      }
 
-      await idle(tester);
+      await delay(3);
+      await pumpAndTap(tester,'dhxDashboard');
+      await pumpAndTap(tester,'dhxDeposit');
+
+      await delay(3);
+      await pumpUntilFound(tester,findByKey('ethAddressTopUp'));
+      expect(findByText('5FErYFbRFsQJyMVP4sMYCpFih6nYY4B1pSYKR2eB4TeqZ13J'), findsOneWidget);
     });
   });
 

@@ -3,11 +3,17 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+Finder findByKey(String key) => find.byKey(Key(key));
+
+Finder findByText(String text) => find.text(text);
+
+bool isExisted(String key) => findByKey(key).precache();
+
 Future<void> delay([int seconds = 1]) async {
   await Future<void>.delayed(Duration(seconds: seconds));
 }
 
-Future<void> idle(WidgetTester tester,{int seconds = 5}) async {
+Future<void> idle(WidgetTester tester, {int seconds = 5}) async {
   for (int i = 0;i < seconds * 10000;i++) {
     await tester.idle();
   }
@@ -42,7 +48,7 @@ Future<void> pumpAndTap(
     int tapCount: 1
   }
 ) async {
-  final Finder finder = find.byKey(Key(key));
+  final Finder finder = find.byKey(Key(key)).first;
   await tester.pumpAndSettle();
 
   if (tapCount > 1) {
