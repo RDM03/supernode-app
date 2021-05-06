@@ -43,8 +43,7 @@ void _onBind(Action action, Context<WechatBindState> ctx) async {
       final res = await checkMaintenance(
           ctx.context.read<SupernodeCubit>().state.selectedNode);
       if (!res) return;
-      tip(ctx.context,
-          err?.message ?? FlutterI18n.translate(ctx.context, 'error_tip'));
+      tip(err?.message ?? FlutterI18n.translate(ctx.context, 'error_tip'));
     } finally {
       loading.hide();
     }

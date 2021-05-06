@@ -45,6 +45,7 @@ mixin _$HomeState {
   bool get parachainUsed;
   List<Token> get displayTokens;
 
+  @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith;
 }
 
@@ -228,6 +229,7 @@ class _$_HomeState with DiagnosticableTreeMixin implements _HomeState {
       const DeepCollectionEquality().hash(parachainUsed) ^
       const DeepCollectionEquality().hash(displayTokens);
 
+  @JsonKey(ignore: true)
   @override
   _$HomeStateCopyWith<_HomeState> get copyWith =>
       __$HomeStateCopyWithImpl<_HomeState>(this, _$identity);
@@ -255,5 +257,6 @@ abstract class _HomeState implements HomeState {
   @override
   List<Token> get displayTokens;
   @override
+  @JsonKey(ignore: true)
   _$HomeStateCopyWith<_HomeState> get copyWith;
 }

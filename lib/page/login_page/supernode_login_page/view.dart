@@ -51,7 +51,7 @@ class _SupernodeLoginPageContentState
 
   void onForgotPassword() {
     if (context.read<LoginCubit>().state.selectedSuperNode == null) {
-      tip(context, FlutterI18n.translate(context, 'reg_select_supernode'));
+      tip( FlutterI18n.translate(context, 'reg_select_supernode'));
       return;
     }
     context.read<LoginCubit>().forgotPassword();
@@ -59,7 +59,7 @@ class _SupernodeLoginPageContentState
 
   void onLogin() {
     if (context.read<LoginCubit>().state.selectedSuperNode == null) {
-      tip(context, FlutterI18n.translate(context, 'reg_select_supernode'));
+      tip( FlutterI18n.translate(context, 'reg_select_supernode'));
       return;
     }
     if (!formKey.currentState.validate()) return;
@@ -70,7 +70,7 @@ class _SupernodeLoginPageContentState
 
   Future<void> onWeChatLogin() async {
     if (context.read<LoginCubit>().state.selectedSuperNode == null) {
-      tip(context, FlutterI18n.translate(context, 'reg_select_supernode'));
+      tip( FlutterI18n.translate(context, 'reg_select_supernode'));
       return;
     }
     context.read<LoginCubit>().weChatLogin();

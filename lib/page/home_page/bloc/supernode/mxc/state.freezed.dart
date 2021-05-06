@@ -36,6 +36,7 @@ mixin _$SupernodeMxcState {
   Wrap<List<WithdrawHistoryEntity>> get withdraws;
   Wrap<List<TopupEntity>> get topups;
 
+  @JsonKey(ignore: true)
   $SupernodeMxcStateCopyWith<SupernodeMxcState> get copyWith;
 }
 
@@ -166,6 +167,7 @@ class _$_SupernodeMxcState implements _SupernodeMxcState {
       const DeepCollectionEquality().hash(withdraws) ^
       const DeepCollectionEquality().hash(topups);
 
+  @JsonKey(ignore: true)
   @override
   _$SupernodeMxcStateCopyWith<_SupernodeMxcState> get copyWith =>
       __$SupernodeMxcStateCopyWithImpl<_SupernodeMxcState>(this, _$identity);
@@ -184,5 +186,6 @@ abstract class _SupernodeMxcState implements SupernodeMxcState {
   @override
   Wrap<List<TopupEntity>> get topups;
   @override
+  @JsonKey(ignore: true)
   _$SupernodeMxcStateCopyWith<_SupernodeMxcState> get copyWith;
 }

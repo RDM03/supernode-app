@@ -20,6 +20,7 @@ class _$SettingsStateTearOff {
       @nullable String buildNumber,
       @nullable String mxVersion,
       @nullable String language,
+      int copyrightYear = 2021,
       bool screenShot,
       bool showWechatUnbindConfirmation,
       int showBindShopifyStep,
@@ -30,6 +31,7 @@ class _$SettingsStateTearOff {
       buildNumber: buildNumber,
       mxVersion: mxVersion,
       language: language,
+      copyrightYear: copyrightYear,
       screenShot: screenShot,
       showWechatUnbindConfirmation: showWechatUnbindConfirmation,
       showBindShopifyStep: showBindShopifyStep,
@@ -54,11 +56,13 @@ mixin _$SettingsState {
   String get mxVersion;
   @nullable
   String get language;
+  int get copyrightYear;
   bool get screenShot;
   bool get showWechatUnbindConfirmation;
   int get showBindShopifyStep;
   bool get showLoading;
 
+  @JsonKey(ignore: true)
   $SettingsStateCopyWith<SettingsState> get copyWith;
 }
 
@@ -73,6 +77,7 @@ abstract class $SettingsStateCopyWith<$Res> {
       @nullable String buildNumber,
       @nullable String mxVersion,
       @nullable String language,
+      int copyrightYear,
       bool screenShot,
       bool showWechatUnbindConfirmation,
       int showBindShopifyStep,
@@ -95,6 +100,7 @@ class _$SettingsStateCopyWithImpl<$Res>
     Object buildNumber = freezed,
     Object mxVersion = freezed,
     Object language = freezed,
+    Object copyrightYear = freezed,
     Object screenShot = freezed,
     Object showWechatUnbindConfirmation = freezed,
     Object showBindShopifyStep = freezed,
@@ -107,6 +113,9 @@ class _$SettingsStateCopyWithImpl<$Res>
           buildNumber == freezed ? _value.buildNumber : buildNumber as String,
       mxVersion: mxVersion == freezed ? _value.mxVersion : mxVersion as String,
       language: language == freezed ? _value.language : language as String,
+      copyrightYear: copyrightYear == freezed
+          ? _value.copyrightYear
+          : copyrightYear as int,
       screenShot:
           screenShot == freezed ? _value.screenShot : screenShot as bool,
       showWechatUnbindConfirmation: showWechatUnbindConfirmation == freezed
@@ -134,6 +143,7 @@ abstract class _$SettingsStateCopyWith<$Res>
       @nullable String buildNumber,
       @nullable String mxVersion,
       @nullable String language,
+      int copyrightYear,
       bool screenShot,
       bool showWechatUnbindConfirmation,
       int showBindShopifyStep,
@@ -158,6 +168,7 @@ class __$SettingsStateCopyWithImpl<$Res>
     Object buildNumber = freezed,
     Object mxVersion = freezed,
     Object language = freezed,
+    Object copyrightYear = freezed,
     Object screenShot = freezed,
     Object showWechatUnbindConfirmation = freezed,
     Object showBindShopifyStep = freezed,
@@ -170,6 +181,9 @@ class __$SettingsStateCopyWithImpl<$Res>
           buildNumber == freezed ? _value.buildNumber : buildNumber as String,
       mxVersion: mxVersion == freezed ? _value.mxVersion : mxVersion as String,
       language: language == freezed ? _value.language : language as String,
+      copyrightYear: copyrightYear == freezed
+          ? _value.copyrightYear
+          : copyrightYear as int,
       screenShot:
           screenShot == freezed ? _value.screenShot : screenShot as bool,
       showWechatUnbindConfirmation: showWechatUnbindConfirmation == freezed
@@ -192,10 +206,12 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
       @nullable this.buildNumber,
       @nullable this.mxVersion,
       @nullable this.language,
+      this.copyrightYear = 2021,
       this.screenShot,
       this.showWechatUnbindConfirmation,
       this.showBindShopifyStep,
-      this.showLoading});
+      this.showLoading})
+      : assert(copyrightYear != null);
 
   @override
   @nullable
@@ -212,6 +228,9 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
   @override
   @nullable
   final String language;
+  @JsonKey(defaultValue: 2021)
+  @override
+  final int copyrightYear;
   @override
   final bool screenShot;
   @override
@@ -223,7 +242,7 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SettingsState(info: $info, version: $version, buildNumber: $buildNumber, mxVersion: $mxVersion, language: $language, screenShot: $screenShot, showWechatUnbindConfirmation: $showWechatUnbindConfirmation, showBindShopifyStep: $showBindShopifyStep, showLoading: $showLoading)';
+    return 'SettingsState(info: $info, version: $version, buildNumber: $buildNumber, mxVersion: $mxVersion, language: $language, copyrightYear: $copyrightYear, screenShot: $screenShot, showWechatUnbindConfirmation: $showWechatUnbindConfirmation, showBindShopifyStep: $showBindShopifyStep, showLoading: $showLoading)';
   }
 
   @override
@@ -236,6 +255,7 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
       ..add(DiagnosticsProperty('buildNumber', buildNumber))
       ..add(DiagnosticsProperty('mxVersion', mxVersion))
       ..add(DiagnosticsProperty('language', language))
+      ..add(DiagnosticsProperty('copyrightYear', copyrightYear))
       ..add(DiagnosticsProperty('screenShot', screenShot))
       ..add(DiagnosticsProperty(
           'showWechatUnbindConfirmation', showWechatUnbindConfirmation))
@@ -261,6 +281,9 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
             (identical(other.language, language) ||
                 const DeepCollectionEquality()
                     .equals(other.language, language)) &&
+            (identical(other.copyrightYear, copyrightYear) ||
+                const DeepCollectionEquality()
+                    .equals(other.copyrightYear, copyrightYear)) &&
             (identical(other.screenShot, screenShot) ||
                 const DeepCollectionEquality()
                     .equals(other.screenShot, screenShot)) &&
@@ -285,11 +308,13 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
       const DeepCollectionEquality().hash(buildNumber) ^
       const DeepCollectionEquality().hash(mxVersion) ^
       const DeepCollectionEquality().hash(language) ^
+      const DeepCollectionEquality().hash(copyrightYear) ^
       const DeepCollectionEquality().hash(screenShot) ^
       const DeepCollectionEquality().hash(showWechatUnbindConfirmation) ^
       const DeepCollectionEquality().hash(showBindShopifyStep) ^
       const DeepCollectionEquality().hash(showLoading);
 
+  @JsonKey(ignore: true)
   @override
   _$SettingsStateCopyWith<_SettingsState> get copyWith =>
       __$SettingsStateCopyWithImpl<_SettingsState>(this, _$identity);
@@ -302,6 +327,7 @@ abstract class _SettingsState implements SettingsState {
       @nullable String buildNumber,
       @nullable String mxVersion,
       @nullable String language,
+      int copyrightYear,
       bool screenShot,
       bool showWechatUnbindConfirmation,
       int showBindShopifyStep,
@@ -323,6 +349,8 @@ abstract class _SettingsState implements SettingsState {
   @nullable
   String get language;
   @override
+  int get copyrightYear;
+  @override
   bool get screenShot;
   @override
   bool get showWechatUnbindConfirmation;
@@ -331,5 +359,6 @@ abstract class _SettingsState implements SettingsState {
   @override
   bool get showLoading;
   @override
+  @JsonKey(ignore: true)
   _$SettingsStateCopyWith<_SettingsState> get copyWith;
 }

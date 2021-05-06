@@ -36,7 +36,7 @@ void _resultPage(Context<PrepareStakeState> ctx, String type, dynamic res) {
     ctx.dispatch(PrepareStakeActionCreator.resSuccess(
         res['status'].contains('successful')));
   } else {
-    tip(ctx.context, res);
+    tip(res);
   }
 }
 
@@ -61,7 +61,7 @@ Future<void> _stake(Context<PrepareStakeState> ctx) async {
     _resultPage(ctx, 'stake', res);
   }).catchError((err) {
     loading.hide();
-    tip(ctx.context, 'StakeDao stake: $err');
+    tip('StakeDao stake: $err');
   });
 }
 

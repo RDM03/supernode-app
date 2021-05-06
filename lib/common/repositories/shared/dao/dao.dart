@@ -39,3 +39,34 @@ class HttpDao {
     return client.delete(url: url);
   }
 }
+
+
+abstract class BaseResponse {
+  int code = 0;
+  String message;
+  dynamic data;
+
+  bool get success;
+
+  BaseResponse({
+    this.code, 
+    this.message, 
+    this.data
+  });
+
+  @override
+  String toString() {
+    return 'HttpResponse {code: $code, message: $message, data: $data}';
+  }
+}
+
+
+class DaoResponse extends BaseResponse {
+  bool get success => (code == 200);
+
+  DaoResponse.fromJson(Map<String, dynamic> json) {
+    code = json["code"];
+    message = json["message"];
+    data = json["data"];
+  }
+}

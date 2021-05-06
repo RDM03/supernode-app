@@ -101,7 +101,7 @@ class _DepositPageState extends State<DepositPage> {
                         ),
                         onTap: () {
                           context.read<DepositCubit>().copy();
-                          tip(context, FlutterI18n.translate(context, 'has_copied'), success: true);
+                          tip( FlutterI18n.translate(context, 'has_copied'), success: true);
                         },
                       ),
                       middleColumnSpacer(),

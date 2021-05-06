@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/repositories/cache_repository.dart';
@@ -150,7 +151,9 @@ Future<void> main() async {
         ],
         child: MultiBlocListener(
           listeners: listeners(),
-          child: MxcApp(),
+          child: OKToast(
+            child: MxcApp()
+          )
         ),
       ),
     ),
@@ -247,7 +250,7 @@ class MxcApp extends StatelessWidget {
   }
 
   void showError(BuildContext context, AppState state) {
-    tip(context, state.error.text, success: false);
+    tip( state.error.text, success: false);
   }
 
   Widget build(BuildContext context) {
@@ -326,7 +329,7 @@ class MxcApp extends StatelessWidget {
                     );
                   },
                   onGenerateInitialRoutes: (state, s) => [
-                    context.read<SupernodeCubit>().state.session == null
+                    context.read<SupernodeCubit>().state.session == null || context.read<SupernodeCubit>().state.session.userId == -1 /* demoMode */
                         ? route((ctx) => LoginPage())
                         : route((ctx) => HomePage()),
                   ],
