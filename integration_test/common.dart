@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+String getEnv(String key) => DotEnv().env[key];
 Finder findByKey(String key) => find.byKey(Key(key));
-
 Finder findByText(String text) => find.text(text);
-
 bool isExisted(String key) => findByKey(key).precache();
+dynamic timeout({int seconds = 60}) => Timeout(Duration(seconds: seconds));
 
 Future<void> delay([int seconds = 1]) async {
   await Future<void>.delayed(Duration(seconds: seconds));

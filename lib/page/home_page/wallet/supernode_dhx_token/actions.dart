@@ -35,6 +35,7 @@ class SupernodeDhxActions extends StatelessWidget {
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
           buildWhen: (a, b) => a.balance != b.balance,
           builder: (ctx, state) => CircleButton(
+            key: Key('dhxWithdraw'),
             icon: Icon(
               Icons.arrow_forward,
               color: Token.supernodeDhx.color,

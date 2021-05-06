@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:supernodeapp/main.dart' as app;
 
@@ -21,9 +20,19 @@ dhxWalletPageTests(){
 
       await delay(3);
       await pumpUntilFound(tester,findByKey('ethAddressTopUp'));
+
+      if (getEnv('ENVIRONMENT') == 'test') {
+        //this is eth address of text@mxc.org.
+        expect(findByText('5FErYFbRFsQJyMVP4sMYCpFih6nYY4B1pSYKR2eB4TeqZ13J'), findsOneWidget);
+      }
+    }, timeout: timeout());
+
+    // testWidgets('can submit withdraw request', (WidgetTester tester) async {
+    //   await delay(5);
+    //   await app.main();
       
-      expect(findByText('5FErYFbRFsQJyMVP4sMYCpFih6nYY4B1pSYKR2eB4TeqZ13J'), findsOneWidget);
-    });
+
+    // }, timeout: timeout());
   });
 
 }
