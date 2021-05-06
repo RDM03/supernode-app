@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+final String mxcTestEthAdress = '5FErYFbRFsQJyMVP4sMYCpFih6nYY4B1pSYKR2eB4TeqZ13J';
+
 String getEnv(String key) => DotEnv().env[key];
 Finder findByKey(String key) => find.byKey(Key(key));
 Finder findByText(String text) => find.text(text);

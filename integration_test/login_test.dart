@@ -5,7 +5,7 @@ import 'package:supernodeapp/main.dart' as app;
 
 import 'common.dart';
 
-loginPageTests(){
+Future<void> loginPageTests(){
 
   group('Authentication', () {
     testWidgets('can login with username/password', (WidgetTester tester) async {
