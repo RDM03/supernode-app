@@ -4,7 +4,7 @@ import 'package:supernodeapp/main.dart' as app;
 
 import 'common.dart';
 
-Future<void> dhxWalletPageTests(){
+dhxWalletPageTests(){
   group('can get top-up information', () {
     testWidgets('with DHX Wallet', (WidgetTester tester) async {
       await delay(3);
