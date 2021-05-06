@@ -124,6 +124,7 @@ dependencies:
 
 
 dependency_overrides:
+  android_metadata: 0.1.2
   local_auth:
     path: packages/local_auth
     
