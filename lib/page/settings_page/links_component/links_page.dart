@@ -48,6 +48,16 @@ class LinksPage extends StatelessWidget {
             size: 28,
           ),
         ),
+        Divider(),
+        _item(
+          name: FlutterI18n.translate(context, 'join_us_discord'),
+          onTap: () => launch('https://mxc.news/mxcdiscord'),
+          leading: FaIcon(
+            FontAwesomeIcons.discord,
+            color: buttonPrimaryColor,
+            size: 28,
+          ),
+        ),
       ],
     );
   }
