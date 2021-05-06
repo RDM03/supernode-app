@@ -45,7 +45,7 @@ void _resultPage(Context<PrepareLockState> ctx, String type, dynamic res) {
     ctx.dispatch(PrepareLockActionCreator.resSuccess(
         res['status'].contains('successful')));
   } else {
-    tip(ctx.context, res);
+    tip(res);
   }
 }
 

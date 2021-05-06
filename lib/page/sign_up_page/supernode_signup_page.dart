@@ -46,7 +46,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
 
   void onSignupEmail() {
     if (context.read<LoginCubit>().state.selectedSuperNode == null) {
-      tip(context, FlutterI18n.translate(context, 'reg_select_supernode'));
+      tip( FlutterI18n.translate(context, 'reg_select_supernode'));
       return;
     }
     if (!formKey.currentState.validate()) return;

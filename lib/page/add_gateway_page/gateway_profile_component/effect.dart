@@ -105,7 +105,7 @@ void _gatewayProfile(Context<GatewayProfileState> ctx, String id) {
       ctx.dispatch(
           GatewayProfileActionCreator.gatewayProfileList(res['result']));
     } else {
-      tip(ctx.context, res);
+      tip(res);
     }
   }).catchError((err) {
     // tip(ctx.context,'Gateway profile $err');
@@ -116,20 +116,19 @@ void _update(Action action, Context<GatewayProfileState> ctx) async {
   var curState = ctx.state;
 
   if (curState.networkServerID.isEmpty) {
-    tip(ctx.context, FlutterI18n.translate(ctx.context, 'reg_network_server'));
+    tip(FlutterI18n.translate(ctx.context, 'reg_network_server'));
     return;
   }
 
   if (curState.gatewayProfileID.isEmpty) {
-    tip(ctx.context, FlutterI18n.translate(ctx.context, 'reg_gateway_profile'));
+    tip(FlutterI18n.translate(ctx.context, 'reg_gateway_profile'));
     return;
   }
 
   LatLng location = curState.markerPoint ?? curState.location;
 
   if (location == null) {
-    tip(ctx.context,
-        FlutterI18n.translate(ctx.context, 'reg_gateway_location'));
+    tip(FlutterI18n.translate(ctx.context, 'reg_gateway_location'));
     return;
   }
 
@@ -169,7 +168,7 @@ void _update(Action action, Context<GatewayProfileState> ctx) async {
       loading.hide();
       mLog('GatewaysDao add', res);
 
-      tip(ctx.context, FlutterI18n.translate(ctx.context, 'update_success'),
+      tip(FlutterI18n.translate(ctx.context, 'update_success'),
           success: true);
 
       Navigator.of(ctx.context).pop();
