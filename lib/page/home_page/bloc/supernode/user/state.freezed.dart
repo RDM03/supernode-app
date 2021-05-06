@@ -82,6 +82,7 @@ mixin _$SupernodeUserState {
   Wrap<bool> get isAdmin;
   Wrap<List<UserOrganization>> get organizations;
 
+  @JsonKey(ignore: true)
   $SupernodeUserStateCopyWith<SupernodeUserState> get copyWith;
 }
 
@@ -487,6 +488,7 @@ class _$_SupernodeUserState
       const DeepCollectionEquality().hash(isAdmin) ^
       const DeepCollectionEquality().hash(organizations);
 
+  @JsonKey(ignore: true)
   @override
   _$SupernodeUserStateCopyWith<_SupernodeUserState> get copyWith =>
       __$SupernodeUserStateCopyWithImpl<_SupernodeUserState>(this, _$identity);
@@ -550,5 +552,6 @@ abstract class _SupernodeUserState implements SupernodeUserState {
   @override
   Wrap<List<UserOrganization>> get organizations;
   @override
+  @JsonKey(ignore: true)
   _$SupernodeUserStateCopyWith<_SupernodeUserState> get copyWith;
 }

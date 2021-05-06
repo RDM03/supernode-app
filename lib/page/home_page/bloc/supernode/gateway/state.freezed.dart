@@ -33,6 +33,7 @@ mixin _$GatewayState {
   Wrap<int> get gatewaysTotal;
   Wrap<List<GatewayItem>> get gateways;
 
+  @JsonKey(ignore: true)
   $GatewayStateCopyWith<GatewayState> get copyWith;
 }
 
@@ -151,6 +152,7 @@ class _$_GatewayState with DiagnosticableTreeMixin implements _GatewayState {
       const DeepCollectionEquality().hash(gatewaysTotal) ^
       const DeepCollectionEquality().hash(gateways);
 
+  @JsonKey(ignore: true)
   @override
   _$GatewayStateCopyWith<_GatewayState> get copyWith =>
       __$GatewayStateCopyWithImpl<_GatewayState>(this, _$identity);
@@ -166,6 +168,7 @@ abstract class _GatewayState implements GatewayState {
   @override
   Wrap<List<GatewayItem>> get gateways;
   @override
+  @JsonKey(ignore: true)
   _$GatewayStateCopyWith<_GatewayState> get copyWith;
 }
 
@@ -240,6 +243,7 @@ mixin _$GatewayItem {
   String get osversion;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $GatewayItemCopyWith<GatewayItem> get copyWith;
 }
 
@@ -524,6 +528,7 @@ class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
       const DeepCollectionEquality().hash(model) ^
       const DeepCollectionEquality().hash(osversion);
 
+  @JsonKey(ignore: true)
   @override
   _$GatewayItemCopyWith<_GatewayItem> get copyWith =>
       __$GatewayItemCopyWithImpl<_GatewayItem>(this, _$identity);
@@ -584,5 +589,6 @@ abstract class _GatewayItem implements GatewayItem {
   @nullable
   String get osversion;
   @override
+  @JsonKey(ignore: true)
   _$GatewayItemCopyWith<_GatewayItem> get copyWith;
 }

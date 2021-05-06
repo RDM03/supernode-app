@@ -29,6 +29,7 @@ const $DepositState = _$DepositStateTearOff();
 mixin _$DepositState {
   Wrap<String> get address;
 
+  @JsonKey(ignore: true)
   $DepositStateCopyWith<DepositState> get copyWith;
 }
 
@@ -123,6 +124,7 @@ class _$_DepositState extends _DepositState with DiagnosticableTreeMixin {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(address);
 
+  @JsonKey(ignore: true)
   @override
   _$DepositStateCopyWith<_DepositState> get copyWith =>
       __$DepositStateCopyWithImpl<_DepositState>(this, _$identity);
@@ -135,5 +137,6 @@ abstract class _DepositState extends DepositState {
   @override
   Wrap<String> get address;
   @override
+  @JsonKey(ignore: true)
   _$DepositStateCopyWith<_DepositState> get copyWith;
 }
