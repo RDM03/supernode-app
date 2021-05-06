@@ -137,33 +137,23 @@ class SupernodeDhxMineActions extends StatelessWidget {
           onTap: () => Navigator.push(context, route((c) => DhxUnbondingPage())),
         ),
         Spacer(),
-        BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-          builder: (ctx, state) => CircleButton(
-              icon: Icon(
-                Icons.tune,
-                color: (state.stakes.loading ||
-                    state.stakes.value == null ||
-                    state.stakes.value.isEmpty)
-                    ? Colors.grey
-                    : Token.supernodeDhx.color,
-              ),
-              label: FlutterI18n.translate(context, 'simulate_mining'),
-              onTap: () {
-                final stakes = context.read<SupernodeDhxCubit>().state.stakes;
-                if (stakes.loading ||
-                    stakes.value == null ||
-                    stakes.value.isEmpty) return;
+        CircleButton(
+          icon: Icon(
+            Icons.tune,
+            color: Token.supernodeDhx.color,
+          ),
+          label: FlutterI18n.translate(context, 'simulate_mining'),
+          onTap: () {
+            Navigator.pushNamed(
+                context,
+                'mining_simulator_page',
+                arguments: {
+                  'isDemo': context.read<AppCubit>().state.isDemo,
+                  'mxc_balance': context.read<SupernodeUserCubit>().state.balance.value,
+                  'dhx_balance': context.read<SupernodeDhxCubit>().state.balance.value,
+                });
+          }),
 
-                Navigator.pushNamed(
-                    context,
-                    'mining_simulator_page',
-                    arguments: {
-                      'isDemo': context.read<AppCubit>().state.isDemo,
-                      'mxc_balance': context.read<SupernodeUserCubit>().state.balance.value,
-                      'dhx_balance': context.read<SupernodeDhxCubit>().state.balance.value,
-                    });
-              }),
-        ),
       ],
     );
   }
