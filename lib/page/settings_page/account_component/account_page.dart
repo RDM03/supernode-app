@@ -27,6 +27,7 @@ class AccountPage extends StatelessWidget {
           ),
           Divider(),
           listItem(FlutterI18n.translate(context, 'super_node'),
+              key: Key('superNodeItem'),
               onTap: () => Navigator.push(context, route((_) => ProfilePage())),
               leading: Image.asset(Token.mxc.imagePath, height: s(50))),
           Divider(),

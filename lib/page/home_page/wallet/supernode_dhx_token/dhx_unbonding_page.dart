@@ -135,6 +135,7 @@ class _DhxUnbondingPageState extends State<DhxUnbondingPage> {
                   bigColumnSpacer(),
                   bigColumnSpacer(),
                   PrimaryButton(
+                      key: Key('confirmButton'),
                       minWidth: double.infinity,
                       onTap: () => context.read<SupernodeDhxCubit>().confirmBondUnbond(unbond: ctrl.text.trim()),
                       buttonTitle: FlutterI18n.translate(context, 'confirm'),

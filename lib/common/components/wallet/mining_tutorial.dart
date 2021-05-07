@@ -37,6 +37,7 @@ class MiningTutorial extends StatefulWidget {
   Widget _pageView_1(BuildContext ctx) {
     return _pageBase([
       Text(FlutterI18n.translate(ctx, "tutorial_pg2_title"),
+          key: Key('tutorialPg2Title'),
           style: kPrimaryBigFontOfBlack),
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pg2_text"),

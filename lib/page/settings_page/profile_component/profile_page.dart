@@ -235,6 +235,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       buildWhen: (a, b) => a.username != b.username,
                       builder: (ctx, s) => Text(
                             s.username,
+                            key: Key('usernameText'),
                             style: kBigFontOfBlack,
                           )),
                 ),
@@ -243,6 +244,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   key: formKey,
                   child: Column(children: <Widget>[
                     TextFieldWithTitle(
+                      key: Key('usernameInput'),
                       title: FlutterI18n.translate(context, 'username'),
                       validator: (value) => _validUsername(context, value),
                       controller: usernameController,
@@ -250,6 +252,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     middleColumnSpacer(),
                     TextFieldWithTitle(
+                      key: Key('emailInput'),
                       title: FlutterI18n.translate(context, 'email'),
                       validator: (value) => _validEmail(context, value),
                       controller: emailController,
@@ -257,6 +260,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     middleColumnSpacer(),
                     TextFieldWithTitle(
+                      key: Key('organizationNameInput'),
                       title: FlutterI18n.translate(context,'organization_name'),
                       validator: (value) => _validName(context,value),
                       controller: orgnameController,
@@ -264,6 +268,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     middleColumnSpacer(),
                     TextFieldWithTitle(
+                      key: Key('displayNameInput'),
                       title: FlutterI18n.translate(context,'display_name'),
                       validator: (value) => _validName(context,value),
                       controller: orgDisplayController,
@@ -273,6 +278,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 SizedBox(height: 30),
                 PrimaryButton(
+                  key: Key('updateButton'),
                   onTap: ()  {
                     if (!formKey.currentState.validate()) return;
                     context

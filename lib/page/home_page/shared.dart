@@ -261,6 +261,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
   showInfoDialog(
     ctx,
     IosStyleBottomDialog2(
+      key: Key('IosStyleBottomDialog2'),
       builder: (context) => Column(
         children: [
           Padding(
@@ -277,6 +278,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
           ),
           Divider(color: Colors.grey),
           GestureDetector(
+            key: Key('shopM2proTap'),
             behavior: HitTestBehavior.opaque,
             onTap: () {
               Navigator.pop(context);
@@ -304,6 +306,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
           ),
           Divider(color: Colors.grey),
           GestureDetector(
+            key: Key('lockPageTap'),
             behavior: HitTestBehavior.opaque,
             onTap: () {
               Navigator.pop(context);
@@ -337,6 +340,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
           ),
           Divider(color: Colors.grey),
           GestureDetector(
+            key: Key('tutorialTitleTap'),
             behavior: HitTestBehavior.opaque,
             onTap: () {
               Navigator.pop(context);

@@ -14,6 +14,7 @@ Widget buildView(
   return Scaffold(
     resizeToAvoidBottomInset: false,
     body: SafeArea(
+      key: Key('AddressBookPage'),
       child: Container(
         constraints: BoxConstraints.expand(),
         padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),

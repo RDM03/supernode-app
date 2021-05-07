@@ -43,6 +43,7 @@ class SettingsPage extends StatelessWidget {
                     buildWhen: (a, b) => a.isDemo != b.isDemo,
                     builder: (ctx, s) => listItem(
                         FlutterI18n.translate(context, 'manage_account'),
+                        key: Key('manageAccountItem'),
                         trailing:
                         s.isDemo ? Icon(Icons.do_not_disturb_alt) : null,
                         onTap: s.isDemo
@@ -55,6 +56,7 @@ class SettingsPage extends StatelessWidget {
                     builder: (ctx, s) => listItem(
                         FlutterI18n.translate(
                             context, 'app_settings'),
+                        key: Key('appSettingsItem'),
                         trailing:
                         s.isDemo ? Icon(Icons.do_not_disturb_alt) : null,
                         onTap: s.isDemo

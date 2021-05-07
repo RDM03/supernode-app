@@ -65,6 +65,7 @@ class TextFieldWithTitle extends StatelessWidget {
         Stack(
           children: <Widget>[
             PrimaryTextField(
+              key: key,
               borderColor: borderColor,
               maxLength: maxLength,
               counterText: counterText,

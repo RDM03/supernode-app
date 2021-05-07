@@ -48,6 +48,7 @@ class SupernodeDhxActions extends StatelessWidget {
         ),
         Spacer(),
         CircleButton(
+          key: Key('dhxMine'),
           icon: Image.asset(
             AppImages.iconMine,
             color: Token.supernodeDhx.color,
@@ -112,6 +113,7 @@ class SupernodeDhxMineActions extends StatelessWidget {
     return Row(
       children: [
         CircleButton(
+          key: Key('lockMxcButton'),
           icon: Icon(
             Icons.lock,
             color: Token.supernodeDhx.color,
@@ -122,6 +124,7 @@ class SupernodeDhxMineActions extends StatelessWidget {
         ),
         Spacer(),
         CircleButton(
+          key: Key('bondButton'),
           icon: Image.asset(
             AppImages.iconBond,
             color: Token.supernodeDhx.color,
@@ -131,6 +134,7 @@ class SupernodeDhxMineActions extends StatelessWidget {
         ),
         Spacer(),
         CircleButton(
+          key: Key('unbondButton'),
           icon: Image.asset(
             AppImages.iconUnbond,
             color: Token.supernodeDhx.color,
@@ -141,6 +145,7 @@ class SupernodeDhxMineActions extends StatelessWidget {
         Spacer(),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
           builder: (ctx, state) => CircleButton(
+              key: Key('simulateMiningButton'),
               icon: Icon(
                 Icons.tune,
                 color: (state.stakes.loading ||

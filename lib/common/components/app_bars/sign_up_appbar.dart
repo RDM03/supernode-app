@@ -36,6 +36,7 @@ class AppBars {
       ),
       actions: <Widget>[
         FlatButton(
+          key: Key('actionKey'),
           onPressed: onPress,
           child: Center(
             child: Text(action, style: kBigFontOfBlack),

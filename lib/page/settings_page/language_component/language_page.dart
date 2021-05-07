@@ -55,6 +55,7 @@ class LanguagePage extends StatelessWidget {
             buildWhen: (a, b) => a.language != b.language,
             builder: (ctx, s) =>
                 _item(
+                    key: Key('autoDetect'),
                     name: 'Auto Detect',
                     type: AppLanguage.auto,
                     value: s.language,
@@ -63,6 +64,7 @@ class LanguagePage extends StatelessWidget {
           BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (a, b) => a.language != b.language,
             builder: (ctx, s) => _item(
+                key: Key('en'),
                 name: 'English',
                 type: AppLanguage.en,
                 value: s.language,
@@ -71,6 +73,7 @@ class LanguagePage extends StatelessWidget {
           BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (a, b) => a.language != b.language,
             builder: (ctx, s) => _item(
+                key: Key('zh_Hans'),
                 name: '简体中文',
                 type: AppLanguage.zh_Hans_CN,
                 value: s.language,
@@ -169,8 +172,9 @@ class LanguagePage extends StatelessWidget {
   );
 }
 
-  Widget _item({String name = '', String type, String value, Function onTap}) {
+  Widget _item({Key key, String name = '', String type, String value, Function onTap}) {
     return listItem(name,
+        key: key,
         trailing: Icon(
           Icons.done,
           color: (type == 'auto' && (value == null)) || type == value

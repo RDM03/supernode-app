@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 final String mxcTestEthAdress = '5FErYFbRFsQJyMVP4sMYCpFih6nYY4B1pSYKR2eB4TeqZ13J';
+final String shopM2proURL = 'https://www.matchx.io/product/m2-pro-lpwan-crypto-miner/';
 
 String getEnv(String key) => DotEnv().env[key];
 Finder findByKey(String key) => find.byKey(Key(key));
@@ -53,6 +54,7 @@ Future<void> pumpAndTap(
   }
 ) async {
   Finder finder = null;
+
   if (firstWidget) {
     finder = find.byKey(Key(key)).first;
   } else {

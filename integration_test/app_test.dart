@@ -3,6 +3,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'dhx_wallet_test.dart';
 import 'login_test.dart';
+import 'settings_test.dart';
 
 void main() async {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()
@@ -11,5 +12,6 @@ void main() async {
   binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
   await loginPageTests();
-  await dhxWalletPageTests();
+  // await dhxWalletPageTests();
+  // await settingsTests();
 }

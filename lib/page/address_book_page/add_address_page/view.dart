@@ -71,7 +71,7 @@ Widget buildView(
     submitButton(
       FlutterI18n.translate(_ctx, 'update'),
       onPressed: () => dispatch(AddAddressActionCreator.onSave()),
-      key: ValueKey('nameTextField'),
+      key: ValueKey('updateButton'),
     )
   ]);
 }
