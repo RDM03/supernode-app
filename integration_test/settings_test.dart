@@ -95,7 +95,7 @@ Future<void> settingsTests(){
       tester.pageBack();
     });
 
-    // testWidgets('can enable Face ID / Biometric', (WidgetTester tester) async {
+    // testWidgets('can enable Face IDa / Biometric', (WidgetTester tester) async {
     //   await delay(5);
     //   await app.main();
 

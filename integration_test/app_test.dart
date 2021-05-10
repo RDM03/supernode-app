@@ -8,10 +8,9 @@ import 'settings_test.dart';
 void main() async {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()
         as IntegrationTestWidgetsFlutterBinding;
-
   binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
   await loginPageTests();
-  // await dhxWalletPageTests();
+  await dhxWalletPageTests();
   // await settingsTests();
 }
