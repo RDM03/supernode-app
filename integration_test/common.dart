@@ -60,7 +60,7 @@ Future<void> pumpAndTap(
   } else {
     finder = find.byKey(Key(key), skipOffstage: false);
   }
-  tester.ensureVisible(finder);
+  await tester.ensureVisible(finder);
 
   await tester.pumpAndSettle();
 

@@ -12,7 +12,8 @@ Future<void> loginPageTests(){
 
       await app.main();
       await tester.pumpAndSettle();
-    
+      WidgetController.hitTestWarningShouldBeFatal = true;
+
       bool hasLogin = isExisted('login');
 
       if (getEnv('ENVIRONMENT') == 'test' && hasLogin) {
