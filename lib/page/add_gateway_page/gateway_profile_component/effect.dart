@@ -176,6 +176,8 @@ void _update(Action action, Context<GatewayProfileState> ctx) async {
     }).catchError((err) {
       loading.hide();
       // tip(ctx.context,'Gateways add: $err');
+    }).timeout(Duration(seconds: 5), onTimeout: (){
+      loading.hide();
     });
   }
 }
