@@ -2,7 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/utils/dhx.dart';
 
-enum CalculateExpandState { notExpanded, dhx, mPower }
+enum CalculateExpandState { notExpanded, mPower }
 
 class MiningSimulatorState implements Cloneable<MiningSimulatorState> {
   GlobalKey<FormState> formKey = GlobalKey();

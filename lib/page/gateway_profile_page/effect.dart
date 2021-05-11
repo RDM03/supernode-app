@@ -76,7 +76,7 @@ Future<void> _miningInfo(Context<GatewayProfileState> ctx) async {
 
     ctx.dispatch(GatewayProfileActionCreator.miningInfo(items));
   } catch (err) {
-    // tip(ctx.context, 'WalletDao miningInfo: $err');
+    // tip('WalletDao miningInfo: $err');
   }
 }
 
@@ -98,6 +98,6 @@ Future<void> _frame(Context<GatewayProfileState> ctx) async {
 
     ctx.dispatch(GatewayProfileActionCreator.gatewayFrame(items));
   } catch (err) {
-    // tip(ctx.context, 'GatewaysDao frames: $err');
+    // tip('GatewaysDao frames: $err');
   }
 }

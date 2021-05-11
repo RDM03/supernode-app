@@ -42,8 +42,7 @@ void _onConfirm(Action action, Context<ChangePasswordState> ctx) async {
     mLog('changePassword', res);
     loading.hide();
 
-    tip(ctx.context,
-        FlutterI18n.translate(ctx.context, 'updated_successful_tip'),
+    tip(FlutterI18n.translate(ctx.context, 'updated_successful_tip'),
         success: true);
   }).catchError((err) {
     loading.hide();

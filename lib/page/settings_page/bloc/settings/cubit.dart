@@ -38,11 +38,17 @@ class SettingsCubit extends Cubit<SettingsState> {
     _buildServerInfoDao()
         .appServerVersion()
         .then((info) => emit(state.copyWith(mxVersion: info.version)));
+
+    updateCopyrightYear();
   }
 
   Future<void> updateLanguage(String language, Locale locale) async {
     appCubit.setLocale(locale);
     emit(state.copyWith(language: language));
+  }
+
+  void updateCopyrightYear(){
+    emit(state.copyWith(copyrightYear: DateTime.now().year));
   }
 
   void setScreenShot(bool value) {

@@ -70,6 +70,10 @@ class Tools {
   }
 
   static String numberRounded(double number) {
+    if (number == null) {
+      return '0';
+    }
+
     String round(double val, int order, {int afterDot = 0}) {
       final divided = (val / order);
       if (afterDot == 0) return divided.round().toString();

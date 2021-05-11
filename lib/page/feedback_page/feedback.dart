@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share/share.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/text_field/primary_text_field.dart';
+import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/repositories/jira_repository.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/jira_dao.dart';
 import 'package:supernodeapp/common/repositories/storage_repository.dart';
@@ -258,9 +259,10 @@ Future<bool> submitJiraFeedback(
   image = res.image;
   if (res.resultType == FeedbackResultType.feedback) {
     params = params.copyWith(type: res.feedbackType);
-    final dao = ctx.read<JiraRepository>();
+    final dao = JiraRepository();
     final issueId = await dao.createIssue(params);
     await dao.addImage(issueId, image);
+    tip('Ticket created', success: true);
   } else if (res.resultType == FeedbackResultType.share) {
     final directory = await getApplicationDocumentsDirectory();
     final file = File(

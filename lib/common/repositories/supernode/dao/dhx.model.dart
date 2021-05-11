@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:supernodeapp/common/utils/currencies.dart';
+
 class Council {
   final String id;
   final String chairOrgId;
@@ -107,7 +109,7 @@ class StakeDHX {
       councilId: map['councilId'],
       councilName: map['councilName'],
       created: DateTime.tryParse(map['created']),
-      currency: map['currency'],
+      currency: Token.mxc.name,
       dhxMined: map['dhxMined'],
       lockMonths: map['lockMonths'],
       id: map['id'],
@@ -186,7 +188,8 @@ class LastMiningResponse {
 
     return LastMiningResponse(
       DateTime.tryParse(map['date']),
-      map['dhxAmount'],
+      map['dhxAllocated'], //dhxAllocated is how much DHX was allocated for the supernode's mpower.
+      //map['dhxAmount'], //dhxAmount is how much of that DHX was actually distributed among the users, it is limited by the amount of DHX the user has bonded,
       map['miningPower'],
     );
   }
