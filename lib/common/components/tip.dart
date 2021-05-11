@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:toast/toast.dart';
+import 'package:supernodeapp/theme/spacing.dart';
 
 void tip(
-  BuildContext context,
   String text, {
   bool success: false,
-  int duration = 5,
+  int seconds = 5,
 }) {
-  Toast.show(text.runtimeType == String ? text : text.toString(), context,
-      duration: duration,
-      gravity: Toast.BOTTOM,
-      backgroundColor: success ? Colors.green : errorColor);
+  showToast(
+    text.runtimeType == String ? text : text.toString(),
+    textStyle: TextStyle(
+      fontSize: 16
+    ),
+    textPadding: kRoundRow105,
+    duration: Duration(seconds: seconds),
+    position: ToastPosition.bottom,
+    backgroundColor: success ? Colors.green : errorColor
+  );
 }

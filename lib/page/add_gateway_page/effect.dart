@@ -71,7 +71,7 @@ void _onQrScan(Action action, Context<AddGatewayState> ctx) async {
       return;
     }
   } catch (err) {
-    tip(ctx.context, 'startScan: $err');
+    tip('startScan: $err');
     if (qrResult?.length == 24) {
       //reseller
       return;
@@ -126,14 +126,14 @@ void _register(Context<AddGatewayState> ctx, String serialNumber) async {
     mLog('Gateway register', res);
 
     if (res.containsKey('status')) {
-      tip(ctx.context, res['status'], success: true);
+      tip(res['status'], success: true);
       if (ctx.state.fromPage == 'home') {
         Navigator.of(ctx.context).pop();
       }
     }
   }).catchError((err) {
     loading.hide();
-    tip(ctx.context, 'Gateway register: $err');
+    tip('Gateway register: $err');
   });
 }
 
@@ -164,6 +164,6 @@ void _registerReseller(
     }
   }).catchError((err) {
     loading.hide();
-    tip(ctx.context, 'Reseller register: $err');
+    tip('Reseller register: $err');
   });
 }

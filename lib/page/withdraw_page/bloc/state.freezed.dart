@@ -51,6 +51,7 @@ mixin _$WithdrawState {
   DateTime get confirmTime;
   bool get showLoading;
 
+  @JsonKey(ignore: true)
   $WithdrawStateCopyWith<WithdrawState> get copyWith;
 }
 
@@ -259,6 +260,7 @@ class _$_WithdrawState extends _WithdrawState with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(confirmTime) ^
       const DeepCollectionEquality().hash(showLoading);
 
+  @JsonKey(ignore: true)
   @override
   _$WithdrawStateCopyWith<_WithdrawState> get copyWith =>
       __$WithdrawStateCopyWithImpl<_WithdrawState>(this, _$identity);
@@ -293,5 +295,6 @@ abstract class _WithdrawState extends WithdrawState {
   @override
   bool get showLoading;
   @override
+  @JsonKey(ignore: true)
   _$WithdrawStateCopyWith<_WithdrawState> get copyWith;
 }

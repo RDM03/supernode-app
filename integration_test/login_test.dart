@@ -1,5 +1,3 @@
-import 'package:dotenv/dotenv.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:supernodeapp/main.dart' as app;
 
@@ -33,6 +31,7 @@ Future<void> loginPageTests(){
     testWidgets('can login with username/password', (WidgetTester tester) async {
       await app.main();
       await tester.pumpAndSettle();
+      WidgetController.hitTestWarningShouldBeFatal = true;
     
       await loginTest(tester);
 

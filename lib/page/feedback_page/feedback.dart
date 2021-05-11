@@ -262,7 +262,7 @@ Future<bool> submitJiraFeedback(
     final dao = JiraRepository();
     final issueId = await dao.createIssue(params);
     await dao.addImage(issueId, image);
-    tip(ctx, 'Ticket created', success: true);
+    tip('Ticket created', success: true);
   } else if (res.resultType == FeedbackResultType.share) {
     final directory = await getApplicationDocumentsDirectory();
     final file = File(

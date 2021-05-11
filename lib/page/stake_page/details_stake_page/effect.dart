@@ -60,11 +60,11 @@ Future<void> _unstake(Context<DetailsStakeState> ctx, String otpCode) async {
       });
       Navigator.of(ctx.context).pop(true);
     } else {
-      tip(ctx.context, res);
+      tip(res);
     }
   } catch (err) {
     loading.hide();
-    tip(ctx.context, 'StakeDao unstake: $err');
+    tip('StakeDao unstake: $err');
   }
 }
 
@@ -90,7 +90,7 @@ void _refreshOtpStatus(Action action, Context<DetailsStakeState> ctx) async {
     mLog('totp', res);
     ctx.dispatch(DetailsStakeActionCreator.setOtpEnabled(res.enabled));
   }).catchError((err) {
-    tip(ctx.context, '$err');
+    tip('$err');
   });
 }
 

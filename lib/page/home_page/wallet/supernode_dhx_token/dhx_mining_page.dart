@@ -31,10 +31,11 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
         onPress: () => Navigator.pop(context),
       ),
       backgroundColor: backgroundColor,
-      body: PageBody(children: [
-        smallColumnSpacer(),
-        SupernodeDhxMineActions(),
-        PanelFrame(
+      body: PageBody(
+        children: [
+          smallColumnSpacer(),
+          SupernodeDhxMineActions(),
+          PanelFrame(
             child: Column(
               children: [
                 middleColumnSpacer(),
@@ -94,7 +95,8 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
             ),
           ),
           middleColumnSpacer(),
-        ])
+        ]
+      )
     );
   }
 }

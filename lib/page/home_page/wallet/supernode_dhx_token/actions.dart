@@ -160,7 +160,6 @@ class SupernodeDhxMineActions extends StatelessWidget {
                 if (stakes.loading ||
                     stakes.value == null ||
                     stakes.value.isEmpty) return;
-
                 Navigator.pushNamed(
                     context,
                     'mining_simulator_page',
@@ -169,7 +168,7 @@ class SupernodeDhxMineActions extends StatelessWidget {
                       'mxc_balance': context.read<SupernodeUserCubit>().state.balance.value,
                       'dhx_balance': context.read<SupernodeDhxCubit>().state.balance.value,
                     });
-              }),
+              })
         ),
       ],
     );

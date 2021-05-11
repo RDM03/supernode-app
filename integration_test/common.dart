@@ -57,10 +57,11 @@ Future<void> pumpAndTap(
   Finder finder = null;
 
   if (firstWidget) {
-    finder = find.byKey(Key(key)).first;
+    finder = find.byKey(Key(key), skipOffstage: false).first;
   } else {
-    finder = find.byKey(Key(key));
+    finder = find.byKey(Key(key), skipOffstage: false);
   }
+  await tester.ensureVisible(finder);
 
   await tester.pumpAndSettle();
 
