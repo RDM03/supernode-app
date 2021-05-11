@@ -228,7 +228,7 @@ Widget buildView(
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: Text(
-                    '${Tools.numberRounded(state.avgDailyDhxRevenue)} DHX',
+                    '${Tools.priceFormat(state.avgDailyDhxRevenue, range: 2)} DHX',
                     maxLines: 1,
                     softWrap: false,
                     overflow: TextOverflow.clip,

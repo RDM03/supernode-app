@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/components/column_spacer.dart';
 
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
+import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/slider.dart';
 import 'package:supernodeapp/common/components/value_listenable.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
@@ -16,6 +17,7 @@ import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/mining_simulator_page/widgets/action_button.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/spacing.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -42,7 +44,7 @@ Widget buildView(
           ValueEditor(
             key: ValueKey('mxcValueEditor'),
             controller: state.mxcLockedCtl,
-            total: state.mxcBalance,
+            total: double.parse(Tools.priceFormat(state.mxcBalance, range: 2)),
             title: FlutterI18n.translate(_ctx, 'mxc_locked'),
             subtitle: FlutterI18n.translate(_ctx, 'current_mxc_balance'),
             textFieldSuffix: 'MXC',
@@ -88,161 +90,130 @@ Widget buildView(
             textFieldSuffix: FlutterI18n.translate(_ctx, 'miner'),
             showSlider: false,
           ),
-          /* dhx bonded slider
-          SizedBox(height: 35),
-          ValueEditor(
-            key: ValueKey('dhxValueEditor'),
-            controller: state.dhxBondedCtl,
-            total: state.dhxBalance,
-            title: FlutterI18n.translate(_ctx, 'dhx_bonded'),
-            subtitle: FlutterI18n.translate(_ctx, 'current_dhx_balance'),
-            textFieldSuffix: 'DHX',
-            totalSuffix: 'DHX',
-          ),*/
-          SizedBox(height: 20),
-          Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Center(
-                      child: SizedBox(
-                        width: 90,
-                        child: Text(
-                          FlutterI18n.translate(_ctx, 'estimated_dhx_daily'),
-                          style: kSmallFontOfGrey,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+          middleColumnSpacer(),
+          PanelFrame(
+            child: Column(
+              children: [
+                smallColumnSpacer(),
+                Center(
+                  child: Text(FlutterI18n.translate(_ctx, 'simulator_results'), style: kBigBoldFontOfBlack,)),
+                bigColumnSpacer(),
+                Center(
+                  child: SizedBox(
+                    width: 90,
+                    child: Text(
+                      FlutterI18n.translate(_ctx, 'estimated_mining_power'),
+                      style: kSmallFontOfGrey,
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                  Expanded(
-                    child: Center(
-                      child: SizedBox(
-                        width: 90,
-                        child: Text(
-                          FlutterI18n.translate(_ctx, 'estimated_mining_power'),
-                          style: kSmallFontOfGrey,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+                ),
+                SizedBox(height: 8),
+                Center(
+                  child: ValueListenableBuilder2(
+                      state.minersAmountCtl, state.mxcLockedCtl, builder:
+                      (ctx, TextEditingValue miners,
+                      TextEditingValue mxc, _) {
+                    final mPower = getMPower(state, mxc.text, miners.text);
+                    final res = mPower == null ? null : Tools.numberRounded(mPower);
+                    return Text(
+                      (res ?? '??'),
+                      key: ValueKey('mPowerText'),
+                      style: kPrimaryBigFontOfBlack,
+                    );
+                  }),
+                ),
+                SizedBox(height: 8),
+                if (state.calculateExpandState ==
+                    CalculateExpandState.notExpanded)
+                  Center(
+                    child: SmallActionButton(
+                      key: ValueKey('mPowerButton'),
+                      text: 'mPower',
+                      onTap: () => dispatch(
+                          MiningSimulatorActionCreator.expandCalculation(
+                              CalculateExpandState.mPower)),
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: 8),
-              Row(
-                children: [
-                  Expanded(
-                    child: Center(
-                      child: ValueListenableBuilder3(
+                if (state.calculateExpandState == CalculateExpandState.mPower)
+                  ValueListenableBuilder2(
+                      state.minersAmountCtl, state.mxcLockedCtl, builder: (ctx,
+                      TextEditingValue miners, TextEditingValue mxc, _) {
+                    final mPower = getMPower(state, mxc.text, miners.text);
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 32),
+                      child: SmallActionButton(
+                        key: ValueKey('mPowerExpandedButton'),
+                        width: double.infinity,
+                        text: (mPower == null || mPower.isNaN
+                            ? '??'
+                            : mPower.toStringAsFixed(0)) + ' mPower',
+                        onTap: () => dispatch(
+                            MiningSimulatorActionCreator.expandCalculation(
+                                CalculateExpandState.notExpanded)),
+                      ),
+                    );
+                  }),
+                middleColumnSpacer(),
+                Container(
+                  padding: kRoundRow15_5,
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        FlutterI18n.translate(_ctx, 'estimated_dhx_daily'),
+                        textAlign: TextAlign.left,
+                        style: kSmallFontOfGrey,
+                      ),
+                      Spacer(),
+                      ValueListenableBuilder3(
                           state.minersAmountCtl, state.mxcLockedCtl, state.dhxBondedCtl, builder:
-                              (ctx, TextEditingValue miners,
+                          (ctx, TextEditingValue miners,
                           TextEditingValue mxc,
                           TextEditingValue dhx, _) {
-                        final dailyReturn =
-                            getDailyReturn(state, mxc.text, miners.text);
+                        final dailyReturn = getDailyReturn(state, mxc.text, miners.text);
                         final res = dailyReturn == null || dailyReturn.isNaN
                             ? null
-                            : Tools.numberRounded(dailyReturn);
+                            : '${Tools.priceFormat(dailyReturn, range: 2)} ${Token.supernodeDhx.name}';
                         return Text(
                           (res ?? '??'),
                           key: ValueKey('dailyText'),
                           style: kBigFontOfBlack,
                         );
                       }),
-                    ),
+                    ],
                   ),
-                  Expanded(
-                    child: Center(
-                      child: ValueListenableBuilder2(
-                          state.minersAmountCtl, state.mxcLockedCtl, builder:
-                              (ctx, TextEditingValue miners,
-                                  TextEditingValue mxc, _) {
-                        final mPower = getMPower(state, mxc.text, miners.text);
-                        final res =
-                            mPower == null ? null : Tools.numberRounded(mPower);
+                ),
+                Container(
+                  padding: kRoundRow15_5,
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        FlutterI18n.translate(_ctx, 'bond_amount_for_max_mining'),
+                        textAlign: TextAlign.left,
+                        style: kSmallFontOfGrey,
+                      ),
+                      Spacer(),
+                      ValueListenableBuilder3(
+                          state.minersAmountCtl, state.mxcLockedCtl, state.dhxBondedCtl, builder:
+                          (ctx, TextEditingValue miners,
+                          TextEditingValue mxc,
+                          TextEditingValue dhx, _) {
+                        final dailyReturn = getDailyReturn(state, mxc.text, miners.text);
+                        final res = dailyReturn == null || dailyReturn.isNaN
+                            ? null
+                            : '${Tools.priceFormat(70 * dailyReturn, range: 2)} ${Token.supernodeDhx.name}';
                         return Text(
                           (res ?? '??'),
-                          key: ValueKey('mPowerText'),
+                          key: ValueKey('dailyText'),
                           style: kBigFontOfBlack,
                         );
                       }),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-              SizedBox(height: 8),
-              if (state.calculateExpandState ==
-                  CalculateExpandState.notExpanded)
-                Row(
-                  children: [
-                    Expanded(
-                      child: Center(
-                        child: SmallActionButton(
-                          key: ValueKey('dailyButton'),
-                          text: 'DHX',
-                          onTap: () => dispatch(
-                              MiningSimulatorActionCreator.expandCalculation(
-                                  CalculateExpandState.dhx)),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: SmallActionButton(
-                          key: ValueKey('mPowerButton'),
-                          text: 'mPower',
-                          onTap: () => dispatch(
-                              MiningSimulatorActionCreator.expandCalculation(
-                                  CalculateExpandState.mPower)),
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
-              if (state.calculateExpandState == CalculateExpandState.dhx)
-                ValueListenableBuilder3(
-                    state.minersAmountCtl, state.mxcLockedCtl, state.dhxBondedCtl, builder: (ctx,
-                        TextEditingValue miners, TextEditingValue mxc,  TextEditingValue dhx, _) {
-                  final dailyReturn =
-                      getDailyReturn(state, mxc.text, miners.text);
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
-                    child: SmallActionButton(
-                      key: ValueKey('dailyExpandedButton'),
-                      width: double.infinity,
-                      text: (dailyReturn == null || dailyReturn.isNaN
-                              ? '??'
-                              : dailyReturn.toStringAsFixed(0)) +
-                          ' DHX',
-                      onTap: () => dispatch(
-                          MiningSimulatorActionCreator.expandCalculation(
-                              CalculateExpandState.notExpanded)),
-                    ),
-                  );
-                }),
-              if (state.calculateExpandState == CalculateExpandState.mPower)
-                ValueListenableBuilder2(
-                    state.minersAmountCtl, state.mxcLockedCtl, builder: (ctx,
-                        TextEditingValue miners, TextEditingValue mxc, _) {
-                  final mPower = getMPower(state, mxc.text, miners.text);
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
-                    child: SmallActionButton(
-                      key: ValueKey('mPowerExpandedButton'),
-                      width: double.infinity,
-                      text: (mPower == null || mPower.isNaN
-                              ? '??'
-                              : mPower.toStringAsFixed(0)) +
-                          ' mPower',
-                      onTap: () => dispatch(
-                          MiningSimulatorActionCreator.expandCalculation(
-                              CalculateExpandState.notExpanded)),
-                    ),
-                  );
-                }),
-            ],
+                middleColumnSpacer(),
+              ],
+            ),
           ),
           xbigColumnSpacer(),
           PrimaryButton(

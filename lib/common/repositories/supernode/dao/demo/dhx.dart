@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 
 import 'demo.dart';
 import '../dhx.dart';
@@ -50,7 +51,7 @@ class DemoDhxDao extends DemoDao implements DhxDao {
         councilName: "Council 1",
         created: DateTime(2020, 12, 18, 15, 5),
         lockTill: DateTime(2021, 12, 18, 15, 5),
-        currency: "ETH_MXC",
+        currency: Token.mxc.name,
         dhxMined: "11111",
         lockMonths: "12",
         id: "demoStake",

@@ -261,7 +261,6 @@ void showBoostMPowerDialog(BuildContext ctx) {
   showInfoDialog(
     ctx,
     IosStyleBottomDialog2(
-      key: Key('IosStyleBottomDialog2'),
       builder: (context) => Column(
         children: [
           Padding(

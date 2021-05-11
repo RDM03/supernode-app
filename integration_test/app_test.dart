@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
-import 'dhx_wallet_test.dart';
 import 'login_test.dart';
+import 'dhx_wallet_test.dart';
 import 'settings_test.dart';
 
 void main() async {
@@ -12,5 +12,5 @@ void main() async {
 
   await loginPageTests();
   await dhxWalletPageTests();
-  // await settingsTests();
+  await settingsTests();
 }

@@ -37,7 +37,6 @@ class MiningTutorial extends StatefulWidget {
   Widget _pageView_1(BuildContext ctx) {
     return _pageBase([
       Text(FlutterI18n.translate(ctx, "tutorial_pg2_title"),
-          key: Key('tutorialPg2Title'),
           style: kPrimaryBigFontOfBlack),
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pg2_text"),
@@ -131,8 +130,7 @@ class MiningTutorial extends StatefulWidget {
                         style: TextStyle(
                             color: Token.supernodeDhx.color,
                             fontFamily: "Roboto",
-                            fontSize:
-                                14)), // invisible - sets width for Container
+                            fontSize: 14)), // invisible - sets width for Container
                     Text(FlutterI18n.translate(ctx, 'mpower'),
                         style: kSecondaryButtonOfWhite)
                   ])))
@@ -141,6 +139,59 @@ class MiningTutorial extends StatefulWidget {
       ]),
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pg2_desc2"),
+          style: kMiddleFontOfBlack),
+      SizedBox(height: s(30)),
+      Row(children: [
+        Spacer(),
+        Column(children: [
+          Text('1', style: kSuperBigBoldFont),
+          SizedBox(height: s(10)),
+          Container(
+              decoration: BoxDecoration(
+                  color: Token.supernodeDhx.color,
+                  borderRadius: BorderRadius.all(Radius.circular(5))),
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 4.0),
+                  child:
+                  Stack(alignment: AlignmentDirectional.center, children: [
+                    Text(FlutterI18n.translate(ctx, 'm2pro_miner'),
+                        style: kSecondaryButtonOfWhite),
+                  ])))
+        ]),
+        Spacer(),
+        Text('=', style: kSuperBigBoldFont),
+        Spacer(),
+        Column(children: [
+          RichText(
+              text: TextSpan(children: [
+                TextSpan(text: FlutterI18n.translate(ctx, 'up_to'), style: kBigFontOfBlack),
+                TextSpan(text: ' 1 mil.', style: kSuperBigBoldFont)
+              ])),
+          SizedBox(height: s(10)),
+          Container(
+              decoration: BoxDecoration(
+                  color: Token.supernodeDhx.color,
+                  borderRadius: BorderRadius.all(Radius.circular(5))),
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 4.0),
+                  child:
+                  Stack(alignment: AlignmentDirectional.center, children: [
+                    Text(FlutterI18n.translate(ctx, 'm2pro_miner'),
+                        style: TextStyle(
+                            color: Token.supernodeDhx.color,
+                            fontFamily: "Roboto",
+                            fontSize:
+                            14)), // invisible - sets width for Container
+                    Text(FlutterI18n.translate(ctx, 'mpower'),
+                        style: kSecondaryButtonOfWhite)
+                  ])))
+        ]),
+        Spacer(),
+      ]),
+      SizedBox(height: s(10)),
+      Text(FlutterI18n.translate(ctx, "tutorial_pg2_desc2_2"),
           style: kMiddleFontOfBlack),
       SizedBox(height: s(30)),
       Column(children: [
@@ -417,6 +468,7 @@ class _MiningTutorialState extends State<MiningTutorial> {
     return widget._pageBase([
       smallColumnSpacer(),
       Text(FlutterI18n.translate(ctx, "tutorial_page1_title"),
+        key: Key('tutorialPage1Title'),
           style: kPrimaryBigFontOfBlack),
       middleColumnSpacer(),
       Image.asset(AppImages.dhxMiningDiagram),

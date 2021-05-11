@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:supernodeapp/common/utils/currencies.dart';
+
 class Council {
   final String id;
   final String chairOrgId;
@@ -107,7 +109,7 @@ class StakeDHX {
       councilId: map['councilId'],
       councilName: map['councilName'],
       created: DateTime.tryParse(map['created']),
-      currency: map['currency'],
+      currency: Token.mxc.name,
       dhxMined: map['dhxMined'],
       lockMonths: map['lockMonths'],
       id: map['id'],

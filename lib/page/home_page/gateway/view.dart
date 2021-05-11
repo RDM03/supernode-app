@@ -37,11 +37,9 @@ class GatewayTab extends StatelessWidget {
       body: RefreshIndicator(
         displacement: 10,
         onRefresh: () async {
-          context.read<GatewayCubit>().refresh();
-          await Future.delayed(Duration(seconds: 2));
+          await context.read<GatewayCubit>().refresh();
         },
         child: PageBody(
-          useColumn: true,
           children: [
             BlocBuilder<GatewayCubit, GatewayState>(
               buildWhen: (a, b) => a.gatewaysTotal != b.gatewaysTotal,
@@ -82,7 +80,7 @@ class GatewayTab extends StatelessWidget {
               builder: (ctx, state) => Container(
                 height: 120.0 * (state.gatewaysTotal.value ?? 0),
                 constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height - 305,
+                  maxHeight: MediaQuery.of(context).size.height - 230,
                 ),
                 child: PanelFrame(
                   child: state.gateways.loading
@@ -90,15 +88,20 @@ class GatewayTab extends StatelessWidget {
                       : (state.gateways.value?.length != 0
                           ? Padding(
                               padding: kOuterRowTop10,
-                              child: GatewaysList(
-                                state: state,
+                              child: RefreshIndicator(
+                                displacement: 0,
+                                onRefresh: () async {
+                                  await context.read<GatewayCubit>().refresh();
+                                },
+                                child: GatewaysList(
+                                  state: state,
+                                ),
                               ),
                             )
                           : Empty()),
                 ),
               ),
             ),
-            SizedBox(height: 20)
           ],
         ),
       ),

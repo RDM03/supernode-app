@@ -102,11 +102,9 @@ Widget buildView(
                                         : null,
                                   ),
                                 ),
-                                onTap: state.selectionMode
-                                    ? () => dispatch(
+                                onTap: () => dispatch(
                                         AddressBookActionCreator.onDetails(
                                             state.addresses[i]))
-                                    : null,
                               ),
                               trailing: IconButton(
                                 key: ValueKey('address_${i}_buttons'),
