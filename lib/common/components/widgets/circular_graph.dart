@@ -10,13 +10,13 @@ class CircularGraph extends StatelessWidget {
   /// Color of CircularGraph
   final Color graphColor;
   /// Widget displayed at center of CircularGraph
-  final Widget widget;
+  final Widget child;
   final Color shadowColor = backgroundColor;
-  final double size = 220.0;
+  final double size = 200.0;
   final double paddingSize = 17.0;
   final double lineWidth = 20.0;
 
-  CircularGraph(this.percentage, this.graphColor, {this.widget = defaultWidget});
+  CircularGraph(this.percentage, this.graphColor, {this.child = defaultWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class CircularGraph extends StatelessWidget {
                             )
                           ],
                         ),
-                        child: widget,
+                        child: child,
                       )
                   )
               )),
