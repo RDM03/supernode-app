@@ -14,6 +14,7 @@ Widget buildView(
   return Scaffold(
     resizeToAvoidBottomInset: false,
     body: SafeArea(
+      key: Key('AddressBookPage'),
       child: Container(
         constraints: BoxConstraints.expand(),
         padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
@@ -101,11 +102,9 @@ Widget buildView(
                                         : null,
                                   ),
                                 ),
-                                onTap: state.selectionMode
-                                    ? () => dispatch(
+                                onTap: () => dispatch(
                                         AddressBookActionCreator.onDetails(
                                             state.addresses[i]))
-                                    : null,
                               ),
                               trailing: IconButton(
                                 key: ValueKey('address_${i}_buttons'),

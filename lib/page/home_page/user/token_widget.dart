@@ -73,6 +73,7 @@ class TokenHomePageWidget extends StatelessWidget {
                       style: kBigBoldFontOfBlack),
                   Spacer(),
                   GestureDetector(
+                    key: Key('addTokenTitle'),
                     onTap: () => addTokenDialog(
                       context,
                       displayedTokens:

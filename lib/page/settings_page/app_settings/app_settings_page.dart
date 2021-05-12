@@ -23,6 +23,7 @@ class AppSettingsPage extends StatelessWidget {
             ListTile(
               title: Center(
                   child: Text(FlutterI18n.translate(context, 'app_settings'),
+                      key: Key('appSettingsTitle'),
                       style: kBigBoldFontOfBlack)),
               trailing: GestureDetector(
                   child: Icon(Icons.close, color: Colors.black),
@@ -30,6 +31,7 @@ class AppSettingsPage extends StatelessWidget {
             ),
             Divider(),
             listItem(FlutterI18n.translate(context, 'language'),
+                key: Key('languageItem'),
                 onTap: () =>
                     Navigator.push(context, route((_) => LanguagePage()))),
             Divider(),
@@ -46,6 +48,7 @@ class AppSettingsPage extends StatelessWidget {
               trailing: BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.screenShot != b.screenShot,
                 builder: (ctx, s) => Switch(
+                  key: Key('screenshotSwitch'),
                   activeColor: Color(0xFF1C1478),
                   value: s.screenShot,
                   onChanged: (v) async {

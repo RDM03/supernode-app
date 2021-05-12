@@ -47,6 +47,7 @@ Widget buildView(
           width: double.infinity,
           child: Text(
             FlutterI18n.translate(context, 'congrats_mining'),
+            key: Key('congratsMiningText'),
             style: kBigFontOfGrey,
             textAlign: TextAlign.center,
           ),

@@ -35,11 +35,11 @@ class SupernodeErrorInterceptor extends InterceptorsWrapper {
   }
 
   @override
-  onError(DioError err) async {
+  void onError(DioError err, ErrorInterceptorHandler handler) async {
     final Response response = err.response;
     DaoResponse data = DaoResponse.fromJson(response.data);
-  
-    return DioError(error: _transferException(data));
+
+    handler.next(DioError(error: _transferException(data)));
 
     // final data = response.data;
     // RETHINK.TODO

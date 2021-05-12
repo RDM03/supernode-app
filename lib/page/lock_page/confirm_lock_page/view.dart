@@ -246,7 +246,7 @@ Widget buildView(
         submitButton(
           FlutterI18n.translate(context, 'proceed'),
           onPressed: () => _proceed(dispatch, state),
-          key: ValueKey('submitButton'),
+          key: ValueKey('submitButton1'),
         )
       ],
     ),
@@ -322,7 +322,7 @@ _proceed(Dispatch dispatch, ConfirmLockState state) {
                   dispatch(ConfirmLockActionCreator.onConfirm());
                   Navigator.of(ctx).pop();
                 },
-                key: ValueKey('submitButton'),
+                key: ValueKey('submitButton2'),
               );
             }
             return CupertinoActionSheetAction(

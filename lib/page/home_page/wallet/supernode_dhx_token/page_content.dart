@@ -66,6 +66,7 @@ class _SupernodeDhxTokenPageContentState
                   ),
                   1: Text(
                     FlutterI18n.translate(context, 'bonding_history'),
+                    key: Key('bondingHistoryText'),
                     style: TextStyle(
                       color: (selectedTab == 1) ? Colors.white : Colors.grey,
                     ),
@@ -96,6 +97,7 @@ class DhxMiningCard extends StatelessWidget {
                   style: kBigBoldFontOfBlack),
               Spacer(),
               GestureDetector(
+                key: Key('boostMpowerTap'),
                 onTap: () => showBoostMPowerDialog(context),
                 child: Container(
                   decoration: BoxDecoration(

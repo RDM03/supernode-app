@@ -123,6 +123,7 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      key: Key('FeedbackResultPage'),
       type: MaterialType.transparency,
       child: Container(
         color: Colors.black.withOpacity(0.4),

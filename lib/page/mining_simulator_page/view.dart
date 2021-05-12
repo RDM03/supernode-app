@@ -217,6 +217,7 @@ Widget buildView(
           ),
           xbigColumnSpacer(),
           PrimaryButton(
+            key: Key('boostMpowerButton'),
             buttonTitle: FlutterI18n.translate(_ctx, 'boost_mpower'),
             bgColor: Token.supernodeDhx.color,
             minWidth: double.infinity,

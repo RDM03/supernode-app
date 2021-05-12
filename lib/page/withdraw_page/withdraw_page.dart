@@ -161,6 +161,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                                 ),
                                 smallColumnSpacer(),
                                 TextFieldWithTitle(
+                                  key: Key('withdrawAmountInput'),
                                   title: FlutterI18n.translate(
                                       context, 'withdraw_amount'),
                                   textInputAction: TextInputAction.next,
@@ -170,6 +171,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                                 ),
                                 smallColumnSpacer(),
                                 TextFieldWithTitle(
+                                    key: Key('sendToAddressInput'),
                                     title: FlutterI18n.translate(
                                         context, 'send_to_address'),
                                     textInputAction: TextInputAction.next,
@@ -238,6 +240,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                   ),
                   bigColumnSpacer(),
                   PrimaryButton(
+                      key: Key('requestWithdrawButton'),
                       buttonTitle: FlutterI18n.translate(
                           context, 'request_withdraw'),
                       bgColor: widget.token.color,

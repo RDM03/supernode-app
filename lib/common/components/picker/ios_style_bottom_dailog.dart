@@ -147,7 +147,7 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
           Navigator.pop(ctx);
         },
         child: Container(
-          key: Key("delete_gateway_bottom_dialog_item$index"),
+          key: Key("bottom_dialog_item$index"),
           alignment: Alignment.center,
           padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
           child: Text(

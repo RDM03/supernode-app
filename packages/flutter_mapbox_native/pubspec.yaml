@@ -11,8 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_plugin_android_lifecycle: ^1.0.0
-  plugin_platform_interface: ^1.0.1
+  flutter_plugin_android_lifecycle: ^2.0.1
+  plugin_platform_interface: ^2.0.0
   stream_transform: ^1.2.0
 
 dev_dependencies:

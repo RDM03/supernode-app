@@ -11,6 +11,7 @@ class _EmptyState extends State<Empty> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: Key('noData'),
       alignment: Alignment.center,
       height: 50,
       child: Text(

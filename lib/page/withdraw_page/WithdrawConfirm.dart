@@ -76,8 +76,6 @@ class WithdrawConfirm extends StatelessWidget {
             ),
             middleColumnSpacer(),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.baseline,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(FlutterI18n.translate(context, 'recipient')),
                 SizedBox(width: 5),

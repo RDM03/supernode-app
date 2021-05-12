@@ -468,6 +468,7 @@ class _MiningTutorialState extends State<MiningTutorial> {
     return widget._pageBase([
       smallColumnSpacer(),
       Text(FlutterI18n.translate(ctx, "tutorial_page1_title"),
+        key: Key('tutorialPage1Title'),
           style: kPrimaryBigFontOfBlack),
       middleColumnSpacer(),
       Image.asset(AppImages.dhxMiningDiagram),

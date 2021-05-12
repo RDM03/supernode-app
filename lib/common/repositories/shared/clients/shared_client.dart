@@ -12,8 +12,10 @@ class SharedHttpClient implements HttpClient {
     this.dio.interceptors.add(PrettyDioLogger());
   }
 
-  RequestOptions getOptions([Map<String, dynamic> headers]) {
-    return RequestOptions(
+  String get baseUrl => null;
+
+  Options getOptions([Map<String, dynamic> headers]) {
+    return Options(
       headers: headers,
     );
   }
@@ -25,20 +27,27 @@ class SharedHttpClient implements HttpClient {
 
     final message =
         e.response != null ? e.response.data['message'].toString() : e.message;
-    final code =
-        e.response != null
-            ? (e.response.data['code'] is int
+    final code = e.response != null
+        ? (e.response.data['code'] is int
             ? e.response.data['code']
             : int.tryParse(e.response.data['code']))
-            : -1;
+        : -1;
     throw HttpException(message, code, innerStack);
+  }
+
+  String _fmtUrl(String url) {
+    if (baseUrl == null) return url;
+    if (baseUrl.endsWith('/') || url.startsWith('/')) {
+      return baseUrl + url;
+    }
+    return baseUrl + '/' + url;
   }
 
   @override
   Future get({@required String url, Map data}) async {
     try {
       final res = await dio.get(
-        url,
+        _fmtUrl(url),
         queryParameters:
             data != null ? new Map<String, dynamic>.from(data) : null,
         options: getOptions(),
@@ -58,7 +67,7 @@ class SharedHttpClient implements HttpClient {
   }) async {
     try {
       final res = await dio.post(
-        url,
+        _fmtUrl(url),
         data: data,
         options: getOptions(headers),
       );
@@ -71,7 +80,8 @@ class SharedHttpClient implements HttpClient {
   @override
   Future put({@required String url, data}) async {
     try {
-      final res = await dio.put(url, data: data, options: getOptions());
+      final res =
+          await dio.put(_fmtUrl(url), data: data, options: getOptions());
       return res.data;
     } on DioError catch (e, stack) {
       _handleDioError(e, stack);
@@ -81,7 +91,7 @@ class SharedHttpClient implements HttpClient {
   @override
   Future delete({@required String url}) async {
     try {
-      final res = await dio.delete(url, options: getOptions());
+      final res = await dio.delete(_fmtUrl(url), options: getOptions());
       return res.data;
     } on DioError catch (e, stack) {
       _handleDioError(e, stack);

@@ -26,6 +26,7 @@ Widget buildView(
     pageContent(FlutterI18n.translate(_ctx, state.content)),
     submitButton(
       FlutterI18n.translate(_ctx, 'done'),
+      key: Key('doneButton'),
       onPressed: () => Navigator.pop(viewService.context),
     )
   ]);}

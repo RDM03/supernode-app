@@ -7,12 +7,14 @@ Future showNotification({String id = '0', String title, String content}) async {
 
   var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
       id, title, content,
-      importance: Importance.Max, priority: Priority.High);
+      importance: Importance.max, priority: Priority.high);
 
   var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
 
   var platformChannelSpecifics = new NotificationDetails(
-      androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    android: androidPlatformChannelSpecifics,
+    iOS: iOSPlatformChannelSpecifics,
+  );
 
   if (id.length > 9) {
     id = id.substring(id.length - 9);

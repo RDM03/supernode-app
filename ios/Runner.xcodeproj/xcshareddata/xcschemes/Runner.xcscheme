@@ -37,6 +37,26 @@
          </BuildableReference>
       </MacroExpansion>
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0675D94C263AE24500AEE886"
+               BuildableName = "DataDashTests.xctest"
+               BlueprintName = "DataDashTests"
+               ReferencedContainer = "container:Runner.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0675D987263AF64C00AEE886"
+               BuildableName = "RunnerTests.xctest"
+               BlueprintName = "RunnerTests"
+               ReferencedContainer = "container:Runner.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
