@@ -27,6 +27,7 @@ Future<void> dhxWalletPageTests(){
     testWidgets('can get top-up information', (WidgetTester tester) async {
       await delay(5);
       await app.main();
+      await tester.pumpAndSettle();
 
       await goToDhxDashboard(tester);
       await pumpAndTap(tester, 'dhxDeposit');
@@ -46,7 +47,7 @@ Future<void> dhxWalletPageTests(){
       
       await delay(3);
       await pumpAndTap(tester, 'dhxDashboard');
-      await pumpAndTap(tester, 'dhxWithdraw', firstWidget: true);
+      await pumpAndTap(tester, 'dhxWithdraw');
 
       await delay(3);
       await pumpAndEnterText(tester, 'withdrawAmountInput','1');
@@ -75,10 +76,10 @@ Future<void> dhxWalletPageTests(){
       await app.main();
       
       await pumpAndTap(tester, 'dhxDashboard');
-      await pumpAndTap(tester, 'dhxMine', firstWidget: true);
+      await pumpAndTap(tester, 'dhxMine');
       await pumpAndTap(tester, 'actionKey');
 
-      await pumpAndTap(tester, 'lockMxcButton', firstWidget: true);
+      await pumpAndTap(tester, 'lockMxcButton');
       await pumpAndTap(tester, 'lock3');
       await delay(2);
       
@@ -101,10 +102,10 @@ Future<void> dhxWalletPageTests(){
       await app.main();
       
       await pumpAndTap(tester, 'dhxDashboard');
-      await pumpAndTap(tester, 'dhxMine', firstWidget: true);
+      await pumpAndTap(tester, 'dhxMine',);
       await pumpAndTap(tester, 'actionKey');
 
-      await pumpAndTap(tester, 'bondButton', firstWidget: true);
+      await pumpAndTap(tester, 'bondButton');
       await pumpAndEnterText(tester, 'valueTextField','1');
       await pumpAndTap(tester, 'confirmButton');
 
@@ -122,10 +123,10 @@ Future<void> dhxWalletPageTests(){
       await app.main();
       
       await pumpAndTap(tester, 'dhxDashboard');
-      await pumpAndTap(tester, 'dhxMine', firstWidget: true);
+      await pumpAndTap(tester, 'dhxMine');
       await pumpAndTap(tester, 'actionKey');
 
-      await pumpAndTap(tester, 'unbondButton', firstWidget: true);
+      await pumpAndTap(tester, 'unbondButton');
       await pumpAndEnterText(tester, 'valueTextField','1');
       await pumpAndTap(tester, 'confirmButton');
 
@@ -143,10 +144,10 @@ Future<void> dhxWalletPageTests(){
       await app.main();
       
       await pumpAndTap(tester, 'dhxDashboard');
-      await pumpAndTap(tester, 'dhxMine', firstWidget: true);
+      await pumpAndTap(tester, 'dhxMine',);
       await pumpAndTap(tester, 'actionKey');
       
-      await pumpAndTap(tester, 'simulateMiningButton', firstWidget: true);
+      await pumpAndTap(tester, 'simulateMiningButton');
       await delay(2);
 
       final Finder mxcLockedFinder = findByKey('valueSlider').first;
@@ -205,7 +206,7 @@ Future<void> dhxWalletPageTests(){
     }
 
     testWidgets('can boost-up mPower', (WidgetTester tester) async {
-      simulateMining(tester);
+      await simulateMining(tester);
 
       await delay(2);
       expect(findByKey('infoDialog'), findsOneWidget);
@@ -221,18 +222,8 @@ Future<void> dhxWalletPageTests(){
 
     }, timeout: timeout());
 
-    testWidgets('can boost-up mPower to shop', (WidgetTester tester) async {
-      await simulateMining(tester);
-
-      await pumpAndTap(tester, 'shopM2proTap');
-
-      delay(5);
-      expect(await canLaunch(shopM2proURL), true);
-      
-    }, timeout: timeout());
-
     testWidgets('can boost-up mPower to learn more', (WidgetTester tester) async {
-       await simulateMining(tester);
+      await simulateMining(tester);
 
       await pumpAndTap(tester, 'tutorialTitleTap');
 
@@ -246,7 +237,7 @@ Future<void> dhxWalletPageTests(){
       await app.main();
       
       await pumpAndTap(tester, 'dhxDashboard');
-      await pumpAndTap(tester, 'bondingHistoryText');
+      await pumpAndTap(tester, 'bondingHistoryText', firstWidget: true);
 
       if (isExisted('dhx_stake_0')) {
         expect(findByKey('dhx_stake_0'), findsOneWidget);
@@ -254,6 +245,16 @@ Future<void> dhxWalletPageTests(){
         expect(findByKey('noData'), findsOneWidget);
       }
 
+    }, timeout: timeout());
+
+    testWidgets('can boost-up mPower to shop', (WidgetTester tester) async {
+      await simulateMining(tester);
+
+      await pumpAndTap(tester, 'shopM2proTap');
+
+      await delay(5);
+      expect(await canLaunch(shopM2proURL), true);
+      
     }, timeout: timeout());
 
   });
