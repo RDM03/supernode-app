@@ -65,6 +65,12 @@ class AppImages {
   //gateway
   static const String infoDownlinkPrice =
       'assets/images/gateway/info-downloadlink_price.png';
+  static const String uptime = 'assets/images/gateway/uptime.png';
+  static const String gps = 'assets/images/gateway/gps.png';
+  static const String altitude = 'assets/images/gateway/altitude.png';
+  static const String orientation = 'assets/images/gateway/orientation.png';
+  static const String proximity = 'assets/images/gateway/proximity.png';
+  static const String fuel = 'assets/images/gateway/fuel.png';
 
   //settings
   static const String warningRobot = 'assets/images/settings/robot_warning.png';

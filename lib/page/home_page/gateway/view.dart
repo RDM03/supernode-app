@@ -8,6 +8,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pagination_view/pagination_view.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/app_bars/home_bar.dart';
+import 'package:supernodeapp/common/components/buttons/circle_button.dart';
+import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/common/components/empty.dart';
 import 'package:supernodeapp/common/components/loading_list.dart';
@@ -15,12 +17,16 @@ import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
+import 'package:supernodeapp/common/components/row_spacer.dart';
+import 'package:supernodeapp/common/components/widgets/circular_graph.dart';
 import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
@@ -41,6 +47,208 @@ class GatewayTab extends StatelessWidget {
         },
         child: PageBody(
           children: [
+            BlocBuilder<GatewayCubit, GatewayState>(
+                buildWhen: (a, b) => a.gatewaysTotal != b.gatewaysTotal,
+                builder: (ctx, gatewayState) =>
+                    BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
+                      buildWhen: (a, b) =>
+                      a.gatewaysRevenueUsd != b.gatewaysRevenueUsd ||
+                          a.gatewaysRevenue != b.gatewaysRevenue,
+                      builder: (ctx, state) => PanelFrame(
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Column(children: [
+                              Stack(alignment: Alignment.topCenter, children: [
+                                Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                  CircleButton(
+                                    key: Key('addMiner'),
+                                    circleColor: minerColor,
+                                    icon: Image.asset(
+                                      AppImages.gateways,
+                                      color: Colors.white,
+                                    ),
+                                    label: FlutterI18n.translate(context, 'add'),
+                                    onTap: () async {
+                                      if (!context.read<AppCubit>().state.isDemo) {
+                                        await Navigator.of(context)
+                                            .pushNamed('add_gateway_page', arguments: {
+                                          'fromPage': 'home',
+                                        });
+                                        await context.read<GatewayCubit>().refreshGateways();
+                                      }
+                                    },
+                                  ),
+                                  Spacer(),
+                                  CircleButton(
+                                    key: Key('addFuel'),
+                                    circleColor: fuelColor,
+                                    icon: Image.asset(
+                                      AppImages.fuel,
+                                      color: Colors.white,
+                                    ),
+                                    label: FlutterI18n.translate(context, 'add_send'),
+                                    onTap: () async {
+                                      if (!context.read<AppCubit>().state.isDemo) {
+                                        await Navigator.of(context)
+                                            .pushNamed('add_gateway_page', arguments: {
+                                          'fromPage': 'home',
+                                        });
+                                      }
+                                    },
+                                  ),
+                                ]
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 20.0),
+                                  child: CircularGraph(55, (55 > 10) ? minerColor: fuelColor,
+                                      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                        Text('55', style: kSuperBigBoldFont),
+                                        Text(FlutterI18n.translate(context, 'health_score'), style: kMiddleFontOfGrey),
+                                      ])),
+                                ),
+                              ],
+                              ),
+                              middleColumnSpacer(),
+                              Text('${Tools.priceFormat(state.gatewaysRevenue.value)} MXC', style: kSuperBigBoldFont),
+                              Text(FlutterI18n.translate(context, 'total_mining_revenue'), style: kMiddleFontOfGrey),
+                              middleColumnSpacer(),
+                              Row(children: [
+                                Spacer(),
+                                Image.asset(
+                                  AppImages.gateways,
+                                  color: minerColor,
+                                ),
+                                smallRowSpacer(),
+                                Text('${gatewayState.gatewaysTotal.value} ${FlutterI18n.translate(context, 'miners')}'),
+                                smallRowSpacer(),
+                                Image.asset(
+                                  AppImages.fuel,
+                                  color: fuelColor,
+                                ),
+                                smallRowSpacer(),
+                                Text('${gatewayState.gatewaysTotal.value}'),
+                                Spacer()
+                              ]),
+                              middleColumnSpacer(),
+                              Row(children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: minerColor.withOpacity(.1),
+                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                        Text('50%', style: kBigFontOfBlack),
+                                        Image.asset(AppImages.uptime),
+                                        Text(FlutterI18n.translate(context, 'uptime'), style: kSmallFontOfBlack),
+                                      ]),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: minerColor.withOpacity(.1),
+                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                        Text('50%', style: kBigFontOfBlack),
+                                        Image.asset(AppImages.gps),
+                                        Text(FlutterI18n.translate(context, 'gps'), style: kSmallFontOfBlack),
+                                      ]),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: minerColor.withOpacity(.1),
+                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                        Text('50%', style: kBigFontOfBlack),
+                                        Image.asset(AppImages.altitude),
+                                        Text(FlutterI18n.translate(context, 'altitude'), style: kSmallFontOfBlack),
+                                      ]),
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                              SizedBox(height: 10),
+                              Row(children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: minerColor.withOpacity(.1),
+                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                        Text('50%', style: kBigFontOfBlack),
+                                        Image.asset(AppImages.orientation),
+                                        Text(FlutterI18n.translate(context, 'orientation'), style: kSmallFontOfBlack),
+                                      ]),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: minerColor.withOpacity(.1),
+                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                        Text('50%', style: kBigFontOfBlack),
+                                        Image.asset(AppImages.proximity),
+                                        Text(FlutterI18n.translate(context, 'proximity'), style: kSmallFontOfBlack),
+                                      ]),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: minerColor.withOpacity(.1),
+                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                        Text('50%', style: kBigFontOfBlack),
+                                        Stack(alignment: Alignment.center, children: [
+                                          Image.asset(AppImages.uptime, color: Colors.white),
+                                          Image.asset(AppImages.fuel, color: fuelColor),
+                                        ]),
+                                        Text(FlutterI18n.translate(context, 'fuel'), style: kSmallFontOfBlack),
+                                      ]),
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                            ]),
+                          )
+                      ),
+                    )
+            ),
             BlocBuilder<GatewayCubit, GatewayState>(
               buildWhen: (a, b) => a.gatewaysTotal != b.gatewaysTotal,
               builder: (ctx, gatewayState) =>
