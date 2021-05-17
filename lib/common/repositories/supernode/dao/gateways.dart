@@ -2,6 +2,7 @@ import 'package:supernodeapp/common/repositories/supernode/clients/supernode_cli
 import 'package:supernodeapp/common/utils/url.dart';
 
 import 'dao.dart';
+import 'gateways.model.dart';
 
 class GatewaysApi {
   static final String list = '/api/gateways';
@@ -14,6 +15,7 @@ class GatewaysApi {
   static final String frames = '/api/gateways/{gateway.id}/stats';
   static final String getProfile = '/api/gateways/{gateway.id}';
   static final String delete = '/api/gateways/{gateway.id}';
+  static final String minerHealth = "/api/wallet/mining_health";
 }
 
 class GatewaysDao extends SupernodeDao {
@@ -74,5 +76,14 @@ class GatewaysDao extends SupernodeDao {
 
   Future<dynamic> deleteGateway(String id) {
     return delete(url: Api.url(GatewaysApi.delete, id)).then((res) => res);
+  }
+
+  Future<List<MinerHealthResponse>> minerHealth(Map data) {
+    return get(url: GatewaysApi.minerHealth, data: data).then((res) {
+      final List<MinerHealthResponse> minersHealth = [];
+      if (res != null && res.containsKey('gatewayHealth'))
+        res['gatewayHealth'].forEach((e) => minersHealth.add(MinerHealthResponse.fromMap(e)));
+      return minersHealth;
+    });
   }
 }
