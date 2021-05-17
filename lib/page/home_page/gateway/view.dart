@@ -103,9 +103,7 @@ class GatewayTab extends StatelessWidget {
                                   padding: const EdgeInsets.only(top: 20.0),
                                   child: CircularGraph(gatewayState.health.value * 100, (gatewayState.health.value * 100 > 10) ? minerColor: fuelColor,
                                       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                                        (gatewayState.health.loading)
-                                            ? loadingFlash(child: Text('${Tools.priceFormat(gatewayState.health.value * 100)} %', style: kSuperBigBoldFont))
-                                            : Text('${Tools.priceFormat(gatewayState.health.value * 100)} %', style: kSuperBigBoldFont),
+                                        loadableWidget(loading: gatewayState.health.loading, child: Text('${Tools.priceFormat(gatewayState.health.value * 100)} %', style: kSuperBigBoldFont)),
                                         Text(FlutterI18n.translate(context, 'health_score'), style: kMiddleFontOfGrey),
                                       ])),
                                 ),
@@ -122,18 +120,14 @@ class GatewayTab extends StatelessWidget {
                                   color: minerColor,
                                 ),
                                 smallRowSpacer(),
-                                (gatewayState.gatewaysTotal.loading)
-                                    ? loadingFlash(child: Text('${gatewayState.gatewaysTotal.value} ${FlutterI18n.translate(context, 'miners')}'))
-                                    : Text('${gatewayState.gatewaysTotal.value} ${FlutterI18n.translate(context, 'miners')}'),
+                                loadableWidget(loading: gatewayState.gatewaysTotal.loading, child: Text('${gatewayState.gatewaysTotal.value} ${FlutterI18n.translate(context, 'miners')}')),
                                 smallRowSpacer(),
                                 Image.asset(
                                   AppImages.fuel,
                                   color: fuelColor,
                                 ),
                                 smallRowSpacer(),
-                                (gatewayState.miningFuel.loading)
-                                    ? loadingFlash(child: Text('${gatewayState.miningFuel.value.round()} / ${gatewayState.miningFuelMax.value.round()} MXC'))
-                                    : Text('${gatewayState.miningFuel.value.round()} / ${gatewayState.miningFuelMax.value.round()} MXC'),
+                                loadableWidget(loading: gatewayState.miningFuel.loading, child: Text('${gatewayState.miningFuel.value.round()} / ${gatewayState.miningFuelMax.value.round()} MXC')),
                                 Spacer()
                               ]),
                               middleColumnSpacer(),
@@ -240,9 +234,7 @@ class GatewayTab extends StatelessWidget {
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                                       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                                        (gatewayState.miningFuelHealth.loading)
-                                            ? loadingFlash(child: Text('${Tools.priceFormat(gatewayState.miningFuelHealth.value * 100)} %', style: kBigFontOfBlack))
-                                            : Text('${Tools.priceFormat(gatewayState.miningFuelHealth.value * 100)} %', style: kBigFontOfBlack),
+                                        loadableWidget(loading: gatewayState.miningFuelHealth.loading, child: Text('${Tools.priceFormat(gatewayState.miningFuelHealth.value * 100)} %', style: kBigFontOfBlack)),
                                         Stack(alignment: Alignment.center, children: [
                                           Image.asset(AppImages.uptime, color: Colors.white),
                                           Image.asset(AppImages.fuel, color: fuelColor),
