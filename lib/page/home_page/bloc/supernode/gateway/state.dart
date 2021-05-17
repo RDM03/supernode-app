@@ -10,6 +10,11 @@ abstract class GatewayState with _$GatewayState {
   factory GatewayState({
     @Default(Wrap.pending()) Wrap<int> gatewaysTotal,
     @Default(Wrap.pending()) Wrap<List<GatewayItem>> gateways,
+    @Default(Wrap.pending()) Wrap<int> ageSeconds,
+    @Default(Wrap.pending()) Wrap<double> health,
+    @Default(Wrap.pending()) Wrap<double> miningFuel,
+    @Default(Wrap.pending()) Wrap<double> miningFuelHealth,
+    @Default(Wrap.pending()) Wrap<double> miningFuelMax,
   }) = _GatewayState;
 }
 

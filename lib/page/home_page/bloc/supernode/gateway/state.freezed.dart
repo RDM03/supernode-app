@@ -16,10 +16,20 @@ class _$GatewayStateTearOff {
 // ignore: unused_element
   _GatewayState call(
       {Wrap<int> gatewaysTotal = const Wrap.pending(),
-      Wrap<List<GatewayItem>> gateways = const Wrap.pending()}) {
+      Wrap<List<GatewayItem>> gateways = const Wrap.pending(),
+      Wrap<int> ageSeconds = const Wrap.pending(),
+      Wrap<double> health = const Wrap.pending(),
+      Wrap<double> miningFuel = const Wrap.pending(),
+      Wrap<double> miningFuelHealth = const Wrap.pending(),
+      Wrap<double> miningFuelMax = const Wrap.pending()}) {
     return _GatewayState(
       gatewaysTotal: gatewaysTotal,
       gateways: gateways,
+      ageSeconds: ageSeconds,
+      health: health,
+      miningFuel: miningFuel,
+      miningFuelHealth: miningFuelHealth,
+      miningFuelMax: miningFuelMax,
     );
   }
 }
@@ -32,6 +42,11 @@ const $GatewayState = _$GatewayStateTearOff();
 mixin _$GatewayState {
   Wrap<int> get gatewaysTotal;
   Wrap<List<GatewayItem>> get gateways;
+  Wrap<int> get ageSeconds;
+  Wrap<double> get health;
+  Wrap<double> get miningFuel;
+  Wrap<double> get miningFuelHealth;
+  Wrap<double> get miningFuelMax;
 
   @JsonKey(ignore: true)
   $GatewayStateCopyWith<GatewayState> get copyWith;
@@ -42,7 +57,14 @@ abstract class $GatewayStateCopyWith<$Res> {
   factory $GatewayStateCopyWith(
           GatewayState value, $Res Function(GatewayState) then) =
       _$GatewayStateCopyWithImpl<$Res>;
-  $Res call({Wrap<int> gatewaysTotal, Wrap<List<GatewayItem>> gateways});
+  $Res call(
+      {Wrap<int> gatewaysTotal,
+      Wrap<List<GatewayItem>> gateways,
+      Wrap<int> ageSeconds,
+      Wrap<double> health,
+      Wrap<double> miningFuel,
+      Wrap<double> miningFuelHealth,
+      Wrap<double> miningFuelMax});
 }
 
 /// @nodoc
@@ -57,6 +79,11 @@ class _$GatewayStateCopyWithImpl<$Res> implements $GatewayStateCopyWith<$Res> {
   $Res call({
     Object gatewaysTotal = freezed,
     Object gateways = freezed,
+    Object ageSeconds = freezed,
+    Object health = freezed,
+    Object miningFuel = freezed,
+    Object miningFuelHealth = freezed,
+    Object miningFuelMax = freezed,
   }) {
     return _then(_value.copyWith(
       gatewaysTotal: gatewaysTotal == freezed
@@ -65,6 +92,18 @@ class _$GatewayStateCopyWithImpl<$Res> implements $GatewayStateCopyWith<$Res> {
       gateways: gateways == freezed
           ? _value.gateways
           : gateways as Wrap<List<GatewayItem>>,
+      ageSeconds:
+          ageSeconds == freezed ? _value.ageSeconds : ageSeconds as Wrap<int>,
+      health: health == freezed ? _value.health : health as Wrap<double>,
+      miningFuel: miningFuel == freezed
+          ? _value.miningFuel
+          : miningFuel as Wrap<double>,
+      miningFuelHealth: miningFuelHealth == freezed
+          ? _value.miningFuelHealth
+          : miningFuelHealth as Wrap<double>,
+      miningFuelMax: miningFuelMax == freezed
+          ? _value.miningFuelMax
+          : miningFuelMax as Wrap<double>,
     ));
   }
 }
@@ -76,7 +115,14 @@ abstract class _$GatewayStateCopyWith<$Res>
           _GatewayState value, $Res Function(_GatewayState) then) =
       __$GatewayStateCopyWithImpl<$Res>;
   @override
-  $Res call({Wrap<int> gatewaysTotal, Wrap<List<GatewayItem>> gateways});
+  $Res call(
+      {Wrap<int> gatewaysTotal,
+      Wrap<List<GatewayItem>> gateways,
+      Wrap<int> ageSeconds,
+      Wrap<double> health,
+      Wrap<double> miningFuel,
+      Wrap<double> miningFuelHealth,
+      Wrap<double> miningFuelMax});
 }
 
 /// @nodoc
@@ -93,6 +139,11 @@ class __$GatewayStateCopyWithImpl<$Res> extends _$GatewayStateCopyWithImpl<$Res>
   $Res call({
     Object gatewaysTotal = freezed,
     Object gateways = freezed,
+    Object ageSeconds = freezed,
+    Object health = freezed,
+    Object miningFuel = freezed,
+    Object miningFuelHealth = freezed,
+    Object miningFuelMax = freezed,
   }) {
     return _then(_GatewayState(
       gatewaysTotal: gatewaysTotal == freezed
@@ -101,6 +152,18 @@ class __$GatewayStateCopyWithImpl<$Res> extends _$GatewayStateCopyWithImpl<$Res>
       gateways: gateways == freezed
           ? _value.gateways
           : gateways as Wrap<List<GatewayItem>>,
+      ageSeconds:
+          ageSeconds == freezed ? _value.ageSeconds : ageSeconds as Wrap<int>,
+      health: health == freezed ? _value.health : health as Wrap<double>,
+      miningFuel: miningFuel == freezed
+          ? _value.miningFuel
+          : miningFuel as Wrap<double>,
+      miningFuelHealth: miningFuelHealth == freezed
+          ? _value.miningFuelHealth
+          : miningFuelHealth as Wrap<double>,
+      miningFuelMax: miningFuelMax == freezed
+          ? _value.miningFuelMax
+          : miningFuelMax as Wrap<double>,
     ));
   }
 }
@@ -109,9 +172,19 @@ class __$GatewayStateCopyWithImpl<$Res> extends _$GatewayStateCopyWithImpl<$Res>
 class _$_GatewayState with DiagnosticableTreeMixin implements _GatewayState {
   _$_GatewayState(
       {this.gatewaysTotal = const Wrap.pending(),
-      this.gateways = const Wrap.pending()})
+      this.gateways = const Wrap.pending(),
+      this.ageSeconds = const Wrap.pending(),
+      this.health = const Wrap.pending(),
+      this.miningFuel = const Wrap.pending(),
+      this.miningFuelHealth = const Wrap.pending(),
+      this.miningFuelMax = const Wrap.pending()})
       : assert(gatewaysTotal != null),
-        assert(gateways != null);
+        assert(gateways != null),
+        assert(ageSeconds != null),
+        assert(health != null),
+        assert(miningFuel != null),
+        assert(miningFuelHealth != null),
+        assert(miningFuelMax != null);
 
   @JsonKey(defaultValue: const Wrap.pending())
   @override
@@ -119,10 +192,25 @@ class _$_GatewayState with DiagnosticableTreeMixin implements _GatewayState {
   @JsonKey(defaultValue: const Wrap.pending())
   @override
   final Wrap<List<GatewayItem>> gateways;
+  @JsonKey(defaultValue: const Wrap.pending())
+  @override
+  final Wrap<int> ageSeconds;
+  @JsonKey(defaultValue: const Wrap.pending())
+  @override
+  final Wrap<double> health;
+  @JsonKey(defaultValue: const Wrap.pending())
+  @override
+  final Wrap<double> miningFuel;
+  @JsonKey(defaultValue: const Wrap.pending())
+  @override
+  final Wrap<double> miningFuelHealth;
+  @JsonKey(defaultValue: const Wrap.pending())
+  @override
+  final Wrap<double> miningFuelMax;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GatewayState(gatewaysTotal: $gatewaysTotal, gateways: $gateways)';
+    return 'GatewayState(gatewaysTotal: $gatewaysTotal, gateways: $gateways, ageSeconds: $ageSeconds, health: $health, miningFuel: $miningFuel, miningFuelHealth: $miningFuelHealth, miningFuelMax: $miningFuelMax)';
   }
 
   @override
@@ -131,7 +219,12 @@ class _$_GatewayState with DiagnosticableTreeMixin implements _GatewayState {
     properties
       ..add(DiagnosticsProperty('type', 'GatewayState'))
       ..add(DiagnosticsProperty('gatewaysTotal', gatewaysTotal))
-      ..add(DiagnosticsProperty('gateways', gateways));
+      ..add(DiagnosticsProperty('gateways', gateways))
+      ..add(DiagnosticsProperty('ageSeconds', ageSeconds))
+      ..add(DiagnosticsProperty('health', health))
+      ..add(DiagnosticsProperty('miningFuel', miningFuel))
+      ..add(DiagnosticsProperty('miningFuelHealth', miningFuelHealth))
+      ..add(DiagnosticsProperty('miningFuelMax', miningFuelMax));
   }
 
   @override
@@ -143,14 +236,33 @@ class _$_GatewayState with DiagnosticableTreeMixin implements _GatewayState {
                     .equals(other.gatewaysTotal, gatewaysTotal)) &&
             (identical(other.gateways, gateways) ||
                 const DeepCollectionEquality()
-                    .equals(other.gateways, gateways)));
+                    .equals(other.gateways, gateways)) &&
+            (identical(other.ageSeconds, ageSeconds) ||
+                const DeepCollectionEquality()
+                    .equals(other.ageSeconds, ageSeconds)) &&
+            (identical(other.health, health) ||
+                const DeepCollectionEquality().equals(other.health, health)) &&
+            (identical(other.miningFuel, miningFuel) ||
+                const DeepCollectionEquality()
+                    .equals(other.miningFuel, miningFuel)) &&
+            (identical(other.miningFuelHealth, miningFuelHealth) ||
+                const DeepCollectionEquality()
+                    .equals(other.miningFuelHealth, miningFuelHealth)) &&
+            (identical(other.miningFuelMax, miningFuelMax) ||
+                const DeepCollectionEquality()
+                    .equals(other.miningFuelMax, miningFuelMax)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(gatewaysTotal) ^
-      const DeepCollectionEquality().hash(gateways);
+      const DeepCollectionEquality().hash(gateways) ^
+      const DeepCollectionEquality().hash(ageSeconds) ^
+      const DeepCollectionEquality().hash(health) ^
+      const DeepCollectionEquality().hash(miningFuel) ^
+      const DeepCollectionEquality().hash(miningFuelHealth) ^
+      const DeepCollectionEquality().hash(miningFuelMax);
 
   @JsonKey(ignore: true)
   @override
@@ -161,12 +273,27 @@ class _$_GatewayState with DiagnosticableTreeMixin implements _GatewayState {
 abstract class _GatewayState implements GatewayState {
   factory _GatewayState(
       {Wrap<int> gatewaysTotal,
-      Wrap<List<GatewayItem>> gateways}) = _$_GatewayState;
+      Wrap<List<GatewayItem>> gateways,
+      Wrap<int> ageSeconds,
+      Wrap<double> health,
+      Wrap<double> miningFuel,
+      Wrap<double> miningFuelHealth,
+      Wrap<double> miningFuelMax}) = _$_GatewayState;
 
   @override
   Wrap<int> get gatewaysTotal;
   @override
   Wrap<List<GatewayItem>> get gateways;
+  @override
+  Wrap<int> get ageSeconds;
+  @override
+  Wrap<double> get health;
+  @override
+  Wrap<double> get miningFuel;
+  @override
+  Wrap<double> get miningFuelHealth;
+  @override
+  Wrap<double> get miningFuelMax;
   @override
   @JsonKey(ignore: true)
   _$GatewayStateCopyWith<_GatewayState> get copyWith;
