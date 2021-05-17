@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/gateways.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/wrap.dart';
 import 'package:supernodeapp/log.dart';
@@ -32,6 +33,7 @@ class GatewayCubit extends Cubit<GatewayState> {
   Future<void> refresh() async {
     await Future.wait([
       refreshGateways(),
+      minerHealth(),
     ]);
   }
 
@@ -59,6 +61,58 @@ class GatewayCubit extends Cubit<GatewayState> {
       emit(state.copyWith(
         gatewaysTotal: state.gatewaysTotal.withError(e),
         gateways: state.gateways.withError(e),
+      ));
+    }
+  }
+
+  Future<void> minerHealth() async {
+    emit(state.copyWith(
+      ageSeconds: state.ageSeconds.withLoading(),
+      health: state.health.withLoading(),
+      miningFuel: state.miningFuel.withLoading(),
+      miningFuelHealth: state.miningFuelHealth.withLoading(),
+      miningFuelMax: state.miningFuelMax.withLoading(),
+    ));
+    try {
+      final List<MinerHealthResponse> listMinersHealth = await supernodeRepository.gateways.minerHealth({"orgId": orgId});
+
+      double avgAgeSeconds = 0;
+      double avgHealth = 0;
+      double avgMiningFuel = 0;
+      double avgMiningFuelHealth = 0;
+      double avgMiningFuelMax = 0;
+
+      for (MinerHealthResponse minerHealth in listMinersHealth) {
+        avgAgeSeconds += minerHealth.ageSeconds;
+        avgHealth += minerHealth.health;
+        avgMiningFuel += minerHealth.miningFuel;
+        avgMiningFuelHealth += minerHealth.miningFuelHealth;
+        avgMiningFuelMax += minerHealth.miningFuelMax;
+      }
+
+      avgAgeSeconds /= listMinersHealth.length;
+      avgHealth /= listMinersHealth.length;
+      avgMiningFuel /= listMinersHealth.length;
+      avgMiningFuelHealth /= listMinersHealth.length;
+      avgMiningFuelMax /= listMinersHealth.length;
+
+      emit(
+        state.copyWith(
+          ageSeconds: Wrap(avgAgeSeconds.round()),
+          health: Wrap(avgHealth),
+          miningFuel: Wrap(avgMiningFuel),
+          miningFuelHealth: Wrap(avgMiningFuelHealth),
+          miningFuelMax: Wrap(avgMiningFuelMax),
+        ),
+      );
+    } catch (e, s) {
+      logger.e('minerHealth error', e, s);
+      emit(state.copyWith(
+        ageSeconds: state.ageSeconds.withError(e),
+        health: state.health.withError(e),
+        miningFuel: state.miningFuel.withError(e),
+        miningFuelHealth: state.miningFuelHealth.withError(e),
+        miningFuelMax: state.miningFuelMax.withError(e),
       ));
     }
   }
