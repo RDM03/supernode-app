@@ -86,15 +86,14 @@ class GatewayCubit extends Cubit<GatewayState> {
         avgAgeSeconds += minerHealth.ageSeconds;
         avgHealth += minerHealth.health;
         avgMiningFuel += minerHealth.miningFuel;
-        avgMiningFuelHealth += minerHealth.miningFuelHealth;
         avgMiningFuelMax += minerHealth.miningFuelMax;
       }
 
       avgAgeSeconds /= listMinersHealth.length;
       avgHealth /= listMinersHealth.length;
       avgMiningFuel /= listMinersHealth.length;
-      avgMiningFuelHealth /= listMinersHealth.length;
       avgMiningFuelMax /= listMinersHealth.length;
+      avgMiningFuelHealth = avgMiningFuel / avgMiningFuelMax;
 
       emit(
         state.copyWith(
