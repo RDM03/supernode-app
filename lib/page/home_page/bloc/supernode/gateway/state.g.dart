@@ -22,6 +22,7 @@ _$_GatewayItem _$_$_GatewayItemFromJson(Map<String, dynamic> json) {
     osversion: json['osversion'] as String,
     health: (json['health'] as num)?.toDouble(),
     miningFuelHealth: (json['miningFuelHealth'] as num)?.toDouble(),
+    totalMined: (json['totalMined'] as num)?.toDouble(),
   );
 }
 
@@ -41,4 +42,5 @@ Map<String, dynamic> _$_$_GatewayItemToJson(_$_GatewayItem instance) =>
       'osversion': instance.osversion,
       'health': instance.health,
       'miningFuelHealth': instance.miningFuelHealth,
+      'totalMined': instance.totalMined,
     };

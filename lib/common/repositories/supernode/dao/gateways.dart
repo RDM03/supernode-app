@@ -81,6 +81,12 @@ class GatewaysDao extends SupernodeDao {
   Future<List<MinerHealthResponse>> minerHealth(Map data) {
     return get(url: GatewaysApi.minerHealth, data: data).then((res) {
       final List<MinerHealthResponse> minersHealth = [];
+      if (res != null && res.containsKey('miningHealthAverage'))
+        minersHealth.add(MinerHealthResponse(
+            id: 'health_score',
+            health: res['miningHealthAverage']['overall'],
+            miningFuelHealth: res['miningHealthAverage']['miningFuelHealth'],
+            uptimeHealth: res['miningHealthAverage']['uptimeHealth']));
       if (res != null && res.containsKey('gatewayHealth'))
         res['gatewayHealth'].forEach((e) => minersHealth.add(MinerHealthResponse.fromMap(e)));
       return minersHealth;

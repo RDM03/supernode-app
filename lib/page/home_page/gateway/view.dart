@@ -137,7 +137,7 @@ class GatewayTab extends StatelessWidget {
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                                       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                                        Text('50%', style: kBigFontOfBlack),
+                                        loadableWidget(loading: gatewayState.uptimeHealth.loading, child: Text('${Tools.priceFormat(gatewayState.uptimeHealth.value * 100)} %', style: kBigFontOfBlack)),
                                         Image.asset(AppImages.uptime),
                                         Text(FlutterI18n.translate(context, 'uptime'), style: kSmallFontOfBlack),
                                       ]),
@@ -395,9 +395,7 @@ class GatewayListTile extends StatelessWidget {
                     style: kSmallFontOfGrey,
                   ),
                   Spacer(),
-                  Text('${100} MXC',
-                    style: kBigFontOfBlack,
-                  ),
+                  Text('${Tools.priceFormat(state.totalMined)} MXC', style: kBigFontOfBlack,),
                 ],
               ),
             )

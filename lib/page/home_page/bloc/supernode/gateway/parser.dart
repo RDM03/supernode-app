@@ -44,6 +44,7 @@ List<GatewayItem> parseGateways(dynamic gatewaysResponse, List<MinerHealthRespon
         if (tempGatewaysList[index]['id'] == minerHealth.id) {
           tempGatewaysList[index]['health'] = minerHealth.health;
           tempGatewaysList[index]['miningFuelHealth'] = minerHealth.miningFuelHealth;
+          tempGatewaysList[index]['totalMined'] = minerHealth.totalMined;
           break;
         }
       }

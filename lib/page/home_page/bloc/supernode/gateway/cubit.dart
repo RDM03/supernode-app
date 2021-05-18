@@ -49,10 +49,10 @@ class GatewayCubit extends Cubit<GatewayState> {
     emit(state.copyWith(
       gatewaysTotal: state.gatewaysTotal.withLoading(),
       gateways: state.gateways.withLoading(),
-      ageSeconds: state.ageSeconds.withLoading(),
       health: state.health.withLoading(),
-      miningFuel: state.miningFuel.withLoading(),
+      uptimeHealth: state.uptimeHealth.withLoading(),
       miningFuelHealth: state.miningFuelHealth.withLoading(),
+      miningFuel: state.miningFuel.withLoading(),
       miningFuelMax: state.miningFuelMax.withLoading(),
     ));
 
@@ -61,42 +61,40 @@ class GatewayCubit extends Cubit<GatewayState> {
     try {
       listMinersHealth = await supernodeRepository.gateways.minerHealth({"orgId": orgId});
 
-      double avgAgeSeconds = 0;
       double avgHealth = 0;
-      double avgMiningFuel = 0;
+      double avgUptimeHealth = 0;
       double avgMiningFuelHealth = 0;
-      double avgMiningFuelMax = 0;
+      double sumMiningFuel = 0;
+      double sumMiningFuelMax = 0;
 
       for (MinerHealthResponse minerHealth in listMinersHealth) {
-        avgAgeSeconds += minerHealth.ageSeconds;
-        avgHealth += minerHealth.health;
-        avgMiningFuel += minerHealth.miningFuel;
-        avgMiningFuelMax += minerHealth.miningFuelMax;
+        if (minerHealth.id == 'health_score') {
+          avgHealth = minerHealth.health;
+          avgUptimeHealth = minerHealth.uptimeHealth;
+          avgMiningFuelHealth = minerHealth.miningFuelHealth;
+        } else {
+          sumMiningFuel += minerHealth.miningFuel;
+          sumMiningFuelMax += minerHealth.miningFuelMax;
+        }
       }
-
-      avgAgeSeconds /= listMinersHealth.length;
-      avgHealth /= listMinersHealth.length;
-      avgMiningFuel /= listMinersHealth.length;
-      avgMiningFuelMax /= listMinersHealth.length;
-      avgMiningFuelHealth = avgMiningFuel / avgMiningFuelMax;
 
       emit(
         state.copyWith(
-          ageSeconds: Wrap(avgAgeSeconds.round()),
           health: Wrap(avgHealth),
-          miningFuel: Wrap(avgMiningFuel),
+          uptimeHealth: Wrap(avgUptimeHealth),
           miningFuelHealth: Wrap(avgMiningFuelHealth),
-          miningFuelMax: Wrap(avgMiningFuelMax),
+          miningFuel: Wrap(sumMiningFuel),
+          miningFuelMax: Wrap(sumMiningFuelMax),
         ),
       );
       //TODO homeCubit.saveSNCache('gatewaysTotal', total);
     } catch (e, s) {
       logger.e('minerHealth error', e, s);
       emit(state.copyWith(
-        ageSeconds: state.ageSeconds.withError(e),
         health: state.health.withError(e),
-        miningFuel: state.miningFuel.withError(e),
+        uptimeHealth: state.uptimeHealth.withError(e),
         miningFuelHealth: state.miningFuelHealth.withError(e),
+        miningFuel: state.miningFuel.withError(e),
         miningFuelMax: state.miningFuelMax.withError(e),
       ));
     }

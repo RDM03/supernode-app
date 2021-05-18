@@ -5,6 +5,8 @@ class MinerHealthResponse {
   final double miningFuel;
   final double miningFuelHealth;
   final double miningFuelMax;
+  final double totalMined;
+  final double uptimeHealth;
 
   MinerHealthResponse({
     this.id,
@@ -13,6 +15,8 @@ class MinerHealthResponse {
     this.miningFuel,
     this.miningFuelHealth,
     this.miningFuelMax,
+    this.totalMined,
+    this.uptimeHealth,
   });
 
   factory MinerHealthResponse.fromMap(Map<String, dynamic> map) {
@@ -25,6 +29,8 @@ class MinerHealthResponse {
       miningFuel: double.tryParse(map['miningFuel']),
       miningFuelHealth: map['miningFuelHealth'],
       miningFuelMax: double.tryParse(map['miningFuelMax']),
+      totalMined: double.tryParse(map['totalMined']),
+      uptimeHealth: map['uptimeHealth'],
     );
   }
 }
