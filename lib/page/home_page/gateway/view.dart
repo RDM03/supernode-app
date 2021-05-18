@@ -405,7 +405,6 @@ class GatewayListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
       padding: const EdgeInsets.only(bottom: 2),
       decoration: BoxDecoration(
         border: Border(
@@ -415,72 +414,78 @@ class GatewayListTile extends StatelessWidget {
       child: ListTile(
         tileColor: Colors.white,
         onTap: onTap,
-        title: Row(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  width: 90,
-                  padding: kOuterRowTop10,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 5, top: 4),
-                        child: Icon(
-                          Icons.lens,
-                          color: TimeUtil.isIn5Min(state.lastSeenAt)
-                              ? Colors.green
-                              : Colors.grey,
-                          size: 10,
-                        ),
-                      ),
-                      Text(
-                        TimeUtil.isIn5Min(state.lastSeenAt)
-                            ? '(${FlutterI18n.translate(context, 'online')})'
-                            : '(${FlutterI18n.translate(context, 'offline')})',
-                        style: kSmallFontOfGrey,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                    padding: kOuterRowTop5,
-                    child: Text(state.name,
-                        textAlign: TextAlign.left, style: kBigFontOfBlack)),
-                Padding(
-                  padding: kOuterRowTop5,
-                  child: Text(
-                    '${FlutterI18n.translate(context, 'last_seen')}: ${TimeUtil.getDatetime(state.lastSeenAt)}',
-                    style: kSmallFontOfGrey,
-                  ),
-                )
-              ],
-            ),
-            Spacer(),
             Container(
-              alignment: Alignment.centerRight,
-              margin: kOuterRowTop20,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+              padding: kOuterRowTop10,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5, top: 4),
+                    child: Icon(
+                      Icons.lens,
+                      color: TimeUtil.isIn5Min(state.lastSeenAt)
+                          ? Colors.green
+                          : Colors.grey,
+                      size: 10,
+                    ),
+                  ),
+                  SizedBox(width: 5),
                   Text(
-                    '${FlutterI18n.translate(context, 'downlink_price')}',
+                    TimeUtil.isIn5Min(state.lastSeenAt)
+                        ? '${FlutterI18n.translate(context, 'online').toUpperCase()}'
+                        : '${FlutterI18n.translate(context, 'offline').toUpperCase()}',
+                    style: kMiddleFontOfGrey,
+                  ),
+                  Spacer(),
+                  Image.asset(
+                    AppImages.gateways,
+                    color: minerColor,
+                  ),
+                  smallRowSpacer(),
+                  Text('${Tools.priceFormat(state.health * 100)} %', style: kBigFontOfBlack),
+                  smallRowSpacer(),
+                  Image.asset(
+                    AppImages.fuel,
+                    color: fuelColor,
+                  ),
+                  smallRowSpacer(),
+                  Text('${Tools.priceFormat(state.miningFuelHealth * 100)} %', style: kBigFontOfBlack),
+                ],
+              ),
+            ),
+            Padding(
+                padding: kOuterRowTop5,
+                child: Text(state.name,
+                    textAlign: TextAlign.left, style: kBigFontOfBlack)),
+            Padding(
+              padding: kOuterRowTop5,
+              child: Row(
+                children: [
+                  Text(
+                    '${FlutterI18n.translate(context, 'last_seen')}',
                     style: kSmallFontOfGrey,
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 5),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(51, 77, 137, 229),
-                      borderRadius: BorderRadius.all(Radius.circular(7)),
-                    ),
-                    child: Text(
-                      '${state.location["accuracy"]} MXC',
-                      style: kBigFontOfBlack,
-                    ),
+                  Spacer(),
+                  Text('${TimeUtil.getDatetime(state.lastSeenAt)}',
+                    style: kBigFontOfBlack,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: kOuterRowTop5,
+              child: Row(
+                children: [
+                  Text(
+                    '${FlutterI18n.translate(context, 'revenue')}',
+                    style: kSmallFontOfGrey,
+                  ),
+                  Spacer(),
+                  Text('${100} MXC',
+                    style: kBigFontOfBlack,
                   ),
                 ],
               ),

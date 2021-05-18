@@ -33,6 +33,8 @@ abstract class GatewayItem with _$GatewayItem {
     @nullable String lastSeenAt,
     @nullable String model,
     @nullable String osversion,
+    @nullable double health,
+    @nullable double miningFuelHealth,
   }) = _GatewayItem;
 
   factory GatewayItem.fromJson(Map<String, dynamic> json) =>

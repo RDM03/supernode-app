@@ -320,7 +320,9 @@ class _$GatewayItemTearOff {
       @nullable String firstSeenAt,
       @nullable String lastSeenAt,
       @nullable String model,
-      @nullable String osversion}) {
+      @nullable String osversion,
+      @nullable double health,
+      @nullable double miningFuelHealth}) {
     return _GatewayItem(
       id: id,
       name: name,
@@ -334,6 +336,8 @@ class _$GatewayItemTearOff {
       lastSeenAt: lastSeenAt,
       model: model,
       osversion: osversion,
+      health: health,
+      miningFuelHealth: miningFuelHealth,
     );
   }
 
@@ -368,6 +372,10 @@ mixin _$GatewayItem {
   String get model;
   @nullable
   String get osversion;
+  @nullable
+  double get health;
+  @nullable
+  double get miningFuelHealth;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -391,7 +399,9 @@ abstract class $GatewayItemCopyWith<$Res> {
       @nullable String firstSeenAt,
       @nullable String lastSeenAt,
       @nullable String model,
-      @nullable String osversion});
+      @nullable String osversion,
+      @nullable double health,
+      @nullable double miningFuelHealth});
 }
 
 /// @nodoc
@@ -416,6 +426,8 @@ class _$GatewayItemCopyWithImpl<$Res> implements $GatewayItemCopyWith<$Res> {
     Object lastSeenAt = freezed,
     Object model = freezed,
     Object osversion = freezed,
+    Object health = freezed,
+    Object miningFuelHealth = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
@@ -439,6 +451,10 @@ class _$GatewayItemCopyWithImpl<$Res> implements $GatewayItemCopyWith<$Res> {
           lastSeenAt == freezed ? _value.lastSeenAt : lastSeenAt as String,
       model: model == freezed ? _value.model : model as String,
       osversion: osversion == freezed ? _value.osversion : osversion as String,
+      health: health == freezed ? _value.health : health as double,
+      miningFuelHealth: miningFuelHealth == freezed
+          ? _value.miningFuelHealth
+          : miningFuelHealth as double,
     ));
   }
 }
@@ -462,7 +478,9 @@ abstract class _$GatewayItemCopyWith<$Res>
       @nullable String firstSeenAt,
       @nullable String lastSeenAt,
       @nullable String model,
-      @nullable String osversion});
+      @nullable String osversion,
+      @nullable double health,
+      @nullable double miningFuelHealth});
 }
 
 /// @nodoc
@@ -489,6 +507,8 @@ class __$GatewayItemCopyWithImpl<$Res> extends _$GatewayItemCopyWithImpl<$Res>
     Object lastSeenAt = freezed,
     Object model = freezed,
     Object osversion = freezed,
+    Object health = freezed,
+    Object miningFuelHealth = freezed,
   }) {
     return _then(_GatewayItem(
       id: id == freezed ? _value.id : id as String,
@@ -512,6 +532,10 @@ class __$GatewayItemCopyWithImpl<$Res> extends _$GatewayItemCopyWithImpl<$Res>
           lastSeenAt == freezed ? _value.lastSeenAt : lastSeenAt as String,
       model: model == freezed ? _value.model : model as String,
       osversion: osversion == freezed ? _value.osversion : osversion as String,
+      health: health == freezed ? _value.health : health as double,
+      miningFuelHealth: miningFuelHealth == freezed
+          ? _value.miningFuelHealth
+          : miningFuelHealth as double,
     ));
   }
 }
@@ -532,7 +556,9 @@ class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
       @nullable this.firstSeenAt,
       @nullable this.lastSeenAt,
       @nullable this.model,
-      @nullable this.osversion})
+      @nullable this.osversion,
+      @nullable this.health,
+      @nullable this.miningFuelHealth})
       : assert(id != null),
         assert(name != null),
         assert(description != null),
@@ -575,10 +601,16 @@ class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
   @override
   @nullable
   final String osversion;
+  @override
+  @nullable
+  final double health;
+  @override
+  @nullable
+  final double miningFuelHealth;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GatewayItem(id: $id, name: $name, description: $description, location: $location, organizationId: $organizationId, networkServerId: $networkServerId, createdAt: $createdAt, updatedAt: $updatedAt, firstSeenAt: $firstSeenAt, lastSeenAt: $lastSeenAt, model: $model, osversion: $osversion)';
+    return 'GatewayItem(id: $id, name: $name, description: $description, location: $location, organizationId: $organizationId, networkServerId: $networkServerId, createdAt: $createdAt, updatedAt: $updatedAt, firstSeenAt: $firstSeenAt, lastSeenAt: $lastSeenAt, model: $model, osversion: $osversion, health: $health, miningFuelHealth: $miningFuelHealth)';
   }
 
   @override
@@ -597,7 +629,9 @@ class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
       ..add(DiagnosticsProperty('firstSeenAt', firstSeenAt))
       ..add(DiagnosticsProperty('lastSeenAt', lastSeenAt))
       ..add(DiagnosticsProperty('model', model))
-      ..add(DiagnosticsProperty('osversion', osversion));
+      ..add(DiagnosticsProperty('osversion', osversion))
+      ..add(DiagnosticsProperty('health', health))
+      ..add(DiagnosticsProperty('miningFuelHealth', miningFuelHealth));
   }
 
   @override
@@ -636,7 +670,12 @@ class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
                 const DeepCollectionEquality().equals(other.model, model)) &&
             (identical(other.osversion, osversion) ||
                 const DeepCollectionEquality()
-                    .equals(other.osversion, osversion)));
+                    .equals(other.osversion, osversion)) &&
+            (identical(other.health, health) ||
+                const DeepCollectionEquality().equals(other.health, health)) &&
+            (identical(other.miningFuelHealth, miningFuelHealth) ||
+                const DeepCollectionEquality()
+                    .equals(other.miningFuelHealth, miningFuelHealth)));
   }
 
   @override
@@ -653,7 +692,9 @@ class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
       const DeepCollectionEquality().hash(firstSeenAt) ^
       const DeepCollectionEquality().hash(lastSeenAt) ^
       const DeepCollectionEquality().hash(model) ^
-      const DeepCollectionEquality().hash(osversion);
+      const DeepCollectionEquality().hash(osversion) ^
+      const DeepCollectionEquality().hash(health) ^
+      const DeepCollectionEquality().hash(miningFuelHealth);
 
   @JsonKey(ignore: true)
   @override
@@ -679,7 +720,9 @@ abstract class _GatewayItem implements GatewayItem {
       @nullable String firstSeenAt,
       @nullable String lastSeenAt,
       @nullable String model,
-      @nullable String osversion}) = _$_GatewayItem;
+      @nullable String osversion,
+      @nullable double health,
+      @nullable double miningFuelHealth}) = _$_GatewayItem;
 
   factory _GatewayItem.fromJson(Map<String, dynamic> json) =
       _$_GatewayItem.fromJson;
@@ -715,6 +758,12 @@ abstract class _GatewayItem implements GatewayItem {
   @override
   @nullable
   String get osversion;
+  @override
+  @nullable
+  double get health;
+  @override
+  @nullable
+  double get miningFuelHealth;
   @override
   @JsonKey(ignore: true)
   _$GatewayItemCopyWith<_GatewayItem> get copyWith;

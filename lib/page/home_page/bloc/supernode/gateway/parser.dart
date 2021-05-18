@@ -1,7 +1,9 @@
 // RETHINK.TODO - ask pavel
+import 'package:supernodeapp/common/repositories/supernode/dao/gateways.model.dart';
+
 import 'state.dart';
 
-List<GatewayItem> parseGateways(dynamic res) {
+List<GatewayItem> parseGateways(dynamic gatewaysResponse, List<MinerHealthResponse> listMinersHealth) {
   List<GatewayItem> list = [];
 
   // [0-9]\d{0,1}\.[0-9]\d{0,1}\.[0-9]\d{0,1}
@@ -10,34 +12,43 @@ List<GatewayItem> parseGateways(dynamic res) {
 
   // int allValues = 0;
 
-  List tempList = res['result'] as List;
+  List tempGatewaysList = gatewaysResponse['result'] as List;
 
-  if (tempList.length > 0) {
-    for (int index = 0; index < tempList.length; index++) {
+  if (tempGatewaysList.length > 0) {
+    for (int index = 0; index < tempGatewaysList.length; index++) {
       RegExp modelReg = new RegExp(r'(?<=(Gateway Model: )).+(?=[\n])');
       RegExpMatch modelRegRes =
-          modelReg.firstMatch(tempList[index]['description']);
+          modelReg.firstMatch(tempGatewaysList[index]['description']);
       if (modelRegRes != null) {
-        tempList[index]['model'] = modelRegRes.group(0);
+        tempGatewaysList[index]['model'] = modelRegRes.group(0);
       }
 
       RegExp versionReg = new RegExp(r'(?<=(Gateway OsVersion: )).+');
       RegExpMatch versionRegRes =
-          versionReg.firstMatch(tempList[index]['description']);
+          versionReg.firstMatch(tempGatewaysList[index]['description']);
       if (versionRegRes != null) {
-        tempList[index]['osversion'] = versionRegRes.group(0);
+        tempGatewaysList[index]['osversion'] = versionRegRes.group(0);
       }
 
       // allValues += tempList[index]['location']['accuracy'];
-      Iterable<Match> matches = reg.allMatches(tempList[index]['description']);
+      Iterable<Match> matches = reg.allMatches(tempGatewaysList[index]['description']);
       String description = '';
       for (Match m in matches) {
         description = m.group(0);
       }
 
-      tempList[index]['description'] = description;
+      tempGatewaysList[index]['description'] = description;
 
-      list.add(GatewayItem.fromJson(tempList[index]));
+      // Add mining health info
+      for (MinerHealthResponse minerHealth in listMinersHealth) {
+        if (tempGatewaysList[index]['id'] == minerHealth.id) {
+          tempGatewaysList[index]['health'] = minerHealth.health;
+          tempGatewaysList[index]['miningFuelHealth'] = minerHealth.miningFuelHealth;
+          break;
+        }
+      }
+
+      list.add(GatewayItem.fromJson(tempGatewaysList[index]));
     }
   }
   return list;
