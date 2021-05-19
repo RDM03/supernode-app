@@ -110,7 +110,7 @@ class GatewayTab extends StatelessWidget {
                               ],
                               ),
                               middleColumnSpacer(),
-                              Text('${Tools.priceFormat(state.gatewaysRevenue.value)} MXC', style: kSuperBigBoldFont),
+                              loadableWidget(loading: state.gatewaysRevenue.loading, child: Text('${Tools.priceFormat(state.gatewaysRevenue.value)} MXC', style: kSuperBigBoldFont)),
                               Text(FlutterI18n.translate(context, 'total_mining_revenue'), style: kMiddleFontOfGrey),
                               middleColumnSpacer(),
                               Row(children: [
@@ -250,40 +250,8 @@ class GatewayTab extends StatelessWidget {
                       ),
                     )
             ),
-            BlocBuilder<GatewayCubit, GatewayState>(
-              buildWhen: (a, b) => a.gatewaysTotal != b.gatewaysTotal,
-              builder: (ctx, gatewayState) =>
-                  BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-                buildWhen: (a, b) =>
-                    a.gatewaysRevenueUsd != b.gatewaysRevenueUsd ||
-                    a.gatewaysRevenue != b.gatewaysRevenue,
-                builder: (ctx, state) => PanelFrame(
-                  child: PanelBody(
-                    keyIcon: ValueKey('minersAddIcon'),
-                    keyTitle: ValueKey('totalMinersTitle'),
-                    keySubtitle: ValueKey('totalMinersSubtitle'),
-                    keyTrailSubtitle: ValueKey('minersRevenue'),
-                    loading: gatewayState.gatewaysTotal.loading,
-                    icon: Icons.add_circle,
-                    onPressed: () async {
-                      if (!context.read<AppCubit>().state.isDemo) {
-                        await Navigator.of(context)
-                            .pushNamed('add_gateway_page', arguments: {
-                          'fromPage': 'home',
-                        });
-                        await context.read<GatewayCubit>().refreshGateways();
-                      }
-                    },
-                    titleText: FlutterI18n.translate(context, 'total_gateways'),
-                    subtitleText: '${gatewayState.gatewaysTotal.value}',
-                    trailTitle: FlutterI18n.translate(context, 'profit'),
-                    trailLoading: state.gatewaysRevenue.loading,
-                    trailSubtitle:
-                        '${Tools.priceFormat(state.gatewaysRevenue.value)} MXC (${Tools.priceFormat(state.gatewaysRevenueUsd.value)} USD)',
-                  ),
-                ),
-              ),
-            ),
+            SizedBox(height: 30),
+            Text(FlutterI18n.translate(context, "list_miners"), style: kBigBoldFontOfBlack),
             BlocBuilder<GatewayCubit, GatewayState>(
               buildWhen: (a, b) => a.gateways != b.gateways,
               builder: (ctx, state) => Container(
@@ -292,6 +260,7 @@ class GatewayTab extends StatelessWidget {
                   maxHeight: MediaQuery.of(context).size.height - 230,
                 ),
                 child: PanelFrame(
+                  rowTop: EdgeInsets.only(top: 10),
                   child: state.gateways.loading
                       ? LoadingList()
                       : (state.gateways.value?.length != 0
