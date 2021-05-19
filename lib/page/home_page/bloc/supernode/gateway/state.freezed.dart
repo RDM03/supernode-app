@@ -17,6 +17,7 @@ class _$GatewayStateTearOff {
   _GatewayState call(
       {Wrap<int> gatewaysTotal = const Wrap.pending(),
       Wrap<List<GatewayItem>> gateways = const Wrap.pending(),
+      List<MinerHealthResponse> listMinersHealth,
       Wrap<double> health = const Wrap.pending(),
       Wrap<double> uptimeHealth = const Wrap.pending(),
       Wrap<double> miningFuelHealth = const Wrap.pending(),
@@ -25,6 +26,7 @@ class _$GatewayStateTearOff {
     return _GatewayState(
       gatewaysTotal: gatewaysTotal,
       gateways: gateways,
+      listMinersHealth: listMinersHealth,
       health: health,
       uptimeHealth: uptimeHealth,
       miningFuelHealth: miningFuelHealth,
@@ -42,6 +44,7 @@ const $GatewayState = _$GatewayStateTearOff();
 mixin _$GatewayState {
   Wrap<int> get gatewaysTotal;
   Wrap<List<GatewayItem>> get gateways;
+  List<MinerHealthResponse> get listMinersHealth;
   Wrap<double> get health;
   Wrap<double> get uptimeHealth;
   Wrap<double> get miningFuelHealth;
@@ -60,6 +63,7 @@ abstract class $GatewayStateCopyWith<$Res> {
   $Res call(
       {Wrap<int> gatewaysTotal,
       Wrap<List<GatewayItem>> gateways,
+      List<MinerHealthResponse> listMinersHealth,
       Wrap<double> health,
       Wrap<double> uptimeHealth,
       Wrap<double> miningFuelHealth,
@@ -79,6 +83,7 @@ class _$GatewayStateCopyWithImpl<$Res> implements $GatewayStateCopyWith<$Res> {
   $Res call({
     Object gatewaysTotal = freezed,
     Object gateways = freezed,
+    Object listMinersHealth = freezed,
     Object health = freezed,
     Object uptimeHealth = freezed,
     Object miningFuelHealth = freezed,
@@ -92,6 +97,9 @@ class _$GatewayStateCopyWithImpl<$Res> implements $GatewayStateCopyWith<$Res> {
       gateways: gateways == freezed
           ? _value.gateways
           : gateways as Wrap<List<GatewayItem>>,
+      listMinersHealth: listMinersHealth == freezed
+          ? _value.listMinersHealth
+          : listMinersHealth as List<MinerHealthResponse>,
       health: health == freezed ? _value.health : health as Wrap<double>,
       uptimeHealth: uptimeHealth == freezed
           ? _value.uptimeHealth
@@ -119,6 +127,7 @@ abstract class _$GatewayStateCopyWith<$Res>
   $Res call(
       {Wrap<int> gatewaysTotal,
       Wrap<List<GatewayItem>> gateways,
+      List<MinerHealthResponse> listMinersHealth,
       Wrap<double> health,
       Wrap<double> uptimeHealth,
       Wrap<double> miningFuelHealth,
@@ -140,6 +149,7 @@ class __$GatewayStateCopyWithImpl<$Res> extends _$GatewayStateCopyWithImpl<$Res>
   $Res call({
     Object gatewaysTotal = freezed,
     Object gateways = freezed,
+    Object listMinersHealth = freezed,
     Object health = freezed,
     Object uptimeHealth = freezed,
     Object miningFuelHealth = freezed,
@@ -153,6 +163,9 @@ class __$GatewayStateCopyWithImpl<$Res> extends _$GatewayStateCopyWithImpl<$Res>
       gateways: gateways == freezed
           ? _value.gateways
           : gateways as Wrap<List<GatewayItem>>,
+      listMinersHealth: listMinersHealth == freezed
+          ? _value.listMinersHealth
+          : listMinersHealth as List<MinerHealthResponse>,
       health: health == freezed ? _value.health : health as Wrap<double>,
       uptimeHealth: uptimeHealth == freezed
           ? _value.uptimeHealth
@@ -175,6 +188,7 @@ class _$_GatewayState with DiagnosticableTreeMixin implements _GatewayState {
   _$_GatewayState(
       {this.gatewaysTotal = const Wrap.pending(),
       this.gateways = const Wrap.pending(),
+      this.listMinersHealth,
       this.health = const Wrap.pending(),
       this.uptimeHealth = const Wrap.pending(),
       this.miningFuelHealth = const Wrap.pending(),
@@ -194,6 +208,8 @@ class _$_GatewayState with DiagnosticableTreeMixin implements _GatewayState {
   @JsonKey(defaultValue: const Wrap.pending())
   @override
   final Wrap<List<GatewayItem>> gateways;
+  @override
+  final List<MinerHealthResponse> listMinersHealth;
   @JsonKey(defaultValue: const Wrap.pending())
   @override
   final Wrap<double> health;
@@ -212,7 +228,7 @@ class _$_GatewayState with DiagnosticableTreeMixin implements _GatewayState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GatewayState(gatewaysTotal: $gatewaysTotal, gateways: $gateways, health: $health, uptimeHealth: $uptimeHealth, miningFuelHealth: $miningFuelHealth, miningFuel: $miningFuel, miningFuelMax: $miningFuelMax)';
+    return 'GatewayState(gatewaysTotal: $gatewaysTotal, gateways: $gateways, listMinersHealth: $listMinersHealth, health: $health, uptimeHealth: $uptimeHealth, miningFuelHealth: $miningFuelHealth, miningFuel: $miningFuel, miningFuelMax: $miningFuelMax)';
   }
 
   @override
@@ -222,6 +238,7 @@ class _$_GatewayState with DiagnosticableTreeMixin implements _GatewayState {
       ..add(DiagnosticsProperty('type', 'GatewayState'))
       ..add(DiagnosticsProperty('gatewaysTotal', gatewaysTotal))
       ..add(DiagnosticsProperty('gateways', gateways))
+      ..add(DiagnosticsProperty('listMinersHealth', listMinersHealth))
       ..add(DiagnosticsProperty('health', health))
       ..add(DiagnosticsProperty('uptimeHealth', uptimeHealth))
       ..add(DiagnosticsProperty('miningFuelHealth', miningFuelHealth))
@@ -239,6 +256,9 @@ class _$_GatewayState with DiagnosticableTreeMixin implements _GatewayState {
             (identical(other.gateways, gateways) ||
                 const DeepCollectionEquality()
                     .equals(other.gateways, gateways)) &&
+            (identical(other.listMinersHealth, listMinersHealth) ||
+                const DeepCollectionEquality()
+                    .equals(other.listMinersHealth, listMinersHealth)) &&
             (identical(other.health, health) ||
                 const DeepCollectionEquality().equals(other.health, health)) &&
             (identical(other.uptimeHealth, uptimeHealth) ||
@@ -260,6 +280,7 @@ class _$_GatewayState with DiagnosticableTreeMixin implements _GatewayState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(gatewaysTotal) ^
       const DeepCollectionEquality().hash(gateways) ^
+      const DeepCollectionEquality().hash(listMinersHealth) ^
       const DeepCollectionEquality().hash(health) ^
       const DeepCollectionEquality().hash(uptimeHealth) ^
       const DeepCollectionEquality().hash(miningFuelHealth) ^
@@ -276,6 +297,7 @@ abstract class _GatewayState implements GatewayState {
   factory _GatewayState(
       {Wrap<int> gatewaysTotal,
       Wrap<List<GatewayItem>> gateways,
+      List<MinerHealthResponse> listMinersHealth,
       Wrap<double> health,
       Wrap<double> uptimeHealth,
       Wrap<double> miningFuelHealth,
@@ -286,6 +308,8 @@ abstract class _GatewayState implements GatewayState {
   Wrap<int> get gatewaysTotal;
   @override
   Wrap<List<GatewayItem>> get gateways;
+  @override
+  List<MinerHealthResponse> get listMinersHealth;
   @override
   Wrap<double> get health;
   @override

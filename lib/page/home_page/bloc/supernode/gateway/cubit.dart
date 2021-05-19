@@ -71,6 +71,7 @@ class GatewayCubit extends Cubit<GatewayState> {
 
       emit(
         state.copyWith(
+          listMinersHealth: listMinersHealth,
           health: Wrap(avgHealth),
           uptimeHealth: Wrap(avgUptimeHealth),
           miningFuelHealth: Wrap(avgMiningFuelHealth),
@@ -119,7 +120,7 @@ class GatewayCubit extends Cubit<GatewayState> {
         .list({"organizationID": orgId, "offset": page, "limit": 10});
 
     final total = int.parse(res['totalCount']);
-    final gateways = parseGateways(res, []);
+    final gateways = parseGateways(res, state.listMinersHealth);
 
     emit(
       state.copyWith(

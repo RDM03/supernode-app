@@ -40,14 +40,15 @@ List<GatewayItem> parseGateways(dynamic gatewaysResponse, List<MinerHealthRespon
       tempGatewaysList[index]['description'] = description;
 
       // Add mining health info
-      for (MinerHealthResponse minerHealth in listMinersHealth) {
-        if (tempGatewaysList[index]['id'] == minerHealth.id) {
-          tempGatewaysList[index]['health'] = minerHealth.health;
-          tempGatewaysList[index]['miningFuelHealth'] = minerHealth.miningFuelHealth;
-          tempGatewaysList[index]['totalMined'] = minerHealth.totalMined;
-          break;
+      if (listMinersHealth != null)
+        for (MinerHealthResponse minerHealth in listMinersHealth) {
+          if (tempGatewaysList[index]['id'] == minerHealth.id) {
+            tempGatewaysList[index]['health'] = minerHealth.health;
+            tempGatewaysList[index]['miningFuelHealth'] = minerHealth.miningFuelHealth;
+            tempGatewaysList[index]['totalMined'] = minerHealth.totalMined;
+            break;
+          }
         }
-      }
 
       list.add(GatewayItem.fromJson(tempGatewaysList[index]));
     }
