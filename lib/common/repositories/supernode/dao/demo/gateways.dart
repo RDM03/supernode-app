@@ -20,7 +20,7 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
             'firstSeenAt': '2020-04-15T13:01:41.617Z',
             'lastSeenAt': '2020-04-15T13:01:41.617Z',
             'organizationID': 'organizationID',
-            'networkServerID': 'networkServerID',
+            'networkServerID': '',
             'model': 'MX1901',
             'osversion': '0.1.1',
             'location': {
@@ -43,7 +43,7 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
             'firstSeenAt': '2020-04-15T13:01:41.617Z',
             'lastSeenAt': '2020-04-15T13:01:41.617Z',
             'organizationID': 'organizationID',
-            'networkServerID': 'networkServerID',
+            '': 'networkServerID',
             'model': 'MX1901',
             'osversion': '0.1.1',
             'location': {

@@ -11,6 +11,7 @@ import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/components/widgets/component_widgets.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/login_page/supernode_login_page/cubit.dart';
 import 'package:supernodeapp/page/login_page/supernode_login_page/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
@@ -57,7 +58,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         title: FlutterI18n.translate(context, 'create_account'),
         onPress: () => Navigator.of(context).pop(),
       ),
-      padding: kRoundRow205,
+      padding: kRoundRow2005,
       body: MultiBlocListener(
         listeners: [
           BlocListener<LoginCubit, LoginState>(
@@ -73,8 +74,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             listenWhen: (a, b) => a.signupResult != b.signupResult,
             listener: (ctx, state) async {
               if (state.signupResult == SignupResult.addGateway)
-                Navigator.of(context).pushNamed('add_gateway_page',
-                    arguments: {'fromPage': 'registration'});
+                await openSupernodeMiner(context, hasSkip: true);
             },
           ),
         ],

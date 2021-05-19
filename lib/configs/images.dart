@@ -65,6 +65,12 @@ class AppImages {
   //gateway
   static const String infoDownlinkPrice =
       'assets/images/gateway/info-downloadlink_price.png';
+  static const String addMinerSuccess =
+      'assets/images/gateway/add_miner_success.png';
+  static const String addMinerFailure =
+      'assets/images/gateway/add_miner_failure.png';
+  static const String addMinerWarning =
+      'assets/images/gateway/add_miner_warning.png';
 
   //settings
   static const String warningRobot = 'assets/images/settings/robot_warning.png';

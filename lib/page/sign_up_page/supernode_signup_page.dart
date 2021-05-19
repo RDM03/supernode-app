@@ -180,7 +180,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                               autovalidate: false,
                               child: Column(children: <Widget>[
                                 Container(
-                                  padding: kRoundRow202,
+                                  padding: kRoundRow2002,
                                   child: TextFieldWithTitle(
                                     title: FlutterI18n.translate(context, 'email'),
                                     textInputAction: TextInputAction.done,
@@ -192,7 +192,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                             ),
                             SizedBox(height: s(50)),
                             PrimaryButton(
-                                padding: kRoundRow205,
+                                padding: kRoundRow2005,
                                 onTap: () => onSignupEmail(),
                                 buttonTitle: FlutterI18n.translate(context, 'continue'),
                                 minHeight: 46),

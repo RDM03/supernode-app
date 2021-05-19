@@ -50,7 +50,7 @@ class MxcTokenCardContent extends StatelessWidget {
       children: [
         SizedBox(height: 10),
         Container(
-          padding: kRoundRow15_5,
+          padding: kRoundRow1505,
           child: Row(
             children: [
               Image.asset(Token.mxc.imagePath),
@@ -129,7 +129,7 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
         (miningPageVersion)
             ? SizedBox()
             : Container(
-          padding: kRoundRow15_5,
+          padding: kRoundRow1505,
           child: Row(children: [
             Image.asset(Token.supernodeDhx.imagePath),
             SizedBox(width: s(3)),
@@ -228,7 +228,7 @@ class BtcTokenCardContent extends StatelessWidget {
       children: [
         SizedBox(height: 10),
         Container(
-          padding: kRoundRow15_5,
+          padding: kRoundRow1505,
           child: Row(
             children: [
               Image.asset(Token.btc.imagePath),
@@ -269,7 +269,7 @@ class AddNewTokenCard extends StatelessWidget {
       ),
       child: PanelFrame(
         child: Padding(
-            padding: kRoundRow105,
+            padding: kRoundRow1005,
             child: Column(
               children: [
                 Icon(Icons.add_circle, size: 50),

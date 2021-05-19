@@ -24,7 +24,7 @@ Widget buildView(
 
   return ScaffoldWidget(
     backgroundColor: cardBackgroundColor,
-    padding: kRoundRow202,
+    padding: kRoundRow2002,
     appBar: AppBar(
       iconTheme: IconThemeData(color: Colors.black),
       title: Text(FlutterI18n.translate(_ctx, 'wechat_login_title'),

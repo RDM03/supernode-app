@@ -156,7 +156,7 @@ Widget buildView(
                   }),
                 middleColumnSpacer(),
                 Container(
-                  padding: kRoundRow15_5,
+                  padding: kRoundRow1505,
                   child: Row(
                     children: <Widget>[
                       Text(
@@ -184,7 +184,7 @@ Widget buildView(
                   ),
                 ),
                 Container(
-                  padding: kRoundRow15_5,
+                  padding: kRoundRow1505,
                   child: Row(
                     children: <Widget>[
                       Text(

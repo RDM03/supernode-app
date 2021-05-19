@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/app_state.dart';
-import 'package:supernodeapp/common/repositories/supernode/clients/exceptions/exception_handler.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
@@ -199,7 +198,7 @@ class LoginCubit extends Cubit<LoginState> {
 
       setLoginResult(LoginResult.home);
     } catch(err) {
-      ExceptionHandler.getInstance().showError(err);
+      appCubit.setError(err.toString());
     } finally {
       emit(state.copyWith(showLoading: false));
     }

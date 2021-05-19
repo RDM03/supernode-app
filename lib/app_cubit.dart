@@ -11,6 +11,7 @@ class AppCubit extends Cubit<AppState> {
   void setLoading(bool val) => emit(state.copyWith(showLoading: val));
   void setLocale(Locale locale) => emit(state.copyWith(locale: locale));
   void setError(String error) => emit(state.copyWith(error: ErrorInfo(error)));
+  void setSuccess(String success) => emit(state.copyWith(success: SuccessInfo(success)));
 }
 
 class SupernodeCubit extends Cubit<SupernodeState> {

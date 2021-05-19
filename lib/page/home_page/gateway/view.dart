@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,10 +56,7 @@ class GatewayTab extends StatelessWidget {
                     icon: Icons.add_circle,
                     onPressed: () async {
                       if (!context.read<AppCubit>().state.isDemo) {
-                        await Navigator.of(context)
-                            .pushNamed('add_gateway_page', arguments: {
-                          'fromPage': 'home',
-                        });
+                        await openSupernodeMiner(context, hasSkip: false);
                         await context.read<GatewayCubit>().refreshGateways();
                       }
                     },
