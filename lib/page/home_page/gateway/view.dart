@@ -9,12 +9,14 @@ import 'package:pagination_view/pagination_view.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/app_bars/home_bar.dart';
 import 'package:supernodeapp/common/components/buttons/circle_button.dart';
+import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/common/components/empty.dart';
 import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/common/components/loading_list.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
+import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/row_spacer.dart';
@@ -33,6 +35,62 @@ import 'package:supernodeapp/theme/spacing.dart';
 import '../shared.dart';
 
 class GatewayTab extends StatelessWidget {
+
+  void aboutPage(BuildContext context, String title, Widget illustration, String text, {Widget bottomButton}) {
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (ctx) => pageFrame(
+            context: ctx,
+            padding: EdgeInsets.all(0.0),
+            children: <Widget>[
+              ListTile(
+                title: Center(
+                    child: Text(title, style: kBigBoldFontOfBlack)),
+                leading: SizedBox(),
+                trailing: GestureDetector(
+                  child: Icon(Icons.close, color: Colors.black),
+                  onTap: () => Navigator.of(ctx).pop(),
+                ),
+              ),
+              SizedBox(height: 50),
+              Center(child: illustration),
+              SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Text(text, style: kBigFontOfBlack, textAlign: TextAlign.justify),
+              ),
+              SizedBox(height: 70),
+              (bottomButton != null)
+                  ? Padding(padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: bottomButton)
+                  : SizedBox(),
+            ])
+        )
+    );
+  }
+
+  Widget aboutPageIllustration(String title, Widget image) {
+    return Container(
+      height: 150,
+      width: 150,
+      decoration: BoxDecoration(
+        color: minerColor.withOpacity(.1),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+          Text('100%', style: kVeryBigFontOfBlack),
+          SizedBox(height: 5),
+          image,
+          SizedBox(height: 5),
+          Text(title, style: kBigFontOfBlack),
+        ]),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Color disabledColor = Color.fromARGB(255, 152, 166, 173); //remove once all health info implemented as well as disabled image assets
@@ -101,11 +159,21 @@ class GatewayTab extends StatelessWidget {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 20.0),
-                                  child: CircularGraph(gatewayState.health.value * 100, (gatewayState.health.value * 100 > 10) ? minerColor: fuelColor,
-                                      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                                        loadableWidget(loading: gatewayState.health.loading, child: Text('${Tools.priceFormat(gatewayState.health.value * 100)} %', style: kSuperBigBoldFont)),
-                                        Text(FlutterI18n.translate(context, 'health_score'), style: kMiddleFontOfGrey),
-                                      ])),
+                                  child: GestureDetector(
+                                    onTap: () => aboutPage(ctx,
+                                        FlutterI18n.translate(context, 'health_score'),
+                                        CircularGraph(90, minerColor,
+                                            child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                              Text('90 %', style: kSuperBigBoldFont),
+                                              Text(FlutterI18n.translate(context, 'health_score'), style: kMiddleFontOfGrey),
+                                            ])),
+                                        FlutterI18n.translate(context, 'health_score_info')),
+                                    child: CircularGraph(gatewayState.health.value * 100, (gatewayState.health.value * 100 > 10) ? minerColor: fuelColor,
+                                        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                          loadableWidget(loading: gatewayState.health.loading, child: Text('${Tools.priceFormat(gatewayState.health.value * 100)} %', style: kSuperBigBoldFont)),
+                                          Text(FlutterI18n.translate(context, 'health_score'), style: kMiddleFontOfGrey),
+                                        ])),
+                                  ),
                                 ),
                               ],
                               ),
@@ -134,54 +202,78 @@ class GatewayTab extends StatelessWidget {
                               Row(children: [
                                 Expanded(
                                   flex: 1,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: minerColor.withOpacity(.1),
-                                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                                        loadableWidget(loading: gatewayState.uptimeHealth.loading, child: Text('${Tools.priceFormat(gatewayState.uptimeHealth.value * 100)} %', style: kBigFontOfBlack)),
-                                        Image.asset(AppImages.uptime),
-                                        Text(FlutterI18n.translate(context, 'uptime'), style: kSmallFontOfBlack),
-                                      ]),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: disabledColor.withOpacity(.2),
-                                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                                        Text('-', style: kBigFontOfGrey),
-                                        Image.asset(AppImages.gps_disabled),
-                                        Text(FlutterI18n.translate(context, 'gps'), style: kSmallFontOfGrey),
-                                      ]),
+                                  child: GestureDetector(
+                                    onTap: () => aboutPage(ctx,
+                                        FlutterI18n.translate(context, 'uptime'),
+                                        aboutPageIllustration(
+                                            FlutterI18n.translate(context, 'uptime'),
+                                            Image.asset(AppImages.uptime, scale: 0.7)),
+                                        FlutterI18n.translate(context, 'uptime_info')),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: minerColor.withOpacity(.1),
+                                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                          loadableWidget(loading: gatewayState.uptimeHealth.loading, child: Text('${Tools.priceFormat(gatewayState.uptimeHealth.value * 100)} %', style: kBigFontOfBlack)),
+                                          Image.asset(AppImages.uptime),
+                                          Text(FlutterI18n.translate(context, 'uptime'), style: kSmallFontOfBlack),
+                                        ]),
+                                      ),
                                     ),
                                   ),
                                 ),
                                 SizedBox(width: 10),
                                 Expanded(
                                   flex: 1,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: disabledColor.withOpacity(.2),
-                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                  child: GestureDetector(
+                                    onTap: () => aboutPage(ctx,
+                                        FlutterI18n.translate(context, 'gps'),
+                                        aboutPageIllustration(
+                                            FlutterI18n.translate(context, 'gps'),
+                                            Image.asset(AppImages.gps, scale: 0.7)),
+                                        FlutterI18n.translate(context, 'gps_info')),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: disabledColor.withOpacity(.2),
+                                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                          Text('-', style: kBigFontOfGrey),
+                                          Image.asset(AppImages.gps_disabled),
+                                          Text(FlutterI18n.translate(context, 'gps'), style: kSmallFontOfGrey),
+                                        ]),
+                                      ),
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                                        Text('-', style: kBigFontOfGrey),
-                                        Image.asset(AppImages.altitude_disabled),
-                                        Text(FlutterI18n.translate(context, 'altitude'), style: kSmallFontOfGrey),
-                                      ]),
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  flex: 1,
+                                  child: GestureDetector(
+                                    onTap: () => aboutPage(ctx,
+                                        FlutterI18n.translate(context, 'altitude'),
+                                        aboutPageIllustration(
+                                            FlutterI18n.translate(context, 'altitude'),
+                                            Image.asset(AppImages.altitude, scale: 0.7)),
+                                        FlutterI18n.translate(context, 'altitude_info')),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: disabledColor.withOpacity(.2),
+                                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                          Text('-', style: kBigFontOfGrey),
+                                          Image.asset(AppImages.altitude_disabled),
+                                          Text(FlutterI18n.translate(context, 'altitude'), style: kSmallFontOfGrey),
+                                        ]),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -190,57 +282,89 @@ class GatewayTab extends StatelessWidget {
                               Row(children: [
                                 Expanded(
                                   flex: 1,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: disabledColor.withOpacity(.2),
-                                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                                        Text('-', style: kBigFontOfGrey),
-                                        Image.asset(AppImages.orientation_disabled),
-                                        Text(FlutterI18n.translate(context, 'orientation'), style: kSmallFontOfGrey),
-                                      ]),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: disabledColor.withOpacity(.2),
-                                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                                        Text('-', style: kBigFontOfGrey),
-                                        Image.asset(AppImages.proximity_disabled),
-                                        Text(FlutterI18n.translate(context, 'proximity'), style: kSmallFontOfGrey),
-                                      ]),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: minerColor.withOpacity(.1),
-                                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                                        loadableWidget(loading: gatewayState.miningFuelHealth.loading, child: Text('${Tools.priceFormat(gatewayState.miningFuelHealth.value * 100)} %', style: kBigFontOfBlack)),
-                                        Stack(alignment: Alignment.center, children: [
-                                          Image.asset(AppImages.uptime, color: Colors.white),
-                                          Image.asset(AppImages.fuel, color: fuelColor),
+                                  child: GestureDetector(
+                                    onTap: () => aboutPage(ctx,
+                                        FlutterI18n.translate(context, 'orientation'),
+                                        aboutPageIllustration(
+                                            FlutterI18n.translate(context, 'orientation'),
+                                            Image.asset(AppImages.orientation, scale: 0.7)),
+                                        FlutterI18n.translate(context, 'orientation_info')),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: disabledColor.withOpacity(.2),
+                                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                          Text('-', style: kBigFontOfGrey),
+                                          Image.asset(AppImages.orientation_disabled),
+                                          Text(FlutterI18n.translate(context, 'orientation'), style: kSmallFontOfGrey),
                                         ]),
-                                        Text(FlutterI18n.translate(context, 'fuel'), style: kSmallFontOfBlack),
-                                      ]),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  flex: 1,
+                                  child: GestureDetector(
+                                    onTap: () => aboutPage(ctx,
+                                        FlutterI18n.translate(context, 'proximity'),
+                                        aboutPageIllustration(
+                                            FlutterI18n.translate(context, 'proximity'),
+                                            Image.asset(AppImages.proximity, scale: 0.7)),
+                                        FlutterI18n.translate(context, 'proximity_info')),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: disabledColor.withOpacity(.2),
+                                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                          Text('-', style: kBigFontOfGrey),
+                                          Image.asset(AppImages.proximity_disabled),
+                                          Text(FlutterI18n.translate(context, 'proximity'), style: kSmallFontOfGrey),
+                                        ]),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  flex: 1,
+                                  child: GestureDetector(
+                                    onTap: () => aboutPage(ctx,
+                                        FlutterI18n.translate(context, 'fuel'),
+                                        aboutPageIllustration(
+                                            FlutterI18n.translate(context, 'fuel'),
+                                            Stack(alignment: Alignment.center, children: [
+                                              Image.asset(AppImages.uptime, color: Colors.white, scale: 0.7),
+                                              Image.asset(AppImages.fuel, color: fuelColor, scale: 0.7),
+                                            ])),
+                                        FlutterI18n.translate(context, 'fuel_info'),
+                                        bottomButton: PrimaryButton(
+                                            minWidth: double.infinity,
+                                            onTap: () => 'TODO',
+                                            buttonTitle: FlutterI18n.translate(context, 'fuel_miners'),
+                                            bgColor: fuelColor)),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: minerColor.withOpacity(.1),
+                                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                          loadableWidget(loading: gatewayState.miningFuelHealth.loading, child: Text('${Tools.priceFormat(gatewayState.miningFuelHealth.value * 100)} %', style: kBigFontOfBlack)),
+                                          Stack(alignment: Alignment.center, children: [
+                                            Image.asset(AppImages.uptime, color: Colors.white),
+                                            Image.asset(AppImages.fuel, color: fuelColor),
+                                          ]),
+                                          Text(FlutterI18n.translate(context, 'fuel'), style: kSmallFontOfBlack),
+                                        ]),
+                                      ),
                                     ),
                                   ),
                                 ),
