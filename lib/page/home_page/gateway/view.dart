@@ -5,14 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:pagination_view/pagination_view.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/app_bars/home_bar.dart';
 import 'package:supernodeapp/common/components/buttons/circle_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
+import 'package:supernodeapp/common/components/empty.dart';
 import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/common/components/loading_list.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
+import 'package:supernodeapp/common/components/panel/panel_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/row_spacer.dart';
@@ -94,7 +97,8 @@ class GatewayTab extends StatelessWidget {
                                       }
                                     },
                                   ),
-                                ]),
+                                ]
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 20.0),
                                   child: CircularGraph(gatewayState.health.value * 100, (gatewayState.health.value * 100 > 10) ? minerColor: fuelColor,
@@ -103,9 +107,10 @@ class GatewayTab extends StatelessWidget {
                                         Text(FlutterI18n.translate(context, 'health_score'), style: kMiddleFontOfGrey),
                                       ])),
                                 ),
-                              ]),
+                              ],
+                              ),
                               middleColumnSpacer(),
-                              loadableWidget(loading: state.gatewaysRevenue.loading, child: Text('${Tools.priceFormat(state.gatewaysRevenue.value)} MXC', style: kSuperBigBoldFont)),
+                              Text('${Tools.priceFormat(state.gatewaysRevenue.value)} MXC', style: kSuperBigBoldFont),
                               Text(FlutterI18n.translate(context, 'total_mining_revenue'), style: kMiddleFontOfGrey),
                               middleColumnSpacer(),
                               Row(children: [
@@ -245,61 +250,145 @@ class GatewayTab extends StatelessWidget {
                       ),
                     )
             ),
-            Container(
-              padding: EdgeInsets.only(top: 30),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(FlutterI18n.translate(context, "list_miners"),
-                      style: kBigBoldFontOfBlack),
-                  Spacer(),
-                  GestureDetector(
-                    onTap: () => showFilterDialog(context),
-                    child: Icon(
-                      Icons.filter_list,
-                      color: Colors.black,
-                    ),
+            BlocBuilder<GatewayCubit, GatewayState>(
+              buildWhen: (a, b) => a.gatewaysTotal != b.gatewaysTotal,
+              builder: (ctx, gatewayState) =>
+                  BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
+                buildWhen: (a, b) =>
+                    a.gatewaysRevenueUsd != b.gatewaysRevenueUsd ||
+                    a.gatewaysRevenue != b.gatewaysRevenue,
+                builder: (ctx, state) => PanelFrame(
+                  child: PanelBody(
+                    keyIcon: ValueKey('minersAddIcon'),
+                    keyTitle: ValueKey('totalMinersTitle'),
+                    keySubtitle: ValueKey('totalMinersSubtitle'),
+                    keyTrailSubtitle: ValueKey('minersRevenue'),
+                    loading: gatewayState.gatewaysTotal.loading,
+                    icon: Icons.add_circle,
+                    onPressed: () async {
+                      if (!context.read<AppCubit>().state.isDemo) {
+                        await Navigator.of(context)
+                            .pushNamed('add_gateway_page', arguments: {
+                          'fromPage': 'home',
+                        });
+                        await context.read<GatewayCubit>().refreshGateways();
+                      }
+                    },
+                    titleText: FlutterI18n.translate(context, 'total_gateways'),
+                    subtitleText: '${gatewayState.gatewaysTotal.value}',
+                    trailTitle: FlutterI18n.translate(context, 'profit'),
+                    trailLoading: state.gatewaysRevenue.loading,
+                    trailSubtitle:
+                        '${Tools.priceFormat(state.gatewaysRevenue.value)} MXC (${Tools.priceFormat(state.gatewaysRevenueUsd.value)} USD)',
                   ),
-                ],
+                ),
               ),
             ),
             BlocBuilder<GatewayCubit, GatewayState>(
               buildWhen: (a, b) => a.gateways != b.gateways,
-              builder: (ctx, state) {
-                int keyIndex = 0;
-                return PanelFrame(
-                  rowTop: EdgeInsets.only(top: 10),
+              builder: (ctx, state) => Container(
+                height: 120.0 * (state.gatewaysTotal.value ?? 0),
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height - 230,
+                ),
+                child: PanelFrame(
                   child: state.gateways.loading
                       ? LoadingList()
-                      : Column(children: state.gateways.value.map((gatewayItem) => Slidable(
-                    key: Key("slide_gateway${keyIndex}"),
-                    actionPane: SlidableDrawerActionPane(), //SlidableBehindActionPane
-                    actionExtentRatio: 0.25,
-                    child: GatewayListTile(
-                      state: gatewayItem,
-                      onTap: () async {
-                        await Navigator.pushNamed(context, 'gateway_profile_page',
-                            arguments: {
-                              'item': gatewayItem,
-                              'isDemo': context.read<AppCubit>().state.isDemo,
-                            });
-                      },
-                    ),
-                    secondaryActions: <Widget>[
-                      IconSlideAction(
-                        key: ValueKey("delete_gateway_button${keyIndex++}"),
-                        caption: FlutterI18n.translate(context, 'delete'),
-                        color: Colors.red,
-                        icon: Icons.delete,
-                        onTap: () => showDeleteDialog(context, gatewayItem.id),
-                      )
-                    ],
-                  )).toList()),
-                );},
+                      : (state.gateways.value?.length != 0
+                          ? Padding(
+                              padding: kOuterRowTop10,
+                              child: RefreshIndicator(
+                                displacement: 0,
+                                onRefresh: () async {
+                                  await context.read<GatewayCubit>().refresh();
+                                },
+                                child: GatewaysList(
+                                  state: state,
+                                ),
+                              ),
+                            )
+                          : Empty()),
+                ),
+              ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class GatewaysList extends StatelessWidget {
+  final GatewayState state;
+
+  const GatewaysList({Key key, this.state}) : super(key: key);
+
+  void showDeleteDialog(BuildContext context, String gatewayId) {
+    final list = [
+      IosButtonStyle(
+        title: FlutterI18n.translate(context, 'confirm_deleting_miner_title'),
+        style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
+      ),
+      IosButtonStyle(
+        title: FlutterI18n.translate(context, 'confirm_deleting_miner_message'),
+      ),
+      IosButtonStyle(
+        title: FlutterI18n.translate(context, 'delete_miner'),
+        style: kBigFontOfBlack.copyWith(color: Colors.red),
+      ),
+    ];
+
+    showDialog(
+      context: context,
+      builder: (BuildContext ctx) => FullScreenDialog(
+        child: IosStyleBottomDialog(
+          blueActionIndex: 0,
+          list: list,
+          onItemClickListener: (itemIndex) {
+            if (itemIndex == 2)
+              context.read<GatewayCubit>().deleteGateway(gatewayId);
+          },
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PaginationView<GatewayItem>(
+      itemBuilder: (BuildContext context, GatewayItem state, int index) =>
+          Slidable(
+        key: Key("slide_gateway$index"),
+        actionPane: SlidableDrawerActionPane(), //SlidableBehindActionPane
+        actionExtentRatio: 0.25,
+        child: GatewayListTile(
+          state: state,
+          onTap: () async {
+            await Navigator.pushNamed(context, 'gateway_profile_page',
+                arguments: {
+                  'item': state,
+                  'isDemo': context.read<AppCubit>().state.isDemo,
+                });
+          },
+        ),
+        secondaryActions: <Widget>[
+          IconSlideAction(
+            key: ValueKey("delete_gateway_button$index"),
+            caption: FlutterI18n.translate(context, 'delete'),
+            color: Colors.red,
+            icon: Icons.delete,
+            onTap: () => showDeleteDialog(context, state.id),
+          )
+        ],
+      ),
+      pageFetch: (page) async {
+        if (page == 0) return state.gateways.value;
+        return await context.read<GatewayCubit>().loadNextPage(page);
+      },
+      onError: (dynamic error) => Center(
+        child: Text('Some error occured'),
+      ),
+      onEmpty: Empty(),
     );
   }
 }
@@ -404,54 +493,4 @@ class GatewayListTile extends StatelessWidget {
       ),
     );
   }
-}
-
-void showDeleteDialog(BuildContext context, String gatewayId) {
-  final list = [
-    IosButtonStyle(
-      title: FlutterI18n.translate(context, 'confirm_deleting_miner_title'),
-      style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
-    ),
-    IosButtonStyle(
-      title: FlutterI18n.translate(context, 'confirm_deleting_miner_message'),
-    ),
-    IosButtonStyle(
-      title: FlutterI18n.translate(context, 'delete_miner'),
-      style: kBigFontOfBlack.copyWith(color: Colors.red),
-    ),
-  ];
-
-  showDialog(
-    context: context,
-    builder: (BuildContext ctx) => FullScreenDialog(
-      child: IosStyleBottomDialog(
-        blueActionIndex: 0,
-        list: list,
-        onItemClickListener: (itemIndex) {
-          if (itemIndex == 2)
-            context.read<GatewayCubit>().deleteGateway(gatewayId);
-        },
-      ),
-    ),
-  );
-}
-
-void showFilterDialog(BuildContext context) {
-  final buttonsList = [
-    IosButtonStyle(title: FlutterI18n.translate(context, 'sort_by')),
-    IosButtonStyle(title: FlutterI18n.translate(context, 'fuel_low_high')),
-    IosButtonStyle(title: FlutterI18n.translate(context, 'fuel_high_low')),
-    IosButtonStyle(title: FlutterI18n.translate(context, 'health_low_high')),
-    IosButtonStyle(title: FlutterI18n.translate(context, 'health_high_low')),
-  ];
-  showDialog(
-    context: context,
-    builder: (BuildContext ctx) => FullScreenDialog(
-      child: IosStyleBottomDialog(
-        blueActionIndex: 0,
-        list: buttonsList,
-        onItemClickListener: (index) => context.read<GatewayCubit>().sortGateways(index),
-      ),
-    ),
-  );
 }

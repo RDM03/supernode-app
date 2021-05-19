@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/gateways.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
@@ -11,13 +9,6 @@ import 'parser.dart';
 import 'state.dart';
 
 class GatewayCubit extends Cubit<GatewayState> {
-  final Map<int, Comparator<GatewayItem>> sortGatewaysFuntions = {
-    1: (a, b) => a.miningFuelHealth.compareTo(b.miningFuelHealth),
-    2: (a, b) => b.miningFuelHealth.compareTo(a.miningFuelHealth),
-    3: (a, b) => a.health.compareTo(b.health),
-    4: (a, b) => b.health.compareTo(a.health),
-  };
-
   GatewayCubit({
     this.homeCubit,
     this.supernodeRepository,
@@ -123,6 +114,23 @@ class GatewayCubit extends Cubit<GatewayState> {
     }
   }
 
+  Future<List<GatewayItem>> loadNextPage(int page) async {
+    final res = await supernodeRepository.gateways
+        .list({"organizationID": orgId, "offset": page, "limit": 10});
+
+    final total = int.parse(res['totalCount']);
+    final gateways = parseGateways(res, []);
+
+    emit(
+      state.copyWith(
+        gatewaysTotal: Wrap(total),
+        gateways: Wrap([...state.gateways.value, ...gateways]),
+      ),
+    );
+
+    return gateways;
+  }
+
   Future<void> deleteGateway(String gatewayId) async {
     try {
       await supernodeRepository.gateways.deleteGateway(gatewayId);
@@ -133,14 +141,4 @@ class GatewayCubit extends Cubit<GatewayState> {
     }
   }
 
-  void sortGateways(int index) {
-    if (state.gateways.value == null)
-      return;
-
-    emit(state.copyWith(gateways: state.gateways.withLoading()));
-    final List<GatewayItem> gatewaysList = state.gateways.value;
-    if (index >= sortGatewaysFuntions.keys.reduce(min) && index <= sortGatewaysFuntions.keys.reduce(max))
-      gatewaysList.sort(sortGatewaysFuntions[index]);
-    emit(state.copyWith(gateways: Wrap(gatewaysList)));
-  }
 }
