@@ -15,7 +15,6 @@ import 'package:supernodeapp/common/components/empty.dart';
 import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/common/components/loading_list.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
-import 'package:supernodeapp/common/components/panel/panel_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/row_spacer.dart';
@@ -36,6 +35,7 @@ import '../shared.dart';
 class GatewayTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Color disabledColor = Color.fromARGB(255, 152, 166, 173); //remove once all health info implemented as well as disabled image assets
     return Scaffold(
       appBar: homeBar(
         FlutterI18n.translate(context, 'gateway'),
@@ -154,15 +154,15 @@ class GatewayTab extends StatelessWidget {
                                   flex: 1,
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: minerColor.withOpacity(.1),
+                                      color: disabledColor.withOpacity(.2),
                                       borderRadius: BorderRadius.all(Radius.circular(10)),
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                                       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                                        Text('50%', style: kBigFontOfBlack),
-                                        Image.asset(AppImages.gps),
-                                        Text(FlutterI18n.translate(context, 'gps'), style: kSmallFontOfBlack),
+                                        Text('-', style: kBigFontOfGrey),
+                                        Image.asset(AppImages.gps_disabled),
+                                        Text(FlutterI18n.translate(context, 'gps'), style: kSmallFontOfGrey),
                                       ]),
                                     ),
                                   ),
@@ -172,15 +172,15 @@ class GatewayTab extends StatelessWidget {
                                   flex: 1,
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: minerColor.withOpacity(.1),
+                                      color: disabledColor.withOpacity(.2),
                                       borderRadius: BorderRadius.all(Radius.circular(10)),
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                                       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                                        Text('50%', style: kBigFontOfBlack),
-                                        Image.asset(AppImages.altitude),
-                                        Text(FlutterI18n.translate(context, 'altitude'), style: kSmallFontOfBlack),
+                                        Text('-', style: kBigFontOfGrey),
+                                        Image.asset(AppImages.altitude_disabled),
+                                        Text(FlutterI18n.translate(context, 'altitude'), style: kSmallFontOfGrey),
                                       ]),
                                     ),
                                   ),
@@ -192,15 +192,15 @@ class GatewayTab extends StatelessWidget {
                                   flex: 1,
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: minerColor.withOpacity(.1),
+                                      color: disabledColor.withOpacity(.2),
                                       borderRadius: BorderRadius.all(Radius.circular(10)),
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                                       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                                        Text('50%', style: kBigFontOfBlack),
-                                        Image.asset(AppImages.orientation),
-                                        Text(FlutterI18n.translate(context, 'orientation'), style: kSmallFontOfBlack),
+                                        Text('-', style: kBigFontOfGrey),
+                                        Image.asset(AppImages.orientation_disabled),
+                                        Text(FlutterI18n.translate(context, 'orientation'), style: kSmallFontOfGrey),
                                       ]),
                                     ),
                                   ),
@@ -210,15 +210,15 @@ class GatewayTab extends StatelessWidget {
                                   flex: 1,
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: minerColor.withOpacity(.1),
+                                      color: disabledColor.withOpacity(.2),
                                       borderRadius: BorderRadius.all(Radius.circular(10)),
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                                       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                                        Text('50%', style: kBigFontOfBlack),
-                                        Image.asset(AppImages.proximity),
-                                        Text(FlutterI18n.translate(context, 'proximity'), style: kSmallFontOfBlack),
+                                        Text('-', style: kBigFontOfGrey),
+                                        Image.asset(AppImages.proximity_disabled),
+                                        Text(FlutterI18n.translate(context, 'proximity'), style: kSmallFontOfGrey),
                                       ]),
                                     ),
                                   ),

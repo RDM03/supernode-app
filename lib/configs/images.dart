@@ -67,9 +67,13 @@ class AppImages {
       'assets/images/gateway/info-downloadlink_price.png';
   static const String uptime = 'assets/images/gateway/uptime.png';
   static const String gps = 'assets/images/gateway/gps.png';
+  static const String gps_disabled = 'assets/images/gateway/gps_disabled.png';
   static const String altitude = 'assets/images/gateway/altitude.png';
+  static const String altitude_disabled = 'assets/images/gateway/altitude_disabled.png';
   static const String orientation = 'assets/images/gateway/orientation.png';
+  static const String orientation_disabled = 'assets/images/gateway/orientation_disabled.png';
   static const String proximity = 'assets/images/gateway/proximity.png';
+  static const String proximity_disabled = 'assets/images/gateway/proximity_disabled.png';
   static const String fuel = 'assets/images/gateway/fuel.png';
 
   //settings

@@ -80,6 +80,7 @@
 	"orientation": "Orientation",
 	"proximity": "Proximity",
 	"fuel": "Fuel",
+	"list_miners": "List of Miners",
 	"total_devices": "Total Devices",
 	"revenue": "Revenue",
 	"home": "Home",
