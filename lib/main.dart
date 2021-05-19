@@ -29,7 +29,6 @@ import 'package:supernodeapp/page/connectivity_lost_page/page.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
 import 'package:supernodeapp/page/gateway_profile_page/page.dart';
 import 'package:supernodeapp/page/home_page/home_page.dart';
-import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/list_councils/page.dart';
 import 'package:supernodeapp/page/login_page/login_generic.dart';
 import 'package:supernodeapp/page/mapbox_gl_page/page.dart';
@@ -196,7 +195,6 @@ class MxcApp extends StatelessWidget {
       'change_password_page': ChangePasswordPage(),
       'set_2fa_page': Set2FAPage(),
       'get_2fa_page': Get2FAPage(),
-      // 'add_gateway_page': AddGatewayPage(),
       'choose_application_page': ChooseApplicationPage(),
       'device_mapbox_page': DeviceMapBoxPage(),
       'calculator_page': CalculatorPage(),
