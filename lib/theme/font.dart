@@ -37,6 +37,9 @@ const kSmallFontOfBlack = TextStyle(
     height: 1.33333,
     decoration: TextDecoration.none);
 
+final TextStyle kSmallBoldFontOfBlack =
+    kSmallFontOfBlack.copyWith(fontWeight: FontWeight.w600);
+
 const kSmallFontOfGrey = TextStyle(
     color: const Color.fromARGB(138, 0, 0, 0),
     fontFamily: "Roboto",
@@ -133,6 +136,9 @@ const kMiddleFontOfBlack = TextStyle(
   fontSize: 15,
   height: 1.5,
 );
+
+final TextStyle kMiddleBoldFontOfBlack =
+    kMiddleFontOfBlack.copyWith(fontWeight: FontWeight.w600);
 
 const kMiddleFontOfWhite = TextStyle(
   color: const Color.fromARGB(255, 255, 255, 255),

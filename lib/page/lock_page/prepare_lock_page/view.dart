@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
@@ -9,7 +10,9 @@ import 'package:supernodeapp/common/components/text_field/primary_text_field.dar
 import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/spacing.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -25,8 +28,10 @@ Widget buildView(
     child: pageFrame(
       context: viewService.context,
       children: [
-        pageNavBar(FlutterI18n.translate(_ctx, 'dhx_mining'),
-            onTap: () => Navigator.pop(viewService.context,
+        pageNavBar(
+          FlutterI18n.translate(_ctx, 'lock_mxc'),
+          leadingWidget: SizedBox(),
+          onTap: () => Navigator.pop(viewService.context,
                 {'result': state.resSuccess, 'balance': state.balance})),
         SizedBox(height: 30),
         Row(
@@ -178,6 +183,7 @@ Widget buildView(
             child: PrimaryTextField(
               key: ValueKey('lockAmount'),
               keyboardType: TextInputType.number,
+              focusedBorderColor: colorSupernodeDhx,
               validator: (value) => onValidAmount(_ctx, value, state.balance),
               controller: state.amountCtl,
               suffixText: 'MXC',
@@ -279,22 +285,22 @@ Widget buildView(
                     key: ValueKey('dailyReturnText'),
                     textAlign: TextAlign.right,
                     maxLines: 2,
-                    style: kBigFontOfBlack,
+                    style: kBigFontOfBlack.copyWith(color: colorSupernodeDhx),
                   );
                 },
               ),
             ),
           ],
         ),
-        SizedBox(
-          height: 30,
-        ),
-        submitButton(
-          FlutterI18n.translate(_ctx, 'next'),
-          onPressed: () => dispatch(PrepareLockActionCreator.onConfirm()),
-          key: ValueKey('submitButton'),
-        )
       ],
+      floatingActionButton: PrimaryButton(
+        key: ValueKey('submitButton'),
+        padding: kRoundRow105,
+        buttonTitle: FlutterI18n.translate(_ctx, 'next'),
+        bgColor: colorSupernodeDhx,
+        minWidth: double.infinity,
+        onTap: () => dispatch(PrepareLockActionCreator.onConfirm())
+      )
     ),
   );
 }

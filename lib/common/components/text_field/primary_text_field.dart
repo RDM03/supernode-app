@@ -11,6 +11,7 @@ class PrimaryTextField extends StatelessWidget {
     this.textInputAction = TextInputAction.done,
     this.validator,
     this.textColor,
+    this.focusedBorderColor,
     this.controller,
     this.initialValue,
     this.readOnly = false,
@@ -28,6 +29,7 @@ class PrimaryTextField extends StatelessWidget {
 
   final Color borderColor;
   final Color fillColor;
+  final Color focusedBorderColor;
   final String hint;
   final bool isObscureText;
   final TextInputAction textInputAction;
@@ -58,6 +60,9 @@ class PrimaryTextField extends StatelessWidget {
         counterText: counterText,
         suffixText: suffixText,
         suffixStyle: suffixStyle,
+        focusedBorder: focusedBorderColor != null ? UnderlineInputBorder(
+          borderSide: BorderSide(color: focusedBorderColor),
+        ) : null,
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             color: borderColor,

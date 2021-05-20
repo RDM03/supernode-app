@@ -36,7 +36,7 @@ class _BtcTokenPageContentState extends State<BtcTokenPageContent>
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12.0),
             child: PanelFrame(
-              rowTop: EdgeInsets.only(top: 00),
+              margin: EdgeInsets.only(top: 0),
               customPanelColor: Token.btc.color,
               child: Container(
                 padding: kRoundRow15_5,

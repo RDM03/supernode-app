@@ -14,12 +14,13 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class TokenHomePageWidget extends StatelessWidget {
   Widget mxc(BuildContext context) => BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
       buildWhen: (a, b) => a.balance != b.balance,
-      builder: (ctx, state) => PanelFrame(rowTop: EdgeInsets.only(top: 10),
+      builder: (ctx, state) => PanelFrame(margin: EdgeInsets.only(top: 10),
         child: TokenSummaryRow(
           key: Key('mxcDashboard'),
           loading: state.balance.loading,
@@ -32,7 +33,7 @@ class TokenHomePageWidget extends StatelessWidget {
 
   Widget supernodeDhx(BuildContext context) => BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
       buildWhen: (a, b) => a.balance != b.balance,
-      builder: (ctx, state) => PanelFrame(rowTop: EdgeInsets.only(top: 10),
+      builder: (ctx, state) => PanelFrame(margin: EdgeInsets.only(top: 10),
         child: TokenSummaryRow(
           key: Key('dhxDashboard'),
           loading: state.balance.loading,
@@ -45,7 +46,7 @@ class TokenHomePageWidget extends StatelessWidget {
 
   Widget btc(BuildContext context) => BlocBuilder<SupernodeBtcCubit, SupernodeBtcState>(
       buildWhen: (a, b) => a.balance != b.balance,
-      builder: (ctx, state) => PanelFrame(rowTop: EdgeInsets.only(top: 10),
+      builder: (ctx, state) => PanelFrame(margin: EdgeInsets.only(top: 10),
         child: TokenSummaryRow(
           key: Key('btcDashboard'),
           loading: state.balance.loading,
@@ -85,14 +86,14 @@ class TokenHomePageWidget extends StatelessWidget {
                     ),
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Token.supernodeDhx.color.withOpacity(.2),
+                          color: colorMxc.withOpacity(.2),
                           borderRadius: BorderRadius.all(Radius.circular(5))),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 4.0),
                         child: Text(
                           '+ ${FlutterI18n.translate(context, 'add_token_title')}',
-                          style: MiddleFontOfColor(color: Token.supernodeDhx.color),
+                          style: MiddleFontOfColor(color: colorMxc),
                         ),
                       ),
                     ),
@@ -103,7 +104,7 @@ class TokenHomePageWidget extends StatelessWidget {
             if (wallet.displayTokens.contains(Token.mxc)) mxc(context),
             if (wallet.displayTokens.contains(Token.supernodeDhx)) supernodeDhx(context),
             if (wallet.displayTokens.contains(Token.btc)) btc(context),
-            if (wallet.displayTokens.contains(Token.parachainDhx)) PanelFrame(child: parachainDhx(context), rowTop: EdgeInsets.only(top: 10)),
+            if (wallet.displayTokens.contains(Token.parachainDhx)) PanelFrame(child: parachainDhx(context), margin: EdgeInsets.only(top: 10)),
           ]
       ),
     );

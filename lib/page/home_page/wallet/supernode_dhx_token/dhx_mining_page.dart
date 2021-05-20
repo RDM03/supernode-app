@@ -14,6 +14,7 @@ import 'package:supernodeapp/page/home_page/wallet/supernode_dhx_token/page_cont
 import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/spacing.dart';
 
 import 'actions.dart';
 
@@ -47,18 +48,24 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
           ),
           middleColumnSpacer(),
           Row(children: [
-            Icon(Icons.circle, color: Token.supernodeDhx.color, size: 12),
+            whiteCircle(
+              child: Icon(Icons.circle, color: Token.supernodeDhx.color, size: 12),
+            ),
             Text(FlutterI18n.translate(context, "today"), style: kSmallFontOfBlack),
             Spacer(),
-            Icon(Icons.circle, color: Token.supernodeDhx.color.withOpacity(0.2), size: 12),
+            whiteCircle(
+              child: Icon(Icons.circle, color: Token.supernodeDhx.color.withOpacity(0.2), size: 12),
+            ),
             Text(FlutterI18n.translate(context, 'cool_off'), style: kSmallFontOfBlack),
             Spacer(),
-            Image.asset(AppImages.iconUnbond, scale: 1.8, color: Colors.red),
+            whiteCircle(
+              child: Image.asset(AppImages.iconUnbond, scale: 2.2, color: Colors.red),
+            ),
             Text(FlutterI18n.translate(context, 'unbonded'), style: kSmallFontOfBlack)
           ]),
           smallColumnSpacer(),
           PanelFrame(
-            rowTop: const EdgeInsets.all(0.0),
+            margin: const EdgeInsets.all(0.0),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
               child: Column(
@@ -69,11 +76,14 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
                     a.calendarBondInfo != b.calendarBondInfo,
                     builder: (context, state) =>
                     (state.calendarBondInfo != null && state.calendarBondInfo.length > 0)
-                        ? Text('   ${Tools.dateMonthYearFormat(state.calendarBondInfo[0].date)}'
+                        ? Padding(
+                          padding: kOuterRowTop5,
+                          child: Text('   ${Tools.dateMonthYearFormat(state.calendarBondInfo[0].date)}'
                         '${(state.calendarBondInfo[0].date.month != state.calendarBondInfo[state.calendarBondInfo.length-1].date.month)
                         ? ' - ' + Tools.dateMonthYearFormat(state.calendarBondInfo[state.calendarBondInfo.length-1].date)
                         : ''}',
                         style: kPrimaryBigFontOfBlack)
+                        )
                         : SizedBox(),
                 ),
                   smallColumnSpacer(),
@@ -97,6 +107,18 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
           middleColumnSpacer(),
         ]
       )
+    );
+  }
+
+  Widget whiteCircle({Widget child}){
+    return Container(
+      width: 14,
+      height: 14,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle
+      ),
+      child: child
     );
   }
 }

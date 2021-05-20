@@ -180,12 +180,16 @@ class ParachainLoginCard extends StatelessWidget {
                               color: Colors.white,
                               borderRadius: BorderRadius.all(Radius.circular(10)),
                             ),
-                            child: Column(children: [
-                              Icon(Icons.home, size: Tween<double>(begin: 0, end: 24).evaluate(animation)),
-                              SizedBox(height: Tween<double>(begin: 0, end: 5).evaluate(animation)),
-                              Text(FlutterI18n.translate(context, 'next_gen_data_token'),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: Tween<double>(begin: 0, end: 16).evaluate(animation),))
+                            child: Flex(
+                              direction: Axis.vertical,
+                              children: [
+                                Spacer(),
+                                Icon(Icons.home, size: Tween<double>(begin: 0, end: 24).evaluate(animation)),
+                                SizedBox(height: Tween<double>(begin: 0, end: 5).evaluate(animation)),
+                                Text(FlutterI18n.translate(context, 'next_gen_data_token'),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontSize: Tween<double>(begin: 0, end: 16).evaluate(animation),)),
+                                Spacer()
                             ])
                         ),
                       ),
@@ -203,15 +207,20 @@ class ParachainLoginCard extends StatelessWidget {
                               color: Colors.white,
                               borderRadius: BorderRadius.all(Radius.circular(10)),
                             ),
-                            child: Column(children: [
-                              Image.asset(AppImages.medium,
-                                  width: Tween<double>(begin: 0, end: 24).evaluate(animation),
-                                  height: Tween<double>(begin: 0, end: 24).evaluate(animation)),
-                              SizedBox(height: Tween<double>(begin: 0, end: 5).evaluate(animation)),
-                              Text(FlutterI18n.translate(context, 'dhx_staking_mining_earning'),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: Tween<double>(begin: 0, end: 16).evaluate(animation),))
-                            ])
+                            child: Flex(
+                              direction: Axis.vertical,
+                              children: [
+                                Spacer(),
+                                Image.asset(AppImages.medium,
+                                    width: Tween<double>(begin: 0, end: 24).evaluate(animation),
+                                    height: Tween<double>(begin: 0, end: 24).evaluate(animation)),
+                                SizedBox(height: Tween<double>(begin: 0, end: 5).evaluate(animation)),
+                                Text(FlutterI18n.translate(context, 'dhx_staking_mining_earning'),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontSize: Tween<double>(begin: 0, end: 16).evaluate(animation),)),
+                                Spacer()
+                              ]
+                            )
                         ),
                       ),
                     ),

@@ -7,7 +7,7 @@ class PrimaryButton extends StatelessWidget {
     Key key,
     @required this.onTap,
     @required this.buttonTitle,
-    this.minHeight = 36,
+    this.minHeight = 46,
     this.minWidth = 0,
     this.bgColor = buttonPrimaryColor,
     this.textColor = Colors.white,

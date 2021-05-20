@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/font.dart';
 
 class CircleButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -34,7 +35,10 @@ class CircleButton extends StatelessWidget {
             child: icon,
           ),
           (label.isNotEmpty) ? SizedBox(height: s(3)) : SizedBox(),
-          (label.isNotEmpty) ? Text(label) : SizedBox()
+          (label.isNotEmpty) ? Text(
+                                label,
+                                style: kSmallBoldFontOfBlack,
+                              ) : SizedBox()
         ]));
   }
 }

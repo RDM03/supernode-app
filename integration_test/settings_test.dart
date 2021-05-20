@@ -88,7 +88,7 @@ Future<void> settingsTests(){
       await pumpAndTap(tester, 'settingsButton');
       await pumpAndTap(tester, 'appSettingsItem');
 
-      delay(2);
+      await delay(2);
       expect(findByKey('appSettingsTitle'), findsOneWidget);
     });
 
@@ -109,6 +109,7 @@ Future<void> settingsTests(){
       await pumpAndTap(tester, 'autoDetect');
     });
 
+    // Flutter Test cannot interactive with the native widgets(Location and FaceId etc.).
     // testWidgets('can enable Face IDa / Biometric', (WidgetTester tester) async {
     //   await delay(5);
     //   await app.main();
@@ -132,7 +133,7 @@ Future<void> settingsTests(){
         await pumpAndTap(tester, 'screenshotSwitch');
       }
 
-      delay(2);
+      await delay(2);
       await pumpAndTap(tester, 'feedbackButton');
 
       // In the ios simulator, the app will crash when you take screenshot.
@@ -180,7 +181,7 @@ Future<void> settingsTests(){
 
       await pumpAndTap(tester, 'updateButton');
 
-      delay(2);
+      await delay(2);
       expect(findByText(getEnv('DRIVE_TESTING_USER')), findsOneWidget);
 
       // detele as you add a test address.

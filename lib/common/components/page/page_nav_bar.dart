@@ -19,7 +19,7 @@ Widget pageNavBar(
         Text(
           name,
           textAlign: TextAlign.left,
-          style: kBigFontOfBlack,
+          style: kBigBoldFontOfBlack,
         ),
         Spacer(),
         GestureDetector(

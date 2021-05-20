@@ -8,8 +8,10 @@ import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
+import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
@@ -17,6 +19,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/mining_simulator_page/widgets/value_editor.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/spacing.dart';
 
 class DhxBondingPage extends StatefulWidget {
   @override
@@ -24,6 +27,7 @@ class DhxBondingPage extends StatefulWidget {
 }
 
 class _DhxBondingPageState extends State<DhxBondingPage> {
+  GlobalKey formKey = GlobalKey<FormState>();
   TextEditingController ctrl = TextEditingController(text: '0');
   Loading loading;
 
@@ -61,7 +65,7 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
             listener: (ctx, state) async {
               if (state.success) {
                 await Navigator.pushNamed(context, 'confirm_page', arguments: {
-                  'title': FlutterI18n.translate(context, 'bond_dhx'),
+                  'title': FlutterI18n.translate(context, 'Confirmed'),
                   'content': FlutterI18n.translate(context, 'bond_dhx_successful'),
                   'success': true
                 });
@@ -80,18 +84,14 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
         ],
       child: pageFrame(
           context: context,
-          padding: EdgeInsets.all(0.0),
           children: <Widget>[
-            ListTile(
-              title: Center(
-                  child: Text(FlutterI18n.translate(context, 'bond_dhx'),
-                      style: kBigFontOfBlack)),
-              trailing: GestureDetector(
-                  child: Icon(Icons.close, color: Colors.black),
-                  onTap: () => Navigator.of(context).pop()),
+            pageNavBar(
+              FlutterI18n.translate(context, 'bond_dhx'),
+              leadingWidget: SizedBox(),
+              onTap: () => Navigator.of(context).pop(),
             ),
+            middleColumnSpacer(),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Column(
                 children: [
                   Row(crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,32 +141,40 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
                       )
                     ]),
                   bigColumnSpacer(),
-                  BlocBuilder<SupernodeDhxCubit, SupernodeDhxState> (
-                    buildWhen: (a, b) =>
-                    a.balance != b.balance,
-                    builder: (cxt, state) => ValueEditor2(
-                      key: ValueKey('amountValueEditor'),
-                      controller: ctrl,
-                      total: (state.balance.loading) ? 0 : state.balance.value,
-                      title: FlutterI18n.translate(context, 'bond_amount'),
-                      subtitle: FlutterI18n.translate(context, 'current_balance'),
-                      textFieldSuffix: Token.supernodeDhx.name,
-                      totalSuffix: Token.supernodeDhx.name,
-                      primaryColor: Token.supernodeDhx.color,
+                  Form(
+                    key: formKey,
+                    child: BlocBuilder<SupernodeDhxCubit, SupernodeDhxState> (
+                      buildWhen: (a, b) =>
+                      a.balance != b.balance,
+                      builder: (cxt, state) => ValueEditor2(
+                        key: ValueKey('amountValueEditor'),
+                        controller: ctrl,
+                        total: (state.balance.loading) ? 0 : state.balance.value,
+                        title: FlutterI18n.translate(context, 'bond_amount'),
+                        subtitle: FlutterI18n.translate(context, 'current_balance'),
+                        textFieldSuffix: Token.supernodeDhx.name,
+                        totalSuffix: Token.supernodeDhx.name,
+                        primaryColor: Token.supernodeDhx.color,
+                        validator: (value) => Reg.isMoreThanZero(context, value),
+                      ),
                     ),
-                  ),
-                  bigColumnSpacer(),
-                  bigColumnSpacer(),
-                  PrimaryButton(
-                      key: Key('confirmButton'),
-                      minWidth: double.infinity,
-                      onTap: () => context.read<SupernodeDhxCubit>().confirmBondUnbond(bond: ctrl.text.trim()),
-                      buttonTitle: FlutterI18n.translate(context, 'confirm'),
-                      bgColor: Token.supernodeDhx.color),
+                  )
                 ],
               ),
             ),
-          ]),
+          ],
+          floatingActionButton: PrimaryButton(
+            key: Key('confirmButton'),
+            minWidth: double.infinity,
+            padding: kRoundRow105,
+            onTap: () {
+              if ((formKey.currentState as FormState).validate()) {
+                context.read<SupernodeDhxCubit>().confirmBondUnbond(bond: ctrl.text.trim());
+              }
+            },
+            buttonTitle: FlutterI18n.translate(context, 'confirm'),
+            bgColor: Token.supernodeDhx.color),
+          ),
     );
   }
 }

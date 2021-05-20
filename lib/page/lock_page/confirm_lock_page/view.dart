@@ -2,16 +2,18 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
-import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/security/biometrics.dart';
 import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/spacing.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -29,7 +31,15 @@ Widget buildView(
       scaffoldKey: state.scaffoldKey,
       children: [
         pageNavBar(
-          FlutterI18n.translate(context, 'dhx_mining'),
+          FlutterI18n.translate(context, 'lock_mxc'),
+          leadingWidget: GestureDetector(
+            key: ValueKey('navBackButton'),
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+            onTap: () => Navigator.of(context).pop(),
+          ),
           onTap: () => Navigator.of(context).pop(),
         ),
         SizedBox(height: 35),
@@ -95,74 +105,65 @@ Widget buildView(
           style: kPrimaryBigFontOfBlack,
         ),
         SizedBox(height: 16),
-        Row(
+        Flex(
+          direction: Axis.horizontal,
           children: [
             Expanded(
               child: Text(FlutterI18n.translate(context, 'mining_duration')),
             ),
-            SizedBox(width: 5),
+            Spacer(),
             Text(
               FlutterI18n.translate(context, 'x_months')
                   .replaceAll('{0}', state.months.toString()),
               textAlign: TextAlign.right,
             ),
-            SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                FlutterI18n.translate(context,
-                    '${(monthsToBoost(state.months) * 100).toStringAsFixed(0)} %'),
-                textAlign: TextAlign.right,
-              ),
-            ),
+            SizedBox(width: 5),
+            Text(
+              '${FlutterI18n.translate(context,
+                  "${(monthsToBoost(state.months) * 100).toStringAsFixed(0)}%")} ${FlutterI18n.translate(context,
+                  "boost")}',
+              textAlign: TextAlign.right,
+            )
           ],
         ),
         SizedBox(height: 16),
-        Row(
+        Flex(
+          direction: Axis.horizontal,
           children: [
-            Expanded(
-              flex: 2,
-              child: Text(FlutterI18n.translate(context, 'miner_owner')),
+            Text(FlutterI18n.translate(context, 'miner_owner')),
+            Container(
+              constraints: BoxConstraints(maxWidth: 50),
+              child: GestureDetector(
+                onTap: () => _showInfoDialog(context),
+                child: Padding(
+                  key: Key("questionCircle"),
+                  padding: EdgeInsets.only(left: 5, top: 5, bottom: 5),
+                  child:
+                      Image.asset(AppImages.questionCircle, height: 25),
+                ),
+              ),
             ),
-            SizedBox(width: 5),
+            Spacer(),
             Text(
               state.minersOwned.toString(),
               textAlign: TextAlign.right,
             ),
-            SizedBox(width: 10),
-            Expanded(
-              flex: 2,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      FlutterI18n.translate(
-                        context,
-                        getMinersBoost(
-                              double.tryParse(state.amount),
-                              state.minersOwned,
-                            ).toStringAsFixed(0) +
-                            ' mP',
-                      ),
-                      textAlign: TextAlign.right,
-                      maxLines: 1,
-                      softWrap: false,
-                      overflow: TextOverflow.clip,
-                    ),
-                  ),
-                  Container(
-                    constraints: BoxConstraints(maxWidth: 50),
-                    child: GestureDetector(
-                      onTap: () => _showInfoDialog(context),
-                      child: Padding(
-                        key: Key("questionCircle"),
-                        padding: EdgeInsets.only(left: 5, top: 5, bottom: 5),
-                        child:
-                            Image.asset(AppImages.questionCircle, height: 25),
-                      ),
-                    ),
-                  ),
-                ],
+            SizedBox(width: 5),
+            Text(FlutterI18n.translate(context, 'miner')),
+            SizedBox(width: 5),
+            Text(
+              FlutterI18n.translate(
+                context,
+                getMinersBoost(
+                      double.tryParse(state.amount),
+                      state.minersOwned,
+                    ).toStringAsFixed(0) +
+                    ' mP',
               ),
+              textAlign: TextAlign.right,
+              maxLines: 1,
+              softWrap: false,
+              overflow: TextOverflow.clip,
             ),
           ],
         ),
@@ -239,16 +240,16 @@ Widget buildView(
               ),
             ),
           ],
-        ),
-        SizedBox(
-          height: 30,
-        ),
-        submitButton(
-          FlutterI18n.translate(context, 'proceed'),
-          onPressed: () => _proceed(dispatch, state),
-          key: ValueKey('submitButton1'),
         )
       ],
+      floatingActionButton: PrimaryButton(
+        key: ValueKey('submitButton1'),
+        padding: kRoundRow105,
+        buttonTitle: FlutterI18n.translate(context, 'proceed'),
+        bgColor: colorSupernodeDhx,
+        minWidth: double.infinity,
+        onTap: () => _proceed(dispatch, state),
+      )
     ),
   );
 }

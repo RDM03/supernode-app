@@ -14,7 +14,7 @@ class TransactionsHistoryContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PanelFrame(
-      rowTop: EdgeInsets.zero,
+      margin: EdgeInsets.zero,
       child: BlocBuilder<SupernodeBtcCubit, SupernodeBtcState>(
         buildWhen: (a, b) => a.withdraws != b.withdraws,
         builder: (ctx, state) {

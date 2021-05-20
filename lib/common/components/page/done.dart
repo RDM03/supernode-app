@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget done({bool success = true}) {
+Widget done({bool success = true, Color successColor}) {
   return Center(
     child: Container(
         width: 80,
@@ -11,7 +11,7 @@ Widget done({bool success = true}) {
         ),
         child: Icon(
           success ? Icons.check_circle_outline : Icons.info_outline,
-          color: success ? Colors.green : Colors.blue,
+          color: success ? successColor ?? Colors.green : Colors.blue,
           size: 80,
           key: Key('successIcon_$success'),
         )),

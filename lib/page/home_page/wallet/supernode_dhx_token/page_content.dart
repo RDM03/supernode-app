@@ -117,7 +117,7 @@ class DhxMiningCard extends StatelessWidget {
           ),
         ),
         PanelFrame(
-          rowTop: EdgeInsets.all(0),
+          margin: EdgeInsets.all(0),
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: Column(

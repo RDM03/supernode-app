@@ -6,7 +6,7 @@ class TransactionsHistoryContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PanelFrame(
-      rowTop: EdgeInsets.zero,
+      margin: EdgeInsets.zero,
       child: Empty(),
     );
   }
