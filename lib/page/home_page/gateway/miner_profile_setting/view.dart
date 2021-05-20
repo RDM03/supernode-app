@@ -170,7 +170,7 @@ class _MinerProfileSettingPageState extends State<MinerProfileSettingPage> {
                   );
                 }
               ),
-              DDSubtitle('When enabled (and LPWAN Server is configured with the M2 Pro Miner discover feature enabled), the M2 Pro Miner will send out periodical pings to test its coverage by other M2 Pro Miner or gateways in the same network'),
+              DDSubtitle('When enabled (and LPWAN Server is configured with the M2 Pro Miner discover feature enabled), the M2 Pro Miner will send out periodical pings to test its coverage by other M2 Pro Miner or gateways in the same network.'),
               DDBoxSpacer(),
               DDTextfieldWithLabel(
                 label: 'gateway_altitude',

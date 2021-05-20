@@ -25,7 +25,6 @@ import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
-import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/gateway/bloc/cubit.dart';
 import 'package:supernodeapp/page/home_page/gateway/bloc/state.dart';
 import 'package:supernodeapp/page/home_page/gateway/miner_profile_setting/view.dart';

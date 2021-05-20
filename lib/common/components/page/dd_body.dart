@@ -18,11 +18,12 @@ class DDBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: Container(
+        padding: kOuterRowTop70,
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
           child: Container(
-            margin: kOuterRowTop20,
+            // margin: kOuterRowTop70,
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 255, 255, 255),
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -36,7 +37,7 @@ class DDBody extends StatelessWidget {
             ),
             child: child
           )
-        ),
+        )
       ),
       floatingActionButton: floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,
