@@ -12,16 +12,37 @@ class BarGraph extends StatelessWidget {
   final double widgetWidth;
   /// Height of the widget
   final double widgetHeight;
+  /// notifyGraphBarScroll
+  final Function(int) notifyGraphBarScroll;
   final double barWidth = 20.0;
+  final ScrollController scrollCtrl = ScrollController();
+  double spaceBetweenLines;
+  double scrollableWidth;
+  int currentBar = 0;
 
-  BarGraph(this.graphValues, this.barsOnScreen, this.widgetWidth, {this.widgetHeight= 200, this.graphColor = minerColor});
+  BarGraph(this.graphValues, this.barsOnScreen, this.widgetWidth, {this.widgetHeight= 200, this.graphColor = minerColor, this.notifyGraphBarScroll}) {
+    spaceBetweenLines = (widgetWidth - (barsOnScreen * barWidth)) / (barsOnScreen - 1);
+    scrollableWidth = barWidth * graphValues.length + spaceBetweenLines * (graphValues.length - 1);
+    if (notifyGraphBarScroll != null) {
+      scrollCtrl.addListener(() {
+        double position = scrollCtrl.offset / (spaceBetweenLines + barWidth);
+        if (position.round() > currentBar) {
+          currentBar++;
+          notifyGraphBarScroll(currentBar);
+        }
+        if (position.round() < currentBar) {
+          currentBar--;
+          notifyGraphBarScroll(currentBar);
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final double spaceBetweenLines = (widgetWidth - (barsOnScreen * barWidth)) / (barsOnScreen - 1);
-    final double scrollableWidth = barWidth * graphValues.length + spaceBetweenLines * (graphValues.length - 1);
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
+      controller: scrollCtrl,
       reverse: true,
       child: CustomPaint(
           painter: GraphPainter(
