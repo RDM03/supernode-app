@@ -1,3 +1,4 @@
+import '../gateways.model.dart';
 import 'demo.dart';
 import '../gateways.dart';
 
@@ -136,4 +137,16 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
   Future deleteGateway(String id) {
     throw UnimplementedError('delete not supported in demo');
   }
+
+  @override
+  Future<List<MinerHealthResponse>> minerHealth(Map data) {
+    return Future.value([MinerHealthResponse(
+        ageSeconds: 10000,
+        health: 0.71,
+        miningFuel: 2500,
+        miningFuelHealth: 0.5,
+        miningFuelMax: 5000,
+    )]);
+  }
+
 }

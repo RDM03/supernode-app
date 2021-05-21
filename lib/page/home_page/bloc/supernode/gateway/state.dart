@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/gateways.model.dart';
 import 'package:supernodeapp/common/wrap.dart';
 
 part 'state.freezed.dart';
@@ -10,6 +11,12 @@ abstract class GatewayState with _$GatewayState {
   factory GatewayState({
     @Default(Wrap.pending()) Wrap<int> gatewaysTotal,
     @Default(Wrap.pending()) Wrap<List<GatewayItem>> gateways,
+    List<MinerHealthResponse> listMinersHealth,
+    @Default(Wrap.pending()) Wrap<double> health,
+    @Default(Wrap.pending()) Wrap<double> uptimeHealth,
+    @Default(Wrap.pending()) Wrap<double> miningFuelHealth,
+    @Default(Wrap.pending()) Wrap<double> miningFuel,
+    @Default(Wrap.pending()) Wrap<double> miningFuelMax,
   }) = _GatewayState;
 }
 
@@ -28,6 +35,9 @@ abstract class GatewayItem with _$GatewayItem {
     @nullable String lastSeenAt,
     @nullable String model,
     @nullable String osversion,
+    @nullable double health,
+    @nullable double miningFuelHealth,
+    @nullable double totalMined,
   }) = _GatewayItem;
 
   factory GatewayItem.fromJson(Map<String, dynamic> json) =>
