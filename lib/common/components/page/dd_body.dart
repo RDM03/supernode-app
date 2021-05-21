@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
 class DDBody extends StatelessWidget {
+  final PreferredSizeWidget appBar;
   final Widget child;
   final bool resizeToAvoidBottomInset;
   final Widget floatingActionButton;
@@ -10,6 +12,7 @@ class DDBody extends StatelessWidget {
   const DDBody({
     Key key,
     @required this.child,
+    this.appBar,
     this.resizeToAvoidBottomInset = true,
     this.floatingActionButton,
     this.floatingActionButtonLocation = FloatingActionButtonLocation.centerDocked
@@ -18,25 +21,23 @@ class DDBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: Container(
-        padding: kOuterRowTop70,
+        margin: kOuterRowTop70,
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 255, 255, 255),
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          boxShadow: [
+            BoxShadow(
+              color: const Color.fromARGB(26, 0, 0, 0),
+              offset: Offset(0, 2),
+              blurRadius: 7,
+            ),
+          ],
+        ),
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-          child: Container(
-            // margin: kOuterRowTop70,
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 255, 255, 255),
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color.fromARGB(26, 0, 0, 0),
-                  offset: Offset(0, 2),
-                  blurRadius: 7,
-                ),
-              ],
-            ),
-            child: child
-          )
+          child: child
         )
       ),
       floatingActionButton: floatingActionButton,

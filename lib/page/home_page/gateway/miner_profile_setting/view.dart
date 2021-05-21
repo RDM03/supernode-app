@@ -49,8 +49,6 @@ class _MinerProfileSettingPageState extends State<MinerProfileSettingPage> {
   @override
   void initState() {
     context.read<MinerCubit>().networkServerList();
-    // nameCtl.text = context.read<MinerState>().serialNumber;
-    // emit(state.copyWith(serialNumber:'22'));
     super.initState();
   }
 
@@ -99,6 +97,7 @@ class _MinerProfileSettingPageState extends State<MinerProfileSettingPage> {
         child: Form(
           key: formKey,
           child: ListView( 
+            padding: EdgeInsets.zero,
             children: [
               DDNav(
                 title: 'add_miner',
@@ -107,7 +106,7 @@ class _MinerProfileSettingPageState extends State<MinerProfileSettingPage> {
               DDIconWithTitles(
                 imageUrl: AppImages.gateways,
                 title: 'Miner Profile Setting',
-                subtitle: 'Serial number here',
+                subtitle: widget.serialNumer,
               ),
               BlocBuilder<MinerCubit, MinerState>(
                 buildWhen: (a, b) => a.networkServerName != b.networkServerName,
@@ -115,7 +114,7 @@ class _MinerProfileSettingPageState extends State<MinerProfileSettingPage> {
                   return DDBoxWithSelect(
                     title: 'network_server',
                     subtitle: state.networkServerName ?? 
-                        'Select the network-server to which the M2 Pro Miner will connect.',
+                        'select_network_server',
                     onTap: () async => await ctx.read<MinerCubit>().networkServerPicker(ctx),
                   );
                 }
@@ -129,7 +128,7 @@ class _MinerProfileSettingPageState extends State<MinerProfileSettingPage> {
                 builder: (ctx, state) {
                   return DDBoxWithSelect(
                     title: 'smb_gateway_profile',
-                    subtitle: state.minerProfileName ?? 'An option Miner-Profile may be assigned to a Miner.',
+                    subtitle: state.minerProfileName ?? 'select_gateway_profile',
                     onTap: () => ctx.read<MinerCubit>().gatewayProfilePicker(ctx),
                   );
                 }
@@ -146,7 +145,7 @@ class _MinerProfileSettingPageState extends State<MinerProfileSettingPage> {
                 validator: (value) => Reg.onNotEmpty(context, value),
                 // controller: nameCtl,
               ),
-              DDSubtitle('The name may only contain words, numbers and dashes.'),
+              DDSubtitle('reg_name'),
               DDBoxSpacer(),
               DDTextfieldWithLabel(
                 label: 'gateway_description',
@@ -170,14 +169,14 @@ class _MinerProfileSettingPageState extends State<MinerProfileSettingPage> {
                   );
                 }
               ),
-              DDSubtitle('When enabled (and LPWAN Server is configured with the M2 Pro Miner discover feature enabled), the M2 Pro Miner will send out periodical pings to test its coverage by other M2 Pro Miner or gateways in the same network.'),
+              DDSubtitle('discovery_enabled_tip'),
               DDBoxSpacer(),
               DDTextfieldWithLabel(
                 label: 'gateway_altitude',
                 validator: (value) => Reg.onNotEmpty(context, value),
                 controller: altitudeCtl,
               ),
-              DDSubtitle('When the M2 Pro Miner has an on-board GPS, this value will be set automatically when the network has received statistics from the M2 Pro Miner.'),
+              DDSubtitle('gateway_altitude_tip'),
               DDBoxSpacer(height: SpacerStyle.medium),
               BlocBuilder<MinerCubit, MinerState>(
                 builder: (ctx, state) {
@@ -211,7 +210,9 @@ class _MinerProfileSettingPageState extends State<MinerProfileSettingPage> {
                     }
                   );
                 }
-               )
+              ),
+              DDBoxSpacer(height: SpacerStyle.big),
+              DDBoxSpacer(height: SpacerStyle.big),
             ]
           )
         )

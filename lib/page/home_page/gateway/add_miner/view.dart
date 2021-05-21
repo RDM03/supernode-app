@@ -113,6 +113,7 @@ class _AddMinerPageState extends State<AddMinerPage> {
       ],
       child: DDBody(
         child: ListView( 
+          padding: EdgeInsets.zero,
           children: [
             widget.hasSkip ? DDNavWithSkip(
               title: 'add_miner',
