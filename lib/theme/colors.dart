@@ -88,3 +88,5 @@ final lock24Color = Color(0xFF4D64E2);
 final lock12Color = Color(0xFF7183E7);
 final lock9Color = Color(0xFF94A2EC);
 final lock3Color = Color(0xFFADB5E4);
+
+const healthColor = Color(0xCCFF5B5B);
