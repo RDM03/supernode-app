@@ -111,7 +111,8 @@ class _SendToWalletPageState extends State<SendToWalletPage> {
                 ),
                 SizedBox(width: 18),
                 Image.asset(
-                  AppImages.fuelIcon,
+                  AppImages.fuel,
+                  color: fuelColor,
                   height: 16,
                 ),
                 SizedBox(width: 6),

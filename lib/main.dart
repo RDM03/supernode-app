@@ -27,7 +27,6 @@ import 'package:supernodeapp/page/calculator_list_page/page.dart';
 import 'package:supernodeapp/page/calculator_page/page.dart';
 import 'package:supernodeapp/page/connectivity_lost_page/page.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
-import 'package:supernodeapp/page/gateway_profile_page/page.dart';
 import 'package:supernodeapp/page/home_page/home_page.dart';
 import 'package:supernodeapp/page/list_councils/page.dart';
 import 'package:supernodeapp/page/login_page/login_generic.dart';
@@ -152,8 +151,8 @@ Future<void> main() async {
         child: MultiBlocListener(
           listeners: listeners(),
           child: OKToast(
-            child: MxcApp()
-          )
+            child: MxcApp(),
+          ),
         ),
       ),
     ),
@@ -217,7 +216,6 @@ class MxcApp extends StatelessWidget {
       'join_council_page': JoinCouncilPage(),
       'confirm_lock_page': ConfirmLockPage(),
       'result_lock_page': ResultLockPage(),
-      'gateway_profile_page': GatewayProfilePage(),
       'mapbox_gl_page': MapboxGlPage(),
       'wechat_login_page': WechatLoginPage(),
       'wechat_bind_page': WechatBindPage(),
@@ -250,7 +248,7 @@ class MxcApp extends StatelessWidget {
   }
 
   void showError(BuildContext context, AppState state) {
-    tip( state.error.text, success: false);
+    tip(state.error.text, success: false);
   }
 
   Widget build(BuildContext context) {
@@ -329,7 +327,13 @@ class MxcApp extends StatelessWidget {
                     );
                   },
                   onGenerateInitialRoutes: (state, s) => [
-                    context.read<SupernodeCubit>().state.session == null || context.read<SupernodeCubit>().state.session.userId == -1 /* demoMode */
+                    context.read<SupernodeCubit>().state.session == null ||
+                            context
+                                    .read<SupernodeCubit>()
+                                    .state
+                                    .session
+                                    .userId ==
+                                -1 /* demoMode */
                         ? route((ctx) => LoginPage())
                         : route((ctx) => HomePage()),
                   ],

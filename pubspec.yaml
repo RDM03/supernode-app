@@ -174,7 +174,6 @@ flutter:
     - assets/images/connectivity/
     - assets/images/settings/
     - assets/images/maintenance/
-    - assets/images/health/
     - assets/others/
     - assets/js/
   #  - images/a_dot_ham.jpeg

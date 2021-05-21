@@ -71,17 +71,18 @@ class AppImages {
   static const String gps = 'assets/images/gateway/gps.png';
   static const String gps_disabled = 'assets/images/gateway/gps_disabled.png';
   static const String altitude = 'assets/images/gateway/altitude.png';
-  static const String altitude_disabled = 'assets/images/gateway/altitude_disabled.png';
+  static const String altitude_disabled =
+      'assets/images/gateway/altitude_disabled.png';
   static const String orientation = 'assets/images/gateway/orientation.png';
-  static const String orientation_disabled = 'assets/images/gateway/orientation_disabled.png';
+  static const String orientation_disabled =
+      'assets/images/gateway/orientation_disabled.png';
   static const String proximity = 'assets/images/gateway/proximity.png';
-  static const String proximity_disabled = 'assets/images/gateway/proximity_disabled.png';
+  static const String proximity_disabled =
+      'assets/images/gateway/proximity_disabled.png';
   static const String fuel = 'assets/images/gateway/fuel.png';
+  static const String fuelCircle = 'assets/images/gateway/fuel_circle.png';
+  static const String sendCircle = 'assets/images/gateway/send_circle.png';
 
   //settings
   static const String warningRobot = 'assets/images/settings/robot_warning.png';
-
-  // health
-  static const String fuelCircle = 'assets/images/health/fuel_circle.png';
-  static const String fuelIcon = 'assets/images/health/fuel_icon.png';
 }
