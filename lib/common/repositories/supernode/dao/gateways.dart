@@ -16,6 +16,7 @@ class GatewaysApi {
   static final String getProfile = '/api/gateways/{gateway.id}';
   static final String delete = '/api/gateways/{gateway.id}';
   static final String minerHealth = "/api/wallet/mining_health";
+  static final String topUpMiningFuel = "/api/wallet/top-up-mining-fuel";
 }
 
 class GatewaysDao extends SupernodeDao {
@@ -78,6 +79,24 @@ class GatewaysDao extends SupernodeDao {
     return delete(url: Api.url(GatewaysApi.delete, id)).then((res) => res);
   }
 
+  Future<void> topUpMiningFuel({
+    String currency,
+    String orgId,
+    List<TopUpGatewayRequest> topUps,
+  }) {
+    return post(url: GatewaysApi.topUpMiningFuel, data: {
+      'currency': currency,
+      'orgId': orgId,
+      'topUps': [
+        for (final t in topUps)
+          {
+            'amount': t.amount,
+            'gatewayMac': t.gatewayMac,
+          }
+      ]
+    });
+  }
+
   Future<List<MinerHealthResponse>> minerHealth(Map data) {
     return get(url: GatewaysApi.minerHealth, data: data).then((res) {
       final List<MinerHealthResponse> minersHealth = [];
@@ -88,7 +107,8 @@ class GatewaysDao extends SupernodeDao {
             miningFuelHealth: res['miningHealthAverage']['miningFuelHealth'],
             uptimeHealth: res['miningHealthAverage']['uptimeHealth']));
       if (res != null && res.containsKey('gatewayHealth'))
-        res['gatewayHealth'].forEach((e) => minersHealth.add(MinerHealthResponse.fromMap(e)));
+        res['gatewayHealth']
+            .forEach((e) => minersHealth.add(MinerHealthResponse.fromMap(e)));
       return minersHealth;
     });
   }

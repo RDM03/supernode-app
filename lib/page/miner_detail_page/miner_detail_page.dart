@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
+import 'package:supernodeapp/common/components/widgets/bar_graph.dart.dart';
 import 'package:supernodeapp/common/components/widgets/circular_graph.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/theme/colors.dart';
@@ -216,6 +217,42 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
                 ),
                 onTap: () {},
               ),
+            ),
+            BarGraph(
+              [
+                12 / 16,
+                12 / 16,
+                16 / 16,
+                10 / 16,
+                14 / 16,
+                12 / 16,
+                10 / 16,
+                12 / 16,
+                12 / 16,
+                16 / 16,
+                10 / 16,
+                14 / 16,
+                12 / 16,
+                10 / 16
+              ].reversed.toList(),
+              7,
+              MediaQuery.of(context).size.width,
+              xAxisLabels: [
+                'Sat',
+                'Sun',
+                'Mon',
+                'Tue',
+                'Wed',
+                'Thu',
+                'Friday',
+                'Sat',
+                'Sun',
+                'Mon',
+                'Tue',
+                'Wed',
+                'Thu',
+                'Today',
+              ].reversed.toList(),
             ),
             SizedBox(height: 8),
             title(

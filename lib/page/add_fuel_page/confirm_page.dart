@@ -10,6 +10,13 @@ import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class AddFuelConfirmPage extends StatelessWidget {
+  final dynamic error;
+
+  const AddFuelConfirmPage({
+    Key key,
+    this.error,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -27,13 +34,18 @@ class AddFuelConfirmPage extends StatelessWidget {
             onTap: () => Navigator.of(context).pop(),
           ),
           SizedBox(height: 10),
-          title(FlutterI18n.translate(context, 'confirmed')),
-          done(color: healthColor),
+          title(FlutterI18n.translate(
+            context,
+            error == null ? 'confirmed' : 'error_tip',
+          )),
+          done(color: healthColor, success: error == null),
           SizedBox(height: 30),
           SizedBox(
             width: double.infinity,
             child: Text(
-              FlutterI18n.translate(context, 'congrats_mining'),
+              error == null
+                  ? FlutterI18n.translate(context, 'congrats_mining')
+                  : error.toString(),
               key: Key('congratsMiningText'),
               style: kPrimaryBigFontOfBlack,
               textAlign: TextAlign.center,

@@ -6,38 +6,60 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
   @override
   Future list(Map data) {
     final offset = data['offset'] ?? 0;
+    final limit = data['limit'] ?? 10000;
     return Future.value({
-      'totalCount': '2',
+      'totalCount': '30',
       'result': [
-        if (offset == 0)
+        {
+          'id': '1',
+          'discoveryEnabled': false,
+          'gatewayProfileId': '123',
+          'name': 'gateways',
+          'description': 'string',
+          'createdAt': '2020-04-15T13:01:41.617Z',
+          'updatedAt': '2020-04-15T13:01:41.617Z',
+          'firstSeenAt': '2020-04-15T13:01:41.617Z',
+          'lastSeenAt': '2020-04-15T13:01:41.617Z',
+          'organizationID': 'organizationID',
+          'networkServerID': 'networkServerID',
+          'model': 'MX1901',
+          'osversion': '0.1.1',
+          'location': {
+            'latitude': 52.512270,
+            'longitude': 13.417280,
+            'altitude': 0.0,
+            'source': 'UNKNOWN',
+            'accuracy': 0.0,
+          }
+        },
+        {
+          'id': '2',
+          'discoveryEnabled': false,
+          'gatewayProfileId': '123',
+          'name': 'gateways2',
+          'description': 'string',
+          'createdAt': '2020-04-15T13:01:41.617Z',
+          'updatedAt': '2020-04-15T13:01:41.617Z',
+          'firstSeenAt': '2020-04-15T13:01:41.617Z',
+          'lastSeenAt': '2020-04-15T13:01:41.617Z',
+          'organizationID': 'organizationID',
+          'networkServerID': 'networkServerID',
+          'model': 'MX1901',
+          'osversion': '0.1.1',
+          'location': {
+            'latitude': 52.512270,
+            'longitude': 13.417280,
+            'altitude': 0.0,
+            'source': 'UNKNOWN',
+            'accuracy': 200,
+          }
+        },
+        for (var i = 3; i <= 30; i++)
           {
-            'id': '1',
+            'id': i.toString(),
             'discoveryEnabled': false,
             'gatewayProfileId': '123',
-            'name': 'gateways',
-            'description': 'string',
-            'createdAt': '2020-04-15T13:01:41.617Z',
-            'updatedAt': '2020-04-15T13:01:41.617Z',
-            'firstSeenAt': '2020-04-15T13:01:41.617Z',
-            'lastSeenAt': '2020-04-15T13:01:41.617Z',
-            'organizationID': 'organizationID',
-            'networkServerID': 'networkServerID',
-            'model': 'MX1901',
-            'osversion': '0.1.1',
-            'location': {
-              'latitude': 52.512270,
-              'longitude': 13.417280,
-              'altitude': 0.0,
-              'source': 'UNKNOWN',
-              'accuracy': 0.0,
-            }
-          },
-        if (offset == 0 || offset == 1)
-          {
-            'id': '2',
-            'discoveryEnabled': false,
-            'gatewayProfileId': '123',
-            'name': 'gateways2',
+            'name': 'gateways$i',
             'description': 'string',
             'createdAt': '2020-04-15T13:01:41.617Z',
             'updatedAt': '2020-04-15T13:01:41.617Z',
@@ -54,8 +76,8 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
               'source': 'UNKNOWN',
               'accuracy': 200,
             }
-          }
-      ]
+          },
+      ].skip(offset).take(limit).toList()
     });
   }
 
@@ -140,13 +162,20 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
 
   @override
   Future<List<MinerHealthResponse>> minerHealth(Map data) {
-    return Future.value([MinerHealthResponse(
+    return Future.value([
+      MinerHealthResponse(
         ageSeconds: 10000,
         health: 0.71,
         miningFuel: 2500,
         miningFuelHealth: 0.5,
         miningFuelMax: 5000,
-    )]);
+      )
+    ]);
   }
 
+  @override
+  Future<void> topUpMiningFuel(
+      {String currency, String orgId, List<TopUpGatewayRequest> topUps}) {
+    return Future.value();
+  }
 }

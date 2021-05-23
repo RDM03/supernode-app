@@ -34,3 +34,10 @@ class MinerHealthResponse {
     );
   }
 }
+
+class TopUpGatewayRequest {
+  final String amount;
+  final String gatewayMac;
+
+  TopUpGatewayRequest(this.amount, this.gatewayMac);
+}

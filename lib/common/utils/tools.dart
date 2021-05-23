@@ -44,10 +44,15 @@ class Tools {
 
   static String priceFormat(double number, {int range = 1}) {
     if (number == null || number == 0) {
-      return '0.0';
+      return range == 0 ? '0' : '0.0';
     }
     String newNumber = number?.toStringAsFixed((range + 1)) ?? '0.0';
-    return newNumber.substring(0, newNumber.lastIndexOf('.') + range + 1);
+    return newNumber.substring(
+      0,
+      range == 0
+          ? newNumber.lastIndexOf('.')
+          : newNumber.lastIndexOf('.') + range + 1,
+    );
   }
 
   static double convertDouble(dynamic number) {

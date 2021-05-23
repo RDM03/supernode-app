@@ -90,6 +90,8 @@ class SupernodeHeadersInterceptor extends InterceptorsWrapper {
         dio.interceptors.requestLock.unlock();
         dio.interceptors.responseLock.unlock();
       }
+    } else {
+      handler.next(err);
     }
   }
 }
