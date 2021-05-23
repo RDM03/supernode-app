@@ -597,5 +597,10 @@
 	"back": "Back",
 	"x_boost": "{0} boost",
 	"mining_simulator": "Mining Simulator",
-	"joined_council": "Joined Council"
+	"joined_council": "Joined Council",
+	"send_amount": "Send Amount",
+	"add_fuel": "Add Fuel",
+	"fuel_all": "Fuel All",
+	"select_all": "Select All",
+	"fuel_add_desc": "Your miners are like cars, need MXC Fuel to continue mining."
 }

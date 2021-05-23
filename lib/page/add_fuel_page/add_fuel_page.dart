@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
@@ -101,11 +102,11 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'Add Fuel',
+                  FlutterI18n.translate(context, 'add_fuel'),
                   style: kBigBoldFontOfBlack,
                 ),
                 Text(
-                  'Your miners are like cars, need MXC Fuel to continue mining.',
+                  FlutterI18n.translate(context, 'add_fuel_desc'),
                 ),
               ],
             ),
@@ -129,7 +130,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                 padding: EdgeInsets.zero,
                 child: PrimaryButton(
                   onTap: () {},
-                  buttonTitle: 'Select all',
+                  buttonTitle: FlutterI18n.translate(context, 'select_all'),
                   bgColor: healthColor,
                   minWidth: 0,
                   borderRadius: BorderRadius.circular(6),
@@ -138,7 +139,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
             ),
             Expanded(
               child: Text(
-                'Fuel all',
+                FlutterI18n.translate(context, 'fuel_all'),
                 textAlign: TextAlign.right,
                 style: kBigFontOfBlack,
               ),
@@ -294,7 +295,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
           onPressed: onFilter,
           color: Colors.black,
         ),
-        title: 'Add Fuel',
+        title: FlutterI18n.translate(context, 'add_fuel'),
         onPress: () => Navigator.of(context).pop(),
       ),
       body: Column(
@@ -359,7 +360,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                 SizedBox(height: 9),
                 Center(
                   child: Text(
-                    'Send amount',
+                    FlutterI18n.translate(context, 'send_amount'),
                     style: kMiddleFontOfGrey,
                   ),
                 ),
@@ -371,7 +372,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                     child: PrimaryButton(
                       onTap: () => onNext(context),
                       minHeight: 46,
-                      buttonTitle: 'Next',
+                      buttonTitle: FlutterI18n.translate(context, 'next'),
                       bgColor: healthColor,
                       minWidth: 0,
                       textStyle: kBigFontOfWhite,
