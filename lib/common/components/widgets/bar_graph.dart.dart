@@ -96,8 +96,10 @@ class GraphPainter extends CustomPainter{
     for (int i = 0; i < completePercents.length; i++) {
       x = lineWidth / 2 + i * (lineWidth + spaceBetweenLines);
       canvas.drawLine(new Offset(x, size.height - lineWidth / 2 - labelHeight), new Offset(x,  lineWidth / 2), lineBkgrd);
-      canvas.drawLine(new Offset(x, size.height - lineWidth / 2 - labelHeight),
-          new Offset(x, (size.height - lineWidth - labelHeight) * (1 - completePercents[completePercents.length - 1 - i]) + lineWidth / 2), line);
+      if (completePercents[completePercents.length - 1 - i] > 0)
+        canvas.drawLine(
+            new Offset(x, size.height - lineWidth / 2 - labelHeight),
+            new Offset(x, (size.height - lineWidth - labelHeight) * (1 - completePercents[completePercents.length - 1 - i]) + lineWidth / 2), line);
       if (labels != null) {
         final textSpan = TextSpan(
           text: labels[labels.length - 1 - i],
