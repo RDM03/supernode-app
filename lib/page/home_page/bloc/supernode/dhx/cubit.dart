@@ -192,14 +192,24 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
         dateTmp = DateTime.now();
         final today = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
         final DateTime firstDayOfRange = (datesParsed.length > 0) ? datesParsed[0] : today;
-        final DateTime mondayBeforeFirstDay = firstDayOfRange.subtract(
-            Duration(days: firstDayOfRange.weekday - 1));
+        // final DateTime mondayBeforeFirstDay = firstDayOfRange.subtract(
+            // Duration(days: firstDayOfRange.weekday - 1));
+
+        //get the first day
+        final DateTime mondayBeforeFirstDay = new DateTime(firstDayOfRange.year,firstDayOfRange.month,1);
 
         int indexDatesParsed = 0;
         int lastDayBeforeToday = 0;
         if (datesParsed.length > 0)
           lastDayBeforeToday = (today == datesParsed[datesParsed.length - 1]) ? datesParsed.length - 2 : datesParsed.length - 1;
-        for (int i = 0; i < 14; i++) {
+
+        //get the current month's last day
+        var nextMonth = new DateTime(firstDayOfRange.year, firstDayOfRange.month + 1, 1);
+        int lastDayTimeStamp =
+        nextMonth.millisecondsSinceEpoch - 24 * 60 * 60 * 1000;
+        var lastDayDatetime = new DateTime.fromMillisecondsSinceEpoch(lastDayTimeStamp);
+
+        for (int i = 0; i < lastDayDatetime.day; i++) {
           // 2 weeks range starting on Monday before bond-info data
           dateTmp = mondayBeforeFirstDay.add(Duration(days: i));
           if (indexDatesParsed < datesParsed.length &&

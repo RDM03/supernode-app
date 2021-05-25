@@ -87,7 +87,7 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
                       children: state.calendarBondInfo.map((e) => _CalendarElement(e)).toList(),
                     ),
                   ),
-                  Divider(thickness: 2),
+                  Divider(thickness: 1),
                   smallColumnSpacer(),
                   Text(FlutterI18n.translate(context, 'bonding_calendar_note'), style: kSmallFontOfBlack),
                 ],
@@ -130,7 +130,7 @@ class _CalendarElement extends StatelessWidget {
     }
 
     return Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
-      Divider(thickness: 2),
+      Divider(thickness: 1),
       Row(mainAxisAlignment:MainAxisAlignment.center,
           children: [
             Image.asset(AppImages.iconUnbond, scale: 1.5, color: (model.unbondAmount > 0) ? Colors.red : Colors.white),
