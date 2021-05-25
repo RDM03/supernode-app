@@ -19,6 +19,7 @@ import 'about_component/about_page.dart';
 import 'account_component/account_page.dart';
 import 'app_settings/app_settings_page.dart';
 import 'bloc/settings/cubit.dart';
+import 'export_data/export_data_page.dart';
 import 'links_component/links_page.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -92,13 +93,14 @@ class SettingsPage extends StatelessWidget {
                           launch("https://play.google.com/store/apps/details?id=com.mxc.smartcity");
                         }}),
                   Divider(),
-                  Container(
-                    color: backgroundColor,
-                    child: ListTile(
-                        title: Text(FlutterI18n.translate(context, 'export_mining_data'), style: kBigFontOfGrey),
-                        onTap: () => 'TODO',
-                        trailing: Icon(Icons.chevron_right, color: Colors.grey)),
-                  ),
+                  BlocBuilder<AppCubit, AppState>(
+                      buildWhen: (a, b) => a.isDemo != b.isDemo,
+                      builder: (ctx, s) => listItem(
+                          FlutterI18n.translate(context, 'export_mining_data'),
+                          key: Key('export'),
+                          onTap: () => s.isDemo
+                              ? 'no action'
+                              : Navigator.push(context, route((context) => ExportDataPage())))),
                   Divider(),
                   listItem(
                       FlutterI18n.translate(
