@@ -123,4 +123,11 @@ class DemoUserDao extends DemoDao implements UserDao {
   Future<dynamic> confirmExternalEmail(Map data) {
     throw UnimplementedError('binding not supported in demo');
   }
+
+  Future<List<FiatCurrency>> supportedFiatCurrencies() {
+    return Future.value([
+      FiatCurrency('usd', 'usd'),
+      FiatCurrency('eur', 'eur'),
+      FiatCurrency('cny', 'cny')]);
+    }
 }
