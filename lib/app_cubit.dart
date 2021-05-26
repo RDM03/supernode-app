@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.model.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
 
 import 'app_state.dart';
 
@@ -11,6 +12,7 @@ class AppCubit extends Cubit<AppState> {
   void setLoading(bool val) => emit(state.copyWith(showLoading: val));
   void setLocale(Locale locale) => emit(state.copyWith(locale: locale));
   void setError(String error) => emit(state.copyWith(error: ErrorInfo(error)));
+  void setSelectedFiatForExport(FiatCurrency fiatForExport) => emit(state.copyWith(selectedFiatForExport: fiatForExport));
 }
 
 class SupernodeCubit extends Cubit<SupernodeState> {

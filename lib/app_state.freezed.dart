@@ -16,11 +16,13 @@ class _$AppStateTearOff {
 // ignore: unused_element
   _AppState call(
       {Locale locale,
+      @nullable FiatCurrency selectedFiatForExport,
       bool isDemo = false,
       bool showLoading = false,
       @nullable ErrorInfo error}) {
     return _AppState(
       locale: locale,
+      selectedFiatForExport: selectedFiatForExport,
       isDemo: isDemo,
       showLoading: showLoading,
       error: error,
@@ -35,6 +37,8 @@ const $AppState = _$AppStateTearOff();
 /// @nodoc
 mixin _$AppState {
   Locale get locale;
+  @nullable
+  FiatCurrency get selectedFiatForExport;
   bool get isDemo;
   bool get showLoading;
   @nullable
@@ -50,6 +54,7 @@ abstract class $AppStateCopyWith<$Res> {
       _$AppStateCopyWithImpl<$Res>;
   $Res call(
       {Locale locale,
+      @nullable FiatCurrency selectedFiatForExport,
       bool isDemo,
       bool showLoading,
       @nullable ErrorInfo error});
@@ -66,12 +71,16 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
   @override
   $Res call({
     Object locale = freezed,
+    Object selectedFiatForExport = freezed,
     Object isDemo = freezed,
     Object showLoading = freezed,
     Object error = freezed,
   }) {
     return _then(_value.copyWith(
       locale: locale == freezed ? _value.locale : locale as Locale,
+      selectedFiatForExport: selectedFiatForExport == freezed
+          ? _value.selectedFiatForExport
+          : selectedFiatForExport as FiatCurrency,
       isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
@@ -87,6 +96,7 @@ abstract class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
   @override
   $Res call(
       {Locale locale,
+      @nullable FiatCurrency selectedFiatForExport,
       bool isDemo,
       bool showLoading,
       @nullable ErrorInfo error});
@@ -104,12 +114,16 @@ class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object locale = freezed,
+    Object selectedFiatForExport = freezed,
     Object isDemo = freezed,
     Object showLoading = freezed,
     Object error = freezed,
   }) {
     return _then(_AppState(
       locale: locale == freezed ? _value.locale : locale as Locale,
+      selectedFiatForExport: selectedFiatForExport == freezed
+          ? _value.selectedFiatForExport
+          : selectedFiatForExport as FiatCurrency,
       isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
@@ -122,6 +136,7 @@ class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
 class _$_AppState with DiagnosticableTreeMixin implements _AppState {
   _$_AppState(
       {this.locale,
+      @nullable this.selectedFiatForExport,
       this.isDemo = false,
       this.showLoading = false,
       @nullable this.error})
@@ -130,6 +145,9 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
 
   @override
   final Locale locale;
+  @override
+  @nullable
+  final FiatCurrency selectedFiatForExport;
   @JsonKey(defaultValue: false)
   @override
   final bool isDemo;
@@ -142,7 +160,7 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppState(locale: $locale, isDemo: $isDemo, showLoading: $showLoading, error: $error)';
+    return 'AppState(locale: $locale, selectedFiatForExport: $selectedFiatForExport, isDemo: $isDemo, showLoading: $showLoading, error: $error)';
   }
 
   @override
@@ -151,6 +169,7 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
     properties
       ..add(DiagnosticsProperty('type', 'AppState'))
       ..add(DiagnosticsProperty('locale', locale))
+      ..add(DiagnosticsProperty('selectedFiatForExport', selectedFiatForExport))
       ..add(DiagnosticsProperty('isDemo', isDemo))
       ..add(DiagnosticsProperty('showLoading', showLoading))
       ..add(DiagnosticsProperty('error', error));
@@ -162,6 +181,9 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
         (other is _AppState &&
             (identical(other.locale, locale) ||
                 const DeepCollectionEquality().equals(other.locale, locale)) &&
+            (identical(other.selectedFiatForExport, selectedFiatForExport) ||
+                const DeepCollectionEquality().equals(
+                    other.selectedFiatForExport, selectedFiatForExport)) &&
             (identical(other.isDemo, isDemo) ||
                 const DeepCollectionEquality().equals(other.isDemo, isDemo)) &&
             (identical(other.showLoading, showLoading) ||
@@ -175,6 +197,7 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(locale) ^
+      const DeepCollectionEquality().hash(selectedFiatForExport) ^
       const DeepCollectionEquality().hash(isDemo) ^
       const DeepCollectionEquality().hash(showLoading) ^
       const DeepCollectionEquality().hash(error);
@@ -188,12 +211,16 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
 abstract class _AppState implements AppState {
   factory _AppState(
       {Locale locale,
+      @nullable FiatCurrency selectedFiatForExport,
       bool isDemo,
       bool showLoading,
       @nullable ErrorInfo error}) = _$_AppState;
 
   @override
   Locale get locale;
+  @override
+  @nullable
+  FiatCurrency get selectedFiatForExport;
   @override
   bool get isDemo;
   @override

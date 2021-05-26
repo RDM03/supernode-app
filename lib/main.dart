@@ -85,6 +85,12 @@ List<BlocListener> listeners() => [
           context.read<StorageRepository>().setLocale(state.locale);
         },
       ),
+      BlocListener<AppCubit, AppState>(
+        listenWhen: (a, b) => a.selectedFiatForExport != b.selectedFiatForExport,
+        listener: (context, state) {
+          context.read<StorageRepository>().setSelectedFiatForExport(state.selectedFiatForExport);
+        },
+      ),
     ];
 
 Future<void> main() async {
