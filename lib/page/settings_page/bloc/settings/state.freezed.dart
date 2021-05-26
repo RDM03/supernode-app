@@ -16,6 +16,8 @@ class _$SettingsStateTearOff {
 // ignore: unused_element
   _SettingsState call(
       {@nullable PackageInfo info,
+      @nullable List<FiatCurrency> listFiat,
+      @nullable FiatCurrency selectedFiat,
       @nullable String version,
       @nullable String buildNumber,
       @nullable String mxVersion,
@@ -27,6 +29,8 @@ class _$SettingsStateTearOff {
       bool showLoading}) {
     return _SettingsState(
       info: info,
+      listFiat: listFiat,
+      selectedFiat: selectedFiat,
       version: version,
       buildNumber: buildNumber,
       mxVersion: mxVersion,
@@ -48,6 +52,10 @@ const $SettingsState = _$SettingsStateTearOff();
 mixin _$SettingsState {
   @nullable
   PackageInfo get info;
+  @nullable
+  List<FiatCurrency> get listFiat;
+  @nullable
+  FiatCurrency get selectedFiat;
   @nullable
   String get version;
   @nullable
@@ -73,6 +81,8 @@ abstract class $SettingsStateCopyWith<$Res> {
       _$SettingsStateCopyWithImpl<$Res>;
   $Res call(
       {@nullable PackageInfo info,
+      @nullable List<FiatCurrency> listFiat,
+      @nullable FiatCurrency selectedFiat,
       @nullable String version,
       @nullable String buildNumber,
       @nullable String mxVersion,
@@ -96,6 +106,8 @@ class _$SettingsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object info = freezed,
+    Object listFiat = freezed,
+    Object selectedFiat = freezed,
     Object version = freezed,
     Object buildNumber = freezed,
     Object mxVersion = freezed,
@@ -108,6 +120,12 @@ class _$SettingsStateCopyWithImpl<$Res>
   }) {
     return _then(_value.copyWith(
       info: info == freezed ? _value.info : info as PackageInfo,
+      listFiat: listFiat == freezed
+          ? _value.listFiat
+          : listFiat as List<FiatCurrency>,
+      selectedFiat: selectedFiat == freezed
+          ? _value.selectedFiat
+          : selectedFiat as FiatCurrency,
       version: version == freezed ? _value.version : version as String,
       buildNumber:
           buildNumber == freezed ? _value.buildNumber : buildNumber as String,
@@ -139,6 +157,8 @@ abstract class _$SettingsStateCopyWith<$Res>
   @override
   $Res call(
       {@nullable PackageInfo info,
+      @nullable List<FiatCurrency> listFiat,
+      @nullable FiatCurrency selectedFiat,
       @nullable String version,
       @nullable String buildNumber,
       @nullable String mxVersion,
@@ -164,6 +184,8 @@ class __$SettingsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object info = freezed,
+    Object listFiat = freezed,
+    Object selectedFiat = freezed,
     Object version = freezed,
     Object buildNumber = freezed,
     Object mxVersion = freezed,
@@ -176,6 +198,12 @@ class __$SettingsStateCopyWithImpl<$Res>
   }) {
     return _then(_SettingsState(
       info: info == freezed ? _value.info : info as PackageInfo,
+      listFiat: listFiat == freezed
+          ? _value.listFiat
+          : listFiat as List<FiatCurrency>,
+      selectedFiat: selectedFiat == freezed
+          ? _value.selectedFiat
+          : selectedFiat as FiatCurrency,
       version: version == freezed ? _value.version : version as String,
       buildNumber:
           buildNumber == freezed ? _value.buildNumber : buildNumber as String,
@@ -202,6 +230,8 @@ class __$SettingsStateCopyWithImpl<$Res>
 class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
   _$_SettingsState(
       {@nullable this.info,
+      @nullable this.listFiat,
+      @nullable this.selectedFiat,
       @nullable this.version,
       @nullable this.buildNumber,
       @nullable this.mxVersion,
@@ -216,6 +246,12 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
   @override
   @nullable
   final PackageInfo info;
+  @override
+  @nullable
+  final List<FiatCurrency> listFiat;
+  @override
+  @nullable
+  final FiatCurrency selectedFiat;
   @override
   @nullable
   final String version;
@@ -242,7 +278,7 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SettingsState(info: $info, version: $version, buildNumber: $buildNumber, mxVersion: $mxVersion, language: $language, copyrightYear: $copyrightYear, screenShot: $screenShot, showWechatUnbindConfirmation: $showWechatUnbindConfirmation, showBindShopifyStep: $showBindShopifyStep, showLoading: $showLoading)';
+    return 'SettingsState(info: $info, listFiat: $listFiat, selectedFiat: $selectedFiat, version: $version, buildNumber: $buildNumber, mxVersion: $mxVersion, language: $language, copyrightYear: $copyrightYear, screenShot: $screenShot, showWechatUnbindConfirmation: $showWechatUnbindConfirmation, showBindShopifyStep: $showBindShopifyStep, showLoading: $showLoading)';
   }
 
   @override
@@ -251,6 +287,8 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
     properties
       ..add(DiagnosticsProperty('type', 'SettingsState'))
       ..add(DiagnosticsProperty('info', info))
+      ..add(DiagnosticsProperty('listFiat', listFiat))
+      ..add(DiagnosticsProperty('selectedFiat', selectedFiat))
       ..add(DiagnosticsProperty('version', version))
       ..add(DiagnosticsProperty('buildNumber', buildNumber))
       ..add(DiagnosticsProperty('mxVersion', mxVersion))
@@ -269,6 +307,12 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
         (other is _SettingsState &&
             (identical(other.info, info) ||
                 const DeepCollectionEquality().equals(other.info, info)) &&
+            (identical(other.listFiat, listFiat) ||
+                const DeepCollectionEquality()
+                    .equals(other.listFiat, listFiat)) &&
+            (identical(other.selectedFiat, selectedFiat) ||
+                const DeepCollectionEquality()
+                    .equals(other.selectedFiat, selectedFiat)) &&
             (identical(other.version, version) ||
                 const DeepCollectionEquality()
                     .equals(other.version, version)) &&
@@ -304,6 +348,8 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(info) ^
+      const DeepCollectionEquality().hash(listFiat) ^
+      const DeepCollectionEquality().hash(selectedFiat) ^
       const DeepCollectionEquality().hash(version) ^
       const DeepCollectionEquality().hash(buildNumber) ^
       const DeepCollectionEquality().hash(mxVersion) ^
@@ -323,6 +369,8 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
 abstract class _SettingsState implements SettingsState {
   factory _SettingsState(
       {@nullable PackageInfo info,
+      @nullable List<FiatCurrency> listFiat,
+      @nullable FiatCurrency selectedFiat,
       @nullable String version,
       @nullable String buildNumber,
       @nullable String mxVersion,
@@ -336,6 +384,12 @@ abstract class _SettingsState implements SettingsState {
   @override
   @nullable
   PackageInfo get info;
+  @override
+  @nullable
+  List<FiatCurrency> get listFiat;
+  @override
+  @nullable
+  FiatCurrency get selectedFiat;
   @override
   @nullable
   String get version;

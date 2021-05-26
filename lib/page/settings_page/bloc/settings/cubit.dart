@@ -184,4 +184,33 @@ class SettingsCubit extends Cubit<SettingsState> {
       });
     }
   }
+
+  Future<void> loadFiatCurrencies(FiatCurrency fiatPreviousSession) async {
+    if (state.listFiat == null) {
+      emit(state.copyWith(showLoading: true));
+
+      try {
+        final List<FiatCurrency> listFiat = await supernodeRepository.user.supportedFiatCurrencies();
+        if (fiatPreviousSession == null || fiatPreviousSession.id == null || fiatPreviousSession.id.isEmpty) {
+          final firstFiatFromList = (listFiat == null || listFiat.length < 1)
+              ? null
+              : listFiat[0];
+          emit(state.copyWith(listFiat: listFiat,
+              selectedFiat: firstFiatFromList,
+              showLoading: false));
+        } else
+          emit(state.copyWith(listFiat: listFiat,
+              selectedFiat: fiatPreviousSession,
+              showLoading: false));
+      } catch (e) {
+        emit(state.copyWith(showLoading: false));
+        appCubit.setError(e.toString());
+      }
+    }
+  }
+
+  void setFiatCurrency(FiatCurrency selectedFiat) {
+    appCubit.setSelectedFiatForExport(selectedFiat);
+    emit(state.copyWith(selectedFiat: selectedFiat));
+  }
 }
