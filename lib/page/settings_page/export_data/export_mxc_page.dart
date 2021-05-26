@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
-import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/route.dart';
-import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+
+import 'export_mxc_per_year_page.dart';
 
 class ExportMxcPage extends StatelessWidget {
   @override
@@ -28,11 +28,11 @@ class ExportMxcPage extends StatelessWidget {
           Divider(),
           listItem('2021',
               key: Key('year_2021'),
-              onTap: () => 'Navigator.pushReplacement(context, route((_) => __TODO__PAGE__()))'),
+              onTap: () => Navigator.pushReplacement(context, route((_) => ExportMxcPreYearPage(2021)))),
           Divider(),
           listItem('2020',
               key: Key('year_2020'),
-              onTap: () => 'Navigator.pushReplacement(context, route((_) => __TODO__PAGE__()))'),
+              onTap: () => Navigator.pushReplacement(context, route((_) => ExportMxcPreYearPage(2020)))),
           Divider(),
         ]);
   }

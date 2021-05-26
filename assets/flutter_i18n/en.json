@@ -162,6 +162,7 @@
 	"select_year_to_export": "Select to export financial data",
 	"time_range": "Time Range",
 	"currency": "Currency",
+	"select_currency": "Select Currency",
 	"decimal_points": "Decimal Points",
 	"export": "Export",
 	"no_data": "No Data",
