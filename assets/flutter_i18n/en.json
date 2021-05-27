@@ -163,7 +163,7 @@
 	"time_range": "Time Range",
 	"currency": "Currency",
 	"select_currency": "Select Currency",
-	"decimal_points": "Decimal Points",
+	"decimals": "Decimals",
 	"export": "Export",
 	"no_data": "No Data",
 	"account": "Account",

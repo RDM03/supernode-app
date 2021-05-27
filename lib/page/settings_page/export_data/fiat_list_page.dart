@@ -27,7 +27,7 @@ class FiatListPage extends StatelessWidget {
             buildWhen: (a, b) => a.listFiat != b.listFiat,
             builder: (context, state) {
               List<Widget> listFiatWidgets = [];
-              state.listFiat.forEach((e) => {
+              state.listFiat?.forEach((e) => {
                 listFiatWidgets.add(Container(
                   color: (e.id == state.selectedFiat.id) ? dartBlueColor.withOpacity(0.1) : transparentWhite,
                   child: listItem('${e.id.toUpperCase()} - ${e.description}',

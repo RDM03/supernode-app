@@ -71,11 +71,12 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
                   },
                 )),
             Divider(),
-            listItem(FlutterI18n.translate(context, 'decimal_points'),
+            listItem(FlutterI18n.translate(context, 'decimals'),
                 trailing: SizedBox()),
             Divider(),
             SizedBox(height: 200),
             PrimaryButton(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
               minWidth: double.infinity,
               onTap: () => 'TODO',
               buttonTitle: FlutterI18n.translate(context, 'export')),

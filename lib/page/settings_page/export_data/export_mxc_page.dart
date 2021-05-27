@@ -26,14 +26,18 @@ class ExportMxcPage extends StatelessWidget {
               trailing: SizedBox(),
               onTap: () => ''),
           Divider(),
-          listItem('2021',
-              key: Key('year_2021'),
-              onTap: () => Navigator.pushReplacement(context, route((_) => ExportMxcPreYearPage(2021)))),
-          Divider(),
-          listItem('2020',
-              key: Key('year_2020'),
-              onTap: () => Navigator.pushReplacement(context, route((_) => ExportMxcPreYearPage(2020)))),
-          Divider(),
+          ...yearsList(context)
         ]);
+  }
+
+  List<Widget> yearsList(BuildContext context) {
+    final List<Widget> yearsList = [];
+    for (int year = DateTime.now().year; year >= 2020; year--) {
+      yearsList.add(listItem('$year',
+          key: Key('year_$year'),
+          onTap: () => Navigator.pushReplacement(context, route((_) => ExportMxcPreYearPage(year)))));
+      yearsList.add(Divider());
+    }
+    return yearsList;
   }
 }
