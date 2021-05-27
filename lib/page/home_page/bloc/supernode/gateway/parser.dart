@@ -3,7 +3,8 @@ import 'package:supernodeapp/common/repositories/supernode/dao/gateways.model.da
 
 import 'state.dart';
 
-List<GatewayItem> parseGateways(dynamic gatewaysResponse, List<MinerHealthResponse> listMinersHealth) {
+List<GatewayItem> parseGateways(
+    dynamic gatewaysResponse, List<MinerHealthResponse> listMinersHealth) {
   List<GatewayItem> list = [];
 
   // [0-9]\d{0,1}\.[0-9]\d{0,1}\.[0-9]\d{0,1}
@@ -31,7 +32,8 @@ List<GatewayItem> parseGateways(dynamic gatewaysResponse, List<MinerHealthRespon
       }
 
       // allValues += tempList[index]['location']['accuracy'];
-      Iterable<Match> matches = reg.allMatches(tempGatewaysList[index]['description']);
+      Iterable<Match> matches =
+          reg.allMatches(tempGatewaysList[index]['description']);
       String description = '';
       for (Match m in matches) {
         description = m.group(0);
@@ -44,8 +46,14 @@ List<GatewayItem> parseGateways(dynamic gatewaysResponse, List<MinerHealthRespon
         for (MinerHealthResponse minerHealth in listMinersHealth) {
           if (tempGatewaysList[index]['id'] == minerHealth.id) {
             tempGatewaysList[index]['health'] = minerHealth.health;
-            tempGatewaysList[index]['miningFuelHealth'] = minerHealth.miningFuelHealth;
-            tempGatewaysList[index]['totalMined'] = minerHealth.totalMined;
+            tempGatewaysList[index]['miningFuelHealth'] =
+                minerHealth.miningFuelHealth;
+            tempGatewaysList[index]['totalMined'] =
+                minerHealth.totalMined.toDouble();
+            tempGatewaysList[index]['miningFuelMax'] =
+                minerHealth.miningFuelMax.toString();
+            tempGatewaysList[index]['miningFuel'] =
+                minerHealth.miningFuel.toString();
             break;
           }
         }

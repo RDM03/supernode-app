@@ -600,7 +600,16 @@
 	"joined_council": "Joined Council",
 	"send_amount": "Send Amount",
 	"add_fuel": "Add Fuel",
-	"fuel_all": "Fuel All",
 	"select_all": "Select All",
-	"fuel_add_desc": "Your miners are like cars, need MXC Fuel to continue mining."
+	"fuel_add_desc": "Your miners are like cars, need MXC Fuel to continue mining.",
+	"dont_have_miners": "Seems like you do not have any miners or all of your miners has been fueled up to 100%",
+	"add_all": "Add all",
+	"send_to_wallet": "Send To Wallet",
+	"send_to_wallet_desc": "Please note you will lose your mining efficiency once you send to the wallet",
+	"current_fuel": "Current Fuel: ",
+	"add_fuel_congrats": "Congratulations!\nYour miner has been fueled",
+	"send_to_wallet_congrats": "We’ve sent the withdraw amount to MXC wallet",
+	"add_fuel_confirm": "You are about to fuel up {0} MXC. Please note if you withdraw MXC from the fuel your mining efficiency will decrease.",
+	"send_to_wallet_confirm": "You are about to fuel up {0} MXC. Please note if you withdraw MXC from the fuel your mining efficiency will decrease.",
+	"send_to_wallet_dont_have_miners": "Seems like you do not have any fuel to send to your wallet"
 }

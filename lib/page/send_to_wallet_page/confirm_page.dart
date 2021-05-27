@@ -5,16 +5,22 @@ import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/page/done.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
-import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/page/title.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class SendToWalletConfirmPage extends StatelessWidget {
+  final dynamic error;
+
+  const SendToWalletConfirmPage({
+    Key key,
+    this.error,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      key: Key('lockAmountView'),
+      key: Key('confirmGesture'),
       onTap: () => FocusScope.of(context).requestFocus(new FocusNode()),
       child: pageFrame(
         context: context,
@@ -22,20 +28,25 @@ class SendToWalletConfirmPage extends StatelessWidget {
         margin: EdgeInsets.only(top: 40),
         children: [
           PageNavBar(
-            text: 'Send to Wallet',
+            text: FlutterI18n.translate(context, 'send_to_wallet'),
             centerTitle: true,
             textStyle: kBigBoldFontOfBlack,
             onTap: () => Navigator.of(context).pop(),
           ),
           SizedBox(height: 10),
-          title(FlutterI18n.translate(context, 'confirmed')),
-          done(color: healthColor),
+          title(FlutterI18n.translate(
+            context,
+            error == null ? 'confirmed' : 'error_tip',
+          )),
+          done(color: healthColor, success: error == null),
           SizedBox(height: 30),
           SizedBox(
             width: double.infinity,
             child: Text(
-              FlutterI18n.translate(context, 'congrats_mining'),
-              key: Key('congratsMiningText'),
+              error == null
+                  ? FlutterI18n.translate(context, 'send_to_wallet_congrats')
+                  : error.toString(),
+              key: Key('congratsFuelText'),
               style: kPrimaryBigFontOfBlack,
               textAlign: TextAlign.center,
             ),
@@ -46,7 +57,7 @@ class SendToWalletConfirmPage extends StatelessWidget {
             child: PrimaryButton(
               onTap: () => Navigator.of(context).pop(),
               minHeight: 46,
-              buttonTitle: 'Done',
+              buttonTitle: FlutterI18n.translate(context, 'done'),
               bgColor: healthColor,
               minWidth: 0,
               textStyle: kBigFontOfWhite,

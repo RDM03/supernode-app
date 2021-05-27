@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -41,16 +44,18 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
   bool get hasDataToLoad {
     if (forceStopLoading) return false;
     if (totalGateways == null) return true;
-    return totalGateways > gateways?.length;
+    return totalGateways > allGateways?.length;
   }
 
   int totalGateways;
+  List<GatewayItem> allGateways;
   List<GatewayItem> gateways;
+  Map<String, GatewayItem> gatewaysMap;
   bool forceStopLoading = false;
   Map<String, double> gatewaySelection = {};
 
   @override
-  Future<void> load() async {
+  Future<void> load({bool noLimit = false}) async {
     isLoading = true;
     if (mounted) {
       setState(() {});
@@ -61,7 +66,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
       final res = await supernodeRepository.gateways.list({
         "organizationID": orgId,
         "offset": gateways?.length ?? 0,
-        "limit": 10,
+        "limit": noLimit ? 10000000 : 10,
       });
       final listMinersHealth = await supernodeRepository.gateways.minerHealth({
         "orgId": orgId,
@@ -72,7 +77,13 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
       if (mounted)
         setState(() {
           isLoading = false;
-          gateways = [...(gateways ?? []), ...newGateways];
+          allGateways = [...(allGateways ?? <GatewayItem>[]), ...newGateways];
+          gateways = allGateways
+              .where((e) =>
+                  e.miningFuel < e.miningFuelMax && e.miningFuelHealth != 1)
+              .toList();
+          gatewaysMap =
+              gateways.asMap().map((key, value) => MapEntry(value.id, value));
         });
     } finally {
       isLoading = false;
@@ -106,7 +117,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                   style: kBigBoldFontOfBlack,
                 ),
                 Text(
-                  FlutterI18n.translate(context, 'add_fuel_desc'),
+                  FlutterI18n.translate(context, 'fuel_add_desc'),
                 ),
               ],
             ),
@@ -124,30 +135,26 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
         ),
         child: Row(
           children: [
-            SizedBox(width: 20),
-            SizedBox(
-              child: ButtonTheme(
-                padding: EdgeInsets.zero,
-                child: PrimaryButton(
-                  onTap: () {},
-                  buttonTitle: FlutterI18n.translate(context, 'select_all'),
-                  bgColor: healthColor,
-                  minWidth: 0,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-              ),
-            ),
             Expanded(
               child: Text(
-                FlutterI18n.translate(context, 'fuel_all'),
+                FlutterI18n.translate(context, 'add_all'),
                 textAlign: TextAlign.right,
                 style: kBigFontOfBlack,
               ),
             ),
             SizedBox(width: 5),
             Switch(
-              value: false,
-              onChanged: (v) {},
+              value: gateways != null &&
+                  gateways.length > 0 &&
+                  gatewaySelection.length >= gateways.length &&
+                  !hasDataToLoad &&
+                  gatewaySelection.values.every((e) => e == 1),
+              onChanged: (v) {
+                if (v)
+                  fuelAll();
+                else
+                  defaultAll();
+              },
               inactiveThumbColor: Colors.grey.shade700,
               activeColor: healthColor,
             ),
@@ -168,10 +175,14 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                   GestureDetector(
                     onTap: () => setState(() => gatewaySelection[item.id] = 0),
                     child: Padding(
-                      padding: EdgeInsets.only(left: 10, right: 8),
-                      child: Icon((gatewaySelection[item.id] ?? 0) > 0
-                          ? Icons.check_box_outlined
-                          : Icons.check_box_outline_blank),
+                      padding: EdgeInsets.only(left: 13, right: 4, top: 3),
+                      child: Icon(
+                        Icons.check,
+                        size: 18,
+                        color: (gatewaySelection[item.id] ?? 0) > 0
+                            ? healthColor
+                            : Colors.grey,
+                      ),
                     ),
                   ),
                   Expanded(
@@ -226,12 +237,13 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                 SizedBox(width: 16),
                 Text('To 100% : ', style: kSmallFontOfGrey),
                 Text(
-                  '1000 MXC',
+                  '${Tools.priceFormat(item.miningFuelMax.toDouble() - item.miningFuel.toDouble(), range: 2)} MXC',
                   style: kSmallFontOfBlack.copyWith(color: healthColor),
                 ),
                 Spacer(),
                 ColoredText(
-                  text: '0 MXC',
+                  text:
+                      '${Tools.priceFormat((item.miningFuelMax.toDouble() - item.miningFuel.toDouble()) * (gatewaySelection[item.id] ?? 0), range: 2)} MXC',
                   color: healthColor.withOpacity(0.2),
                   style: kMiddleFontOfBlack,
                   padding: EdgeInsets.symmetric(
@@ -246,6 +258,17 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
         ),
       );
 
+  Future<void> fuelAll() async {
+    await load(noLimit: true);
+    gateways.forEach((e) => gatewaySelection[e.id] = 1);
+    if (mounted) setState(() {});
+  }
+
+  void defaultAll() {
+    gateways.forEach((e) => gatewaySelection[e.id] = 0);
+    if (mounted) setState(() {});
+  }
+
   void onFilter() {
     showInfoDialog(
       context,
@@ -256,22 +279,29 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
   Future<void> onNext(BuildContext context) async {
     final res = await showCupertinoModalPopup(
           context: context,
-          builder: (ctx) => proceedDialog(ctx),
+          builder: (ctx) => proceedDialog(ctx, spentMxc),
         ) ??
         false;
     if (res) {
       final orgId = context.read<SupernodeCubit>().state.orgId;
       final rep = context.read<SupernodeRepository>();
+      final topUps =
+          gatewaySelection.entries.where((e) => e.value > 0).map((e) {
+        var val =
+            ((gatewaysMap[e.key].miningFuelMax - gatewaysMap[e.key].miningFuel)
+                        .toDouble() *
+                    e.value)
+                .toString();
+        if (gatewaysMap[e.key].miningFuelMax < Decimal.parse(val))
+          val = gatewaysMap[e.key].miningFuelMax.toString();
+
+        return GatewayAmountRequest(
+          val,
+          e.key,
+        );
+      }).toList();
       final res = await rep.gateways
-          .topUpMiningFuel(
-            currency: 'ETH_MXC',
-            orgId: orgId,
-            topUps: gatewaySelection.entries
-                .where((e) => e.value > 0)
-                .map((e) =>
-                    TopUpGatewayRequest((e.value * 10000000).toString(), e.key))
-                .toList(),
-          )
+          .topUpMiningFuel(currency: 'ETH_MXC', orgId: orgId, topUps: topUps)
           .withError();
 
       if (res.success) {
@@ -284,17 +314,26 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
     }
   }
 
+  double get spentMxc {
+    var total = 0.0;
+    gatewaySelection.forEach((key, value) => total +=
+        (gatewaysMap[key].miningFuelMax - gatewaysMap[key].miningFuel)
+                .toDouble() *
+            value);
+    return total;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBars.backArrowAndActionAppBar(
-        action: IconButton(
-          icon: Icon(
-            Icons.filter_list,
-          ),
-          onPressed: onFilter,
-          color: Colors.black,
-        ),
+        // action: IconButton(
+        //   icon: Icon(
+        //     Icons.filter_list,
+        //   ),
+        //   onPressed: onFilter,
+        //   color: Colors.black,
+        // ),
         title: FlutterI18n.translate(context, 'add_fuel'),
         onPress: () => Navigator.of(context).pop(),
       ),
@@ -320,7 +359,25 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                     childCount: gateways?.length ?? 0,
                   ),
                 ),
-                if (isLoading && gateways == null)
+                if (gateways?.isEmpty ?? false)
+                  SliverFillRemaining(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 16,
+                        right: 46,
+                        left: 46,
+                      ),
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: Text(
+                          FlutterI18n.translate(context, 'dont_have_miners'),
+                          textAlign: TextAlign.center,
+                          style: kMiddleFontOfGrey,
+                        ),
+                      ),
+                    ),
+                  )
+                else if (isLoading && gateways == null)
                   SliverFillRemaining(
                     child: Center(
                       child: CircularProgressIndicator(
@@ -341,7 +398,6 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                       ),
                     ),
                   ),
-                // TODO: No items warning
               ],
             ),
           ),
@@ -353,7 +409,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                 SizedBox(height: 16),
                 Center(
                   child: Text(
-                    '0 MXC',
+                    '${Tools.priceFormat(spentMxc, range: 2)} MXC',
                     style: kVeryBigFontOfBlack.copyWith(color: healthColor),
                   ),
                 ),

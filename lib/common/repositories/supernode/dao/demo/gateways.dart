@@ -1,3 +1,5 @@
+import 'package:decimal/decimal.dart';
+
 import '../gateways.model.dart';
 import 'demo.dart';
 import '../gateways.dart';
@@ -166,16 +168,22 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
       MinerHealthResponse(
         ageSeconds: 10000,
         health: 0.71,
-        miningFuel: 2500,
+        miningFuel: Decimal.fromInt(2500),
         miningFuelHealth: 0.5,
-        miningFuelMax: 5000,
+        miningFuelMax: Decimal.fromInt(5000),
       )
     ]);
   }
 
   @override
   Future<void> topUpMiningFuel(
-      {String currency, String orgId, List<TopUpGatewayRequest> topUps}) {
+      {String currency, String orgId, List<GatewayAmountRequest> topUps}) {
+    return Future.value();
+  }
+
+  @override
+  Future<void> withdrawMiningFuel(
+      {String currency, String orgId, List<GatewayAmountRequest> withdraws}) {
     return Future.value();
   }
 }

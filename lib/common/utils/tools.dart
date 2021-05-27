@@ -42,7 +42,7 @@ class Tools {
     }
   }
 
-  static String priceFormat(double number, {int range = 1}) {
+  static String priceFormat(num number, {int range = 1}) {
     if (number == null || number == 0) {
       return range == 0 ? '0' : '0.0';
     }

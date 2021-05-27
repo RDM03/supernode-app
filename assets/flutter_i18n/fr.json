@@ -598,7 +598,6 @@
 	"up_to": "Jusqu'à",
 	"send_amount": "Envoyer le montant",
 	"add_fuel": "Ajouter un carburant",
-	"fuel_all": "Carburant tout",
 	"select_all": "Sélectionner Tout",
 	"fuel_add_desc": "Vos mineurs sont comme des voitures, ils ont besoin de MXC Fuel pour continuer à miner."
 }

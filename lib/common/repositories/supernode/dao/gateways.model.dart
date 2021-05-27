@@ -1,11 +1,13 @@
+import 'package:decimal/decimal.dart';
+
 class MinerHealthResponse {
   final String id;
   final int ageSeconds;
   final double health;
-  final double miningFuel;
+  final Decimal miningFuel;
   final double miningFuelHealth;
-  final double miningFuelMax;
-  final double totalMined;
+  final Decimal miningFuelMax;
+  final Decimal totalMined;
   final double uptimeHealth;
 
   MinerHealthResponse({
@@ -26,18 +28,18 @@ class MinerHealthResponse {
       id: map['id'],
       ageSeconds: int.tryParse(map['ageSeconds']),
       health: map['health'],
-      miningFuel: double.tryParse(map['miningFuel']),
-      miningFuelHealth: map['miningFuelHealth'],
-      miningFuelMax: double.tryParse(map['miningFuelMax']),
-      totalMined: double.tryParse(map['totalMined']),
+      miningFuel: Decimal.tryParse(map['miningFuel']),
+      miningFuelHealth: map['miningFuelHealth']?.toDouble(),
+      miningFuelMax: Decimal.tryParse(map['miningFuelMax']),
+      totalMined: Decimal.tryParse(map['totalMined']),
       uptimeHealth: map['uptimeHealth'],
     );
   }
 }
 
-class TopUpGatewayRequest {
+class GatewayAmountRequest {
   final String amount;
   final String gatewayMac;
 
-  TopUpGatewayRequest(this.amount, this.gatewayMac);
+  GatewayAmountRequest(this.amount, this.gatewayMac);
 }

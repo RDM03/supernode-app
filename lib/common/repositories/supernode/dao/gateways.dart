@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:supernodeapp/common/repositories/supernode/clients/supernode_client.dart';
 import 'package:supernodeapp/common/utils/url.dart';
 
@@ -17,6 +18,7 @@ class GatewaysApi {
   static final String delete = '/api/gateways/{gateway.id}';
   static final String minerHealth = "/api/wallet/mining_health";
   static final String topUpMiningFuel = "/api/wallet/top-up-mining-fuel";
+  static final String withdrawMiningFuel = "/api/wallet/withdraw-mining-fuel";
 }
 
 class GatewaysDao extends SupernodeDao {
@@ -82,7 +84,7 @@ class GatewaysDao extends SupernodeDao {
   Future<void> topUpMiningFuel({
     String currency,
     String orgId,
-    List<TopUpGatewayRequest> topUps,
+    List<GatewayAmountRequest> topUps,
   }) {
     return post(url: GatewaysApi.topUpMiningFuel, data: {
       'currency': currency,
@@ -97,15 +99,38 @@ class GatewaysDao extends SupernodeDao {
     });
   }
 
+  Future<void> withdrawMiningFuel({
+    String currency,
+    String orgId,
+    List<GatewayAmountRequest> withdraws,
+  }) {
+    return post(url: GatewaysApi.withdrawMiningFuel, data: {
+      'currency': currency,
+      'orgId': orgId,
+      'withdrawals': [
+        for (final t in withdraws)
+          {
+            'amount': t.amount,
+            'gatewayMac': t.gatewayMac,
+          }
+      ]
+    });
+  }
+
   Future<List<MinerHealthResponse>> minerHealth(Map data) {
     return get(url: GatewaysApi.minerHealth, data: data).then((res) {
       final List<MinerHealthResponse> minersHealth = [];
       if (res != null && res.containsKey('miningHealthAverage'))
-        minersHealth.add(MinerHealthResponse(
+        minersHealth.add(
+          MinerHealthResponse(
             id: 'health_score',
-            health: res['miningHealthAverage']['overall'],
-            miningFuelHealth: res['miningHealthAverage']['miningFuelHealth'],
-            uptimeHealth: res['miningHealthAverage']['uptimeHealth']));
+            health: res['miningHealthAverage']['overall']?.toDouble(),
+            miningFuelHealth:
+                res['miningHealthAverage']['miningFuelHealth']?.toDouble(),
+            uptimeHealth:
+                res['miningHealthAverage']['uptimeHealth']?.toDouble(),
+          ),
+        );
       if (res != null && res.containsKey('gatewayHealth'))
         res['gatewayHealth']
             .forEach((e) => minersHealth.add(MinerHealthResponse.fromMap(e)));

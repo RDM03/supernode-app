@@ -1,17 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/theme/font.dart';
 
-Widget proceedDialog(BuildContext context) => CupertinoActionSheet(
+Widget proceedDialog(BuildContext context, double amount) =>
+    CupertinoActionSheet(
       message: Column(
         children: [
           Text(
-            'Fuel up',
+            FlutterI18n.translate(context, 'add_fuel'),
             style: kMiddleFontOfBlue,
           ),
           SizedBox(height: 10),
           Text(
-            'You are about to fuel up 5000 MXC. Please note if you withdraw MXC from the fuel your mining efficiency will decrease.',
+            FlutterI18n.translate(context, 'add_fuel_confirm')
+                .replaceAll('{0}', Tools.priceFormat(amount, range: 2)),
             style: kSmallFontOfGrey,
           ),
         ],
@@ -27,7 +30,7 @@ Widget proceedDialog(BuildContext context) => CupertinoActionSheet(
       ],
       cancelButton: CupertinoActionSheetAction(
         child: Text(
-          FlutterI18n.translate(context, 'got_it'),
+          FlutterI18n.translate(context, 'cancel_normalized'),
           style: kBigFontOfGrey,
         ),
         onPressed: () => Navigator.of(context).pop(),

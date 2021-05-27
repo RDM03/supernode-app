@@ -20,7 +20,7 @@ class AddFuelConfirmPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      key: Key('lockAmountView'),
+      key: Key('confirmGesture'),
       onTap: () => FocusScope.of(context).requestFocus(new FocusNode()),
       child: pageFrame(
         context: context,
@@ -28,7 +28,7 @@ class AddFuelConfirmPage extends StatelessWidget {
         margin: EdgeInsets.only(top: 40),
         children: [
           PageNavBar(
-            text: 'Add Fuel',
+            text: FlutterI18n.translate(context, 'add_fuel'),
             centerTitle: true,
             textStyle: kBigBoldFontOfBlack,
             onTap: () => Navigator.of(context).pop(),
@@ -44,9 +44,9 @@ class AddFuelConfirmPage extends StatelessWidget {
             width: double.infinity,
             child: Text(
               error == null
-                  ? FlutterI18n.translate(context, 'congrats_mining')
+                  ? FlutterI18n.translate(context, 'add_fuel_congrats')
                   : error.toString(),
-              key: Key('congratsMiningText'),
+              key: Key('congratsFuelText'),
               style: kPrimaryBigFontOfBlack,
               textAlign: TextAlign.center,
             ),
@@ -57,7 +57,7 @@ class AddFuelConfirmPage extends StatelessWidget {
             child: PrimaryButton(
               onTap: () => Navigator.of(context).pop(),
               minHeight: 46,
-              buttonTitle: 'Done',
+              buttonTitle: FlutterI18n.translate(context, 'done'),
               bgColor: healthColor,
               minWidth: 0,
               textStyle: kBigFontOfWhite,
