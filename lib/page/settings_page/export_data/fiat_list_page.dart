@@ -29,7 +29,7 @@ class FiatListPage extends StatelessWidget {
               List<Widget> listFiatWidgets = [];
               state.listFiat.forEach((e) => {
                 listFiatWidgets.add(Container(
-                  color: (e.id == state.selectedFiat.id) ? backgroundColor: transparentWhite,
+                  color: (e.id == state.selectedFiat.id) ? dartBlueColor.withOpacity(0.1) : transparentWhite,
                   child: listItem('${e.id.toUpperCase()} - ${e.description}',
                       onTap: () { context.read<SettingsCubit>().setFiatCurrency(e);
                       Navigator.of(context).pop();},

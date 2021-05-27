@@ -173,15 +173,17 @@ class LanguagePage extends StatelessWidget {
 }
 
   Widget _item({Key key, String name = '', String type, String value, Function onTap}) {
-    return listItem(name,
-        key: key,
-        trailing: Icon(
-          Icons.done,
-          color: (type == 'auto' && (value == null)) || type == value
-              ? selectedColor
-              : Colors.grey,
-          size: 28,
-        ),
-        onTap: onTap);
+    return Container(
+      color: (type == 'auto' && value == null) || type == value ? dartBlueColor.withOpacity(0.1) : transparentWhite,
+      child: listItem(name,
+          key: key,
+          trailing: Icon(
+            Icons.check,
+            color: (type == 'auto' && value == null) || type == value
+                ? Colors.black
+                : Colors.grey,
+          ),
+          onTap: onTap),
+    );
   }
 }
