@@ -78,7 +78,7 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
             PrimaryButton(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               minWidth: double.infinity,
-              onTap: () => 'TODO',
+              onTap: () => context.read<SettingsCubit>().getDataExport(),
               buttonTitle: FlutterI18n.translate(context, 'export')),
           ]),
     );

@@ -40,6 +40,7 @@ class UserApi {
   static const String confirmExternalEmail = "/api/confirm-external-email";
   static const String verifyExternalEmail = "/api/verify-external-email";
   static const String supportedFiatCurrencies = "/api/report/supported-fiat-currencies";
+  static const String miningIncomeReport= "/api/report/mining-income/{format}";
 }
 
 class UserDao extends SupernodeDao {
@@ -162,5 +163,9 @@ class UserDao extends SupernodeDao {
       } else
         return null;
     });
+  }
+
+  Future<String> miningIncomeReport(Map data) async {
+    return get(url: Api.url(UserApi.miningIncomeReport, data['format'].toString()), data: data).then((res) => res['reportUri']);
   }
 }

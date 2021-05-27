@@ -213,4 +213,26 @@ class SettingsCubit extends Cubit<SettingsState> {
     appCubit.setSelectedFiatForExport(selectedFiat);
     emit(state.copyWith(selectedFiat: selectedFiat));
   }
+
+  Future<void> getDataExport() async {
+    emit(state.copyWith(showLoading: true));
+
+    try {
+      Map data = {
+        "format": "pdf",
+        "organizationId": supernodeCubit.state.orgId,
+        "currency": 'ETH_MXC',
+        "fiatCurrency": state.selectedFiat.id,
+        "start": '2019-05-26T13:19:03.510Z',
+        "end": '2021-05-26T13:19:03.510Z',
+        "decimals" : 5
+      };
+
+      final String reportUri = await supernodeRepository.user.miningIncomeReport(data);
+      emit(state.copyWith(showLoading: false));
+    } catch (e) {
+      emit(state.copyWith(showLoading: false));
+      appCubit.setError(e.toString());
+    }
+  }
 }
