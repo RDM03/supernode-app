@@ -95,14 +95,24 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
     return Future.value({
       "result": [
         {
-          "timestamp": "2020-07-08T19:03:56.869Z",
+          "timestamp": DateTime.now()
+              .add(Duration(
+                days: -2,
+              ))
+              .toUtc()
+              .toIso8601String(),
           "rxPacketsReceived": 10,
           "rxPacketsReceivedOK": 15,
           "txPacketsReceived": 15,
           "txPacketsEmitted": 15
         },
         {
-          "timestamp": "2020-07-09T19:03:56.869Z",
+          "timestamp": DateTime.now()
+              .add(Duration(
+                days: -1,
+              ))
+              .toUtc()
+              .toIso8601String(),//"2020-07-09T19:03:56.869Z",
           "rxPacketsReceived": 7,
           "rxPacketsReceivedOK": 5,
           "txPacketsReceived": 6,

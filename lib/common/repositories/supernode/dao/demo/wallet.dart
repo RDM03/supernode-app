@@ -104,50 +104,25 @@ class DemoWalletDao extends DemoDao implements WalletDao {
     return Future.value({
       "total": "100",
       "dailyStats": [
+        // {
+        //   "date": DateTime.now()
+        //       .add(Duration(
+        //         days: -8,
+        //       ))
+        //       .toUtc()
+        //       .toIso8601String(),
+        //   "amount": "300.0",
+        //   "onlineSeconds": "10",
+        // },
         {
           "date": DateTime.now()
               .add(Duration(
-                days: -1,
+                days: -7,
               ))
               .toUtc()
               .toIso8601String(),
-          "amount": "300.0"
-        },
-        {
-          "date": DateTime.now()
-              .add(Duration(
-                days: -2,
-              ))
-              .toUtc()
-              .toIso8601String(),
-          "amount": "350.0"
-        },
-        {
-          "date": DateTime.now()
-              .add(Duration(
-                days: -3,
-              ))
-              .toUtc()
-              .toIso8601String(),
-          "amount": "358.0"
-        },
-        {
-          "date": DateTime.now()
-              .add(Duration(
-                days: -4,
-              ))
-              .toUtc()
-              .toIso8601String(),
-          "amount": "420.0"
-        },
-        {
-          "date": DateTime.now()
-              .add(Duration(
-                days: -5,
-              ))
-              .toUtc()
-              .toIso8601String(),
-          "amount": "430.0"
+          "amount": "350.0",
+          "onlineSeconds": "11",
         },
         {
           "date": DateTime.now()
@@ -156,25 +131,58 @@ class DemoWalletDao extends DemoDao implements WalletDao {
               ))
               .toUtc()
               .toIso8601String(),
-          "amount": "400.0"
+          "amount": "358.0",
+          "onlineSeconds": "6",
         },
         {
           "date": DateTime.now()
               .add(Duration(
-                days: -7,
+                days: -5,
               ))
               .toUtc()
               .toIso8601String(),
-          "amount": "380.0"
+          "amount": "420.0",
+          "onlineSeconds": "30",
         },
         {
           "date": DateTime.now()
               .add(Duration(
-                days: -8,
+                days: -4,
               ))
               .toUtc()
               .toIso8601String(),
-          "amount": "390.0"
+          "amount": "430.0",
+          "onlineSeconds": "9",
+        },
+        {
+          "date": DateTime.now()
+              .add(Duration(
+                days: -3,
+              ))
+              .toUtc()
+              .toIso8601String(),
+          "amount": "400.0",
+          "onlineSeconds": "7",
+        },
+        {
+          "date": DateTime.now()
+              .add(Duration(
+                days: -2,
+              ))
+              .toUtc()
+              .toIso8601String(),
+          "amount": "380.0",
+          "onlineSeconds": "3",
+        },
+        {
+          "date": DateTime.now()
+              .add(Duration(
+                days: -1,
+              ))
+              .toUtc()
+              .toIso8601String(),
+          "amount": "380.0",
+          "onlineSeconds": "3",
         },
       ]
     });

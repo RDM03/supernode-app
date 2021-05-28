@@ -4,6 +4,14 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Tools {
+  static bool isSameDay(DateTime time1, DateTime time2) {
+    return time1.year == time2.year && time1.month == time2.month && time1.day == time2.day;
+  }
+
+  static bool isSameMonth(DateTime time1, DateTime time2) {
+    return time1.year == time2.year && time1.month == time2.month;
+  }
+
   static String hideHalf(String source) {
     String newSource = '';
     int endLength = source.length;
@@ -67,6 +75,20 @@ class Tools {
     if (date == null) return '?';
     final month = date.month.toString().padLeft(2, '0');
     return '$month/${date.year}';
+  }
+
+  static String dateMonthDayFormat(DateTime date) {
+    if (date == null) return '?';
+    final month = date.month.toString().padLeft(2, '0');
+    final day = date.day.toString().padLeft(2, '0');
+    return '$month $day';
+  }
+
+  static String dateMonthDayYearFormat(DateTime date) {
+    if (date == null) return '?';
+    final month = date.month.toString().padLeft(2, '0');
+    final day = date.day.toString().padLeft(2, '0');
+    return '$month $day ${date.year}';
   }
 
   static String numberRounded(double number) {
