@@ -5,6 +5,7 @@ import 'package:supernodeapp/log.dart';
 
 class SupernodeHeadersInterceptor extends InterceptorsWrapper {
   final String Function() getToken;
+  final DateTime Function() getExpiration;
   final Future<String> Function(Dio dio) onTokenRefresh;
   final void Function() onLogOut;
 
@@ -12,6 +13,7 @@ class SupernodeHeadersInterceptor extends InterceptorsWrapper {
 
   SupernodeHeadersInterceptor({
     this.getToken,
+    this.getExpiration,
     this.onTokenRefresh,
     this.onLogOut,
     this.dio, // we need to register dio to support requests lock
@@ -36,10 +38,21 @@ class SupernodeHeadersInterceptor extends InterceptorsWrapper {
     RequestInterceptorHandler handler,
   ) async {
     final json = jsonDecodeOrNull(options.data?.toString());
+
+    DateTime expiredTime = getExpiration();
+    bool isExpired = expiredTime == null || 
+      expiredTime.isBefore(DateTime.now());
+
+    String token = getToken();
+
+    if (isExpired) {
+      token = await onTokenRefresh(Dio());
+    }
+
     setHeaders(
       options,
       otp: json == null ? null : json['otp_code'],
-      token: getToken(),
+      token: token,
     );
     handler.next(options);
   }

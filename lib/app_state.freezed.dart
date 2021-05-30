@@ -402,6 +402,7 @@ class _$SupernodeSessionTearOff {
       {int userId,
       String username,
       String token,
+      DateTime expire,
       String password,
       Supernode node,
       bool tfaEnabled = false}) {
@@ -409,6 +410,7 @@ class _$SupernodeSessionTearOff {
       userId: userId,
       username: username,
       token: token,
+      expire: expire,
       password: password,
       node: node,
       tfaEnabled: tfaEnabled,
@@ -425,6 +427,7 @@ mixin _$SupernodeSession {
   int get userId;
   String get username;
   String get token;
+  DateTime get expire;
   String get password;
   Supernode get node;
   bool get tfaEnabled;
@@ -442,6 +445,7 @@ abstract class $SupernodeSessionCopyWith<$Res> {
       {int userId,
       String username,
       String token,
+      DateTime expire,
       String password,
       Supernode node,
       bool tfaEnabled});
@@ -461,6 +465,7 @@ class _$SupernodeSessionCopyWithImpl<$Res>
     Object userId = freezed,
     Object username = freezed,
     Object token = freezed,
+    Object expire = freezed,
     Object password = freezed,
     Object node = freezed,
     Object tfaEnabled = freezed,
@@ -469,6 +474,7 @@ class _$SupernodeSessionCopyWithImpl<$Res>
       userId: userId == freezed ? _value.userId : userId as int,
       username: username == freezed ? _value.username : username as String,
       token: token == freezed ? _value.token : token as String,
+      expire: expire == freezed ? _value.expire : expire as DateTime,
       password: password == freezed ? _value.password : password as String,
       node: node == freezed ? _value.node : node as Supernode,
       tfaEnabled:
@@ -488,6 +494,7 @@ abstract class _$SupernodeSessionCopyWith<$Res>
       {int userId,
       String username,
       String token,
+      DateTime expire,
       String password,
       Supernode node,
       bool tfaEnabled});
@@ -509,6 +516,7 @@ class __$SupernodeSessionCopyWithImpl<$Res>
     Object userId = freezed,
     Object username = freezed,
     Object token = freezed,
+    Object expire = freezed,
     Object password = freezed,
     Object node = freezed,
     Object tfaEnabled = freezed,
@@ -517,6 +525,7 @@ class __$SupernodeSessionCopyWithImpl<$Res>
       userId: userId == freezed ? _value.userId : userId as int,
       username: username == freezed ? _value.username : username as String,
       token: token == freezed ? _value.token : token as String,
+      expire: expire == freezed ? _value.expire : expire as DateTime,
       password: password == freezed ? _value.password : password as String,
       node: node == freezed ? _value.node : node as Supernode,
       tfaEnabled:
@@ -533,6 +542,7 @@ class _$_SupernodeSession
       {this.userId,
       this.username,
       this.token,
+      this.expire,
       this.password,
       this.node,
       this.tfaEnabled = false})
@@ -545,6 +555,8 @@ class _$_SupernodeSession
   @override
   final String token;
   @override
+  final DateTime expire;
+  @override
   final String password;
   @override
   final Supernode node;
@@ -554,7 +566,7 @@ class _$_SupernodeSession
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SupernodeSession(userId: $userId, username: $username, token: $token, password: $password, node: $node, tfaEnabled: $tfaEnabled)';
+    return 'SupernodeSession(userId: $userId, username: $username, token: $token, expire: $expire, password: $password, node: $node, tfaEnabled: $tfaEnabled)';
   }
 
   @override
@@ -565,6 +577,7 @@ class _$_SupernodeSession
       ..add(DiagnosticsProperty('userId', userId))
       ..add(DiagnosticsProperty('username', username))
       ..add(DiagnosticsProperty('token', token))
+      ..add(DiagnosticsProperty('expire', expire))
       ..add(DiagnosticsProperty('password', password))
       ..add(DiagnosticsProperty('node', node))
       ..add(DiagnosticsProperty('tfaEnabled', tfaEnabled));
@@ -581,6 +594,8 @@ class _$_SupernodeSession
                     .equals(other.username, username)) &&
             (identical(other.token, token) ||
                 const DeepCollectionEquality().equals(other.token, token)) &&
+            (identical(other.expire, expire) ||
+                const DeepCollectionEquality().equals(other.expire, expire)) &&
             (identical(other.password, password) ||
                 const DeepCollectionEquality()
                     .equals(other.password, password)) &&
@@ -597,6 +612,7 @@ class _$_SupernodeSession
       const DeepCollectionEquality().hash(userId) ^
       const DeepCollectionEquality().hash(username) ^
       const DeepCollectionEquality().hash(token) ^
+      const DeepCollectionEquality().hash(expire) ^
       const DeepCollectionEquality().hash(password) ^
       const DeepCollectionEquality().hash(node) ^
       const DeepCollectionEquality().hash(tfaEnabled);
@@ -612,6 +628,7 @@ abstract class _SupernodeSession implements SupernodeSession {
       {int userId,
       String username,
       String token,
+      DateTime expire,
       String password,
       Supernode node,
       bool tfaEnabled}) = _$_SupernodeSession;
@@ -622,6 +639,8 @@ abstract class _SupernodeSession implements SupernodeSession {
   String get username;
   @override
   String get token;
+  @override
+  DateTime get expire;
   @override
   String get password;
   @override
