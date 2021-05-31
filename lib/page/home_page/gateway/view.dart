@@ -195,8 +195,9 @@ class GatewayTab extends StatelessWidget {
                                       FlutterI18n.translate(
                                           context, 'health_score_info')),
                                   child: CircularGraph(
-                                      gatewayState.health.value * 100,
-                                      (gatewayState.health.value * 100 > 10)
+                                      (gatewayState.health.value ?? 0) * 100,
+                                      ((gatewayState.health.value ?? 0) * 100 >
+                                              10)
                                           ? minerColor
                                           : fuelColor,
                                       child: Column(
@@ -207,7 +208,7 @@ class GatewayTab extends StatelessWidget {
                                                 loading:
                                                     gatewayState.health.loading,
                                                 child: Text(
-                                                    '${Tools.priceFormat(gatewayState.health.value * 100)} %',
+                                                    '${Tools.priceFormat((gatewayState.health.value ?? 0) * 100)} %',
                                                     style: kSuperBigBoldFont)),
                                             Text(
                                                 FlutterI18n.translate(
@@ -249,7 +250,7 @@ class GatewayTab extends StatelessWidget {
                             loadableWidget(
                                 loading: gatewayState.miningFuel.loading,
                                 child: Text(
-                                    '${gatewayState.miningFuel.value.round()} / ${gatewayState.miningFuelMax.value.round()} MXC')),
+                                    '${(gatewayState.miningFuel.value ?? 0).round()} / ${(gatewayState.miningFuelMax.value ?? 0).round()} MXC')),
                             Spacer()
                           ]),
                           middleColumnSpacer(),
@@ -284,7 +285,7 @@ class GatewayTab extends StatelessWidget {
                                               loading: gatewayState
                                                   .uptimeHealth.loading,
                                               child: Text(
-                                                  '${Tools.priceFormat(gatewayState.uptimeHealth.value * 100)} %',
+                                                  '${Tools.priceFormat((gatewayState.uptimeHealth.value ?? 0) * 100)} %',
                                                   style: kBigFontOfBlack)),
                                           Image.asset(AppImages.uptime),
                                           Text(
@@ -493,7 +494,7 @@ class GatewayTab extends StatelessWidget {
                                               loading: gatewayState
                                                   .miningFuelHealth.loading,
                                               child: Text(
-                                                  '${Tools.priceFormat(gatewayState.miningFuelHealth.value * 100)} %',
+                                                  '${Tools.priceFormat((gatewayState.miningFuelHealth.value ?? 0) * 100)} %',
                                                   style: kBigFontOfBlack)),
                                           Stack(
                                               alignment: Alignment.center,
@@ -600,7 +601,14 @@ class GatewaysList extends StatelessWidget {
         child: GatewayListTile(
           state: state,
           onTap: () async {
-            await Navigator.push(context, route((ctx) => MinerDetailPage()));
+            await Navigator.push(
+              context,
+              route(
+                (ctx) => MinerDetailPage(
+                  item: state,
+                ),
+              ),
+            );
           },
         ),
         secondaryActions: <Widget>[
