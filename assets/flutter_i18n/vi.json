@@ -573,5 +573,19 @@
 	"back": "Back",
 	"x_boost": "{0} boost",
 	"mining_simulator": "Mining Simulator",
-	"joined_council": "Joined Council"
+	"joined_council": "Joined Council",
+	"uptime": "Truyền",
+	"frame_received": "Bộ đã nhận",
+	"frame_transmitted": "Truyền Khung",
+	"week": "Ngày",
+	"month": "Tháng",
+	"year": "Năm",
+	"score_weekly_total": "Điểm(Tổng tuần)",
+	"total_hours": "Giờ tổng",
+	"weekly_amount": "Giá trị tuần(Thu nhập trung bình)",
+	"monthly_amount": "Con số",
+	"yearly_amount": "Sắp hàng năm",
+	"weekly_packet": "Gói hàng tuần",
+	"monthly_packet": "Gói hàng tháng",
+	"yearly_packet": "Hàng năm"
 }

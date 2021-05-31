@@ -573,5 +573,19 @@
 	"back": "뒤로",
 	"x_boost": "{0} 부스트",
 	"mining_simulator": "채굴 시뮬레이터",
-	"joined_council": "카운실 참여됨"
+	"joined_council": "카운실 참여됨",
+	"uptime": "정상 운행 시간",
+	"frame_received": "수신 프레임",
+	"frame_transmitted": "전송 프레임",
+	"week": "주.",
+	"month": "달.",
+	"year": "나이.",
+	"score_weekly_total": "분수.(주 당 합계)",
+	"total_hours": "총 시간 수",
+	"weekly_amount": "매주 금액(평균 수익)",
+	"monthly_amount": "매월 금액",
+	"yearly_amount": "연 차 금액",
+	"weekly_packet": "주간 신문",
+	"monthly_packet": "월 정액",
+	"yearly_packet": "연간 보고서"
 }

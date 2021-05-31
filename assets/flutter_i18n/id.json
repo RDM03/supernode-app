@@ -573,5 +573,19 @@
 	"back": "Back",
 	"x_boost": "{0} boost",
 	"mining_simulator": "Mining Simulator",
-	"joined_council": "Joined Council"
+	"joined_council": "Joined Council",
+	"uptime": "Uptime",
+	"frame_received": "Bingkai Diterima",
+	"frame_transmitted": "Bingkai Dikirim",
+	"week": "Minggu",
+	"month": "Bulan",
+	"year": "Tahun",
+	"score_weekly_total": "Skor(Jumlah Seminggu)",
+	"total_hours": "Total jam",
+	"weekly_amount": "Jumlah Minggu(Daftar rata-rata)",
+	"monthly_amount": "Jumlah Bulan",
+	"yearly_amount": "Jumlah Tahun",
+	"weekly_packet": "Paket Minggu",
+	"monthly_packet": "Monthly Packet",
+	"yearly_packet": "Paket Setiap Tahun"
 }

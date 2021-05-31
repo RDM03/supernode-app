@@ -573,5 +573,19 @@
 	"back": "Back",
 	"x_boost": "{0} boost",
 	"mining_simulator": "Mining Simulator",
-	"joined_council": "Joined Council"
+	"joined_council": "Joined Council",
+	"uptime": "нормальное время работы",
+	"frame_received": "получать кадр",
+	"frame_transmitted": "кадр передачи",
+	"week": "неделя",
+	"month": "месяц",
+	"year": "год",
+	"score_weekly_total": "дробь(еженедельный итог)",
+	"total_hours": "Общее количество часов",
+	"weekly_amount": "еженедельная сумма(средний доход)",
+	"monthly_amount": "ежемесячная сумма",
+	"yearly_amount": "годовая сумма",
+	"weekly_packet": "еженедельник",
+	"monthly_packet": "месячный мешок",
+	"yearly_packet": "годовой отчет"
 }

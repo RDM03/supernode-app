@@ -573,5 +573,19 @@
 	"back": "Back",
 	"x_boost": "{0} boost",
 	"mining_simulator": "Mining Simulator",
-	"joined_council": "Joined Council"
+	"joined_council": "Joined Council",
+	"uptime": "アップタイム",
+	"frame_received": "受信フレーム",
+	"frame_transmitted": "フレーム送信",
+	"week": "週",
+	"month": "月",
+	"year": "年",
+	"score_weekly_total": "スコア(週間合計)",
+	"total_hours": "合計時間",
+	"weekly_amount": "週刊量(平均収益)",
+	"monthly_amount": "月額",
+	"yearly_amount": "年間量",
+	"weekly_packet": "週刊パケット",
+	"monthly_packet": "マンスリーパケット",
+	"yearly_packet": "毎年のパケット"
 }

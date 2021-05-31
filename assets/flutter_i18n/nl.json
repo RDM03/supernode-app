@@ -573,5 +573,19 @@
 	"back": "Terug",
 	"x_boost": "{0} boosts",
 	"mining_simulator": "Mining Simulator",
-	"joined_council": "Verbonden met Raad"
+	"joined_council": "Verbonden met Raad",
+	"uptime": "Uptime",
+	"frame_received": "Ontvangen frame",
+	"frame_transmitted": "Overgedragen frames",
+	"week": "Week",
+	"month": "Maand",
+	"year": "Jaar",
+	"score_weekly_total": "Score(Totaal per week)",
+	"total_hours": "Totaal aantal uren",
+	"weekly_amount": "Wekelijkse hoeveelheid(Gemiddelde inkomsten)",
+	"monthly_amount": "Maandelijkse hoeveelheid",
+	"yearly_amount": "Jaarlijks bedrag",
+	"weekly_packet": "Weekly Packet",
+	"monthly_packet": "Maandelijkse verpakking",
+	"yearly_packet": "Jaarlijkse verpakking"
 }

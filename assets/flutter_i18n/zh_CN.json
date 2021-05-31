@@ -573,5 +573,19 @@
 	"back": "返回",
 	"x_boost": "{0} 提升加成",
 	"mining_simulator": "挖矿模拟器",
-	"joined_council": "已加入的议会"
+	"joined_council": "已加入的议会",
+	"uptime": "运行时间",
+	"frame_received": "接收到帧",
+	"frame_transmitted": "已传输帧”",
+	"week": "周",
+	"month": "月",
+	"year": "年",
+	"score_weekly_total": "分数（每周总计）",
+	"total_hours": "总时数",
+	"weekly_amount": "每周金额（平均收入）",
+	"monthly_amount": "月度金额",
+	"yearly_amount": "年度金额",
+	"weekly_packet": "每周数据包",
+	"monthly_packet": "月度数据包",
+	"yearly_packet": "年度数据包"
 }

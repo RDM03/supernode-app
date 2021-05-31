@@ -573,5 +573,19 @@
 	"back": "Back",
 	"x_boost": "{0} boost",
 	"mining_simulator": "Mining Simulator",
-	"joined_council": "Joined Council"
+	"joined_council": "Joined Council",
+	"uptime": "Uptime",
+	"frame_received": "Kinuha ang frame",
+	"frame_transmitted": "Ipinadala ng frame",
+	"week": "linggo",
+	"month": "Buwan",
+	"year": "Taon",
+	"score_weekly_total": "Stock label(Kabilang sa Linggo)",
+	"total_hours": "Kabilang ng mga oras",
+	"weekly_amount": "Linggo-linggo(Karaniwang kita)",
+	"monthly_amount": "Monthly Amount",
+	"yearly_amount": "Karagdagang Taon",
+	"weekly_packet": "Linggo-linggo na Paket",
+	"monthly_packet": "Monthly Packet",
+	"yearly_packet": "Yearly Packet"
 }

@@ -573,5 +573,19 @@
 	"back": "Volver",
 	"x_boost": "{0} potencia",
 	"mining_simulator": "Simulador de minería",
-	"joined_council": "Te uniste a un Consejo"
+	"joined_council": "Te uniste a un Consejo",
+	"uptime": "Tiempo de funcionamiento normal",
+	"frame_received": "Marco recibido",
+	"frame_transmitted": "Marco transmitido",
+	"week": "Semana",
+	"month": "Mes",
+	"year": "Año",
+	"score_weekly_total": "Fracción(Total semanal)",
+	"total_hours": "Horas totales",
+	"weekly_amount": "Cantidad semanal(Ingresos medios)",
+	"monthly_amount": "Importe mensual",
+	"yearly_amount": "Importe anual",
+	"weekly_packet": "Semanario",
+	"monthly_packet": "Paquete mensual",
+	"yearly_packet": "Informe anual"
 }

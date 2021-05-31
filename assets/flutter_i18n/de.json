@@ -573,5 +573,19 @@
 	"back": "Zurück",
 	"x_boost": "{0} Boost",
 	"mining_simulator": "Mining Simulator",
-	"joined_council": "Rat beigetreten"
+	"joined_council": "Rat beigetreten",
+	"uptime": "app",
+	"frame_received": "Rahmen empfangen",
+	"frame_transmitted": "Rahmen übertragen",
+	"week": "Woche",
+	"month": "Monat",
+	"year": "Jahr",
+	"score_weekly_total": "Treffer(Wöchentlich insgesamt)",
+	"total_hours": "Stunden insgesamt",
+	"weekly_amount": "Wöchentliche Menge(Durchschnittliche Einnahmen)",
+	"monthly_amount": "Monatlicher Betrag",
+	"yearly_amount": "Jährlicher Betrag",
+	"weekly_packet": "Wöchentliche Verpackung",
+	"monthly_packet": "Monatliche Verpackung",
+	"yearly_packet": "Jährliches Packet"
 }

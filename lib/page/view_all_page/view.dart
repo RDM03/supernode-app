@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/loading.dart';
-import 'package:supernodeapp/common/components/loading_tiny.dart';
 import 'package:supernodeapp/common/components/page/dd_body.dart';
 import 'package:supernodeapp/common/components/page/dd_box_spacer.dart';
 import 'package:supernodeapp/common/components/page/dd_nav.dart';
@@ -34,7 +33,7 @@ class ViewAllPage extends StatefulWidget {
 class _ViewAllPageState extends State<ViewAllPage> with TickerProviderStateMixin {
   Loading loading;
   TabController _tabController;
-  List titles = ['uptime', 'revenue', 'frameReceived', 'frameTransmitted'];
+  List titles = ['uptime', 'revenue', 'frame_received', 'frame_transmitted'];
   List tabs = ['week', 'month', 'year'];
 
   @override
