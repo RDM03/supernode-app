@@ -166,6 +166,7 @@ class UserDao extends SupernodeDao {
   }
 
   Future<String> miningIncomeReport(Map data) async {
-    return get(url: Api.url(UserApi.miningIncomeReport, data['format'].toString()), data: data).then((res) => res['reportUri']);
+    return get(url: Api.url(UserApi.miningIncomeReport, data['format'].toString()), data: data).
+    then((res) => downloadFile(url: res['reportUri']));
   }
 }

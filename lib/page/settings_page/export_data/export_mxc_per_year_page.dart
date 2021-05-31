@@ -103,7 +103,15 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
             PrimaryButton(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               minWidth: double.infinity,
-              onTap: () => context.read<SettingsCubit>().getDataExport(),
+              onTap: () async {
+                var status = await Permission.storage.status;
+                if (!status.isGranted) {
+                  await Permission.storage.request();
+                  status = await Permission.storage.status;
+                }
+                if (status.isGranted)
+                  context.read<SettingsCubit>().getDataExport();
+              },
               buttonTitle: FlutterI18n.translate(context, 'export')),
           ]),
     );

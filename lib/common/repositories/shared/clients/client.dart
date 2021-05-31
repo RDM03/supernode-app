@@ -11,6 +11,7 @@ abstract class HttpClient {
   Future<dynamic> get({@required String url, Map data});
   Future<dynamic> put({@required String url, dynamic data});
   Future<dynamic> delete({@required String url});
+  Future<dynamic> downloadFile({@required String url});
 }
 
 class HttpException implements Exception {
