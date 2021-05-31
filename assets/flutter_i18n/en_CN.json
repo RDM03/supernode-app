@@ -575,5 +575,7 @@
 	"back": "Back",
 	"x_boost": "{0} boost",
 	"mining_simulator": "Mining Simulator",
-	"joined_council": "Joined Council"
+	"joined_council": "Joined Council",
+	"dhx_wallet_overview": "Take me to DHX Wallet Overview",
+	"miner_mapper": "Miner Mapper"
 }

@@ -573,5 +573,7 @@
 	"back": "Geri",
 	"x_boost": "{0} güçlendirme",
 	"mining_simulator": "Madencilik Simülatörü",
-	"joined_council": "Konseye Katıldı"
+	"joined_council": "Konseye Katıldı",
+	"dhx_wallet_overview": "Beni DHX Cüzdanın Görüntüsüne götür",
+	"miner_mapper": "Miner Mapper"
 }

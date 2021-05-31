@@ -573,5 +573,7 @@
 	"back": "Zurück",
 	"x_boost": "{0} Boost",
 	"mining_simulator": "Mining Simulator",
-	"joined_council": "Rat beigetreten"
+	"joined_council": "Rat beigetreten",
+	"dhx_wallet_overview": "Zur DHX Wallet-Übersicht wechseln",
+	"miner_mapper": "Bergbau-Mapper"
 }

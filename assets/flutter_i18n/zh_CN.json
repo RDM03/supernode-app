@@ -573,5 +573,7 @@
 	"back": "返回",
 	"x_boost": "{0} 提升加成",
 	"mining_simulator": "挖矿模拟器",
-	"joined_council": "已加入的议会"
+	"joined_council": "已加入的议会",
+	"dhx_wallet_overview": "查看DHX钱包概览",
+	"miner_mapper": "矿机地图"
 }

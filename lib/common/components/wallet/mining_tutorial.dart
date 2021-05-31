@@ -624,7 +624,7 @@ class _MiningTutorialState extends State<MiningTutorial> {
                 padding: const EdgeInsets.only(left: 18.0, right: 18.0, bottom: 30.0),
                 child: currentPageViewValue == widget._pages.length - 1 ?
                   PrimaryButton(
-                    buttonTitle: FlutterI18n.translate(context, 'Take me to DHX Wallet Overview'), 
+                    buttonTitle: FlutterI18n.translate(context, 'dhx_wallet_overview'), 
                     bgColor: Token.supernodeDhx.color,
                     minWidth: double.infinity,
                     onTap: () => Navigator.pop(context)

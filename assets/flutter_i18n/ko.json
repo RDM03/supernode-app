@@ -573,5 +573,7 @@
 	"back": "뒤로",
 	"x_boost": "{0} 부스트",
 	"mining_simulator": "채굴 시뮬레이터",
-	"joined_council": "카운실 참여됨"
+	"joined_council": "카운실 참여됨",
+	"dhx_wallet_overview": "DHX 지갑 총람 에 데려 다 주세요.",
+	"miner_mapper": "광부 제도 기"
 }

@@ -573,5 +573,7 @@
 	"back": "Volver",
 	"x_boost": "{0} potencia",
 	"mining_simulator": "Simulador de minería",
-	"joined_council": "Te uniste a un Consejo"
+	"joined_council": "Te uniste a un Consejo",
+	"dhx_wallet_overview": "Llévame a la vista general del monedero DHX",
+	"miner_mapper": "Mapeador minero"
 }

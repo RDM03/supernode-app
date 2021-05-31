@@ -573,5 +573,7 @@
 	"back": "Terug",
 	"x_boost": "{0} boosts",
 	"mining_simulator": "Mining Simulator",
-	"joined_council": "Verbonden met Raad"
+	"joined_council": "Verbonden met Raad",
+	"dhx_wallet_overview": "Breng me naar DHX Wallet Overzicht",
+	"miner_mapper": "Mijnwerker Mapper"
 }

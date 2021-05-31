@@ -164,7 +164,7 @@ class UserTab extends StatelessWidget {
             totalGatewaysDemo(context),
           if (supernodeConnected)
             bigColumnSpacer(),
-            Text(FlutterI18n.translate(context, 'Miner Mapper'),
+            Text(FlutterI18n.translate(context, 'miner_mapper'),
                       style: kBigBoldFontOfBlack),
           if (supernodeConnected)
             BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
