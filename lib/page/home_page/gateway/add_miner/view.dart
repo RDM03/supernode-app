@@ -142,7 +142,7 @@ class _AddMinerPageState extends State<AddMinerPage> {
                             style: kBigBoldFontOfBlack
                           ),
                           Text(
-                            FlutterI18n.translate(context, 'You can simply scan QR code or manually input serial number'),
+                            FlutterI18n.translate(context, 'add_miner_tip'),
                             style: kMiddleFontOfBlack,
                           )
                         ]

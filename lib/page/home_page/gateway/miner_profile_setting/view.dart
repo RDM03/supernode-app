@@ -105,7 +105,7 @@ class _MinerProfileSettingPageState extends State<MinerProfileSettingPage> {
               ),
               DDIconWithTitles(
                 imageUrl: AppImages.gateways,
-                title: 'Miner Profile Setting',
+                title: 'miner_profile_setting',
                 subtitle: widget.serialNumer,
               ),
               BlocBuilder<MinerCubit, MinerState>(
