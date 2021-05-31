@@ -68,14 +68,27 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
                     buildWhen: (a, b) =>
                     a.calendarBondInfo != b.calendarBondInfo,
                     builder: (context, state) =>
-                    (state.calendarBondInfo != null && state.calendarBondInfo.length > 0)
+                    Flex(
+                      direction: Axis.horizontal,
+                      children: [
+                        (state.calendarBondInfo != null && state.calendarBondInfo.length > 0)
                         ? Text('   ${Tools.dateMonthYearFormat(state.calendarBondInfo[0].date)}'
-                        '${(state.calendarBondInfo[0].date.month != state.calendarBondInfo[state.calendarBondInfo.length-1].date.month)
-                        ? ' - ' + Tools.dateMonthYearFormat(state.calendarBondInfo[state.calendarBondInfo.length-1].date)
+                        '${(state.calendarBondInfo.first.date.month != state.calendarBondInfo.last.date.month)
+                        ? ' - ' + Tools.dateMonthYearFormat(state.calendarBondInfo.last.date)
                         : ''}',
                         style: kPrimaryBigFontOfBlack)
                         : SizedBox(),
-                ),
+                        Expanded(
+                          child: Text(
+                            countTotalMonth(state.calendarBondInfo),
+                            style: kBigFontOfBlue.copyWith(fontSize: 20),
+                            textAlign: TextAlign.right,
+                          )
+                        ),
+                        SizedBox(width: 10,)
+                      ],
+                    )
+                  ),
                   smallColumnSpacer(),
                   BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
                     buildWhen: (a, b) =>
@@ -84,21 +97,79 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
                       crossAxisCount: 7,
                       childAspectRatio: (1 / 2),
                       shrinkWrap: true,
-                      children: state.calendarBondInfo.map((e) => _CalendarElement(e)).toList(),
+                      children: getCalendar(state.calendarBondInfo),
                     ),
                   ),
-                  Divider(thickness: 1),
+                  middleColumnSpacer(),
+                  //The last month
+                  BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+                    buildWhen: (a, b) =>
+                    a.lastCalendarBondInfo != b.lastCalendarBondInfo,
+                    builder: (context, state) =>
+                    Flex(
+                      direction: Axis.horizontal,
+                      children: [
+                        (state.lastCalendarBondInfo != null && state.lastCalendarBondInfo.length > 0)
+                        ? Text('   ${Tools.dateMonthYearFormat(state.lastCalendarBondInfo[0].date)}'
+                        '${(state.lastCalendarBondInfo.first.date.month != state.lastCalendarBondInfo.last.date.month)
+                        ? ' - ' + Tools.dateMonthYearFormat(state.lastCalendarBondInfo.last.date)
+                        : ''}',
+                        style: kPrimaryBigFontOfBlack)
+                        : SizedBox(),
+                        Expanded(
+                          child: Text(
+                            countTotalMonth(state.lastCalendarBondInfo),
+                            style: kBigFontOfBlue.copyWith(fontSize: 20),
+                            textAlign: TextAlign.right,
+                          )
+                        ),
+                        SizedBox(width: 10,)
+                      ],
+                    )
+                  ),
+                  smallColumnSpacer(),
+                  BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+                    buildWhen: (a, b) =>
+                      a.calendarBondInfo != b.calendarBondInfo,
+                    builder: (context, state) => GridView.count(
+                      crossAxisCount: 7,
+                      childAspectRatio: (1 / 2),
+                      shrinkWrap: true,
+                      children: getCalendar(state.lastCalendarBondInfo),
+                    ),
+                  ),
                   smallColumnSpacer(),
                   Text(FlutterI18n.translate(context, 'bonding_calendar_note'), style: kSmallFontOfBlack),
                 ],
               ),
             ),
           ),
-          middleColumnSpacer(),
         ]
       )
     );
   }
+}
+
+String countTotalMonth(List<CalendarModel> calendarList){
+  double total = 0;
+  for (int i = 0; i < calendarList.length; i++) {
+    total += calendarList[i].minedAmount;
+  }
+  return '+${Tools.priceFormat(total)} DHX / month';
+}
+
+List<Widget> getCalendar(List<CalendarModel> calendarList){
+  int filledItemNum = calendarList.first.date.weekday;
+  List<CalendarModel> list = [];
+
+  for (int i = 0; i < filledItemNum; i++) {
+    list.insert(0, CalendarModel(date: null));
+  }
+
+  for (int i = 0; i < calendarList.length; i++) {
+    list.add(calendarList[i]);
+  }
+  return list.map((e) => _CalendarElement(e)).toList();
 }
 
 class _CalendarElement extends StatelessWidget {
@@ -130,20 +201,20 @@ class _CalendarElement extends StatelessWidget {
     }
 
     return Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
-      Divider(thickness: 1),
       Row(mainAxisAlignment:MainAxisAlignment.center,
-          children: [
-            Image.asset(AppImages.iconUnbond, scale: 1.5, color: (model.unbondAmount > 0) ? Colors.red : Colors.white),
-            Text('${7 - today.difference(model.date).inDays}', style: (model.unbondAmount > 0) ? kMiddleFontOfBlack : kMiddleFontOfWhite)]),
+            children: [
+              Image.asset(AppImages.iconUnbond, scale: 1.5, color: (model.unbondAmount > 0) ? Colors.red : Colors.white),
+              Text('${model.date != null ? (7 - today.difference(model.date).inDays) : ""}', style: (model.unbondAmount > 0) ? kMiddleFontOfBlack : kMiddleFontOfWhite)]),
       Container(
           height: 25,
           width: double.infinity,
           decoration: getDecoration(),
-          child: Center(child: Text('${model.date.day}', style: (model.today) ? kMiddleFontOfWhite : kMiddleFontOfBlack))),
+          child: Center(child: Text('${model.date != null ? model.date.day : ''}', style: (model.today) ? kMiddleFontOfWhite : kMiddleFontOfBlack))),
       Text(
-          ((model.minedAmount > 0) ? '+${Tools.priceFormat(model.minedAmount, range: Tools.max3DecimalPlaces(model.minedAmount))}' : '') +
-              ((model.today) ? FlutterI18n.translate(context, 'today') : ''),
-          style: kSmallFontOfBlack),
+            ((model.minedAmount > 0 && model.date != null) ? '+${Tools.priceFormat(model.minedAmount, range: Tools.max3DecimalPlaces(model.minedAmount))}' : '') +
+                ((model.today) ? FlutterI18n.translate(context, 'today') : ''),
+            style: kSmallFontOfBlack),
+      model.date != null ? Divider(thickness: 1) : Container(),
     ]);
   }
 }

@@ -24,6 +24,7 @@ class _$SupernodeDhxStateTearOff {
       Wrap<double> dhxBonded = const Wrap.pending(),
       Wrap<double> dhxUnbonding = const Wrap.pending(),
       List<CalendarModel> calendarBondInfo = const [],
+      List<CalendarModel> lastCalendarBondInfo = const [],
       bool confirm = false,
       bool success = false,
       bool showLoading = false,
@@ -39,6 +40,7 @@ class _$SupernodeDhxStateTearOff {
       dhxBonded: dhxBonded,
       dhxUnbonding: dhxUnbonding,
       calendarBondInfo: calendarBondInfo,
+      lastCalendarBondInfo: lastCalendarBondInfo,
       confirm: confirm,
       success: success,
       showLoading: showLoading,
@@ -63,6 +65,7 @@ mixin _$SupernodeDhxState {
   Wrap<double> get dhxBonded;
   Wrap<double> get dhxUnbonding;
   List<CalendarModel> get calendarBondInfo;
+  List<CalendarModel> get lastCalendarBondInfo;
   bool get confirm;
   bool get success;
   bool get showLoading;
@@ -88,6 +91,7 @@ abstract class $SupernodeDhxStateCopyWith<$Res> {
       Wrap<double> dhxBonded,
       Wrap<double> dhxUnbonding,
       List<CalendarModel> calendarBondInfo,
+      List<CalendarModel> lastCalendarBondInfo,
       bool confirm,
       bool success,
       bool showLoading,
@@ -115,6 +119,7 @@ class _$SupernodeDhxStateCopyWithImpl<$Res>
     Object dhxBonded = freezed,
     Object dhxUnbonding = freezed,
     Object calendarBondInfo = freezed,
+    Object lastCalendarBondInfo = freezed,
     Object confirm = freezed,
     Object success = freezed,
     Object showLoading = freezed,
@@ -145,6 +150,9 @@ class _$SupernodeDhxStateCopyWithImpl<$Res>
       calendarBondInfo: calendarBondInfo == freezed
           ? _value.calendarBondInfo
           : calendarBondInfo as List<CalendarModel>,
+      lastCalendarBondInfo: lastCalendarBondInfo == freezed
+          ? _value.lastCalendarBondInfo
+          : lastCalendarBondInfo as List<CalendarModel>,
       confirm: confirm == freezed ? _value.confirm : confirm as bool,
       success: success == freezed ? _value.success : success as bool,
       showLoading:
@@ -175,6 +183,7 @@ abstract class _$SupernodeDhxStateCopyWith<$Res>
       Wrap<double> dhxBonded,
       Wrap<double> dhxUnbonding,
       List<CalendarModel> calendarBondInfo,
+      List<CalendarModel> lastCalendarBondInfo,
       bool confirm,
       bool success,
       bool showLoading,
@@ -204,6 +213,7 @@ class __$SupernodeDhxStateCopyWithImpl<$Res>
     Object dhxBonded = freezed,
     Object dhxUnbonding = freezed,
     Object calendarBondInfo = freezed,
+    Object lastCalendarBondInfo = freezed,
     Object confirm = freezed,
     Object success = freezed,
     Object showLoading = freezed,
@@ -234,6 +244,9 @@ class __$SupernodeDhxStateCopyWithImpl<$Res>
       calendarBondInfo: calendarBondInfo == freezed
           ? _value.calendarBondInfo
           : calendarBondInfo as List<CalendarModel>,
+      lastCalendarBondInfo: lastCalendarBondInfo == freezed
+          ? _value.lastCalendarBondInfo
+          : lastCalendarBondInfo as List<CalendarModel>,
       confirm: confirm == freezed ? _value.confirm : confirm as bool,
       success: success == freezed ? _value.success : success as bool,
       showLoading:
@@ -261,6 +274,7 @@ class _$_SupernodeDhxState
       this.dhxBonded = const Wrap.pending(),
       this.dhxUnbonding = const Wrap.pending(),
       this.calendarBondInfo = const [],
+      this.lastCalendarBondInfo = const [],
       this.confirm = false,
       this.success = false,
       this.showLoading = false,
@@ -275,6 +289,7 @@ class _$_SupernodeDhxState
         assert(dhxBonded != null),
         assert(dhxUnbonding != null),
         assert(calendarBondInfo != null),
+        assert(lastCalendarBondInfo != null),
         assert(confirm != null),
         assert(success != null),
         assert(showLoading != null);
@@ -306,6 +321,9 @@ class _$_SupernodeDhxState
   @JsonKey(defaultValue: const [])
   @override
   final List<CalendarModel> calendarBondInfo;
+  @JsonKey(defaultValue: const [])
+  @override
+  final List<CalendarModel> lastCalendarBondInfo;
   @JsonKey(defaultValue: false)
   @override
   final bool confirm;
@@ -322,7 +340,7 @@ class _$_SupernodeDhxState
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SupernodeDhxState(balance: $balance, lockedAmount: $lockedAmount, totalRevenue: $totalRevenue, yesterdayTotalMPower: $yesterdayTotalMPower, currentMiningPower: $currentMiningPower, stakes: $stakes, dhxBonded: $dhxBonded, dhxUnbonding: $dhxUnbonding, calendarBondInfo: $calendarBondInfo, confirm: $confirm, success: $success, showLoading: $showLoading, bondAmount: $bondAmount, unbondAmount: $unbondAmount)';
+    return 'SupernodeDhxState(balance: $balance, lockedAmount: $lockedAmount, totalRevenue: $totalRevenue, yesterdayTotalMPower: $yesterdayTotalMPower, currentMiningPower: $currentMiningPower, stakes: $stakes, dhxBonded: $dhxBonded, dhxUnbonding: $dhxUnbonding, calendarBondInfo: $calendarBondInfo, lastCalendarBondInfo: $lastCalendarBondInfo, confirm: $confirm, success: $success, showLoading: $showLoading, bondAmount: $bondAmount, unbondAmount: $unbondAmount)';
   }
 
   @override
@@ -339,6 +357,7 @@ class _$_SupernodeDhxState
       ..add(DiagnosticsProperty('dhxBonded', dhxBonded))
       ..add(DiagnosticsProperty('dhxUnbonding', dhxUnbonding))
       ..add(DiagnosticsProperty('calendarBondInfo', calendarBondInfo))
+      ..add(DiagnosticsProperty('lastCalendarBondInfo', lastCalendarBondInfo))
       ..add(DiagnosticsProperty('confirm', confirm))
       ..add(DiagnosticsProperty('success', success))
       ..add(DiagnosticsProperty('showLoading', showLoading))
@@ -376,6 +395,9 @@ class _$_SupernodeDhxState
             (identical(other.calendarBondInfo, calendarBondInfo) ||
                 const DeepCollectionEquality()
                     .equals(other.calendarBondInfo, calendarBondInfo)) &&
+            (identical(other.lastCalendarBondInfo, lastCalendarBondInfo) ||
+                const DeepCollectionEquality().equals(
+                    other.lastCalendarBondInfo, lastCalendarBondInfo)) &&
             (identical(other.confirm, confirm) ||
                 const DeepCollectionEquality()
                     .equals(other.confirm, confirm)) &&
@@ -405,6 +427,7 @@ class _$_SupernodeDhxState
       const DeepCollectionEquality().hash(dhxBonded) ^
       const DeepCollectionEquality().hash(dhxUnbonding) ^
       const DeepCollectionEquality().hash(calendarBondInfo) ^
+      const DeepCollectionEquality().hash(lastCalendarBondInfo) ^
       const DeepCollectionEquality().hash(confirm) ^
       const DeepCollectionEquality().hash(success) ^
       const DeepCollectionEquality().hash(showLoading) ^
@@ -428,6 +451,7 @@ abstract class _SupernodeDhxState implements SupernodeDhxState {
       Wrap<double> dhxBonded,
       Wrap<double> dhxUnbonding,
       List<CalendarModel> calendarBondInfo,
+      List<CalendarModel> lastCalendarBondInfo,
       bool confirm,
       bool success,
       bool showLoading,
@@ -452,6 +476,8 @@ abstract class _SupernodeDhxState implements SupernodeDhxState {
   Wrap<double> get dhxUnbonding;
   @override
   List<CalendarModel> get calendarBondInfo;
+  @override
+  List<CalendarModel> get lastCalendarBondInfo;
   @override
   bool get confirm;
   @override

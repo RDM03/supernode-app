@@ -166,14 +166,14 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       final double dhxBonded = double.parse('0' + res["dhxBonded"]);
       final double dhxUnbonding = double.parse('0' + res["dhxUnbondingTotal"]);
 
-      final List<CalendarModel> listCalendarData = [];
+      final List<CalendarModel> listCalendarData = [], lastListCalendarData = [];
       try { // parsing response for calendar component on DhxMiningPage
         final Map<DateTime, CalendarModel> parsed = {};
         DateTime dateTmp;
 
         for (dynamic rec in res["dhxUnbonding"]) {
           dateTmp = DateTime.tryParse(rec["created"]) ?? DateTime.now();
-          dateTmp = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
+          dateTmp = DateTime(dateTmp.year, dateTmp.month, dateTmp.day);
           if (!parsed.containsKey(dateTmp))
             parsed[dateTmp] = CalendarModel(date: dateTmp);
           parsed[dateTmp].unbondAmount += double.parse(rec["amount"]);
@@ -181,7 +181,7 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
 
         for (dynamic rec in res["dhxCoolingOff"]) {
           dateTmp = DateTime.tryParse(rec["created"]) ?? DateTime.now();
-          dateTmp = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
+          dateTmp = DateTime(dateTmp.year, dateTmp.month, dateTmp.day);
           if (!parsed.containsKey(dateTmp))
             parsed[dateTmp] = CalendarModel(date: dateTmp);
           parsed[dateTmp].minedAmount += double.parse(rec["amount"]);
@@ -192,11 +192,11 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
         dateTmp = DateTime.now();
         final today = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
         final DateTime firstDayOfRange = (datesParsed.length > 0) ? datesParsed[0] : today;
-        // final DateTime mondayBeforeFirstDay = firstDayOfRange.subtract(
+        // final DateTime firstDay = firstDayOfRange.subtract(
             // Duration(days: firstDayOfRange.weekday - 1));
 
         //get the first day
-        final DateTime mondayBeforeFirstDay = new DateTime(firstDayOfRange.year,firstDayOfRange.month,1);
+        final DateTime firstDay = new DateTime(firstDayOfRange.year,firstDayOfRange.month - 1,1);
 
         int indexDatesParsed = 0;
         int lastDayBeforeToday = 0;
@@ -209,15 +209,10 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
         nextMonth.millisecondsSinceEpoch - 24 * 60 * 60 * 1000;
         var lastDayDatetime = new DateTime.fromMillisecondsSinceEpoch(lastDayTimeStamp);
 
-        for (int i = 0; i < lastDayDatetime.day; i++) {
-          // 2 weeks range starting on Monday before bond-info data
-          dateTmp = mondayBeforeFirstDay.add(Duration(days: i));
-          if (indexDatesParsed < datesParsed.length &&
-              dateTmp == datesParsed[indexDatesParsed]) {
-            listCalendarData.add(parsed[dateTmp]
-              ..today = (today
-                  .difference(dateTmp)
-                  .inDays == 0));
+        for (int i = 0; i <= lastDayDatetime.difference(firstDay).inDays; i++) {
+          // 2 months range starting on Monday before bond-info data
+          dateTmp = firstDay.add(Duration(days: i));
+          if (indexDatesParsed < datesParsed.length && Tools.isSameDay(dateTmp, datesParsed[indexDatesParsed])) {
             if (indexDatesParsed == 0) {
               parsed[dateTmp].left = true;
             }
@@ -227,18 +222,29 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
             if (indexDatesParsed != 0 && indexDatesParsed < lastDayBeforeToday){
               parsed[dateTmp].middle = true;
             }
+            parsed[dateTmp].today = Tools.isSameDay(dateTmp, today);
+            if (Tools.isSameMonth(firstDay, dateTmp)) {
+              lastListCalendarData.add(parsed[dateTmp]);
+            } else {
+              listCalendarData.add(parsed[dateTmp]);
+            }
+
             indexDatesParsed++;
           } else {
-            listCalendarData.add(CalendarModel(date: dateTmp, today: (today
-                .difference(dateTmp)
-                .inDays == 0)));
+            CalendarModel calendarTemp = CalendarModel(date: dateTmp, today: Tools.isSameDay(dateTmp, today));
+            if (Tools.isSameMonth(firstDay, dateTmp)) {
+              lastListCalendarData.add(calendarTemp);
+            } else {
+              listCalendarData.add(calendarTemp);
+            }
           }
         }
       } catch (e, s) {
         logger.e('refresh error', e, s);
       }
 
-      emit(state.copyWith(dhxBonded: Wrap(dhxBonded), dhxUnbonding: Wrap(dhxUnbonding), calendarBondInfo: listCalendarData));
+
+      emit(state.copyWith(dhxBonded: Wrap(dhxBonded), dhxUnbonding: Wrap(dhxUnbonding), calendarBondInfo: listCalendarData, lastCalendarBondInfo: lastListCalendarData));
 
     } catch (e, s) {
       logger.e('refresh error', e, s);
