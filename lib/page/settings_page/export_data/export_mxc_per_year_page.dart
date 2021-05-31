@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
@@ -13,6 +14,7 @@ import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import 'fiat_list_page.dart';
+import 'format_list_page.dart';
 
 class ExportMxcPreYearPage extends StatefulWidget {
   final int year;
@@ -61,6 +63,14 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
             listItem(FlutterI18n.translate(context, 'time_range'),
                 trailing: Text('01.01.${widget.year} - 31.12.${widget.year}', style: kBigFontOfDarkBlue)),
             Divider(),
+            listItem(FlutterI18n.translate(context, 'format'),
+                key: Key('format'),
+                onTap: () => Navigator.push(context, route((_) => FormatListPage())),
+                trailing: BlocBuilder<SettingsCubit, SettingsState>(
+                  buildWhen: (a, b) => a.format != b.format,
+                  builder: (context, state) => Text(state.format.toUpperCase(), style: kBigFontOfDarkBlue),
+                )),
+            Divider(),
             listItem(FlutterI18n.translate(context, 'currency'),
                 key: Key('currency'),
                 onTap: () => Navigator.push(context, route((_) => FiatListPage())),
@@ -89,7 +99,7 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
                       onTap: () => context.read<SettingsCubit>().changeDataExportDecimals(1)),
                 ])),
             Divider(),
-            SizedBox(height: 200),
+            SizedBox(height: 125),
             PrimaryButton(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               minWidth: double.infinity,

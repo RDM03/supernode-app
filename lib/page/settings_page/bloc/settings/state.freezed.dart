@@ -17,6 +17,7 @@ class _$SettingsStateTearOff {
   _SettingsState call(
       {@nullable PackageInfo info,
       @nullable List<FiatCurrency> listFiat,
+      String format = 'pdf',
       @nullable FiatCurrency selectedFiat,
       @nullable DateTime startDate,
       @nullable DateTime endDate,
@@ -33,6 +34,7 @@ class _$SettingsStateTearOff {
     return _SettingsState(
       info: info,
       listFiat: listFiat,
+      format: format,
       selectedFiat: selectedFiat,
       startDate: startDate,
       endDate: endDate,
@@ -60,6 +62,7 @@ mixin _$SettingsState {
   PackageInfo get info;
   @nullable
   List<FiatCurrency> get listFiat;
+  String get format;
   @nullable
   FiatCurrency get selectedFiat;
   @nullable
@@ -93,6 +96,7 @@ abstract class $SettingsStateCopyWith<$Res> {
   $Res call(
       {@nullable PackageInfo info,
       @nullable List<FiatCurrency> listFiat,
+      String format,
       @nullable FiatCurrency selectedFiat,
       @nullable DateTime startDate,
       @nullable DateTime endDate,
@@ -121,6 +125,7 @@ class _$SettingsStateCopyWithImpl<$Res>
   $Res call({
     Object info = freezed,
     Object listFiat = freezed,
+    Object format = freezed,
     Object selectedFiat = freezed,
     Object startDate = freezed,
     Object endDate = freezed,
@@ -140,6 +145,7 @@ class _$SettingsStateCopyWithImpl<$Res>
       listFiat: listFiat == freezed
           ? _value.listFiat
           : listFiat as List<FiatCurrency>,
+      format: format == freezed ? _value.format : format as String,
       selectedFiat: selectedFiat == freezed
           ? _value.selectedFiat
           : selectedFiat as FiatCurrency,
@@ -179,6 +185,7 @@ abstract class _$SettingsStateCopyWith<$Res>
   $Res call(
       {@nullable PackageInfo info,
       @nullable List<FiatCurrency> listFiat,
+      String format,
       @nullable FiatCurrency selectedFiat,
       @nullable DateTime startDate,
       @nullable DateTime endDate,
@@ -209,6 +216,7 @@ class __$SettingsStateCopyWithImpl<$Res>
   $Res call({
     Object info = freezed,
     Object listFiat = freezed,
+    Object format = freezed,
     Object selectedFiat = freezed,
     Object startDate = freezed,
     Object endDate = freezed,
@@ -228,6 +236,7 @@ class __$SettingsStateCopyWithImpl<$Res>
       listFiat: listFiat == freezed
           ? _value.listFiat
           : listFiat as List<FiatCurrency>,
+      format: format == freezed ? _value.format : format as String,
       selectedFiat: selectedFiat == freezed
           ? _value.selectedFiat
           : selectedFiat as FiatCurrency,
@@ -262,6 +271,7 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
   _$_SettingsState(
       {@nullable this.info,
       @nullable this.listFiat,
+      this.format = 'pdf',
       @nullable this.selectedFiat,
       @nullable this.startDate,
       @nullable this.endDate,
@@ -275,7 +285,8 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
       this.showWechatUnbindConfirmation,
       this.showBindShopifyStep,
       this.showLoading})
-      : assert(decimals != null),
+      : assert(format != null),
+        assert(decimals != null),
         assert(copyrightYear != null);
 
   @override
@@ -284,6 +295,9 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
   @override
   @nullable
   final List<FiatCurrency> listFiat;
+  @JsonKey(defaultValue: 'pdf')
+  @override
+  final String format;
   @override
   @nullable
   final FiatCurrency selectedFiat;
@@ -322,7 +336,7 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SettingsState(info: $info, listFiat: $listFiat, selectedFiat: $selectedFiat, startDate: $startDate, endDate: $endDate, decimals: $decimals, version: $version, buildNumber: $buildNumber, mxVersion: $mxVersion, language: $language, copyrightYear: $copyrightYear, screenShot: $screenShot, showWechatUnbindConfirmation: $showWechatUnbindConfirmation, showBindShopifyStep: $showBindShopifyStep, showLoading: $showLoading)';
+    return 'SettingsState(info: $info, listFiat: $listFiat, format: $format, selectedFiat: $selectedFiat, startDate: $startDate, endDate: $endDate, decimals: $decimals, version: $version, buildNumber: $buildNumber, mxVersion: $mxVersion, language: $language, copyrightYear: $copyrightYear, screenShot: $screenShot, showWechatUnbindConfirmation: $showWechatUnbindConfirmation, showBindShopifyStep: $showBindShopifyStep, showLoading: $showLoading)';
   }
 
   @override
@@ -332,6 +346,7 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
       ..add(DiagnosticsProperty('type', 'SettingsState'))
       ..add(DiagnosticsProperty('info', info))
       ..add(DiagnosticsProperty('listFiat', listFiat))
+      ..add(DiagnosticsProperty('format', format))
       ..add(DiagnosticsProperty('selectedFiat', selectedFiat))
       ..add(DiagnosticsProperty('startDate', startDate))
       ..add(DiagnosticsProperty('endDate', endDate))
@@ -357,6 +372,8 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
             (identical(other.listFiat, listFiat) ||
                 const DeepCollectionEquality()
                     .equals(other.listFiat, listFiat)) &&
+            (identical(other.format, format) ||
+                const DeepCollectionEquality().equals(other.format, format)) &&
             (identical(other.selectedFiat, selectedFiat) ||
                 const DeepCollectionEquality()
                     .equals(other.selectedFiat, selectedFiat)) &&
@@ -405,6 +422,7 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(info) ^
       const DeepCollectionEquality().hash(listFiat) ^
+      const DeepCollectionEquality().hash(format) ^
       const DeepCollectionEquality().hash(selectedFiat) ^
       const DeepCollectionEquality().hash(startDate) ^
       const DeepCollectionEquality().hash(endDate) ^
@@ -429,6 +447,7 @@ abstract class _SettingsState implements SettingsState {
   factory _SettingsState(
       {@nullable PackageInfo info,
       @nullable List<FiatCurrency> listFiat,
+      String format,
       @nullable FiatCurrency selectedFiat,
       @nullable DateTime startDate,
       @nullable DateTime endDate,
@@ -449,6 +468,8 @@ abstract class _SettingsState implements SettingsState {
   @override
   @nullable
   List<FiatCurrency> get listFiat;
+  @override
+  String get format;
   @override
   @nullable
   FiatCurrency get selectedFiat;

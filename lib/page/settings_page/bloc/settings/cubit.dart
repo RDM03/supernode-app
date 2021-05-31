@@ -213,6 +213,10 @@ class SettingsCubit extends Cubit<SettingsState> {
     }
   }
 
+  void setFormat(String format) {
+    emit(state.copyWith(format: format));
+  }
+
   void setFiatCurrency(FiatCurrency selectedFiat) {
     appCubit.setSelectedFiatForExport(selectedFiat);
     emit(state.copyWith(selectedFiat: selectedFiat));
@@ -224,11 +228,14 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   Future<void> getDataExport() async {
+    if (state.selectedFiat == null || state.selectedFiat.id == null)
+      return;
+
     emit(state.copyWith(showLoading: true));
 
     try {
       Map data = {
-        "format": "pdf",
+        "format": state.format,
         "organizationId": supernodeCubit.state.orgId,
         "currency": 'ETH_MXC',
         "fiatCurrency": state.selectedFiat.id,
@@ -237,11 +244,11 @@ class SettingsCubit extends Cubit<SettingsState> {
         "decimals" : state.decimals
       };
 
-      final String reportUri = await supernodeRepository.user.miningIncomeReport(data);
+      final String pathDownloadedFile = await supernodeRepository.user.miningIncomeReport(data);
       emit(state.copyWith(showLoading: false));
-    } catch (e) {
+    } catch (err) {
       emit(state.copyWith(showLoading: false));
-      appCubit.setError(e.toString());
+      appCubit.setError('Data export: $err');
     }
   }
 }
