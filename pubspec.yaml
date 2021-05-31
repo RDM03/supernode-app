@@ -23,7 +23,6 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^0.1.2
-  ext_storage: any
   # https://pub.dev/packages/device_info
   device_info: ^2.0.0
   # https://pub.dev/packages/geolocator

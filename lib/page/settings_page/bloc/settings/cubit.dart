@@ -227,9 +227,9 @@ class SettingsCubit extends Cubit<SettingsState> {
       emit(state.copyWith(decimals: state.decimals + difference));
   }
 
-  Future<void> getDataExport() async {
+  Future<bool> getDataExport() async {
     if (state.selectedFiat == null || state.selectedFiat.id == null)
-      return;
+      return false;
 
     emit(state.copyWith(showLoading: true));
 
@@ -244,11 +244,13 @@ class SettingsCubit extends Cubit<SettingsState> {
         "decimals" : state.decimals
       };
 
-      final String pathDownloadedFile = await supernodeRepository.user.miningIncomeReport(data);
+      final bool isLaunchedExportData = await supernodeRepository.user.miningIncomeReport(data, supernodeCubit.state.selectedNode.url);
       emit(state.copyWith(showLoading: false));
+      return isLaunchedExportData;
     } catch (err) {
       emit(state.copyWith(showLoading: false));
       appCubit.setError('Data export: $err');
     }
+    return false;
   }
 }

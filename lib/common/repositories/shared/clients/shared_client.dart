@@ -2,11 +2,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:supernodeapp/common/repositories/shared/clients/client.dart';
 import 'package:supernodeapp/common/repositories/supernode/clients/exceptions/un_authorized_exception.dart';
-import 'package:ext_storage/ext_storage.dart';
 
 class SharedHttpClient implements HttpClient {
   final Dio dio;
@@ -99,26 +97,6 @@ class SharedHttpClient implements HttpClient {
     } on DioError catch (e, stack) {
       _handleDioError(e, stack);
     }
-  }
-
-  @override
-  Future<String> downloadFile({String url}) async {
-    final List<String> urlParts = url.split('/');
-    final String fileName = (urlParts.length > 0) ? urlParts[urlParts.length - 1] : "file_name";
-    final String filePath = (Platform.isAndroid)
-      ? await ExtStorage.getExternalStoragePublicDirectory(ExtStorage.DIRECTORY_DOWNLOADS)
-      : (await getApplicationDocumentsDirectory()).path;
-
-    String fullPath = "$filePath/$fileName";
-    await dio.download(
-        _fmtUrl(url),
-        fullPath,
-        onReceiveProgress: (receivedBytes, totalBytes) {
-          String progress = ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
-          //TODO progress mLog('test', 'received $receivedBytes / total $totalBytes = $progress');
-        });
-
-    return fullPath;
   }
 
   void dispose() {

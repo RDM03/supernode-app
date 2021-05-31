@@ -131,7 +131,7 @@ class DemoUserDao extends DemoDao implements UserDao {
       FiatCurrency('cny', 'cny')]);
     }
 
-  Future<String> miningIncomeReport(Map data) {
-    return Future.value('report uri');
+  Future<bool> miningIncomeReport(Map data, String url) {
+    return Future.value(true);
   }
 }

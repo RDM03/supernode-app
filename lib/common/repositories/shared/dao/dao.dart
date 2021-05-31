@@ -38,10 +38,6 @@ class HttpDao {
   Future<dynamic> delete({String url}) async {
     return client.delete(url: url);
   }
-
-  Future<String> downloadFile({String url}) async {
-    return client.downloadFile(url: url);
-  }
 }
 
 

@@ -29,9 +29,4 @@ class DemoDao implements HttpDao {
 
   @override
   HttpClient get client => throw UnimplementedError();
-
-  @override
-  Future<String> downloadFile({String url}) {
-    throw UnimplementedError("Download file unavailable in demo");
-  }
 }
