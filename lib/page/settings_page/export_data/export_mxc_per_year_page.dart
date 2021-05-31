@@ -30,7 +30,7 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
   void initState() {
     super.initState();
     final FiatCurrency fiatPreviousSession = context.read<StorageRepository>().selectedFiatForExport();
-    context.read<SettingsCubit>().loadFiatCurrencies(fiatPreviousSession);
+    context.read<SettingsCubit>().initExportMxcPreYearPage(widget.year, fiatPreviousSession);
   }
 
   @override
@@ -72,7 +72,22 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
                 )),
             Divider(),
             listItem(FlutterI18n.translate(context, 'decimals'),
-                trailing: SizedBox()),
+                trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+                  GestureDetector(
+                      child: Icon(Icons.remove_circle_outline),
+                      onTap: () => context.read<SettingsCubit>().changeDataExportDecimals(-1)),
+                  SizedBox(width: 20),
+                  BlocBuilder<SettingsCubit, SettingsState>(
+                    buildWhen: (a, b) => a.decimals != b.decimals,
+                    builder: (context, state) {
+                      return Text('${state.decimals < 10 ? '0' : ''}${state.decimals}', style: kBigFontOfDarkBlue);
+                    },
+                  ),
+                  SizedBox(width: 20),
+                  GestureDetector(
+                      child: Icon(Icons.add_circle_outline),
+                      onTap: () => context.read<SettingsCubit>().changeDataExportDecimals(1)),
+                ])),
             Divider(),
             SizedBox(height: 200),
             PrimaryButton(

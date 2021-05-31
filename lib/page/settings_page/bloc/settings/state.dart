@@ -12,6 +12,9 @@ abstract class SettingsState with _$SettingsState {
     @nullable PackageInfo info,
     @nullable List<FiatCurrency> listFiat,
     @nullable FiatCurrency selectedFiat,
+    @nullable DateTime startDate,
+    @nullable DateTime endDate,
+    @Default(4) int decimals,
 
     @nullable String version,
     @nullable String buildNumber,

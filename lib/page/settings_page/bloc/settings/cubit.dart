@@ -185,23 +185,27 @@ class SettingsCubit extends Cubit<SettingsState> {
     }
   }
 
-  Future<void> loadFiatCurrencies(FiatCurrency fiatPreviousSession) async {
+  Future<void> initExportMxcPreYearPage(int year, FiatCurrency fiatPreviousSession) async {
     if (state.listFiat == null) {
       emit(state.copyWith(showLoading: true));
 
       try {
+        FiatCurrency initFiat;
         final List<FiatCurrency> listFiat = await supernodeRepository.user.supportedFiatCurrencies();
         if (fiatPreviousSession == null || fiatPreviousSession.id == null || fiatPreviousSession.id.isEmpty) {
-          final firstFiatFromList = (listFiat == null || listFiat.length < 1)
+          initFiat = (listFiat == null || listFiat.length < 1)
               ? null
               : listFiat[0];
-          emit(state.copyWith(listFiat: listFiat,
-              selectedFiat: firstFiatFromList,
-              showLoading: false));
-        } else
-          emit(state.copyWith(listFiat: listFiat,
-              selectedFiat: fiatPreviousSession,
-              showLoading: false));
+        } else {
+          initFiat = fiatPreviousSession;
+        }
+
+        emit(state.copyWith(listFiat: listFiat,
+            selectedFiat: initFiat,
+            startDate: DateTime(year),
+            endDate: DateTime(year + 1),
+            showLoading: false));
+
       } catch (e) {
         emit(state.copyWith(showLoading: false));
         appCubit.setError(e.toString());
@@ -214,6 +218,11 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(state.copyWith(selectedFiat: selectedFiat));
   }
 
+  void changeDataExportDecimals(int difference) {
+    if (state.decimals + difference >= 0 && state.decimals + difference <= 18)
+      emit(state.copyWith(decimals: state.decimals + difference));
+  }
+
   Future<void> getDataExport() async {
     emit(state.copyWith(showLoading: true));
 
@@ -223,9 +232,9 @@ class SettingsCubit extends Cubit<SettingsState> {
         "organizationId": supernodeCubit.state.orgId,
         "currency": 'ETH_MXC',
         "fiatCurrency": state.selectedFiat.id,
-        "start": '2019-05-26T13:19:03.510Z',
-        "end": '2021-05-26T13:19:03.510Z',
-        "decimals" : 5
+        "start": state.startDate.toUtc().toIso8601String(),//'2019-05-26T13:19:03.510Z',
+        "end": state.endDate.toUtc().toIso8601String(),//'2021-05-26T13:19:03.510Z',
+        "decimals" : state.decimals
       };
 
       final String reportUri = await supernodeRepository.user.miningIncomeReport(data);
