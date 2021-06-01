@@ -274,8 +274,8 @@ Widget buildView(
                   );
                   return Text(
                     (dailyReturn == null || dailyReturn.isNaN
-                            ? '??'
-                            : '${Tools.priceFormat(dailyReturn, range: 2)} DHX'),
+                        ? '??'
+                        : '${Tools.priceFormat(dailyReturn, range: 2)} DHX'),
                     key: ValueKey('dailyReturnText'),
                     textAlign: TextAlign.right,
                     maxLines: 2,

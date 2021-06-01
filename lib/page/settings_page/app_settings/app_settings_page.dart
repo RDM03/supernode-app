@@ -52,8 +52,9 @@ class AppSettingsPage extends StatelessWidget {
                   activeColor: Color(0xFF1C1478),
                   value: s.screenShot,
                   onChanged: (v) async {
-                      await DatadashFeedback.of(context).setShowScreenshot(v);
-                      context.read<SettingsCubit>().setScreenShot(v);},
+                    await DatadashFeedback.of(context).setShowScreenshot(v);
+                    context.read<SettingsCubit>().setScreenShot(v);
+                  },
                 ),
               ),
             ),

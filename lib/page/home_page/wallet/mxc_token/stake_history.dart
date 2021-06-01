@@ -56,8 +56,8 @@ class _StakeHistoryContentState extends State<StakeHistoryContent> {
       } else {
         temp = temp
             .where((e) => filter == StakeHistoryFilter.stake
-            ? e.type == 'STAKING'
-            : e.type == 'UNSTAKING')
+                ? e.type == 'STAKING'
+                : e.type == 'UNSTAKING')
             .toList();
       }
 

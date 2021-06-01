@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 class CircularGraph extends StatelessWidget {
-  static const  Widget defaultWidget = SizedBox();
+  static const Widget defaultWidget = SizedBox();
+
   /// Value [0-100]
   final double percentage;
+
   /// Color of CircularGraph
   final Color graphColor;
+
   /// Widget displayed at center of CircularGraph
   final Widget child;
   final Color shadowColor = backgroundColor;
@@ -27,10 +30,9 @@ class CircularGraph extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           gradient: RadialGradient(
-              colors: [Colors.white, shadowColor],
-              stops: [0.97, 1.0]),
+              colors: [Colors.white, shadowColor], stops: [0.97, 1.0]),
         ),
-        child:  Container(
+        child: Container(
           width: size - paddingSize,
           height: size - paddingSize,
           alignment: Alignment.center,
@@ -42,8 +44,7 @@ class CircularGraph extends StatelessWidget {
                       lineColor: graphColor.withOpacity(0.1),
                       completeColor: graphColor.withOpacity(.8),
                       completePercent: percentage,
-                      width: lineWidth
-                  ),
+                      width: lineWidth),
                   child: Container(
                       width: size - paddingSize - 2 * lineWidth,
                       height: size - paddingSize - 2 * lineWidth,
@@ -66,21 +67,19 @@ class CircularGraph extends StatelessWidget {
                           ],
                         ),
                         child: child,
-                      )
-                  )
-              )),
-        )
-    );
+                      )))),
+        ));
   }
 }
 
 /// https://medium.com/@rjstech/flutter-custom-paint-tutorial-build-a-radial-progress-6f80483494df
-class MyPainter extends CustomPainter{
+class MyPainter extends CustomPainter {
   Color lineColor;
   Color completeColor;
   double completePercent;
   double width;
-  MyPainter({this.lineColor,this.completeColor,this.completePercent,this.width});
+  MyPainter(
+      {this.lineColor, this.completeColor, this.completePercent, this.width});
   @override
   void paint(Canvas canvas, Size size) {
     Paint line = new Paint()
@@ -93,22 +92,14 @@ class MyPainter extends CustomPainter{
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
       ..strokeWidth = width;
-    Offset center  = new Offset(size.width/2, size.height/2);
-    double radius  = min(size.width/2,size.height/2);
-    canvas.drawCircle(
-        center,
-        radius,
-        line
-    );
-    double arcAngle = 2*pi* (completePercent/100);
-    canvas.drawArc(
-        new Rect.fromCircle(center: center,radius: radius),
-        -pi/2,
-        arcAngle,
-        false,
-        complete
-    );
+    Offset center = new Offset(size.width / 2, size.height / 2);
+    double radius = min(size.width / 2, size.height / 2);
+    canvas.drawCircle(center, radius, line);
+    double arcAngle = 2 * pi * (completePercent / 100);
+    canvas.drawArc(new Rect.fromCircle(center: center, radius: radius), -pi / 2,
+        arcAngle, false, complete);
   }
+
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return true;

@@ -26,13 +26,12 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBars.backArrowAppBar(
-        title: FlutterI18n.translate(context, 'dhx_mining'),
-        onPress: () => Navigator.pop(context),
-      ),
-      backgroundColor: backgroundColor,
-      body: PageBody(
-        children: [
+        appBar: AppBars.backArrowAppBar(
+          title: FlutterI18n.translate(context, 'dhx_mining'),
+          onPress: () => Navigator.pop(context),
+        ),
+        backgroundColor: backgroundColor,
+        body: PageBody(children: [
           smallColumnSpacer(),
           SupernodeDhxMineActions(),
           PanelFrame(
@@ -48,56 +47,62 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
           middleColumnSpacer(),
           Row(children: [
             Icon(Icons.circle, color: Token.supernodeDhx.color, size: 12),
-            Text(FlutterI18n.translate(context, "today"), style: kSmallFontOfBlack),
+            Text(FlutterI18n.translate(context, "today"),
+                style: kSmallFontOfBlack),
             Spacer(),
-            Icon(Icons.circle, color: Token.supernodeDhx.color.withOpacity(0.2), size: 12),
-            Text(FlutterI18n.translate(context, 'cool_off'), style: kSmallFontOfBlack),
+            Icon(Icons.circle,
+                color: Token.supernodeDhx.color.withOpacity(0.2), size: 12),
+            Text(FlutterI18n.translate(context, 'cool_off'),
+                style: kSmallFontOfBlack),
             Spacer(),
             Image.asset(AppImages.iconUnbond, scale: 1.8, color: Colors.red),
-            Text(FlutterI18n.translate(context, 'unbonded'), style: kSmallFontOfBlack)
+            Text(FlutterI18n.translate(context, 'unbonded'),
+                style: kSmallFontOfBlack)
           ]),
           smallColumnSpacer(),
           PanelFrame(
             rowTop: const EdgeInsets.all(0.0),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
                     buildWhen: (a, b) =>
-                    a.calendarBondInfo != b.calendarBondInfo,
-                    builder: (context, state) =>
-                    (state.calendarBondInfo != null && state.calendarBondInfo.length > 0)
-                        ? Text('   ${Tools.dateMonthYearFormat(state.calendarBondInfo[0].date)}'
-                        '${(state.calendarBondInfo[0].date.month != state.calendarBondInfo[state.calendarBondInfo.length-1].date.month)
-                        ? ' - ' + Tools.dateMonthYearFormat(state.calendarBondInfo[state.calendarBondInfo.length-1].date)
-                        : ''}',
-                        style: kPrimaryBigFontOfBlack)
+                        a.calendarBondInfo != b.calendarBondInfo,
+                    builder: (context, state) => (state.calendarBondInfo !=
+                                null &&
+                            state.calendarBondInfo.length > 0)
+                        ? Text(
+                            '   ${Tools.dateMonthYearFormat(state.calendarBondInfo[0].date)}'
+                            '${(state.calendarBondInfo[0].date.month != state.calendarBondInfo[state.calendarBondInfo.length - 1].date.month) ? ' - ' + Tools.dateMonthYearFormat(state.calendarBondInfo[state.calendarBondInfo.length - 1].date) : ''}',
+                            style: kPrimaryBigFontOfBlack)
                         : SizedBox(),
-                ),
+                  ),
                   smallColumnSpacer(),
                   BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
                     buildWhen: (a, b) =>
-                      a.calendarBondInfo != b.calendarBondInfo,
+                        a.calendarBondInfo != b.calendarBondInfo,
                     builder: (context, state) => GridView.count(
                       crossAxisCount: 7,
                       childAspectRatio: (1 / 2),
                       shrinkWrap: true,
-                      children: state.calendarBondInfo.map((e) => _CalendarElement(e)).toList(),
+                      children: state.calendarBondInfo
+                          .map((e) => _CalendarElement(e))
+                          .toList(),
                     ),
                   ),
                   Divider(thickness: 2),
                   smallColumnSpacer(),
-                  Text(FlutterI18n.translate(context, 'bonding_calendar_note'), style: kSmallFontOfBlack),
+                  Text(FlutterI18n.translate(context, 'bonding_calendar_note'),
+                      style: kSmallFontOfBlack),
                 ],
               ),
             ),
           ),
           middleColumnSpacer(),
-        ]
-      )
-    );
+        ]));
   }
 }
 
@@ -115,35 +120,48 @@ class _CalendarElement extends StatelessWidget {
     BoxDecoration getDecoration() {
       if (model.today)
         return BoxDecoration(
-            color: Token.supernodeDhx.color,
-            shape: BoxShape.circle
-        );
+            color: Token.supernodeDhx.color, shape: BoxShape.circle);
       if (model.left || model.right || model.middle)
         return BoxDecoration(
             color: Token.supernodeDhx.color.withOpacity(0.2),
             borderRadius: BorderRadius.horizontal(
                 left: (model.left) ? radius : Radius.zero,
                 right: (model.right) ? radius : Radius.zero),
-            shape: BoxShape.rectangle
-        );
+            shape: BoxShape.rectangle);
       return BoxDecoration();
     }
 
-    return Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
-      Divider(thickness: 2),
-      Row(mainAxisAlignment:MainAxisAlignment.center,
-          children: [
-            Image.asset(AppImages.iconUnbond, scale: 1.5, color: (model.unbondAmount > 0) ? Colors.red : Colors.white),
-            Text('${7 - today.difference(model.date).inDays}', style: (model.unbondAmount > 0) ? kMiddleFontOfBlack : kMiddleFontOfWhite)]),
-      Container(
-          height: 25,
-          width: double.infinity,
-          decoration: getDecoration(),
-          child: Center(child: Text('${model.date.day}', style: (model.today) ? kMiddleFontOfWhite : kMiddleFontOfBlack))),
-      Text(
-          ((model.minedAmount > 0) ? '+${Tools.priceFormat(model.minedAmount, range: Tools.max3DecimalPlaces(model.minedAmount))}' : '') +
-              ((model.today) ? FlutterI18n.translate(context, 'today') : ''),
-          style: kSmallFontOfBlack),
-    ]);
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Divider(thickness: 2),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Image.asset(AppImages.iconUnbond,
+                scale: 1.5,
+                color: (model.unbondAmount > 0) ? Colors.red : Colors.white),
+            Text('${7 - today.difference(model.date).inDays}',
+                style: (model.unbondAmount > 0)
+                    ? kMiddleFontOfBlack
+                    : kMiddleFontOfWhite)
+          ]),
+          Container(
+              height: 25,
+              width: double.infinity,
+              decoration: getDecoration(),
+              child: Center(
+                  child: Text('${model.date.day}',
+                      style: (model.today)
+                          ? kMiddleFontOfWhite
+                          : kMiddleFontOfBlack))),
+          Text(
+              ((model.minedAmount > 0)
+                      ? '+${Tools.priceFormat(model.minedAmount, range: Tools.max3DecimalPlaces(model.minedAmount))}'
+                      : '') +
+                  ((model.today)
+                      ? FlutterI18n.translate(context, 'today')
+                      : ''),
+              style: kSmallFontOfBlack),
+        ]);
   }
 }

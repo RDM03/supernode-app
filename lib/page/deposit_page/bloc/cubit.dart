@@ -14,7 +14,8 @@ class DepositCubit extends Cubit<DepositState> {
   final AppCubit appCubit;
   final SupernodeRepository supernodeRepository;
 
-  DepositCubit(this.supernodeUserCubit, this.appCubit, this.supernodeRepository) : super(DepositState());
+  DepositCubit(this.supernodeUserCubit, this.appCubit, this.supernodeRepository)
+      : super(DepositState());
 
   Future<void> loadAddress(String currency) async {
     emit(state.copyWith(address: Wrap.pending()));

@@ -50,26 +50,31 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
               ],
             ),
             smallColumnSpacer(),
-            Text(FlutterI18n.translate(context, 'lock_tip'), style: kMiddleFontOfGrey),
+            Text(FlutterI18n.translate(context, 'lock_tip'),
+                style: kMiddleFontOfGrey),
             smallColumnSpacer(),
             RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
-                      text: FlutterI18n.translate(context, 'learn_more'),
-                      style: kMiddleFontOfBlueLink.copyWith(color: Token.supernodeDhx.color),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => Navigator.push(context, MaterialPageRoute<void>(
-                          builder: (BuildContext context) {
-                            return Scaffold(
-                              appBar: AppBars.backArrowSkipAppBar(
-                                  title: FlutterI18n.translate(context, 'tutorial_title'),
-                                  onPress: () => Navigator.pop(context),
-                                  action: FlutterI18n.translate(context, "skip")),
-                              body: MiningTutorial(context),
-                            );
-                          },
-                        )),
+                    text: FlutterI18n.translate(context, 'learn_more'),
+                    style: kMiddleFontOfBlueLink.copyWith(
+                        color: Token.supernodeDhx.color),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () =>
+                          Navigator.push(context, MaterialPageRoute<void>(
+                            builder: (BuildContext context) {
+                              return Scaffold(
+                                appBar: AppBars.backArrowSkipAppBar(
+                                    title: FlutterI18n.translate(
+                                        context, 'tutorial_title'),
+                                    onPress: () => Navigator.pop(context),
+                                    action:
+                                        FlutterI18n.translate(context, "skip")),
+                                body: MiningTutorial(context),
+                              );
+                            },
+                          )),
                   ),
                 ],
               ),

@@ -47,7 +47,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(state.copyWith(language: language));
   }
 
-  void updateCopyrightYear(){
+  void updateCopyrightYear() {
     emit(state.copyWith(copyrightYear: DateTime.now().year));
   }
 
@@ -59,7 +59,10 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(
         state.copyWith(showWechatUnbindConfirmation: false, showLoading: true));
 
-    Map data = {"organizationId": supernodeCubit.state.orgId, "service": service};
+    Map data = {
+      "organizationId": supernodeCubit.state.orgId,
+      "service": service
+    };
 
     supernodeRepository.user.unbindExternalUser(data).then((res) async {
       if (service == ExternalUser.weChatService) {
@@ -80,13 +83,13 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   void bindShopifyStep(int step) {
-    if (step == 0 || step == 1) emit(state.copyWith(showBindShopifyStep: step));
+    if (step == 0 || step == 1)
+      emit(state.copyWith(showBindShopifyStep: step));
     else
       appCubit.setError('Invalid step');
   }
 
-  void shopifyEmail(
-      String email, String languageCode, String countryCode) {
+  void shopifyEmail(String email, String languageCode, String countryCode) {
     emit(state.copyWith(showLoading: true));
     if (languageCode.contains('zh')) {
       languageCode = '$languageCode$countryCode';
@@ -110,7 +113,10 @@ class SettingsCubit extends Cubit<SettingsState> {
     if (verificationCode.isNotEmpty) {
       emit(state.copyWith(showLoading: true));
 
-      Map apiData = {"organizationId": supernodeCubit.state.orgId, "token": verificationCode};
+      Map apiData = {
+        "organizationId": supernodeCubit.state.orgId,
+        "token": verificationCode
+      };
 
       supernodeRepository.user.confirmExternalEmail(apiData).then((res) async {
         await supernodeUserCubit.refreshUser();
@@ -122,14 +128,17 @@ class SettingsCubit extends Cubit<SettingsState> {
     }
   }
 
-  void update(String username, String email, String orgName, String orgDisplayName) {
-    if (supernodeUserCubit.state.username == username
-        && supernodeUserCubit.state.email == email
-        && supernodeUserCubit.state.organizations.value[0]?.organizationName == orgName
-        && supernodeUserCubit.state.organizations.value[0]?.orgDisplayName == orgDisplayName)
-      return;
+  void update(
+      String username, String email, String orgName, String orgDisplayName) {
+    if (supernodeUserCubit.state.username == username &&
+        supernodeUserCubit.state.email == email &&
+        supernodeUserCubit.state.organizations.value[0]?.organizationName ==
+            orgName &&
+        supernodeUserCubit.state.organizations.value[0]?.orgDisplayName ==
+            orgDisplayName) return;
 
-    if (supernodeUserCubit.state.username != username || supernodeUserCubit.state.email != email) {
+    if (supernodeUserCubit.state.username != username ||
+        supernodeUserCubit.state.email != email) {
       emit(state.copyWith(showLoading: true));
       Map data = {
         "id": supernodeCubit.state.session.userId,
@@ -151,8 +160,8 @@ class SettingsCubit extends Cubit<SettingsState> {
             ),
           );
         }
-        supernodeUserCubit.emit(supernodeUserCubit.state.copyWith(
-            username: username, email: email));
+        supernodeUserCubit.emit(supernodeUserCubit.state
+            .copyWith(username: username, email: email));
         await supernodeUserCubit.refreshUser();
         emit(state.copyWith(showLoading: false));
       }).catchError((err) {
@@ -161,8 +170,10 @@ class SettingsCubit extends Cubit<SettingsState> {
       });
     }
 
-    if (supernodeUserCubit.state.organizations.value[0]?.organizationName != orgName
-        || supernodeUserCubit.state.organizations.value[0]?.orgDisplayName != orgDisplayName) {
+    if (supernodeUserCubit.state.organizations.value[0]?.organizationName !=
+            orgName ||
+        supernodeUserCubit.state.organizations.value[0]?.orgDisplayName !=
+            orgDisplayName) {
       emit(state.copyWith(showLoading: true));
 
       Map dataOrg = {

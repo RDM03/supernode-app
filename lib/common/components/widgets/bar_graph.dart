@@ -5,27 +5,39 @@ import 'package:supernodeapp/theme/font.dart';
 class BarGraph extends StatelessWidget {
   /// List of values [0-1]
   final List<double> graphValues;
+
   /// List labels
   final List<String> xAxisLabels;
+
   /// Number of graph bars visible. The rest of values are scrolled horizontally
   final int barsOnScreen;
+
   /// Color of BarGraph
   final Color graphColor;
+
   /// Ẃidth of the widget
   final double widgetWidth;
+
   /// Height of the widget
   final double widgetHeight;
+
   /// notifyGraphBarScroll
-  final Function(int,{ScrollController scrollController}) notifyGraphBarScroll;
+  final Function(int, {ScrollController scrollController}) notifyGraphBarScroll;
   final double barWidth = 20.0;
   final ScrollController scrollCtrl = ScrollController();
   double spaceBetweenLines;
   double scrollableWidth;
   int currentBar = 0;
 
-  BarGraph(this.graphValues, this.barsOnScreen, this.widgetWidth, {this.xAxisLabels, this.widgetHeight= 200, this.graphColor = minerColor, this.notifyGraphBarScroll}) {
-    spaceBetweenLines = (widgetWidth - (barsOnScreen * barWidth)) / (barsOnScreen - 1);
-    scrollableWidth = barWidth * graphValues.length + spaceBetweenLines * (graphValues.length - 1);
+  BarGraph(this.graphValues, this.barsOnScreen, this.widgetWidth,
+      {this.xAxisLabels,
+      this.widgetHeight = 200,
+      this.graphColor = minerColor,
+      this.notifyGraphBarScroll}) {
+    spaceBetweenLines =
+        (widgetWidth - (barsOnScreen * barWidth)) / (barsOnScreen - 1);
+    scrollableWidth = barWidth * graphValues.length +
+        spaceBetweenLines * (graphValues.length - 1);
     if (notifyGraphBarScroll != null) {
       scrollCtrl.addListener(() {
         double position = scrollCtrl.offset / (spaceBetweenLines + barWidth);
@@ -55,19 +67,17 @@ class BarGraph extends StatelessWidget {
               visibleWidth: widgetWidth,
               linesOnScreen: barsOnScreen,
               spaceBetweenLines: spaceBetweenLines,
-              lineWidth: barWidth
-          ),
+              lineWidth: barWidth),
           child: Container(
             width: scrollableWidth,
             height: widgetHeight,
             child: SizedBox(),
-          )
-      ),
+          )),
     );
   }
 }
 
-class GraphPainter extends CustomPainter{
+class GraphPainter extends CustomPainter {
   final Color lineColor;
   final List<double> completePercents;
   final List<String> labels;
@@ -75,7 +85,14 @@ class GraphPainter extends CustomPainter{
   final int linesOnScreen;
   final double spaceBetweenLines;
   final double lineWidth;
-  GraphPainter({this.lineColor, this.completePercents, this.labels, this.visibleWidth, this.linesOnScreen, this.spaceBetweenLines, this.lineWidth});
+  GraphPainter(
+      {this.lineColor,
+      this.completePercents,
+      this.labels,
+      this.visibleWidth,
+      this.linesOnScreen,
+      this.spaceBetweenLines,
+      this.lineWidth});
   @override
   void paint(Canvas canvas, Size size) {
     Paint line = new Paint()
@@ -91,15 +108,21 @@ class GraphPainter extends CustomPainter{
 
     double x;
     double labelHeight = 0;
-    if (labels != null)
-      labelHeight = 20;
+    if (labels != null) labelHeight = 20;
     for (int i = 0; i < completePercents.length; i++) {
       x = lineWidth / 2 + i * (lineWidth + spaceBetweenLines);
-      canvas.drawLine(new Offset(x, size.height - lineWidth / 2 - labelHeight), new Offset(x,  lineWidth / 2), lineBkgrd);
+      canvas.drawLine(new Offset(x, size.height - lineWidth / 2 - labelHeight),
+          new Offset(x, lineWidth / 2), lineBkgrd);
       if (completePercents[completePercents.length - 1 - i] > 0)
         canvas.drawLine(
             new Offset(x, size.height - lineWidth / 2 - labelHeight),
-            new Offset(x, (size.height - lineWidth - labelHeight) * (1 - completePercents[completePercents.length - 1 - i]) + lineWidth / 2), line);
+            new Offset(
+                x,
+                (size.height - lineWidth - labelHeight) *
+                        (1 -
+                            completePercents[completePercents.length - 1 - i]) +
+                    lineWidth / 2),
+            line);
       if (labels != null) {
         final textSpan = TextSpan(
           text: labels[labels.length - 1 - i],
@@ -117,13 +140,13 @@ class GraphPainter extends CustomPainter{
         double xTextStart = x - textPainter.width / 2;
         if (labels.length - 1 - i == 0)
           xTextStart = x - textPainter.width + lineWidth / 2;
-        if (i == 0)
-          xTextStart = x - lineWidth / 2;
+        if (i == 0) xTextStart = x - lineWidth / 2;
         final offset = Offset(xTextStart, size.height - textPainter.height);
         textPainter.paint(canvas, offset);
       }
     }
   }
+
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return true;

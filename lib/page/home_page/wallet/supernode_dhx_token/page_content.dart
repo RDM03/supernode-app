@@ -126,17 +126,20 @@ class DhxMiningCard extends StatelessWidget {
                 NumberMinersAndMPower(),
                 smallColumnSpacer(),
                 TitleDetailRow(
-                  name:
-                      FlutterI18n.translate(context, 'estimated_dxh_daily_return'),
+                  name: FlutterI18n.translate(
+                      context, 'estimated_dxh_daily_return'),
                   value: '5000.00',
                   token: Token.supernodeDhx.name,
                 ),
                 BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-                  buildWhen: (a, b) => a.yesterdayTotalMPower != b.yesterdayTotalMPower,
+                  buildWhen: (a, b) =>
+                      a.yesterdayTotalMPower != b.yesterdayTotalMPower,
                   builder: (ctx, state) => TitleDetailRow(
                     loading: state.yesterdayTotalMPower.loading,
-                    name: FlutterI18n.translate(context, 'supernode_mining_power'),
-                    value: Tools.numberRounded(state.yesterdayTotalMPower.value),
+                    name: FlutterI18n.translate(
+                        context, 'supernode_mining_power'),
+                    value:
+                        Tools.numberRounded(state.yesterdayTotalMPower.value),
                     token: "mPower",
                   ),
                 ),
@@ -163,8 +166,7 @@ class NumberMinersAndMPower extends StatelessWidget {
           buildWhen: (a, b) => a.gatewaysTotal != b.gatewaysTotal,
           builder: (ctx, state) => Column(
             children: [
-              Text('${state.gatewaysTotal.value}',
-                  style: kSuperBigBoldFont),
+              Text('${state.gatewaysTotal.value}', style: kSuperBigBoldFont),
               SizedBox(height: s(5)),
               Container(
                 decoration: BoxDecoration(
@@ -184,8 +186,7 @@ class NumberMinersAndMPower extends StatelessWidget {
         ),
         Spacer(),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-          buildWhen: (a, b) =>
-              a.currentMiningPower != b.currentMiningPower,
+          buildWhen: (a, b) => a.currentMiningPower != b.currentMiningPower,
           builder: (ctx, state) => Column(
             children: [
               state.currentMiningPower.loading

@@ -34,14 +34,16 @@ void openSettings(BuildContext context) async {
 
 Future<void> openSupernodeDeposit(BuildContext context, Token tkn) async {
   await Navigator.of(context).push(route((_) => BlocProvider(
-      create: (ctx) => DepositCubit(context.read<SupernodeUserCubit>(), context.read<AppCubit>(), context.read<SupernodeRepository>()),
+      create: (ctx) => DepositCubit(context.read<SupernodeUserCubit>(),
+          context.read<AppCubit>(), context.read<SupernodeRepository>()),
       child: DepositPage(tkn))));
   context.read<SupernodeUserCubit>().refreshBalance();
 }
 
 Future<void> openSupernodeWithdraw(BuildContext context, Token token) async {
   await Navigator.of(context).push(route((_) => BlocProvider(
-      create: (ctx) => WithdrawCubit(context.read<SupernodeUserCubit>(), context.read<AppCubit>(), context.read<SupernodeRepository>()),
+      create: (ctx) => WithdrawCubit(context.read<SupernodeUserCubit>(),
+          context.read<AppCubit>(), context.read<SupernodeRepository>()),
       child: WithdrawPage(token))));
   context.read<SupernodeUserCubit>().refreshBalance();
   context.read<SupernodeDhxCubit>().refreshBalance();
@@ -83,17 +85,16 @@ void loginParachain(BuildContext context) => Navigator.of(context).push(
     );
 
 Widget tokenItem(
-    BuildContext context,
-    {
-      String key,
-      Image image,
-      String title,
-      String subtitle,
-      Color color,
-      bool isSelected,
-      VoidCallback onPressed,
-      bool showTrailingLine = true,
-    }) =>
+  BuildContext context, {
+  String key,
+  Image image,
+  String title,
+  String subtitle,
+  Color color,
+  bool isSelected,
+  VoidCallback onPressed,
+  bool showTrailingLine = true,
+}) =>
     SizedBox(
       height: s(62),
       child: GestureDetector(
@@ -131,7 +132,9 @@ Widget tokenItem(
                           ],
                         ),
                         Spacer(),
-                        (isSelected != null) ? Checkbox(value: isSelected): SizedBox(),
+                        (isSelected != null)
+                            ? Checkbox(value: isSelected)
+                            : SizedBox(),
                       ],
                     ),
                   ),
@@ -281,12 +284,14 @@ void showBoostMPowerDialog(BuildContext ctx) {
             behavior: HitTestBehavior.opaque,
             onTap: () {
               Navigator.pop(context);
-              launch('https://www.matchx.io/product/m2-pro-lpwan-crypto-miner/');
+              launch(
+                  'https://www.matchx.io/product/m2-pro-lpwan-crypto-miner/');
             },
             child: Row(
               children: [
                 CircleButton(
-                  icon: Icon(Icons.shopping_basket, color: Token.supernodeDhx.color),
+                  icon: Icon(Icons.shopping_basket,
+                      color: Token.supernodeDhx.color),
                 ),
                 SizedBox(
                   width: s(10),

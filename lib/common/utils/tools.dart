@@ -5,7 +5,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 class Tools {
   static bool isSameDay(DateTime time1, DateTime time2) {
-    return time1.year == time2.year && time1.month == time2.month && time1.day == time2.day;
+    return time1.year == time2.year &&
+        time1.month == time2.month &&
+        time1.day == time2.day;
   }
 
   static bool isSameMonth(DateTime time1, DateTime time2) {
