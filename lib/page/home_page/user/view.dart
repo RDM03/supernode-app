@@ -33,56 +33,56 @@ import 'token_widget.dart';
 class UserTab extends StatelessWidget {
   Widget totalGateways(BuildContext context, SupernodeUserState snState,
       GatewayState gatewayState) {
-    return Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(top: 30),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(FlutterI18n.translate(context, "miner"),
-                    style: kBigBoldFontOfBlack),
-                Spacer(),
-                GestureDetector(
-                  onTap: () async {
-                    if (!context.read<AppCubit>().state.isDemo) {
-                      await Navigator.of(context)
-                          .pushNamed('add_gateway_page', arguments: {
-                        'fromPage': 'home',
-                      });
-                      await context.read<GatewayCubit>().refreshGateways();
-                    }
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Token.supernodeDhx.color.withOpacity(.2),
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 4.0),
-                      child: Text(
-                        '+ ${FlutterI18n.translate(context, 'add_miner')}',
-                        style: MiddleFontOfColor(color: Token.supernodeDhx.color),
-                      ),
-                    ),
+    return Column(children: [
+      Container(
+        padding: EdgeInsets.only(top: 30),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(FlutterI18n.translate(context, "miner"),
+                style: kBigBoldFontOfBlack),
+            Spacer(),
+            GestureDetector(
+              onTap: () async {
+                if (!context.read<AppCubit>().state.isDemo) {
+                  await Navigator.of(context)
+                      .pushNamed('add_gateway_page', arguments: {
+                    'fromPage': 'home',
+                  });
+                  await context.read<GatewayCubit>().refreshGateways();
+                }
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Token.supernodeDhx.color.withOpacity(.2),
+                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 4.0),
+                  child: Text(
+                    '+ ${FlutterI18n.translate(context, 'add_miner')}',
+                    style: MiddleFontOfColor(color: Token.supernodeDhx.color),
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-          PanelFrame(rowTop: EdgeInsets.only(top: 10),
-            child: SummaryRow(
-              key: Key('totalGatewaysDashboard'),
-              loading: snState.gatewaysRevenueUsd.loading,
-              image: AppImages.gateways,
-              title: FlutterI18n.translate(context, 'total_gateways'),
-              number: '${gatewayState.gatewaysTotal.value ?? '0'}',
-              subtitle: FlutterI18n.translate(context, 'profit'),
-              price:
+          ],
+        ),
+      ),
+      PanelFrame(
+        rowTop: EdgeInsets.only(top: 10),
+        child: SummaryRow(
+          key: Key('totalGatewaysDashboard'),
+          loading: snState.gatewaysRevenueUsd.loading,
+          image: AppImages.gateways,
+          title: FlutterI18n.translate(context, 'total_gateways'),
+          number: '${gatewayState.gatewaysTotal.value ?? '0'}',
+          subtitle: FlutterI18n.translate(context, 'profit'),
+          price:
               '${Tools.priceFormat(snState.gatewaysRevenue.value)} MXC (${Tools.priceFormat(snState.gatewaysRevenueUsd.value)} USD)',
-            ),
-          )
-        ]);
+        ),
+      )
+    ]);
   }
 
   Widget totalGatewaysDemo(BuildContext context) {
@@ -138,7 +138,11 @@ class UserTab extends StatelessWidget {
       displacement: 10,
       onRefresh: () async {
         await context.read<SupernodeUserCubit>().refresh();
-        if (context.read<HomeCubit>().state.displayTokens.contains(Token.supernodeDhx))
+        if (context
+            .read<HomeCubit>()
+            .state
+            .displayTokens
+            .contains(Token.supernodeDhx))
           await context.read<SupernodeDhxCubit>().refresh();
         if (context.read<HomeCubit>().state.displayTokens.contains(Token.btc))
           await context.read<SupernodeBtcCubit>().refresh();

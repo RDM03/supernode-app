@@ -51,7 +51,7 @@ class _SupernodeLoginPageContentState
 
   void onForgotPassword() {
     if (context.read<LoginCubit>().state.selectedSuperNode == null) {
-      tip( FlutterI18n.translate(context, 'reg_select_supernode'));
+      tip(FlutterI18n.translate(context, 'reg_select_supernode'));
       return;
     }
     context.read<LoginCubit>().forgotPassword();
@@ -59,7 +59,7 @@ class _SupernodeLoginPageContentState
 
   void onLogin() {
     if (context.read<LoginCubit>().state.selectedSuperNode == null) {
-      tip( FlutterI18n.translate(context, 'reg_select_supernode'));
+      tip(FlutterI18n.translate(context, 'reg_select_supernode'));
       return;
     }
     if (!formKey.currentState.validate()) return;
@@ -70,7 +70,7 @@ class _SupernodeLoginPageContentState
 
   Future<void> onWeChatLogin() async {
     if (context.read<LoginCubit>().state.selectedSuperNode == null) {
-      tip( FlutterI18n.translate(context, 'reg_select_supernode'));
+      tip(FlutterI18n.translate(context, 'reg_select_supernode'));
       return;
     }
     context.read<LoginCubit>().weChatLogin();
@@ -171,35 +171,37 @@ class _SupernodeLoginPageContentState
                                 ),
                                 child: BlocBuilder<LoginCubit, LoginState>(
                                   buildWhen: (a, b) =>
-                                  a.selectedSuperNode !=
+                                      a.selectedSuperNode !=
                                       b.selectedSuperNode,
-                                  builder: (context, state) =>
-                                  state.selectedSuperNode != null
+                                  builder: (context, state) => state
+                                              .selectedSuperNode !=
+                                          null
                                       ? Container(
-                                      width: s(134),
-                                      height: s(134),
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          shape: BoxShape.circle,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: darkBackground2,
-                                              offset: Offset(0, 2),
-                                              blurRadius: 5,
-                                              spreadRadius: 5,
-                                            )
-                                          ]),
-                                      child: CachedNetworkImage(
-                                        imageUrl: state
-                                            .selectedSuperNode.logo,
-                                        placeholder: (ctx, url) => Icon(Icons.add, size: s(40)),
-                                        width: s(100),
-                                      ))
+                                          width: s(134),
+                                          height: s(134),
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              shape: BoxShape.circle,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: darkBackground2,
+                                                  offset: Offset(0, 2),
+                                                  blurRadius: 5,
+                                                  spreadRadius: 5,
+                                                )
+                                              ]),
+                                          child: CachedNetworkImage(
+                                            imageUrl:
+                                                state.selectedSuperNode.logo,
+                                            placeholder: (ctx, url) =>
+                                                Icon(Icons.add, size: s(40)),
+                                            width: s(100),
+                                          ))
                                       : Image.asset(
-                                    AppImages.supernode_placeholder,
-                                    width: s(171),
-                                  ),
+                                          AppImages.supernode_placeholder,
+                                          width: s(171),
+                                        ),
                                 ),
                               ),
                             ),
@@ -306,23 +308,29 @@ class _SupernodeLoginPageContentState
                           SizedBox(height: s(18)),
                           BlocBuilder<LoginCubit, LoginState>(
                             buildWhen: (a, b) =>
-                            a.showWeChatLoginOption !=
+                                a.showWeChatLoginOption !=
                                 b.showWeChatLoginOption,
-                            builder: (context, state) => state.showWeChatLoginOption
+                            builder: (context, state) => state
+                                    .showWeChatLoginOption
                                 ? GestureDetector(
-                                onTap: onWeChatLogin,
-                                child:  Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      AppImages.wechat,
-                                      width: 20,
-                                      height: 20,
-                                    ),
-                                    SizedBox(height: 70, width: 5),
-                                    Text(FlutterI18n.translate(context, 'wechat_login_title'), style: kMiddleFontOfGreyLink,)
-                                  ],
-                                ))
+                                    onTap: onWeChatLogin,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          AppImages.wechat,
+                                          width: 20,
+                                          height: 20,
+                                        ),
+                                        SizedBox(height: 70, width: 5),
+                                        Text(
+                                          FlutterI18n.translate(
+                                              context, 'wechat_login_title'),
+                                          style: kMiddleFontOfGreyLink,
+                                        )
+                                      ],
+                                    ))
                                 : SizedBox(),
                           ),
                           PrimaryButton(
@@ -388,10 +396,9 @@ class _SupernodeLoginPageContentState
                               Container(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  FlutterI18n.translate(
-                                      context, 'super_node'),
-                                  style: kBigBoldFontOfBlack
-                                ),
+                                    FlutterI18n.translate(
+                                        context, 'super_node'),
+                                    style: kBigBoldFontOfBlack),
                               ),
                               Positioned(
                                 right: s(15),
@@ -407,9 +414,11 @@ class _SupernodeLoginPageContentState
                           Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Text(
-                              FlutterI18n.translate(context, 'supernode_instructions'),
+                              FlutterI18n.translate(
+                                  context, 'supernode_instructions'),
                               style: kSecondaryButtonOfBlack,
-                              textAlign: TextAlign.center,),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                           if (!state.supernodes.loading)
                             Column(

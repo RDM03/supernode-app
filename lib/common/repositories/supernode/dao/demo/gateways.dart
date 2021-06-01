@@ -140,13 +140,14 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
 
   @override
   Future<List<MinerHealthResponse>> minerHealth(Map data) {
-    return Future.value([MinerHealthResponse(
+    return Future.value([
+      MinerHealthResponse(
         ageSeconds: 10000,
         health: 0.71,
         miningFuel: 2500,
         miningFuelHealth: 0.5,
         miningFuelMax: 5000,
-    )]);
+      )
+    ]);
   }
-
 }

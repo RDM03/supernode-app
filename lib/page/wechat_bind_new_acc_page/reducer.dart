@@ -12,14 +12,13 @@ Reducer<WechatBindNewAccState> buildReducer() {
   );
 }
 
-WechatBindNewAccState _isCheckTerms(WechatBindNewAccState state, Action action) {
+WechatBindNewAccState _isCheckTerms(
+    WechatBindNewAccState state, Action action) {
   final WechatBindNewAccState newState = state.clone();
-  return newState
-    ..isCheckTerms = !state.isCheckTerms;
+  return newState..isCheckTerms = !state.isCheckTerms;
 }
 
 WechatBindNewAccState _isCheckSend(WechatBindNewAccState state, Action action) {
   final WechatBindNewAccState newState = state.clone();
-  return newState
-    ..isCheckSend = !state.isCheckSend;
+  return newState..isCheckSend = !state.isCheckSend;
 }

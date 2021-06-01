@@ -50,7 +50,8 @@ class GatewayCubit extends Cubit<GatewayState> {
     //Miner Health
     List<MinerHealthResponse> listMinersHealth = [];
     try {
-      listMinersHealth = await supernodeRepository.gateways.minerHealth({"orgId": orgId});
+      listMinersHealth =
+          await supernodeRepository.gateways.minerHealth({"orgId": orgId});
 
       double avgHealth = 0;
       double avgUptimeHealth = 0;
@@ -141,5 +142,4 @@ class GatewayCubit extends Cubit<GatewayState> {
       logger.e('rdelete gateway error', e, s);
     }
   }
-
 }

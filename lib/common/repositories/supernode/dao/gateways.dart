@@ -88,7 +88,8 @@ class GatewaysDao extends SupernodeDao {
             miningFuelHealth: res['miningHealthAverage']['miningFuelHealth'],
             uptimeHealth: res['miningHealthAverage']['uptimeHealth']));
       if (res != null && res.containsKey('gatewayHealth'))
-        res['gatewayHealth'].forEach((e) => minersHealth.add(MinerHealthResponse.fromMap(e)));
+        res['gatewayHealth']
+            .forEach((e) => minersHealth.add(MinerHealthResponse.fromMap(e)));
       return minersHealth;
     });
   }

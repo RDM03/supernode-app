@@ -16,7 +16,8 @@ Future<void> loginTest(WidgetTester tester) async {
     await pumpAndTap(tester, 'MXCtest');
 
     await pumpAndEnterText(tester, 'homeEmail', getEnv('DRIVE_TESTING_USER'));
-    await pumpAndEnterText(tester, 'homePassword', getEnv('DRIVE_MXCTEST_PASSWORD'));
+    await pumpAndEnterText(
+        tester, 'homePassword', getEnv('DRIVE_MXCTEST_PASSWORD'));
 
     await pumpAndTap(tester, 'homeLogin');
 
@@ -25,17 +26,15 @@ Future<void> loginTest(WidgetTester tester) async {
   }
 }
 
-Future<void> loginPageTests(){
-
+Future<void> loginPageTests() {
   group('Authentication', () {
-    testWidgets('can login with username/password', (WidgetTester tester) async {
+    testWidgets('can login with username/password',
+        (WidgetTester tester) async {
       await app.main();
       await tester.pumpAndSettle();
       WidgetController.hitTestWarningShouldBeFatal = true;
-    
-      await loginTest(tester);
 
+      await loginTest(tester);
     }, timeout: timeout());
   });
-
 }

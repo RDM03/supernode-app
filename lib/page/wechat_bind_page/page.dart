@@ -7,15 +7,13 @@ import 'view.dart';
 
 class WechatBindPage extends Page<WechatBindState, Map<String, dynamic>> {
   WechatBindPage()
-    : super(
-        initState: initState,
-        effect: buildEffect(),
-        reducer: buildReducer(),
-        view: buildView,
-        dependencies: Dependencies<WechatBindState>(
-            adapter: null,
-            slots: <String, Dependent<WechatBindState>>{
-            }),
-        middleware: <Middleware<WechatBindState>>[
-        ],);
+      : super(
+          initState: initState,
+          effect: buildEffect(),
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<WechatBindState>(
+              adapter: null, slots: <String, Dependent<WechatBindState>>{}),
+          middleware: <Middleware<WechatBindState>>[],
+        );
 }

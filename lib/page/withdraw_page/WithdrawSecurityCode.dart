@@ -32,8 +32,7 @@ class _WithdrawSecurityCodeState extends State<WithdrawSecurityCode> {
   Widget build(BuildContext context) {
     //state.isEnabled = true;
     return pageFrame(context: context, children: [
-      pageNavBar(
-          FlutterI18n.translate(context, 'withdraw'),
+      pageNavBar(FlutterI18n.translate(context, 'withdraw'),
           onTap: () => Navigator.pop(context),
           leadingWidget: GestureDetector(
               key: ValueKey('navBackButton'),
@@ -41,9 +40,7 @@ class _WithdrawSecurityCodeState extends State<WithdrawSecurityCode> {
                 Icons.arrow_back_ios,
                 color: Colors.black,
               ),
-              onTap: () => context.read<WithdrawCubit>().backToConfirm()
-          )
-      ),
+              onTap: () => context.read<WithdrawCubit>().backToConfirm())),
       xbigColumnSpacer(),
       Center(
         child: Text(
@@ -72,8 +69,7 @@ class _WithdrawSecurityCodeState extends State<WithdrawSecurityCode> {
         //key: state.formKey,
         autovalidate: false,
         child: TextFieldWithTitle(
-          title: FlutterI18n.translate(
-              context, 'wthdr_ent_code_04'),
+          title: FlutterI18n.translate(context, 'wthdr_ent_code_04'),
           textInputAction: TextInputAction.next,
           controller: securityCodeCtrl,
         ),
@@ -82,12 +78,12 @@ class _WithdrawSecurityCodeState extends State<WithdrawSecurityCode> {
       BlocBuilder<WithdrawCubit, WithdrawState>(
         buildWhen: (a, b) => a.amount != b.amount,
         builder: (ctx, st) => PrimaryButton(
-            onTap: () => Biometrics.authenticate(
-                context,
-                authenticateCallback: () async {
-                  context.read<WithdrawCubit>().submit(context.read<SupernodeCubit>().state.orgId, securityCodeCtrl.text.trim());
-                }
-            ),
+            onTap: () => Biometrics.authenticate(context,
+                    authenticateCallback: () async {
+                  context.read<WithdrawCubit>().submit(
+                      context.read<SupernodeCubit>().state.orgId,
+                      securityCodeCtrl.text.trim());
+                }),
             buttonTitle: FlutterI18n.translate(context, 'confirm'),
             minWidth: double.infinity,
             bgColor: st.token.color),

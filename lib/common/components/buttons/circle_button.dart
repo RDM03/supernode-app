@@ -9,7 +9,12 @@ class CircleButton extends StatelessWidget {
   final String label;
   final Color circleColor;
 
-  const CircleButton({Key key, this.onTap, this.icon, this.label = "", this.circleColor = Colors.white})
+  const CircleButton(
+      {Key key,
+      this.onTap,
+      this.icon,
+      this.label = "",
+      this.circleColor = Colors.white})
       : super(key: key);
 
   @override

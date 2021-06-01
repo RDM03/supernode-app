@@ -9,7 +9,5 @@ Widget loadingFlash({Widget child}) {
 }
 
 Widget loadableWidget({bool loading: false, Widget child}) {
-  return (loading)
-      ? loadingFlash(child: child)
-      : child;
+  return (loading) ? loadingFlash(child: child) : child;
 }

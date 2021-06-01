@@ -47,7 +47,8 @@ class _WithdrawPageState extends State<WithdrawPage> {
 
   Loading loading;
 
-  get feeCurrency => (widget.token == Token.btc) ? Token.mxc.name: widget.token.name;
+  get feeCurrency =>
+      (widget.token == Token.btc) ? Token.mxc.name : widget.token.name;
 
   @override
   void initState() {
@@ -79,18 +80,20 @@ class _WithdrawPageState extends State<WithdrawPage> {
         BlocListener<WithdrawCubit, WithdrawState>(
           listenWhen: (a, b) => a.withdrawFlowStep != b.withdrawFlowStep,
           listener: (ctx, state) async {
-            if(state.withdrawFlowStep == WithdrawFlow.finish) {
-              Navigator.pushReplacementNamed(context, 'confirm_page', arguments: {
-                'title': 'withdraw',
-                'content': 'withdraw_submit_tip'
-              });
+            if (state.withdrawFlowStep == WithdrawFlow.finish) {
+              Navigator.pushReplacementNamed(context, 'confirm_page',
+                  arguments: {
+                    'title': 'withdraw',
+                    'content': 'withdraw_submit_tip'
+                  });
             }
           },
         ),
         BlocListener<WithdrawCubit, WithdrawState>(
           listenWhen: (a, b) => a.address != b.address,
           listener: (context, s) => addressCtrl.text = s.address,
-        )],
+        )
+      ],
       child: BlocBuilder<WithdrawCubit, WithdrawState>(
         buildWhen: (a, b) => a.withdrawFlowStep != b.withdrawFlowStep,
         builder: (ctx, st) {
@@ -104,18 +107,15 @@ class _WithdrawPageState extends State<WithdrawPage> {
                     child: GestureDetector(
                       onTap: () async {
                         String qrResult = await MajaScan.startScan(
-                            title: FlutterI18n.translate(context,
-                                'scan_code'),
+                            title: FlutterI18n.translate(context, 'scan_code'),
                             barColor: buttonPrimaryColor,
                             titleColor: backgroundColor,
                             qRCornerColor: buttonPrimaryColor,
                             qRScannerColor: buttonPrimaryColorAccent);
                         context.read<WithdrawCubit>().setAddress(qrResult);
                       },
-                      child: Icon(
-                          Icons.center_focus_weak,
-                          color: Colors.black,
-                          size: 30),
+                      child: Icon(Icons.center_focus_weak,
+                          color: Colors.black, size: 30),
                     ),
                   ),
                 ),
@@ -148,8 +148,8 @@ class _WithdrawPageState extends State<WithdrawPage> {
                                 ),
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8.0),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
                                   decoration: BoxDecoration(
                                     border: Border(
                                       bottom: BorderSide(
@@ -179,23 +179,25 @@ class _WithdrawPageState extends State<WithdrawPage> {
                                         _onValidateAddress(address),
                                     controller: addressCtrl,
                                     suffixChild: IconButton(
-                                        icon: Icon(Icons.assignment_ind, color: widget.token.color),
+                                        icon: Icon(Icons.assignment_ind,
+                                            color: widget.token.color),
                                         onPressed: () async {
-                                          final res = await Navigator.of(context).pushNamed(
+                                          final res =
+                                              await Navigator.of(context)
+                                                  .pushNamed(
                                             'address_book_page',
                                             arguments: {'selection': true},
                                           );
                                           if (res == null) return;
                                           if (res is AddressEntity)
-                                            context.read<WithdrawCubit>().setAddress(res.address);
-                                        }
-                                    )
-                                ),
+                                            context
+                                                .read<WithdrawCubit>()
+                                                .setAddress(res.address);
+                                        })),
                                 middleColumnSpacer(),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment
-                                      .center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
                                       FlutterI18n.translate(
@@ -213,10 +215,9 @@ class _WithdrawPageState extends State<WithdrawPage> {
                                     Spacer(),
                                     BlocBuilder<WithdrawCubit, WithdrawState>(
                                         buildWhen: (a, b) => a.fee != b.fee,
-                                        builder: (ctx, state) =>
-                                            Text('${state.fee ??
-                                                '--'} $feeCurrency',
-                                                style: kBigFontOfBlack)),
+                                        builder: (ctx, state) => Text(
+                                            '${state.fee ?? '--'} $feeCurrency',
+                                            style: kBigFontOfBlack)),
                                   ],
                                 ),
                                 smallColumnSpacer(),
@@ -241,19 +242,17 @@ class _WithdrawPageState extends State<WithdrawPage> {
                   bigColumnSpacer(),
                   PrimaryButton(
                       key: Key('requestWithdrawButton'),
-                      buttonTitle: FlutterI18n.translate(
-                          context, 'request_withdraw'),
+                      buttonTitle:
+                          FlutterI18n.translate(context, 'request_withdraw'),
                       bgColor: widget.token.color,
                       onTap: () {
                         if (!formKey.currentState.validate()) return;
                         context.read<WithdrawCubit>().goToConfirmation(
                             double.tryParse(amountCtrl.text),
                             addressCtrl.text.trim());
-                      }
-                  ),
+                      }),
                   smallColumnSpacer(),
-                ])
-            );
+                ]));
 
           if (st.withdrawFlowStep == WithdrawFlow.confirm)
             return WithdrawConfirm(feeCurrency);
@@ -273,9 +272,10 @@ class _WithdrawPageState extends State<WithdrawPage> {
 
     final amount = double.tryParse(value);
 
-    if (amount == null || amount <= 0) return FlutterI18n.translate(context, 'reg_amount');
+    if (amount == null || amount <= 0)
+      return FlutterI18n.translate(context, 'reg_amount');
 
-    final fee = context.read<WithdrawCubit>().state.fee??0;
+    final fee = context.read<WithdrawCubit>().state.fee ?? 0;
 
     if (widget.token == Token.mxc || widget.token == Token.supernodeDhx) {
       if (amount + fee > _getBalance(widget.token)) {
@@ -301,10 +301,8 @@ class _WithdrawPageState extends State<WithdrawPage> {
     if (res != null) return FlutterI18n.translate(context, res);
 
     dynamic isValidAddress = (_) => true;
-    if (widget.token == Token.mxc)
-      isValidAddress = isValidEthereumAddress;
-    if (widget.token == Token.btc)
-      isValidAddress = Bitcoin.isValidBtcAddress;
+    if (widget.token == Token.mxc) isValidAddress = isValidEthereumAddress;
+    if (widget.token == Token.btc) isValidAddress = Bitcoin.isValidBtcAddress;
 
     if (!isValidAddress(address.trim()))
       return FlutterI18n.translate(context, 'invalid_address');
@@ -316,55 +314,60 @@ class _WithdrawPageState extends State<WithdrawPage> {
     showInfoDialog(
       context,
       IosStyleBottomDialog2(
-        builder: (context) =>
-            Column(
-              children: [
-                Image.asset(AppImages.infoCurrentTransactionFee, height: s(80)),
-                Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: Text(
-                      FlutterI18n.translate(
-                          context, 'info_current_transaction_fee'),
-                      key: ValueKey('helpText'),
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: s(16),
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.center,
-                    )),
-              ],
-            ),
+        builder: (context) => Column(
+          children: [
+            Image.asset(AppImages.infoCurrentTransactionFee, height: s(80)),
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Text(
+                  FlutterI18n.translate(
+                      context, 'info_current_transaction_fee'),
+                  key: ValueKey('helpText'),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: s(16),
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                )),
+          ],
+        ),
       ),
     );
   }
 
   Widget _balanceWidget() {
-    if  (widget.token == Token.mxc)
+    if (widget.token == Token.mxc)
       return BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
         buildWhen: (a, b) => a.balance != b.balance,
-        builder: (ctx, state) => Text('${Tools.priceFormat(state.balance.value)} ${widget.token.name}', style: kBigFontOfBlack),
+        builder: (ctx, state) => Text(
+            '${Tools.priceFormat(state.balance.value)} ${widget.token.name}',
+            style: kBigFontOfBlack),
       );
-    if  (widget.token == Token.supernodeDhx)
+    if (widget.token == Token.supernodeDhx)
       return BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
         buildWhen: (a, b) => a.balance != b.balance,
-        builder: (ctx, state) => Text('${Tools.priceFormat(state.balance.value)} ${widget.token.name}', style: kBigFontOfBlack),
+        builder: (ctx, state) => Text(
+            '${Tools.priceFormat(state.balance.value)} ${widget.token.name}',
+            style: kBigFontOfBlack),
       );
-    if  (widget.token == Token.btc)
+    if (widget.token == Token.btc)
       return BlocBuilder<SupernodeBtcCubit, SupernodeBtcState>(
         buildWhen: (a, b) => a.balance != b.balance,
-        builder: (ctx, state) => Text('${Tools.priceFormat(state.balance.value, range: 8)} ${widget.token.name}', style: kBigFontOfBlack),
+        builder: (ctx, state) => Text(
+            '${Tools.priceFormat(state.balance.value, range: 8)} ${widget.token.name}',
+            style: kBigFontOfBlack),
       );
 
     return SizedBox();
   }
 
   double _getBalance(Token token) {
-    if  (token == Token.mxc)
+    if (token == Token.mxc)
       return context.read<SupernodeUserCubit>().state.balance.value;
-    if  (token == Token.supernodeDhx)
+    if (token == Token.supernodeDhx)
       return context.read<SupernodeDhxCubit>().state.balance.value;
-    if  (token == Token.btc)
+    if (token == Token.btc)
       return context.read<SupernodeBtcCubit>().state.balance.value;
 
     return 0;
