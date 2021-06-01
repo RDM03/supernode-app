@@ -194,10 +194,12 @@ class GatewayTab extends StatelessWidget {
                                           context, 'health_score_info')),
                                   child: CircularGraph(
                                       gatewayState.health.loading
-                                          ? 0
-                                          : gatewayState.health.value * 100,
+                                          ? 0.0
+                                          : (gatewayState.health.value ?? 0.0) *
+                                              100,
                                       (gatewayState.health.loading ||
-                                              gatewayState.health.value * 100 >
+                                              (gatewayState.health.value ?? 0) *
+                                                      100 >
                                                   10)
                                           ? minerColor
                                           : fuelColor,
