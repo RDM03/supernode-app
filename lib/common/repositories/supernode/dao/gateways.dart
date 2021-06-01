@@ -1,5 +1,6 @@
 import 'package:decimal/decimal.dart';
 import 'package:supernodeapp/common/repositories/supernode/clients/supernode_client.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/miner.model.dart';
 import 'package:supernodeapp/common/utils/url.dart';
 
 import 'dao.dart';
@@ -54,12 +55,13 @@ class GatewaysDao extends SupernodeDao {
   }
 
   Future<dynamic> register(Map data) {
-    return post(url: GatewaysApi.register, data: data).then((res) => res);
+    return post(url: GatewaysApi.register, data: data)
+        .then((res) => MinerRegister.fromMap(res));
   }
 
   Future<dynamic> registerReseller(Map data) {
     return post(url: GatewaysApi.registerReseller, data: data)
-        .then((res) => res);
+        .then((res) => MinerRegister.fromMap(res));
   }
 
   Future<dynamic> profile(Map data) {

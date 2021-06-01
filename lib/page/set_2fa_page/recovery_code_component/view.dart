@@ -25,7 +25,7 @@ Widget buildView(
       ),
       body: SafeArea(
           child: Container(
-              padding: kRoundRow202,
+              padding: kRoundRow2002,
               child: Center(
                 child: ListView(
                   // crossAxisAlignment: CrossAxisAlignment.stretch,

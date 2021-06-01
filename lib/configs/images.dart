@@ -82,6 +82,12 @@ class AppImages {
   static const String fuel = 'assets/images/gateway/fuel.png';
   static const String fuelCircle = 'assets/images/gateway/fuel_circle.png';
   static const String sendCircle = 'assets/images/gateway/send_circle.png';
+  static const String addMinerSuccess =
+      'assets/images/gateway/add_miner_success.png';
+  static const String addMinerFailure =
+      'assets/images/gateway/add_miner_failure.png';
+  static const String addMinerWarning =
+      'assets/images/gateway/add_miner_warning.png';
 
   //settings
   static const String warningRobot = 'assets/images/settings/robot_warning.png';

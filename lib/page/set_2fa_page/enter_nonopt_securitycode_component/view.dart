@@ -24,7 +24,7 @@ Widget buildView(EnterNonOTPSecurityCodeState state, Dispatch dispatch,
       ),
       body: SafeArea(
           child: Container(
-              padding: kRoundRow202,
+              padding: kRoundRow2002,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[

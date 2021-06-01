@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:supernodeapp/common/repositories/shared/dao/dao.dart';
 import 'package:supernodeapp/log.dart';
+
+import 'dispatch_exception.dart';
 
 class SupernodeHeadersInterceptor extends InterceptorsWrapper {
   final String Function() getToken;

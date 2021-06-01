@@ -45,10 +45,7 @@ class UserTab extends StatelessWidget {
             GestureDetector(
               onTap: () async {
                 if (!context.read<AppCubit>().state.isDemo) {
-                  await Navigator.of(context)
-                      .pushNamed('add_gateway_page', arguments: {
-                    'fromPage': 'home',
-                  });
+                  await openSupernodeMiner(context, hasSkip: false);
                   await context.read<GatewayCubit>().refreshGateways();
                 }
               },

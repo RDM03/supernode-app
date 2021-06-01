@@ -123,7 +123,7 @@ class StakeItem extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: kRoundRow15_5,
+            padding: kRoundRow1505,
             child: Row(
               children: [
                 Container(

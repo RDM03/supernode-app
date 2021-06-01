@@ -100,7 +100,7 @@ class _ViewAllPageState extends State<_ViewAllPage>
             child: Flex(direction: Axis.vertical, children: [
           DDNav(hasBack: true, title: titles[widget.type.index]),
           Container(
-              margin: kRoundRow105,
+              margin: kRoundRow1005,
               padding: kRoundRow5,
               height: 40,
               decoration: BoxDecoration(

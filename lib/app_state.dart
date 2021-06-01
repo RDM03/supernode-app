@@ -12,6 +12,7 @@ abstract class AppState with _$AppState {
     @Default(false) bool isDemo,
     @Default(false) bool showLoading,
     @nullable ErrorInfo error,
+    @nullable SuccessInfo success,
   }) = _AppState;
 }
 
@@ -57,4 +58,10 @@ class ErrorInfo {
   final String text;
 
   ErrorInfo(this.text);
+}
+
+class SuccessInfo {
+  final String text;
+
+  SuccessInfo(this.text);
 }

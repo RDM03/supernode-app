@@ -50,7 +50,6 @@ import 'package:supernodeapp/theme/colors.dart';
 
 import 'app_cubit.dart';
 import 'app_state.dart';
-import 'page/add_gateway_page/page.dart';
 import 'page/change_password_page/page.dart';
 import 'page/device/choose_application_page/page.dart';
 import 'page/get_2fa_page/page.dart';
@@ -191,7 +190,6 @@ class MxcApp extends StatelessWidget {
       'change_password_page': ChangePasswordPage(),
       'set_2fa_page': Set2FAPage(),
       'get_2fa_page': Get2FAPage(),
-      'add_gateway_page': AddGatewayPage(),
       'choose_application_page': ChooseApplicationPage(),
       'device_mapbox_page': DeviceMapBoxPage(),
       'calculator_page': CalculatorPage(),
@@ -244,7 +242,11 @@ class MxcApp extends StatelessWidget {
   }
 
   void showError(BuildContext context, AppState state) {
-    tip(state.error.text, success: false);
+    tip(FlutterI18n.translate(context, state.error.text), success: false);
+  }
+
+  void showSuccess(BuildContext context, AppState state) {
+    tip(FlutterI18n.translate(context, state.success.text), success: true);
   }
 
   Widget build(BuildContext context) {
@@ -296,6 +298,10 @@ class MxcApp extends StatelessWidget {
                 BlocListener<AppCubit, AppState>(
                   listenWhen: (a, b) => a.error != b.error,
                   listener: showError,
+                ),
+                BlocListener<AppCubit, AppState>(
+                  listenWhen: (a, b) => a.success != b.success,
+                  listener: showSuccess,
                 ),
               ],
               child: WillPopScope(

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/app_cubit.dart';
-import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
@@ -50,7 +48,7 @@ class MxcTokenCardContent extends StatelessWidget {
       children: [
         SizedBox(height: 10),
         Container(
-          padding: kRoundRow15_5,
+          padding: kRoundRow1505,
           child: Row(
             children: [
               Image.asset(Token.mxc.imagePath),
@@ -129,7 +127,7 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
         (miningPageVersion)
             ? SizedBox()
             : Container(
-                padding: kRoundRow15_5,
+                padding: kRoundRow1505,
                 child: Row(children: [
                   Image.asset(Token.supernodeDhx.imagePath),
                   SizedBox(width: s(3)),
@@ -227,7 +225,7 @@ class BtcTokenCardContent extends StatelessWidget {
       children: [
         SizedBox(height: 10),
         Container(
-          padding: kRoundRow15_5,
+          padding: kRoundRow1505,
           child: Row(
             children: [
               Image.asset(Token.btc.imagePath),
@@ -265,7 +263,7 @@ class AddNewTokenCard extends StatelessWidget {
       ),
       child: PanelFrame(
         child: Padding(
-            padding: kRoundRow105,
+            padding: kRoundRow1005,
             child: Column(
               children: [
                 Icon(Icons.add_circle, size: 50),

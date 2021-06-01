@@ -175,7 +175,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                   autovalidate: false,
                   child: Column(children: <Widget>[
                     Container(
-                      padding: kRoundRow202,
+                      padding: kRoundRow2002,
                       child: TextFieldWithTitle(
                         title: FlutterI18n.translate(context, 'email'),
                         textInputAction: TextInputAction.done,
