@@ -8,19 +8,19 @@ class DDChartStats extends StatelessWidget {
   final String startTime;
   final String endTime;
 
-  const DDChartStats({
-    Key key,
-    this.title = '',
-    this.subTitle = '',
-    this.startTime,
-    this.endTime
-  }): super(key: key);
+  const DDChartStats(
+      {Key key,
+      this.title = '',
+      this.subTitle = '',
+      this.startTime,
+      this.endTime})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        FlutterI18n.translate(context,title),
+        FlutterI18n.translate(context, title),
         style: kMiddleFontOfGrey,
       ),
       subtitle: Flex(
@@ -45,5 +45,4 @@ class DDChartStats extends StatelessWidget {
       ),
     );
   }
-  
 }

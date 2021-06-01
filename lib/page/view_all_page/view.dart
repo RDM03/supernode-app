@@ -24,13 +24,14 @@ class ViewAllPage extends StatefulWidget {
     Key key,
     @required this.minerId,
     this.type = MinerStatsType.uptime,
-  }): super(key: key);
+  }) : super(key: key);
 
   @override
   _ViewAllPageState createState() => _ViewAllPageState();
 }
 
-class _ViewAllPageState extends State<ViewAllPage> with TickerProviderStateMixin {
+class _ViewAllPageState extends State<ViewAllPage>
+    with TickerProviderStateMixin {
   Loading loading;
   TabController _tabController;
   List titles = ['uptime', 'revenue', 'frame_received', 'frame_transmitted'];
@@ -42,10 +43,9 @@ class _ViewAllPageState extends State<ViewAllPage> with TickerProviderStateMixin
     _tabController = TabController(length: tabs.length, vsync: this);
 
     context.read<MinerStatsCubit>().setSelectedType(widget.type);
-    context.read<MinerStatsCubit>().dispatchData(
-        type: widget.type, 
-        minerId: widget.minerId
-      );
+    context
+        .read<MinerStatsCubit>()
+        .dispatchData(type: widget.type, minerId: widget.minerId);
   }
 
   @override
@@ -57,26 +57,21 @@ class _ViewAllPageState extends State<ViewAllPage> with TickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
-      listeners: [
-        BlocListener<MinerStatsCubit, MinerStatsState>(
-          listenWhen: (a, b) => a.showLoading != b.showLoading,
-          listener: (ctx, state) async {
-            loading?.hide();
-            if (state.showLoading) {
-              loading = Loading.show(ctx);
-            }
-          },
-        ),
-      ],
-      child: DDBody(
-        child: Flex(
-          direction: Axis.vertical,
-          children: [
-            DDNav(
-              hasBack: true,
-              title: titles[widget.type.index]
-            ),
-            Container(
+        listeners: [
+          BlocListener<MinerStatsCubit, MinerStatsState>(
+            listenWhen: (a, b) => a.showLoading != b.showLoading,
+            listener: (ctx, state) async {
+              loading?.hide();
+              if (state.showLoading) {
+                loading = Loading.show(ctx);
+              }
+            },
+          ),
+        ],
+        child: DDBody(
+            child: Flex(direction: Axis.vertical, children: [
+          DDNav(hasBack: true, title: titles[widget.type.index]),
+          Container(
               margin: kRoundRow105,
               padding: kRoundRow5,
               height: 40,
@@ -87,83 +82,79 @@ class _ViewAllPageState extends State<ViewAllPage> with TickerProviderStateMixin
               child: TabBar(
                 isScrollable: false,
                 indicatorWeight: 0,
-                labelStyle: TextStyle(
-                  fontWeight: FontWeight.bold
-                ),
+                labelStyle: TextStyle(fontWeight: FontWeight.bold),
                 unselectedLabelColor: Colors.grey,
                 indicator: TabIndicator(),
                 controller: _tabController,
-                tabs: tabs.map((item) => Tab(text: FlutterI18n.translate(context,item))).toList(),
-                onTap: (index){
+                tabs: tabs
+                    .map((item) =>
+                        Tab(text: FlutterI18n.translate(context, item)))
+                    .toList(),
+                onTap: (index) {
                   context.read<MinerStatsCubit>().tabTime(tabs[index]);
 
                   context.read<MinerStatsCubit>().dispatchData(
-                    type: widget.type, 
-                    time: [MinerStatsTime.week,MinerStatsTime.month,MinerStatsTime.year][index],
-                    minerId: widget.minerId,
-                  );
+                        type: widget.type,
+                        time: [
+                          MinerStatsTime.week,
+                          MinerStatsTime.month,
+                          MinerStatsTime.year
+                        ][index],
+                        minerId: widget.minerId,
+                      );
                 },
-              )
-            ),
-            BlocBuilder<MinerStatsCubit, MinerStatsState>(
+              )),
+          BlocBuilder<MinerStatsCubit, MinerStatsState>(
               // buildWhen: (a, b) => b.originList.isNotEmpty,
               builder: (ctx, state) {
-                return DDChartStats(
-                  title: context.read<MinerStatsCubit>().getStatsTitle(),
-                  subTitle: context.read<MinerStatsCubit>().getStatsSubitle(),
-                  startTime: context.read<MinerStatsCubit>().getStartTimeLabel() ?? '--',
-                  endTime: context.read<MinerStatsCubit>().getEndTimeLabel() ?? '--',
-                );
-              }
-            ),
-            DDBoxSpacer(height: SpacerStyle.big),
-            Expanded(
+            return DDChartStats(
+              title: context.read<MinerStatsCubit>().getStatsTitle(),
+              subTitle: context.read<MinerStatsCubit>().getStatsSubitle(),
+              startTime:
+                  context.read<MinerStatsCubit>().getStartTimeLabel() ?? '--',
+              endTime:
+                  context.read<MinerStatsCubit>().getEndTimeLabel() ?? '--',
+            );
+          }),
+          DDBoxSpacer(height: SpacerStyle.big),
+          Expanded(
               child: TabBarView(
-                physics: NeverScrollableScrollPhysics(),
-                controller: _tabController,
-                children: tabs.map((item) {
-
-                  return BlocBuilder<MinerStatsCubit, MinerStatsState>(
-                    // buildWhen: (a, b) => b.originList.isNotEmpty,
-                    builder: (ctx, state) {
-                      return state.originList.isEmpty ?
-                      Container() :
-                      DDBarChart(
+            physics: NeverScrollableScrollPhysics(),
+            controller: _tabController,
+            children: tabs.map((item) {
+              return BlocBuilder<MinerStatsCubit, MinerStatsState>(
+                  // buildWhen: (a, b) => b.originList.isNotEmpty,
+                  builder: (ctx, state) {
+                return state.originList.isEmpty
+                    ? Container()
+                    : DDBarChart(
                         hasYAxis: true,
                         numBar: context.read<MinerStatsCubit>().getNumBar(),
                         xData: state.xDataList,
                         xLabel: state.xLabelList,
                         yLabel: state.yLabelList,
                         notifyGraphBarScroll: (way, {scrollController}) {
-                          if(scrollController.positions.last.outOfRange &&      
-                              scrollController.offset < 0){
-                            
-                            tip(FlutterI18n.translate(context, 'no_data'),success: true);
+                          if (scrollController.positions.last.outOfRange &&
+                              scrollController.offset < 0) {
+                            tip(FlutterI18n.translate(context, 'no_data'),
+                                success: true);
                             return;
                           }
 
                           if (scrollController.positions.last.outOfRange) {
-
                             context.read<MinerStatsCubit>().dispatchData(
-                              type: widget.type, 
-                              time: state.selectedTime,
-                              minerId: widget.minerId,
-                              startTime: state.originList.last.date,
-                              endTime: state.originList.first.date
-                            );
+                                type: widget.type,
+                                time: state.selectedTime,
+                                minerId: widget.minerId,
+                                startTime: state.originList.last.date,
+                                endTime: state.originList.first.date);
                           }
-                  
-                        }
-                      );
-                    });
-                }).toList(),
-              )
-            ),
-            DDBoxSpacer(height: SpacerStyle.xbig),
-            DDBoxSpacer(height: SpacerStyle.xbig),
-          ]
-        )
-      )
-    );
+                        });
+              });
+            }).toList(),
+          )),
+          DDBoxSpacer(height: SpacerStyle.xbig),
+          DDBoxSpacer(height: SpacerStyle.xbig),
+        ])));
   }
 }

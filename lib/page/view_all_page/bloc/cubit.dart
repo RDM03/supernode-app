@@ -17,7 +17,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
   final SupernodeCubit supernodeCubit;
   final SupernodeRepository supernodeRepository;
 
-  void tabTime(String time){
+  void tabTime(String time) {
     MinerStatsTime selectedTime = MinerStatsTime.week;
 
     if (time == 'week') {
@@ -31,11 +31,11 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     emit(state.copyWith(selectedTime: selectedTime));
   }
 
-  void setSelectedType(MinerStatsType type){
+  void setSelectedType(MinerStatsType type) {
     emit(state.copyWith(selectedType: type));
   }
 
-  int getNumBar(){
+  int getNumBar() {
     MinerStatsTime time = state.selectedTime;
 
     if (time == MinerStatsTime.week) {
@@ -53,9 +53,9 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
 
     if (type == MinerStatsType.uptime) {
       titles = ['score_weekly_total', 'total_hours', 'total_hours'];
-    }else if (type == MinerStatsType.revenue) {
+    } else if (type == MinerStatsType.revenue) {
       titles = ['weekly_amount', 'monthly_amount', 'yearly_amount'];
-    }else {
+    } else {
       titles = ['weekly_packet', 'monthly_packet', 'yearly_packet'];
     }
 
@@ -74,7 +74,6 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     } else {
       return '${countTotal().toStringAsFixed(0)}';
     }
-
   }
 
   String getUptimeWeekScore() {
@@ -87,7 +86,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     return '${countTotal().toStringAsFixed(0)}';
   }
 
-   String getRevenueWeekScore() {
+  String getRevenueWeekScore() {
     MinerStatsTime time = state.selectedTime;
 
     if (time == MinerStatsTime.week) {
@@ -102,27 +101,27 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     MinerStatsType type = state.selectedType;
 
     if (type == MinerStatsType.uptime) {
-      for (int i = 0; i < state.originList.length; i++){
-        total += state.originList[i].uptime; 
+      for (int i = 0; i < state.originList.length; i++) {
+        total += state.originList[i].uptime;
       }
     } else if (type == MinerStatsType.revenue) {
-      for (int i = 0; i < state.originList.length; i++){
-        total += state.originList[i].revenue; 
+      for (int i = 0; i < state.originList.length; i++) {
+        total += state.originList[i].revenue;
       }
     } else if (type == MinerStatsType.frameReceived) {
-      for (int i = 0; i < state.originList.length; i++){
-        total += state.originList[i].received; 
+      for (int i = 0; i < state.originList.length; i++) {
+        total += state.originList[i].received;
       }
     } else {
-      for (int i = 0; i < state.originList.length; i++){
-        total += state.originList[i].transmitted; 
+      for (int i = 0; i < state.originList.length; i++) {
+        total += state.originList[i].transmitted;
       }
     }
 
     return total;
   }
 
-  String getStartTimeLabel(){
+  String getStartTimeLabel() {
     MinerStatsTime time = state.selectedTime;
 
     if (state.originList.isEmpty) return null;
@@ -134,11 +133,11 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     }
   }
 
-  String getEndTimeLabel(){
+  String getEndTimeLabel() {
     MinerStatsTime time = state.selectedTime;
 
     if (state.originList.isEmpty) return null;
-    
+
     if (time == MinerStatsTime.week) {
       return Tools.dateMonthDayFormat(state.originList.first.date);
     } else {
@@ -146,37 +145,36 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     }
   }
 
-
-  Future<void> dispatchData({
-        MinerStatsType type = MinerStatsType.uptime,
-        MinerStatsTime time = MinerStatsTime.week, 
-        DateTime startTime, 
-        DateTime endTime, 
-        String minerId
-      }) async {
-
-    switch(type){
+  Future<void> dispatchData(
+      {MinerStatsType type = MinerStatsType.uptime,
+      MinerStatsTime time = MinerStatsTime.week,
+      DateTime startTime,
+      DateTime endTime,
+      String minerId}) async {
+    switch (type) {
       case MinerStatsType.uptime:
       case MinerStatsType.revenue:
-        getStatsMinerData(type,time,startTime,endTime,minerId);
+        getStatsMinerData(type, time, startTime, endTime, minerId);
         break;
       case MinerStatsType.frameReceived:
       case MinerStatsType.frameTransmitted:
-        getStatsFrameData(type,time,startTime,endTime,minerId);
+        getStatsFrameData(type, time, startTime, endTime, minerId);
         break;
       default:
         break;
     }
-    
   }
 
   DateTime getStartTime(MinerStatsTime time, DateTime startTime) {
-    if (time == MinerStatsTime.week){
-      return startTime?.add(Duration(days: -8)) ?? DateTime.now().add(Duration(days: -8));
+    if (time == MinerStatsTime.week) {
+      return startTime?.add(Duration(days: -8)) ??
+          DateTime.now().add(Duration(days: -8));
     } else if (time == MinerStatsTime.month) {
-      return startTime?.add(Duration(days: -30)) ?? DateTime.now().add(Duration(days: -30));
+      return startTime?.add(Duration(days: -30)) ??
+          DateTime.now().add(Duration(days: -30));
     } else {
-      return startTime?.add(Duration(days: -365)) ?? DateTime.now().add(Duration(days: -365));
+      return startTime?.add(Duration(days: -365)) ??
+          DateTime.now().add(Duration(days: -365));
     }
   }
 
@@ -184,106 +182,85 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     return endTime ?? DateTime.now().add(Duration(days: -1));
   }
 
-  Future<void> getStatsMinerData(
-        MinerStatsType type, 
-        MinerStatsTime time, 
-        DateTime startTime,
-        DateTime endTime,
-        String minerId
-    ) async {
-      startTime = getStartTime(time, startTime);
-      endTime = getEndTime(endTime);
-    
-      Map data = {
-        'gatewayMac': minerId,
-        'orgId': supernodeCubit.state.orgId,
-        'fromDate': DateTime.utc(
-                startTime.year, startTime.month, startTime.day)
-            .toIso8601String(),
-        'tillDate':
-            DateTime.utc(endTime.year, endTime.month, endTime.day)
-                .toIso8601String(),
-      };
+  Future<void> getStatsMinerData(MinerStatsType type, MinerStatsTime time,
+      DateTime startTime, DateTime endTime, String minerId) async {
+    startTime = getStartTime(time, startTime);
+    endTime = getEndTime(endTime);
 
-      getSourceMinerData(
-        data, 
-        startTime: startTime,
-        endTime: endTime,
-        successCB: (result){
-          generateChartData(type, time, result);
-        }
-      );
+    Map data = {
+      'gatewayMac': minerId,
+      'orgId': supernodeCubit.state.orgId,
+      'fromDate': DateTime.utc(startTime.year, startTime.month, startTime.day)
+          .toIso8601String(),
+      'tillDate': DateTime.utc(endTime.year, endTime.month, endTime.day)
+          .toIso8601String(),
+    };
+
+    getSourceMinerData(data, startTime: startTime, endTime: endTime,
+        successCB: (result) {
+      generateChartData(type, time, result);
+    });
   }
 
-  Future<void> getStatsFrameData(
-        MinerStatsType type, 
-        MinerStatsTime time, 
-        DateTime startTime,
-        DateTime endTime,
-        String minerId
-    ) async {
-      startTime = getStartTime(time, startTime);
-      endTime = getEndTime(endTime);
-    
-      Map data = {
-        'gatewayID': minerId,
-        'interval': 'DAY',
-        'startTimestamp': startTime.toIso8601String() + 'Z',
-        'endTimestamp': endTime.toIso8601String() + 'Z'
-      };
+  Future<void> getStatsFrameData(MinerStatsType type, MinerStatsTime time,
+      DateTime startTime, DateTime endTime, String minerId) async {
+    startTime = getStartTime(time, startTime);
+    endTime = getEndTime(endTime);
 
-      getSourceFrameData(
-        data, 
-        startTime: startTime,
-        endTime: endTime,
-        successCB: (result){
-          generateChartData(type, time, result);
-        }
-      );
+    Map data = {
+      'gatewayID': minerId,
+      'interval': 'DAY',
+      'startTimestamp': startTime.toIso8601String() + 'Z',
+      'endTimestamp': endTime.toIso8601String() + 'Z'
+    };
+
+    getSourceFrameData(data, startTime: startTime, endTime: endTime,
+        successCB: (result) {
+      generateChartData(type, time, result);
+    });
   }
 
-  List<MinerStatsEntity> generateMinerEntities(DateTime startTime, DateTime endTime){
+  List<MinerStatsEntity> generateMinerEntities(
+      DateTime startTime, DateTime endTime) {
     List<MinerStatsEntity> dates = [];
     int totalDays = endTime.difference(startTime).inDays;
 
     for (int i = 0; i <= totalDays; i++) {
       dates.add(MinerStatsEntity(
-        date: startTime.add(Duration(days: i)),
-        uptime: 0,
-        revenue: 0,
-        health: 0,
-        received: 0,
-        transmitted: 0
-      ));
+          date: startTime.add(Duration(days: i)),
+          uptime: 0,
+          revenue: 0,
+          health: 0,
+          received: 0,
+          transmitted: 0));
     }
 
     return dates;
   }
 
-  Future<void> getSourceMinerData(Map data, {DateTime startTime, DateTime endTime, Function successCB}) async {
-    List<MinerStatsEntity> entities = generateMinerEntities(startTime,endTime);
+  Future<void> getSourceMinerData(Map data,
+      {DateTime startTime, DateTime endTime, Function successCB}) async {
+    List<MinerStatsEntity> entities = generateMinerEntities(startTime, endTime);
 
     try {
       emit(state.copyWith(showLoading: true));
 
       var result = await supernodeRepository.wallet.miningIncomeGateway(data);
-    
+
       // var result = await DemoWalletDao().miningIncomeGateway(data);
 
       if (successCB != null) {
-        if(int.tryParse(result['total']) > 0){
+        if (int.tryParse(result['total']) > 0) {
           entities = entities.map((entity) {
-
-            result['dailyStats'].forEach((item){
+            result['dailyStats'].forEach((item) {
               var currentEntity = MinerStatsEntity.fromMap(item);
 
               if (currentEntity.date.year == entity.date.year &&
-                currentEntity.date.month == entity.date.month &&
-                currentEntity.date.day == entity.date.day
-              ){
+                  currentEntity.date.month == entity.date.month &&
+                  currentEntity.date.day == entity.date.day) {
                 entity = currentEntity;
                 return;
-              } 
+              }
             });
 
             return entity;
@@ -299,29 +276,29 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     }
   }
 
-  Future<void> getSourceFrameData(Map data, {DateTime startTime, DateTime endTime, Function successCB}) async {
-    List<MinerStatsEntity> entities = generateMinerEntities(startTime,endTime);
+  Future<void> getSourceFrameData(Map data,
+      {DateTime startTime, DateTime endTime, Function successCB}) async {
+    List<MinerStatsEntity> entities = generateMinerEntities(startTime, endTime);
 
     try {
       emit(state.copyWith(showLoading: true));
 
-      var result = await supernodeRepository.gateways.frames(data['gatewayID'], data);
+      var result =
+          await supernodeRepository.gateways.frames(data['gatewayID'], data);
       // var result = await DemoGatewaysDao().frames(data['gatewayID'], data);
-      
-      if (successCB != null) {
-        if(result['result'].length > 0){
-          entities = entities.map((entity) {
 
-            result['result'].forEach((item){
+      if (successCB != null) {
+        if (result['result'].length > 0) {
+          entities = entities.map((entity) {
+            result['result'].forEach((item) {
               var currentEntity = MinerStatsEntity.fromMap(item);
 
               if (currentEntity.date.year == entity.date.year &&
-                currentEntity.date.month == entity.date.month &&
-                currentEntity.date.day == entity.date.day
-              ){
+                  currentEntity.date.month == entity.date.month &&
+                  currentEntity.date.day == entity.date.day) {
                 entity = currentEntity;
                 return;
-              } 
+              }
             });
 
             return entity;
@@ -338,31 +315,29 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
   }
 
   List<double> getYLabel(double maxValue) {
-    List<double> yLabel = []; 
+    List<double> yLabel = [];
     int step = 2;
-    if(maxValue > 1200){
+    if (maxValue > 1200) {
       step = 200;
-    }else if(maxValue > 800){
+    } else if (maxValue > 800) {
       step = 40;
-    }else if(maxValue > 400){
+    } else if (maxValue > 400) {
       step = 20;
-    }else if(maxValue > 30){
+    } else if (maxValue > 30) {
       step = 5;
     }
 
-    for(double y = 0; y <= maxValue; y += step){
+    for (double y = 0; y <= maxValue; y += step) {
       yLabel.add(y);
     }
 
-    yLabel.sort((a,b) => b.compareTo(a));
+    yLabel.sort((a, b) => b.compareTo(a));
 
     return yLabel;
   }
 
   void generateChartData(
-      MinerStatsType type, 
-      MinerStatsTime time, 
-      List<MinerStatsEntity> data) {
+      MinerStatsType type, MinerStatsTime time, List<MinerStatsEntity> data) {
     double maxValue = 0;
     List<double> xData = [];
     List<String> xLabel = [];
@@ -370,86 +345,89 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     double totalScore = 0;
     List<MinerStatsEntity> newData = [];
 
-    data.sort((a,b) => b.date.compareTo(a.date));
+    data.sort((a, b) => b.date.compareTo(a.date));
 
     if (time == MinerStatsTime.week) {
-      maxValue = maxData(type,data);
+      maxValue = maxData(type, data);
       emit(state.copyWith(originList: data));
 
-      data.forEach((item) { 
+      data.forEach((item) {
         if (type == MinerStatsType.uptime) {
-          xData.add(item.uptime/maxValue);
+          xData.add(item.uptime / maxValue);
           totalScore += item.uptime;
         } else if (type == MinerStatsType.revenue) {
-          xData.add(item.revenue/maxValue);
+          xData.add(item.revenue / maxValue);
         } else if (type == MinerStatsType.frameReceived) {
-          xData.add(item.received/maxValue);
+          xData.add(item.received / maxValue);
         } else {
-          xData.add(item.transmitted/maxValue);
-        } 
+          xData.add(item.transmitted / maxValue);
+        }
 
-        xLabel.add(Tools.dateMonthDayFormat(item.date));        
+        xLabel.add(Tools.dateMonthDayFormat(item.date));
       });
 
       if (type == MinerStatsType.uptime) {
         double totalWeekScore = 24.0 * data.length;
-        
-        emit(state.copyWith(uptimeWeekScore: totalScore/totalWeekScore));
+
+        emit(state.copyWith(uptimeWeekScore: totalScore / totalWeekScore));
       }
     } else if (time == MinerStatsTime.month) {
-      data.forEach((item){
+      data.forEach((item) {
         // if (item.date.weekday != DateTime.sunday) {
-          bool hasResult = newData.any((hasItem) => hasItem.date.weekday != DateTime.sunday || Tools.isSameDay(hasItem.date,item.date.add(Duration(days: 7 - item.date.weekday))));
+        bool hasResult = newData.any((hasItem) =>
+            hasItem.date.weekday != DateTime.sunday ||
+            Tools.isSameDay(hasItem.date,
+                item.date.add(Duration(days: 7 - item.date.weekday))));
 
-          if (hasResult) {
-            for(int i = 0; i < newData.length; i++) {
-              if (Tools.isSameDay(newData[i].date, item.date.add(Duration(days: 7 - item.date.weekday)))) {
-                if (type == MinerStatsType.uptime) {
-                  newData[i].uptime += item.uptime;
-                } else if (type == MinerStatsType.revenue) {
-                  newData[i].revenue += item.revenue;
-                } else if (type == MinerStatsType.frameReceived) {
-                  newData[i].received += item.received;
-                } else {
-                  newData[i].transmitted += item.transmitted;
-                }
-
-              } 
+        if (hasResult) {
+          for (int i = 0; i < newData.length; i++) {
+            if (Tools.isSameDay(newData[i].date,
+                item.date.add(Duration(days: 7 - item.date.weekday)))) {
+              if (type == MinerStatsType.uptime) {
+                newData[i].uptime += item.uptime;
+              } else if (type == MinerStatsType.revenue) {
+                newData[i].revenue += item.revenue;
+              } else if (type == MinerStatsType.frameReceived) {
+                newData[i].received += item.received;
+              } else {
+                newData[i].transmitted += item.transmitted;
+              }
             }
-          } else {
-            newData.add(MinerStatsEntity(
+          }
+        } else {
+          newData.add(MinerStatsEntity(
               date: item.date.add(Duration(days: 7 - item.date.weekday)),
               uptime: item.uptime,
               revenue: item.revenue,
               health: item.health,
               received: item.received,
-              transmitted: item.transmitted
-            ));
-          }
+              transmitted: item.transmitted));
+        }
       });
 
-      maxValue = maxData(type,newData);
+      maxValue = maxData(type, newData);
       newData.forEach((item) {
         if (type == MinerStatsType.uptime) {
-          xData.add(item.uptime/maxValue);
+          xData.add(item.uptime / maxValue);
         } else if (type == MinerStatsType.revenue) {
-          xData.add(item.revenue/maxValue);
+          xData.add(item.revenue / maxValue);
         } else if (type == MinerStatsType.frameReceived) {
-          xData.add(item.received/maxValue);
+          xData.add(item.received / maxValue);
         } else {
-          xData.add(item.transmitted/maxValue);
+          xData.add(item.transmitted / maxValue);
         }
 
-        xLabel.add(Tools.dateMonthDayFormat(item.date)); 
+        xLabel.add(Tools.dateMonthDayFormat(item.date));
       });
 
       emit(state.copyWith(originList: newData));
     } else {
-      data.forEach((item){
-        bool hasResult = newData.any((hasItem) => Tools.isSameMonth(hasItem.date, item.date));
+      data.forEach((item) {
+        bool hasResult = newData
+            .any((hasItem) => Tools.isSameMonth(hasItem.date, item.date));
 
         if (hasResult) {
-          for(int i = 0; i < newData.length; i++) {
+          for (int i = 0; i < newData.length; i++) {
             if (Tools.isSameMonth(newData[i].date, item.date)) {
               if (type == MinerStatsType.uptime) {
                 newData[i].uptime += item.uptime;
@@ -460,33 +438,32 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
               } else {
                 newData[i].transmitted += item.transmitted;
               }
-            } 
+            }
           }
         } else {
           newData.add(MinerStatsEntity(
-            date: item.date,
-            uptime: item.uptime,
-            revenue: item.revenue,
-            health: item.health,
-            received: item.received,
-            transmitted: item.transmitted
-          ));
+              date: item.date,
+              uptime: item.uptime,
+              revenue: item.revenue,
+              health: item.health,
+              received: item.received,
+              transmitted: item.transmitted));
         }
       });
 
-      maxValue = maxData(type,newData);
+      maxValue = maxData(type, newData);
       newData.forEach((item) {
         if (type == MinerStatsType.uptime) {
-          xData.add(item.uptime/maxValue);
+          xData.add(item.uptime / maxValue);
         } else if (type == MinerStatsType.revenue) {
-          xData.add(item.revenue/maxValue);
+          xData.add(item.revenue / maxValue);
         } else if (type == MinerStatsType.frameReceived) {
-          xData.add(item.received/maxValue);
+          xData.add(item.received / maxValue);
         } else {
-          xData.add(item.transmitted/maxValue);
+          xData.add(item.transmitted / maxValue);
         }
 
-        xLabel.add(Tools.dateMonthDayFormat(item.date)); 
+        xLabel.add(Tools.dateMonthDayFormat(item.date));
       });
 
       emit(state.copyWith(originList: newData));
@@ -495,30 +472,37 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     emit(state.copyWith(xDataList: xData));
     emit(state.copyWith(xLabelList: xLabel));
     emit(state.copyWith(yLabelList: getYLabel(maxValue)));
-   
   }
 
   double maxData(MinerStatsType type, List<MinerStatsEntity> data) {
     double maxValue = 10;
     double tempValue = 0;
 
-    if(data.isEmpty) {
+    if (data.isEmpty) {
       return maxValue;
     }
-     
-    for(int i = 0; i < data.length; i++){
-      for(int j = i + 1; j < data.length; j++){
-        if(type == MinerStatsType.uptime){
-          tempValue = data[i].uptime >= data[j].uptime ? data[i].uptime : data[j].uptime;
+
+    for (int i = 0; i < data.length; i++) {
+      for (int j = i + 1; j < data.length; j++) {
+        if (type == MinerStatsType.uptime) {
+          tempValue = data[i].uptime >= data[j].uptime
+              ? data[i].uptime
+              : data[j].uptime;
         } else if (type == MinerStatsType.revenue) {
-          tempValue = data[i].revenue >= data[j].revenue ? data[i].revenue : data[j].revenue;
+          tempValue = data[i].revenue >= data[j].revenue
+              ? data[i].revenue
+              : data[j].revenue;
         } else if (type == MinerStatsType.frameReceived) {
-          tempValue = data[i].received >= data[j].received ? data[i].received : data[j].received;
+          tempValue = data[i].received >= data[j].received
+              ? data[i].received
+              : data[j].received;
         } else {
-          tempValue = data[i].transmitted >= data[j].transmitted ? data[i].transmitted : data[j].transmitted;
+          tempValue = data[i].transmitted >= data[j].transmitted
+              ? data[i].transmitted
+              : data[j].transmitted;
         }
 
-        if(tempValue > maxValue) {
+        if (tempValue > maxValue) {
           maxValue = tempValue;
         }
       }
@@ -526,5 +510,4 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
 
     return maxValue;
   }
-
 }
