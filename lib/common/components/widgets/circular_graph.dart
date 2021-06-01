@@ -42,7 +42,7 @@ class CircularGraph extends StatelessWidget {
               child: new CustomPaint(
                   foregroundPainter: new MyPainter(
                       lineColor: graphColor.withOpacity(0.1),
-                      completeColor: graphColor.withOpacity(.8),
+                      completeColor: graphColor,
                       completePercent: percentage,
                       width: lineWidth),
                   child: Container(
