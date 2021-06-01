@@ -6,19 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
-import 'package:supernodeapp/common/components/widgets/bar_graph.dart';
-import 'package:supernodeapp/common/components/widgets/circular_graph.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/gateways.model.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/wallet.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
-import 'package:supernodeapp/common/utils/utils.dart';
-import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
-import 'package:supernodeapp/page/miner_detail_page/graph_card.dart';
 import 'package:supernodeapp/page/miner_detail_page/tabs/miner_health_tab.dart';
 import 'package:supernodeapp/page/miner_detail_page/tabs/miner_revenue_tab.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 
 import 'tabs/miner_data_tab.dart';
 

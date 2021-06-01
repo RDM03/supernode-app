@@ -22,7 +22,6 @@ import 'package:supernodeapp/common/components/widgets/circular_graph.dart';
 import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
-import 'package:supernodeapp/page/add_fuel_page/add_fuel_page.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
