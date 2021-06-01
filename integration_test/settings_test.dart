@@ -7,13 +7,13 @@ import 'package:supernodeapp/main.dart' as app;
 import 'common.dart';
 import 'login_test.dart';
 
-Future<void> settingsTests(){
-
+Future<void> settingsTests() {
   Future<void> goToSuperNode(WidgetTester tester) async {
     await pumpAndTap(tester, 'settingsButton');
     await pumpAndTap(tester, 'manageAccountItem');
     await pumpAndTap(tester, 'superNodeItem');
   }
+
   group('DHX Wallet', () {
     testWidgets('can manage account supernodes', (WidgetTester tester) async {
       await delay(5);
@@ -26,11 +26,12 @@ Future<void> settingsTests(){
       expect(findByKey('usernameText'), findsOneWidget);
     });
 
-    Future<void> updateValue(WidgetTester tester, String inputkey, String value) async {
+    Future<void> updateValue(
+        WidgetTester tester, String inputkey, String value) async {
       await pumpAndEnterText(tester, inputkey, value);
       await pumpAndTap(tester, 'updateButton');
       await delay(2);
-      
+
       expect(findByText(value).first, findsOneWidget);
     }
 
@@ -63,7 +64,6 @@ Future<void> settingsTests(){
       await updateValue(tester, 'organizationNameInput', 'TestingAccount123');
       await updateValue(tester, 'organizationNameInput', 'TestingAccount');
     });
-
 
     testWidgets('can change display name', (WidgetTester tester) async {
       await delay(5);
@@ -128,7 +128,7 @@ Future<void> settingsTests(){
       await pumpAndTap(tester, 'settingsButton');
       await pumpAndTap(tester, 'appSettingsItem');
 
-      if( !isExisted('feedbackButton') ) {
+      if (!isExisted('feedbackButton')) {
         await pumpAndTap(tester, 'screenshotSwitch');
       }
 
@@ -175,8 +175,10 @@ Future<void> settingsTests(){
       await pumpAndTap(tester, 'navActionButton');
 
       await pumpAndEnterText(tester, 'addressTextField', mxcTestMxcAddress);
-      await pumpAndEnterText(tester, 'nameTextField', getEnv('DRIVE_TESTING_USER'));
-      await pumpAndEnterText(tester, 'memoTextField', 'test: can add new address');
+      await pumpAndEnterText(
+          tester, 'nameTextField', getEnv('DRIVE_TESTING_USER'));
+      await pumpAndEnterText(
+          tester, 'memoTextField', 'test: can add new address');
 
       await pumpAndTap(tester, 'updateButton');
 
@@ -188,6 +190,5 @@ Future<void> settingsTests(){
       await tester.tap(itemFinder);
       await pumpAndTap(tester, 'deleteButton');
     });
-
   });
 }

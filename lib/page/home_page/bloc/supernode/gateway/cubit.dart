@@ -89,5 +89,4 @@ class GatewayCubit extends Cubit<GatewayState> {
       logger.e('rdelete gateway error', e, s);
     }
   }
-
 }

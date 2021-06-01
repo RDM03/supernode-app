@@ -180,22 +180,22 @@ class ValueEditor2 extends StatelessWidget {
   final String Function(String) validator;
   final Color primaryColor;
 
-  const ValueEditor2({
-    Key key,
-    this.textFieldSuffix,
-    this.controller,
-    this.total,
-    this.totalSuffix,
-    this.title,
-    this.subtitle,
-    this.showSlider = true,
-    this.showTextField = true,
-    this.showTotal = true,
-    this.enabled = true,
-    this.hintText,
-    this.validator,
-    this.primaryColor = Colors.black
-  }) : super(key: key);
+  const ValueEditor2(
+      {Key key,
+      this.textFieldSuffix,
+      this.controller,
+      this.total,
+      this.totalSuffix,
+      this.title,
+      this.subtitle,
+      this.showSlider = true,
+      this.showTextField = true,
+      this.showTotal = true,
+      this.enabled = true,
+      this.hintText,
+      this.validator,
+      this.primaryColor = Colors.black})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -253,38 +253,37 @@ class ValueEditor2 extends StatelessWidget {
                 child: MxcSliderTheme(
                   child: total == null
                       ? Center(
-                    child: LinearProgressIndicator(
-                      valueColor:
-                      AlwaysStoppedAnimation(primaryColor),
-                      backgroundColor: primaryColor.withOpacity(0.2),
-                    ),
-                  )
+                          child: LinearProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(primaryColor),
+                            backgroundColor: primaryColor.withOpacity(0.2),
+                          ),
+                        )
                       : ValueListenableBuilder<TextEditingValue>(
-                    valueListenable: controller,
-                    builder: (ctx, val, _) {
-                      var parcedVal = double.tryParse(val.text);
-                      var percent = 0.0;
-                      if (parcedVal != null) {
-                        percent = parcedVal / total;
-                        if (percent > 1) percent = 1;
-                      }
-                      if (percent.isNaN) percent = 0;
-                      return Slider(
-                        key: ValueKey('valueSlider'),
-                        value: percent,
-                        activeColor: primaryColor,
-                        inactiveColor: primaryColor.withOpacity(0.2),
-                        onChanged: !enabled
-                            ? null
-                            : (v) {
-                          final balanceVal =
-                              (total * v * 100).floorToDouble() /
-                                  100;
-                          controller.text = balanceVal.toString();
-                        },
-                      );
-                    },
-                  ),
+                          valueListenable: controller,
+                          builder: (ctx, val, _) {
+                            var parcedVal = double.tryParse(val.text);
+                            var percent = 0.0;
+                            if (parcedVal != null) {
+                              percent = parcedVal / total;
+                              if (percent > 1) percent = 1;
+                            }
+                            if (percent.isNaN) percent = 0;
+                            return Slider(
+                              key: ValueKey('valueSlider'),
+                              value: percent,
+                              activeColor: primaryColor,
+                              inactiveColor: primaryColor.withOpacity(0.2),
+                              onChanged: !enabled
+                                  ? null
+                                  : (v) {
+                                      final balanceVal =
+                                          (total * v * 100).floorToDouble() /
+                                              100;
+                                      controller.text = balanceVal.toString();
+                                    },
+                            );
+                          },
+                        ),
                 ),
               ),
               Row(

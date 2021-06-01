@@ -112,7 +112,7 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
                 days: -1,
               ))
               .toUtc()
-              .toIso8601String(),//"2020-07-09T19:03:56.869Z",
+              .toIso8601String(), //"2020-07-09T19:03:56.869Z",
           "rxPacketsReceived": 7,
           "rxPacketsReceivedOK": 5,
           "txPacketsReceived": 6,

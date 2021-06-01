@@ -49,105 +49,105 @@ class _HomePageState extends State<HomePage> {
       buildWhen: (a, b) => a.session != b.session,
       builder: (ctx, supernode) =>
           BlocBuilder<DataHighwayCubit, DataHighwayState>(
-            builder: (ctx, datahighway) => MultiBlocProvider(
-              child: WillPopScope(
-                onWillPop: () async {
-                  if (navigatorKey.currentState.canPop()) {
-                    navigatorKey.currentState.pop();
-                    return false;
-                  }
-                  return true;
-                },
-                child: Navigator(
-                  key: navigatorKey,
-                  onPopPage: (route, result) {
-                    return route.didPop(result);
+        builder: (ctx, datahighway) => MultiBlocProvider(
+          child: WillPopScope(
+            onWillPop: () async {
+              if (navigatorKey.currentState.canPop()) {
+                navigatorKey.currentState.pop();
+                return false;
+              }
+              return true;
+            },
+            child: Navigator(
+              key: navigatorKey,
+              onPopPage: (route, result) {
+                return route.didPop(result);
+              },
+              onGenerateRoute: (RouteSettings settings) {
+                return MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return MxcApp.fishRoutes
+                        .buildPage(settings.name, settings.arguments);
                   },
-                  onGenerateRoute: (RouteSettings settings) {
-                    return MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return MxcApp.fishRoutes
-                            .buildPage(settings.name, settings.arguments);
-                      },
-                      settings: settings,
-                    );
-                  },
-                  onGenerateInitialRoutes: (state, s) => [
-                    route((ctx) => _HomePageContent()),
-                  ],
-                ),
-              ),
-              providers: [
-                BlocProvider(
-                  create: (ctx) => HomeCubit(
-                    supernodeUsername: supernode?.session?.username,
-                    cacheRepository: ctx.read<CacheRepository>(),
-                    supernodeUsed: supernode.session != null,
-                    parachainUsed: datahighway.session != null,
-                  )..initState(),
-                ),
-                BlocProvider(
-                  create: (ctx) => supernode.session == null
-                      ? null
-                      : (SupernodeUserCubit(
-                    session: ctx.read<SupernodeCubit>().state.session,
-                    orgId: ctx.read<SupernodeCubit>().state.orgId,
-                    supernodeRepository: ctx.read<SupernodeRepository>(),
-                    cacheRepository: ctx.read<CacheRepository>(),
-                    homeCubit: ctx.read<HomeCubit>(),
-                  )..initState()),
-                ),
-                BlocProvider(
-                  create: (ctx) => SettingsCubit(
-                    appCubit: ctx.read<AppCubit>(),
-                    supernodeUserCubit: ctx.read<SupernodeUserCubit>(),
-                    supernodeCubit: ctx.read<SupernodeCubit>(),
-                    supernodeRepository: ctx.read<SupernodeRepository>(),
-                  ),
-                ),
-                BlocProvider(
-                  create: (ctx) => supernode.session == null
-                      ? null
-                      : (SupernodeDhxCubit(
-                    session: ctx.read<SupernodeCubit>().state.session,
-                    orgId: ctx.read<SupernodeCubit>().state.orgId,
-                    supernodeRepository: ctx.read<SupernodeRepository>(),
-                    cacheRepository: ctx.read<CacheRepository>(),
-                    homeCubit: ctx.read<HomeCubit>(),
-                  )..initState()),
-                ),
-                BlocProvider(
-                  create: (ctx) => supernode.session == null
-                      ? null
-                      : (SupernodeBtcCubit(
-                    session: ctx.read<SupernodeCubit>().state.session,
-                    orgId: ctx.read<SupernodeCubit>().state.orgId,
-                    supernodeRepository: ctx.read<SupernodeRepository>(),
-                    homeCubit: ctx.read<HomeCubit>(),
-                  )..initState()),
-                ),
-                BlocProvider(
-                  create: (ctx) => supernode.session == null
-                      ? null
-                      : (SupernodeMxcCubit(
-                    orgId: ctx.read<SupernodeCubit>().state.orgId,
-                    supernodeRepository: ctx.read<SupernodeRepository>(),
-                    cacheRepository: ctx.read<CacheRepository>(),
-                    homeCubit: ctx.read<HomeCubit>(),
-                  )..initState()),
-                ),
-                BlocProvider(
-                  create: (ctx) => supernode.session == null
-                      ? null
-                      : (GatewayCubit(
-                    orgId: ctx.read<SupernodeCubit>().state.orgId,
-                    supernodeRepository: ctx.read<SupernodeRepository>(),
-                    homeCubit: ctx.read<HomeCubit>(),
-                  )..initState()),
-                ),
+                  settings: settings,
+                );
+              },
+              onGenerateInitialRoutes: (state, s) => [
+                route((ctx) => _HomePageContent()),
               ],
             ),
           ),
+          providers: [
+            BlocProvider(
+              create: (ctx) => HomeCubit(
+                supernodeUsername: supernode?.session?.username,
+                cacheRepository: ctx.read<CacheRepository>(),
+                supernodeUsed: supernode.session != null,
+                parachainUsed: datahighway.session != null,
+              )..initState(),
+            ),
+            BlocProvider(
+              create: (ctx) => supernode.session == null
+                  ? null
+                  : (SupernodeUserCubit(
+                      session: ctx.read<SupernodeCubit>().state.session,
+                      orgId: ctx.read<SupernodeCubit>().state.orgId,
+                      supernodeRepository: ctx.read<SupernodeRepository>(),
+                      cacheRepository: ctx.read<CacheRepository>(),
+                      homeCubit: ctx.read<HomeCubit>(),
+                    )..initState()),
+            ),
+            BlocProvider(
+              create: (ctx) => SettingsCubit(
+                appCubit: ctx.read<AppCubit>(),
+                supernodeUserCubit: ctx.read<SupernodeUserCubit>(),
+                supernodeCubit: ctx.read<SupernodeCubit>(),
+                supernodeRepository: ctx.read<SupernodeRepository>(),
+              ),
+            ),
+            BlocProvider(
+              create: (ctx) => supernode.session == null
+                  ? null
+                  : (SupernodeDhxCubit(
+                      session: ctx.read<SupernodeCubit>().state.session,
+                      orgId: ctx.read<SupernodeCubit>().state.orgId,
+                      supernodeRepository: ctx.read<SupernodeRepository>(),
+                      cacheRepository: ctx.read<CacheRepository>(),
+                      homeCubit: ctx.read<HomeCubit>(),
+                    )..initState()),
+            ),
+            BlocProvider(
+              create: (ctx) => supernode.session == null
+                  ? null
+                  : (SupernodeBtcCubit(
+                      session: ctx.read<SupernodeCubit>().state.session,
+                      orgId: ctx.read<SupernodeCubit>().state.orgId,
+                      supernodeRepository: ctx.read<SupernodeRepository>(),
+                      homeCubit: ctx.read<HomeCubit>(),
+                    )..initState()),
+            ),
+            BlocProvider(
+              create: (ctx) => supernode.session == null
+                  ? null
+                  : (SupernodeMxcCubit(
+                      orgId: ctx.read<SupernodeCubit>().state.orgId,
+                      supernodeRepository: ctx.read<SupernodeRepository>(),
+                      cacheRepository: ctx.read<CacheRepository>(),
+                      homeCubit: ctx.read<HomeCubit>(),
+                    )..initState()),
+            ),
+            BlocProvider(
+              create: (ctx) => supernode.session == null
+                  ? null
+                  : (GatewayCubit(
+                      orgId: ctx.read<SupernodeCubit>().state.orgId,
+                      supernodeRepository: ctx.read<SupernodeRepository>(),
+                      homeCubit: ctx.read<HomeCubit>(),
+                    )..initState()),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -214,8 +214,10 @@ class _HomePageContent extends StatelessWidget {
               items: [
                 _menuItem(ctx, 'Home', s.tabIndex == HomeCubit.HOME_TAB),
                 _menuItem(ctx, 'Wallet', s.tabIndex == HomeCubit.WALLET_TAB),
-                _menuItem(ctx, 'Gateway', s.tabIndex == HomeCubit.MINER_TAB, disabled: !s.supernodeUsed),
-                _menuItem(ctx, 'Device', s.tabIndex == HomeCubit.DEVICE_TAB, disabled: !s.supernodeUsed),
+                _menuItem(ctx, 'Gateway', s.tabIndex == HomeCubit.MINER_TAB,
+                    disabled: !s.supernodeUsed),
+                _menuItem(ctx, 'Device', s.tabIndex == HomeCubit.DEVICE_TAB,
+                    disabled: !s.supernodeUsed),
               ]),
         ),
       ),

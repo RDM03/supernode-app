@@ -37,44 +37,43 @@ class SummaryRow extends StatelessWidget {
       usdPrice = temp[1].substring(0, temp[1].length - 1);
     }
 
-    return Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 15.0, top: 15, bottom: 15),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Image.asset(
-                  AppImages.blueCircle,
-                  fit: BoxFit.none,
-                  color: lightBlue,
-                ),
-                Image.asset(
-                  image,
-                  fit: BoxFit.none,
-                )
-              ],
+    return Row(children: [
+      Padding(
+        padding: const EdgeInsets.only(left: 15.0, top: 15, bottom: 15),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.asset(
+              AppImages.blueCircle,
+              fit: BoxFit.none,
+              color: lightBlue,
             ),
-          ),
-          Expanded(
-            child:
-            Column(children: [
-              TitleDetailRow(
-                loading: loading,
-                name: title,
-                value: number,
-                token: '',
-              ),
-              TitleDetailRow(
-                loading: loading,
-                name: subtitle,
-                value: usdPrice,
-                token: '',
-              ),
-            ],),
-          )
-        ]
-    );
+            Image.asset(
+              image,
+              fit: BoxFit.none,
+            )
+          ],
+        ),
+      ),
+      Expanded(
+        child: Column(
+          children: [
+            TitleDetailRow(
+              loading: loading,
+              name: title,
+              value: number,
+              token: '',
+            ),
+            TitleDetailRow(
+              loading: loading,
+              name: subtitle,
+              value: usdPrice,
+              token: '',
+            ),
+          ],
+        ),
+      )
+    ]);
   }
 }
 
@@ -99,31 +98,28 @@ class TokenSummaryRow extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
-      child: Row(
-          children: [
-            Padding(
-                padding: const EdgeInsets.only(left: 15.0, top: 15, bottom: 15),
-                child: Image.asset(
-                  image,
-                  fit: BoxFit.none,
-                )
-            ),
-            Expanded(
-              child:
+      child: Row(children: [
+        Padding(
+            padding: const EdgeInsets.only(left: 15.0, top: 15, bottom: 15),
+            child: Image.asset(
+              image,
+              fit: BoxFit.none,
+            )),
+        Expanded(
+          child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: Text(name, style: kBigBoldFontOfBlack)),
-                TitleDetailRow(
-                  loading: loading,
-                  name: FlutterI18n.translate(context, 'balance'),
-                  value: balance,
-                  token: name,
-                ),
-              ]),
-            )
-          ]
-      ),
+            Container(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Text(name, style: kBigBoldFontOfBlack)),
+            TitleDetailRow(
+              loading: loading,
+              name: FlutterI18n.translate(context, 'balance'),
+              value: balance,
+              token: name,
+            ),
+          ]),
+        )
+      ]),
     );
   }
 }

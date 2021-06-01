@@ -89,37 +89,32 @@ class _TabbedViewState extends State<TabbedView> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return PanelFrame(
-        child: Stack(
-            alignment: AlignmentDirectional.topEnd,
-            children: [
-              Column(
-                children: [
-                  SizedBox(
-                    height: widget.contentHeight,
-                    child: TabBarView(
-                      controller: controller,
-                      children: widget.tabs.map((e) => e.widget).toList(),
-                    ),
-                  ),
-                  (controller.length > 1)
-                      ? SizedBox(height: 5)
-                      : SizedBox(),
-                  (controller.length > 1)
-                      ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      for (var i = 0; i < widget.tabs.length; i++) ...[
-                        tabIcon(widget.tabs[i].color, i),
-                        if (i != widget.tabs.length - 1) SizedBox(width: 4)
-                      ],
+        child: Stack(alignment: AlignmentDirectional.topEnd, children: [
+      Column(
+        children: [
+          SizedBox(
+            height: widget.contentHeight,
+            child: TabBarView(
+              controller: controller,
+              children: widget.tabs.map((e) => e.widget).toList(),
+            ),
+          ),
+          (controller.length > 1) ? SizedBox(height: 5) : SizedBox(),
+          (controller.length > 1)
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (var i = 0; i < widget.tabs.length; i++) ...[
+                      tabIcon(widget.tabs[i].color, i),
+                      if (i != widget.tabs.length - 1) SizedBox(width: 4)
                     ],
-                  )
-                      : SizedBox(),
-                  SizedBox(height: 5),
-                ],
-              ),
-              (widget.menu != null) ? widget.menu : SizedBox(),
-            ])
-    );
+                  ],
+                )
+              : SizedBox(),
+          SizedBox(height: 5),
+        ],
+      ),
+      (widget.menu != null) ? widget.menu : SizedBox(),
+    ]));
   }
 }

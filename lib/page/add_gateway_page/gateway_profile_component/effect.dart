@@ -168,14 +168,13 @@ void _update(Action action, Context<GatewayProfileState> ctx) async {
       loading.hide();
       mLog('GatewaysDao add', res);
 
-      tip(FlutterI18n.translate(ctx.context, 'update_success'),
-          success: true);
+      tip(FlutterI18n.translate(ctx.context, 'update_success'), success: true);
 
       Navigator.of(ctx.context).pop();
     }).catchError((err) {
       loading.hide();
       // tip(ctx.context,'Gateways add: $err');
-    }).timeout(Duration(seconds: 5), onTimeout: (){
+    }).timeout(Duration(seconds: 5), onTimeout: () {
       loading.hide();
     });
   }

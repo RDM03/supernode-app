@@ -1,4 +1,4 @@
-abstract class BaseException implements Exception{
+abstract class BaseException implements Exception {
   String message = "";
 
   BaseException(this.message);
@@ -8,11 +8,3 @@ abstract class BaseException implements Exception{
     return "$message";
   }
 }
-
-
-
-
-
-
-
-

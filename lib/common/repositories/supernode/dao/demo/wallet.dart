@@ -6,10 +6,8 @@ class DemoWalletDao extends DemoDao implements WalletDao {
   @override
   Future balance(Map data) async {
     String bal = '20180706';
-    if (data['currency'] == 'DHX')
-      bal = '220078';
-    if (data['currency'] == 'BTC')
-      bal = '0.1034';
+    if (data['currency'] == 'DHX') bal = '220078';
+    if (data['currency'] == 'BTC') bal = '0.1034';
     return Future.value({
       'balance': bal,
       'userProfile': await DemoUserDao().profile(),

@@ -47,7 +47,12 @@ class MinerStatsEntity {
 
   @override
   int get hashCode =>
-      date.hashCode ^ revenue.hashCode ^ health.hashCode ^ uptime.hashCode ^ received.hashCode ^ transmitted.hashCode;
+      date.hashCode ^
+      revenue.hashCode ^
+      health.hashCode ^
+      uptime.hashCode ^
+      received.hashCode ^
+      transmitted.hashCode;
 }
 
 // class FrameStatsEntity {
