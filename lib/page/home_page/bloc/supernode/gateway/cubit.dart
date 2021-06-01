@@ -65,8 +65,8 @@ class GatewayCubit extends Cubit<GatewayState> {
           avgUptimeHealth = minerHealth.uptimeHealth;
           avgMiningFuelHealth = minerHealth.miningFuelHealth;
         } else {
-          sumMiningFuel += minerHealth.miningFuel;
-          sumMiningFuelMax += minerHealth.miningFuelMax;
+          sumMiningFuel += minerHealth.miningFuel.toDouble();
+          sumMiningFuelMax += minerHealth.miningFuelMax.toDouble();
         }
       }
 

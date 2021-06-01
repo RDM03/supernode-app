@@ -80,6 +80,8 @@ class AppImages {
   static const String proximity_disabled =
       'assets/images/gateway/proximity_disabled.png';
   static const String fuel = 'assets/images/gateway/fuel.png';
+  static const String fuelCircle = 'assets/images/gateway/fuel_circle.png';
+  static const String sendCircle = 'assets/images/gateway/send_circle.png';
 
   //settings
   static const String warningRobot = 'assets/images/settings/robot_warning.png';

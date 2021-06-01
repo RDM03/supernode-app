@@ -187,7 +187,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                 ),
                 SizedBox(height: s(50)),
                 PrimaryButton(
-                    padding: kRoundRow205,
+                    padding: kRoundRow2005,
                     onTap: () => onSignupEmail(),
                     buttonTitle: FlutterI18n.translate(context, 'continue'),
                     minHeight: 46),

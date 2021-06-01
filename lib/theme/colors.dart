@@ -92,3 +92,4 @@ final lock3Color = Color(0xFFADB5E4);
 //miner
 const minerColor = Color.fromARGB(255, 28, 20, 120);
 final fuelColor = Color.fromARGB(255, 255, 91, 91);
+const healthColor = Color(0xCCFF5B5B);

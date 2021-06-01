@@ -56,7 +56,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         title: FlutterI18n.translate(context, 'create_account'),
         onPress: () => Navigator.of(context).pop(),
       ),
-      padding: kRoundRow205,
+      padding: kRoundRow2005,
       body: MultiBlocListener(
         listeners: [
           BlocListener<LoginCubit, LoginState>(

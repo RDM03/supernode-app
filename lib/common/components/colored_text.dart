@@ -6,6 +6,7 @@ class ColoredText extends StatelessWidget {
   final TextStyle style;
   final TextAlign textAlign;
   final Color color;
+  final EdgeInsets padding;
 
   const ColoredText({
     Key key,
@@ -13,6 +14,7 @@ class ColoredText extends StatelessWidget {
     this.style = kMiddleFontOfGrey,
     this.textAlign = TextAlign.right,
     this.color,
+    this.padding = const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
   }) : super(key: key);
 
   @override
@@ -22,7 +24,7 @@ class ColoredText extends StatelessWidget {
         color: color ?? Color(0x4665EA).withOpacity(0.2),
         borderRadius: BorderRadius.circular(10),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      padding: padding,
       child: Text(
         text,
         style: style,

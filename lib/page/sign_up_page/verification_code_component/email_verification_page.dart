@@ -66,7 +66,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
           ],
           child: SafeArea(
               child: Container(
-                  padding: kRoundRow205,
+                  padding: kRoundRow2005,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[

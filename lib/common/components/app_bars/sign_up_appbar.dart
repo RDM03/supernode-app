@@ -65,7 +65,7 @@ class AppBars {
         onPressed: onPress,
         icon: Icon(Icons.arrow_back_ios, color: Colors.black),
       ),
-      actions: <Widget>[action],
+      actions: <Widget>[if (action != null) action],
       backgroundColor: Colors.transparent,
       elevation: 0,
     );

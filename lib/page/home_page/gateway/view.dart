@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,10 +22,14 @@ import 'package:supernodeapp/common/components/widgets/circular_graph.dart';
 import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/page/add_fuel_page/add_fuel_page.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
+import 'package:supernodeapp/page/miner_detail_page/miner_detail_page.dart';
+import 'package:supernodeapp/page/send_to_wallet_page/send_to_wallet_page.dart';
+import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
@@ -163,16 +165,8 @@ class GatewayTab extends StatelessWidget {
                                       label: FlutterI18n.translate(
                                           context, 'add_send'),
                                       onTap: () async {
-                                        if (!context
-                                            .read<AppCubit>()
-                                            .state
-                                            .isDemo) {
-                                          await Navigator.of(context).pushNamed(
-                                              'add_gateway_page',
-                                              arguments: {
-                                                'fromPage': 'home',
-                                              });
-                                        }
+                                        await Navigator.of(context).push(
+                                            route((ctx) => SendToWalletPage()));
                                       },
                                     ),
                                   ]),
@@ -634,11 +628,14 @@ class GatewaysList extends StatelessWidget {
         child: GatewayListTile(
           state: state,
           onTap: () async {
-            await Navigator.pushNamed(context, 'gateway_profile_page',
-                arguments: {
-                  'item': state,
-                  'isDemo': context.read<AppCubit>().state.isDemo,
-                });
+            await Navigator.push(
+              context,
+              route(
+                (ctx) => MinerDetailPage(
+                  item: state,
+                ),
+              ),
+            );
           },
         ),
         secondaryActions: <Widget>[
@@ -715,7 +712,7 @@ class GatewayListTile extends StatelessWidget {
                     color: minerColor,
                   ),
                   smallRowSpacer(),
-                  Text('${Tools.priceFormat(state.health * 100)} %',
+                  Text('${Tools.priceFormat((state.health ?? 0) * 100)} %',
                       style: kBigFontOfBlack),
                   smallRowSpacer(),
                   Image.asset(
@@ -723,7 +720,8 @@ class GatewayListTile extends StatelessWidget {
                     color: fuelColor,
                   ),
                   smallRowSpacer(),
-                  Text('${Tools.priceFormat(state.miningFuelHealth * 100)} %',
+                  Text(
+                      '${Tools.priceFormat((state.miningFuelHealth ?? 0) * 100)} %',
                       style: kBigFontOfBlack),
                 ],
               ),

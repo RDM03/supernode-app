@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/gateways.model.dart';
@@ -36,10 +37,19 @@ abstract class GatewayItem with _$GatewayItem {
     @nullable String model,
     @nullable String osversion,
     @nullable double health,
+    @nullable double uptimeHealth,
     @nullable double miningFuelHealth,
+    @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+    @nullable
+        Decimal miningFuel,
+    @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+    @nullable
+        Decimal miningFuelMax,
     @nullable double totalMined,
   }) = _GatewayItem;
 
   factory GatewayItem.fromJson(Map<String, dynamic> json) =>
       _$GatewayItemFromJson(json);
 }
+
+String _decimalToJson(s) => s.toString();

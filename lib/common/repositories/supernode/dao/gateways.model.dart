@@ -1,11 +1,15 @@
+import 'dart:convert';
+
+import 'package:decimal/decimal.dart';
+
 class MinerHealthResponse {
   final String id;
   final int ageSeconds;
   final double health;
-  final double miningFuel;
+  final Decimal miningFuel;
   final double miningFuelHealth;
-  final double miningFuelMax;
-  final double totalMined;
+  final Decimal miningFuelMax;
+  final Decimal totalMined;
   final double uptimeHealth;
 
   MinerHealthResponse({
@@ -26,11 +30,34 @@ class MinerHealthResponse {
       id: map['id'],
       ageSeconds: int.tryParse(map['ageSeconds']),
       health: map['health'],
-      miningFuel: double.tryParse(map['miningFuel']),
-      miningFuelHealth: map['miningFuelHealth'],
-      miningFuelMax: double.tryParse(map['miningFuelMax']),
-      totalMined: double.tryParse(map['totalMined']),
+      miningFuel: Decimal.tryParse(map['miningFuel']),
+      miningFuelHealth: map['miningFuelHealth']?.toDouble(),
+      miningFuelMax: Decimal.tryParse(map['miningFuelMax']),
+      totalMined: Decimal.tryParse(map['totalMined']),
       uptimeHealth: map['uptimeHealth'],
+    );
+  }
+}
+
+class GatewayStatisticResponse {
+  final int txPacketsEmitted;
+  final int txPacketsReceived;
+  final int rxPacketsReceivedOK;
+  final DateTime timestamp;
+
+  GatewayStatisticResponse({
+    this.txPacketsEmitted,
+    this.txPacketsReceived,
+    this.timestamp,
+    this.rxPacketsReceivedOK,
+  });
+
+  factory GatewayStatisticResponse.fromMap(Map<String, dynamic> map) {
+    return GatewayStatisticResponse(
+      txPacketsEmitted: map['txPacketsEmitted'],
+      txPacketsReceived: map['txPacketsReceived'],
+      timestamp: DateTime.tryParse(map['timestamp']),
+      rxPacketsReceivedOK: map['rxPacketsReceivedOK'],
     );
   }
 }

@@ -335,21 +335,46 @@ class _$GatewayItemTearOff {
 
 // ignore: unused_element
   _GatewayItem call(
-      {@required String id,
-      @required String name,
-      @required String description,
-      @required Map<dynamic, dynamic> location,
-      @required @JsonKey(name: 'organizationID') String organizationId,
-      @required @JsonKey(name: 'networkServerID') String networkServerId,
-      @required String createdAt,
-      @nullable String updatedAt,
-      @nullable String firstSeenAt,
-      @nullable String lastSeenAt,
-      @nullable String model,
-      @nullable String osversion,
-      @nullable double health,
-      @nullable double miningFuelHealth,
-      @nullable double totalMined}) {
+      {@required
+          String id,
+      @required
+          String name,
+      @required
+          String description,
+      @required
+          Map<dynamic, dynamic> location,
+      @required
+      @JsonKey(name: 'organizationID')
+          String organizationId,
+      @required
+      @JsonKey(name: 'networkServerID')
+          String networkServerId,
+      @required
+          String createdAt,
+      @nullable
+          String updatedAt,
+      @nullable
+          String firstSeenAt,
+      @nullable
+          String lastSeenAt,
+      @nullable
+          String model,
+      @nullable
+          String osversion,
+      @nullable
+          double health,
+      @nullable
+          double uptimeHealth,
+      @nullable
+          double miningFuelHealth,
+      @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+      @nullable
+          Decimal miningFuel,
+      @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+      @nullable
+          Decimal miningFuelMax,
+      @nullable
+          double totalMined}) {
     return _GatewayItem(
       id: id,
       name: name,
@@ -364,7 +389,10 @@ class _$GatewayItemTearOff {
       model: model,
       osversion: osversion,
       health: health,
+      uptimeHealth: uptimeHealth,
       miningFuelHealth: miningFuelHealth,
+      miningFuel: miningFuel,
+      miningFuelMax: miningFuelMax,
       totalMined: totalMined,
     );
   }
@@ -403,7 +431,15 @@ mixin _$GatewayItem {
   @nullable
   double get health;
   @nullable
+  double get uptimeHealth;
+  @nullable
   double get miningFuelHealth;
+  @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+  @nullable
+  Decimal get miningFuel;
+  @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+  @nullable
+  Decimal get miningFuelMax;
   @nullable
   double get totalMined;
 
@@ -422,17 +458,35 @@ abstract class $GatewayItemCopyWith<$Res> {
       String name,
       String description,
       Map<dynamic, dynamic> location,
-      @JsonKey(name: 'organizationID') String organizationId,
-      @JsonKey(name: 'networkServerID') String networkServerId,
+      @JsonKey(name: 'organizationID')
+          String organizationId,
+      @JsonKey(name: 'networkServerID')
+          String networkServerId,
       String createdAt,
-      @nullable String updatedAt,
-      @nullable String firstSeenAt,
-      @nullable String lastSeenAt,
-      @nullable String model,
-      @nullable String osversion,
-      @nullable double health,
-      @nullable double miningFuelHealth,
-      @nullable double totalMined});
+      @nullable
+          String updatedAt,
+      @nullable
+          String firstSeenAt,
+      @nullable
+          String lastSeenAt,
+      @nullable
+          String model,
+      @nullable
+          String osversion,
+      @nullable
+          double health,
+      @nullable
+          double uptimeHealth,
+      @nullable
+          double miningFuelHealth,
+      @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+      @nullable
+          Decimal miningFuel,
+      @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+      @nullable
+          Decimal miningFuelMax,
+      @nullable
+          double totalMined});
 }
 
 /// @nodoc
@@ -458,7 +512,10 @@ class _$GatewayItemCopyWithImpl<$Res> implements $GatewayItemCopyWith<$Res> {
     Object model = freezed,
     Object osversion = freezed,
     Object health = freezed,
+    Object uptimeHealth = freezed,
     Object miningFuelHealth = freezed,
+    Object miningFuel = freezed,
+    Object miningFuelMax = freezed,
     Object totalMined = freezed,
   }) {
     return _then(_value.copyWith(
@@ -484,9 +541,17 @@ class _$GatewayItemCopyWithImpl<$Res> implements $GatewayItemCopyWith<$Res> {
       model: model == freezed ? _value.model : model as String,
       osversion: osversion == freezed ? _value.osversion : osversion as String,
       health: health == freezed ? _value.health : health as double,
+      uptimeHealth: uptimeHealth == freezed
+          ? _value.uptimeHealth
+          : uptimeHealth as double,
       miningFuelHealth: miningFuelHealth == freezed
           ? _value.miningFuelHealth
           : miningFuelHealth as double,
+      miningFuel:
+          miningFuel == freezed ? _value.miningFuel : miningFuel as Decimal,
+      miningFuelMax: miningFuelMax == freezed
+          ? _value.miningFuelMax
+          : miningFuelMax as Decimal,
       totalMined:
           totalMined == freezed ? _value.totalMined : totalMined as double,
     ));
@@ -505,17 +570,35 @@ abstract class _$GatewayItemCopyWith<$Res>
       String name,
       String description,
       Map<dynamic, dynamic> location,
-      @JsonKey(name: 'organizationID') String organizationId,
-      @JsonKey(name: 'networkServerID') String networkServerId,
+      @JsonKey(name: 'organizationID')
+          String organizationId,
+      @JsonKey(name: 'networkServerID')
+          String networkServerId,
       String createdAt,
-      @nullable String updatedAt,
-      @nullable String firstSeenAt,
-      @nullable String lastSeenAt,
-      @nullable String model,
-      @nullable String osversion,
-      @nullable double health,
-      @nullable double miningFuelHealth,
-      @nullable double totalMined});
+      @nullable
+          String updatedAt,
+      @nullable
+          String firstSeenAt,
+      @nullable
+          String lastSeenAt,
+      @nullable
+          String model,
+      @nullable
+          String osversion,
+      @nullable
+          double health,
+      @nullable
+          double uptimeHealth,
+      @nullable
+          double miningFuelHealth,
+      @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+      @nullable
+          Decimal miningFuel,
+      @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+      @nullable
+          Decimal miningFuelMax,
+      @nullable
+          double totalMined});
 }
 
 /// @nodoc
@@ -543,7 +626,10 @@ class __$GatewayItemCopyWithImpl<$Res> extends _$GatewayItemCopyWithImpl<$Res>
     Object model = freezed,
     Object osversion = freezed,
     Object health = freezed,
+    Object uptimeHealth = freezed,
     Object miningFuelHealth = freezed,
+    Object miningFuel = freezed,
+    Object miningFuelMax = freezed,
     Object totalMined = freezed,
   }) {
     return _then(_GatewayItem(
@@ -569,9 +655,17 @@ class __$GatewayItemCopyWithImpl<$Res> extends _$GatewayItemCopyWithImpl<$Res>
       model: model == freezed ? _value.model : model as String,
       osversion: osversion == freezed ? _value.osversion : osversion as String,
       health: health == freezed ? _value.health : health as double,
+      uptimeHealth: uptimeHealth == freezed
+          ? _value.uptimeHealth
+          : uptimeHealth as double,
       miningFuelHealth: miningFuelHealth == freezed
           ? _value.miningFuelHealth
           : miningFuelHealth as double,
+      miningFuel:
+          miningFuel == freezed ? _value.miningFuel : miningFuel as Decimal,
+      miningFuelMax: miningFuelMax == freezed
+          ? _value.miningFuelMax
+          : miningFuelMax as Decimal,
       totalMined:
           totalMined == freezed ? _value.totalMined : totalMined as double,
     ));
@@ -583,21 +677,46 @@ class __$GatewayItemCopyWithImpl<$Res> extends _$GatewayItemCopyWithImpl<$Res>
 /// @nodoc
 class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
   _$_GatewayItem(
-      {@required this.id,
-      @required this.name,
-      @required this.description,
-      @required this.location,
-      @required @JsonKey(name: 'organizationID') this.organizationId,
-      @required @JsonKey(name: 'networkServerID') this.networkServerId,
-      @required this.createdAt,
-      @nullable this.updatedAt,
-      @nullable this.firstSeenAt,
-      @nullable this.lastSeenAt,
-      @nullable this.model,
-      @nullable this.osversion,
-      @nullable this.health,
-      @nullable this.miningFuelHealth,
-      @nullable this.totalMined})
+      {@required
+          this.id,
+      @required
+          this.name,
+      @required
+          this.description,
+      @required
+          this.location,
+      @required
+      @JsonKey(name: 'organizationID')
+          this.organizationId,
+      @required
+      @JsonKey(name: 'networkServerID')
+          this.networkServerId,
+      @required
+          this.createdAt,
+      @nullable
+          this.updatedAt,
+      @nullable
+          this.firstSeenAt,
+      @nullable
+          this.lastSeenAt,
+      @nullable
+          this.model,
+      @nullable
+          this.osversion,
+      @nullable
+          this.health,
+      @nullable
+          this.uptimeHealth,
+      @nullable
+          this.miningFuelHealth,
+      @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+      @nullable
+          this.miningFuel,
+      @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+      @nullable
+          this.miningFuelMax,
+      @nullable
+          this.totalMined})
       : assert(id != null),
         assert(name != null),
         assert(description != null),
@@ -645,14 +764,25 @@ class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
   final double health;
   @override
   @nullable
+  final double uptimeHealth;
+  @override
+  @nullable
   final double miningFuelHealth;
+  @override
+  @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+  @nullable
+  final Decimal miningFuel;
+  @override
+  @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+  @nullable
+  final Decimal miningFuelMax;
   @override
   @nullable
   final double totalMined;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GatewayItem(id: $id, name: $name, description: $description, location: $location, organizationId: $organizationId, networkServerId: $networkServerId, createdAt: $createdAt, updatedAt: $updatedAt, firstSeenAt: $firstSeenAt, lastSeenAt: $lastSeenAt, model: $model, osversion: $osversion, health: $health, miningFuelHealth: $miningFuelHealth, totalMined: $totalMined)';
+    return 'GatewayItem(id: $id, name: $name, description: $description, location: $location, organizationId: $organizationId, networkServerId: $networkServerId, createdAt: $createdAt, updatedAt: $updatedAt, firstSeenAt: $firstSeenAt, lastSeenAt: $lastSeenAt, model: $model, osversion: $osversion, health: $health, uptimeHealth: $uptimeHealth, miningFuelHealth: $miningFuelHealth, miningFuel: $miningFuel, miningFuelMax: $miningFuelMax, totalMined: $totalMined)';
   }
 
   @override
@@ -673,7 +803,10 @@ class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
       ..add(DiagnosticsProperty('model', model))
       ..add(DiagnosticsProperty('osversion', osversion))
       ..add(DiagnosticsProperty('health', health))
+      ..add(DiagnosticsProperty('uptimeHealth', uptimeHealth))
       ..add(DiagnosticsProperty('miningFuelHealth', miningFuelHealth))
+      ..add(DiagnosticsProperty('miningFuel', miningFuel))
+      ..add(DiagnosticsProperty('miningFuelMax', miningFuelMax))
       ..add(DiagnosticsProperty('totalMined', totalMined));
   }
 
@@ -716,9 +849,18 @@ class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
                     .equals(other.osversion, osversion)) &&
             (identical(other.health, health) ||
                 const DeepCollectionEquality().equals(other.health, health)) &&
+            (identical(other.uptimeHealth, uptimeHealth) ||
+                const DeepCollectionEquality()
+                    .equals(other.uptimeHealth, uptimeHealth)) &&
             (identical(other.miningFuelHealth, miningFuelHealth) ||
                 const DeepCollectionEquality()
                     .equals(other.miningFuelHealth, miningFuelHealth)) &&
+            (identical(other.miningFuel, miningFuel) ||
+                const DeepCollectionEquality()
+                    .equals(other.miningFuel, miningFuel)) &&
+            (identical(other.miningFuelMax, miningFuelMax) ||
+                const DeepCollectionEquality()
+                    .equals(other.miningFuelMax, miningFuelMax)) &&
             (identical(other.totalMined, totalMined) ||
                 const DeepCollectionEquality()
                     .equals(other.totalMined, totalMined)));
@@ -740,7 +882,10 @@ class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
       const DeepCollectionEquality().hash(model) ^
       const DeepCollectionEquality().hash(osversion) ^
       const DeepCollectionEquality().hash(health) ^
+      const DeepCollectionEquality().hash(uptimeHealth) ^
       const DeepCollectionEquality().hash(miningFuelHealth) ^
+      const DeepCollectionEquality().hash(miningFuel) ^
+      const DeepCollectionEquality().hash(miningFuelMax) ^
       const DeepCollectionEquality().hash(totalMined);
 
   @JsonKey(ignore: true)
@@ -756,21 +901,46 @@ class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
 
 abstract class _GatewayItem implements GatewayItem {
   factory _GatewayItem(
-      {@required String id,
-      @required String name,
-      @required String description,
-      @required Map<dynamic, dynamic> location,
-      @required @JsonKey(name: 'organizationID') String organizationId,
-      @required @JsonKey(name: 'networkServerID') String networkServerId,
-      @required String createdAt,
-      @nullable String updatedAt,
-      @nullable String firstSeenAt,
-      @nullable String lastSeenAt,
-      @nullable String model,
-      @nullable String osversion,
-      @nullable double health,
-      @nullable double miningFuelHealth,
-      @nullable double totalMined}) = _$_GatewayItem;
+      {@required
+          String id,
+      @required
+          String name,
+      @required
+          String description,
+      @required
+          Map<dynamic, dynamic> location,
+      @required
+      @JsonKey(name: 'organizationID')
+          String organizationId,
+      @required
+      @JsonKey(name: 'networkServerID')
+          String networkServerId,
+      @required
+          String createdAt,
+      @nullable
+          String updatedAt,
+      @nullable
+          String firstSeenAt,
+      @nullable
+          String lastSeenAt,
+      @nullable
+          String model,
+      @nullable
+          String osversion,
+      @nullable
+          double health,
+      @nullable
+          double uptimeHealth,
+      @nullable
+          double miningFuelHealth,
+      @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+      @nullable
+          Decimal miningFuel,
+      @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+      @nullable
+          Decimal miningFuelMax,
+      @nullable
+          double totalMined}) = _$_GatewayItem;
 
   factory _GatewayItem.fromJson(Map<String, dynamic> json) =
       _$_GatewayItem.fromJson;
@@ -811,7 +981,18 @@ abstract class _GatewayItem implements GatewayItem {
   double get health;
   @override
   @nullable
+  double get uptimeHealth;
+  @override
+  @nullable
   double get miningFuelHealth;
+  @override
+  @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+  @nullable
+  Decimal get miningFuel;
+  @override
+  @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
+  @nullable
+  Decimal get miningFuelMax;
   @override
   @nullable
   double get totalMined;
