@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:decimal/decimal.dart';
 
 class MinerHealthResponse {
@@ -37,9 +39,25 @@ class MinerHealthResponse {
   }
 }
 
-class GatewayAmountRequest {
-  final String amount;
-  final String gatewayMac;
+class GatewayStatisticResponse {
+  final int txPacketsEmitted;
+  final int txPacketsReceived;
+  final int rxPacketsReceivedOK;
+  final DateTime timestamp;
 
-  GatewayAmountRequest(this.amount, this.gatewayMac);
+  GatewayStatisticResponse({
+    this.txPacketsEmitted,
+    this.txPacketsReceived,
+    this.timestamp,
+    this.rxPacketsReceivedOK,
+  });
+
+  factory GatewayStatisticResponse.fromMap(Map<String, dynamic> map) {
+    return GatewayStatisticResponse(
+      txPacketsEmitted: map['txPacketsEmitted'],
+      txPacketsReceived: map['txPacketsReceived'],
+      timestamp: DateTime.tryParse(map['timestamp']),
+      rxPacketsReceivedOK: map['rxPacketsReceivedOK'],
+    );
+  }
 }

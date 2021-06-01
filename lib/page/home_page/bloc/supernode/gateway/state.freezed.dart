@@ -364,6 +364,8 @@ class _$GatewayItemTearOff {
       @nullable
           double health,
       @nullable
+          double uptimeHealth,
+      @nullable
           double miningFuelHealth,
       @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
       @nullable
@@ -387,6 +389,7 @@ class _$GatewayItemTearOff {
       model: model,
       osversion: osversion,
       health: health,
+      uptimeHealth: uptimeHealth,
       miningFuelHealth: miningFuelHealth,
       miningFuel: miningFuel,
       miningFuelMax: miningFuelMax,
@@ -427,6 +430,8 @@ mixin _$GatewayItem {
   String get osversion;
   @nullable
   double get health;
+  @nullable
+  double get uptimeHealth;
   @nullable
   double get miningFuelHealth;
   @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
@@ -471,6 +476,8 @@ abstract class $GatewayItemCopyWith<$Res> {
       @nullable
           double health,
       @nullable
+          double uptimeHealth,
+      @nullable
           double miningFuelHealth,
       @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
       @nullable
@@ -505,6 +512,7 @@ class _$GatewayItemCopyWithImpl<$Res> implements $GatewayItemCopyWith<$Res> {
     Object model = freezed,
     Object osversion = freezed,
     Object health = freezed,
+    Object uptimeHealth = freezed,
     Object miningFuelHealth = freezed,
     Object miningFuel = freezed,
     Object miningFuelMax = freezed,
@@ -533,6 +541,9 @@ class _$GatewayItemCopyWithImpl<$Res> implements $GatewayItemCopyWith<$Res> {
       model: model == freezed ? _value.model : model as String,
       osversion: osversion == freezed ? _value.osversion : osversion as String,
       health: health == freezed ? _value.health : health as double,
+      uptimeHealth: uptimeHealth == freezed
+          ? _value.uptimeHealth
+          : uptimeHealth as double,
       miningFuelHealth: miningFuelHealth == freezed
           ? _value.miningFuelHealth
           : miningFuelHealth as double,
@@ -577,6 +588,8 @@ abstract class _$GatewayItemCopyWith<$Res>
       @nullable
           double health,
       @nullable
+          double uptimeHealth,
+      @nullable
           double miningFuelHealth,
       @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
       @nullable
@@ -613,6 +626,7 @@ class __$GatewayItemCopyWithImpl<$Res> extends _$GatewayItemCopyWithImpl<$Res>
     Object model = freezed,
     Object osversion = freezed,
     Object health = freezed,
+    Object uptimeHealth = freezed,
     Object miningFuelHealth = freezed,
     Object miningFuel = freezed,
     Object miningFuelMax = freezed,
@@ -641,6 +655,9 @@ class __$GatewayItemCopyWithImpl<$Res> extends _$GatewayItemCopyWithImpl<$Res>
       model: model == freezed ? _value.model : model as String,
       osversion: osversion == freezed ? _value.osversion : osversion as String,
       health: health == freezed ? _value.health : health as double,
+      uptimeHealth: uptimeHealth == freezed
+          ? _value.uptimeHealth
+          : uptimeHealth as double,
       miningFuelHealth: miningFuelHealth == freezed
           ? _value.miningFuelHealth
           : miningFuelHealth as double,
@@ -688,6 +705,8 @@ class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
           this.osversion,
       @nullable
           this.health,
+      @nullable
+          this.uptimeHealth,
       @nullable
           this.miningFuelHealth,
       @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
@@ -745,6 +764,9 @@ class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
   final double health;
   @override
   @nullable
+  final double uptimeHealth;
+  @override
+  @nullable
   final double miningFuelHealth;
   @override
   @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
@@ -760,7 +782,7 @@ class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GatewayItem(id: $id, name: $name, description: $description, location: $location, organizationId: $organizationId, networkServerId: $networkServerId, createdAt: $createdAt, updatedAt: $updatedAt, firstSeenAt: $firstSeenAt, lastSeenAt: $lastSeenAt, model: $model, osversion: $osversion, health: $health, miningFuelHealth: $miningFuelHealth, miningFuel: $miningFuel, miningFuelMax: $miningFuelMax, totalMined: $totalMined)';
+    return 'GatewayItem(id: $id, name: $name, description: $description, location: $location, organizationId: $organizationId, networkServerId: $networkServerId, createdAt: $createdAt, updatedAt: $updatedAt, firstSeenAt: $firstSeenAt, lastSeenAt: $lastSeenAt, model: $model, osversion: $osversion, health: $health, uptimeHealth: $uptimeHealth, miningFuelHealth: $miningFuelHealth, miningFuel: $miningFuel, miningFuelMax: $miningFuelMax, totalMined: $totalMined)';
   }
 
   @override
@@ -781,6 +803,7 @@ class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
       ..add(DiagnosticsProperty('model', model))
       ..add(DiagnosticsProperty('osversion', osversion))
       ..add(DiagnosticsProperty('health', health))
+      ..add(DiagnosticsProperty('uptimeHealth', uptimeHealth))
       ..add(DiagnosticsProperty('miningFuelHealth', miningFuelHealth))
       ..add(DiagnosticsProperty('miningFuel', miningFuel))
       ..add(DiagnosticsProperty('miningFuelMax', miningFuelMax))
@@ -826,6 +849,9 @@ class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
                     .equals(other.osversion, osversion)) &&
             (identical(other.health, health) ||
                 const DeepCollectionEquality().equals(other.health, health)) &&
+            (identical(other.uptimeHealth, uptimeHealth) ||
+                const DeepCollectionEquality()
+                    .equals(other.uptimeHealth, uptimeHealth)) &&
             (identical(other.miningFuelHealth, miningFuelHealth) ||
                 const DeepCollectionEquality()
                     .equals(other.miningFuelHealth, miningFuelHealth)) &&
@@ -856,6 +882,7 @@ class _$_GatewayItem with DiagnosticableTreeMixin implements _GatewayItem {
       const DeepCollectionEquality().hash(model) ^
       const DeepCollectionEquality().hash(osversion) ^
       const DeepCollectionEquality().hash(health) ^
+      const DeepCollectionEquality().hash(uptimeHealth) ^
       const DeepCollectionEquality().hash(miningFuelHealth) ^
       const DeepCollectionEquality().hash(miningFuel) ^
       const DeepCollectionEquality().hash(miningFuelMax) ^
@@ -902,6 +929,8 @@ abstract class _GatewayItem implements GatewayItem {
           String osversion,
       @nullable
           double health,
+      @nullable
+          double uptimeHealth,
       @nullable
           double miningFuelHealth,
       @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
@@ -950,6 +979,9 @@ abstract class _GatewayItem implements GatewayItem {
   @override
   @nullable
   double get health;
+  @override
+  @nullable
+  double get uptimeHealth;
   @override
   @nullable
   double get miningFuelHealth;

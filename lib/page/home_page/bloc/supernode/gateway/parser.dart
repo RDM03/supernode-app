@@ -46,6 +46,7 @@ List<GatewayItem> parseGateways(
         for (MinerHealthResponse minerHealth in listMinersHealth) {
           if (tempGatewaysList[index]['id'] == minerHealth.id) {
             tempGatewaysList[index]['health'] = minerHealth.health;
+            tempGatewaysList[index]['uptimeHealth'] = minerHealth.uptimeHealth;
             tempGatewaysList[index]['miningFuelHealth'] =
                 minerHealth.miningFuelHealth;
             tempGatewaysList[index]['totalMined'] =

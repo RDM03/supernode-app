@@ -13,6 +13,9 @@ class TimeUtil {
     'November': 11,
     'December': 12
   };
+  static final Map<int, String> monthsReversed = <int, String>{
+    for (final m in months.entries) m.value: m.key
+  };
 
   static bool isIn5Min(String value) {
     if (value == null || value.isEmpty) return false;
@@ -91,6 +94,10 @@ class TimeUtil {
     }
 
     return convertTime;
+  }
+
+  static String getMD(DateTime date) {
+    return '${monthsReversed[date.month]} ${date.day}';
   }
 
   static int getCurrentTimeStamp() {

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +9,7 @@ import 'package:supernodeapp/common/components/colored_text.dart';
 import 'package:supernodeapp/common/components/pagination_mixin.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/slider.dart';
-import 'package:supernodeapp/common/repositories/supernode/dao/gateways.model.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/wallet.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/configs/images.dart';
@@ -300,7 +298,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
           e.key,
         );
       }).toList();
-      final res = await rep.gateways
+      final res = await rep.wallet
           .topUpMiningFuel(currency: 'ETH_MXC', orgId: orgId, topUps: topUps)
           .withError();
 

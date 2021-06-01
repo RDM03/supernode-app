@@ -17,8 +17,6 @@ class GatewaysApi {
   static final String getProfile = '/api/gateways/{gateway.id}';
   static final String delete = '/api/gateways/{gateway.id}';
   static final String minerHealth = "/api/wallet/mining_health";
-  static final String topUpMiningFuel = "/api/wallet/top-up-mining-fuel";
-  static final String withdrawMiningFuel = "/api/wallet/withdraw-mining-fuel";
 }
 
 class GatewaysDao extends SupernodeDao {
@@ -73,48 +71,28 @@ class GatewaysDao extends SupernodeDao {
         .then((res) => res);
   }
 
-  Future<dynamic> frames(String id, Map data) {
-    return get(url: Api.url(GatewaysApi.frames, id), data: data);
+  Future<List<GatewayStatisticResponse>> frames(
+    String id, {
+    String interval,
+    DateTime startTimestamp,
+    DateTime endTimestamp,
+  }) {
+    return get(url: Api.url(GatewaysApi.frames, id), data: {
+      if (interval != null) 'interval': interval,
+      if (startTimestamp != null)
+        'startTimestamp': startTimestamp?.toUtc()?.toIso8601String(),
+      if (endTimestamp != null)
+        'endTimestamp': endTimestamp?.toUtc()?.toIso8601String(),
+    }).then(
+      (d) => (d['result'] as List)
+          .map((r) => GatewayStatisticResponse.fromMap(r))
+          .cast<GatewayStatisticResponse>()
+          .toList(),
+    );
   }
 
   Future<dynamic> deleteGateway(String id) {
     return delete(url: Api.url(GatewaysApi.delete, id)).then((res) => res);
-  }
-
-  Future<void> topUpMiningFuel({
-    String currency,
-    String orgId,
-    List<GatewayAmountRequest> topUps,
-  }) {
-    return post(url: GatewaysApi.topUpMiningFuel, data: {
-      'currency': currency,
-      'orgId': orgId,
-      'topUps': [
-        for (final t in topUps)
-          {
-            'amount': t.amount,
-            'gatewayMac': t.gatewayMac,
-          }
-      ]
-    });
-  }
-
-  Future<void> withdrawMiningFuel({
-    String currency,
-    String orgId,
-    List<GatewayAmountRequest> withdraws,
-  }) {
-    return post(url: GatewaysApi.withdrawMiningFuel, data: {
-      'currency': currency,
-      'orgId': orgId,
-      'withdrawals': [
-        for (final t in withdraws)
-          {
-            'amount': t.amount,
-            'gatewayMac': t.gatewayMac,
-          }
-      ]
-    });
   }
 
   Future<List<MinerHealthResponse>> minerHealth(Map data) {

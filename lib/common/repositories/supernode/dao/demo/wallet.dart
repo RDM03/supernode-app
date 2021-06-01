@@ -1,3 +1,5 @@
+import 'package:supernodeapp/common/repositories/supernode/dao/wallet.model.dart';
+
 import 'demo.dart';
 import '../wallet.dart';
 import 'user.dart';
@@ -6,10 +8,8 @@ class DemoWalletDao extends DemoDao implements WalletDao {
   @override
   Future balance(Map data) async {
     String bal = '20180706';
-    if (data['currency'] == 'DHX')
-      bal = '220078';
-    if (data['currency'] == 'BTC')
-      bal = '0.1034';
+    if (data['currency'] == 'DHX') bal = '220078';
+    if (data['currency'] == 'BTC') bal = '0.1034';
     return Future.value({
       'balance': bal,
       'userProfile': await DemoUserDao().profile(),
@@ -100,8 +100,13 @@ class DemoWalletDao extends DemoDao implements WalletDao {
   }
 
   @override
-  Future miningIncomeGateway(Map data) {
-    return Future.value({
+  Future<MiningIncomeGatewayResponse> miningIncomeGateway({
+    String gatewayMac,
+    String orgId,
+    DateTime fromDate,
+    DateTime tillDate,
+  }) {
+    return Future.value(MiningIncomeGatewayResponse.fromMap({
       "total": "100",
       "dailyStats": [
         // {
@@ -185,6 +190,23 @@ class DemoWalletDao extends DemoDao implements WalletDao {
           "onlineSeconds": "3",
         },
       ]
-    });
+    }));
+  }
+
+  @override
+  Future<void> topUpMiningFuel(
+      {String currency, String orgId, List<GatewayAmountRequest> topUps}) {
+    return Future.value();
+  }
+
+  @override
+  Future<void> withdrawMiningFuel(
+      {String currency, String orgId, List<GatewayAmountRequest> withdraws}) {
+    return Future.value();
+  }
+
+  @override
+  Future<double> downlinkPrice(String orgId) {
+    return Future.value(404.0);
   }
 }

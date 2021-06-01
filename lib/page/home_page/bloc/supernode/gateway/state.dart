@@ -37,6 +37,7 @@ abstract class GatewayItem with _$GatewayItem {
     @nullable String model,
     @nullable String osversion,
     @nullable double health,
+    @nullable double uptimeHealth,
     @nullable double miningFuelHealth,
     @JsonKey(fromJson: Decimal.tryParse, toJson: _decimalToJson)
     @nullable

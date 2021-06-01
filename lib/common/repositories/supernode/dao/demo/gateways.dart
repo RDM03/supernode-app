@@ -116,35 +116,38 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
   }
 
   @override
-  Future frames(String id, Map data) {
-    return Future.value({
-      "result": [
-        {
-          "timestamp": DateTime.now()
-              .add(Duration(
-                days: -2,
-              ))
-              .toUtc()
-              .toIso8601String(),
-          "rxPacketsReceived": 10,
-          "rxPacketsReceivedOK": 15,
-          "txPacketsReceived": 15,
-          "txPacketsEmitted": 15
-        },
-        {
-          "timestamp": DateTime.now()
-              .add(Duration(
-                days: -1,
-              ))
-              .toUtc()
-              .toIso8601String(),//"2020-07-09T19:03:56.869Z",
-          "rxPacketsReceived": 7,
-          "rxPacketsReceivedOK": 5,
-          "txPacketsReceived": 6,
-          "txPacketsEmitted": 3
-        },
-      ]
-    });
+  Future<List<GatewayStatisticResponse>> frames(
+    String id, {
+    String interval,
+    DateTime startTimestamp,
+    DateTime endTimestamp,
+  }) {
+    return Future.value([
+      {
+        "timestamp": DateTime.now()
+            .add(Duration(
+              days: -2,
+            ))
+            .toUtc()
+            .toIso8601String(),
+        "rxPacketsReceived": 10,
+        "rxPacketsReceivedOK": 15,
+        "txPacketsReceived": 15,
+        "txPacketsEmitted": 15
+      },
+      {
+        "timestamp": DateTime.now()
+            .add(Duration(
+              days: -1,
+            ))
+            .toUtc()
+            .toIso8601String(), //"2020-07-09T19:03:56.869Z",
+        "rxPacketsReceived": 7,
+        "rxPacketsReceivedOK": 5,
+        "txPacketsReceived": 6,
+        "txPacketsEmitted": 3
+      },
+    ].map((e) => GatewayStatisticResponse.fromMap(e)).toList());
   }
 
   @override
@@ -183,17 +186,5 @@ class DemoGatewaysDao extends DemoDao implements GatewaysDao {
         miningFuelMax: Decimal.fromInt(5000),
       )
     ]);
-  }
-
-  @override
-  Future<void> topUpMiningFuel(
-      {String currency, String orgId, List<GatewayAmountRequest> topUps}) {
-    return Future.value();
-  }
-
-  @override
-  Future<void> withdrawMiningFuel(
-      {String currency, String orgId, List<GatewayAmountRequest> withdraws}) {
-    return Future.value();
   }
 }
