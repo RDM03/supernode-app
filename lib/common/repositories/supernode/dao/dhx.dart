@@ -46,11 +46,14 @@ class DhxDao extends SupernodeDao {
   }
 
   Future<dynamic> bondDhx(String amount, String organizationId) {
-    return post(url: DhxApi.bondDhx, data: {'amount': amount, 'orgId': organizationId});
+    return post(
+        url: DhxApi.bondDhx, data: {'amount': amount, 'orgId': organizationId});
   }
 
   Future<dynamic> unbondDhx(String amount, String organizationId) {
-    return post(url: DhxApi.unbondDhx, data: {'amount': amount, 'orgId': organizationId});
+    return post(
+        url: DhxApi.unbondDhx,
+        data: {'amount': amount, 'orgId': organizationId});
   }
 
   Future<CreateCouncilResponse> createCouncil({

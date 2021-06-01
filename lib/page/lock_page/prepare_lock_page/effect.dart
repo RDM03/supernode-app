@@ -73,8 +73,7 @@ void _onConfirm(Action action, Context<PrepareLockState> ctx) async {
 
   _balance(ctx);
 
-  if (res == true) 
-    Navigator.of(ctx.context).pop(true);
+  if (res == true) Navigator.of(ctx.context).pop(true);
 }
 
 Future<void> _minersOwned(Context<PrepareLockState> ctx) async {
@@ -107,5 +106,6 @@ Future<void> _lastMining(Context<PrepareLockState> ctx) async {
   final dao = _buildDhxDao(ctx);
   final res = await dao.lastMining();
   ctx.dispatch(PrepareLockActionCreator.lastMining(
-      double.parse(res.yesterdayTotalDHX), double.parse(res.yesterdayTotalMPower)));
+      double.parse(res.yesterdayTotalDHX),
+      double.parse(res.yesterdayTotalMPower)));
 }

@@ -20,7 +20,7 @@ class WalletTab extends StatefulWidget {
 class _WalletTabState extends State<WalletTab> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState> (
+    return BlocBuilder<HomeCubit, HomeState>(
       builder: (ctx, state) => Scaffold(
         appBar: state.walletSelectedToken == null
             ? homeBar(
@@ -41,15 +41,21 @@ class _WalletTabState extends State<WalletTab> {
                   children: [
                     if (state.displayTokens.contains(Token.mxc))
                       MxcTokenCard(
-                        expand: () => context.read<HomeCubit>().changeTab(HomeCubit.WALLET_TAB, walletSelToken: Token.mxc),
+                        expand: () => context.read<HomeCubit>().changeTab(
+                            HomeCubit.WALLET_TAB,
+                            walletSelToken: Token.mxc),
                       ),
                     if (state.displayTokens.contains(Token.supernodeDhx))
                       SupernodeDhxTokenCard(
-                        expand: () => context.read<HomeCubit>().changeTab(HomeCubit.WALLET_TAB, walletSelToken: Token.supernodeDhx),
+                        expand: () => context.read<HomeCubit>().changeTab(
+                            HomeCubit.WALLET_TAB,
+                            walletSelToken: Token.supernodeDhx),
                       ),
                     if (state.displayTokens.contains(Token.btc))
                       BtcTokenCard(
-                        expand: () => context.read<HomeCubit>().changeTab(HomeCubit.WALLET_TAB, walletSelToken: Token.btc),
+                        expand: () => context.read<HomeCubit>().changeTab(
+                            HomeCubit.WALLET_TAB,
+                            walletSelToken: Token.btc),
                       ),
                     AddNewTokenCard(),
                     SizedBox(height: 15)
@@ -60,7 +66,9 @@ class _WalletTabState extends State<WalletTab> {
                 usePadding: false,
                 child: TokenExpandedView(
                   selectedToken: state.walletSelectedToken,
-                  onTokenChanged: (t) => context.read<HomeCubit>().changeTab(HomeCubit.WALLET_TAB, walletSelToken: t),
+                  onTokenChanged: (t) => context
+                      .read<HomeCubit>()
+                      .changeTab(HomeCubit.WALLET_TAB, walletSelToken: t),
                 ),
               ),
       ),

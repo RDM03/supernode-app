@@ -42,12 +42,14 @@ class HomeCubit extends Cubit<HomeState> {
     if (state.displayTokens.contains(Token.supernodeDhx)) {
       saveSNCache(CacheRepository.walletDHX, false);
       emit(state.copyWith(
-        displayTokens: state.displayTokens.where((t) => (t != Token.supernodeDhx)).toList()
-      ));
+          displayTokens: state.displayTokens
+              .where((t) => (t != Token.supernodeDhx))
+              .toList()));
     } else {
       saveSNCache(CacheRepository.walletDHX, true);
       emit(state.copyWith(
-        displayTokens: orderMxcDhxBtcParachain([...state.displayTokens, Token.supernodeDhx]),
+        displayTokens: orderMxcDhxBtcParachain(
+            [...state.displayTokens, Token.supernodeDhx]),
       ));
     }
   }
@@ -56,12 +58,13 @@ class HomeCubit extends Cubit<HomeState> {
     if (state.displayTokens.contains(Token.btc)) {
       saveSNCache(CacheRepository.walletBTC, false);
       emit(state.copyWith(
-        displayTokens: state.displayTokens.where((t) => (t != Token.btc)).toList()
-      ));
+          displayTokens:
+              state.displayTokens.where((t) => (t != Token.btc)).toList()));
     } else {
       saveSNCache(CacheRepository.walletBTC, true);
       emit(state.copyWith(
-        displayTokens: orderMxcDhxBtcParachain([...state.displayTokens, Token.btc]),
+        displayTokens:
+            orderMxcDhxBtcParachain([...state.displayTokens, Token.btc]),
       ));
     }
   }
@@ -76,13 +79,15 @@ class HomeCubit extends Cubit<HomeState> {
     final dhxUsed = data[CacheRepository.walletDHX] ?? false;
     if (dhxUsed) {
       emit(state.copyWith(
-        displayTokens: orderMxcDhxBtcParachain([...state.displayTokens, Token.supernodeDhx]),
+        displayTokens: orderMxcDhxBtcParachain(
+            [...state.displayTokens, Token.supernodeDhx]),
       ));
     }
     final btcUsed = data[CacheRepository.walletDHX] ?? false;
     if (btcUsed) {
       emit(state.copyWith(
-        displayTokens: orderMxcDhxBtcParachain([...state.displayTokens, Token.btc]),
+        displayTokens:
+            orderMxcDhxBtcParachain([...state.displayTokens, Token.btc]),
       ));
     }
   }
@@ -94,14 +99,10 @@ class HomeCubit extends Cubit<HomeState> {
 
 List<Token> orderMxcDhxBtcParachain(List<Token> list) {
   final List<Token> listSorted = [];
-  if (list.contains(Token.mxc))
-    listSorted.add(Token.mxc);
-  if (list.contains(Token.supernodeDhx))
-    listSorted.add(Token.supernodeDhx);
-  if (list.contains(Token.btc))
-    listSorted.add(Token.btc);
-  if (list.contains(Token.parachainDhx))
-    listSorted.add(Token.parachainDhx);
+  if (list.contains(Token.mxc)) listSorted.add(Token.mxc);
+  if (list.contains(Token.supernodeDhx)) listSorted.add(Token.supernodeDhx);
+  if (list.contains(Token.btc)) listSorted.add(Token.btc);
+  if (list.contains(Token.parachainDhx)) listSorted.add(Token.parachainDhx);
 
   return listSorted;
 }

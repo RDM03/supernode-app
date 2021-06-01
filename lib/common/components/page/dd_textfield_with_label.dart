@@ -12,16 +12,16 @@ class DDTextfieldWithLabel extends StatelessWidget {
   final Function(String) validator;
   final TextEditingController controller;
 
-  const DDTextfieldWithLabel({
-    Key key,
-    @required this.label,
-    this.readOnly = false,
-    this.initialValue,
-    this.textInputAction = TextInputAction.next,
-    this.hintText,
-    this.validator,
-    this.controller
-  }): super(key: key);
+  const DDTextfieldWithLabel(
+      {Key key,
+      @required this.label,
+      this.readOnly = false,
+      this.initialValue,
+      this.textInputAction = TextInputAction.next,
+      this.hintText,
+      this.validator,
+      this.controller})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,23 +30,19 @@ class DDTextfieldWithLabel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            FlutterI18n.translate(context, label),
-            style: kBigBoldFontOfBlack
-          ),
+          Text(FlutterI18n.translate(context, label),
+              style: kBigBoldFontOfBlack),
           TextFormField(
-            readOnly: readOnly,
-            initialValue: initialValue,
-            textInputAction: textInputAction,
-            validator: validator,
-            controller: controller,
-            decoration: InputDecoration(
-              hintText: hintText,
-            )
-          ),
+              readOnly: readOnly,
+              initialValue: initialValue,
+              textInputAction: textInputAction,
+              validator: validator,
+              controller: controller,
+              decoration: InputDecoration(
+                hintText: hintText,
+              )),
         ],
       ),
     );
   }
-  
 }

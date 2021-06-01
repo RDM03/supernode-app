@@ -9,20 +9,15 @@ class DDTitleWithSwitch extends StatelessWidget {
   final bool value;
   final Function onChange;
 
-  const DDTitleWithSwitch({
-    Key key,
-    @required this.title,
-    this.value = true,
-    this.onChange
-  }): super(key: key);
+  const DDTitleWithSwitch(
+      {Key key, @required this.title, this.value = true, this.onChange})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: kRoundRow2010,
-      child: Flex(
-        direction: Axis.horizontal,
-        children: [
+        padding: kRoundRow2010,
+        child: Flex(direction: Axis.horizontal, children: [
           Expanded(
             child: Text(
               FlutterI18n.translate(context, title),
@@ -36,8 +31,6 @@ class DDTitleWithSwitch extends StatelessWidget {
             activeColor: selectedColor,
             inactiveTrackColor: unselectedColor,
           ),
-        ]
-      )
-    );
+        ]));
   }
 }

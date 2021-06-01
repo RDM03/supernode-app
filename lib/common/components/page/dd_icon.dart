@@ -9,14 +9,14 @@ class DDIcon extends StatelessWidget {
   final Color backgroundColor;
   final List<BoxShadow> shadowList;
 
-  const DDIcon({
-    Key key,
-    this.iconBackgroundColor,
-    this.imageUrl,
-    this.imageColor,
-    this.backgroundColor = Colors.white,
-    this.shadowList
-  }): super(key: key);
+  const DDIcon(
+      {Key key,
+      this.iconBackgroundColor,
+      this.imageUrl,
+      this.imageColor,
+      this.backgroundColor = Colors.white,
+      this.shadowList})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

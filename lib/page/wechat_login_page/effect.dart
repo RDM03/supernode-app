@@ -18,4 +18,3 @@ void _onAlreadyHaveAccount(Action action, Context<WechatLoginState> ctx) async {
 void _onCreateAccount(Action action, Context<WechatLoginState> ctx) async {
   Navigator.pushNamed(ctx.context, 'wechat_bind_new_acc_page');
 }
-

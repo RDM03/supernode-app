@@ -7,13 +7,10 @@ part 'state.freezed.dart';
 @freezed
 abstract class SettingsState with _$SettingsState {
   factory SettingsState({
-
     @nullable PackageInfo info,
-
     @nullable String version,
     @nullable String buildNumber,
     @nullable String mxVersion,
-
     @nullable String language,
     @Default(2021) int copyrightYear,
     bool screenShot,

@@ -34,9 +34,13 @@ class AccountPage extends StatelessWidget {
           Container(
             color: backgroundColor,
             child: ListTile(
-                title: Text(FlutterI18n.translate(context, 'datahighway_parachain'), style: kBigFontOfGrey),
-                onTap: () => 'TODO',//TODO dispatch(SettingsActionCreator.onSettings(SettingsOption.profileDhx)),
-                leading: Image.asset(Token.supernodeDhx.imagePath, height: s(50)),
+                title: Text(
+                    FlutterI18n.translate(context, 'datahighway_parachain'),
+                    style: kBigFontOfGrey),
+                onTap: () =>
+                    'TODO', //TODO dispatch(SettingsActionCreator.onSettings(SettingsOption.profileDhx)),
+                leading:
+                    Image.asset(Token.supernodeDhx.imagePath, height: s(50)),
                 trailing: Icon(Icons.chevron_right, color: Colors.grey)),
           ),
         ]);

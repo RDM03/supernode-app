@@ -129,16 +129,15 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
         (miningPageVersion)
             ? SizedBox()
             : Container(
-          padding: kRoundRow1505,
-          child: Row(children: [
-            Image.asset(Token.supernodeDhx.imagePath),
-            SizedBox(width: s(3)),
-            Text(Token.supernodeDhx.name, style: kBigBoldFontOfBlack),
-            Spacer(),
-            if (showArrow)
-              Icon(Icons.arrow_forward_ios)
-          ]),
-        ),
+                padding: kRoundRow1505,
+                child: Row(children: [
+                  Image.asset(Token.supernodeDhx.imagePath),
+                  SizedBox(width: s(3)),
+                  Text(Token.supernodeDhx.name, style: kBigBoldFontOfBlack),
+                  Spacer(),
+                  if (showArrow) Icon(Icons.arrow_forward_ios)
+                ]),
+              ),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
           buildWhen: (a, b) => a.balance != b.balance,
           builder: (ctx, state) => TitleDetailRow(
@@ -160,29 +159,29 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
         ),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
           buildWhen: (a, b) => a.dhxBonded != b.dhxBonded,
-          builder: (ctx, state) => (state.dhxBonded.loading || state.dhxBonded.value > 0)
-              ? TitleDetailRow(
-            loading: state.dhxBonded.loading,
-            name: FlutterI18n.translate(context, 'dhx_bonded'),
-            value: Tools.priceFormat(state.dhxBonded.value),
-            token: Token.supernodeDhx.name,
-          )
-              : SizedBox(),
+          builder: (ctx, state) =>
+              (state.dhxBonded.loading || state.dhxBonded.value > 0)
+                  ? TitleDetailRow(
+                      loading: state.dhxBonded.loading,
+                      name: FlutterI18n.translate(context, 'dhx_bonded'),
+                      value: Tools.priceFormat(state.dhxBonded.value),
+                      token: Token.supernodeDhx.name,
+                    )
+                  : SizedBox(),
         ),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
           buildWhen: (a, b) => a.dhxUnbonding != b.dhxUnbonding,
-          builder: (ctx, state) => (state.dhxUnbonding.loading || state.dhxUnbonding.value > 0)
-              ? TitleDetailRow(
-            loading: state.dhxUnbonding.loading,
-            name: FlutterI18n.translate(context, 'dhx_unbonding'),
-            value: Tools.priceFormat(state.dhxUnbonding.value),
-            token: Token.supernodeDhx.name,
-          )
-              : SizedBox(),
+          builder: (ctx, state) =>
+              (state.dhxUnbonding.loading || state.dhxUnbonding.value > 0)
+                  ? TitleDetailRow(
+                      loading: state.dhxUnbonding.loading,
+                      name: FlutterI18n.translate(context, 'dhx_unbonding'),
+                      value: Tools.priceFormat(state.dhxUnbonding.value),
+                      token: Token.supernodeDhx.name,
+                    )
+                  : SizedBox(),
         ),
-        (miningPageVersion)
-            ? Divider(color: Colors.grey)
-            : SizedBox(),
+        (miningPageVersion) ? Divider(color: Colors.grey) : SizedBox(),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
           buildWhen: (a, b) => a.totalRevenue != b.totalRevenue,
           builder: (ctx, state) => TitleDetailRow(
@@ -260,12 +259,9 @@ class AddNewTokenCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => addTokenDialog(
         context,
-        displayedTokens:
-        context.read<HomeCubit>().state.displayTokens,
-        parachainConnected:
-        context.read<HomeCubit>().state.parachainUsed,
-        supernodeConnected:
-        context.read<HomeCubit>().state.supernodeUsed,
+        displayedTokens: context.read<HomeCubit>().state.displayTokens,
+        parachainConnected: context.read<HomeCubit>().state.parachainUsed,
+        supernodeConnected: context.read<HomeCubit>().state.supernodeUsed,
       ),
       child: PanelFrame(
         child: Padding(

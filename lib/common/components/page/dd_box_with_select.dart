@@ -10,39 +10,28 @@ class DDBoxWithSelect extends StatelessWidget {
   final String subtitle;
   final Function onTap;
 
-  const DDBoxWithSelect({
-    Key key,
-    @required this.title,
-    @required this.subtitle,
-    this.onTap
-  }): super(key: key);
+  const DDBoxWithSelect(
+      {Key key, @required this.title, @required this.subtitle, this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DDBoxWithShadow(
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          alignment: Alignment.center,
-          padding: kInnerRowLeft20,
-          child: ListTile(
-            contentPadding: EdgeInsets.zero,
-            title: Text(
-              FlutterI18n.translate(context, title),
-              style: kMiddleBoldFontOfBlack
-            ),
-            subtitle: Text(
-              FlutterI18n.translate(context, subtitle),
-              style: kSmallFontOfGrey
-            ),
-            trailing: Icon(
-              Icons.chevron_right,
-              color: Colors.black,
-            ),
-          )
-        )
-      )
-    );
+        child: GestureDetector(
+            onTap: onTap,
+            child: Container(
+                alignment: Alignment.center,
+                padding: kInnerRowLeft20,
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(FlutterI18n.translate(context, title),
+                      style: kMiddleBoldFontOfBlack),
+                  subtitle: Text(FlutterI18n.translate(context, subtitle),
+                      style: kSmallFontOfGrey),
+                  trailing: Icon(
+                    Icons.chevron_right,
+                    color: Colors.black,
+                  ),
+                ))));
   }
-
 }

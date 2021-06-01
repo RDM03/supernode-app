@@ -4,12 +4,10 @@ import 'package:majascan/majascan.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 Future<String> scanQR(BuildContext context) async {
-
   return await MajaScan.startScan(
-              title: FlutterI18n.translate(context, 'scan_code'),
-              barColor: buttonPrimaryColor,
-              titleColor: backgroundColor,
-              qRCornerColor: buttonPrimaryColor,
-              qRScannerColor: buttonPrimaryColorAccent);
-              
+      title: FlutterI18n.translate(context, 'scan_code'),
+      barColor: buttonPrimaryColor,
+      titleColor: backgroundColor,
+      qRCornerColor: buttonPrimaryColor,
+      qRScannerColor: buttonPrimaryColorAccent);
 }

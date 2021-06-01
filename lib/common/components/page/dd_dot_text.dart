@@ -9,7 +9,7 @@ class DDDotText extends StatelessWidget {
   const DDDotText({
     Key key,
     @required this.text,
-  }): super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +26,10 @@ class DDDotText extends StatelessWidget {
             ),
           ),
           Container(
-            padding: kInnerRowLeft10,
-            child: Text(
-              FlutterI18n.translate(context,text)
-            )
-          )
+              padding: kInnerRowLeft10,
+              child: Text(FlutterI18n.translate(context, text)))
         ],
       ),
     );
   }
-  
 }

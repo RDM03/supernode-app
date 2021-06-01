@@ -7,19 +7,15 @@ class DDSubtitle extends StatelessWidget {
   final String text;
 
   const DDSubtitle(
-    this.text,{
+    this.text, {
     Key key,
-  }): super(key: key);
-  
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: kRoundRow2005,
-      child: Text(
-        FlutterI18n.translate(context, text),
-        style: kMiddleFontOfGrey
-      )
-    );
+        padding: kRoundRow2005,
+        child: Text(FlutterI18n.translate(context, text),
+            style: kMiddleFontOfGrey));
   }
-  
 }

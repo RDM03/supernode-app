@@ -14,19 +14,19 @@ class DDResult extends StatelessWidget {
   final String imageUrl;
   final String buttonText;
 
-  const DDResult({
-    Key key,
-    @required this.title,
-    @required this.detail,
-    @required this.imageUrl,
-    this.buttonText = 'done'
-  }): super(key: key);
+  const DDResult(
+      {Key key,
+      @required this.title,
+      @required this.detail,
+      @required this.imageUrl,
+      this.buttonText = 'done'})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
+        body: SafeArea(
+      child: Container(
           padding: kOuterRowTop80,
           child: Flex(
             direction: Axis.vertical,
@@ -41,7 +41,7 @@ class DDResult extends StatelessWidget {
               ),
               DDBoxSpacer(height: SpacerStyle.medium),
               Container(
-                padding:kRoundRow2010,
+                padding: kRoundRow2010,
                 child: Text(
                   FlutterI18n.translate(context, detail),
                   textAlign: TextAlign.center,
@@ -58,10 +58,7 @@ class DDResult extends StatelessWidget {
               ),
               DDBoxSpacer(height: SpacerStyle.medium)
             ],
-          )
-        ),
-      )
-    );
+          )),
+    ));
   }
-  
 }

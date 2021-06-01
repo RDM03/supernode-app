@@ -12,12 +12,9 @@ class DDIconWithTitles extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  const DDIconWithTitles({
-    Key key,
-    @required this.imageUrl,
-    @required this.title,
-    this.subtitle
-  }): super(key: key);
+  const DDIconWithTitles(
+      {Key key, @required this.imageUrl, @required this.title, this.subtitle})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,34 +22,26 @@ class DDIconWithTitles extends StatelessWidget {
       padding: kRoundRow2010,
       child: Column(
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DDIconWithShadow(
-                imageUrl: imageUrl,
-              ),
-              DDBoxSpacer(width: SpacerStyle.medium),
-              Container(
+          Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            DDIconWithShadow(
+              imageUrl: imageUrl,
+            ),
+            DDBoxSpacer(width: SpacerStyle.medium),
+            Container(
                 padding: kOuterRowTop10,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      FlutterI18n.translate(context, title), 
-                      style: kBigBoldFontOfBlack
-                    ),
-                    Text(
-                      FlutterI18n.translate(context, subtitle),
-                      style: kMiddleFontOfBlack,
-                    )
-                  ]
-                )
-              ),
-            ]
-          )
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(FlutterI18n.translate(context, title),
+                          style: kBigBoldFontOfBlack),
+                      Text(
+                        FlutterI18n.translate(context, subtitle),
+                        style: kMiddleFontOfBlack,
+                      )
+                    ])),
+          ])
         ],
       ),
     );
   }
-  
 }

@@ -15,7 +15,7 @@ class HttpDao {
   }) {
     return client.post(
       url: url,
-      data:  encodeJson ? JsonEncoder().convert(data) : data,
+      data: encodeJson ? JsonEncoder().convert(data) : data,
       headers: headers,
       encodeJson: encodeJson,
     );
@@ -40,7 +40,6 @@ class HttpDao {
   }
 }
 
-
 abstract class BaseResponse {
   int code = 0;
   String message;
@@ -48,18 +47,13 @@ abstract class BaseResponse {
 
   bool get success;
 
-  BaseResponse({
-    this.code, 
-    this.message, 
-    this.data
-  });
+  BaseResponse({this.code, this.message, this.data});
 
   @override
   String toString() {
     return 'HttpResponse {code: $code, message: $message, data: $data}';
   }
 }
-
 
 class DaoResponse extends BaseResponse {
   bool get success => (code == 200);
