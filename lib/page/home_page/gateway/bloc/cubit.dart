@@ -11,15 +11,14 @@ import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/gateway/bloc/state.dart';
 
-
 class MinerCubit extends Cubit<MinerState> {
-
   // final SupernodeUserCubit supernodeUserCubit;
   final AppCubit appCubit;
   final SupernodeRepository supernodeRepository;
   final SupernodeCubit supernodeCubit;
 
-  MinerCubit(this.appCubit, this.supernodeRepository, this.supernodeCubit) : super(MinerState());
+  MinerCubit(this.appCubit, this.supernodeRepository, this.supernodeCubit)
+      : super(MinerState());
 
   void setSerialNumber(String serialNumber) {
     List itemData = serialNumber.split(',');
@@ -29,13 +28,14 @@ class MinerCubit extends Cubit<MinerState> {
 
     List macData = itemData[itemData.length - 1].split(':');
     String macAddress = macData.sublist(1, 4).join().toLowerCase() +
-        'fffe' + macData.sublist(4).join().toLowerCase();
+        'fffe' +
+        macData.sublist(4).join().toLowerCase();
 
     emit(state.copyWith(serialNumber: number));
     emit(state.copyWith(id: macAddress));
   }
 
-  void changeColor(String text){
+  void changeColor(String text) {
     var textColor;
 
     if (text.length == 9 || text.length == 24) {
@@ -54,7 +54,7 @@ class MinerCubit extends Cubit<MinerState> {
         List itemData = serialNumber.split(',');
         List snData = itemData[0].split(':');
         number = snData[1];
-      } 
+      }
 
       if (Reg.onValidSerialNumber(number)) {
         await register(number);
@@ -64,7 +64,6 @@ class MinerCubit extends Cubit<MinerState> {
         emit(state.copyWith(serialNumber: serialNumber));
         emit(state.copyWith(addMinerFlowStep: AddMinerFlow.setting));
       }
-
     } catch (err) {
       tip('Scan Error: $err');
     }
@@ -83,7 +82,7 @@ class MinerCubit extends Cubit<MinerState> {
       emit(state.copyWith(serialNumber: ''));
 
       emit(state.copyWith(showLoading: false));
-    } catch(err) {
+    } catch (err) {
       dispatchError(err);
     }
   }
@@ -91,15 +90,19 @@ class MinerCubit extends Cubit<MinerState> {
   Future<void> registerReseller(String serialNumber) async {
     try {
       String orgId = supernodeCubit.state.orgId;
-      Map data = {'manufacturerNr': serialNumber.trim(), 'organizationId': orgId};
+      Map data = {
+        'manufacturerNr': serialNumber.trim(),
+        'organizationId': orgId
+      };
 
       emit(state.copyWith(showLoading: true));
 
-      MinerRegister result = await supernodeRepository.gateways.registerReseller(data);
-      emit(state.copyWith(isRegisterResellerSuccess: true));  
+      MinerRegister result =
+          await supernodeRepository.gateways.registerReseller(data);
+      emit(state.copyWith(isRegisterResellerSuccess: true));
 
       emit(state.copyWith(showLoading: false));
-    } catch(err) {
+    } catch (err) {
       dispatchError(err);
     }
   }
@@ -111,8 +114,7 @@ class MinerCubit extends Cubit<MinerState> {
       await dispathRegister(serialNumber, scan: false);
 
       emit(state.copyWith(showLoading: false));
-
-    } catch(err) {
+    } catch (err) {
       emit(state.copyWith(showLoading: false));
 
       appCubit.setError(err.toString());
@@ -140,13 +142,13 @@ class MinerCubit extends Cubit<MinerState> {
       final result = await supernodeRepository.networkServer.list(data);
       mLog('NetworkServerDao list', result);
 
-      if ((result as Map).containsKey('result') && result['result'].length > 0) {
+      if ((result as Map).containsKey('result') &&
+          result['result'].length > 0) {
         emit(state.copyWith(networkServerList: result['result']));
       }
 
       emit(state.copyWith(showLoading: false));
-
-    } catch(err) {
+    } catch (err) {
       emit(state.copyWith(showLoading: false));
       emit(state.copyWith(message: err.toString()));
     }
@@ -156,7 +158,7 @@ class MinerCubit extends Cubit<MinerState> {
     int selectedIndex = -1;
 
     if (state.networkServerList == null || state.networkServerList.isEmpty) {
-       appCubit.setError('no_data');
+      appCubit.setError('no_data');
       return null;
     }
 
@@ -169,10 +171,10 @@ class MinerCubit extends Cubit<MinerState> {
 
     selectPicker(context, data: data, value: selectedIndex,
         onSelected: (index) {
-          dynamic selectedData = state.networkServerList[index];
+      dynamic selectedData = state.networkServerList[index];
 
-          emit(state.copyWith(networkServerId: selectedData['id']));
-          emit(state.copyWith(networkServerName: selectedData['name']));
+      emit(state.copyWith(networkServerId: selectedData['id']));
+      emit(state.copyWith(networkServerName: selectedData['name']));
 
       if (state.minerProfileList == null || state.minerProfileList.isEmpty) {
         minerProfileList(selectedData['id']);
@@ -181,7 +183,7 @@ class MinerCubit extends Cubit<MinerState> {
   }
 
   Future<void> minerProfileList(String id) async {
-    try{
+    try {
       Map data = {"networkServerID": id, "offset": 0, "limit": 999};
 
       final result = await supernodeRepository.gateways.profile(data);
@@ -191,7 +193,7 @@ class MinerCubit extends Cubit<MinerState> {
       if (result.containsKey('result') && result['result'].length > 0) {
         emit(state.copyWith(minerProfileList: result['result']));
       }
-    } catch(err) {
+    } catch (err) {
       emit(state.copyWith(showLoading: false));
       emit(state.copyWith(message: err.toString()));
     }
@@ -201,7 +203,7 @@ class MinerCubit extends Cubit<MinerState> {
     int selectedIndex = -1;
 
     if (state.minerProfileList == null || state.minerProfileList.isEmpty) {
-       appCubit.setError('no_data');
+      appCubit.setError('no_data');
       return null;
     }
 
@@ -215,10 +217,10 @@ class MinerCubit extends Cubit<MinerState> {
 
     selectPicker(context, data: data, value: selectedIndex,
         onSelected: (index) {
-          dynamic selectedData = state.minerProfileList[index];
+      dynamic selectedData = state.minerProfileList[index];
 
-          emit(state.copyWith(minerProfileId: selectedData['id']));
-          emit(state.copyWith(minerProfileName: selectedData['name']));
+      emit(state.copyWith(minerProfileId: selectedData['id']));
+      emit(state.copyWith(minerProfileName: selectedData['name']));
     });
   }
 
@@ -226,7 +228,14 @@ class MinerCubit extends Cubit<MinerState> {
     emit(state.copyWith(discoveryEnabled: value));
   }
 
-  Future<void> submitProfileSetting({String networkServerId, String minerProfileId, String name, String description, String id, bool discoveryEnabled, String altitude}) async {
+  Future<void> submitProfileSetting(
+      {String networkServerId,
+      String minerProfileId,
+      String name,
+      String description,
+      String id,
+      bool discoveryEnabled,
+      String altitude}) async {
     try {
       emit(state.copyWith(showLoading: true));
 
@@ -262,13 +271,12 @@ class MinerCubit extends Cubit<MinerState> {
       emit(state.copyWith(addMinerFlowStep: AddMinerFlow.success));
 
       emit(state.copyWith(showLoading: false));
-
-    } catch(err) {
+    } catch (err) {
       dispatchError(err);
     }
   }
 
-  void dispatchError(err){
+  void dispatchError(err) {
     emit(state.copyWith(showLoading: false));
     emit(state.copyWith(message: err.toString()));
 
