@@ -29,11 +29,15 @@ class BarGraph extends StatelessWidget {
   double scrollableWidth;
   int currentBar = 0;
 
+  //onTapUp event of each bar
+  final Function(int index) onTapUp;
+
   BarGraph(this.graphValues, this.barsOnScreen, this.widgetWidth,
       {this.xAxisLabels,
       this.widgetHeight = 200,
       this.graphColor = minerColor,
-      this.notifyGraphBarScroll}) {
+      this.notifyGraphBarScroll,
+      this.onTapUp}) {
     spaceBetweenLines =
         (widgetWidth - (barsOnScreen * barWidth)) / (barsOnScreen - 1);
     scrollableWidth = barWidth * graphValues.length +
@@ -56,24 +60,43 @@ class BarGraph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      controller: scrollCtrl,
-      reverse: true,
-      child: CustomPaint(
-          painter: GraphPainter(
-              lineColor: graphColor,
-              completePercents: graphValues,
-              labels: xAxisLabels,
-              visibleWidth: widgetWidth,
-              linesOnScreen: barsOnScreen,
-              spaceBetweenLines: spaceBetweenLines,
-              lineWidth: barWidth),
-          child: Container(
-            width: scrollableWidth,
-            height: widgetHeight,
-            child: SizedBox(),
-          )),
-    );
+        scrollDirection: Axis.horizontal,
+        controller: scrollCtrl,
+        reverse: true,
+        child: GestureDetector(
+          onTapUp: (TapUpDetails detail) {
+            print('onTapUp');
+            onTap(context, detail);
+          },
+          child: CustomPaint(
+              painter: GraphPainter(
+                  lineColor: graphColor,
+                  completePercents: graphValues,
+                  labels: xAxisLabels,
+                  visibleWidth: widgetWidth,
+                  linesOnScreen: barsOnScreen,
+                  spaceBetweenLines: spaceBetweenLines,
+                  lineWidth: barWidth),
+              child: Container(
+                width: scrollableWidth,
+                height: widgetHeight,
+                child: SizedBox(),
+              )),
+        ));
+  }
+
+  int getIndex(Offset globalOffset) {
+    print(globalOffset);
+    int i = -1;
+
+    return i;
+  }
+
+  void onTap(BuildContext context, TapUpDetails detail) {
+    if (onTapUp == null) return;
+    RenderBox renderBox = context.findRenderObject();
+    Offset localPosition = renderBox.globalToLocal(detail.globalPosition);
+    onTapUp(getIndex(localPosition));
   }
 }
 
