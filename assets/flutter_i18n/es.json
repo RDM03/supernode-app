@@ -599,5 +599,19 @@
 	"send_amount": "Enviar Importe",
 	"add_fuel": "Añadir Combustible",
 	"select_all": "Seleccionar todo",
-	"fuel_add_desc": "Sus mineros son como autos, necesitan MXC Fuel para continuar minando."
+	"fuel_add_desc": "Sus mineros son como autos, necesitan MXC Fuel para continuar minando.",
+	"uptime": "Tiempo de funcionamiento normal",
+	"frame_received": "Marco recibido",
+	"frame_transmitted": "Marco transmitido",
+	"week": "Semana",
+	"month": "Mes",
+	"year": "Año",
+	"score_weekly_total": "Fracción(Total semanal)",
+	"total_hours": "Horas totales",
+	"weekly_amount": "Cantidad semanal(Ingresos medios)",
+	"monthly_amount": "Importe mensual",
+	"yearly_amount": "Importe anual",
+	"weekly_packet": "Semanario",
+	"monthly_packet": "Paquete mensual",
+	"yearly_packet": "Informe anual"
 }

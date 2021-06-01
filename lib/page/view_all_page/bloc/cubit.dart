@@ -52,15 +52,11 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     MinerStatsType type = state.selectedType;
 
     if (type == MinerStatsType.uptime) {
-      titles = ['Score(Weekly Total)', 'Total hours', 'Total hours'];
+      titles = ['score_weekly_total', 'total_hours', 'total_hours'];
     } else if (type == MinerStatsType.revenue) {
-      titles = [
-        'Weekly Amount(Average revenue)',
-        'Monthly Amount',
-        'Yearly Amount'
-      ];
+      titles = ['weekly_amount', 'monthly_amount', 'yearly_amount'];
     } else {
-      titles = ['Weekly Packet', 'Monthly Packet', 'Yearly Packet'];
+      titles = ['weekly_packet', 'monthly_packet', 'yearly_packet'];
     }
 
     return titles[state.selectedTime?.index ?? 0];

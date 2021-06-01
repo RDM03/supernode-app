@@ -1,4 +1,3 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/miner.model.dart';
 

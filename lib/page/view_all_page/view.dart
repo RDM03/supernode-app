@@ -62,7 +62,7 @@ class _ViewAllPageState extends State<_ViewAllPage>
     with TickerProviderStateMixin {
   Loading loading;
   TabController _tabController;
-  List titles = ['uptime', 'revenue', 'frameReceived', 'frameTransmitted'];
+  List titles = ['uptime', 'revenue', 'frame_received', 'frame_transmitted'];
   List tabs = ['week', 'month', 'year'];
 
   @override
