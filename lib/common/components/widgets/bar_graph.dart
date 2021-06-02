@@ -28,9 +28,10 @@ class BarGraph extends StatelessWidget {
   double spaceBetweenLines;
   double scrollableWidth;
   int currentBar = 0;
+  List<double> xList = [];
 
   //onTapUp event of each bar
-  final Function(int index) onTapUp;
+  final Function(int index, Offset position) onTapUp;
 
   BarGraph(this.graphValues, this.barsOnScreen, this.widgetWidth,
       {this.xAxisLabels,
@@ -65,8 +66,7 @@ class BarGraph extends StatelessWidget {
         reverse: true,
         child: GestureDetector(
           onTapUp: (TapUpDetails detail) {
-            print('onTapUp');
-            onTap(context, detail);
+            _onTap(context, detail);
           },
           child: CustomPaint(
               painter: GraphPainter(
@@ -76,7 +76,14 @@ class BarGraph extends StatelessWidget {
                   visibleWidth: widgetWidth,
                   linesOnScreen: barsOnScreen,
                   spaceBetweenLines: spaceBetweenLines,
-                  lineWidth: barWidth),
+                  lineWidth: barWidth,
+                  xListCallback: (index, xValue) {
+                    if (index == 0) {
+                      xList = [];
+                    }
+
+                    xList.add(xValue);
+                  }),
               child: Container(
                 width: scrollableWidth,
                 height: widgetHeight,
@@ -85,18 +92,22 @@ class BarGraph extends StatelessWidget {
         ));
   }
 
-  int getIndex(Offset globalOffset) {
-    print(globalOffset);
-    int i = -1;
-
-    return i;
-  }
-
-  void onTap(BuildContext context, TapUpDetails detail) {
+  void _onTap(BuildContext context, TapUpDetails detail) {
     if (onTapUp == null) return;
-    RenderBox renderBox = context.findRenderObject();
-    Offset localPosition = renderBox.globalToLocal(detail.globalPosition);
-    onTapUp(getIndex(localPosition));
+
+    int index = -1;
+    Offset localOffset = detail.localPosition;
+
+    for (int i = 0; i < xList.length; i++) {
+      if (localOffset.dx >= xList[i] - barWidth && localOffset.dx <= xList[i]) {
+        index = i;
+        break;
+      }
+    }
+
+    if (index != -1) {
+      onTapUp(xList.length - 1 - index, detail.globalPosition);
+    }
   }
 }
 
@@ -108,6 +119,7 @@ class GraphPainter extends CustomPainter {
   final int linesOnScreen;
   final double spaceBetweenLines;
   final double lineWidth;
+  final Function(int, double) xListCallback;
   GraphPainter(
       {this.lineColor,
       this.completePercents,
@@ -115,7 +127,8 @@ class GraphPainter extends CustomPainter {
       this.visibleWidth,
       this.linesOnScreen,
       this.spaceBetweenLines,
-      this.lineWidth});
+      this.lineWidth,
+      this.xListCallback});
   @override
   void paint(Canvas canvas, Size size) {
     Paint line = new Paint()
@@ -134,6 +147,7 @@ class GraphPainter extends CustomPainter {
     if (labels != null) labelHeight = 20;
     for (int i = 0; i < completePercents.length; i++) {
       x = lineWidth / 2 + i * (lineWidth + spaceBetweenLines);
+      xListCallback(i, x + lineWidth / 2);
       canvas.drawLine(new Offset(x, size.height - lineWidth / 2 - labelHeight),
           new Offset(x, lineWidth / 2), lineBkgrd);
       if (completePercents[completePercents.length - 1 - i] > 0)

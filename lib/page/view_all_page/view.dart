@@ -116,7 +116,6 @@ class _ViewAllPageState extends State<ViewAllPage>
                   context.read<MinerStatsCubit>().getEndTimeLabel() ?? '--',
             );
           }),
-          DDBoxSpacer(height: SpacerStyle.big),
           Expanded(
               child: TabBarView(
             physics: NeverScrollableScrollPhysics(),
@@ -129,6 +128,10 @@ class _ViewAllPageState extends State<ViewAllPage>
                     ? Container()
                     : DDBarChart(
                         hasYAxis: true,
+                        hasTooltip: true,
+                        tooltipData: state.originList
+                            .map((item) => context.read<MinerStatsCubit>().getTooltip(item))
+                            .toList(),
                         numBar: context.read<MinerStatsCubit>().getNumBar(),
                         xData: state.xDataList,
                         xLabel: state.xLabelList,

@@ -13,12 +13,17 @@ import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
+import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
+import 'package:supernodeapp/page/view_all_page/bloc/cubit.dart';
+import 'package:supernodeapp/page/view_all_page/bloc/state.dart';
+import 'package:supernodeapp/page/view_all_page/view.dart';
+import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
@@ -153,11 +158,22 @@ class GatewaysList extends StatelessWidget {
         child: GatewayListTile(
           state: state,
           onTap: () async {
-            await Navigator.pushNamed(context, 'gateway_profile_page',
-                arguments: {
-                  'item': state,
-                  'isDemo': context.read<AppCubit>().state.isDemo,
-                });
+            await Navigator.of(context).push(
+              route((_) => BlocProvider(
+                create: (ctx) => MinerStatsCubit(
+                    context.read<AppCubit>(), 
+                    context.read<SupernodeCubit>(), 
+                    context.read<SupernodeRepository>()
+                  ),
+                child: ViewAllPage(minerId: state.id, type: MinerStatsType.uptime))
+              )
+            );
+
+            // await Navigator.pushNamed(context, 'gateway_profile_page',
+            //     arguments: {
+            //       'item': state,
+            //       'isDemo': context.read<AppCubit>().state.isDemo,
+            //     });
           },
         ),
         secondaryActions: <Widget>[

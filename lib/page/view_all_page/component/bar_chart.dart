@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/common/components/page/dd_box_with_shadow.dart';
 import 'package:supernodeapp/common/components/widgets/bar_graph.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
-class DDBarChart extends StatelessWidget {
+class DDBarChart extends StatefulWidget {
   final bool hasYAxis;
   final int numBar;
+  final bool hasTooltip;
+  final List<dynamic> tooltipData;
   final List<double> xData;
   final List<String> xLabel;
   final List<double> yLabel;
@@ -16,39 +19,92 @@ class DDBarChart extends StatelessWidget {
       @required this.xData,
       @required this.xLabel,
       this.hasYAxis = false,
+      this.hasTooltip = false,
+      this.tooltipData,
       this.numBar = 7,
       this.yLabel,
       this.notifyGraphBarScroll})
       : super(key: key);
 
   @override
+  _DDBarChartState createState() =>
+      _DDBarChartState();
+}
+
+class _DDBarChartState
+    extends State<DDBarChart> {
+    int index = -1;
+    Offset position = Offset(0,0);
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: kRoundRow2005,
-        child: Flex(direction: Axis.horizontal, children: [
-          Expanded(
-              child: BarGraph(xData, numBar, MediaQuery.of(context).size.width,
-                  xAxisLabels: xLabel,
-                  widgetHeight: MediaQuery.of(context).size.height * 0.6,
-                  notifyGraphBarScroll: notifyGraphBarScroll)),
-          Visibility(
-              visible: hasYAxis,
+    return Stack(
+      children: [
+        Positioned(
+          top: 5,
+          left: position.dx - 20 ?? 0,
+          child: Visibility(
+              visible: index != -1 && widget.hasTooltip,
               child: Container(
-                  child: Flex(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      direction: Axis.vertical,
-                      children: yLabel.map((yItem) {
-                        return Expanded(
-                          child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 5),
-                              alignment: Alignment.topCenter,
-                              child: Text(
-                                '$yItem',
-                                textAlign: TextAlign.start,
-                                style: kSmallFontOfGrey,
-                              )),
-                        );
-                      }).toList())))
-        ]));
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color.fromARGB(26, 0, 0, 0),
+                      offset: Offset(0, 2),
+                      blurRadius: 7,
+                    ),
+                  ],
+                ),
+                child: Text(
+                  index != -1? '${widget.tooltipData[index]}' : '0',
+                  style: kBigFontOfBlack,
+                ),
+              )),
+        ),
+        Container(
+            padding: kOuterRowTop50,
+            margin: kRoundRow2005,
+            child: Flex(direction: Axis.horizontal, children: [
+              Expanded(
+                  child: BarGraph(
+                      widget.xData, widget.numBar, MediaQuery.of(context).size.width,
+                      xAxisLabels: widget.xLabel,
+                      widgetHeight: MediaQuery.of(context).size.height * 0.6,
+                      notifyGraphBarScroll: (indexValue, {ScrollController scrollController})  {
+                        widget.notifyGraphBarScroll(indexValue, scrollController: scrollController);
+                        setState((){
+                          index = -1;
+                        });
+                      },
+                      onTapUp: (indexValue, positionValue) {
+                        setState((){
+                          index = indexValue;
+                          position = positionValue;
+                        });
+                      })),
+              Visibility(
+                  visible: widget.hasYAxis,
+                  child: Container(
+                      child: Flex(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          direction: Axis.vertical,
+                          children: widget.yLabel.map((yItem) {
+                            return Expanded(
+                              child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 5),
+                                  alignment: Alignment.topCenter,
+                                  child: Text(
+                                    '$yItem',
+                                    textAlign: TextAlign.start,
+                                    style: kSmallFontOfGrey,
+                                  )),
+                            );
+                          }).toList()))),
+            ])),
+      ],
+    );
   }
 }

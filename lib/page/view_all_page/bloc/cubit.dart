@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/demo/wallet.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/miner.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
@@ -45,6 +46,23 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     } else {
       return 12;
     }
+  }
+
+  String getTooltip(MinerStatsEntity item) {
+    String label = '';
+    MinerStatsType type = state.selectedType;
+
+    if (type == MinerStatsType.uptime) {
+      label = '${item.uptime} h';
+    } else if (type == MinerStatsType.revenue) {
+      label = '${item.revenue} MXC';
+    } else if (type == MinerStatsType.revenue) {
+      label = '${item.received}';
+    } else {
+      label = '${item.transmitted}';
+    }
+
+    return label;
   }
 
   String getStatsTitle() {
