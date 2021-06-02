@@ -4,7 +4,10 @@ import 'package:supernodeapp/common/components/widgets/circular_graph.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/wallet.model.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/page/add_fuel_page/add_fuel_page.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
+import 'package:supernodeapp/page/send_to_wallet_page/send_to_wallet_page.dart';
+import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -105,6 +108,8 @@ class MinerHealthTab extends StatelessWidget {
           children: [
             SizedBox(width: 16),
             GestureDetector(
+              onTap: () =>
+                  Navigator.of(context).push(route((ctx) => AddFuelPage())),
               child: Column(
                 children: [
                   Image.asset(AppImages.fuelCircle),
@@ -133,6 +138,8 @@ class MinerHealthTab extends StatelessWidget {
               ),
             ),
             GestureDetector(
+              onTap: () => Navigator.of(context)
+                  .push(route((ctx) => SendToWalletPage())),
               child: Column(
                 children: [
                   Image.asset(AppImages.sendCircle),
