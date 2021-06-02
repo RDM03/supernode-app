@@ -305,6 +305,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
 
       if (res.success) {
         await Navigator.of(context).push(route((ctx) => AddFuelConfirmPage()));
+        Navigator.of(context).pop();
       } else {
         await Navigator.of(context).push(
           route((ctx) => AddFuelConfirmPage(error: res.error)),

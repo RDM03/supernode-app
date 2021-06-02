@@ -307,6 +307,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
       if (res.success) {
         await Navigator.of(context)
             .push(route((ctx) => SendToWalletConfirmPage()));
+        Navigator.of(context).pop();
       } else {
         await Navigator.of(context).push(
           route((ctx) => SendToWalletConfirmPage(error: res.error)),
