@@ -159,7 +159,9 @@ class _ViewAllPageState extends State<_ViewAllPage>
                         hasYAxis: true,
                         hasTooltip: true,
                         tooltipData: state.originList
-                            .map((item) => context.read<MinerStatsCubit>().getTooltip(item))
+                            .map((item) => context
+                                .read<MinerStatsCubit>()
+                                .getTooltip(item))
                             .toList(),
                         numBar: context.read<MinerStatsCubit>().getNumBar(),
                         xData: state.xDataList,

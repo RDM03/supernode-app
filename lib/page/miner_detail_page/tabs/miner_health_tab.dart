@@ -7,6 +7,8 @@ import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/add_fuel_page/add_fuel_page.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/page/send_to_wallet_page/send_to_wallet_page.dart';
+import 'package:supernodeapp/page/view_all_page/bloc/state.dart';
+import 'package:supernodeapp/page/view_all_page/view.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -179,7 +181,14 @@ class MinerHealthTab extends StatelessWidget {
                 style: kSmallFontOfDarkBlue,
               ),
             ),
-            onTap: () {},
+            onTap: () => Navigator.of(context).push(
+              route(
+                (ctx) => ViewAllPage(
+                  minerId: item.id,
+                  type: MinerStatsType.uptime,
+                ),
+              ),
+            ),
           ),
         ),
         GraphCard(

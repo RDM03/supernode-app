@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/common/components/page/dd_box_with_shadow.dart';
 import 'package:supernodeapp/common/components/widgets/bar_graph.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
@@ -41,7 +40,7 @@ class _DDBarChartState
     return Stack(
       children: [
         Positioned(
-          top: 5,
+          top: 0,
           left: position.dx - 20 ?? 0,
           child: Visibility(
               visible: index != -1 && widget.hasTooltip,

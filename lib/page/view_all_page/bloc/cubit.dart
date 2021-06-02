@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/miner.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
+import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 
 import 'state.dart';
@@ -52,13 +53,13 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     MinerStatsType type = state.selectedType;
 
     if (type == MinerStatsType.uptime) {
-      label = '${item.uptime} h';
+      label = '${Tools.priceFormat(item.uptime / 3600, range: 0)} h';
     } else if (type == MinerStatsType.revenue) {
-      label = '${item.revenue} MXC';
+      label = '${Tools.priceFormat(item.revenue)} MXC';
     } else if (type == MinerStatsType.revenue) {
-      label = '${item.received}';
+      label = '${Tools.priceFormat(item.received)}';
     } else {
-      label = '${item.transmitted}';
+      label = '${Tools.priceFormat(item.transmitted)}';
     }
 
     return label;
@@ -121,6 +122,8 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       for (int i = 0; i < state.originList.length; i++) {
         total += state.originList[i].uptime;
       }
+
+      total = total / 3600;
     } else if (type == MinerStatsType.revenue) {
       for (int i = 0; i < state.originList.length; i++) {
         total += state.originList[i].revenue;
@@ -144,9 +147,9 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     if (state.originList.isEmpty) return null;
 
     if (time == MinerStatsTime.week) {
-      return Tools.dateMonthDayFormat(state.originList.last.date);
+      return TimeUtil.getMD(state.originList.last.date);
     } else {
-      return Tools.dateMonthDayYearFormat(state.originList.last.date);
+      return TimeUtil.getMD(state.originList.last.date);
     }
   }
 
@@ -156,9 +159,9 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     if (state.originList.isEmpty) return null;
 
     if (time == MinerStatsTime.week) {
-      return Tools.dateMonthDayFormat(state.originList.first.date);
+      return TimeUtil.getMD(state.originList.first.date);
     } else {
-      return Tools.dateMonthDayYearFormat(state.originList.first.date);
+      return TimeUtil.getMD(state.originList.first.date);
     }
   }
 
@@ -274,8 +277,6 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
         tillDate: tillDate,
       );
 
-      // var result = await DemoWalletDao().miningIncomeGateway(data);
-
       if (successCB != null) {
         if (double.tryParse(result.total) > 0) {
           entities = entities.map((entity) {
@@ -330,7 +331,6 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
         startTimestamp: startTimestamp,
         endTimestamp: endTimestamp,
       );
-      // var result = await DemoGatewaysDao().frames(data['gatewayID'], data);
 
       if (successCB != null) {
         if (result.length > 0) {
@@ -421,7 +421,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       if (type == MinerStatsType.uptime) {
         double totalWeekScore = 24.0 * data.length;
 
-        emit(state.copyWith(uptimeWeekScore: totalScore / totalWeekScore));
+        emit(state.copyWith(uptimeWeekScore: totalScore / totalWeekScore / 3600));
       }
     } else if (time == MinerStatsTime.month) {
       data.forEach((item) {
@@ -519,6 +519,10 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       });
 
       emit(state.copyWith(originList: newData));
+    }
+
+    if (type == MinerStatsType.uptime) {
+      maxValue = maxValue / 3600;
     }
 
     emit(state.copyWith(xDataList: xData));
