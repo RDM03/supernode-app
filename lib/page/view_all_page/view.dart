@@ -157,6 +157,10 @@ class _ViewAllPageState extends State<_ViewAllPage>
                     ? Container()
                     : DDBarChart(
                         hasYAxis: true,
+                        hasTooltip: true,
+                        tooltipData: state.originList
+                            .map((item) => context.read<MinerStatsCubit>().getTooltip(item))
+                            .toList(),
                         numBar: context.read<MinerStatsCubit>().getNumBar(),
                         xData: state.xDataList,
                         xLabel: state.xLabelList,

@@ -47,6 +47,23 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     }
   }
 
+  String getTooltip(MinerStatsEntity item) {
+    String label = '';
+    MinerStatsType type = state.selectedType;
+
+    if (type == MinerStatsType.uptime) {
+      label = '${item.uptime} h';
+    } else if (type == MinerStatsType.revenue) {
+      label = '${item.revenue} MXC';
+    } else if (type == MinerStatsType.revenue) {
+      label = '${item.received}';
+    } else {
+      label = '${item.transmitted}';
+    }
+
+    return label;
+  }
+
   String getStatsTitle() {
     List titles = [];
     MinerStatsType type = state.selectedType;
