@@ -27,12 +27,12 @@ class MinerHealthResponse {
     return MinerHealthResponse(
       id: map['id'],
       ageSeconds: int.tryParse(map['ageSeconds']),
-      health: map['health'],
+      health: map['health']?.toDouble(),
       miningFuel: Decimal.tryParse(map['miningFuel']),
       miningFuelHealth: map['miningFuelHealth']?.toDouble(),
       miningFuelMax: Decimal.tryParse(map['miningFuelMax']),
       totalMined: Decimal.tryParse(map['totalMined']),
-      uptimeHealth: map['uptimeHealth'],
+      uptimeHealth: map['uptimeHealth']?.toDouble(),
     );
   }
 }
