@@ -277,7 +277,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       // var result = await DemoWalletDao().miningIncomeGateway(data);
 
       if (successCB != null) {
-        if (int.tryParse(result.total) > 0) {
+        if (double.tryParse(result.total) > 0) {
           entities = entities.map((entity) {
             result.dailyStats.forEach((item) {
               var currentEntity = MinerStatsEntity(
