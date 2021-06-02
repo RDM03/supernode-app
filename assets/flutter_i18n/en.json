@@ -73,6 +73,7 @@
 	"miners": "Miners",
 	"add": "Add",
 	"add_send": "Add/Send",
+	"add_fuel_or_send_to_wallet": "Add fuel or send to wallet",
 	"health_score": "Health Score",
 	"health_score_info": "Everything works a little better with some tender love and care - even your M2 Pro! Your health score tells you just how well your M2 Pro is doing. If it’s at 100% then it’s mining at its full potential. However if it’s below 100%, you will want to take action by reviewing uptime, GPS, altitude, orientation, proximity and fuel.",
 	"uptime": "Uptime",

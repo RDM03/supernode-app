@@ -13,7 +13,6 @@ import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/common/components/empty.dart';
 import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/common/components/loading_list.dart';
-import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
@@ -22,6 +21,7 @@ import 'package:supernodeapp/common/components/widgets/circular_graph.dart';
 import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/page/add_fuel_page/add_fuel_page.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
@@ -36,6 +36,7 @@ import 'package:supernodeapp/theme/spacing.dart';
 import '../shared.dart';
 
 class GatewayTab extends StatelessWidget {
+
   void aboutPage(
       BuildContext context, String title, Widget illustration, String text,
       {Widget bottomButton}) {
@@ -90,6 +91,83 @@ class GatewayTab extends StatelessWidget {
               SizedBox(height: 5),
               Text(title, style: kBigFontOfBlack),
             ]),
+      ),
+    );
+  }
+
+  void addSendDialog(
+      BuildContext ctx) {
+    showInfoDialog(
+      ctx,
+      IosStyleBottomDialog2(
+        padding: EdgeInsets.only(top: 10, bottom: 30),
+        builder: (context) => Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 16, bottom: 16, left: 32),
+              child: SizedBox(
+                width: double.infinity,
+                child: Text(
+                  FlutterI18n.translate(context, 'add_fuel_or_send_to_wallet'),
+                  style: kBigBoldFontOfBlack,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            ),
+            Divider(),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.of(ctx).push(route((ctx) => AddFuelPage()));},
+              child: Padding(
+                padding: const EdgeInsets.only(left: 32),
+                child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      CircleButton(
+                        key: Key('addFuelBottom'),
+                        circleColor: Colors.white,
+                        icon: Image.asset(
+                          AppImages.fuel,
+                          color: fuelColor,
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        FlutterI18n.translate(context, 'add_fuel'),
+                        style: kBigFontOfBlack,
+                        textAlign: TextAlign.left,
+                      ),
+                    ]),
+              ),
+            ),
+            Divider(),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.of(context).push(route((ctx) => SendToWalletPage()));},
+              child: Padding(
+                padding: const EdgeInsets.only(left: 32),
+                child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      CircleButton(
+                        key: Key('addFuelBottom'),
+                        circleColor: Colors.white,
+                        icon: Icon(Icons.arrow_forward, color: fuelColor),
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        FlutterI18n.translate(context, 'send_to_wallet'),
+                        style: kBigFontOfBlack,
+                        textAlign: TextAlign.left,
+                      ),
+                    ]),
+              ),
+            ),
+            Divider(),
+          ],
+        ),
       ),
     );
   }
@@ -151,10 +229,7 @@ class GatewayTab extends StatelessWidget {
                                         ),
                                         label: FlutterI18n.translate(
                                             context, 'add_send'),
-                                        onTap: () async {
-                                          await Navigator.of(context).push(
-                                              route((ctx) => SendToWalletPage()));
-                                        },
+                                        onTap: () => addSendDialog(context),
                                       ),
                                     ]),
                                 Padding(
