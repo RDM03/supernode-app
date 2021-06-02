@@ -157,6 +157,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
               inactiveThumbColor: Colors.grey.shade700,
               activeColor: healthColor,
             ),
+            SizedBox(width: 16),
           ],
         ),
       );
@@ -174,7 +175,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                   GestureDetector(
                     onTap: () => setState(() => gatewaySelection[item.id] = 0),
                     child: Padding(
-                      padding: EdgeInsets.only(left: 13, right: 4, top: 3),
+                      padding: EdgeInsets.only(left: 28, right: 4, top: 3),
                       child: Icon(
                         Icons.check,
                         size: 18,
@@ -211,12 +212,12 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                     '${Tools.priceFormat((item.miningFuelHealth ?? 0) * 100, range: 0)}%',
                     style: kBigFontOfBlack,
                   ),
-                  SizedBox(width: 16),
+                  SizedBox(width: 28),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 32),
               child: SizedBox(
                 height: 30,
                 child: MxcSliderTheme(
@@ -233,7 +234,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
             SizedBox(height: 8),
             Row(
               children: [
-                SizedBox(width: 16),
+                SizedBox(width: 32),
                 Text(FlutterI18n.translate(context, 'current_fuel'),
                     style: kSmallFontOfGrey),
                 Text(
@@ -251,7 +252,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                     vertical: 4,
                   ),
                 ),
-                SizedBox(width: 16),
+                SizedBox(width: 32),
               ],
             ),
           ],
