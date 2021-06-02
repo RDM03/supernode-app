@@ -181,14 +181,10 @@ class MinerHealthTab extends StatelessWidget {
                 style: kSmallFontOfDarkBlue,
               ),
             ),
-            onTap: () => Navigator.of(context).push(
-              route(
-                (ctx) => ViewAllPage(
+            onTap: () => Navigator.of(context).push(route((ctx) => ViewAllPage(
                   minerId: item.id,
                   type: MinerStatsType.uptime,
-                ),
-              ),
-            ),
+                ))),
           ),
         ),
         GraphCard(

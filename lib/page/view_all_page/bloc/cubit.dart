@@ -421,7 +421,8 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       if (type == MinerStatsType.uptime) {
         double totalWeekScore = 24.0 * data.length;
 
-        emit(state.copyWith(uptimeWeekScore: totalScore / totalWeekScore / 3600));
+        emit(state.copyWith(
+            uptimeWeekScore: totalScore / totalWeekScore / 3600));
       }
     } else if (time == MinerStatsTime.month) {
       data.forEach((item) {
