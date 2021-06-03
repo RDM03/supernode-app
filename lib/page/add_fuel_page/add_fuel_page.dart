@@ -63,7 +63,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
       final orgId = context.read<SupernodeCubit>().state.orgId;
       final res = await supernodeRepository.gateways.list({
         "organizationID": orgId,
-        "offset": gateways?.length ?? 0,
+        "offset": allGateways?.length ?? 0,
         "limit": noLimit ? 10000000 : 10,
       });
       final listMinersHealth = await supernodeRepository.gateways.minerHealth({
