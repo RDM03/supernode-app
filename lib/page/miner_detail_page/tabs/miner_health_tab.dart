@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/widgets/circular_graph.dart';
@@ -110,11 +111,34 @@ class MinerHealthTab extends StatelessWidget {
           children: [
             SizedBox(width: 16),
             GestureDetector(
-              onTap: () =>
-                  Navigator.of(context).push(route((ctx) => AddFuelPage())),
+              onTap: item.health == 1
+                  ? () => Navigator.of(context)
+                      .push(route((ctx) => AddFuelPage(gatewayItem: item)))
+                  : null,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(AppImages.fuelCircle),
+                  Container(
+                    height: 52,
+                    width: 52,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 0,
+                          blurRadius: 7,
+                          offset: Offset(0, 2),
+                        )
+                      ],
+                    ),
+                    child: Image.asset(
+                      AppImages.fuel,
+                      color: item.health == 1 ? Colors.grey : healthColor,
+                    ),
+                  ),
+                  SizedBox(height: 7),
                   Text(FlutterI18n.translate(context, 'add')),
                 ],
               ),
@@ -140,11 +164,38 @@ class MinerHealthTab extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () => Navigator.of(context)
-                  .push(route((ctx) => SendToWalletPage())),
+              onTap: item.miningFuel > Decimal.zero
+                  ? () => Navigator.of(context)
+                      .push(route((ctx) => SendToWalletPage(gatewayItem: item)))
+                  : null,
               child: Column(
                 children: [
-                  Image.asset(AppImages.sendCircle),
+                  Container(
+                    height: 52,
+                    width: 52,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 0,
+                          blurRadius: 7,
+                          offset: Offset(0, 2),
+                        )
+                      ],
+                    ),
+                    child: Container(
+                      child: Icon(
+                        Icons.arrow_forward,
+                        color: item.miningFuel > Decimal.zero
+                            ? healthColor
+                            : Colors.grey,
+                        size: 26,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 7),
                   Text(FlutterI18n.translate(context, 'send')),
                 ],
               ),

@@ -28,7 +28,10 @@ import 'proceed_dialog.dart';
 class SendToWalletPage extends StatefulWidget {
   const SendToWalletPage({
     Key key,
+    this.gatewayItem,
   }) : super(key: key);
+
+  final GatewayItem gatewayItem;
 
   @override
   _SendToWalletPageState createState() => _SendToWalletPageState();
@@ -42,6 +45,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
   bool isLoading = false;
   @override
   bool get hasDataToLoad {
+    if (widget.gatewayItem != null) return false;
     if (forceStopLoading) return false;
     if (totalGateways == null) return true;
     return totalGateways > allGateways?.length;
@@ -56,6 +60,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
 
   @override
   Future<void> load({bool noLimit = false}) async {
+    if (widget.gatewayItem != null) return;
     isLoading = true;
     if (mounted) {
       setState(() {});
@@ -78,10 +83,8 @@ class _SendToWalletPageState extends State<SendToWalletPage>
         setState(() {
           isLoading = false;
           allGateways = [...(allGateways ?? <GatewayItem>[]), ...newGateways];
-          gateways = allGateways
-              .where(
-                  (e) => e.miningFuel > Decimal.zero && e.miningFuelHealth != 0)
-              .toList();
+          gateways =
+              allGateways.where((e) => e.miningFuel > Decimal.zero).toList();
           gatewaysMap =
               gateways.asMap().map((key, value) => MapEntry(value.id, value));
         });
@@ -93,7 +96,11 @@ class _SendToWalletPageState extends State<SendToWalletPage>
   @override
   void initState() {
     super.initState();
-    load();
+    if (widget.gatewayItem != null) {
+      gateways = [widget.gatewayItem];
+      gatewaysMap = {widget.gatewayItem.id: widget.gatewayItem};
+    } else
+      load();
   }
 
   @override
