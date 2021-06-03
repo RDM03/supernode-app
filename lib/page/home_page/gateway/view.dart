@@ -60,7 +60,7 @@ class GatewayTab extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(text,
-                    style: kBigFontOfBlack, textAlign: TextAlign.justify),
+                    style: kBigFontOfBlack, textAlign: TextAlign.center),
               ),
               SizedBox(height: 70),
               (bottomButton != null)
@@ -116,6 +116,7 @@ class GatewayTab extends StatelessWidget {
             ),
             Divider(),
             GestureDetector(
+              behavior: HitTestBehavior.opaque,
               onTap: () {
                 Navigator.pop(context);
                 Navigator.of(ctx).push(route((ctx) => AddFuelPage()));},
@@ -143,6 +144,7 @@ class GatewayTab extends StatelessWidget {
             ),
             Divider(),
             GestureDetector(
+              behavior: HitTestBehavior.opaque,
               onTap: () {
                 Navigator.pop(context);
                 Navigator.of(context).push(route((ctx) => SendToWalletPage()));},
@@ -308,6 +310,7 @@ class GatewayTab extends StatelessWidget {
                               Spacer(),
                               Image.asset(
                                 AppImages.gateways,
+                                scale: 1.5,
                                 color: minerColor,
                               ),
                               smallRowSpacer(),
@@ -322,6 +325,7 @@ class GatewayTab extends StatelessWidget {
                               smallRowSpacer(),
                               Image.asset(
                                 AppImages.fuel,
+                                scale: 1.5,
                                 color: fuelColor,
                               ),
                               smallRowSpacer(),
@@ -368,15 +372,15 @@ class GatewayTab extends StatelessWidget {
                                                     .uptimeHealth.value ==
                                                     null)
                                                     ? Text('-- %',
-                                                    style: kBigFontOfBlack)
+                                                    style: kBigBoldFontOfBlack)
                                                     : Text(
                                                     '${Tools.priceFormat(gatewayState.uptimeHealth.value * 100)} %',
-                                                    style: kBigFontOfBlack)),
+                                                    style: kBigBoldFontOfBlack)),
                                             Image.asset(AppImages.uptime),
                                             Text(
                                                 FlutterI18n.translate(
                                                     context, 'uptime'),
-                                                style: kSmallFontOfBlack),
+                                                style: kSmallBoldFontOfBlack),
                                           ]),
                                     ),
                                   ),
@@ -558,7 +562,10 @@ class GatewayTab extends StatelessWidget {
                                       FlutterI18n.translate(context, 'fuel_info'),
                                       bottomButton: PrimaryButton(
                                           minWidth: double.infinity,
-                                          onTap: () => 'TODO',
+                                          minHeight: 40,
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                            Navigator.of(ctx).push(route((ctx) => AddFuelPage()));},
                                           buttonTitle: FlutterI18n.translate(
                                               context, 'fuel_miners'),
                                           bgColor: fuelColor)),
@@ -583,10 +590,10 @@ class GatewayTab extends StatelessWidget {
                                                     .value ==
                                                     null)
                                                     ? Text('-- %',
-                                                    style: kBigFontOfBlack)
+                                                    style: kBigBoldFontOfBlack)
                                                     : Text(
                                                     '${Tools.priceFormat(gatewayState.miningFuelHealth.value * 100)} %',
-                                                    style: kBigFontOfBlack)),
+                                                    style: kBigBoldFontOfBlack)),
                                             Stack(
                                                 alignment: Alignment.center,
                                                 children: [
@@ -598,7 +605,7 @@ class GatewayTab extends StatelessWidget {
                                             Text(
                                                 FlutterI18n.translate(
                                                     context, 'fuel'),
-                                                style: kSmallFontOfBlack),
+                                                style: kSmallBoldFontOfBlack),
                                           ]),
                                     ),
                                   ),
@@ -627,6 +634,7 @@ class GatewayTab extends StatelessWidget {
         buildWhen: (a, b) => a.gateways != b.gateways,
         builder: (ctx, state) => Container(
           height: MediaQuery.of(context).size.height - 150,
+          color: backgroundColor,
           child:
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -696,10 +704,11 @@ class GatewaysList extends StatelessWidget {
       itemBuilder: (BuildContext context, GatewayItem state, int index) =>
           Slidable(
             key: Key("slide_gateway$index"),
-            actionPane: SlidableDrawerActionPane(), //SlidableBehindActionPane
+            actionPane: SlidableDrawerActionPane(),
             actionExtentRatio: 0.25,
             child: GatewayListTile(
               state: state,
+              topOfList: index == 0,
               onTap: () async {
                 await Navigator.push(
                   context,
@@ -725,6 +734,22 @@ class GatewaysList extends StatelessWidget {
         if (page == 0) return state.gateways.value;
         return await context.read<GatewayCubit>().loadNextPage(page);
       },
+      separatorBuilder: (BuildContext context, int index) => Divider(height: 1, thickness: 1, color: Colors.grey.shade50),
+      footer: Container(
+        height: 10,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+          boxShadow: [
+            BoxShadow(
+              color: shodowColor,
+              offset: Offset(0, 2),
+              blurRadius: 7,
+            ),
+          ],
+        ),
+        child: SizedBox(),
+      ),
       onError: (dynamic error) => Center(
         child: Text('Some error occured'),
       ),
@@ -736,20 +761,28 @@ class GatewaysList extends StatelessWidget {
 class GatewayListTile extends StatelessWidget {
   final VoidCallback onTap;
   final GatewayItem state;
+  final bool topOfList;
 
   GatewayListTile({
     @required this.onTap,
     @required this.state,
+    @required this.topOfList,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 2),
+      padding: EdgeInsets.only(top: (topOfList ? 5 : 0)),
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Color.fromARGB(26, 0, 0, 0), width: 1),
-        ),
+        color: Colors.white,
+        borderRadius: (topOfList) ? BorderRadius.vertical(top: Radius.circular(10)) : null,
+        boxShadow: [
+          BoxShadow(
+            color: shodowColor,
+            offset: Offset(0, 2),
+            blurRadius: 7,
+          ),
+        ],
       ),
       child: ListTile(
         tileColor: Colors.white,
@@ -782,6 +815,7 @@ class GatewayListTile extends StatelessWidget {
                   Spacer(),
                   Image.asset(
                     AppImages.gateways,
+                    scale: 1.5,
                     color: minerColor,
                   ),
                   smallRowSpacer(),
@@ -790,6 +824,7 @@ class GatewayListTile extends StatelessWidget {
                   smallRowSpacer(),
                   Image.asset(
                     AppImages.fuel,
+                    scale: 1.5,
                     color: fuelColor,
                   ),
                   smallRowSpacer(),

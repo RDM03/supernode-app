@@ -66,7 +66,10 @@ class CircularGraph extends StatelessWidget {
                             )
                           ],
                         ),
-                        child: child,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: child,
+                        ),
                       )))),
         ));
   }

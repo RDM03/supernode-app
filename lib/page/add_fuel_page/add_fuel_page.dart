@@ -25,9 +25,12 @@ import 'package:supernodeapp/common/utils/extensions.dart';
 import 'filter_dialog.dart';
 
 class AddFuelPage extends StatefulWidget {
-  const AddFuelPage({
+  AddFuelPage({
     Key key,
+    this.gatewayItem,
   }) : super(key: key);
+
+  final GatewayItem gatewayItem;
 
   @override
   _AddFuelPageState createState() => _AddFuelPageState();
@@ -40,6 +43,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
   bool isLoading = false;
   @override
   bool get hasDataToLoad {
+    if (widget.gatewayItem != null) return false;
     if (forceStopLoading) return false;
     if (totalGateways == null) return true;
     return totalGateways > allGateways?.length;
@@ -54,6 +58,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
 
   @override
   Future<void> load({bool noLimit = false}) async {
+    if (widget.gatewayItem != null) return;
     isLoading = true;
     if (mounted) {
       setState(() {});
@@ -63,7 +68,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
       final orgId = context.read<SupernodeCubit>().state.orgId;
       final res = await supernodeRepository.gateways.list({
         "organizationID": orgId,
-        "offset": gateways?.length ?? 0,
+        "offset": allGateways?.length ?? 0,
         "limit": noLimit ? 10000000 : 10,
       });
       final listMinersHealth = await supernodeRepository.gateways.minerHealth({
@@ -91,7 +96,11 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
   @override
   void initState() {
     super.initState();
-    load();
+    if (widget.gatewayItem != null) {
+      gateways = [widget.gatewayItem];
+      gatewaysMap = {widget.gatewayItem.id: widget.gatewayItem};
+    } else
+      load();
   }
 
   @override
