@@ -116,6 +116,7 @@ class GatewayTab extends StatelessWidget {
             ),
             Divider(),
             GestureDetector(
+              behavior: HitTestBehavior.opaque,
               onTap: () {
                 Navigator.pop(context);
                 Navigator.of(ctx).push(route((ctx) => AddFuelPage()));},
@@ -143,6 +144,7 @@ class GatewayTab extends StatelessWidget {
             ),
             Divider(),
             GestureDetector(
+              behavior: HitTestBehavior.opaque,
               onTap: () {
                 Navigator.pop(context);
                 Navigator.of(context).push(route((ctx) => SendToWalletPage()));},
