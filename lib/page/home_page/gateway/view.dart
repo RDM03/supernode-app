@@ -60,7 +60,7 @@ class GatewayTab extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(text,
-                    style: kBigFontOfBlack, textAlign: TextAlign.justify),
+                    style: kBigFontOfBlack, textAlign: TextAlign.center),
               ),
               SizedBox(height: 70),
               (bottomButton != null)
@@ -310,6 +310,7 @@ class GatewayTab extends StatelessWidget {
                               Spacer(),
                               Image.asset(
                                 AppImages.gateways,
+                                scale: 1.5,
                                 color: minerColor,
                               ),
                               smallRowSpacer(),
@@ -324,6 +325,7 @@ class GatewayTab extends StatelessWidget {
                               smallRowSpacer(),
                               Image.asset(
                                 AppImages.fuel,
+                                scale: 1.5,
                                 color: fuelColor,
                               ),
                               smallRowSpacer(),
@@ -370,15 +372,15 @@ class GatewayTab extends StatelessWidget {
                                                     .uptimeHealth.value ==
                                                     null)
                                                     ? Text('-- %',
-                                                    style: kBigFontOfBlack)
+                                                    style: kBigBoldFontOfBlack)
                                                     : Text(
                                                     '${Tools.priceFormat(gatewayState.uptimeHealth.value * 100)} %',
-                                                    style: kBigFontOfBlack)),
+                                                    style: kBigBoldFontOfBlack)),
                                             Image.asset(AppImages.uptime),
                                             Text(
                                                 FlutterI18n.translate(
                                                     context, 'uptime'),
-                                                style: kSmallFontOfBlack),
+                                                style: kSmallBoldFontOfBlack),
                                           ]),
                                     ),
                                   ),
@@ -560,7 +562,10 @@ class GatewayTab extends StatelessWidget {
                                       FlutterI18n.translate(context, 'fuel_info'),
                                       bottomButton: PrimaryButton(
                                           minWidth: double.infinity,
-                                          onTap: () => 'TODO',
+                                          minHeight: 40,
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                            Navigator.of(ctx).push(route((ctx) => AddFuelPage()));},
                                           buttonTitle: FlutterI18n.translate(
                                               context, 'fuel_miners'),
                                           bgColor: fuelColor)),
@@ -585,10 +590,10 @@ class GatewayTab extends StatelessWidget {
                                                     .value ==
                                                     null)
                                                     ? Text('-- %',
-                                                    style: kBigFontOfBlack)
+                                                    style: kBigBoldFontOfBlack)
                                                     : Text(
                                                     '${Tools.priceFormat(gatewayState.miningFuelHealth.value * 100)} %',
-                                                    style: kBigFontOfBlack)),
+                                                    style: kBigBoldFontOfBlack)),
                                             Stack(
                                                 alignment: Alignment.center,
                                                 children: [
@@ -600,7 +605,7 @@ class GatewayTab extends StatelessWidget {
                                             Text(
                                                 FlutterI18n.translate(
                                                     context, 'fuel'),
-                                                style: kSmallFontOfBlack),
+                                                style: kSmallBoldFontOfBlack),
                                           ]),
                                     ),
                                   ),
@@ -784,6 +789,7 @@ class GatewayListTile extends StatelessWidget {
                   Spacer(),
                   Image.asset(
                     AppImages.gateways,
+                    scale: 1.5,
                     color: minerColor,
                   ),
                   smallRowSpacer(),
@@ -792,6 +798,7 @@ class GatewayListTile extends StatelessWidget {
                   smallRowSpacer(),
                   Image.asset(
                     AppImages.fuel,
+                    scale: 1.5,
                     color: fuelColor,
                   ),
                   smallRowSpacer(),
