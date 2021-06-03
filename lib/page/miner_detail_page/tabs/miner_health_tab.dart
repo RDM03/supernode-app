@@ -112,9 +112,9 @@ class MinerHealthTab extends StatelessWidget {
             SizedBox(width: 16),
             GestureDetector(
               onTap: item.health == 1
-                  ? () => Navigator.of(context)
-                      .push(route((ctx) => AddFuelPage(gatewayItem: item)))
-                  : null,
+                  ? null
+                  : () => Navigator.of(context)
+                      .push(route((ctx) => AddFuelPage(gatewayItem: item))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
