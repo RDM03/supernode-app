@@ -13,6 +13,32 @@ class TimeUtil {
     'November': 11,
     'December': 12
   };
+
+  static Map<int, String> monthsAbb = {
+    1: 'Jan',
+    2: 'Feb',
+    3: 'Mar',
+    4: 'Apr',
+    5: 'May',
+    6: 'Jun',
+    7: 'Jul',
+    8: 'Aug',
+    9: 'Sep',
+    10: 'Oct',
+    11: 'Nov',
+    12: 'Dec',
+  };
+
+  static Map<int, String> week = {
+    1: 'Mon',
+    2: 'Tue',
+    3: 'Wed',
+    4: 'Thu',
+    5: 'Fri',
+    6: 'Sat',
+    7: 'Sun',
+  };
+
   static final Map<int, String> monthsReversed = <int, String>{
     for (final m in months.entries) m.value: m.key
   };
@@ -100,6 +126,14 @@ class TimeUtil {
     return '${monthsReversed[date.month]} ${date.day}';
   }
 
+  static String getMDAbb(DateTime date) {
+    return '${monthsAbb[date.month]} ${date.day}';
+  }
+
+  static String getMDY(DateTime date) {
+    return '${monthsReversed[date.month]} ${date.day} ${date.year}';
+  }
+
   static int getCurrentTimeStamp() {
     var now = new DateTime.now();
     return now.millisecondsSinceEpoch;
@@ -115,6 +149,11 @@ class TimeUtil {
     return time1.year == time2.year && time1.month == time2.month;
   }
 
+  static String dateMonthFormat(DateTime date) {
+    if (date == null) return '?';
+    final month = date.month;
+    return '$month';
+  }
 
   // static String comparedNow(context,String oldTime){
   //   String language = localeName(context);

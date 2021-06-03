@@ -18,7 +18,7 @@ class _$MinerStatsStateTearOff {
       {List<MinerStatsEntity> originList = const [],
       List<double> xDataList = const [],
       List<String> xLabelList = const [],
-      List<double> yLabelList = const [],
+      List<int> yLabelList = const [],
       bool showLoading = false,
       MinerStatsTime selectedTime = MinerStatsTime.week,
       MinerStatsType selectedType = MinerStatsType.uptime,
@@ -47,7 +47,7 @@ mixin _$MinerStatsState {
   List<MinerStatsEntity> get originList;
   List<double> get xDataList;
   List<String> get xLabelList;
-  List<double> get yLabelList;
+  List<int> get yLabelList;
   bool get showLoading;
   MinerStatsTime get selectedTime;
   MinerStatsType get selectedType;
@@ -67,7 +67,7 @@ abstract class $MinerStatsStateCopyWith<$Res> {
       {List<MinerStatsEntity> originList,
       List<double> xDataList,
       List<String> xLabelList,
-      List<double> yLabelList,
+      List<int> yLabelList,
       bool showLoading,
       MinerStatsTime selectedTime,
       MinerStatsType selectedType,
@@ -105,9 +105,8 @@ class _$MinerStatsStateCopyWithImpl<$Res>
       xLabelList: xLabelList == freezed
           ? _value.xLabelList
           : xLabelList as List<String>,
-      yLabelList: yLabelList == freezed
-          ? _value.yLabelList
-          : yLabelList as List<double>,
+      yLabelList:
+          yLabelList == freezed ? _value.yLabelList : yLabelList as List<int>,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
       selectedTime: selectedTime == freezed
@@ -135,7 +134,7 @@ abstract class _$MinerStatsStateCopyWith<$Res>
       {List<MinerStatsEntity> originList,
       List<double> xDataList,
       List<String> xLabelList,
-      List<double> yLabelList,
+      List<int> yLabelList,
       bool showLoading,
       MinerStatsTime selectedTime,
       MinerStatsType selectedType,
@@ -175,9 +174,8 @@ class __$MinerStatsStateCopyWithImpl<$Res>
       xLabelList: xLabelList == freezed
           ? _value.xLabelList
           : xLabelList as List<String>,
-      yLabelList: yLabelList == freezed
-          ? _value.yLabelList
-          : yLabelList as List<double>,
+      yLabelList:
+          yLabelList == freezed ? _value.yLabelList : yLabelList as List<int>,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
       selectedTime: selectedTime == freezed
@@ -226,7 +224,7 @@ class _$_MinerStatsState implements _MinerStatsState {
   final List<String> xLabelList;
   @JsonKey(defaultValue: const [])
   @override
-  final List<double> yLabelList;
+  final List<int> yLabelList;
   @JsonKey(defaultValue: false)
   @override
   final bool showLoading;
@@ -303,7 +301,7 @@ abstract class _MinerStatsState implements MinerStatsState {
       {List<MinerStatsEntity> originList,
       List<double> xDataList,
       List<String> xLabelList,
-      List<double> yLabelList,
+      List<int> yLabelList,
       bool showLoading,
       MinerStatsTime selectedTime,
       MinerStatsType selectedType,
@@ -317,7 +315,7 @@ abstract class _MinerStatsState implements MinerStatsState {
   @override
   List<String> get xLabelList;
   @override
-  List<double> get yLabelList;
+  List<int> get yLabelList;
   @override
   bool get showLoading;
   @override

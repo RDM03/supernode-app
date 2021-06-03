@@ -7,7 +7,6 @@ import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/page/dd_body.dart';
 import 'package:supernodeapp/common/components/page/dd_box_spacer.dart';
 import 'package:supernodeapp/common/components/page/dd_nav.dart';
-import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/page/view_all_page/component/bar_chart.dart';
 import 'package:supernodeapp/page/view_all_page/component/chart_stats.dart';
@@ -154,7 +153,7 @@ class _ViewAllPageState extends State<_ViewAllPage>
                   // buildWhen: (a, b) => b.originList.isNotEmpty,
                   builder: (ctx, state) {
                 return state.originList.isEmpty
-                    ? Container()
+                    ? Center(child: CircularProgressIndicator())
                     : DDBarChart(
                         hasYAxis: true,
                         hasTooltip: true,
@@ -168,21 +167,16 @@ class _ViewAllPageState extends State<_ViewAllPage>
                         xLabel: state.xLabelList,
                         yLabel: state.yLabelList,
                         notifyGraphBarScroll: (way, {scrollController}) {
-                          if (scrollController.positions.last.outOfRange &&
-                              scrollController.offset < 0) {
-                            tip(FlutterI18n.translate(context, 'no_data'),
-                                success: true);
-                            return;
-                          }
-
-                          if (scrollController.positions.last.outOfRange) {
-                            context.read<MinerStatsCubit>().dispatchData(
-                                type: widget.type,
-                                time: state.selectedTime,
-                                minerId: widget.minerId,
-                                startTime: state.originList.last.date,
-                                endTime: state.originList.first.date);
-                          }
+                          Future.delayed(Duration(seconds: 1),(){
+                            if (way >= 1 || way <= -1) {
+                              context.read<MinerStatsCubit>().dispatchData(
+                                  type: widget.type,
+                                  time: state.selectedTime,
+                                  minerId: widget.minerId,
+                                  forward: way >= 1,
+                                  endTime: state.originList.first.date);
+                            }
+                          });
                         });
               });
             }).toList(),

@@ -63,6 +63,7 @@ class BarGraph extends StatelessWidget {
     return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         controller: scrollCtrl,
+        physics: AlwaysScrollableScrollPhysics(),
         reverse: true,
         child: GestureDetector(
           onTapUp: (TapUpDetails detail) {
@@ -163,7 +164,7 @@ class GraphPainter extends CustomPainter {
       if (labels != null) {
         final textSpan = TextSpan(
           text: labels[labels.length - 1 - i],
-          style: kSmallFontOfBlack,
+          style: kSmallFontOfGrey,
         );
         final textPainter = TextPainter(
           text: textSpan,
@@ -172,7 +173,7 @@ class GraphPainter extends CustomPainter {
         );
         textPainter.layout(
           minWidth: 0,
-          maxWidth: spaceBetweenLines,
+          // maxWidth: spaceBetweenLines,
         );
         double xTextStart = x - textPainter.width / 2;
         if (labels.length - 1 - i == 0)

@@ -12,7 +12,7 @@ abstract class MinerStatsState with _$MinerStatsState {
       {@Default([]) List<MinerStatsEntity> originList,
       @Default([]) List<double> xDataList,
       @Default([]) List<String> xLabelList,
-      @Default([]) List<double> yLabelList,
+      @Default([]) List<int> yLabelList,
       @Default(false) bool showLoading,
       @Default(MinerStatsTime.week) MinerStatsTime selectedTime,
       @Default(MinerStatsType.uptime) MinerStatsType selectedType,

@@ -10,7 +10,7 @@ class DDBarChart extends StatefulWidget {
   final List<dynamic> tooltipData;
   final List<double> xData;
   final List<String> xLabel;
-  final List<double> yLabel;
+  final List<int> yLabel;
   final Function(int, {ScrollController scrollController}) notifyGraphBarScroll;
 
   const DDBarChart(
@@ -26,14 +26,12 @@ class DDBarChart extends StatefulWidget {
       : super(key: key);
 
   @override
-  _DDBarChartState createState() =>
-      _DDBarChartState();
+  _DDBarChartState createState() => _DDBarChartState();
 }
 
-class _DDBarChartState
-    extends State<DDBarChart> {
-    int index = -1;
-    Offset position = Offset(0,0);
+class _DDBarChartState extends State<DDBarChart> {
+  int index = -1;
+  Offset position = Offset(0, 0);
 
   @override
   Widget build(BuildContext context) {
@@ -58,50 +56,69 @@ class _DDBarChartState
                   ],
                 ),
                 child: Text(
-                  index != -1? '${widget.tooltipData[index]}' : '0',
+                  index != -1 ? '${widget.tooltipData[index]}' : '0',
                   style: kBigFontOfBlack,
                 ),
               )),
         ),
         Container(
             padding: kOuterRowTop50,
-            margin: kRoundRow2005,
+            margin: kRoundRow1005,
             child: Flex(direction: Axis.horizontal, children: [
               Expanded(
-                  child: BarGraph(
-                      widget.xData, widget.numBar, MediaQuery.of(context).size.width,
+                  child: BarGraph(widget.xData, widget.numBar,
+                      MediaQuery.of(context).size.width - 60,
                       xAxisLabels: widget.xLabel,
                       widgetHeight: MediaQuery.of(context).size.height * 0.6,
-                      notifyGraphBarScroll: (indexValue, {ScrollController scrollController})  {
-                        widget.notifyGraphBarScroll(indexValue, scrollController: scrollController);
-                        setState((){
-                          index = -1;
-                        });
-                      },
-                      onTapUp: (indexValue, positionValue) {
-                        setState((){
-                          index = indexValue;
-                          position = positionValue;
-                        });
-                      })),
+                      notifyGraphBarScroll: (indexValue,
+                          {ScrollController scrollController}) {
+                widget.notifyGraphBarScroll(indexValue,
+                    scrollController: scrollController);
+                setState(() {
+                  index = -1;
+                });
+              }, onTapUp: (indexValue, positionValue) {
+                setState(() {
+                  index = indexValue;
+                  position = positionValue;
+                });
+              })),
               Visibility(
                   visible: widget.hasYAxis,
                   child: Container(
-                      child: Flex(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          direction: Axis.vertical,
-                          children: widget.yLabel.map((yItem) {
-                            return Expanded(
-                              child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 5),
-                                  alignment: Alignment.topCenter,
-                                  child: Text(
-                                    '$yItem',
-                                    textAlign: TextAlign.start,
-                                    style: kSmallFontOfGrey,
-                                  )),
-                            );
-                          }).toList()))),
+                      padding: EdgeInsets.only(bottom: 20),
+                      child: Stack(
+                        children: [
+                          Flex(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              direction: Axis.vertical,
+                              children: widget.yLabel.map((yItem) {
+                                return Expanded(
+                                  child: Container(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 5),
+                                      alignment: Alignment.topCenter,
+                                      child: Text(
+                                        '$yItem',
+                                        textAlign: TextAlign.end,
+                                        style: kSmallFontOfGrey
+                                      )),
+                                );
+                              }).toList()),
+                          Positioned(
+                            right: 0,
+                            bottom: -2,
+                            child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 5),
+                                alignment: Alignment.topCenter,
+                                child: Text(
+                                  '0',
+                                  textAlign: TextAlign.end,
+                                  style: kSmallFontOfGrey,
+                                )),
+                          ),
+                        ],
+                      ))),
             ])),
       ],
     );
