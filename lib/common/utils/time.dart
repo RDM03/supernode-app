@@ -105,6 +105,17 @@ class TimeUtil {
     return now.millisecondsSinceEpoch;
   }
 
+  static bool isSameDay(DateTime time1, DateTime time2) {
+    return time1.year == time2.year &&
+        time1.month == time2.month &&
+        time1.day == time2.day;
+  }
+
+  static bool isSameMonth(DateTime time1, DateTime time2) {
+    return time1.year == time2.year && time1.month == time2.month;
+  }
+
+
   // static String comparedNow(context,String oldTime){
   //   String language = localeName(context);
   //   String space = '';

@@ -429,12 +429,12 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
         // if (item.date.weekday != DateTime.sunday) {
         bool hasResult = newData.any((hasItem) =>
             hasItem.date.weekday != DateTime.sunday ||
-            Tools.isSameDay(hasItem.date,
+            TimeUtil.isSameDay(hasItem.date,
                 item.date.add(Duration(days: 7 - item.date.weekday))));
 
         if (hasResult) {
           for (int i = 0; i < newData.length; i++) {
-            if (Tools.isSameDay(newData[i].date,
+            if (TimeUtil.isSameDay(newData[i].date,
                 item.date.add(Duration(days: 7 - item.date.weekday)))) {
               if (type == MinerStatsType.uptime) {
                 newData[i].uptime += item.uptime;
@@ -477,11 +477,11 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     } else {
       data.forEach((item) {
         bool hasResult = newData
-            .any((hasItem) => Tools.isSameMonth(hasItem.date, item.date));
+            .any((hasItem) => TimeUtil.isSameMonth(hasItem.date, item.date));
 
         if (hasResult) {
           for (int i = 0; i < newData.length; i++) {
-            if (Tools.isSameMonth(newData[i].date, item.date)) {
+            if (TimeUtil.isSameMonth(newData[i].date, item.date)) {
               if (type == MinerStatsType.uptime) {
                 newData[i].uptime += item.uptime;
               } else if (type == MinerStatsType.revenue) {
