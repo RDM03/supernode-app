@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
+import 'package:supernodeapp/common/components/buttons/circle_button.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/colored_text.dart';
 import 'package:supernodeapp/common/components/pagination_mixin.dart';
@@ -105,7 +106,11 @@ class _SendToWalletPageState extends State<SendToWalletPage>
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Image.asset(AppImages.fuelCircle),
+            child: CircleButton(
+              key: Key('addFuelBottom'),
+              circleColor: Colors.white,
+              icon: Icon(Icons.arrow_forward, color: fuelColor),
+            ),
           ),
           Expanded(
             child: Column(
