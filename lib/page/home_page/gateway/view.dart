@@ -634,6 +634,7 @@ class GatewayTab extends StatelessWidget {
         buildWhen: (a, b) => a.gateways != b.gateways,
         builder: (ctx, state) => Container(
           height: MediaQuery.of(context).size.height - 150,
+          color: backgroundColor,
           child:
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -703,10 +704,11 @@ class GatewaysList extends StatelessWidget {
       itemBuilder: (BuildContext context, GatewayItem state, int index) =>
           Slidable(
             key: Key("slide_gateway$index"),
-            actionPane: SlidableDrawerActionPane(), //SlidableBehindActionPane
+            actionPane: SlidableDrawerActionPane(),
             actionExtentRatio: 0.25,
             child: GatewayListTile(
               state: state,
+              topOfList: index == 0,
               onTap: () async {
                 await Navigator.push(
                   context,
@@ -732,6 +734,22 @@ class GatewaysList extends StatelessWidget {
         if (page == 0) return state.gateways.value;
         return await context.read<GatewayCubit>().loadNextPage(page);
       },
+      separatorBuilder: (BuildContext context, int index) => Divider(height: 1, thickness: 1, color: Colors.grey.shade50),
+      footer: Container(
+        height: 10,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+          boxShadow: [
+            BoxShadow(
+              color: shodowColor,
+              offset: Offset(0, 2),
+              blurRadius: 7,
+            ),
+          ],
+        ),
+        child: SizedBox(),
+      ),
       onError: (dynamic error) => Center(
         child: Text('Some error occured'),
       ),
@@ -743,20 +761,28 @@ class GatewaysList extends StatelessWidget {
 class GatewayListTile extends StatelessWidget {
   final VoidCallback onTap;
   final GatewayItem state;
+  final bool topOfList;
 
   GatewayListTile({
     @required this.onTap,
     @required this.state,
+    @required this.topOfList,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 2),
+      padding: EdgeInsets.only(top: (topOfList ? 5 : 0)),
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Color.fromARGB(26, 0, 0, 0), width: 1),
-        ),
+        color: Colors.white,
+        borderRadius: (topOfList) ? BorderRadius.vertical(top: Radius.circular(10)) : null,
+        boxShadow: [
+          BoxShadow(
+            color: shodowColor,
+            offset: Offset(0, 2),
+            blurRadius: 7,
+          ),
+        ],
       ),
       child: ListTile(
         tileColor: Colors.white,
