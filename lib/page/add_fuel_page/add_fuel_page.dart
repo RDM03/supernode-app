@@ -85,9 +85,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
           allGateways = [...(allGateways ?? <GatewayItem>[]), ...newGateways];
           gateways = allGateways
               .where((e) =>
-                  e.miningFuel < e.miningFuelMax &&
-                  e.miningFuelHealth != 1 &&
-                  !e.reseller)
+                  e.miningFuel < e.miningFuelMax && e.miningFuelHealth != 1)
               .toList();
           gatewaysMap =
               gateways.asMap().map((key, value) => MapEntry(value.id, value));

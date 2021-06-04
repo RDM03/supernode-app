@@ -86,9 +86,8 @@ class _SendToWalletPageState extends State<SendToWalletPage>
         setState(() {
           isLoading = false;
           allGateways = [...(allGateways ?? <GatewayItem>[]), ...newGateways];
-          gateways = allGateways
-              .where((e) => e.miningFuel > Decimal.zero && !e.reseller)
-              .toList();
+          gateways =
+              allGateways.where((e) => e.miningFuel > Decimal.zero).toList();
           gatewaysMap =
               gateways.asMap().map((key, value) => MapEntry(value.id, value));
         });
