@@ -819,22 +819,22 @@ class GatewayListTile extends StatelessWidget {
                     style: kMiddleFontOfGrey,
                   ),
                   Spacer(),
-                  Image.asset(
+                  (state.reseller) ? SizedBox() : Image.asset(
                     AppImages.gateways,
                     scale: 1.5,
                     color: minerColor,
                   ),
                   smallRowSpacer(),
-                  Text('${Tools.priceFormat((state.health ?? 0) * 100)} %',
+                  (state.reseller) ? SizedBox() : Text('${Tools.priceFormat((state.health ?? 0) * 100)} %',
                       style: kBigFontOfBlack),
                   smallRowSpacer(),
-                  Image.asset(
+                  (state.reseller) ? SizedBox() : Image.asset(
                     AppImages.fuel,
                     scale: 1.5,
                     color: fuelColor,
                   ),
                   smallRowSpacer(),
-                  Text(
+                  (state.reseller) ? SizedBox() : Text(
                       '${Tools.priceFormat((state.miningFuelHealth ?? 0) * 100)} %',
                       style: kBigFontOfBlack),
                 ],
