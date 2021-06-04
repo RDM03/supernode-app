@@ -147,7 +147,7 @@ class GatewayTab extends StatelessWidget {
               behavior: HitTestBehavior.opaque,
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).push(route((ctx) => SendToWalletPage()));},
+                Navigator.of(ctx).push(route((ctx) => SendToWalletPage()));},
               child: Padding(
                 padding: const EdgeInsets.only(left: 32),
                 child: Row(
