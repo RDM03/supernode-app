@@ -41,7 +41,6 @@ List<GatewayItem> parseGateways(
 
       tempGatewaysList[index]['description'] = description;
       tempGatewaysList[index]['reseller'] = (tempGatewaysList[index]['organizationID'] != orgId);
-      //tempGatewaysList[index]['miningFuelHealth'] =
       tempGatewaysList[index]['totalMined'] = 0.0;
       tempGatewaysList[index]['miningFuelMax'] = '0.0';
       tempGatewaysList[index]['miningFuel'] = '0.0';
