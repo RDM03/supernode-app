@@ -7,9 +7,11 @@ import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/components/buttons/circle_button.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/colored_text.dart';
+import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/pagination_mixin.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/slider.dart';
+import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/wallet.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
@@ -89,6 +91,8 @@ class _SendToWalletPageState extends State<SendToWalletPage>
           gatewaysMap =
               gateways.asMap().map((key, value) => MapEntry(value.id, value));
         });
+    } catch (e) {
+      tip(e?.message ?? FlutterI18n.translate(context, 'error_tip'));
     } finally {
       isLoading = false;
     }
@@ -297,35 +301,37 @@ class _SendToWalletPageState extends State<SendToWalletPage>
         ) ??
         false;
     if (res) {
-      final orgId = context.read<SupernodeCubit>().state.orgId;
-      final rep = context.read<SupernodeRepository>();
-      final withdraws =
-          gatewaySelection.entries.where((e) => e.value > 0).map((e) {
-        var val =
-            (gatewaysMap[e.key].miningFuel.toDouble() * e.value).toString();
-        if (gatewaysMap[e.key].miningFuel < Decimal.parse(val))
-          val = gatewaysMap[e.key].miningFuel.toString();
+      final loading = Loading.show(context);
+      try {
+        final orgId = context.read<SupernodeCubit>().state.orgId;
+        final rep = context.read<SupernodeRepository>();
+        final withdraws =
+            gatewaySelection.entries.where((e) => e.value > 0).map((e) {
+          var val =
+              (gatewaysMap[e.key].miningFuel.toDouble() * e.value).toString();
+          if (gatewaysMap[e.key].miningFuel < Decimal.parse(val))
+            val = gatewaysMap[e.key].miningFuel.toString();
 
-        return GatewayAmountRequest(
-          val,
-          e.key,
-        );
-      }).toList();
+          return GatewayAmountRequest(
+            val,
+            e.key,
+          );
+        }).toList();
 
-      final res = await rep.wallet
-          .withdrawMiningFuel(
-              currency: 'ETH_MXC', orgId: orgId, withdraws: withdraws)
-          .withError();
+        await rep.wallet.withdrawMiningFuel(
+            currency: 'ETH_MXC', orgId: orgId, withdraws: withdraws);
 
-      if (res.success) {
-        await context.read<GatewayCubit>().refresh();
+        loading.hide();
         await Navigator.of(context)
             .push(route((ctx) => SendToWalletConfirmPage()));
         Navigator.of(context).pop();
-      } else {
+      } catch (e) {
+        loading.hide();
         await Navigator.of(context).push(
-          route((ctx) => SendToWalletConfirmPage(error: res.error)),
+          route((ctx) => SendToWalletConfirmPage(error: e)),
         );
+      } finally {
+        loading.hide();
       }
     }
   }

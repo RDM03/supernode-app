@@ -21,12 +21,14 @@ class MinerHealthTab extends StatelessWidget {
   final GatewayItem item;
   final List<DailyStatistic> health;
   final double averageHealth;
+  final VoidCallback onRefresh;
 
   const MinerHealthTab({
     Key key,
     this.item,
     this.health,
     this.averageHealth,
+    this.onRefresh,
   }) : super(key: key);
 
   Widget infoCard({
@@ -114,7 +116,8 @@ class MinerHealthTab extends StatelessWidget {
               onTap: item.health == 1
                   ? null
                   : () => Navigator.of(context)
-                      .push(route((ctx) => AddFuelPage(gatewayItem: item))),
+                      .push(route((ctx) => AddFuelPage(gatewayItem: item)))
+                      .then((value) => onRefresh()),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -167,6 +170,7 @@ class MinerHealthTab extends StatelessWidget {
               onTap: item.miningFuel > Decimal.zero
                   ? () => Navigator.of(context)
                       .push(route((ctx) => SendToWalletPage(gatewayItem: item)))
+                      .then((value) => onRefresh())
                   : null,
               child: Column(
                 children: [

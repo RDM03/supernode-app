@@ -122,6 +122,10 @@ class TimeUtil {
     return convertTime;
   }
 
+  static String getM(DateTime date) {
+    return '${date.month.toString().padLeft(2, '0')}';
+  }
+
   static String getMD(DateTime date) {
     return '${monthsReversed[date.month]} ${date.day}';
   }

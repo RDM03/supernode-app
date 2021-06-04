@@ -137,7 +137,7 @@ class _GraphCardState extends State<GraphCard> {
                     height: 10,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: Colors.red,
+                      color: Colors.grey,
                       shape: BoxShape.circle,
                     ),
                   ),

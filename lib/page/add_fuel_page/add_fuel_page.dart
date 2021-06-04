@@ -6,9 +6,11 @@ import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/colored_text.dart';
+import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/pagination_mixin.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/slider.dart';
+import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/wallet.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
@@ -22,7 +24,6 @@ import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:supernodeapp/common/utils/extensions.dart';
 import 'filter_dialog.dart';
 
 class AddFuelPage extends StatefulWidget {
@@ -89,6 +90,8 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
           gatewaysMap =
               gateways.asMap().map((key, value) => MapEntry(value.id, value));
         });
+    } catch (e) {
+      tip(e?.message ?? FlutterI18n.translate(context, 'error_tip'));
     } finally {
       isLoading = false;
     }
@@ -292,35 +295,38 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
         ) ??
         false;
     if (res) {
-      final orgId = context.read<SupernodeCubit>().state.orgId;
-      final rep = context.read<SupernodeRepository>();
-      final topUps =
-          gatewaySelection.entries.where((e) => e.value > 0).map((e) {
-        var val =
-            ((gatewaysMap[e.key].miningFuelMax - gatewaysMap[e.key].miningFuel)
-                        .toDouble() *
-                    e.value)
-                .toString();
-        if (gatewaysMap[e.key].miningFuelMax < Decimal.parse(val))
-          val = gatewaysMap[e.key].miningFuelMax.toString();
+      final loading = Loading.show(context);
+      try {
+        final orgId = context.read<SupernodeCubit>().state.orgId;
+        final rep = context.read<SupernodeRepository>();
+        final topUps =
+            gatewaySelection.entries.where((e) => e.value > 0).map((e) {
+          var val = ((gatewaysMap[e.key].miningFuelMax -
+                          gatewaysMap[e.key].miningFuel)
+                      .toDouble() *
+                  e.value)
+              .toString();
+          if (gatewaysMap[e.key].miningFuelMax < Decimal.parse(val))
+            val = gatewaysMap[e.key].miningFuelMax.toString();
 
-        return GatewayAmountRequest(
-          val,
-          e.key,
-        );
-      }).toList();
-      final res = await rep.wallet
-          .topUpMiningFuel(currency: 'ETH_MXC', orgId: orgId, topUps: topUps)
-          .withError();
+          return GatewayAmountRequest(
+            val,
+            e.key,
+          );
+        }).toList();
+        await rep.wallet
+            .topUpMiningFuel(currency: 'ETH_MXC', orgId: orgId, topUps: topUps);
 
-      if (res.success) {
-        await context.read<GatewayCubit>().refresh();
+        loading.hide();
         await Navigator.of(context).push(route((ctx) => AddFuelConfirmPage()));
         Navigator.of(context).pop();
-      } else {
+      } catch (e) {
+        loading.hide();
         await Navigator.of(context).push(
-          route((ctx) => AddFuelConfirmPage(error: res.error)),
+          route((ctx) => AddFuelConfirmPage(error: e)),
         );
+      } finally {
+        loading.hide();
       }
     }
   }

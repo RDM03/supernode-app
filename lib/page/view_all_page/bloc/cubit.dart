@@ -148,7 +148,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
 
     if (time == MinerStatsTime.week) {
       return TimeUtil.getMD(state.originList.last.date);
-    } else if(time == MinerStatsTime.month){
+    } else if (time == MinerStatsTime.month) {
       return TimeUtil.getMD(state.originList.last.date);
     } else {
       return TimeUtil.getMDY(state.originList.last.date);
@@ -162,7 +162,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
 
     if (time == MinerStatsTime.week) {
       return TimeUtil.getMD(state.originList.first.date);
-    } else if(time == MinerStatsTime.month){
+    } else if (time == MinerStatsTime.month) {
       return TimeUtil.getMD(state.originList.first.date);
     } else {
       return TimeUtil.getMDY(state.originList.first.date);
@@ -207,17 +207,14 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     DateTime tempDate;
     if (forward) {
       if (time == MinerStatsTime.week) {
-        tempDate = endTime?.add(Duration(days: -1)) ??
-            DateTime.now().add(Duration(days: -1));
+        tempDate = endTime?.add(Duration(days: -1)) ?? DateTime.now();
       } else if (time == MinerStatsTime.month) {
-        tempDate = endTime?.add(Duration(days: -30)) ??
-            DateTime.now().add(Duration(days: -1));
+        tempDate = endTime?.add(Duration(days: -30)) ?? DateTime.now();
       } else {
-        tempDate = endTime?.add(Duration(days: -365)) ??
-            DateTime.now().add(Duration(days: -1));
+        tempDate = endTime?.add(Duration(days: -365)) ?? DateTime.now();
       }
     } else {
-       if (time == MinerStatsTime.week) {
+      if (time == MinerStatsTime.week) {
         tempDate = endTime?.add(Duration(days: 1)) ??
             DateTime.now().add(Duration(days: 1));
       } else if (time == MinerStatsTime.month) {
@@ -229,8 +226,8 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       }
     }
 
-    if (TimeUtil.isSameDay(DateTime.now(), tempDate) || tempDate.isAfter(DateTime.now())) {
-      return DateTime.now().add(Duration(days: -1));
+    if (tempDate.isAfter(DateTime.now())) {
+      return DateTime.now();
     }
 
     return tempDate;
@@ -262,7 +259,6 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
 
     endTime = getEndTime(time, endTime, forward: forward);
     startTime = getStartTime(time, endTime);
-
 
     await getSourceFrameData(
       gatewayId: minerId,
@@ -461,7 +457,11 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
           xData.add(item.transmitted / maxValue);
         }
 
-        xLabel.add(TimeUtil.week[item.date.weekday]);
+        if (TimeUtil.isSameDay(item.date, DateTime.now())) {
+          xLabel.add('Today');
+        } else {
+          xLabel.add(TimeUtil.week[item.date.weekday]);
+        }
       });
 
       if (type == MinerStatsType.uptime) {
@@ -564,7 +564,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
           xData.add(item.transmitted / maxValue);
         }
 
-        xLabel.add('${item.date.month}');
+        xLabel.add(TimeUtil.getM(item.date));
       });
 
       emit(state.copyWith(originList: newData));
