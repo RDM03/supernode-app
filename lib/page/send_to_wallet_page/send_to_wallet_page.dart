@@ -321,10 +321,12 @@ class _SendToWalletPageState extends State<SendToWalletPage>
         await rep.wallet.withdrawMiningFuel(
             currency: 'ETH_MXC', orgId: orgId, withdraws: withdraws);
 
+        loading.hide();
         await Navigator.of(context)
             .push(route((ctx) => SendToWalletConfirmPage()));
         Navigator.of(context).pop();
       } catch (e) {
+        loading.hide();
         await Navigator.of(context).push(
           route((ctx) => SendToWalletConfirmPage(error: e)),
         );
