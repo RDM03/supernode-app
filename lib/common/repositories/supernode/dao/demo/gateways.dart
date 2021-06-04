@@ -6,7 +6,7 @@ import '../gateways.dart';
 
 class DemoGatewaysDao extends DemoDao implements GatewaysDao {
   @override
-  Future list(Map data) {
+  Future list(Map data, {String search}) {
     final offset = data['offset'] ?? 0;
     final limit = data['limit'] ?? 10000;
     return Future.value({

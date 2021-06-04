@@ -9,6 +9,7 @@ import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/gateways.model.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/wallet.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/parser.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/page/miner_detail_page/tabs/miner_health_tab.dart';
 import 'package:supernodeapp/page/miner_detail_page/tabs/miner_revenue_tab.dart';
@@ -32,10 +33,12 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
   List<DailyStatistic> stats;
   double totalAmount;
   double averageHealth = 1;
+  GatewayItem item;
 
   @override
   void initState() {
     super.initState();
+    item = widget.item;
     initStateAsync();
   }
 
@@ -43,6 +46,25 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
     await getStatistic();
     await getFrames();
     await getDownlinkPrice();
+  }
+
+  Future<void> refreshItem() async {
+    final rep = context.read<SupernodeRepository>();
+
+    final listMinersHealth = await rep.gateways
+        .minerHealth({"orgId": context.read<SupernodeCubit>().state.orgId});
+
+    final res = await context.read<SupernodeRepository>().gateways.list({
+      'organizationID': context.read<SupernodeCubit>().state.orgId,
+      'offset': 0,
+      'limit': 10,
+    }, search: item.id);
+    final List<GatewayItem> gateways = parseGateways(res, listMinersHealth);
+    if (gateways.isNotEmpty && mounted) {
+      setState(() {
+        item = gateways.first;
+      });
+    }
   }
 
   Future<void> getDownlinkPrice() async {
@@ -147,9 +169,10 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
             ),
             if (selectedTab == 0)
               MinerHealthTab(
-                item: widget.item,
+                item: item,
                 health: stats,
                 averageHealth: averageHealth,
+                onRefresh: refreshItem,
               )
             else if (selectedTab == 1)
               MinerRevenueTab(

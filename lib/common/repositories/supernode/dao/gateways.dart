@@ -40,8 +40,14 @@ class GatewaysDao extends SupernodeDao {
   GatewaysDao(SupernodeHttpClient client) : super(client);
 
   //remote
-  Future<dynamic> list(Map data) {
-    return get(url: GatewaysApi.list, data: data);
+  Future<dynamic> list(
+    Map data, {
+    String search,
+  }) {
+    return get(
+      url: GatewaysApi.list,
+      data: {...data, if (search != null) 'search': search},
+    );
   }
 
   Future<dynamic> locations() {
