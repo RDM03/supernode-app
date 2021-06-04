@@ -712,14 +712,15 @@ class GatewaysList extends StatelessWidget {
           state: state,
           topOfList: index == 0,
           onTap: () async {
-            await Navigator.push(
-              context,
-              route(
-                (ctx) => MinerDetailPage(
-                  item: state,
+            if (!state.reseller)
+              await Navigator.push(
+                context,
+                route(
+                      (ctx) => MinerDetailPage(
+                    item: state,
+                  ),
                 ),
-              ),
-            );
+              );
           },
         ),
         secondaryActions: <Widget>[
