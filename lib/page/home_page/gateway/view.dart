@@ -147,7 +147,6 @@ class GatewayTab extends StatelessWidget {
                 Navigator.pop(context);
                 await Navigator.of(ctx)
                     .push(route((ctx) => SendToWalletPage()));
-                await context.read<GatewayCubit>().refresh();
               },
               child: Padding(
                 padding: const EdgeInsets.only(left: 32),
@@ -568,9 +567,6 @@ class GatewayTab extends StatelessWidget {
                                           Navigator.pop(context);
                                           await Navigator.of(ctx).push(
                                               route((ctx) => AddFuelPage()));
-                                          await context
-                                              .read<GatewayCubit>()
-                                              .refresh();
                                         },
                                         buttonTitle: FlutterI18n.translate(
                                             context, 'fuel_miners'),
@@ -724,7 +720,6 @@ class GatewaysList extends StatelessWidget {
                 ),
               ),
             );
-            await context.read<GatewayCubit>().refresh();
           },
         ),
         secondaryActions: <Widget>[
