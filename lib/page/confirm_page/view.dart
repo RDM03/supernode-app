@@ -1,14 +1,13 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/common/components/buttons/primary_button.dart';
-import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/page/done.dart';
 import 'package:supernodeapp/common/components/page/page_content.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/page/title.dart';
+import 'package:supernodeapp/common/utils/navigator.dart';
 
 import 'state.dart';
 
@@ -18,7 +17,7 @@ Widget buildView(
 
   return pageFrame(context: viewService.context, children: [
     pageNavBar(FlutterI18n.translate(_ctx, state.title),
-        onTap: () => Navigator.pop(viewService.context)),
+        onTap: () => popPage(_ctx, 3)),
     title(FlutterI18n.translate(_ctx, state.title)),
     done(
         success: state.success ||
