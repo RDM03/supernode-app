@@ -80,7 +80,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
         "orgId": orgId,
       });
       totalGateways = int.parse(res['totalCount']);
-      final newGateways = parseGateways(res, listMinersHealth, orgId);
+      final newGateways = parseGateways(res, listMinersHealth);
       if (newGateways.isEmpty) forceStopLoading = true;
       if (mounted)
         setState(() {
