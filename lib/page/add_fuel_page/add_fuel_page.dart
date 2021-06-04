@@ -77,7 +77,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
         "orgId": orgId,
       });
       totalGateways = int.parse(res['totalCount']);
-      final newGateways = parseGateways(res, listMinersHealth);
+      final newGateways = parseGateways(res, listMinersHealth, orgId);
       if (newGateways.isEmpty) forceStopLoading = true;
       if (mounted)
         setState(() {
@@ -85,7 +85,9 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
           allGateways = [...(allGateways ?? <GatewayItem>[]), ...newGateways];
           gateways = allGateways
               .where((e) =>
-                  e.miningFuel < e.miningFuelMax && e.miningFuelHealth != 1)
+                  e.miningFuel < e.miningFuelMax &&
+                  e.miningFuelHealth != 1 &&
+                  !e.reseller)
               .toList();
           gatewaysMap =
               gateways.asMap().map((key, value) => MapEntry(value.id, value));

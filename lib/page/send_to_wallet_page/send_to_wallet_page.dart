@@ -80,14 +80,15 @@ class _SendToWalletPageState extends State<SendToWalletPage>
         "orgId": orgId,
       });
       totalGateways = int.parse(res['totalCount']);
-      final newGateways = parseGateways(res, listMinersHealth);
+      final newGateways = parseGateways(res, listMinersHealth, orgId);
       if (newGateways.isEmpty) forceStopLoading = true;
       if (mounted)
         setState(() {
           isLoading = false;
           allGateways = [...(allGateways ?? <GatewayItem>[]), ...newGateways];
-          gateways =
-              allGateways.where((e) => e.miningFuel > Decimal.zero).toList();
+          gateways = allGateways
+              .where((e) => e.miningFuel > Decimal.zero && !e.reseller)
+              .toList();
           gatewaysMap =
               gateways.asMap().map((key, value) => MapEntry(value.id, value));
         });
