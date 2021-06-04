@@ -115,9 +115,10 @@ class GatewayTab extends StatelessWidget {
             Divider(),
             GestureDetector(
               behavior: HitTestBehavior.opaque,
-              onTap: () {
+              onTap: () async {
                 Navigator.pop(context);
-                Navigator.of(ctx).push(route((ctx) => AddFuelPage()));
+                await Navigator.of(ctx).push(route((ctx) => AddFuelPage()));
+                await context.read<GatewayCubit>().refresh();
               },
               child: Padding(
                 padding: const EdgeInsets.only(left: 32),
@@ -142,9 +143,11 @@ class GatewayTab extends StatelessWidget {
             Divider(),
             GestureDetector(
               behavior: HitTestBehavior.opaque,
-              onTap: () {
+              onTap: () async {
                 Navigator.pop(context);
-                Navigator.of(ctx).push(route((ctx) => SendToWalletPage()));
+                await Navigator.of(ctx)
+                    .push(route((ctx) => SendToWalletPage()));
+                await context.read<GatewayCubit>().refresh();
               },
               child: Padding(
                 padding: const EdgeInsets.only(left: 32),
@@ -561,10 +564,13 @@ class GatewayTab extends StatelessWidget {
                                     bottomButton: PrimaryButton(
                                         minWidth: double.infinity,
                                         minHeight: 40,
-                                        onTap: () {
+                                        onTap: () async {
                                           Navigator.pop(context);
-                                          Navigator.of(ctx).push(
+                                          await Navigator.of(ctx).push(
                                               route((ctx) => AddFuelPage()));
+                                          await context
+                                              .read<GatewayCubit>()
+                                              .refresh();
                                         },
                                         buttonTitle: FlutterI18n.translate(
                                             context, 'fuel_miners'),
@@ -718,6 +724,7 @@ class GatewaysList extends StatelessWidget {
                 ),
               ),
             );
+            await context.read<GatewayCubit>().refresh();
           },
         ),
         secondaryActions: <Widget>[
