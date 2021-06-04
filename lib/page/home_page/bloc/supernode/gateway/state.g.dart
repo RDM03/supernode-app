@@ -20,6 +20,12 @@ _$_GatewayItem _$_$_GatewayItemFromJson(Map<String, dynamic> json) {
     lastSeenAt: json['lastSeenAt'] as String,
     model: json['model'] as String,
     osversion: json['osversion'] as String,
+    health: (json['health'] as num)?.toDouble(),
+    uptimeHealth: (json['uptimeHealth'] as num)?.toDouble(),
+    miningFuelHealth: (json['miningFuelHealth'] as num)?.toDouble(),
+    miningFuel: Decimal.tryParse(json['miningFuel'] as String),
+    miningFuelMax: Decimal.tryParse(json['miningFuelMax'] as String),
+    totalMined: (json['totalMined'] as num)?.toDouble(),
   );
 }
 
@@ -37,4 +43,10 @@ Map<String, dynamic> _$_$_GatewayItemToJson(_$_GatewayItem instance) =>
       'lastSeenAt': instance.lastSeenAt,
       'model': instance.model,
       'osversion': instance.osversion,
+      'health': instance.health,
+      'uptimeHealth': instance.uptimeHealth,
+      'miningFuelHealth': instance.miningFuelHealth,
+      'miningFuel': _decimalToJson(instance.miningFuel),
+      'miningFuelMax': _decimalToJson(instance.miningFuelMax),
+      'totalMined': instance.totalMined,
     };

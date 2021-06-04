@@ -66,7 +66,9 @@ class CircleButton extends StatelessWidget {
           SizedBox(height: 8),
           Text(
             text,
-            style: (onPressed == null) ? kSecondaryButtonOfGrey : kSecondaryButtonOfWhite,
+            style: (onPressed == null)
+                ? kSecondaryButtonOfGrey
+                : kSecondaryButtonOfWhite,
           ),
         ],
       ),

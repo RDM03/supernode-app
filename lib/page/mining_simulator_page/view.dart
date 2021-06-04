@@ -96,7 +96,10 @@ Widget buildView(
               children: [
                 smallColumnSpacer(),
                 Center(
-                  child: Text(FlutterI18n.translate(_ctx, 'simulator_results'), style: kBigBoldFontOfBlack,)),
+                    child: Text(
+                  FlutterI18n.translate(_ctx, 'simulator_results'),
+                  style: kBigBoldFontOfBlack,
+                )),
                 bigColumnSpacer(),
                 Center(
                   child: SizedBox(
@@ -111,11 +114,11 @@ Widget buildView(
                 SizedBox(height: 8),
                 Center(
                   child: ValueListenableBuilder2(
-                      state.minersAmountCtl, state.mxcLockedCtl, builder:
-                      (ctx, TextEditingValue miners,
-                      TextEditingValue mxc, _) {
+                      state.minersAmountCtl, state.mxcLockedCtl, builder: (ctx,
+                          TextEditingValue miners, TextEditingValue mxc, _) {
                     final mPower = getMPower(state, mxc.text, miners.text);
-                    final res = mPower == null ? null : Tools.numberRounded(mPower);
+                    final res =
+                        mPower == null ? null : Tools.numberRounded(mPower);
                     return Text(
                       (res ?? '??'),
                       key: ValueKey('mPowerText'),
@@ -138,7 +141,7 @@ Widget buildView(
                 if (state.calculateExpandState == CalculateExpandState.mPower)
                   ValueListenableBuilder2(
                       state.minersAmountCtl, state.mxcLockedCtl, builder: (ctx,
-                      TextEditingValue miners, TextEditingValue mxc, _) {
+                          TextEditingValue miners, TextEditingValue mxc, _) {
                     final mPower = getMPower(state, mxc.text, miners.text);
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -146,8 +149,9 @@ Widget buildView(
                         key: ValueKey('mPowerExpandedButton'),
                         width: double.infinity,
                         text: (mPower == null || mPower.isNaN
-                            ? '??'
-                            : mPower.toStringAsFixed(0)) + ' mPower',
+                                ? '??'
+                                : mPower.toStringAsFixed(0)) +
+                            ' mPower',
                         onTap: () => dispatch(
                             MiningSimulatorActionCreator.expandCalculation(
                                 CalculateExpandState.notExpanded)),
@@ -156,7 +160,7 @@ Widget buildView(
                   }),
                 middleColumnSpacer(),
                 Container(
-                  padding: kRoundRow15_5,
+                  padding: kRoundRow1505,
                   child: Row(
                     children: <Widget>[
                       Text(
@@ -165,12 +169,14 @@ Widget buildView(
                         style: kSmallFontOfGrey,
                       ),
                       Spacer(),
-                      ValueListenableBuilder3(
-                          state.minersAmountCtl, state.mxcLockedCtl, state.dhxBondedCtl, builder:
-                          (ctx, TextEditingValue miners,
-                          TextEditingValue mxc,
-                          TextEditingValue dhx, _) {
-                        final dailyReturn = getDailyReturn(state, mxc.text, miners.text);
+                      ValueListenableBuilder3(state.minersAmountCtl,
+                          state.mxcLockedCtl, state.dhxBondedCtl, builder: (ctx,
+                              TextEditingValue miners,
+                              TextEditingValue mxc,
+                              TextEditingValue dhx,
+                              _) {
+                        final dailyReturn =
+                            getDailyReturn(state, mxc.text, miners.text);
                         final res = dailyReturn == null || dailyReturn.isNaN
                             ? null
                             : '${Tools.priceFormat(dailyReturn, range: 2)} ${Token.supernodeDhx.name}';
@@ -184,21 +190,24 @@ Widget buildView(
                   ),
                 ),
                 Container(
-                  padding: kRoundRow15_5,
+                  padding: kRoundRow1505,
                   child: Row(
                     children: <Widget>[
                       Text(
-                        FlutterI18n.translate(_ctx, 'bond_amount_for_max_mining'),
+                        FlutterI18n.translate(
+                            _ctx, 'bond_amount_for_max_mining'),
                         textAlign: TextAlign.left,
                         style: kSmallFontOfGrey,
                       ),
                       Spacer(),
-                      ValueListenableBuilder3(
-                          state.minersAmountCtl, state.mxcLockedCtl, state.dhxBondedCtl, builder:
-                          (ctx, TextEditingValue miners,
-                          TextEditingValue mxc,
-                          TextEditingValue dhx, _) {
-                        final dailyReturn = getDailyReturn(state, mxc.text, miners.text);
+                      ValueListenableBuilder3(state.minersAmountCtl,
+                          state.mxcLockedCtl, state.dhxBondedCtl, builder: (ctx,
+                              TextEditingValue miners,
+                              TextEditingValue mxc,
+                              TextEditingValue dhx,
+                              _) {
+                        final dailyReturn =
+                            getDailyReturn(state, mxc.text, miners.text);
                         final res = dailyReturn == null || dailyReturn.isNaN
                             ? null
                             : '${Tools.priceFormat(70 * dailyReturn, range: 2)} ${Token.supernodeDhx.name}';

@@ -28,13 +28,10 @@ class SupernodeLoginCard extends StatefulWidget {
 
   @override
   _SupernodeLoginCardContentState createState() =>
-      _SupernodeLoginCardContentState(
-          onTap: onTap,
-          fixed: fixed);
+      _SupernodeLoginCardContentState(onTap: onTap, fixed: fixed);
 }
 
-class _SupernodeLoginCardContentState
-    extends State<SupernodeLoginCard> {
+class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
   final VoidCallback onTap;
   final bool fixed;
   LoginCubit loginCubit;
@@ -114,7 +111,8 @@ class _SupernodeLoginCardContentState
                       PositionedTransition(
                         rect: RelativeRectTween(
                           begin: RelativeRect.fromSize(
-                            Rect.fromLTWH(biggest.width - 130 - 16, 16, 130, 130),
+                            Rect.fromLTWH(
+                                biggest.width - 130 - 16, 16, 130, 130),
                             biggest,
                           ),
                           end: RelativeRect.fromSize(
@@ -133,11 +131,13 @@ class _SupernodeLoginCardContentState
                       PositionedTransition(
                         rect: RelativeRectTween(
                           begin: RelativeRect.fromSize(
-                            Rect.fromLTWH(biggest.width - 130 - 16, 162, 130, 30),
+                            Rect.fromLTWH(
+                                biggest.width - 130 - 16, 162, 130, 30),
                             biggest,
                           ),
                           end: RelativeRect.fromSize(
-                            Rect.fromLTWH((biggest.width - 130) / 2, 26, 130, 30),
+                            Rect.fromLTWH(
+                                (biggest.width - 130) / 2, 26, 130, 30),
                             biggest,
                           ),
                         ).animate(widget.animation),
@@ -221,7 +221,8 @@ class _SupernodeLoginCardContentState
                       Expanded(
                         flex: 3,
                         child: ImageWithText(
-                          text: FlutterI18n.translate(context, 'what_is_supernode'),
+                          text: FlutterI18n.translate(
+                              context, 'what_is_supernode'),
                           image: AssetImage(AppImages.mxcSite1),
                           fontSize: Tween<double>(begin: 3, end: 16)
                               .evaluate(widget.animation),
@@ -231,7 +232,8 @@ class _SupernodeLoginCardContentState
                       Expanded(
                         flex: 3,
                         child: ImageWithText(
-                          text: FlutterI18n.translate(context, 'how_to_become_supernode'),
+                          text: FlutterI18n.translate(
+                              context, 'how_to_become_supernode'),
                           image: AssetImage(AppImages.mxcSite2),
                           fontSize: Tween<double>(begin: 3, end: 16)
                               .evaluate(widget.animation),
@@ -241,7 +243,8 @@ class _SupernodeLoginCardContentState
                       Expanded(
                         flex: 3,
                         child: ImageWithText(
-                          text: FlutterI18n.translate(context, 'supernode_staking_profit_share'),
+                          text: FlutterI18n.translate(
+                              context, 'supernode_staking_profit_share'),
                           image: AssetImage(AppImages.mxcSite3),
                           fontSize: Tween<double>(begin: 3, end: 16)
                               .evaluate(widget.animation),
@@ -259,19 +262,18 @@ class _SupernodeLoginCardContentState
                 CircleButton(
                   text: FlutterI18n.translate(context, 'signup'),
                   icon: Icons.add,
-                  onPressed: () => Navigator.of(context).push(route((ctx) => BlocProvider<LoginCubit>.value(
-                      value: loginCubit,
-                      child: SupernodeSignupPage()))),
+                  onPressed: () => Navigator.of(context).push(route((ctx) =>
+                      BlocProvider<LoginCubit>.value(
+                          value: loginCubit, child: SupernodeSignupPage()))),
                 ),
                 SizedBox(width: 23),
                 CircleButton(
                   key: Key('login'),
                   text: FlutterI18n.translate(context, 'login'),
                   icon: Icons.arrow_forward,
-                  onPressed: () => Navigator.of(context)
-                      .push(route((ctx) => BlocProvider<LoginCubit>.value(
-                      value: loginCubit,
-                      child: SupernodeLoginPage()))),
+                  onPressed: () => Navigator.of(context).push(route((ctx) =>
+                      BlocProvider<LoginCubit>.value(
+                          value: loginCubit, child: SupernodeLoginPage()))),
                 ),
                 SizedBox(width: 20),
               ],

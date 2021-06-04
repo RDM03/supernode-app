@@ -114,8 +114,7 @@ void _onVerificationContinue(
       loading.hide();
       mLog('passwordConfirm', res);
 
-      tip(FlutterI18n.translate(ctx.context, 'update_success'),
-          success: true);
+      tip(FlutterI18n.translate(ctx.context, 'update_success'), success: true);
       Navigator.of(ctx.context)
           .pushAndRemoveUntil(route((c) => LoginPage()), (_) => false);
     } catch (e) {
