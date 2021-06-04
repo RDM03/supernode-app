@@ -59,7 +59,7 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
       'offset': 0,
       'limit': 10,
     }, search: item.id);
-    final List<GatewayItem> gateways = parseGateways(res, listMinersHealth);
+    final List<GatewayItem> gateways = parseGateways(res, listMinersHealth, context.read<SupernodeCubit>().state.orgId);
     if (gateways.isNotEmpty && mounted) {
       setState(() {
         item = gateways.first;
