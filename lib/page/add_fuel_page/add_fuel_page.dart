@@ -15,6 +15,7 @@ import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/add_fuel_page/confirm_page.dart';
 import 'package:supernodeapp/page/add_fuel_page/proceed_dialog.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/parser.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/route.dart';
@@ -313,6 +314,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
           .withError();
 
       if (res.success) {
+        await context.read<GatewayCubit>().refresh();
         await Navigator.of(context).push(route((ctx) => AddFuelConfirmPage()));
         Navigator.of(context).pop();
       } else {

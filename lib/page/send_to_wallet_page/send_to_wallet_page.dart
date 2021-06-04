@@ -14,6 +14,7 @@ import 'package:supernodeapp/common/repositories/supernode/dao/wallet.model.dart
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/parser.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/route.dart';
@@ -317,6 +318,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
           .withError();
 
       if (res.success) {
+        await context.read<GatewayCubit>().refresh();
         await Navigator.of(context)
             .push(route((ctx) => SendToWalletConfirmPage()));
         Navigator.of(context).pop();
