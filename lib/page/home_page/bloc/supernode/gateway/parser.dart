@@ -4,7 +4,7 @@ import 'package:supernodeapp/common/repositories/supernode/dao/gateways.model.da
 import 'state.dart';
 
 List<GatewayItem> parseGateways(
-    dynamic gatewaysResponse, List<MinerHealthResponse> listMinersHealth) {
+    dynamic gatewaysResponse, List<MinerHealthResponse> listMinersHealth, String orgId) {
   List<GatewayItem> list = [];
 
   // [0-9]\d{0,1}\.[0-9]\d{0,1}\.[0-9]\d{0,1}
@@ -40,6 +40,12 @@ List<GatewayItem> parseGateways(
       }
 
       tempGatewaysList[index]['description'] = description;
+      tempGatewaysList[index]['reseller'] = (tempGatewaysList[index]['organizationID'] != orgId);
+      //tempGatewaysList[index]['miningFuelHealth'] =
+      tempGatewaysList[index]['totalMined'] = 0.0;
+      tempGatewaysList[index]['miningFuelMax'] = '0.0';
+      tempGatewaysList[index]['miningFuel'] = '0.0';
+
 
       // Add mining health info
       if (listMinersHealth != null)

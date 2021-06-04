@@ -46,6 +46,7 @@ abstract class GatewayItem with _$GatewayItem {
     @nullable
         Decimal miningFuelMax,
     @nullable double totalMined,
+    @Default(false) bool reseller,
   }) = _GatewayItem;
 
   factory GatewayItem.fromJson(Map<String, dynamic> json) =>
