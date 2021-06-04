@@ -317,6 +317,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
         await rep.wallet
             .topUpMiningFuel(currency: 'ETH_MXC', orgId: orgId, topUps: topUps);
 
+        await context.read<GatewayCubit>().refreshGateways();
         loading.hide();
         await Navigator.of(context).push(route((ctx) => AddFuelConfirmPage()));
         Navigator.of(context).pop();
