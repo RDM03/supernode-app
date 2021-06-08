@@ -22,7 +22,8 @@ class BarGraph extends StatelessWidget {
   final double widgetHeight;
 
   /// notifyGraphBarScroll
-  final Function(int, {ScrollController scrollController}) notifyGraphBarScroll;
+  /// firstIndex: The first bar means that there is the first item in the most left of the visibility.
+  final Function(int, {ScrollController scrollController, int firstIndex}) notifyGraphBarScroll;
   final double barWidth = 20.0;
   final ScrollController scrollCtrl = ScrollController();
   double spaceBetweenLines;
@@ -46,13 +47,24 @@ class BarGraph extends StatelessWidget {
     if (notifyGraphBarScroll != null) {
       scrollCtrl.addListener(() {
         double position = scrollCtrl.offset / (spaceBetweenLines + barWidth);
+        int firstIndex = 0;
+        
+        if(scrollCtrl.offset <= barWidth){
+          firstIndex = 0;
+        } else {
+          firstIndex = ((scrollCtrl.offset) / (spaceBetweenLines + barWidth * 2)).ceil();
+        }
+
+        print(scrollCtrl.offset);
+        print(firstIndex);
+
         if (position.round() > currentBar) {
           currentBar++;
-          notifyGraphBarScroll(currentBar, scrollController: scrollCtrl);
+          notifyGraphBarScroll(currentBar, scrollController: scrollCtrl, firstIndex: firstIndex);
         }
         if (position.round() < currentBar) {
           currentBar--;
-          notifyGraphBarScroll(currentBar, scrollController: scrollCtrl);
+          notifyGraphBarScroll(currentBar, scrollController: scrollCtrl, firstIndex: firstIndex);
         }
       });
     }

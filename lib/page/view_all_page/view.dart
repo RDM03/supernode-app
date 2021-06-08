@@ -143,7 +143,6 @@ class _ViewAllPageState extends State<_ViewAllPage>
                   context.read<MinerStatsCubit>().getEndTimeLabel() ?? '--',
             );
           }),
-          DDBoxSpacer(height: SpacerStyle.big),
           Expanded(
               child: TabBarView(
             physics: NeverScrollableScrollPhysics(),
@@ -166,17 +165,30 @@ class _ViewAllPageState extends State<_ViewAllPage>
                         xData: state.xDataList,
                         xLabel: state.xLabelList,
                         yLabel: state.yLabelList,
-                        notifyGraphBarScroll: (way, {scrollController}) {
-                          Future.delayed(Duration(seconds: 1),(){
-                            if (way >= 1 || way <= -1) {
-                              context.read<MinerStatsCubit>().dispatchData(
+                        notifyGraphBarScroll: (way, {scrollController, firstIndex}) {
+                          print('------');
+                          print(firstIndex);
+
+                          if (state.originList.length - firstIndex - 8 <= 5) {
+                            context.read<MinerStatsCubit>().dispatchData(
                                   type: widget.type,
                                   time: state.selectedTime,
                                   minerId: widget.minerId,
                                   forward: way >= 1,
-                                  endTime: state.originList.first.date);
-                            }
-                          });
+                                  startTime: state.originList.last.date);
+                          }
+
+
+                          // Future.delayed(Duration(seconds: 1),(){
+                            // if (way >= 1 || way <= -1) {
+                            //   context.read<MinerStatsCubit>().dispatchData(
+                            //       type: widget.type,
+                            //       time: state.selectedTime,
+                            //       minerId: widget.minerId,
+                            //       forward: way >= 1,
+                            //       endTime: state.originList.first.date);
+                            // }
+                          // });
                         });
               });
             }).toList(),

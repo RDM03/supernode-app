@@ -11,7 +11,7 @@ class DDBarChart extends StatefulWidget {
   final List<double> xData;
   final List<String> xLabel;
   final List<int> yLabel;
-  final Function(int, {ScrollController scrollController}) notifyGraphBarScroll;
+  final Function(int, {ScrollController scrollController, int firstIndex}) notifyGraphBarScroll;
 
   const DDBarChart(
       {Key key,
@@ -71,9 +71,9 @@ class _DDBarChartState extends State<DDBarChart> {
                       xAxisLabels: widget.xLabel,
                       widgetHeight: MediaQuery.of(context).size.height * 0.6,
                       notifyGraphBarScroll: (indexValue,
-                          {ScrollController scrollController}) {
+                          {ScrollController scrollController, int firstIndex}) {
                 widget.notifyGraphBarScroll(indexValue,
-                    scrollController: scrollController);
+                    scrollController: scrollController, firstIndex: firstIndex);
                 setState(() {
                   index = -1;
                 });

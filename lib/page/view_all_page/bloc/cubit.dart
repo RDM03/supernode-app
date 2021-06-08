@@ -173,16 +173,16 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       {MinerStatsType type = MinerStatsType.uptime,
       MinerStatsTime time = MinerStatsTime.week,
       bool forward = true,
-      DateTime endTime,
+      DateTime startTime,
       String minerId}) async {
     switch (type) {
       case MinerStatsType.uptime:
       case MinerStatsType.revenue:
-        getStatsMinerData(type, time, forward, endTime, minerId);
+        getStatsMinerData(type, time, startTime, minerId);
         break;
       case MinerStatsType.frameReceived:
       case MinerStatsType.frameTransmitted:
-        getStatsFrameData(type, time, forward, endTime, minerId);
+        // getStatsFrameData(type, time, forward, endTime, minerId);
         break;
       default:
         break;
@@ -191,8 +191,8 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
 
   DateTime getStartTime(MinerStatsTime time, DateTime startTime) {
     if (time == MinerStatsTime.week) {
-      return startTime?.add(Duration(days: -6)) ??
-          DateTime.now().add(Duration(days: -6));
+      return startTime?.add(Duration(days: -12)) ??
+          DateTime.now().add(Duration(days: -12));
     } else if (time == MinerStatsTime.month) {
       return startTime?.add(Duration(days: -30)) ??
           DateTime.now().add(Duration(days: -30));
@@ -202,51 +202,51 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     }
   }
 
-  DateTime getEndTime(MinerStatsTime time, DateTime endTime,
-      {bool forward = true}) {
+  DateTime getEndTime() {
     DateTime tempDate;
-    if (forward) {
-      if (time == MinerStatsTime.week) {
-        tempDate = endTime?.add(Duration(days: -1)) ?? DateTime.now();
-      } else if (time == MinerStatsTime.month) {
-        tempDate = endTime?.add(Duration(days: -30)) ?? DateTime.now();
-      } else {
-        tempDate = endTime?.add(Duration(days: -365)) ?? DateTime.now();
-      }
-    } else {
-      if (time == MinerStatsTime.week) {
-        tempDate = endTime?.add(Duration(days: 1)) ??
-            DateTime.now().add(Duration(days: 1));
-      } else if (time == MinerStatsTime.month) {
-        tempDate = endTime?.add(Duration(days: 30)) ??
-            DateTime.now().add(Duration(days: 30));
-      } else {
-        tempDate = endTime?.add(Duration(days: 365)) ??
-            DateTime.now().add(Duration(days: 365));
-      }
-    }
 
-    if (tempDate.isAfter(DateTime.now())) {
-      return DateTime.now();
-    }
+    tempDate = DateTime.now();
+
+    // if (forward) {
+    //   if (time == MinerStatsTime.week) {
+    //     tempDate = endTime?.add(Duration(days: -1)) ?? DateTime.now();
+    //   } else if (time == MinerStatsTime.month) {
+    //     tempDate = endTime?.add(Duration(days: -30)) ?? DateTime.now();
+    //   } else {
+    //     tempDate = endTime?.add(Duration(days: -365)) ?? DateTime.now();
+    //   }
+    // } 
+    
+    // else {
+    //   if (time == MinerStatsTime.week) {
+    //     tempDate = endTime?.add(Duration(days: 1)) ??
+    //         DateTime.now().add(Duration(days: 1));
+    //   } else if (time == MinerStatsTime.month) {
+    //     tempDate = endTime?.add(Duration(days: 30)) ??
+    //         DateTime.now().add(Duration(days: 30));
+    //   } else {
+    //     tempDate = endTime?.add(Duration(days: 365)) ??
+    //         DateTime.now().add(Duration(days: 365));
+    //   }
+    // }
+
+    // if (tempDate.isAfter(DateTime.now())) {
+    //   return DateTime.now();
+    // }
 
     return tempDate;
   }
 
   Future<void> getStatsMinerData(MinerStatsType type, MinerStatsTime time,
-      bool forward, DateTime endTime, String minerId) async {
-    DateTime startTime;
+      DateTime startTime, String minerId) async {
 
-    endTime = getEndTime(time, endTime, forward: forward);
-    startTime = getStartTime(time, endTime);
+    startTime = getStartTime(time, startTime);
 
     await getSourceMinerData(
       gatewayMac: minerId,
       orgId: supernodeCubit.state.orgId,
-      fromDate: DateTime.utc(startTime.year, startTime.month, startTime.day),
-      tillDate: DateTime.utc(endTime.year, endTime.month, endTime.day),
       startTime: startTime,
-      endTime: endTime,
+      endTime: getEndTime(),
       successCB: (result) {
         generateChartData(type, time, result);
       },
@@ -257,20 +257,20 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       bool forward, DateTime endTime, String minerId) async {
     DateTime startTime;
 
-    endTime = getEndTime(time, endTime, forward: forward);
-    startTime = getStartTime(time, endTime);
+    // endTime = getEndTime(time, endTime, forward: forward);
+    // startTime = getStartTime(time, endTime);
 
-    await getSourceFrameData(
-      gatewayId: minerId,
-      interval: 'DAY',
-      startTimestamp: startTime,
-      endTimestamp: endTime,
-      startTime: startTime,
-      endTime: endTime,
-      successCB: (result) {
-        generateChartData(type, time, result);
-      },
-    );
+    // await getSourceFrameData(
+    //   gatewayId: minerId,
+    //   interval: 'DAY',
+    //   startTimestamp: startTime,
+    //   endTimestamp: endTime,
+    //   startTime: startTime,
+    //   endTime: endTime,
+    //   successCB: (result) {
+    //     generateChartData(type, time, result);
+    //   },
+    // );
   }
 
   List<MinerStatsEntity> generateMinerEntities(
@@ -294,8 +294,6 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
   Future<void> getSourceMinerData({
     String gatewayMac,
     String orgId,
-    DateTime fromDate,
-    DateTime tillDate,
     DateTime startTime,
     DateTime endTime,
     Function successCB,
@@ -308,8 +306,8 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       var result = await supernodeRepository.wallet.miningIncomeGateway(
         gatewayMac: gatewayMac,
         orgId: orgId,
-        fromDate: fromDate,
-        tillDate: tillDate,
+        fromDate: DateTime.utc(startTime.year, startTime.month, startTime.day),
+        tillDate: DateTime.utc(endTime.year, endTime.month, endTime.day),
       );
 
       if (successCB != null) {
@@ -442,6 +440,9 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
 
     if (time == MinerStatsTime.week) {
       maxValue = maxData(type, data);
+      // state.originList.forEach((item) => newData.add(item));
+      // data.forEach((item) => newData.add(item));
+
       emit(state.copyWith(originList: data));
 
       data.forEach((item) {
