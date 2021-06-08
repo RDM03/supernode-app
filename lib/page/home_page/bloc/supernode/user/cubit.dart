@@ -131,7 +131,6 @@ class SupernodeUserCubit extends Cubit<SupernodeUserState> {
     try {
       final gatewaysRevenueData =
           await supernodeRepository.wallet.miningIncome({
-        'userId': session.userId,
         'orgId': orgId,
         'currency': '',
       });

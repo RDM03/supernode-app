@@ -114,7 +114,6 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
           ),
           middleColumnSpacer(),
         ]));
-  }
 
   Widget whiteCircle({Widget child}) {
     return Container(

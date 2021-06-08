@@ -8,8 +8,14 @@ class CircleButton extends StatelessWidget {
   final VoidCallback onTap;
   final Widget icon;
   final String label;
+  final Color circleColor;
 
-  const CircleButton({Key key, this.onTap, this.icon, this.label = ""})
+  const CircleButton(
+      {Key key,
+      this.onTap,
+      this.icon,
+      this.label = "",
+      this.circleColor = Colors.white})
       : super(key: key);
 
   @override
@@ -22,7 +28,7 @@ class CircleButton extends StatelessWidget {
             height: s(50),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.white,
+              color: circleColor,
               boxShadow: [
                 BoxShadow(
                   color: darkBackground,

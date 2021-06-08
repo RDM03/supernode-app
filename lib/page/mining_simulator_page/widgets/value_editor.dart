@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/colored_text.dart';
 import 'package:supernodeapp/common/components/slider.dart';
 import 'package:supernodeapp/common/components/text_field/primary_text_field.dart';
 import 'package:supernodeapp/theme/font.dart';
-
-import 'colored_text.dart';
 
 class ValueEditor extends StatelessWidget {
   final String textFieldSuffix;

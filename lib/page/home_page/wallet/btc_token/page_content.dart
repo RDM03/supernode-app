@@ -39,7 +39,7 @@ class _BtcTokenPageContentState extends State<BtcTokenPageContent>
               margin: EdgeInsets.only(top: 0),
               customPanelColor: Token.btc.color,
               child: Container(
-                padding: kRoundRow15_5,
+                padding: kRoundRow1505,
                 alignment: Alignment.center,
                 child: Text(
                   FlutterI18n.translate(context, 'transaction_history'),

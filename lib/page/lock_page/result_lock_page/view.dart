@@ -33,7 +33,7 @@ Widget buildView(
           ),
           SizedBox(height: 10),
           title(FlutterI18n.translate(context, 'confirmed')),
-          done(successColor: colorSupernodeDhx),
+          done(color: colorSupernodeDhx),
           SizedBox(height: 30),
           Visibility(
             visible: state.transactionId.isNotEmpty,

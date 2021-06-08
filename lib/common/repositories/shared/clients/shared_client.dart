@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:supernodeapp/common/repositories/shared/clients/client.dart';
-import 'package:supernodeapp/common/repositories/supernode/clients/exceptions/un_authorized_exception.dart';
 
 class SharedHttpClient implements HttpClient {
   final Dio dio;
@@ -20,10 +19,6 @@ class SharedHttpClient implements HttpClient {
   }
 
   void _handleDioError(DioError e, StackTrace innerStack) {
-    if (e.error is UnAuthorizedException) {
-      throw e.error;
-    }
-
     final message =
         e.response != null ? e.response.data['message'].toString() : e.message;
     final code = e.response != null
@@ -31,7 +26,8 @@ class SharedHttpClient implements HttpClient {
             ? e.response.data['code']
             : int.tryParse(e.response.data['code']))
         : -1;
-    throw HttpException(message, code, innerStack);
+
+    throw dispatchException(message, code, innerStack);
   }
 
   String _fmtUrl(String url) {

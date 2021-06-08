@@ -72,11 +72,12 @@ class _DhxUnbondingPageState extends State<DhxUnbondingPage> {
             listenWhen: (a, b) => a.success != b.success,
             listener: (ctx, state) async {
               if (state.success) {
-                await Navigator.pushNamed(context, 'result_lock_page',
-                    arguments: {
-                      'title': 'unbond_dhx',
-                      'content': 'unbond_dhx_successful',
-                    });
+                await Navigator.pushNamed(context, 'confirm_page', arguments: {
+                  'title': FlutterI18n.translate(context, 'unbond_dhx'),
+                  'content':
+                      FlutterI18n.translate(context, 'unbond_dhx_successful'),
+                  'success': true
+                });
                 Navigator.of(context).pop(true);
               }
             }),

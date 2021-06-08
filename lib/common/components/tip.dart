@@ -10,7 +10,7 @@ void tip(
 }) {
   showToast(text.runtimeType == String ? text : text.toString(),
       textStyle: TextStyle(fontSize: 16),
-      textPadding: kRoundRow105,
+      textPadding: kRoundRow1005,
       duration: Duration(seconds: seconds),
       position: ToastPosition.bottom,
       backgroundColor: success ? Colors.green : errorColor);
