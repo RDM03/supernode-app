@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:path_provider/path_provider.dart';
 import 'package:supernodeapp/common/utils/auth.dart';
 
 class UserLoginResponse {
@@ -248,4 +250,14 @@ class FiatCurrency {
       map['description']
     );
   }
+}
+
+Future<String> createFile(Map<String, dynamic> map, String fileName) async {
+  final String dir = (await getExternalStorageDirectory()).path;
+  final String fullPath = '$dir/$fileName';
+  final File report = new File(fullPath);
+  report.openWrite(mode: FileMode.write);
+  await report.writeAsBytes(base64.decode(map['data']), flush: true);
+
+  return fullPath;
 }

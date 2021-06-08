@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'demo.dart';
 import '../user.dart';
 
@@ -131,7 +133,7 @@ class DemoUserDao extends DemoDao implements UserDao {
       FiatCurrency('cny', 'cny')]);
     }
 
-  Future<bool> miningIncomeReport(Map data, String url) {
-    return Future.value(true);
+  Future<String> miningIncomeReport(Map data, String fileName) {
+    throw UnimplementedError('binding not supported in demo');
   }
 }

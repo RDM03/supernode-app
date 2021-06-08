@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:package_info/package_info.dart';
@@ -6,6 +8,7 @@ import 'package:supernodeapp/common/repositories/supernode/dao/server_info.dart'
 import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'state.dart';
 
@@ -227,9 +230,9 @@ class SettingsCubit extends Cubit<SettingsState> {
       emit(state.copyWith(decimals: state.decimals + difference));
   }
 
-  Future<bool> getDataExport() async {
+  Future<String> getDataExport() async {
     if (state.selectedFiat == null || state.selectedFiat.id == null)
-      return false;
+      return "";
 
     emit(state.copyWith(showLoading: true));
 
@@ -239,18 +242,20 @@ class SettingsCubit extends Cubit<SettingsState> {
         "organizationId": supernodeCubit.state.orgId,
         "currency": 'ETH_MXC',
         "fiatCurrency": state.selectedFiat.id,
-        "start": state.startDate.toUtc().toIso8601String(),//'2019-05-26T13:19:03.510Z',
-        "end": state.endDate.toUtc().toIso8601String(),//'2021-05-26T13:19:03.510Z',
+        "start": state.startDate.toUtc().toIso8601String(),
+        "end": state.endDate.toUtc().toIso8601String(),
         "decimals" : state.decimals
       };
 
-      final bool isLaunchedExportData = await supernodeRepository.user.miningIncomeReport(data, supernodeCubit.state.selectedNode.url);
+      final String exportReport = await supernodeRepository.user.miningIncomeReport(
+          data,
+          'IncomeReport_MXC_${state.selectedFiat.id.toUpperCase()}_year${state.endDate.year}.${state.format}');
       emit(state.copyWith(showLoading: false));
-      return isLaunchedExportData;
+      return exportReport;
     } catch (err) {
       emit(state.copyWith(showLoading: false));
       appCubit.setError('Data export: $err');
     }
-    return false;
+    return "";
   }
 }

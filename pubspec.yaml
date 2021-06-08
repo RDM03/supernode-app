@@ -25,6 +25,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   # https://pub.dev/packages/device_info
   device_info: ^2.0.0
+  # display PDF
+  flutter_pdfview: ^1.0.4
   # https://pub.dev/packages/geolocator
   geolocator: ^7.0.3
   # https://pub.dev/packages/fl_chart

@@ -10,6 +10,7 @@ import 'package:supernodeapp/common/repositories/storage_repository.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
+import 'package:supernodeapp/page/settings_page/export_data/pdf_viewer_page.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -109,8 +110,12 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
                   await Permission.storage.request();
                   status = await Permission.storage.status;
                 }
-                if (status.isGranted)
-                  context.read<SettingsCubit>().getDataExport();
+                if (status.isGranted) {
+                  final String filePath = await context.read<SettingsCubit>().getDataExport();
+                  if (filePath.isNotEmpty && context.read<SettingsCubit>().state.format == "pdf")
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => PDFViewerPage(filePath: filePath)));
+                }
               },
               buttonTitle: FlutterI18n.translate(context, 'export')),
           ]),
