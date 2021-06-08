@@ -27,12 +27,13 @@ class ExportDataPage extends StatelessWidget {
               trailing: GestureDetector(
                   child: Icon(Icons.close, color: Colors.black),
                   onTap: () => Navigator.of(context).pop())),
-          Divider(),
+          Divider(height: 1),
           listItem(Token.mxc.name,
+              contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               key: Key('export_mxc'),
               onTap: () => Navigator.pushReplacement(context, route((_) => ExportMxcPage())),
               leading: Image.asset(Token.mxc.imagePath, height: s(50))),
-          Divider(),
+          Divider(height: 1),
           BlocBuilder<HomeCubit, HomeState>(
               buildWhen: (a, b) => a.displayTokens != b.displayTokens,
               builder: (ctx, state) => (state.displayTokens.contains(Token.supernodeDhx))
@@ -41,11 +42,12 @@ class ExportDataPage extends StatelessWidget {
                       Container(
                       color: backgroundColor,
                       child: ListTile(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           title: Text(Token.supernodeDhx.name, style: kBigFontOfGrey),
                           onTap: () => 'TODO',
                           leading: Image.asset(Token.supernodeDhx.imagePath, height: s(50)),
                           trailing: Icon(Icons.chevron_right, color: Colors.grey))),
-                      Divider(),
+                      Divider(height: 1),
                     ],
                   )
                   : SizedBox()),
@@ -55,6 +57,7 @@ class ExportDataPage extends StatelessWidget {
                   ? Container(
                   color: backgroundColor,
                   child: ListTile(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       title: Text(Token.btc.name, style: kBigFontOfGrey),
                       onTap: () => 'TODO',
                       leading: Image.asset(Token.btc.imagePath, height: s(50)),
