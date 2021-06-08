@@ -7,3 +7,7 @@ Widget loadingFlash({Widget child}) {
       highlightColor: Colors.grey[100],
       child: child);
 }
+
+Widget loadableWidget({bool loading: false, Widget child}) {
+  return (loading) ? loadingFlash(child: child) : child;
+}

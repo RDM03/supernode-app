@@ -91,21 +91,20 @@ Widget buildView(
                               key: ValueKey('address_$i'),
                               title: Text(state.addresses[i].name),
                               subtitle: GestureDetector(
-                                key: ValueKey('address_${i}_details'),
-                                child: Text(
-                                  Tools.hideHalf(state.addresses[i].address),
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: hintFont,
-                                    decoration: state.selectionMode
-                                        ? TextDecoration.underline
-                                        : null,
+                                  key: ValueKey('address_${i}_details'),
+                                  child: Text(
+                                    Tools.hideHalf(state.addresses[i].address),
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: hintFont,
+                                      decoration: state.selectionMode
+                                          ? TextDecoration.underline
+                                          : null,
+                                    ),
                                   ),
-                                ),
-                                onTap: () => dispatch(
-                                        AddressBookActionCreator.onDetails(
-                                            state.addresses[i]))
-                              ),
+                                  onTap: () => dispatch(
+                                      AddressBookActionCreator.onDetails(
+                                          state.addresses[i]))),
                               trailing: IconButton(
                                 key: ValueKey('address_${i}_buttons'),
                                 icon: Icon(

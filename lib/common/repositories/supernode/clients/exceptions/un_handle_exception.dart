@@ -1,10 +1,6 @@
-
-
-
 import 'base_exception.dart';
 
 class UnHandleException extends BaseException {
-
-  UnHandleException({String message = "unAuthorizedException"}) : super(message);
-
+  UnHandleException({String message = "unAuthorizedException"})
+      : super(message);
 }

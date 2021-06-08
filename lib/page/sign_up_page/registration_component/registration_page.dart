@@ -11,25 +11,25 @@ import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/components/widgets/component_widgets.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/login_page/supernode_login_page/cubit.dart';
 import 'package:supernodeapp/page/login_page/supernode_login_page/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
 class RegistrationPage extends StatefulWidget {
-
   @override
   _RegistrationPageState createState() => _RegistrationPageState();
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
-
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
   final TextEditingController orgNameController = TextEditingController();
-  final TextEditingController orgDisplayNameController = TextEditingController();
+  final TextEditingController orgDisplayNameController =
+      TextEditingController();
   Loading loading;
   bool isCheckTerms = false;
   bool isCheckPrivacy = false;
@@ -57,7 +57,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         title: FlutterI18n.translate(context, 'create_account'),
         onPress: () => Navigator.of(context).pop(),
       ),
-      padding: kRoundRow205,
+      padding: kRoundRow2005,
       body: MultiBlocListener(
         listeners: [
           BlocListener<LoginCubit, LoginState>(
@@ -73,8 +73,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             listenWhen: (a, b) => a.signupResult != b.signupResult,
             listener: (ctx, state) async {
               if (state.signupResult == SignupResult.addGateway)
-                Navigator.of(context).pushNamed('add_gateway_page',
-                    arguments: {'fromPage': 'registration'});
+                await openSupernodeMiner(context, hasSkip: true);
             },
           ),
         ],
@@ -99,19 +98,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   Container(
                     margin: kOuterRowTop10,
                     child: BlocBuilder<LoginCubit, LoginState>(
-                      buildWhen: (a, b) =>
-                      a.obscureText != b.obscureText,
+                      buildWhen: (a, b) => a.obscureText != b.obscureText,
                       builder: (context, state) => TextFieldWithTitle(
                         title: FlutterI18n.translate(context, 'password'),
                         isObscureText: state.obscureText,
                         textInputAction: TextInputAction.next,
-                        validator: (value) => Reg.onValidPassword(context, value),
+                        validator: (value) =>
+                            Reg.onValidPassword(context, value),
                         controller: passController,
                         suffixChild: IconButton(
                           icon: Icon(state.obscureText
                               ? Icons.visibility_off
                               : Icons.visibility),
-                          onPressed: () => context.read<LoginCubit>().setObscureText(!state.obscureText),
+                          onPressed: () => context
+                              .read<LoginCubit>()
+                              .setObscureText(!state.obscureText),
                         ),
                       ),
                     ),
@@ -119,7 +120,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   Container(
                     margin: kOuterRowTop10,
                     child: TextFieldWithTitle(
-                      title: FlutterI18n.translate(context, 'organization_name'),
+                      title:
+                          FlutterI18n.translate(context, 'organization_name'),
                       textInputAction: TextInputAction.next,
                       validator: (value) => Reg.onNotEmpty(context, value),
                       controller: orgNameController
@@ -149,20 +151,25 @@ class _RegistrationPageState extends State<RegistrationPage> {
               child: link(FlutterI18n.translate(context, 'agree_conditions'),
                   onTap: () => Tools.launchURL(Sys.agreePolicy),
                   alignment: Alignment.centerLeft),
-              onChanged: (_) => setState(() {isCheckTerms = !isCheckTerms;}),
+              onChanged: (_) => setState(() {
+                isCheckTerms = !isCheckTerms;
+              }),
             ),
             CheckboxLabelWidget(
               value: isCheckPrivacy,
-              child: link(
-                  FlutterI18n.translate(context, 'read_privacy_policy'),
+              child: link(FlutterI18n.translate(context, 'read_privacy_policy'),
                   onTap: () => Tools.launchURL(Sys.privacyPolicy),
                   alignment: Alignment.centerLeft),
-              onChanged: (_) => setState(() {isCheckPrivacy = !isCheckPrivacy;}),
+              onChanged: (_) => setState(() {
+                isCheckPrivacy = !isCheckPrivacy;
+              }),
             ),
             CheckboxLabelWidget(
               value: isCheckSend,
               text: FlutterI18n.translate(context, 'send_marking_information'),
-              onChanged: (_) => setState(() {isCheckSend = !isCheckSend;}),
+              onChanged: (_) => setState(() {
+                isCheckSend = !isCheckSend;
+              }),
             ),
           ],
         ),
@@ -172,12 +179,17 @@ class _RegistrationPageState extends State<RegistrationPage> {
         minHeight: 46,
         onTap: (isCheckTerms && isCheckPrivacy)
             ? () {
-          if (!formKey.currentState.validate() || !isCheckTerms|| !isCheckPrivacy) return;
-          String email = emailController.text.trim();
-          String password = passController.text.trim();
-          String orgName = orgNameController.text.trim();
-          String orgDisplayName = orgDisplayNameController.text.trim();
-          context.read<LoginCubit>().registerFinish(email, password, orgName, orgDisplayName);}
+                if (!formKey.currentState.validate() ||
+                    !isCheckTerms ||
+                    !isCheckPrivacy) return;
+                String email = emailController.text.trim();
+                String password = passController.text.trim();
+                String orgName = orgNameController.text.trim();
+                String orgDisplayName = orgDisplayNameController.text.trim();
+                context
+                    .read<LoginCubit>()
+                    .registerFinish(email, password, orgName, orgDisplayName);
+              }
             : null,
       ),
       backgroundColor: cardBackgroundColor,

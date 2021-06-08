@@ -1,9 +1,6 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:supernodeapp/common/repositories/shared/dao/dao.dart';
-import 'package:supernodeapp/common/repositories/supernode/clients/exceptions/un_authorized_exception.dart';
-import 'package:supernodeapp/common/repositories/supernode/clients/exceptions/un_handle_exception.dart';
 
 class SupernodeErrorInterceptor extends InterceptorsWrapper {
   final String Function() getToken;
@@ -36,10 +33,7 @@ class SupernodeErrorInterceptor extends InterceptorsWrapper {
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
-    final Response response = err.response;
-    DaoResponse data = DaoResponse.fromJson(response.data);
-
-    handler.next(DioError(error: _transferException(data)));
+    handler.next(err);
 
     // final data = response.data;
     // RETHINK.TODO
@@ -63,15 +57,5 @@ class SupernodeErrorInterceptor extends InterceptorsWrapper {
     // );
 
     // return err;
-  }
-}
-
-Exception _transferException(DaoResponse data){
-  switch(data.code){
-    case 13: // username can not be found
-    case 16: // password is wrong / 2FA
-      return UnAuthorizedException(message: data.message);
-    default:
-      return UnHandleException(message: data.message ?? 'UnHandleException');
   }
 }

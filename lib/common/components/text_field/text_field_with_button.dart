@@ -51,7 +51,7 @@ Widget textfieldWithButton(
                 autocorrect: autocorrect,
                 initialValue: initialValue,
                 decoration: InputDecoration(
-                    contentPadding: kRoundRow105,
+                    contentPadding: kRoundRow1005,
                     hintText: hintText,
                     border: InputBorder.none),
                 validator: validator,

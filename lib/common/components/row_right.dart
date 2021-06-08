@@ -4,7 +4,7 @@ import 'package:supernodeapp/theme/spacing.dart';
 
 Widget rowRight(String text, {key, bool loading = false, TextStyle style}) {
   return Container(
-      margin: kRoundRow202,
+      margin: kRoundRow2002,
       alignment: Alignment.centerRight,
       child: loading
           ? loadingFlash(

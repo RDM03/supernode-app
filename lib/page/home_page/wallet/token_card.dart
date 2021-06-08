@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/app_cubit.dart';
-import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
@@ -50,7 +48,7 @@ class MxcTokenCardContent extends StatelessWidget {
       children: [
         SizedBox(height: 10),
         Container(
-          padding: kRoundRow15_5,
+          padding: kRoundRow1505,
           child: Row(
             children: [
               Image.asset(Token.mxc.imagePath),
@@ -129,16 +127,15 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
         (miningPageVersion)
             ? SizedBox()
             : Container(
-          padding: kRoundRow15_5,
-          child: Row(children: [
-            Image.asset(Token.supernodeDhx.imagePath),
-            SizedBox(width: s(3)),
-            Text(Token.supernodeDhx.name, style: kBigBoldFontOfBlack),
-            Spacer(),
-            if (showArrow)
-              Icon(Icons.arrow_forward_ios)
-          ]),
-        ),
+                padding: kRoundRow1505,
+                child: Row(children: [
+                  Image.asset(Token.supernodeDhx.imagePath),
+                  SizedBox(width: s(3)),
+                  Text(Token.supernodeDhx.name, style: kBigBoldFontOfBlack),
+                  Spacer(),
+                  if (showArrow) Icon(Icons.arrow_forward_ios)
+                ]),
+              ),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
           buildWhen: (a, b) => a.balance != b.balance,
           builder: (ctx, state) => TitleDetailRow(
@@ -160,29 +157,29 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
         ),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
           buildWhen: (a, b) => a.dhxBonded != b.dhxBonded,
-          builder: (ctx, state) => (state.dhxBonded.loading || state.dhxBonded.value > 0)
-              ? TitleDetailRow(
-            loading: state.dhxBonded.loading,
-            name: FlutterI18n.translate(context, 'dhx_bonded'),
-            value: Tools.priceFormat(state.dhxBonded.value),
-            token: Token.supernodeDhx.name,
-          )
-              : SizedBox(),
+          builder: (ctx, state) =>
+              (state.dhxBonded.loading || state.dhxBonded.value > 0)
+                  ? TitleDetailRow(
+                      loading: state.dhxBonded.loading,
+                      name: FlutterI18n.translate(context, 'dhx_bonded'),
+                      value: Tools.priceFormat(state.dhxBonded.value),
+                      token: Token.supernodeDhx.name,
+                    )
+                  : SizedBox(),
         ),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
           buildWhen: (a, b) => a.dhxUnbonding != b.dhxUnbonding,
-          builder: (ctx, state) => (state.dhxUnbonding.loading || state.dhxUnbonding.value > 0)
-              ? TitleDetailRow(
-            loading: state.dhxUnbonding.loading,
-            name: FlutterI18n.translate(context, 'dhx_unbonding'),
-            value: Tools.priceFormat(state.dhxUnbonding.value),
-            token: Token.supernodeDhx.name,
-          )
-              : SizedBox(),
+          builder: (ctx, state) =>
+              (state.dhxUnbonding.loading || state.dhxUnbonding.value > 0)
+                  ? TitleDetailRow(
+                      loading: state.dhxUnbonding.loading,
+                      name: FlutterI18n.translate(context, 'dhx_unbonding'),
+                      value: Tools.priceFormat(state.dhxUnbonding.value),
+                      token: Token.supernodeDhx.name,
+                    )
+                  : SizedBox(),
         ),
-        (miningPageVersion)
-            ? Divider(color: Colors.grey)
-            : SizedBox(),
+        (miningPageVersion) ? Divider(color: Colors.grey) : SizedBox(),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
           buildWhen: (a, b) => a.totalRevenue != b.totalRevenue,
           builder: (ctx, state) => TitleDetailRow(
@@ -228,7 +225,7 @@ class BtcTokenCardContent extends StatelessWidget {
       children: [
         SizedBox(height: 10),
         Container(
-          padding: kRoundRow15_5,
+          padding: kRoundRow1505,
           child: Row(
             children: [
               Image.asset(Token.btc.imagePath),
@@ -260,16 +257,13 @@ class AddNewTokenCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => addTokenDialog(
         context,
-        displayedTokens:
-        context.read<HomeCubit>().state.displayTokens,
-        parachainConnected:
-        context.read<HomeCubit>().state.parachainUsed,
-        supernodeConnected:
-        context.read<HomeCubit>().state.supernodeUsed,
+        displayedTokens: context.read<HomeCubit>().state.displayTokens,
+        parachainConnected: context.read<HomeCubit>().state.parachainUsed,
+        supernodeConnected: context.read<HomeCubit>().state.supernodeUsed,
       ),
       child: PanelFrame(
         child: Padding(
-            padding: kRoundRow105,
+            padding: kRoundRow1005,
             child: Column(
               children: [
                 Icon(Icons.add_circle, size: 50),
