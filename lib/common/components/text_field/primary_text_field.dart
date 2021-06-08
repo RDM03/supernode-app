@@ -60,9 +60,11 @@ class PrimaryTextField extends StatelessWidget {
         counterText: counterText,
         suffixText: suffixText,
         suffixStyle: suffixStyle,
-        focusedBorder: focusedBorderColor != null ? UnderlineInputBorder(
-          borderSide: BorderSide(color: focusedBorderColor),
-        ) : null,
+        focusedBorder: focusedBorderColor != null
+            ? UnderlineInputBorder(
+                borderSide: BorderSide(color: focusedBorderColor),
+              )
+            : null,
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             color: borderColor,

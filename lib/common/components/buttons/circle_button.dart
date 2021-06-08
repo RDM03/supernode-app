@@ -35,10 +35,12 @@ class CircleButton extends StatelessWidget {
             child: icon,
           ),
           (label.isNotEmpty) ? SizedBox(height: s(3)) : SizedBox(),
-          (label.isNotEmpty) ? Text(
-                                label,
-                                style: kSmallBoldFontOfBlack,
-                              ) : SizedBox()
+          (label.isNotEmpty)
+              ? Text(
+                  label,
+                  style: kSmallBoldFontOfBlack,
+                )
+              : SizedBox()
         ]));
   }
 }

@@ -6,15 +6,13 @@ import 'view.dart';
 
 class WechatLoginPage extends Page<WechatLoginState, Map<String, dynamic>> {
   WechatLoginPage()
-    : super(
-        initState: initState,
-        effect: buildEffect(),
-        reducer: null,
-        view: buildView,
-        dependencies: Dependencies<WechatLoginState>(
-            adapter: null,
-            slots: <String, Dependent<WechatLoginState>>{
-            }),
-        middleware: <Middleware<WechatLoginState>>[
-        ],);
+      : super(
+          initState: initState,
+          effect: buildEffect(),
+          reducer: null,
+          view: buildView,
+          dependencies: Dependencies<WechatLoginState>(
+              adapter: null, slots: <String, Dependent<WechatLoginState>>{}),
+          middleware: <Middleware<WechatLoginState>>[],
+        );
 }

@@ -56,27 +56,27 @@ class SupernodeDhxActions extends StatelessWidget {
         ),
         Spacer(),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-          buildWhen: (a, b) => a.balance != b.balance,
-          builder: (ctx, state) => CircleButton(
-            key: Key('dhxWithdraw'),
-            icon: Icon(
-              Icons.arrow_forward,
-              color: Token.supernodeDhx.color,
-            ),
-            label: FlutterI18n.translate(context, 'withdraw'),
-            onTap: state.balance.loading
-                ? null
-                : () => openSupernodeWithdraw(context, Token.supernodeDhx),
-          )
-        ),
+            buildWhen: (a, b) => a.balance != b.balance,
+            builder: (ctx, state) => CircleButton(
+                  key: Key('dhxWithdraw'),
+                  icon: Icon(
+                    Icons.arrow_forward,
+                    color: Token.supernodeDhx.color,
+                  ),
+                  label: FlutterI18n.translate(context, 'withdraw'),
+                  onTap: state.balance.loading
+                      ? null
+                      : () =>
+                          openSupernodeWithdraw(context, Token.supernodeDhx),
+                )),
         Spacer(),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
           builder: (ctx, state) => CircleButton(
               icon: Image.asset(
                 AppImages.iconCouncil,
                 color: (state.stakes.loading ||
-                    state.stakes.value == null ||
-                    state.stakes.value.isEmpty)
+                        state.stakes.value == null ||
+                        state.stakes.value.isEmpty)
                     ? Colors.grey
                     : Token.supernodeDhx.color,
               ),
@@ -140,36 +140,42 @@ class SupernodeDhxMineActions extends StatelessWidget {
             color: Token.supernodeDhx.color,
           ),
           label: FlutterI18n.translate(context, 'unbond'),
-          onTap: () => Navigator.push(context, route((c) => DhxUnbondingPage())),
+          onTap: () =>
+              Navigator.push(context, route((c) => DhxUnbondingPage())),
         ),
         Spacer(),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-          builder: (ctx, state) => CircleButton(
-              key: Key('simulateMiningButton'),
-              icon: Icon(
-                Icons.tune,
-                color: (state.stakes.loading ||
-                    state.stakes.value == null ||
-                    state.stakes.value.isEmpty)
-                    ? Colors.grey
-                    : Token.supernodeDhx.color,
-              ),
-              label: FlutterI18n.translate(context, 'simulate_mining'),
-              onTap: () {
-                final stakes = context.read<SupernodeDhxCubit>().state.stakes;
-                if (stakes.loading ||
-                    stakes.value == null ||
-                    stakes.value.isEmpty) return;
-                Navigator.pushNamed(
-                    context,
-                    'mining_simulator_page',
-                    arguments: {
-                      'isDemo': context.read<AppCubit>().state.isDemo,
-                      'mxc_balance': context.read<SupernodeUserCubit>().state.balance.value,
-                      'dhx_balance': context.read<SupernodeDhxCubit>().state.balance.value,
-                    });
-              })
-        ),
+            builder: (ctx, state) => CircleButton(
+                key: Key('simulateMiningButton'),
+                icon: Icon(
+                  Icons.tune,
+                  color: (state.stakes.loading ||
+                          state.stakes.value == null ||
+                          state.stakes.value.isEmpty)
+                      ? Colors.grey
+                      : Token.supernodeDhx.color,
+                ),
+                label: FlutterI18n.translate(context, 'simulate_mining'),
+                onTap: () {
+                  final stakes = context.read<SupernodeDhxCubit>().state.stakes;
+                  if (stakes.loading ||
+                      stakes.value == null ||
+                      stakes.value.isEmpty) return;
+                  Navigator.pushNamed(context, 'mining_simulator_page',
+                      arguments: {
+                        'isDemo': context.read<AppCubit>().state.isDemo,
+                        'mxc_balance': context
+                            .read<SupernodeUserCubit>()
+                            .state
+                            .balance
+                            .value,
+                        'dhx_balance': context
+                            .read<SupernodeDhxCubit>()
+                            .state
+                            .balance
+                            .value,
+                      });
+                })),
       ],
     );
   }

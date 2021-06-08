@@ -8,14 +8,10 @@ void tip(
   bool success: false,
   int seconds = 5,
 }) {
-  showToast(
-    text.runtimeType == String ? text : text.toString(),
-    textStyle: TextStyle(
-      fontSize: 16
-    ),
-    textPadding: kRoundRow105,
-    duration: Duration(seconds: seconds),
-    position: ToastPosition.bottom,
-    backgroundColor: success ? Colors.green : errorColor
-  );
+  showToast(text.runtimeType == String ? text : text.toString(),
+      textStyle: TextStyle(fontSize: 16),
+      textPadding: kRoundRow105,
+      duration: Duration(seconds: seconds),
+      position: ToastPosition.bottom,
+      backgroundColor: success ? Colors.green : errorColor);
 }

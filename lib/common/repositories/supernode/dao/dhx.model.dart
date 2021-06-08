@@ -8,12 +8,7 @@ class Council {
   final String name;
   final String lastMpower;
 
-  Council({
-    this.id,
-    this.chairOrgId,
-    this.name,
-    this.lastMpower
-  });
+  Council({this.id, this.chairOrgId, this.name, this.lastMpower});
 
   factory Council.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
@@ -36,7 +31,7 @@ class Council {
       id: id ?? this.id,
       chairOrgId: chairOrgId ?? this.chairOrgId,
       name: name ?? this.name,
-      lastMpower: lastMpower?? this.lastMpower,
+      lastMpower: lastMpower ?? this.lastMpower,
     );
   }
 }
@@ -182,7 +177,8 @@ class LastMiningResponse {
   final String yesterdayTotalDHX;
   final String yesterdayTotalMPower;
 
-  LastMiningResponse(this.date, this.yesterdayTotalDHX, this.yesterdayTotalMPower);
+  LastMiningResponse(
+      this.date, this.yesterdayTotalDHX, this.yesterdayTotalMPower);
   factory LastMiningResponse.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 

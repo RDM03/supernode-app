@@ -150,11 +150,7 @@ Future<void> main() async {
           ),
         ],
         child: MultiBlocListener(
-          listeners: listeners(),
-          child: OKToast(
-            child: MxcApp()
-          )
-        ),
+            listeners: listeners(), child: OKToast(child: MxcApp())),
       ),
     ),
   );
@@ -250,7 +246,7 @@ class MxcApp extends StatelessWidget {
   }
 
   void showError(BuildContext context, AppState state) {
-    tip( state.error.text, success: false);
+    tip(state.error.text, success: false);
   }
 
   Widget build(BuildContext context) {
@@ -329,7 +325,13 @@ class MxcApp extends StatelessWidget {
                     );
                   },
                   onGenerateInitialRoutes: (state, s) => [
-                    context.read<SupernodeCubit>().state.session == null || context.read<SupernodeCubit>().state.session.userId == -1 /* demoMode */
+                    context.read<SupernodeCubit>().state.session == null ||
+                            context
+                                    .read<SupernodeCubit>()
+                                    .state
+                                    .session
+                                    .userId ==
+                                -1 /* demoMode */
                         ? route((ctx) => LoginPage())
                         : route((ctx) => HomePage()),
                   ],

@@ -34,9 +34,9 @@ class _DhxUnbondingPageState extends State<DhxUnbondingPage> {
     ctrl.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-
     return MultiBlocListener(
       listeners: [
         BlocListener<SupernodeDhxCubit, SupernodeDhxState>(
@@ -49,11 +49,21 @@ class _DhxUnbondingPageState extends State<DhxUnbondingPage> {
                     child: IosStyleBottomDialog(
                       //blueActionIndex: 0,
                       list: [
-                        IosButtonStyle(title: FlutterI18n.translate(context, 'unbond_dhx'), style: kBigFontOfDhxColor),
-                        IosButtonStyle(title: FlutterI18n.translate(context, 'unbond_dhx_confirm_info').replaceFirst('{0}', ctrl.text.trim())),
-                        IosButtonStyle(title: FlutterI18n.translate(context, 'proceed'), style: kBigFontOfDhxColor),
+                        IosButtonStyle(
+                            title: FlutterI18n.translate(context, 'unbond_dhx'),
+                            style: kBigFontOfDhxColor),
+                        IosButtonStyle(
+                            title: FlutterI18n.translate(
+                                    context, 'unbond_dhx_confirm_info')
+                                .replaceFirst('{0}', ctrl.text.trim())),
+                        IosButtonStyle(
+                            title: FlutterI18n.translate(context, 'proceed'),
+                            style: kBigFontOfDhxColor),
                       ],
-                      onItemClickListener: (itemIndex) {if (itemIndex == 2) context.read<SupernodeDhxCubit>().unbondDhx();},
+                      onItemClickListener: (itemIndex) {
+                        if (itemIndex == 2)
+                          context.read<SupernodeDhxCubit>().unbondDhx();
+                      },
                     ),
                   ),
                 );
@@ -62,10 +72,11 @@ class _DhxUnbondingPageState extends State<DhxUnbondingPage> {
             listenWhen: (a, b) => a.success != b.success,
             listener: (ctx, state) async {
               if (state.success) {
-                await Navigator.pushNamed(context, 'result_lock_page', arguments: {
-                  'title': 'unbond_dhx',
-                  'content': 'unbond_dhx_successful',
-                });
+                await Navigator.pushNamed(context, 'result_lock_page',
+                    arguments: {
+                      'title': 'unbond_dhx',
+                      'content': 'unbond_dhx_successful',
+                    });
                 Navigator.of(context).pop(true);
               }
             }),
@@ -78,78 +89,85 @@ class _DhxUnbondingPageState extends State<DhxUnbondingPage> {
             }
           },
         ),
-        ],
+      ],
       child: pageFrame(
-          context: context,
-          children: <Widget>[
-            pageNavBar(
-              FlutterI18n.translate(context, 'unbond_dhx'),
-              leadingWidget: SizedBox(),
-              onTap: () => Navigator.of(context).pop(),
-            ),
-            middleColumnSpacer(),
-            Container(
-              child: Column(
-                children: [
-                  Row(crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 5.0),
-                        width: s(50),
-                        height: s(50),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: dbm100,
-                        ),
-                        child: Image.asset(
-                          AppImages.iconUnbond,
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(width: 20),
-                      Flexible(
-                        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(FlutterI18n.translate(context, 'unbond_dhx'), style: kBigBoldFontOfBlack),
-                            Text(FlutterI18n.translate(context, 'unbond_dhx_instruction'), style: kMiddleFontOfBlack),
-                          ]),
-                      )
-                    ]),
-                  bigColumnSpacer(),
-                  Form(
-                    key: formKey,
-                    child: BlocBuilder<SupernodeDhxCubit, SupernodeDhxState> (
-                      buildWhen: (a, b) =>
-                      a.dhxBonded != b.dhxBonded,
-                      builder: (cxt, state) => ValueEditor2(
-                        key: ValueKey('amountValueEditor'),
-                        controller: ctrl,
-                        total: (state.dhxBonded.loading) ? 0 : state.dhxBonded.value,
-                        title: FlutterI18n.translate(context, 'unbond_amount'),
-                        subtitle: FlutterI18n.translate(context, 'total_bonded_amount'),
-                        textFieldSuffix: Token.supernodeDhx.name,
-                        totalSuffix: Token.supernodeDhx.name,
-                        primaryColor: Token.supernodeDhx.color,
-                        validator: (value) => Reg.isMoreThanZero(context, value),
-                      ),
+        context: context,
+        children: <Widget>[
+          pageNavBar(
+            FlutterI18n.translate(context, 'unbond_dhx'),
+            leadingWidget: SizedBox(),
+            onTap: () => Navigator.of(context).pop(),
+          ),
+          middleColumnSpacer(),
+          Container(
+            child: Column(
+              children: [
+                Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 5.0),
+                    width: s(50),
+                    height: s(50),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: dbm100,
+                    ),
+                    child: Image.asset(
+                      AppImages.iconUnbond,
+                      color: Colors.white,
                     ),
                   ),
-                ],
-              ),
+                  SizedBox(width: 20),
+                  Flexible(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(FlutterI18n.translate(context, 'unbond_dhx'),
+                              style: kBigBoldFontOfBlack),
+                          Text(
+                              FlutterI18n.translate(
+                                  context, 'unbond_dhx_instruction'),
+                              style: kMiddleFontOfBlack),
+                        ]),
+                  )
+                ]),
+                bigColumnSpacer(),
+                Form(
+                  key: formKey,
+                  child: BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+                    buildWhen: (a, b) => a.dhxBonded != b.dhxBonded,
+                    builder: (cxt, state) => ValueEditor2(
+                      key: ValueKey('amountValueEditor'),
+                      controller: ctrl,
+                      total:
+                          (state.dhxBonded.loading) ? 0 : state.dhxBonded.value,
+                      title: FlutterI18n.translate(context, 'unbond_amount'),
+                      subtitle:
+                          FlutterI18n.translate(context, 'total_bonded_amount'),
+                      textFieldSuffix: Token.supernodeDhx.name,
+                      totalSuffix: Token.supernodeDhx.name,
+                      primaryColor: Token.supernodeDhx.color,
+                      validator: (value) => Reg.isMoreThanZero(context, value),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-          floatingActionButton: PrimaryButton(
+          ),
+        ],
+        floatingActionButton: PrimaryButton(
             key: Key('confirmButton'),
             minWidth: double.infinity,
             padding: kRoundRow105,
             onTap: () {
               if ((formKey.currentState as FormState).validate()) {
-                context.read<SupernodeDhxCubit>().confirmBondUnbond(unbond: ctrl.text.trim());
+                context
+                    .read<SupernodeDhxCubit>()
+                    .confirmBondUnbond(unbond: ctrl.text.trim());
               }
             },
             buttonTitle: FlutterI18n.translate(context, 'confirm'),
             bgColor: Token.supernodeDhx.color),
-          ),
+      ),
     );
   }
 }

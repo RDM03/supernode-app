@@ -11,16 +11,18 @@ import 'package:supernodeapp/page/withdraw_page/bloc/state.dart';
 const Map map2serverCurrency = {'MXC': 'ETH_MXC', 'DHX': 'DHX', 'BTC': 'BTC'};
 
 class WithdrawCubit extends Cubit<WithdrawState> {
-
   final SupernodeUserCubit supernodeUserCubit;
   final AppCubit appCubit;
   final SupernodeRepository supernodeRepository;
 
-  WithdrawCubit(this.supernodeUserCubit, this.appCubit, this.supernodeRepository) : super(WithdrawState());
+  WithdrawCubit(
+      this.supernodeUserCubit, this.appCubit, this.supernodeRepository)
+      : super(WithdrawState());
 
   Future<void> withdrawFee(Token tkn) async {
     try {
-      WithdrawFee withdrawFee = await supernodeRepository.withdraw.fee(currency: map2serverCurrency[tkn.name]);
+      WithdrawFee withdrawFee = await supernodeRepository.withdraw
+          .fee(currency: map2serverCurrency[tkn.name]);
 
       emit(state.copyWith(token: tkn, fee: withdrawFee.withdrawFee));
     } catch (err) {
@@ -51,8 +53,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
         amount: amount,
         address: address,
         withdrawFlowStep: WithdrawFlow.confirm,
-        confirmTime: DateTime.now().add(Duration(seconds: 30))
-    ));
+        confirmTime: DateTime.now().add(Duration(seconds: 30))));
   }
 
   void backToForm() {
@@ -78,7 +79,8 @@ class WithdrawCubit extends Cubit<WithdrawState> {
 
     emit(state.copyWith(showLoading: true));
     try {
-      dynamic withdrawReq = await supernodeUserCubit.supernodeRepository.withdraw.withdraw(data);
+      dynamic withdrawReq =
+          await supernodeUserCubit.supernodeRepository.withdraw.withdraw(data);
       emit(state.copyWith(showLoading: false));
 
       if (withdrawReq.status)
@@ -86,6 +88,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
     } catch (err) {
       emit(state.copyWith(showLoading: false));
       appCubit.setError(err.toString());
-    };
+    }
+    ;
   }
 }

@@ -36,9 +36,9 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
     ctrl.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-
     return MultiBlocListener(
       listeners: [
         BlocListener<SupernodeDhxCubit, SupernodeDhxState>(
@@ -51,11 +51,21 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
                     child: IosStyleBottomDialog(
                       //blueActionIndex: 0,
                       list: [
-                        IosButtonStyle(title: FlutterI18n.translate(context, 'bond_dhx'), style: kBigFontOfDhxColor),
-                        IosButtonStyle(title: FlutterI18n.translate(context, 'bond_dhx_confirm_info').replaceFirst('{0}', ctrl.text.trim())),
-                        IosButtonStyle(title: FlutterI18n.translate(context, 'proceed'), style: kBigFontOfDhxColor),
+                        IosButtonStyle(
+                            title: FlutterI18n.translate(context, 'bond_dhx'),
+                            style: kBigFontOfDhxColor),
+                        IosButtonStyle(
+                            title: FlutterI18n.translate(
+                                    context, 'bond_dhx_confirm_info')
+                                .replaceFirst('{0}', ctrl.text.trim())),
+                        IosButtonStyle(
+                            title: FlutterI18n.translate(context, 'proceed'),
+                            style: kBigFontOfDhxColor),
                       ],
-                      onItemClickListener: (itemIndex) {if (itemIndex == 2) context.read<SupernodeDhxCubit>().bondDhx();},
+                      onItemClickListener: (itemIndex) {
+                        if (itemIndex == 2)
+                          context.read<SupernodeDhxCubit>().bondDhx();
+                      },
                     ),
                   ),
                 );
@@ -66,7 +76,8 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
               if (state.success) {
                 await Navigator.pushNamed(context, 'confirm_page', arguments: {
                   'title': FlutterI18n.translate(context, 'Confirmed'),
-                  'content': FlutterI18n.translate(context, 'bond_dhx_successful'),
+                  'content':
+                      FlutterI18n.translate(context, 'bond_dhx_successful'),
                   'success': true
                 });
                 Navigator.of(context).pop(true);
@@ -81,100 +92,119 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
             }
           },
         ),
-        ],
+      ],
       child: pageFrame(
-          context: context,
-          children: <Widget>[
-            pageNavBar(
-              FlutterI18n.translate(context, 'bond_dhx'),
-              leadingWidget: SizedBox(),
-              onTap: () => Navigator.of(context).pop(),
-            ),
-            middleColumnSpacer(),
-            Container(
-              child: Column(
-                children: [
-                  Row(crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 5.0),
-                        width: s(50),
-                        height: s(50),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Token.supernodeDhx.color,
-                        ),
-                        child: Image.asset(
-                          AppImages.iconBond,
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(width: 20),
-                      Flexible(
-                        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(FlutterI18n.translate(context, 'bond_dhx'), style: kBigBoldFontOfBlack),
-                            RichText(
-                              text: TextSpan(
-                                style: kMiddleFontOfBlack,
-                                children: <TextSpan>[
-                                  TextSpan(text: FlutterI18n.translate(context, 'bond_dhx_instruction_1')),
-                                  TextSpan(text: FlutterI18n.translate(context, 'click_here'),
-                                      style: kMiddleFontOfBlueLink,
-                                      recognizer: new TapGestureRecognizer()..onTap = () => openSupernodeDeposit(context, Token.supernodeDhx)),
-                                ],
-                              ),
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                style: kMiddleFontOfBlack,
-                                children: <TextSpan>[
-                                  TextSpan(text: FlutterI18n.translate(context, 'bond_dhx_instruction_2')),
-                                  TextSpan(text: FlutterI18n.translate(context, 'click_here'),
-                                      style: kMiddleFontOfBlueLink,
-                                      recognizer: new TapGestureRecognizer()..onTap = () => Navigator.pushNamed(context, 'lock_page',
-                                          arguments: {'isDemo': context.read<AppCubit>().state.isDemo})),
-                                ],
-                              ),
-                            ),
-                          ]),
-                      )
-                    ]),
-                  bigColumnSpacer(),
-                  Form(
-                    key: formKey,
-                    child: BlocBuilder<SupernodeDhxCubit, SupernodeDhxState> (
-                      buildWhen: (a, b) =>
-                      a.balance != b.balance,
-                      builder: (cxt, state) => ValueEditor2(
-                        key: ValueKey('amountValueEditor'),
-                        controller: ctrl,
-                        total: (state.balance.loading) ? 0 : state.balance.value,
-                        title: FlutterI18n.translate(context, 'bond_amount'),
-                        subtitle: FlutterI18n.translate(context, 'current_balance'),
-                        textFieldSuffix: Token.supernodeDhx.name,
-                        totalSuffix: Token.supernodeDhx.name,
-                        primaryColor: Token.supernodeDhx.color,
-                        validator: (value) => Reg.isMoreThanZero(context, value),
-                      ),
+        context: context,
+        children: <Widget>[
+          pageNavBar(
+            FlutterI18n.translate(context, 'bond_dhx'),
+            leadingWidget: SizedBox(),
+            onTap: () => Navigator.of(context).pop(),
+          ),
+          middleColumnSpacer(),
+          Container(
+            child: Column(
+              children: [
+                Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 5.0),
+                    width: s(50),
+                    height: s(50),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Token.supernodeDhx.color,
                     ),
+                    child: Image.asset(
+                      AppImages.iconBond,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  Flexible(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(FlutterI18n.translate(context, 'bond_dhx'),
+                              style: kBigBoldFontOfBlack),
+                          RichText(
+                            text: TextSpan(
+                              style: kMiddleFontOfBlack,
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: FlutterI18n.translate(
+                                        context, 'bond_dhx_instruction_1')),
+                                TextSpan(
+                                    text: FlutterI18n.translate(
+                                        context, 'click_here'),
+                                    style: kMiddleFontOfBlueLink,
+                                    recognizer: new TapGestureRecognizer()
+                                      ..onTap = () => openSupernodeDeposit(
+                                          context, Token.supernodeDhx)),
+                              ],
+                            ),
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              style: kMiddleFontOfBlack,
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: FlutterI18n.translate(
+                                        context, 'bond_dhx_instruction_2')),
+                                TextSpan(
+                                    text: FlutterI18n.translate(
+                                        context, 'click_here'),
+                                    style: kMiddleFontOfBlueLink,
+                                    recognizer: new TapGestureRecognizer()
+                                      ..onTap = () => Navigator.pushNamed(
+                                              context, 'lock_page', arguments: {
+                                            'isDemo': context
+                                                .read<AppCubit>()
+                                                .state
+                                                .isDemo
+                                          })),
+                              ],
+                            ),
+                          ),
+                        ]),
                   )
-                ],
-              ),
+                ]),
+                bigColumnSpacer(),
+                Form(
+                  key: formKey,
+                  child: BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+                    buildWhen: (a, b) => a.balance != b.balance,
+                    builder: (cxt, state) => ValueEditor2(
+                      key: ValueKey('amountValueEditor'),
+                      controller: ctrl,
+                      total: (state.balance.loading) ? 0 : state.balance.value,
+                      title: FlutterI18n.translate(context, 'bond_amount'),
+                      subtitle:
+                          FlutterI18n.translate(context, 'current_balance'),
+                      textFieldSuffix: Token.supernodeDhx.name,
+                      totalSuffix: Token.supernodeDhx.name,
+                      primaryColor: Token.supernodeDhx.color,
+                      validator: (value) => Reg.isMoreThanZero(context, value),
+                    ),
+                  ),
+                )
+              ],
             ),
-          ],
-          floatingActionButton: PrimaryButton(
+          ),
+        ],
+        floatingActionButton: PrimaryButton(
             key: Key('confirmButton'),
             minWidth: double.infinity,
             padding: kRoundRow105,
             onTap: () {
               if ((formKey.currentState as FormState).validate()) {
-                context.read<SupernodeDhxCubit>().confirmBondUnbond(bond: ctrl.text.trim());
+                context
+                    .read<SupernodeDhxCubit>()
+                    .confirmBondUnbond(bond: ctrl.text.trim());
               }
             },
             buttonTitle: FlutterI18n.translate(context, 'confirm'),
             bgColor: Token.supernodeDhx.color),
-          ),
+      ),
     );
   }
 }

@@ -22,57 +22,53 @@ Widget buildView(
     onTap: () =>
         FocusScope.of(viewService.context).requestFocus(new FocusNode()),
     child: pageFrame(
-      context: viewService.context,
-      scrollable: false,
-      margin: EdgeInsets.only(top: 60),
-      children: [
-        pageNavBar(
-          FlutterI18n.translate(context, state.title),
-          leadingWidget: SizedBox(),
-          onTap: () => Navigator.of(context).pop(),
-        ),
-        SizedBox(height: 10),
-        title(FlutterI18n.translate(context, 'confirmed')),
-        done(
-          successColor: colorSupernodeDhx
-        ),
-        SizedBox(height: 30),
-        Visibility(
-          visible: state.transactionId.isNotEmpty,
-          child: Column(
-            children: [
-              SizedBox(
-                width: double.infinity,
-                child: Text(
-                  FlutterI18n.translate(context, 'transaction_id') +
-                      ': ' +
-                      state.transactionId,
-                  style: kPrimaryBigFontOfBlack,
-                  textAlign: TextAlign.center,
+        context: viewService.context,
+        scrollable: false,
+        margin: EdgeInsets.only(top: 60),
+        children: [
+          pageNavBar(
+            FlutterI18n.translate(context, state.title),
+            leadingWidget: SizedBox(),
+            onTap: () => Navigator.of(context).pop(),
+          ),
+          SizedBox(height: 10),
+          title(FlutterI18n.translate(context, 'confirmed')),
+          done(successColor: colorSupernodeDhx),
+          SizedBox(height: 30),
+          Visibility(
+            visible: state.transactionId.isNotEmpty,
+            child: Column(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    FlutterI18n.translate(context, 'transaction_id') +
+                        ': ' +
+                        state.transactionId,
+                    style: kPrimaryBigFontOfBlack,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-            ],
+                SizedBox(height: 20),
+              ],
+            ),
           ),
-        ),
-        SizedBox(
-          width: double.infinity,
-          child: Text(
-            FlutterI18n.translate(context, state.content),
-            key: Key('congratsMiningText'),
-            style: kBigFontOfGrey,
-            textAlign: TextAlign.center,
-          ),
-        )
-      ],
-      floatingActionButton: PrimaryButton(
-        key: ValueKey('submitButton'),
-        padding: kRoundRow105,
-        buttonTitle: FlutterI18n.translate(context, 'done'),
-        bgColor: colorSupernodeDhx,
-        minWidth: double.infinity,
-        onTap: () => Navigator.pop(viewService.context, true)
-      )
-    ),
+          SizedBox(
+            width: double.infinity,
+            child: Text(
+              FlutterI18n.translate(context, state.content),
+              key: Key('congratsMiningText'),
+              style: kBigFontOfGrey,
+              textAlign: TextAlign.center,
+            ),
+          )
+        ],
+        floatingActionButton: PrimaryButton(
+            key: ValueKey('submitButton'),
+            padding: kRoundRow105,
+            buttonTitle: FlutterI18n.translate(context, 'done'),
+            bgColor: colorSupernodeDhx,
+            minWidth: double.infinity,
+            onTap: () => Navigator.pop(viewService.context, true))),
   );
 }

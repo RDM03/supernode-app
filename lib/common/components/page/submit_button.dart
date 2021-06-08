@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 Widget submitButton(
-    String label, {
-      double top = 34,
-      Function onPressed,
-      Key key,
-    }) {
+  String label, {
+  double top = 34,
+  Function onPressed,
+  Key key,
+}) {
   return Container(
     height: 45,
     width: double.infinity,
@@ -39,13 +39,13 @@ Widget submitButton(
 }
 
 Widget whiteBorderButton(
-    String label, {
-      double top = 34,
-      double width = 120,
-      Function onPressed,
-      Key key,
-    }) {
-  final Color color = (onPressed == null) ? Colors.grey: Colors.white;
+  String label, {
+  double top = 34,
+  double width = 120,
+  Function onPressed,
+  Key key,
+}) {
+  final Color color = (onPressed == null) ? Colors.grey : Colors.white;
   return Container(
     width: width,
     decoration: BoxDecoration(

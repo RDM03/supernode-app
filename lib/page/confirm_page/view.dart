@@ -19,12 +19,14 @@ Widget buildView(
         onTap: () => Navigator.pop(viewService.context)),
     title(FlutterI18n.translate(_ctx, state.title)),
     done(
-        success:
-        state.success || state.content.contains('successful') || state.title == 'confirmed'),
+        success: state.success ||
+            state.content.contains('successful') ||
+            state.title == 'confirmed'),
     pageContent(FlutterI18n.translate(_ctx, state.content)),
     submitButton(
       FlutterI18n.translate(_ctx, 'done'),
       key: Key('doneButton'),
       onPressed: () => Navigator.pop(viewService.context),
     )
-  ]);}
+  ]);
+}

@@ -66,8 +66,8 @@ class SupernodeErrorInterceptor extends InterceptorsWrapper {
   }
 }
 
-Exception _transferException(DaoResponse data){
-  switch(data.code){
+Exception _transferException(DaoResponse data) {
+  switch (data.code) {
     case 13: // username can not be found
     case 16: // password is wrong / 2FA
       return UnAuthorizedException(message: data.message);

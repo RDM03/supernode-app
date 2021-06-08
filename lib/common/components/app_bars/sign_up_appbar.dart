@@ -4,7 +4,12 @@ import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class AppBars {
-  static backArrowAppBar({Key key, String title: '', Function onPress, Function onTitlePress, Color color}) {
+  static backArrowAppBar(
+      {Key key,
+      String title: '',
+      Function onPress,
+      Function onTitlePress,
+      Color color}) {
     return AppBar(
       leading: IconButton(
         onPressed: onPress,
@@ -19,15 +24,15 @@ class AppBars {
       title: (onTitlePress == null)
           ? Text(title, style: kBigFontOfBlack)
           : GestureDetector(
-          key: key,
-          behavior: HitTestBehavior.opaque,
-          onTap: onTitlePress,
-          child: Text(title, style: kBigFontOfBlack)
-      ),
+              key: key,
+              behavior: HitTestBehavior.opaque,
+              onTap: onTitlePress,
+              child: Text(title, style: kBigFontOfBlack)),
     );
   }
 
-  static backArrowSkipAppBar({Function onPress, String action = "", String title = ''}) {
+  static backArrowSkipAppBar(
+      {Function onPress, String action = "", String title = ''}) {
     return AppBar(
       title: Center(child: Text(title, style: kBigBoldFontOfBlack)),
       leading: IconButton(
@@ -48,7 +53,8 @@ class AppBars {
     );
   }
 
-  static backArrowAndActionAppBar({String title, Function onPress, Widget action}) {
+  static backArrowAndActionAppBar(
+      {String title, Function onPress, Widget action}) {
     return AppBar(
       title: Text(
         title,
