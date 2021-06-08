@@ -77,7 +77,6 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       homeCubit.saveSNCache(CacheRepository.balanceDHXKey, value);
 
       getBondInfo();
-
     } catch (e, s) {
       logger.e('refresh error', e, s);
       emit(state.copyWith(balance: state.balance.withError(e)));
@@ -85,7 +84,8 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
   }
 
   Future<void> refreshLastMining() async {
-    emit(state.copyWith(yesterdayTotalMPower: state.yesterdayTotalMPower.withLoading()));
+    emit(state.copyWith(
+        yesterdayTotalMPower: state.yesterdayTotalMPower.withLoading()));
     try {
       final lastMiningPowerData = await supernodeRepository.dhx.lastMining();
       final value = double.tryParse(lastMiningPowerData.yesterdayTotalMPower);
@@ -93,7 +93,8 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       homeCubit.saveSNCache(CacheRepository.miningPowerKey, value);
     } catch (e, s) {
       logger.e('refresh error', e, s);
-      emit(state.copyWith(yesterdayTotalMPower: state.yesterdayTotalMPower.withError(e)));
+      emit(state.copyWith(
+          yesterdayTotalMPower: state.yesterdayTotalMPower.withError(e)));
     }
   }
 
@@ -158,7 +159,9 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
 
   Future<void> getBondInfo() async {
     try {
-      emit(state.copyWith(dhxBonded:state.dhxBonded.withLoading(), dhxUnbonding: state.dhxUnbonding.withLoading()));
+      emit(state.copyWith(
+          dhxBonded: state.dhxBonded.withLoading(),
+          dhxUnbonding: state.dhxUnbonding.withLoading()));
       final res = await supernodeRepository.dhx.bondInfo(
         organizationId: orgId,
       );
@@ -167,7 +170,8 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       final double dhxUnbonding = double.parse('0' + res["dhxUnbondingTotal"]);
 
       final List<CalendarModel> listCalendarData = [], lastListCalendarData = [];
-      try { // parsing response for calendar component on DhxMiningPage
+      try { 
+        // parsing response for calendar component on DhxMiningPage
         final Map<DateTime, CalendarModel> parsed = {};
         DateTime dateTmp;
 
@@ -192,8 +196,6 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
         dateTmp = DateTime.now();
         final today = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
         final DateTime firstDayOfRange = (datesParsed.length > 0) ? datesParsed[0] : today;
-        // final DateTime firstDay = firstDayOfRange.subtract(
-            // Duration(days: firstDayOfRange.weekday - 1));
 
         //get the first day
         final DateTime firstDay = new DateTime(firstDayOfRange.year,firstDayOfRange.month - 1,1);
@@ -219,7 +221,8 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
             if (indexDatesParsed == lastDayBeforeToday) {
               parsed[dateTmp].right = true;
             }
-            if (indexDatesParsed != 0 && indexDatesParsed < lastDayBeforeToday){
+            if (indexDatesParsed != 0 &&
+                indexDatesParsed < lastDayBeforeToday) {
               parsed[dateTmp].middle = true;
             }
             parsed[dateTmp].today = Tools.isSameDay(dateTmp, today);
@@ -243,16 +246,18 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
         logger.e('refresh error', e, s);
       }
 
-
       emit(state.copyWith(dhxBonded: Wrap(dhxBonded), dhxUnbonding: Wrap(dhxUnbonding), calendarBondInfo: listCalendarData, lastCalendarBondInfo: lastListCalendarData));
-
     } catch (e, s) {
       logger.e('refresh error', e, s);
     }
   }
 
-  Future<void> confirmBondUnbond({String bond = '0', String unbond = '0'}) async {
-    emit(state.copyWith(confirm: true, bondAmount: double.parse(bond), unbondAmount: double.parse(unbond)));
+  Future<void> confirmBondUnbond(
+      {String bond = '0', String unbond = '0'}) async {
+    emit(state.copyWith(
+        confirm: true,
+        bondAmount: double.parse(bond),
+        unbondAmount: double.parse(unbond)));
     emit(state.copyWith(confirm: false));
   }
 
@@ -274,7 +279,8 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
   Future<void> unbondDhx() async {
     try {
       emit(state.copyWith(showLoading: true));
-      await supernodeRepository.dhx.unbondDhx(state.unbondAmount.toString(), orgId);
+      await supernodeRepository.dhx
+          .unbondDhx(state.unbondAmount.toString(), orgId);
 
       refreshBalance();
 

@@ -10,7 +10,8 @@ class Bitcoin {
     if (data < BigInt.zero) {
       str = (~data).toRadixString(16);
       neg = true;
-    } else str = data.toRadixString(16);
+    } else
+      str = data.toRadixString(16);
     int p = 0;
     int len = str.length;
 
@@ -55,7 +56,7 @@ class Bitcoin {
       }
       for (int i = 1; i < blen; ++i) {
         int byte =
-        int.parse(str.substring(p + (i << 1), p + (i << 1) + 2), radix: 16);
+            int.parse(str.substring(p + (i << 1), p + (i << 1) + 2), radix: 16);
         if (byte > 127) byte -= 256;
         bytes[i + boff] = byte;
       }
@@ -63,7 +64,8 @@ class Bitcoin {
     return bytes;
   }
 
-  static List<int> _arrayCopy(bytes, srcOffset, result, destOffset, bytesLength) {
+  static List<int> _arrayCopy(
+      bytes, srcOffset, result, destOffset, bytesLength) {
     for (int i = srcOffset; i < bytesLength; i++) {
       result[destOffset + i] = bytes[i];
     }
@@ -74,8 +76,7 @@ class Bitcoin {
     BigInt number = BigInt.zero;
     for (String t in input.split('')) {
       int p = _ALPHABET.indexOf(t);
-      if (p == (-1))
-        return null;
+      if (p == (-1)) return null;
       number = number * (BigInt.from(58)) + (BigInt.from(p));
     }
     List<int> result = new List<int>(24);

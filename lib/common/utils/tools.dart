@@ -50,12 +50,17 @@ class Tools {
     }
   }
 
-  static String priceFormat(double number, {int range = 1}) {
+  static String priceFormat(num number, {int range = 1}) {
     if (number == null || number == 0) {
-      return '0.0';
+      return range == 0 ? '0' : '0.0';
     }
     String newNumber = number?.toStringAsFixed((range + 1)) ?? '0.0';
-    return newNumber.substring(0, newNumber.lastIndexOf('.') + range + 1);
+    return newNumber.substring(
+      0,
+      range == 0
+          ? newNumber.lastIndexOf('.')
+          : newNumber.lastIndexOf('.') + range + 1,
+    );
   }
 
   static double convertDouble(dynamic number) {
@@ -75,6 +80,20 @@ class Tools {
     if (date == null) return '?';
     final month = date.month.toString().padLeft(2, '0');
     return '$month/${date.year}';
+  }
+
+  static String dateMonthDayFormat(DateTime date) {
+    if (date == null) return '?';
+    final month = date.month.toString().padLeft(2, '0');
+    final day = date.day.toString().padLeft(2, '0');
+    return '$month $day';
+  }
+
+  static String dateMonthDayYearFormat(DateTime date) {
+    if (date == null) return '?';
+    final month = date.month.toString().padLeft(2, '0');
+    final day = date.day.toString().padLeft(2, '0');
+    return '$month $day ${date.year}';
   }
 
   static String numberRounded(double number) {

@@ -32,5 +32,12 @@ class CalendarModel {
   double minedAmount;
   double unbondAmount;
 
-  CalendarModel({this.left = false, this.right = false, this.middle = false, this.today = false, this.date, this.minedAmount = 0, this.unbondAmount = 0});
+  CalendarModel(
+      {this.left = false,
+      this.right = false,
+      this.middle = false,
+      this.today = false,
+      this.date,
+      this.minedAmount = 0,
+      this.unbondAmount = 0});
 }

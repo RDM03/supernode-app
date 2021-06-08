@@ -8,16 +8,19 @@ import 'package:supernodeapp/theme/font.dart';
 abstract class _IosStyleBottomDialogBase extends StatelessWidget {
   _IosStyleBottomDialogBase({
     Key key,
+    this.margin = const EdgeInsets.symmetric(horizontal: 20),
   }) : super(key: key);
+
+  final EdgeInsets margin;
 
   @override
   Widget build(BuildContext _) {
     return Stack(
       children: <Widget>[
         Positioned(
-          bottom: 0,
-          left: 20,
-          right: 20,
+          bottom: margin.bottom,
+          left: margin.left,
+          right: margin.right,
           child: GestureDetector(
             onTap: () {},
             child: buildDialog(),
@@ -198,19 +201,23 @@ class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
   final WidgetBuilder builder;
 
   final EdgeInsets padding;
+  final bool closeOnTap;
 
   IosStyleBottomDialog2({
     Key key,
     @required this.builder,
     this.padding =
         const EdgeInsets.only(left: 22, right: 22, top: 28, bottom: 60),
-  }) : super(key: key);
+    this.closeOnTap = true,
+    EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 20),
+  }) : super(key: key, margin: margin);
 
   @override
   Widget buildDialog() {
     return IosStyleBottomDialog2Content(
       padding: padding,
       child: Builder(builder: builder),
+      closeOnTap: closeOnTap,
     );
   }
 }
@@ -218,11 +225,13 @@ class IosStyleBottomDialog2 extends _IosStyleBottomDialogBase {
 class IosStyleBottomDialog2Content extends StatefulWidget {
   final Widget child;
   final EdgeInsets padding;
+  final bool closeOnTap;
 
   IosStyleBottomDialog2Content({
     Key key,
     this.child,
     this.padding,
+    this.closeOnTap,
   }) : super(key: key);
 
   @override
@@ -236,12 +245,14 @@ class _IosStyleBottomDialog2ContentState
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        if (!isClosing) {
-          isClosing = true;
-          Navigator.pop(context);
-        }
-      },
+      onTap: widget.closeOnTap
+          ? () {
+              if (!isClosing) {
+                isClosing = true;
+                Navigator.pop(context);
+              }
+            }
+          : null,
       onVerticalDragUpdate: (details) {
         if (details.delta.dy > 0.0) {
           //swipe down
@@ -251,16 +262,17 @@ class _IosStyleBottomDialog2ContentState
       child: Container(
         key: Key("infoDialog"),
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-            boxShadow: [
-              BoxShadow(
-                color: shodowColor,
-                offset: Offset(0, 2),
-                blurRadius: 7,
-              ),
-            ]),
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+          boxShadow: [
+            BoxShadow(
+              color: shodowColor,
+              offset: Offset(0, 2),
+              blurRadius: 7,
+            ),
+          ],
+        ),
         alignment: Alignment.center,
         padding: widget.padding,
         child: widget.child,

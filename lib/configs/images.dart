@@ -26,7 +26,8 @@ class AppImages {
       'assets/images/app/ic-question-circle.png';
 
   //login
-  static const String supernode_placeholder = "assets/images/login/supernode_placeholder.png";
+  static const String supernode_placeholder =
+      "assets/images/login/supernode_placeholder.png";
   static const String placeholder = "assets/images/login/placeholder.png";
   static const String email = 'assets/images/login/email.png';
   static const String wechat = 'assets/images/login/wechat.png';
@@ -54,7 +55,8 @@ class AppImages {
       'assets/images/wallet/info-current-transaction-fee.png';
   static const String mcxBubble = 'assets/images/wallet/mxc_bubble.png';
   static const String minerBubble = 'assets/images/wallet/miner_bubble.png';
-  static const String dhxMiningDiagram = 'assets/images/wallet/dhx_mining_diagram.png';
+  static const String dhxMiningDiagram =
+      'assets/images/wallet/dhx_mining_diagram.png';
   static const String rocket = 'assets/images/wallet/rocket.png';
   static const String minerBoostGraph =
       'assets/images/wallet/mining_boost_graph.png';
@@ -65,6 +67,27 @@ class AppImages {
   //gateway
   static const String infoDownlinkPrice =
       'assets/images/gateway/info-downloadlink_price.png';
+  static const String uptime = 'assets/images/gateway/uptime.png';
+  static const String gps = 'assets/images/gateway/gps.png';
+  static const String gps_disabled = 'assets/images/gateway/gps_disabled.png';
+  static const String altitude = 'assets/images/gateway/altitude.png';
+  static const String altitude_disabled =
+      'assets/images/gateway/altitude_disabled.png';
+  static const String orientation = 'assets/images/gateway/orientation.png';
+  static const String orientation_disabled =
+      'assets/images/gateway/orientation_disabled.png';
+  static const String proximity = 'assets/images/gateway/proximity.png';
+  static const String proximity_disabled =
+      'assets/images/gateway/proximity_disabled.png';
+  static const String fuel = 'assets/images/gateway/fuel.png';
+  static const String fuelCircle = 'assets/images/gateway/fuel_circle.png';
+  static const String sendCircle = 'assets/images/gateway/send_circle.png';
+  static const String addMinerSuccess =
+      'assets/images/gateway/add_miner_success.png';
+  static const String addMinerFailure =
+      'assets/images/gateway/add_miner_failure.png';
+  static const String addMinerWarning =
+      'assets/images/gateway/add_miner_warning.png';
 
   //settings
   static const String warningRobot = 'assets/images/settings/robot_warning.png';

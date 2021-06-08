@@ -31,8 +31,7 @@ class LinksPage extends StatelessWidget {
         _item(
           name: FlutterI18n.translate(context, 'join_us_wechat'),
           onTap: () =>
-              launch(
-                  'https://mp.weixin.qq.com/s/wQI0nGCbzB5089r4_VmzjQ'),
+              launch('https://mp.weixin.qq.com/s/wQI0nGCbzB5089r4_VmzjQ'),
           leading: Image.asset(
             'assets/images/settings/wechat.png',
             color: buttonPrimaryColor,

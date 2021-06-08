@@ -12,7 +12,16 @@ class PrimaryButton extends StatelessWidget {
     this.bgColor = buttonPrimaryColor,
     this.textColor = Colors.white,
     this.padding = const EdgeInsets.symmetric(vertical: 0),
-  }) : super(key: key);
+    this.borderRadius = const BorderRadius.all(Radius.circular(3)),
+    TextStyle textStyle,
+  })  : this.style = textStyle ??
+            TextStyle(
+              color: textColor,
+              fontFamily: "Roboto",
+              fontSize: 15,
+              height: 1.5,
+            ),
+        super(key: key);
 
   final Color bgColor;
   final Color textColor;
@@ -21,6 +30,8 @@ class PrimaryButton extends StatelessWidget {
   final double minHeight;
   final double minWidth;
   final EdgeInsets padding;
+  final BorderRadius borderRadius;
+  final TextStyle style;
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +42,13 @@ class PrimaryButton extends StatelessWidget {
         child: RaisedButton(
           onPressed: onTap,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(3)),
+            borderRadius: borderRadius,
           ),
           color: bgColor,
           child: Text(
             buttonTitle,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: textColor,
-              fontFamily: "Roboto",
-              fontSize: 15,
-              height: 1.5,
-            ),
+            style: style,
           ),
         ),
       ),

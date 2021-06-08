@@ -22,7 +22,7 @@ class TitleDetailRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: kRoundRow15_5,
+      padding: kRoundRow1505,
       child: Row(
         children: <Widget>[
           Text(

@@ -17,7 +17,8 @@ class WithdrawDao extends SupernodeDao {
 
   //remote
   Future<WithdrawReq> withdraw(Map data) {
-    return post(url: WithdrawApi.withdraw, data: data).then((res) => WithdrawReq.fromMap(res));
+    return post(url: WithdrawApi.withdraw, data: data)
+        .then((res) => WithdrawReq.fromMap(res));
   }
 
   Future<List<WithdrawHistoryEntity>> history(Map data) {
