@@ -74,11 +74,9 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
             listenWhen: (a, b) => a.success != b.success,
             listener: (ctx, state) async {
               if (state.success) {
-                await Navigator.pushNamed(context, 'confirm_page', arguments: {
-                  'title': FlutterI18n.translate(context, 'Confirmed'),
-                  'content':
-                      FlutterI18n.translate(context, 'bond_dhx_successful'),
-                  'success': true
+                await Navigator.of(ctx).pushNamed('result_page', arguments: {
+                  'title': 'bond_dhx',
+                  'content': 'bond_dhx_successful'
                 });
                 Navigator.of(context).pop(true);
               }
@@ -194,7 +192,7 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
         floatingActionButton: PrimaryButton(
             key: Key('confirmButton'),
             minWidth: double.infinity,
-            padding: kRoundRow105,
+            padding: kRoundRow1005,
             onTap: () {
               if ((formKey.currentState as FormState).validate()) {
                 context

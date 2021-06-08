@@ -187,7 +187,7 @@ class GatewayTab extends StatelessWidget {
                       a.gatewaysRevenueUsd != b.gatewaysRevenueUsd ||
                       a.gatewaysRevenue != b.gatewaysRevenue,
                   builder: (ctx, state) => PanelFrame(
-                      rowTop: EdgeInsets.only(top: 0),
+                      margin: EdgeInsets.only(top: 0),
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Column(children: [

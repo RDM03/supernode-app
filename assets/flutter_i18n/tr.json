@@ -519,6 +519,7 @@
 	"bond_amount": "Bağlanan Miktar",
 	"total_bonded_amount": "Toplam Bağlanan Miktar",
 	"bond_dhx_confirm_info": "{0} adet DHX varlığınızı bağlamak üzeresiniz. Dilediğiniz zaman istediğiniz miktarda DHX varlığınızı bozabilirsiniz. Ancak bu bozma işleminin tamamlanması 7 gün sürer.",
+	"lock_mxc_successful": "Congratulations!\nŞimdi madeni başlatmak için DHX'i bağlayabilirsiniz.",
 	"bond_dhx_successful": "Tebrikler!\nArtık DHX Madenciliği yapıyorsunuz",
 	"unbond_dhx": "DHX bozun",
 	"unbond_amount": "Bozulan Miktar",

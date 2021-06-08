@@ -65,7 +65,7 @@ Widget buildView(
         ],
         floatingActionButton: PrimaryButton(
             key: ValueKey('submitButton'),
-            padding: kRoundRow105,
+            padding: kRoundRow1005,
             buttonTitle: FlutterI18n.translate(context, 'done'),
             bgColor: colorSupernodeDhx,
             minWidth: double.infinity,

@@ -519,6 +519,7 @@
 	"bond_amount": "Bond-Betrag",
 	"total_bonded_amount": "Gesamter Bond-Betrag",
 	"bond_dhx_confirm_info": "Du bist dabei, {0} DHX zu bonden. Du kannst jeder Zeit eine beliebige Menge DHX unbonden, aber das Unbonding dauert 7 Tage bis zum Abschluss.",
+	"lock_mxc_successful": "Gratulation!\nJetzt können Sie DHX mit dem Bergbau verbinden",
 	"bond_dhx_successful": "Glückwunsch!\nDu bist jetzt dabei, DHX zu minen",
 	"unbond_dhx": "Unbond DHX",
 	"unbond_amount": "Unbond-Betrag",

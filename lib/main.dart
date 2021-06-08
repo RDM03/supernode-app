@@ -198,7 +198,7 @@ class MxcApp extends StatelessWidget {
       'prepare_lock_page': PrepareLockPage(),
       'join_council_page': JoinCouncilPage(),
       'confirm_lock_page': ConfirmLockPage(),
-      'result_lock_page': ResultLockPage(),
+      'result_page': ResultLockPage(),
       'mapbox_gl_page': MapboxGlPage(),
       'wechat_login_page': WechatLoginPage(),
       'wechat_bind_page': WechatBindPage(),

@@ -519,6 +519,7 @@
 	"bond_amount": "锁仓量",
 	"total_bonded_amount": "总锁仓量",
 	"bond_dhx_confirm_info": "您即将绑定 {0} DHX。您可以随时解绑任意数额的 DHX，解绑将在7天后完成。",
+	"lock_mxc_successful": "恭喜！\n现在你可以绑定DHX来挖矿",
 	"bond_dhx_successful": "恭喜！\n您现在正在开采DHX",
 	"unbond_dhx": "解绑DHX\n",
 	"unbond_amount": "解绑数额",

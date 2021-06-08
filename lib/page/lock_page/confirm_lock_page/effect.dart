@@ -47,11 +47,11 @@ void _onConfirm(Action action, Context<ConfirmLockState> ctx) async {
     }
 
     if (stakeId != null) {
-      await Navigator.of(ctx.context).pushNamed('result_lock_page', arguments: {
+      await Navigator.of(ctx.context).pushNamed('result_page', arguments: {
         'isDemo': ctx.state.isDemo,
         'stakeId': stakeId,
-        'title': 'dhx_mining',
-        'content': 'congrats_mining'
+        'title': 'lock_mxc',
+        'content': 'lock_mxc_successful'
       });
       Navigator.of(ctx.context).pop(true);
     }
