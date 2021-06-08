@@ -31,11 +31,12 @@ class FiatListPage extends StatelessWidget {
                 listFiatWidgets.add(Container(
                   color: (e.id == state.selectedFiat.id) ? dartBlueColor.withOpacity(0.1) : transparentWhite,
                   child: listItem('${e.id.toUpperCase()} - ${e.description}',
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       onTap: () { context.read<SettingsCubit>().setFiatCurrency(e);
                       Navigator.of(context).pop();},
                       trailing: Icon(Icons.check, color: (e.id == state.selectedFiat.id) ? Colors.black : Colors.grey)),
                 )),
-                listFiatWidgets.add(Divider())
+                listFiatWidgets.add(Divider(height: 1))
               });
               return Column(
                 children: listFiatWidgets,
