@@ -189,29 +189,35 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   Future<void> initExportMxcPreYearPage(int year, FiatCurrency fiatPreviousSession) async {
+    emit(state.copyWith(
+        startDate: DateTime(year),
+        endDate: DateTime(year + 1))
+    );
+
     if (state.listFiat == null) {
       emit(state.copyWith(showLoading: true));
 
       try {
-        FiatCurrency initFiat;
         final List<FiatCurrency> listFiat = await supernodeRepository.user.supportedFiatCurrencies();
-        if (fiatPreviousSession == null || fiatPreviousSession.id == null || fiatPreviousSession.id.isEmpty) {
-          initFiat = (listFiat == null || listFiat.length < 1)
-              ? null
-              : listFiat[0];
-        } else {
-          initFiat = fiatPreviousSession;
-        }
 
         emit(state.copyWith(listFiat: listFiat,
-            selectedFiat: initFiat,
-            startDate: DateTime(year),
-            endDate: DateTime(year + 1),
             showLoading: false));
 
       } catch (e) {
         emit(state.copyWith(showLoading: false));
         appCubit.setError(e.toString());
+      }
+
+      if (state.listFiat != null) {
+        FiatCurrency initFiat;
+        if (fiatPreviousSession == null || fiatPreviousSession.id == null || fiatPreviousSession.id.isEmpty) {
+          initFiat = (state.listFiat == null || state.listFiat.length < 1)
+              ? null
+              : state.listFiat[0];
+        } else {
+          initFiat = fiatPreviousSession;
+        }
+        emit(state.copyWith(selectedFiat: initFiat));
       }
     }
   }
@@ -249,7 +255,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
       final String exportReport = await supernodeRepository.user.miningIncomeReport(
           data,
-          'IncomeReport_MXC_${state.selectedFiat.id.toUpperCase()}_year${state.endDate.year}.${state.format}');
+          'MiningReport_MXC_${state.selectedFiat.id.toUpperCase()}_year${state.startDate.year}.${state.format}');
       emit(state.copyWith(showLoading: false));
       return exportReport;
     } catch (err) {
