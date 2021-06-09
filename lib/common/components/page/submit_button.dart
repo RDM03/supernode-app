@@ -41,27 +41,26 @@ Widget submitButton(
 Widget whiteBorderButton(
   String label, {
   double top = 34,
+  double width = 120,
   Function onPressed,
   Key key,
 }) {
   final Color color = (onPressed == null) ? Colors.grey : Colors.white;
   return Container(
+    width: width,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(3)),
+      border: Border.all(
+        width: 1,
+        color: Colors.white,
+        style: BorderStyle.solid,
+      ),
+    ),
     height: 45,
     margin: EdgeInsets.only(top: top),
-    child: FlatButton(
+    child: TextButton(
       key: key,
       onPressed: onPressed,
-      color: Color.fromARGB(0, 0, 0, 0),
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: color,
-          width: 1,
-          style: BorderStyle.solid,
-        ),
-        borderRadius: BorderRadius.all(Radius.circular(3)),
-      ),
-      textColor: color,
-      padding: EdgeInsets.all(0),
       child: Text(
         label,
         textAlign: TextAlign.center,

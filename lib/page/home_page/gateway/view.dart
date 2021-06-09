@@ -147,7 +147,6 @@ class GatewayTab extends StatelessWidget {
                 Navigator.pop(context);
                 await Navigator.of(ctx)
                     .push(route((ctx) => SendToWalletPage()));
-                await context.read<GatewayCubit>().refresh();
               },
               child: Padding(
                 padding: const EdgeInsets.only(left: 32),
@@ -188,7 +187,7 @@ class GatewayTab extends StatelessWidget {
                       a.gatewaysRevenueUsd != b.gatewaysRevenueUsd ||
                       a.gatewaysRevenue != b.gatewaysRevenue,
                   builder: (ctx, state) => PanelFrame(
-                      rowTop: EdgeInsets.only(top: 0),
+                      margin: EdgeInsets.only(top: 0),
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Column(children: [
@@ -568,9 +567,6 @@ class GatewayTab extends StatelessWidget {
                                           Navigator.pop(context);
                                           await Navigator.of(ctx).push(
                                               route((ctx) => AddFuelPage()));
-                                          await context
-                                              .read<GatewayCubit>()
-                                              .refresh();
                                         },
                                         buttonTitle: FlutterI18n.translate(
                                             context, 'fuel_miners'),
@@ -716,15 +712,15 @@ class GatewaysList extends StatelessWidget {
           state: state,
           topOfList: index == 0,
           onTap: () async {
-            await Navigator.push(
-              context,
-              route(
-                (ctx) => MinerDetailPage(
-                  item: state,
+            if (!state.reseller)
+              await Navigator.push(
+                context,
+                route(
+                      (ctx) => MinerDetailPage(
+                    item: state,
+                  ),
                 ),
-              ),
-            );
-            await context.read<GatewayCubit>().refresh();
+              );
           },
         ),
         secondaryActions: <Widget>[
@@ -823,22 +819,22 @@ class GatewayListTile extends StatelessWidget {
                     style: kMiddleFontOfGrey,
                   ),
                   Spacer(),
-                  Image.asset(
+                  (state.reseller) ? SizedBox() : Image.asset(
                     AppImages.gateways,
                     scale: 1.5,
                     color: minerColor,
                   ),
                   smallRowSpacer(),
-                  Text('${Tools.priceFormat((state.health ?? 0) * 100)} %',
+                  (state.reseller) ? SizedBox() : Text('${Tools.priceFormat((state.health ?? 0) * 100)} %',
                       style: kBigFontOfBlack),
                   smallRowSpacer(),
-                  Image.asset(
+                  (state.reseller) ? SizedBox() : Image.asset(
                     AppImages.fuel,
                     scale: 1.5,
                     color: fuelColor,
                   ),
                   smallRowSpacer(),
-                  Text(
+                  (state.reseller) ? SizedBox() : Text(
                       '${Tools.priceFormat((state.miningFuelHealth ?? 0) * 100)} %',
                       style: kBigFontOfBlack),
                 ],

@@ -184,7 +184,7 @@ Widget _lockCard({
   Key key,
 }) {
   return PanelFrame(
-    rowTop: first ? EdgeInsets.only(top: 10) : null,
+    margin: first ? EdgeInsets.only(top: 10) : null,
     child: ListTile(
       key: key,
       onTap: () async {

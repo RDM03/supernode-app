@@ -2,16 +2,18 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
-import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/security/biometrics.dart';
 import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/spacing.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -25,231 +27,226 @@ Widget buildView(
     onTap: () =>
         FocusScope.of(viewService.context).requestFocus(new FocusNode()),
     child: pageFrame(
-      context: viewService.context,
-      scaffoldKey: state.scaffoldKey,
-      children: [
-        pageNavBar(
-          FlutterI18n.translate(context, 'dhx_mining'),
-          onTap: () => Navigator.of(context).pop(),
-        ),
-        SizedBox(height: 35),
-        SizedBox(
-          width: double.infinity,
-          child: Text(
-            FlutterI18n.translate(context, 'mining'),
-            style: kPrimaryBigFontOfBlack,
-            textAlign: TextAlign.center,
+        context: viewService.context,
+        scaffoldKey: state.scaffoldKey,
+        children: [
+          pageNavBar(
+            FlutterI18n.translate(context, 'lock_mxc'),
+            leadingWidget: GestureDetector(
+              key: ValueKey('navBackButton'),
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              ),
+              onTap: () => Navigator.of(context).pop(),
+            ),
+            onTap: () => Navigator.of(context).pop(),
           ),
-        ),
-        SizedBox(height: 4),
-        SizedBox(
-          width: double.infinity,
-          child: Text(
-            FlutterI18n.translate(context, 'mining_confirm_tip')
-                .replaceAll('{0}', state.months.toString()),
-            style: kMiddleFontOfGrey,
-            textAlign: TextAlign.center,
+          SizedBox(height: 35),
+          SizedBox(
+            width: double.infinity,
+            child: Text(
+              FlutterI18n.translate(context, 'mining'),
+              style: kPrimaryBigFontOfBlack,
+              textAlign: TextAlign.center,
+            ),
           ),
-        ),
-        SizedBox(height: 20),
-        Row(
-          children: [
-            Text(FlutterI18n.translate(context, 'mining_start_date')),
-            Expanded(
-              child: Text(
-                Tools.dateFormat(state.startDate),
-                textAlign: TextAlign.right,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 16),
-        Row(
-          children: [
-            Text(FlutterI18n.translate(context, 'mining_end_date')),
-            Expanded(
-              child: Text(
-                Tools.dateFormat(state.endDate),
-                textAlign: TextAlign.right,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 16),
-        Row(
-          children: [
-            Text(FlutterI18n.translate(context, 'amount')),
-            Expanded(
-              child: Text(
-                FlutterI18n.translate(context, '${state.amount} MXC'),
-                textAlign: TextAlign.right,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 16),
-        Divider(),
-        SizedBox(height: 10),
-        Text(
-          FlutterI18n.translate(context, 'mining_boost'),
-          style: kPrimaryBigFontOfBlack,
-        ),
-        SizedBox(height: 16),
-        Row(
-          children: [
-            Expanded(
-              child: Text(FlutterI18n.translate(context, 'mining_duration')),
-            ),
-            SizedBox(width: 5),
-            Text(
-              FlutterI18n.translate(context, 'x_months')
+          SizedBox(height: 4),
+          SizedBox(
+            width: double.infinity,
+            child: Text(
+              FlutterI18n.translate(context, 'mining_confirm_tip')
                   .replaceAll('{0}', state.months.toString()),
-              textAlign: TextAlign.right,
+              style: kMiddleFontOfGrey,
+              textAlign: TextAlign.center,
             ),
-            SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                FlutterI18n.translate(context,
-                    '${(monthsToBoost(state.months) * 100).toStringAsFixed(0)} %'),
+          ),
+          SizedBox(height: 20),
+          Row(
+            children: [
+              Text(FlutterI18n.translate(context, 'mining_start_date')),
+              Expanded(
+                child: Text(
+                  Tools.dateFormat(state.startDate),
+                  textAlign: TextAlign.right,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Text(FlutterI18n.translate(context, 'mining_end_date')),
+              Expanded(
+                child: Text(
+                  Tools.dateFormat(state.endDate),
+                  textAlign: TextAlign.right,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Text(FlutterI18n.translate(context, 'amount')),
+              Expanded(
+                child: Text(
+                  FlutterI18n.translate(context, '${state.amount} MXC'),
+                  textAlign: TextAlign.right,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Divider(),
+          SizedBox(height: 10),
+          Text(
+            FlutterI18n.translate(context, 'mining_boost'),
+            style: kPrimaryBigFontOfBlack,
+          ),
+          SizedBox(height: 16),
+          Flex(
+            direction: Axis.horizontal,
+            children: [
+              Expanded(
+                child: Text(FlutterI18n.translate(context, 'mining_duration')),
+              ),
+              Spacer(),
+              Text(
+                FlutterI18n.translate(context, 'x_months')
+                    .replaceAll('{0}', state.months.toString()),
                 textAlign: TextAlign.right,
               ),
-            ),
-          ],
-        ),
-        SizedBox(height: 16),
-        Row(
-          children: [
-            Expanded(
-              flex: 2,
-              child: Text(FlutterI18n.translate(context, 'miner_owner')),
-            ),
-            SizedBox(width: 5),
-            Text(
-              state.minersOwned.toString(),
-              textAlign: TextAlign.right,
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              flex: 2,
-              child: Row(
-                children: [
-                  Expanded(
+              SizedBox(width: 5),
+              Text(
+                '${FlutterI18n.translate(context, "${(monthsToBoost(state.months) * 100).toStringAsFixed(0)}%")} ${FlutterI18n.translate(context, "boost")}',
+                textAlign: TextAlign.right,
+              )
+            ],
+          ),
+          SizedBox(height: 16),
+          Flex(
+            direction: Axis.horizontal,
+            children: [
+              Text(FlutterI18n.translate(context, 'miner_owner')),
+              Container(
+                constraints: BoxConstraints(maxWidth: 50),
+                child: GestureDetector(
+                  onTap: () => _showInfoDialog(context),
+                  child: Padding(
+                    key: Key("questionCircle"),
+                    padding: EdgeInsets.only(left: 5, top: 5, bottom: 5),
+                    child: Image.asset(AppImages.questionCircle, height: 25),
+                  ),
+                ),
+              ),
+              Spacer(),
+              Text(
+                state.minersOwned.toString(),
+                textAlign: TextAlign.right,
+              ),
+              SizedBox(width: 5),
+              Text(FlutterI18n.translate(context, 'miner')),
+              SizedBox(width: 5),
+              Text(
+                FlutterI18n.translate(
+                  context,
+                  getMinersBoost(
+                        double.tryParse(state.amount),
+                        state.minersOwned,
+                      ).toStringAsFixed(0) +
+                      ' mP',
+                ),
+                textAlign: TextAlign.right,
+                maxLines: 1,
+                softWrap: false,
+                overflow: TextOverflow.clip,
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Text(FlutterI18n.translate(context, 'council')),
+              Expanded(
+                child: Text(
+                  FlutterI18n.translate(context, state.councilName),
+                  textAlign: TextAlign.right,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 35),
+          Row(
+            children: [
+              Text(
+                FlutterI18n.translate(context, 'potential_m_power'),
+                style: kBigFontOfBlack,
+              ),
+              SizedBox(width: 30),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0x4665EA).withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: Text(
-                      FlutterI18n.translate(
-                        context,
-                        getMinersBoost(
-                              double.tryParse(state.amount),
-                              state.minersOwned,
-                            ).toStringAsFixed(0) +
-                            ' mP',
-                      ),
-                      textAlign: TextAlign.right,
+                      '${Tools.numberRounded(state.miningPower)} mPower',
                       maxLines: 1,
                       softWrap: false,
                       overflow: TextOverflow.clip,
+                      textAlign: TextAlign.right,
+                      style: kMiddleFontOfBlack,
                     ),
-                  ),
-                  Container(
-                    constraints: BoxConstraints(maxWidth: 50),
-                    child: GestureDetector(
-                      onTap: () => _showInfoDialog(context),
-                      child: Padding(
-                        key: Key("questionCircle"),
-                        padding: EdgeInsets.only(left: 5, top: 5, bottom: 5),
-                        child:
-                            Image.asset(AppImages.questionCircle, height: 25),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 16),
-        Row(
-          children: [
-            Text(FlutterI18n.translate(context, 'council')),
-            Expanded(
-              child: Text(
-                FlutterI18n.translate(context, state.councilName),
-                textAlign: TextAlign.right,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 35),
-        Row(
-          children: [
-            Text(
-              FlutterI18n.translate(context, 'potential_m_power'),
-              style: kBigFontOfBlack,
-            ),
-            SizedBox(width: 30),
-            Expanded(
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0x4665EA).withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Text(
-                    '${Tools.numberRounded(state.miningPower)} mPower',
-                    maxLines: 1,
-                    softWrap: false,
-                    overflow: TextOverflow.clip,
-                    textAlign: TextAlign.right,
-                    style: kMiddleFontOfBlack,
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-        SizedBox(height: 10),
-        Row(
-          children: [
-            Expanded(
-              child: Text(
-                FlutterI18n.translate(context, 'avg_dhx_daily_revenue'),
-                style: kBigFontOfBlack,
+            ],
+          ),
+          SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  FlutterI18n.translate(context, 'avg_dhx_daily_revenue'),
+                  style: kBigFontOfBlack,
+                ),
               ),
-            ),
-            SizedBox(width: 30),
-            Expanded(
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0x4665EA).withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Text(
-                    '${Tools.priceFormat(state.avgDailyDhxRevenue, range: 2)} DHX',
-                    maxLines: 1,
-                    softWrap: false,
-                    overflow: TextOverflow.clip,
-                    textAlign: TextAlign.right,
-                    style: kMiddleFontOfBlack,
+              SizedBox(width: 30),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0x4665EA).withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: Text(
+                      '${Tools.priceFormat(state.avgDailyDhxRevenue, range: 2)} DHX',
+                      maxLines: 1,
+                      softWrap: false,
+                      overflow: TextOverflow.clip,
+                      textAlign: TextAlign.right,
+                      style: kMiddleFontOfBlack,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-        SizedBox(
-          height: 30,
-        ),
-        submitButton(
-          FlutterI18n.translate(context, 'proceed'),
-          onPressed: () => _proceed(dispatch, state),
+            ],
+          )
+        ],
+        floatingActionButton: PrimaryButton(
           key: ValueKey('submitButton1'),
-        )
-      ],
-    ),
+          padding: kRoundRow1005,
+          buttonTitle: FlutterI18n.translate(context, 'proceed'),
+          bgColor: colorSupernodeDhx,
+          minWidth: double.infinity,
+          onTap: () => _proceed(dispatch, state),
+        )),
   );
 }
 

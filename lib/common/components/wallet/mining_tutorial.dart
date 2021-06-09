@@ -16,6 +16,7 @@ import 'package:supernodeapp/page/home_page/wallet/supernode_dhx_token/dhx_bondi
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/spacing.dart';
 
 class MiningTutorial extends StatefulWidget {
   final BuildContext _ctx;
@@ -36,14 +37,23 @@ class MiningTutorial extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _MiningTutorialState();
 
-  Widget _pageBase(List<Widget> wgts) {
-    return Padding(
-        padding: const EdgeInsets.only(left: 18.0, right: 18.0, bottom: 20.0),
-        child: ListView(children: wgts));
+  Widget _pageBase(List<Widget> wgts, {Widget floatingActionButton}) {
+    return Scaffold(
+        body: Padding(
+            padding:
+                const EdgeInsets.only(left: 18.0, right: 18.0, bottom: 20.0),
+            child: ListView(children: wgts)),
+        floatingActionButton: Padding(
+            padding:
+                const EdgeInsets.only(left: 18.0, right: 18.0, bottom: 20.0),
+            child: floatingActionButton),
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.centerDocked);
   }
 
   Widget _pageView_1(BuildContext ctx) {
     return _pageBase([
+      middleColumnSpacer(),
       Text(FlutterI18n.translate(ctx, "tutorial_pg2_title"),
           style: kPrimaryBigFontOfBlack),
       SizedBox(height: s(10)),
@@ -227,6 +237,7 @@ class MiningTutorial extends StatefulWidget {
 
   Widget _pageView_2(BuildContext ctx) {
     return _pageBase([
+      middleColumnSpacer(),
       RichText(
           text: TextSpan(children: [
         TextSpan(
@@ -291,6 +302,7 @@ class MiningTutorial extends StatefulWidget {
 
   Widget _pageView_3(BuildContext ctx) {
     return _pageBase([
+      middleColumnSpacer(),
       Text(FlutterI18n.translate(ctx, "tutorial_pv3_title"),
           style: kPrimaryBigFontOfBlack),
       smallColumnSpacer(),
@@ -325,6 +337,7 @@ class MiningTutorial extends StatefulWidget {
 
   Widget _pageView_4(BuildContext ctx) {
     return _pageBase([
+      middleColumnSpacer(),
       RichText(
           text: TextSpan(children: [
         TextSpan(
@@ -358,6 +371,7 @@ class MiningTutorial extends StatefulWidget {
 
   Widget _pageView_5(BuildContext ctx) {
     return _pageBase([
+      middleColumnSpacer(),
       RichText(
           text: TextSpan(children: [
         TextSpan(
@@ -382,6 +396,7 @@ class MiningTutorial extends StatefulWidget {
 
   Widget _pageView_6(BuildContext ctx) {
     return _pageBase([
+      middleColumnSpacer(),
       RichText(
           text: TextSpan(children: [
         TextSpan(
@@ -409,9 +424,8 @@ class MiningTutorial extends StatefulWidget {
 
   Widget _pageView_7(BuildContext ctx) {
     return _pageBase([
-      SizedBox(height: s(40)),
+      middleColumnSpacer(),
       Center(child: Image.asset(AppImages.rocket, width: 100, height: 100)),
-      SizedBox(height: 25),
       Center(
         child: Container(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -450,9 +464,9 @@ class MiningTutorial extends StatefulWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(FlutterI18n.translate(ctx, 'deposit_dhx'),
-                      style: kBigFontOfBlack),
+                      style: kBigBoldFontOfBlack),
                   Text(FlutterI18n.translate(ctx, 'tutorial_pv7_sub1'),
-                      style: kSmallFontOfBlack)
+                      style: kSmallFontOfGrey)
                 ],
               )
             ])),
@@ -478,19 +492,18 @@ class MiningTutorial extends StatefulWidget {
                 ]),
             child: Row(children: [
               CircleButton(
-                icon: Icon(
-                  Icons.lock,
-                  color: Token.supernodeDhx.color,
-                ),
-              ),
+                  icon: Image.asset(
+                AppImages.iconLock,
+                color: Token.supernodeDhx.color,
+              )),
               smallRowSpacer(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(FlutterI18n.translate(ctx, 'lock_mxc'),
-                      style: kBigFontOfBlack),
+                      style: kBigBoldFontOfBlack),
                   Text(FlutterI18n.translate(ctx, 'tutorial_pv7_sub2'),
-                      style: kSmallFontOfBlack)
+                      style: kSmallFontOfGrey)
                 ],
               )
             ])),
@@ -522,9 +535,9 @@ class MiningTutorial extends StatefulWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(FlutterI18n.translate(ctx, 'bond_dhx'),
-                      style: kBigFontOfBlack),
+                      style: kBigBoldFontOfBlack),
                   Text(FlutterI18n.translate(ctx, 'tutorial_pv7_sub3'),
-                      style: kSmallFontOfBlack)
+                      style: kSmallFontOfGrey)
                 ],
               )
             ])),
@@ -539,22 +552,22 @@ class _MiningTutorialState extends State<MiningTutorial> {
 
   Widget _page_1(BuildContext ctx) {
     return widget._pageBase([
-      smallColumnSpacer(),
+      middleColumnSpacer(),
       Text(FlutterI18n.translate(ctx, "tutorial_page1_title"),
           key: Key('tutorialPage1Title'), style: kPrimaryBigFontOfBlack),
       middleColumnSpacer(),
       Image.asset(AppImages.dhxMiningDiagram),
-      middleColumnSpacer(),
-      PrimaryButton(
-          buttonTitle: FlutterI18n.translate(context, 'next'),
-          bgColor: Token.supernodeDhx.color,
-          minWidth: double.infinity,
-          onTap: () => setState(() => currentTutorialPageValue = 1))
-    ]);
+    ],
+        floatingActionButton: PrimaryButton(
+            buttonTitle: FlutterI18n.translate(context, 'next'),
+            bgColor: Token.supernodeDhx.color,
+            minWidth: double.infinity,
+            onTap: () => setState(() => currentTutorialPageValue = 1)));
   }
 
   Widget _page_2(BuildContext ctx) {
     return widget._pageBase([
+      middleColumnSpacer(),
       Text(FlutterI18n.translate(ctx, "tutorial_page2_title"),
           style: kPrimaryBigFontOfBlack),
       bigColumnSpacer(),
@@ -637,13 +650,12 @@ class _MiningTutorialState extends State<MiningTutorial> {
           ]),
         )
       ]),
-      xbigColumnSpacer(),
-      PrimaryButton(
-          buttonTitle: FlutterI18n.translate(context, 'lets_go_learn_button'),
-          bgColor: Token.supernodeDhx.color,
-          minWidth: double.infinity,
-          onTap: () => setState(() => currentTutorialPageValue = 2))
-    ]);
+    ],
+        floatingActionButton: PrimaryButton(
+            buttonTitle: FlutterI18n.translate(context, 'lets_go_learn_button'),
+            bgColor: Token.supernodeDhx.color,
+            minWidth: double.infinity,
+            onTap: () => setState(() => currentTutorialPageValue = 2)));
   }
 
   @override
@@ -655,45 +667,51 @@ class _MiningTutorialState extends State<MiningTutorial> {
           visible: (currentTutorialPageValue == 1), child: _page_2(context)),
       Visibility(
         visible: (currentTutorialPageValue == 2),
-        child: Stack(
-          alignment: AlignmentDirectional.bottomCenter,
-          children: [
-            PageView(
-              onPageChanged: (int page) {
-                currentPageViewValue = page;
-                setState(() {});
-              },
-              children: widget._pages,
-            ),
-            Container(
-              width: double.infinity,
-              height: 50,
-              decoration: new BoxDecoration(
-                gradient: new LinearGradient(
-                    colors: [transparentWhite, Colors.white],
-                    begin: Alignment.topCenter,
-                    end: Alignment.center),
+        child: Scaffold(
+          body: Stack(
+            alignment: AlignmentDirectional.bottomCenter,
+            children: [
+              PageView(
+                onPageChanged: (int page) {
+                  currentPageViewValue = page;
+                  setState(() {});
+                },
+                children: widget._pages,
               ),
-              child: Stack(
-                alignment: AlignmentDirectional.center,
-                children: <Widget>[
-                  Container(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        for (int i = 0; i < widget._pages.length; i++)
-                          if (i == currentPageViewValue) ...[
-                            circleBar(true)
-                          ] else
-                            circleBar(false),
-                      ],
-                    ),
+              Container(
+                width: double.infinity,
+                height: 80,
+                decoration: new BoxDecoration(
+                  gradient: new LinearGradient(
+                      colors: [transparentWhite, Colors.white],
+                      begin: Alignment.topCenter,
+                      end: Alignment.center),
+                ),
+              ),
+            ],
+          ),
+          floatingActionButton: Container(
+            padding:
+                const EdgeInsets.only(left: 18.0, right: 18.0, bottom: 30.0),
+            child: currentPageViewValue == widget._pages.length - 1
+                ? PrimaryButton(
+                    buttonTitle:
+                        FlutterI18n.translate(context, 'dhx_wallet_overview'),
+                    bgColor: Token.supernodeDhx.color,
+                    minWidth: double.infinity,
+                    onTap: () => Navigator.pop(context))
+                : Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      for (int i = 0; i < widget._pages.length; i++)
+                        if (i == currentPageViewValue) ...[circleBar(true)] else
+                          circleBar(false),
+                    ],
                   ),
-                ],
-              ),
-            )
-          ],
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
         ),
       )
     ]);

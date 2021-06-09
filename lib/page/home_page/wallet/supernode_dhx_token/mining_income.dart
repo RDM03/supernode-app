@@ -13,7 +13,7 @@ class MiningIncomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PanelFrame(
-      rowTop: EdgeInsets.zero,
+      margin: EdgeInsets.zero,
       child: BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
         buildWhen: (a, b) => a.stakes != b.stakes,
         builder: (ctx, state) {

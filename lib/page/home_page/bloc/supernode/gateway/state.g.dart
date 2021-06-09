@@ -26,6 +26,7 @@ _$_GatewayItem _$_$_GatewayItemFromJson(Map<String, dynamic> json) {
     miningFuel: Decimal.tryParse(json['miningFuel'] as String),
     miningFuelMax: Decimal.tryParse(json['miningFuelMax'] as String),
     totalMined: (json['totalMined'] as num)?.toDouble(),
+    reseller: json['reseller'] as bool ?? false,
   );
 }
 
@@ -49,4 +50,5 @@ Map<String, dynamic> _$_$_GatewayItemToJson(_$_GatewayItem instance) =>
       'miningFuel': _decimalToJson(instance.miningFuel),
       'miningFuelMax': _decimalToJson(instance.miningFuelMax),
       'totalMined': instance.totalMined,
+      'reseller': instance.reseller,
     };

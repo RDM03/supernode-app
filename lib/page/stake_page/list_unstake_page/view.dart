@@ -46,7 +46,7 @@ Widget buildView(
           ),
           SizedBox(height: 20),
           PanelFrame(
-            rowTop: EdgeInsets.zero,
+            margin: EdgeInsets.zero,
             child: state.isLoading
                 ? LoadingList()
                 : (state.stakes.isNotEmpty

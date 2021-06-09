@@ -6,13 +6,13 @@ import 'package:supernodeapp/theme/spacing.dart';
 class PanelFrame extends StatelessWidget {
   final double height;
   final Widget child;
-  final EdgeInsetsGeometry rowTop;
+  final EdgeInsetsGeometry margin;
   final Color customPanelColor;
 
   const PanelFrame({
     Key key,
     this.height,
-    this.rowTop,
+    this.margin,
     this.customPanelColor,
     this.child,
   }) : super(key: key);
@@ -22,7 +22,7 @@ class PanelFrame extends StatelessWidget {
     return Container(
       key: key,
       height: height,
-      margin: rowTop != null ? rowTop : kOuterRowTop20,
+      margin: margin != null ? margin : kOuterRowTop20,
       decoration: BoxDecoration(
         color: customPanelColor == null ? panelColor : customPanelColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),

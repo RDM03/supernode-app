@@ -138,7 +138,7 @@ class _StakeHistoryContentState extends State<StakeHistoryContent> {
           ),
         SizedBox(height: 12),
         PanelFrame(
-          rowTop: EdgeInsets.zero,
+          margin: EdgeInsets.zero,
           child: filteredHistory == null
               ? LoadingList()
               : (filteredHistory.length != 0

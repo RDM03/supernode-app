@@ -13,6 +13,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
@@ -266,9 +267,9 @@ class AddNewTokenCard extends StatelessWidget {
             padding: kRoundRow1005,
             child: Column(
               children: [
-                Icon(Icons.add_circle, size: 50),
+                Icon(Icons.add_circle, size: 50, color: buttonPrimaryColor),
                 Text(FlutterI18n.translate(context, 'add_new_token'),
-                    style: kMiddleFontOfBlack)
+                    style: kSmallFontOfGrey)
               ],
             )),
       ),

@@ -80,14 +80,15 @@ class _SendToWalletPageState extends State<SendToWalletPage>
         "orgId": orgId,
       });
       totalGateways = int.parse(res['totalCount']);
-      final newGateways = parseGateways(res, listMinersHealth);
+      final newGateways = parseGateways(res, listMinersHealth, orgId);
       if (newGateways.isEmpty) forceStopLoading = true;
       if (mounted)
         setState(() {
           isLoading = false;
           allGateways = [...(allGateways ?? <GatewayItem>[]), ...newGateways];
-          gateways =
-              allGateways.where((e) => e.miningFuel > Decimal.zero).toList();
+          gateways = allGateways
+              .where((e) => e.miningFuel > Decimal.zero && !e.reseller)
+              .toList();
           gatewaysMap =
               gateways.asMap().map((key, value) => MapEntry(value.id, value));
         });
@@ -321,6 +322,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
         await rep.wallet.withdrawMiningFuel(
             currency: 'ETH_MXC', orgId: orgId, withdraws: withdraws);
 
+        await context.read<GatewayCubit>().refreshGateways();
         loading.hide();
         await Navigator.of(context)
             .push(route((ctx) => SendToWalletConfirmPage()));

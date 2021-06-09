@@ -142,7 +142,7 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
               ),
             SizedBox(height: 12),
             PanelFrame(
-              rowTop: EdgeInsets.zero,
+              margin: EdgeInsets.zero,
               child: list == null
                   ? LoadingList()
                   : (list.length != 0

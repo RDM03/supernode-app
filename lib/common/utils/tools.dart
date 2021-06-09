@@ -71,7 +71,7 @@ class Tools {
   static String dateMonthYearFormat(DateTime date) {
     if (date == null) return '?';
     final month = date.month.toString().padLeft(2, '0');
-    return '$month/${date.year}';
+    return '$month\'${date.day}';
   }
 
   static String dateMonthDayFormat(DateTime date) {

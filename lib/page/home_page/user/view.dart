@@ -25,6 +25,7 @@ import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/spacing.dart';
 
 import '../shared.dart';
 import 'account_widget.dart';
@@ -51,14 +52,14 @@ class UserTab extends StatelessWidget {
               },
               child: Container(
                 decoration: BoxDecoration(
-                    color: Token.supernodeDhx.color.withOpacity(.2),
+                    color: colorMxc.withOpacity(.2),
                     borderRadius: BorderRadius.all(Radius.circular(5))),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 8.0, vertical: 4.0),
                   child: Text(
                     '+ ${FlutterI18n.translate(context, 'add_miner')}',
-                    style: MiddleFontOfColor(color: Token.supernodeDhx.color),
+                    style: MiddleFontOfColor(color: colorMxc),
                   ),
                 ),
               ),
@@ -67,7 +68,7 @@ class UserTab extends StatelessWidget {
         ),
       ),
       PanelFrame(
-        rowTop: EdgeInsets.only(top: 10),
+        margin: EdgeInsets.only(top: 10),
         child: SummaryRow(
           key: Key('totalGatewaysDashboard'),
           loading: snState.gatewaysRevenueUsd.loading,
@@ -162,6 +163,9 @@ class UserTab extends StatelessWidget {
             )
           else
             totalGatewaysDemo(context),
+          if (supernodeConnected) bigColumnSpacer(),
+          Text(FlutterI18n.translate(context, 'miner_mapper'),
+              style: kBigBoldFontOfBlack),
           if (supernodeConnected)
             BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
               buildWhen: (a, b) =>
@@ -169,6 +173,7 @@ class UserTab extends StatelessWidget {
                   a?.locationPermissionsGranted !=
                       b?.locationPermissionsGranted,
               builder: (ctx, state) => PanelFrame(
+                margin: kOuterRowTop10,
                 key: ValueKey('homeMapbox'),
                 height: 263,
                 child: state.locationPermissionsGranted

@@ -343,7 +343,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
             height: _mediaData.size.height,
           )
         : PanelFrame(
-            rowTop: widget.rowTop, height: 263, child: _buildMapView());
+            margin: widget.rowTop, height: 263, child: _buildMapView());
   }
 
   Widget _buildMapView() {

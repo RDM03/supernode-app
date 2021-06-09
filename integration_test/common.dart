@@ -57,9 +57,10 @@ Future<void> pumpAndTap(WidgetTester tester, String key,
   } else {
     finder = find.byKey(Key(key), skipOffstage: false);
   }
-  await tester.ensureVisible(finder);
 
   await tester.pumpAndSettle();
+
+  // await tester.ensureVisible(finder);
 
   if (tapCount > 1) {
     int count = 0;

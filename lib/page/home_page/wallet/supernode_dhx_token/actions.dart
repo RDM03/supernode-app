@@ -32,21 +32,6 @@ class SupernodeDhxActions extends StatelessWidget {
           onTap: () => openSupernodeDeposit(context, Token.supernodeDhx),
         ),
         Spacer(),
-        BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-            buildWhen: (a, b) => a.balance != b.balance,
-            builder: (ctx, state) => CircleButton(
-                  key: Key('dhxWithdraw'),
-                  icon: Icon(
-                    Icons.arrow_forward,
-                    color: Token.supernodeDhx.color,
-                  ),
-                  label: FlutterI18n.translate(context, 'withdraw'),
-                  onTap: state.balance.loading
-                      ? null
-                      : () =>
-                          openSupernodeWithdraw(context, Token.supernodeDhx),
-                )),
-        Spacer(),
         CircleButton(
           key: Key('dhxMine'),
           icon: Image.asset(
@@ -69,6 +54,21 @@ class SupernodeDhxActions extends StatelessWidget {
             ));
           },
         ),
+        Spacer(),
+        BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+            buildWhen: (a, b) => a.balance != b.balance,
+            builder: (ctx, state) => CircleButton(
+                  key: Key('dhxWithdraw'),
+                  icon: Icon(
+                    Icons.arrow_forward,
+                    color: Token.supernodeDhx.color,
+                  ),
+                  label: FlutterI18n.translate(context, 'withdraw'),
+                  onTap: state.balance.loading
+                      ? null
+                      : () =>
+                          openSupernodeWithdraw(context, Token.supernodeDhx),
+                )),
         Spacer(),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
           builder: (ctx, state) => CircleButton(
@@ -114,8 +114,8 @@ class SupernodeDhxMineActions extends StatelessWidget {
       children: [
         CircleButton(
           key: Key('lockMxcButton'),
-          icon: Icon(
-            Icons.lock,
+          icon: Image.asset(
+            AppImages.iconLock,
             color: Token.supernodeDhx.color,
           ),
           label: FlutterI18n.translate(context, 'lock_mxc'),

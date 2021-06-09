@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget pageContent(String text, {double top: 50}) {
+Widget pageContent(String text, {double top: 50, Color textColor}) {
   return Container(
     margin: EdgeInsets.only(top: top),
     alignment: Alignment.center,
@@ -8,7 +8,7 @@ Widget pageContent(String text, {double top: 50}) {
       text,
       textAlign: TextAlign.center,
       style: TextStyle(
-        color: Color.fromARGB(139, 0, 0, 0),
+        color: textColor ?? Color.fromARGB(139, 0, 0, 0),
         fontFamily: "Roboto",
         fontWeight: FontWeight.w400,
         decoration: TextDecoration.none,

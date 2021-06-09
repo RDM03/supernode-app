@@ -34,7 +34,7 @@ class AppBars {
   static backArrowSkipAppBar(
       {Function onPress, String action = "", String title = ''}) {
     return AppBar(
-      title: Center(child: Text(title, style: kBigFontOfBlack)),
+      title: Center(child: Text(title, style: kBigBoldFontOfBlack)),
       leading: IconButton(
         onPressed: onPress,
         icon: Icon(Icons.arrow_back_ios, color: Colors.black),

@@ -8,6 +8,7 @@ Widget pageFrame({
   bool resizeToAvoidBottomInset = false,
   bool scrollable = true,
   EdgeInsetsGeometry margin,
+  Widget floatingActionButton,
 }) {
   final content = Container(
     padding: padding != null ? padding : const EdgeInsets.all(20.0),
@@ -47,5 +48,7 @@ Widget pageFrame({
             : content,
       ),
     ),
+    floatingActionButton: floatingActionButton,
+    floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
   );
 }

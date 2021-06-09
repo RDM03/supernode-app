@@ -24,7 +24,15 @@ Widget buildView(
       scaffoldKey: state.scaffoldKey,
       children: [
         pageNavBar(
-          FlutterI18n.translate(context, 'dhx_mining'),
+          FlutterI18n.translate(context, 'lock_mxc'),
+          leadingWidget: GestureDetector(
+            key: ValueKey('navBackButton'),
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+            onTap: () => Navigator.of(context).pop(),
+          ),
           onTap: () => Navigator.of(context).pop(),
         ),
         SizedBox(height: 30),

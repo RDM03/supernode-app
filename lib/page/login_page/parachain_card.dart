@@ -184,7 +184,8 @@ class ParachainLoginCard extends StatelessWidget {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
                             ),
-                            child: Column(children: [
+                            child: Flex(direction: Axis.vertical, children: [
+                              Spacer(),
                               Icon(Icons.home,
                                   size: Tween<double>(begin: 0, end: 24)
                                       .evaluate(animation)),
@@ -198,7 +199,8 @@ class ParachainLoginCard extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: Tween<double>(begin: 0, end: 16)
                                         .evaluate(animation),
-                                  ))
+                                  )),
+                              Spacer()
                             ])),
                       ),
                     ),
@@ -222,7 +224,8 @@ class ParachainLoginCard extends StatelessWidget {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
                             ),
-                            child: Column(children: [
+                            child: Flex(direction: Axis.vertical, children: [
+                              Spacer(),
                               Image.asset(AppImages.medium,
                                   width: Tween<double>(begin: 0, end: 24)
                                       .evaluate(animation),
@@ -238,7 +241,8 @@ class ParachainLoginCard extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: Tween<double>(begin: 0, end: 16)
                                         .evaluate(animation),
-                                  ))
+                                  )),
+                              Spacer()
                             ])),
                       ),
                     ),
