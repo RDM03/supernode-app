@@ -127,9 +127,12 @@ class LoginCubit extends Cubit<LoginState> {
                   : await dao.user.authenticateWeChatUser(data);
 
           final jwt = authWeChatUserRes['jwt'];
+          DateTime expiredTime = DateTime.now().add(Duration(days: 6));
+
           supernodeCubit.setSupernodeSession(SupernodeSession(
             node: state.selectedSuperNode,
             token: jwt,
+            expire: expiredTime
           ));
 
           if (authWeChatUserRes['bindingIsRequired']) {
@@ -143,6 +146,7 @@ class LoginCubit extends Cubit<LoginState> {
               username: parsedJwt.username,
               password: '',
               token: jwt,
+              expire: expiredTime,
               userId: parsedJwt.userId,
               node: state.selectedSuperNode,
             ));
@@ -188,6 +192,7 @@ class LoginCubit extends Cubit<LoginState> {
         username: username,
         password: password,
         token: jwt,
+        expire: DateTime.now().add(Duration(days: 6)),
         userId: res.parsedJwt.userId,
         node: state.selectedSuperNode,
       ));
@@ -214,6 +219,7 @@ class LoginCubit extends Cubit<LoginState> {
         userId: -1,
         username: 'username',
         token: 'demo-token',
+        expire: DateTime(2100,1,1,0,0),
         password: 'demo-password',
         node: Supernode.demo,
       ));
@@ -312,6 +318,7 @@ class LoginCubit extends Cubit<LoginState> {
         username: email,
         password: password,
         token: state.jwtToken,
+        expire: DateTime.now().add(Duration(days: 6)),
         userId: int.tryParse(state.userId),
         node: supernodeCubit.state.selectedNode,
       ));

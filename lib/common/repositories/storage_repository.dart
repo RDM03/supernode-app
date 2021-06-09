@@ -79,12 +79,14 @@ class StorageRepository {
   }
 
   static const String _tokenKey = "jwt";
+  static const String _expiredKey = "expire";
   static const String _userIdKey = 'user_id';
   static const String _userNameKey = 'username';
   static const String _passwordKey = 'password';
   static const String _supernodeKey = 'supernode';
 
   StorageManagerSupernodeUser supernodeSession() {
+    final expire =  DateTime.tryParse(_sharedPreferences.getString(_expiredKey) ?? '');
     final token = _sharedPreferences.getString(_tokenKey);
     final userId = _sharedPreferences.getInt(_userIdKey);
     final username = _sharedPreferences.getString(_userNameKey);
@@ -101,6 +103,7 @@ class StorageRepository {
 
     return StorageManagerSupernodeUser(
       jwt: token,
+      expire: expire,
       userId: userId,
       username: username,
       password: password,
@@ -110,12 +113,14 @@ class StorageRepository {
 
   Future<void> setSupernodeSession({
     @required String jwt,
+    @required DateTime expire,
     @required int userId,
     @required String username,
     @required String password,
     @required Supernode supernode,
   }) async {
     await _sharedPreferences.setString(_tokenKey, jwt);
+    await _sharedPreferences.setString(_expiredKey, expire.toString());
     await _sharedPreferences.setInt(_userIdKey, userId);
     await _sharedPreferences.setString(_userNameKey, username);
     await _sharedPreferences.setString(_passwordKey, password);
@@ -146,6 +151,7 @@ class StorageRepository {
 
 class StorageManagerSupernodeUser {
   final String jwt;
+  final DateTime expire;
   final int userId;
   final String username;
   final String password;
@@ -153,6 +159,7 @@ class StorageManagerSupernodeUser {
 
   StorageManagerSupernodeUser({
     this.jwt,
+    this.expire,
     this.userId,
     this.username,
     this.password,
