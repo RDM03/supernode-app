@@ -249,7 +249,7 @@ class MinerHealthTab extends StatelessWidget {
               Duration(minutes: 5),
           lastSeen: DateTime.tryParse(item.lastSeenAt),
           maxValue: 1,
-          subtitle: FlutterI18n.translate(context, 'score_weekly'),
+          subtitle: FlutterI18n.translate(context, 'score_weekly_total'),
           title:
               '${(averageHealth * 100).round()}% (${(averageHealth * (health?.length ?? 0) * 24).toInt()}h)',
           entities: health?.map((e) => GraphEntity(e.date, e.health))?.toList(),
