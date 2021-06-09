@@ -10,6 +10,8 @@ enum MinerStatsTime { week, month, year }
 abstract class MinerStatsState with _$MinerStatsState {
   factory MinerStatsState(
       {@Default([]) List<MinerStatsEntity> originList,
+      @Default([]) List<MinerStatsEntity> originMonthlyList,
+       @Default([]) List<MinerStatsEntity> originYearlyList,
       @Default([]) List<double> xDataList,
       @Default([]) List<String> xLabelList,
       @Default([]) List<int> yLabelList,
@@ -17,5 +19,6 @@ abstract class MinerStatsState with _$MinerStatsState {
       @Default(MinerStatsTime.week) MinerStatsTime selectedTime,
       @Default(MinerStatsType.uptime) MinerStatsType selectedType,
       @Default(0) double uptimeWeekScore,
+      @Default(0) int scrollFirstIndex,
       String error}) = _MinerStatsState;
 }

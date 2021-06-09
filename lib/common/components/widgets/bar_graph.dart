@@ -52,20 +52,17 @@ class BarGraph extends StatelessWidget {
         if(scrollCtrl.offset <= barWidth){
           firstIndex = 0;
         } else {
-          firstIndex = ((scrollCtrl.offset) / (spaceBetweenLines + barWidth * 2)).ceil();
+          firstIndex = ((scrollCtrl.offset - barWidth) / (spaceBetweenLines + barWidth)).ceil();
         }
-
-        print(scrollCtrl.offset);
-        print(firstIndex);
 
         if (position.round() > currentBar) {
           currentBar++;
-          notifyGraphBarScroll(currentBar, scrollController: scrollCtrl, firstIndex: firstIndex);
         }
         if (position.round() < currentBar) {
           currentBar--;
-          notifyGraphBarScroll(currentBar, scrollController: scrollCtrl, firstIndex: firstIndex);
         }
+
+        notifyGraphBarScroll(currentBar, scrollController: scrollCtrl, firstIndex: firstIndex);
       });
     }
   }

@@ -132,7 +132,7 @@ class _ViewAllPageState extends State<_ViewAllPage>
                 },
               )),
           BlocBuilder<MinerStatsCubit, MinerStatsState>(
-              // buildWhen: (a, b) => b.originList.isNotEmpty,
+              buildWhen: (a, b) => a.scrollFirstIndex == 0 || a.selectedTime != b.selectedTime || a.scrollFirstIndex != b.scrollFirstIndex,
               builder: (ctx, state) {
             return DDChartStats(
               title: context.read<MinerStatsCubit>().getStatsTitle(),
@@ -156,39 +156,27 @@ class _ViewAllPageState extends State<_ViewAllPage>
                     : DDBarChart(
                         hasYAxis: true,
                         hasTooltip: true,
-                        tooltipData: state.originList
+                        tooltipData: context.read<MinerStatsCubit>().getOriginTypeList()
                             .map((item) => context
                                 .read<MinerStatsCubit>()
                                 .getTooltip(item))
                             .toList(),
                         numBar: context.read<MinerStatsCubit>().getNumBar(),
                         xData: state.xDataList,
-                        xLabel: state.xLabelList,
+                        xLabel: state.xLabelList.map((item) => FlutterI18n.translate(context, item)).toList(),
                         yLabel: state.yLabelList,
                         notifyGraphBarScroll: (way, {scrollController, firstIndex}) {
-                          print('------');
                           print(firstIndex);
+                          context.read<MinerStatsCubit>().setScrollFirstIndex(firstIndex);
 
-                          if (state.originList.length - firstIndex - 8 <= 5) {
+                          int barNum = context.read<MinerStatsCubit>().getNumBar();
+                          if (way >= 1 && context.read<MinerStatsCubit>().getOriginTypeList().length - firstIndex - context.read<MinerStatsCubit>().getNumBar() <= barNum / 2) {
                             context.read<MinerStatsCubit>().dispatchData(
                                   type: widget.type,
                                   time: state.selectedTime,
                                   minerId: widget.minerId,
-                                  forward: way >= 1,
                                   startTime: state.originList.last.date);
                           }
-
-
-                          // Future.delayed(Duration(seconds: 1),(){
-                            // if (way >= 1 || way <= -1) {
-                            //   context.read<MinerStatsCubit>().dispatchData(
-                            //       type: widget.type,
-                            //       time: state.selectedTime,
-                            //       minerId: widget.minerId,
-                            //       forward: way >= 1,
-                            //       endTime: state.originList.first.date);
-                            // }
-                          // });
                         });
               });
             }).toList(),
