@@ -1,8 +1,5 @@
-import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:path/path.dart';
 
 class PDFViewerPage extends StatefulWidget {
   final String filePath;
@@ -23,12 +20,11 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
 
   @override
   Widget build(BuildContext context) {
-    final name = basename(widget.filePath);
     final text = '${indexPage + 1} of $pages';
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(name),
+        title: Text(widget.filePath, maxLines: 3),
         actions: pages >= 2
             ? [
                 Center(child: Text(text)),
