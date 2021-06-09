@@ -155,7 +155,8 @@ const kBigFontOfBlack = TextStyle(
   height: 1.5,
 );
 
-final kSmallBoldFontOfBlack = kSmallFontOfBlack.copyWith(fontWeight: FontWeight.w600);
+final kSmallBoldFontOfBlack =
+    kSmallFontOfBlack.copyWith(fontWeight: FontWeight.w600);
 
 final TextStyle kMiddleBoldFontOfBlack =
     kMiddleFontOfBlack.copyWith(fontWeight: FontWeight.w600);

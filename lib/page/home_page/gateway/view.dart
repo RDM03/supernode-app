@@ -716,7 +716,7 @@ class GatewaysList extends StatelessWidget {
               await Navigator.push(
                 context,
                 route(
-                      (ctx) => MinerDetailPage(
+                  (ctx) => MinerDetailPage(
                     item: state,
                   ),
                 ),
@@ -819,24 +819,33 @@ class GatewayListTile extends StatelessWidget {
                     style: kMiddleFontOfGrey,
                   ),
                   Spacer(),
-                  (state.reseller) ? SizedBox() : Image.asset(
-                    AppImages.gateways,
-                    scale: 1.5,
-                    color: minerColor,
-                  ),
+                  (state.reseller)
+                      ? SizedBox()
+                      : Image.asset(
+                          AppImages.gateways,
+                          scale: 1.5,
+                          color: minerColor,
+                        ),
                   smallRowSpacer(),
-                  (state.reseller) ? SizedBox() : Text('${Tools.priceFormat((state.health ?? 0) * 100)} %',
-                      style: kBigFontOfBlack),
+                  (state.reseller)
+                      ? SizedBox()
+                      : Text(
+                          '${Tools.priceFormat((state.health ?? 0) * 100)} %',
+                          style: kBigFontOfBlack),
                   smallRowSpacer(),
-                  (state.reseller) ? SizedBox() : Image.asset(
-                    AppImages.fuel,
-                    scale: 1.5,
-                    color: fuelColor,
-                  ),
+                  (state.reseller)
+                      ? SizedBox()
+                      : Image.asset(
+                          AppImages.fuel,
+                          scale: 1.5,
+                          color: fuelColor,
+                        ),
                   smallRowSpacer(),
-                  (state.reseller) ? SizedBox() : Text(
-                      '${Tools.priceFormat((state.miningFuelHealth ?? 0) * 100)} %',
-                      style: kBigFontOfBlack),
+                  (state.reseller)
+                      ? SizedBox()
+                      : Text(
+                          '${Tools.priceFormat((state.miningFuelHealth ?? 0) * 100)} %',
+                          style: kBigFontOfBlack),
                 ],
               ),
             ),

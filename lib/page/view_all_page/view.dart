@@ -132,17 +132,21 @@ class _ViewAllPageState extends State<_ViewAllPage>
                 },
               )),
           BlocBuilder<MinerStatsCubit, MinerStatsState>(
-              buildWhen: (a, b) => a.scrollFirstIndex == 0 || a.selectedTime != b.selectedTime || a.scrollFirstIndex != b.scrollFirstIndex,
+              buildWhen: (a, b) =>
+                  a.scrollFirstIndex == 0 ||
+                  a.selectedTime != b.selectedTime ||
+                  a.scrollFirstIndex != b.scrollFirstIndex,
               builder: (ctx, state) {
-            return DDChartStats(
-              title: context.read<MinerStatsCubit>().getStatsTitle(),
-              subTitle: context.read<MinerStatsCubit>().getStatsSubitle(),
-              startTime:
-                  context.read<MinerStatsCubit>().getStartTimeLabel() ?? '--',
-              endTime:
-                  context.read<MinerStatsCubit>().getEndTimeLabel() ?? '--',
-            );
-          }),
+                return DDChartStats(
+                  title: context.read<MinerStatsCubit>().getStatsTitle(),
+                  subTitle: context.read<MinerStatsCubit>().getStatsSubitle(),
+                  startTime:
+                      context.read<MinerStatsCubit>().getStartTimeLabel() ??
+                          '--',
+                  endTime:
+                      context.read<MinerStatsCubit>().getEndTimeLabel() ?? '--',
+                );
+              }),
           Expanded(
               child: TabBarView(
             physics: NeverScrollableScrollPhysics(),
@@ -156,26 +160,43 @@ class _ViewAllPageState extends State<_ViewAllPage>
                     : DDBarChart(
                         hasYAxis: true,
                         hasTooltip: true,
-                        tooltipData: context.read<MinerStatsCubit>().getOriginTypeList()
+                        tooltipData: context
+                            .read<MinerStatsCubit>()
+                            .getOriginTypeList()
                             .map((item) => context
                                 .read<MinerStatsCubit>()
                                 .getTooltip(item))
                             .toList(),
                         numBar: context.read<MinerStatsCubit>().getNumBar(),
                         xData: state.xDataList,
-                        xLabel: state.xLabelList.map((item) => FlutterI18n.translate(context, item)).toList(),
+                        xLabel: state.xLabelList
+                            .map((item) => FlutterI18n.translate(context, item))
+                            .toList(),
                         yLabel: state.yLabelList,
-                        notifyGraphBarScroll: (way, {scrollController, firstIndex}) {
+                        notifyGraphBarScroll: (way,
+                            {scrollController, firstIndex}) {
                           print(firstIndex);
-                          context.read<MinerStatsCubit>().setScrollFirstIndex(firstIndex);
+                          context
+                              .read<MinerStatsCubit>()
+                              .setScrollFirstIndex(firstIndex);
 
-                          int barNum = context.read<MinerStatsCubit>().getNumBar();
-                          if (way >= 1 && context.read<MinerStatsCubit>().getOriginTypeList().length - firstIndex - context.read<MinerStatsCubit>().getNumBar() <= barNum / 2) {
+                          int barNum =
+                              context.read<MinerStatsCubit>().getNumBar();
+                          if (way >= 1 &&
+                              context
+                                          .read<MinerStatsCubit>()
+                                          .getOriginTypeList()
+                                          .length -
+                                      firstIndex -
+                                      context
+                                          .read<MinerStatsCubit>()
+                                          .getNumBar() <=
+                                  barNum / 2) {
                             context.read<MinerStatsCubit>().dispatchData(
-                                  type: widget.type,
-                                  time: state.selectedTime,
-                                  minerId: widget.minerId,
-                                  startTime: state.originList.last.date);
+                                type: widget.type,
+                                time: state.selectedTime,
+                                minerId: widget.minerId,
+                                startTime: state.originList.last.date);
                           }
                         });
               });

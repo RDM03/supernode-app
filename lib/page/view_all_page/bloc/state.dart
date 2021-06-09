@@ -11,7 +11,7 @@ abstract class MinerStatsState with _$MinerStatsState {
   factory MinerStatsState(
       {@Default([]) List<MinerStatsEntity> originList,
       @Default([]) List<MinerStatsEntity> originMonthlyList,
-       @Default([]) List<MinerStatsEntity> originYearlyList,
+      @Default([]) List<MinerStatsEntity> originYearlyList,
       @Default([]) List<double> xDataList,
       @Default([]) List<String> xLabelList,
       @Default([]) List<int> yLabelList,

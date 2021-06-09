@@ -11,7 +11,8 @@ class DDBarChart extends StatefulWidget {
   final List<double> xData;
   final List<String> xLabel;
   final List<int> yLabel;
-  final Function(int, {ScrollController scrollController, int firstIndex}) notifyGraphBarScroll;
+  final Function(int, {ScrollController scrollController, int firstIndex})
+      notifyGraphBarScroll;
 
   const DDBarChart(
       {Key key,
@@ -98,11 +99,9 @@ class _DDBarChartState extends State<DDBarChart> {
                                       padding:
                                           EdgeInsets.symmetric(horizontal: 5),
                                       alignment: Alignment.topCenter,
-                                      child: Text(
-                                        '$yItem',
-                                        textAlign: TextAlign.end,
-                                        style: kSmallFontOfGrey
-                                      )),
+                                      child: Text('$yItem',
+                                          textAlign: TextAlign.end,
+                                          style: kSmallFontOfGrey)),
                                 );
                               }).toList()),
                           Positioned(

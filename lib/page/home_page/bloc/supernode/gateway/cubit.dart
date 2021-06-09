@@ -98,7 +98,8 @@ class GatewayCubit extends Cubit<GatewayState> {
           .list({"organizationID": orgId, "offset": 0, "limit": 10});
 
       int total = int.parse(res['totalCount']);
-      final List<GatewayItem> gateways = parseGateways(res, listMinersHealth, orgId);
+      final List<GatewayItem> gateways =
+          parseGateways(res, listMinersHealth, orgId);
 
       emit(
         state.copyWith(
