@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action, Page;
 import 'package:flutter/services.dart';
+import 'package:flutter_appcenter/flutter_appcenter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -151,6 +152,16 @@ Future<void> main() async {
       ),
     ),
   );
+
+  Stream.fromFuture(FlutterAppCenter.init(
+    appSecretAndroid: Sys.appSecretAndroid,
+    appSecretIOS: Sys.appSecretIOS,
+    tokenAndroid: Sys.tokenAndroid,
+    tokenIOS: Sys.tokenIOS,
+    appIdIOS: Sys.appIdIOS,
+    betaUrlIOS: Sys.betaUrlIOS,
+    usePrivateTrack: false,
+  ));
 
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
