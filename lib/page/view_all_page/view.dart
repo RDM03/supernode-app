@@ -153,7 +153,8 @@ class _ViewAllPageState extends State<_ViewAllPage>
             controller: _tabController,
             children: tabs.map((item) {
               return BlocBuilder<MinerStatsCubit, MinerStatsState>(
-                  // buildWhen: (a, b) => b.originList.isNotEmpty,
+                  // buildWhen: (a, b) =>
+                      // a.selectedTime != b.selectedTime
                   builder: (ctx, state) {
                 return state.originList.isEmpty
                     ? Center(child: CircularProgressIndicator())

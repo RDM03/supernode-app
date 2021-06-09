@@ -69,8 +69,16 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     List<MinerStatsEntity> list = getOriginTypeList();
 
     if (list.isEmpty) return [];
-    return list.sublist(
-        state.scrollFirstIndex, state.scrollFirstIndex + getNumBar());
+    
+    int lastIndex = state.scrollFirstIndex + getNumBar();
+
+    if (lastIndex < list.length) {
+      return list.sublist(
+        state.scrollFirstIndex, lastIndex);
+    } else {
+      return list.sublist(
+        state.scrollFirstIndex, list.length);
+    }
   }
 
   String getStatsTitle() {
