@@ -253,7 +253,9 @@ class FiatCurrency {
 }
 
 Future<String> createFile(Map<String, dynamic> map, String fileName) async {
-  final String dir = (await getExternalStorageDirectory()).path;
+  final String dir = (Platform.isAndroid)
+      ? (await getExternalStorageDirectory()).path
+      : (await getApplicationDocumentsDirectory()).path;
   final String fullPath = '$dir/$fileName';
   final File report = new File(fullPath);
   report.openWrite(mode: FileMode.write);
