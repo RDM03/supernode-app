@@ -39,10 +39,10 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
   void initState() {
     super.initState();
     item = widget.item;
-    initStateAsync();
+    loadState();
   }
 
-  Future<void> initStateAsync() async {
+  Future<void> loadState() async {
     await getStatistic();
     await getFrames();
     await getDownlinkPrice();
@@ -70,6 +70,7 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
         item = gateways.first;
       });
     }
+    await loadState();
   }
 
   Future<void> getDownlinkPrice() async {
