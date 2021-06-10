@@ -8,7 +8,6 @@ part 'state.freezed.dart';
 @freezed
 abstract class SettingsState with _$SettingsState {
   factory SettingsState({
-
     @nullable PackageInfo info,
     @nullable List<FiatCurrency> listFiat,
     @Default('pdf') String format,
@@ -20,7 +19,6 @@ abstract class SettingsState with _$SettingsState {
     @nullable String version,
     @nullable String buildNumber,
     @nullable String mxVersion,
-
     @nullable String language,
     @Default(2021) int copyrightYear,
     bool screenShot,

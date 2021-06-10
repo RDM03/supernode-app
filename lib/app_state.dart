@@ -14,6 +14,7 @@ abstract class AppState with _$AppState {
     @Default(false) bool isDemo,
     @Default(false) bool showLoading,
     @nullable ErrorInfo error,
+    @nullable SuccessInfo success,
   }) = _AppState;
 }
 
@@ -33,6 +34,7 @@ abstract class SupernodeSession with _$SupernodeSession {
     int userId,
     String username,
     String token,
+    DateTime expire,
     String password,
     Supernode node,
     @Default(false) bool tfaEnabled,
@@ -59,4 +61,10 @@ class ErrorInfo {
   final String text;
 
   ErrorInfo(this.text);
+}
+
+class SuccessInfo {
+  final String text;
+
+  SuccessInfo(this.text);
 }

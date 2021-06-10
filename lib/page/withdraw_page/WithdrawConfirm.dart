@@ -21,8 +21,7 @@ class WithdrawConfirm extends StatelessWidget {
     return pageFrame(
       context: context,
       children: [
-        pageNavBar(
-            FlutterI18n.translate(context, 'withdraw'),
+        pageNavBar(FlutterI18n.translate(context, 'withdraw'),
             onTap: () => Navigator.pop(context),
             leadingWidget: GestureDetector(
                 key: ValueKey('navBackButton'),
@@ -30,9 +29,7 @@ class WithdrawConfirm extends StatelessWidget {
                   Icons.arrow_back_ios,
                   color: Colors.black,
                 ),
-                onTap: () => context.read<WithdrawCubit>().backToForm()
-            )
-        ),
+                onTap: () => context.read<WithdrawCubit>().backToForm())),
         xbigColumnSpacer(),
         Center(
           child: Text(
@@ -61,7 +58,8 @@ class WithdrawConfirm extends StatelessWidget {
                 Text(FlutterI18n.translate(context, 'amount')),
                 BlocBuilder<WithdrawCubit, WithdrawState>(
                     buildWhen: (a, b) => a.amount != b.amount,
-                    builder: (ctx, st) => Text('${st.amount} ${st.token.name}', style: kBigFontOfBlack)),
+                    builder: (ctx, st) => Text('${st.amount} ${st.token.name}',
+                        style: kBigFontOfBlack)),
               ],
             ),
             middleColumnSpacer(),
@@ -71,7 +69,8 @@ class WithdrawConfirm extends StatelessWidget {
                 Text(FlutterI18n.translate(context, 'fee')),
                 BlocBuilder<WithdrawCubit, WithdrawState>(
                     buildWhen: (a, b) => a.fee != b.fee,
-                    builder: (ctx, st) => Text('${st.fee} $feeCurrency', style: kBigFontOfBlack)),
+                    builder: (ctx, st) =>
+                        Text('${st.fee} $feeCurrency', style: kBigFontOfBlack)),
               ],
             ),
             middleColumnSpacer(),
@@ -82,8 +81,11 @@ class WithdrawConfirm extends StatelessWidget {
                 BlocBuilder<WithdrawCubit, WithdrawState>(
                     buildWhen: (a, b) => a.address != b.address,
                     builder: (ctx, st) => Flexible(
-                      child: Text(st.address, style: kBigFontOfBlack, maxLines: 2, textAlign: TextAlign.end),
-                    )),
+                          child: Text(st.address,
+                              style: kBigFontOfBlack,
+                              maxLines: 2,
+                              textAlign: TextAlign.end),
+                        )),
               ],
             ),
           ],
@@ -99,25 +101,32 @@ class WithdrawConfirm extends StatelessWidget {
               if (dur.isNegative) {
                 return context.read<WithdrawCubit>().state.isEnabled
                     ? PrimaryButton(
-                  minWidth: double.infinity,
-                  buttonTitle: FlutterI18n.translate(context, 'submit_request'),
-                  onTap: () => context.read<WithdrawCubit>().gotoWithdrawSecurityCode(),
-                  bgColor: st.token.color,
-                  key: ValueKey('submitButton'),
-                )
+                        minWidth: double.infinity,
+                        buttonTitle:
+                            FlutterI18n.translate(context, 'submit_request'),
+                        onTap: () => context
+                            .read<WithdrawCubit>()
+                            .gotoWithdrawSecurityCode(),
+                        bgColor: st.token.color,
+                        key: ValueKey('submitButton'),
+                      )
                     : PrimaryButton(
-                  minWidth: double.infinity,
-                  buttonTitle: FlutterI18n.translate(context, 'required_2FA'),
-                  onTap: () => Navigator.pushNamed(context, 'set_2fa_page', arguments: {'isEnabled': null}).then((_) {
-                    context.read<WithdrawCubit>().requestTOTPStatus();
-                  }),
-                  bgColor: st.token.color,
-                  key: ValueKey('2faButton'),
-                );
+                        minWidth: double.infinity,
+                        buttonTitle:
+                            FlutterI18n.translate(context, 'required_2FA'),
+                        onTap: () => Navigator.pushNamed(
+                            context, 'set_2fa_page',
+                            arguments: {'isEnabled': null}).then((_) {
+                          context.read<WithdrawCubit>().requestTOTPStatus();
+                        }),
+                        bgColor: st.token.color,
+                        key: ValueKey('2faButton'),
+                      );
               }
               return PrimaryButton(
                 minWidth: double.infinity,
-                buttonTitle: FlutterI18n.translate(context, 'submit') + ' (${dur.inSeconds})',
+                buttonTitle: FlutterI18n.translate(context, 'submit') +
+                    ' (${dur.inSeconds})',
                 onTap: () => 'doNothing',
                 bgColor: st.token.color,
                 key: ValueKey('submitButtonTimeout'),
@@ -131,7 +140,8 @@ class WithdrawConfirm extends StatelessWidget {
 
   Stream<Duration> timeLeftStream(DateTime time) async* {
     Duration difference() => time?.difference(DateTime.now());
-    final stream = Stream.periodic(Duration(seconds: 1)).map((_) => difference());
+    final stream =
+        Stream.periodic(Duration(seconds: 1)).map((_) => difference());
     final diff = difference();
     if (diff == null) {
       yield null;

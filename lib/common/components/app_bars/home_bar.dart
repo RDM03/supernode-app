@@ -11,7 +11,7 @@ Widget homeBar(String titleText,
     title: title ??
         Text(
           titleText,
-          style: kBigFontOfBlack,
+          style: kBigBoldFontOfBlack,
         ),
     actions: [
       action != null

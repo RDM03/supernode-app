@@ -42,8 +42,10 @@ class AccountWidget extends StatelessWidget {
       builder: (ctx, state) => TabbedView(
         contentHeight: 75,
         tabs: [
-          if (state.supernodeUsed) ColorCodedWidget(supernode(context), Token.supernodeDhx.color),
-          if (state.parachainUsed) ColorCodedWidget(parachain(context), Token.parachainDhx.color),
+          if (state.supernodeUsed)
+            ColorCodedWidget(supernode(context), Token.supernodeDhx.color),
+          if (state.parachainUsed)
+            ColorCodedWidget(parachain(context), Token.parachainDhx.color),
         ],
       ),
     );

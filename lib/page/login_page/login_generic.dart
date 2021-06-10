@@ -112,9 +112,10 @@ class _LoginPageContentState extends State<LoginPageContent>
   @override
   void initState() {
     super.initState();
-    
+
     // DemoMode => logout
-    if (context.read<SupernodeCubit>().state.session != null && context.read<SupernodeCubit>().state.session.userId == -1)
+    if (context.read<SupernodeCubit>().state.session != null &&
+        context.read<SupernodeCubit>().state.session.userId == -1)
       context.read<SupernodeCubit>().logout();
 
     controller =

@@ -133,6 +133,7 @@ class SupernodeRepository implements SupernodeDaoHolder {
     final dio = Dio();
     final headersInterceptor = SupernodeHeadersInterceptor(
       getToken: () => supernodeCubit.state?.session?.token,
+      getExpiration: () => supernodeCubit.state?.session?.expire,
       onLogOut: () => supernodeCubit.logout(),
       onTokenRefresh: (dio) => _refreshToken(dio, supernodeCubit),
       dio: dio,

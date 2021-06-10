@@ -46,52 +46,52 @@ class SettingsPage extends StatelessWidget {
                         FlutterI18n.translate(context, 'manage_account'),
                         key: Key('manageAccountItem'),
                         trailing:
-                        s.isDemo ? Icon(Icons.do_not_disturb_alt) : null,
+                            s.isDemo ? Icon(Icons.do_not_disturb_alt) : null,
                         onTap: s.isDemo
                             ? null
-                            : () =>  Navigator.push(context, route((context) => AccountPage()))),
+                            : () => Navigator.push(
+                                context, route((context) => AccountPage()))),
                   ),
                   Divider(),
                   BlocBuilder<AppCubit, AppState>(
                     buildWhen: (a, b) => a.isDemo != b.isDemo,
                     builder: (ctx, s) => listItem(
-                        FlutterI18n.translate(
-                            context, 'app_settings'),
+                        FlutterI18n.translate(context, 'app_settings'),
                         key: Key('appSettingsItem'),
                         trailing:
-                        s.isDemo ? Icon(Icons.do_not_disturb_alt) : null,
+                            s.isDemo ? Icon(Icons.do_not_disturb_alt) : null,
                         onTap: s.isDemo
                             ? null
-                            : () => Navigator.push(context, route((context) => AppSettingsPage()))),
+                            : () => Navigator.push(context,
+                                route((context) => AppSettingsPage()))),
                   ),
                   Divider(),
                   listItem(
-                    FlutterI18n.translate(
-                        context, 'address_book'),
-                    onTap: () => Navigator.of(context).pushNamed('address_book_page'),
+                    FlutterI18n.translate(context, 'address_book'),
+                    onTap: () =>
+                        Navigator.of(context).pushNamed('address_book_page'),
                     key: ValueKey('addressBookItem'),
                   ),
                   Divider(),
-                  listItem(
-                      FlutterI18n.translate(
-                          context, 'about'),
-                      onTap: () {
-                        context.read<SettingsCubit>().initAboutPage();
-                        Navigator.push(context, route((context) => AboutPage()));
-                      }),
+                  listItem(FlutterI18n.translate(context, 'about'), onTap: () {
+                    context.read<SettingsCubit>().initAboutPage();
+                    Navigator.push(context, route((context) => AboutPage()));
+                  }),
                   Divider(),
                   listItem(FlutterI18n.translate(context, 'connect_with_us'),
-                      onTap: () => Navigator.push(context, route((context) => LinksPage()))),
+                      onTap: () => Navigator.push(
+                          context, route((context) => LinksPage()))),
                   Divider(),
-                  listItem(
-                      FlutterI18n.translate(
-                          context, 'rate_app'),
+                  listItem(FlutterI18n.translate(context, 'rate_app'),
                       onTap: () async {
-                        try {
-                          await launch("itms-apps://itunes.apple.com/app/id1509218470");
-                        } on PlatformException catch(e) {
-                          launch("https://play.google.com/store/apps/details?id=com.mxc.smartcity");
-                        }}),
+                    try {
+                      await launch(
+                          "itms-apps://itunes.apple.com/app/id1509218470");
+                    } on PlatformException catch (e) {
+                      launch(
+                          "https://play.google.com/store/apps/details?id=com.mxc.smartcity");
+                    }
+                  }),
                   Divider(),
                   BlocBuilder<AppCubit, AppState>(
                       buildWhen: (a, b) => a.isDemo != b.isDemo,
@@ -102,18 +102,14 @@ class SettingsPage extends StatelessWidget {
                               ? 'no action'
                               : Navigator.push(context, route((context) => ExportDataPage())))),
                   Divider(),
-                  listItem(
-                      FlutterI18n.translate(
-                          context, 'logout'),
-                      key: Key('logout'),
-                      trailing: Text(''),
-                      onTap: () {
-                        context.read<SupernodeCubit>().logout();
-                        navigatorKey.currentState.pushAndRemoveUntil(route((_) => LoginPage()), (route) => false);
-                      }),
+                  listItem(FlutterI18n.translate(context, 'logout'),
+                      key: Key('logout'), trailing: Text(''), onTap: () {
+                    context.read<SupernodeCubit>().logout();
+                    navigatorKey.currentState.pushAndRemoveUntil(
+                        route((_) => LoginPage()), (route) => false);
+                  }),
                 ],
-              ))
-      ),
+              ))),
     );
   }
 }

@@ -15,16 +15,15 @@ import 'package:supernodeapp/theme/spacing.dart';
 import '../../../route.dart';
 
 class EmailVerificationPage extends StatefulWidget {
-
   @override
   _EmailVerificationPageState createState() => _EmailVerificationPageState();
 }
 
 class _EmailVerificationPageState extends State<EmailVerificationPage> {
-
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   final GlobalKey<FormState> formKey = GlobalKey();
-  final TextEditingController verificationCodeController = TextEditingController();
+  final TextEditingController verificationCodeController =
+      TextEditingController();
   Loading loading;
 
   @override
@@ -58,35 +57,43 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
               listenWhen: (a, b) => a.signupResult != b.signupResult,
               listener: (ctx, state) async {
                 if (state.signupResult == SignupResult.registration)
-                  Navigator.of(context).push(route((ctx) => BlocProvider<LoginCubit>.value(
-                      value: context.read<LoginCubit>(),
-                      child: RegistrationPage())));
+                  Navigator.of(context).push(route((ctx) =>
+                      BlocProvider<LoginCubit>.value(
+                          value: context.read<LoginCubit>(),
+                          child: RegistrationPage())));
               },
             ),
           ],
           child: SafeArea(
               child: Container(
-                  padding: kRoundRow205,
+                  padding: kRoundRow2005,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       SizedBox(height: 20),
-                      Text(FlutterI18n.translate(context, 'enail_confirmation'), style: kBigFontOfDarkBlue),
-                      Text(FlutterI18n.translate(context, 'send_email'), style: kBigFontOfBlack),
+                      Text(FlutterI18n.translate(context, 'enail_confirmation'),
+                          style: kBigFontOfDarkBlue),
+                      Text(FlutterI18n.translate(context, 'send_email'),
+                          style: kBigFontOfBlack),
                       SizedBox(height: 30),
                       Form(
                         //TODO key: state.formKey,
                         autovalidate: false,
                         child: TextFieldWithTitle(
-                          title: FlutterI18n.translate(context, 'verification_code'),
+                          title: FlutterI18n.translate(
+                              context, 'verification_code'),
                           textInputAction: TextInputAction.done,
                           controller: verificationCodeController,
                         ),
                       ),
                       Spacer(),
                       PrimaryButton(
-                          onTap: () => context.read<LoginCubit>().verifySignupEmail(verificationCodeController.text.trim()),
-                          buttonTitle: FlutterI18n.translate(context, 'confirm'),
+                          onTap: () => context
+                              .read<LoginCubit>()
+                              .verifySignupEmail(
+                                  verificationCodeController.text.trim()),
+                          buttonTitle:
+                              FlutterI18n.translate(context, 'confirm'),
                           minHeight: 46),
                     ],
                   ))),

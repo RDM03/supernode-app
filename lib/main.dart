@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action, Page;
 import 'package:flutter/services.dart';
-import 'package:flutter_appcenter/flutter_appcenter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -27,7 +26,6 @@ import 'package:supernodeapp/page/calculator_list_page/page.dart';
 import 'package:supernodeapp/page/calculator_page/page.dart';
 import 'package:supernodeapp/page/connectivity_lost_page/page.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/page.dart';
-import 'package:supernodeapp/page/gateway_profile_page/page.dart';
 import 'package:supernodeapp/page/home_page/home_page.dart';
 import 'package:supernodeapp/page/list_councils/page.dart';
 import 'package:supernodeapp/page/login_page/login_generic.dart';
@@ -51,7 +49,6 @@ import 'package:supernodeapp/theme/colors.dart';
 
 import 'app_cubit.dart';
 import 'app_state.dart';
-import 'page/add_gateway_page/page.dart';
 import 'page/change_password_page/page.dart';
 import 'page/device/choose_application_page/page.dart';
 import 'page/get_2fa_page/page.dart';
@@ -72,6 +69,7 @@ List<BlocListener> listeners() => [
         listener: (context, state) {
           context.read<StorageRepository>().setSupernodeSession(
                 jwt: state.session?.token,
+                expire: state.session?.expire,
                 userId: state.session?.userId,
                 username: state.session?.username,
                 password: state.session?.password,
@@ -111,6 +109,7 @@ Future<void> main() async {
     session: supernodeSession != null
         ? SupernodeSession(
             token: supernodeSession.jwt,
+            expire: supernodeSession.expire,
             username: supernodeSession.username,
             password: supernodeSession.password,
             userId: supernodeSession.userId,
@@ -156,24 +155,10 @@ Future<void> main() async {
           ),
         ],
         child: MultiBlocListener(
-          listeners: listeners(),
-          child: OKToast(
-            child: MxcApp()
-          )
-        ),
+            listeners: listeners(), child: OKToast(child: MxcApp())),
       ),
     ),
   );
-
-  Stream.fromFuture(FlutterAppCenter.init(
-    appSecretAndroid: Sys.appSecretAndroid,
-    appSecretIOS: Sys.appSecretIOS,
-    tokenAndroid: Sys.tokenAndroid,
-    tokenIOS: Sys.tokenIOS,
-    appIdIOS: Sys.appIdIOS,
-    betaUrlIOS: Sys.betaUrlIOS,
-    usePrivateTrack: false,
-  ));
 
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
@@ -202,7 +187,6 @@ class MxcApp extends StatelessWidget {
       'change_password_page': ChangePasswordPage(),
       'set_2fa_page': Set2FAPage(),
       'get_2fa_page': Get2FAPage(),
-      'add_gateway_page': AddGatewayPage(),
       'choose_application_page': ChooseApplicationPage(),
       'device_mapbox_page': DeviceMapBoxPage(),
       'calculator_page': CalculatorPage(),
@@ -223,7 +207,6 @@ class MxcApp extends StatelessWidget {
       'join_council_page': JoinCouncilPage(),
       'confirm_lock_page': ConfirmLockPage(),
       'result_lock_page': ResultLockPage(),
-      'gateway_profile_page': GatewayProfilePage(),
       'mapbox_gl_page': MapboxGlPage(),
       'wechat_login_page': WechatLoginPage(),
       'wechat_bind_page': WechatBindPage(),
@@ -256,7 +239,11 @@ class MxcApp extends StatelessWidget {
   }
 
   void showError(BuildContext context, AppState state) {
-    tip( state.error.text, success: false);
+    tip(FlutterI18n.translate(context, state.error.text), success: false);
+  }
+
+  void showSuccess(BuildContext context, AppState state) {
+    tip(FlutterI18n.translate(context, state.success.text), success: true);
   }
 
   Widget build(BuildContext context) {
@@ -309,6 +296,10 @@ class MxcApp extends StatelessWidget {
                   listenWhen: (a, b) => a.error != b.error,
                   listener: showError,
                 ),
+                BlocListener<AppCubit, AppState>(
+                  listenWhen: (a, b) => a.success != b.success,
+                  listener: showSuccess,
+                ),
               ],
               child: WillPopScope(
                 onWillPop: () async {
@@ -335,7 +326,13 @@ class MxcApp extends StatelessWidget {
                     );
                   },
                   onGenerateInitialRoutes: (state, s) => [
-                    context.read<SupernodeCubit>().state.session == null || context.read<SupernodeCubit>().state.session.userId == -1 /* demoMode */
+                    context.read<SupernodeCubit>().state.session == null ||
+                            context
+                                    .read<SupernodeCubit>()
+                                    .state
+                                    .session
+                                    .userId ==
+                                -1 /* demoMode */
                         ? route((ctx) => LoginPage())
                         : route((ctx) => HomePage()),
                   ],

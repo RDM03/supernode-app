@@ -13,6 +13,8 @@ class AppCubit extends Cubit<AppState> {
   void setLocale(Locale locale) => emit(state.copyWith(locale: locale));
   void setError(String error) => emit(state.copyWith(error: ErrorInfo(error)));
   void setSelectedFiatForExport(FiatCurrency fiatForExport) => emit(state.copyWith(selectedFiatForExport: fiatForExport));
+  void setSuccess(String success) =>
+      emit(state.copyWith(success: SuccessInfo(success)));
 }
 
 class SupernodeCubit extends Cubit<SupernodeState> {
@@ -40,6 +42,7 @@ class SupernodeCubit extends Cubit<SupernodeState> {
   void setSupernodeToken(String token) => emit(
         state.copyWith.session(
           token: token,
+          expire: DateTime.now().add(Duration(days: 6))
         ),
       );
 

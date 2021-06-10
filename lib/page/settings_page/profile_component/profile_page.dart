@@ -45,8 +45,18 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     usernameController.text = context.read<SupernodeUserCubit>().state.username;
     emailController.text = context.read<SupernodeUserCubit>().state.email;
-    orgnameController.text = context.read<SupernodeUserCubit>().state.organizations.value[0]?.organizationName;
-    orgDisplayController.text = context.read<SupernodeUserCubit>().state.organizations.value[0]?.orgDisplayName;
+    orgnameController.text = context
+        .read<SupernodeUserCubit>()
+        .state
+        .organizations
+        .value[0]
+        ?.organizationName;
+    orgDisplayController.text = context
+        .read<SupernodeUserCubit>()
+        .state
+        .organizations
+        .value[0]
+        ?.orgDisplayName;
   }
 
   @override
@@ -67,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
         color: Colors.white,
         child: Stack(alignment: Alignment.topRight, children: [
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
             child: GestureDetector(
               child: Icon(Icons.close, color: Colors.black),
               onTap: () => context
@@ -137,7 +147,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ]),
           ),
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
             child: GestureDetector(
               child: Icon(Icons.close, color: Colors.black),
               onTap: () => context.read<SettingsCubit>().bindShopifyStep(0),
@@ -172,7 +182,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ]),
           ),
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
             child: GestureDetector(
               child: Icon(Icons.close, color: Colors.black),
               onTap: () => context.read<SettingsCubit>().bindShopifyStep(0),
@@ -261,16 +271,17 @@ class _ProfilePageState extends State<ProfilePage> {
                     middleColumnSpacer(),
                     TextFieldWithTitle(
                       key: Key('organizationNameInput'),
-                      title: FlutterI18n.translate(context,'organization_name'),
-                      validator: (value) => _validName(context,value),
+                      title:
+                          FlutterI18n.translate(context, 'organization_name'),
+                      validator: (value) => _validName(context, value),
                       controller: orgnameController,
                       textInputAction: TextInputAction.next,
                     ),
                     middleColumnSpacer(),
                     TextFieldWithTitle(
                       key: Key('displayNameInput'),
-                      title: FlutterI18n.translate(context,'display_name'),
-                      validator: (value) => _validName(context,value),
+                      title: FlutterI18n.translate(context, 'display_name'),
+                      validator: (value) => _validName(context, value),
                       controller: orgDisplayController,
                       textInputAction: TextInputAction.next,
                     ),
@@ -279,11 +290,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(height: 30),
                 PrimaryButton(
                   key: Key('updateButton'),
-                  onTap: ()  {
+                  onTap: () {
                     if (!formKey.currentState.validate()) return;
-                    context
-                      .read<SettingsCubit>()
-                      .update(usernameController.text.trim(),
+                    context.read<SettingsCubit>().update(
+                        usernameController.text.trim(),
                         emailController.text.trim(),
                         orgnameController.text.trim(),
                         orgDisplayController.text.trim());
@@ -340,14 +350,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       Divider(),
                     ],
                   )),
-          listItem(
-              FlutterI18n.translate(context, 'change_password'),
-              onTap: () => Navigator.of(context).pushNamed('change_password_page')),
+          listItem(FlutterI18n.translate(context, 'change_password'),
+              onTap: () =>
+                  Navigator.of(context).pushNamed('change_password_page')),
           Divider(),
-          listItem(
-              FlutterI18n.translate(context, 'set_fa_02'),
-              onTap: () => Navigator.of(context).pushNamed(
-                'set_2fa_page')),
+          listItem(FlutterI18n.translate(context, 'set_fa_02'),
+              onTap: () => Navigator.of(context).pushNamed('set_2fa_page')),
           Divider(),
         ]),
         BlocBuilder<SettingsCubit, SettingsState>(
@@ -397,10 +405,10 @@ class _ProfilePageState extends State<ProfilePage> {
     return null;
   }
 
-  String _validName(BuildContext context,String value){
+  String _validName(BuildContext context, String value) {
     String res = Reg.isEmpty(value);
-    if(res != null){
-      return FlutterI18n.translate(context,res);
+    if (res != null) {
+      return FlutterI18n.translate(context, res);
     }
 
     return null;

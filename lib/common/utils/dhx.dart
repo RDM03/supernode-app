@@ -38,7 +38,9 @@ double calculateDhxDaily({
       ? null
       : calculateMiningPower(mxcLocked, minersCount, monthsToBoost(months));
 
-  return mPower == null || yesterdayTotalDHX == null || yesterdayTotalMPower == null
+  return mPower == null ||
+          yesterdayTotalDHX == null ||
+          yesterdayTotalMPower == null
       ? null
       : mPower * (yesterdayTotalDHX / yesterdayTotalMPower);
 }
