@@ -32,6 +32,7 @@ abstract class SupernodeSession with _$SupernodeSession {
     int userId,
     String username,
     String token,
+    DateTime expire,
     String password,
     Supernode node,
     @Default(false) bool tfaEnabled,

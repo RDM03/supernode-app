@@ -40,6 +40,7 @@ class SupernodeCubit extends Cubit<SupernodeState> {
   void setSupernodeToken(String token) => emit(
         state.copyWith.session(
           token: token,
+          expire: DateTime.now().add(Duration(days: 6))
         ),
       );
 

@@ -74,7 +74,7 @@ class MinerRevenueTab extends StatelessWidget {
           ),
         ),
         GraphCard(
-          subtitle: FlutterI18n.translate(context, 'weekly_amount_avg'),
+          subtitle: FlutterI18n.translate(context, 'weekly_amount'),
           title:
               '${Tools.priceFormat(revenue?.fold<double>(0.0, (v, element) => double.parse(element.amount ?? '0.0') + v))} MXC',
           startDate: revenue?.first?.date,
