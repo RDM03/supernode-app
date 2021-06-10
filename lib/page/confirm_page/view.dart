@@ -17,7 +17,7 @@ Widget buildView(
 
   return pageFrame(context: viewService.context, children: [
     pageNavBar(FlutterI18n.translate(_ctx, state.title),
-        onTap: () => popPage(_ctx, count: 3)),
+        onTap: () => popAllPages(_ctx)),
     title(FlutterI18n.translate(_ctx, state.title)),
     done(
         success: state.success ||
@@ -27,7 +27,7 @@ Widget buildView(
     submitButton(
       FlutterI18n.translate(_ctx, 'done'),
       key: Key('doneButton'),
-      onPressed: () => Navigator.pop(viewService.context),
+      onPressed: () => popAllPages(_ctx),
     )
   ]);
 }
