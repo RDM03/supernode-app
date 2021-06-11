@@ -113,7 +113,8 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
                 }
                 if (status.isGranted) {
                   final String filePath = await context.read<SettingsCubit>().getDataExport();
-                  if (filePath.isNotEmpty)
+                  if (filePath.isNotEmpty) {
+                    Navigator.of(context).pop();
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) =>
                         (filePath.isNotEmpty && context.read<SettingsCubit>().state.format == "pdf")
@@ -121,6 +122,7 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
                             : CsvViewerPage(csvPath: filePath)
                         )
                     );
+                  }
                 }
               },
               buttonTitle: FlutterI18n.translate(context, 'export')),
