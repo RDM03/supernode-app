@@ -30,9 +30,9 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
   int selectedTab = 0;
   double downlinkPrice;
   List<GatewayStatisticResponse> frames;
-  List<DailyStatistic> stats;
-  double totalAmount;
-  double averageHealth = 1;
+  List<DailyStatistic> stats7days;
+  double totalAmount7days;
+  double avgSecondsOnlinePerDay7days = 1;
   GatewayItem item;
 
   @override
@@ -107,19 +107,18 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
         await context.read<SupernodeRepository>().wallet.miningIncomeGateway(
               gatewayMac: widget.item.id,
               orgId: context.read<SupernodeCubit>().state.orgId,
-              fromDate: DateTime(2000, 01, 01),
+              fromDate: DateTime.now().add(Duration(days: -8)),
               tillDate: DateTime.now(),
             );
-    totalAmount = res.dailyStats.fold<double>(
+    stats7days = res.dailyStats.skip(max(res.dailyStats.length - 7, 0)).toList();
+    totalAmount7days = stats7days.fold<double>(
       0.0,
       (source, v) => source + (double.tryParse(v.amount) ?? 0.0),
     );
-    stats = res.dailyStats.skip(max(res.dailyStats.length - 7, 0)).toList();
-    averageHealth = res.dailyStats.fold(
-            0, (previousValue, element) => previousValue + element.health) /
-        res.dailyStats.length;
+    avgSecondsOnlinePerDay7days = stats7days.fold(
+            0, (previousValue, element) => previousValue + element.onlineSeconds) /
+        stats7days.length;
     if (mounted) setState(() {});
-    return totalAmount;
   }
 
   @override
@@ -175,15 +174,15 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
             if (selectedTab == 0)
               MinerHealthTab(
                 item: item,
-                health: stats,
-                averageHealth: averageHealth,
+                healthStatistics: stats7days,
+                avgSecondsOnlinePerDay: avgSecondsOnlinePerDay7days,
                 onRefresh: refreshItem,
               )
             else if (selectedTab == 1)
               MinerRevenueTab(
                 item: widget.item,
-                revenue: stats,
-                totalAmount: totalAmount,
+                revenue: stats7days,
+                totalAmount: totalAmount7days,
               )
             else if (selectedTab == 2)
               MinerDataTab(

@@ -19,15 +19,15 @@ import '../title.dart';
 
 class MinerHealthTab extends StatelessWidget {
   final GatewayItem item;
-  final List<DailyStatistic> health;
-  final double averageHealth;
+  final List<DailyStatistic> healthStatistics;
+  final double avgSecondsOnlinePerDay;
   final VoidCallback onRefresh;
 
   const MinerHealthTab({
     Key key,
     this.item,
-    this.health,
-    this.averageHealth,
+    this.healthStatistics,
+    this.avgSecondsOnlinePerDay,
     this.onRefresh,
   }) : super(key: key);
 
@@ -251,10 +251,10 @@ class MinerHealthTab extends StatelessWidget {
           maxValue: 1,
           subtitle: FlutterI18n.translate(context, 'score_weekly_total'),
           title:
-              '${(averageHealth * 100).round()}% (${(averageHealth * (health?.length ?? 0) * 24).toInt()}h)',
-          entities: health?.map((e) => GraphEntity(e.date, e.health))?.toList(),
-          startDate: health?.first?.date,
-          endDate: health?.last?.date,
+              '${(avgSecondsOnlinePerDay  / (24 * 60 * 60.0) * 100).round()}% (${(avgSecondsOnlinePerDay * (healthStatistics?.length ?? 0) / (60 * 60.0)).toInt()}h)',
+          entities: healthStatistics?.map((e) => GraphEntity(e.date, e.onlineSeconds / (24 * 60 * 60.0)))?.toList(),
+          startDate: healthStatistics?.first?.date,
+          endDate: healthStatistics?.last?.date,
         ),
         SizedBox(height: 8),
         MinerDetailTitle(

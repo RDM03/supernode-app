@@ -322,7 +322,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
                 received: 0,
                 transmitted: 0,
                 revenue: double.tryParse(item.amount ?? '0'),
-                uptime: double.tryParse(item.onlineSeconds ?? '0'),
+                uptime: item.onlineSeconds / (24 * 60 * 60.0),
               );
 
               if (currentEntity.date.year == entity.date.year &&
