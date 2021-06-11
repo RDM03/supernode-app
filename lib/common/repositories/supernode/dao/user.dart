@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:supernodeapp/common/repositories/supernode/clients/supernode_client.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 import 'package:supernodeapp/common/utils/url.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:dio/dio.dart';
 export 'user.model.dart';
 
 import 'dao.dart';
@@ -173,7 +171,7 @@ class UserDao extends SupernodeDao {
   }
 
   Future<String> miningIncomeReport(Map data, String fileName) async {
-    return get(url: Api.url(UserApi.miningIncomeReport, data['format'].toString()), data: data).
-    then((res) => createFile(res['result'], fileName));
+    return get(url: Api.url(UserApi.miningIncomeReport, data['format'].toString()), data: data, rt: ResponseType.plain).
+    then((res) => createFile(res, fileName));
   }
 }

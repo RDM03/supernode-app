@@ -113,13 +113,14 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
                 }
                 if (status.isGranted) {
                   final String filePath = await context.read<SettingsCubit>().getDataExport();
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) =>
-                      (filePath.isNotEmpty && context.read<SettingsCubit>().state.format == "pdf")
-                          ? PDFViewerPage(filePath: filePath)
-                          : CsvViewerPage(csvPath: filePath)
-                      )
-                  );
+                  if (filePath.isNotEmpty)
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) =>
+                        (filePath.isNotEmpty && context.read<SettingsCubit>().state.format == "pdf")
+                            ? PDFViewerPage(filePath: filePath)
+                            : CsvViewerPage(csvPath: filePath)
+                        )
+                    );
                 }
               },
               buttonTitle: FlutterI18n.translate(context, 'export')),

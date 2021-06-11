@@ -42,13 +42,16 @@ class SharedHttpClient implements HttpClient {
   }
 
   @override
-  Future get({@required String url, Map data}) async {
+  Future get({@required String url, Map data, ResponseType rt}) async {
     try {
+      final Options opt = getOptions();
+      if (rt != null)
+        opt.responseType = rt;
       final res = await dio.get(
         _fmtUrl(url),
         queryParameters:
             data != null ? new Map<String, dynamic>.from(data) : null,
-        options: getOptions(),
+        options: opt,
       );
       return res.data;
     } on DioError catch (e, stack) {

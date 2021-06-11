@@ -252,14 +252,21 @@ class FiatCurrency {
   }
 }
 
-Future<String> createFile(Map<String, dynamic> map, String fileName) async {
+Future<String> createFile(String response, String fileName) async {
   final String dir = (Platform.isAndroid)
       ? (await getExternalStorageDirectory()).path
       : (await getApplicationDocumentsDirectory()).path;
   final String fullPath = '$dir/$fileName';
   final File report = new File(fullPath);
   report.openWrite(mode: FileMode.write);
-  await report.writeAsBytes(base64.decode(map['data']), flush: true);
+
+  LineSplitter ls = new LineSplitter();
+  List<String> lines = ls.convert(response);
+  Map<String, dynamic> map;
+  for (String line in lines) {
+    map = jsonDecode(line);
+    await report.writeAsBytes(base64.decode(map['result']['data']), flush: true, mode: FileMode.append);
+  }
 
   return fullPath;
 }
