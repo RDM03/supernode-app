@@ -12,11 +12,25 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     this.appCubit,
     this.supernodeCubit,
     this.supernodeRepository,
+    this.weekLabels,
+    this.monthsAbbLabels,
+    this.monthsLabels,
   ) : super(MinerStatsState());
 
   final AppCubit appCubit;
   final SupernodeCubit supernodeCubit;
   final SupernodeRepository supernodeRepository;
+  final Map<int, String> weekLabels;
+  final Map<int, String> monthsAbbLabels;
+  final Map<int, String> monthsLabels;
+
+  String getMD(DateTime date) {
+    return '${monthsLabels[date.month]} ${date.day}';
+  }
+
+  String getMDY(DateTime date) {
+    return '${monthsLabels[date.month]} ${date.day} ${date.year}';
+  }
 
   void tabTime(String time) {
     MinerStatsTime selectedTime = MinerStatsTime.week;
@@ -147,11 +161,11 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     if (state.originList.isEmpty) return null;
 
     if (time == MinerStatsTime.week) {
-      return TimeUtil.getMD(state.originList.last.date);
+      return getMD(state.originList.last.date);
     } else if (time == MinerStatsTime.month) {
-      return TimeUtil.getMD(state.originList.last.date);
+      return getMD(state.originList.last.date);
     } else {
-      return TimeUtil.getMDY(state.originList.last.date);
+      return getMDY(state.originList.last.date);
     }
   }
 
@@ -161,11 +175,11 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     if (state.originList.isEmpty) return null;
 
     if (time == MinerStatsTime.week) {
-      return TimeUtil.getMD(state.originList.first.date);
+      return getMD(state.originList.first.date);
     } else if (time == MinerStatsTime.month) {
-      return TimeUtil.getMD(state.originList.first.date);
+      return getMD(state.originList.first.date);
     } else {
-      return TimeUtil.getMDY(state.originList.first.date);
+      return getMDY(state.originList.first.date);
     }
   }
 
@@ -460,7 +474,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
         if (TimeUtil.isSameDay(item.date, DateTime.now())) {
           xLabel.add('Today');
         } else {
-          xLabel.add(TimeUtil.week[item.date.weekday]);
+          xLabel.add(weekLabels[item.date.weekday]);
         }
       });
 
@@ -517,7 +531,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
           xData.add(item.transmitted / maxValue);
         }
 
-        xLabel.add(TimeUtil.getMDAbb(item.date));
+        xLabel.add('${monthsAbbLabels[item.date.month]} ${item.date.day}');
       });
 
       emit(state.copyWith(originList: newData));

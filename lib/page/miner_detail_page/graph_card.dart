@@ -46,16 +46,6 @@ class _GraphCardState extends State<GraphCard> {
     final maxValue = widget.maxValue ??
         widget.entities.reduce((a, b) => a.value > b.value ? a : b).value;
 
-    const dates = {
-      1: 'Mon',
-      2: 'Tue',
-      3: 'Wed',
-      4: 'Thu',
-      5: 'Fri',
-      6: 'Sat',
-      7: 'Sun',
-    };
-
     final weekdays = <String>[];
     final values = <double>[];
     for (final e in widget.entities) {
@@ -64,7 +54,7 @@ class _GraphCardState extends State<GraphCard> {
           DateTime(now.year, now.month, now.day))
         weekdays.add(FlutterI18n.translate(context, 'today'));
       else
-        weekdays.add(dates[e.date.weekday]);
+        weekdays.add(TimeUtil.weekDayShort(context)[e.date.weekday]);
       values.add(e.value / maxValue);
     }
 
@@ -75,6 +65,8 @@ class _GraphCardState extends State<GraphCard> {
       xAxisLabels: weekdays.reversed.toList(),
     );
   }
+
+  String getMD(DateTime date) => '${TimeUtil.months(context)[date.month]} ${date.day}';
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +144,7 @@ class _GraphCardState extends State<GraphCard> {
                 ),
               ),
               Text(
-                '${TimeUtil.getMD(widget.startDate ?? DateTime.now())} - ${TimeUtil.getMD(widget.endDate ?? DateTime.now())}',
+                '${getMD(widget.startDate ?? DateTime.now())} - ${getMD(widget.endDate ?? DateTime.now())}',
                 style: kMiddleFontOfGrey,
               ),
             ],
