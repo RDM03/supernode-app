@@ -68,13 +68,11 @@ class _GraphCardState extends State<GraphCard> {
       values.add(e.value / maxValue);
     }
 
-    return Builder(
-      builder: (ctx) => BarGraph(
-        values.reversed.toList(),
-        7,
-        MediaQuery.of(ctx).size.width - 5,
-        xAxisLabels: weekdays.reversed.toList(),
-      ),
+    return BarGraph(
+      values.reversed.toList(),
+      7,
+      MediaQuery.of(context).size.width - 70,
+      xAxisLabels: weekdays.reversed.toList(),
     );
   }
 
