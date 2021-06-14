@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:package_info/package_info.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
 
 part 'state.freezed.dart';
 
@@ -8,6 +9,13 @@ part 'state.freezed.dart';
 abstract class SettingsState with _$SettingsState {
   factory SettingsState({
     @nullable PackageInfo info,
+    @nullable List<FiatCurrency> listFiat,
+    @Default('pdf') String format,
+    @nullable FiatCurrency selectedFiat,
+    @nullable DateTime startDate,
+    @nullable DateTime endDate,
+    @Default(4) int decimals,
+
     @nullable String version,
     @nullable String buildNumber,
     @nullable String mxVersion,

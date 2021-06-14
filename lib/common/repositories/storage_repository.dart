@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/address_entity.dart';
 
@@ -146,6 +147,14 @@ class StorageRepository {
 
   Future<void> setLocale(Locale locale) async {
     await _sharedPreferences.setString('locale', locale.languageCode);
+  }
+
+  FiatCurrency selectedFiatForExport() {
+    return FiatCurrency(_sharedPreferences.getString('fiat_id'), "");
+  }
+
+  Future<void> setSelectedFiatForExport(FiatCurrency selectedFiatForExport) async {
+    await _sharedPreferences.setString('fiat_id', selectedFiatForExport.id);
   }
 }
 

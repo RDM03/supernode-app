@@ -1,9 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:supernodeapp/common/repositories/shared/clients/client.dart';
 import '../../../shared/dao/dao.dart';
 
 class DemoDao implements HttpDao {
   @override
-  Future get({String url, Map data}) {
+  Future get({String url, Map data, ResponseType rt}) {
     throw UnimplementedError("Direct GET unavailable in demo");
   }
 
