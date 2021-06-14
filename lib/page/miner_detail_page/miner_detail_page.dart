@@ -29,10 +29,10 @@ class MinerDetailPage extends StatefulWidget {
 class _MinerDetailPageState extends State<MinerDetailPage> {
   int selectedTab = 0;
   double downlinkPrice;
-  List<GatewayStatisticResponse> frames;
-  List<DailyStatistic> stats7days;
-  double totalAmount7days;
-  double avgSecondsOnlinePerDay7days = 1;
+  List<GatewayStatisticResponse> framesLast7days;
+  List<DailyStatistic> statsLast7days;
+  double sumMiningRevenueLast7days;
+  double sumSecondsOnlineLast7days = 0.0;
   GatewayItem item;
 
   @override
@@ -81,43 +81,35 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
   }
 
   Future<void> getFrames() async {
+    final DateTime now = DateTime.now().toUtc();
+    final DateTime weekAgo = now.add(Duration(days: -6));
+    final DateTime weekAgoMidnight = DateTime.utc(weekAgo.year, weekAgo.month, weekAgo.day);
     final res = await context.read<SupernodeRepository>().gateways.frames(
           widget.item.id,
           interval: 'DAY',
-          endTimestamp: DateTime.now(),
-          startTimestamp: DateTime.now().add(Duration(days: -7)),
+          startTimestamp: weekAgoMidnight,
+          endTimestamp: now,
         );
-    frames = res;
-    if (mounted) setState(() {});
-  }
-
-  Future<void> getHealth() async {
-    final res = await context.read<SupernodeRepository>().gateways.frames(
-          widget.item.id,
-          interval: 'DAY',
-          endTimestamp: DateTime.now(),
-          startTimestamp: DateTime.now().add(Duration(days: -7)),
-        );
-    frames = res;
+    framesLast7days = res;
     if (mounted) setState(() {});
   }
 
   Future<void> getStatistic() async {
+    final DateTime now = DateTime.now().toUtc();
+    final DateTime weekAgo = now.add(Duration(days: -6));
+    final DateTime weekAgoMidnight = DateTime.utc(weekAgo.year, weekAgo.month, weekAgo.day);
     final res =
         await context.read<SupernodeRepository>().wallet.miningIncomeGateway(
               gatewayMac: widget.item.id,
               orgId: context.read<SupernodeCubit>().state.orgId,
-              fromDate: DateTime.now().add(Duration(days: -8)),
-              tillDate: DateTime.now(),
+              fromDate: weekAgoMidnight,
+              tillDate: now,
             );
-    stats7days = res.dailyStats.skip(max(res.dailyStats.length - 7, 0)).toList();
-    totalAmount7days = stats7days.fold<double>(
-      0.0,
-      (source, v) => source + (double.tryParse(v.amount) ?? 0.0),
-    );
-    avgSecondsOnlinePerDay7days = stats7days.fold(
-            0, (previousValue, element) => previousValue + element.onlineSeconds) /
-        stats7days.length;
+    statsLast7days = res.dailyStats;
+    sumMiningRevenueLast7days = statsLast7days.fold<double>(
+      0.0, (tmpSum, element) => tmpSum + (double.tryParse(element.amount) ?? 0.0));
+    sumSecondsOnlineLast7days = statsLast7days.fold<double>(
+        0.0, (tmpSum, element) => tmpSum + element.onlineSeconds);
     if (mounted) setState(() {});
   }
 
@@ -174,20 +166,20 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
             if (selectedTab == 0)
               MinerHealthTab(
                 item: item,
-                healthStatistics: stats7days,
-                avgSecondsOnlinePerDay: avgSecondsOnlinePerDay7days,
+                healthStatisticsData: statsLast7days,
+                sumSecondsOnlineLast7days: sumSecondsOnlineLast7days,
                 onRefresh: refreshItem,
               )
             else if (selectedTab == 1)
               MinerRevenueTab(
                 item: widget.item,
-                revenue: stats7days,
-                totalAmount: totalAmount7days,
+                revenueData: statsLast7days,
+                sumRevenueLast7days: sumMiningRevenueLast7days,
               )
             else if (selectedTab == 2)
               MinerDataTab(
                 item: widget.item,
-                frames: frames,
+                framesData: framesLast7days,
                 downlinkPrice: downlinkPrice,
               )
           ],
