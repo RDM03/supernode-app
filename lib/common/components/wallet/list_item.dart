@@ -57,7 +57,7 @@ Widget listItem({
         title: Row(
           children: <Widget>[
             Text(
-              token == Token.btc ? 'BTC' : 'MXC/ETH',
+              token == Token.supernodeDhx ? 'DHX' : ( token == Token.btc ? 'BTC' : 'MXC/ETH'),
               style: kBigFontOfBlack,
             ),
             smallRowSpacer(),
@@ -179,13 +179,18 @@ Widget listItem({
                           ),
                         ),
                         Spacer(),
-                        Text(
+                        if (token == Token.supernodeDhx)
+                          Text(
                             "${FlutterI18n.translate(context, status.toLowerCase())}",
-                            style: status != null &&
-                                    status.toLowerCase().contains(RegExp(
-                                        '${FlutterI18n.translate(context, "success")}|success'))
-                                ? kMiddleFontOfGreen
-                                : kMiddleFontOfRed),
+                            style: followStyle)
+                        else
+                          Text(
+                              "${FlutterI18n.translate(context, status.toLowerCase())}",
+                              style: status != null &&
+                                      status.toLowerCase().contains(RegExp(
+                                          '${FlutterI18n.translate(context, "success")}|success|completed'))
+                                  ? kMiddleFontOfGreen
+                                  : kMiddleFontOfRed),
                       ],
                     ),
                   )
@@ -200,8 +205,11 @@ Widget listItem({
 
 class TopupListItem extends StatelessWidget {
   final TopupEntity entity;
+  final Token token;
+  final TextStyle paymentTextStyle;
+  final Color amountColor;
 
-  const TopupListItem({Key key, this.entity}) : super(key: key);
+  const TopupListItem({Key key, this.entity, this.token = Token.mxc, this.paymentTextStyle, this.amountColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -209,11 +217,11 @@ class TopupListItem extends StatelessWidget {
     TextStyle followStyle;
     if (entity.amountDouble > 0) {
       followText = '(' + FlutterI18n.translate(context, 'deposit') + ')';
-      followStyle = kSmallFontOfGreen;
+      followStyle = paymentTextStyle != null ? paymentTextStyle : kSmallFontOfGreen;
     }
     if (entity.amountDouble < 0) {
       followText = '(' + FlutterI18n.translate(context, 'withdraw') + ')';
-      followStyle = kSmallFontOfRed;
+      followStyle =  paymentTextStyle != null ? paymentTextStyle : kSmallFontOfRed;
     }
     return listItem(
       context: context,
@@ -222,6 +230,8 @@ class TopupListItem extends StatelessWidget {
       txHashAddress: entity.txHash,
       followText: followText,
       followStyle: followStyle,
+      amountColor: amountColor,
+      token: token,
       status: FlutterI18n.translate(context, 'completed'),
     );
   }
@@ -229,11 +239,15 @@ class TopupListItem extends StatelessWidget {
 
 class WithdrawListItem extends StatelessWidget {
   final WithdrawHistoryEntity entity;
+  final TextStyle paymentTextStyle;
+  final Color amountColor;
   final Token token;
 
   const WithdrawListItem({
     Key key,
     this.entity,
+    this.paymentTextStyle,
+    this.amountColor,
     @required this.token,
   }) : super(key: key);
 
@@ -243,12 +257,12 @@ class WithdrawListItem extends StatelessWidget {
     TextStyle followStyle;
     if (entity.amountDouble > 0) {
       followText = '(' + FlutterI18n.translate(context, 'deposit') + ')';
-      followStyle = kSmallFontOfGreen;
+      followStyle = paymentTextStyle != null ? paymentTextStyle : kSmallFontOfGreen;
     }
 
     if (entity.amountDouble < 0) {
       followText = '(' + FlutterI18n.translate(context, 'withdraw') + ')';
-      followStyle = kSmallFontOfRed;
+      followStyle =  paymentTextStyle != null ? paymentTextStyle : kSmallFontOfRed;
     }
 
     return listItem(
@@ -259,6 +273,7 @@ class WithdrawListItem extends StatelessWidget {
       txHashAddress: entity.txHash,
       followText: followText,
       followStyle: followStyle,
+      amountColor: amountColor,
       token: token,
       status: entity.txStatus != null
           ? FlutterI18n.translate(context, entity.txStatus)
