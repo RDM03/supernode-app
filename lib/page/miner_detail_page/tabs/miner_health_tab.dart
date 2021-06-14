@@ -321,7 +321,7 @@ class StatisticTable extends StatelessWidget {
 
   const StatisticTable({Key key, this.item}) : super(key: key);
 
-  Widget _statisticItem(String title, int value) => Expanded(
+  Widget _statisticItem(String title, String value) => Expanded(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -330,9 +330,7 @@ class StatisticTable extends StatelessWidget {
               style: kSmallFontOfGrey,
             ),
             SizedBox(height: 8),
-            Text(
-              '$value%',
-              style: kBigFontOfDarkBlue,
+            Text(value, style: kBigFontOfDarkBlue,
             ),
           ],
         ),
@@ -353,21 +351,21 @@ class StatisticTable extends StatelessWidget {
             children: [
               _statisticItem(
                 FlutterI18n.translate(context, 'uptime'),
-                ((item.uptimeHealth ?? 0) * 100).round(),
+                '${((item.uptimeHealth ?? 0) * 100).round()}%',
               ),
-              _statisticItem(FlutterI18n.translate(context, 'gps'), 100),
-              _statisticItem(FlutterI18n.translate(context, 'altitude'), 100),
+              _statisticItem(FlutterI18n.translate(context, 'gps'), FlutterI18n.translate(context, 'coming')),
+              _statisticItem(FlutterI18n.translate(context, 'altitude'), FlutterI18n.translate(context, 'coming')),
             ],
           ),
           SizedBox(height: 16),
           Row(
             children: [
-              _statisticItem(FlutterI18n.translate(context, 'proximity'), 100),
+              _statisticItem(FlutterI18n.translate(context, 'proximity'), FlutterI18n.translate(context, 'coming')),
               _statisticItem(
-                  FlutterI18n.translate(context, 'orientation'), 100),
+                  FlutterI18n.translate(context, 'orientation'), FlutterI18n.translate(context, 'coming')),
               _statisticItem(
                 FlutterI18n.translate(context, 'fuel'),
-                ((item.miningFuelHealth ?? 0) * 100).round(),
+                '${((item.miningFuelHealth ?? 0) * 100).round()}%',
               ),
             ],
           ),
