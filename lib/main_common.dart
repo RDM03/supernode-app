@@ -70,6 +70,7 @@ List<BlocListener> listeners() => [
         listener: (context, state) {
           context.read<StorageRepository>().setSupernodeSession(
                 jwt: state.session?.token,
+                expire: state.session?.expire,
                 userId: state.session?.userId,
                 username: state.session?.username,
                 password: state.session?.password,
@@ -103,6 +104,7 @@ Future<void> commonMain() async {
     session: supernodeSession != null
         ? SupernodeSession(
             token: supernodeSession.jwt,
+            expire: supernodeSession.expire,
             username: supernodeSession.username,
             password: supernodeSession.password,
             userId: supernodeSession.userId,

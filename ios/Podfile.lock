@@ -1,14 +1,4 @@
 PODS:
-  - AppCenter (3.2.0):
-    - AppCenter/Analytics (= 3.2.0)
-    - AppCenter/Crashes (= 3.2.0)
-  - AppCenter/Analytics (3.2.0):
-    - AppCenter/Core
-  - AppCenter/Core (3.2.0)
-  - AppCenter/Crashes (3.2.0):
-    - AppCenter/Core
-  - AppCenter/Distribute (3.2.0):
-    - AppCenter/Core
   - connectivity (0.0.1):
     - Flutter
     - Reachability
@@ -32,8 +22,6 @@ PODS:
   - FMDB/standard (2.7.5)
   - geolocator (6.2.0):
     - Flutter
-  - install_plugin (0.0.1):
-    - Flutter
   - integration_test (0.0.1):
     - Flutter
   - local_auth (0.0.1):
@@ -52,8 +40,6 @@ PODS:
     - Mapbox-iOS-SDK (~> 6.0)
   - MapboxMobileEvents (0.10.8)
   - native_screenshot (0.0.1):
-    - Flutter
-  - open_appstore (0.0.1):
     - Flutter
   - package_info (0.0.1):
     - Flutter
@@ -84,14 +70,12 @@ DEPENDENCIES:
   - flutter_mapbox_native (from `.symlinks/plugins/flutter_mapbox_native/ios`)
   - fluwx (from `.symlinks/plugins/fluwx/ios`)
   - geolocator (from `.symlinks/plugins/geolocator/ios`)
-  - install_plugin (from `.symlinks/plugins/install_plugin/ios`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - local_auth (from `.symlinks/plugins/local_auth/ios`)
   - location (from `.symlinks/plugins/location/ios`)
   - majascan (from `.symlinks/plugins/majascan/ios`)
   - mapbox_gl (from `.symlinks/plugins/mapbox_gl/ios`)
   - native_screenshot (from `.symlinks/plugins/native_screenshot/ios`)
-  - open_appstore (from `.symlinks/plugins/open_appstore/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
@@ -103,7 +87,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - AppCenter
     - FMDB
     - Mapbox-iOS-SDK
     - MapboxAnnotationExtension
@@ -128,8 +111,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/fluwx/ios"
   geolocator:
     :path: ".symlinks/plugins/geolocator/ios"
-  install_plugin:
-    :path: ".symlinks/plugins/install_plugin/ios"
   integration_test:
     :path: ".symlinks/plugins/integration_test/ios"
   local_auth:
@@ -142,8 +123,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/mapbox_gl/ios"
   native_screenshot:
     :path: ".symlinks/plugins/native_screenshot/ios"
-  open_appstore:
-    :path: ".symlinks/plugins/open_appstore/ios"
   package_info:
     :path: ".symlinks/plugins/package_info/ios"
   path_provider:
@@ -162,7 +141,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter/ios"
 
 SPEC CHECKSUMS:
-  AppCenter: ca66175050d538b157959382dd43f1ab96cdab84
   connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
@@ -172,7 +150,6 @@ SPEC CHECKSUMS:
   fluwx: 07a55ed66bf3a4961e836a2a411b02dcada32902
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   geolocator: f5e3de65e241caba7ce3e8a618803387bda73384
-  install_plugin: a13e7ddd2bab0c701b48cd359c26d0394125b6fb
   integration_test: 6eb66a19f7104200dcfdd62bc0077e1b09686e4f
   local_auth: 25938960984c3a7f6e3253e3f8d962fdd16852bd
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
@@ -182,7 +159,6 @@ SPEC CHECKSUMS:
   MapboxAnnotationExtension: 4eee6c26349ef6d909f1a23a7eae2d0f7ca5fa7d
   MapboxMobileEvents: 36ff53b135aac486eed94b61f813c7967a0c2c6f
   native_screenshot: 70900984bca8d5f42acf68611b8214b32a9f0deb
-  open_appstore: 4eddfae38848002fdde8d42e1734d16cb34439de
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0

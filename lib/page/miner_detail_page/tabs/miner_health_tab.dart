@@ -151,7 +151,7 @@ class MinerHealthTab extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 16),
                 child: CircularGraph(
                   item.health * 100,
-                  item.health <= 10 ? healthColor : minerColor,
+                  item.health <= 0.1 ? healthColor : minerColor,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -249,7 +249,7 @@ class MinerHealthTab extends StatelessWidget {
               Duration(minutes: 5),
           lastSeen: DateTime.tryParse(item.lastSeenAt),
           maxValue: 1,
-          subtitle: FlutterI18n.translate(context, 'score_weekly'),
+          subtitle: FlutterI18n.translate(context, 'score_weekly_total'),
           title:
               '${(averageHealth * 100).round()}% (${(averageHealth * (health?.length ?? 0) * 24).toInt()}h)',
           entities: health?.map((e) => GraphEntity(e.date, e.health))?.toList(),

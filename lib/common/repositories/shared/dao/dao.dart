@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:supernodeapp/common/repositories/shared/clients/client.dart';
 
 class HttpDao {
@@ -21,10 +21,11 @@ class HttpDao {
     );
   }
 
-  Future<dynamic> get({String url, Map data}) async {
+  Future<dynamic> get({String url, Map data, ResponseType rt}) async {
     return client.get(
       url: url,
       data: data,
+      rt: rt,
     );
   }
 
