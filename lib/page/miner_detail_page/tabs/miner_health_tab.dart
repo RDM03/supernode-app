@@ -151,7 +151,7 @@ class MinerHealthTab extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 16),
                 child: CircularGraph(
                   item.health * 100,
-                  item.health <= 10 ? healthColor : minerColor,
+                  item.health <= 0.1 ? healthColor : minerColor,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

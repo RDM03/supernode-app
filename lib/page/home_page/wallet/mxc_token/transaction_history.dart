@@ -27,6 +27,7 @@ enum TransactionHistoryFilter { deposit, withdraw }
 
 class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
   bool isSetDate = false;
+  bool isOnSearch = false;
   TransactionHistoryFilter filter;
 
   String firstTime = TimeUtil.getDatetime(new DateTime.now(), type: 'date');
@@ -62,6 +63,12 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
             ...tempWithdraws,
             ...tempTopups,
           ];
+
+          if(isSetDate && isOnSearch) {
+            list = list.where((item) => DateTime.tryParse(firstTime).isBefore(item.timestamp) && DateTime.tryParse(secondTime).isAfter(item.timestamp)).toList();
+
+            isOnSearch = false;
+          }
 
           final _ = topups?.length == 1
               ? topups[0].timestamp.day
@@ -138,6 +145,7 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
                   thirdText: FlutterI18n.translate(context, 'search'),
                   firstTimeOnTap: (date) => setState(() => firstTime = date),
                   secondTimeOnTap: (date) => setState(() => secondTime = date),
+                  onSearch: () => setState(() {isOnSearch = true;})
                 ),
               ),
             SizedBox(height: 12),

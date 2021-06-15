@@ -59,21 +59,21 @@ class _SupernodeDhxTokenPageContentState
                 thumbColor: Token.supernodeDhx.color,
                 children: <int, Widget>{
                   0: Text(
-                    FlutterI18n.translate(context, 'mining_income'),
+                    FlutterI18n.translate(context, 'transaction_history'),
+                    key: Key('transactionHistory'),
                     style: TextStyle(
                       color: (selectedTab == 0) ? Colors.white : Colors.grey,
                     ),
                   ),
                   1: Text(
-                    FlutterI18n.translate(context, 'bonding_history'),
-                    key: Key('bondingHistoryText'),
+                    FlutterI18n.translate(context, 'mining_income'),
                     style: TextStyle(
                       color: (selectedTab == 1) ? Colors.white : Colors.grey,
                     ),
                   )
                 }),
           ),
-          if (selectedTab == 1)
+          if (selectedTab == 0)
             TransactionsHistoryContent()
           else
             MiningIncomeContent(),
