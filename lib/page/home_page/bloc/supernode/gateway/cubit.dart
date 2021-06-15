@@ -142,4 +142,95 @@ class GatewayCubit extends Cubit<GatewayState> {
       logger.e('rdelete gateway error', e, s);
     }
   }
+
+  void initMinerDetails(GatewayItem selectedGateway) {
+    emit(
+      state.copyWith(
+        selectedGateway: selectedGateway,
+        downlinkPrice: 0.0,
+        framesLast7days: null,
+        statsLast7days : null,
+        sumMiningRevenueLast7days : 0,
+        sumSecondsOnlineLast7days : 0,
+        secondsLast7days : 1,
+      ),
+    );
+
+    getStatistic(selectedGateway.id);
+    getFrames(selectedGateway.id);
+    getDownlinkPrice();
+  }
+
+  Future<void> getDownlinkPrice() async {
+    double downlinkPrice = await supernodeRepository
+        .wallet
+        .downlinkPrice(orgId);
+    emit(
+      state.copyWith(
+        downlinkPrice: downlinkPrice,
+      ),
+    );
+  }
+
+  Future<void> getFrames(String minerId) async {
+    final DateTime now = DateTime.now().toUtc();
+    final DateTime weekAgo = now.add(Duration(days: -6));
+    final DateTime weekAgoMidnight = DateTime.utc(weekAgo.year, weekAgo.month, weekAgo.day);
+    final res = await supernodeRepository.gateways.frames(
+      minerId,
+      interval: 'DAY',
+      startTimestamp: weekAgoMidnight,
+      endTimestamp: now,
+    );
+    emit(
+      state.copyWith(
+        framesLast7days: res,
+      ),
+    );
+  }
+
+  Future<void> getStatistic(String minerId) async {
+    final DateTime now = DateTime.now().toUtc();
+    final DateTime weekAgo = now.add(Duration(days: -6));
+    final DateTime weekAgoMidnight = DateTime.utc(weekAgo.year, weekAgo.month, weekAgo.day);
+    final res =
+    await supernodeRepository.wallet.miningIncomeGateway(
+      gatewayMac: minerId,
+      orgId: orgId,
+      fromDate: weekAgoMidnight,
+      tillDate: now,
+    );
+    emit(
+      state.copyWith(
+          statsLast7days : res.dailyStats,
+          sumMiningRevenueLast7days : res.dailyStats.fold<double>(
+              0.0, (tmpSum, element) => tmpSum + (double.tryParse(element.amount) ?? 0.0)),
+          sumSecondsOnlineLast7days : res.dailyStats.fold<int>(
+              0, (tmpSum, element) => tmpSum + element.onlineSeconds),
+          secondsLast7days : now.difference(weekAgoMidnight).inSeconds,
+      ),
+    );
+  }
+
+  Future<void> refreshGateway() async {
+    final listMinersHealth = await supernodeRepository.gateways
+        .minerHealth({"orgId": orgId});
+
+    final res = await supernodeRepository.gateways.list({
+      'organizationID': orgId,
+      'offset': 0,
+      'limit': 10,
+    }, search: state.selectedGateway.id);
+    final newGateway = (res['result'] as List)
+        .firstWhere((m) => m["id"] == state.selectedGateway.id, orElse: () => null);
+    if (newGateway == null) return;
+    final List<GatewayItem> gateways = parseGateways({
+      "result": [newGateway]
+    }, listMinersHealth, orgId);
+    emit(
+        state.copyWith(
+            selectedGateway: gateways.first
+        )
+    );
+  }
 }
