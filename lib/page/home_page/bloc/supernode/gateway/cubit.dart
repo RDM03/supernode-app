@@ -40,6 +40,52 @@ class GatewayCubit extends Cubit<GatewayState> {
     emit(state.copyWith(
       gatewaysTotal: state.gatewaysTotal.withLoading(),
       gateways: state.gateways.withLoading(),
+    ));
+
+    await refreshMinersHealth();
+
+    try {
+      final res = await supernodeRepository.gateways
+          .list({"organizationID": orgId, "offset": 0, "limit": 10});
+
+      int total = int.parse(res['totalCount']);
+      final List<GatewayItem> gateways = parseGateways(res, state.listMinersHealth, orgId);
+
+      emit(
+        state.copyWith(
+          gatewaysTotal: Wrap(total),
+          gateways: Wrap(gateways),
+        ),
+      );
+      homeCubit.saveSNCache('gatewaysTotal', total);
+    } catch (e, s) {
+      logger.e('refresh error', e, s);
+      emit(state.copyWith(
+        gatewaysTotal: state.gatewaysTotal.withError(e),
+        gateways: state.gateways.withError(e),
+      ));
+    }
+  }
+
+  Future<List<GatewayItem>> loadNextPage(int page) async {
+    final res = await supernodeRepository.gateways
+        .list({"organizationID": orgId, "offset": page, "limit": 10});
+
+    final total = int.parse(res['totalCount']);
+    final gateways = parseGateways(res, state.listMinersHealth, orgId);
+
+    emit(
+      state.copyWith(
+        gatewaysTotal: Wrap(total),
+        gateways: Wrap([...state.gateways.value, ...gateways]),
+      ),
+    );
+
+    return gateways;
+  }
+
+  Future<void> refreshMinersHealth() async {
+    emit(state.copyWith(
       health: state.health.withLoading(),
       uptimeHealth: state.uptimeHealth.withLoading(),
       miningFuelHealth: state.miningFuelHealth.withLoading(),
@@ -51,7 +97,7 @@ class GatewayCubit extends Cubit<GatewayState> {
     List<MinerHealthResponse> listMinersHealth = [];
     try {
       listMinersHealth =
-          await supernodeRepository.gateways.minerHealth({"orgId": orgId});
+      await supernodeRepository.gateways.minerHealth({"orgId": orgId});
 
       double avgHealth = 0;
       double avgUptimeHealth = 0;
@@ -92,45 +138,21 @@ class GatewayCubit extends Cubit<GatewayState> {
       ));
     }
 
-    //Gateways
+    // refresh gateways in state
     try {
-      final res = await supernodeRepository.gateways
-          .list({"organizationID": orgId, "offset": 0, "limit": 10});
-
-      int total = int.parse(res['totalCount']);
-      final List<GatewayItem> gateways = parseGateways(res, listMinersHealth, orgId);
-
-      emit(
-        state.copyWith(
-          gatewaysTotal: Wrap(total),
-          gateways: Wrap(gateways),
-        ),
-      );
-      homeCubit.saveSNCache('gatewaysTotal', total);
+      if (state.gateways.value != null && listMinersHealth.length > 0) {
+        final List<GatewayItem> gateways = parseGateways(
+            {'result': state.gateways.value.map((e) => e.toJson()).toList()},
+            listMinersHealth, orgId);
+        emit(
+          state.copyWith(
+            gateways: Wrap(gateways),
+          ),
+        );
+      }
     } catch (e, s) {
-      logger.e('refresh error', e, s);
-      emit(state.copyWith(
-        gatewaysTotal: state.gatewaysTotal.withError(e),
-        gateways: state.gateways.withError(e),
-      ));
+      logger.e('minerHealth error', e, s);
     }
-  }
-
-  Future<List<GatewayItem>> loadNextPage(int page) async {
-    final res = await supernodeRepository.gateways
-        .list({"organizationID": orgId, "offset": page, "limit": 10});
-
-    final total = int.parse(res['totalCount']);
-    final gateways = parseGateways(res, state.listMinersHealth, orgId);
-
-    emit(
-      state.copyWith(
-        gatewaysTotal: Wrap(total),
-        gateways: Wrap([...state.gateways.value, ...gateways]),
-      ),
-    );
-
-    return gateways;
   }
 
   Future<void> deleteGateway(String gatewayId) async {
@@ -202,20 +224,20 @@ class GatewayCubit extends Cubit<GatewayState> {
     );
     emit(
       state.copyWith(
-          statsLast7days : res.dailyStats,
-          sumMiningRevenueLast7days : res.dailyStats.fold<double>(
-              0.0, (tmpSum, element) => tmpSum + (double.tryParse(element.amount) ?? 0.0)),
-          sumSecondsOnlineLast7days : res.dailyStats.fold<int>(
-              0, (tmpSum, element) => tmpSum + element.onlineSeconds),
-          secondsLast7days : now.difference(weekAgoMidnight).inSeconds,
+        statsLast7days : res.dailyStats,
+        sumMiningRevenueLast7days : res.dailyStats.fold<double>(
+            0.0, (tmpSum, element) => tmpSum + (double.tryParse(element.amount) ?? 0.0)),
+        sumSecondsOnlineLast7days : res.dailyStats.fold<int>(
+            0, (tmpSum, element) => tmpSum + element.onlineSeconds),
+        secondsLast7days : now.difference(weekAgoMidnight).inSeconds,
       ),
     );
   }
 
-  Future<void> refreshGateway() async {
-    final listMinersHealth = await supernodeRepository.gateways
-        .minerHealth({"orgId": orgId});
+  Future<void> refreshSelectedGateway() async {
+    await refreshMinersHealth();
 
+    // Does gateway need to be fetched from backend again? Only health info changed?
     final res = await supernodeRepository.gateways.list({
       'organizationID': orgId,
       'offset': 0,
@@ -224,9 +246,10 @@ class GatewayCubit extends Cubit<GatewayState> {
     final newGateway = (res['result'] as List)
         .firstWhere((m) => m["id"] == state.selectedGateway.id, orElse: () => null);
     if (newGateway == null) return;
+
     final List<GatewayItem> gateways = parseGateways({
       "result": [newGateway]
-    }, listMinersHealth, orgId);
+    }, state.listMinersHealth, orgId);
     emit(
         state.copyWith(
             selectedGateway: gateways.first

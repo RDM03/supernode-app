@@ -92,7 +92,7 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
                     healthStatisticsData: state.statsLast7days,
                     sumSecondsOnlineLast7days: state.sumSecondsOnlineLast7days,
                     secondsLast7days: state.secondsLast7days,
-                    onRefresh: context.read<GatewayCubit>().refreshGateway,
+                    onRefresh: context.read<GatewayCubit>().refreshSelectedGateway,
                   );
                 },
               )
