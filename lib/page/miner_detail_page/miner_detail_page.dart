@@ -31,7 +31,7 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
   List<DailyStatistic> statsLast7days;
   double sumMiningRevenueLast7days;
   int sumSecondsOnlineLast7days = 0;
-  int secondsLast7days = 0;
+  int secondsLast7days = 1;
   GatewayItem item;
 
   @override
