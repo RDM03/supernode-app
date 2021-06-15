@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
@@ -23,6 +24,21 @@ class DhxMiningPage extends StatefulWidget {
 }
 
 class _DhxMiningPageState extends State<DhxMiningPage> {
+  final ScrollController scrollCtrl = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    scrollCtrl.addListener(() {
+      ScrollPosition position = scrollCtrl.positions.last;
+      if (position.pixels + 300 > position.maxScrollExtent) {
+        if (!mounted) return;
+        context.read<SupernodeDhxCubit>().getBondInfo();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,105 +81,62 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
               child: Container(
                 height: 600,
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-                          buildWhen: (a, b) =>
-                              a.calendarBondInfo != b.calendarBondInfo,
-                          builder: (context, state) => Flex(
-                                direction: Axis.horizontal,
-                                children: [
-                                  (state.calendarBondInfo != null &&
-                                          state.calendarBondInfo.length > 0)
-                                      ? Text(
-                                          '   ${Tools.dateMonthYearFormat(state.calendarBondInfo[0].date)}'
-                                          '${(state.calendarBondInfo.first.date.month != state.calendarBondInfo.last.date.month) ? ' - ' + Tools.dateMonthYearFormat(state.calendarBondInfo.last.date) : ''}',
-                                          style: kPrimaryBigFontOfBlack)
-                                      : SizedBox(),
-                                  Expanded(
-                                      child: Text(
-                                    countTotalMonth(state.calendarBondInfo),
-                                    style:
-                                        kBigFontOfBlue.copyWith(fontSize: 20),
-                                    textAlign: TextAlign.right,
-                                  )),
-                                  SizedBox(
-                                    width: 10,
-                                  )
-                                ],
-                              )),
-                      smallColumnSpacer(),
-                      BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-                        buildWhen: (a, b) =>
-                            a.calendarBondInfo != b.calendarBondInfo,
-                        builder: (context, state) => GridView.count(
-                          crossAxisCount: 7,
-                          childAspectRatio: (1 / 2),
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          children: getCalendar(state.calendarBondInfo),
-                        ),
-                      ),
-                      middleColumnSpacer(),
-                      //The last month
-                      BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-                          buildWhen: (a, b) =>
-                              a.lastCalendarBondInfo != b.lastCalendarBondInfo,
-                          builder: (context, state) => Flex(
-                                direction: Axis.horizontal,
-                                children: [
-                                  (state.lastCalendarBondInfo != null &&
-                                          state.lastCalendarBondInfo.length > 0)
-                                      ? Text(
-                                          '   ${Tools.dateMonthYearFormat(state.lastCalendarBondInfo[0].date)}'
-                                          '${(state.lastCalendarBondInfo.first.date.month != state.lastCalendarBondInfo.last.date.month) ? ' - ' + Tools.dateMonthYearFormat(state.lastCalendarBondInfo.last.date) : ''}',
-                                          style: kPrimaryBigFontOfBlack)
-                                      : SizedBox(),
-                                  Expanded(
-                                      child: Text(
-                                    countTotalMonth(state.lastCalendarBondInfo),
-                                    style:
-                                        kBigFontOfBlue.copyWith(fontSize: 20),
-                                    textAlign: TextAlign.right,
-                                  )),
-                                  SizedBox(
-                                    width: 10,
-                                  )
-                                ],
-                              )),
-                      smallColumnSpacer(),
-                      BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-                        buildWhen: (a, b) =>
-                            a.calendarBondInfo != b.calendarBondInfo,
-                        builder: (context, state) => GridView.count(
-                          crossAxisCount: 7,
-                          childAspectRatio: (1 / 2),
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          children: getCalendar(state.lastCalendarBondInfo),
-                        ),
-                      ),
-                      smallColumnSpacer(),
-                      Text(
-                          FlutterI18n.translate(
-                              context, 'bonding_calendar_note'),
-                          style: kSmallFontOfBlack),
-                    ],
-                  ),
-                ),
+                    controller: scrollCtrl,
+                    reverse: true,
+                    child: BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+                        buildWhen: (a, b) => a.calendarInfo != b.calendarInfo,
+                        builder: (context, state) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: calendar(context, state.calendarInfo)))),
               )),
         ]));
   }
 }
 
+List<Widget> calendar(
+    BuildContext context, Map<String, List<CalendarModel>> calendarInfo) {
+  List<Widget> calendarList = [];
+
+  calendarInfo.forEach((key, items) {
+    calendarList.add(Flex(
+      direction: Axis.horizontal,
+      children: [
+        Text('  ${TimeUtil.getMYAbb(items.first.date, withApostrophe: true)}',
+            style: kPrimaryBigFontOfBlack),
+        Expanded(
+            child: Text(
+          countTotalMonth(items),
+          style: kBigFontOfBlue.copyWith(fontSize: 20),
+          textAlign: TextAlign.right,
+        )),
+        SizedBox(
+          width: 10,
+        )
+      ],
+    ));
+
+    calendarList.add(GridView.count(
+      crossAxisCount: 7,
+      childAspectRatio: (1 / 2),
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      children: getCalendar(items),
+    ));
+  });
+
+  calendarList.add(smallColumnSpacer());
+  calendarList.add(Text(FlutterI18n.translate(context, 'bonding_calendar_note'),
+      style: kSmallFontOfBlack));
+
+  return calendarList;
+}
+
 String countTotalMonth(List<CalendarModel> calendarList) {
-  double total = 0;
-  for (int i = 0; i < calendarList.length; i++) {
-    total += calendarList[i].minedAmount;
-  }
+  double total = calendarList.fold(
+      0, (previousValue, item) => previousValue + item.minedAmount);
+
   return '+${Tools.priceFormat(total)} DHX / month';
 }
 
@@ -171,8 +144,10 @@ List<Widget> getCalendar(List<CalendarModel> calendarList) {
   int filledItemNum = calendarList.first.date.weekday;
   List<CalendarModel> list = [];
 
-  for (int i = 0; i < filledItemNum; i++) {
-    list.insert(0, CalendarModel(date: null));
+  if(filledItemNum != 7){
+    for (int i = 0; i < filledItemNum; i++) {
+      list.insert(0, CalendarModel(date: null));
+    }
   }
 
   for (int i = 0; i < calendarList.length; i++) {
@@ -218,7 +193,9 @@ class _CalendarElement extends StatelessWidget {
                 '${model.date != null ? (7 - today.difference(model.date).inDays) : ""}',
                 style: (model.unbondAmount > 0)
                     ? kMiddleFontOfBlack
-                    : kMiddleFontOfWhite)
+                    : kMiddleFontOfWhite,
+                softWrap: false,
+                overflow: TextOverflow.fade)
           ]),
           Container(
               height: 25,
@@ -228,7 +205,9 @@ class _CalendarElement extends StatelessWidget {
                   child: Text('${model.date != null ? model.date.day : ''}',
                       style: (model.today)
                           ? kMiddleFontOfWhite
-                          : kMiddleFontOfBlack))),
+                          : kMiddleFontOfBlack,
+                      softWrap: false,
+                      overflow: TextOverflow.fade))),
           Text(
               ((model.minedAmount > 0 && model.date != null)
                       ? '+${Tools.priceFormat(model.minedAmount, range: Tools.max3DecimalPlaces(model.minedAmount))}'
@@ -236,7 +215,9 @@ class _CalendarElement extends StatelessWidget {
                   ((model.today)
                       ? FlutterI18n.translate(context, 'today')
                       : ''),
-              style: kSmallFontOfBlack),
+              style: kSmallFontOfBlack,
+              softWrap: false,
+              overflow: TextOverflow.fade),
           model.date != null ? Divider(thickness: 1) : Container(),
         ]);
   }

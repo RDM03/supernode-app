@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/repositories/cache_repository.dart';
+import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/wrap.dart';
@@ -157,34 +158,83 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
     }
   }
 
+  bool isExistItem(List<CalendarModel> data, DateTime date){
+    return data.any((item) => TimeUtil.isSameDay(item.date, date));
+  }
+
   Future<void> getBondInfo() async {
     try {
       emit(state.copyWith(
           dhxBonded: state.dhxBonded.withLoading(),
           dhxUnbonding: state.dhxUnbonding.withLoading()));
-      final res = await supernodeRepository.dhx.bondInfo(
+
+      DateTime startTime, endTime;
+      DateTime nextMonth;
+
+      if(state.calendarInfo != null && state.calendarInfo.isNotEmpty){
+        String firstItem = state.calendarInfo.keys.first;
+        CalendarModel item = (state.calendarInfo[firstItem])[0];
+        endTime = item.date.add(Duration(days: -1));
+      }
+
+      endTime = endTime ?? DateTime.now();
+      endTime = DateTime(endTime.year, endTime.month, 1);
+
+      if(endTime.month + 1 <= 12) {
+        nextMonth = DateTime(endTime.year, endTime.month + 1, 1);
+      }else{
+        nextMonth = DateTime(endTime.year + 1, 1, 1);
+      }
+
+      endTime = nextMonth.add(Duration(days: -1));
+
+      if(startTime == null){
+        if(endTime.month - 1 <= 0) {
+          startTime = DateTime(endTime.year - 1, 12, 1);
+        }else{
+          startTime = DateTime(endTime.year, endTime.month - 1, 1);
+        }
+      }
+
+      final resBondInfo = await supernodeRepository.dhx.bondInfo(
         organizationId: orgId,
       );
 
-      final double dhxBonded = double.parse('0' + res["dhxBonded"]);
-      final double dhxUnbonding = double.parse('0' + res["dhxUnbondingTotal"]);
+      final double dhxBonded = double.parse('0' + resBondInfo["dhxBonded"]);
+      final double dhxUnbonding = double.parse('0' + resBondInfo["dhxUnbondingTotal"]);
 
-      final List<CalendarModel> listCalendarData = [], lastListCalendarData = [];
-      try { 
-        // parsing response for calendar component on DhxMiningPage
+      // final resBonding = await supernodeRepository.wallet.historyTransaction({
+      //   'orgId': orgId,
+      //   'currency': 'DHX',
+      //   'paymentType': 'DHX_BONDING',
+      //   'from': startTime.toUtc().toIso8601String(),
+      //   'till': endTime.toUtc().toIso8601String()
+      // });
+
+      final resUnBonding = await supernodeRepository.wallet.historyTransaction({
+        'orgId': orgId,
+        'currency': 'DHX',
+        'paymentType': 'DHX_UNBONDING',
+        'from': startTime.toUtc().toIso8601String(),
+        'till': endTime.toUtc().toIso8601String()
+      });
+
+      final Map<String, List<CalendarModel>> calendarInfo = {};
+
+      try {
         final Map<DateTime, CalendarModel> parsed = {};
         DateTime dateTmp;
 
-        for (dynamic rec in res["dhxUnbonding"]) {
-          dateTmp = DateTime.tryParse(rec["created"]) ?? DateTime.now();
+        for (dynamic rec in resUnBonding["tx"]) {
+          dateTmp = rec["timestamp"] != null ? DateTime.tryParse(rec["timestamp"]) : DateTime.now();
           dateTmp = DateTime(dateTmp.year, dateTmp.month, dateTmp.day);
           if (!parsed.containsKey(dateTmp))
             parsed[dateTmp] = CalendarModel(date: dateTmp);
           parsed[dateTmp].unbondAmount += double.parse(rec["amount"]);
         }
 
-        for (dynamic rec in res["dhxCoolingOff"]) {
-          dateTmp = DateTime.tryParse(rec["created"]) ?? DateTime.now();
+        for (dynamic rec in resBondInfo["dhxCoolingOff"]) {
+          dateTmp = rec["created"] != null ? DateTime.tryParse(rec["created"]) : DateTime.now();
           dateTmp = DateTime(dateTmp.year, dateTmp.month, dateTmp.day);
           if (!parsed.containsKey(dateTmp))
             parsed[dateTmp] = CalendarModel(date: dateTmp);
@@ -193,28 +243,21 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
 
         final List<DateTime> datesParsed = parsed.keys.toList()..sort();
 
-        dateTmp = DateTime.now();
-        final today = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
-        final DateTime firstDayOfRange = (datesParsed.length > 0) ? datesParsed[0] : today;
-
-        //get the first day
-        final DateTime firstDay = new DateTime(firstDayOfRange.year,firstDayOfRange.month - 1,1);
-
         int indexDatesParsed = 0;
         int lastDayBeforeToday = 0;
+
+        dateTmp = DateTime.now();
+        final today = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
+
         if (datesParsed.length > 0)
-          lastDayBeforeToday = (today == datesParsed[datesParsed.length - 1]) ? datesParsed.length - 2 : datesParsed.length - 1;
+          lastDayBeforeToday = TimeUtil.isSameDay(datesParsed.last, today)
+              ? datesParsed.length - 2
+              : datesParsed.length - 1;
 
-        //get the current month's last day
-        var nextMonth = new DateTime(firstDayOfRange.year, firstDayOfRange.month + 1, 1);
-        int lastDayTimeStamp =
-        nextMonth.millisecondsSinceEpoch - 24 * 60 * 60 * 1000;
-        var lastDayDatetime = new DateTime.fromMillisecondsSinceEpoch(lastDayTimeStamp);
-
-        for (int i = 0; i <= lastDayDatetime.difference(firstDay).inDays; i++) {
-          // 2 months range starting on Monday before bond-info data
-          dateTmp = firstDay.add(Duration(days: i));
-          if (indexDatesParsed < datesParsed.length && Tools.isSameDay(dateTmp, datesParsed[indexDatesParsed])) {
+        for (int i = 0; i <= endTime.difference(startTime).inDays; i++) {
+          dateTmp = startTime.add(Duration(days: i));
+          if (indexDatesParsed < datesParsed.length &&
+              dateTmp == datesParsed[indexDatesParsed]) {
             if (indexDatesParsed == 0) {
               parsed[dateTmp].left = true;
             }
@@ -225,20 +268,27 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
                 indexDatesParsed < lastDayBeforeToday) {
               parsed[dateTmp].middle = true;
             }
-            parsed[dateTmp].today = Tools.isSameDay(dateTmp, today);
-            if (Tools.isSameMonth(firstDay, dateTmp)) {
-              lastListCalendarData.add(parsed[dateTmp]);
-            } else {
-              listCalendarData.add(parsed[dateTmp]);
+            parsed[dateTmp].today = TimeUtil.isSameDay(dateTmp, today);
+
+            if(calendarInfo['${TimeUtil.getYM(dateTmp)}'] == null){
+              calendarInfo['${TimeUtil.getYM(dateTmp)}'] = [];
+            }
+
+            if(!isExistItem(calendarInfo[TimeUtil.getYM(dateTmp)], dateTmp)){
+              calendarInfo[TimeUtil.getYM(dateTmp)].add(parsed[dateTmp]);
             }
 
             indexDatesParsed++;
           } else {
-            CalendarModel calendarTemp = CalendarModel(date: dateTmp, today: Tools.isSameDay(dateTmp, today));
-            if (Tools.isSameMonth(firstDay, dateTmp)) {
-              lastListCalendarData.add(calendarTemp);
-            } else {
-              listCalendarData.add(calendarTemp);
+            CalendarModel calendarTemp = CalendarModel(
+                date: dateTmp, today: TimeUtil.isSameDay(dateTmp, today));
+            
+            if(calendarInfo[TimeUtil.getYM(dateTmp)] == null){
+              calendarInfo[TimeUtil.getYM(dateTmp)] = [];
+            }
+
+            if(!isExistItem(calendarInfo[TimeUtil.getYM(dateTmp)], dateTmp)){
+              calendarInfo[TimeUtil.getYM(dateTmp)].add(calendarTemp);
             }
           }
         }
@@ -246,7 +296,18 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
         logger.e('refresh error', e, s);
       }
 
-      emit(state.copyWith(dhxBonded: Wrap(dhxBonded), dhxUnbonding: Wrap(dhxUnbonding), calendarBondInfo: listCalendarData, lastCalendarBondInfo: lastListCalendarData));
+      state.calendarInfo.forEach((key, value) { 
+        if(!calendarInfo.containsKey(key)){
+          calendarInfo[key] = value;
+        }
+      });
+
+      calendarInfo.keys.toList()..sort((a,b) => a.compareTo(b));
+      
+      emit(state.copyWith(
+          dhxBonded: Wrap(dhxBonded),
+          dhxUnbonding: Wrap(dhxUnbonding),
+          calendarInfo: calendarInfo));
     } catch (e, s) {
       logger.e('refresh error', e, s);
     }

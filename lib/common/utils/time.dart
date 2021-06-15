@@ -134,6 +134,10 @@ class TimeUtil {
     return '${monthsAbb[date.month]} ${date.day}';
   }
 
+  static String getMYAbb(DateTime date,{bool withApostrophe = false}) {
+    return '${monthsAbb[date.month]}${withApostrophe == true ? "\'" : " "}${date.year.toString().substring(2)}';
+  }
+
   static String getMDY(DateTime date) {
     return '${monthsReversed[date.month]} ${date.day} ${date.year}';
   }
@@ -141,6 +145,10 @@ class TimeUtil {
   static int getCurrentTimeStamp() {
     var now = new DateTime.now();
     return now.millisecondsSinceEpoch;
+  }
+
+  static String getYM(DateTime date) {
+    return '${date.year}${date.month.toString().padLeft(2, '0')}';
   }
 
   static bool isSameDay(DateTime time1, DateTime time2) {

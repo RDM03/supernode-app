@@ -18,6 +18,7 @@ abstract class SupernodeDhxState with _$SupernodeDhxState {
     @Default(Wrap.pending()) Wrap<double> dhxUnbonding,
     @Default([]) List<CalendarModel> calendarBondInfo,
     @Default([]) List<CalendarModel> lastCalendarBondInfo,
+    @Default({}) Map<String, List<CalendarModel>> calendarInfo,
     @Default(false) bool confirm,
     @Default(false) bool success,
     @Default(false) bool showLoading,
