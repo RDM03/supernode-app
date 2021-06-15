@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +30,8 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
   List<GatewayStatisticResponse> framesLast7days;
   List<DailyStatistic> statsLast7days;
   double sumMiningRevenueLast7days;
-  double sumSecondsOnlineLast7days = 0.0;
+  int sumSecondsOnlineLast7days = 0;
+  int secondsLast7days = 0;
   GatewayItem item;
 
   @override
@@ -108,8 +107,9 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
     statsLast7days = res.dailyStats;
     sumMiningRevenueLast7days = statsLast7days.fold<double>(
       0.0, (tmpSum, element) => tmpSum + (double.tryParse(element.amount) ?? 0.0));
-    sumSecondsOnlineLast7days = statsLast7days.fold<double>(
-        0.0, (tmpSum, element) => tmpSum + element.onlineSeconds);
+    sumSecondsOnlineLast7days = statsLast7days.fold<int>(
+        0, (tmpSum, element) => tmpSum + element.onlineSeconds);
+    secondsLast7days = now.difference(weekAgoMidnight).inSeconds;
     if (mounted) setState(() {});
   }
 
@@ -168,6 +168,7 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
                 item: item,
                 healthStatisticsData: statsLast7days,
                 sumSecondsOnlineLast7days: sumSecondsOnlineLast7days,
+                secondsLast7days: secondsLast7days,
                 onRefresh: refreshItem,
               )
             else if (selectedTab == 1)
