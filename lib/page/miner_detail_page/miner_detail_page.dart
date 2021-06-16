@@ -79,8 +79,9 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
                 ),
               ),
             ),
-            if (selectedTab == 0)
-              BlocBuilder<GatewayCubit, GatewayState>(
+            Visibility(
+              visible: selectedTab == 0,
+              child: BlocBuilder<GatewayCubit, GatewayState>(
                 buildWhen: (a, b) =>
                 (a.selectedGateway != b.selectedGateway
                     || a.statsLast7days != b.statsLast7days
@@ -95,9 +96,11 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
                     onRefresh: context.read<GatewayCubit>().refreshSelectedGateway,
                   );
                 },
-              )
-            else if (selectedTab == 1)
-              BlocBuilder<GatewayCubit, GatewayState>(
+              ),
+            ),
+            Visibility(
+              visible: selectedTab == 1,
+              child: BlocBuilder<GatewayCubit, GatewayState>(
                 buildWhen: (a, b) =>
                 (a.statsLast7days != b.statsLast7days || a.sumMiningRevenueLast7days != b.sumMiningRevenueLast7days),
                 builder: (context, state) {
@@ -107,19 +110,22 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
                     sumRevenueLast7days: state.sumMiningRevenueLast7days,
                   );
                 },
-              )
-            else if (selectedTab == 2)
-                BlocBuilder<GatewayCubit, GatewayState>(
-                  buildWhen: (a, b) =>
-                  (a.framesLast7days != b.framesLast7days || a.downlinkPrice != b.downlinkPrice),
-                  builder: (context, state) {
-                    return MinerDataTab(
-                      item: widget.item,
-                      framesData: state.framesLast7days,
-                      downlinkPrice: state.downlinkPrice,
-                    );
-                  },
-                )
+              ),
+            ),
+            Visibility(
+              visible: selectedTab == 2,
+              child: BlocBuilder<GatewayCubit, GatewayState>(
+                buildWhen: (a, b) =>
+                (a.framesLast7days != b.framesLast7days || a.downlinkPrice != b.downlinkPrice),
+                builder: (context, state) {
+                  return MinerDataTab(
+                    item: widget.item,
+                    framesData: state.framesLast7days,
+                    downlinkPrice: state.downlinkPrice,
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),

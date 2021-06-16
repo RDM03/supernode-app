@@ -184,7 +184,7 @@ class GatewayCubit extends Cubit<GatewayState> {
   }
 
   Future<void> getDownlinkPrice() async {
-    double downlinkPrice = await supernodeRepository
+    final double downlinkPrice = await supernodeRepository
         .wallet
         .downlinkPrice(orgId);
     emit(
