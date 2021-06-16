@@ -262,7 +262,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       startTime: startTime,
       endTime: endTime,
       successCB: (result) {
-        generateChartData(type, time, result);
+        generateChartData(type, time, result, endTime);
       },
     );
   }
@@ -282,7 +282,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       startTime: startTime,
       endTime: endTime,
       successCB: (result) {
-        generateChartData(type, time, result);
+        generateChartData(type, time, result, endTime);
       },
     );
   }
@@ -444,7 +444,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
   }
 
   void generateChartData(
-      MinerStatsType type, MinerStatsTime time, List<MinerStatsEntity> data) {
+      MinerStatsType type, MinerStatsTime time, List<MinerStatsEntity> data, DateTime endTime) {
     double maxValue = 0;
     List<double> xData = [];
     List<String> xLabel = [];
@@ -479,10 +479,11 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       });
 
       if (type == MinerStatsType.uptime) {
-        double totalWeekScore = 24.0 * data.length;
-
+        final DateTime weekAgo = endTime.add(Duration(days: -6));
+        final DateTime weekAgoMidnight = DateTime.utc(weekAgo.year, weekAgo.month, weekAgo.day);
+        final int secondsLast7days = endTime.difference(weekAgoMidnight).inSeconds;
         emit(state.copyWith(
-            uptimeWeekScore: totalScore / totalWeekScore / 3600));
+            uptimeWeekScore: totalScore / secondsLast7days));
       }
     } else if (time == MinerStatsTime.month) {
       data.forEach((item) {
