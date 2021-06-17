@@ -61,6 +61,7 @@ Future<void> _handleBindRequest(UserDao dao, String email, String password,
         username: email,
         password: password,
         token: jwt,
+        expire: DateTime.now().add(Duration(days: 6)),
         userId: parseJwt(jwt).userId,
         node: ctx.context.read<SupernodeCubit>().state.selectedNode,
       ));

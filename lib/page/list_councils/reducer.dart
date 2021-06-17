@@ -18,6 +18,11 @@ ListCouncilsState _councils(ListCouncilsState state, Action action) {
   final List<Council> joinedCouncils = action.payload[1];
 
   final ListCouncilsState newState = state.clone();
+  
+  allCouncils.sort((item1,item2){
+    return double.tryParse(item2.lastMpower).compareTo(double.tryParse(item1.lastMpower));
+  });
+
   return newState
     ..allCouncils = allCouncils
     ..joinedCouncils = joinedCouncils;

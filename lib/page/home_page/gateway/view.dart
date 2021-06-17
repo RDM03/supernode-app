@@ -40,6 +40,7 @@ class GatewayTab extends StatelessWidget {
       BuildContext context, String title, Widget illustration, String text,
       {Widget bottomButton}) {
     Navigator.of(context).push(MaterialPageRoute(
+        fullscreenDialog: true,
         builder: (ctx) => pageFrame(
                 context: ctx,
                 padding: EdgeInsets.all(0.0),
@@ -715,11 +716,12 @@ class GatewaysList extends StatelessWidget {
             if (!state.reseller)
               await Navigator.push(
                 context,
-                route(
-                  (ctx) => MinerDetailPage(
+                MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder:(ctx) => MinerDetailPage(
                     item: state,
                   ),
-                ),
+                )
               );
           },
         ),

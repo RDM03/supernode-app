@@ -69,6 +69,7 @@ List<BlocListener> listeners() => [
         listener: (context, state) {
           context.read<StorageRepository>().setSupernodeSession(
                 jwt: state.session?.token,
+                expire: state.session?.expire,
                 userId: state.session?.userId,
                 username: state.session?.username,
                 password: state.session?.password,
@@ -80,6 +81,12 @@ List<BlocListener> listeners() => [
         listenWhen: (a, b) => a.locale != b.locale,
         listener: (context, state) {
           context.read<StorageRepository>().setLocale(state.locale);
+        },
+      ),
+      BlocListener<AppCubit, AppState>(
+        listenWhen: (a, b) => a.selectedFiatForExport != b.selectedFiatForExport,
+        listener: (context, state) {
+          context.read<StorageRepository>().setSelectedFiatForExport(state.selectedFiatForExport);
         },
       ),
     ];
@@ -102,6 +109,7 @@ Future<void> main() async {
     session: supernodeSession != null
         ? SupernodeSession(
             token: supernodeSession.jwt,
+            expire: supernodeSession.expire,
             username: supernodeSession.username,
             password: supernodeSession.password,
             userId: supernodeSession.userId,

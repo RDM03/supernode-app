@@ -8,7 +8,6 @@ import 'package:supernodeapp/common/repositories/supernode/dao/miner.model.dart'
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
-import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/gateway/bloc/state.dart';
 
 class MinerCubit extends Cubit<MinerState> {
@@ -33,6 +32,10 @@ class MinerCubit extends Cubit<MinerState> {
 
     emit(state.copyWith(serialNumber: number));
     emit(state.copyWith(id: macAddress));
+  }
+
+  void setFlowStep(AddMinerFlow step){
+    emit(state.copyWith(addMinerFlowStep: step));
   }
 
   void changeColor(String text) {
@@ -279,6 +282,7 @@ class MinerCubit extends Cubit<MinerState> {
   void dispatchError(err) {
     emit(state.copyWith(showLoading: false));
     emit(state.copyWith(message: err.toString()));
+    emit(state.copyWith(addMinerFlowStep: AddMinerFlow.form));
 
     if (err.toString().contains('already registered')) {
       emit(state.copyWith(addMinerFlowStep: AddMinerFlow.warning));

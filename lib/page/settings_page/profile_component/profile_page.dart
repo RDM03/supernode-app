@@ -77,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
         color: Colors.white,
         child: Stack(alignment: Alignment.topRight, children: [
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
             child: GestureDetector(
               child: Icon(Icons.close, color: Colors.black),
               onTap: () => context
@@ -147,7 +147,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ]),
           ),
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
             child: GestureDetector(
               child: Icon(Icons.close, color: Colors.black),
               onTap: () => context.read<SettingsCubit>().bindShopifyStep(0),
@@ -182,7 +182,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ]),
           ),
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
             child: GestureDetector(
               child: Icon(Icons.close, color: Colors.black),
               onTap: () => context.read<SettingsCubit>().bindShopifyStep(0),

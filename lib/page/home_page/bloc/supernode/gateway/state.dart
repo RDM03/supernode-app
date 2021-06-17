@@ -2,6 +2,7 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/gateways.model.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/wallet.model.dart';
 import 'package:supernodeapp/common/wrap.dart';
 
 part 'state.freezed.dart';
@@ -18,6 +19,13 @@ abstract class GatewayState with _$GatewayState {
     @Default(Wrap.pending()) Wrap<double> miningFuelHealth,
     @Default(Wrap.pending()) Wrap<double> miningFuel,
     @Default(Wrap.pending()) Wrap<double> miningFuelMax,
+    GatewayItem selectedGateway,
+    double downlinkPrice,
+    List<GatewayStatisticResponse> framesLast7days,
+    List<DailyStatistic> statsLast7days,
+    double sumMiningRevenueLast7days,
+    @Default(0) int sumSecondsOnlineLast7days,
+    @Default(1) int secondsLast7days,
   }) = _GatewayState;
 }
 

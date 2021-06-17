@@ -16,12 +16,14 @@ class _$AppStateTearOff {
 // ignore: unused_element
   _AppState call(
       {Locale locale,
+      @nullable FiatCurrency selectedFiatForExport,
       bool isDemo = false,
       bool showLoading = false,
       @nullable ErrorInfo error,
       @nullable SuccessInfo success}) {
     return _AppState(
       locale: locale,
+      selectedFiatForExport: selectedFiatForExport,
       isDemo: isDemo,
       showLoading: showLoading,
       error: error,
@@ -37,6 +39,8 @@ const $AppState = _$AppStateTearOff();
 /// @nodoc
 mixin _$AppState {
   Locale get locale;
+  @nullable
+  FiatCurrency get selectedFiatForExport;
   bool get isDemo;
   bool get showLoading;
   @nullable
@@ -54,6 +58,7 @@ abstract class $AppStateCopyWith<$Res> {
       _$AppStateCopyWithImpl<$Res>;
   $Res call(
       {Locale locale,
+      @nullable FiatCurrency selectedFiatForExport,
       bool isDemo,
       bool showLoading,
       @nullable ErrorInfo error,
@@ -71,6 +76,7 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
   @override
   $Res call({
     Object locale = freezed,
+    Object selectedFiatForExport = freezed,
     Object isDemo = freezed,
     Object showLoading = freezed,
     Object error = freezed,
@@ -78,6 +84,9 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
   }) {
     return _then(_value.copyWith(
       locale: locale == freezed ? _value.locale : locale as Locale,
+      selectedFiatForExport: selectedFiatForExport == freezed
+          ? _value.selectedFiatForExport
+          : selectedFiatForExport as FiatCurrency,
       isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
@@ -94,6 +103,7 @@ abstract class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
   @override
   $Res call(
       {Locale locale,
+      @nullable FiatCurrency selectedFiatForExport,
       bool isDemo,
       bool showLoading,
       @nullable ErrorInfo error,
@@ -112,6 +122,7 @@ class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object locale = freezed,
+    Object selectedFiatForExport = freezed,
     Object isDemo = freezed,
     Object showLoading = freezed,
     Object error = freezed,
@@ -119,6 +130,9 @@ class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
   }) {
     return _then(_AppState(
       locale: locale == freezed ? _value.locale : locale as Locale,
+      selectedFiatForExport: selectedFiatForExport == freezed
+          ? _value.selectedFiatForExport
+          : selectedFiatForExport as FiatCurrency,
       isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
@@ -132,6 +146,7 @@ class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
 class _$_AppState with DiagnosticableTreeMixin implements _AppState {
   _$_AppState(
       {this.locale,
+      @nullable this.selectedFiatForExport,
       this.isDemo = false,
       this.showLoading = false,
       @nullable this.error,
@@ -141,6 +156,9 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
 
   @override
   final Locale locale;
+  @override
+  @nullable
+  final FiatCurrency selectedFiatForExport;
   @JsonKey(defaultValue: false)
   @override
   final bool isDemo;
@@ -156,7 +174,7 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppState(locale: $locale, isDemo: $isDemo, showLoading: $showLoading, error: $error, success: $success)';
+    return 'AppState(locale: $locale, selectedFiatForExport: $selectedFiatForExport, isDemo: $isDemo, showLoading: $showLoading, error: $error, success: $success)';
   }
 
   @override
@@ -165,6 +183,7 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
     properties
       ..add(DiagnosticsProperty('type', 'AppState'))
       ..add(DiagnosticsProperty('locale', locale))
+      ..add(DiagnosticsProperty('selectedFiatForExport', selectedFiatForExport))
       ..add(DiagnosticsProperty('isDemo', isDemo))
       ..add(DiagnosticsProperty('showLoading', showLoading))
       ..add(DiagnosticsProperty('error', error))
@@ -177,6 +196,9 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
         (other is _AppState &&
             (identical(other.locale, locale) ||
                 const DeepCollectionEquality().equals(other.locale, locale)) &&
+            (identical(other.selectedFiatForExport, selectedFiatForExport) ||
+                const DeepCollectionEquality().equals(
+                    other.selectedFiatForExport, selectedFiatForExport)) &&
             (identical(other.isDemo, isDemo) ||
                 const DeepCollectionEquality().equals(other.isDemo, isDemo)) &&
             (identical(other.showLoading, showLoading) ||
@@ -192,6 +214,7 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(locale) ^
+      const DeepCollectionEquality().hash(selectedFiatForExport) ^
       const DeepCollectionEquality().hash(isDemo) ^
       const DeepCollectionEquality().hash(showLoading) ^
       const DeepCollectionEquality().hash(error) ^
@@ -206,6 +229,7 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
 abstract class _AppState implements AppState {
   factory _AppState(
       {Locale locale,
+      @nullable FiatCurrency selectedFiatForExport,
       bool isDemo,
       bool showLoading,
       @nullable ErrorInfo error,
@@ -213,6 +237,9 @@ abstract class _AppState implements AppState {
 
   @override
   Locale get locale;
+  @override
+  @nullable
+  FiatCurrency get selectedFiatForExport;
   @override
   bool get isDemo;
   @override
@@ -424,6 +451,7 @@ class _$SupernodeSessionTearOff {
       {int userId,
       String username,
       String token,
+      DateTime expire,
       String password,
       Supernode node,
       bool tfaEnabled = false}) {
@@ -431,6 +459,7 @@ class _$SupernodeSessionTearOff {
       userId: userId,
       username: username,
       token: token,
+      expire: expire,
       password: password,
       node: node,
       tfaEnabled: tfaEnabled,
@@ -447,6 +476,7 @@ mixin _$SupernodeSession {
   int get userId;
   String get username;
   String get token;
+  DateTime get expire;
   String get password;
   Supernode get node;
   bool get tfaEnabled;
@@ -464,6 +494,7 @@ abstract class $SupernodeSessionCopyWith<$Res> {
       {int userId,
       String username,
       String token,
+      DateTime expire,
       String password,
       Supernode node,
       bool tfaEnabled});
@@ -483,6 +514,7 @@ class _$SupernodeSessionCopyWithImpl<$Res>
     Object userId = freezed,
     Object username = freezed,
     Object token = freezed,
+    Object expire = freezed,
     Object password = freezed,
     Object node = freezed,
     Object tfaEnabled = freezed,
@@ -491,6 +523,7 @@ class _$SupernodeSessionCopyWithImpl<$Res>
       userId: userId == freezed ? _value.userId : userId as int,
       username: username == freezed ? _value.username : username as String,
       token: token == freezed ? _value.token : token as String,
+      expire: expire == freezed ? _value.expire : expire as DateTime,
       password: password == freezed ? _value.password : password as String,
       node: node == freezed ? _value.node : node as Supernode,
       tfaEnabled:
@@ -510,6 +543,7 @@ abstract class _$SupernodeSessionCopyWith<$Res>
       {int userId,
       String username,
       String token,
+      DateTime expire,
       String password,
       Supernode node,
       bool tfaEnabled});
@@ -531,6 +565,7 @@ class __$SupernodeSessionCopyWithImpl<$Res>
     Object userId = freezed,
     Object username = freezed,
     Object token = freezed,
+    Object expire = freezed,
     Object password = freezed,
     Object node = freezed,
     Object tfaEnabled = freezed,
@@ -539,6 +574,7 @@ class __$SupernodeSessionCopyWithImpl<$Res>
       userId: userId == freezed ? _value.userId : userId as int,
       username: username == freezed ? _value.username : username as String,
       token: token == freezed ? _value.token : token as String,
+      expire: expire == freezed ? _value.expire : expire as DateTime,
       password: password == freezed ? _value.password : password as String,
       node: node == freezed ? _value.node : node as Supernode,
       tfaEnabled:
@@ -555,6 +591,7 @@ class _$_SupernodeSession
       {this.userId,
       this.username,
       this.token,
+      this.expire,
       this.password,
       this.node,
       this.tfaEnabled = false})
@@ -567,6 +604,8 @@ class _$_SupernodeSession
   @override
   final String token;
   @override
+  final DateTime expire;
+  @override
   final String password;
   @override
   final Supernode node;
@@ -576,7 +615,7 @@ class _$_SupernodeSession
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SupernodeSession(userId: $userId, username: $username, token: $token, password: $password, node: $node, tfaEnabled: $tfaEnabled)';
+    return 'SupernodeSession(userId: $userId, username: $username, token: $token, expire: $expire, password: $password, node: $node, tfaEnabled: $tfaEnabled)';
   }
 
   @override
@@ -587,6 +626,7 @@ class _$_SupernodeSession
       ..add(DiagnosticsProperty('userId', userId))
       ..add(DiagnosticsProperty('username', username))
       ..add(DiagnosticsProperty('token', token))
+      ..add(DiagnosticsProperty('expire', expire))
       ..add(DiagnosticsProperty('password', password))
       ..add(DiagnosticsProperty('node', node))
       ..add(DiagnosticsProperty('tfaEnabled', tfaEnabled));
@@ -603,6 +643,8 @@ class _$_SupernodeSession
                     .equals(other.username, username)) &&
             (identical(other.token, token) ||
                 const DeepCollectionEquality().equals(other.token, token)) &&
+            (identical(other.expire, expire) ||
+                const DeepCollectionEquality().equals(other.expire, expire)) &&
             (identical(other.password, password) ||
                 const DeepCollectionEquality()
                     .equals(other.password, password)) &&
@@ -619,6 +661,7 @@ class _$_SupernodeSession
       const DeepCollectionEquality().hash(userId) ^
       const DeepCollectionEquality().hash(username) ^
       const DeepCollectionEquality().hash(token) ^
+      const DeepCollectionEquality().hash(expire) ^
       const DeepCollectionEquality().hash(password) ^
       const DeepCollectionEquality().hash(node) ^
       const DeepCollectionEquality().hash(tfaEnabled);
@@ -634,6 +677,7 @@ abstract class _SupernodeSession implements SupernodeSession {
       {int userId,
       String username,
       String token,
+      DateTime expire,
       String password,
       Supernode node,
       bool tfaEnabled}) = _$_SupernodeSession;
@@ -644,6 +688,8 @@ abstract class _SupernodeSession implements SupernodeSession {
   String get username;
   @override
   String get token;
+  @override
+  DateTime get expire;
   @override
   String get password;
   @override

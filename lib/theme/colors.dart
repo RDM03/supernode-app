@@ -55,6 +55,7 @@ const colorMxc = Color(0xFF1C1478);
 const colorSupernodeDhx = Color(0xFF4665EA);
 const colorBtc = Color(0xFFF7931A);
 const colorDhx = Color(0xFF6B0B92);
+const colorNtf = Color(0xFF04074e);
 const transparentWhite = Color.fromARGB(0, 255, 255, 255);
 
 // login

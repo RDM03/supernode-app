@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/components/page/dd_body.dart';
 import 'package:supernodeapp/common/components/page/dd_box_spacer.dart';
 import 'package:supernodeapp/common/components/page/dd_nav.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
+import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/page/view_all_page/component/bar_chart.dart';
 import 'package:supernodeapp/page/view_all_page/component/chart_stats.dart';
 import 'package:supernodeapp/theme/colors.dart';
@@ -34,6 +35,9 @@ class ViewAllPage extends StatelessWidget {
         context.read<AppCubit>(),
         context.read<SupernodeCubit>(),
         context.read<SupernodeRepository>(),
+        TimeUtil.weekDayShort(context),
+        TimeUtil.monthsShort(context),
+        TimeUtil.months(context),
       ),
       child: _ViewAllPage(
         minerId: minerId,
@@ -176,7 +180,7 @@ class _ViewAllPageState extends State<_ViewAllPage>
                         yLabel: state.yLabelList,
                         notifyGraphBarScroll: (way,
                             {scrollController, firstIndex}) {
-                          print(firstIndex);
+
                           context
                               .read<MinerStatsCubit>()
                               .setScrollFirstIndex(firstIndex);
