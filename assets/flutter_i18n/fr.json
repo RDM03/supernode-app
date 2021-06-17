@@ -604,7 +604,6 @@
 	"add_fuel": "Ajouter un carburant",
 	"select_all": "Sélectionner Tout",
 	"fuel_add_desc": "Vos mineurs sont comme des voitures, ils ont besoin de MXC Fuel pour continuer à miner.",
-	"uptime": "Temps de disponibilité",
 	"frame_received": "Cadre reçu",
 	"frame_transmitted": "Cadre transmis",
 	"week": "Semaine",
@@ -635,5 +634,17 @@
 	"gps_card_description": "-",
 	"gps_card_comment": "",
 	"health": "Santé",
-	"day": "Jour"
+	"day": "Jour",
+	"add_fuel_or_send_to_wallet": "Ajouter du carburant ou envoyer au portefeuille",
+	"dont_have_miners": "On dirait que vous n’avez pas de mineurs ou tous vos mineurs a été alimenté jusqu’à 100%",
+	"add_all": "Ajouter tout",
+	"send_to_wallet": "à Portefeuille",
+	"send_to_wallet_desc": "Veuillez noter que vous perdrez votre efficacité minière une fois que vous aurez envoyé au portefeuille",
+	"current_fuel": "Carburant Actuel",
+	"add_fuel_congrats": "félicitations!\nVotre mineur a été alimenté",
+	"send_to_wallet_congrats": "Nous avons envoyé le carburant à votre portefeuille MXC",
+	"add_fuel_confirm": "Vous êtes sur le point de faire le {0} MXC.",
+	"send_to_wallet_confirm": "Vous êtes sur le point d’envoyer {0} MXC à votre portefeuille. Remarque : si vous retirez mxc du réservoir de carburant, votre efficacité minière diminuera.",
+	"send_to_wallet_dont_have_miners": "On dirait que vous n’avez pas de carburant à envoyer à votre portefeuille",
+	"nft_desc": "NFT + OBJETS DE COLLECTION"
 }

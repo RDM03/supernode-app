@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:package_info/package_info.dart';
@@ -6,6 +8,7 @@ import 'package:supernodeapp/common/repositories/supernode/dao/server_info.dart'
 import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'state.dart';
 
@@ -194,5 +197,82 @@ class SettingsCubit extends Cubit<SettingsState> {
         appCubit.setError('Organization update: $err');
       });
     }
+  }
+
+  Future<void> initExportMxcPreYearPage(int year, FiatCurrency fiatPreviousSession) async {
+    emit(state.copyWith(
+        startDate: DateTime(year),
+        endDate: DateTime(year + 1))
+    );
+
+    if (state.listFiat == null) {
+      emit(state.copyWith(showLoading: true));
+
+      try {
+        final List<FiatCurrency> listFiat = await supernodeRepository.user.supportedFiatCurrencies();
+
+        emit(state.copyWith(listFiat: listFiat,
+            showLoading: false));
+
+      } catch (e) {
+        emit(state.copyWith(showLoading: false));
+        appCubit.setError(e.toString());
+      }
+
+      if (state.listFiat != null) {
+        FiatCurrency initFiat;
+        if (fiatPreviousSession == null || fiatPreviousSession.id == null || fiatPreviousSession.id.isEmpty) {
+          initFiat = (state.listFiat == null || state.listFiat.length < 1)
+              ? null
+              : state.listFiat[0];
+        } else {
+          initFiat = fiatPreviousSession;
+        }
+        emit(state.copyWith(selectedFiat: initFiat));
+      }
+    }
+  }
+
+  void setFormat(String format) {
+    emit(state.copyWith(format: format));
+  }
+
+  void setFiatCurrency(FiatCurrency selectedFiat) {
+    appCubit.setSelectedFiatForExport(selectedFiat);
+    emit(state.copyWith(selectedFiat: selectedFiat));
+  }
+
+  void changeDataExportDecimals(int difference) {
+    if (state.decimals + difference >= 0 && state.decimals + difference <= 18)
+      emit(state.copyWith(decimals: state.decimals + difference));
+  }
+
+  Future<String> getDataExport() async {
+    if (state.selectedFiat == null || state.selectedFiat.id == null)
+      return "";
+
+    emit(state.copyWith(showLoading: true));
+
+    try {
+      Map data = {
+        "format": state.format,
+        "organizationId": supernodeCubit.state.orgId,
+        "currency": 'ETH_MXC',
+        "fiatCurrency": state.selectedFiat.id,
+        "start": state.startDate.toUtc().toIso8601String(),
+        "end": state.endDate.toUtc().toIso8601String(),
+        "decimals" : state.decimals
+      };
+
+      final String exportReport = await supernodeRepository.user.miningIncomeReport(
+          data,
+          'MiningReport_MXC_${state.selectedFiat.id.toUpperCase()}_year${state.startDate.year}.${state.format}');
+      emit(state.copyWith(showLoading: false));
+      return exportReport;
+    } catch (err) {
+      emit(state.copyWith(showLoading: false));
+      appCubit.setError('Data export: $err');
+    }
+    return "";
   }
 }

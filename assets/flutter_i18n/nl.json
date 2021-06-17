@@ -604,7 +604,6 @@
 	"add_fuel": "Brandstof toevoegen.",
 	"select_all": "Selecteer Alles",
 	"fuel_add_desc": "Uw mijnwerkers zijn als auto&#39;s, hebben MXC Fuel nodig om door te gaan met mijnen.",
-	"uptime": "Uptime",
 	"frame_received": "Ontvangen frame",
 	"frame_transmitted": "Overgedragen frames",
 	"week": "Week",
@@ -635,5 +634,17 @@
 	"gps_card_description": "-",
 	"gps_card_comment": "",
 	"health": "Gezondheid",
-	"day": "dag"
+	"day": "dag",
+	"add_fuel_or_send_to_wallet": "Brandstof toevoegen of naar portemonnee sturen",
+	"dont_have_miners": "Het lijkt erop dat je geen mijnwerkers hebt of al je mijnwerkers zijn tot 100% gevoed",
+	"add_all": "Alle toevoegen",
+	"send_to_wallet": "Verzenden naar portemonnee",
+	"send_to_wallet_desc": "Houd er rekening mee dat u uw mijnbouwefficiëntie verliest zodra u naar de portemonnee stuurt",
+	"current_fuel": "Huidige brandstof:",
+	"add_fuel_congrats": "gefeliciteerd!\nJe mijnwerker is gevoed.",
+	"send_to_wallet_congrats": "We hebben de brandstof naar je MXC-portemonnee gestuurd",
+	"add_fuel_confirm": "Je staat op het punt om {0} MXC bij te tanken.",
+	"send_to_wallet_confirm": "U staat op het punt om {0} MXC naar uw portemonnee te sturen. Let op: als u MXC uit de brandstoftank haalt, zal uw mijnbouwefficiëntie afnemen.",
+	"send_to_wallet_dont_have_miners": "Het lijkt erop dat je geen brandstof hebt om naar je portemonnee te sturen",
+	"nft_desc": "NFT + VERZAMELOBJECTEN"
 }
