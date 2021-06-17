@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share/share.dart';
+import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/text_field/primary_text_field.dart';
 import 'package:supernodeapp/common/components/tip.dart';
@@ -197,6 +198,9 @@ class DatadashFeedbackState extends State<DatadashFeedback> {
                     child: GestureDetector(
                       key: ValueKey('feedbackButton'),
                       onTap: () async {
+                        //however, focusing to hide loading.
+                        context.read<AppCubit>().setLoading(false);
+
                         setState(() => _showScreenshot = false);
                         // wait while camera icon disapper
                         await Future.delayed(Duration(milliseconds: 300));
