@@ -7,15 +7,18 @@ Widget link(
   Function onTap,
   AlignmentGeometry alignment: Alignment.centerRight,
   Key key,
+  EdgeInsets padding,
 }) {
-  return Align(
-    alignment: alignment,
-    child: GestureDetector(
-      key: key,
-      onTap: onTap,
+  return GestureDetector(
+    key: key,
+    onTap: onTap,
+    behavior: HitTestBehavior.opaque,
+    child: Align(
+      alignment: alignment,
       child: Container(
-        margin: kOuterRowTop5,
-        child: GestureDetector(
+        padding: padding ?? EdgeInsets.zero,
+        child: Container(
+          margin: kOuterRowTop5,
           child: Text(
             text,
             textAlign: TextAlign.center,
