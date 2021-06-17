@@ -656,6 +656,7 @@
 	"gps_card_description": "-",
 	"gps_card_comment": "",
 	"health": "Health",
+	"nft_desc": "NFT + COLLECTIBLES",
 	"mon": "Mon",
 	"tue": "Tue",
 	"wed": "Wed",
@@ -687,6 +688,5 @@
 	"october": "October",
 	"november": "November",
 	"december": "December",
-	"day": "day",
-	"nft_desc": "NFT + COLLECTIBLES"
+	"day": "day"
 }
