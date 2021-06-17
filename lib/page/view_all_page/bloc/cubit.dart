@@ -135,7 +135,12 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       DateTime today = DateTime.now();
       double totalWeekScore = 24.0 * 3600 * newData.length;
 
-      MinerStatsEntity hasTodayItem = newData.firstWhere((item) => TimeUtil.isSameDay(item.date, today));
+      MinerStatsEntity hasTodayItem;
+
+      if(newData.any((item) => TimeUtil.isSameDay(item.date, today))){
+        hasTodayItem = newData.firstWhere((item) => TimeUtil.isSameDay(item.date, today));
+      }
+
       if(hasTodayItem != null){
          totalWeekScore = 24.0 * 3600 * (newData.length - 1) + (hasTodayItem.uptime);
       }
@@ -193,7 +198,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     MinerStatsTime time = state.selectedTime;
     List<MinerStatsEntity> newData = getStatsData();
 
-    if (newData.isEmpty) return null;
+    if (newData.isEmpty) return '';
 
     if (time == MinerStatsTime.week) {
       return getMD(state.originList.last.date);
@@ -208,7 +213,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     MinerStatsTime time = state.selectedTime;
     List<MinerStatsEntity> newData = getStatsData();
 
-    if (newData.isEmpty) return null;
+    if (newData.isEmpty) return '';
 
     if (time == MinerStatsTime.week) {
       return getMD(state.originList.first.date);
