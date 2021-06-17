@@ -19,15 +19,17 @@ import '../title.dart';
 
 class MinerHealthTab extends StatelessWidget {
   final GatewayItem item;
-  final List<DailyStatistic> health;
-  final double averageHealth;
+  final List<DailyStatistic> healthStatisticsData;
+  final int sumSecondsOnlineLast7days;
+  final int secondsLast7days;
   final VoidCallback onRefresh;
 
   const MinerHealthTab({
     Key key,
     this.item,
-    this.health,
-    this.averageHealth,
+    this.healthStatisticsData,
+    this.sumSecondsOnlineLast7days,
+    this.secondsLast7days,
     this.onRefresh,
   }) : super(key: key);
 
@@ -251,10 +253,10 @@ class MinerHealthTab extends StatelessWidget {
           maxValue: 1,
           subtitle: FlutterI18n.translate(context, 'score_weekly_total'),
           title:
-              '${(averageHealth * 100).round()}% (${(averageHealth * (health?.length ?? 0) * 24).toInt()}h)',
-          entities: health?.map((e) => GraphEntity(e.date, e.health))?.toList(),
-          startDate: health?.first?.date,
-          endDate: health?.last?.date,
+              '${(sumSecondsOnlineLast7days  / secondsLast7days * 100.0).round()}% (${(sumSecondsOnlineLast7days / (60 * 60)).round()}h)',
+          entities: healthStatisticsData?.map((e) => GraphEntity(e.date, e.onlineSeconds / (24 * 60 * 60.0)))?.toList(),
+          startDate: healthStatisticsData?.first?.date,
+          endDate: healthStatisticsData?.last?.date,
         ),
         SizedBox(height: 8),
         MinerDetailTitle(
@@ -321,7 +323,7 @@ class StatisticTable extends StatelessWidget {
 
   const StatisticTable({Key key, this.item}) : super(key: key);
 
-  Widget _statisticItem(String title, int value) => Expanded(
+  Widget _statisticItem(String title, String value) => Expanded(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -330,9 +332,7 @@ class StatisticTable extends StatelessWidget {
               style: kSmallFontOfGrey,
             ),
             SizedBox(height: 8),
-            Text(
-              '$value%',
-              style: kBigFontOfDarkBlue,
+            Text(value, style: kBigFontOfDarkBlue,
             ),
           ],
         ),
@@ -353,21 +353,21 @@ class StatisticTable extends StatelessWidget {
             children: [
               _statisticItem(
                 FlutterI18n.translate(context, 'uptime'),
-                ((item.uptimeHealth ?? 0) * 100).round(),
+                '${((item.uptimeHealth ?? 0) * 100).round()}%',
               ),
-              _statisticItem(FlutterI18n.translate(context, 'gps'), 100),
-              _statisticItem(FlutterI18n.translate(context, 'altitude'), 100),
+              _statisticItem(FlutterI18n.translate(context, 'gps'), FlutterI18n.translate(context, 'coming')),
+              _statisticItem(FlutterI18n.translate(context, 'altitude'), FlutterI18n.translate(context, 'coming')),
             ],
           ),
           SizedBox(height: 16),
           Row(
             children: [
-              _statisticItem(FlutterI18n.translate(context, 'proximity'), 100),
+              _statisticItem(FlutterI18n.translate(context, 'proximity'), FlutterI18n.translate(context, 'coming')),
               _statisticItem(
-                  FlutterI18n.translate(context, 'orientation'), 100),
+                  FlutterI18n.translate(context, 'orientation'), FlutterI18n.translate(context, 'coming')),
               _statisticItem(
                 FlutterI18n.translate(context, 'fuel'),
-                ((item.miningFuelHealth ?? 0) * 100).round(),
+                '${((item.miningFuelHealth ?? 0) * 100).round()}%',
               ),
             ],
           ),

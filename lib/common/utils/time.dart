@@ -1,46 +1,45 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+
 class TimeUtil {
-  static Map<String, int> months = {
-    'January': 1,
-    'February': 2,
-    'March': 3,
-    'April': 4,
-    'May': 5,
-    'June': 6,
-    'July': 7,
-    'August': 8,
-    'September': 9,
-    'October': 10,
-    'November': 11,
-    'December': 12
+  static Map<int, String> months(BuildContext context) => {
+    1: FlutterI18n.translate(context, 'january'),
+    2: FlutterI18n.translate(context, 'february'),
+    3: FlutterI18n.translate(context, 'march'),
+    4: FlutterI18n.translate(context, 'april'),
+    5: FlutterI18n.translate(context, 'may_full'),
+    6: FlutterI18n.translate(context, 'june'),
+    7: FlutterI18n.translate(context, 'july'),
+    8: FlutterI18n.translate(context, 'august'),
+    9: FlutterI18n.translate(context, 'september'),
+    10: FlutterI18n.translate(context, 'october'),
+    11: FlutterI18n.translate(context, 'november'),
+    12: FlutterI18n.translate(context, 'december'),
   };
 
-  static Map<int, String> monthsAbb = {
-    1: 'Jan',
-    2: 'Feb',
-    3: 'Mar',
-    4: 'Apr',
-    5: 'May',
-    6: 'Jun',
-    7: 'Jul',
-    8: 'Aug',
-    9: 'Sep',
-    10: 'Oct',
-    11: 'Nov',
-    12: 'Dec',
+  static Map<int, String> monthsShort(BuildContext context) => {
+    1: FlutterI18n.translate(context, 'jan'),
+    2: FlutterI18n.translate(context, 'feb'),
+    3: FlutterI18n.translate(context, 'mar'),
+    4: FlutterI18n.translate(context, 'apr'),
+    5: FlutterI18n.translate(context, 'may_short'),
+    6: FlutterI18n.translate(context, 'jun'),
+    7: FlutterI18n.translate(context, 'jul'),
+    8: FlutterI18n.translate(context, 'aug'),
+    9: FlutterI18n.translate(context, 'sep'),
+    10: FlutterI18n.translate(context, 'oct'),
+    11: FlutterI18n.translate(context, 'nov'),
+    12: FlutterI18n.translate(context, 'dec'),
   };
 
-  static Map<int, String> week = {
-    1: 'Mon',
-    2: 'Tue',
-    3: 'Wed',
-    4: 'Thu',
-    5: 'Fri',
-    6: 'Sat',
-    7: 'Sun',
-  };
-
-  static final Map<int, String> monthsReversed = <int, String>{
-    for (final m in months.entries) m.value: m.key
+  static Map<int, String> weekDayShort(BuildContext context) => {
+    1: FlutterI18n.translate(context, 'mon'),
+    2: FlutterI18n.translate(context, 'tue'),
+    3: FlutterI18n.translate(context, 'wed'),
+    4: FlutterI18n.translate(context, 'thu'),
+    5: FlutterI18n.translate(context, 'fri'),
+    6: FlutterI18n.translate(context, 'sat'),
+    7: FlutterI18n.translate(context, 'sun'),
   };
 
   static bool isIn5Min(String value) {
@@ -124,18 +123,6 @@ class TimeUtil {
 
   static String getM(DateTime date) {
     return '${date.month.toString().padLeft(2, '0')}';
-  }
-
-  static String getMD(DateTime date) {
-    return '${monthsReversed[date.month]} ${date.day}';
-  }
-
-  static String getMDAbb(DateTime date) {
-    return '${monthsAbb[date.month]} ${date.day}';
-  }
-
-  static String getMDY(DateTime date) {
-    return '${monthsReversed[date.month]} ${date.day} ${date.year}';
   }
 
   static int getCurrentTimeStamp() {
