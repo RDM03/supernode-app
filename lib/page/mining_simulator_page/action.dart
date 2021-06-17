@@ -6,6 +6,8 @@ enum MiningSimulatorAction {
   months,
   lastMining,
   expandCalculation,
+  expandDailyMining,
+  expandBond,
 }
 
 class MiningSimulatorActionCreator {
@@ -23,7 +25,15 @@ class MiningSimulatorActionCreator {
         payload: [yesterdayTotalMPower, yesterdayTotalDHX]);
   }
 
-  static Action expandCalculation(CalculateExpandState state) {
+  static Action expandCalculation(bool state) {
     return Action(MiningSimulatorAction.expandCalculation, payload: state);
+  }
+
+  static Action expandDailyMining(bool state) {
+    return Action(MiningSimulatorAction.expandDailyMining, payload: state);
+  }
+
+  static Action expandBond(bool state) {
+    return Action(MiningSimulatorAction.expandBond, payload: state);
   }
 }
