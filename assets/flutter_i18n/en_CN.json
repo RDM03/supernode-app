@@ -577,7 +577,6 @@
 	"mining_end_date": "Mining End Date",
 	"mining_duration": "Mining Duration",
 	"miner_owner": "Miner Owned",
-	"council": "Council",
 	"potential_m_power": "Potential mPower",
 	"lock_confirm_message": "You are about to lock {0} MXC for {1} months, joining {2}’s council for DHX mining",
 	"proceed": "Proceed",
@@ -585,7 +584,6 @@
 	"congrats_mining": "Congratulations!\nYou are now Mining DHX",
 	"x_months": "{0} Months",
 	"minimum_duration": "Minimum Duration",
-	"latest_mpower": "Latest mPower",
 	"info_mxc_lock": "Choose your preferred lock method / rewards",
 	"info_lock_boost": "Boosts provided by an M2 Pro Miner are capped at 1 million mPower per miner.",
 	"amount_of_miner": "Amount of Miners",
@@ -647,5 +645,6 @@
 	"gps_card_description": "-",
 	"gps_card_comment": "",
 	"health": "Health",
-	"day": "day"
+	"day": "day",
+	"nft_desc": "NFT + COLLECTIBLES"
 }
