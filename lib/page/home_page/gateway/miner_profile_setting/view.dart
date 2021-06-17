@@ -207,7 +207,7 @@ class _MinerProfileSettingPageState extends State<MinerProfileSettingPage> {
                           ctx.read<MinerCubit>().submitProfileSetting(
                               networkServerId: state.networkServerId,
                               minerProfileId: state.minerProfileId,
-                              name: nameCtl.text,
+                              name: widget.serialNumer,
                               description: descriptionCtl.text,
                               id: idCtl.text,
                               discoveryEnabled: state.discoveryEnabled,
