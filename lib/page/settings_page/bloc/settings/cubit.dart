@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:package_info/package_info.dart';
@@ -8,7 +6,6 @@ import 'package:supernodeapp/common/repositories/supernode/dao/server_info.dart'
 import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'state.dart';
 
