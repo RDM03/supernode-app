@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/miner.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
@@ -83,15 +85,13 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     List<MinerStatsEntity> list = getOriginTypeList();
 
     if (list.isEmpty) return [];
-    
+
     int lastIndex = state.scrollFirstIndex + getNumBar();
 
     if (lastIndex < list.length) {
-      return list.sublist(
-        state.scrollFirstIndex, lastIndex);
+      return list.sublist(state.scrollFirstIndex, lastIndex);
     } else {
-      return list.sublist(
-        state.scrollFirstIndex, list.length);
+      return list.sublist(state.scrollFirstIndex, list.length);
     }
   }
 
@@ -110,13 +110,13 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     return titles[state.selectedTime?.index ?? 0];
   }
 
-  String getStatsSubitle() {
+  String getStatsSubitle(BuildContext context) {
     MinerStatsType type = state.selectedType;
 
     if (type == MinerStatsType.uptime) {
       return '${getUptimeWeekScore()} h';
     } else if (type == MinerStatsType.revenue) {
-      return '${countTotal().toStringAsFixed(0)} MXC ${getRevenueWeekScore()}';
+      return '${countTotal().toStringAsFixed(0)} MXC ${getRevenueWeekScore(context)}';
     } else if (type == MinerStatsType.frameReceived) {
       return '${countTotal().toStringAsFixed(0)}';
     } else {
@@ -137,12 +137,14 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
 
       MinerStatsEntity hasTodayItem;
 
-      if(newData.any((item) => TimeUtil.isSameDay(item.date, today))){
-        hasTodayItem = newData.firstWhere((item) => TimeUtil.isSameDay(item.date, today));
+      if (newData.any((item) => TimeUtil.isSameDay(item.date, today))) {
+        hasTodayItem =
+            newData.firstWhere((item) => TimeUtil.isSameDay(item.date, today));
       }
 
-      if(hasTodayItem != null){
-         totalWeekScore = 24.0 * 3600 * (newData.length - 1) + (hasTodayItem.uptime);
+      if (hasTodayItem != null) {
+        totalWeekScore =
+            24.0 * 3600 * (newData.length - 1) + (hasTodayItem.uptime);
       }
 
       double totalScore = newData.fold(
@@ -156,11 +158,11 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     return '${countTotal().toStringAsFixed(0)}';
   }
 
-  String getRevenueWeekScore() {
+  String getRevenueWeekScore(BuildContext context) {
     MinerStatsTime time = state.selectedTime;
 
     if (time == MinerStatsTime.week) {
-      return '(${(countTotal() / getStatsData().length).toStringAsFixed(0)}/day)';
+      return '(${(countTotal() / getStatsData().length).toStringAsFixed(0)}/${FlutterI18n.translate(context, "day")})';
     }
 
     return '';
@@ -206,7 +208,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       return getMD(newData.last.date);
     } else {
       return getMDY(newData.last.date);
-      }
+    }
   }
 
   String getEndTimeLabel() {
@@ -270,7 +272,6 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
 
   Future<void> getStatsMinerData(MinerStatsType type, MinerStatsTime time,
       DateTime startTime, String minerId) async {
-
     await getSourceMinerData(
       gatewayMac: minerId,
       orgId: supernodeCubit.state.orgId,

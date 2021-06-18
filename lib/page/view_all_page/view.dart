@@ -143,7 +143,7 @@ class _ViewAllPageState extends State<_ViewAllPage>
               builder: (ctx, state) {
                 return DDChartStats(
                   title: context.read<MinerStatsCubit>().getStatsTitle(),
-                  subTitle: context.read<MinerStatsCubit>().getStatsSubitle(),
+                  subTitle: context.read<MinerStatsCubit>().getStatsSubitle(context),
                   startTime:
                       context.read<MinerStatsCubit>().getStartTimeLabel() ??
                           '--',
