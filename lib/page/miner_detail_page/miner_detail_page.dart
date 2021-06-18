@@ -82,18 +82,19 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
             Visibility(
               visible: selectedTab == 0,
               child: BlocBuilder<GatewayCubit, GatewayState>(
-                buildWhen: (a, b) =>
-                (a.selectedGateway != b.selectedGateway
-                    || a.statsLast7days != b.statsLast7days
-                    || a.sumSecondsOnlineLast7days != b.sumSecondsOnlineLast7days
-                    || a.secondsLast7days != b.secondsLast7days),
+                buildWhen: (a, b) => (a.selectedGateway != b.selectedGateway ||
+                    a.statsLast7days != b.statsLast7days ||
+                    a.sumSecondsOnlineLast7days !=
+                        b.sumSecondsOnlineLast7days ||
+                    a.secondsLast7days != b.secondsLast7days),
                 builder: (context, state) {
                   return MinerHealthTab(
                     item: state.selectedGateway,
                     healthStatisticsData: state.statsLast7days,
                     sumSecondsOnlineLast7days: state.sumSecondsOnlineLast7days,
                     secondsLast7days: state.secondsLast7days,
-                    onRefresh: context.read<GatewayCubit>().refreshSelectedGateway,
+                    onRefresh:
+                        context.read<GatewayCubit>().refreshSelectedGateway,
                   );
                 },
               ),
@@ -101,8 +102,8 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
             Visibility(
               visible: selectedTab == 1,
               child: BlocBuilder<GatewayCubit, GatewayState>(
-                buildWhen: (a, b) =>
-                (a.statsLast7days != b.statsLast7days || a.sumMiningRevenueLast7days != b.sumMiningRevenueLast7days),
+                buildWhen: (a, b) => (a.statsLast7days != b.statsLast7days ||
+                    a.sumMiningRevenueLast7days != b.sumMiningRevenueLast7days),
                 builder: (context, state) {
                   return MinerRevenueTab(
                     item: widget.item,
@@ -115,8 +116,8 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
             Visibility(
               visible: selectedTab == 2,
               child: BlocBuilder<GatewayCubit, GatewayState>(
-                buildWhen: (a, b) =>
-                (a.framesLast7days != b.framesLast7days || a.downlinkPrice != b.downlinkPrice),
+                buildWhen: (a, b) => (a.framesLast7days != b.framesLast7days ||
+                    a.downlinkPrice != b.downlinkPrice),
                 builder: (context, state) {
                   return MinerDataTab(
                     item: widget.item,
