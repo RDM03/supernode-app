@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:supernodeapp/common/repositories/shared/clients/client.dart';
 import 'package:supernodeapp/common/repositories/shared/clients/shared_client.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';

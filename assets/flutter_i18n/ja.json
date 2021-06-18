@@ -604,7 +604,6 @@
 	"add_fuel": "燃料を追加する",
 	"select_all": "すべて選択",
 	"fuel_add_desc": "あなたの鉱山労働者は車のようなもので、採掘を続けるにはMXC燃料が必要です。",
-	"uptime": "アップタイム",
 	"frame_received": "受信フレーム",
 	"frame_transmitted": "フレーム送信",
 	"week": "週",
@@ -635,5 +634,17 @@
 	"gps_card_description": "-",
 	"gps_card_comment": "",
 	"health": "Health",
-	"day": "day"
+	"day": "day",
+	"add_fuel_or_send_to_wallet": "燃料を追加するか、財布に送信",
+	"dont_have_miners": "あなたは鉱夫を持っていないか、あなたの鉱夫のすべてが100%まで燃料を供給されていないようです",
+	"add_all": "すべてを追加",
+	"send_to_wallet": "ウォレットへ",
+	"send_to_wallet_desc": "財布に送ると、マイニング効率が失われることに注意してください",
+	"current_fuel": "現在の燃料:",
+	"add_fuel_congrats": "万丈！\nあなたの鉱夫は燃料を供給されています",
+	"send_to_wallet_congrats": "私たちはあなたのMXC財布に燃料を送った",
+	"add_fuel_confirm": "あなたはMXC{0}燃料を補給しようとしています。",
+	"send_to_wallet_confirm": "あなたは{0}MXCをあなたの財布に送ろうとしています。ご注意:燃料タンクからMXCを撤回すると、採掘効率が低下します。",
+	"send_to_wallet_dont_have_miners": "あなたの財布に送る燃料を持っていないようです",
+	"nft_desc": "NFT + コレクティブルズ"
 }

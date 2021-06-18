@@ -1,15 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
-import 'package:supernodeapp/common/repositories/supernode/dao/gateways.model.dart';
-import 'package:supernodeapp/common/repositories/supernode/dao/wallet.model.dart';
-import 'package:supernodeapp/common/repositories/supernode_repository.dart';
-import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/parser.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/page/miner_detail_page/tabs/miner_health_tab.dart';
 import 'package:supernodeapp/page/miner_detail_page/tabs/miner_revenue_tab.dart';
@@ -28,99 +22,11 @@ class MinerDetailPage extends StatefulWidget {
 
 class _MinerDetailPageState extends State<MinerDetailPage> {
   int selectedTab = 0;
-  double downlinkPrice;
-  List<GatewayStatisticResponse> frames;
-  List<DailyStatistic> stats;
-  double totalAmount;
-  double averageHealth = 1;
-  GatewayItem item;
 
   @override
   void initState() {
     super.initState();
-    item = widget.item;
-    loadState();
-  }
-
-  Future<void> loadState() async {
-    await getStatistic();
-    await getFrames();
-    await getDownlinkPrice();
-  }
-
-  Future<void> refreshItem() async {
-    final rep = context.read<SupernodeRepository>();
-
-    final listMinersHealth = await rep.gateways
-        .minerHealth({"orgId": context.read<SupernodeCubit>().state.orgId});
-
-    final res = await context.read<SupernodeRepository>().gateways.list({
-      'organizationID': context.read<SupernodeCubit>().state.orgId,
-      'offset': 0,
-      'limit': 10,
-    }, search: item.id);
-    final newGateway = (res['result'] as List)
-        .firstWhere((m) => m["id"] == item.id, orElse: () => null);
-    if (newGateway == null) return;
-    final List<GatewayItem> gateways = parseGateways({
-      "result": [newGateway]
-    }, listMinersHealth, context.read<SupernodeCubit>().state.orgId);
-    if (gateways.isNotEmpty && mounted) {
-      setState(() {
-        item = gateways.first;
-      });
-    }
-    await loadState();
-  }
-
-  Future<void> getDownlinkPrice() async {
-    downlinkPrice = await context
-        .read<SupernodeRepository>()
-        .wallet
-        .downlinkPrice(context.read<SupernodeCubit>().state.orgId);
-    if (mounted) setState(() {});
-  }
-
-  Future<void> getFrames() async {
-    final res = await context.read<SupernodeRepository>().gateways.frames(
-          widget.item.id,
-          interval: 'DAY',
-          endTimestamp: DateTime.now(),
-          startTimestamp: DateTime.now().add(Duration(days: -7)),
-        );
-    frames = res;
-    if (mounted) setState(() {});
-  }
-
-  Future<void> getHealth() async {
-    final res = await context.read<SupernodeRepository>().gateways.frames(
-          widget.item.id,
-          interval: 'DAY',
-          endTimestamp: DateTime.now(),
-          startTimestamp: DateTime.now().add(Duration(days: -7)),
-        );
-    frames = res;
-    if (mounted) setState(() {});
-  }
-
-  Future<void> getStatistic() async {
-    final res =
-        await context.read<SupernodeRepository>().wallet.miningIncomeGateway(
-              gatewayMac: widget.item.id,
-              orgId: context.read<SupernodeCubit>().state.orgId,
-              fromDate: DateTime(2000, 01, 01),
-              tillDate: DateTime.now(),
-            );
-    totalAmount = res.dailyStats.fold<double>(
-      0.0,
-      (source, v) => source + (double.tryParse(v.amount) ?? 0.0),
-    );
-    stats = res.dailyStats.skip(max(res.dailyStats.length - 7, 0)).toList();
-    averageHealth = res.dailyStats.fold(
-            0, (previousValue, element) => previousValue + element.health) /
-        res.dailyStats.length;
-    if (mounted) setState(() {});
-    return totalAmount;
+    context.read<GatewayCubit>().initMinerDetails(widget.item);
   }
 
   @override
@@ -173,25 +79,54 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
                 ),
               ),
             ),
-            if (selectedTab == 0)
-              MinerHealthTab(
-                item: item,
-                health: stats,
-                averageHealth: averageHealth,
-                onRefresh: refreshItem,
-              )
-            else if (selectedTab == 1)
-              MinerRevenueTab(
-                item: widget.item,
-                revenue: stats,
-                totalAmount: totalAmount,
-              )
-            else if (selectedTab == 2)
-              MinerDataTab(
-                item: widget.item,
-                frames: frames,
-                downlinkPrice: downlinkPrice,
-              )
+            Visibility(
+              visible: selectedTab == 0,
+              child: BlocBuilder<GatewayCubit, GatewayState>(
+                buildWhen: (a, b) => (a.selectedGateway != b.selectedGateway ||
+                    a.statsLast7days != b.statsLast7days ||
+                    a.sumSecondsOnlineLast7days !=
+                        b.sumSecondsOnlineLast7days ||
+                    a.secondsLast7days != b.secondsLast7days),
+                builder: (context, state) {
+                  return MinerHealthTab(
+                    item: state.selectedGateway,
+                    healthStatisticsData: state.statsLast7days,
+                    sumSecondsOnlineLast7days: state.sumSecondsOnlineLast7days,
+                    secondsLast7days: state.secondsLast7days,
+                    onRefresh:
+                        context.read<GatewayCubit>().refreshSelectedGateway,
+                  );
+                },
+              ),
+            ),
+            Visibility(
+              visible: selectedTab == 1,
+              child: BlocBuilder<GatewayCubit, GatewayState>(
+                buildWhen: (a, b) => (a.statsLast7days != b.statsLast7days ||
+                    a.sumMiningRevenueLast7days != b.sumMiningRevenueLast7days),
+                builder: (context, state) {
+                  return MinerRevenueTab(
+                    item: widget.item,
+                    revenueData: state.statsLast7days,
+                    sumRevenueLast7days: state.sumMiningRevenueLast7days,
+                  );
+                },
+              ),
+            ),
+            Visibility(
+              visible: selectedTab == 2,
+              child: BlocBuilder<GatewayCubit, GatewayState>(
+                buildWhen: (a, b) => (a.framesLast7days != b.framesLast7days ||
+                    a.downlinkPrice != b.downlinkPrice),
+                builder: (context, state) {
+                  return MinerDataTab(
+                    item: widget.item,
+                    framesData: state.framesLast7days,
+                    downlinkPrice: state.downlinkPrice,
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),

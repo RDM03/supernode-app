@@ -4,7 +4,7 @@ import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 enum CurrencyType { fiat, crypto }
-enum Token { mxc, supernodeDhx, parachainDhx, btc }
+enum Token { mxc, supernodeDhx, parachainDhx, btc, nft }
 
 extension TokenExtension on Token {
   String get fullName {
@@ -17,6 +17,8 @@ extension TokenExtension on Token {
         return 'MXC';
       case Token.btc:
         return 'Bitcoin BTC';
+      case Token.nft:
+        return 'NFT';
     }
     throw UnimplementedError('No name found for $this');
   }
@@ -31,6 +33,8 @@ extension TokenExtension on Token {
         return 'MXC';
       case Token.btc:
         return 'BTC';
+      case Token.nft:
+        return 'NFT';
     }
     throw UnimplementedError('No name found for $this');
   }
@@ -45,6 +49,8 @@ extension TokenExtension on Token {
         return AppImages.logoMXC;
       case Token.btc:
         return AppImages.logoBTC;
+      case Token.nft:
+        return AppImages.logoNFT;
     }
     throw UnimplementedError('No image found for $this');
   }
@@ -59,6 +65,8 @@ extension TokenExtension on Token {
         return colorMxc;
       case Token.btc:
         return colorBtc;
+      case Token.nft:
+        return colorNtf;
     }
     throw UnimplementedError('No color found for $this');
   }

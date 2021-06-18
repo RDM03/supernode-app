@@ -16,6 +16,8 @@ class _$MinerStatsStateTearOff {
 // ignore: unused_element
   _MinerStatsState call(
       {List<MinerStatsEntity> originList = const [],
+      List<MinerStatsEntity> originMonthlyList = const [],
+      List<MinerStatsEntity> originYearlyList = const [],
       List<double> xDataList = const [],
       List<String> xLabelList = const [],
       List<int> yLabelList = const [],
@@ -23,9 +25,12 @@ class _$MinerStatsStateTearOff {
       MinerStatsTime selectedTime = MinerStatsTime.week,
       MinerStatsType selectedType = MinerStatsType.uptime,
       double uptimeWeekScore = 0,
+      int scrollFirstIndex = 0,
       String error}) {
     return _MinerStatsState(
       originList: originList,
+      originMonthlyList: originMonthlyList,
+      originYearlyList: originYearlyList,
       xDataList: xDataList,
       xLabelList: xLabelList,
       yLabelList: yLabelList,
@@ -33,6 +38,7 @@ class _$MinerStatsStateTearOff {
       selectedTime: selectedTime,
       selectedType: selectedType,
       uptimeWeekScore: uptimeWeekScore,
+      scrollFirstIndex: scrollFirstIndex,
       error: error,
     );
   }
@@ -45,6 +51,8 @@ const $MinerStatsState = _$MinerStatsStateTearOff();
 /// @nodoc
 mixin _$MinerStatsState {
   List<MinerStatsEntity> get originList;
+  List<MinerStatsEntity> get originMonthlyList;
+  List<MinerStatsEntity> get originYearlyList;
   List<double> get xDataList;
   List<String> get xLabelList;
   List<int> get yLabelList;
@@ -52,6 +60,7 @@ mixin _$MinerStatsState {
   MinerStatsTime get selectedTime;
   MinerStatsType get selectedType;
   double get uptimeWeekScore;
+  int get scrollFirstIndex;
   String get error;
 
   @JsonKey(ignore: true)
@@ -65,6 +74,8 @@ abstract class $MinerStatsStateCopyWith<$Res> {
       _$MinerStatsStateCopyWithImpl<$Res>;
   $Res call(
       {List<MinerStatsEntity> originList,
+      List<MinerStatsEntity> originMonthlyList,
+      List<MinerStatsEntity> originYearlyList,
       List<double> xDataList,
       List<String> xLabelList,
       List<int> yLabelList,
@@ -72,6 +83,7 @@ abstract class $MinerStatsStateCopyWith<$Res> {
       MinerStatsTime selectedTime,
       MinerStatsType selectedType,
       double uptimeWeekScore,
+      int scrollFirstIndex,
       String error});
 }
 
@@ -87,6 +99,8 @@ class _$MinerStatsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object originList = freezed,
+    Object originMonthlyList = freezed,
+    Object originYearlyList = freezed,
     Object xDataList = freezed,
     Object xLabelList = freezed,
     Object yLabelList = freezed,
@@ -94,12 +108,19 @@ class _$MinerStatsStateCopyWithImpl<$Res>
     Object selectedTime = freezed,
     Object selectedType = freezed,
     Object uptimeWeekScore = freezed,
+    Object scrollFirstIndex = freezed,
     Object error = freezed,
   }) {
     return _then(_value.copyWith(
       originList: originList == freezed
           ? _value.originList
           : originList as List<MinerStatsEntity>,
+      originMonthlyList: originMonthlyList == freezed
+          ? _value.originMonthlyList
+          : originMonthlyList as List<MinerStatsEntity>,
+      originYearlyList: originYearlyList == freezed
+          ? _value.originYearlyList
+          : originYearlyList as List<MinerStatsEntity>,
       xDataList:
           xDataList == freezed ? _value.xDataList : xDataList as List<double>,
       xLabelList: xLabelList == freezed
@@ -118,6 +139,9 @@ class _$MinerStatsStateCopyWithImpl<$Res>
       uptimeWeekScore: uptimeWeekScore == freezed
           ? _value.uptimeWeekScore
           : uptimeWeekScore as double,
+      scrollFirstIndex: scrollFirstIndex == freezed
+          ? _value.scrollFirstIndex
+          : scrollFirstIndex as int,
       error: error == freezed ? _value.error : error as String,
     ));
   }
@@ -132,6 +156,8 @@ abstract class _$MinerStatsStateCopyWith<$Res>
   @override
   $Res call(
       {List<MinerStatsEntity> originList,
+      List<MinerStatsEntity> originMonthlyList,
+      List<MinerStatsEntity> originYearlyList,
       List<double> xDataList,
       List<String> xLabelList,
       List<int> yLabelList,
@@ -139,6 +165,7 @@ abstract class _$MinerStatsStateCopyWith<$Res>
       MinerStatsTime selectedTime,
       MinerStatsType selectedType,
       double uptimeWeekScore,
+      int scrollFirstIndex,
       String error});
 }
 
@@ -156,6 +183,8 @@ class __$MinerStatsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object originList = freezed,
+    Object originMonthlyList = freezed,
+    Object originYearlyList = freezed,
     Object xDataList = freezed,
     Object xLabelList = freezed,
     Object yLabelList = freezed,
@@ -163,12 +192,19 @@ class __$MinerStatsStateCopyWithImpl<$Res>
     Object selectedTime = freezed,
     Object selectedType = freezed,
     Object uptimeWeekScore = freezed,
+    Object scrollFirstIndex = freezed,
     Object error = freezed,
   }) {
     return _then(_MinerStatsState(
       originList: originList == freezed
           ? _value.originList
           : originList as List<MinerStatsEntity>,
+      originMonthlyList: originMonthlyList == freezed
+          ? _value.originMonthlyList
+          : originMonthlyList as List<MinerStatsEntity>,
+      originYearlyList: originYearlyList == freezed
+          ? _value.originYearlyList
+          : originYearlyList as List<MinerStatsEntity>,
       xDataList:
           xDataList == freezed ? _value.xDataList : xDataList as List<double>,
       xLabelList: xLabelList == freezed
@@ -187,6 +223,9 @@ class __$MinerStatsStateCopyWithImpl<$Res>
       uptimeWeekScore: uptimeWeekScore == freezed
           ? _value.uptimeWeekScore
           : uptimeWeekScore as double,
+      scrollFirstIndex: scrollFirstIndex == freezed
+          ? _value.scrollFirstIndex
+          : scrollFirstIndex as int,
       error: error == freezed ? _value.error : error as String,
     ));
   }
@@ -196,6 +235,8 @@ class __$MinerStatsStateCopyWithImpl<$Res>
 class _$_MinerStatsState implements _MinerStatsState {
   _$_MinerStatsState(
       {this.originList = const [],
+      this.originMonthlyList = const [],
+      this.originYearlyList = const [],
       this.xDataList = const [],
       this.xLabelList = const [],
       this.yLabelList = const [],
@@ -203,19 +244,29 @@ class _$_MinerStatsState implements _MinerStatsState {
       this.selectedTime = MinerStatsTime.week,
       this.selectedType = MinerStatsType.uptime,
       this.uptimeWeekScore = 0,
+      this.scrollFirstIndex = 0,
       this.error})
       : assert(originList != null),
+        assert(originMonthlyList != null),
+        assert(originYearlyList != null),
         assert(xDataList != null),
         assert(xLabelList != null),
         assert(yLabelList != null),
         assert(showLoading != null),
         assert(selectedTime != null),
         assert(selectedType != null),
-        assert(uptimeWeekScore != null);
+        assert(uptimeWeekScore != null),
+        assert(scrollFirstIndex != null);
 
   @JsonKey(defaultValue: const [])
   @override
   final List<MinerStatsEntity> originList;
+  @JsonKey(defaultValue: const [])
+  @override
+  final List<MinerStatsEntity> originMonthlyList;
+  @JsonKey(defaultValue: const [])
+  @override
+  final List<MinerStatsEntity> originYearlyList;
   @JsonKey(defaultValue: const [])
   @override
   final List<double> xDataList;
@@ -237,12 +288,15 @@ class _$_MinerStatsState implements _MinerStatsState {
   @JsonKey(defaultValue: 0)
   @override
   final double uptimeWeekScore;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int scrollFirstIndex;
   @override
   final String error;
 
   @override
   String toString() {
-    return 'MinerStatsState(originList: $originList, xDataList: $xDataList, xLabelList: $xLabelList, yLabelList: $yLabelList, showLoading: $showLoading, selectedTime: $selectedTime, selectedType: $selectedType, uptimeWeekScore: $uptimeWeekScore, error: $error)';
+    return 'MinerStatsState(originList: $originList, originMonthlyList: $originMonthlyList, originYearlyList: $originYearlyList, xDataList: $xDataList, xLabelList: $xLabelList, yLabelList: $yLabelList, showLoading: $showLoading, selectedTime: $selectedTime, selectedType: $selectedType, uptimeWeekScore: $uptimeWeekScore, scrollFirstIndex: $scrollFirstIndex, error: $error)';
   }
 
   @override
@@ -252,6 +306,12 @@ class _$_MinerStatsState implements _MinerStatsState {
             (identical(other.originList, originList) ||
                 const DeepCollectionEquality()
                     .equals(other.originList, originList)) &&
+            (identical(other.originMonthlyList, originMonthlyList) ||
+                const DeepCollectionEquality()
+                    .equals(other.originMonthlyList, originMonthlyList)) &&
+            (identical(other.originYearlyList, originYearlyList) ||
+                const DeepCollectionEquality()
+                    .equals(other.originYearlyList, originYearlyList)) &&
             (identical(other.xDataList, xDataList) ||
                 const DeepCollectionEquality()
                     .equals(other.xDataList, xDataList)) &&
@@ -273,6 +333,9 @@ class _$_MinerStatsState implements _MinerStatsState {
             (identical(other.uptimeWeekScore, uptimeWeekScore) ||
                 const DeepCollectionEquality()
                     .equals(other.uptimeWeekScore, uptimeWeekScore)) &&
+            (identical(other.scrollFirstIndex, scrollFirstIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.scrollFirstIndex, scrollFirstIndex)) &&
             (identical(other.error, error) ||
                 const DeepCollectionEquality().equals(other.error, error)));
   }
@@ -281,6 +344,8 @@ class _$_MinerStatsState implements _MinerStatsState {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(originList) ^
+      const DeepCollectionEquality().hash(originMonthlyList) ^
+      const DeepCollectionEquality().hash(originYearlyList) ^
       const DeepCollectionEquality().hash(xDataList) ^
       const DeepCollectionEquality().hash(xLabelList) ^
       const DeepCollectionEquality().hash(yLabelList) ^
@@ -288,6 +353,7 @@ class _$_MinerStatsState implements _MinerStatsState {
       const DeepCollectionEquality().hash(selectedTime) ^
       const DeepCollectionEquality().hash(selectedType) ^
       const DeepCollectionEquality().hash(uptimeWeekScore) ^
+      const DeepCollectionEquality().hash(scrollFirstIndex) ^
       const DeepCollectionEquality().hash(error);
 
   @JsonKey(ignore: true)
@@ -299,6 +365,8 @@ class _$_MinerStatsState implements _MinerStatsState {
 abstract class _MinerStatsState implements MinerStatsState {
   factory _MinerStatsState(
       {List<MinerStatsEntity> originList,
+      List<MinerStatsEntity> originMonthlyList,
+      List<MinerStatsEntity> originYearlyList,
       List<double> xDataList,
       List<String> xLabelList,
       List<int> yLabelList,
@@ -306,10 +374,15 @@ abstract class _MinerStatsState implements MinerStatsState {
       MinerStatsTime selectedTime,
       MinerStatsType selectedType,
       double uptimeWeekScore,
+      int scrollFirstIndex,
       String error}) = _$_MinerStatsState;
 
   @override
   List<MinerStatsEntity> get originList;
+  @override
+  List<MinerStatsEntity> get originMonthlyList;
+  @override
+  List<MinerStatsEntity> get originYearlyList;
   @override
   List<double> get xDataList;
   @override
@@ -324,6 +397,8 @@ abstract class _MinerStatsState implements MinerStatsState {
   MinerStatsType get selectedType;
   @override
   double get uptimeWeekScore;
+  @override
+  int get scrollFirstIndex;
   @override
   String get error;
   @override

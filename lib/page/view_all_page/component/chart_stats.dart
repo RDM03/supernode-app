@@ -39,6 +39,8 @@ class DDChartStats extends StatelessWidget {
               '$startTime - $endTime',
               textAlign: TextAlign.right,
               style: kBigFontOfGrey.copyWith(fontWeight: FontWeight.bold),
+              softWrap: true, 
+              overflow: TextOverflow.fade,
             ),
           )
         ],

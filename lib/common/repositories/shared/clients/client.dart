@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class HttpClient {
@@ -8,7 +9,7 @@ abstract class HttpClient {
     bool encodeJson = true,
   });
 
-  Future<dynamic> get({@required String url, Map data});
+  Future<dynamic> get({@required String url, Map data, ResponseType rt});
   Future<dynamic> put({@required String url, dynamic data});
   Future<dynamic> delete({@required String url});
 }
