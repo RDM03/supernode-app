@@ -266,7 +266,7 @@ class MinerHealthTab extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
               child: Text(
                 FlutterI18n.translate(context, 'view_map'),
-                style: kSmallFontOfDarkBlue,
+                style: kSmallFontOfGrey,
               ),
             ),
             onTap: () {},
