@@ -201,11 +201,11 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     if (newData.isEmpty) return '';
 
     if (time == MinerStatsTime.week) {
-      return getMD(state.originList.last.date);
+      return getMD(newData.last.date);
     } else if (time == MinerStatsTime.month) {
-      return getMD(state.originList.last.date);
+      return getMD(newData.last.date);
     } else {
-      return getMDY(state.originList.last.date);
+      return getMDY(newData.last.date);
       }
   }
 
@@ -216,11 +216,11 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     if (newData.isEmpty) return '';
 
     if (time == MinerStatsTime.week) {
-      return getMD(state.originList.first.date);
+      return getMD(newData.first.date);
     } else if (time == MinerStatsTime.month) {
-      return getMD(state.originList.first.date);
+      return getMD(newData.first.date);
     } else {
-      return getMDY(state.originList.first.date);
+      return getMDY(newData.first.date);
     }
   }
 

@@ -332,7 +332,7 @@ class StatisticTable extends StatelessWidget {
               style: kSmallFontOfGrey,
             ),
             SizedBox(height: 8),
-            Text(value, style: kBigFontOfDarkBlue,
+            Text(value, style: value == '-' ? kBigFontOfGrey : kBigFontOfDarkBlue,
             ),
           ],
         ),
@@ -355,16 +355,16 @@ class StatisticTable extends StatelessWidget {
                 FlutterI18n.translate(context, 'uptime'),
                 '${((item.uptimeHealth ?? 0) * 100).round()}%',
               ),
-              _statisticItem(FlutterI18n.translate(context, 'gps'), FlutterI18n.translate(context, 'coming')),
-              _statisticItem(FlutterI18n.translate(context, 'altitude'), FlutterI18n.translate(context, 'coming')),
+              _statisticItem(FlutterI18n.translate(context, 'gps'), '-'),
+              _statisticItem(FlutterI18n.translate(context, 'altitude'), '-'),
             ],
           ),
           SizedBox(height: 16),
           Row(
             children: [
-              _statisticItem(FlutterI18n.translate(context, 'proximity'), FlutterI18n.translate(context, 'coming')),
+              _statisticItem(FlutterI18n.translate(context, 'proximity'), '-'),
               _statisticItem(
-                  FlutterI18n.translate(context, 'orientation'), FlutterI18n.translate(context, 'coming')),
+                  FlutterI18n.translate(context, 'orientation'), '-'),
               _statisticItem(
                 FlutterI18n.translate(context, 'fuel'),
                 '${((item.miningFuelHealth ?? 0) * 100).round()}%',
