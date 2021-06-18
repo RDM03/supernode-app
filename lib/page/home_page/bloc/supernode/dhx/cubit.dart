@@ -211,13 +211,13 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       //   'till': endTime.toUtc().toIso8601String()
       // });
 
-      final resUnBonding = await supernodeRepository.wallet.historyTransaction({
-        'orgId': orgId,
-        'currency': 'DHX',
-        'paymentType': 'DHX_UNBONDING',
-        'from': startTime.toUtc().toIso8601String(),
-        'till': endTime.toUtc().toIso8601String()
-      });
+      // final resUnBonding = await supernodeRepository.wallet.historyTransaction({
+      //   'orgId': orgId,
+      //   'currency': 'DHX',
+      //   'paymentType': 'DHX_UNBONDING',
+      //   'from': startTime.toUtc().toIso8601String(),
+      //   'till': endTime.toUtc().toIso8601String()
+      // });
 
       final Map<String, List<CalendarModel>> calendarInfo = {};
 
@@ -225,9 +225,9 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
         final Map<DateTime, CalendarModel> parsed = {};
         DateTime dateTmp;
 
-        for (dynamic rec in resUnBonding["tx"]) {
-          dateTmp = rec["timestamp"] != null ? DateTime.tryParse(rec["timestamp"]) : DateTime.now();
-          dateTmp = DateTime(dateTmp.year, dateTmp.month, dateTmp.day);
+        for (dynamic rec in resBondInfo["dhxUnbonding"]) {
+          dateTmp = DateTime.tryParse(rec["created"]) ?? DateTime.now();
+          dateTmp = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
           if (!parsed.containsKey(dateTmp))
             parsed[dateTmp] = CalendarModel(date: dateTmp);
           parsed[dateTmp].unbondAmount += double.parse(rec["amount"]);
@@ -295,6 +295,17 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       } catch (e, s) {
         logger.e('refresh error', e, s);
       }
+
+      // for (dynamic rec in resUnBonding["tx"]) {
+      //   DateTime dateTmp = rec["timestamp"] != null ? DateTime.tryParse(rec["timestamp"]) : DateTime.now();
+      //   dateTmp = DateTime(dateTmp.year, dateTmp.month, dateTmp.day);
+      //   for(int i = 0; i < calendarInfo[TimeUtil.getYM(dateTmp)].length; i++){
+      //     CalendarModel item = calendarInfo[TimeUtil.getYM(dateTmp)][i];
+      //     if(TimeUtil.isSameDay(item.date, dateTmp)){
+      //       calendarInfo[TimeUtil.getYM(dateTmp)][i].unbondAmount += double.parse(rec["amount"]);
+      //     }
+      //   }
+      // }
 
       state.calendarInfo.forEach((key, value) { 
         if(!calendarInfo.containsKey(key)){
