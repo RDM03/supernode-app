@@ -3,12 +3,14 @@ import 'dart:ui';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.model.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
 part 'app_state.freezed.dart';
 
 @freezed
 abstract class AppState with _$AppState {
   factory AppState({
     Locale locale,
+    @nullable FiatCurrency selectedFiatForExport,
     @Default(false) bool isDemo,
     @Default(false) bool showLoading,
     @nullable ErrorInfo error,

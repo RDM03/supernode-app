@@ -26,6 +26,8 @@ class _$SupernodeDhxStateTearOff {
       List<CalendarModel> calendarBondInfo = const [],
       List<CalendarModel> lastCalendarBondInfo = const [],
       Map<String, List<CalendarModel>> calendarInfo = const {},
+      Wrap<List<WithdrawHistoryEntity>> withdraws = const Wrap.pending(),
+      Wrap<List<TopupEntity>> topups = const Wrap.pending(),
       bool confirm = false,
       bool success = false,
       bool showLoading = false,
@@ -43,6 +45,8 @@ class _$SupernodeDhxStateTearOff {
       calendarBondInfo: calendarBondInfo,
       lastCalendarBondInfo: lastCalendarBondInfo,
       calendarInfo: calendarInfo,
+      withdraws: withdraws,
+      topups: topups,
       confirm: confirm,
       success: success,
       showLoading: showLoading,
@@ -69,6 +73,8 @@ mixin _$SupernodeDhxState {
   List<CalendarModel> get calendarBondInfo;
   List<CalendarModel> get lastCalendarBondInfo;
   Map<String, List<CalendarModel>> get calendarInfo;
+  Wrap<List<WithdrawHistoryEntity>> get withdraws;
+  Wrap<List<TopupEntity>> get topups;
   bool get confirm;
   bool get success;
   bool get showLoading;
@@ -96,6 +102,8 @@ abstract class $SupernodeDhxStateCopyWith<$Res> {
       List<CalendarModel> calendarBondInfo,
       List<CalendarModel> lastCalendarBondInfo,
       Map<String, List<CalendarModel>> calendarInfo,
+      Wrap<List<WithdrawHistoryEntity>> withdraws,
+      Wrap<List<TopupEntity>> topups,
       bool confirm,
       bool success,
       bool showLoading,
@@ -125,6 +133,8 @@ class _$SupernodeDhxStateCopyWithImpl<$Res>
     Object calendarBondInfo = freezed,
     Object lastCalendarBondInfo = freezed,
     Object calendarInfo = freezed,
+    Object withdraws = freezed,
+    Object topups = freezed,
     Object confirm = freezed,
     Object success = freezed,
     Object showLoading = freezed,
@@ -161,6 +171,11 @@ class _$SupernodeDhxStateCopyWithImpl<$Res>
       calendarInfo: calendarInfo == freezed
           ? _value.calendarInfo
           : calendarInfo as Map<String, List<CalendarModel>>,
+      withdraws: withdraws == freezed
+          ? _value.withdraws
+          : withdraws as Wrap<List<WithdrawHistoryEntity>>,
+      topups:
+          topups == freezed ? _value.topups : topups as Wrap<List<TopupEntity>>,
       confirm: confirm == freezed ? _value.confirm : confirm as bool,
       success: success == freezed ? _value.success : success as bool,
       showLoading:
@@ -193,6 +208,8 @@ abstract class _$SupernodeDhxStateCopyWith<$Res>
       List<CalendarModel> calendarBondInfo,
       List<CalendarModel> lastCalendarBondInfo,
       Map<String, List<CalendarModel>> calendarInfo,
+      Wrap<List<WithdrawHistoryEntity>> withdraws,
+      Wrap<List<TopupEntity>> topups,
       bool confirm,
       bool success,
       bool showLoading,
@@ -224,6 +241,8 @@ class __$SupernodeDhxStateCopyWithImpl<$Res>
     Object calendarBondInfo = freezed,
     Object lastCalendarBondInfo = freezed,
     Object calendarInfo = freezed,
+    Object withdraws = freezed,
+    Object topups = freezed,
     Object confirm = freezed,
     Object success = freezed,
     Object showLoading = freezed,
@@ -260,6 +279,11 @@ class __$SupernodeDhxStateCopyWithImpl<$Res>
       calendarInfo: calendarInfo == freezed
           ? _value.calendarInfo
           : calendarInfo as Map<String, List<CalendarModel>>,
+      withdraws: withdraws == freezed
+          ? _value.withdraws
+          : withdraws as Wrap<List<WithdrawHistoryEntity>>,
+      topups:
+          topups == freezed ? _value.topups : topups as Wrap<List<TopupEntity>>,
       confirm: confirm == freezed ? _value.confirm : confirm as bool,
       success: success == freezed ? _value.success : success as bool,
       showLoading:
@@ -289,6 +313,8 @@ class _$_SupernodeDhxState
       this.calendarBondInfo = const [],
       this.lastCalendarBondInfo = const [],
       this.calendarInfo = const {},
+      this.withdraws = const Wrap.pending(),
+      this.topups = const Wrap.pending(),
       this.confirm = false,
       this.success = false,
       this.showLoading = false,
@@ -305,6 +331,8 @@ class _$_SupernodeDhxState
         assert(calendarBondInfo != null),
         assert(lastCalendarBondInfo != null),
         assert(calendarInfo != null),
+        assert(withdraws != null),
+        assert(topups != null),
         assert(confirm != null),
         assert(success != null),
         assert(showLoading != null);
@@ -342,6 +370,12 @@ class _$_SupernodeDhxState
   @JsonKey(defaultValue: const {})
   @override
   final Map<String, List<CalendarModel>> calendarInfo;
+  @JsonKey(defaultValue: const Wrap.pending())
+  @override
+  final Wrap<List<WithdrawHistoryEntity>> withdraws;
+  @JsonKey(defaultValue: const Wrap.pending())
+  @override
+  final Wrap<List<TopupEntity>> topups;
   @JsonKey(defaultValue: false)
   @override
   final bool confirm;
@@ -358,7 +392,7 @@ class _$_SupernodeDhxState
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SupernodeDhxState(balance: $balance, lockedAmount: $lockedAmount, totalRevenue: $totalRevenue, yesterdayTotalMPower: $yesterdayTotalMPower, currentMiningPower: $currentMiningPower, stakes: $stakes, dhxBonded: $dhxBonded, dhxUnbonding: $dhxUnbonding, calendarBondInfo: $calendarBondInfo, lastCalendarBondInfo: $lastCalendarBondInfo, calendarInfo: $calendarInfo, confirm: $confirm, success: $success, showLoading: $showLoading, bondAmount: $bondAmount, unbondAmount: $unbondAmount)';
+    return 'SupernodeDhxState(balance: $balance, lockedAmount: $lockedAmount, totalRevenue: $totalRevenue, yesterdayTotalMPower: $yesterdayTotalMPower, currentMiningPower: $currentMiningPower, stakes: $stakes, dhxBonded: $dhxBonded, dhxUnbonding: $dhxUnbonding, calendarBondInfo: $calendarBondInfo, lastCalendarBondInfo: $lastCalendarBondInfo, calendarInfo: $calendarInfo, withdraws: $withdraws, topups: $topups, confirm: $confirm, success: $success, showLoading: $showLoading, bondAmount: $bondAmount, unbondAmount: $unbondAmount)';
   }
 
   @override
@@ -377,6 +411,8 @@ class _$_SupernodeDhxState
       ..add(DiagnosticsProperty('calendarBondInfo', calendarBondInfo))
       ..add(DiagnosticsProperty('lastCalendarBondInfo', lastCalendarBondInfo))
       ..add(DiagnosticsProperty('calendarInfo', calendarInfo))
+      ..add(DiagnosticsProperty('withdraws', withdraws))
+      ..add(DiagnosticsProperty('topups', topups))
       ..add(DiagnosticsProperty('confirm', confirm))
       ..add(DiagnosticsProperty('success', success))
       ..add(DiagnosticsProperty('showLoading', showLoading))
@@ -420,6 +456,11 @@ class _$_SupernodeDhxState
             (identical(other.calendarInfo, calendarInfo) ||
                 const DeepCollectionEquality()
                     .equals(other.calendarInfo, calendarInfo)) &&
+            (identical(other.withdraws, withdraws) ||
+                const DeepCollectionEquality()
+                    .equals(other.withdraws, withdraws)) &&
+            (identical(other.topups, topups) ||
+                const DeepCollectionEquality().equals(other.topups, topups)) &&
             (identical(other.confirm, confirm) ||
                 const DeepCollectionEquality()
                     .equals(other.confirm, confirm)) &&
@@ -451,6 +492,8 @@ class _$_SupernodeDhxState
       const DeepCollectionEquality().hash(calendarBondInfo) ^
       const DeepCollectionEquality().hash(lastCalendarBondInfo) ^
       const DeepCollectionEquality().hash(calendarInfo) ^
+      const DeepCollectionEquality().hash(withdraws) ^
+      const DeepCollectionEquality().hash(topups) ^
       const DeepCollectionEquality().hash(confirm) ^
       const DeepCollectionEquality().hash(success) ^
       const DeepCollectionEquality().hash(showLoading) ^
@@ -476,6 +519,8 @@ abstract class _SupernodeDhxState implements SupernodeDhxState {
       List<CalendarModel> calendarBondInfo,
       List<CalendarModel> lastCalendarBondInfo,
       Map<String, List<CalendarModel>> calendarInfo,
+      Wrap<List<WithdrawHistoryEntity>> withdraws,
+      Wrap<List<TopupEntity>> topups,
       bool confirm,
       bool success,
       bool showLoading,
@@ -504,6 +549,10 @@ abstract class _SupernodeDhxState implements SupernodeDhxState {
   List<CalendarModel> get lastCalendarBondInfo;
   @override
   Map<String, List<CalendarModel>> get calendarInfo;
+  @override
+  Wrap<List<WithdrawHistoryEntity>> get withdraws;
+  @override
+  Wrap<List<TopupEntity>> get topups;
   @override
   bool get confirm;
   @override

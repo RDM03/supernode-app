@@ -10,6 +10,8 @@ Reducer<MiningSimulatorState> buildReducer() {
       MiningSimulatorAction.months: _months,
       MiningSimulatorAction.lastMining: _lastMining,
       MiningSimulatorAction.expandCalculation: _expandCalculation,
+      MiningSimulatorAction.expandDailyMining: _expandDailyMining,
+      MiningSimulatorAction.expandBond: _expandBond,
     },
   );
 }
@@ -40,8 +42,23 @@ MiningSimulatorState _lastMining(MiningSimulatorState state, Action action) {
 
 MiningSimulatorState _expandCalculation(
     MiningSimulatorState state, Action action) {
-  CalculateExpandState estate = action.payload;
+  bool estate = action.payload;
 
   final MiningSimulatorState newState = state.clone();
-  return newState..calculateExpandState = estate;
+  return newState..mPowerExpand = estate;
+}
+
+MiningSimulatorState _expandDailyMining(
+    MiningSimulatorState state, Action action) {
+  bool estate = action.payload;
+
+  final MiningSimulatorState newState = state.clone();
+  return newState..dailyMiningExpand = estate;
+}
+
+MiningSimulatorState _expandBond(MiningSimulatorState state, Action action) {
+  bool estate = action.payload;
+
+  final MiningSimulatorState newState = state.clone();
+  return newState..bondExpand = estate;
 }

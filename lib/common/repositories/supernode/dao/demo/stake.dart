@@ -87,7 +87,6 @@ class DemoStakeDao extends DemoDao implements StakeDao {
   Future stake(Map data) async {
     return Future.value({
       "status": "Demo mode",
-      ...(await DemoUserDao().profile() as Map),
     });
   }
 
@@ -95,7 +94,6 @@ class DemoStakeDao extends DemoDao implements StakeDao {
   Future unstake(Map data) async {
     return Future.value({
       "status": "Demo mode",
-      ...(await DemoUserDao().profile() as Map),
     });
   }
 

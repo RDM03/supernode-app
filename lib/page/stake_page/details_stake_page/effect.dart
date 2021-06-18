@@ -58,7 +58,6 @@ Future<void> _unstake(Context<DetailsStakeState> ctx, String otpCode) async {
         'title': FlutterI18n.translate(ctx.context, 'unstake'),
         'content': res['status']
       });
-      Navigator.of(ctx.context).pop(true);
     } else {
       tip(res);
     }

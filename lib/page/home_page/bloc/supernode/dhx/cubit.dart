@@ -62,6 +62,8 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       refreshBalance(),
       refreshStakes(),
       refreshLastMining(),
+      refreshTopups(),
+      refreshWithdraws()
     ]);
   }
 
@@ -361,6 +363,40 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
     } catch (e, s) {
       emit(state.copyWith(showLoading: false));
       logger.e('refresh error', e, s);
+    }
+  }
+
+  Future<void> refreshTopups() async {
+    emit(state.copyWith(topups: state.topups.withLoading()));
+    try {
+      final data = {
+        'orgId': orgId,
+        'from': DateTime(2000).toUtc().toIso8601String(),
+        'till': DateTime.now().toUtc().add(Duration(days: 1)).toIso8601String(),
+        'currency': 'DHX',
+      };
+      var history = await supernodeRepository.topup.history(data);
+      emit(state.copyWith(topups: Wrap(history)));
+    } catch (e, s) {
+      logger.e('refresh error', e, s);
+      emit(state.copyWith(topups: state.topups.withError(e)));
+    }
+  }
+
+  Future<void> refreshWithdraws() async {
+    emit(state.copyWith(withdraws: state.withdraws.withLoading()));
+    try {
+      final data = {
+        'orgId': orgId,
+        'from': DateTime(2000).toUtc().toIso8601String(),
+        'till': DateTime.now().toUtc().add(Duration(days: 1)).toIso8601String(),
+        'currency': 'DHX',
+      };
+      var history = await supernodeRepository.withdraw.history(data);
+      emit(state.copyWith(withdraws: Wrap(history)));
+    } catch (e, s) {
+      logger.e('refresh error', e, s);
+      emit(state.copyWith(withdraws: state.withdraws.withError(e)));
     }
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/dhx.model.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/topup.model.dart';
+import 'package:supernodeapp/common/repositories/supernode/dao/withdraw.model.dart';
 import 'package:supernodeapp/common/wrap.dart';
 
 part 'state.freezed.dart';
@@ -19,6 +21,8 @@ abstract class SupernodeDhxState with _$SupernodeDhxState {
     @Default([]) List<CalendarModel> calendarBondInfo,
     @Default([]) List<CalendarModel> lastCalendarBondInfo,
     @Default({}) Map<String, List<CalendarModel>> calendarInfo,
+    @Default(Wrap.pending()) Wrap<List<WithdrawHistoryEntity>> withdraws,
+    @Default(Wrap.pending()) Wrap<List<TopupEntity>> topups,
     @Default(false) bool confirm,
     @Default(false) bool success,
     @Default(false) bool showLoading,

@@ -47,6 +47,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                 FlutterI18n.translate(context, 'learn_more'),
                 onTap: () => Tools.launchURL(Sys.stakeMore),
                 alignment: Alignment.centerLeft,
+                padding: EdgeInsets.symmetric(vertical: 5),
               ),
             ],
           ),

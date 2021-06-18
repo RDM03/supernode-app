@@ -123,9 +123,16 @@ Widget tokenItem(
   bool isSelected,
   VoidCallback onPressed,
   bool showTrailingLine = true,
+  String suffix,
 }) =>
-    SizedBox(
+    Container(
       height: s(62),
+      foregroundDecoration: onPressed == null
+          ? BoxDecoration(
+              color: Colors.grey.shade300,
+              backgroundBlendMode: BlendMode.saturation,
+            )
+          : null,
       child: GestureDetector(
         key: Key(key),
         onTap: onPressed,
@@ -149,10 +156,19 @@ Widget tokenItem(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              title,
-                              style: kBigBoldFontOfBlack,
-                            ),
+                            Row(children: [
+                              Text(
+                                title,
+                                style: kBigBoldFontOfBlack,
+                              ),
+                              if (suffix != null) ...[
+                                SizedBox(width: 5),
+                                Text(
+                                  suffix,
+                                  style: kSmallFontOfGrey,
+                                ),
+                              ]
+                            ]),
                             SizedBox(height: 5),
                             Text(
                               subtitle,
@@ -162,7 +178,11 @@ Widget tokenItem(
                         ),
                         Spacer(),
                         (isSelected != null)
-                            ? Checkbox(value: isSelected)
+                            ? Checkbox(
+                                value: isSelected,
+                                onChanged: (_) => onPressed(),
+                                activeColor: Colors.grey,
+                              )
                             : SizedBox(),
                       ],
                     ),
@@ -262,6 +282,19 @@ void addTokenDialog(
                 context.read<HomeCubit>().toggleSupernodeBtc();
               }
             },
+            showTrailingLine: false,
+          ),
+          tokenItem(
+            context,
+            key: 'addNFT',
+            image: Image.asset(Token.nft.imagePath, height: s(50)),
+            title: Token.nft.name,
+            suffix: '(${FlutterI18n.translate(ctx, 'coming')})',
+            subtitle: FlutterI18n.translate(ctx, 'nft_desc'),
+            color: Token.nft.color,
+            isSelected: false,
+            showTrailingLine: false,
+          ),
 /*TODO uncomment for parachainDhx          ),
           tokenItem(
             context,
@@ -281,8 +314,6 @@ void addTokenDialog(
                 loginParachain(context);
               }
             },*/
-            showTrailingLine: false,
-          ),
         ],
       ),
     ),

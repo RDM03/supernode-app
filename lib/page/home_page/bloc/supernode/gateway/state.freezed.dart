@@ -22,7 +22,14 @@ class _$GatewayStateTearOff {
       Wrap<double> uptimeHealth = const Wrap.pending(),
       Wrap<double> miningFuelHealth = const Wrap.pending(),
       Wrap<double> miningFuel = const Wrap.pending(),
-      Wrap<double> miningFuelMax = const Wrap.pending()}) {
+      Wrap<double> miningFuelMax = const Wrap.pending(),
+      GatewayItem selectedGateway,
+      double downlinkPrice,
+      List<GatewayStatisticResponse> framesLast7days,
+      List<DailyStatistic> statsLast7days,
+      double sumMiningRevenueLast7days,
+      int sumSecondsOnlineLast7days = 0,
+      int secondsLast7days = 1}) {
     return _GatewayState(
       gatewaysTotal: gatewaysTotal,
       gateways: gateways,
@@ -32,6 +39,13 @@ class _$GatewayStateTearOff {
       miningFuelHealth: miningFuelHealth,
       miningFuel: miningFuel,
       miningFuelMax: miningFuelMax,
+      selectedGateway: selectedGateway,
+      downlinkPrice: downlinkPrice,
+      framesLast7days: framesLast7days,
+      statsLast7days: statsLast7days,
+      sumMiningRevenueLast7days: sumMiningRevenueLast7days,
+      sumSecondsOnlineLast7days: sumSecondsOnlineLast7days,
+      secondsLast7days: secondsLast7days,
     );
   }
 }
@@ -50,6 +64,13 @@ mixin _$GatewayState {
   Wrap<double> get miningFuelHealth;
   Wrap<double> get miningFuel;
   Wrap<double> get miningFuelMax;
+  GatewayItem get selectedGateway;
+  double get downlinkPrice;
+  List<GatewayStatisticResponse> get framesLast7days;
+  List<DailyStatistic> get statsLast7days;
+  double get sumMiningRevenueLast7days;
+  int get sumSecondsOnlineLast7days;
+  int get secondsLast7days;
 
   @JsonKey(ignore: true)
   $GatewayStateCopyWith<GatewayState> get copyWith;
@@ -68,7 +89,16 @@ abstract class $GatewayStateCopyWith<$Res> {
       Wrap<double> uptimeHealth,
       Wrap<double> miningFuelHealth,
       Wrap<double> miningFuel,
-      Wrap<double> miningFuelMax});
+      Wrap<double> miningFuelMax,
+      GatewayItem selectedGateway,
+      double downlinkPrice,
+      List<GatewayStatisticResponse> framesLast7days,
+      List<DailyStatistic> statsLast7days,
+      double sumMiningRevenueLast7days,
+      int sumSecondsOnlineLast7days,
+      int secondsLast7days});
+
+  $GatewayItemCopyWith<$Res> get selectedGateway;
 }
 
 /// @nodoc
@@ -89,6 +119,13 @@ class _$GatewayStateCopyWithImpl<$Res> implements $GatewayStateCopyWith<$Res> {
     Object miningFuelHealth = freezed,
     Object miningFuel = freezed,
     Object miningFuelMax = freezed,
+    Object selectedGateway = freezed,
+    Object downlinkPrice = freezed,
+    Object framesLast7days = freezed,
+    Object statsLast7days = freezed,
+    Object sumMiningRevenueLast7days = freezed,
+    Object sumSecondsOnlineLast7days = freezed,
+    Object secondsLast7days = freezed,
   }) {
     return _then(_value.copyWith(
       gatewaysTotal: gatewaysTotal == freezed
@@ -113,7 +150,38 @@ class _$GatewayStateCopyWithImpl<$Res> implements $GatewayStateCopyWith<$Res> {
       miningFuelMax: miningFuelMax == freezed
           ? _value.miningFuelMax
           : miningFuelMax as Wrap<double>,
+      selectedGateway: selectedGateway == freezed
+          ? _value.selectedGateway
+          : selectedGateway as GatewayItem,
+      downlinkPrice: downlinkPrice == freezed
+          ? _value.downlinkPrice
+          : downlinkPrice as double,
+      framesLast7days: framesLast7days == freezed
+          ? _value.framesLast7days
+          : framesLast7days as List<GatewayStatisticResponse>,
+      statsLast7days: statsLast7days == freezed
+          ? _value.statsLast7days
+          : statsLast7days as List<DailyStatistic>,
+      sumMiningRevenueLast7days: sumMiningRevenueLast7days == freezed
+          ? _value.sumMiningRevenueLast7days
+          : sumMiningRevenueLast7days as double,
+      sumSecondsOnlineLast7days: sumSecondsOnlineLast7days == freezed
+          ? _value.sumSecondsOnlineLast7days
+          : sumSecondsOnlineLast7days as int,
+      secondsLast7days: secondsLast7days == freezed
+          ? _value.secondsLast7days
+          : secondsLast7days as int,
     ));
+  }
+
+  @override
+  $GatewayItemCopyWith<$Res> get selectedGateway {
+    if (_value.selectedGateway == null) {
+      return null;
+    }
+    return $GatewayItemCopyWith<$Res>(_value.selectedGateway, (value) {
+      return _then(_value.copyWith(selectedGateway: value));
+    });
   }
 }
 
@@ -132,7 +200,17 @@ abstract class _$GatewayStateCopyWith<$Res>
       Wrap<double> uptimeHealth,
       Wrap<double> miningFuelHealth,
       Wrap<double> miningFuel,
-      Wrap<double> miningFuelMax});
+      Wrap<double> miningFuelMax,
+      GatewayItem selectedGateway,
+      double downlinkPrice,
+      List<GatewayStatisticResponse> framesLast7days,
+      List<DailyStatistic> statsLast7days,
+      double sumMiningRevenueLast7days,
+      int sumSecondsOnlineLast7days,
+      int secondsLast7days});
+
+  @override
+  $GatewayItemCopyWith<$Res> get selectedGateway;
 }
 
 /// @nodoc
@@ -155,6 +233,13 @@ class __$GatewayStateCopyWithImpl<$Res> extends _$GatewayStateCopyWithImpl<$Res>
     Object miningFuelHealth = freezed,
     Object miningFuel = freezed,
     Object miningFuelMax = freezed,
+    Object selectedGateway = freezed,
+    Object downlinkPrice = freezed,
+    Object framesLast7days = freezed,
+    Object statsLast7days = freezed,
+    Object sumMiningRevenueLast7days = freezed,
+    Object sumSecondsOnlineLast7days = freezed,
+    Object secondsLast7days = freezed,
   }) {
     return _then(_GatewayState(
       gatewaysTotal: gatewaysTotal == freezed
@@ -179,6 +264,27 @@ class __$GatewayStateCopyWithImpl<$Res> extends _$GatewayStateCopyWithImpl<$Res>
       miningFuelMax: miningFuelMax == freezed
           ? _value.miningFuelMax
           : miningFuelMax as Wrap<double>,
+      selectedGateway: selectedGateway == freezed
+          ? _value.selectedGateway
+          : selectedGateway as GatewayItem,
+      downlinkPrice: downlinkPrice == freezed
+          ? _value.downlinkPrice
+          : downlinkPrice as double,
+      framesLast7days: framesLast7days == freezed
+          ? _value.framesLast7days
+          : framesLast7days as List<GatewayStatisticResponse>,
+      statsLast7days: statsLast7days == freezed
+          ? _value.statsLast7days
+          : statsLast7days as List<DailyStatistic>,
+      sumMiningRevenueLast7days: sumMiningRevenueLast7days == freezed
+          ? _value.sumMiningRevenueLast7days
+          : sumMiningRevenueLast7days as double,
+      sumSecondsOnlineLast7days: sumSecondsOnlineLast7days == freezed
+          ? _value.sumSecondsOnlineLast7days
+          : sumSecondsOnlineLast7days as int,
+      secondsLast7days: secondsLast7days == freezed
+          ? _value.secondsLast7days
+          : secondsLast7days as int,
     ));
   }
 }
@@ -193,14 +299,23 @@ class _$_GatewayState with DiagnosticableTreeMixin implements _GatewayState {
       this.uptimeHealth = const Wrap.pending(),
       this.miningFuelHealth = const Wrap.pending(),
       this.miningFuel = const Wrap.pending(),
-      this.miningFuelMax = const Wrap.pending()})
+      this.miningFuelMax = const Wrap.pending(),
+      this.selectedGateway,
+      this.downlinkPrice,
+      this.framesLast7days,
+      this.statsLast7days,
+      this.sumMiningRevenueLast7days,
+      this.sumSecondsOnlineLast7days = 0,
+      this.secondsLast7days = 1})
       : assert(gatewaysTotal != null),
         assert(gateways != null),
         assert(health != null),
         assert(uptimeHealth != null),
         assert(miningFuelHealth != null),
         assert(miningFuel != null),
-        assert(miningFuelMax != null);
+        assert(miningFuelMax != null),
+        assert(sumSecondsOnlineLast7days != null),
+        assert(secondsLast7days != null);
 
   @JsonKey(defaultValue: const Wrap.pending())
   @override
@@ -225,10 +340,26 @@ class _$_GatewayState with DiagnosticableTreeMixin implements _GatewayState {
   @JsonKey(defaultValue: const Wrap.pending())
   @override
   final Wrap<double> miningFuelMax;
+  @override
+  final GatewayItem selectedGateway;
+  @override
+  final double downlinkPrice;
+  @override
+  final List<GatewayStatisticResponse> framesLast7days;
+  @override
+  final List<DailyStatistic> statsLast7days;
+  @override
+  final double sumMiningRevenueLast7days;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int sumSecondsOnlineLast7days;
+  @JsonKey(defaultValue: 1)
+  @override
+  final int secondsLast7days;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GatewayState(gatewaysTotal: $gatewaysTotal, gateways: $gateways, listMinersHealth: $listMinersHealth, health: $health, uptimeHealth: $uptimeHealth, miningFuelHealth: $miningFuelHealth, miningFuel: $miningFuel, miningFuelMax: $miningFuelMax)';
+    return 'GatewayState(gatewaysTotal: $gatewaysTotal, gateways: $gateways, listMinersHealth: $listMinersHealth, health: $health, uptimeHealth: $uptimeHealth, miningFuelHealth: $miningFuelHealth, miningFuel: $miningFuel, miningFuelMax: $miningFuelMax, selectedGateway: $selectedGateway, downlinkPrice: $downlinkPrice, framesLast7days: $framesLast7days, statsLast7days: $statsLast7days, sumMiningRevenueLast7days: $sumMiningRevenueLast7days, sumSecondsOnlineLast7days: $sumSecondsOnlineLast7days, secondsLast7days: $secondsLast7days)';
   }
 
   @override
@@ -243,7 +374,16 @@ class _$_GatewayState with DiagnosticableTreeMixin implements _GatewayState {
       ..add(DiagnosticsProperty('uptimeHealth', uptimeHealth))
       ..add(DiagnosticsProperty('miningFuelHealth', miningFuelHealth))
       ..add(DiagnosticsProperty('miningFuel', miningFuel))
-      ..add(DiagnosticsProperty('miningFuelMax', miningFuelMax));
+      ..add(DiagnosticsProperty('miningFuelMax', miningFuelMax))
+      ..add(DiagnosticsProperty('selectedGateway', selectedGateway))
+      ..add(DiagnosticsProperty('downlinkPrice', downlinkPrice))
+      ..add(DiagnosticsProperty('framesLast7days', framesLast7days))
+      ..add(DiagnosticsProperty('statsLast7days', statsLast7days))
+      ..add(DiagnosticsProperty(
+          'sumMiningRevenueLast7days', sumMiningRevenueLast7days))
+      ..add(DiagnosticsProperty(
+          'sumSecondsOnlineLast7days', sumSecondsOnlineLast7days))
+      ..add(DiagnosticsProperty('secondsLast7days', secondsLast7days));
   }
 
   @override
@@ -272,7 +412,32 @@ class _$_GatewayState with DiagnosticableTreeMixin implements _GatewayState {
                     .equals(other.miningFuel, miningFuel)) &&
             (identical(other.miningFuelMax, miningFuelMax) ||
                 const DeepCollectionEquality()
-                    .equals(other.miningFuelMax, miningFuelMax)));
+                    .equals(other.miningFuelMax, miningFuelMax)) &&
+            (identical(other.selectedGateway, selectedGateway) ||
+                const DeepCollectionEquality()
+                    .equals(other.selectedGateway, selectedGateway)) &&
+            (identical(other.downlinkPrice, downlinkPrice) ||
+                const DeepCollectionEquality()
+                    .equals(other.downlinkPrice, downlinkPrice)) &&
+            (identical(other.framesLast7days, framesLast7days) ||
+                const DeepCollectionEquality()
+                    .equals(other.framesLast7days, framesLast7days)) &&
+            (identical(other.statsLast7days, statsLast7days) ||
+                const DeepCollectionEquality()
+                    .equals(other.statsLast7days, statsLast7days)) &&
+            (identical(other.sumMiningRevenueLast7days,
+                    sumMiningRevenueLast7days) ||
+                const DeepCollectionEquality().equals(
+                    other.sumMiningRevenueLast7days,
+                    sumMiningRevenueLast7days)) &&
+            (identical(other.sumSecondsOnlineLast7days,
+                    sumSecondsOnlineLast7days) ||
+                const DeepCollectionEquality().equals(
+                    other.sumSecondsOnlineLast7days,
+                    sumSecondsOnlineLast7days)) &&
+            (identical(other.secondsLast7days, secondsLast7days) ||
+                const DeepCollectionEquality()
+                    .equals(other.secondsLast7days, secondsLast7days)));
   }
 
   @override
@@ -285,7 +450,14 @@ class _$_GatewayState with DiagnosticableTreeMixin implements _GatewayState {
       const DeepCollectionEquality().hash(uptimeHealth) ^
       const DeepCollectionEquality().hash(miningFuelHealth) ^
       const DeepCollectionEquality().hash(miningFuel) ^
-      const DeepCollectionEquality().hash(miningFuelMax);
+      const DeepCollectionEquality().hash(miningFuelMax) ^
+      const DeepCollectionEquality().hash(selectedGateway) ^
+      const DeepCollectionEquality().hash(downlinkPrice) ^
+      const DeepCollectionEquality().hash(framesLast7days) ^
+      const DeepCollectionEquality().hash(statsLast7days) ^
+      const DeepCollectionEquality().hash(sumMiningRevenueLast7days) ^
+      const DeepCollectionEquality().hash(sumSecondsOnlineLast7days) ^
+      const DeepCollectionEquality().hash(secondsLast7days);
 
   @JsonKey(ignore: true)
   @override
@@ -302,7 +474,14 @@ abstract class _GatewayState implements GatewayState {
       Wrap<double> uptimeHealth,
       Wrap<double> miningFuelHealth,
       Wrap<double> miningFuel,
-      Wrap<double> miningFuelMax}) = _$_GatewayState;
+      Wrap<double> miningFuelMax,
+      GatewayItem selectedGateway,
+      double downlinkPrice,
+      List<GatewayStatisticResponse> framesLast7days,
+      List<DailyStatistic> statsLast7days,
+      double sumMiningRevenueLast7days,
+      int sumSecondsOnlineLast7days,
+      int secondsLast7days}) = _$_GatewayState;
 
   @override
   Wrap<int> get gatewaysTotal;
@@ -320,6 +499,20 @@ abstract class _GatewayState implements GatewayState {
   Wrap<double> get miningFuel;
   @override
   Wrap<double> get miningFuelMax;
+  @override
+  GatewayItem get selectedGateway;
+  @override
+  double get downlinkPrice;
+  @override
+  List<GatewayStatisticResponse> get framesLast7days;
+  @override
+  List<DailyStatistic> get statsLast7days;
+  @override
+  double get sumMiningRevenueLast7days;
+  @override
+  int get sumSecondsOnlineLast7days;
+  @override
+  int get secondsLast7days;
   @override
   @JsonKey(ignore: true)
   _$GatewayStateCopyWith<_GatewayState> get copyWith;

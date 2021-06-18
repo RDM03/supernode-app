@@ -42,12 +42,13 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBars.backArrowAppBar(
-          title: FlutterI18n.translate(context, 'dhx_mining'),
-          onPress: () => Navigator.pop(context),
-        ),
-        backgroundColor: backgroundColor,
-        body: PageBody(children: [
+      appBar: AppBars.backArrowAppBar(
+        title: FlutterI18n.translate(context, 'dhx_mining'),
+        onPress: () => Navigator.pop(context),
+      ),
+      backgroundColor: backgroundColor,
+      body: PageBody(
+        children: [
           smallColumnSpacer(),
           SupernodeDhxMineActions(),
           PanelFrame(
@@ -63,17 +64,13 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
           middleColumnSpacer(),
           Row(children: [
             Icon(Icons.circle, color: Token.supernodeDhx.color, size: 12),
-            Text(FlutterI18n.translate(context, "today"),
-                style: kSmallFontOfBlack),
+            Text(FlutterI18n.translate(context, "today"), style: kSmallFontOfBlack),
             Spacer(),
-            Icon(Icons.circle,
-                color: Token.supernodeDhx.color.withOpacity(0.2), size: 12),
-            Text(FlutterI18n.translate(context, 'cool_off'),
-                style: kSmallFontOfBlack),
+            Icon(Icons.circle, color: Token.supernodeDhx.color.withOpacity(0.2), size: 12),
+            Text(FlutterI18n.translate(context, 'cool_off'), style: kSmallFontOfBlack),
             Spacer(),
             Image.asset(AppImages.iconUnbond, scale: 1.8, color: Colors.red),
-            Text(FlutterI18n.translate(context, 'unbonded'),
-                style: kSmallFontOfBlack)
+            Text(FlutterI18n.translate(context, 'unbonded'), style: kSmallFontOfBlack)
           ]),
           smallColumnSpacer(),
           PanelFrame(
@@ -103,7 +100,7 @@ List<Widget> calendar(
     calendarList.add(Flex(
       direction: Axis.horizontal,
       children: [
-        Text('  ${TimeUtil.getMYAbb(items.first.date, withApostrophe: true)}',
+        Text('  ${TimeUtil.getMYAbb(context, items.first.date, withApostrophe: true)}',
             style: kPrimaryBigFontOfBlack),
         Expanded(
             child: Text(

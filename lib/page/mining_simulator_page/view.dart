@@ -127,18 +127,16 @@ Widget buildView(
                   }),
                 ),
                 SizedBox(height: 8),
-                if (state.calculateExpandState ==
-                    CalculateExpandState.notExpanded)
+                if (!state.mPowerExpand)
                   Center(
                     child: SmallActionButton(
                       key: ValueKey('mPowerButton'),
                       text: 'mPower',
                       onTap: () => dispatch(
-                          MiningSimulatorActionCreator.expandCalculation(
-                              CalculateExpandState.mPower)),
+                          MiningSimulatorActionCreator.expandCalculation(true)),
                     ),
                   ),
-                if (state.calculateExpandState == CalculateExpandState.mPower)
+                if (state.mPowerExpand)
                   ValueListenableBuilder2(
                       state.minersAmountCtl, state.mxcLockedCtl, builder: (ctx,
                           TextEditingValue miners, TextEditingValue mxc, _) {
@@ -154,70 +152,104 @@ Widget buildView(
                             ' mPower',
                         onTap: () => dispatch(
                             MiningSimulatorActionCreator.expandCalculation(
-                                CalculateExpandState.notExpanded)),
+                                false)),
                       ),
                     );
                   }),
                 middleColumnSpacer(),
-                Container(
-                  padding: kRoundRow1505,
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        FlutterI18n.translate(_ctx, 'estimated_dhx_daily'),
-                        textAlign: TextAlign.left,
-                        style: kSmallFontOfGrey,
-                      ),
-                      Spacer(),
-                      ValueListenableBuilder3(state.minersAmountCtl,
-                          state.mxcLockedCtl, state.dhxBondedCtl, builder: (ctx,
-                              TextEditingValue miners,
-                              TextEditingValue mxc,
-                              TextEditingValue dhx,
-                              _) {
-                        final dailyReturn =
-                            getDailyReturn(state, mxc.text, miners.text);
-                        final res = dailyReturn == null || dailyReturn.isNaN
-                            ? null
-                            : '${Tools.priceFormat(dailyReturn, range: 2)} ${Token.supernodeDhx.name}';
-                        return Text(
-                          (res ?? '??'),
-                          key: ValueKey('dailyText'),
-                          style: kBigFontOfBlack,
-                        );
-                      }),
-                    ],
+                GestureDetector(
+                  onTap: () => dispatch(
+                    MiningSimulatorActionCreator.expandDailyMining(
+                        !state.dailyMiningExpand),
+                  ),
+                  behavior: HitTestBehavior.opaque,
+                  child: Container(
+                    padding: kRoundRow1505,
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          FlutterI18n.translate(_ctx, 'estimated_dhx_daily'),
+                          textAlign: TextAlign.left,
+                          style: kSmallFontOfGrey,
+                        ),
+                        Expanded(
+                          child: ValueListenableBuilder3(
+                              state.minersAmountCtl,
+                              state.mxcLockedCtl,
+                              state.dhxBondedCtl, builder: (ctx,
+                                  TextEditingValue miners,
+                                  TextEditingValue mxc,
+                                  TextEditingValue dhx,
+                                  _) {
+                            final dailyReturn =
+                                getDailyReturn(state, mxc.text, miners.text);
+                            String res;
+                            if (dailyReturn == null || dailyReturn.isNaN) {
+                              res = null;
+                            } else if (state.dailyMiningExpand) {
+                              res = '$dailyReturn ${Token.supernodeDhx.name}';
+                            } else {
+                              res =
+                                  '${Tools.priceFormat(dailyReturn, range: 2)} ${Token.supernodeDhx.name}';
+                            }
+                            return Text(
+                              (res ?? '??'),
+                              key: ValueKey('dailyText'),
+                              style: kBigFontOfBlack,
+                              textAlign: TextAlign.right,
+                            );
+                          }),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                Container(
-                  padding: kRoundRow1505,
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        FlutterI18n.translate(
-                            _ctx, 'bond_amount_for_max_mining'),
-                        textAlign: TextAlign.left,
-                        style: kSmallFontOfGrey,
-                      ),
-                      Spacer(),
-                      ValueListenableBuilder3(state.minersAmountCtl,
-                          state.mxcLockedCtl, state.dhxBondedCtl, builder: (ctx,
-                              TextEditingValue miners,
-                              TextEditingValue mxc,
-                              TextEditingValue dhx,
-                              _) {
-                        final dailyReturn =
-                            getDailyReturn(state, mxc.text, miners.text);
-                        final res = dailyReturn == null || dailyReturn.isNaN
-                            ? null
-                            : '${Tools.priceFormat(70 * dailyReturn, range: 2)} ${Token.supernodeDhx.name}';
-                        return Text(
-                          (res ?? '??'),
-                          key: ValueKey('dailyText'),
-                          style: kBigFontOfBlack,
-                        );
-                      }),
-                    ],
+                GestureDetector(
+                  onTap: () => dispatch(
+                    MiningSimulatorActionCreator.expandBond(!state.bondExpand),
+                  ),
+                  behavior: HitTestBehavior.opaque,
+                  child: Container(
+                    padding: kRoundRow1505,
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Text(
+                            FlutterI18n.translate(
+                                _ctx, 'bond_amount_for_max_mining'),
+                            textAlign: TextAlign.left,
+                            style: kSmallFontOfGrey,
+                          ),
+                        ),
+                        ValueListenableBuilder3(
+                            state.minersAmountCtl,
+                            state.mxcLockedCtl,
+                            state.dhxBondedCtl, builder: (ctx,
+                                TextEditingValue miners,
+                                TextEditingValue mxc,
+                                TextEditingValue dhx,
+                                _) {
+                          final dailyReturn =
+                              getDailyReturn(state, mxc.text, miners.text);
+                          String res;
+                          if (dailyReturn == null || dailyReturn.isNaN) {
+                            res = null;
+                          } else if (state.bondExpand) {
+                            res =
+                                '${70 * dailyReturn} ${Token.supernodeDhx.name}';
+                          } else {
+                            res =
+                                '${Tools.priceFormat(70 * dailyReturn, range: 2)} ${Token.supernodeDhx.name}';
+                          }
+                          return Text(
+                            (res ?? '??'),
+                            key: ValueKey('dailyText'),
+                            style: kBigFontOfBlack,
+                            textAlign: TextAlign.right,
+                          );
+                        }),
+                      ],
+                    ),
                   ),
                 ),
                 middleColumnSpacer(),
