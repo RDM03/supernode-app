@@ -63,9 +63,10 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
                 : Center(child: CircularProgressIndicator()),
           ),
           Positioned(
-            bottom: 3 + MediaQuery.of(context).viewPadding.bottom,
+            bottom: 70 + MediaQuery.of(context).viewPadding.bottom,
+            right: 20,
             child: FloatingActionButton(
-              child: Icon(Icons.ios_share),
+              child: Icon(Icons.share),
               onPressed: () {
                 Share.shareFiles([widget.filePath]);
               },
