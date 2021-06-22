@@ -77,7 +77,8 @@ class _ProfilePageState extends State<ProfilePage> {
         color: Colors.white,
         child: Stack(alignment: Alignment.topRight, children: [
           Padding(
-            padding: const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
+            padding:
+                const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
             child: GestureDetector(
               child: Icon(Icons.close, color: Colors.black),
               onTap: () => context
@@ -147,7 +148,8 @@ class _ProfilePageState extends State<ProfilePage> {
             ]),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
+            padding:
+                const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
             child: GestureDetector(
               child: Icon(Icons.close, color: Colors.black),
               onTap: () => context.read<SettingsCubit>().bindShopifyStep(0),
@@ -182,7 +184,8 @@ class _ProfilePageState extends State<ProfilePage> {
             ]),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
+            padding:
+                const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
             child: GestureDetector(
               child: Icon(Icons.close, color: Colors.black),
               onTap: () => context.read<SettingsCubit>().bindShopifyStep(0),
@@ -334,19 +337,26 @@ class _ProfilePageState extends State<ProfilePage> {
               buildWhen: (a, b) => a.shopifyUser != b.shopifyUser,
               builder: (ctx, s) => Column(
                     children: [
-                      listItem(
-                          FlutterI18n.translate(
-                                  context,
-                                  (s.shopifyUser == null)
-                                      ? 'bind_shopify_button'
-                                      : 'unbind_shopify_button')
-                              .replaceFirst(
-                                  '{0}', s.shopifyUser?.externalUsername ?? ''),
-                          onTap: () => (s.shopifyUser == null)
-                              ? context.read<SettingsCubit>().bindShopifyStep(1)
-                              : context
-                                  .read<SettingsCubit>()
-                                  .onUnbind(ExternalUser.shopifyService)),
+                      ListTile(
+                          title: Text(
+                              FlutterI18n.translate(
+                                  context, 'bind_shopify_button'),
+                              style: kBigFontOfGrey),
+                          trailing:
+                              Icon(Icons.chevron_right, color: Colors.grey)),
+                      // listItem(
+                      //     FlutterI18n.translate(
+                      //             context,
+                      //             (s.shopifyUser == null)
+                      //                 ? 'bind_shopify_button'
+                      //                 : 'unbind_shopify_button')
+                      //         .replaceFirst(
+                      //             '{0}', s.shopifyUser?.externalUsername ?? ''),
+                      //     onTap: () => (s.shopifyUser == null)
+                      //     ? context.read<SettingsCubit>().bindShopifyStep(1)
+                      //     : context
+                      //         .read<SettingsCubit>()
+                      //         .onUnbind(ExternalUser.shopifyService)),
                       Divider(),
                     ],
                   )),
