@@ -57,7 +57,7 @@ class _DDBarChartState extends State<DDBarChart> {
                   ],
                 ),
                 child: Text(
-                  index != -1 ? '${widget.tooltipData[index]}' : '0',
+                  index != -1 && widget.tooltipData.isNotEmpty && index < widget.tooltipData.length ? '${widget?.tooltipData[index] ?? 0}' : '0',
                   style: kBigFontOfBlack,
                 ),
               )),

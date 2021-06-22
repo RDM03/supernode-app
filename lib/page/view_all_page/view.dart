@@ -74,9 +74,20 @@ class _ViewAllPageState extends State<_ViewAllPage>
     _tabController = TabController(length: tabs.length, vsync: this);
 
     context.read<MinerStatsCubit>().setSelectedType(widget.type);
-    context
-        .read<MinerStatsCubit>()
-        .dispatchData(type: widget.type, minerId: widget.minerId);
+    Future.wait([
+      context.read<MinerStatsCubit>().dispatchData(
+          type: widget.type,
+          minerId: widget.minerId,
+          time: MinerStatsTime.week),
+      // context.read<MinerStatsCubit>().dispatchData(
+      //     type: widget.type,
+      //     minerId: widget.minerId,
+      //     time: MinerStatsTime.month),
+      // context.read<MinerStatsCubit>().dispatchData(
+      //     type: widget.type,
+      //     minerId: widget.minerId,
+      //     time: MinerStatsTime.year),
+    ]);
   }
 
   @override
@@ -121,10 +132,10 @@ class _ViewAllPageState extends State<_ViewAllPage>
                     .map((item) =>
                         Tab(text: FlutterI18n.translate(context, item)))
                     .toList(),
-                onTap: (index) {
+                onTap: (index) async {
                   context.read<MinerStatsCubit>().tabTime(tabs[index]);
 
-                  context.read<MinerStatsCubit>().dispatchData(
+                  await context.read<MinerStatsCubit>().dispatchData(
                         type: widget.type,
                         time: [
                           MinerStatsTime.week,
@@ -143,7 +154,8 @@ class _ViewAllPageState extends State<_ViewAllPage>
               builder: (ctx, state) {
                 return DDChartStats(
                   title: context.read<MinerStatsCubit>().getStatsTitle(),
-                  subTitle: context.read<MinerStatsCubit>().getStatsSubitle(context),
+                  subTitle:
+                      context.read<MinerStatsCubit>().getStatsSubitle(context),
                   startTime:
                       context.read<MinerStatsCubit>().getStartTimeLabel() ??
                           '--',
@@ -158,7 +170,7 @@ class _ViewAllPageState extends State<_ViewAllPage>
             children: tabs.map((item) {
               return BlocBuilder<MinerStatsCubit, MinerStatsState>(
                   // buildWhen: (a, b) =>
-                      // a.selectedTime != b.selectedTime
+                  // a.selectedTime != b.selectedTime
                   builder: (ctx, state) {
                 return state.originList.isEmpty
                     ? Center(child: CircularProgressIndicator())
@@ -180,7 +192,6 @@ class _ViewAllPageState extends State<_ViewAllPage>
                         yLabel: state.yLabelList,
                         notifyGraphBarScroll: (way,
                             {scrollController, firstIndex}) {
-
                           context
                               .read<MinerStatsCubit>()
                               .setScrollFirstIndex(firstIndex);

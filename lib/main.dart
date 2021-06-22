@@ -15,7 +15,6 @@ import 'package:supernodeapp/common/repositories/coingecko_repository.dart';
 import 'package:supernodeapp/common/utils/no_glow_behavior.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/config.dart';
-import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/repositories/storage_repository.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/page/feedback_page/feedback.dart';
