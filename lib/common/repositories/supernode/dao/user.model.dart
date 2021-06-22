@@ -1,7 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-
-import 'package:path_provider/path_provider.dart';
 import 'package:supernodeapp/common/utils/auth.dart';
 
 class UserLoginResponse {
@@ -245,28 +242,6 @@ class FiatCurrency {
   factory FiatCurrency.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
-    return FiatCurrency(
-      map['id'],
-      map['description']
-    );
+    return FiatCurrency(map['id'], map['description']);
   }
-}
-
-Future<String> createFile(String response, String fileName) async {
-  final String dir = (Platform.isAndroid)
-      ? (await getExternalStorageDirectory()).path
-      : (await getApplicationDocumentsDirectory()).path;
-  final String fullPath = '$dir/$fileName';
-  final File report = new File(fullPath);
-  report.openWrite(mode: FileMode.write);
-
-  LineSplitter ls = new LineSplitter();
-  List<String> lines = ls.convert(response);
-  Map<String, dynamic> map;
-  for (String line in lines) {
-    map = jsonDecode(line);
-    await report.writeAsBytes(base64.decode(map['result']['data']), flush: true, mode: FileMode.append);
-  }
-
-  return fullPath;
 }

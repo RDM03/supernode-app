@@ -130,10 +130,11 @@ class DemoUserDao extends DemoDao implements UserDao {
     return Future.value([
       FiatCurrency('usd', 'usd'),
       FiatCurrency('eur', 'eur'),
-      FiatCurrency('cny', 'cny')]);
-    }
+      FiatCurrency('cny', 'cny')
+    ]);
+  }
 
-  Future<String> miningIncomeReport(Map data, String fileName) {
+  Future<String> miningIncomeReport(Map data) {
     throw UnimplementedError('binding not supported in demo');
   }
 }
