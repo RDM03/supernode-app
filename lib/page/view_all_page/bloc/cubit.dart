@@ -457,7 +457,6 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     });
 
     data.sort((a, b) => b.date.compareTo(a.date));
-
     return data;
   }
 
@@ -469,7 +468,8 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     List<String> yLabel = [];
     List<MinerStatsEntity> newData = [];
 
-    emit(state.copyWith(originList: appendAndSortOriginList(data)));
+    data = appendAndSortOriginList(data);
+    emit(state.copyWith(originList: data));
 
     if (time == MinerStatsTime.week) {
       maxValue = maxData(type, data);
