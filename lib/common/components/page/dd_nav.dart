@@ -19,12 +19,12 @@ class DDNav extends StatelessWidget {
   @override
   Widget build(Object context) {
     return Container(
-      padding: kRoundRow0520,
+      padding: kRoundRow2020,
       child: Flex(
         direction: Axis.horizontal,
         children: [
           Container(
-              width: 100,
+              width: 50,
               alignment: Alignment.centerLeft,
               child: Visibility(
                   visible: hasBack,
@@ -37,14 +37,12 @@ class DDNav extends StatelessWidget {
               style: kBigBoldFontOfBlack),
           Spacer(),
           Container(
-              width: 100,
+              width: 50,
               alignment: Alignment.centerRight,
               child: Visibility(
                 visible: hasClose,
                 child: GestureDetector(
-                    child: Padding(
-                        padding: kInnerRowRight20,
-                        child: Icon(Icons.close, color: Colors.black)),
+                    child: Icon(Icons.close, color: Colors.black),
                     onTap: () => Navigator.of(context).pop()),
               ))
         ],

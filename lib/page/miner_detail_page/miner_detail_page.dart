@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/common/components/page/dd_body.dart';
+import 'package:supernodeapp/common/components/page/dd_box_with_shadow.dart';
+import 'package:supernodeapp/common/components/page/dd_nav.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
@@ -32,19 +35,13 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: DDBody(
         child: ListView(
+          padding: EdgeInsets.zero,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 22),
-              child: PageNavBar(
-                text: widget.item.name,
-                centerTitle: true,
-                actionWidget: IconButton(
-                  icon: Icon(Icons.close),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ),
+            DDNav(
+              title: widget.item.name,
+              hasClose: true,
             ),
             SizedBox(height: 10),
             Padding(
