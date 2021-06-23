@@ -13,6 +13,7 @@ import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/common/components/empty.dart';
 import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/common/components/loading_list.dart';
+import 'package:supernodeapp/common/components/page/dd_box_spacer.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
@@ -644,7 +645,6 @@ class GatewayTab extends StatelessWidget {
       body: BlocBuilder<GatewayCubit, GatewayState>(
         buildWhen: (a, b) => a.gateways != b.gateways,
         builder: (ctx, state) => Container(
-          height: MediaQuery.of(context).size.height - 150,
           color: backgroundColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -747,6 +747,7 @@ class GatewaysList extends StatelessWidget {
           Divider(height: 1, thickness: 1, color: Colors.grey.shade50),
       footer: Container(
         height: 10,
+        margin: kOuterRowBottom10,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
