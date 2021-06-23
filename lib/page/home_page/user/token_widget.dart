@@ -87,12 +87,7 @@ class TokenHomePageWidget extends StatelessWidget {
                 key: Key('addTokenTitle'),
                 onTap: () => addTokenDialog(
                   context,
-                  displayedTokens:
-                      context.read<HomeCubit>().state.displayTokens,
-                  parachainConnected:
-                      context.read<HomeCubit>().state.parachainUsed,
-                  supernodeConnected:
-                      context.read<HomeCubit>().state.supernodeUsed,
+                  cubit: context.read<HomeCubit>(),
                 ),
                 child: Container(
                   decoration: BoxDecoration(

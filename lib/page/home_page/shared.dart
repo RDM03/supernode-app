@@ -16,6 +16,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/btc/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/gateway/add_miner/view.dart';
 import 'package:supernodeapp/page/home_page/gateway/bloc/cubit.dart';
+import 'package:supernodeapp/page/home_page/state.dart';
 import 'package:supernodeapp/page/settings_page/settings_page.dart';
 import 'package:supernodeapp/page/withdraw_page/bloc/cubit.dart';
 import 'package:supernodeapp/page/withdraw_page/withdraw_page.dart';
@@ -201,17 +202,35 @@ Widget tokenItem(
       ),
     );
 
-void addTokenDialog(
-  BuildContext context, {
-  List<Token> displayedTokens,
-  bool parachainConnected,
-  bool supernodeConnected,
-}) {
+void addTokenDialog(BuildContext context, {HomeCubit cubit}) {
   showInfoDialog(
     context,
     IosStyleBottomDialog2(
       padding: EdgeInsets.only(top: 10, bottom: 30),
-      builder: (ctx) => Column(
+      builder: (ctx) => AddTokenDialogWidget(cubit: cubit),
+    ),
+  );
+}
+
+class AddTokenDialogWidget extends StatefulWidget {
+  const AddTokenDialogWidget({Key key, this.cubit}) : super(key: key);
+
+  final HomeCubit cubit;
+
+  @override
+  _AddTokenDialogWidgetState createState() => _AddTokenDialogWidgetState();
+}
+
+class _AddTokenDialogWidgetState extends State<AddTokenDialogWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<HomeCubit, HomeState>(
+      cubit: widget.cubit,
+      buildWhen: (a, b) =>
+          a.displayTokens != b.displayTokens ||
+          a.supernodeUsed != b.supernodeUsed ||
+          a.parachainUsed != b.parachainUsed,
+      builder: (ctx, homeState) => Column(
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 16, bottom: 16, left: 32),
@@ -230,13 +249,13 @@ void addTokenDialog(
             image: Image.asset(AppImages.logoMXC, height: s(50)),
             title: 'MXC',
             subtitle: () {
-              if (displayedTokens.contains(Token.mxc)) return 'Existing Token';
-              if (!supernodeConnected) return 'Requires Supernode account';
+              if (homeState.displayTokens.contains(Token.mxc))
+                return 'Existing Token';
+              if (!homeState.supernodeUsed) return 'Requires Supernode account';
               return 'Available';
             }(),
             color: Token.mxc.color,
             onPressed: () {
-              Navigator.pop(ctx);
               // MXC goes by default
             },
           ),
@@ -246,19 +265,18 @@ void addTokenDialog(
             image: Image.asset(AppImages.logoDHX, height: s(50)),
             title: 'DHX',
             subtitle: () {
-              if (displayedTokens.contains(Token.supernodeDhx))
+              if (homeState.displayTokens.contains(Token.supernodeDhx))
                 return 'Existing Token';
-              if (!supernodeConnected) return 'Requires Supernode account';
+              if (!homeState.supernodeUsed) return 'Requires Supernode account';
               return 'Available';
             }(),
             color: Token.supernodeDhx.color,
-            isSelected: displayedTokens.contains(Token.supernodeDhx),
+            isSelected: homeState.displayTokens.contains(Token.supernodeDhx),
             onPressed: () {
-              Navigator.pop(ctx);
-              if (!supernodeConnected) {
+              if (!homeState.supernodeUsed) {
                 loginSupernode(context);
               } else {
-                context.read<HomeCubit>().toggleSupernodeDhx();
+                widget.cubit.toggleSupernodeDhx();
               }
             },
           ),
@@ -268,18 +286,18 @@ void addTokenDialog(
             image: Image.asset(Token.btc.imagePath, height: s(50)),
             title: 'BTC',
             subtitle: () {
-              if (displayedTokens.contains(Token.btc)) return 'Existing Token';
-              if (!supernodeConnected) return 'Requires Supernode account';
+              if (homeState.displayTokens.contains(Token.btc))
+                return 'Existing Token';
+              if (!homeState.supernodeUsed) return 'Requires Supernode account';
               return 'Available';
             }(),
             color: Token.btc.color,
-            isSelected: displayedTokens.contains(Token.btc),
+            isSelected: homeState.displayTokens.contains(Token.btc),
             onPressed: () {
-              Navigator.pop(ctx);
-              if (!supernodeConnected) {
+              if (!homeState.supernodeUsed) {
                 loginSupernode(context);
               } else {
-                context.read<HomeCubit>().toggleSupernodeBtc();
+                widget.cubit.toggleSupernodeBtc();
               }
             },
             showTrailingLine: false,
@@ -294,6 +312,7 @@ void addTokenDialog(
             color: Token.nft.color,
             isSelected: false,
             showTrailingLine: false,
+            onPressed: () {},
           ),
 /*TODO uncomment for parachainDhx          ),
           tokenItem(
@@ -316,8 +335,8 @@ void addTokenDialog(
             },*/
         ],
       ),
-    ),
-  );
+    );
+  }
 }
 
 void showBoostMPowerDialog(BuildContext ctx) {
