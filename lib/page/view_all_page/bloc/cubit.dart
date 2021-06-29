@@ -490,7 +490,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     List<String> yLabel = [];
     List<MinerStatsEntity> newData = [];
 
-    data = appendAndSortOriginList(data);
+    data = appendAndSortOriginList(state.originList, data);
     emit(state.copyWith(originList: data));
 
     if (time == MinerStatsTime.week) {
@@ -660,7 +660,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       }
     }
 
-    maxValue += (maxValue % 10);
+    maxValue += (10 - (maxValue % 10));
 
     return maxValue;
   }
