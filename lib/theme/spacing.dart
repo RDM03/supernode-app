@@ -8,6 +8,7 @@ const kOuterRowTop35 = const EdgeInsets.only(top: 35);
 const kOuterRowTop50 = const EdgeInsets.only(top: 50);
 const kOuterRowTop70 = const EdgeInsets.only(top: 70);
 const kOuterRowTop80 = const EdgeInsets.only(top: 80);
+const kOuterRowBottom10 = const EdgeInsets.only(bottom: 10);
 const kInnerRowLeft5 = const EdgeInsets.only(left: 5);
 const kInnerRowLeft10 = const EdgeInsets.only(left: 10);
 const kInnerRowLeft20 = const EdgeInsets.only(left: 20);
