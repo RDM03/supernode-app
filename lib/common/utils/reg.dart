@@ -127,4 +127,15 @@ class Reg {
 
     return rule.hasMatch(value.trim());
   }
+
+  static String onValidOrganizationName(BuildContext context, String value) {
+    String res = Reg.isEmpty(value);
+
+    if (res != null)
+      return FlutterI18n.translate(context, res);
+
+    RegExp rule = new RegExp(r'^[A-Za-z0-9_\-]+$', caseSensitive: false);
+
+    return rule.hasMatch(value.trim()) ? null : FlutterI18n.translate(context,'reg_invalid_organization_name');
+  }
 }

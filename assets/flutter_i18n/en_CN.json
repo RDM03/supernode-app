@@ -646,5 +646,6 @@
 	"gps_card_comment": "",
 	"health": "Health",
 	"day": "day",
-	"nft_desc": "NFT + COLLECTIBLES"
+	"nft_desc": "NFT + COLLECTIBLES",
+	"reg_invalid_organization_name": "Only letters, numbers, underscores and - are allowed"
 }

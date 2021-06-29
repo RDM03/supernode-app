@@ -646,5 +646,6 @@
 	"add_fuel_confirm": "Estás a punto de alimentar {0} MXC.",
 	"send_to_wallet_confirm": "Estás a punto de enviar {0} MXC a tu billetera. Tenga en cuenta: si retira MXC del tanque de combustible, su eficiencia minera disminuirá.",
 	"send_to_wallet_dont_have_miners": "Parece que no tienes combustible para enviar a tu billetera",
-	"nft_desc": "NFT + COLECCIONABLES"
+	"nft_desc": "NFT + COLECCIONABLES",
+	"reg_invalid_organization_name": "Sólo se permiten letras, números, subrayado y -"
 }

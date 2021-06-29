@@ -646,5 +646,6 @@
 	"add_fuel_confirm": "你即将为 Mxc {0}加油。",
 	"send_to_wallet_confirm": "您即将将{0}MXC发送到您的钱包。请注意：如果您从燃油箱中提取 MXC，您的采矿效率将降低。",
 	"send_to_wallet_dont_have_miners": "好像你没有任何燃料可以送到你的钱包",
-	"nft_desc": "NFT+收藏品"
+	"nft_desc": "NFT+收藏品",
+	"reg_invalid_organization_name": "只允许包含字母、数字、下划线和-"
 }

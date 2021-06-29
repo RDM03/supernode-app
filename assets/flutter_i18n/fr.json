@@ -646,5 +646,6 @@
 	"add_fuel_confirm": "Vous êtes sur le point de faire le {0} MXC.",
 	"send_to_wallet_confirm": "Vous êtes sur le point d’envoyer {0} MXC à votre portefeuille. Remarque : si vous retirez mxc du réservoir de carburant, votre efficacité minière diminuera.",
 	"send_to_wallet_dont_have_miners": "On dirait que vous n’avez pas de carburant à envoyer à votre portefeuille",
-	"nft_desc": "NFT + OBJETS DE COLLECTION"
+	"nft_desc": "NFT + OBJETS DE COLLECTION",
+	"reg_invalid_organization_name": "Seules les lettres, les chiffres, les soulignements et"
 }

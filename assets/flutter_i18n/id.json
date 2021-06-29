@@ -646,5 +646,6 @@
 	"add_fuel_confirm": "Anda akan mengisi bahan bakar {0} MXC.",
 	"send_to_wallet_confirm": "Anda akan mengirim MXC {0} ke dompet Anda. Harap dicatat: jika Anda menarik MXC dari tangki bahan bakar, efisiensi penambangan Anda akan berkurang.",
 	"send_to_wallet_dont_have_miners": "Sepertinya Anda tidak memiliki bahan bakar untuk dikirim ke dompet Anda",
-	"nft_desc": "NFT + KOLEKSI"
+	"nft_desc": "NFT + KOLEKSI",
+	"reg_invalid_organization_name": "Hanya huruf, angka, tanda bawah dan karakter yang diizinkan..."
 }

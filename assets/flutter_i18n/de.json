@@ -646,5 +646,6 @@
 	"add_fuel_confirm": "Sie sind dabei, {0} MXC zu tanken.",
 	"send_to_wallet_confirm": "Sie sind dabei, {0} MXC an Ihre Brieftasche zu senden. Bitte beachten Sie: Wenn Sie MXC aus dem Kraftstofftank ziehen, verringert sich Ihre Mining-Effizienz.",
 	"send_to_wallet_dont_have_miners": "Es scheint, als hätten Sie keinen Treibstoff, um an Ihre Brieftasche zu senden",
-	"nft_desc": "NFT + COLLECTIBLES"
+	"nft_desc": "NFT + COLLECTIBLES",
+	"reg_invalid_organization_name": "Nur Buchstaben, Zahlen, Unterstriche und Zeichen sind erlaubt."
 }

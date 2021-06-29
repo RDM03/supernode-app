@@ -646,5 +646,6 @@
 	"add_fuel_confirm": "あなたはMXC{0}燃料を補給しようとしています。",
 	"send_to_wallet_confirm": "あなたは{0}MXCをあなたの財布に送ろうとしています。ご注意:燃料タンクからMXCを撤回すると、採掘効率が低下します。",
 	"send_to_wallet_dont_have_miners": "あなたの財布に送る燃料を持っていないようです",
-	"nft_desc": "NFT + コレクティブルズ"
+	"nft_desc": "NFT + コレクティブルズ",
+	"reg_invalid_organization_name": "文字、数字、下線、および-のみを許可します。"
 }

@@ -646,5 +646,6 @@
 	"add_fuel_confirm": "papasok ka",
 	"send_to_wallet_confirm": null,
 	"send_to_wallet_dont_have_miners": "Di ko na kayo bati",
-	"nft_desc": "mga koleksiyon"
+	"nft_desc": "mga koleksiyon",
+	"reg_invalid_organization_name": "Lamang ang mga titik, numero, underscores at mga character ay pinapayagan-"
 }

@@ -125,7 +125,7 @@ Widget buildView(
                 title: FlutterI18n.translate(_ctx, 'organization_name'),
                 hint: FlutterI18n.translate(_ctx, 'organization_name_hint'),
                 textInputAction: TextInputAction.next,
-                validator: (value) => Reg.onNotEmpty(_ctx, value),
+                validator: (value) => Reg.onValidOrganizationName(_ctx, value),
                 controller: state.orgCtl
                   ..text = state.orgCtl.text == ""
                       ? state.emailCtl.text.split('@')[0]
@@ -138,7 +138,7 @@ Widget buildView(
                 title: FlutterI18n.translate(_ctx, 'display_name'),
                 hint: FlutterI18n.translate(_ctx, 'display_name_hint'),
                 textInputAction: TextInputAction.done,
-                validator: (value) => Reg.onNotEmpty(_ctx, value),
+                validator: (value) => Reg.onValidOrganizationName(_ctx, value),
                 controller: state.displayCtl
                   ..text = state.displayCtl.text == ""
                       ? state.emailCtl.text.split('@')[0]

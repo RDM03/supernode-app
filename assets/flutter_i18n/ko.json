@@ -646,5 +646,6 @@
 	"add_fuel_confirm": "당신은 MXC에 연료를 공급하려고 {0}.",
 	"send_to_wallet_confirm": "당신은 당신의 지갑에 {0} MXC를 보내려고합니다. 참고: 연료 탱크에서 MXC를 인출하면 채굴 효율이 저하됩니다.",
 	"send_to_wallet_dont_have_miners": "지갑에 보낼 연료가 없는 것 같습니다.",
-	"nft_desc": "NFT + 수집품"
+	"nft_desc": "NFT + 수집품",
+	"reg_invalid_organization_name": "알파벳, 숫자, 밑줄 그리고 -"
 }

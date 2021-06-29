@@ -123,7 +123,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       title:
                           FlutterI18n.translate(context, 'organization_name'),
                       textInputAction: TextInputAction.next,
-                      validator: (value) => Reg.onNotEmpty(context, value),
+                      validator: (value) => Reg.onValidOrganizationName(context, value),
                       controller: orgNameController
                         ..text = orgNameController.text == ""
                             ? emailController.text.split('@')[0]
@@ -135,7 +135,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     child: TextFieldWithTitle(
                       title: FlutterI18n.translate(context, 'display_name'),
                       textInputAction: TextInputAction.done,
-                      validator: (value) => Reg.onNotEmpty(context, value),
+                      validator: (value) => Reg.onValidOrganizationName(context, value),
                       controller: orgDisplayNameController
                         ..text = orgDisplayNameController.text == ""
                             ? emailController.text.split('@')[0]

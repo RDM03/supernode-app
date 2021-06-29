@@ -646,5 +646,6 @@
 	"add_fuel_confirm": "Je staat op het punt om {0} MXC bij te tanken.",
 	"send_to_wallet_confirm": "U staat op het punt om {0} MXC naar uw portemonnee te sturen. Let op: als u MXC uit de brandstoftank haalt, zal uw mijnbouwefficiëntie afnemen.",
 	"send_to_wallet_dont_have_miners": "Het lijkt erop dat je geen brandstof hebt om naar je portemonnee te sturen",
-	"nft_desc": "NFT + VERZAMELOBJECTEN"
+	"nft_desc": "NFT + VERZAMELOBJECTEN",
+	"reg_invalid_organization_name": "Alleen letters, nummers, undercores en tekens zijn toegestaan."
 }

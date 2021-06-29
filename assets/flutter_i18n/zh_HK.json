@@ -646,5 +646,6 @@
 	"add_fuel_confirm": "Adam和Jamie即將看到",
 	"send_to_wallet_confirm": null,
 	"send_to_wallet_dont_have_miners": "你沒有任何訂購",
-	"nft_desc": null
+	"nft_desc": "NFT+收藏品",
+	"reg_invalid_organization_name": "只允許包含字母、數字、下劃線和-"
 }

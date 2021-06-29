@@ -276,7 +276,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       key: Key('organizationNameInput'),
                       title:
                           FlutterI18n.translate(context, 'organization_name'),
-                      validator: (value) => _validName(context, value),
+                      validator: (value) => Reg.onValidOrganizationName(context, value),
                       controller: orgnameController,
                       textInputAction: TextInputAction.next,
                     ),
@@ -284,7 +284,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     TextFieldWithTitle(
                       key: Key('displayNameInput'),
                       title: FlutterI18n.translate(context, 'display_name'),
-                      validator: (value) => _validName(context, value),
+                      validator: (value) => Reg.onValidOrganizationName(context, value),
                       controller: orgDisplayController,
                       textInputAction: TextInputAction.next,
                     ),
@@ -408,15 +408,6 @@ class _ProfilePageState extends State<ProfilePage> {
     if (res != null) return FlutterI18n.translate(context, res);
 
     res = Reg.isEmail(value);
-    if (res != null) {
-      return FlutterI18n.translate(context, res);
-    }
-
-    return null;
-  }
-
-  String _validName(BuildContext context, String value) {
-    String res = Reg.isEmpty(value);
     if (res != null) {
       return FlutterI18n.translate(context, res);
     }

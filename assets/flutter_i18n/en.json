@@ -688,5 +688,6 @@
 	"october": "October",
 	"november": "November",
 	"december": "December",
-	"day": "day"
+	"day": "day",
+	"reg_invalid_organization_name": "Only letters, numbers, underscores and - are allowed"
 }

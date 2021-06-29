@@ -646,5 +646,6 @@
 	"add_fuel_confirm": "Bạn sắp nạp nhiên liệu cho {0} MXC.",
 	"send_to_wallet_confirm": "Bạn sắp gửi mxc {0} vào ví của mình. Xin lưu ý: nếu bạn rút MXC khỏi bình nhiên liệu, hiệu quả khai thác của bạn sẽ giảm.",
 	"send_to_wallet_dont_have_miners": "Có vẻ như bạn không có bất kỳ nhiên liệu nào để gửi đến ví của mình",
-	"nft_desc": "NFT + ĐỒ SƯU TẦM"
+	"nft_desc": "NFT + ĐỒ SƯU TẦM",
+	"reg_invalid_organization_name": "Chỉ có chữ cái, số điện, ô gạch và ký tự được phép..."
 }

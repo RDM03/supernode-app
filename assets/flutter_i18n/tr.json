@@ -646,5 +646,6 @@
 	"add_fuel_confirm": "MXC{0} yakıt almak üzeresiniz.",
 	"send_to_wallet_confirm": "Cüzdanınıza {0} MXC göndermek üzeresiniz. Lütfen dikkat: MXC'yi yakıt deposundan çekerseniz madencilik verimliliğiniz düşer.",
 	"send_to_wallet_dont_have_miners": "Cüzdanınıza gönderecek yakıtınız yok gibi görünüyor.",
-	"nft_desc": "NFT + KOLEKSIYONLAR"
+	"nft_desc": "NFT + KOLEKSIYONLAR",
+	"reg_invalid_organization_name": "Sadece mektuplar, sayılar, altı notlar ve karakterler izin verilir."
 }
