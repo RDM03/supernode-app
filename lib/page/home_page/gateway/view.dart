@@ -13,8 +13,6 @@ import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/common/components/empty.dart';
 import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/common/components/loading_list.dart';
-import 'package:supernodeapp/common/components/page/dd_box_spacer.dart';
-import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/row_spacer.dart';
@@ -38,65 +36,6 @@ import 'package:supernodeapp/theme/spacing.dart';
 import '../shared.dart';
 
 class GatewayTab extends StatelessWidget {
-  void aboutPage(
-      BuildContext context, String title, Widget illustration, String text,
-      {Widget bottomButton}) {
-    Navigator.of(context).push(MaterialPageRoute(
-        fullscreenDialog: true,
-        builder: (ctx) => pageFrame(
-                context: ctx,
-                padding: EdgeInsets.all(0.0),
-                children: <Widget>[
-                  ListTile(
-                    title:
-                        Center(child: Text(title, style: kBigBoldFontOfBlack)),
-                    leading: SizedBox(),
-                    trailing: GestureDetector(
-                      child: Icon(Icons.close, color: Colors.black),
-                      onTap: () => Navigator.of(ctx).pop(),
-                    ),
-                  ),
-                  SizedBox(height: 50),
-                  Center(child: illustration),
-                  SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Text(text,
-                        style: kBigFontOfBlack, textAlign: TextAlign.center),
-                  ),
-                  SizedBox(height: 70),
-                  (bottomButton != null)
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: bottomButton)
-                      : SizedBox(),
-                ])));
-  }
-
-  Widget aboutPageIllustration(String title, Widget image) {
-    return Container(
-      height: 150,
-      width: 150,
-      decoration: BoxDecoration(
-        color: minerColor.withOpacity(.1),
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('100%', style: kVeryBigFontOfBlack),
-              SizedBox(height: 5),
-              image,
-              SizedBox(height: 5),
-              Text(title, style: kBigFontOfBlack),
-            ]),
-      ),
-    );
-  }
-
   void addSendDialog(BuildContext ctx) {
     showInfoDialog(
       ctx,
@@ -574,6 +513,7 @@ class GatewayTab extends StatelessWidget {
                                           Navigator.pop(context);
                                           await Navigator.of(ctx).push(
                                               route((ctx) => AddFuelPage()));
+                                          await context.read<GatewayCubit>().refresh();
                                         },
                                         buttonTitle: FlutterI18n.translate(
                                             context, 'fuel_miners'),
