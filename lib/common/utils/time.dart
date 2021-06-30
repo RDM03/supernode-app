@@ -125,9 +125,18 @@ class TimeUtil {
     return '${date.month.toString().padLeft(2, '0')}';
   }
 
+    static String getMYAbb(BuildContext context, DateTime date,{bool withApostrophe = false}) {
+    return '${monthsShort(context)[date.month]}${withApostrophe == true ? "\'" : " "}${date.year.toString().substring(2)}';
+  }
+
+
   static int getCurrentTimeStamp() {
     var now = new DateTime.now();
     return now.millisecondsSinceEpoch;
+  }
+
+  static String getYM(DateTime date) {
+    return '${date.year}${date.month.toString().padLeft(2, '0')}';
   }
 
   static bool isSameDay(DateTime time1, DateTime time2) {

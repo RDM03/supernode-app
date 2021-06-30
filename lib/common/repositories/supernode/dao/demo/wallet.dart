@@ -70,6 +70,28 @@ class DemoWalletDao extends DemoDao implements WalletDao {
   }
 
   @override
+  Future historyTransaction(Map data) {
+    return Future.value({
+      "tx": [
+        {
+          "amount": "1",
+          "detailsJson": "string",
+          "id": "1",
+          "paymentType": "DHX_UNBONDING",
+          "timestamp": "2021-06-15T09:01:19.057Z"
+        },
+        {
+          "amount": "1",
+          "detailsJson": "string",
+          "id": "1",
+          "paymentType": "DHX_UNBONDING",
+          "timestamp": DateTime.now().add(Duration(days: -1)).toUtc().toIso8601String()
+        }
+      ]
+    });
+  }
+
+  @override
   Future miningIncome(Map data) async {
     return Future.value({
       'miningIncome': 10,
