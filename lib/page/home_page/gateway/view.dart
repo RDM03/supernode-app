@@ -13,11 +13,11 @@ import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/common/components/empty.dart';
 import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/common/components/loading_list.dart';
-import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/row_spacer.dart';
 import 'package:supernodeapp/common/components/widgets/circular_graph.dart';
+import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
@@ -36,65 +36,6 @@ import 'package:supernodeapp/theme/spacing.dart';
 import '../shared.dart';
 
 class GatewayTab extends StatelessWidget {
-  void aboutPage(
-      BuildContext context, String title, Widget illustration, String text,
-      {Widget bottomButton}) {
-    Navigator.of(context).push(MaterialPageRoute(
-        fullscreenDialog: true,
-        builder: (ctx) => pageFrame(
-                context: ctx,
-                padding: EdgeInsets.all(0.0),
-                children: <Widget>[
-                  ListTile(
-                    title:
-                        Center(child: Text(title, style: kBigBoldFontOfBlack)),
-                    leading: SizedBox(),
-                    trailing: GestureDetector(
-                      child: Icon(Icons.close, color: Colors.black),
-                      onTap: () => Navigator.of(ctx).pop(),
-                    ),
-                  ),
-                  SizedBox(height: 50),
-                  Center(child: illustration),
-                  SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Text(text,
-                        style: kBigFontOfBlack, textAlign: TextAlign.center),
-                  ),
-                  SizedBox(height: 70),
-                  (bottomButton != null)
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: bottomButton)
-                      : SizedBox(),
-                ])));
-  }
-
-  Widget aboutPageIllustration(String title, Widget image) {
-    return Container(
-      height: 150,
-      width: 150,
-      decoration: BoxDecoration(
-        color: minerColor.withOpacity(.1),
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('100%', style: kVeryBigFontOfBlack),
-              SizedBox(height: 5),
-              image,
-              SizedBox(height: 5),
-              Text(title, style: kBigFontOfBlack),
-            ]),
-      ),
-    );
-  }
-
   void addSendDialog(BuildContext ctx) {
     showInfoDialog(
       ctx,
@@ -348,7 +289,7 @@ class GatewayTab extends StatelessWidget {
                                         FlutterI18n.translate(
                                             context, 'uptime'),
                                         Image.asset(AppImages.uptime,
-                                            scale: 0.7)),
+                                            width: s(60), fit: BoxFit.contain)),
                                     FlutterI18n.translate(
                                         context, 'uptime_info')),
                                 child: Container(
@@ -396,7 +337,8 @@ class GatewayTab extends StatelessWidget {
                                     FlutterI18n.translate(context, 'gps'),
                                     aboutPageIllustration(
                                         FlutterI18n.translate(context, 'gps'),
-                                        Image.asset(AppImages.gps, scale: 0.7)),
+                                        Image.asset(AppImages.gps,
+                                            width: s(60), fit: BoxFit.contain)),
                                     FlutterI18n.translate(context, 'gps_info')),
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -433,7 +375,7 @@ class GatewayTab extends StatelessWidget {
                                         FlutterI18n.translate(
                                             context, 'altitude'),
                                         Image.asset(AppImages.altitude,
-                                            scale: 0.7)),
+                                            width: s(60), fit: BoxFit.contain)),
                                     FlutterI18n.translate(
                                         context, 'altitude_info')),
                                 child: Container(
@@ -475,7 +417,7 @@ class GatewayTab extends StatelessWidget {
                                         FlutterI18n.translate(
                                             context, 'orientation'),
                                         Image.asset(AppImages.orientation,
-                                            scale: 0.7)),
+                                            width: s(60), fit: BoxFit.contain)),
                                     FlutterI18n.translate(
                                         context, 'orientation_info')),
                                 child: Container(
@@ -514,7 +456,7 @@ class GatewayTab extends StatelessWidget {
                                         FlutterI18n.translate(
                                             context, 'proximity'),
                                         Image.asset(AppImages.proximity,
-                                            scale: 0.7)),
+                                            width: s(60), fit: BoxFit.contain)),
                                     FlutterI18n.translate(
                                         context, 'proximity_info')),
                                 child: Container(
@@ -556,9 +498,12 @@ class GatewayTab extends StatelessWidget {
                                             children: [
                                               Image.asset(AppImages.uptime,
                                                   color: Colors.white,
-                                                  scale: 0.7),
+                                                  width: s(60),
+                                                  fit: BoxFit.contain),
                                               Image.asset(AppImages.fuel,
-                                                  color: fuelColor, scale: 0.7),
+                                                  color: fuelColor,
+                                                  width: s(20),
+                                                  fit: BoxFit.contain),
                                             ])),
                                     FlutterI18n.translate(context, 'fuel_info'),
                                     bottomButton: PrimaryButton(
@@ -568,6 +513,7 @@ class GatewayTab extends StatelessWidget {
                                           Navigator.pop(context);
                                           await Navigator.of(ctx).push(
                                               route((ctx) => AddFuelPage()));
+                                          await context.read<GatewayCubit>().refresh();
                                         },
                                         buttonTitle: FlutterI18n.translate(
                                             context, 'fuel_miners'),
@@ -639,7 +585,6 @@ class GatewayTab extends StatelessWidget {
       body: BlocBuilder<GatewayCubit, GatewayState>(
         buildWhen: (a, b) => a.gateways != b.gateways,
         builder: (ctx, state) => Container(
-          height: MediaQuery.of(context).size.height - 150,
           color: backgroundColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -715,14 +660,13 @@ class GatewaysList extends StatelessWidget {
           onTap: () async {
             if (!state.reseller)
               await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  fullscreenDialog: true,
-                  builder:(ctx) => MinerDetailPage(
-                    item: state,
-                  ),
-                )
-              );
+                  context,
+                  MaterialPageRoute(
+                    fullscreenDialog: true,
+                    builder: (ctx) => MinerDetailPage(
+                      item: state,
+                    ),
+                  ));
           },
         ),
         secondaryActions: <Widget>[
@@ -743,6 +687,7 @@ class GatewaysList extends StatelessWidget {
           Divider(height: 1, thickness: 1, color: Colors.grey.shade50),
       footer: Container(
         height: 10,
+        margin: kOuterRowBottom10,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
