@@ -257,9 +257,7 @@ class AddNewTokenCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => addTokenDialog(
         context,
-        displayedTokens: context.read<HomeCubit>().state.displayTokens,
-        parachainConnected: context.read<HomeCubit>().state.parachainUsed,
-        supernodeConnected: context.read<HomeCubit>().state.supernodeUsed,
+        cubit: context.read<HomeCubit>(),
       ),
       child: PanelFrame(
         child: Padding(
