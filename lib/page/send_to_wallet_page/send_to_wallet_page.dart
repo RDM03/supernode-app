@@ -208,8 +208,11 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                     child: Text(
                       item.name,
                       style: kBigFontOfBlack,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
+                  const SizedBox(width: 5),
                   Image.asset(
                     AppImages.gateways,
                     height: 16,
