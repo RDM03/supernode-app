@@ -15,13 +15,9 @@ import 'package:supernodeapp/common/repositories/coingecko_repository.dart';
 import 'package:supernodeapp/common/utils/no_glow_behavior.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/config.dart';
-import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/repositories/storage_repository.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/page/feedback_page/feedback.dart';
-import 'package:supernodeapp/page/address_book_page/add_address_page/page.dart';
-import 'package:supernodeapp/page/address_book_page/address_details_page/page.dart';
-import 'package:supernodeapp/page/address_book_page/page.dart';
 import 'package:supernodeapp/page/calculator_list_page/page.dart';
 import 'package:supernodeapp/page/calculator_page/page.dart';
 import 'package:supernodeapp/page/connectivity_lost_page/page.dart';
@@ -84,9 +80,12 @@ List<BlocListener> listeners() => [
         },
       ),
       BlocListener<AppCubit, AppState>(
-        listenWhen: (a, b) => a.selectedFiatForExport != b.selectedFiatForExport,
+        listenWhen: (a, b) =>
+            a.selectedFiatForExport != b.selectedFiatForExport,
         listener: (context, state) {
-          context.read<StorageRepository>().setSelectedFiatForExport(state.selectedFiatForExport);
+          context
+              .read<StorageRepository>()
+              .setSelectedFiatForExport(state.selectedFiatForExport);
         },
       ),
     ];
@@ -191,9 +190,6 @@ class MxcApp extends StatelessWidget {
       'device_mapbox_page': DeviceMapBoxPage(),
       'calculator_page': CalculatorPage(),
       'calculator_list_page': CalculatorListPage(),
-      'address_book_page': AddressBookPage(),
-      'add_address_page': AddAddressPage(),
-      'address_details_page': AddressDetailsPage(),
       'connectivity_lost_page': ConnectivityLostPage(),
       'prepare_stake_page': PrepareStakePage(),
       'confirm_stake_page': ConfirmStakePage(),
