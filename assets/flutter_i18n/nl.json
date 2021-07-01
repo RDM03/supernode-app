@@ -646,5 +646,10 @@
 	"add_fuel_confirm": "Je staat op het punt om {0} MXC bij te tanken.",
 	"send_to_wallet_confirm": "U staat op het punt om {0} MXC naar uw portemonnee te sturen. Let op: als u MXC uit de brandstoftank haalt, zal uw mijnbouwefficiëntie afnemen.",
 	"send_to_wallet_dont_have_miners": "Het lijkt erop dat je geen brandstof hebt om naar je portemonnee te sturen",
-	"nft_desc": "NFT + VERZAMELOBJECTEN"
+	"nft_desc": "NFT + VERZAMELOBJECTEN",
+	"adding_miner_failure_title": "Oeps.Er is iets misgegaan.",
+	"adding_miner_failure_detail": "Dat werkte goed, probeer het nog eens.",
+	"adding_miner_success_detail": "Uw M2 Pro Miner is nu de mijnbouw.",
+	"adding_miner_warning_title": "Opmerking: Deze mijnwerker wordt één gebruikt",
+	"adding_miner_warning_detail": "De gebruikte mijnwerkers functioneren anders dan de nieuwe mijnwerkers.Als u van plan was een gebruikte mijnwerker te kopen, neem dan contact op met de persoon die het aan u heeft verkocht."
 }

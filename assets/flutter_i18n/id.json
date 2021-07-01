@@ -646,5 +646,10 @@
 	"add_fuel_confirm": "Anda akan mengisi bahan bakar {0} MXC.",
 	"send_to_wallet_confirm": "Anda akan mengirim MXC {0} ke dompet Anda. Harap dicatat: jika Anda menarik MXC dari tangki bahan bakar, efisiensi penambangan Anda akan berkurang.",
 	"send_to_wallet_dont_have_miners": "Sepertinya Anda tidak memiliki bahan bakar untuk dikirim ke dompet Anda",
-	"nft_desc": "NFT + KOLEKSI"
+	"nft_desc": "NFT + KOLEKSI",
+	"adding_miner_failure_title": "Oops!ada yang salah",
+	"adding_miner_failure_detail": "Itu tidak cukup berhasil, silakan coba lagi.",
+	"adding_miner_success_detail": "M2 Pro Miner Anda sekarang menggombak",
+	"adding_miner_warning_title": "Perhatian : Penombak ini digunakan satu",
+	"adding_miner_warning_detail": "Para tambang yang digunakan berfungsi berbeda dari tambang baru.Jika Anda tidak berniat untuk membeli tambang yang digunakan, silakan hubungi orang yang menjualnya kepada Anda."
 }
