@@ -62,4 +62,4 @@ JIRA_AUTH is 'email:token' encoded in base64
 ```
 flutter clean
 flutter build apk --flavor prod
-``
+```
