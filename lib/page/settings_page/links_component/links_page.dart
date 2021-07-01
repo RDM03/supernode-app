@@ -3,8 +3,11 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
+import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
+import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/spacing.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LinksPage extends StatelessWidget {
@@ -31,9 +34,9 @@ class LinksPage extends StatelessWidget {
         _item(
           name: FlutterI18n.translate(context, 'join_us_wechat'),
           onTap: () =>
-              launch('https://mp.weixin.qq.com/s/wQI0nGCbzB5089r4_VmzjQ'),
+              showWeChatDialog(context),
           leading: Image.asset(
-            'assets/images/settings/wechat.png',
+            AppImages.weChat,
             color: buttonPrimaryColor,
           ),
         ),
@@ -67,5 +70,21 @@ Widget _item({String name = '', Function onTap, Widget leading}) {
     title: Text(name, style: kBigFontOfBlack),
     onTap: onTap,
     leading: leading,
+  );
+}
+
+void showWeChatDialog(BuildContext context) {
+  showInfoDialog(
+    context,
+    IosStyleBottomDialog2(
+      padding: EdgeInsets.only(top: 10, bottom: 30),
+      builder: (ctx) => Container(
+        alignment: Alignment.center,
+        margin: kRoundRow2020,
+        child: Image.asset(
+          AppImages.weChatQRCode
+        ),
+      ),
+    ),
   );
 }
