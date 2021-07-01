@@ -46,6 +46,10 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     }
 
     emit(state.copyWith(selectedTime: selectedTime));
+    emit(state.copyWith(scrollFirstIndex: 0));
+    emit(state.copyWith(originList: []));
+    emit(state.copyWith(originMonthlyList: []));
+    emit(state.copyWith(originYearlyList: []));
   }
 
   void setSelectedType(MinerStatsType type) {
@@ -91,7 +95,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     if (lastIndex < list.length) {
       return list.sublist(state.scrollFirstIndex, lastIndex);
     } else {
-      return list.sublist(state.scrollFirstIndex, list.length);
+      return list.sublist(list.length - 10, list.length);
     }
   }
 
@@ -410,10 +414,12 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     }
   }
 
-  List<int> getYLabel(double maxValue) {
-    List<int> yLabel = [];
+  int getYAxisStep(double maxValue) {
     int step = 3;
-    if (maxValue >= 6400) {
+
+    if (maxValue >= 20000) {
+      step = 2000;
+    } else if (maxValue >= 6400) {
       step = 800;
     } else if (maxValue >= 1600) {
       step = 200;
@@ -425,8 +431,23 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       step = 30;
     } else if (maxValue >= 168) {
       step = 21;
+    } else if (maxValue >= 100) {
+      step = 10;
     } else if (maxValue >= 24) {
       step = 3;
+    }
+
+    return step;
+  }
+
+  List<int> getYLabel(double maxValue) {
+    List<int> yLabel = [];
+    int step = 3;
+
+    if(state.selectedType == MinerStatsType.uptime){
+      step = getYAxisStep(maxValue);
+    }else{
+      step = (maxValue / 10).floor();
     }
 
     for (int y = step; y <= maxValue; y += step) {
@@ -449,8 +470,9 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     }
   }
 
-  List<MinerStatsEntity> appendAndSortOriginList(List<MinerStatsEntity> data) {
-    state.originList.forEach((item) {
+  List<MinerStatsEntity> appendAndSortOriginList(
+      List<MinerStatsEntity> orginalList, List<MinerStatsEntity> data) {
+    orginalList.forEach((item) {
       if (!data.any((element) => TimeUtil.isSameDay(element.date, item.date))) {
         data.add(item);
       }
@@ -468,11 +490,11 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     List<String> yLabel = [];
     List<MinerStatsEntity> newData = [];
 
-    data = appendAndSortOriginList(data);
+    data = appendAndSortOriginList(state.originList, data);
     emit(state.copyWith(originList: data));
 
     if (time == MinerStatsTime.week) {
-      maxValue = maxData(type, data);
+      maxValue = maxData(type, state.originList);
 
       data.forEach((item) {
         if (type == MinerStatsType.uptime) {
@@ -525,7 +547,11 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
         }
       });
 
-      maxValue = maxData(type, newData);
+      emit(state.copyWith(
+          originMonthlyList:
+              appendAndSortOriginList(state.originMonthlyList, newData)));
+      maxValue = maxData(type, state.originMonthlyList);
+
       newData.forEach((item) {
         if (type == MinerStatsType.uptime) {
           maxValue = 168.0 * 3600;
@@ -540,8 +566,6 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
 
         xLabel.add('${monthsAbbLabels[item.date.month]} ${item.date.day}');
       });
-
-      emit(state.copyWith(originMonthlyList: newData));
     } else {
       data.forEach((item) {
         bool hasResult = newData
@@ -572,7 +596,11 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
         }
       });
 
-      maxValue = maxData(type, newData);
+      emit(state.copyWith(
+          originYearlyList:
+              appendAndSortOriginList(state.originYearlyList, newData)));
+      maxValue = maxData(type, state.originYearlyList);
+
       newData.forEach((item) {
         if (type == MinerStatsType.uptime) {
           maxValue = 730.0 * 3600;
@@ -587,8 +615,6 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
 
         xLabel.add(TimeUtil.getM(item.date));
       });
-
-      emit(state.copyWith(originYearlyList: newData));
     }
 
     if (type == MinerStatsType.uptime) {
@@ -633,6 +659,8 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
         }
       }
     }
+
+    maxValue += (10 - (maxValue % 10));
 
     return maxValue;
   }
