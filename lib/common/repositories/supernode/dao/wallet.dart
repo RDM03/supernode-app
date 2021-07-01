@@ -7,6 +7,7 @@ import 'dao.dart';
 class WalletApi {
   static const String balance = '/api/wallet/balance';
   static const String history = '/api/wallet/{orgId}/tx-history';
+  static const String historyTransaction = '/api/wallet/tx-history';
   static const String miningIncome = '/api/wallet/mining_income';
   static const String convertUSD = '/api/wallet/mxc_price';
   static const String miningInfo = '/api/wallet/mining_info';
@@ -42,6 +43,10 @@ class WalletDao extends SupernodeDao {
 
   Future<dynamic> history(Map data) {
     return get(url: Api.url(WalletApi.history, data['orgId']), data: data);
+  }
+
+  Future<dynamic> historyTransaction(Map data) {
+    return get(url: WalletApi.historyTransaction, data: data);
   }
 
   Future<dynamic> miningIncome(Map data) {

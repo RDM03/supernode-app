@@ -19,6 +19,8 @@ abstract class SupernodeDhxState with _$SupernodeDhxState {
     @Default(Wrap.pending()) Wrap<double> dhxBonded,
     @Default(Wrap.pending()) Wrap<double> dhxUnbonding,
     @Default([]) List<CalendarModel> calendarBondInfo,
+    @Default([]) List<CalendarModel> lastCalendarBondInfo,
+    @Default({}) Map<String, List<CalendarModel>> calendarInfo,
     @Default(Wrap.pending()) Wrap<List<WithdrawHistoryEntity>> withdraws,
     @Default(Wrap.pending()) Wrap<List<TopupEntity>> topups,
     @Default(false) bool confirm,
