@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/components/buttons/circle_button.dart';
+import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/wallet/mining_tutorial.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
@@ -16,9 +17,11 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/btc/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/gateway/add_miner/view.dart';
 import 'package:supernodeapp/page/home_page/gateway/bloc/cubit.dart';
+import 'package:supernodeapp/page/home_page/state.dart';
 import 'package:supernodeapp/page/settings_page/settings_page.dart';
 import 'package:supernodeapp/page/withdraw_page/bloc/cubit.dart';
 import 'package:supernodeapp/page/withdraw_page/withdraw_page.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../route.dart';
 import 'package:supernodeapp/page/login_page/entry_parachain.dart';
@@ -123,9 +126,16 @@ Widget tokenItem(
   bool isSelected,
   VoidCallback onPressed,
   bool showTrailingLine = true,
+  String suffix,
 }) =>
-    SizedBox(
+    Container(
       height: s(62),
+      foregroundDecoration: onPressed == null
+          ? BoxDecoration(
+              color: Colors.grey.shade300,
+              backgroundBlendMode: BlendMode.saturation,
+            )
+          : null,
       child: GestureDetector(
         key: Key(key),
         onTap: onPressed,
@@ -149,10 +159,19 @@ Widget tokenItem(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              title,
-                              style: kBigBoldFontOfBlack,
-                            ),
+                            Row(children: [
+                              Text(
+                                title,
+                                style: kBigBoldFontOfBlack,
+                              ),
+                              if (suffix != null) ...[
+                                SizedBox(width: 5),
+                                Text(
+                                  suffix,
+                                  style: kSmallFontOfGrey,
+                                ),
+                              ]
+                            ]),
                             SizedBox(height: 5),
                             Text(
                               subtitle,
@@ -162,7 +181,11 @@ Widget tokenItem(
                         ),
                         Spacer(),
                         (isSelected != null)
-                            ? Checkbox(value: isSelected)
+                            ? Checkbox(
+                                value: isSelected,
+                                onChanged: (_) => onPressed(),
+                                activeColor: Colors.grey,
+                              )
                             : SizedBox(),
                       ],
                     ),
@@ -181,17 +204,35 @@ Widget tokenItem(
       ),
     );
 
-void addTokenDialog(
-  BuildContext context, {
-  List<Token> displayedTokens,
-  bool parachainConnected,
-  bool supernodeConnected,
-}) {
+void addTokenDialog(BuildContext context, {HomeCubit cubit}) {
   showInfoDialog(
     context,
     IosStyleBottomDialog2(
       padding: EdgeInsets.only(top: 10, bottom: 30),
-      builder: (ctx) => Column(
+      builder: (ctx) => AddTokenDialogWidget(cubit: cubit),
+    ),
+  );
+}
+
+class AddTokenDialogWidget extends StatefulWidget {
+  const AddTokenDialogWidget({Key key, this.cubit}) : super(key: key);
+
+  final HomeCubit cubit;
+
+  @override
+  _AddTokenDialogWidgetState createState() => _AddTokenDialogWidgetState();
+}
+
+class _AddTokenDialogWidgetState extends State<AddTokenDialogWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<HomeCubit, HomeState>(
+      cubit: widget.cubit,
+      buildWhen: (a, b) =>
+          a.displayTokens != b.displayTokens ||
+          a.supernodeUsed != b.supernodeUsed ||
+          a.parachainUsed != b.parachainUsed,
+      builder: (ctx, homeState) => Column(
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 16, bottom: 16, left: 32),
@@ -210,13 +251,13 @@ void addTokenDialog(
             image: Image.asset(AppImages.logoMXC, height: s(50)),
             title: 'MXC',
             subtitle: () {
-              if (displayedTokens.contains(Token.mxc)) return 'Existing Token';
-              if (!supernodeConnected) return 'Requires Supernode account';
+              if (homeState.displayTokens.contains(Token.mxc))
+                return 'Existing Token';
+              if (!homeState.supernodeUsed) return 'Requires Supernode account';
               return 'Available';
             }(),
             color: Token.mxc.color,
             onPressed: () {
-              Navigator.pop(ctx);
               // MXC goes by default
             },
           ),
@@ -226,19 +267,18 @@ void addTokenDialog(
             image: Image.asset(AppImages.logoDHX, height: s(50)),
             title: 'DHX',
             subtitle: () {
-              if (displayedTokens.contains(Token.supernodeDhx))
+              if (homeState.displayTokens.contains(Token.supernodeDhx))
                 return 'Existing Token';
-              if (!supernodeConnected) return 'Requires Supernode account';
+              if (!homeState.supernodeUsed) return 'Requires Supernode account';
               return 'Available';
             }(),
             color: Token.supernodeDhx.color,
-            isSelected: displayedTokens.contains(Token.supernodeDhx),
+            isSelected: homeState.displayTokens.contains(Token.supernodeDhx),
             onPressed: () {
-              Navigator.pop(ctx);
-              if (!supernodeConnected) {
+              if (!homeState.supernodeUsed) {
                 loginSupernode(context);
               } else {
-                context.read<HomeCubit>().toggleSupernodeDhx();
+                widget.cubit.toggleSupernodeDhx();
               }
             },
           ),
@@ -248,20 +288,34 @@ void addTokenDialog(
             image: Image.asset(Token.btc.imagePath, height: s(50)),
             title: 'BTC',
             subtitle: () {
-              if (displayedTokens.contains(Token.btc)) return 'Existing Token';
-              if (!supernodeConnected) return 'Requires Supernode account';
+              if (homeState.displayTokens.contains(Token.btc))
+                return 'Existing Token';
+              if (!homeState.supernodeUsed) return 'Requires Supernode account';
               return 'Available';
             }(),
             color: Token.btc.color,
-            isSelected: displayedTokens.contains(Token.btc),
+            isSelected: homeState.displayTokens.contains(Token.btc),
             onPressed: () {
-              Navigator.pop(ctx);
-              if (!supernodeConnected) {
+              if (!homeState.supernodeUsed) {
                 loginSupernode(context);
               } else {
-                context.read<HomeCubit>().toggleSupernodeBtc();
+                widget.cubit.toggleSupernodeBtc();
               }
             },
+            showTrailingLine: false,
+          ),
+          tokenItem(
+            context,
+            key: 'addNFT',
+            image: Image.asset(Token.nft.imagePath, height: s(50)),
+            title: Token.nft.name,
+            suffix: '(${FlutterI18n.translate(ctx, 'coming')})',
+            subtitle: FlutterI18n.translate(ctx, 'nft_desc'),
+            color: Token.nft.color,
+            isSelected: false,
+            showTrailingLine: false,
+            onPressed: () {},
+          ),
 /*TODO uncomment for parachainDhx          ),
           tokenItem(
             context,
@@ -281,12 +335,10 @@ void addTokenDialog(
                 loginParachain(context);
               }
             },*/
-            showTrailingLine: false,
-          ),
         ],
       ),
-    ),
-  );
+    );
+  }
 }
 
 void showBoostMPowerDialog(BuildContext ctx) {
@@ -415,6 +467,65 @@ void showBoostMPowerDialog(BuildContext ctx) {
           Divider(color: Colors.grey),
         ],
       ),
+    ),
+  );
+}
+
+void aboutPage(
+    BuildContext context, String title, Widget illustration, String text,
+    {Widget bottomButton}) {
+  Navigator.of(context).push(MaterialPageRoute(
+      fullscreenDialog: true,
+      builder: (ctx) => pageFrame(
+          context: ctx,
+          padding: EdgeInsets.all(0.0),
+          children: <Widget>[
+            ListTile(
+              title:
+              Center(child: Text(title, style: kBigBoldFontOfBlack)),
+              leading: SizedBox(),
+              trailing: GestureDetector(
+                child: Icon(Icons.close, color: Colors.black),
+                onTap: () => Navigator.of(ctx).pop(),
+              ),
+            ),
+            SizedBox(height: 50),
+            Center(child: illustration),
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Text(text,
+                  style: kBigFontOfBlack, textAlign: TextAlign.center),
+            ),
+            SizedBox(height: 70),
+            (bottomButton != null)
+                ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: bottomButton)
+                : SizedBox(),
+          ])));
+}
+
+Widget aboutPageIllustration(String title, Widget image) {
+  return Container(
+    height: 150,
+    width: 150,
+    decoration: BoxDecoration(
+      color: minerColor.withOpacity(.1),
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('100%', style: kVeryBigFontOfBlack),
+            SizedBox(height: 5),
+            image,
+            SizedBox(height: 5),
+            Text(title, style: kBigFontOfBlack),
+          ]),
     ),
   );
 }

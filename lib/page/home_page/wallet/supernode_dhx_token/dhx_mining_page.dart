@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
@@ -23,15 +24,31 @@ class DhxMiningPage extends StatefulWidget {
 }
 
 class _DhxMiningPageState extends State<DhxMiningPage> {
+  final ScrollController scrollCtrl = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    scrollCtrl.addListener(() {
+      ScrollPosition position = scrollCtrl.positions.last;
+      if (position.pixels + 300 > position.maxScrollExtent) {
+        if (!mounted) return;
+        context.read<SupernodeDhxCubit>().getBondInfo();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBars.backArrowAppBar(
-          title: FlutterI18n.translate(context, 'dhx_mining'),
-          onPress: () => Navigator.pop(context),
-        ),
-        backgroundColor: backgroundColor,
-        body: PageBody(children: [
+      appBar: AppBars.backArrowAppBar(
+        title: FlutterI18n.translate(context, 'dhx_mining'),
+        onPress: () => Navigator.pop(context),
+      ),
+      backgroundColor: backgroundColor,
+      body: PageBody(
+        children: [
           smallColumnSpacer(),
           SupernodeDhxMineActions(),
           PanelFrame(
@@ -47,63 +64,93 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
           middleColumnSpacer(),
           Row(children: [
             Icon(Icons.circle, color: Token.supernodeDhx.color, size: 12),
-            Text(FlutterI18n.translate(context, "today"),
-                style: kSmallFontOfBlack),
+            Text(FlutterI18n.translate(context, "today"), style: kSmallFontOfBlack),
             Spacer(),
-            Icon(Icons.circle,
-                color: Token.supernodeDhx.color.withOpacity(0.2), size: 12),
-            Text(FlutterI18n.translate(context, 'cool_off'),
-                style: kSmallFontOfBlack),
+            Icon(Icons.circle, color: Token.supernodeDhx.color.withOpacity(0.2), size: 12),
+            Text(FlutterI18n.translate(context, 'cool_off'), style: kSmallFontOfBlack),
             Spacer(),
             Image.asset(AppImages.iconUnbond, scale: 1.8, color: Colors.red),
-            Text(FlutterI18n.translate(context, 'unbonded'),
-                style: kSmallFontOfBlack)
+            Text(FlutterI18n.translate(context, 'unbonded'), style: kSmallFontOfBlack)
           ]),
           smallColumnSpacer(),
           PanelFrame(
-            rowTop: const EdgeInsets.all(0.0),
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-                    buildWhen: (a, b) =>
-                        a.calendarBondInfo != b.calendarBondInfo,
-                    builder: (context, state) => (state.calendarBondInfo !=
-                                null &&
-                            state.calendarBondInfo.length > 0)
-                        ? Text(
-                            '   ${Tools.dateMonthYearFormat(state.calendarBondInfo[0].date)}'
-                            '${(state.calendarBondInfo[0].date.month != state.calendarBondInfo[state.calendarBondInfo.length - 1].date.month) ? ' - ' + Tools.dateMonthYearFormat(state.calendarBondInfo[state.calendarBondInfo.length - 1].date) : ''}',
-                            style: kPrimaryBigFontOfBlack)
-                        : SizedBox(),
-                  ),
-                  smallColumnSpacer(),
-                  BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-                    buildWhen: (a, b) =>
-                        a.calendarBondInfo != b.calendarBondInfo,
-                    builder: (context, state) => GridView.count(
-                      crossAxisCount: 7,
-                      childAspectRatio: (1 / 2),
-                      shrinkWrap: true,
-                      children: state.calendarBondInfo
-                          .map((e) => _CalendarElement(e))
-                          .toList(),
-                    ),
-                  ),
-                  Divider(thickness: 2),
-                  smallColumnSpacer(),
-                  Text(FlutterI18n.translate(context, 'bonding_calendar_note'),
-                      style: kSmallFontOfBlack),
-                ],
-              ),
-            ),
-          ),
-          middleColumnSpacer(),
+              rowTop: const EdgeInsets.all(0.0),
+              child: Container(
+                height: 600,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                child: SingleChildScrollView(
+                    controller: scrollCtrl,
+                    reverse: true,
+                    child: BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+                        buildWhen: (a, b) => a.calendarInfo != b.calendarInfo,
+                        builder: (context, state) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: calendar(context, state.calendarInfo)))),
+              )),
         ]));
   }
+}
+
+List<Widget> calendar(
+    BuildContext context, Map<String, List<CalendarModel>> calendarInfo) {
+  List<Widget> calendarList = [];
+
+  calendarInfo.forEach((key, items) {
+    calendarList.add(Flex(
+      direction: Axis.horizontal,
+      children: [
+        Text('  ${TimeUtil.getMYAbb(context, items.first.date, withApostrophe: true)}',
+            style: kPrimaryBigFontOfBlack),
+        Expanded(
+            child: Text(
+          countTotalMonth(items),
+          style: kBigFontOfBlue.copyWith(fontSize: 20),
+          textAlign: TextAlign.right,
+        )),
+        SizedBox(
+          width: 10,
+        )
+      ],
+    ));
+
+    calendarList.add(GridView.count(
+      crossAxisCount: 7,
+      childAspectRatio: (1 / 2),
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      children: getCalendar(items),
+    ));
+  });
+
+  calendarList.add(smallColumnSpacer());
+  calendarList.add(Text(FlutterI18n.translate(context, 'bonding_calendar_note'),
+      style: kSmallFontOfBlack));
+
+  return calendarList;
+}
+
+String countTotalMonth(List<CalendarModel> calendarList) {
+  double total = calendarList.fold(
+      0, (previousValue, item) => previousValue + item.minedAmount);
+
+  return '+${Tools.priceFormat(total)} DHX / month';
+}
+
+List<Widget> getCalendar(List<CalendarModel> calendarList) {
+  int filledItemNum = calendarList.first.date.weekday;
+  List<CalendarModel> list = [];
+
+  if(filledItemNum != 7){
+    for (int i = 0; i < filledItemNum; i++) {
+      list.insert(0, CalendarModel(date: null));
+    }
+  }
+
+  for (int i = 0; i < calendarList.length; i++) {
+    list.add(calendarList[i]);
+  }
+  return list.map((e) => _CalendarElement(e)).toList();
 }
 
 class _CalendarElement extends StatelessWidget {
@@ -135,33 +182,40 @@ class _CalendarElement extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Divider(thickness: 2),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Image.asset(AppImages.iconUnbond,
                 scale: 1.5,
                 color: (model.unbondAmount > 0) ? Colors.red : Colors.white),
-            Text('${7 - today.difference(model.date).inDays}',
+            Text(
+                '${model.date != null ? (7 - today.difference(model.date).inDays) : ""}',
                 style: (model.unbondAmount > 0)
                     ? kMiddleFontOfBlack
-                    : kMiddleFontOfWhite)
+                    : kMiddleFontOfWhite,
+                softWrap: false,
+                overflow: TextOverflow.fade)
           ]),
           Container(
               height: 25,
               width: double.infinity,
               decoration: getDecoration(),
               child: Center(
-                  child: Text('${model.date.day}',
+                  child: Text('${model.date != null ? model.date.day : ''}',
                       style: (model.today)
                           ? kMiddleFontOfWhite
-                          : kMiddleFontOfBlack))),
+                          : kMiddleFontOfBlack,
+                      softWrap: false,
+                      overflow: TextOverflow.fade))),
           Text(
-              ((model.minedAmount > 0)
+              ((model.minedAmount > 0 && model.date != null)
                       ? '+${Tools.priceFormat(model.minedAmount, range: Tools.max3DecimalPlaces(model.minedAmount))}'
                       : '') +
                   ((model.today)
                       ? FlutterI18n.translate(context, 'today')
                       : ''),
-              style: kSmallFontOfBlack),
+              style: kSmallFontOfBlack,
+              softWrap: false,
+              overflow: TextOverflow.fade),
+          model.date != null ? Divider(thickness: 1) : Container(),
         ]);
   }
 }

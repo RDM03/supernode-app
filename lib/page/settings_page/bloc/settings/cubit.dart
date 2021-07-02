@@ -1,14 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:package_info/package_info.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/server_info.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'state.dart';
 
@@ -199,21 +200,19 @@ class SettingsCubit extends Cubit<SettingsState> {
     }
   }
 
-  Future<void> initExportMxcPreYearPage(int year, FiatCurrency fiatPreviousSession) async {
-    emit(state.copyWith(
-        startDate: DateTime(year),
-        endDate: DateTime(year + 1))
-    );
+  Future<void> initExportMxcPreYearPage(
+      int year, FiatCurrency fiatPreviousSession) async {
+    emit(
+        state.copyWith(startDate: DateTime(year), endDate: DateTime(year + 1)));
 
     if (state.listFiat == null) {
       emit(state.copyWith(showLoading: true));
 
       try {
-        final List<FiatCurrency> listFiat = await supernodeRepository.user.supportedFiatCurrencies();
+        final List<FiatCurrency> listFiat =
+            await supernodeRepository.user.supportedFiatCurrencies();
 
-        emit(state.copyWith(listFiat: listFiat,
-            showLoading: false));
-
+        emit(state.copyWith(listFiat: listFiat, showLoading: false));
       } catch (e) {
         emit(state.copyWith(showLoading: false));
         appCubit.setError(e.toString());
@@ -221,7 +220,9 @@ class SettingsCubit extends Cubit<SettingsState> {
 
       if (state.listFiat != null) {
         FiatCurrency initFiat;
-        if (fiatPreviousSession == null || fiatPreviousSession.id == null || fiatPreviousSession.id.isEmpty) {
+        if (fiatPreviousSession == null ||
+            fiatPreviousSession.id == null ||
+            fiatPreviousSession.id.isEmpty) {
           initFiat = (state.listFiat == null || state.listFiat.length < 1)
               ? null
               : state.listFiat[0];
@@ -247,9 +248,8 @@ class SettingsCubit extends Cubit<SettingsState> {
       emit(state.copyWith(decimals: state.decimals + difference));
   }
 
-  Future<String> getDataExport() async {
-    if (state.selectedFiat == null || state.selectedFiat.id == null)
-      return "";
+  Future<String> exportData() async {
+    if (state.selectedFiat == null || state.selectedFiat.id == null) return "";
 
     emit(state.copyWith(showLoading: true));
 
@@ -261,18 +261,49 @@ class SettingsCubit extends Cubit<SettingsState> {
         "fiatCurrency": state.selectedFiat.id,
         "start": state.startDate.toUtc().toIso8601String(),
         "end": state.endDate.toUtc().toIso8601String(),
-        "decimals" : state.decimals
+        "decimals": state.decimals
       };
 
-      final String exportReport = await supernodeRepository.user.miningIncomeReport(
-          data,
+      final miningIncomeResponse =
+          await supernodeRepository.user.miningIncomeReport(data);
+
+      final path = await createTempFileForResponse(miningIncomeResponse,
           'MiningReport_MXC_${state.selectedFiat.id.toUpperCase()}_year${state.startDate.year}.${state.format}');
+
       emit(state.copyWith(showLoading: false));
-      return exportReport;
+      return path;
     } catch (err) {
       emit(state.copyWith(showLoading: false));
       appCubit.setError('Data export: $err');
     }
     return "";
+  }
+
+  Future<String> moveTempFile(String source) async {
+    final String dir = (await getApplicationDocumentsDirectory()).path;
+    final fileName = source.split('/').last;
+    final String fullPath = '$dir/$fileName';
+    await File(source).copy(fullPath);
+    File(source).delete();
+    return fullPath;
+  }
+
+  Future<String> createTempFileForResponse(
+      String response, String fileName) async {
+    final String dir = (await getTemporaryDirectory()).path;
+    final String fullPath = '$dir/$fileName';
+    final File report = new File(fullPath);
+    report.openWrite(mode: FileMode.write);
+
+    LineSplitter ls = new LineSplitter();
+    List<String> lines = ls.convert(response);
+    Map<String, dynamic> map;
+    for (String line in lines) {
+      map = jsonDecode(line);
+      await report.writeAsBytes(base64.decode(map['result']['data']),
+          flush: true, mode: FileMode.append);
+    }
+
+    return fullPath;
   }
 }

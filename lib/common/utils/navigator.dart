@@ -10,3 +10,9 @@ bool isCurrent(NavigatorState n, String routeName) {
   });
   return isCurrent;
 }
+
+void popAllPages(BuildContext context) async{
+  if (await Navigator.of(context).maybePop()) {
+    popAllPages.call(context);
+  }
+}

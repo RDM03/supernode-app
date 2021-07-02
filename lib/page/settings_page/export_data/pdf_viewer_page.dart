@@ -1,5 +1,13 @@
+import 'dart:io';
+
+import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:oktoast/oktoast.dart';
+import 'package:share/share.dart';
+import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
+import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
 
 class PDFViewerPage extends StatefulWidget {
   final String filePath;
@@ -14,48 +22,58 @@ class PDFViewerPage extends StatefulWidget {
 }
 
 class _PDFViewerPageState extends State<PDFViewerPage> {
-  PDFViewController controller;
-  int pages = 0;
-  int indexPage = 0;
+  Future<PDFDocument> future;
+
+  @override
+  void initState() {
+    future = PDFDocument.fromFile(File(widget.filePath));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final text = '${indexPage + 1} of $pages';
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.filePath, maxLines: 3),
-        actions: pages >= 2
-            ? [
-                Center(child: Text(text)),
-                IconButton(
-                  icon: Icon(Icons.chevron_left, size: 32),
-                  onPressed: () {
-                    final page = indexPage == 0 ? pages : indexPage - 1;
-                    controller.setPage(page);
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.chevron_right, size: 32),
-                  onPressed: () {
-                    final page = indexPage == pages - 1 ? 0 : indexPage + 1;
-                    controller.setPage(page);
-                  },
-                ),
-              ]
-            : null,
+      appBar: AppBars.backArrowAndActionAppBar(
+        title: FlutterI18n.translate(context, 'export_financial_data'),
+        onPress: () => Navigator.of(context).pop(),
+        action: IconButton(
+          icon: Icon(Icons.save_alt),
+          color: Colors.black,
+          onPressed: () async {
+            final newPath = await context.read<SettingsCubit>().exportData();
+            showToast(
+              newPath,
+              textStyle: TextStyle(fontSize: 14),
+              duration: Duration(seconds: 3),
+              position: ToastPosition.bottom,
+            );
+          },
+        ),
       ),
-      body: PDFView(
-        filePath: widget.filePath,
-        // autoSpacing: false,
-        // swipeHorizontal: true,
-        // pageSnap: false,
-        // pageFling: false,
-        onRender: (pages) => setState(() => this.pages = pages),
-        onViewCreated: (controller) =>
-            setState(() => this.controller = controller),
-        onPageChanged: (indexPage, _) =>
-            setState(() => this.indexPage = indexPage),
+      body: FutureBuilder<PDFDocument>(
+        future: future,
+        builder: (ctx, snap) => snap.hasData
+            ? Stack(
+                alignment: Alignment.center,
+                children: [
+                  PDFViewer(
+                    document: snap.data,
+                    showPicker: false,
+                  ),
+                  Positioned(
+                    bottom: (snap.data.count == 1 ? 30 : 70) +
+                        MediaQuery.of(context).viewPadding.bottom,
+                    right: 20,
+                    child: FloatingActionButton(
+                      child: Icon(Icons.share),
+                      onPressed: () {
+                        Share.shareFiles([widget.filePath]);
+                      },
+                    ),
+                  ),
+                ],
+              )
+            : Center(child: CircularProgressIndicator()),
       ),
     );
   }
