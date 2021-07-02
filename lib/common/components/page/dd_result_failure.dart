@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/configs/images.dart';
 
 import 'dd_result.dart';
@@ -12,11 +13,11 @@ class DDResultFailure extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DDResult(
-      title: 'Oops! something went wrong',
+      title: FlutterI18n.translate(context, 'adding_miner_failure_title'),
       detail:
-          'That didn’t quite work, please try again. \n\n [Detail: $detail]',
+          '${FlutterI18n.translate(context, "adding_miner_failure_detail")}\n\n[Detail: $detail]',
       imageUrl: AppImages.addMinerFailure,
-      buttonText: 'back',
+      buttonText: FlutterI18n.translate(context, 'back'),
     );
   }
 }
