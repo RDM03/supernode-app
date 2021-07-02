@@ -86,7 +86,9 @@ class _AddAddressPageState extends State<AddAddressPage> {
             TextFieldWithTitle(
               key: ValueKey('addressTextField'),
               title: FlutterI18n.translate(context, 'address'),
-              validator: (v) => v != null && isValidEthereumAddress(v)
+              validator: (v) => v != null &&
+                      (widget.type == AddressBookType.dhx ||
+                          isValidEthereumAddress(v))
                   ? null
                   : FlutterI18n.translate(context, 'invalid_address'),
               controller: addressController,
