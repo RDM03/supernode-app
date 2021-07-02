@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/font.dart';
 
+@deprecated
+// Use [PageNavBar] instead
 Widget pageNavBar(
   String name, {
   EdgeInsetsGeometry padding,
@@ -52,7 +54,10 @@ class PageNavBar extends StatelessWidget {
     this.padding,
     this.onTap,
     this.textStyle = kBigFontOfBlack,
-    this.actionWidget,
+    this.actionWidget = const Icon(
+      Icons.close,
+      color: Colors.black,
+    ),
     this.leadingWidget,
     this.centerTitle = false,
   }) : super(key: key);
@@ -76,18 +81,35 @@ class PageNavBar extends StatelessWidget {
           ),
           SizedBox(
             width: 24,
-            child: GestureDetector(
-              key: ValueKey('navActionButton'),
-              child: actionWidget == null
-                  ? Icon(
-                      Icons.close,
-                      color: Colors.black,
-                    )
-                  : actionWidget,
-              onTap: onTap,
-            ),
+            child: actionWidget == null
+                ? null
+                : GestureDetector(
+                    key: ValueKey('navActionButton'),
+                    child: actionWidget,
+                    onTap: onTap,
+                  ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class AppBarBackButton extends StatelessWidget {
+  const AppBarBackButton({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 24,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        key: ValueKey('navBackButton'),
+        child: Icon(
+          Icons.arrow_back_ios,
+          color: Colors.black,
+        ),
+        onTap: () => Navigator.of(context).pop(),
       ),
     );
   }

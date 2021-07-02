@@ -7,9 +7,10 @@ Widget pageFrame({
   Key scaffoldKey,
   bool resizeToAvoidBottomInset = false,
   bool scrollable = true,
+  bool useSafeArea = false,
   EdgeInsetsGeometry margin,
 }) {
-  final content = Container(
+  Widget content = Container(
     padding: padding != null ? padding : const EdgeInsets.all(20.0),
     constraints:
         BoxConstraints(minHeight: MediaQuery.of(context).size.height - 20),
@@ -29,6 +30,7 @@ Widget pageFrame({
       children: children,
     ),
   );
+  if (useSafeArea) content = SafeArea(child: content);
   return Scaffold(
     key: scaffoldKey,
     resizeToAvoidBottomInset: resizeToAvoidBottomInset,
