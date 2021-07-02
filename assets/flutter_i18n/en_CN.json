@@ -619,7 +619,7 @@
 	"dont_have_miners": "Seems like you do not have any miners or all of your miners has been fueled up to 100%",
 	"add_all": "Add all",
 	"send_to_wallet": "Send To Wallet",
-	"send_to_wallet_desc": "Please note you will lose your mining efficiency once you send to the wallet",
+	"send_to_wallet_desc": "Please note you will reduce your mining efficiency once you send to the wallet",
 	"current_fuel": "Current Fuel: ",
 	"add_fuel_congrats": "Congratulations!\nYour miner has been fueled",
 	"send_to_wallet_congrats": "We’ve sent the fuel to your MXC wallet",
