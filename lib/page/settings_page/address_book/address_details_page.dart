@@ -26,15 +26,15 @@ class AddressDetailsPage extends StatefulWidget {
 class _AddressDetailsPageState extends State<AddressDetailsPage> {
   final GlobalKey<ScaffoldMessengerState> scaffoldKey = GlobalKey();
 
-  void _onDelete() {
+  Future<void> _onDelete() async {
     final addresses = widget.type == AddressBookType.mxc
         ? context.read<StorageRepository>().addressBook()
         : context.read<StorageRepository>().dhxAddressBook();
     addresses.remove(widget.entity);
     if (widget.type == AddressBookType.mxc)
-      context.read<StorageRepository>().setAddressBook(addresses);
+      await context.read<StorageRepository>().setAddressBook(addresses);
     else
-      context.read<StorageRepository>().setDhxAddressBook(addresses);
+      await context.read<StorageRepository>().setDhxAddressBook(addresses);
     Navigator.of(context).pop();
   }
 

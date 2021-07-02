@@ -34,7 +34,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
     addressController.text = qrResult;
   }
 
-  void _onSave() {
+  Future<void> _onSave() async {
     if (!formKey.currentState.validate()) return;
     formKey.currentState.save();
     final addresses = widget.type == AddressBookType.mxc
@@ -46,9 +46,9 @@ class _AddAddressPageState extends State<AddAddressPage> {
       name: nameController.text,
     ));
     if (widget.type == AddressBookType.mxc)
-      context.read<StorageRepository>().setAddressBook(addresses);
+      await context.read<StorageRepository>().setAddressBook(addresses);
     else
-      context.read<StorageRepository>().setDhxAddressBook(addresses);
+      await context.read<StorageRepository>().setDhxAddressBook(addresses);
     Navigator.of(context).pop();
   }
 
