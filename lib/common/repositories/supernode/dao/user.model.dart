@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:supernodeapp/common/utils/auth.dart';
 
 class UserLoginResponse {
@@ -231,5 +230,18 @@ class TotpEnabledResponse {
     return TotpEnabledResponse(
       map['enabled'],
     );
+  }
+}
+
+class FiatCurrency {
+  final String id;
+  final String description;
+
+  FiatCurrency(this.id, this.description);
+
+  factory FiatCurrency.fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    return FiatCurrency(map['id'], map['description']);
   }
 }

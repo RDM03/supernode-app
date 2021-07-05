@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/repositories/cache_repository.dart';
+import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/wrap.dart';
@@ -61,6 +62,8 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       refreshBalance(),
       refreshStakes(),
       refreshLastMining(),
+      refreshTopups(),
+      refreshWithdraws()
     ]);
   }
 
@@ -157,25 +160,74 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
     }
   }
 
+  bool isExistItem(List<CalendarModel> data, DateTime date){
+    return data.any((item) => TimeUtil.isSameDay(item.date, date));
+  }
+
   Future<void> getBondInfo() async {
     try {
       emit(state.copyWith(
           dhxBonded: state.dhxBonded.withLoading(),
           dhxUnbonding: state.dhxUnbonding.withLoading()));
-      final res = await supernodeRepository.dhx.bondInfo(
+
+      DateTime startTime, endTime;
+      DateTime nextMonth;
+
+      if(state.calendarInfo != null && state.calendarInfo.isNotEmpty){
+        String firstItem = state.calendarInfo.keys.first;
+        CalendarModel item = (state.calendarInfo[firstItem])[0];
+        endTime = item.date.add(Duration(days: -1));
+      }
+
+      endTime = endTime ?? DateTime.now();
+      endTime = DateTime(endTime.year, endTime.month, 1);
+
+      if(endTime.month + 1 <= 12) {
+        nextMonth = DateTime(endTime.year, endTime.month + 1, 1);
+      }else{
+        nextMonth = DateTime(endTime.year + 1, 1, 1);
+      }
+
+      endTime = nextMonth.add(Duration(days: -1));
+
+      if(startTime == null){
+        if(endTime.month - 1 <= 0) {
+          startTime = DateTime(endTime.year - 1, 12, 1);
+        }else{
+          startTime = DateTime(endTime.year, endTime.month - 1, 1);
+        }
+      }
+
+      final resBondInfo = await supernodeRepository.dhx.bondInfo(
         organizationId: orgId,
       );
 
-      final double dhxBonded = double.parse('0' + res["dhxBonded"]);
-      final double dhxUnbonding = double.parse('0' + res["dhxUnbondingTotal"]);
+      final double dhxBonded = double.parse('0' + resBondInfo["dhxBonded"]);
+      final double dhxUnbonding = double.parse('0' + resBondInfo["dhxUnbondingTotal"]);
 
-      final List<CalendarModel> listCalendarData = [];
+      // final resBonding = await supernodeRepository.wallet.historyTransaction({
+      //   'orgId': orgId,
+      //   'currency': 'DHX',
+      //   'paymentType': 'DHX_BONDING',
+      //   'from': startTime.toUtc().toIso8601String(),
+      //   'till': endTime.toUtc().toIso8601String()
+      // });
+
+      // final resUnBonding = await supernodeRepository.wallet.historyTransaction({
+      //   'orgId': orgId,
+      //   'currency': 'DHX',
+      //   'paymentType': 'DHX_UNBONDING',
+      //   'from': startTime.toUtc().toIso8601String(),
+      //   'till': endTime.toUtc().toIso8601String()
+      // });
+
+      final Map<String, List<CalendarModel>> calendarInfo = {};
+
       try {
-        // parsing response for calendar component on DhxMiningPage
         final Map<DateTime, CalendarModel> parsed = {};
         DateTime dateTmp;
 
-        for (dynamic rec in res["dhxUnbonding"]) {
+        for (dynamic rec in resBondInfo["dhxUnbonding"]) {
           dateTmp = DateTime.tryParse(rec["created"]) ?? DateTime.now();
           dateTmp = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
           if (!parsed.containsKey(dateTmp))
@@ -183,9 +235,9 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
           parsed[dateTmp].unbondAmount += double.parse(rec["amount"]);
         }
 
-        for (dynamic rec in res["dhxCoolingOff"]) {
-          dateTmp = DateTime.tryParse(rec["created"]) ?? DateTime.now();
-          dateTmp = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
+        for (dynamic rec in resBondInfo["dhxCoolingOff"]) {
+          dateTmp = rec["created"] != null ? DateTime.tryParse(rec["created"]) : DateTime.now();
+          dateTmp = DateTime(dateTmp.year, dateTmp.month, dateTmp.day);
           if (!parsed.containsKey(dateTmp))
             parsed[dateTmp] = CalendarModel(date: dateTmp);
           parsed[dateTmp].minedAmount += double.parse(rec["amount"]);
@@ -193,26 +245,21 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
 
         final List<DateTime> datesParsed = parsed.keys.toList()..sort();
 
-        dateTmp = DateTime.now();
-        final today = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
-        final DateTime firstDayOfRange =
-            (datesParsed.length > 0) ? datesParsed[0] : today;
-        final DateTime mondayBeforeFirstDay = firstDayOfRange
-            .subtract(Duration(days: firstDayOfRange.weekday - 1));
-
         int indexDatesParsed = 0;
         int lastDayBeforeToday = 0;
+
+        dateTmp = DateTime.now();
+        final today = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
+
         if (datesParsed.length > 0)
-          lastDayBeforeToday = (today == datesParsed[datesParsed.length - 1])
+          lastDayBeforeToday = TimeUtil.isSameDay(datesParsed.last, today)
               ? datesParsed.length - 2
               : datesParsed.length - 1;
-        for (int i = 0; i < 14; i++) {
-          // 2 weeks range starting on Monday before bond-info data
-          dateTmp = mondayBeforeFirstDay.add(Duration(days: i));
+
+        for (int i = 0; i <= endTime.difference(startTime).inDays; i++) {
+          dateTmp = startTime.add(Duration(days: i));
           if (indexDatesParsed < datesParsed.length &&
               dateTmp == datesParsed[indexDatesParsed]) {
-            listCalendarData.add(parsed[dateTmp]
-              ..today = (today.difference(dateTmp).inDays == 0));
             if (indexDatesParsed == 0) {
               parsed[dateTmp].left = true;
             }
@@ -223,20 +270,57 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
                 indexDatesParsed < lastDayBeforeToday) {
               parsed[dateTmp].middle = true;
             }
+            parsed[dateTmp].today = TimeUtil.isSameDay(dateTmp, today);
+
+            if(calendarInfo['${TimeUtil.getYM(dateTmp)}'] == null){
+              calendarInfo['${TimeUtil.getYM(dateTmp)}'] = [];
+            }
+
+            if(!isExistItem(calendarInfo[TimeUtil.getYM(dateTmp)], dateTmp)){
+              calendarInfo[TimeUtil.getYM(dateTmp)].add(parsed[dateTmp]);
+            }
+
             indexDatesParsed++;
           } else {
-            listCalendarData.add(CalendarModel(
-                date: dateTmp, today: (today.difference(dateTmp).inDays == 0)));
+            CalendarModel calendarTemp = CalendarModel(
+                date: dateTmp, today: TimeUtil.isSameDay(dateTmp, today));
+            
+            if(calendarInfo[TimeUtil.getYM(dateTmp)] == null){
+              calendarInfo[TimeUtil.getYM(dateTmp)] = [];
+            }
+
+            if(!isExistItem(calendarInfo[TimeUtil.getYM(dateTmp)], dateTmp)){
+              calendarInfo[TimeUtil.getYM(dateTmp)].add(calendarTemp);
+            }
           }
         }
       } catch (e, s) {
         logger.e('refresh error', e, s);
       }
 
+      // for (dynamic rec in resUnBonding["tx"]) {
+      //   DateTime dateTmp = rec["timestamp"] != null ? DateTime.tryParse(rec["timestamp"]) : DateTime.now();
+      //   dateTmp = DateTime(dateTmp.year, dateTmp.month, dateTmp.day);
+      //   for(int i = 0; i < calendarInfo[TimeUtil.getYM(dateTmp)].length; i++){
+      //     CalendarModel item = calendarInfo[TimeUtil.getYM(dateTmp)][i];
+      //     if(TimeUtil.isSameDay(item.date, dateTmp)){
+      //       calendarInfo[TimeUtil.getYM(dateTmp)][i].unbondAmount += double.parse(rec["amount"]);
+      //     }
+      //   }
+      // }
+
+      state.calendarInfo.forEach((key, value) { 
+        if(!calendarInfo.containsKey(key)){
+          calendarInfo[key] = value;
+        }
+      });
+
+      calendarInfo.keys.toList()..sort((a,b) => a.compareTo(b));
+      
       emit(state.copyWith(
           dhxBonded: Wrap(dhxBonded),
           dhxUnbonding: Wrap(dhxUnbonding),
-          calendarBondInfo: listCalendarData));
+          calendarInfo: calendarInfo));
     } catch (e, s) {
       logger.e('refresh error', e, s);
     }
@@ -279,6 +363,40 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
     } catch (e, s) {
       emit(state.copyWith(showLoading: false));
       logger.e('refresh error', e, s);
+    }
+  }
+
+  Future<void> refreshTopups() async {
+    emit(state.copyWith(topups: state.topups.withLoading()));
+    try {
+      final data = {
+        'orgId': orgId,
+        'from': DateTime(2000).toUtc().toIso8601String(),
+        'till': DateTime.now().toUtc().add(Duration(days: 1)).toIso8601String(),
+        'currency': 'DHX',
+      };
+      var history = await supernodeRepository.topup.history(data);
+      emit(state.copyWith(topups: Wrap(history)));
+    } catch (e, s) {
+      logger.e('refresh error', e, s);
+      emit(state.copyWith(topups: state.topups.withError(e)));
+    }
+  }
+
+  Future<void> refreshWithdraws() async {
+    emit(state.copyWith(withdraws: state.withdraws.withLoading()));
+    try {
+      final data = {
+        'orgId': orgId,
+        'from': DateTime(2000).toUtc().toIso8601String(),
+        'till': DateTime.now().toUtc().add(Duration(days: 1)).toIso8601String(),
+        'currency': 'DHX',
+      };
+      var history = await supernodeRepository.withdraw.history(data);
+      emit(state.copyWith(withdraws: Wrap(history)));
+    } catch (e, s) {
+      logger.e('refresh error', e, s);
+      emit(state.copyWith(withdraws: state.withdraws.withError(e)));
     }
   }
 }

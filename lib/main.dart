@@ -15,13 +15,9 @@ import 'package:supernodeapp/common/repositories/coingecko_repository.dart';
 import 'package:supernodeapp/common/utils/no_glow_behavior.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/config.dart';
-import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/common/repositories/storage_repository.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/page/feedback_page/feedback.dart';
-import 'package:supernodeapp/page/address_book_page/add_address_page/page.dart';
-import 'package:supernodeapp/page/address_book_page/address_details_page/page.dart';
-import 'package:supernodeapp/page/address_book_page/page.dart';
 import 'package:supernodeapp/page/calculator_list_page/page.dart';
 import 'package:supernodeapp/page/calculator_page/page.dart';
 import 'package:supernodeapp/page/connectivity_lost_page/page.dart';
@@ -69,6 +65,7 @@ List<BlocListener> listeners() => [
         listener: (context, state) {
           context.read<StorageRepository>().setSupernodeSession(
                 jwt: state.session?.token,
+                expire: state.session?.expire,
                 userId: state.session?.userId,
                 username: state.session?.username,
                 password: state.session?.password,
@@ -80,6 +77,15 @@ List<BlocListener> listeners() => [
         listenWhen: (a, b) => a.locale != b.locale,
         listener: (context, state) {
           context.read<StorageRepository>().setLocale(state.locale);
+        },
+      ),
+      BlocListener<AppCubit, AppState>(
+        listenWhen: (a, b) =>
+            a.selectedFiatForExport != b.selectedFiatForExport,
+        listener: (context, state) {
+          context
+              .read<StorageRepository>()
+              .setSelectedFiatForExport(state.selectedFiatForExport);
         },
       ),
     ];
@@ -102,6 +108,7 @@ Future<void> main() async {
     session: supernodeSession != null
         ? SupernodeSession(
             token: supernodeSession.jwt,
+            expire: supernodeSession.expire,
             username: supernodeSession.username,
             password: supernodeSession.password,
             userId: supernodeSession.userId,
@@ -183,9 +190,6 @@ class MxcApp extends StatelessWidget {
       'device_mapbox_page': DeviceMapBoxPage(),
       'calculator_page': CalculatorPage(),
       'calculator_list_page': CalculatorListPage(),
-      'address_book_page': AddressBookPage(),
-      'add_address_page': AddAddressPage(),
-      'address_details_page': AddressDetailsPage(),
       'connectivity_lost_page': ConnectivityLostPage(),
       'prepare_stake_page': PrepareStakePage(),
       'confirm_stake_page': ConfirmStakePage(),

@@ -16,6 +16,12 @@ class _$SettingsStateTearOff {
 // ignore: unused_element
   _SettingsState call(
       {@nullable PackageInfo info,
+      @nullable List<FiatCurrency> listFiat,
+      String format = 'pdf',
+      @nullable FiatCurrency selectedFiat,
+      @nullable DateTime startDate,
+      @nullable DateTime endDate,
+      int decimals = 4,
       @nullable String version,
       @nullable String buildNumber,
       @nullable String mxVersion,
@@ -27,6 +33,12 @@ class _$SettingsStateTearOff {
       bool showLoading}) {
     return _SettingsState(
       info: info,
+      listFiat: listFiat,
+      format: format,
+      selectedFiat: selectedFiat,
+      startDate: startDate,
+      endDate: endDate,
+      decimals: decimals,
       version: version,
       buildNumber: buildNumber,
       mxVersion: mxVersion,
@@ -48,6 +60,16 @@ const $SettingsState = _$SettingsStateTearOff();
 mixin _$SettingsState {
   @nullable
   PackageInfo get info;
+  @nullable
+  List<FiatCurrency> get listFiat;
+  String get format;
+  @nullable
+  FiatCurrency get selectedFiat;
+  @nullable
+  DateTime get startDate;
+  @nullable
+  DateTime get endDate;
+  int get decimals;
   @nullable
   String get version;
   @nullable
@@ -73,6 +95,12 @@ abstract class $SettingsStateCopyWith<$Res> {
       _$SettingsStateCopyWithImpl<$Res>;
   $Res call(
       {@nullable PackageInfo info,
+      @nullable List<FiatCurrency> listFiat,
+      String format,
+      @nullable FiatCurrency selectedFiat,
+      @nullable DateTime startDate,
+      @nullable DateTime endDate,
+      int decimals,
       @nullable String version,
       @nullable String buildNumber,
       @nullable String mxVersion,
@@ -96,6 +124,12 @@ class _$SettingsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object info = freezed,
+    Object listFiat = freezed,
+    Object format = freezed,
+    Object selectedFiat = freezed,
+    Object startDate = freezed,
+    Object endDate = freezed,
+    Object decimals = freezed,
     Object version = freezed,
     Object buildNumber = freezed,
     Object mxVersion = freezed,
@@ -108,6 +142,17 @@ class _$SettingsStateCopyWithImpl<$Res>
   }) {
     return _then(_value.copyWith(
       info: info == freezed ? _value.info : info as PackageInfo,
+      listFiat: listFiat == freezed
+          ? _value.listFiat
+          : listFiat as List<FiatCurrency>,
+      format: format == freezed ? _value.format : format as String,
+      selectedFiat: selectedFiat == freezed
+          ? _value.selectedFiat
+          : selectedFiat as FiatCurrency,
+      startDate:
+          startDate == freezed ? _value.startDate : startDate as DateTime,
+      endDate: endDate == freezed ? _value.endDate : endDate as DateTime,
+      decimals: decimals == freezed ? _value.decimals : decimals as int,
       version: version == freezed ? _value.version : version as String,
       buildNumber:
           buildNumber == freezed ? _value.buildNumber : buildNumber as String,
@@ -139,6 +184,12 @@ abstract class _$SettingsStateCopyWith<$Res>
   @override
   $Res call(
       {@nullable PackageInfo info,
+      @nullable List<FiatCurrency> listFiat,
+      String format,
+      @nullable FiatCurrency selectedFiat,
+      @nullable DateTime startDate,
+      @nullable DateTime endDate,
+      int decimals,
       @nullable String version,
       @nullable String buildNumber,
       @nullable String mxVersion,
@@ -164,6 +215,12 @@ class __$SettingsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object info = freezed,
+    Object listFiat = freezed,
+    Object format = freezed,
+    Object selectedFiat = freezed,
+    Object startDate = freezed,
+    Object endDate = freezed,
+    Object decimals = freezed,
     Object version = freezed,
     Object buildNumber = freezed,
     Object mxVersion = freezed,
@@ -176,6 +233,17 @@ class __$SettingsStateCopyWithImpl<$Res>
   }) {
     return _then(_SettingsState(
       info: info == freezed ? _value.info : info as PackageInfo,
+      listFiat: listFiat == freezed
+          ? _value.listFiat
+          : listFiat as List<FiatCurrency>,
+      format: format == freezed ? _value.format : format as String,
+      selectedFiat: selectedFiat == freezed
+          ? _value.selectedFiat
+          : selectedFiat as FiatCurrency,
+      startDate:
+          startDate == freezed ? _value.startDate : startDate as DateTime,
+      endDate: endDate == freezed ? _value.endDate : endDate as DateTime,
+      decimals: decimals == freezed ? _value.decimals : decimals as int,
       version: version == freezed ? _value.version : version as String,
       buildNumber:
           buildNumber == freezed ? _value.buildNumber : buildNumber as String,
@@ -202,6 +270,12 @@ class __$SettingsStateCopyWithImpl<$Res>
 class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
   _$_SettingsState(
       {@nullable this.info,
+      @nullable this.listFiat,
+      this.format = 'pdf',
+      @nullable this.selectedFiat,
+      @nullable this.startDate,
+      @nullable this.endDate,
+      this.decimals = 4,
       @nullable this.version,
       @nullable this.buildNumber,
       @nullable this.mxVersion,
@@ -211,11 +285,31 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
       this.showWechatUnbindConfirmation,
       this.showBindShopifyStep,
       this.showLoading})
-      : assert(copyrightYear != null);
+      : assert(format != null),
+        assert(decimals != null),
+        assert(copyrightYear != null);
 
   @override
   @nullable
   final PackageInfo info;
+  @override
+  @nullable
+  final List<FiatCurrency> listFiat;
+  @JsonKey(defaultValue: 'pdf')
+  @override
+  final String format;
+  @override
+  @nullable
+  final FiatCurrency selectedFiat;
+  @override
+  @nullable
+  final DateTime startDate;
+  @override
+  @nullable
+  final DateTime endDate;
+  @JsonKey(defaultValue: 4)
+  @override
+  final int decimals;
   @override
   @nullable
   final String version;
@@ -242,7 +336,7 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SettingsState(info: $info, version: $version, buildNumber: $buildNumber, mxVersion: $mxVersion, language: $language, copyrightYear: $copyrightYear, screenShot: $screenShot, showWechatUnbindConfirmation: $showWechatUnbindConfirmation, showBindShopifyStep: $showBindShopifyStep, showLoading: $showLoading)';
+    return 'SettingsState(info: $info, listFiat: $listFiat, format: $format, selectedFiat: $selectedFiat, startDate: $startDate, endDate: $endDate, decimals: $decimals, version: $version, buildNumber: $buildNumber, mxVersion: $mxVersion, language: $language, copyrightYear: $copyrightYear, screenShot: $screenShot, showWechatUnbindConfirmation: $showWechatUnbindConfirmation, showBindShopifyStep: $showBindShopifyStep, showLoading: $showLoading)';
   }
 
   @override
@@ -251,6 +345,12 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
     properties
       ..add(DiagnosticsProperty('type', 'SettingsState'))
       ..add(DiagnosticsProperty('info', info))
+      ..add(DiagnosticsProperty('listFiat', listFiat))
+      ..add(DiagnosticsProperty('format', format))
+      ..add(DiagnosticsProperty('selectedFiat', selectedFiat))
+      ..add(DiagnosticsProperty('startDate', startDate))
+      ..add(DiagnosticsProperty('endDate', endDate))
+      ..add(DiagnosticsProperty('decimals', decimals))
       ..add(DiagnosticsProperty('version', version))
       ..add(DiagnosticsProperty('buildNumber', buildNumber))
       ..add(DiagnosticsProperty('mxVersion', mxVersion))
@@ -269,6 +369,23 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
         (other is _SettingsState &&
             (identical(other.info, info) ||
                 const DeepCollectionEquality().equals(other.info, info)) &&
+            (identical(other.listFiat, listFiat) ||
+                const DeepCollectionEquality()
+                    .equals(other.listFiat, listFiat)) &&
+            (identical(other.format, format) ||
+                const DeepCollectionEquality().equals(other.format, format)) &&
+            (identical(other.selectedFiat, selectedFiat) ||
+                const DeepCollectionEquality()
+                    .equals(other.selectedFiat, selectedFiat)) &&
+            (identical(other.startDate, startDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.startDate, startDate)) &&
+            (identical(other.endDate, endDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.endDate, endDate)) &&
+            (identical(other.decimals, decimals) ||
+                const DeepCollectionEquality()
+                    .equals(other.decimals, decimals)) &&
             (identical(other.version, version) ||
                 const DeepCollectionEquality()
                     .equals(other.version, version)) &&
@@ -304,6 +421,12 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(info) ^
+      const DeepCollectionEquality().hash(listFiat) ^
+      const DeepCollectionEquality().hash(format) ^
+      const DeepCollectionEquality().hash(selectedFiat) ^
+      const DeepCollectionEquality().hash(startDate) ^
+      const DeepCollectionEquality().hash(endDate) ^
+      const DeepCollectionEquality().hash(decimals) ^
       const DeepCollectionEquality().hash(version) ^
       const DeepCollectionEquality().hash(buildNumber) ^
       const DeepCollectionEquality().hash(mxVersion) ^
@@ -323,6 +446,12 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
 abstract class _SettingsState implements SettingsState {
   factory _SettingsState(
       {@nullable PackageInfo info,
+      @nullable List<FiatCurrency> listFiat,
+      String format,
+      @nullable FiatCurrency selectedFiat,
+      @nullable DateTime startDate,
+      @nullable DateTime endDate,
+      int decimals,
       @nullable String version,
       @nullable String buildNumber,
       @nullable String mxVersion,
@@ -336,6 +465,22 @@ abstract class _SettingsState implements SettingsState {
   @override
   @nullable
   PackageInfo get info;
+  @override
+  @nullable
+  List<FiatCurrency> get listFiat;
+  @override
+  String get format;
+  @override
+  @nullable
+  FiatCurrency get selectedFiat;
+  @override
+  @nullable
+  DateTime get startDate;
+  @override
+  @nullable
+  DateTime get endDate;
+  @override
+  int get decimals;
   @override
   @nullable
   String get version;

@@ -1,6 +1,7 @@
 import 'package:supernodeapp/common/repositories/supernode/clients/supernode_client.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.model.dart';
 import 'package:supernodeapp/common/utils/url.dart';
+import 'package:dio/dio.dart';
 export 'user.model.dart';
 
 import 'dao.dart';
@@ -39,6 +40,9 @@ class UserApi {
       "/api/external-login/unbind-external-user";
   static const String confirmExternalEmail = "/api/confirm-external-email";
   static const String verifyExternalEmail = "/api/verify-external-email";
+  static const String supportedFiatCurrencies =
+      "/api/report/supported-fiat-currencies";
+  static const String miningIncomeReport = "/api/report/mining-income/{format}";
 }
 
 class UserDao extends SupernodeDao {
@@ -154,5 +158,25 @@ class UserDao extends SupernodeDao {
 
   Future<dynamic> confirmExternalEmail(Map data) {
     return post(url: UserApi.confirmExternalEmail, data: data);
+  }
+
+  Future<List<FiatCurrency>> supportedFiatCurrencies() {
+    return get(url: UserApi.supportedFiatCurrencies).then((res) {
+      if (res.containsKey("fiatCurrencyList")) {
+        final List<FiatCurrency> list = [];
+        res["fiatCurrencyList"]
+            .forEach((e) => list.add(FiatCurrency.fromMap(e)));
+        return list;
+      } else
+        return null;
+    });
+  }
+
+  Future<dynamic> miningIncomeReport(Map data) async {
+    return get(
+      url: Api.url(UserApi.miningIncomeReport, data['format'].toString()),
+      data: data,
+      rt: ResponseType.plain,
+    );
   }
 }

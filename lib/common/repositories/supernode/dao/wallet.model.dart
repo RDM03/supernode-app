@@ -6,7 +6,7 @@ class DailyStatistic {
   final String amount;
   final DateTime date;
   final double health;
-  final String onlineSeconds;
+  final int onlineSeconds;
 
   DailyStatistic({
     @required this.amount,
@@ -20,7 +20,7 @@ class DailyStatistic {
       amount: map['amount'],
       date: DateTime.tryParse(map['date']),
       health: map['health'].toDouble(),
-      onlineSeconds: map['onlineSeconds'],
+      onlineSeconds: int.tryParse(map['onlineSeconds']),
     );
   }
 }

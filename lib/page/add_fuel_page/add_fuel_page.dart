@@ -20,6 +20,7 @@ import 'package:supernodeapp/page/add_fuel_page/proceed_dialog.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/parser.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
+import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -203,8 +204,11 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                     child: Text(
                       item.name,
                       style: kBigFontOfBlack,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
+                  const SizedBox(width: 5),
                   Image.asset(
                     AppImages.gateways,
                     height: 16,
@@ -319,7 +323,8 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
         await rep.wallet
             .topUpMiningFuel(currency: 'ETH_MXC', orgId: orgId, topUps: topUps);
 
-        await context.read<GatewayCubit>().refreshGateways();
+        await context.read<GatewayCubit>().refresh();
+        await context.read<SupernodeUserCubit>().refreshBalance();
         loading.hide();
         await Navigator.of(context).push(route((ctx) => AddFuelConfirmPage()));
         Navigator.of(context).pop();

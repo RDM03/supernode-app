@@ -32,9 +32,9 @@ git submodule update
 
 ## Running in the Android Simulator
 
-Now right it temporary only use the command `flutter run --flavor prod` or `flutter run --flavor play` to run in the Android Simulator.
+Temporarily, only use the command `flutter run --flavor prod` or `flutter run --flavor play` to run in the Android Simulator.
 
-The `prod` and `play` represent the name of channel distribution. The `prod` is the common channels for Android. And `play` shows it is only for google play.
+The `prod` and `play` represent the name of channel distribution. The `prod` is the common channels for Android. And `play` is only for google play.
 
 # Environment setup
 - Follow [flutter get-started](https://flutter.dev/docs/get-started/install) to setup flutter and Android Studio
@@ -53,7 +53,7 @@ APPCENTER_APPID_IOS=${APPCENTER_APPID_IOS}
 JIRA_AUTH is 'email:token' encoded in base64
 
 # When building locally (eg. not in appcenter)
-- update the variables in .env file and execute it to add them to your env variables
+- update the variables in .env file and execute the following command to add them to your env variables
 ```
 /bin/bash .env
 ```
@@ -62,4 +62,4 @@ JIRA_AUTH is 'email:token' encoded in base64
 ```
 flutter clean
 flutter build apk --flavor prod
-``
+```

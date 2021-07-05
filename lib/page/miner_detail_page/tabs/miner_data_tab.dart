@@ -14,13 +14,13 @@ import '../title.dart';
 
 class MinerDataTab extends StatelessWidget {
   final GatewayItem item;
-  final List<GatewayStatisticResponse> frames;
+  final List<GatewayStatisticResponse> framesData;
   final double downlinkPrice;
 
   const MinerDataTab({
     Key key,
     this.item,
-    this.frames,
+    this.framesData,
     this.downlinkPrice,
   }) : super(key: key);
 
@@ -74,14 +74,14 @@ class MinerDataTab extends StatelessWidget {
           ),
         ),
         GraphCard(
-          startDate: frames?.first?.timestamp,
-          endDate: frames?.last?.timestamp,
+          startDate: framesData?.first?.timestamp,
+          endDate: framesData?.last?.timestamp,
           subtitle: FlutterI18n.translate(context, 'weekly_packet'),
-          title: frames
+          title: framesData
                   ?.fold<int>(0, (source, v) => source + v.rxPacketsReceivedOK)
                   ?.toString() ??
               '...',
-          entities: frames
+          entities: framesData
               ?.map((e) => GraphEntity(e.timestamp, e.rxPacketsReceivedOK))
               ?.toList(),
         ),
@@ -107,14 +107,14 @@ class MinerDataTab extends StatelessWidget {
           ),
         ),
         GraphCard(
-          startDate: frames?.first?.timestamp,
-          endDate: frames?.last?.timestamp,
+          startDate: framesData?.first?.timestamp,
+          endDate: framesData?.last?.timestamp,
           subtitle: FlutterI18n.translate(context, 'weekly_packet'),
-          title: frames
+          title: framesData
                   ?.fold<int>(0, (source, v) => source + v.txPacketsEmitted)
                   ?.toString() ??
               '...',
-          entities: frames
+          entities: framesData
               ?.map((e) => GraphEntity(e.timestamp, e.txPacketsEmitted))
               ?.toList(),
         ),

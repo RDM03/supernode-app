@@ -15,14 +15,14 @@ import '../title.dart';
 
 class MinerRevenueTab extends StatelessWidget {
   final GatewayItem item;
-  final double totalAmount;
-  final List<DailyStatistic> revenue;
+  final double sumRevenueLast7days;
+  final List<DailyStatistic> revenueData;
 
   const MinerRevenueTab({
     Key key,
     @required this.item,
-    @required this.totalAmount,
-    @required this.revenue,
+    @required this.sumRevenueLast7days,
+    @required this.revenueData,
   }) : super(key: key);
 
   @override
@@ -43,7 +43,7 @@ class MinerRevenueTab extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${Tools.priceFormat(totalAmount)} MXC',
+                '${Tools.priceFormat(sumRevenueLast7days)} MXC',
                 style: kVeryBigFontOfBlack,
               ),
               Text(
@@ -74,12 +74,12 @@ class MinerRevenueTab extends StatelessWidget {
           ),
         ),
         GraphCard(
-          subtitle: FlutterI18n.translate(context, 'weekly_amount_avg'),
+          subtitle: FlutterI18n.translate(context, 'weekly_amount'),
           title:
-              '${Tools.priceFormat(revenue?.fold<double>(0.0, (v, element) => double.parse(element.amount ?? '0.0') + v))} MXC',
-          startDate: revenue?.first?.date,
-          endDate: revenue?.last?.date,
-          entities: revenue
+              '${Tools.priceFormat(revenueData?.fold<double>(0.0, (v, element) => double.parse(element.amount ?? '0.0') + v))} MXC',
+          startDate: revenueData?.first?.date,
+          endDate: revenueData?.last?.date,
+          entities: revenueData
               ?.map(
                   (e) => GraphEntity(e.date, double.tryParse(e.amount ?? '0')))
               ?.toList(),

@@ -17,7 +17,7 @@ Widget buildView(
 
   return pageFrame(context: viewService.context, children: [
     pageNavBar(FlutterI18n.translate(_ctx, state.title),
-        onTap: () => Navigator.pop(viewService.context)),
+        onTap: () => popAllPages(_ctx)),
     title(FlutterI18n.translate(_ctx, state.title)),
     done(
         success: state.success ||
