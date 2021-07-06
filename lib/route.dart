@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 
 /// Route with Firebase analytics
 MaterialPageRoute routeWidget(Widget page) {
-  analytics.setCurrentScreen(screenName: page.runtimeType.toString()).catchError(
-        (Object error) {
-    },
-  );
+  try {
+    analytics.setCurrentScreen(screenName: page.runtimeType.toString());
+  } catch (e) {}
   return MaterialPageRoute(builder: (_) => page);
 }
 
