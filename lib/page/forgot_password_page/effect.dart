@@ -116,7 +116,7 @@ void _onVerificationContinue(
 
       tip(FlutterI18n.translate(ctx.context, 'update_success'), success: true);
       Navigator.of(ctx.context)
-          .pushAndRemoveUntil(route((c) => LoginPage()), (_) => false);
+          .pushAndRemoveUntil(routeWidget(LoginPage()), (_) => false);
     } catch (e) {
       loading.hide();
       // tip('UserDao registerConfirm: $e');

@@ -31,7 +31,7 @@ class ExportDataPage extends StatelessWidget {
           listItem(Token.mxc.name,
               contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               key: Key('export_mxc'),
-              onTap: () => Navigator.pushReplacement(context, route((_) => ExportMxcPage())),
+              onTap: () => Navigator.pushReplacement(context, routeWidget(ExportMxcPage())),
               leading: Image.asset(Token.mxc.imagePath, height: s(50))),
           Divider(height: 1),
           BlocBuilder<HomeCubit, HomeState>(

@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               onGenerateInitialRoutes: (state, s) => [
-                route((ctx) => _HomePageContent()),
+                routeWidget(_HomePageContent()),
               ],
             ),
           ),

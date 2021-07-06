@@ -33,7 +33,7 @@ class AppSettingsPage extends StatelessWidget {
             listItem(FlutterI18n.translate(context, 'language'),
                 key: Key('languageItem'),
                 onTap: () =>
-                    Navigator.push(context, route((_) => LanguagePage()))),
+                    Navigator.push(context, routeWidget(LanguagePage()))),
             Divider(),
             listItem(
               FlutterI18n.translate(context, 'use_face_id'),
