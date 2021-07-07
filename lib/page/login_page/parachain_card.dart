@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'shared.dart';
@@ -32,8 +33,8 @@ class ParachainLoginCard extends StatelessWidget {
         ),
         gradient: LinearGradient(
           colors: [
-            Color(0xFF6B0B92),
-            Color(0xFF4665EA),
+            colorDhx,
+            colorSupernodeDhx,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,

@@ -254,7 +254,7 @@ Widget _stakeCard({
       subtitle: Text(
         boostText == null ? '...' : boostText,
         style: kMiddleFontOfBlack.copyWith(
-          color: Color(0xFF1C1478),
+          color: colorMxc,
           fontWeight: FontWeight.w600,
         ),
         key: Key('setBoost'),

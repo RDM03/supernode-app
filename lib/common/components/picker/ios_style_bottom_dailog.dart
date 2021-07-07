@@ -295,7 +295,7 @@ void showInfoDialog(BuildContext context, Widget child) {
       );
     },
     barrierDismissible: true,
-    barrierColor: Colors.black.withOpacity(0.4),
+    barrierColor: blackColor40,
     barrierLabel: '',
     transitionDuration: Duration(milliseconds: 200),
   );

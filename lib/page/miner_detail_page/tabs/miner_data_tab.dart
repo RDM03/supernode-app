@@ -33,7 +33,7 @@ class MinerDataTab extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: colorMxc.withOpacity(0.05),
+            color: colorMxc05,
             borderRadius: BorderRadius.circular(10),
           ),
           width: double.infinity,

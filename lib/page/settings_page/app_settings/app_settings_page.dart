@@ -7,6 +7,7 @@ import 'package:supernodeapp/page/feedback_page/feedback.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
 import 'package:supernodeapp/page/settings_page/language_component/language_page.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import '../../../route.dart';
@@ -38,9 +39,10 @@ class AppSettingsPage extends StatelessWidget {
             listItem(
               FlutterI18n.translate(context, 'use_face_id'),
               trailing: Switch(
-                  activeColor: Color(0xFF1C1478),
-                  value: true,
-                  onChanged: (v) => 'TODO'),
+                activeColor: colorMxc,
+                value: true,
+                onChanged: (v) => 'TODO',
+              ),
             ),
             Divider(),
             listItem(
@@ -49,7 +51,7 @@ class AppSettingsPage extends StatelessWidget {
                 buildWhen: (a, b) => a.screenShot != b.screenShot,
                 builder: (ctx, s) => Switch(
                   key: Key('screenshotSwitch'),
-                  activeColor: Color(0xFF1C1478),
+                  activeColor: colorMxc,
                   value: s.screenShot,
                   onChanged: (v) async {
                     await DatadashFeedback.of(context).setShowScreenshot(v);

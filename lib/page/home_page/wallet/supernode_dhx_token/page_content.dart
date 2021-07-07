@@ -16,6 +16,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/home_page/wallet/supernode_dhx_token/actions.dart';
 import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'transactions_history.dart';
 import 'mining_income.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -101,7 +102,7 @@ class DhxMiningCard extends StatelessWidget {
                 onTap: () => showBoostMPowerDialog(context),
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Token.supernodeDhx.color.withOpacity(.2),
+                      color: colorSupernodeDhx20,
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(

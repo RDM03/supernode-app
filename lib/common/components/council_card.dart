@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:supernodeapp/common/repositories/supernode/dao/dhx.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class CouncilCard extends StatelessWidget {
@@ -24,7 +25,7 @@ class CouncilCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: blackColor10,
             spreadRadius: 1,
             blurRadius: 2,
             offset: Offset(0, 0),
@@ -44,7 +45,7 @@ class CouncilCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius:
                       BorderRadius.horizontal(left: Radius.circular(10)),
-                  color: Color(0xFF4665EA),
+                  color: colorSupernodeDhx,
                 ),
                 child: Center(
                   child: FaIcon(

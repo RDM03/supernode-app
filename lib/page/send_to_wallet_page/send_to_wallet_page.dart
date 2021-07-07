@@ -248,7 +248,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                     onChanged: (v) =>
                         setState(() => gatewaySelection[item.id] = v),
                     activeColor: healthColor,
-                    inactiveColor: healthColor.withOpacity(0.2),
+                    inactiveColor: healthColor20,
                   ),
                 ),
               ),
@@ -267,7 +267,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                 ColoredText(
                   text:
                       '${Tools.priceFormat(item.miningFuel.toDouble() * (gatewaySelection[item.id] ?? 0), range: 2)} MXC',
-                  color: healthColor.withOpacity(0.2),
+                  color: healthColor20,
                   style: kMiddleFontOfBlack,
                   padding: EdgeInsets.symmetric(
                     horizontal: 6,
@@ -410,7 +410,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                     child: Center(
                       child: CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation(healthColor),
-                        backgroundColor: healthColor.withOpacity(0.2),
+                        backgroundColor: healthColor20,
                       ),
                     ),
                   )
@@ -421,7 +421,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                       child: Center(
                         child: CircularProgressIndicator(
                           valueColor: AlwaysStoppedAnimation(healthColor),
-                          backgroundColor: healthColor.withOpacity(0.2),
+                          backgroundColor: healthColor20,
                         ),
                       ),
                     ),

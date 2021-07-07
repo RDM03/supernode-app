@@ -3,6 +3,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 
 import 'package:supernodeapp/common/components/widgets/bar_graph.dart';
 import 'package:supernodeapp/common/utils/time.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class GraphEntity {
@@ -66,7 +67,8 @@ class _GraphCardState extends State<GraphCard> {
     );
   }
 
-  String getMD(DateTime date) => '${TimeUtil.months(context)[date.month]} ${date.day}';
+  String getMD(DateTime date) =>
+      '${TimeUtil.months(context)[date.month]} ${date.day}';
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +83,7 @@ class _GraphCardState extends State<GraphCard> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: blackColor20,
             spreadRadius: 0,
             blurRadius: 1,
             offset: Offset(0, 0),

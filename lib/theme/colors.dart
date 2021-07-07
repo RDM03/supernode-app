@@ -51,10 +51,16 @@ const iconCircularBackgroundColor = Color.fromARGB(51, 77, 137, 229);
 
 //wallet
 const selectedTabColor = Color.fromARGB(255, 77, 137, 229);
+const colorMxcGradientStart = Color(0xFF02FFD8);
 const colorMxc = Color(0xFF1C1478);
+final colorMxc05 = Color(0xFF1C1478).withOpacity(0.05);
+final colorMxc10 = Color(0xFF1C1478).withOpacity(0.05);
+final colorMxc20 = Color(0xFF1C1478).withOpacity(0.2);
 const colorSupernodeDhx = Color(0xFF4665EA);
+final colorSupernodeDhx20 = Color(0xFF4665EA).withOpacity(0.2);
 const colorBtc = Color(0xFFF7931A);
 const colorDhx = Color(0xFF6B0B92);
+final colorDhx85 = Color(0xFF6B0B92).withOpacity(0.85);
 const colorNtf = Color(0xFF04074e);
 const transparentWhite = Color.fromARGB(0, 255, 255, 255);
 
@@ -62,6 +68,7 @@ const transparentWhite = Color.fromARGB(0, 255, 255, 255);
 const Color darkBackground = Color(0xFFEBEFF2);
 const Color darkBackground2 = Color(0xFFDBDFE2);
 const Color hintFont = Color(0xFF98A6AD);
+final Color hintFont20 = Color(0xFF98A6AD).withOpacity(0.2);
 const Color tipFont = Color(0xDE000000);
 
 //device
@@ -91,6 +98,22 @@ final lock9Color = Color(0xFF94A2EC);
 final lock3Color = Color(0xFFADB5E4);
 
 //miner
-const minerColor = Color.fromARGB(255, 28, 20, 120);
+const minerColor = colorMxc;
+final minerColor10 = minerColor.withOpacity(0.1);
 final fuelColor = Color.fromARGB(255, 255, 91, 91).withOpacity(0.8);
 const healthColor = Color(0xCCFF5B5B);
+final healthColor20 = Color(0xCCFF5B5B).withOpacity(0.2);
+
+const unknownColor1 = Color(0x1A000000);
+const unknownColor2 = Color(0x0000001A);
+const unknownColor3 = Color(0xFF343434);
+const unknownColor4 = Color(0x33000000);
+
+const whiteColor = Colors.white;
+final whiteColor05 = Colors.white.withOpacity(0.5);
+const blackColor = Colors.black;
+final blackColor10 = Colors.black.withOpacity(0.1);
+final blackColor20 = Colors.black.withOpacity(0.2);
+final blackColor40 = Colors.black.withOpacity(0.4);
+final blackColor70 = Colors.black.withOpacity(0.7);
+final greyColor30 = Colors.grey.withOpacity(0.3);

@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import 'action.dart';
@@ -89,7 +90,7 @@ Widget buildView(
               Text(
                 FlutterI18n.translate(_ctx, 'estimated_rate'),
                 style: kSmallFontOfGrey.copyWith(
-                  color: Color(0xFF1C1478),
+                  color: colorMxc,
                 ),
               ),
               SizedBox(height: 2),
@@ -118,7 +119,7 @@ Widget buildView(
             Expanded(
               child: Container(
                 height: 2,
-                color: Color(0xFFEBEFF2),
+                color: darkBackground,
               ),
             ),
             _infoCircle(FlutterI18n.translate(_ctx, 'gains_start'),
@@ -126,7 +127,7 @@ Widget buildView(
             Expanded(
               child: Container(
                 height: 2,
-                color: Color(0xFFEBEFF2),
+                color: darkBackground,
               ),
             ),
             _infoCircle(
@@ -138,7 +139,7 @@ Widget buildView(
             Expanded(
               child: Container(
                 height: 2,
-                color: Color(0xFFEBEFF2),
+                color: darkBackground,
               ),
             ),
             _infoCircle(
@@ -196,8 +197,8 @@ Widget buildView(
                     return Slider(
                       key: ValueKey('stakeAmountSlider'),
                       value: percent,
-                      activeColor: Color(0xFF1C1478),
-                      inactiveColor: Color(0xFF1C1478).withOpacity(0.2),
+                      activeColor: colorMxc,
+                      inactiveColor: colorMxc20,
                       onChanged: (v) {
                         final balanceVal =
                             (state.balance * v * 100).floorToDouble() / 100;
@@ -274,7 +275,7 @@ _infoCircle(String text, String date) {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: Color(0xFF1C1478),
+              color: colorMxc,
               width: 3,
             ),
           ),

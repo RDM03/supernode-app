@@ -51,7 +51,7 @@ class UserTab extends StatelessWidget {
               },
               child: Container(
                 decoration: BoxDecoration(
-                    color: Token.supernodeDhx.color.withOpacity(.2),
+                    color: colorSupernodeDhx20,
                     borderRadius: BorderRadius.all(Radius.circular(5))),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -107,7 +107,7 @@ class UserTab extends StatelessWidget {
           child,
           Positioned.fill(
             child: Container(
-              color: colorDhx.withOpacity(0.85),
+              color: colorDhx85,
               alignment: Alignment.center,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -271,7 +271,7 @@ class UserTab extends StatelessWidget {
           )
         ],
       ),
-      backgroundColor: Color(0xFFEBEFF2),
+      backgroundColor: darkBackground,
       body: BlocBuilder<HomeCubit, HomeState>(
         buildWhen: (a, b) =>
             a.parachainUsed != b.parachainUsed ||

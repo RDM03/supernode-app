@@ -205,7 +205,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                         .read<LoginCubit>()
                         .setSuperNodeListVisible(false),
                     child: Container(
-                      color: Color(0x33000000),
+                      color: unknownColor4,
                     ),
                   );
                 return Container();

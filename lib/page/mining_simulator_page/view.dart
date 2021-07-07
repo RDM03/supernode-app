@@ -16,6 +16,7 @@ import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/mining_simulator_page/widgets/action_button.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
@@ -62,7 +63,7 @@ Widget buildView(
               max: (monthsOptions.length - 1).toDouble(),
               divisions: (monthsOptions.length - 1),
               activeColor: Token.supernodeDhx.color,
-              inactiveColor: Token.supernodeDhx.color.withOpacity(0.2),
+              inactiveColor: colorSupernodeDhx20,
               onChanged: (v) => dispatch(MiningSimulatorActionCreator.months(
                   monthsOptions[v.toInt()])),
             ),

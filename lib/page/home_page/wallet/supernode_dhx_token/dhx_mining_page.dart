@@ -64,31 +64,43 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
           middleColumnSpacer(),
           Row(children: [
             Icon(Icons.circle, color: Token.supernodeDhx.color, size: 12),
-            Text(FlutterI18n.translate(context, "today"), style: kSmallFontOfBlack),
+            Text(
+              FlutterI18n.translate(context, "today"),
+              style: kSmallFontOfBlack,
+            ),
             Spacer(),
-            Icon(Icons.circle, color: Token.supernodeDhx.color.withOpacity(0.2), size: 12),
-            Text(FlutterI18n.translate(context, 'cool_off'), style: kSmallFontOfBlack),
+            Icon(Icons.circle, color: colorSupernodeDhx20, size: 12),
+            Text(
+              FlutterI18n.translate(context, 'cool_off'),
+              style: kSmallFontOfBlack,
+            ),
             Spacer(),
             Image.asset(AppImages.iconUnbond, scale: 1.8, color: Colors.red),
-            Text(FlutterI18n.translate(context, 'unbonded'), style: kSmallFontOfBlack)
+            Text(
+              FlutterI18n.translate(context, 'unbonded'),
+              style: kSmallFontOfBlack,
+            )
           ]),
           smallColumnSpacer(),
           PanelFrame(
-              rowTop: const EdgeInsets.all(0.0),
-              child: Container(
-                height: 600,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                child: SingleChildScrollView(
-                    controller: scrollCtrl,
-                    reverse: true,
-                    child: BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-                        buildWhen: (a, b) => a.calendarInfo != b.calendarInfo,
-                        builder: (context, state) => Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: calendar(context, state.calendarInfo)))),
-              )),
-        ]));
+            rowTop: const EdgeInsets.all(0.0),
+            child: Container(
+              height: 600,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              child: SingleChildScrollView(
+                  controller: scrollCtrl,
+                  reverse: true,
+                  child: BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+                      buildWhen: (a, b) => a.calendarInfo != b.calendarInfo,
+                      builder: (context, state) => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: calendar(context, state.calendarInfo)))),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -100,7 +112,8 @@ List<Widget> calendar(
     calendarList.add(Flex(
       direction: Axis.horizontal,
       children: [
-        Text('  ${TimeUtil.getMYAbb(context, items.first.date, withApostrophe: true)}',
+        Text(
+            '  ${TimeUtil.getMYAbb(context, items.first.date, withApostrophe: true)}',
             style: kPrimaryBigFontOfBlack),
         Expanded(
             child: Text(
@@ -141,7 +154,7 @@ List<Widget> getCalendar(List<CalendarModel> calendarList) {
   int filledItemNum = calendarList.first.date.weekday;
   List<CalendarModel> list = [];
 
-  if(filledItemNum != 7){
+  if (filledItemNum != 7) {
     for (int i = 0; i < filledItemNum; i++) {
       list.insert(0, CalendarModel(date: null));
     }
@@ -170,7 +183,7 @@ class _CalendarElement extends StatelessWidget {
             color: Token.supernodeDhx.color, shape: BoxShape.circle);
       if (model.left || model.right || model.middle)
         return BoxDecoration(
-            color: Token.supernodeDhx.color.withOpacity(0.2),
+            color: colorSupernodeDhx20,
             borderRadius: BorderRadius.horizontal(
                 left: (model.left) ? radius : Radius.zero,
                 right: (model.right) ? radius : Radius.zero),

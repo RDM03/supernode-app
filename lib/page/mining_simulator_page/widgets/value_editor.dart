@@ -3,6 +3,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/colored_text.dart';
 import 'package:supernodeapp/common/components/slider.dart';
 import 'package:supernodeapp/common/components/text_field/primary_text_field.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class ValueEditor extends StatelessWidget {
@@ -65,7 +66,7 @@ class ValueEditor extends StatelessWidget {
                         ? '${total ?? '??'}'
                         : '${total ?? '??'} $totalSuffix',
                     style: kMiddleFontOfBlack,
-                    color: enabled ? null : Color(0xFF98A6AD).withOpacity(0.2),
+                    color: enabled ? null : hintFont20,
                   ),
                 ),
               ),
@@ -82,8 +83,8 @@ class ValueEditor extends StatelessWidget {
                       ? Center(
                           child: LinearProgressIndicator(
                             valueColor:
-                                AlwaysStoppedAnimation(Color(0xFF4665EA)),
-                            backgroundColor: Color(0xFF4665EA).withOpacity(0.2),
+                                AlwaysStoppedAnimation(colorSupernodeDhx),
+                            backgroundColor: colorSupernodeDhx20,
                           ),
                         )
                       : ValueListenableBuilder<TextEditingValue>(
@@ -99,8 +100,8 @@ class ValueEditor extends StatelessWidget {
                             return Slider(
                               key: ValueKey('valueSlider'),
                               value: percent,
-                              activeColor: Color(0xFF4665EA),
-                              inactiveColor: Color(0xFF4665EA).withOpacity(0.2),
+                              activeColor: colorSupernodeDhx,
+                              inactiveColor: colorSupernodeDhx20,
                               onChanged: !enabled
                                   ? null
                                   : (v) {
@@ -152,10 +153,10 @@ class ValueEditor extends StatelessWidget {
               controller: controller,
               suffixText: textFieldSuffix,
               readOnly: !enabled,
-              textColor: Color(0xFF98A6AD),
+              textColor: hintFont,
               hint: hintText,
               suffixStyle: enabled ? null : kBigFontOfGrey,
-              fillColor: enabled ? null : Color(0xFFEBEFF2),
+              fillColor: enabled ? null : darkBackground,
             ),
           ),
         ]
@@ -216,7 +217,7 @@ class ValueEditor2 extends StatelessWidget {
               readOnly: !enabled,
               hint: hintText,
               suffixStyle: enabled ? null : kBigFontOfGrey,
-              fillColor: enabled ? null : Color(0xFFEBEFF2),
+              fillColor: enabled ? null : darkBackground,
             ),
           ),
         ],

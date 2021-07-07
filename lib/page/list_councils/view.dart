@@ -5,6 +5,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/council_card.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import 'action.dart';
@@ -43,8 +44,8 @@ Widget buildView(
             key: ValueKey('tabSlider'),
             onValueChanged: (v) => dispatch(ListCouncilsActionCreator.tab(v)),
             groupValue: state.tab,
-            thumbColor: Color(0xFF4665EA),
-            backgroundColor: Color(0xFF4665EA).withOpacity(0.2),
+            thumbColor: colorSupernodeDhx,
+            backgroundColor: colorSupernodeDhx20,
           ),
         ),
         SizedBox(height: 30),
@@ -68,7 +69,7 @@ Widget _loadingWidget() => Padding(
       child: Center(
         child: CircularProgressIndicator(
           key: ValueKey('circularProgressIndicator'),
-          valueColor: AlwaysStoppedAnimation(Color(0xFF4665EA)),
+          valueColor: AlwaysStoppedAnimation(colorSupernodeDhx),
         ),
       ),
     );

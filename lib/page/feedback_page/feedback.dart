@@ -17,6 +17,7 @@ import 'package:supernodeapp/common/repositories/shared/dao/jira_dao.dart';
 import 'package:supernodeapp/common/repositories/storage_repository.dart';
 import 'package:supernodeapp/page/feedback_page/feedback_result.dart';
 import 'package:supernodeapp/route.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class DatadashFeedbackWidgetForm extends StatefulWidget {
@@ -212,7 +213,7 @@ class DatadashFeedbackState extends State<DatadashFeedback> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.7),
+                          color: blackColor70,
                           borderRadius: BorderRadius.horizontal(
                             left: Radius.circular(8),
                           ),
@@ -222,7 +223,7 @@ class DatadashFeedbackState extends State<DatadashFeedback> {
                               EdgeInsets.all(4).copyWith(right: 4, left: 6),
                           child: Icon(
                             Icons.camera_alt,
-                            color: Colors.white,
+                            color: whiteColor,
                           ),
                         ),
                       ),

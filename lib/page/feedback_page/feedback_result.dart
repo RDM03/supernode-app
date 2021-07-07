@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/jira_dao.dart';
 import 'package:supernodeapp/page/feedback_page/feedback.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 enum FeedbackResultType { cancel, feedback, share }
@@ -126,7 +127,7 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
       key: Key('FeedbackResultPage'),
       type: MaterialType.transparency,
       child: Container(
-        color: Colors.black.withOpacity(0.4),
+        color: blackColor40,
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(

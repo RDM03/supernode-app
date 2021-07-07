@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class ColoredText extends StatelessWidget {
@@ -21,7 +22,7 @@ class ColoredText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: color ?? Color(0x4665EA).withOpacity(0.2),
+        color: color ?? colorSupernodeDhx20,
         borderRadius: BorderRadius.circular(10),
       ),
       padding: padding,

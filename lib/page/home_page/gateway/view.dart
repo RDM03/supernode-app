@@ -115,8 +115,8 @@ class GatewayTab extends StatelessWidget {
   }
 
   Widget minerHealthDashboard(BuildContext context) {
-    Color disabledColor = Color.fromARGB(255, 152, 166,
-        173); //remove once all health info implemented as well as disabled image assets
+    final disabledColor =
+        hintFont20; //remove once all health info implemented as well as disabled image assets
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -294,7 +294,7 @@ class GatewayTab extends StatelessWidget {
                                         context, 'uptime_info')),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: minerColor.withOpacity(.1),
+                                    color: minerColor10,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
                                   ),
@@ -342,7 +342,7 @@ class GatewayTab extends StatelessWidget {
                                     FlutterI18n.translate(context, 'gps_info')),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: disabledColor.withOpacity(.2),
+                                    color: disabledColor,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
                                   ),
@@ -380,7 +380,7 @@ class GatewayTab extends StatelessWidget {
                                         context, 'altitude_info')),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: disabledColor.withOpacity(.2),
+                                    color: disabledColor,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
                                   ),
@@ -422,7 +422,7 @@ class GatewayTab extends StatelessWidget {
                                         context, 'orientation_info')),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: disabledColor.withOpacity(.2),
+                                    color: disabledColor,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
                                   ),
@@ -461,7 +461,7 @@ class GatewayTab extends StatelessWidget {
                                         context, 'proximity_info')),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: disabledColor.withOpacity(.2),
+                                    color: disabledColor,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
                                   ),
@@ -513,14 +513,16 @@ class GatewayTab extends StatelessWidget {
                                           Navigator.pop(context);
                                           await Navigator.of(ctx).push(
                                               route((ctx) => AddFuelPage()));
-                                          await context.read<GatewayCubit>().refresh();
+                                          await context
+                                              .read<GatewayCubit>()
+                                              .refresh();
                                         },
                                         buttonTitle: FlutterI18n.translate(
                                             context, 'fuel_miners'),
                                         bgColor: fuelColor)),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: minerColor.withOpacity(.1),
+                                    color: minerColor10,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
                                   ),

@@ -26,26 +26,38 @@ class FormatListPage extends StatelessWidget {
           Divider(height: 1),
           BlocBuilder<SettingsCubit, SettingsState>(
               buildWhen: (a, b) => a.format != b.format,
-              builder: (context, state) =>
-                  Container(
-                    color: (state.format == 'pdf') ? dartBlueColor.withOpacity(0.1) : transparentWhite,
+              builder: (context, state) => Container(
+                    color:
+                        (state.format == 'pdf') ? colorMxc10 : transparentWhite,
                     child: listItem('PDF',
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        onTap: () { context.read<SettingsCubit>().setFormat('pdf');
-                        Navigator.of(context).pop();},
-                        trailing: Icon(Icons.check, color: (state.format == 'pdf') ? Colors.black : Colors.grey)),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        onTap: () {
+                      context.read<SettingsCubit>().setFormat('pdf');
+                      Navigator.of(context).pop();
+                    },
+                        trailing: Icon(Icons.check,
+                            color: (state.format == 'pdf')
+                                ? Colors.black
+                                : Colors.grey)),
                   )),
           Divider(height: 1),
           BlocBuilder<SettingsCubit, SettingsState>(
               buildWhen: (a, b) => a.format != b.format,
-              builder: (context, state) =>
-                  Container(
-                    color: (state.format == 'csv') ? dartBlueColor.withOpacity(0.1) : transparentWhite,
+              builder: (context, state) => Container(
+                    color:
+                        (state.format == 'csv') ? colorMxc10 : transparentWhite,
                     child: listItem('CSV',
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        onTap: () { context.read<SettingsCubit>().setFormat('csv');
-                        Navigator.of(context).pop();},
-                        trailing: Icon(Icons.check, color: (state.format == 'csv') ? Colors.black : Colors.grey)),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        onTap: () {
+                      context.read<SettingsCubit>().setFormat('csv');
+                      Navigator.of(context).pop();
+                    },
+                        trailing: Icon(Icons.check,
+                            color: (state.format == 'csv')
+                                ? Colors.black
+                                : Colors.grey)),
                   )),
           Divider(height: 1),
         ]);

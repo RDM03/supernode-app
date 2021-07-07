@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/action.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import 'action.dart';
@@ -64,7 +65,7 @@ Widget buildView(
               padding: EdgeInsets.all(6),
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Color(0xFF343434),
+                  color: unknownColor3,
                   boxShadow: [
                     BoxShadow(
                         offset: Offset(0, 0),

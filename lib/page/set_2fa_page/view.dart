@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar_back.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
 import 'action.dart';
@@ -44,7 +45,7 @@ Widget buildView(
                                 Set2FAActionCreator.onEnterRecoveryContinue());
                           }
                         },
-                  activeColor: Color(0xFF1C1478),
+                  activeColor: colorMxc,
                 ),
               ],
             ),

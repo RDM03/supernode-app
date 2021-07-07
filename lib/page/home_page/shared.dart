@@ -193,7 +193,7 @@ Widget tokenItem(
                   if (showTrailingLine)
                     Container(
                       width: double.infinity,
-                      color: Colors.grey.withOpacity(0.3),
+                      color: greyColor30,
                       height: 1,
                     ),
                 ],
@@ -477,33 +477,32 @@ void aboutPage(
   Navigator.of(context).push(MaterialPageRoute(
       fullscreenDialog: true,
       builder: (ctx) => pageFrame(
-          context: ctx,
-          padding: EdgeInsets.all(0.0),
-          children: <Widget>[
-            ListTile(
-              title:
-              Center(child: Text(title, style: kBigBoldFontOfBlack)),
-              leading: SizedBox(),
-              trailing: GestureDetector(
-                child: Icon(Icons.close, color: Colors.black),
-                onTap: () => Navigator.of(ctx).pop(),
-              ),
-            ),
-            SizedBox(height: 50),
-            Center(child: illustration),
-            SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Text(text,
-                  style: kBigFontOfBlack, textAlign: TextAlign.center),
-            ),
-            SizedBox(height: 70),
-            (bottomButton != null)
-                ? Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: bottomButton)
-                : SizedBox(),
-          ])));
+              context: ctx,
+              padding: EdgeInsets.all(0.0),
+              children: <Widget>[
+                ListTile(
+                  title: Center(child: Text(title, style: kBigBoldFontOfBlack)),
+                  leading: SizedBox(),
+                  trailing: GestureDetector(
+                    child: Icon(Icons.close, color: Colors.black),
+                    onTap: () => Navigator.of(ctx).pop(),
+                  ),
+                ),
+                SizedBox(height: 50),
+                Center(child: illustration),
+                SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Text(text,
+                      style: kBigFontOfBlack, textAlign: TextAlign.center),
+                ),
+                SizedBox(height: 70),
+                (bottomButton != null)
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: bottomButton)
+                    : SizedBox(),
+              ])));
 }
 
 Widget aboutPageIllustration(String title, Widget image) {
@@ -511,7 +510,7 @@ Widget aboutPageIllustration(String title, Widget image) {
     height: 150,
     width: 150,
     decoration: BoxDecoration(
-      color: minerColor.withOpacity(.1),
+      color: minerColor10,
       borderRadius: BorderRadius.all(Radius.circular(10)),
     ),
     child: Padding(

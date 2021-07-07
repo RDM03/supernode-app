@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/components/council_card.dart';
 import 'package:supernodeapp/common/components/page/link.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import 'action.dart';
@@ -62,7 +63,7 @@ Widget buildView(
             child: Center(
               child: CircularProgressIndicator(
                 key: ValueKey('circularProgressIndicator'),
-                valueColor: AlwaysStoppedAnimation(Color(0xFF4665EA)),
+                valueColor: AlwaysStoppedAnimation(colorSupernodeDhx),
               ),
             ),
           )

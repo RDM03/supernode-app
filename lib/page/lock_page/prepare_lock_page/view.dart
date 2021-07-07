@@ -9,6 +9,7 @@ import 'package:supernodeapp/common/components/text_field/primary_text_field.dar
 import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import 'action.dart';
@@ -115,8 +116,8 @@ Widget buildView(
                 child: state.balance == null
                     ? Center(
                         child: LinearProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(Color(0xFF4665EA)),
-                          backgroundColor: Color(0xFF4665EA).withOpacity(0.2),
+                          valueColor: AlwaysStoppedAnimation(colorSupernodeDhx),
+                          backgroundColor: colorSupernodeDhx20,
                         ),
                       )
                     : ValueListenableBuilder<TextEditingValue>(
@@ -131,8 +132,8 @@ Widget buildView(
                           return Slider(
                             key: ValueKey('lockAmountSlider'),
                             value: percent,
-                            activeColor: Color(0xFF4665EA),
-                            inactiveColor: Color(0xFF4665EA).withOpacity(0.2),
+                            activeColor: colorSupernodeDhx,
+                            inactiveColor: colorSupernodeDhx20,
                             onChanged: (v) {
                               final balanceVal =
                                   (state.balance * v * 100).floorToDouble() /

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/theme/colors.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -98,7 +99,7 @@ Widget buildView(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(5)),
                                 borderSide: BorderSide(
-                                  color: Color(0x0000001A),
+                                  color: unknownColor2,
                                 ),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -217,7 +218,7 @@ class _Title extends StatelessWidget {
     return Container(
       height: 32,
       padding: EdgeInsets.only(left: 16),
-      color: Color(0xFFEBEFF2),
+      color: darkBackground,
       alignment: Alignment.centerLeft,
       child: Text(
         text,

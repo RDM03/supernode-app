@@ -14,6 +14,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class TokenHomePageWidget extends StatelessWidget {
@@ -91,7 +92,7 @@ class TokenHomePageWidget extends StatelessWidget {
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Token.supernodeDhx.color.withOpacity(.2),
+                      color: colorSupernodeDhx20,
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(

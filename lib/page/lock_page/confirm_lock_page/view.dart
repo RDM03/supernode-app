@@ -11,6 +11,7 @@ import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import 'action.dart';
@@ -191,7 +192,7 @@ Widget buildView(
                 alignment: Alignment.centerRight,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color(0x4665EA).withOpacity(0.2),
+                    color: colorSupernodeDhx20,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -223,7 +224,7 @@ Widget buildView(
                 alignment: Alignment.centerRight,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color(0x4665EA).withOpacity(0.2),
+                    color: colorSupernodeDhx20,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
