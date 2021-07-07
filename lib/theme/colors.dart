@@ -7,50 +7,50 @@ final appTheme = ThemeData(
   appBarTheme: AppBarTheme(brightness: Brightness.light),
 );
 
-const color1 = Color.fromARGB(255, 0, 0, 0);
-const color2 = Color.fromARGB(255, 235, 239, 242);
-const color3 = Color.fromARGB(255, 255, 255, 255);
-const color4 = Color.fromARGB(222, 0, 0, 0);
-const color5 = Color.fromARGB(138, 0, 0, 0);
-const color6 = Color.fromARGB(139, 0, 0, 0);
-const color7 = Color.fromARGB(255, 28, 20, 120);
-const color8 = Color.fromARGB(26, 0, 0, 0);
-const color9 = Color.fromARGB(255, 77, 137, 229);
-const color10 = Color.fromARGB(255, 71, 217, 108);
-const color11 = Color.fromARGB(255, 237, 237, 245);
-const color12 = Color.fromARGB(64, 0, 0, 0);
-const color13 = Color.fromARGB(255, 16, 196, 105);
+const color1 = Color(0xFF000000);
+const color2 = Color(0xFFEBEFF2);
+const color3 = Color(0xFFFFFFFF);
+const color4 = Color(0xDE000000);
+const color5 = Color(0x8A000000);
+const color6 = Color(0x8B000000);
+const color7 = Color(0xFF1C1478);
+const color8 = Color(0x1A000000);
+const color9 = Color(0xFF4D89E5);
+const color10 = Color(0xFF47D96C);
+const color11 = Color(0xFFEDEDF5);
+const color12 = Color(0x40000000);
+const color13 = Color(0xFF10C469);
 
-const backgroundColor = Color.fromARGB(255, 235, 239, 242);
-const buttonPrimaryColor = Color.fromARGB(255, 28, 20, 120);
-const buttonPrimaryColorAccent = Color.fromARGB(150, 28, 20, 120);
+const backgroundColor = Color(0xFFEBEFF2);
+const buttonPrimaryColor = Color(0xFF1C1478);
+const buttonPrimaryColorAccent = Color(0x961C1478);
 
-const buttonSecondaryColor = Color.fromARGB(0, 0, 0, 0);
-const cardBackgroundColor = Color.fromARGB(255, 255, 255, 255);
+const buttonSecondaryColor = Colors.transparent;
+const cardBackgroundColor = whiteColor;
 
 //home
-const lightBlue = Color.fromARGB(255, 218, 231, 251);
-const panelColor = Color.fromARGB(255, 255, 255, 255);
-const bottomBarColor = Color.fromARGB(255, 27, 20, 120);
-const primaryColor = Color.fromARGB(255, 16, 196, 105);
+const lightBlue = Color(0xFFDAE7FB);
+const panelColor = whiteColor;
+const bottomBarColor = Color(0xFF1B1478);
+const primaryColor = Color(0xFF10C469);
 
-const scaffoldBackgroundColor = Color.fromARGB(255, 16, 196, 105);
-const shodowColor = const Color.fromARGB(26, 0, 0, 0);
-const borderColor = const Color.fromARGB(70, 0, 0, 0);
+const scaffoldBackgroundColor = Color(0xFF10C469);
+const shodowColor = const Color(0x1A000000);
+const borderColor = const Color(0x46000000);
 final withdrawColor = Colors.red[200];
-const depositColor = const Color.fromARGB(51, 16, 196, 105);
+const depositColor = const Color(0x3310C469);
 
-const textColor1 = Color.fromARGB(222, 0, 0, 0);
-const textColor2 = Color.fromARGB(222, 255, 255, 255);
-const textColor3 = Color.fromARGB(64, 0, 0, 0);
+const textColor1 = Color(0xDE000000);
+const textColor2 = Color(0xDEFFFFFF);
+const textColor3 = Color(0x40000000);
 
 const unselectedColor = greyColor;
-const selectedColor = Color.fromARGB(255, 27, 20, 120);
+const selectedColor = Color(0xFF1B1478);
 
-const iconCircularBackgroundColor = Color.fromARGB(51, 77, 137, 229);
+const iconCircularBackgroundColor = Color(0x334D89E5);
 
 //wallet
-const selectedTabColor = Color.fromARGB(255, 77, 137, 229);
+const selectedTabColor = Color(0xFF4D8BE5);
 const colorMxcGradientStart = Color(0xFF02FFD8);
 const colorMxc = Color(0xFF1C1478);
 final colorMxc05 = Color(0xFF1C1478).withOpacity(0.05);
@@ -62,7 +62,7 @@ const colorBtc = Color(0xFFF7931A);
 const colorDhx = Color(0xFF6B0B92);
 final colorDhx85 = Color(0xFF6B0B92).withOpacity(0.85);
 const colorNtf = Color(0xFF04074e);
-const transparentWhite = Color.fromARGB(0, 255, 255, 255);
+const transparentWhite = Color(0x00FFFFFF);
 
 // login
 const Color darkBackground = Color(0xFFEBEFF2);
@@ -72,7 +72,7 @@ final Color hintFont20 = Color(0xFF98A6AD).withOpacity(0.2);
 const Color tipFont = Color(0xDE000000);
 
 //device
-const dartBlueColor = Color.fromARGB(255, 28, 20, 120);
+const dartBlueColor = colorMxc;
 const dbm100 = Color(0xFFFF5B5B);
 const dbm100_105 = Color(0xFFFAA300);
 const dbm105_110 = Color(0xFFF7D700);
@@ -100,7 +100,7 @@ final lock3Color = Color(0xFFADB5E4);
 //miner
 const minerColor = colorMxc;
 final minerColor10 = minerColor.withOpacity(0.1);
-final fuelColor = Color.fromARGB(255, 255, 91, 91).withOpacity(0.8);
+final fuelColor = healthColor;
 const healthColor = Color(0xCCFF5B5B);
 final healthColor20 = Color(0xCCFF5B5B).withOpacity(0.2);
 
