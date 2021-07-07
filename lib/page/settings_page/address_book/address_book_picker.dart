@@ -41,7 +41,7 @@ class AddressBookPicker extends StatelessWidget {
                 key: Key('mxc_button'),
                 onTap: () => Navigator.push(
                   context,
-                  route((_) => AddressBookPage(
+                  routeWidget(AddressBookPage(
                         type: AddressBookType.mxc,
                       )),
                 ),
@@ -60,7 +60,7 @@ class AddressBookPicker extends StatelessWidget {
                 key: Key('dhx_button'),
                 onTap: () => Navigator.push(
                   context,
-                  route((_) => AddressBookPage(
+                  routeWidget(AddressBookPage(
                         type: AddressBookType.dhx,
                       )),
                 ),
