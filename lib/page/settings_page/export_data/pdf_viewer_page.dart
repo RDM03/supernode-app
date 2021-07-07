@@ -50,29 +50,30 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
           },
         ),
       ),
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          FutureBuilder<PDFDocument>(
-            future: future,
-            builder: (ctx, snap) => snap.hasData
-                ? PDFViewer(
+      body: FutureBuilder<PDFDocument>(
+        future: future,
+        builder: (ctx, snap) => snap.hasData
+            ? Stack(
+                alignment: Alignment.center,
+                children: [
+                  PDFViewer(
                     document: snap.data,
                     showPicker: false,
-                  )
-                : Center(child: CircularProgressIndicator()),
-          ),
-          Positioned(
-            bottom: 70 + MediaQuery.of(context).viewPadding.bottom,
-            right: 20,
-            child: FloatingActionButton(
-              child: Icon(Icons.share),
-              onPressed: () {
-                Share.shareFiles([widget.filePath]);
-              },
-            ),
-          ),
-        ],
+                  ),
+                  Positioned(
+                    bottom: (snap.data.count == 1 ? 30 : 70) +
+                        MediaQuery.of(context).viewPadding.bottom,
+                    right: 20,
+                    child: FloatingActionButton(
+                      child: Icon(Icons.share),
+                      onPressed: () {
+                        Share.shareFiles([widget.filePath]);
+                      },
+                    ),
+                  ),
+                ],
+              )
+            : Center(child: CircularProgressIndicator()),
       ),
     );
   }

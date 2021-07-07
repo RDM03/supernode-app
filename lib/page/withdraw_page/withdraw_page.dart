@@ -23,8 +23,10 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
+import 'package:supernodeapp/page/settings_page/address_book/address_book_page.dart';
 import 'package:supernodeapp/page/withdraw_page/WithdrawSecurityCode.dart';
 import 'package:supernodeapp/page/withdraw_page/bloc/state.dart';
+import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -182,12 +184,20 @@ class _WithdrawPageState extends State<WithdrawPage> {
                                         icon: Icon(Icons.assignment_ind,
                                             color: widget.token.color),
                                         onPressed: () async {
+                                          AddressBookType type;
+                                          if (widget.token ==
+                                              Token.supernodeDhx)
+                                            type = AddressBookType.dhx;
+                                          else
+                                            type = AddressBookType.mxc;
                                           final res =
                                               await Navigator.of(context)
-                                                  .pushNamed(
-                                            'address_book_page',
-                                            arguments: {'selection': true},
-                                          );
+                                                  .push(route(
+                                            (_) => AddressBookPage(
+                                              selectionMode: true,
+                                              type: type,
+                                            ),
+                                          ));
                                           if (res == null) return;
                                           if (res is AddressEntity)
                                             context

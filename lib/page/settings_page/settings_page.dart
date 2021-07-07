@@ -9,14 +9,13 @@ import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
 import 'package:supernodeapp/page/login_page/login_generic.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
-import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../app_state.dart';
 import '../../route.dart';
 import 'about_component/about_page.dart';
 import 'account_component/account_page.dart';
+import 'address_book/address_book_picker.dart';
 import 'app_settings/app_settings_page.dart';
 import 'bloc/settings/cubit.dart';
 import 'export_data/export_data_page.dart';
@@ -68,8 +67,7 @@ class SettingsPage extends StatelessWidget {
                   Divider(),
                   listItem(
                     FlutterI18n.translate(context, 'address_book'),
-                    onTap: () =>
-                        Navigator.of(context).pushNamed('address_book_page'),
+                    onTap: () => Navigator.of(context).push(routeWidget(AddressBookPicker())),
                     key: ValueKey('addressBookItem'),
                   ),
                   Divider(),
