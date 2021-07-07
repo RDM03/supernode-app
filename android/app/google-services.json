@@ -1,37 +1,37 @@
 {
   "project_info": {
-    "project_number": "985138956839",
-    "project_id": "mxc-datadash",
-    "storage_bucket": "mxc-datadash.appspot.com"
+    "project_number": "490415802895",
+    "project_id": "mxc-datadash-debug",
+    "storage_bucket": "mxc-datadash-debug.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:985138956839:android:141dc03b00310e456e5c02",
+        "mobilesdk_app_id": "1:490415802895:android:89a93945724f88d5f3f17a",
         "android_client_info": {
           "package_name": "com.mxc.smartcity"
         }
       },
       "oauth_client": [
         {
-          "client_id": "985138956839-cati6o1fjo61iue5i1hre6emll52gj31.apps.googleusercontent.com",
+          "client_id": "490415802895-hsopm6gchdfo425189m37prlfmalhhru.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAqtBWlqtxStGZ7p1-6zoGUEHdd4CJdiLE"
+          "current_key": "AIzaSyAD5Lk3Az4Jq_KNM8dyaR1Htr8GIPEB0gs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "985138956839-cati6o1fjo61iue5i1hre6emll52gj31.apps.googleusercontent.com",
+              "client_id": "490415802895-hsopm6gchdfo425189m37prlfmalhhru.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "985138956839-e50q8203u0ijqmcfmr94d5na19ta391s.apps.googleusercontent.com",
+              "client_id": "490415802895-vnba6bjjopgtab6qepku8sp1cie9i6bh.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.mxc.smartcity"

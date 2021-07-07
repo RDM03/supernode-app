@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>985138956839-e50q8203u0ijqmcfmr94d5na19ta391s.apps.googleusercontent.com</string>
+	<string>490415802895-vnba6bjjopgtab6qepku8sp1cie9i6bh.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.985138956839-e50q8203u0ijqmcfmr94d5na19ta391s</string>
+	<string>com.googleusercontent.apps.490415802895-vnba6bjjopgtab6qepku8sp1cie9i6bh</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBlFGFycaU3HNsH97Qdb_g1z1-qt3omM4g</string>
+	<string>AIzaSyCje5lWcpv75vUOn6z_0wt-Tb4FFakwhmE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>985138956839</string>
+	<string>490415802895</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.mxc.smartcity</string>
 	<key>PROJECT_ID</key>
-	<string>mxc-datadash</string>
+	<string>mxc-datadash-debug</string>
 	<key>STORAGE_BUCKET</key>
-	<string>mxc-datadash.appspot.com</string>
+	<string>mxc-datadash-debug.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:985138956839:ios:e241d8cbb3c05c476e5c02</string>
+	<string>1:490415802895:ios:1d256a56a3770c5df3f17a</string>
 </dict>
 </plist>
