@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/utils/address_entity.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/page/settings_page/address_book/address_book_page.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 
@@ -98,7 +99,7 @@ class _AddressDetailsPageState extends State<AddressDetailsPage> {
           child: Text(
             FlutterI18n.translate(context, 'address_book_control_desc'),
             style: TextStyle(
-              color: Colors.grey[600],
+              color: greyColorShade600,
               fontWeight: FontWeight.w400,
               fontSize: 12,
             ),
@@ -134,7 +135,7 @@ class _AddressDetailsPageState extends State<AddressDetailsPage> {
             decoration: BoxDecoration(
               border: Border.symmetric(
                 horizontal: BorderSide(
-                  color: Colors.grey[200],
+                  color: greyColorShade200,
                   width: 1,
                 ),
               ),

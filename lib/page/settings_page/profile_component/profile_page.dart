@@ -74,13 +74,13 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     Widget unbindWeChatConfirmation() {
       return Material(
-        color: Colors.white,
+        color: whiteColor,
         child: Stack(alignment: Alignment.topRight, children: [
           Padding(
             padding:
                 const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
             child: GestureDetector(
-              child: Icon(Icons.close, color: Colors.black),
+              child: Icon(Icons.close, color: blackColor),
               onTap: () => context
                   .read<SettingsCubit>()
                   .showWechatUnbindConfirmation(false),
@@ -122,7 +122,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     Widget bindShopifyStep1() {
       return Material(
-        color: Colors.white,
+        color: whiteColor,
         child: Stack(alignment: Alignment.topRight, children: [
           Padding(
             padding:
@@ -151,7 +151,7 @@ class _ProfilePageState extends State<ProfilePage> {
             padding:
                 const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
             child: GestureDetector(
-              child: Icon(Icons.close, color: Colors.black),
+              child: Icon(Icons.close, color: blackColor),
               onTap: () => context.read<SettingsCubit>().bindShopifyStep(0),
             ),
           ),
@@ -161,7 +161,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     Widget bindShopifyStep2() {
       return Material(
-        color: Colors.white,
+        color: whiteColor,
         child: Stack(alignment: Alignment.topRight, children: [
           Padding(
             padding:
@@ -187,7 +187,7 @@ class _ProfilePageState extends State<ProfilePage> {
             padding:
                 const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
             child: GestureDetector(
-              child: Icon(Icons.close, color: Colors.black),
+              child: Icon(Icons.close, color: blackColor),
               onTap: () => context.read<SettingsCubit>().bindShopifyStep(0),
             ),
           ),
@@ -216,7 +216,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     key: ValueKey('navBackButton'),
                     child: Icon(
                       Icons.arrow_back_ios,
-                      color: Colors.black,
+                      color: blackColor,
                     ),
                     onTap: () => Navigator.of(context).pop(),
                   ),
@@ -343,7 +343,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   context, 'bind_shopify_button'),
                               style: kBigFontOfGrey),
                           trailing:
-                              Icon(Icons.chevron_right, color: Colors.grey)),
+                              Icon(Icons.chevron_right, color: greyColor)),
                       // listItem(
                       //     FlutterI18n.translate(
                       //             context,

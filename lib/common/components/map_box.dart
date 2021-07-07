@@ -8,6 +8,7 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'package:supernodeapp/configs/sys.dart';
+import 'package:supernodeapp/theme/colors.dart';
 
 class MapViewController {
   List<MapMarker> markers;
@@ -417,7 +418,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
       decoration: BoxDecoration(
         color: Colors.blueAccent,
         borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
+        boxShadow: [BoxShadow(color: greyColor, blurRadius: 10.0)],
       ),
       child: IconButton(
         onPressed: () async {
@@ -427,7 +428,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
         },
         icon: Icon(
           Icons.my_location,
-          color: Colors.white,
+          color: whiteColor,
         ),
       ),
     );
@@ -442,13 +443,13 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
       decoration: BoxDecoration(
         color: Colors.blueAccent,
         borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
+        boxShadow: [BoxShadow(color: greyColor, blurRadius: 10.0)],
       ),
       child: IconButton(
         onPressed: widget.zoomOutCallback,
         icon: Icon(
           Icons.zoom_out_map,
-          color: Colors.white,
+          color: whiteColor,
         ),
       ),
     );
@@ -465,7 +466,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
       decoration: BoxDecoration(
         color: Colors.blueAccent,
         borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
+        boxShadow: [BoxShadow(color: greyColor, blurRadius: 10.0)],
       ),
       child: IconButton(
         onPressed: () async {
@@ -473,7 +474,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
         },
         icon: Icon(
           _myLocationEnable ? Icons.location_off : Icons.location_on,
-          color: Colors.white,
+          color: whiteColor,
         ),
       ),
     );
@@ -486,7 +487,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
       decoration: BoxDecoration(
         color: Colors.blueAccent,
         borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10.0)],
+        boxShadow: [BoxShadow(color: greyColor, blurRadius: 10.0)],
       ),
       child: IconButton(
         onPressed: () {
@@ -496,7 +497,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
         },
         icon: Icon(
           Icons.close,
-          color: Colors.white,
+          color: whiteColor,
         ),
       ),
     );

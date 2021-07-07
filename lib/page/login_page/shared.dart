@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class ImageWithText extends StatelessWidget {
@@ -22,7 +23,7 @@ class ImageWithText extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: fontSize,
-                color: Colors.white,
+                color: whiteColor,
               ),
             ),
           ),
@@ -52,7 +53,7 @@ class CircleButton extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: whiteColor,
               shape: BoxShape.circle,
             ),
             height: 50,
@@ -60,7 +61,7 @@ class CircleButton extends StatelessWidget {
             child: Icon(
               icon,
               size: 40,
-              color: (onPressed == null) ? Colors.grey : Colors.black,
+              color: (onPressed == null) ? greyColor : blackColor,
             ),
           ),
           SizedBox(height: 8),

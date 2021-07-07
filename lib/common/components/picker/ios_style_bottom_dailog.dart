@@ -110,7 +110,7 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
 
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: whiteColor,
           borderRadius: BorderRadius.all(Radius.circular(10)),
           boxShadow: [
             BoxShadow(
@@ -172,7 +172,7 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
         child: Container(
           margin: EdgeInsets.only(top: 20, bottom: 43),
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: whiteColor,
               borderRadius: BorderRadius.all(Radius.circular(10)),
               boxShadow: [
                 BoxShadow(
@@ -262,7 +262,7 @@ class _IosStyleBottomDialog2ContentState
       child: Container(
         key: Key("infoDialog"),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: whiteColor,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10), topRight: Radius.circular(10)),
           boxShadow: [

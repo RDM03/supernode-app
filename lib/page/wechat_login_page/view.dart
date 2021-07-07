@@ -24,7 +24,7 @@ Widget buildView(
       resizeToAvoidBottomInset: false,
       backgroundColor: cardBackgroundColor,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: blackColor),
         title: Text(FlutterI18n.translate(_ctx, 'wechat_login_title'),
             style: kBigFontOfBlack, textAlign: TextAlign.center),
         backgroundColor: Colors.transparent,
@@ -42,7 +42,7 @@ Widget buildView(
                       height: s(171),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: whiteColor,
                         shape: BoxShape.circle,
                       ),
                       child: Container(
@@ -50,7 +50,7 @@ Widget buildView(
                         height: s(134),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: whiteColor,
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
@@ -66,7 +66,7 @@ Widget buildView(
                             height: s(134),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: whiteColor,
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(

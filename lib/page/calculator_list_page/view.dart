@@ -71,7 +71,7 @@ Widget buildView(
                     key: ValueKey('navBackButton'),
                     child: Icon(
                       Icons.arrow_back_ios,
-                      color: Colors.black,
+                      color: blackColor,
                     ),
                     onTap: () => Navigator.of(_ctx).pop(),
                   ),
@@ -138,7 +138,7 @@ Widget buildView(
                             ),
                             trailing: Icon(
                               Icons.check,
-                              color: Colors.black,
+                              color: blackColor,
                             ),
                             onTap: () => dispatch(
                               CalculatorListActionCreator.selectCurrency(

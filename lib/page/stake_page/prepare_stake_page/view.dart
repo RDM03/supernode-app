@@ -39,7 +39,7 @@ Widget buildView(
               child: Text(
                 state.months == null ? '~' : state.months.toString(),
                 style: Theme.of(_ctx).textTheme.bodyText1.copyWith(
-                      color: Colors.white,
+                      color: whiteColor,
                       fontSize: 22,
                       fontWeight: FontWeight.w600,
                     ),

@@ -25,7 +25,7 @@ Widget tabButtons({
                 controller: tabController,
                 indicatorPadding: EdgeInsets.zero,
                 indicatorColor: buttonPrimaryColor,
-                labelColor: Colors.black,
+                labelColor: blackColor,
                 unselectedLabelColor: Colors.black38,
                 key: ValueKey('tabBar'),
                 tabs: list.map((item) {
@@ -38,7 +38,7 @@ Widget tabButtons({
               ),
               Container(
                 decoration: BoxDecoration(
-                  border: Border(top: BorderSide(color: Colors.grey, width: 1)),
+                  border: Border(top: BorderSide(color: greyColor, width: 1)),
                 ),
               ),
             ],

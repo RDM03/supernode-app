@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 @deprecated
@@ -29,7 +30,7 @@ Widget pageNavBar(
           child: actionWidget == null
               ? Icon(
                   Icons.close,
-                  color: Colors.black,
+                  color: blackColor,
                 )
               : actionWidget,
           onTap: onTap,
@@ -56,7 +57,7 @@ class PageNavBar extends StatelessWidget {
     this.textStyle = kBigFontOfBlack,
     this.actionWidget = const Icon(
       Icons.close,
-      color: Colors.black,
+      color: blackColor,
     ),
     this.leadingWidget,
     this.centerTitle = false,
@@ -107,7 +108,7 @@ class AppBarBackButton extends StatelessWidget {
         key: ValueKey('navBackButton'),
         child: Icon(
           Icons.arrow_back_ios,
-          color: Colors.black,
+          color: blackColor,
         ),
         onTap: () => Navigator.of(context).pop(),
       ),

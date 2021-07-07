@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/page/home_page/wallet/btc_token/actions.dart';
 import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'transactions_history.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
@@ -43,7 +44,7 @@ class _BtcTokenPageContentState extends State<BtcTokenPageContent>
                 alignment: Alignment.center,
                 child: Text(
                   FlutterI18n.translate(context, 'transaction_history'),
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: whiteColor),
                 ),
               ),
             ),

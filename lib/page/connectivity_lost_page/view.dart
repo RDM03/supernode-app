@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/utils/network_util.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class _ConnectivityLostPageView extends StatelessWidget {
@@ -31,7 +32,7 @@ class _ConnectivityLostPageView extends StatelessWidget {
                   flex: 4,
                   child: Image.asset(
                     'assets/images/connectivity/connectivity.png',
-                    color: Colors.grey,
+                    color: greyColor,
                   ),
                 ),
                 Expanded(

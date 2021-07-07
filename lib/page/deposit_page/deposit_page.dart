@@ -120,7 +120,7 @@ class _DepositPageState extends State<DepositPage> {
                 ],
               ),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: whiteColor,
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 boxShadow: [
                   BoxShadow(

@@ -263,7 +263,7 @@ void _showInfoDialog(BuildContext context) {
           Image.asset(
             AppImages.gateways,
             height: s(40),
-            color: Colors.grey,
+            color: greyColor,
             fit: BoxFit.contain,
           ),
           Padding(
@@ -272,7 +272,7 @@ void _showInfoDialog(BuildContext context) {
             child: Text(
               FlutterI18n.translate(context, 'info_lock_boost'),
               style: TextStyle(
-                color: Colors.black,
+                color: blackColor,
                 fontSize: s(16),
                 fontWeight: FontWeight.w500,
               ),

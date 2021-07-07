@@ -18,21 +18,21 @@ Widget secondaryButtons(
         SecondaryButton(
           isSelected: selectedIndex == 0,
           buttonTitle: buttonLabel1,
-          color: selectedIndex == 0 ? selectedTabColor : Colors.white,
+          color: selectedIndex == 0 ? selectedTabColor : whiteColor,
           onTap: onTap1,
         ),
         smallRowSpacer(),
         SecondaryButton(
           isSelected: selectedIndex == 1,
           buttonTitle: buttonLabel2,
-          color: selectedIndex == 1 ? selectedTabColor : Colors.white,
+          color: selectedIndex == 1 ? selectedTabColor : whiteColor,
           onTap: onTap2,
         ),
         smallRowSpacer(),
         SecondaryButton(
           isSelected: selectedIndex == 2,
           buttonTitle: buttonLabel3,
-          color: selectedIndex == 2 ? selectedTabColor : Colors.white,
+          color: selectedIndex == 2 ? selectedTabColor : whiteColor,
           icon: Icons.date_range,
           onTap: onTap3,
         )

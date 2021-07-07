@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:supernodeapp/theme/colors.dart';
 
 const Duration _kExpand = Duration(milliseconds: 200);
 
@@ -161,7 +162,7 @@ class _ExpansionSuperNodesTileState extends State<ExpansionSuperNodesTile>
                       turns: _iconTurns,
                       child: const Icon(
                         Icons.expand_more,
-                        color: Colors.black,
+                        color: blackColor,
                       ),
                     ),
               ),

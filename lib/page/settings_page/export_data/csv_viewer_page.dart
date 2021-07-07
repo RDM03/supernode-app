@@ -8,6 +8,7 @@ import 'package:oktoast/oktoast.dart';
 import 'package:share/share.dart';
 import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
+import 'package:supernodeapp/theme/colors.dart';
 
 class CsvViewerPage extends StatefulWidget {
   final String filePath;
@@ -51,7 +52,7 @@ class _CsvViewerPageState extends State<CsvViewerPage> {
         onPress: () => Navigator.of(context).pop(),
         action: IconButton(
           icon: Icon(Icons.save_alt),
-          color: Colors.black,
+          color: blackColor,
           onPressed: () async {
             final newPath = await context.read<SettingsCubit>().exportData();
             showToast(

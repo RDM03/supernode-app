@@ -67,7 +67,7 @@ class GatewayTab extends StatelessWidget {
                 child: Row(mainAxisSize: MainAxisSize.max, children: [
                   CircleButton(
                     key: Key('addFuelBottom'),
-                    circleColor: Colors.white,
+                    circleColor: whiteColor,
                     icon: Image.asset(
                       AppImages.fuel,
                       color: fuelColor,
@@ -95,7 +95,7 @@ class GatewayTab extends StatelessWidget {
                 child: Row(mainAxisSize: MainAxisSize.max, children: [
                   CircleButton(
                     key: Key('addFuelBottom'),
-                    circleColor: Colors.white,
+                    circleColor: whiteColor,
                     icon: Icon(Icons.arrow_forward, color: fuelColor),
                   ),
                   SizedBox(width: 10),
@@ -144,7 +144,7 @@ class GatewayTab extends StatelessWidget {
                                       circleColor: minerColor,
                                       icon: Image.asset(
                                         AppImages.gateways,
-                                        color: Colors.white,
+                                        color: whiteColor,
                                       ),
                                       label:
                                           FlutterI18n.translate(context, 'add'),
@@ -167,7 +167,7 @@ class GatewayTab extends StatelessWidget {
                                       circleColor: fuelColor,
                                       icon: Image.asset(
                                         AppImages.fuel,
-                                        color: Colors.white,
+                                        color: whiteColor,
                                       ),
                                       label: FlutterI18n.translate(
                                           context, 'add_send'),
@@ -497,7 +497,7 @@ class GatewayTab extends StatelessWidget {
                                             alignment: Alignment.center,
                                             children: [
                                               Image.asset(AppImages.uptime,
-                                                  color: Colors.white,
+                                                  color: whiteColor,
                                                   width: s(60),
                                                   fit: BoxFit.contain),
                                               Image.asset(AppImages.fuel,
@@ -551,7 +551,7 @@ class GatewayTab extends StatelessWidget {
                                               alignment: Alignment.center,
                                               children: [
                                                 Image.asset(AppImages.uptime,
-                                                    color: Colors.white),
+                                                    color: whiteColor),
                                                 Image.asset(AppImages.fuel,
                                                     color: fuelColor),
                                               ]),
@@ -686,12 +686,12 @@ class GatewaysList extends StatelessWidget {
         return await context.read<GatewayCubit>().loadNextPage(page);
       },
       separatorBuilder: (BuildContext context, int index) =>
-          Divider(height: 1, thickness: 1, color: Colors.grey.shade50),
+          Divider(height: 1, thickness: 1, color: greyColorShade050),
       footer: Container(
         height: 10,
         margin: kOuterRowBottom10,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: whiteColor,
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
           boxShadow: [
             BoxShadow(
@@ -727,7 +727,7 @@ class GatewayListTile extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(top: (topOfList ? 5 : 0)),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: whiteColor,
         borderRadius: (topOfList)
             ? BorderRadius.vertical(top: Radius.circular(10))
             : null,
@@ -740,7 +740,7 @@ class GatewayListTile extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        tileColor: Colors.white,
+        tileColor: whiteColor,
         onTap: onTap,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -756,7 +756,7 @@ class GatewayListTile extends StatelessWidget {
                       Icons.lens,
                       color: TimeUtil.isIn5Min(state.lastSeenAt)
                           ? Colors.green
-                          : Colors.grey,
+                          : greyColor,
                       size: 10,
                     ),
                   ),

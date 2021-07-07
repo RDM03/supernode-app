@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_state.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class DeviceListItem extends StatelessWidget {
@@ -26,7 +27,7 @@ class DeviceListItem extends StatelessWidget {
                 children: <Widget>[
                   Icon(
                     Icons.lens,
-                    color: true ? Colors.green : Colors.grey,
+                    color: true ? Colors.green : greyColor,
                     size: 10,
                   ),
                   SizedBox(width: 5),

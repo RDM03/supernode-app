@@ -11,6 +11,7 @@ import 'package:supernodeapp/common/utils/address_entity.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/scan_qr.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
+import 'package:supernodeapp/theme/colors.dart';
 
 import 'address_book_page.dart';
 
@@ -76,7 +77,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
               child: Text(
                 FlutterI18n.translate(context, 'address_book_desc'),
                 style: TextStyle(
-                  color: Colors.grey[600],
+                  color: greyColorShade600,
                   fontWeight: FontWeight.w400,
                   fontSize: 12,
                 ),

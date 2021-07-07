@@ -16,13 +16,13 @@ Widget buildView(
   return Scaffold(
       backgroundColor: cardBackgroundColor,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: blackColor),
         title: Text(
             state.isEnabled
                 ? FlutterI18n.translate(_ctx, 'disable_2FA')
                 : FlutterI18n.translate(_ctx, 'enable_2FA'),
             style: TextStyle(
-              color: Colors.black,
+              color: blackColor,
               fontWeight: FontWeight.w400,
               fontSize: 18,
             )),
@@ -43,7 +43,7 @@ Widget buildView(
                         children: <Widget>[
                           Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_01'),
                               style: TextStyle(
-                                color: Colors.black,
+                                color: blackColor,
                                 fontWeight: FontWeight.w400,
                                 fontSize: 24,
                               )),
@@ -56,7 +56,7 @@ Widget buildView(
                         children: <Widget>[
                           Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_02'),
                               style: TextStyle(
-                                color: Colors.grey[600],
+                                color: greyColorShade600,
                                 fontWeight: FontWeight.w400,
                               )),
                         ]),
@@ -68,7 +68,7 @@ Widget buildView(
                         children: <Widget>[
                           Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_03'),
                               style: TextStyle(
-                                color: Colors.grey[600],
+                                color: greyColorShade600,
                                 fontWeight: FontWeight.w400,
                               )),
                         ]),
@@ -80,7 +80,7 @@ Widget buildView(
                         children: <Widget>[
                           Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_04'),
                               style: TextStyle(
-                                color: Colors.grey[600],
+                                color: greyColorShade600,
                                 fontWeight: FontWeight.w400,
                               )),
                         ]),

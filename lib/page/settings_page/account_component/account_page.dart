@@ -22,7 +22,7 @@ class AccountPage extends StatelessWidget {
                 child: Text(FlutterI18n.translate(context, 'manage_account'),
                     style: kBigBoldFontOfBlack)),
             trailing: GestureDetector(
-                child: Icon(Icons.close, color: Colors.black),
+                child: Icon(Icons.close, color: blackColor),
                 onTap: () => Navigator.of(context).pop()),
           ),
           Divider(),
@@ -41,7 +41,7 @@ class AccountPage extends StatelessWidget {
                     'TODO', //TODO dispatch(SettingsActionCreator.onSettings(SettingsOption.profileDhx)),
                 leading:
                     Image.asset(Token.supernodeDhx.imagePath, height: s(50)),
-                trailing: Icon(Icons.chevron_right, color: Colors.grey)),
+                trailing: Icon(Icons.chevron_right, color: greyColor)),
           ),
         ]);
   }

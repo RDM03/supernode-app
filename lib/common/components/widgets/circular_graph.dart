@@ -30,7 +30,7 @@ class CircularGraph extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           gradient: RadialGradient(
-              colors: [Colors.white, shadowColor], stops: [0.97, 1.0]),
+              colors: [whiteColor, shadowColor], stops: [0.97, 1.0]),
         ),
         child: Container(
           width: size - paddingSize,
@@ -57,7 +57,7 @@ class CircularGraph extends StatelessWidget {
                         height: size - 2 * paddingSize - 2 * lineWidth,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: whiteColor,
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(

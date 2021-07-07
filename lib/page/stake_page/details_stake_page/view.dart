@@ -58,7 +58,7 @@ Widget buildView(
             child: Text(
               months == null ? '~' : months.toString(),
               style: Theme.of(_ctx).textTheme.bodyText1.copyWith(
-                    color: Colors.white,
+                    color: whiteColor,
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
                   ),
@@ -224,7 +224,7 @@ void _showInfoDialog(BuildContext context) {
             child: Text(
               '~',
               style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    color: Colors.white,
+                    color: whiteColor,
                     fontSize: 40,
                     fontWeight: FontWeight.w600,
                   ),
@@ -239,7 +239,7 @@ void _showInfoDialog(BuildContext context) {
               child: Text(
                 FlutterI18n.translate(context, 'info_flex_stake'),
                 style: TextStyle(
-                  color: Colors.black,
+                  color: blackColor,
                   fontSize: s(16),
                   fontWeight: FontWeight.w500,
                 ),

@@ -124,7 +124,7 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
                         child: Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Colors.white,
+                            color: whiteColor,
                           ),
                           child: Image.asset(AppImages.mxc),
                         ),
@@ -146,7 +146,7 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
                           'SUPERNODE',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.white,
+                            color: whiteColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ),
@@ -169,7 +169,7 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
                           child: Text(
                             FlutterI18n.translate(context, 'learn_more'),
                             style: TextStyle(
-                              color: Colors.white,
+                              color: whiteColor,
                               fontSize: 16,
                             ),
                           ),
@@ -191,7 +191,7 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
                               .animate(widget.animation),
                           child: Icon(
                             fixed ? Icons.close : Icons.arrow_forward,
-                            color: Colors.white,
+                            color: whiteColor,
                             size: Tween<double>(begin: 16, end: 40)
                                 .evaluate(widget.animation),
                           ),

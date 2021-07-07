@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/theme/colors.dart';
 
 class RoundedButton extends StatelessWidget {
   RoundedButton({
@@ -56,7 +57,7 @@ class RoundedButton extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyText2
-                  .copyWith(color: Colors.white),
+                  .copyWith(color: whiteColor),
             ),
           ),
         );

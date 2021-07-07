@@ -94,7 +94,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 AppBars.backArrowAppBar(
-                  color: Colors.white,
+                  color: whiteColor,
                   title: FlutterI18n.translate(context, 'create_account'),
                   onPress: () => Navigator.of(context).pop(),
                   onTitlePress: () => clickTitle(),
@@ -123,7 +123,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                                     height: s(134),
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: whiteColor,
                                         shape: BoxShape.circle,
                                         boxShadow: [
                                           BoxShadow(
@@ -156,7 +156,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                       style: TextStyle(
                           fontSize: s(14),
                           fontWeight: FontWeight.w400,
-                          color: Colors.black),
+                          color: blackColor),
                     ),
                     GestureDetector(
                       onTap: () => _showInfoDialog(context),
@@ -226,7 +226,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                     height: ScreenUtil.instance.height,
                     width: s(304),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: whiteColor,
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(s(10)),
                         bottomRight: Radius.circular(s(10)),
@@ -274,7 +274,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                                   ExpansionSuperNodesTile(
                                     title: Text(
                                       FlutterI18n.translate(context, key),
-                                      style: TextStyle(color: Colors.black),
+                                      style: TextStyle(color: blackColor),
                                     ),
                                     initiallyExpanded: false,
                                     backgroundColor: darkBackground,
@@ -331,7 +331,7 @@ void _showInfoDialog(BuildContext context) {
               FlutterI18n.translate(context, 'info_supernode'),
               key: ValueKey("helpText"),
               style: TextStyle(
-                color: Colors.black,
+                color: blackColor,
                 fontSize: s(16),
                 fontWeight: FontWeight.w500,
               ),

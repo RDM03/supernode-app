@@ -11,7 +11,7 @@ class DDIconWithShadow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DDIcon(
-      iconBackgroundColor: Colors.white,
+      iconBackgroundColor: whiteColor,
       imageUrl: imageUrl,
       imageColor: buttonPrimaryColor,
       shadowList: [

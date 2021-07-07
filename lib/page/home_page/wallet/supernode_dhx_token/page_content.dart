@@ -63,13 +63,13 @@ class _SupernodeDhxTokenPageContentState
                     FlutterI18n.translate(context, 'transaction_history'),
                     key: Key('transactionHistory'),
                     style: TextStyle(
-                      color: (selectedTab == 0) ? Colors.white : Colors.grey,
+                      color: (selectedTab == 0) ? whiteColor : greyColor,
                     ),
                   ),
                   1: Text(
                     FlutterI18n.translate(context, 'mining_income'),
                     style: TextStyle(
-                      color: (selectedTab == 1) ? Colors.white : Colors.grey,
+                      color: (selectedTab == 1) ? whiteColor : greyColor,
                     ),
                   )
                 }),

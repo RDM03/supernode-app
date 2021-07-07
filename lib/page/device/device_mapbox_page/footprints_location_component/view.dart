@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import 'action.dart';
@@ -106,7 +107,7 @@ Widget buildView(
           right: 0,
           child: Container(
             padding: EdgeInsets.only(bottom: 40, left: 16, right: 16),
-            color: Colors.white,
+            color: whiteColor,
             child: PrimaryButton(
               minHeight: 35,
               padding: EdgeInsets.symmetric(vertical: 5),

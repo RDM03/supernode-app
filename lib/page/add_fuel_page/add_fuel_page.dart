@@ -143,8 +143,8 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
         padding: EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           border: Border(
-            top: BorderSide(color: Colors.grey.shade200, width: 0.5),
-            bottom: BorderSide(color: Colors.grey.shade200, width: 0.5),
+            top: BorderSide(color: greyColorShade200, width: 0.5),
+            bottom: BorderSide(color: greyColorShade200, width: 0.5),
           ),
         ),
         child: Row(
@@ -169,7 +169,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                 else
                   defaultAll();
               },
-              inactiveThumbColor: Colors.grey.shade700,
+              inactiveThumbColor: greyColorShade700,
               activeColor: healthColor,
             ),
             SizedBox(width: 16),
@@ -196,7 +196,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                         size: 18,
                         color: (gatewaySelection[item.id] ?? 0) > 0
                             ? healthColor
-                            : Colors.grey,
+                            : greyColor,
                       ),
                     ),
                   ),
@@ -357,7 +357,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
         //     Icons.filter_list,
         //   ),
         //   onPressed: onFilter,
-        //   color: Colors.black,
+        //   color: blackColor,
         // ),
         title: FlutterI18n.translate(context, 'add_fuel'),
         onPress: () => Navigator.of(context).pop(),
@@ -430,7 +430,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
             alignment: Alignment.bottomCenter,
             child: Column(
               children: [
-                Container(height: 0.5, color: Colors.grey.shade200),
+                Container(height: 0.5, color: greyColorShade200),
                 SizedBox(height: 16),
                 Center(
                   child: Text(

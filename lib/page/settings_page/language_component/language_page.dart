@@ -179,7 +179,7 @@ class LanguagePage extends StatelessWidget {
           Icons.done,
           color: (type == 'auto' && (value == null)) || type == value
               ? selectedColor
-              : Colors.grey,
+              : greyColor,
           size: 28,
         ),
         onTap: onTap);

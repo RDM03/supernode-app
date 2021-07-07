@@ -231,7 +231,7 @@ class MiningTutorial extends StatefulWidget {
           text: TextSpan(children: [
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv2_title_span1"),
-            style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+            style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv2_title_span2"),
             style: kPrimaryBigFontOfBlack.copyWith(
@@ -329,27 +329,27 @@ class MiningTutorial extends StatefulWidget {
           text: TextSpan(children: [
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span1"),
-            style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+            style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span2"),
             style: kPrimaryBigFontOfBlack.copyWith(
                 color: Token.supernodeDhx.color)),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span3"),
-            style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+            style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
       ])),
       RichText(
           text: TextSpan(children: [
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span4"),
-            style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+            style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span5"),
             style: kPrimaryBigFontOfBlack.copyWith(
                 color: Token.supernodeDhx.color)),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span6"),
-            style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+            style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
       ])),
       SizedBox(height: s(30)),
       Image.asset(AppImages.calendar1),
@@ -366,7 +366,7 @@ class MiningTutorial extends StatefulWidget {
                 color: Token.supernodeDhx.color)),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv5_title_span2"),
-            style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+            style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv5_title_span3"),
             style: kPrimaryBigFontOfBlack.copyWith(
@@ -386,14 +386,14 @@ class MiningTutorial extends StatefulWidget {
           text: TextSpan(children: [
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span1"),
-            style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+            style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span2"),
             style: kPrimaryBigFontOfBlack.copyWith(
                 color: Token.supernodeDhx.color)),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span3"),
-            style: kPrimaryBigFontOfBlack.copyWith(color: Colors.black)),
+            style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span4"),
             style: kPrimaryBigFontOfBlack.copyWith(
@@ -429,7 +429,7 @@ class MiningTutorial extends StatefulWidget {
         child: Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: whiteColor,
                 borderRadius: BorderRadius.circular(5.0),
                 boxShadow: [
                   BoxShadow(
@@ -467,7 +467,7 @@ class MiningTutorial extends StatefulWidget {
         child: Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: whiteColor,
                 borderRadius: BorderRadius.circular(5.0),
                 boxShadow: [
                   BoxShadow(
@@ -501,7 +501,7 @@ class MiningTutorial extends StatefulWidget {
         child: Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: whiteColor,
                 borderRadius: BorderRadius.circular(5.0),
                 boxShadow: [
                   BoxShadow(
@@ -670,7 +670,7 @@ class _MiningTutorialState extends State<MiningTutorial> {
               height: 50,
               decoration: new BoxDecoration(
                 gradient: new LinearGradient(
-                    colors: [transparentWhite, Colors.white],
+                    colors: [transparentWhite, whiteColor],
                     begin: Alignment.topCenter,
                     end: Alignment.center),
               ),
@@ -706,7 +706,7 @@ class _MiningTutorialState extends State<MiningTutorial> {
       height: isActive ? 12 : 8,
       width: isActive ? 12 : 8,
       decoration: BoxDecoration(
-          color: isActive ? Token.supernodeDhx.color : Colors.grey,
+          color: isActive ? Token.supernodeDhx.color : greyColor,
           borderRadius: BorderRadius.all(Radius.circular(12))),
     );
   }

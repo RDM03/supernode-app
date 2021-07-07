@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
@@ -29,8 +30,8 @@ class DDNav extends StatelessWidget {
               child: Visibility(
                   visible: hasBack,
                   child: GestureDetector(
-                      child: Icon(Icons.arrow_back_ios_rounded,
-                          color: Colors.black),
+                      child:
+                          Icon(Icons.arrow_back_ios_rounded, color: blackColor),
                       onTap: () => Navigator.of(context).pop()))),
           Spacer(),
           Text(FlutterI18n.translate(context, title),
@@ -44,7 +45,7 @@ class DDNav extends StatelessWidget {
                 child: GestureDetector(
                     child: Padding(
                         padding: kInnerRowRight20,
-                        child: Icon(Icons.close, color: Colors.black)),
+                        child: Icon(Icons.close, color: blackColor)),
                     onTap: () => Navigator.of(context).pop()),
               ))
         ],

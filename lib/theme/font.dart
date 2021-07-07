@@ -24,14 +24,14 @@ final kSmallFontOfDhxColor = TextStyle(
     decoration: TextDecoration.none);
 
 const kSmallFontOfWhite = TextStyle(
-    color: Colors.white,
+    color: whiteColor,
     fontFamily: "Roboto",
     fontSize: 12,
     height: 1.33333,
     decoration: TextDecoration.none);
 
 const kSmallFontOfBlack = TextStyle(
-    color: Colors.black,
+    color: blackColor,
     fontFamily: "Roboto",
     fontSize: 12,
     height: 1.33333,
@@ -181,7 +181,7 @@ const kBigFontOfBlue = TextStyle(
 );
 
 const kBigFontOfWhite = TextStyle(
-  color: Colors.white,
+  color: whiteColor,
   fontFamily: "Roboto",
   fontSize: 16,
   height: 1.5,
@@ -221,13 +221,13 @@ const kSecondaryButtonOfBlack = TextStyle(
 );
 
 const kSecondaryButtonOfWhite = TextStyle(
-  color: Colors.white,
+  color: whiteColor,
   fontFamily: "Roboto",
   fontSize: 14,
 );
 
 const kSecondaryButtonOfGrey = TextStyle(
-  color: Colors.grey,
+  color: greyColor,
   fontFamily: "Roboto",
   fontSize: 14,
 );
@@ -248,4 +248,4 @@ const kPrimaryBigFontOfBlack =
     TextStyle(fontSize: 18, fontWeight: FontWeight.w600);
 
 const kSuperBigBoldFont =
-    TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.w600);
+    TextStyle(color: blackColor, fontSize: 22, fontWeight: FontWeight.w600);

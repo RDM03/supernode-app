@@ -16,6 +16,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/mining_simulator_page/widgets/value_editor.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class DhxBondingPage extends StatefulWidget {
@@ -98,7 +99,7 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
                   child: Text(FlutterI18n.translate(context, 'bond_dhx'),
                       style: kBigFontOfBlack)),
               trailing: GestureDetector(
-                  child: Icon(Icons.close, color: Colors.black),
+                  child: Icon(Icons.close, color: blackColor),
                   onTap: () => Navigator.of(context).pop()),
             ),
             Container(
@@ -116,7 +117,7 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
                       ),
                       child: Image.asset(
                         AppImages.iconBond,
-                        color: Colors.white,
+                        color: whiteColor,
                       ),
                     ),
                     SizedBox(width: 20),

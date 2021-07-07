@@ -19,7 +19,7 @@ Widget _dialogTile(
     Container(
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: Colors.grey.shade200, width: 0.5),
+          bottom: BorderSide(color: greyColorShade200, width: 0.5),
         ),
       ),
       height: 60,
@@ -31,7 +31,7 @@ Widget _dialogTile(
         },
         trailing: Icon(
           Icons.check,
-          color: checked ? healthColor : Colors.grey,
+          color: checked ? healthColor : greyColor,
         ),
       ),
     );

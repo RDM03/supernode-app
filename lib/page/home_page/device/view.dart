@@ -61,7 +61,7 @@ class _DeviceTabState extends State<DeviceTab> {
         action: IconButton(
           icon: Icon(
             Icons.filter_list,
-            color: Colors.black,
+            color: blackColor,
           ),
           onPressed: () => showFilterDialog(context),
         ),

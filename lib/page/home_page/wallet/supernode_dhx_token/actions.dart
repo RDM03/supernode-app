@@ -12,6 +12,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
+import 'package:supernodeapp/theme/colors.dart';
 
 import 'dhx_bonding_page.dart';
 import 'dhx_unbonding_page.dart';
@@ -77,7 +78,7 @@ class SupernodeDhxActions extends StatelessWidget {
                 color: (state.stakes.loading ||
                         state.stakes.value == null ||
                         state.stakes.value.isEmpty)
-                    ? Colors.grey
+                    ? greyColor
                     : Token.supernodeDhx.color,
               ),
               label: FlutterI18n.translate(context, 'council'),
@@ -145,21 +146,20 @@ class SupernodeDhxMineActions extends StatelessWidget {
         ),
         Spacer(),
         CircleButton(
-          icon: Icon(
-            Icons.tune,
-            color: Token.supernodeDhx.color,
-          ),
-          label: FlutterI18n.translate(context, 'simulate_mining'),
-          onTap: () {
-            Navigator.pushNamed(
-                context,
-                'mining_simulator_page',
-                arguments: {
-                  'isDemo': context.read<AppCubit>().state.isDemo,
-                  'mxc_balance': context.read<SupernodeUserCubit>().state.balance.value,
-                  'dhx_balance': context.read<SupernodeDhxCubit>().state.balance.value,
-                });
-          }),
+            icon: Icon(
+              Icons.tune,
+              color: Token.supernodeDhx.color,
+            ),
+            label: FlutterI18n.translate(context, 'simulate_mining'),
+            onTap: () {
+              Navigator.pushNamed(context, 'mining_simulator_page', arguments: {
+                'isDemo': context.read<AppCubit>().state.isDemo,
+                'mxc_balance':
+                    context.read<SupernodeUserCubit>().state.balance.value,
+                'dhx_balance':
+                    context.read<SupernodeDhxCubit>().state.balance.value,
+              });
+            }),
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
@@ -40,9 +41,9 @@ Widget textfieldWithButton(
         Container(
           margin: const EdgeInsets.only(top: 10),
           decoration: BoxDecoration(
-              // color: Colors.white,
+              // color: whiteColor,
               borderRadius: BorderRadius.all(Radius.circular(3)),
-              border: Border.all(width: 1, color: Colors.grey)),
+              border: Border.all(width: 1, color: greyColor)),
           child: Row(
             children: <Widget>[
               Expanded(
@@ -63,10 +64,10 @@ Widget textfieldWithButton(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
                     decoration: BoxDecoration(
-                        // color: Colors.white,
+                        // color: whiteColor,
                         border: Border(
                             left: isDivider
-                                ? BorderSide(width: 1, color: Colors.grey)
+                                ? BorderSide(width: 1, color: greyColor)
                                 : BorderSide.none)),
                     child: Column(children: <Widget>[
                       Container(

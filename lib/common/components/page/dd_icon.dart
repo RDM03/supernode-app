@@ -14,7 +14,7 @@ class DDIcon extends StatelessWidget {
       this.iconBackgroundColor,
       this.imageUrl,
       this.imageColor,
-      this.backgroundColor = Colors.white,
+      this.backgroundColor = whiteColor,
       this.shadowList})
       : super(key: key);
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/buttons/secondary_button.dart';
 import 'package:supernodeapp/common/utils/time.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
@@ -25,7 +26,7 @@ Widget dateButtons(
         SizedBox(
           width: 135,
           child: SecondaryButton(
-            color: Colors.white,
+            color: whiteColor,
             buttonTitle: firstTime ?? '',
             icon: Icons.date_range,
             onTap: () {
@@ -50,7 +51,7 @@ Widget dateButtons(
         SizedBox(
           width: 135,
           child: SecondaryButton(
-            color: Colors.white,
+            color: whiteColor,
             buttonTitle: secondTime ?? '',
             icon: Icons.date_range,
             onTap: () {

@@ -133,7 +133,7 @@ class StakeItem extends StatelessWidget {
                   child: Text(
                     months?.toString() ?? '~',
                     style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          color: Colors.white,
+                          color: whiteColor,
                           fontSize: 22,
                           fontWeight: FontWeight.w600,
                         ),

@@ -9,6 +9,7 @@ import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/page/home_page/home_page.dart';
 import 'package:supernodeapp/route.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class DataHighwayCreate3Page extends StatefulWidget {
@@ -81,11 +82,11 @@ class _DataHighwayCreate3PageState extends State<DataHighwayCreate3Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBars.backArrowAppBar(
-        color: Colors.white,
+        color: whiteColor,
         title: 'Create Account',
         onPress: () => Navigator.of(context).pop(),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: whiteColor,
       body: Theme(
         data: Theme.of(context).copyWith(
           primaryColor: Token.parachainDhx.color,

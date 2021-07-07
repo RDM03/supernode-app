@@ -10,7 +10,7 @@ class PrimaryButton extends StatelessWidget {
     this.minHeight = 36,
     this.minWidth = 0,
     this.bgColor = buttonPrimaryColor,
-    this.textColor = Colors.white,
+    this.textColor = whiteColor,
     this.padding = const EdgeInsets.symmetric(vertical: 0),
     this.borderRadius = const BorderRadius.all(Radius.circular(3)),
     TextStyle textStyle,

@@ -13,6 +13,7 @@ import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
 import 'package:supernodeapp/page/settings_page/export_data/csv_viewer_page.dart';
 import 'package:supernodeapp/page/settings_page/export_data/pdf_viewer_page.dart';
 import 'package:supernodeapp/route.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import 'fiat_list_page.dart';
@@ -59,7 +60,7 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
                     FlutterI18n.translate(context, 'export_financial_data'),
                     style: kBigBoldFontOfBlack)),
             trailing: GestureDetector(
-                child: Icon(Icons.close, color: Colors.black),
+                child: Icon(Icons.close, color: blackColor),
                 onTap: () => Navigator.of(context).pop()),
           ),
           listItem('${widget.year}', trailing: SizedBox()),

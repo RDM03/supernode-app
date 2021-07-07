@@ -19,7 +19,7 @@ Widget homeBar(String titleText,
           : IconButton(
               icon: Icon(
                 Icons.settings,
-                color: Colors.black,
+                color: blackColor,
               ),
               onPressed: onPressed,
             ),

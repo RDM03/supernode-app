@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
@@ -30,7 +31,7 @@ class DDBoxWithSelect extends StatelessWidget {
                       style: kSmallFontOfGrey),
                   trailing: Icon(
                     Icons.chevron_right,
-                    color: Colors.black,
+                    color: blackColor,
                   ),
                 ))));
   }

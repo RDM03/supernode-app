@@ -68,14 +68,12 @@ Widget buildView(
                   color: unknownColor3,
                   boxShadow: [
                     BoxShadow(
-                        offset: Offset(0, 0),
-                        blurRadius: 6,
-                        color: Colors.white)
+                        offset: Offset(0, 0), blurRadius: 6, color: whiteColor)
                   ]),
               child: Icon(
                 Icons.close,
                 size: 24,
-                color: Colors.white,
+                color: whiteColor,
               ),
             ),
           ),

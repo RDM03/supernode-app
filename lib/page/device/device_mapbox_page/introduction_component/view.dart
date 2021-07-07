@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/components/text_field/primary_text_field.dar
 import 'package:supernodeapp/common/components/text_field/text_field_with_button.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/action.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/introduction_component/action.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 import 'state.dart';
@@ -78,7 +79,7 @@ Widget buildView(
     return Row(
       children: <Widget>[
         Radio<String>(
-          activeColor: Colors.black,
+          activeColor: blackColor,
           value: value ?? "",
           groupValue: groupValue,
           onChanged: onChanged,

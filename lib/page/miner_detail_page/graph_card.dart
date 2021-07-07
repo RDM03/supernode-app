@@ -80,7 +80,7 @@ class _GraphCardState extends State<GraphCard> {
       padding: EdgeInsets.all(16),
       height: 240,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: whiteColor,
         boxShadow: [
           BoxShadow(
             color: blackColor20,
@@ -129,7 +129,7 @@ class _GraphCardState extends State<GraphCard> {
                     height: 10,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: greyColor,
                       shape: BoxShape.circle,
                     ),
                   ),

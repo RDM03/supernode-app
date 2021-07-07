@@ -83,7 +83,7 @@ class _StakeHistoryContentState extends State<StakeHistoryContent> {
                     FlutterI18n.translate(context, 'stake').toUpperCase(),
                 color: filter == StakeHistoryFilter.stake
                     ? selectedTabColor
-                    : Colors.white,
+                    : whiteColor,
                 onTap: () {
                   if (filter == StakeHistoryFilter.stake)
                     setState(() => filter = null);
@@ -100,7 +100,7 @@ class _StakeHistoryContentState extends State<StakeHistoryContent> {
                     FlutterI18n.translate(context, 'unstake').toUpperCase(),
                 color: filter == StakeHistoryFilter.unstake
                     ? selectedTabColor
-                    : Colors.white,
+                    : whiteColor,
                 onTap: () {
                   if (filter == StakeHistoryFilter.unstake)
                     setState(() => filter = null);
@@ -114,7 +114,7 @@ class _StakeHistoryContentState extends State<StakeHistoryContent> {
                 isSelected: isSetDate,
                 buttonTitle:
                     FlutterI18n.translate(context, 'set_date').toUpperCase(),
-                color: isSetDate ? selectedTabColor : Colors.white,
+                color: isSetDate ? selectedTabColor : whiteColor,
                 icon: Icons.date_range,
                 onTap: () {
                   setState(() => isSetDate = !isSetDate);

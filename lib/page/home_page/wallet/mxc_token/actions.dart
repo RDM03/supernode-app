@@ -9,6 +9,7 @@ import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
+import 'package:supernodeapp/theme/colors.dart';
 
 class MxcActions extends StatelessWidget {
   final bool spaceOut;
@@ -29,14 +30,14 @@ class MxcActions extends StatelessWidget {
               child: Text(
                 FlutterI18n.translate(context, 'staking'),
                 style: TextStyle(
-                  color: Colors.black,
+                  color: blackColor,
                   fontSize: s(16),
                   fontWeight: FontWeight.w500,
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
-            Divider(color: Colors.grey),
+            Divider(color: greyColor),
             GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {
@@ -57,7 +58,7 @@ class MxcActions extends StatelessWidget {
                   Text(
                     FlutterI18n.translate(context, 'new_stake'),
                     style: TextStyle(
-                      color: Colors.black,
+                      color: blackColor,
                       fontSize: s(16),
                       fontWeight: FontWeight.w500,
                     ),
@@ -66,7 +67,7 @@ class MxcActions extends StatelessWidget {
                 ],
               ),
             ),
-            Divider(color: Colors.grey),
+            Divider(color: greyColor),
             GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {
@@ -87,7 +88,7 @@ class MxcActions extends StatelessWidget {
                   Text(
                     FlutterI18n.translate(context, 'unstake'),
                     style: TextStyle(
-                      color: Colors.black,
+                      color: blackColor,
                       fontSize: s(16),
                       fontWeight: FontWeight.w500,
                     ),
@@ -96,7 +97,7 @@ class MxcActions extends StatelessWidget {
                 ],
               ),
             ),
-            Divider(color: Colors.grey),
+            Divider(color: greyColor),
           ],
         ),
       ),

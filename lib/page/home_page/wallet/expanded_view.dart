@@ -105,7 +105,7 @@ class _TokenExpandedViewState extends State<TokenExpandedView>
               width: double.infinity,
               height: 20,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: whiteColor,
                 boxShadow: [
                   BoxShadow(
                     color: shodowColor,
@@ -165,7 +165,7 @@ class _TabIndicatorsState extends State<TabIndicators> {
       height: 5,
       width: isActive ? 20 : 19,
       decoration: BoxDecoration(
-        color: isActive ? color : Colors.grey,
+        color: isActive ? color : greyColor,
         borderRadius: BorderRadius.all(
           Radius.circular(2),
         ),

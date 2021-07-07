@@ -132,7 +132,7 @@ Widget tokenItem(
       height: s(62),
       foregroundDecoration: onPressed == null
           ? BoxDecoration(
-              color: Colors.grey.shade300,
+              color: greyColorShade300,
               backgroundBlendMode: BlendMode.saturation,
             )
           : null,
@@ -184,7 +184,7 @@ Widget tokenItem(
                             ? Checkbox(
                                 value: isSelected,
                                 onChanged: (_) => onPressed(),
-                                activeColor: Colors.grey,
+                                activeColor: greyColor,
                               )
                             : SizedBox(),
                       ],
@@ -352,14 +352,14 @@ void showBoostMPowerDialog(BuildContext ctx) {
             child: Text(
               FlutterI18n.translate(context, 'boost_mpower'),
               style: TextStyle(
-                color: Colors.black,
+                color: blackColor,
                 fontSize: s(16),
                 fontWeight: FontWeight.w500,
               ),
               textAlign: TextAlign.center,
             ),
           ),
-          Divider(color: Colors.grey),
+          Divider(color: greyColor),
           GestureDetector(
             key: Key('shopM2proTap'),
             behavior: HitTestBehavior.opaque,
@@ -380,7 +380,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
                 Text(
                   FlutterI18n.translate(context, 'shop_m2pro'),
                   style: TextStyle(
-                    color: Colors.black,
+                    color: blackColor,
                     fontSize: s(16),
                     fontWeight: FontWeight.w500,
                   ),
@@ -389,7 +389,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
               ],
             ),
           ),
-          Divider(color: Colors.grey),
+          Divider(color: greyColor),
           GestureDetector(
             key: Key('lockPageTap'),
             behavior: HitTestBehavior.opaque,
@@ -414,7 +414,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
                 Text(
                   FlutterI18n.translate(context, 'lock_mxc'),
                   style: TextStyle(
-                    color: Colors.black,
+                    color: blackColor,
                     fontSize: s(16),
                     fontWeight: FontWeight.w500,
                   ),
@@ -423,7 +423,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
               ],
             ),
           ),
-          Divider(color: Colors.grey),
+          Divider(color: greyColor),
           GestureDetector(
             key: Key('tutorialTitleTap'),
             behavior: HitTestBehavior.opaque,
@@ -455,7 +455,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
                 Text(
                   FlutterI18n.translate(context, 'learn_more'),
                   style: TextStyle(
-                    color: Colors.black,
+                    color: blackColor,
                     fontSize: s(16),
                     fontWeight: FontWeight.w500,
                   ),
@@ -464,7 +464,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
               ],
             ),
           ),
-          Divider(color: Colors.grey),
+          Divider(color: greyColor),
         ],
       ),
     ),
@@ -484,7 +484,7 @@ void aboutPage(
                   title: Center(child: Text(title, style: kBigBoldFontOfBlack)),
                   leading: SizedBox(),
                   trailing: GestureDetector(
-                    child: Icon(Icons.close, color: Colors.black),
+                    child: Icon(Icons.close, color: blackColor),
                     onTap: () => Navigator.of(ctx).pop(),
                   ),
                 ),

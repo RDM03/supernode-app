@@ -114,7 +114,7 @@ class UserTab extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.lock_open,
-                    color: Colors.white,
+                    color: whiteColor,
                   ),
                   Text(
                     'Unlock Supernode Account',
@@ -256,7 +256,7 @@ class UserTab extends StatelessWidget {
           key: Key('calculatorButton'),
           icon: FaIcon(
             FontAwesomeIcons.calculator,
-            color: Colors.black,
+            color: blackColor,
           ),
           onPressed: () => openCalculator(context),
         ),
@@ -265,7 +265,7 @@ class UserTab extends StatelessWidget {
             key: Key('settingsButton'),
             icon: Icon(
               Icons.settings,
-              color: Colors.black,
+              color: blackColor,
             ),
             onPressed: () => openSettings(context),
           )

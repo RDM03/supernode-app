@@ -13,6 +13,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
@@ -179,7 +180,7 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
                     )
                   : SizedBox(),
         ),
-        (miningPageVersion) ? Divider(color: Colors.grey) : SizedBox(),
+        (miningPageVersion) ? Divider(color: greyColor) : SizedBox(),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
           buildWhen: (a, b) => a.totalRevenue != b.totalRevenue,
           builder: (ctx, state) => TitleDetailRow(

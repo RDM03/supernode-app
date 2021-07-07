@@ -161,7 +161,7 @@ class _HomePageContent extends StatelessWidget {
           AppImages.bottomBarMenus[text.toLowerCase()],
           color: () {
             if (selected) return selectedColor;
-            if (disabled) return Colors.grey.shade200;
+            if (disabled) return greyColorShade200;
             return unselectedColor;
           }(),
           key: ValueKey('bottomNavBar_$text'),

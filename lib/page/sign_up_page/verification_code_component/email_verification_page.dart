@@ -38,7 +38,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
         resizeToAvoidBottomInset: false,
         backgroundColor: cardBackgroundColor,
         appBar: AppBars.backArrowAppBar(
-          color: Colors.white,
+          color: whiteColor,
           title: FlutterI18n.translate(context, 'create_account'),
           onPress: () => Navigator.of(context).pop(),
         ),

@@ -40,7 +40,7 @@ Widget buildView(
               trailing: Icon(
                 Icons.keyboard_arrow_down,
                 size: 30,
-                color: Colors.black,
+                color: blackColor,
               ),
               onTap: () {
                 showDialog(
@@ -85,7 +85,7 @@ Widget buildView(
             child: _buildImagePanelItem(
               leading: ImageIcon(
                 AssetImage('assets/images/device/solid-camera.png'),
-                color: Colors.white,
+                color: whiteColor,
               ),
               title: FlutterI18n.translate(_ctx, 'smart_door_lock'),
             ),
@@ -124,7 +124,7 @@ Widget _buildButton({VoidCallback onPressed, String title}) {
       padding: EdgeInsets.symmetric(vertical: 15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(3)),
-        color: Colors.white,
+        color: whiteColor,
         boxShadow: [
           BoxShadow(
             color: shodowColor,
@@ -161,7 +161,7 @@ Widget _buildSmartDialog(BuildContext ctx, Dispatch dispatch) {
             child: Icon(
               Icons.bluetooth,
               size: 24,
-              color: Colors.white,
+              color: whiteColor,
             ),
           ),
         ],
@@ -260,7 +260,7 @@ Widget _buildSmartCard({VoidCallback onTap}) {
     child: Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(20)),
-        color: Colors.white,
+        color: whiteColor,
         boxShadow: [
           BoxShadow(
               color: Color.fromRGBO(0, 0, 0, 0.1),
@@ -313,7 +313,7 @@ Widget _buildPanelItem(
             child: Icon(
               icon ?? Icons.not_interested,
               size: 24,
-              color: Colors.white,
+              color: whiteColor,
             ),
           ),
         ],

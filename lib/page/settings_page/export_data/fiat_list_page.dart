@@ -20,7 +20,7 @@ class FiatListPage extends StatelessWidget {
                 child: Text(FlutterI18n.translate(context, 'select_currency'),
                     style: kBigBoldFontOfBlack)),
             trailing: GestureDetector(
-                child: Icon(Icons.close, color: Colors.black),
+                child: Icon(Icons.close, color: blackColor),
                 onTap: () => Navigator.of(context).pop()),
           ),
           BlocBuilder<SettingsCubit, SettingsState>(
@@ -42,8 +42,8 @@ class FiatListPage extends StatelessWidget {
                         },
                         trailing: Icon(Icons.check,
                             color: (e.id == state.selectedFiat.id)
-                                ? Colors.black
-                                : Colors.grey),
+                                ? blackColor
+                                : greyColor),
                       ),
                     )),
                     listFiatWidgets.add(Divider(height: 1))

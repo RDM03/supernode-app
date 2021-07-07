@@ -112,7 +112,7 @@ class _SupernodeLoginPageContentState
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1
-                    .copyWith(color: Colors.white),
+                    .copyWith(color: whiteColor),
               ),
               duration: Duration(seconds: 2),
               backgroundColor: errorColor,
@@ -181,7 +181,7 @@ class _SupernodeLoginPageContentState
                                           height: s(134),
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
-                                              color: Colors.white,
+                                              color: whiteColor,
                                               shape: BoxShape.circle,
                                               boxShadow: [
                                                 BoxShadow(
@@ -211,7 +211,7 @@ class _SupernodeLoginPageContentState
                           children: <Widget>[
                             AppBars.backArrowAppBar(
                               key: Key('login_title'),
-                              color: Colors.white,
+                              color: whiteColor,
                               title: FlutterI18n.translate(context, 'login'),
                               onPress: () => Navigator.of(context).pop(),
                               onTitlePress: () => clickTitle(),
@@ -226,7 +226,7 @@ class _SupernodeLoginPageContentState
                                   style: TextStyle(
                                       fontSize: s(14),
                                       fontWeight: FontWeight.w400,
-                                      color: Colors.black),
+                                      color: blackColor),
                                 ),
                                 GestureDetector(
                                   onTap: () => _showInfoDialog(context),
@@ -380,7 +380,7 @@ class _SupernodeLoginPageContentState
                       height: ScreenUtil.instance.height,
                       width: s(304),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: whiteColor,
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(s(10)),
                           bottomRight: Radius.circular(s(10)),
@@ -430,7 +430,7 @@ class _SupernodeLoginPageContentState
                                       key: Key(key),
                                       title: Text(
                                         FlutterI18n.translate(context, key),
-                                        style: TextStyle(color: Colors.black),
+                                        style: TextStyle(color: blackColor),
                                       ),
                                       initiallyExpanded: false,
                                       backgroundColor: darkBackground,
@@ -495,7 +495,7 @@ void _showInfoDialog(BuildContext context) {
               FlutterI18n.translate(context, 'info_supernode'),
               key: ValueKey("helpText"),
               style: TextStyle(
-                color: Colors.black,
+                color: blackColor,
                 fontSize: s(16),
                 fontWeight: FontWeight.w500,
               ),

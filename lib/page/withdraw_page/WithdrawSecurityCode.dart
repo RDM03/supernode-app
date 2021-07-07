@@ -12,6 +12,7 @@ import 'package:supernodeapp/common/components/text_field/text_field_with_title.
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/page/withdraw_page/bloc/cubit.dart';
 import 'package:supernodeapp/page/withdraw_page/bloc/state.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class WithdrawSecurityCode extends StatefulWidget {
@@ -38,7 +39,7 @@ class _WithdrawSecurityCodeState extends State<WithdrawSecurityCode> {
               key: ValueKey('navBackButton'),
               child: Icon(
                 Icons.arrow_back_ios,
-                color: Colors.black,
+                color: blackColor,
               ),
               onTap: () => context.read<WithdrawCubit>().backToConfirm())),
       xbigColumnSpacer(),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'picker_dialog.dart';
 
 class PickerCard<T> extends StatefulWidget {
@@ -68,7 +69,7 @@ class _PickerCardState<T> extends State<PickerCard<T>> {
       builder: (_) => Container(
         height: MediaQuery.of(context).copyWith().size.height / 3,
         child: CupertinoPicker(
-          backgroundColor: Colors.white,
+          backgroundColor: whiteColor,
           itemExtent: 56,
           scrollController:
               FixedExtentScrollController(initialItem: selectionIndex),

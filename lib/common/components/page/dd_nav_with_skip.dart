@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/page/home_page/home_page.dart';
 import 'package:supernodeapp/route.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
@@ -29,8 +30,8 @@ class DDNavWithSkip extends StatelessWidget {
               child: Visibility(
                   visible: false,
                   child: GestureDetector(
-                      child: Icon(Icons.arrow_back_ios_rounded,
-                          color: Colors.black),
+                      child:
+                          Icon(Icons.arrow_back_ios_rounded, color: blackColor),
                       onTap: () => Navigator.of(context).pop()))),
           Spacer(),
           Text(FlutterI18n.translate(context, title),

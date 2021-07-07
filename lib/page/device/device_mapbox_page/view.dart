@@ -204,7 +204,7 @@ Widget _buildAppBar({String title, Widget trackingWidget}) {
     width: double.infinity,
     padding: EdgeInsets.only(top: 8),
     decoration: BoxDecoration(
-      color: Colors.white,
+      color: whiteColor,
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(10),
         topRight: Radius.circular(10),
@@ -243,7 +243,7 @@ Widget _buildPage({Widget appBar, Widget pageContent}) {
         topLeft: Radius.circular(10),
         topRight: Radius.circular(10),
       ),
-      color: Colors.white,
+      color: whiteColor,
     ),
     child: CustomScrollView(
       slivers: <Widget>[

@@ -50,7 +50,7 @@ class SecondaryButton extends StatelessWidget {
                   child: Icon(
                     icon,
                     color: color != null && !isSelected
-                        ? Colors.black
+                        ? blackColor
                         : buttonPrimaryColor,
                   ),
                 )

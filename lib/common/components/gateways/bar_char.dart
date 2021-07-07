@@ -46,7 +46,7 @@ class SNBarChart extends StatelessWidget {
           padding: EdgeInsets.only(left: 5, right: 10, top: 5, bottom: 5),
           child: Text(
             name,
-            style: TextStyle(color: Colors.grey, fontSize: 12),
+            style: TextStyle(color: greyColor, fontSize: 12),
           ),
         )
       ],
@@ -65,7 +65,7 @@ class SNBarChart extends StatelessWidget {
           // maxY: 20,
           barTouchData: BarTouchData(
             touchTooltipData: BarTouchTooltipData(
-              tooltipBgColor: Colors.grey,
+              tooltipBgColor: greyColor,
               getTooltipItem: (_a, _b, _c, _d) => null,
             ),
           ),
@@ -73,13 +73,13 @@ class SNBarChart extends StatelessWidget {
             show: true,
             bottomTitles: SideTitles(
               showTitles: true,
-              textStyle: TextStyle(color: Colors.grey, fontSize: 12),
+              textStyle: TextStyle(color: greyColor, fontSize: 12),
               getTitles: (value) =>
                   xAxis.length > value.toInt() + 1 ? xAxis[value.toInt()] : '',
             ),
             leftTitles: SideTitles(
               showTitles: true,
-              textStyle: TextStyle(color: Colors.grey, fontSize: 12),
+              textStyle: TextStyle(color: greyColor, fontSize: 12),
               getTitles: (value) =>
                   yAxis.length > value.toInt() + 1 ? yAxis[value.toInt()] : '',
             ),

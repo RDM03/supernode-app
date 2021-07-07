@@ -19,7 +19,7 @@ Widget buildView(
       resizeToAvoidBottomInset: false,
       backgroundColor: cardBackgroundColor,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: blackColor),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -34,7 +34,7 @@ Widget buildView(
                     Text(
                       FlutterI18n.translate(_ctx, 'recovery_cd_desc_01'),
                       style: TextStyle(
-                          color: Colors.black,
+                          color: blackColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0),
                     ),
@@ -59,7 +59,7 @@ Widget buildView(
                             .map((item) => new Text(
                                   item,
                                   style: TextStyle(
-                                      color: Colors.black,
+                                      color: blackColor,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 24.0),
                                 ))

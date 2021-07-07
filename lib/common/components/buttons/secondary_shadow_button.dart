@@ -49,7 +49,7 @@ class SecondaryShadowButton extends StatelessWidget {
                     icon,
                     size: 20,
                     color: color != null && !isSelected
-                        ? Colors.black
+                        ? blackColor
                         : buttonPrimaryColor,
                   ),
                 )

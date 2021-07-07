@@ -13,6 +13,7 @@ import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
 import 'package:supernodeapp/page/mining_simulator_page/widgets/value_editor.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class DhxUnbondingPage extends StatefulWidget {
@@ -95,7 +96,7 @@ class _DhxUnbondingPageState extends State<DhxUnbondingPage> {
                   child: Text(FlutterI18n.translate(context, 'unbond_dhx'),
                       style: kBigFontOfBlack)),
               trailing: GestureDetector(
-                  child: Icon(Icons.close, color: Colors.black),
+                  child: Icon(Icons.close, color: blackColor),
                   onTap: () => Navigator.of(context).pop()),
             ),
             Container(
@@ -113,7 +114,7 @@ class _DhxUnbondingPageState extends State<DhxUnbondingPage> {
                       ),
                       child: Image.asset(
                         AppImages.iconUnbond,
-                        color: Colors.white,
+                        color: whiteColor,
                       ),
                     ),
                     SizedBox(width: 20),

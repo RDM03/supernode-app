@@ -37,7 +37,7 @@ class CouncilCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
+            color: whiteColor,
           ),
           child: Row(
             children: [
@@ -50,7 +50,7 @@ class CouncilCard extends StatelessWidget {
                 child: Center(
                   child: FaIcon(
                     FontAwesomeIcons.landmark,
-                    color: Colors.white,
+                    color: whiteColor,
                   ),
                 ),
                 width: 56,

@@ -198,7 +198,7 @@ class _CalendarElement extends StatelessWidget {
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Image.asset(AppImages.iconUnbond,
                 scale: 1.5,
-                color: (model.unbondAmount > 0) ? Colors.red : Colors.white),
+                color: (model.unbondAmount > 0) ? Colors.red : whiteColor),
             Text(
                 '${model.date != null ? (7 - today.difference(model.date).inDays) : ""}',
                 style: (model.unbondAmount > 0)

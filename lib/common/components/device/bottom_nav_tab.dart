@@ -51,7 +51,7 @@ class _BottomNavTabState extends State<BottomNavTab>
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: whiteColor,
         boxShadow: [
           BoxShadow(
             color: boxShadowColor,

@@ -44,7 +44,7 @@ const textColor1 = Color.fromARGB(222, 0, 0, 0);
 const textColor2 = Color.fromARGB(222, 255, 255, 255);
 const textColor3 = Color.fromARGB(64, 0, 0, 0);
 
-const unselectedColor = Colors.grey;
+const unselectedColor = greyColor;
 const selectedColor = Color.fromARGB(255, 27, 20, 120);
 
 const iconCircularBackgroundColor = Color.fromARGB(51, 77, 137, 229);
@@ -111,9 +111,19 @@ const unknownColor4 = Color(0x33000000);
 
 const whiteColor = Colors.white;
 final whiteColor05 = Colors.white.withOpacity(0.5);
+final whiteColor70 = Colors.white.withOpacity(0.7);
 const blackColor = Colors.black;
-final blackColor10 = Colors.black.withOpacity(0.1);
-final blackColor20 = Colors.black.withOpacity(0.2);
-final blackColor40 = Colors.black.withOpacity(0.4);
-final blackColor70 = Colors.black.withOpacity(0.7);
-final greyColor30 = Colors.grey.withOpacity(0.3);
+final blackColor10 = blackColor.withOpacity(0.1);
+final blackColor12 = blackColor.withOpacity(0.12);
+final blackColor20 = blackColor.withOpacity(0.2);
+final blackColor40 = blackColor.withOpacity(0.4);
+final blackColor70 = blackColor.withOpacity(0.7);
+
+const greyColor = Colors.grey;
+final greyColor30 = greyColor.withOpacity(0.3);
+final greyColorShade050 = greyColor.shade50;
+final greyColorShade100 = greyColor.shade100;
+final greyColorShade200 = greyColor.shade200;
+final greyColorShade300 = greyColor.shade300;
+final greyColorShade600 = greyColor.shade600;
+final greyColorShade700 = greyColor.shade700;

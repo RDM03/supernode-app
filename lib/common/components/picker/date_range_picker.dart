@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/buttons/secondary_shadow_button.dart';
 import 'package:supernodeapp/common/utils/time.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 
@@ -29,7 +30,7 @@ class DateRangePicker extends StatelessWidget {
     return Container(
       child: Row(mainAxisSize: MainAxisSize.max, children: [
         SecondaryShadowButton(
-          color: Colors.white,
+          color: whiteColor,
           buttonTitle: firstTime ?? '',
           icon: Icons.date_range,
           onTap: () {
@@ -50,7 +51,7 @@ class DateRangePicker extends StatelessWidget {
           child: Text('~'),
         ),
         SecondaryShadowButton(
-          color: Colors.white,
+          color: whiteColor,
           buttonTitle: secondTime ?? '',
           icon: Icons.date_range,
           onTap: () {

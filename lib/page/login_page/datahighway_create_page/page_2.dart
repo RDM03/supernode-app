@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/page/login_page/datahighway_create_page/page_3.dart';
 import 'package:supernodeapp/page/login_page/datahighway_import_page/page_2.dart';
 import 'package:supernodeapp/route.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class DataHighwayCreate2Page extends StatefulWidget {
@@ -20,11 +21,11 @@ class _DataHighwayCreate2PageState extends State<DataHighwayCreate2Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBars.backArrowAppBar(
-        color: Colors.white,
+        color: whiteColor,
         title: 'Create Account',
         onPress: () => Navigator.of(context).pop(),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: whiteColor,
       body: Theme(
         data: Theme.of(context).copyWith(
           primaryColor: Token.parachainDhx.color,

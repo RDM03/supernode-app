@@ -117,7 +117,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                         context.read<WithdrawCubit>().setAddress(qrResult);
                       },
                       child: Icon(Icons.center_focus_weak,
-                          color: Colors.black, size: 30),
+                          color: blackColor, size: 30),
                     ),
                   ),
                 ),
@@ -238,7 +238,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                       ],
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: whiteColor,
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       boxShadow: [
                         BoxShadow(
@@ -334,7 +334,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                       context, 'info_current_transaction_fee'),
                   key: ValueKey('helpText'),
                   style: TextStyle(
-                    color: Colors.black,
+                    color: blackColor,
                     fontSize: s(16),
                     fontWeight: FontWeight.w500,
                   ),

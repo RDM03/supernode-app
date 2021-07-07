@@ -60,19 +60,19 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
                     0: Text(
                       FlutterI18n.translate(context, 'health'),
                       style: TextStyle(
-                        color: (selectedTab == 0) ? Colors.white : Colors.grey,
+                        color: (selectedTab == 0) ? whiteColor : greyColor,
                       ),
                     ),
                     1: Text(
                       FlutterI18n.translate(context, 'revenue'),
                       style: TextStyle(
-                        color: (selectedTab == 1) ? Colors.white : Colors.grey,
+                        color: (selectedTab == 1) ? whiteColor : greyColor,
                       ),
                     ),
                     2: Text(
                       FlutterI18n.translate(context, 'data'),
                       style: TextStyle(
-                        color: (selectedTab == 2) ? Colors.white : Colors.grey,
+                        color: (selectedTab == 2) ? whiteColor : greyColor,
                       ),
                     ),
                   },

@@ -194,7 +194,7 @@ class ValueEditor2 extends StatelessWidget {
       this.enabled = true,
       this.hintText,
       this.validator,
-      this.primaryColor = Colors.black})
+      this.primaryColor = blackColor})
       : super(key: key);
 
   @override

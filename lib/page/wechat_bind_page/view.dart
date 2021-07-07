@@ -26,7 +26,7 @@ Widget buildView(
     backgroundColor: cardBackgroundColor,
     padding: kRoundRow2002,
     appBar: AppBar(
-      iconTheme: IconThemeData(color: Colors.black),
+      iconTheme: IconThemeData(color: blackColor),
       title: Text(FlutterI18n.translate(_ctx, 'wechat_login_title'),
           style: kBigFontOfBlack, textAlign: TextAlign.center),
       backgroundColor: Colors.transparent,
@@ -43,7 +43,7 @@ Widget buildView(
             height: s(171),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: whiteColor,
               shape: BoxShape.circle,
             ),
             child: BlocBuilder<SupernodeCubit, SupernodeState>(
@@ -52,7 +52,7 @@ Widget buildView(
                 height: s(134),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: whiteColor,
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(

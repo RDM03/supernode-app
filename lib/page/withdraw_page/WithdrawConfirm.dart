@@ -9,6 +9,7 @@ import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/page/withdraw_page/bloc/cubit.dart';
 import 'package:supernodeapp/page/withdraw_page/bloc/state.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class WithdrawConfirm extends StatelessWidget {
@@ -27,7 +28,7 @@ class WithdrawConfirm extends StatelessWidget {
                 key: ValueKey('navBackButton'),
                 child: Icon(
                   Icons.arrow_back_ios,
-                  color: Colors.black,
+                  color: blackColor,
                 ),
                 onTap: () => context.read<WithdrawCubit>().backToForm())),
         xbigColumnSpacer(),

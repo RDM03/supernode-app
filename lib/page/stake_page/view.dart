@@ -173,7 +173,7 @@ void _showInfoDialog(BuildContext context) {
               child: Text(
                 FlutterI18n.translate(context, 'info_mxc_vault'),
                 style: TextStyle(
-                  color: Colors.black,
+                  color: blackColor,
                   fontSize: s(16),
                   fontWeight: FontWeight.w500,
                 ),
@@ -235,7 +235,7 @@ Widget _stakeCard({
         child: Text(
           months?.toString() ?? '~',
           style: Theme.of(context).textTheme.bodyText1.copyWith(
-                color: Colors.white,
+                color: whiteColor,
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
               ),

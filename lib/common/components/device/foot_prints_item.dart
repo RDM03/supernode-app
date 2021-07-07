@@ -17,7 +17,7 @@ class FootPrintsItem extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: whiteColor,
               borderRadius: BorderRadius.all(Radius.circular(10)),
               boxShadow: [
                 BoxShadow(

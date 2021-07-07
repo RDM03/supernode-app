@@ -94,7 +94,7 @@ class _AddressBookPageState extends State<AddressBookPage> {
           onTap: _onAdd,
           actionWidget: Icon(
             Icons.add,
-            color: Colors.black,
+            color: blackColor,
             size: 28,
           ),
           leadingWidget: AppBarBackButton(),
@@ -119,7 +119,7 @@ class _AddressBookPageState extends State<AddressBookPage> {
                       decoration: BoxDecoration(
                         border: Border.symmetric(
                           horizontal: BorderSide(
-                            color: Colors.grey[200],
+                            color: greyColorShade200,
                             width: 1,
                           ),
                         ),
@@ -146,7 +146,7 @@ class _AddressBookPageState extends State<AddressBookPage> {
                           widget.selectionMode
                               ? Icons.arrow_forward_ios
                               : Icons.more_vert,
-                          color: Colors.black,
+                          color: blackColor,
                         ),
                         contentPadding: EdgeInsets.only(left: 16, right: 10),
                       ),

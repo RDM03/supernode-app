@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 Widget pageNavBarBack(String name,
@@ -10,7 +11,7 @@ Widget pageNavBarBack(String name,
           GestureDetector(
             child: Icon(
               Icons.chevron_left,
-              color: Colors.black,
+              color: blackColor,
               size: 36,
             ),
             onTap: onTap,

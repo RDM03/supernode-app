@@ -27,7 +27,7 @@ class AppSettingsPage extends StatelessWidget {
                       key: Key('appSettingsTitle'),
                       style: kBigBoldFontOfBlack)),
               trailing: GestureDetector(
-                  child: Icon(Icons.close, color: Colors.black),
+                  child: Icon(Icons.close, color: blackColor),
                   onTap: () => Navigator.of(context).pop()),
             ),
             Divider(),

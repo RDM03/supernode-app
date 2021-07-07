@@ -135,14 +135,14 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
               horizontal: 32,
             ),
             child: Container(
-              color: Colors.white,
+              color: whiteColor,
               child: Stack(
                 children: [
                   Screenshot(
                     containerKey: FeedbackResultPage._screenshotKey,
                     controller: screenshotController,
                     child: Container(
-                      color: Colors.white,
+                      color: whiteColor,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [

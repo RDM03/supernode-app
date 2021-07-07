@@ -64,8 +64,12 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
             ...tempTopups,
           ];
 
-          if(isSetDate && isOnSearch) {
-            list = list.where((item) => DateTime.tryParse(firstTime).isBefore(item.timestamp) && DateTime.tryParse(secondTime).isAfter(item.timestamp)).toList();
+          if (isSetDate && isOnSearch) {
+            list = list
+                .where((item) =>
+                    DateTime.tryParse(firstTime).isBefore(item.timestamp) &&
+                    DateTime.tryParse(secondTime).isAfter(item.timestamp))
+                .toList();
 
             isOnSearch = false;
           }
@@ -95,7 +99,7 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
                         FlutterI18n.translate(context, 'deposit').toUpperCase(),
                     color: filter == TransactionHistoryFilter.deposit
                         ? selectedTabColor
-                        : Colors.white,
+                        : whiteColor,
                     onTap: () {
                       if (filter == TransactionHistoryFilter.deposit)
                         setState(() => filter = null);
@@ -112,7 +116,7 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
                         .toUpperCase(),
                     color: filter == TransactionHistoryFilter.withdraw
                         ? selectedTabColor
-                        : Colors.white,
+                        : whiteColor,
                     onTap: () {
                       if (filter == TransactionHistoryFilter.withdraw)
                         setState(() => filter = null);
@@ -126,7 +130,7 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
                     isSelected: isSetDate,
                     buttonTitle: FlutterI18n.translate(context, 'set_date')
                         .toUpperCase(),
-                    color: isSetDate ? selectedTabColor : Colors.white,
+                    color: isSetDate ? selectedTabColor : whiteColor,
                     icon: Icons.date_range,
                     onTap: () {
                       setState(() => isSetDate = !isSetDate);
@@ -138,15 +142,16 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
             if (isSetDate)
               Padding(
                 padding: EdgeInsets.only(top: 5),
-                child: dateButtons(
-                  context,
-                  firstTime: firstTime,
-                  secondTime: secondTime,
-                  thirdText: FlutterI18n.translate(context, 'search'),
-                  firstTimeOnTap: (date) => setState(() => firstTime = date),
-                  secondTimeOnTap: (date) => setState(() => secondTime = date),
-                  onSearch: () => setState(() {isOnSearch = true;})
-                ),
+                child: dateButtons(context,
+                    firstTime: firstTime,
+                    secondTime: secondTime,
+                    thirdText: FlutterI18n.translate(context, 'search'),
+                    firstTimeOnTap: (date) => setState(() => firstTime = date),
+                    secondTimeOnTap: (date) =>
+                        setState(() => secondTime = date),
+                    onSearch: () => setState(() {
+                          isOnSearch = true;
+                        })),
               ),
             SizedBox(height: 12),
             PanelFrame(

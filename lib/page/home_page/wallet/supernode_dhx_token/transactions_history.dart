@@ -26,7 +26,8 @@ class TransactionsHistoryContent extends StatefulWidget {
 
 enum TransactionHistoryFilter { deposit, withdraw }
 
-class _TransactionsHistoryContentState extends State<TransactionsHistoryContent> {
+class _TransactionsHistoryContentState
+    extends State<TransactionsHistoryContent> {
   bool isSetDate = false;
   bool isOnSearch = false;
   TransactionHistoryFilter filter;
@@ -65,8 +66,12 @@ class _TransactionsHistoryContentState extends State<TransactionsHistoryContent>
             ...tempTopups,
           ];
 
-          if(isSetDate && isOnSearch) {
-            list = list.where((item) => DateTime.tryParse(firstTime).isBefore(item.timestamp) && DateTime.tryParse(secondTime).isAfter(item.timestamp)).toList();
+          if (isSetDate && isOnSearch) {
+            list = list
+                .where((item) =>
+                    DateTime.tryParse(firstTime).isBefore(item.timestamp) &&
+                    DateTime.tryParse(secondTime).isAfter(item.timestamp))
+                .toList();
 
             isOnSearch = false;
           }
@@ -96,7 +101,7 @@ class _TransactionsHistoryContentState extends State<TransactionsHistoryContent>
                         FlutterI18n.translate(context, 'deposit').toUpperCase(),
                     color: filter == TransactionHistoryFilter.deposit
                         ? selectedTabColor
-                        : Colors.white,
+                        : whiteColor,
                     onTap: () {
                       if (filter == TransactionHistoryFilter.deposit)
                         setState(() => filter = null);
@@ -113,7 +118,7 @@ class _TransactionsHistoryContentState extends State<TransactionsHistoryContent>
                         .toUpperCase(),
                     color: filter == TransactionHistoryFilter.withdraw
                         ? selectedTabColor
-                        : Colors.white,
+                        : whiteColor,
                     onTap: () {
                       if (filter == TransactionHistoryFilter.withdraw)
                         setState(() => filter = null);
@@ -127,7 +132,7 @@ class _TransactionsHistoryContentState extends State<TransactionsHistoryContent>
                     isSelected: isSetDate,
                     buttonTitle: FlutterI18n.translate(context, 'set_date')
                         .toUpperCase(),
-                    color: isSetDate ? selectedTabColor : Colors.white,
+                    color: isSetDate ? selectedTabColor : whiteColor,
                     icon: Icons.date_range,
                     onTap: () {
                       setState(() => isSetDate = !isSetDate);
@@ -139,15 +144,16 @@ class _TransactionsHistoryContentState extends State<TransactionsHistoryContent>
             if (isSetDate)
               Padding(
                 padding: EdgeInsets.only(top: 5),
-                child: dateButtons(
-                  context,
-                  firstTime: firstTime,
-                  secondTime: secondTime,
-                  thirdText: FlutterI18n.translate(context, 'search'),
-                  firstTimeOnTap: (date) => setState(() => firstTime = date),
-                  secondTimeOnTap: (date) => setState(() => secondTime = date),
-                  onSearch: () => setState(() {isOnSearch = true;})
-                ),
+                child: dateButtons(context,
+                    firstTime: firstTime,
+                    secondTime: secondTime,
+                    thirdText: FlutterI18n.translate(context, 'search'),
+                    firstTimeOnTap: (date) => setState(() => firstTime = date),
+                    secondTimeOnTap: (date) =>
+                        setState(() => secondTime = date),
+                    onSearch: () => setState(() {
+                          isOnSearch = true;
+                        })),
               ),
             SizedBox(height: 12),
             PanelFrame(
@@ -163,7 +169,8 @@ class _TransactionsHistoryContentState extends State<TransactionsHistoryContent>
                                 entity: list[i],
                                 token: Token.supernodeDhx,
                                 paymentTextStyle: kSmallFontOfDhxColor,
-                                amountColor: kSmallFontOfDhxColor.color.withOpacity(.2),
+                                amountColor:
+                                    kSmallFontOfDhxColor.color.withOpacity(.2),
                               );
                             }
                             if (list[i] is WithdrawHistoryEntity) {
@@ -172,7 +179,8 @@ class _TransactionsHistoryContentState extends State<TransactionsHistoryContent>
                                 entity: list[i],
                                 token: Token.supernodeDhx,
                                 paymentTextStyle: kSmallFontOfDhxColor,
-                                amountColor: kSmallFontOfDhxColor.color.withOpacity(.2),
+                                amountColor:
+                                    kSmallFontOfDhxColor.color.withOpacity(.2),
                               );
                             }
                             return Container();

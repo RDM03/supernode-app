@@ -71,7 +71,7 @@ class MinerHealthTab extends StatelessWidget {
                   foregroundDecoration: enabled
                       ? null
                       : BoxDecoration(
-                          color: Colors.grey.shade200,
+                          color: greyColorShade200,
                           shape: BoxShape.circle,
                           backgroundBlendMode: BlendMode.saturation,
                         ),
@@ -129,7 +129,7 @@ class MinerHealthTab extends StatelessWidget {
                     height: 52,
                     width: 52,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: whiteColor,
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
@@ -142,7 +142,7 @@ class MinerHealthTab extends StatelessWidget {
                     ),
                     child: Image.asset(
                       AppImages.fuel,
-                      color: item.health == 1 ? Colors.grey : healthColor,
+                      color: item.health == 1 ? greyColor : healthColor,
                     ),
                   ),
                   SizedBox(height: 7),
@@ -182,7 +182,7 @@ class MinerHealthTab extends StatelessWidget {
                     height: 52,
                     width: 52,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: whiteColor,
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
@@ -198,7 +198,7 @@ class MinerHealthTab extends StatelessWidget {
                         Icons.arrow_forward,
                         color: item.miningFuel > Decimal.zero
                             ? healthColor
-                            : Colors.grey,
+                            : greyColor,
                         size: 26,
                       ),
                     ),
@@ -438,7 +438,7 @@ class StatisticTable extends StatelessWidget {
                         FlutterI18n.translate(context, 'fuel'),
                         Stack(alignment: Alignment.center, children: [
                           Image.asset(AppImages.uptime,
-                              color: Colors.white,
+                              color: whiteColor,
                               width: s(60),
                               fit: BoxFit.contain),
                           Image.asset(AppImages.fuel,

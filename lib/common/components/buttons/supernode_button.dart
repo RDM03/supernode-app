@@ -24,11 +24,11 @@ class SupernodeButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 255, 255, 255),
           border: Border.all(
-              color: selected ? buttonPrimaryColor : Colors.grey,
+              color: selected ? buttonPrimaryColor : greyColor,
               width: selected ? 2 : 0.5),
           // boxShadow: [
           //   BoxShadow(
-          //     color: selected ? buttonPrimaryColor : Colors.grey,
+          //     color: selected ? buttonPrimaryColor : greyColor,
           // blurRadius: selected ? 0.0 : 2.0, // has the effect of softening the shadow
           // spreadRadius: 0.5, // has the effect of extending the shadow
           // offset: Offset(

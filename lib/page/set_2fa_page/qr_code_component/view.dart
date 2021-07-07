@@ -21,7 +21,7 @@ Widget buildView(
       resizeToAvoidBottomInset: false,
       backgroundColor: cardBackgroundColor,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: blackColor),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),

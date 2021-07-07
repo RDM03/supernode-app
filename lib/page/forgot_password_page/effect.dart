@@ -67,7 +67,7 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
             style: Theme.of(ctx.context)
                 .textTheme
                 .bodyText1
-                .copyWith(color: Colors.white),
+                .copyWith(color: whiteColor),
           ),
           duration: Duration(seconds: 2),
           backgroundColor: errorColor,

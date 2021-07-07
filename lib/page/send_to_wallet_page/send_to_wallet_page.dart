@@ -122,7 +122,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CircleButton(
               key: Key('addFuelBottom'),
-              circleColor: Colors.white,
+              circleColor: whiteColor,
               icon: Icon(Icons.arrow_forward, color: fuelColor),
             ),
           ),
@@ -147,8 +147,8 @@ class _SendToWalletPageState extends State<SendToWalletPage>
         padding: EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           border: Border(
-            top: BorderSide(color: Colors.grey.shade200, width: 0.5),
-            bottom: BorderSide(color: Colors.grey.shade200, width: 0.5),
+            top: BorderSide(color: greyColorShade200, width: 0.5),
+            bottom: BorderSide(color: greyColorShade200, width: 0.5),
           ),
         ),
         child: Row(
@@ -173,7 +173,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                 else
                   defaultAll();
               },
-              inactiveThumbColor: Colors.grey.shade700,
+              inactiveThumbColor: greyColorShade700,
               activeColor: healthColor,
             ),
             SizedBox(width: 16),
@@ -200,7 +200,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                         size: 18,
                         color: (gatewaySelection[item.id] ?? 0) > 0
                             ? healthColor
-                            : Colors.grey,
+                            : greyColor,
                       ),
                     ),
                   ),
@@ -359,7 +359,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
         //     Icons.filter_list,
         //   ),
         //   onPressed: onFilter,
-        //   color: Colors.black,
+        //   color: blackColor,
         // ),
         title: FlutterI18n.translate(context, 'send_to_wallet'),
         onPress: () => Navigator.of(context).pop(),
@@ -433,7 +433,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
             alignment: Alignment.bottomCenter,
             child: Column(
               children: [
-                Container(height: 0.5, color: Colors.grey.shade200),
+                Container(height: 0.5, color: greyColorShade200),
                 SizedBox(height: 16),
                 Center(
                   child: Text(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/theme/colors.dart';
 
 Widget submitButton(
   String label, {
@@ -44,7 +45,7 @@ Widget whiteBorderButton(
   Function onPressed,
   Key key,
 }) {
-  final Color color = (onPressed == null) ? Colors.grey : Colors.white;
+  final Color color = (onPressed == null) ? greyColor : whiteColor;
   return Container(
     height: 45,
     margin: EdgeInsets.only(top: top),

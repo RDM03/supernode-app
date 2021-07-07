@@ -14,7 +14,7 @@ class CircleButton extends StatelessWidget {
       this.onTap,
       this.icon,
       this.label = "",
-      this.circleColor = Colors.white})
+      this.circleColor = whiteColor})
       : super(key: key);
 
   @override
