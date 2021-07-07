@@ -7,19 +7,19 @@ final appTheme = ThemeData(
   appBarTheme: AppBarTheme(brightness: Brightness.light),
 );
 
-const color1 = Color(0xFF000000);
-const color2 = Color(0xFFEBEFF2);
-const color3 = Color(0xFFFFFFFF);
-const color4 = Color(0xDE000000);
+const color1 = blackColor;
+const color2 = darkBackground;
+const color3 = whiteColor;
+const color4 = textColor1;
 const color5 = Color(0x8A000000);
 const color6 = Color(0x8B000000);
-const color7 = Color(0xFF1C1478);
-const color8 = Color(0x1A000000);
+const color7 = colorMxc;
+const color8 = shodowColor;
 const color9 = Color(0xFF4D89E5);
 const color10 = Color(0xFF47D96C);
 const color11 = Color(0xFFEDEDF5);
-const color12 = Color(0x40000000);
-const color13 = Color(0xFF10C469);
+const color12 = textColor3;
+const color13 = primaryColor;
 
 const backgroundColor = Color(0xFFEBEFF2);
 const buttonPrimaryColor = Color(0xFF1C1478);
