@@ -651,5 +651,7 @@
 	"adding_miner_failure_detail": "それは全く動作しなかった、もう一度試してください。",
 	"adding_miner_success_detail": "あなたのM 2プロ鉱夫は、現在鉱業です",
 	"adding_miner_warning_title": "注：この鉱夫は、使用されます",
-	"adding_miner_warning_detail": "鉱山労働者は、新しい鉱山労働者とは異なり機能。使用していた鉱夫を購入するつもりはない場合は、それを販売した人に連絡してください。"
+	"adding_miner_warning_detail": "鉱山労働者は、新しい鉱山労働者とは異なり機能。使用していた鉱夫を購入するつもりはない場合は、それを販売した人に連絡してください。",
+	"fuel_tank": "燃料タンク",
+	"total_fueled_amount": "総燃料量"
 }

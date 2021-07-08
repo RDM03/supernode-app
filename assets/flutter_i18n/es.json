@@ -651,5 +651,7 @@
 	"adding_miner_failure_detail": "No funciona, por favor inténtalo de nuevo.",
 	"adding_miner_success_detail": "Su minero profesional m2 está trabajando en la minería",
 	"adding_miner_warning_title": "Nota: Esta máquina se utiliza una vez",
-	"adding_miner_warning_detail": "Las funciones de los antiguos mineros son diferentes de las de los nuevos mineros.Si no va a comprar mineros de segunda mano, por favor póngase en contacto con la persona que los vende."
+	"adding_miner_warning_detail": "Las funciones de los antiguos mineros son diferentes de las de los nuevos mineros.Si no va a comprar mineros de segunda mano, por favor póngase en contacto con la persona que los vende.",
+	"fuel_tank": "Depósito de combustible",
+	"total_fueled_amount": "Volumen total de combustible"
 }

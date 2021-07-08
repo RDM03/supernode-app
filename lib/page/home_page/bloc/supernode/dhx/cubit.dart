@@ -180,21 +180,21 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
       }
 
       endTime = endTime ?? DateTime.now();
-      endTime = DateTime(endTime.year, endTime.month, 1);
+      endTime = DateTime.utc(endTime.year, endTime.month, 1);
 
       if(endTime.month + 1 <= 12) {
-        nextMonth = DateTime(endTime.year, endTime.month + 1, 1);
+        nextMonth = DateTime.utc(endTime.year, endTime.month + 1, 1);
       }else{
-        nextMonth = DateTime(endTime.year + 1, 1, 1);
+        nextMonth = DateTime.utc(endTime.year + 1, 1, 1);
       }
 
       endTime = nextMonth.add(Duration(days: -1));
 
       if(startTime == null){
         if(endTime.month - 1 <= 0) {
-          startTime = DateTime(endTime.year - 1, 12, 1);
+          startTime = DateTime.utc(endTime.year - 1, 12, 1);
         }else{
-          startTime = DateTime(endTime.year, endTime.month - 1, 1);
+          startTime = DateTime.utc(endTime.year, endTime.month - 1, 1);
         }
       }
 
@@ -237,7 +237,7 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
 
         for (dynamic rec in resBondInfo["dhxCoolingOff"]) {
           dateTmp = rec["created"] != null ? DateTime.tryParse(rec["created"]) : DateTime.now();
-          dateTmp = DateTime(dateTmp.year, dateTmp.month, dateTmp.day);
+          dateTmp = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
           if (!parsed.containsKey(dateTmp))
             parsed[dateTmp] = CalendarModel(date: dateTmp);
           parsed[dateTmp].minedAmount += double.parse(rec["amount"]);
@@ -248,7 +248,7 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
         int indexDatesParsed = 0;
         int lastDayBeforeToday = 0;
 
-        dateTmp = DateTime.now();
+        dateTmp = DateTime.now().toUtc();
         final today = DateTime.utc(dateTmp.year, dateTmp.month, dateTmp.day);
 
         if (datesParsed.length > 0)
