@@ -6,7 +6,7 @@ import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
 import 'app_state.dart';
 
 class AppCubit extends Cubit<AppState> {
-  AppCubit({bool isDemo = false}) : super(AppState(isDemo: isDemo));
+  AppCubit({bool isDemo = false, Locale locale}) : super(AppState(isDemo: isDemo, locale: locale));
 
   void setDemo(bool val) => emit(state.copyWith(isDemo: val));
   void setLoading(bool val) => emit(state.copyWith(showLoading: val));
@@ -15,6 +15,8 @@ class AppCubit extends Cubit<AppState> {
   void setSelectedFiatForExport(FiatCurrency fiatForExport) => emit(state.copyWith(selectedFiatForExport: fiatForExport));
   void setSuccess(String success) =>
       emit(state.copyWith(success: SuccessInfo(success)));
+
+  Locale getLocale() => state.locale;
 }
 
 class SupernodeCubit extends Cubit<SupernodeState> {
