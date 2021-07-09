@@ -51,13 +51,13 @@ class DDNavWithSkip extends StatelessWidget {
                       ),
                     ),
                     onTap: () => navigatorKey.currentState.pushAndRemoveUntil(
-                        route((_) => HomePage()), (_) => false),
+                        routeWidget(HomePage()), (_) => false),
                   ),
                   IconButton(
                     icon: Icon(Icons.arrow_forward_ios_rounded),
                     onPressed: () => navigatorKey.currentState
                         .pushAndRemoveUntil(
-                            route((_) => HomePage()), (_) => false),
+                            routeWidget(HomePage()), (_) => false),
                   )
                 ],
               ))

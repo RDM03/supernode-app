@@ -40,7 +40,7 @@ SupernodeJwt parseJwt(String jwt) {
 Future<void> logOut(BuildContext context) async {
   context.read<SupernodeCubit>().logout();
   navigatorKey.currentState
-      .pushAndRemoveUntil(route((_) => LoginPage()), (route) => false);
+      .pushAndRemoveUntil(routeWidget(LoginPage()), (route) => false);
 }
 
 Future<bool> checkMaintenance(Supernode node) async {

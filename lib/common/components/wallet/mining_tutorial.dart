@@ -497,7 +497,7 @@ class MiningTutorial extends StatefulWidget {
       ),
       smallColumnSpacer(),
       GestureDetector(
-        onTap: () => Navigator.push(ctx, route((c) => DhxBondingPage())),
+        onTap: () => Navigator.push(ctx, routeWidget(DhxBondingPage())),
         child: Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(

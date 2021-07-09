@@ -326,12 +326,12 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
         await context.read<GatewayCubit>().refresh();
         await context.read<SupernodeUserCubit>().refreshBalance();
         loading.hide();
-        await Navigator.of(context).push(route((ctx) => AddFuelConfirmPage()));
+        await Navigator.of(context).push(routeWidget(AddFuelConfirmPage()));
         Navigator.of(context).pop();
       } catch (e) {
         loading.hide();
         await Navigator.of(context).push(
-          route((ctx) => AddFuelConfirmPage(error: e)),
+          routeWidget(AddFuelConfirmPage(error: e)),
         );
       } finally {
         loading.hide();

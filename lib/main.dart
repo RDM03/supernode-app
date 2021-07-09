@@ -100,7 +100,8 @@ Future<void> main() async {
   final cacheRepository = CacheRepository();
   await cacheRepository.init();
 
-  final appCubit = AppCubit();
+  final locale = storageRepository.locale();
+  final appCubit = AppCubit(locale: locale);
 
   final supernodeSession = storageRepository.supernodeSession();
   final supernodeCubit = SupernodeCubit(
@@ -250,6 +251,7 @@ class MxcApp extends StatelessWidget {
           FlutterI18nDelegate(
             translationLoader: FileTranslationLoader(
               useCountryCode: true,
+              forcedLocale: context.read<AppCubit>().getLocale()
             ),
           ),
           GlobalMaterialLocalizations.delegate,
@@ -329,8 +331,8 @@ class MxcApp extends StatelessWidget {
                                     .session
                                     .userId ==
                                 -1 /* demoMode */
-                        ? route((ctx) => LoginPage())
-                        : route((ctx) => HomePage()),
+                        ? routeWidget(LoginPage())
+                        : routeWidget(HomePage()),
                   ],
                 ),
               ),

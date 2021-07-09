@@ -133,7 +133,7 @@ class _DataHighwayImportPageState extends State<DataHighwayImportPage> {
                   bgColor: Token.parachainDhx.color,
                   buttonTitle: 'Next',
                   onTap: () => Navigator.of(context)
-                      .push(route((ctx) => DataHighwayImport2Page())),
+                      .push(routeWidget((ctx) => DataHighwayImport2Page())),
                 ),
               ),
             ),

@@ -35,11 +35,11 @@ import 'cubit.dart';
 void openSettings(BuildContext context) async {
   if (context.read<SupernodeUserCubit>()?.state?.organizations?.loading ??
       false) return;
-  Navigator.push(context, route((context) => SettingsPage()));
+  Navigator.push(context, routeWidget(SettingsPage()));
 }
 
 Future<void> openSupernodeDeposit(BuildContext context, Token tkn) async {
-  await Navigator.of(context).push(route((_) => BlocProvider(
+  await Navigator.of(context).push(routeWidget(BlocProvider(
       create: (ctx) => DepositCubit(context.read<SupernodeUserCubit>(),
           context.read<AppCubit>(), context.read<SupernodeRepository>()),
       child: DepositPage(tkn))));
@@ -47,7 +47,7 @@ Future<void> openSupernodeDeposit(BuildContext context, Token tkn) async {
 }
 
 Future<void> openSupernodeWithdraw(BuildContext context, Token token) async {
-  await Navigator.of(context).push(route((_) => BlocProvider(
+  await Navigator.of(context).push(routeWidget(BlocProvider(
       create: (ctx) => WithdrawCubit(context.read<SupernodeUserCubit>(),
           context.read<AppCubit>(), context.read<SupernodeRepository>()),
       child: WithdrawPage(token))));
@@ -109,11 +109,11 @@ Future<void> openSupernodeUnstake(BuildContext context) async {
 }
 
 void loginSupernode(BuildContext context) => Navigator.of(context).push(
-      route((ctx) => EntrySupernodePage()),
+      routeWidget(EntrySupernodePage()),
     );
 
 void loginParachain(BuildContext context) => Navigator.of(context).push(
-      route((ctx) => EntryParachainPage()),
+      routeWidget(EntryParachainPage()),
     );
 
 Widget tokenItem(
@@ -474,10 +474,8 @@ void showBoostMPowerDialog(BuildContext ctx) {
 void aboutPage(
     BuildContext context, String title, Widget illustration, String text,
     {Widget bottomButton}) {
-  Navigator.of(context).push(MaterialPageRoute(
-      fullscreenDialog: true,
-      builder: (ctx) => pageFrame(
-          context: ctx,
+  Navigator.of(context).push(routeWidget(pageFrame(
+          context: context,
           padding: EdgeInsets.all(0.0),
           children: <Widget>[
             ListTile(
@@ -486,7 +484,7 @@ void aboutPage(
               leading: SizedBox(),
               trailing: GestureDetector(
                 child: Icon(Icons.close, color: Colors.black),
-                onTap: () => Navigator.of(ctx).pop(),
+                onTap: () => Navigator.of(context).pop(),
               ),
             ),
             SizedBox(height: 50),

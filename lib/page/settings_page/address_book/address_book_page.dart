@@ -59,7 +59,7 @@ class _AddressBookPageState extends State<AddressBookPage> {
 
   Future<void> _onAdd() async {
     await Navigator.of(context)
-        .push(route((_) => AddAddressPage(type: widget.type)));
+        .push(routeWidget(AddAddressPage(type: widget.type)));
     setState(() => reloadAddresses());
   }
 
@@ -73,7 +73,7 @@ class _AddressBookPageState extends State<AddressBookPage> {
 
   Future<void> _openDetails(AddressEntity entity) async {
     await Navigator.of(context).push(
-        route((_) => AddressDetailsPage(entity: entity, type: widget.type)));
+        routeWidget(AddressDetailsPage(entity: entity, type: widget.type)));
     setState(() => reloadAddresses());
   }
 

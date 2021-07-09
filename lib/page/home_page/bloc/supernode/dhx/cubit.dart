@@ -315,7 +315,7 @@ class SupernodeDhxCubit extends Cubit<SupernodeDhxState> {
         }
       });
 
-      calendarInfo.keys.toList()..sort((a,b) => a.compareTo(b));
+      calendarInfo.keys.toList()..sort((a,b) => int.tryParse(a).compareTo(int.tryParse(b)));
       
       emit(state.copyWith(
           dhxBonded: Wrap(dhxBonded),

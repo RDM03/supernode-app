@@ -64,8 +64,8 @@ class MinerRevenueTab extends StatelessWidget {
               ),
             ),
             onTap: () => Navigator.of(context).push(
-              route(
-                (ctx) => ViewAllPage(
+              routeWidget(
+                ViewAllPage(
                   minerId: item.id,
                   type: MinerStatsType.revenue,
                 ),

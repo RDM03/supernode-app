@@ -120,7 +120,7 @@ class MinerHealthTab extends StatelessWidget {
               onTap: item.health == 1
                   ? null
                   : () => Navigator.of(context)
-                      .push(route((ctx) => AddFuelPage(gatewayItem: item)))
+                      .push(routeWidget(AddFuelPage(gatewayItem: item)))
                       .then((value) => onRefresh()),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -173,7 +173,7 @@ class MinerHealthTab extends StatelessWidget {
             GestureDetector(
               onTap: item.miningFuel > Decimal.zero
                   ? () => Navigator.of(context)
-                      .push(route((ctx) => SendToWalletPage(gatewayItem: item)))
+                      .push(routeWidget(SendToWalletPage(gatewayItem: item)))
                       .then((value) => onRefresh())
                   : null,
               child: Column(
@@ -240,7 +240,7 @@ class MinerHealthTab extends StatelessWidget {
                 style: kSmallFontOfDarkBlue,
               ),
             ),
-            onTap: () => Navigator.of(context).push(route((ctx) => ViewAllPage(
+            onTap: () => Navigator.of(context).push(routeWidget(ViewAllPage(
                   minerId: item.id,
                   type: MinerStatsType.uptime,
                 ))),
