@@ -652,6 +652,6 @@
 	"adding_miner_success_detail": "您的M2 Pro正在开采中",
 	"adding_miner_warning_title": "注意：这个矿机已经注册了",
 	"adding_miner_warning_detail": "已使用过的矿机功能不同于全新矿机。如果您不想购买二手矿机，请联系您的卖家。",
-	"fuel_tank": "燃油箱",
-	"total_fueled_amount": "总加油量"
+	"fuel_tank": "补给箱",
+	"total_fueled_amount": "总补给量"
 }
