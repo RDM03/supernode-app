@@ -60,7 +60,7 @@ class SendToWalletConfirmPage extends StatelessWidget {
               buttonTitle: FlutterI18n.translate(context, 'done'),
               bgColor: healthColor,
               minWidth: 0,
-              textStyle: kBigFontOfWhite,
+              style: kBigFontOfWhite,
             ),
           ),
           SizedBox(height: 40),

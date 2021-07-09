@@ -7,6 +7,7 @@ import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/page/settings_page/profile_component/profile_page.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../../../route.dart';
 
@@ -32,16 +33,20 @@ class AccountPage extends StatelessWidget {
               leading: Image.asset(Token.mxc.imagePath, height: s(50))),
           Divider(),
           Container(
-            color: backgroundColor,
+            color: ColorsTheme.of(context).boxComponents,
             child: ListTile(
-                title: Text(
-                    FlutterI18n.translate(context, 'datahighway_parachain'),
-                    style: kBigFontOfGrey),
-                onTap: () =>
-                    'TODO', //TODO dispatch(SettingsActionCreator.onSettings(SettingsOption.profileDhx)),
-                leading:
-                    Image.asset(Token.supernodeDhx.imagePath, height: s(50)),
-                trailing: Icon(Icons.chevron_right, color: greyColor)),
+              title: Text(
+                FlutterI18n.translate(context, 'datahighway_parachain'),
+                style: kBigFontOfGrey,
+              ),
+              onTap: () =>
+                  'TODO', //TODO dispatch(SettingsActionCreator.onSettings(SettingsOption.profileDhx)),
+              leading: Image.asset(Token.supernodeDhx.imagePath, height: s(50)),
+              trailing: Icon(
+                Icons.chevron_right,
+                color: ColorsTheme.of(context).textLabel,
+              ),
+            ),
           ),
         ]);
   }

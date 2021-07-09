@@ -29,6 +29,7 @@ import 'package:supernodeapp/page/withdraw_page/bloc/state.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'WithdrawConfirm.dart';
 import 'bloc/cubit.dart';
@@ -110,9 +111,9 @@ class _WithdrawPageState extends State<WithdrawPage> {
                       onTap: () async {
                         String qrResult = await MajaScan.startScan(
                             title: FlutterI18n.translate(context, 'scan_code'),
-                            barColor: buttonPrimaryColor,
+                            barColor: ColorsTheme.of(context).mxcBlue,
                             titleColor: backgroundColor,
-                            qRCornerColor: buttonPrimaryColor,
+                            qRCornerColor: ColorsTheme.of(context).mxcBlue,
                             qRScannerColor: buttonPrimaryColorAccent);
                         context.read<WithdrawCubit>().setAddress(qrResult);
                       },

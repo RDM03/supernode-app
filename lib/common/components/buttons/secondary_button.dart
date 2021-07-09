@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class SecondaryButton extends StatelessWidget {
   SecondaryButton({
@@ -27,7 +28,7 @@ class SecondaryButton extends StatelessWidget {
       color: color,
       shape: RoundedRectangleBorder(
         side: BorderSide(
-          color: color != null ? color : buttonPrimaryColor,
+          color: color != null ? color : ColorsTheme.of(context).mxcBlue,
           width: 1,
           style: BorderStyle.solid,
         ),
@@ -51,7 +52,7 @@ class SecondaryButton extends StatelessWidget {
                     icon,
                     color: color != null && !isSelected
                         ? blackColor
-                        : buttonPrimaryColor,
+                        : ColorsTheme.of(context).mxcBlue,
                   ),
                 )
               : Container()

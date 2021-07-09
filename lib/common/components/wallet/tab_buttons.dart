@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 Widget tabButtons({
   BuildContext context,
@@ -24,7 +25,7 @@ Widget tabButtons({
               TabBar(
                 controller: tabController,
                 indicatorPadding: EdgeInsets.zero,
-                indicatorColor: buttonPrimaryColor,
+                indicatorColor: ColorsTheme.of(context).mxcBlue,
                 labelColor: blackColor,
                 unselectedLabelColor: Colors.black38,
                 key: ValueKey('tabBar'),
@@ -58,7 +59,7 @@ Widget tabButtons({
             //   minHeight: 120
             // ),
             decoration: BoxDecoration(
-              color: panelColor,
+              color: secondaryBackgroundColor,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(10),
                 bottomRight: Radius.circular(10),

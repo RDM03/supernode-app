@@ -2,14 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class AppBars {
   static backArrowAppBar(
-      {Key key,
-      String title: '',
-      Function onPress,
-      Function onTitlePress,
-      Color color}) {
+    BuildContext context, {
+    Key key,
+    String title: '',
+    Function onPress,
+    Function onTitlePress,
+    Color color,
+  }) {
     return AppBar(
       leading: IconButton(
         onPressed: onPress,
@@ -19,7 +22,7 @@ class AppBars {
         ),
       ),
       centerTitle: true,
-      backgroundColor: color ?? backgroundColor,
+      backgroundColor: color ?? ColorsTheme.of(context).primaryBackground,
       elevation: 0,
       title: (onTitlePress == null)
           ? Text(title, style: kBigFontOfBlack)

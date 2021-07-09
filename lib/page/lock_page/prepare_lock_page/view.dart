@@ -11,6 +11,7 @@ import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -48,7 +49,7 @@ Widget buildView(
               padding: EdgeInsets.only(top: 2),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: state.iconColor,
+                color: state.iconColor ?? ColorsTheme.of(_ctx).mxcBlue,
               ),
             ),
             SizedBox(width: 16),

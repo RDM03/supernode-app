@@ -15,6 +15,7 @@ import 'package:supernodeapp/page/view_all_page/view.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../graph_card.dart';
 import '../title.dart';
@@ -129,7 +130,7 @@ class MinerHealthTab extends StatelessWidget {
                     height: 52,
                     width: 52,
                     decoration: BoxDecoration(
-                      color: whiteColor,
+                      color: ColorsTheme.of(context).boxComponents,
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
@@ -142,7 +143,9 @@ class MinerHealthTab extends StatelessWidget {
                     ),
                     child: Image.asset(
                       AppImages.fuel,
-                      color: item.health == 1 ? greyColor : healthColor,
+                      color: item.health == 1
+                          ? greyColor
+                          : ColorsTheme.of(context).minerHealthRed,
                     ),
                   ),
                   SizedBox(height: 7),
@@ -155,7 +158,9 @@ class MinerHealthTab extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 16),
                 child: CircularGraph(
                   item.health * 100,
-                  item.health <= 0.1 ? healthColor : minerColor,
+                  item.health <= 0.1
+                      ? ColorsTheme.of(context).minerHealthRed
+                      : ColorsTheme.of(context).mxcBlue,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -182,7 +187,7 @@ class MinerHealthTab extends StatelessWidget {
                     height: 52,
                     width: 52,
                     decoration: BoxDecoration(
-                      color: whiteColor,
+                      color: ColorsTheme.of(context).boxComponents,
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
@@ -197,7 +202,7 @@ class MinerHealthTab extends StatelessWidget {
                       child: Icon(
                         Icons.arrow_forward,
                         color: item.miningFuel > Decimal.zero
-                            ? healthColor
+                            ? ColorsTheme.of(context).minerHealthRed
                             : greyColor,
                         size: 26,
                       ),

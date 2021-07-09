@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
-Widget homeBar(String titleText,
+Widget homeBar(BuildContext context, String titleText,
     {Function onPressed, Widget action, Widget title}) {
   return AppBar(
     centerTitle: true,
-    backgroundColor: backgroundColor,
+    backgroundColor: ColorsTheme.of(context).primaryBackground,
     elevation: 0,
     title: title ??
         Text(
@@ -19,7 +20,7 @@ Widget homeBar(String titleText,
           : IconButton(
               icon: Icon(
                 Icons.settings,
-                color: blackColor,
+                color: ColorsTheme.of(context).textPrimaryAndIcons,
               ),
               onPressed: onPressed,
             ),

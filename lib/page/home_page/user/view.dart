@@ -25,6 +25,7 @@ import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../shared.dart';
 import 'account_widget.dart';
@@ -114,7 +115,7 @@ class UserTab extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.lock_open,
-                    color: whiteColor,
+                    color: ColorsTheme.of(context).textPrimaryAndIcons,
                   ),
                   Text(
                     'Unlock Supernode Account',
@@ -238,7 +239,7 @@ class UserTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: backgroundColor,
+        backgroundColor: ColorsTheme.of(context).primaryBackground,
         elevation: 0,
         title: BlocBuilder<SupernodeCubit, SupernodeState>(
           buildWhen: (a, b) => a?.session?.node != b?.session?.node,
@@ -256,7 +257,7 @@ class UserTab extends StatelessWidget {
           key: Key('calculatorButton'),
           icon: FaIcon(
             FontAwesomeIcons.calculator,
-            color: blackColor,
+            color: ColorsTheme.of(context).textPrimaryAndIcons,
           ),
           onPressed: () => openCalculator(context),
         ),
@@ -265,13 +266,13 @@ class UserTab extends StatelessWidget {
             key: Key('settingsButton'),
             icon: Icon(
               Icons.settings,
-              color: blackColor,
+              color: ColorsTheme.of(context).textPrimaryAndIcons,
             ),
             onPressed: () => openSettings(context),
           )
         ],
       ),
-      backgroundColor: darkBackground,
+      backgroundColor: ColorsTheme.of(context).primaryBackground,
       body: BlocBuilder<HomeCubit, HomeState>(
         buildWhen: (a, b) =>
             a.parachainUsed != b.parachainUsed ||

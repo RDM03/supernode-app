@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 Future<void> selectPicker(
   context, {
@@ -16,7 +17,7 @@ Future<void> selectPicker(
         child: Stack(
           children: [
             CupertinoPicker(
-              backgroundColor: whiteColor,
+              backgroundColor: ColorsTheme.of(context).boxComponents,
               itemExtent: 58.0,
               scrollController: FixedExtentScrollController(initialItem: value),
               children: data != null

@@ -14,7 +14,7 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return Scaffold(
-      backgroundColor: cardBackgroundColor,
+      backgroundColor: secondaryBackgroundColor,
       appBar: AppBar(
         iconTheme: IconThemeData(color: blackColor),
         title: Text(

@@ -208,8 +208,8 @@ const kBigFontOfGrey = TextStyle(
   height: 1.5,
 );
 
-const kSecondaryButtonOfPurple = TextStyle(
-  color: buttonPrimaryColor,
+final kSecondaryButtonOfPurple = TextStyle(
+  color: mxcBlue,
   fontFamily: "Roboto",
   fontSize: 14,
 );
@@ -232,8 +232,8 @@ const kSecondaryButtonOfGrey = TextStyle(
   fontSize: 14,
 );
 
-const kRowShodow = BoxDecoration(
-  color: panelColor,
+final kRowShodow = BoxDecoration(
+  color: secondaryBackgroundColor,
   borderRadius: BorderRadius.all(Radius.circular(12)),
   boxShadow: [
     BoxShadow(

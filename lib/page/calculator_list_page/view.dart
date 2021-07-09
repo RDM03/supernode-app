@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -39,18 +40,18 @@ Widget buildView(
         constraints: BoxConstraints.expand(),
         padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 235, 239, 242),
+          color: ColorsTheme.of(_ctx).primaryBackground,
         ),
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 20.0),
           constraints:
               BoxConstraints(minHeight: MediaQuery.of(_ctx).size.height - 20),
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 255, 255, 255),
+            color: whiteColor,
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             boxShadow: [
               BoxShadow(
-                color: const Color.fromARGB(26, 0, 0, 0),
+                color: shodowColor,
                 offset: Offset(0, 2),
                 blurRadius: 7,
               ),
@@ -218,7 +219,7 @@ class _Title extends StatelessWidget {
     return Container(
       height: 32,
       padding: EdgeInsets.only(left: 16),
-      color: darkBackground,
+      color: ColorsTheme.of(context).primaryBackground,
       alignment: Alignment.centerLeft,
       child: Text(
         text,

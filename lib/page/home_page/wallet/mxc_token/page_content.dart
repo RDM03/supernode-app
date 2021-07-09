@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/page/home_page/wallet/mxc_token/actions.dart';
 import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'stake_history.dart';
 import 'transaction_history.dart';
@@ -49,13 +50,17 @@ class _MxcTokenPageContentState extends State<MxcTokenPageContent>
                   0: Text(
                     FlutterI18n.translate(context, 'transaction_history'),
                     style: TextStyle(
-                      color: (selectedTab == 0) ? whiteColor : greyColor,
+                      color: (selectedTab == 0)
+                          ? ColorsTheme.of(context).textPrimaryAndIcons
+                          : greyColor,
                     ),
                   ),
                   1: Text(
                     FlutterI18n.translate(context, 'stake_assets'),
                     style: TextStyle(
-                      color: (selectedTab == 1) ? whiteColor : greyColor,
+                      color: (selectedTab == 1)
+                          ? ColorsTheme.of(context).textPrimaryAndIcons
+                          : greyColor,
                     ),
                   )
                 }),

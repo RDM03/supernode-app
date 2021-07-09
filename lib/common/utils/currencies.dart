@@ -62,7 +62,7 @@ extension TokenExtension on Token {
       case Token.parachainDhx:
         return colorDhx;
       case Token.mxc:
-        return colorMxc;
+        return mxcBlue;
       case Token.btc:
         return colorBtc;
       case Token.nft:

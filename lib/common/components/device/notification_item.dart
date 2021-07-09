@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class NotificationItem extends StatelessWidget {
   final VoidCallback onTap;
@@ -18,7 +19,7 @@ class NotificationItem extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
-              color: whiteColor,
+              color: ColorsTheme.of(context).boxComponents,
               borderRadius: BorderRadius.all(Radius.circular(10)),
               boxShadow: [
                 BoxShadow(

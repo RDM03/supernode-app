@@ -8,6 +8,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/page/miner_detail_page/tabs/miner_health_tab.dart';
 import 'package:supernodeapp/page/miner_detail_page/tabs/miner_revenue_tab.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'tabs/miner_data_tab.dart';
 
@@ -55,7 +56,7 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
                   groupValue: selectedTab,
                   onValueChanged: (tabIndex) =>
                       setState(() => selectedTab = tabIndex),
-                  thumbColor: colorMxc,
+                  thumbColor: ColorsTheme.of(context).mxcBlue,
                   children: <int, Widget>{
                     0: Text(
                       FlutterI18n.translate(context, 'health'),

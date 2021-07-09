@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class PanelBody extends StatelessWidget {
   final String titleText;
@@ -47,7 +48,7 @@ class PanelBody extends StatelessWidget {
             padding: EdgeInsets.zero,
             icon: Icon(
               icon,
-              color: buttonPrimaryColor,
+              color: ColorsTheme.of(context).mxcBlue,
               size: 50,
             ),
             onPressed: onPressed,

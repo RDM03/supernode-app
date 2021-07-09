@@ -38,9 +38,10 @@ class BarGraph extends StatelessWidget {
   BarGraph(this.graphValues, this.barsOnScreen, this.widgetWidth,
       {this.xAxisLabels,
       this.widgetHeight = 200,
-      this.graphColor = minerColor,
+      Color graphColor,
       this.notifyGraphBarScroll,
-      this.onTapUp}) {
+      this.onTapUp})
+      : graphColor = graphColor ?? minerColor {
     spaceBetweenLines =
         (widgetWidth - (barsOnScreen * barWidth)) / (barsOnScreen - 1);
     scrollableWidth = barWidth * graphValues.length +

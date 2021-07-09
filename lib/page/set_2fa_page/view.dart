@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar_back.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -45,7 +46,7 @@ Widget buildView(
                                 Set2FAActionCreator.onEnterRecoveryContinue());
                           }
                         },
-                  activeColor: colorMxc,
+                  activeColor: ColorsTheme.of(_ctx).mxcBlue,
                 ),
               ],
             ),

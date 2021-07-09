@@ -9,6 +9,7 @@ import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/permission_utils.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class MapViewController {
   List<MapMarker> markers;
@@ -428,7 +429,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
         },
         icon: Icon(
           Icons.my_location,
-          color: whiteColor,
+          color: ColorsTheme.of(context).textPrimaryAndIcons,
         ),
       ),
     );
@@ -449,7 +450,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
         onPressed: widget.zoomOutCallback,
         icon: Icon(
           Icons.zoom_out_map,
-          color: whiteColor,
+          color: ColorsTheme.of(context).textPrimaryAndIcons,
         ),
       ),
     );
@@ -474,7 +475,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
         },
         icon: Icon(
           _myLocationEnable ? Icons.location_off : Icons.location_on,
-          color: whiteColor,
+          color: ColorsTheme.of(context).textPrimaryAndIcons,
         ),
       ),
     );
@@ -497,7 +498,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
         },
         icon: Icon(
           Icons.close,
-          color: whiteColor,
+          color: ColorsTheme.of(context).textPrimaryAndIcons,
         ),
       ),
     );

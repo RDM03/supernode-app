@@ -17,6 +17,7 @@ import 'package:supernodeapp/page/home_page/wallet/view.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'cubit.dart';
 import 'state.dart';
@@ -160,9 +161,9 @@ class _HomePageContent extends StatelessWidget {
         icon: Image.asset(
           AppImages.bottomBarMenus[text.toLowerCase()],
           color: () {
-            if (selected) return selectedColor;
+            if (selected) return ColorsTheme.of(ctx).mxcBlue;
             if (disabled) return greyColorShade200;
-            return unselectedColor;
+            return ColorsTheme.of(ctx).textSecondary;
           }(),
           key: ValueKey('bottomNavBar_$text'),
         ),
@@ -193,9 +194,10 @@ class _HomePageContent extends StatelessWidget {
       ),
       bottomNavigationBar: Theme(
         data: ThemeData(
-          brightness: Brightness.light,
+          brightness: Theme.of(context).brightness,
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
+          bottomNavigationBarTheme: Theme.of(context).bottomNavigationBarTheme,
         ),
         child: BlocBuilder<HomeCubit, HomeState>(
           buildWhen: (a, b) =>
@@ -204,8 +206,6 @@ class _HomePageContent extends StatelessWidget {
               key: ValueKey('bottomNavBar'),
               type: BottomNavigationBarType.fixed,
               currentIndex: s.tabIndex,
-              selectedItemColor: selectedColor,
-              unselectedItemColor: unselectedColor,
               onTap: (i) {
                 if ((i == HomeCubit.MINER_TAB || i == HomeCubit.DEVICE_TAB) &&
                     !context.read<HomeCubit>().state.supernodeUsed) return;

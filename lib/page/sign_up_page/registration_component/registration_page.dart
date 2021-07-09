@@ -53,6 +53,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget build(BuildContext context) {
     return ScaffoldWidget(
       appBar: AppBars.backArrowAppBar(
+        context,
         color: whiteColor,
         title: FlutterI18n.translate(context, 'create_account'),
         onPress: () => Navigator.of(context).pop(),
@@ -192,7 +193,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               }
             : null,
       ),
-      backgroundColor: cardBackgroundColor,
+      backgroundColor: secondaryBackgroundColor,
     );
   }
 }

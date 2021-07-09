@@ -21,6 +21,7 @@ class _DataHighwayCreate2PageState extends State<DataHighwayCreate2Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBars.backArrowAppBar(
+        context,
         color: whiteColor,
         title: 'Create Account',
         onPress: () => Navigator.of(context).pop(),

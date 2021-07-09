@@ -9,6 +9,7 @@ import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
 import 'package:supernodeapp/page/settings_page/language_component/language_page.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../../../route.dart';
 
@@ -39,7 +40,7 @@ class AppSettingsPage extends StatelessWidget {
             listItem(
               FlutterI18n.translate(context, 'use_face_id'),
               trailing: Switch(
-                activeColor: colorMxc,
+                activeColor: ColorsTheme.of(context).mxcBlue,
                 value: true,
                 onChanged: (v) => 'TODO',
               ),
@@ -51,7 +52,7 @@ class AppSettingsPage extends StatelessWidget {
                 buildWhen: (a, b) => a.screenShot != b.screenShot,
                 builder: (ctx, s) => Switch(
                   key: Key('screenshotSwitch'),
-                  activeColor: colorMxc,
+                  activeColor: ColorsTheme.of(context).mxcBlue,
                   value: s.screenShot,
                   onChanged: (v) async {
                     await DatadashFeedback.of(context).setShowScreenshot(v);

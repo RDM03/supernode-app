@@ -11,6 +11,7 @@ import 'package:supernodeapp/page/login_page/supernode_login_page/view.dart';
 import 'package:supernodeapp/page/sign_up_page/supernode_signup_page.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../../app_cubit.dart';
 import 'shared.dart';
@@ -81,7 +82,7 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
           gradient: LinearGradient(
             colors: [
               colorMxcGradientStart,
-              colorMxc,
+              ColorsTheme.of(context).mxcBlue,
             ],
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,

@@ -25,6 +25,7 @@ import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/common/utils/extensions.dart';
+import 'package:supernodeapp/theme/theme.dart';
 import 'confirm_page.dart';
 import 'filter_dialog.dart';
 import 'proceed_dialog.dart';
@@ -216,7 +217,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                   Image.asset(
                     AppImages.gateways,
                     height: 16,
-                    color: colorMxc,
+                    color: ColorsTheme.of(context).mxcBlue,
                   ),
                   SizedBox(width: 6),
                   Text(
@@ -459,7 +460,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                       buttonTitle: FlutterI18n.translate(context, 'next'),
                       bgColor: healthColor,
                       minWidth: 0,
-                      textStyle: kBigFontOfWhite,
+                      style: kBigFontOfWhite,
                     ),
                   ),
                 ),

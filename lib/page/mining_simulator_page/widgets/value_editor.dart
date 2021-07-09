@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/components/slider.dart';
 import 'package:supernodeapp/common/components/text_field/primary_text_field.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class ValueEditor extends StatelessWidget {
   final String textFieldSuffix;
@@ -156,7 +157,8 @@ class ValueEditor extends StatelessWidget {
               textColor: hintFont,
               hint: hintText,
               suffixStyle: enabled ? null : kBigFontOfGrey,
-              fillColor: enabled ? null : darkBackground,
+              fillColor:
+                  enabled ? null : ColorsTheme.of(context).primaryBackground,
             ),
           ),
         ]
@@ -217,7 +219,8 @@ class ValueEditor2 extends StatelessWidget {
               readOnly: !enabled,
               hint: hintText,
               suffixStyle: enabled ? null : kBigFontOfGrey,
-              fillColor: enabled ? null : darkBackground,
+              fillColor:
+                  enabled ? null : ColorsTheme.of(context).primaryBackground,
             ),
           ),
         ],

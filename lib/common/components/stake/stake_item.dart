@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class StakeItem extends StatelessWidget {
   final VoidCallback onTap;
@@ -133,7 +134,7 @@ class StakeItem extends StatelessWidget {
                   child: Text(
                     months?.toString() ?? '~',
                     style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          color: whiteColor,
+                          color: ColorsTheme.of(context).textPrimaryAndIcons,
                           fontSize: 22,
                           fontWeight: FontWeight.w600,
                         ),

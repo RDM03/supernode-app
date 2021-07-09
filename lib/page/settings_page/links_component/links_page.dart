@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LinksPage extends StatelessWidget {
@@ -23,7 +24,7 @@ class LinksPage extends StatelessWidget {
           onTap: () => launch('https://t.me/mxcfoundation'),
           leading: FaIcon(
             FontAwesomeIcons.telegramPlane,
-            color: buttonPrimaryColor,
+            color: ColorsTheme.of(context).mxcBlue,
             size: 28,
           ),
         ),
@@ -34,7 +35,7 @@ class LinksPage extends StatelessWidget {
               launch('https://mp.weixin.qq.com/s/wQI0nGCbzB5089r4_VmzjQ'),
           leading: Image.asset(
             'assets/images/settings/wechat.png',
-            color: buttonPrimaryColor,
+            color: ColorsTheme.of(context).mxcBlue,
           ),
         ),
         Divider(),
@@ -43,7 +44,7 @@ class LinksPage extends StatelessWidget {
           onTap: () => launch('https://twitter.com/MXCfoundation'),
           leading: FaIcon(
             FontAwesomeIcons.twitter,
-            color: buttonPrimaryColor,
+            color: ColorsTheme.of(context).mxcBlue,
             size: 28,
           ),
         ),
@@ -53,7 +54,7 @@ class LinksPage extends StatelessWidget {
           onTap: () => launch('https://mxc.news/mxcdiscord'),
           leading: FaIcon(
             FontAwesomeIcons.discord,
-            color: buttonPrimaryColor,
+            color: ColorsTheme.of(context).mxcBlue,
             size: 28,
           ),
         ),

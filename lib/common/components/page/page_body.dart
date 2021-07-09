@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class PageBody extends StatelessWidget {
   final List<Widget> children;
@@ -44,7 +45,7 @@ class PageBodySingleChild extends StatelessWidget {
       padding: usePadding ? const EdgeInsets.symmetric(horizontal: 20) : null,
       constraints: BoxConstraints.expand(),
       decoration: BoxDecoration(
-        color: backgroundColor,
+        color: ColorsTheme.of(context).primaryBackground,
       ),
       child: child,
     );

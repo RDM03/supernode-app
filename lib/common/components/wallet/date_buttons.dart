@@ -4,6 +4,7 @@ import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 Widget dateButtons(
   BuildContext context, {
@@ -26,7 +27,7 @@ Widget dateButtons(
         SizedBox(
           width: 135,
           child: SecondaryButton(
-            color: whiteColor,
+            color: ColorsTheme.of(context).secondaryBackground,
             buttonTitle: firstTime ?? '',
             icon: Icons.date_range,
             onTap: () {
@@ -51,7 +52,7 @@ Widget dateButtons(
         SizedBox(
           width: 135,
           child: SecondaryButton(
-            color: whiteColor,
+            color: ColorsTheme.of(context).secondaryBackground,
             buttonTitle: secondTime ?? '',
             icon: Icons.date_range,
             onTap: () {

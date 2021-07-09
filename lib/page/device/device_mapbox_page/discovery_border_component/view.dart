@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/action.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
 
@@ -26,7 +27,7 @@ Widget buildView(
         ),
         Slider(
           activeColor: dbm100,
-          inactiveColor: darkBackground,
+          inactiveColor: ColorsTheme.of(_ctx).primaryBackground,
           value: state.gatewaySliderValue,
           onChanged: (value) {
             dispatch(DeviceMapBoxActionCreator.changeGatewaySliderValue(value));

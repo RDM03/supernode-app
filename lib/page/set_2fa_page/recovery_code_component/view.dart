@@ -17,7 +17,7 @@ Widget buildView(
   print(state.isAgreed);
   return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: cardBackgroundColor,
+      backgroundColor: secondaryBackgroundColor,
       appBar: AppBar(
         iconTheme: IconThemeData(color: blackColor),
         backgroundColor: Colors.transparent,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class ActionButton extends StatelessWidget {
   final String text;
@@ -22,7 +23,9 @@ class ActionButton extends StatelessWidget {
         style: primary ? kMiddleFontOfWhite : kMiddleFontOfBlack,
       ),
       onPressed: onTap,
-      color: primary ? colorSupernodeDhx : darkBackground,
+      color: primary
+          ? colorSupernodeDhx
+          : ColorsTheme.of(context).primaryBackground,
     );
   }
 }
@@ -45,7 +48,9 @@ class SmallActionButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: primary ? colorSupernodeDhx : darkBackground,
+        color: primary
+            ? colorSupernodeDhx
+            : ColorsTheme.of(context).primaryBackground,
       ),
       height: 25,
       width: width,

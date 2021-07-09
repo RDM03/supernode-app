@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 Widget pageFrame({
   BuildContext context,
@@ -15,11 +17,11 @@ Widget pageFrame({
     constraints:
         BoxConstraints(minHeight: MediaQuery.of(context).size.height - 20),
     decoration: BoxDecoration(
-      color: const Color.fromARGB(255, 255, 255, 255),
+      color: ColorsTheme.of(context).secondaryBackground,
       borderRadius: BorderRadius.all(Radius.circular(10.0)),
       boxShadow: [
         BoxShadow(
-          color: const Color.fromARGB(26, 0, 0, 0),
+          color: shodowColor,
           offset: Offset(0, 2),
           blurRadius: 7,
         ),
@@ -37,7 +39,7 @@ Widget pageFrame({
     body: Container(
       padding: margin,
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 235, 239, 242),
+        color: ColorsTheme.of(context).primaryBackground,
       ),
       child: Container(
         constraints: BoxConstraints.expand(),

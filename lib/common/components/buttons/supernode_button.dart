@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class SupernodeButton extends StatelessWidget {
   SupernodeButton({this.cardChild, this.onPress, this.selected = false});
@@ -22,9 +23,9 @@ class SupernodeButton extends StatelessWidget {
         padding: kRoundRow2,
         margin: const EdgeInsets.only(top: 10.0, right: 20.0, bottom: 10.0),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 255, 255, 255),
+          color: whiteColor,
           border: Border.all(
-              color: selected ? buttonPrimaryColor : greyColor,
+              color: selected ? ColorsTheme.of(context).mxcBlue : greyColor,
               width: selected ? 2 : 0.5),
           // boxShadow: [
           //   BoxShadow(

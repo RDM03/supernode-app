@@ -32,6 +32,7 @@ import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class AddMinerPage extends StatefulWidget {
   final bool hasSkip;
@@ -160,7 +161,7 @@ class _AddMinerPageState extends State<AddMinerPage> {
                         padding: EdgeInsets.zero,
                         icon: Icon(
                           Icons.add_circle,
-                          color: buttonPrimaryColor,
+                          color: ColorsTheme.of(context).mxcBlue,
                           size: s(50),
                         ),
                         onPressed: () async {

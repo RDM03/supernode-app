@@ -28,8 +28,10 @@ class SettingsPage extends StatelessWidget {
       buildWhen: (a, b) => a.language != b.language,
       builder: (ctx, s) => Scaffold(
           appBar: AppBars.backArrowAppBar(
-              title: FlutterI18n.translate(context, 'settings'),
-              onPress: () => {Navigator.of(context).pop()}),
+            context,
+            title: FlutterI18n.translate(context, 'settings'),
+            onPress: () => {Navigator.of(context).pop()},
+          ),
           body: WillPopScope(
               onWillPop: () async {
                 Navigator.pop(context);

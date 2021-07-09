@@ -27,7 +27,7 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return ScaffoldWidget(
-    backgroundColor: cardBackgroundColor,
+    backgroundColor: secondaryBackgroundColor,
     padding: kRoundRow2002,
     appBar: AppBar(
       iconTheme: IconThemeData(color: blackColor),
@@ -59,7 +59,7 @@ Widget buildView(
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: darkBackground,
+                      color: backgroundColor,
                       offset: Offset(0, 2),
                       blurRadius: 20,
                       spreadRadius: 10,
@@ -75,7 +75,7 @@ Widget buildView(
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: darkBackground,
+                          color: backgroundColor,
                           offset: Offset(0, 2),
                           blurRadius: 20,
                           spreadRadius: 10,

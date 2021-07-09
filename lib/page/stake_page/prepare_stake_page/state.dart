@@ -49,7 +49,7 @@ PrepareStakeState initState(Map<String, dynamic> args) {
   double balance = args['balance'] ?? 0;
   int months = args['months'];
   double revenueRate = args['revenueRate'];
-  Color iconColor = args['iconColor'] ?? colorMxc;
+  Color iconColor = args['iconColor'];
   String stakeName = args['stakeName'];
   double rateFlex = args['rateFlex'] ?? 0;
   int marketingBoost = args['marketingBoost'] ?? 1;

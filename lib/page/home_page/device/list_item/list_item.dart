@@ -12,7 +12,11 @@ class DeviceListItem extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 2),
       decoration: BoxDecoration(
         border: Border(
-            bottom: BorderSide(color: Color.fromARGB(26, 0, 0, 0), width: 1)),
+          bottom: BorderSide(
+            color: shodowColor,
+            width: 1,
+          ),
+        ),
       ),
       child: ListTile(
         onTap: () {
@@ -82,7 +86,7 @@ class DeviceListItem extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(51, 77, 137, 229),
+                      color: dbm115_120,
                       borderRadius: BorderRadius.all(Radius.circular(7)),
                     ),
                     child: Text(

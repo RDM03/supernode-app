@@ -32,6 +32,7 @@ import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../shared.dart';
 
@@ -67,7 +68,6 @@ class GatewayTab extends StatelessWidget {
                 child: Row(mainAxisSize: MainAxisSize.max, children: [
                   CircleButton(
                     key: Key('addFuelBottom'),
-                    circleColor: whiteColor,
                     icon: Image.asset(
                       AppImages.fuel,
                       color: fuelColor,
@@ -95,7 +95,6 @@ class GatewayTab extends StatelessWidget {
                 child: Row(mainAxisSize: MainAxisSize.max, children: [
                   CircleButton(
                     key: Key('addFuelBottom'),
-                    circleColor: whiteColor,
                     icon: Icon(Icons.arrow_forward, color: fuelColor),
                   ),
                   SizedBox(width: 10),
@@ -141,10 +140,11 @@ class GatewayTab extends StatelessWidget {
                                   children: [
                                     CircleButton(
                                       key: Key('addMiner'),
-                                      circleColor: minerColor,
+                                      circleColor:
+                                          ColorsTheme.of(context).boxComponents,
                                       icon: Image.asset(
                                         AppImages.gateways,
-                                        color: whiteColor,
+                                        color: ColorsTheme.of(context).mxcBlue,
                                       ),
                                       label:
                                           FlutterI18n.translate(context, 'add'),
@@ -164,10 +164,12 @@ class GatewayTab extends StatelessWidget {
                                     Spacer(),
                                     CircleButton(
                                       key: Key('addFuel'),
-                                      circleColor: fuelColor,
+                                      circleColor:
+                                          ColorsTheme.of(context).boxComponents,
                                       icon: Image.asset(
                                         AppImages.fuel,
-                                        color: whiteColor,
+                                        color: ColorsTheme.of(context)
+                                            .minerHealthRed,
                                       ),
                                       label: FlutterI18n.translate(
                                           context, 'add_send'),
@@ -181,7 +183,8 @@ class GatewayTab extends StatelessWidget {
                                       ctx,
                                       FlutterI18n.translate(
                                           context, 'health_score'),
-                                      CircularGraph(90, minerColor,
+                                      CircularGraph(
+                                          90, ColorsTheme.of(context).mxcBlue,
                                           child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -205,8 +208,9 @@ class GatewayTab extends StatelessWidget {
                                               (gatewayState.health.value ?? 0) *
                                                       100 >
                                                   10)
-                                          ? minerColor
-                                          : fuelColor,
+                                          ? ColorsTheme.of(context).mxcBlue
+                                          : ColorsTheme.of(context)
+                                              .minerHealthRed,
                                       child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -251,7 +255,7 @@ class GatewayTab extends StatelessWidget {
                             Image.asset(
                               AppImages.gateways,
                               scale: 1.5,
-                              color: minerColor,
+                              color: ColorsTheme.of(context).mxcBlue,
                             ),
                             smallRowSpacer(),
                             loadableWidget(
@@ -266,7 +270,7 @@ class GatewayTab extends StatelessWidget {
                             Image.asset(
                               AppImages.fuel,
                               scale: 1.5,
-                              color: fuelColor,
+                              color: ColorsTheme.of(context).minerHealthRed,
                             ),
                             smallRowSpacer(),
                             loadableWidget(
@@ -496,14 +500,19 @@ class GatewayTab extends StatelessWidget {
                                         Stack(
                                             alignment: Alignment.center,
                                             children: [
-                                              Image.asset(AppImages.uptime,
-                                                  color: whiteColor,
-                                                  width: s(60),
-                                                  fit: BoxFit.contain),
-                                              Image.asset(AppImages.fuel,
-                                                  color: fuelColor,
-                                                  width: s(20),
-                                                  fit: BoxFit.contain),
+                                              Image.asset(
+                                                AppImages.uptime,
+                                                color: ColorsTheme.of(context)
+                                                    .textPrimaryAndIcons,
+                                                width: s(60),
+                                                fit: BoxFit.contain,
+                                              ),
+                                              Image.asset(
+                                                AppImages.fuel,
+                                                color: fuelColor,
+                                                width: s(20),
+                                                fit: BoxFit.contain,
+                                              ),
                                             ])),
                                     FlutterI18n.translate(context, 'fuel_info'),
                                     bottomButton: PrimaryButton(
@@ -550,8 +559,11 @@ class GatewayTab extends StatelessWidget {
                                           Stack(
                                               alignment: Alignment.center,
                                               children: [
-                                                Image.asset(AppImages.uptime,
-                                                    color: whiteColor),
+                                                Image.asset(
+                                                  AppImages.uptime,
+                                                  color: ColorsTheme.of(context)
+                                                      .textPrimaryAndIcons,
+                                                ),
                                                 Image.asset(AppImages.fuel,
                                                     color: fuelColor),
                                               ]),
@@ -580,14 +592,15 @@ class GatewayTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: homeBar(
+        context,
         FlutterI18n.translate(context, 'gateway'),
         onPressed: () => openSettings(context),
       ),
-      backgroundColor: backgroundColor,
+      backgroundColor: ColorsTheme.of(context).primaryBackground,
       body: BlocBuilder<GatewayCubit, GatewayState>(
         buildWhen: (a, b) => a.gateways != b.gateways,
         builder: (ctx, state) => Container(
-          color: backgroundColor,
+          color: ColorsTheme.of(context).primaryBackground,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: state.gateways.loading
@@ -691,7 +704,7 @@ class GatewaysList extends StatelessWidget {
         height: 10,
         margin: kOuterRowBottom10,
         decoration: BoxDecoration(
-          color: whiteColor,
+          color: ColorsTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
           boxShadow: [
             BoxShadow(
@@ -727,7 +740,7 @@ class GatewayListTile extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(top: (topOfList ? 5 : 0)),
       decoration: BoxDecoration(
-        color: whiteColor,
+        color: ColorsTheme.of(context).secondaryBackground,
         borderRadius: (topOfList)
             ? BorderRadius.vertical(top: Radius.circular(10))
             : null,
@@ -740,7 +753,7 @@ class GatewayListTile extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        tileColor: whiteColor,
+        tileColor: ColorsTheme.of(context).secondaryBackground,
         onTap: onTap,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -755,7 +768,7 @@ class GatewayListTile extends StatelessWidget {
                     child: Icon(
                       Icons.lens,
                       color: TimeUtil.isIn5Min(state.lastSeenAt)
-                          ? Colors.green
+                          ? ColorsTheme.of(context).mxcBlue
                           : greyColor,
                       size: 10,
                     ),
@@ -773,7 +786,7 @@ class GatewayListTile extends StatelessWidget {
                       : Image.asset(
                           AppImages.gateways,
                           scale: 1.5,
-                          color: minerColor,
+                          color: ColorsTheme.of(context).mxcBlue,
                         ),
                   smallRowSpacer(),
                   (state.reseller)
@@ -787,7 +800,7 @@ class GatewayListTile extends StatelessWidget {
                       : Image.asset(
                           AppImages.fuel,
                           scale: 1.5,
-                          color: fuelColor,
+                          color: ColorsTheme.of(context).minerHealthRed,
                         ),
                   smallRowSpacer(),
                   (state.reseller)

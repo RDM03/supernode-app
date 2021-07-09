@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class CircleButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -9,13 +10,13 @@ class CircleButton extends StatelessWidget {
   final String label;
   final Color circleColor;
 
-  const CircleButton(
-      {Key key,
-      this.onTap,
-      this.icon,
-      this.label = "",
-      this.circleColor = whiteColor})
-      : super(key: key);
+  const CircleButton({
+    Key key,
+    this.onTap,
+    this.icon,
+    this.label = "",
+    this.circleColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +28,10 @@ class CircleButton extends StatelessWidget {
             height: s(50),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: circleColor,
+              color: circleColor ?? ColorsTheme.of(context).boxComponents,
               boxShadow: [
                 BoxShadow(
-                  color: darkBackground,
+                  color: ColorsTheme.of(context).primaryBackground,
                   offset: Offset(0, 2),
                   blurRadius: 7,
                   spreadRadius: 0.0,

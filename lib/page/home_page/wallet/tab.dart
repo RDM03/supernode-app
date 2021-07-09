@@ -24,10 +24,12 @@ class _WalletTabState extends State<WalletTab> {
       builder: (ctx, state) => Scaffold(
         appBar: state.walletSelectedToken == null
             ? homeBar(
+                context,
                 FlutterI18n.translate(context, 'wallet'),
                 onPressed: () => openSettings(context),
               )
             : homeBar(
+                context,
                 null,
                 title: Text(
                   state.walletSelectedToken.fullName,

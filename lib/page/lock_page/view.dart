@@ -22,8 +22,10 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
   return Scaffold(
     key: state.scaffoldKey,
     appBar: AppBars.backArrowAppBar(
-        title: FlutterI18n.translate(context, 'lock_mxc'),
-        onPress: () => Navigator.pop(context)),
+      context,
+      title: FlutterI18n.translate(context, 'lock_mxc'),
+      onPress: () => Navigator.pop(context),
+    ),
     body: SafeArea(
       child: Container(
         constraints: BoxConstraints.expand(),

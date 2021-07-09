@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 abstract class _IosStyleBottomDialogBase extends StatelessWidget {
   _IosStyleBottomDialogBase({
@@ -110,7 +111,7 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
 
     return Container(
       decoration: BoxDecoration(
-          color: whiteColor,
+          color: ColorsTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.all(Radius.circular(10)),
           boxShadow: [
             BoxShadow(
@@ -172,7 +173,7 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
         child: Container(
           margin: EdgeInsets.only(top: 20, bottom: 43),
           decoration: BoxDecoration(
-              color: whiteColor,
+              color: ColorsTheme.of(context).secondaryBackground,
               borderRadius: BorderRadius.all(Radius.circular(10)),
               boxShadow: [
                 BoxShadow(
@@ -262,7 +263,7 @@ class _IosStyleBottomDialog2ContentState
       child: Container(
         key: Key("infoDialog"),
         decoration: BoxDecoration(
-          color: whiteColor,
+          color: ColorsTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10), topRight: Radius.circular(10)),
           boxShadow: [

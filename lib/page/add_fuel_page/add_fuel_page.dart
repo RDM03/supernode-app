@@ -25,6 +25,7 @@ import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supernodeapp/theme/theme.dart';
 import 'filter_dialog.dart';
 
 class AddFuelPage extends StatefulWidget {
@@ -212,7 +213,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                   Image.asset(
                     AppImages.gateways,
                     height: 16,
-                    color: colorMxc,
+                    color: ColorsTheme.of(context).mxcBlue,
                   ),
                   SizedBox(width: 6),
                   Text(
@@ -456,7 +457,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                       buttonTitle: FlutterI18n.translate(context, 'next'),
                       bgColor: healthColor,
                       minWidth: 0,
-                      textStyle: kBigFontOfWhite,
+                      style: kBigFontOfWhite,
                     ),
                   ),
                 ),

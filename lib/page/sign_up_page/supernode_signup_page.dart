@@ -86,7 +86,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
       ],
       child: Scaffold(
           key: scaffoldKey,
-          backgroundColor: cardBackgroundColor,
+          backgroundColor: secondaryBackgroundColor,
           body: Stack(alignment: Alignment.topCenter, children: [
             SingleChildScrollView(
                 child: Container(
@@ -94,6 +94,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 AppBars.backArrowAppBar(
+                  context,
                   color: whiteColor,
                   title: FlutterI18n.translate(context, 'create_account'),
                   onPress: () => Navigator.of(context).pop(),
@@ -110,7 +111,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                       height: s(171),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: darkBackground,
+                        color: backgroundColor,
                         shape: BoxShape.circle,
                       ),
                       child: BlocBuilder<LoginCubit, LoginState>(
@@ -277,7 +278,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                                       style: TextStyle(color: blackColor),
                                     ),
                                     initiallyExpanded: false,
-                                    backgroundColor: darkBackground,
+                                    backgroundColor: backgroundColor,
                                     children: <Widget>[
                                       for (Supernode item
                                           in state.supernodes.value[key])

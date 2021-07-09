@@ -16,6 +16,7 @@ import 'package:supernodeapp/page/home_page/wallet/supernode_dhx_token/dhx_bondi
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class MiningTutorial extends StatefulWidget {
   final BuildContext _ctx;
@@ -429,14 +430,15 @@ class MiningTutorial extends StatefulWidget {
         child: Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-                color: whiteColor,
+                color: ColorsTheme.of(ctx).secondaryBackground,
                 borderRadius: BorderRadius.circular(5.0),
                 boxShadow: [
                   BoxShadow(
-                      color: darkBackground,
-                      offset: Offset(0, 2),
-                      blurRadius: 7,
-                      spreadRadius: 0.0)
+                    color: ColorsTheme.of(ctx).primaryBackground,
+                    offset: Offset(0, 2),
+                    blurRadius: 7,
+                    spreadRadius: 0.0,
+                  )
                 ]),
             child: Row(children: [
               CircleButton(
@@ -467,14 +469,15 @@ class MiningTutorial extends StatefulWidget {
         child: Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-                color: whiteColor,
+                color: ColorsTheme.of(ctx).secondaryBackground,
                 borderRadius: BorderRadius.circular(5.0),
                 boxShadow: [
                   BoxShadow(
-                      color: darkBackground,
-                      offset: Offset(0, 2),
-                      blurRadius: 7,
-                      spreadRadius: 0.0)
+                    color: ColorsTheme.of(ctx).primaryBackground,
+                    offset: Offset(0, 2),
+                    blurRadius: 7,
+                    spreadRadius: 0.0,
+                  )
                 ]),
             child: Row(children: [
               CircleButton(
@@ -501,15 +504,17 @@ class MiningTutorial extends StatefulWidget {
         child: Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-                color: whiteColor,
-                borderRadius: BorderRadius.circular(5.0),
-                boxShadow: [
-                  BoxShadow(
-                      color: darkBackground,
-                      offset: Offset(0, 2),
-                      blurRadius: 7,
-                      spreadRadius: 0.0)
-                ]),
+              color: ColorsTheme.of(ctx).secondaryBackground,
+              borderRadius: BorderRadius.circular(5.0),
+              boxShadow: [
+                BoxShadow(
+                  color: ColorsTheme.of(ctx).primaryBackground,
+                  offset: Offset(0, 2),
+                  blurRadius: 7,
+                  spreadRadius: 0.0,
+                )
+              ],
+            ),
             child: Row(children: [
               CircleButton(
                 icon: Image.asset(

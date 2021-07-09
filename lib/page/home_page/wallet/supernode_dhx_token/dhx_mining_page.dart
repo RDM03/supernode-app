@@ -15,6 +15,7 @@ import 'package:supernodeapp/page/home_page/wallet/supernode_dhx_token/page_cont
 import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'actions.dart';
 
@@ -43,10 +44,11 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBars.backArrowAppBar(
+        context,
         title: FlutterI18n.translate(context, 'dhx_mining'),
         onPress: () => Navigator.pop(context),
       ),
-      backgroundColor: backgroundColor,
+      backgroundColor: ColorsTheme.of(context).primaryBackground,
       body: PageBody(
         children: [
           smallColumnSpacer(),

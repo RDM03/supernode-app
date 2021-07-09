@@ -10,6 +10,7 @@ import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -254,7 +255,7 @@ Widget _stakeCard({
       subtitle: Text(
         boostText == null ? '...' : boostText,
         style: kMiddleFontOfBlack.copyWith(
-          color: colorMxc,
+          color: ColorsTheme.of(context).mxcBlue,
           fontWeight: FontWeight.w600,
         ),
         key: Key('setBoost'),

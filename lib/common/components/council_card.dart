@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/repositories/supernode/dao/dhx.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class CouncilCard extends StatelessWidget {
   final Council council;
@@ -37,7 +38,7 @@ class CouncilCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: whiteColor,
+            color: ColorsTheme.of(context).boxComponents,
           ),
           child: Row(
             children: [
@@ -50,7 +51,7 @@ class CouncilCard extends StatelessWidget {
                 child: Center(
                   child: FaIcon(
                     FontAwesomeIcons.landmark,
-                    color: whiteColor,
+                    color: ColorsTheme.of(context).textPrimaryAndIcons,
                   ),
                 ),
                 width: 56,

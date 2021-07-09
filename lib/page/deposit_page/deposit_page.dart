@@ -11,6 +11,7 @@ import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'bloc/cubit.dart';
 import 'bloc/state.dart';
@@ -35,9 +36,11 @@ class _DepositPageState extends State<DepositPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBars.backArrowAppBar(
-          title: FlutterI18n.translate(context, 'deposit'),
-          onPress: () => Navigator.of(context).pop()),
-      backgroundColor: backgroundColor,
+        context,
+        title: FlutterI18n.translate(context, 'deposit'),
+        onPress: () => Navigator.of(context).pop(),
+      ),
+      backgroundColor: ColorsTheme.of(context).primaryBackground,
       body: BlocBuilder<DepositCubit, DepositState>(
         buildWhen: (a, b) => a.address != b.address,
         builder: (ctx, s) {

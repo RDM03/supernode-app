@@ -22,7 +22,7 @@ Widget buildView(
 
   return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: cardBackgroundColor,
+      backgroundColor: secondaryBackgroundColor,
       appBar: AppBar(
         iconTheme: IconThemeData(color: blackColor),
         title: Text(FlutterI18n.translate(_ctx, 'wechat_login_title'),
@@ -54,7 +54,7 @@ Widget buildView(
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: darkBackground,
+                                color: backgroundColor,
                                 offset: Offset(0, 2),
                                 blurRadius: 20,
                                 spreadRadius: 10,
@@ -70,7 +70,7 @@ Widget buildView(
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: darkBackground,
+                                    color: backgroundColor,
                                     offset: Offset(0, 2),
                                     blurRadius: 20,
                                     spreadRadius: 10,

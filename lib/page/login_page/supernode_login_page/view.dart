@@ -18,6 +18,7 @@ import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'cubit.dart';
 import 'state.dart';
@@ -140,7 +141,7 @@ class _SupernodeLoginPageContentState
       ],
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: cardBackgroundColor,
+        backgroundColor: secondaryBackgroundColor,
         body: GestureDetector(
           child: Stack(
             alignment: Alignment.topCenter,
@@ -166,7 +167,8 @@ class _SupernodeLoginPageContentState
                                 height: s(171),
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: darkBackground,
+                                  color:
+                                      ColorsTheme.of(context).primaryBackground,
                                   shape: BoxShape.circle,
                                 ),
                                 child: BlocBuilder<LoginCubit, LoginState>(
@@ -210,6 +212,7 @@ class _SupernodeLoginPageContentState
                         Column(
                           children: <Widget>[
                             AppBars.backArrowAppBar(
+                              context,
                               key: Key('login_title'),
                               color: whiteColor,
                               title: FlutterI18n.translate(context, 'login'),
@@ -433,7 +436,8 @@ class _SupernodeLoginPageContentState
                                         style: TextStyle(color: blackColor),
                                       ),
                                       initiallyExpanded: false,
-                                      backgroundColor: darkBackground,
+                                      backgroundColor: ColorsTheme.of(context)
+                                          .primaryBackground,
                                       children: <Widget>[
                                         for (Supernode item
                                             in state.supernodes.value[key])

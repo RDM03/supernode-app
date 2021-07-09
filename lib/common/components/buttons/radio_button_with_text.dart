@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class RadioButtonWithText extends StatelessWidget {
   RadioButtonWithText({@required this.text});
@@ -25,7 +26,7 @@ class RadioButtonWithText extends StatelessWidget {
           child: Switch(
             value: true,
             onChanged: (value) {},
-            activeColor: buttonPrimaryColor,
+            activeColor: ColorsTheme.of(context).mxcBlue,
             activeTrackColor: buttonPrimaryColorAccent,
           ),
         ),

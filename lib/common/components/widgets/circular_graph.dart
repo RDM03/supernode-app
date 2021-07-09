@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class CircularGraph extends StatelessWidget {
   static const Widget defaultWidget = SizedBox();
@@ -14,7 +15,6 @@ class CircularGraph extends StatelessWidget {
 
   /// Widget displayed at center of CircularGraph
   final Widget child;
-  final Color shadowColor = backgroundColor;
   final double size = 200.0;
   final double paddingSize = 17.0;
   final double lineWidth = 20.0;
@@ -30,7 +30,12 @@ class CircularGraph extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           gradient: RadialGradient(
-              colors: [whiteColor, shadowColor], stops: [0.97, 1.0]),
+            colors: [
+              ColorsTheme.of(context).boxComponents,
+              ColorsTheme.of(context).primaryBackground
+            ],
+            stops: [0.97, 1.0],
+          ),
         ),
         child: Container(
           width: size - paddingSize,
@@ -57,12 +62,12 @@ class CircularGraph extends StatelessWidget {
                         height: size - 2 * paddingSize - 2 * lineWidth,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: whiteColor,
+                          color: ColorsTheme.of(context).secondaryBackground,
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
                               blurRadius: 7,
-                              color: shadowColor,
+                              color: ColorsTheme.of(context).primaryBackground,
                             )
                           ],
                         ),

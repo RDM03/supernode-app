@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 // RETHINK.QUESTION what is the panel frame? mb rename?,
 class PanelFrame extends StatelessWidget {
@@ -24,7 +25,9 @@ class PanelFrame extends StatelessWidget {
       height: height,
       margin: rowTop != null ? rowTop : kOuterRowTop20,
       decoration: BoxDecoration(
-        color: customPanelColor == null ? panelColor : customPanelColor,
+        color: customPanelColor == null
+            ? ColorsTheme.of(context).secondaryBackground
+            : customPanelColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
         boxShadow: [
           BoxShadow(

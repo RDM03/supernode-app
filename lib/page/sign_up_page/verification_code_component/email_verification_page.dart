@@ -36,8 +36,9 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: cardBackgroundColor,
+        backgroundColor: secondaryBackgroundColor,
         appBar: AppBars.backArrowAppBar(
+          context,
           color: whiteColor,
           title: FlutterI18n.translate(context, 'create_account'),
           onPress: () => Navigator.of(context).pop(),

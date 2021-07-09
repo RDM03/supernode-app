@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class CodeTextField extends StatelessWidget {
@@ -17,10 +18,10 @@ class CodeTextField extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(3.0)),
           ),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color.fromARGB(26, 0, 0, 0))),
+            borderSide: BorderSide(color: shodowColor),
+          ),
           focusedBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: Color.fromARGB(26, 0, 0, 0), width: 2),
+            borderSide: BorderSide(color: shodowColor, width: 2),
           )),
       onSubmitted: (_) => textInputAction == TextInputAction.next
           ? FocusScope.of(context).nextFocus()

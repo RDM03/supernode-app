@@ -10,6 +10,7 @@ import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -47,7 +48,7 @@ Widget buildView(
               padding: EdgeInsets.only(top: 2),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: state.iconColor,
+                color: state.iconColor ?? ColorsTheme.of(_ctx).mxcBlue,
               ),
             ),
             SizedBox(width: 16),
@@ -90,7 +91,7 @@ Widget buildView(
               Text(
                 FlutterI18n.translate(_ctx, 'estimated_rate'),
                 style: kSmallFontOfGrey.copyWith(
-                  color: colorMxc,
+                  color: ColorsTheme.of(_ctx).mxcBlue,
                 ),
               ),
               SizedBox(height: 2),
@@ -114,23 +115,24 @@ Widget buildView(
         SizedBox(height: 40),
         Row(
           children: [
-            _infoCircle(FlutterI18n.translate(_ctx, 'stake_now'),
+            _infoCircle(_ctx, FlutterI18n.translate(_ctx, 'stake_now'),
                 _dateFmt(DateTime.now())),
             Expanded(
               child: Container(
                 height: 2,
-                color: darkBackground,
+                color: ColorsTheme.of(_ctx).primaryBackground,
               ),
             ),
-            _infoCircle(FlutterI18n.translate(_ctx, 'gains_start'),
+            _infoCircle(_ctx, FlutterI18n.translate(_ctx, 'gains_start'),
                 _dateFmt(DateTime.now())),
             Expanded(
               child: Container(
                 height: 2,
-                color: darkBackground,
+                color: ColorsTheme.of(_ctx).primaryBackground,
               ),
             ),
             _infoCircle(
+              _ctx,
               FlutterI18n.translate(_ctx, 'gains_stop'),
               state.months == null
                   ? FlutterI18n.translate(_ctx, 'flex')
@@ -139,10 +141,11 @@ Widget buildView(
             Expanded(
               child: Container(
                 height: 2,
-                color: darkBackground,
+                color: ColorsTheme.of(_ctx).primaryBackground,
               ),
             ),
             _infoCircle(
+              _ctx,
               FlutterI18n.translate(_ctx, 'liquidate'),
               state.months == null
                   ? FlutterI18n.translate(_ctx, 'flex')
@@ -197,7 +200,7 @@ Widget buildView(
                     return Slider(
                       key: ValueKey('stakeAmountSlider'),
                       value: percent,
-                      activeColor: colorMxc,
+                      activeColor: ColorsTheme.of(_ctx).mxcBlue,
                       inactiveColor: colorMxc20,
                       onChanged: (v) {
                         final balanceVal =
@@ -258,7 +261,7 @@ String _dateFmt(DateTime date, [bool withYear = false]) {
   return str;
 }
 
-_infoCircle(String text, String date) {
+_infoCircle(BuildContext context, String text, String date) {
   return Container(
     width: 60,
     child: Column(
@@ -275,7 +278,7 @@ _infoCircle(String text, String date) {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: colorMxc,
+              color: ColorsTheme.of(context).mxcBlue,
               width: 3,
             ),
           ),

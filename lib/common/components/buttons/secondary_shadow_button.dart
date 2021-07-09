@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class SecondaryShadowButton extends StatelessWidget {
   SecondaryShadowButton(
@@ -50,7 +51,7 @@ class SecondaryShadowButton extends StatelessWidget {
                     size: 20,
                     color: color != null && !isSelected
                         ? blackColor
-                        : buttonPrimaryColor,
+                        : ColorsTheme.of(context).mxcBlue,
                   ),
                 )
               : Container()

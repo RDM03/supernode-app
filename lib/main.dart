@@ -8,6 +8,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:provider/provider.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/repositories/cache_repository.dart';
@@ -42,6 +43,7 @@ import 'package:supernodeapp/page/wechat_bind_page/page.dart';
 import 'package:supernodeapp/page/wechat_login_page/page.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'app_cubit.dart';
 import 'app_state.dart';
@@ -154,7 +156,12 @@ Future<void> main() async {
           ),
         ],
         child: MultiBlocListener(
-            listeners: listeners(), child: OKToast(child: MxcApp())),
+          listeners: listeners(),
+          child: Provider<ColorsTheme>(
+            create: (ctx) => darkThemeColors,
+            child: OKToast(child: MxcApp()),
+          ),
+        ),
       ),
     ),
   );
@@ -278,64 +285,66 @@ class MxcApp extends StatelessWidget {
           const Locale.fromSubtags(languageCode: 'tl'), // Philippines
         ],
         theme: appTheme,
-        home: Builder(
-          builder: (ctx) {
-            ScreenUtil.instance
-                .init(Config.BLUE_PRINT_WIDTH, Config.BLUE_PRINT_HEIGHT, ctx);
-            return MultiBlocListener(
-              listeners: [
-                BlocListener<AppCubit, AppState>(
-                  listenWhen: (a, b) => a.showLoading != b.showLoading,
-                  listener: showLoading,
-                ),
-                BlocListener<AppCubit, AppState>(
-                  listenWhen: (a, b) => a.error != b.error,
-                  listener: showError,
-                ),
-                BlocListener<AppCubit, AppState>(
-                  listenWhen: (a, b) => a.success != b.success,
-                  listener: showSuccess,
-                ),
-              ],
-              child: WillPopScope(
-                onWillPop: () async {
-                  if (homeNavigatorKey.currentState?.canPop() ?? false) {
-                    homeNavigatorKey.currentState.maybePop();
-                    return false;
-                  }
-                  if (navigatorKey.currentState.canPop()) {
-                    navigatorKey.currentState.maybePop();
-                    return false;
-                  }
-                  return true;
-                },
-                child: Navigator(
-                  key: navigatorKey,
-                  onPopPage: (route, result) => route.didPop(result),
-                  onGenerateRoute: (RouteSettings settings) {
-                    return MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return fishRoutes.buildPage(
-                            settings.name, settings.arguments);
-                      },
-                      settings: settings,
-                    );
+        home: ThemeMapper(
+          child: Builder(
+            builder: (ctx) {
+              ScreenUtil.instance
+                  .init(Config.BLUE_PRINT_WIDTH, Config.BLUE_PRINT_HEIGHT, ctx);
+              return MultiBlocListener(
+                listeners: [
+                  BlocListener<AppCubit, AppState>(
+                    listenWhen: (a, b) => a.showLoading != b.showLoading,
+                    listener: showLoading,
+                  ),
+                  BlocListener<AppCubit, AppState>(
+                    listenWhen: (a, b) => a.error != b.error,
+                    listener: showError,
+                  ),
+                  BlocListener<AppCubit, AppState>(
+                    listenWhen: (a, b) => a.success != b.success,
+                    listener: showSuccess,
+                  ),
+                ],
+                child: WillPopScope(
+                  onWillPop: () async {
+                    if (homeNavigatorKey.currentState?.canPop() ?? false) {
+                      homeNavigatorKey.currentState.maybePop();
+                      return false;
+                    }
+                    if (navigatorKey.currentState.canPop()) {
+                      navigatorKey.currentState.maybePop();
+                      return false;
+                    }
+                    return true;
                   },
-                  onGenerateInitialRoutes: (state, s) => [
-                    context.read<SupernodeCubit>().state.session == null ||
-                            context
-                                    .read<SupernodeCubit>()
-                                    .state
-                                    .session
-                                    .userId ==
-                                -1 /* demoMode */
-                        ? route((ctx) => LoginPage())
-                        : route((ctx) => HomePage()),
-                  ],
+                  child: Navigator(
+                    key: navigatorKey,
+                    onPopPage: (route, result) => route.didPop(result),
+                    onGenerateRoute: (RouteSettings settings) {
+                      return MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return fishRoutes.buildPage(
+                              settings.name, settings.arguments);
+                        },
+                        settings: settings,
+                      );
+                    },
+                    onGenerateInitialRoutes: (state, s) => [
+                      context.read<SupernodeCubit>().state.session == null ||
+                              context
+                                      .read<SupernodeCubit>()
+                                      .state
+                                      .session
+                                      .userId ==
+                                  -1 /* demoMode */
+                          ? route((ctx) => LoginPage())
+                          : route((ctx) => HomePage()),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
         builder: (context, child) {
           if (Platform.isAndroid) {
