@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
             ),
             BlocProvider(
               create: (ctx) => SettingsCubit(
-                language: ctx.read<AppCubit>().getLocale().languageCode,
+                language: ctx.read<AppCubit>().getLocale()?.languageCode ?? 'auto',
                 appCubit: ctx.read<AppCubit>(),
                 supernodeUserCubit: ctx.read<SupernodeUserCubit>(),
                 supernodeCubit: ctx.read<SupernodeCubit>(),

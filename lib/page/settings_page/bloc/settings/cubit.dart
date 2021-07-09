@@ -25,7 +25,7 @@ class SettingsCubit extends Cubit<SettingsState> {
             showWechatUnbindConfirmation: false,
             showBindShopifyStep: 0,
             showLoading: false,
-            language: null));
+            language: 'auto'));
 
   final AppCubit appCubit;
   final SupernodeUserCubit supernodeUserCubit;
