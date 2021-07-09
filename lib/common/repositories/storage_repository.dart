@@ -156,7 +156,9 @@ class StorageRepository {
   }
 
   Locale locale() {
-    return Locale(_sharedPreferences.getString('locale'));
+    final locale = _sharedPreferences.getString('locale');
+
+    return locale != null ? Locale(locale) : null;
   }
 
   Future<void> setLocale(Locale locale) async {

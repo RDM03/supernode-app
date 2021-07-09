@@ -99,11 +99,12 @@ class _HomePageState extends State<HomePage> {
             ),
             BlocProvider(
               create: (ctx) => SettingsCubit(
+                language: ctx.read<AppCubit>().getLocale()?.languageCode ?? 'auto',
                 appCubit: ctx.read<AppCubit>(),
                 supernodeUserCubit: ctx.read<SupernodeUserCubit>(),
                 supernodeCubit: ctx.read<SupernodeCubit>(),
                 supernodeRepository: ctx.read<SupernodeRepository>(),
-              ),
+              )..initState(),
             ),
             BlocProvider(
               create: (ctx) => supernode.session == null

@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
 import 'package:supernodeapp/configs/sys.dart';
+import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
@@ -29,6 +30,7 @@ class LanguagePage extends StatelessWidget {
     await FlutterI18n.refresh(context, locale);
 
     context.read<SettingsCubit>().updateLanguage(language, locale);
+    context.read<HomeCubit>().updateTab();
 
     _rebuildAllChildren(context);
   }
