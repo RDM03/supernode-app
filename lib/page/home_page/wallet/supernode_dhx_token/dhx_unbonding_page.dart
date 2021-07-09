@@ -86,80 +86,89 @@ class _DhxUnbondingPageState extends State<DhxUnbondingPage> {
           },
         ),
       ],
-      child: pageFrame(
-          context: context,
-          padding: EdgeInsets.all(0.0),
-          children: <Widget>[
-            ListTile(
-              title: Center(
-                  child: Text(FlutterI18n.translate(context, 'unbond_dhx'),
-                      style: kBigFontOfBlack)),
-              trailing: GestureDetector(
-                  child: Icon(Icons.close, color: Colors.black),
-                  onTap: () => Navigator.of(context).pop()),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Column(
-                children: [
-                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 5.0),
-                      width: s(50),
-                      height: s(50),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.red,
-                      ),
-                      child: Image.asset(
-                        AppImages.iconUnbond,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(width: 20),
-                    Flexible(
-                      child: Column(
+      child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: pageFrame(
+              context: context,
+              padding: EdgeInsets.all(0.0),
+              children: <Widget>[
+                ListTile(
+                  title: Center(
+                      child: Text(FlutterI18n.translate(context, 'unbond_dhx'),
+                          style: kBigFontOfBlack)),
+                  trailing: GestureDetector(
+                      child: Icon(Icons.close, color: Colors.black),
+                      onTap: () => Navigator.of(context).pop()),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Column(
+                    children: [
+                      Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(FlutterI18n.translate(context, 'unbond_dhx'),
-                                style: kBigBoldFontOfBlack),
-                            Text(
-                                FlutterI18n.translate(
-                                    context, 'unbond_dhx_instruction'),
-                                style: kMiddleFontOfBlack),
+                            Container(
+                              margin: EdgeInsets.only(top: 5.0),
+                              width: s(50),
+                              height: s(50),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.red,
+                              ),
+                              child: Image.asset(
+                                AppImages.iconUnbond,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(width: 20),
+                            Flexible(
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                        FlutterI18n.translate(
+                                            context, 'unbond_dhx'),
+                                        style: kBigBoldFontOfBlack),
+                                    Text(
+                                        FlutterI18n.translate(
+                                            context, 'unbond_dhx_instruction'),
+                                        style: kMiddleFontOfBlack),
+                                  ]),
+                            )
                           ]),
-                    )
-                  ]),
-                  bigColumnSpacer(),
-                  BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
-                    buildWhen: (a, b) => a.dhxBonded != b.dhxBonded,
-                    builder: (cxt, state) => ValueEditor2(
-                      key: ValueKey('amountValueEditor'),
-                      controller: ctrl,
-                      total:
-                          (state.dhxBonded.loading) ? 0 : state.dhxBonded.value,
-                      title: FlutterI18n.translate(context, 'unbond_amount'),
-                      subtitle:
-                          FlutterI18n.translate(context, 'total_bonded_amount'),
-                      textFieldSuffix: Token.supernodeDhx.name,
-                      totalSuffix: Token.supernodeDhx.name,
-                      primaryColor: Token.supernodeDhx.color,
-                    ),
+                      bigColumnSpacer(),
+                      BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
+                        buildWhen: (a, b) => a.dhxBonded != b.dhxBonded,
+                        builder: (cxt, state) => ValueEditor2(
+                          key: ValueKey('amountValueEditor'),
+                          controller: ctrl,
+                          total: (state.dhxBonded.loading)
+                              ? 0
+                              : state.dhxBonded.value,
+                          title:
+                              FlutterI18n.translate(context, 'unbond_amount'),
+                          subtitle: FlutterI18n.translate(
+                              context, 'total_bonded_amount'),
+                          textFieldSuffix: Token.supernodeDhx.name,
+                          totalSuffix: Token.supernodeDhx.name,
+                          primaryColor: Token.supernodeDhx.color,
+                        ),
+                      ),
+                      bigColumnSpacer(),
+                      bigColumnSpacer(),
+                      PrimaryButton(
+                          key: Key('confirmButton'),
+                          minWidth: double.infinity,
+                          onTap: () => context
+                              .read<SupernodeDhxCubit>()
+                              .confirmBondUnbond(unbond: ctrl.text.trim()),
+                          buttonTitle:
+                              FlutterI18n.translate(context, 'confirm'),
+                          bgColor: Token.supernodeDhx.color),
+                    ],
                   ),
-                  bigColumnSpacer(),
-                  bigColumnSpacer(),
-                  PrimaryButton(
-                      key: Key('confirmButton'),
-                      minWidth: double.infinity,
-                      onTap: () => context
-                          .read<SupernodeDhxCubit>()
-                          .confirmBondUnbond(unbond: ctrl.text.trim()),
-                      buttonTitle: FlutterI18n.translate(context, 'confirm'),
-                      bgColor: Token.supernodeDhx.color),
-                ],
-              ),
-            ),
-          ]),
+                ),
+              ])),
     );
   }
 }
