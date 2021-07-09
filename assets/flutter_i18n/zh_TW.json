@@ -565,7 +565,7 @@
 	"info_lock_boost": "1個礦機最大可提升1百萬算力",
 	"amount_of_miner": "礦機數量",
 	"amount_of_miner_desc": "您使用的M2 Pro礦機數量",
-	"miner": "閘道器",
+	"miner": "礦機",
 	"mxc_lockdrop_duration": "MXC 鎖倉週期",
 	"months_lockdrop_duration": "{0} 個月 ({1})",
 	"no_boost": "無算力提升",
