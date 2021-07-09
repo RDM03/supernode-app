@@ -49,7 +49,7 @@ class SettingsPage extends StatelessWidget {
                         onTap: s.isDemo
                             ? null
                             : () => Navigator.push(
-                                context, route((context) => AccountPage()))),
+                                context, routeWidget(AccountPage()))),
                   ),
                   Divider(),
                   BlocBuilder<AppCubit, AppState>(
@@ -62,24 +62,23 @@ class SettingsPage extends StatelessWidget {
                         onTap: s.isDemo
                             ? null
                             : () => Navigator.push(context,
-                                route((context) => AppSettingsPage()))),
+                                routeWidget(AppSettingsPage()))),
                   ),
                   Divider(),
                   listItem(
                     FlutterI18n.translate(context, 'address_book'),
-                    onTap: () => Navigator.of(context)
-                        .push(route((_) => AddressBookPicker())),
+                    onTap: () => Navigator.of(context).push(routeWidget(AddressBookPicker())),
                     key: ValueKey('addressBookItem'),
                   ),
                   Divider(),
                   listItem(FlutterI18n.translate(context, 'about'), onTap: () {
                     context.read<SettingsCubit>().initAboutPage();
-                    Navigator.push(context, route((context) => AboutPage()));
+                    Navigator.push(context, routeWidget(AboutPage()));
                   }),
                   Divider(),
                   listItem(FlutterI18n.translate(context, 'connect_with_us'),
                       onTap: () => Navigator.push(
-                          context, route((context) => LinksPage()))),
+                          context, routeWidget(LinksPage()))),
                   Divider(),
                   listItem(FlutterI18n.translate(context, 'rate_app'),
                       onTap: () async {
@@ -99,14 +98,13 @@ class SettingsPage extends StatelessWidget {
                           key: Key('export'),
                           onTap: () => s.isDemo
                               ? 'no action'
-                              : Navigator.push(context,
-                                  route((context) => ExportDataPage())))),
+                              : Navigator.push(context, routeWidget(ExportDataPage())))),
                   Divider(),
                   listItem(FlutterI18n.translate(context, 'logout'),
                       key: Key('logout'), trailing: Text(''), onTap: () {
                     context.read<SupernodeCubit>().logout();
                     navigatorKey.currentState.pushAndRemoveUntil(
-                        route((_) => LoginPage()), (route) => false);
+                        routeWidget(LoginPage()), (route) => false);
                   }),
                 ],
               ))),

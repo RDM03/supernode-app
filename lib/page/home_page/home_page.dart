@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               onGenerateInitialRoutes: (state, s) => [
-                route((ctx) => _HomePageContent()),
+                routeWidget(_HomePageContent()),
               ],
             ),
           ),
@@ -177,18 +177,25 @@ class _HomePageContent extends StatelessWidget {
       body: BlocBuilder<HomeCubit, HomeState>(
         buildWhen: (a, b) => a.tabIndex != b.tabIndex,
         builder: (ctx, s) {
+          Widget tab;
           switch (s.tabIndex) {
             case HomeCubit.HOME_TAB:
-              return UserTab();
+              tab = UserTab();
+              break;
             case HomeCubit.WALLET_TAB:
-              return WalletTab();
+              tab = WalletTab();
+              break;
             case HomeCubit.MINER_TAB:
-              return GatewayTab();
+              tab = GatewayTab();
+              break;
             case HomeCubit.DEVICE_TAB:
-              return DeviceTab();
+              tab = DeviceTab();
+              break;
             default:
               throw UnimplementedError('Unknown tab ${s.tabIndex}');
           }
+          routeWidget(tab);
+          return tab;
         },
       ),
       bottomNavigationBar: Theme(

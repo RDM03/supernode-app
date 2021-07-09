@@ -330,12 +330,12 @@ class _SendToWalletPageState extends State<SendToWalletPage>
         await context.read<SupernodeUserCubit>().refreshBalance();
         loading.hide();
         await Navigator.of(context)
-            .push(route((ctx) => SendToWalletConfirmPage()));
+            .push(routeWidget(SendToWalletConfirmPage()));
         Navigator.of(context).pop();
       } catch (e) {
         loading.hide();
         await Navigator.of(context).push(
-          route((ctx) => SendToWalletConfirmPage(error: e)),
+          routeWidget(SendToWalletConfirmPage(error: e)),
         );
       } finally {
         loading.hide();

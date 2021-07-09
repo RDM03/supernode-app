@@ -329,8 +329,8 @@ class MxcApp extends StatelessWidget {
                                     .session
                                     .userId ==
                                 -1 /* demoMode */
-                        ? route((ctx) => LoginPage())
-                        : route((ctx) => HomePage()),
+                        ? routeWidget(LoginPage())
+                        : routeWidget(HomePage()),
                   ],
                 ),
               ),

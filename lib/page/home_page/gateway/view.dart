@@ -59,7 +59,7 @@ class GatewayTab extends StatelessWidget {
               behavior: HitTestBehavior.opaque,
               onTap: () async {
                 Navigator.pop(context);
-                await Navigator.of(ctx).push(route((ctx) => AddFuelPage()));
+                await Navigator.of(ctx).push(routeWidget(AddFuelPage()));
                 await context.read<GatewayCubit>().refresh();
               },
               child: Padding(
@@ -88,7 +88,7 @@ class GatewayTab extends StatelessWidget {
               onTap: () async {
                 Navigator.pop(context);
                 await Navigator.of(ctx)
-                    .push(route((ctx) => SendToWalletPage()));
+                    .push(routeWidget(SendToWalletPage()));
               },
               child: Padding(
                 padding: const EdgeInsets.only(left: 32),
@@ -512,7 +512,7 @@ class GatewayTab extends StatelessWidget {
                                         onTap: () async {
                                           Navigator.pop(context);
                                           await Navigator.of(ctx).push(
-                                              route((ctx) => AddFuelPage()));
+                                              routeWidget(AddFuelPage()));
                                           await context.read<GatewayCubit>().refresh();
                                         },
                                         buttonTitle: FlutterI18n.translate(
@@ -661,9 +661,7 @@ class GatewaysList extends StatelessWidget {
             if (!state.reseller)
               await Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    fullscreenDialog: true,
-                    builder: (ctx) => MinerDetailPage(
+                  routeWidget(MinerDetailPage(
                       item: state,
                     ),
                   ));

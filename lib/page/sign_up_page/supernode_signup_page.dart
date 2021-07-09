@@ -78,7 +78,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
             listener: (ctx, state) async {
               if (state.signupResult == null) return;
               if (state.signupResult == SignupResult.verifyEmail)
-                await Navigator.of(context).push(route((ctx) =>
+                await Navigator.of(context).push(routeWidget(
                     BlocProvider<LoginCubit>.value(
                         value: context.read<LoginCubit>(),
                         child: EmailVerificationPage())));
