@@ -38,25 +38,24 @@ class SummaryRow extends StatelessWidget {
     }
 
     return Row(children: [
-      Visibility(
-          visible: image != null && image.isNotEmpty,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15.0, top: 15, bottom: 15),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Image.asset(
-                  AppImages.blueCircle,
-                  fit: BoxFit.none,
-                  color: lightBlue,
-                ),
-                Image.asset(
-                  image,
-                  fit: BoxFit.none,
-                )
-              ],
-            ),
-          )),
+      if (image != null && image.isNotEmpty)
+        Padding(
+          padding: const EdgeInsets.only(left: 15.0, top: 15, bottom: 15),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Image.asset(
+                AppImages.blueCircle,
+                fit: BoxFit.none,
+                color: lightBlue,
+              ),
+              Image.asset(
+                image,
+                fit: BoxFit.none,
+              )
+            ],
+          ),
+        ),
       Expanded(
         child: Column(
           children: [
