@@ -274,7 +274,7 @@ class GatewayTab extends StatelessWidget {
                                 child: (gatewayState.miningFuel.value == null)
                                     ? Text('-- / -- MXC')
                                     : Text(
-                                        '${gatewayState.miningFuel.value.round()} / ${gatewayState.miningFuelMax.value.round()} MXC')),
+                                        '${Tools.priceFormat(gatewayState.miningFuel.value)} / ${Tools.priceFormat(gatewayState.miningFuelMax.value)} MXC')),
                             Spacer()
                           ]),
                           middleColumnSpacer(),
