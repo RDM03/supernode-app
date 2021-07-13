@@ -91,16 +91,12 @@ class UserTab extends StatelessWidget {
                                 FlutterI18n.translate(context, 'health_score'),
                             percentage: gatewayState.health.value,
                             loading: gatewayState.health.loading),
-                        DDBoxSpacer(
-                          width: SpacerStyle.small,
-                        ),
+                        DDBoxSpacer(width: SpacerStyle.small),
                         minerPanel(
                             name: FlutterI18n.translate(context, 'fuel_tank'),
                             percentage: gatewayState.miningFuelHealth.value,
                             loading: gatewayState.miningFuelHealth.loading),
-                        DDBoxSpacer(
-                          width: SpacerStyle.small,
-                        ),
+                        DDBoxSpacer(width: SpacerStyle.small),
                         minerPanel(
                             name: FlutterI18n.translate(context, 'miner'),
                             amount: gatewayState.gatewaysTotal.value,
@@ -124,9 +120,7 @@ class UserTab extends StatelessWidget {
                                 ? '-- MXC'
                                 : '${Tools.priceFormat(gatewayState.miningFuel.value)} MXC',
                           )),
-                  DDBoxSpacer(
-                    height: SpacerStyle.small,
-                  )
+                  DDBoxSpacer(height: SpacerStyle.small)
                 ],
               ))),
     ]);
@@ -134,16 +128,23 @@ class UserTab extends StatelessWidget {
 
   Widget minerPanel(
       {String name, double percentage, int amount, bool loading = false}) {
+    Color color;
+    percentage = (percentage ?? 0.0) * 100;
+
+    if (loading || amount != null) {
+      color = Colors.grey;
+    } else if (percentage > 10) {
+      color = minerColor;
+    } else {
+      color = fuelColor;
+    }
+
     return Expanded(
         child: Column(
       children: [
         CircularGraph(
-          loading ? 0.0 : (percentage ?? 0.0) * 100,
-          (loading || amount != null
-              ? Colors.grey
-              : ((percentage ?? 0) * 100 > 10)
-                  ? minerColor
-                  : fuelColor),
+          percentage,
+          color,
           child: Container(
             alignment: Alignment.center,
             height: double.infinity,
@@ -154,7 +155,7 @@ class UserTab extends StatelessWidget {
                     ? Text('$amount', style: kMiddleBoldFontOfBlack)
                     : ((percentage == null)
                         ? Text('-- %', style: kMiddleBoldFontOfBlack)
-                        : Text('${Tools.priceFormat(percentage * 100)} %',
+                        : Text('${Tools.priceFormat(percentage)} %',
                             style: kMiddleBoldFontOfBlack))),
           ),
           size: 100,
@@ -175,7 +176,7 @@ class UserTab extends StatelessWidget {
         context,
         SummaryRow(
           key: Key('totalGatewaysDashboard'),
-          image: AppImages.gateways,
+          image: AssetImage(AppImages.gateways),
           title: FlutterI18n.translate(context, 'total_gateways'),
           number: '3',
           subtitle: FlutterI18n.translate(context, 'profit'),
