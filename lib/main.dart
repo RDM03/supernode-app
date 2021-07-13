@@ -13,11 +13,13 @@ import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/tip.dart';
 import 'package:supernodeapp/common/repositories/cache_repository.dart';
 import 'package:supernodeapp/common/repositories/coingecko_repository.dart';
+import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/no_glow_behavior.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/config.dart';
 import 'package:supernodeapp/common/repositories/storage_repository.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
+import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/feedback_page/feedback.dart';
 import 'package:supernodeapp/page/calculator_list_page/page.dart';
 import 'package:supernodeapp/page/calculator_page/page.dart';
@@ -157,8 +159,46 @@ Future<void> main() async {
         ],
         child: MultiBlocListener(
           listeners: listeners(),
-          child: Provider<ColorsTheme>(
-            create: (ctx) => darkThemeColors,
+          child: MultiProvider(
+            providers: [
+              Provider<ColorsTheme>(
+                create: (ctx) => darkThemeColors,
+              ),
+              ProxyProvider<ColorsTheme, FontTheme>(
+                update: (_, colors, __) => FontTheme(colors),
+              ),
+              ProxyProvider<ColorsTheme, TokenUiBundle>(
+                update: (_, colors, __) => TokenUiBundle(
+                  mxc: TokenUiInfo(
+                    name: 'MXC',
+                    color: colors.mxcBlue,
+                    image: AssetImage(AppImages.logoMXC),
+                  ),
+                  supernodeDhx: TokenUiInfo(
+                    name: 'DHX',
+                    color: colors.dhxBlue,
+                    image: AssetImage(AppImages.logoDHX),
+                  ),
+                  parachainDhx: TokenUiInfo(
+                    fullName: 'DataHighway DHX',
+                    name: 'DHX',
+                    color: colors.dhxBlue,
+                    image: AssetImage(AppImages.logoDHX),
+                  ),
+                  btc: TokenUiInfo(
+                    fullName: 'Bitcoin BTC',
+                    name: 'BTC',
+                    color: colors.btcYellow,
+                    image: AssetImage(AppImages.logoBTC),
+                  ),
+                  nft: TokenUiInfo(
+                    name: 'NFT',
+                    color: colors.mxcBlue,
+                    image: AssetImage(AppImages.logoNFT),
+                  ),
+                ),
+              ),
+            ],
             child: OKToast(child: MxcApp()),
           ),
         ),

@@ -18,6 +18,7 @@ import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/mining_simulator_page/widgets/value_editor.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class DhxBondingPage extends StatefulWidget {
   @override
@@ -50,14 +51,14 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
                       list: [
                         IosButtonStyle(
                             title: FlutterI18n.translate(context, 'bond_dhx'),
-                            style: kBigFontOfDhxColor),
+                            style: FontTheme.of(context).big.dhx()),
                         IosButtonStyle(
                             title: FlutterI18n.translate(
                                     context, 'bond_dhx_confirm_info')
                                 .replaceFirst('{0}', ctrl.text.trim())),
                         IosButtonStyle(
                             title: FlutterI18n.translate(context, 'proceed'),
-                            style: kBigFontOfDhxColor),
+                            style: FontTheme.of(context).big.dhx()),
                       ],
                       onItemClickListener: (itemIndex) {
                         if (itemIndex == 2)
@@ -97,7 +98,7 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
             ListTile(
               title: Center(
                   child: Text(FlutterI18n.translate(context, 'bond_dhx'),
-                      style: kBigFontOfBlack)),
+                      style: FontTheme.of(context).big())),
               trailing: GestureDetector(
                   child: Icon(Icons.close, color: blackColor),
                   onTap: () => Navigator.of(context).pop()),
@@ -113,7 +114,7 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
                       height: s(50),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Token.supernodeDhx.color,
+                        color: Token.supernodeDhx.ui(context).color,
                       ),
                       child: Image.asset(
                         AppImages.iconBond,
@@ -126,10 +127,11 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(FlutterI18n.translate(context, 'bond_dhx'),
-                                style: kBigBoldFontOfBlack),
+                                style:
+                                    FontTheme.of(context).big.primary.bold()),
                             RichText(
                               text: TextSpan(
-                                style: kMiddleFontOfBlack,
+                                style: FontTheme.of(context).middle(),
                                 children: <TextSpan>[
                                   TextSpan(
                                       text: FlutterI18n.translate(
@@ -137,7 +139,10 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
                                   TextSpan(
                                       text: FlutterI18n.translate(
                                           context, 'click_here'),
-                                      style: kMiddleFontOfBlueLink,
+                                      style: FontTheme.of(context)
+                                          .middle
+                                          .mxc
+                                          .underline(),
                                       recognizer: new TapGestureRecognizer()
                                         ..onTap = () => openSupernodeDeposit(
                                             context, Token.supernodeDhx)),
@@ -146,7 +151,7 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
                             ),
                             RichText(
                               text: TextSpan(
-                                style: kMiddleFontOfBlack,
+                                style: FontTheme.of(context).middle(),
                                 children: <TextSpan>[
                                   TextSpan(
                                       text: FlutterI18n.translate(
@@ -154,7 +159,10 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
                                   TextSpan(
                                       text: FlutterI18n.translate(
                                           context, 'click_here'),
-                                      style: kMiddleFontOfBlueLink,
+                                      style: FontTheme.of(context)
+                                          .middle
+                                          .mxc
+                                          .underline(),
                                       recognizer: new TapGestureRecognizer()
                                         ..onTap = () => Navigator.pushNamed(
                                                 context, 'lock_page',
@@ -180,21 +188,22 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
                       title: FlutterI18n.translate(context, 'bond_amount'),
                       subtitle:
                           FlutterI18n.translate(context, 'current_balance'),
-                      textFieldSuffix: Token.supernodeDhx.name,
-                      totalSuffix: Token.supernodeDhx.name,
-                      primaryColor: Token.supernodeDhx.color,
+                      textFieldSuffix: Token.supernodeDhx.ui(context).name,
+                      totalSuffix: Token.supernodeDhx.ui(context).name,
+                      primaryColor: Token.supernodeDhx.ui(context).color,
                     ),
                   ),
                   bigColumnSpacer(),
                   bigColumnSpacer(),
                   PrimaryButton(
-                      key: Key('confirmButton'),
-                      minWidth: double.infinity,
-                      onTap: () => context
-                          .read<SupernodeDhxCubit>()
-                          .confirmBondUnbond(bond: ctrl.text.trim()),
-                      buttonTitle: FlutterI18n.translate(context, 'confirm'),
-                      bgColor: Token.supernodeDhx.color),
+                    key: Key('confirmButton'),
+                    minWidth: double.infinity,
+                    onTap: () => context
+                        .read<SupernodeDhxCubit>()
+                        .confirmBondUnbond(bond: ctrl.text.trim()),
+                    buttonTitle: FlutterI18n.translate(context, 'confirm'),
+                    bgColor: Token.supernodeDhx.ui(context).color,
+                  ),
                 ],
               ),
             ),

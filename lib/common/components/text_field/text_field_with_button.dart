@@ -2,20 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
-Widget textfieldWithButton(
-    {String inputLabel = '',
-    String hintText = '',
-    String initialValue,
-    TextEditingController controller,
-    Function(String) validator,
-    Function onTap,
-    String buttonLabel,
-    IconData icon,
-    bool readOnly = false,
-    bool autocorrect = true,
-    bool isDivider = true,
-    Widget suffixTitleChild}) {
+@deprecated
+Widget textfieldWithButton({
+  String inputLabel = '',
+  String hintText = '',
+  String initialValue,
+  TextEditingController controller,
+  Function(String) validator,
+  Function onTap,
+  String buttonLabel,
+  IconData icon,
+  bool readOnly = false,
+  bool autocorrect = true,
+  bool isDivider = true,
+  Widget suffixTitleChild,
+  BuildContext context,
+}) {
   return Container(
       padding: kOuterRowTop20,
       child: Column(children: <Widget>[
@@ -27,7 +31,7 @@ Widget textfieldWithButton(
                 visible: inputLabel.isNotEmpty,
                 child: Text(
                   inputLabel,
-                  style: kMiddleFontOfBlack,
+                  style: FontTheme.of(context).middle(),
                 ),
               ),
               Spacer(),
@@ -59,17 +63,18 @@ Widget textfieldWithButton(
                 controller: controller,
               )),
               GestureDetector(
-                  onTap: onTap,
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                    decoration: BoxDecoration(
-                        // color: whiteColor,
-                        border: Border(
-                            left: isDivider
-                                ? BorderSide(width: 1, color: greyColor)
-                                : BorderSide.none)),
-                    child: Column(children: <Widget>[
+                onTap: onTap,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                  decoration: BoxDecoration(
+                      // color: whiteColor,
+                      border: Border(
+                          left: isDivider
+                              ? BorderSide(width: 1, color: greyColor)
+                              : BorderSide.none)),
+                  child: Column(
+                    children: <Widget>[
                       Container(
                         child: Icon(
                           icon,
@@ -77,14 +82,17 @@ Widget textfieldWithButton(
                         ),
                       ),
                       Visibility(
-                          visible: buttonLabel != null,
-                          child: Text(
-                            buttonLabel ?? '',
-                            textAlign: TextAlign.left,
-                            style: kSmallFontOfGrey,
-                          ))
-                    ]),
-                  ))
+                        visible: buttonLabel != null,
+                        child: Text(
+                          buttonLabel ?? '',
+                          textAlign: TextAlign.left,
+                          style: FontTheme.of(context).small.secondary(),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
         )

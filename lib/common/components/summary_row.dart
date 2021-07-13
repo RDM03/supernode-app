@@ -4,6 +4,7 @@ import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class SummaryRow extends StatelessWidget {
   final String image;
@@ -78,7 +79,7 @@ class SummaryRow extends StatelessWidget {
 }
 
 class TokenSummaryRow extends StatelessWidget {
-  final String image;
+  final ImageProvider image;
   final String name;
   final String balance;
   final bool loading;
@@ -86,7 +87,7 @@ class TokenSummaryRow extends StatelessWidget {
 
   const TokenSummaryRow({
     Key key,
-    this.image = '',
+    this.image,
     this.name = '',
     this.balance = '',
     this.loading = false,
@@ -101,8 +102,8 @@ class TokenSummaryRow extends StatelessWidget {
       child: Row(children: [
         Padding(
             padding: const EdgeInsets.only(left: 15.0, top: 15, bottom: 15),
-            child: Image.asset(
-              image,
+            child: Image(
+              image: image,
               fit: BoxFit.none,
             )),
         Expanded(
@@ -110,7 +111,8 @@ class TokenSummaryRow extends StatelessWidget {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Container(
                 padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Text(name, style: kBigBoldFontOfBlack)),
+                child: Text(name,
+                    style: FontTheme.of(context).big.primary.bold())),
             TitleDetailRow(
               loading: loading,
               name: FlutterI18n.translate(context, 'balance'),

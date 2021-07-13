@@ -65,22 +65,23 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
           ),
           middleColumnSpacer(),
           Row(children: [
-            Icon(Icons.circle, color: Token.supernodeDhx.color, size: 12),
+            Icon(Icons.circle,
+                color: Token.supernodeDhx.ui(context).color, size: 12),
             Text(
               FlutterI18n.translate(context, "today"),
-              style: kSmallFontOfBlack,
+              style: FontTheme.of(context).small(),
             ),
             Spacer(),
             Icon(Icons.circle, color: colorSupernodeDhx20, size: 12),
             Text(
               FlutterI18n.translate(context, 'cool_off'),
-              style: kSmallFontOfBlack,
+              style: FontTheme.of(context).small(),
             ),
             Spacer(),
             Image.asset(AppImages.iconUnbond, scale: 1.8, color: Colors.red),
             Text(
               FlutterI18n.translate(context, 'unbonded'),
-              style: kSmallFontOfBlack,
+              style: FontTheme.of(context).small(),
             )
           ]),
           smallColumnSpacer(),
@@ -120,7 +121,7 @@ List<Widget> calendar(
         Expanded(
             child: Text(
           countTotalMonth(items),
-          style: kBigFontOfBlue.copyWith(fontSize: 20),
+          style: FontTheme.of(context).big.mxc().copyWith(fontSize: 20),
           textAlign: TextAlign.right,
         )),
         SizedBox(
@@ -140,7 +141,7 @@ List<Widget> calendar(
 
   calendarList.add(smallColumnSpacer());
   calendarList.add(Text(FlutterI18n.translate(context, 'bonding_calendar_note'),
-      style: kSmallFontOfBlack));
+      style: FontTheme.of(context).small()));
 
   return calendarList;
 }
@@ -182,7 +183,8 @@ class _CalendarElement extends StatelessWidget {
     BoxDecoration getDecoration() {
       if (model.today)
         return BoxDecoration(
-            color: Token.supernodeDhx.color, shape: BoxShape.circle);
+            color: Token.supernodeDhx.ui(context).color,
+            shape: BoxShape.circle);
       if (model.left || model.right || model.middle)
         return BoxDecoration(
             color: colorSupernodeDhx20,
@@ -204,8 +206,8 @@ class _CalendarElement extends StatelessWidget {
             Text(
                 '${model.date != null ? (7 - today.difference(model.date).inDays) : ""}',
                 style: (model.unbondAmount > 0)
-                    ? kMiddleFontOfBlack
-                    : kMiddleFontOfWhite,
+                    ? FontTheme.of(context).middle()
+                    : FontTheme.of(context).middle.label(),
                 softWrap: false,
                 overflow: TextOverflow.fade)
           ]),
@@ -216,8 +218,8 @@ class _CalendarElement extends StatelessWidget {
               child: Center(
                   child: Text('${model.date != null ? model.date.day : ''}',
                       style: (model.today)
-                          ? kMiddleFontOfWhite
-                          : kMiddleFontOfBlack,
+                          ? FontTheme.of(context).middle.label()
+                          : FontTheme.of(context).middle(),
                       softWrap: false,
                       overflow: TextOverflow.fade))),
           Text(
@@ -227,7 +229,7 @@ class _CalendarElement extends StatelessWidget {
                   ((model.today)
                       ? FlutterI18n.translate(context, 'today')
                       : ''),
-              style: kSmallFontOfBlack,
+              style: FontTheme.of(context).small(),
               softWrap: false,
               overflow: TextOverflow.fade),
           model.date != null ? Divider(thickness: 1) : Container(),

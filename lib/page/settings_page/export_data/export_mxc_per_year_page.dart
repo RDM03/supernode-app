@@ -15,6 +15,7 @@ import 'package:supernodeapp/page/settings_page/export_data/pdf_viewer_page.dart
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'fiat_list_page.dart';
 import 'format_list_page.dart';
@@ -58,7 +59,7 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
             title: Center(
                 child: Text(
                     FlutterI18n.translate(context, 'export_financial_data'),
-                    style: kBigBoldFontOfBlack)),
+                    style: FontTheme.of(context).big.primary.bold())),
             trailing: GestureDetector(
                 child: Icon(Icons.close, color: blackColor),
                 onTap: () => Navigator.of(context).pop()),
@@ -67,7 +68,7 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
           Divider(),
           listItem(FlutterI18n.translate(context, 'time_range'),
               trailing: Text('01.01.${widget.year} - 31.12.${widget.year}',
-                  style: kBigFontOfDarkBlue)),
+                  style: FontTheme.of(context).big.mxc())),
           Divider(),
           listItem(FlutterI18n.translate(context, 'format'),
               key: Key('format'),
@@ -75,8 +76,8 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
                   Navigator.push(context, route((_) => FormatListPage())),
               trailing: BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.format != b.format,
-                builder: (context, state) =>
-                    Text(state.format.toUpperCase(), style: kBigFontOfDarkBlue),
+                builder: (context, state) => Text(state.format.toUpperCase(),
+                    style: FontTheme.of(context).big.mxc()),
               )),
           Divider(),
           listItem(FlutterI18n.translate(context, 'currency'),
@@ -90,7 +91,7 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
                       (state.selectedFiat == null)
                           ? '--'
                           : state.selectedFiat.id.toUpperCase(),
-                      style: kBigFontOfDarkBlue);
+                      style: FontTheme.of(context).big.mxc());
                 },
               )),
           Divider(),
@@ -107,7 +108,7 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
                   builder: (context, state) {
                     return Text(
                         '${state.decimals < 10 ? '0' : ''}${state.decimals}',
-                        style: kBigFontOfDarkBlue);
+                        style: FontTheme.of(context).big.mxc());
                   },
                 ),
                 SizedBox(width: 20),

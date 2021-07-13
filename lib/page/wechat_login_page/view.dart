@@ -12,6 +12,7 @@ import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -26,7 +27,7 @@ Widget buildView(
       appBar: AppBar(
         iconTheme: IconThemeData(color: blackColor),
         title: Text(FlutterI18n.translate(_ctx, 'wechat_login_title'),
-            style: kBigFontOfBlack, textAlign: TextAlign.center),
+            style: FontTheme.of(_ctx).big(), textAlign: TextAlign.center),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -92,13 +93,16 @@ Widget buildView(
                     ),
                   ),
                   Text(FlutterI18n.translate(_ctx, 'bind_wechat_title'),
-                      style: kBigFontOfBlack, textAlign: TextAlign.center),
+                      style: FontTheme.of(_ctx).big(),
+                      textAlign: TextAlign.center),
                   Container(
-                      margin: EdgeInsets.only(top: 16),
-                      child: Text(
-                          FlutterI18n.translate(_ctx, 'bind_wechat_desc'),
-                          style: kMiddleFontOfGrey,
-                          textAlign: TextAlign.center)),
+                    margin: EdgeInsets.only(top: 16),
+                    child: Text(
+                      FlutterI18n.translate(_ctx, 'bind_wechat_desc'),
+                      style: FontTheme.of(_ctx).middle.secondary(),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                   Spacer(),
                   SecondaryButton(
                     onTap: () => dispatch(

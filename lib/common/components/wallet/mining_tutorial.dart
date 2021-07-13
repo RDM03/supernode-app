@@ -49,7 +49,7 @@ class MiningTutorial extends StatefulWidget {
           style: kPrimaryBigFontOfBlack),
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pg2_text"),
-          style: kBigFontOfBlack),
+          style: FontTheme.of(ctx).big()),
       SizedBox(height: s(30)),
       Row(children: [
         Spacer(),
@@ -58,13 +58,13 @@ class MiningTutorial extends StatefulWidget {
           SizedBox(height: s(10)),
           Container(
               decoration: BoxDecoration(
-                  color: Token.supernodeDhx.color,
+                  color: Token.supernodeDhx.ui(_ctx).color,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 child: Text(FlutterI18n.translate(ctx, 'mxc_locked'),
-                    style: kSecondaryButtonOfWhite),
+                    style: FontTheme.of(ctx).middle.secondary()),
               ))
         ]),
         Spacer(),
@@ -75,7 +75,7 @@ class MiningTutorial extends StatefulWidget {
           SizedBox(height: s(10)),
           Container(
               decoration: BoxDecoration(
-                  color: Token.supernodeDhx.color,
+                  color: Token.supernodeDhx.ui(_ctx).color,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
               child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -84,19 +84,21 @@ class MiningTutorial extends StatefulWidget {
                       Stack(alignment: AlignmentDirectional.center, children: [
                     Text(FlutterI18n.translate(ctx, 'mxc_locked'),
                         style: TextStyle(
-                            color: Token.supernodeDhx.color,
+                            color: Token.supernodeDhx.ui(_ctx).color,
                             fontFamily: "Roboto",
                             fontSize:
                                 14)), // invisible - sets width for Container
                     Text(FlutterI18n.translate(ctx, 'mpower'),
-                        style: kSecondaryButtonOfWhite)
+                        style: FontTheme.of(ctx).middle.secondary())
                   ])))
         ]),
         Spacer(),
       ]),
       SizedBox(height: s(10)),
-      Text(FlutterI18n.translate(ctx, "tutorial_pg2_desc1"),
-          style: kMiddleFontOfBlack),
+      Text(
+        FlutterI18n.translate(ctx, "tutorial_pg2_desc1"),
+        style: FontTheme.of(ctx).middle(),
+      ),
       SizedBox(height: s(30)),
       Row(children: [
         Spacer(),
@@ -105,7 +107,7 @@ class MiningTutorial extends StatefulWidget {
           SizedBox(height: s(10)),
           Container(
               decoration: BoxDecoration(
-                  color: Token.supernodeDhx.color,
+                  color: Token.supernodeDhx.ui(_ctx).color,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
               child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -113,7 +115,7 @@ class MiningTutorial extends StatefulWidget {
                   child:
                       Stack(alignment: AlignmentDirectional.center, children: [
                     Text(FlutterI18n.translate(ctx, 'm2pro_miner'),
-                        style: kSecondaryButtonOfWhite),
+                        style: FontTheme.of(ctx).middle.secondary()),
                   ])))
         ]),
         Spacer(),
@@ -123,12 +125,12 @@ class MiningTutorial extends StatefulWidget {
           RichText(
               text: TextSpan(children: [
             TextSpan(text: '100% ', style: kSuperBigBoldFont),
-            TextSpan(text: 'Boost', style: kBigFontOfBlack)
+            TextSpan(text: 'Boost', style: FontTheme.of(ctx).big())
           ])),
           SizedBox(height: s(10)),
           Container(
               decoration: BoxDecoration(
-                  color: Token.supernodeDhx.color,
+                  color: Token.supernodeDhx.ui(_ctx).color,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
               child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -137,19 +139,21 @@ class MiningTutorial extends StatefulWidget {
                       Stack(alignment: AlignmentDirectional.center, children: [
                     Text(FlutterI18n.translate(ctx, 'm2pro_miner'),
                         style: TextStyle(
-                            color: Token.supernodeDhx.color,
+                            color: Token.supernodeDhx.ui(_ctx).color,
                             fontFamily: "Roboto",
                             fontSize:
                                 14)), // invisible - sets width for Container
                     Text(FlutterI18n.translate(ctx, 'mpower'),
-                        style: kSecondaryButtonOfWhite)
+                        style: FontTheme.of(ctx).middle.secondary())
                   ])))
         ]),
         Spacer(),
       ]),
       SizedBox(height: s(10)),
-      Text(FlutterI18n.translate(ctx, "tutorial_pg2_desc2"),
-          style: kMiddleFontOfBlack),
+      Text(
+        FlutterI18n.translate(ctx, "tutorial_pg2_desc2"),
+        style: FontTheme.of(ctx).middle(),
+      ),
       SizedBox(height: s(30)),
       Row(children: [
         Spacer(),
@@ -158,7 +162,7 @@ class MiningTutorial extends StatefulWidget {
           SizedBox(height: s(10)),
           Container(
               decoration: BoxDecoration(
-                  color: Token.supernodeDhx.color,
+                  color: Token.supernodeDhx.ui(_ctx).color,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
               child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -166,7 +170,7 @@ class MiningTutorial extends StatefulWidget {
                   child:
                       Stack(alignment: AlignmentDirectional.center, children: [
                     Text(FlutterI18n.translate(ctx, 'm2pro_miner'),
-                        style: kSecondaryButtonOfWhite),
+                        style: FontTheme.of(ctx).middle.secondary()),
                   ])))
         ]),
         Spacer(),
@@ -177,13 +181,13 @@ class MiningTutorial extends StatefulWidget {
               text: TextSpan(children: [
             TextSpan(
                 text: FlutterI18n.translate(ctx, 'up_to'),
-                style: kBigFontOfBlack),
+                style: FontTheme.of(ctx).big()),
             TextSpan(text: ' 1 mil.', style: kSuperBigBoldFont)
           ])),
           SizedBox(height: s(10)),
           Container(
               decoration: BoxDecoration(
-                  color: Token.supernodeDhx.color,
+                  color: Token.supernodeDhx.ui(_ctx).color,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
               child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -192,36 +196,40 @@ class MiningTutorial extends StatefulWidget {
                       Stack(alignment: AlignmentDirectional.center, children: [
                     Text(FlutterI18n.translate(ctx, 'm2pro_miner'),
                         style: TextStyle(
-                            color: Token.supernodeDhx.color,
+                            color: Token.supernodeDhx.ui(_ctx).color,
                             fontFamily: "Roboto",
                             fontSize:
                                 14)), // invisible - sets width for Container
                     Text(FlutterI18n.translate(ctx, 'mpower'),
-                        style: kSecondaryButtonOfWhite)
+                        style: FontTheme.of(ctx).middle.secondary())
                   ])))
         ]),
         Spacer(),
       ]),
       SizedBox(height: s(10)),
-      Text(FlutterI18n.translate(ctx, "tutorial_pg2_desc2_2"),
-          style: kMiddleFontOfBlack),
+      Text(
+        FlutterI18n.translate(ctx, "tutorial_pg2_desc2_2"),
+        style: FontTheme.of(ctx).middle(),
+      ),
       SizedBox(height: s(30)),
       Column(children: [
         Icon(Icons.calendar_today),
         SizedBox(height: s(10)),
         Container(
             decoration: BoxDecoration(
-                color: Token.supernodeDhx.color,
+                color: Token.supernodeDhx.ui(_ctx).color,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
             child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 child: Text(FlutterI18n.translate(ctx, 'mining_term'),
-                    style: kSecondaryButtonOfWhite)))
+                    style: FontTheme.of(ctx).middle.secondary())))
       ]),
       SizedBox(height: s(10)),
-      Text(FlutterI18n.translate(ctx, "tutorial_pg2_desc3"),
-          style: kMiddleFontOfBlack),
+      Text(
+        FlutterI18n.translate(ctx, "tutorial_pg2_desc3"),
+        style: FontTheme.of(ctx).middle(),
+      ),
       SizedBox(height: 25)
     ]);
   }
@@ -236,54 +244,54 @@ class MiningTutorial extends StatefulWidget {
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv2_title_span2"),
             style: kPrimaryBigFontOfBlack.copyWith(
-                color: Token.supernodeDhx.color)),
+                color: Token.supernodeDhx.ui(_ctx).color)),
       ])),
       SizedBox(height: 70),
       Row(children: [
         Container(
             decoration: BoxDecoration(
-                color: Token.supernodeDhx.color,
+                color: Token.supernodeDhx.ui(_ctx).color,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
               child: Text('40% ' + FlutterI18n.translate(ctx, 'boost'),
-                  style: kSecondaryButtonOfWhite),
+                  style: FontTheme.of(ctx).middle.secondary()),
             )),
         Spacer(),
         Container(
             decoration: BoxDecoration(
-                color: Token.supernodeDhx.color,
+                color: Token.supernodeDhx.ui(_ctx).color,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
               child: Text('0% ' + FlutterI18n.translate(ctx, 'boost'),
-                  style: kSecondaryButtonOfWhite),
+                  style: FontTheme.of(ctx).middle.secondary()),
             ))
       ]),
       Image.asset(AppImages.minerBoostGraph, height: 200),
       Row(children: [
         Container(
             decoration: BoxDecoration(
-                color: Token.supernodeDhx.color,
+                color: Token.supernodeDhx.ui(_ctx).color,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
               child: Text('20% ' + FlutterI18n.translate(ctx, 'boost'),
-                  style: kSecondaryButtonOfWhite),
+                  style: FontTheme.of(ctx).middle.secondary()),
             )),
         Spacer(),
         Container(
             decoration: BoxDecoration(
-                color: Token.supernodeDhx.color,
+                color: Token.supernodeDhx.ui(_ctx).color,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
               child: Text('10% ' + FlutterI18n.translate(ctx, 'boost'),
-                  style: kSecondaryButtonOfWhite),
+                  style: FontTheme.of(ctx).middle.secondary()),
             ))
       ]),
       SizedBox(height: 25)
@@ -299,27 +307,27 @@ class MiningTutorial extends StatefulWidget {
           text: TextSpan(children: [
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span1"),
-            style: kBigFontOfBlack),
+            style: FontTheme.of(ctx).big()),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span2"),
-            style: kBigFontOfDhxColor),
+            style: FontTheme.of(ctx).big.dhx()),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span3"),
-            style: kBigFontOfBlack),
+            style: FontTheme.of(ctx).big()),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span4"),
-            style: kBigFontOfDhxColor),
+            style: FontTheme.of(ctx).big.dhx()),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span5"),
-            style: kBigFontOfBlack),
+            style: FontTheme.of(ctx).big()),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span6"),
-            style: kBigFontOfDhxColor),
+            style: FontTheme.of(ctx).big.dhx()),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv3_text_span7"),
-            style: kBigFontOfBlack),
+            style: FontTheme.of(ctx).big()),
       ])),
-      Image.asset(AppImages.council, color: Token.supernodeDhx.color),
+      Image.asset(AppImages.council, color: Token.supernodeDhx.ui(_ctx).color),
       middleColumnSpacer(),
     ]);
   }
@@ -334,7 +342,7 @@ class MiningTutorial extends StatefulWidget {
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span2"),
             style: kPrimaryBigFontOfBlack.copyWith(
-                color: Token.supernodeDhx.color)),
+                color: Token.supernodeDhx.ui(_ctx).color)),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span3"),
             style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
@@ -347,7 +355,7 @@ class MiningTutorial extends StatefulWidget {
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span5"),
             style: kPrimaryBigFontOfBlack.copyWith(
-                color: Token.supernodeDhx.color)),
+                color: Token.supernodeDhx.ui(_ctx).color)),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span6"),
             style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
@@ -364,18 +372,18 @@ class MiningTutorial extends StatefulWidget {
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv5_title_span1"),
             style: kPrimaryBigFontOfBlack.copyWith(
-                color: Token.supernodeDhx.color)),
+                color: Token.supernodeDhx.ui(_ctx).color)),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv5_title_span2"),
             style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv5_title_span3"),
             style: kPrimaryBigFontOfBlack.copyWith(
-                color: Token.supernodeDhx.color)),
+                color: Token.supernodeDhx.ui(_ctx).color)),
       ])),
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pv5_text"),
-          style: kBigFontOfBlack),
+          style: FontTheme.of(ctx).big()),
       SizedBox(height: s(30)),
       Image.asset(AppImages.calendar2),
     ]);
@@ -391,18 +399,18 @@ class MiningTutorial extends StatefulWidget {
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span2"),
             style: kPrimaryBigFontOfBlack.copyWith(
-                color: Token.supernodeDhx.color)),
+                color: Token.supernodeDhx.ui(_ctx).color)),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span3"),
             style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span4"),
             style: kPrimaryBigFontOfBlack.copyWith(
-                color: Token.supernodeDhx.color)),
+                color: Token.supernodeDhx.ui(_ctx).color)),
       ])),
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pv6_text"),
-          style: kBigFontOfBlack),
+          style: FontTheme.of(ctx).big()),
       SizedBox(height: s(30)),
       Image.asset(AppImages.calendar3),
     ]);
@@ -415,15 +423,21 @@ class MiningTutorial extends StatefulWidget {
       SizedBox(height: 25),
       Center(
         child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            decoration: BoxDecoration(
-                color: Token.supernodeDhx.color,
-                borderRadius: BorderRadius.all(Radius.circular(8))),
-            child: Text(FlutterI18n.translate(ctx, 'dhx_mining').toUpperCase(),
-                style: kBigFontOfWhite)),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          decoration: BoxDecoration(
+              color: Token.supernodeDhx.ui(_ctx).color,
+              borderRadius: BorderRadius.all(Radius.circular(8))),
+          child: Text(
+            FlutterI18n.translate(ctx, 'dhx_mining').toUpperCase(),
+            style: FontTheme.of(ctx).big.label(),
+          ),
+        ),
       ),
       middleColumnSpacer(),
-      Text(FlutterI18n.translate(ctx, 'wallet'), style: kMiddleFontOfGrey),
+      Text(
+        FlutterI18n.translate(ctx, 'wallet'),
+        style: FontTheme.of(ctx).middle.secondary(),
+      ),
       smallColumnSpacer(),
       GestureDetector(
         onTap: () => openSupernodeDeposit(ctx, Token.supernodeDhx),
@@ -444,24 +458,30 @@ class MiningTutorial extends StatefulWidget {
               CircleButton(
                 icon: Icon(
                   Icons.add,
-                  color: Token.supernodeDhx.color,
+                  color: Token.supernodeDhx.ui(_ctx).color,
                 ),
               ),
               smallRowSpacer(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(FlutterI18n.translate(ctx, 'deposit_dhx'),
-                      style: kBigFontOfBlack),
-                  Text(FlutterI18n.translate(ctx, 'tutorial_pv7_sub1'),
-                      style: kSmallFontOfBlack)
+                  Text(
+                    FlutterI18n.translate(ctx, 'deposit_dhx'),
+                    style: FontTheme.of(ctx).big(),
+                  ),
+                  Text(
+                    FlutterI18n.translate(ctx, 'tutorial_pv7_sub1'),
+                    style: FontTheme.of(ctx).small(),
+                  )
                 ],
               )
             ])),
       ),
       middleColumnSpacer(),
-      Text(FlutterI18n.translate(ctx, 'tutorial_pv7_label'),
-          style: kMiddleFontOfGrey),
+      Text(
+        FlutterI18n.translate(ctx, 'tutorial_pv7_label'),
+        style: FontTheme.of(ctx).middle.secondary(),
+      ),
       smallColumnSpacer(),
       GestureDetector(
         onTap: () => Navigator.pushNamed(ctx, 'lock_page',
@@ -483,17 +503,21 @@ class MiningTutorial extends StatefulWidget {
               CircleButton(
                 icon: Icon(
                   Icons.lock,
-                  color: Token.supernodeDhx.color,
+                  color: Token.supernodeDhx.ui(_ctx).color,
                 ),
               ),
               smallRowSpacer(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(FlutterI18n.translate(ctx, 'lock_mxc'),
-                      style: kBigFontOfBlack),
-                  Text(FlutterI18n.translate(ctx, 'tutorial_pv7_sub2'),
-                      style: kSmallFontOfBlack)
+                  Text(
+                    FlutterI18n.translate(ctx, 'lock_mxc'),
+                    style: FontTheme.of(ctx).big(),
+                  ),
+                  Text(
+                    FlutterI18n.translate(ctx, 'tutorial_pv7_sub2'),
+                    style: FontTheme.of(ctx).small(),
+                  )
                 ],
               )
             ])),
@@ -519,17 +543,21 @@ class MiningTutorial extends StatefulWidget {
               CircleButton(
                 icon: Image.asset(
                   AppImages.iconBond,
-                  color: Token.supernodeDhx.color,
+                  color: Token.supernodeDhx.ui(_ctx).color,
                 ),
               ),
               smallRowSpacer(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(FlutterI18n.translate(ctx, 'bond_dhx'),
-                      style: kBigFontOfBlack),
-                  Text(FlutterI18n.translate(ctx, 'tutorial_pv7_sub3'),
-                      style: kSmallFontOfBlack)
+                  Text(
+                    FlutterI18n.translate(ctx, 'bond_dhx'),
+                    style: FontTheme.of(ctx).big(),
+                  ),
+                  Text(
+                    FlutterI18n.translate(ctx, 'tutorial_pv7_sub3'),
+                    style: FontTheme.of(ctx).small(),
+                  )
                 ],
               )
             ])),
@@ -552,7 +580,7 @@ class _MiningTutorialState extends State<MiningTutorial> {
       middleColumnSpacer(),
       PrimaryButton(
           buttonTitle: FlutterI18n.translate(context, 'next'),
-          bgColor: Token.supernodeDhx.color,
+          bgColor: Token.supernodeDhx.ui(ctx).color,
           minWidth: double.infinity,
           onTap: () => setState(() => currentTutorialPageValue = 1))
     ]);
@@ -567,7 +595,7 @@ class _MiningTutorialState extends State<MiningTutorial> {
         CircleButton(
           icon: Icon(
             Icons.lock,
-            color: Token.supernodeDhx.color,
+            color: Token.supernodeDhx.ui(ctx).color,
           ),
           onTap: () => '',
         ),
@@ -576,9 +604,9 @@ class _MiningTutorialState extends State<MiningTutorial> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text('1. ${FlutterI18n.translate(context, 'lock_mxc')}',
-                style: kBigBoldFontOfBlack),
+                style: FontTheme.of(context).big.primary.bold()),
             Text(FlutterI18n.translate(context, 'tutorial_page2_txt1'),
-                style: kMiddleFontOfBlack),
+                style: FontTheme.of(context).middle()),
           ]),
         )
       ]),
@@ -587,7 +615,7 @@ class _MiningTutorialState extends State<MiningTutorial> {
         CircleButton(
           icon: Image.asset(
             AppImages.bottomBarMenus['gateway'],
-            color: Token.supernodeDhx.color,
+            color: Token.supernodeDhx.ui(ctx).color,
           ),
           onTap: () => '',
         ),
@@ -596,9 +624,9 @@ class _MiningTutorialState extends State<MiningTutorial> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text('2. ${FlutterI18n.translate(context, 'add_miner')}',
-                style: kBigBoldFontOfBlack),
+                style: FontTheme.of(context).big.primary.bold()),
             Text(FlutterI18n.translate(context, 'tutorial_page2_txt2'),
-                style: kMiddleFontOfBlack),
+                style: FontTheme.of(context).middle()),
           ]),
         )
       ]),
@@ -607,7 +635,7 @@ class _MiningTutorialState extends State<MiningTutorial> {
         CircleButton(
           icon: Icon(
             Icons.add,
-            color: Token.supernodeDhx.color,
+            color: Token.supernodeDhx.ui(ctx).color,
           ),
           onTap: () => '',
         ),
@@ -616,9 +644,9 @@ class _MiningTutorialState extends State<MiningTutorial> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text('3. ${FlutterI18n.translate(context, 'deposit_dhx')}',
-                style: kBigBoldFontOfBlack),
+                style: FontTheme.of(context).big.primary.bold()),
             Text(FlutterI18n.translate(context, 'tutorial_page2_txt3'),
-                style: kMiddleFontOfBlack),
+                style: FontTheme.of(context).middle()),
           ]),
         )
       ]),
@@ -627,7 +655,7 @@ class _MiningTutorialState extends State<MiningTutorial> {
         CircleButton(
           icon: Image.asset(
             AppImages.iconBond,
-            color: Token.supernodeDhx.color,
+            color: Token.supernodeDhx.ui(ctx).color,
           ),
           onTap: () => '',
         ),
@@ -636,16 +664,16 @@ class _MiningTutorialState extends State<MiningTutorial> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text('4. ${FlutterI18n.translate(context, 'bond_dhx')}',
-                style: kBigBoldFontOfBlack),
+                style: FontTheme.of(context).big.primary.bold()),
             Text(FlutterI18n.translate(context, 'tutorial_page2_txt4'),
-                style: kMiddleFontOfBlack),
+                style: FontTheme.of(context).middle()),
           ]),
         )
       ]),
       xbigColumnSpacer(),
       PrimaryButton(
           buttonTitle: FlutterI18n.translate(context, 'lets_go_learn_button'),
-          bgColor: Token.supernodeDhx.color,
+          bgColor: Token.supernodeDhx.ui(ctx).color,
           minWidth: double.infinity,
           onTap: () => setState(() => currentTutorialPageValue = 2))
     ]);
@@ -689,9 +717,9 @@ class _MiningTutorialState extends State<MiningTutorial> {
                       children: <Widget>[
                         for (int i = 0; i < widget._pages.length; i++)
                           if (i == currentPageViewValue) ...[
-                            circleBar(true)
+                            circleBar(context, true)
                           ] else
-                            circleBar(false),
+                            circleBar(context, false),
                       ],
                     ),
                   ),
@@ -704,14 +732,14 @@ class _MiningTutorialState extends State<MiningTutorial> {
     ]);
   }
 
-  Widget circleBar(bool isActive) {
+  Widget circleBar(BuildContext context, bool isActive) {
     return AnimatedContainer(
       duration: Duration(milliseconds: 150),
       margin: EdgeInsets.symmetric(horizontal: 8),
       height: isActive ? 12 : 8,
       width: isActive ? 12 : 8,
       decoration: BoxDecoration(
-          color: isActive ? Token.supernodeDhx.color : greyColor,
+          color: isActive ? Token.supernodeDhx.ui(context).color : greyColor,
           borderRadius: BorderRadius.all(Radius.circular(12))),
     );
   }

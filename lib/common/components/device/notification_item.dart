@@ -31,7 +31,7 @@ class NotificationItem extends StatelessWidget {
           child: ListTile(
             title: Text(
               '2020-05-20 09:39:12 14km -135dBm',
-              style: kMiddleFontOfGrey,
+              style: FontTheme.of(context).middle.secondary(),
             ),
             trailing: Image.asset(
               'assets/images/device/location_warn.png',

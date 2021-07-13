@@ -303,7 +303,8 @@ class _SupernodeLoginPageContentState
                                 onTap: onForgotPassword,
                                 child: Text(
                                   FlutterI18n.translate(context, 'forgot_hint'),
-                                  style: kMiddleFontOfGrey,
+                                  style:
+                                      FontTheme.of(context).middle.secondary(),
                                 ),
                               ),
                             ],
@@ -330,10 +331,14 @@ class _SupernodeLoginPageContentState
                                         Text(
                                           FlutterI18n.translate(
                                               context, 'wechat_login_title'),
-                                          style: kMiddleFontOfGreyLink,
+                                          style: FontTheme.of(context)
+                                              .middle
+                                              .secondary
+                                              .underline(),
                                         )
                                       ],
-                                    ))
+                                    ),
+                                  )
                                 : SizedBox(),
                           ),
                           PrimaryButton(
@@ -401,7 +406,10 @@ class _SupernodeLoginPageContentState
                                 child: Text(
                                     FlutterI18n.translate(
                                         context, 'super_node'),
-                                    style: kBigBoldFontOfBlack),
+                                    style: FontTheme.of(context)
+                                        .big
+                                        .primary
+                                        .bold()),
                               ),
                               Positioned(
                                 right: s(15),
@@ -419,7 +427,7 @@ class _SupernodeLoginPageContentState
                             child: Text(
                               FlutterI18n.translate(
                                   context, 'supernode_instructions'),
-                              style: kSecondaryButtonOfBlack,
+                              style: FontTheme.of(context).middle.primary(),
                               textAlign: TextAlign.center,
                             ),
                           ),

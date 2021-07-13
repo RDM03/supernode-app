@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class Empty extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class _EmptyState extends State<Empty> {
       height: 50,
       child: Text(
         FlutterI18n.translate(context, 'no_data'),
-        style: kMiddleFontOfGrey,
+        style: FontTheme.of(context).middle.secondary(),
       ),
     );
   }

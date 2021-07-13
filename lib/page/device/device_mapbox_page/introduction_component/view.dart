@@ -10,6 +10,7 @@ import 'package:supernodeapp/page/device/device_mapbox_page/action.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/introduction_component/action.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
 
@@ -74,7 +75,7 @@ Widget buildView(
     );
   }
 
-  Widget _buildRadioListTile(
+  Widget _buildRadioListTile(BuildContext context,
       {String value, String groupValue, ValueChanged onChanged}) {
     return Row(
       children: <Widget>[
@@ -86,7 +87,7 @@ Widget buildView(
         ),
         Text(
           value ?? "",
-          style: kMiddleFontOfGrey,
+          style: FontTheme.of(context).middle.secondary(),
         ),
       ],
     );
@@ -102,7 +103,7 @@ Widget buildView(
             padding: EdgeInsets.only(top: 16, bottom: 16),
             child: Text(
               FlutterI18n.translate(_ctx, 'congratulation') + "!",
-              style: kVeryBigFontOfBlack,
+              style: FontTheme.of(_ctx).veryBig(),
             ),
           ),
           Container(
@@ -112,7 +113,7 @@ Widget buildView(
                 Text(
                   FlutterI18n.translate(_ctx, 'connected_device_success'),
                   textAlign: TextAlign.center,
-                  style: kBigFontOfGrey,
+                  style: FontTheme.of(_ctx).big.secondary(),
                 ),
               ],
             ),
@@ -131,9 +132,9 @@ Widget buildView(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(FlutterI18n.translate(_ctx, 'strong_signal'),
-                    style: kSmallFontOfGrey),
+                    style: FontTheme.of(_ctx).small.secondary()),
                 Text(FlutterI18n.translate(_ctx, 'weak_signal'),
-                    style: kSmallFontOfGrey),
+                    style: FontTheme.of(_ctx).small.secondary()),
               ],
             ),
           ),
@@ -159,7 +160,7 @@ Widget buildView(
             padding: EdgeInsets.only(top: 16, bottom: 16),
             child: Text(
               FlutterI18n.translate(_ctx, 'set_borders'),
-              style: kVeryBigFontOfBlack,
+              style: FontTheme.of(_ctx).veryBig(),
             ),
           ),
           Container(
@@ -167,7 +168,7 @@ Widget buildView(
             child: Text(
               FlutterI18n.translate(_ctx, 'set_borders_desc'),
               textAlign: TextAlign.center,
-              style: kBigFontOfGrey,
+              style: FontTheme.of(_ctx).big.secondary(),
             ),
           ),
           Container(
@@ -183,7 +184,7 @@ Widget buildView(
     );
   }
 
-  Widget _buildThirdBody() {
+  Widget _buildThirdBody(BuildContext context) {
     return ListView(
       children: <Widget>[
         Container(
@@ -191,7 +192,7 @@ Widget buildView(
           padding: EdgeInsets.only(top: 16, bottom: 16),
           child: Text(
             FlutterI18n.translate(_ctx, 'your_data_matters'),
-            style: kVeryBigFontOfBlack,
+            style: FontTheme.of(context).veryBig(),
           ),
         ),
         Container(
@@ -203,7 +204,7 @@ Widget buildView(
                 child: Text(
                   FlutterI18n.translate(_ctx, 'oracle_desc'),
                   textAlign: TextAlign.center,
-                  style: kBigFontOfGrey,
+                  style: FontTheme.of(context).big.secondary(),
                 ),
               ),
             ],
@@ -217,18 +218,20 @@ Widget buildView(
               padding: EdgeInsets.only(top: 30),
               child: Text(
                 FlutterI18n.translate(_ctx, 'device_who_use'),
-                style: kBigFontOfBlack,
+                style: FontTheme.of(context).big(),
               ),
             ),
             Row(
               children: <Widget>[
                 _buildRadioListTile(
+                  context,
                   value: FlutterI18n.translate(_ctx, 'me'),
                   groupValue: state.userGroupValue,
                   onChanged: (value) =>
                       dispatch(IntroductionActionCreator.onChangeRadio(value)),
                 ),
                 _buildRadioListTile(
+                  context,
                   value: FlutterI18n.translate(_ctx, 'family_member'),
                   groupValue: state.userGroupValue,
                   onChanged: (value) =>
@@ -246,24 +249,27 @@ Widget buildView(
               padding: EdgeInsets.only(top: 10),
               child: Text(
                 FlutterI18n.translate(_ctx, 'user_gender'),
-                style: kBigFontOfBlack,
+                style: FontTheme.of(context).big(),
               ),
             ),
             Row(
               children: <Widget>[
                 _buildRadioListTile(
+                  context,
                   value: FlutterI18n.translate(_ctx, 'male'),
                   groupValue: state.genderGroupValue,
                   onChanged: (value) => dispatch(
                       IntroductionActionCreator.onChangeGenderRadio(value)),
                 ),
                 _buildRadioListTile(
+                  context,
                   value: FlutterI18n.translate(_ctx, 'female'),
                   groupValue: state.genderGroupValue,
                   onChanged: (value) => dispatch(
                       IntroductionActionCreator.onChangeGenderRadio(value)),
                 ),
                 _buildRadioListTile(
+                  context,
                   value: FlutterI18n.translate(_ctx, 'non-binary'),
                   groupValue: state.genderGroupValue,
                   onChanged: (value) => dispatch(
@@ -276,6 +282,7 @@ Widget buildView(
         Container(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: textfieldWithButton(
+              context: _ctx,
               readOnly: true,
               inputLabel: state.userGroupValue ==
                       FlutterI18n.translate(_ctx, 'for_my_pet')
@@ -334,8 +341,10 @@ Widget buildView(
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Text(FlutterI18n.translate(_ctx, 'skip'),
-                                    style: kBigFontOfBlack),
+                                Text(
+                                  FlutterI18n.translate(_ctx, 'skip'),
+                                  style: FontTheme.of(_ctx).big(),
+                                ),
                                 Icon(Icons.arrow_forward_ios, size: 24),
                               ],
                             ),
@@ -375,7 +384,7 @@ Widget buildView(
       ),
       _buildPage(
         showSkip: true,
-        PageBody: _buildThirdBody(),
+        PageBody: _buildThirdBody(_ctx),
         selectIndex: 2,
       ),
     ],

@@ -8,7 +8,7 @@ import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
 import 'package:supernodeapp/page/home_page/wallet/expanded_view.dart';
 import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
-import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../shared.dart';
 
@@ -32,12 +32,12 @@ class _WalletTabState extends State<WalletTab> {
                 context,
                 null,
                 title: Text(
-                  state.walletSelectedToken.fullName,
-                  style: kBigFontOfBlack,
+                  state.walletSelectedToken.ui(context).fullName,
+                  style: FontTheme.of(context).big(),
                 ),
                 onPressed: () => openSettings(context),
               ),
-        body: state.walletSelectedToken == null
+        body: state.walletSelectedToken.ui(context) == null
             ? BlocBuilder<HomeCubit, HomeState>(
                 builder: (ctx, state) => PageBody(
                   children: [

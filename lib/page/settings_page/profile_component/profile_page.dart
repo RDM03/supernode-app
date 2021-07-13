@@ -22,6 +22,7 @@ import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -97,7 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           FlutterI18n.translate(
                                   context, 'confirm_wechat_unbind')
                               .replaceFirst('{0}', s.username),
-                          style: kMiddleFontOfBlack,
+                          style: FontTheme.of(context).middle(),
                           textAlign: TextAlign.center,
                         ))),
             Padding(
@@ -130,7 +131,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Column(children: [
               SizedBox(height: 20),
               Text(FlutterI18n.translate(context, 'shopify_email_instruction'),
-                  style: kBigBoldFontOfBlack),
+                  style: FontTheme.of(context).big.primary.bold()),
               SizedBox(height: 30),
               TextFieldWithTitle(
                 title: FlutterI18n.translate(context, 'email'),
@@ -169,7 +170,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Column(children: [
               SizedBox(height: 20),
               Text(FlutterI18n.translate(context, 'send_email'),
-                  style: kBigFontOfBlack),
+                  style: FontTheme.of(context).big()),
               SizedBox(height: 30),
               PrimaryTextField(controller: shopifyVerificationCodeControler),
               Spacer(),
@@ -249,7 +250,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       builder: (ctx, s) => Text(
                             s.username,
                             key: Key('usernameText'),
-                            style: kBigFontOfBlack,
+                            style: FontTheme.of(context).big(),
                           )),
                 ),
                 SizedBox(height: 30),
@@ -314,7 +315,7 @@ class _ProfilePageState extends State<ProfilePage> {
               width: double.infinity,
               child: Text(
                 FlutterI18n.translate(context, 'manage'),
-                style: kMiddleFontOfGrey,
+                style: FontTheme.of(context).middle.secondary(),
               )),
           BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
               buildWhen: (a, b) => a.weChatUser != b.weChatUser,
@@ -341,7 +342,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           title: Text(
                               FlutterI18n.translate(
                                   context, 'bind_shopify_button'),
-                              style: kBigFontOfGrey),
+                              style: FontTheme.of(context).big.secondary()),
                           trailing:
                               Icon(Icons.chevron_right, color: greyColor)),
                       // listItem(

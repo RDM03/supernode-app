@@ -11,6 +11,7 @@ import 'package:supernodeapp/page/sign_up_page/registration_component/registrati
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../../../route.dart';
 
@@ -73,9 +74,9 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                     children: <Widget>[
                       SizedBox(height: 20),
                       Text(FlutterI18n.translate(context, 'enail_confirmation'),
-                          style: kBigFontOfDarkBlue),
+                          style: FontTheme.of(context).big.mxc()),
                       Text(FlutterI18n.translate(context, 'send_email'),
-                          style: kBigFontOfBlack),
+                          style: FontTheme.of(context).big()),
                       SizedBox(height: 30),
                       Form(
                         //TODO key: state.formKey,

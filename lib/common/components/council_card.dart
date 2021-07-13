@@ -64,11 +64,11 @@ class CouncilCard extends StatelessWidget {
                   children: [
                     Text(
                       council.name,
-                      style: kBigFontOfBlue,
+                      style: FontTheme.of(context).big.mxc(),
                     ),
                     Text(
                       '${FlutterI18n.translate(context, 'latest_mpower')} : ${Tools.numberRounded(Tools.convertDouble(council.lastMpower))}',
-                      style: kMiddleFontOfBlack,
+                      style: FontTheme.of(context).middle(),
                     ),
                   ],
                 ),

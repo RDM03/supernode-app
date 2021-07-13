@@ -55,7 +55,7 @@ class _DataHighwayImport2PageState extends State<DataHighwayImport2Page> {
       backgroundColor: whiteColor,
       body: Theme(
         data: Theme.of(context).copyWith(
-          primaryColor: Token.parachainDhx.color,
+          primaryColor: Token.parachainDhx.ui(context).color,
         ),
         child: Column(
           children: [
@@ -83,7 +83,7 @@ class _DataHighwayImport2PageState extends State<DataHighwayImport2Page> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: PrimaryButton(
-                  bgColor: Token.parachainDhx.color,
+                  bgColor: Token.parachainDhx.ui(context).color,
                   buttonTitle: 'Next',
                   onTap: () {
                     context.read<DataHighwayCubit>().setDataHighwaySession(

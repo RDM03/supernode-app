@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class DDNav extends StatelessWidget {
   final String title;
@@ -35,7 +36,7 @@ class DDNav extends StatelessWidget {
                       onTap: () => Navigator.of(context).pop()))),
           Spacer(),
           Text(FlutterI18n.translate(context, title),
-              style: kBigBoldFontOfBlack),
+              style: FontTheme.of(context).big.primary.bold()),
           Spacer(),
           Container(
               width: 100,

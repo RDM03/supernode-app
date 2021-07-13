@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 enum FuelFilter {
   fuelLowToHigh,
@@ -47,7 +48,7 @@ IosStyleBottomDialog2 filterDialog() {
         Center(
           child: Text(
             'Sort Miners',
-            style: kBigFontOfBlack,
+            style: FontTheme.of(context).big(),
             textAlign: TextAlign.center,
           ),
         ),

@@ -20,7 +20,9 @@ class ActionButton extends StatelessWidget {
     return FlatButton(
       child: Text(
         text,
-        style: primary ? kMiddleFontOfWhite : kMiddleFontOfBlack,
+        style: primary
+            ? FontTheme.of(context).middle.label()
+            : FontTheme.of(context).middle(),
       ),
       onPressed: onTap,
       color: primary
@@ -58,7 +60,7 @@ class SmallActionButton extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: kSmallFontOfWhite,
+            style: FontTheme.of(context).small.secondary(),
           ),
         ),
         onTap: onTap,

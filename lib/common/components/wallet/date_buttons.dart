@@ -78,7 +78,7 @@ Widget dateButtons(
           child: GestureDetector(
             child: Text(
               thirdText ?? '',
-              style: kMiddleFontOfGreyLink,
+              style: FontTheme.of(context).middle.secondary.underline(),
             ),
             onTap: onSearch,
           ),

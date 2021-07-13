@@ -17,6 +17,7 @@ import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/home_page/wallet/supernode_dhx_token/actions.dart';
 import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 import 'transactions_history.dart';
 import 'mining_income.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -57,7 +58,7 @@ class _SupernodeDhxTokenPageContentState
                 groupValue: selectedTab,
                 onValueChanged: (tabIndex) =>
                     setState(() => selectedTab = tabIndex),
-                thumbColor: Token.supernodeDhx.color,
+                thumbColor: Token.supernodeDhx.ui(context).color,
                 children: <int, Widget>{
                   0: Text(
                     FlutterI18n.translate(context, 'transaction_history'),
@@ -94,8 +95,10 @@ class DhxMiningCard extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(FlutterI18n.translate(context, "mining_ability"),
-                  style: kBigBoldFontOfBlack),
+              Text(
+                FlutterI18n.translate(context, "mining_ability"),
+                style: FontTheme.of(context).big.primary.bold(),
+              ),
               Spacer(),
               GestureDetector(
                 key: Key('boostMpowerTap'),
@@ -109,7 +112,8 @@ class DhxMiningCard extends StatelessWidget {
                         horizontal: 8.0, vertical: 4.0),
                     child: Text(
                       '+ ${FlutterI18n.translate(context, 'boost_mpower')}',
-                      style: MiddleFontOfColor(color: Token.supernodeDhx.color),
+                      style: MiddleFontOfColor(
+                          color: Token.supernodeDhx.ui(context).color),
                     ),
                   ),
                 ),
@@ -130,7 +134,7 @@ class DhxMiningCard extends StatelessWidget {
                   name: FlutterI18n.translate(
                       context, 'estimated_dxh_daily_return'),
                   value: '5000.00',
-                  token: Token.supernodeDhx.name,
+                  token: Token.supernodeDhx.ui(context).name,
                 ),
                 BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
                   buildWhen: (a, b) =>
@@ -171,14 +175,14 @@ class NumberMinersAndMPower extends StatelessWidget {
               SizedBox(height: s(5)),
               Container(
                 decoration: BoxDecoration(
-                    color: Token.supernodeDhx.color,
+                    color: Token.supernodeDhx.ui(context).color,
                     borderRadius: BorderRadius.all(Radius.circular(5))),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 8.0, vertical: 4.0),
                   child: Text(
                     FlutterI18n.translate(context, 'm2pro_miner'),
-                    style: kSecondaryButtonOfWhite,
+                    style: FontTheme.of(context).middle.secondary(),
                   ),
                 ),
               )
@@ -208,7 +212,7 @@ class NumberMinersAndMPower extends StatelessWidget {
               SizedBox(height: s(5)),
               Container(
                 decoration: BoxDecoration(
-                    color: Token.supernodeDhx.color,
+                    color: Token.supernodeDhx.ui(context).color,
                     borderRadius: BorderRadius.all(Radius.circular(5))),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -219,14 +223,14 @@ class NumberMinersAndMPower extends StatelessWidget {
                       Text(
                         FlutterI18n.translate(context, 'm2pro_miner'),
                         style: TextStyle(
-                          color: Token.supernodeDhx.color,
+                          color: Token.supernodeDhx.ui(context).color,
                           fontFamily: "Roboto",
                           fontSize: 14,
                         ),
                       ), // invisible - sets width for Container
                       Text(
                         FlutterI18n.translate(context, 'mpower'),
-                        style: kSecondaryButtonOfWhite,
+                        style: FontTheme.of(context).middle.secondary(),
                       )
                     ],
                   ),

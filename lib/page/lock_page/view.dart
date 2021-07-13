@@ -13,6 +13,7 @@ import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
 
@@ -39,7 +40,7 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
             Row(
               children: [
                 Text(FlutterI18n.translate(context, 'lock_mxc'),
-                    style: kBigBoldFontOfBlack),
+                    style: FontTheme.of(context).big.primary.bold()),
                 smallRowSpacer(),
                 GestureDetector(
                   onTap: () => _showInfoDialog(context),
@@ -53,26 +54,31 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
             ),
             smallColumnSpacer(),
             Text(FlutterI18n.translate(context, 'lock_tip'),
-                style: kMiddleFontOfGrey),
+                style: FontTheme.of(context).middle.secondary()),
             smallColumnSpacer(),
             RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
                     text: FlutterI18n.translate(context, 'learn_more'),
-                    style: kMiddleFontOfBlueLink.copyWith(
-                        color: Token.supernodeDhx.color),
+                    style: FontTheme.of(context)
+                        .middle
+                        .mxc
+                        .underline()
+                        .copyWith(color: Token.supernodeDhx.ui(context).color),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () =>
                           Navigator.push(context, MaterialPageRoute<void>(
                             builder: (BuildContext context) {
                               return Scaffold(
                                 appBar: AppBars.backArrowSkipAppBar(
-                                    title: FlutterI18n.translate(
-                                        context, 'tutorial_title'),
-                                    onPress: () => Navigator.pop(context),
-                                    action:
-                                        FlutterI18n.translate(context, "skip")),
+                                  context,
+                                  title: FlutterI18n.translate(
+                                      context, 'tutorial_title'),
+                                  onPress: () => Navigator.pop(context),
+                                  action:
+                                      FlutterI18n.translate(context, "skip"),
+                                ),
                                 body: MiningTutorial(context),
                               );
                             },
@@ -224,10 +230,10 @@ Widget _lockCard({
       ),
       subtitle: Text(
         boostText == null ? '...' : boostText,
-        style: kMiddleFontOfBlack.copyWith(
-          color: Token.supernodeDhx.color,
-          fontWeight: FontWeight.w600,
-        ),
+        style: FontTheme.of(context).middle().copyWith(
+              color: Token.supernodeDhx.ui(context).color,
+              fontWeight: FontWeight.w600,
+            ),
         key: Key('setBoost'),
       ),
     ),

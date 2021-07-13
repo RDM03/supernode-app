@@ -12,7 +12,7 @@ Widget homeBar(BuildContext context, String titleText,
     title: title ??
         Text(
           titleText,
-          style: kBigBoldFontOfBlack,
+          style: FontTheme.of(context).big.primary.bold(),
         ),
     actions: [
       action != null

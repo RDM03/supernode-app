@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/title.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class SendToWalletConfirmPage extends StatelessWidget {
   final dynamic error;
@@ -30,7 +31,7 @@ class SendToWalletConfirmPage extends StatelessWidget {
           PageNavBar(
             text: FlutterI18n.translate(context, 'send_to_wallet'),
             centerTitle: true,
-            textStyle: kBigBoldFontOfBlack,
+            textStyle: FontTheme.of(context).big.primary.bold(),
             onTap: () => Navigator.of(context).pop(),
           ),
           SizedBox(height: 10),
@@ -60,7 +61,7 @@ class SendToWalletConfirmPage extends StatelessWidget {
               buttonTitle: FlutterI18n.translate(context, 'done'),
               bgColor: healthColor,
               minWidth: 0,
-              style: kBigFontOfWhite,
+              style: FontTheme.of(context).big.label(),
             ),
           ),
           SizedBox(height: 40),

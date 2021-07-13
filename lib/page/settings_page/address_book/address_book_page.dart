@@ -87,7 +87,7 @@ class _AddressBookPageState extends State<AddressBookPage> {
       children: [
         SizedBox(height: 20),
         PageNavBar(
-          text: widget.type.token.name +
+          text: widget.type.token.ui(context).name +
               ' ' +
               FlutterI18n.translate(context, 'address_book'),
           padding: EdgeInsets.symmetric(horizontal: 20),

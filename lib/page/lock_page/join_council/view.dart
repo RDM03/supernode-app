@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -36,14 +37,14 @@ Widget buildView(
         SizedBox(height: 4),
         Text(
           FlutterI18n.translate(context, 'join_council_tip_1'),
-          style: kMiddleFontOfGrey,
+          style: FontTheme.of(context).middle.secondary(),
         ),
         SizedBox(height: 4),
         Text(
           FlutterI18n.translate(context, 'join_council_tip_2'),
-          style: kMiddleFontOfGrey,
+          style: FontTheme.of(context).middle.secondary(),
         ),
-        link(
+        Link(
           FlutterI18n.translate(context, 'become_council_chair'),
           alignment: Alignment.centerLeft,
           key: ValueKey('becomeCouncilLink'),
@@ -90,24 +91,24 @@ showNoCouncilsDialog(ScaffoldState scaffoldState) {
         children: [
           Text(
             FlutterI18n.translate(ctx, 'sorry'),
-            style: kMiddleFontOfBlue,
+            style: FontTheme.of(ctx).middle.mxc(),
           ),
           SizedBox(height: 10),
           Text(
             FlutterI18n.translate(ctx, 'no_councils_description'),
-            style: kSmallFontOfGrey,
+            style: FontTheme.of(ctx).small.secondary(),
           ),
           SizedBox(height: 10),
           Text(
             FlutterI18n.translate(ctx, 'council_requirments_list'),
-            style: kMiddleFontOfBlack,
+            style: FontTheme.of(ctx).middle(),
           ),
         ],
       ),
       cancelButton: CupertinoActionSheetAction(
         child: Text(
           FlutterI18n.translate(ctx, 'got_it'),
-          style: kBigFontOfGrey,
+          style: FontTheme.of(ctx).big.secondary(),
         ),
         onPressed: () => Navigator.of(ctx).pop(),
       ),
@@ -123,29 +124,29 @@ showDoesntMeetRequirmentsDialog(ScaffoldState scaffoldState) {
         children: [
           Text(
             FlutterI18n.translate(ctx, 'sorry'),
-            style: kMiddleFontOfBlue,
+            style: FontTheme.of(ctx).middle.mxc(),
           ),
           SizedBox(height: 10),
           Text(
             FlutterI18n.translate(ctx, 'council_requirments_not_meet_1'),
-            style: kSmallFontOfGrey,
+            style: FontTheme.of(ctx).small.secondary(),
           ),
           SizedBox(height: 10),
           Text(
             FlutterI18n.translate(ctx, 'council_requirments_list'),
-            style: kSmallFontOfBlack,
+            style: FontTheme.of(ctx).small(),
           ),
           SizedBox(height: 10),
           Text(
             FlutterI18n.translate(ctx, 'council_requirments_not_meet_2'),
-            style: kSmallFontOfGrey,
+            style: FontTheme.of(ctx).small.secondary(),
           ),
         ],
       ),
       cancelButton: CupertinoActionSheetAction(
         child: Text(
           FlutterI18n.translate(ctx, 'OK'),
-          style: kBigFontOfGrey,
+          style: FontTheme.of(ctx).big.secondary(),
         ),
         onPressed: () => Navigator.of(ctx).pop(),
       ),
@@ -161,22 +162,22 @@ Future<bool> showBecomeCouncilChairDialog(ScaffoldState scaffoldState) async {
         children: [
           Text(
             FlutterI18n.translate(ctx, 'congratulations'),
-            style: kMiddleFontOfBlue,
+            style: FontTheme.of(ctx).middle.mxc(),
           ),
           SizedBox(height: 10),
           Text(
             FlutterI18n.translate(ctx, 'council_requirments_1'),
-            style: kSmallFontOfGrey,
+            style: FontTheme.of(ctx).small.secondary(),
           ),
           SizedBox(height: 10),
           Text(
             FlutterI18n.translate(ctx, 'council_requirments_list'),
-            style: kSmallFontOfBlack,
+            style: FontTheme.of(ctx).small(),
           ),
           SizedBox(height: 10),
           Text(
             FlutterI18n.translate(ctx, 'council_requirments_2'),
-            style: kSmallFontOfGrey,
+            style: FontTheme.of(ctx).small.secondary(),
           ),
         ],
       ),
@@ -189,7 +190,7 @@ Future<bool> showBecomeCouncilChairDialog(ScaffoldState scaffoldState) async {
       cancelButton: CupertinoActionSheetAction(
         child: Text(
           FlutterI18n.translate(ctx, 'cancel_normalized'),
-          style: kBigFontOfGrey,
+          style: FontTheme.of(ctx).big.secondary(),
         ),
         onPressed: () => Navigator.of(ctx).pop(),
       ),

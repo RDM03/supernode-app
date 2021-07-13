@@ -45,7 +45,7 @@ class _MxcTokenPageContentState extends State<MxcTokenPageContent>
                 groupValue: selectedTab,
                 onValueChanged: (tabIndex) =>
                     setState(() => selectedTab = tabIndex),
-                thumbColor: Token.mxc.color,
+                thumbColor: Token.mxc.ui(context).color,
                 children: <int, Widget>{
                   0: Text(
                     FlutterI18n.translate(context, 'transaction_history'),

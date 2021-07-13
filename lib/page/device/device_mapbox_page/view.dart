@@ -9,6 +9,7 @@ import 'package:supernodeapp/common/components/page/drag_page.dart';
 import 'package:supernodeapp/common/components/widgets/scaffold_widget.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -102,6 +103,7 @@ Widget _buildFrontWidget(
     case TabDetailPageEnum.Discovery:
       nextPage = _buildPage(
         appBar: _buildAppBar(
+          _ctx,
           title: 'Gateway_01234',
           trackingWidget: InkWell(
             onTap: () {
@@ -119,6 +121,7 @@ Widget _buildFrontWidget(
     case TabDetailPageEnum.Footprints:
       nextPage = _buildPage(
         appBar: _buildAppBar(
+          _ctx,
           title: '2020-05-22 09:39:12 14km -135dBm',
           trackingWidget: InkWell(
             onTap: () {
@@ -139,6 +142,7 @@ Widget _buildFrontWidget(
     case TabDetailPageEnum.Notification:
       nextPage = _buildPage(
         appBar: _buildAppBar(
+          _ctx,
           title: 'Out of Border Notification',
           trackingWidget: InkWell(
             onTap: () {
@@ -166,18 +170,23 @@ Widget _buildFrontWidget(
               children: <Widget>[
                 _buildPage(
                   appBar: _buildAppBar(
-                      title: FlutterI18n.translate(_ctx, 'discovery')),
+                    _ctx,
+                    title: FlutterI18n.translate(_ctx, 'discovery'),
+                  ),
                   pageContent: viewService.buildComponent('discover'),
                 ),
                 _buildPage(
                   appBar: _buildAppBar(
-                      title: FlutterI18n.translate(_ctx, 'footprints')),
+                    _ctx,
+                    title: FlutterI18n.translate(_ctx, 'footprints'),
+                  ),
                   pageContent: viewService.buildComponent('footprints'),
                 ),
                 _buildPage(
                   appBar: _buildAppBar(
-                      title:
-                          FlutterI18n.translate(_ctx, 'notification_single')),
+                    _ctx,
+                    title: FlutterI18n.translate(_ctx, 'notification_single'),
+                  ),
                   pageContent: viewService.buildComponent('notification'),
                 ),
               ],
@@ -199,7 +208,8 @@ Widget _buildFrontWidget(
   );
 }
 
-Widget _buildAppBar({String title, Widget trackingWidget}) {
+Widget _buildAppBar(BuildContext context,
+    {String title, Widget trackingWidget}) {
   return Container(
     width: double.infinity,
     padding: EdgeInsets.only(top: 8),
@@ -224,7 +234,7 @@ Widget _buildAppBar({String title, Widget trackingWidget}) {
           Expanded(
             child: Text(
               title ?? "",
-              style: kBigFontOfBlack,
+              style: FontTheme.of(context).big(),
             ),
           ),
           trackingWidget != null ? trackingWidget : SizedBox(),

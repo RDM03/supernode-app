@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 @deprecated
 // Use [PageNavBar] instead
@@ -11,31 +11,33 @@ Widget pageNavBar(
   Widget actionWidget,
   Widget leadingWidget,
 }) {
-  return Container(
-    padding: padding,
-    child: Row(
-      children: <Widget>[
-        if (leadingWidget != null) ...[
-          leadingWidget,
+  return Builder(
+    builder: (context) => Container(
+      padding: padding,
+      child: Row(
+        children: <Widget>[
+          if (leadingWidget != null) ...[
+            leadingWidget,
+            Spacer(),
+          ],
+          Text(
+            name,
+            textAlign: TextAlign.left,
+            style: FontTheme.of(context).big(),
+          ),
           Spacer(),
+          GestureDetector(
+            key: ValueKey('navActionButton'),
+            child: actionWidget == null
+                ? Icon(
+                    Icons.close,
+                    color: blackColor,
+                  )
+                : actionWidget,
+            onTap: onTap,
+          ),
         ],
-        Text(
-          name,
-          textAlign: TextAlign.left,
-          style: kBigFontOfBlack,
-        ),
-        Spacer(),
-        GestureDetector(
-          key: ValueKey('navActionButton'),
-          child: actionWidget == null
-              ? Icon(
-                  Icons.close,
-                  color: blackColor,
-                )
-              : actionWidget,
-          onTap: onTap,
-        ),
-      ],
+      ),
     ),
   );
 }
@@ -54,7 +56,7 @@ class PageNavBar extends StatelessWidget {
     @required this.text,
     this.padding,
     this.onTap,
-    this.textStyle = kBigFontOfBlack,
+    this.textStyle,
     this.actionWidget = const Icon(
       Icons.close,
       color: blackColor,
@@ -77,7 +79,7 @@ class PageNavBar extends StatelessWidget {
             child: Text(
               text,
               textAlign: centerTitle ? TextAlign.center : TextAlign.left,
-              style: textStyle,
+              style: textStyle ?? FontTheme.of(context).big(),
             ),
           ),
           SizedBox(

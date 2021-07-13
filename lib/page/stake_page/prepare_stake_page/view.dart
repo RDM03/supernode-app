@@ -61,8 +61,9 @@ Widget buildView(
                         FlutterI18n.translate(_ctx, 'x_month_stake')
                             .replaceFirst('{0}', state.months.toString()),
                     textAlign: TextAlign.left,
-                    style:
-                        kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
+                    style: FontTheme.of(_ctx)
+                        .big()
+                        .copyWith(fontWeight: FontWeight.w600),
                   ),
                   Text(
                     state.months == null
@@ -77,7 +78,7 @@ Widget buildView(
                                 '{0}', state.marketingBoost.toString())
                             .replaceFirst('{1}', state.months.toString())),
                     textAlign: TextAlign.left,
-                    style: kMiddleFontOfGrey,
+                    style: FontTheme.of(_ctx).middle.secondary(),
                   ),
                 ],
               ),
@@ -90,23 +91,21 @@ Widget buildView(
             children: [
               Text(
                 FlutterI18n.translate(_ctx, 'estimated_rate'),
-                style: kSmallFontOfGrey.copyWith(
-                  color: ColorsTheme.of(_ctx).mxcBlue,
-                ),
+                style: FontTheme.of(_ctx).small.mxc(),
               ),
               SizedBox(height: 2),
               Text(
                 '+${state.estimatedRate}%',
-                style: kBigFontOfDarkBlue.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
-                ),
+                style: FontTheme.of(_ctx).big.mxc().copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                    ),
               ),
               SizedBox(height: 3),
               Text(
                 FlutterI18n.translate(_ctx, 'boost_formula')
                     .replaceFirst('{0}', state.boostRate.toString()),
-                style: kSmallFontOfGrey,
+                style: FontTheme.of(_ctx).small.secondary(),
                 textAlign: TextAlign.center,
               )
             ],
@@ -172,7 +171,7 @@ Widget buildView(
             Expanded(
               child: Text(
                 FlutterI18n.translate(_ctx, 'current_balance'),
-                style: kSmallFontOfGrey,
+                style: FontTheme.of(_ctx).small.secondary(),
               ),
             ),
             Text(Tools.priceFormat(state.balance, range: 2) + ' MXC'),
@@ -217,21 +216,21 @@ Widget buildView(
                 Expanded(
                   child: Text(
                     '0%',
-                    style: kSmallFontOfGrey,
+                    style: FontTheme.of(_ctx).small.secondary(),
                     textAlign: TextAlign.left,
                   ),
                 ),
                 Expanded(
                   child: Text(
                     '50%',
-                    style: kSmallFontOfGrey,
+                    style: FontTheme.of(_ctx).small.secondary(),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Expanded(
                   child: Text(
                     '100%',
-                    style: kSmallFontOfGrey,
+                    style: FontTheme.of(_ctx).small.secondary(),
                     textAlign: TextAlign.right,
                   ),
                 ),
@@ -268,7 +267,7 @@ _infoCircle(BuildContext context, String text, String date) {
       children: [
         Text(
           text,
-          style: kSmallFontOfBlack,
+          style: FontTheme.of(context).small(),
           textAlign: TextAlign.center,
         ),
         SizedBox(height: 14),
@@ -286,7 +285,7 @@ _infoCircle(BuildContext context, String text, String date) {
         SizedBox(height: 14),
         Text(
           date,
-          style: kSmallFontOfGrey,
+          style: FontTheme.of(context).small.secondary(),
         ),
       ],
     ),

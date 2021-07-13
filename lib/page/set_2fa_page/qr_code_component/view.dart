@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/components/page/paragraph.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../action.dart';
 import 'state.dart';
@@ -83,7 +84,7 @@ Widget buildView(
                               child: SelectableText(
                             state.secret,
                             textAlign: TextAlign.center,
-                            style: kMiddleFontOfGrey,
+                            style: FontTheme.of(_ctx).middle.secondary(),
                           )),
                         ],
                       ),

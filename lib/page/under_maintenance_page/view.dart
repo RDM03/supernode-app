@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/utils/auth.dart';
 import 'package:supernodeapp/page/under_maintenance_page/action.dart';
+import 'package:supernodeapp/theme/theme.dart';
 import 'state.dart';
 import 'package:supernodeapp/theme/font.dart';
 
@@ -59,7 +60,7 @@ class _UnderMaintenancePageView extends StatelessWidget {
                   onTap: loading ? null : onLogOut,
                   child: Text(
                     FlutterI18n.translate(context, 'logout'),
-                    style: kMiddleFontOfGrey,
+                    style: FontTheme.of(context).middle.secondary(),
                   ),
                 ),
                 Spacer(),

@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/components/widgets/bar_graph.dart';
 import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class GraphEntity {
   final DateTime date;
@@ -99,7 +100,7 @@ class _GraphCardState extends State<GraphCard> {
                 child: Text(
                   widget.subtitle ??
                       FlutterI18n.translate(context, 'score_weekly'),
-                  style: kMiddleFontOfGrey,
+                  style: FontTheme.of(context).middle.secondary(),
                 ),
               ),
               if (widget.online == true) ...[
@@ -142,12 +143,12 @@ class _GraphCardState extends State<GraphCard> {
               Expanded(
                 child: Text(
                   widget.title ?? '50% (84h)',
-                  style: kBigFontOfDarkBlue,
+                  style: FontTheme.of(context).big.mxc(),
                 ),
               ),
               Text(
                 '${getMD(widget.startDate ?? DateTime.now())} - ${getMD(widget.endDate ?? DateTime.now())}',
-                style: kMiddleFontOfGrey,
+                style: FontTheme.of(context).middle.secondary(),
               ),
             ],
           ),
@@ -159,7 +160,7 @@ class _GraphCardState extends State<GraphCard> {
               children: [
                 Text(
                   FlutterI18n.translate(context, 'last_seen'),
-                  style: kMiddleFontOfGrey,
+                  style: FontTheme.of(context).middle.secondary(),
                 ),
                 SizedBox(width: 10),
                 Expanded(

@@ -53,9 +53,10 @@ class MxcTokenCardContent extends StatelessWidget {
           padding: kRoundRow1505,
           child: Row(
             children: [
-              Image.asset(Token.mxc.imagePath),
+              Image(image: Token.mxc.ui(context).image),
               SizedBox(width: s(3)),
-              Text(Token.mxc.name, style: kBigBoldFontOfBlack),
+              Text(Token.mxc.ui(context).name,
+                  style: FontTheme.of(context).big.primary.bold()),
               Spacer(),
               if (showArrow) Icon(Icons.arrow_forward_ios)
             ],
@@ -67,7 +68,7 @@ class MxcTokenCardContent extends StatelessWidget {
             loading: state.balance.loading,
             name: FlutterI18n.translate(context, 'current_balance'),
             value: Tools.priceFormat(state.balance.value),
-            token: Token.mxc.name,
+            token: Token.mxc.ui(context).name,
           ),
         ),
         BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
@@ -76,7 +77,7 @@ class MxcTokenCardContent extends StatelessWidget {
             loading: state.stakedAmount.loading,
             name: FlutterI18n.translate(context, 'staked_amount'),
             value: Tools.priceFormat(state.stakedAmount.value),
-            token: Token.mxc.name,
+            token: Token.mxc.ui(context).name,
           ),
         ),
         BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
@@ -85,7 +86,7 @@ class MxcTokenCardContent extends StatelessWidget {
             loading: state.totalRevenue.loading,
             name: FlutterI18n.translate(context, 'total_revenue'),
             value: Tools.priceFormat(state.totalRevenue.value, range: 2),
-            token: Token.mxc.name,
+            token: Token.mxc.ui(context).name,
           ),
         ),
         SizedBox(height: 5)
@@ -131,9 +132,10 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
             : Container(
                 padding: kRoundRow1505,
                 child: Row(children: [
-                  Image.asset(Token.supernodeDhx.imagePath),
+                  Image(image: Token.supernodeDhx.ui(context).image),
                   SizedBox(width: s(3)),
-                  Text(Token.supernodeDhx.name, style: kBigBoldFontOfBlack),
+                  Text(Token.supernodeDhx.ui(context).name,
+                      style: FontTheme.of(context).big.primary.bold()),
                   Spacer(),
                   if (showArrow) Icon(Icons.arrow_forward_ios)
                 ]),
@@ -144,7 +146,7 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
             loading: state.balance.loading,
             name: FlutterI18n.translate(context, 'current_balance'),
             value: Tools.priceFormat(state.balance.value),
-            token: Token.supernodeDhx.name,
+            token: Token.supernodeDhx.ui(context).name,
           ),
         ),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
@@ -154,7 +156,7 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
             loading: state.lockedAmount.loading,
             name: FlutterI18n.translate(context, 'locked_amount'),
             value: Tools.priceFormat(state.lockedAmount.value),
-            token: Token.mxc.name,
+            token: Token.mxc.ui(context).name,
           ),
         ),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
@@ -165,7 +167,7 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
                       loading: state.dhxBonded.loading,
                       name: FlutterI18n.translate(context, 'dhx_bonded'),
                       value: Tools.priceFormat(state.dhxBonded.value),
-                      token: Token.supernodeDhx.name,
+                      token: Token.supernodeDhx.ui(context).name,
                     )
                   : SizedBox(),
         ),
@@ -177,7 +179,7 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
                       loading: state.dhxUnbonding.loading,
                       name: FlutterI18n.translate(context, 'dhx_unbonding'),
                       value: Tools.priceFormat(state.dhxUnbonding.value),
-                      token: Token.supernodeDhx.name,
+                      token: Token.supernodeDhx.ui(context).name,
                     )
                   : SizedBox(),
         ),
@@ -188,7 +190,7 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
             loading: state.totalRevenue.loading,
             name: FlutterI18n.translate(context, 'total_revenue'),
             value: Tools.priceFormat(state.totalRevenue.value, range: 2),
-            token: Token.supernodeDhx.name,
+            token: Token.supernodeDhx.ui(context).name,
           ),
         ),
         SizedBox(height: 5)
@@ -230,9 +232,10 @@ class BtcTokenCardContent extends StatelessWidget {
           padding: kRoundRow1505,
           child: Row(
             children: [
-              Image.asset(Token.btc.imagePath),
+              Image(image: Token.btc.ui(context).image),
               SizedBox(width: s(3)),
-              Text(Token.btc.name, style: kBigBoldFontOfBlack),
+              Text(Token.btc.ui(context).name,
+                  style: FontTheme.of(context).big.primary.bold()),
               Spacer(),
               if (showArrow) Icon(Icons.arrow_forward_ios)
             ],
@@ -244,7 +247,7 @@ class BtcTokenCardContent extends StatelessWidget {
             loading: state.balance.loading,
             name: FlutterI18n.translate(context, 'current_balance'),
             value: Tools.priceFormat(state.balance.value, range: 8),
-            token: Token.btc.name,
+            token: Token.btc.ui(context).name,
           ),
         ),
         SizedBox(height: 5)
@@ -272,7 +275,7 @@ class AddNewTokenCard extends StatelessWidget {
                   color: ColorsTheme.of(context).mxcBlue,
                 ),
                 Text(FlutterI18n.translate(context, 'add_new_token'),
-                    style: kMiddleFontOfBlack)
+                    style: FontTheme.of(context).middle())
               ],
             )),
       ),

@@ -10,6 +10,7 @@ import 'package:supernodeapp/page/forgot_password_page/action.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
 
@@ -55,7 +56,7 @@ Widget buildView(
                     padding: EdgeInsets.only(left: 2),
                     child: Text(
                       FlutterI18n.translate(_ctx, 'have_code'),
-                      style: kMiddleFontOfGreyLink,
+                      style: FontTheme.of(_ctx).middle.secondary.underline(),
                     ),
                   ),
                 ),

@@ -36,7 +36,8 @@ class MinerHealthTab extends StatelessWidget {
     this.onRefresh,
   }) : super(key: key);
 
-  Widget infoCard({
+  Widget infoCard(
+    BuildContext context, {
     @required Widget image,
     @required int value,
     @required String title,
@@ -81,7 +82,9 @@ class MinerHealthTab extends StatelessWidget {
                 Text(
                   '$value%',
                   textAlign: TextAlign.center,
-                  style: enabled ? kBigFontOfDarkBlue : kBigFontOfGrey,
+                  style: enabled
+                      ? FontTheme.of(context).big.mxc()
+                      : FontTheme.of(context).big.secondary(),
                 ),
               ],
             ),
@@ -92,15 +95,20 @@ class MinerHealthTab extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: enabled ? kBigFontOfDarkBlue : kBigFontOfGrey,
+                    style: enabled
+                        ? FontTheme.of(context).big.mxc()
+                        : FontTheme.of(context).big.secondary(),
                   ),
                   SizedBox(height: 4),
                   Text(
                     description,
-                    style: enabled ? kMiddleFontOfBlack : kMiddleFontOfGrey,
+                    style: enabled
+                        ? FontTheme.of(context).middle()
+                        : FontTheme.of(context).middle.secondary(),
                   ),
                   SizedBox(height: 4),
-                  Text(comment, style: kMiddleFontOfGrey),
+                  Text(comment,
+                      style: FontTheme.of(context).middle.secondary()),
                 ],
               ),
             )
@@ -168,7 +176,7 @@ class MinerHealthTab extends StatelessWidget {
                           style: kSuperBigBoldFont),
                       Text(
                         FlutterI18n.translate(context, 'health_score'),
-                        style: kMiddleFontOfGrey,
+                        style: FontTheme.of(context).middle.secondary(),
                       ),
                     ],
                   ),
@@ -228,7 +236,7 @@ class MinerHealthTab extends StatelessWidget {
               SizedBox(width: 10),
               Text(
                 '${Tools.priceFormat(item.miningFuel.toDouble())} / ${Tools.priceFormat(item.miningFuelMax.toDouble())} MXC',
-                style: kBigFontOfBlack,
+                style: FontTheme.of(context).big(),
               )
             ],
           ),
@@ -242,7 +250,7 @@ class MinerHealthTab extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
               child: Text(
                 FlutterI18n.translate(context, 'see_more'),
-                style: kSmallFontOfDarkBlue,
+                style: FontTheme.of(context).small.mxc(),
               ),
             ),
             onTap: () => Navigator.of(context).push(route((ctx) => ViewAllPage(
@@ -276,13 +284,14 @@ class MinerHealthTab extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
               child: Text(
                 FlutterI18n.translate(context, 'view_map'),
-                style: kSmallFontOfGrey,
+                style: FontTheme.of(context).small.secondary(),
               ),
             ),
             onTap: () {},
           ),
         ),
         infoCard(
+          context,
           image: Image.asset(AppImages.gps),
           value: 100,
           title: FlutterI18n.translate(context, 'gps_card_title'),
@@ -292,6 +301,7 @@ class MinerHealthTab extends StatelessWidget {
         SizedBox(height: 8),
         MinerDetailTitle(FlutterI18n.translate(context, 'altitude')),
         infoCard(
+          context,
           image: Image.asset(AppImages.altitude),
           value: 100,
           title: FlutterI18n.translate(context, 'altitude_card_title'),
@@ -303,6 +313,7 @@ class MinerHealthTab extends StatelessWidget {
         SizedBox(height: 8),
         MinerDetailTitle(FlutterI18n.translate(context, 'proximity')),
         infoCard(
+          context,
           image: Image.asset(AppImages.proximity),
           value: 100,
           title: FlutterI18n.translate(context, 'proximity_card_title'),
@@ -314,6 +325,7 @@ class MinerHealthTab extends StatelessWidget {
         SizedBox(height: 8),
         MinerDetailTitle(FlutterI18n.translate(context, 'orientation')),
         infoCard(
+          context,
           image: Image.asset(AppImages.orientation),
           value: 100,
           title: FlutterI18n.translate(context, 'orientation_card_title'),
@@ -333,7 +345,8 @@ class StatisticTable extends StatelessWidget {
 
   const StatisticTable({Key key, this.item}) : super(key: key);
 
-  Widget _statisticItem(String title, String value, {Function onTap}) =>
+  Widget _statisticItem(BuildContext context, String title, String value,
+          {Function onTap}) =>
       Expanded(
         child: GestureDetector(
           child: Column(
@@ -341,12 +354,14 @@ class StatisticTable extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: kSmallFontOfGrey,
+                style: FontTheme.of(context).small.secondary(),
               ),
               SizedBox(height: 8),
               Text(
                 value,
-                style: value == '-' ? kBigFontOfGrey : kBigFontOfDarkBlue,
+                style: value == '-'
+                    ? FontTheme.of(context).big.secondary()
+                    : FontTheme.of(context).big.mxc(),
               ),
             ],
           ),
@@ -369,36 +384,43 @@ class StatisticTable extends StatelessWidget {
           Row(
             children: [
               _statisticItem(
+                context,
                 FlutterI18n.translate(context, 'uptime'),
                 '${((item.uptimeHealth ?? 0) * 100).round()}%',
                 onTap: () => aboutPage(
                     context,
                     FlutterI18n.translate(context, 'uptime'),
                     aboutPageIllustration(
-                        FlutterI18n.translate(context, 'uptime'),
-                        Image.asset(AppImages.uptime,
-                            width: s(60), fit: BoxFit.contain)),
+                      context,
+                      FlutterI18n.translate(context, 'uptime'),
+                      Image.asset(AppImages.uptime,
+                          width: s(60), fit: BoxFit.contain),
+                    ),
                     FlutterI18n.translate(context, 'uptime_info')),
               ),
               _statisticItem(
+                context,
                 FlutterI18n.translate(context, 'gps'),
                 '-',
                 onTap: () => aboutPage(
                     context,
                     FlutterI18n.translate(context, 'gps'),
                     aboutPageIllustration(
+                        context,
                         FlutterI18n.translate(context, 'gps'),
                         Image.asset(AppImages.gps,
                             width: s(60), fit: BoxFit.contain)),
                     FlutterI18n.translate(context, 'gps_info')),
               ),
               _statisticItem(
+                context,
                 FlutterI18n.translate(context, 'altitude'),
                 '-',
                 onTap: () => aboutPage(
                     context,
                     FlutterI18n.translate(context, 'altitude'),
                     aboutPageIllustration(
+                        context,
                         FlutterI18n.translate(context, 'altitude'),
                         Image.asset(AppImages.altitude,
                             width: s(60), fit: BoxFit.contain)),
@@ -410,36 +432,42 @@ class StatisticTable extends StatelessWidget {
           Row(
             children: [
               _statisticItem(
+                context,
                 FlutterI18n.translate(context, 'proximity'),
                 '-',
                 onTap: () => aboutPage(
                     context,
                     FlutterI18n.translate(context, 'proximity'),
                     aboutPageIllustration(
+                        context,
                         FlutterI18n.translate(context, 'proximity'),
                         Image.asset(AppImages.proximity,
                             width: s(60), fit: BoxFit.contain)),
                     FlutterI18n.translate(context, 'proximity_info')),
               ),
               _statisticItem(
+                context,
                 FlutterI18n.translate(context, 'orientation'),
                 '-',
                 onTap: () => aboutPage(
                     context,
                     FlutterI18n.translate(context, 'orientation'),
                     aboutPageIllustration(
+                        context,
                         FlutterI18n.translate(context, 'orientation'),
                         Image.asset(AppImages.orientation,
                             width: s(60), fit: BoxFit.contain)),
                     FlutterI18n.translate(context, 'orientation_info')),
               ),
               _statisticItem(
+                context,
                 FlutterI18n.translate(context, 'fuel'),
                 '${((item.miningFuelHealth ?? 0) * 100).round()}%',
                 onTap: () => aboutPage(
                     context,
                     FlutterI18n.translate(context, 'fuel'),
                     aboutPageIllustration(
+                        context,
                         FlutterI18n.translate(context, 'fuel'),
                         Stack(alignment: Alignment.center, children: [
                           Image.asset(AppImages.uptime,

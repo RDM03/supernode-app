@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class CodeTextField extends StatelessWidget {
   CodeTextField({this.textInputAction = TextInputAction.next});
@@ -26,7 +27,7 @@ class CodeTextField extends StatelessWidget {
       onSubmitted: (_) => textInputAction == TextInputAction.next
           ? FocusScope.of(context).nextFocus()
           : FocusScope.of(context).unfocus(),
-      style: kMiddleFontOfBlack,
+      style: FontTheme.of(context).middle(),
       maxLines: 1,
       autocorrect: false,
       keyboardType: TextInputType.number,

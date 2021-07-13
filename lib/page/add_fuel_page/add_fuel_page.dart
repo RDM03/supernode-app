@@ -129,7 +129,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
               children: [
                 Text(
                   FlutterI18n.translate(context, 'add_fuel'),
-                  style: kBigBoldFontOfBlack,
+                  style: FontTheme.of(context).big.primary.bold(),
                 ),
                 Text(
                   FlutterI18n.translate(context, 'fuel_add_desc'),
@@ -154,7 +154,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
               child: Text(
                 FlutterI18n.translate(context, 'add_all'),
                 textAlign: TextAlign.right,
-                style: kBigFontOfBlack,
+                style: FontTheme.of(context).big(),
               ),
             ),
             SizedBox(width: 5),
@@ -204,7 +204,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                   Expanded(
                     child: Text(
                       item.name,
-                      style: kBigFontOfBlack,
+                      style: FontTheme.of(context).big(),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -218,7 +218,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                   SizedBox(width: 6),
                   Text(
                     '${Tools.priceFormat((item.health ?? 0) * 100, range: 0)}%',
-                    style: kBigFontOfBlack,
+                    style: FontTheme.of(context).big(),
                   ),
                   SizedBox(width: 18),
                   Image.asset(
@@ -229,7 +229,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                   SizedBox(width: 6),
                   Text(
                     '${Tools.priceFormat((item.miningFuelHealth ?? 0) * 100, range: 0)}%',
-                    style: kBigFontOfBlack,
+                    style: FontTheme.of(context).big(),
                   ),
                   SizedBox(width: 28),
                 ],
@@ -254,17 +254,18 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
             Row(
               children: [
                 SizedBox(width: 32),
-                Text('To 100% : ', style: kSmallFontOfGrey),
+                Text('To 100% : ',
+                    style: FontTheme.of(context).small.secondary()),
                 Text(
                   '${Tools.priceFormat(item.miningFuelMax.toDouble() - item.miningFuel.toDouble(), range: 2)} MXC',
-                  style: kSmallFontOfBlack.copyWith(color: healthColor),
+                  style: FontTheme.of(context).small.health(),
                 ),
                 Spacer(),
                 ColoredText(
                   text:
                       '${Tools.priceFormat((item.miningFuelMax.toDouble() - item.miningFuel.toDouble()) * (gatewaySelection[item.id] ?? 0), range: 2)} MXC',
                   color: healthColor20,
-                  style: kMiddleFontOfBlack,
+                  style: FontTheme.of(context).middle(),
                   padding: EdgeInsets.symmetric(
                     horizontal: 6,
                     vertical: 4,
@@ -353,6 +354,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBars.backArrowAndActionAppBar(
+        context,
         // action: IconButton(
         //   icon: Icon(
         //     Icons.filter_list,
@@ -398,7 +400,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                         child: Text(
                           FlutterI18n.translate(context, 'dont_have_miners'),
                           textAlign: TextAlign.center,
-                          style: kMiddleFontOfGrey,
+                          style: FontTheme.of(context).middle.secondary(),
                         ),
                       ),
                     ),
@@ -436,14 +438,16 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                 Center(
                   child: Text(
                     '${Tools.priceFormat(spentMxc, range: 2)} MXC',
-                    style: kVeryBigFontOfBlack.copyWith(color: healthColor),
+                    style: FontTheme.of(context)
+                        .veryBig()
+                        .copyWith(color: healthColor),
                   ),
                 ),
                 SizedBox(height: 9),
                 Center(
                   child: Text(
                     FlutterI18n.translate(context, 'send_amount'),
-                    style: kMiddleFontOfGrey,
+                    style: FontTheme.of(context).middle.secondary(),
                   ),
                 ),
                 SizedBox(height: 24),
@@ -457,7 +461,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                       buttonTitle: FlutterI18n.translate(context, 'next'),
                       bgColor: healthColor,
                       minWidth: 0,
-                      style: kBigFontOfWhite,
+                      style: FontTheme.of(context).big.label(),
                     ),
                   ),
                 ),

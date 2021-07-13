@@ -42,8 +42,8 @@ class SecondaryButton extends StatelessWidget {
             buttonTitle,
             textAlign: TextAlign.center,
             style: color != null && !isSelected
-                ? kSecondaryButtonOfBlack
-                : kSecondaryButtonOfPurple,
+                ? FontTheme.of(context).middle.primary()
+                : FontTheme.of(context).middle.mxc(),
           ),
           icon != null
               ? Container(
@@ -51,7 +51,7 @@ class SecondaryButton extends StatelessWidget {
                   child: Icon(
                     icon,
                     color: color != null && !isSelected
-                        ? blackColor
+                        ? ColorsTheme.of(context).textPrimaryAndIcons
                         : ColorsTheme.of(context).mxcBlue,
                   ),
                 )

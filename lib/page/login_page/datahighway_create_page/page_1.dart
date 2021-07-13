@@ -53,7 +53,7 @@ class _DataHighwayCreatePageState extends State<DataHighwayCreatePage> {
       backgroundColor: whiteColor,
       body: Theme(
         data: Theme.of(context).copyWith(
-          primaryColor: Token.parachainDhx.color,
+          primaryColor: Token.parachainDhx.ui(context).color,
         ),
         child: Column(
           children: [
@@ -81,7 +81,7 @@ class _DataHighwayCreatePageState extends State<DataHighwayCreatePage> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: PrimaryButton(
-                  bgColor: Token.parachainDhx.color,
+                  bgColor: Token.parachainDhx.ui(context).color,
                   buttonTitle: 'Next',
                   onTap: () => Navigator.of(context)
                       .push(route((ctx) => DataHighwayCreate2Page())),

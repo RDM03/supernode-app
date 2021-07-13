@@ -3,6 +3,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'dd_box_with_shadow.dart';
 
@@ -19,20 +20,26 @@ class DDBoxWithSelect extends StatelessWidget {
   Widget build(BuildContext context) {
     return DDBoxWithShadow(
         child: GestureDetector(
-            onTap: onTap,
-            child: Container(
-                alignment: Alignment.center,
-                padding: kInnerRowLeft20,
-                child: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(FlutterI18n.translate(context, title),
-                      style: kMiddleBoldFontOfBlack),
-                  subtitle: Text(FlutterI18n.translate(context, subtitle),
-                      style: kSmallFontOfGrey),
-                  trailing: Icon(
-                    Icons.chevron_right,
-                    color: blackColor,
-                  ),
-                ))));
+      onTap: onTap,
+      child: Container(
+        alignment: Alignment.center,
+        padding: kInnerRowLeft20,
+        child: ListTile(
+          contentPadding: EdgeInsets.zero,
+          title: Text(
+            FlutterI18n.translate(context, title),
+            style: FontTheme.of(context).middle(),
+          ),
+          subtitle: Text(
+            FlutterI18n.translate(context, subtitle),
+            style: FontTheme.of(context).small.secondary(),
+          ),
+          trailing: Icon(
+            Icons.chevron_right,
+            color: blackColor,
+          ),
+        ),
+      ),
+    ));
   }
 }

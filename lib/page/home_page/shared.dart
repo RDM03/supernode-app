@@ -22,6 +22,7 @@ import 'package:supernodeapp/page/settings_page/settings_page.dart';
 import 'package:supernodeapp/page/withdraw_page/bloc/cubit.dart';
 import 'package:supernodeapp/page/withdraw_page/withdraw_page.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../route.dart';
 import 'package:supernodeapp/page/login_page/entry_parachain.dart';
@@ -162,20 +163,21 @@ Widget tokenItem(
                             Row(children: [
                               Text(
                                 title,
-                                style: kBigBoldFontOfBlack,
+                                style: FontTheme.of(context).big.primary.bold(),
                               ),
                               if (suffix != null) ...[
                                 SizedBox(width: 5),
                                 Text(
                                   suffix,
-                                  style: kSmallFontOfGrey,
+                                  style:
+                                      FontTheme.of(context).small.secondary(),
                                 ),
                               ]
                             ]),
                             SizedBox(height: 5),
                             Text(
                               subtitle,
-                              style: kMiddleFontOfGrey,
+                              style: FontTheme.of(context).middle.secondary(),
                             ),
                           ],
                         ),
@@ -240,7 +242,7 @@ class _AddTokenDialogWidgetState extends State<AddTokenDialogWidget> {
               width: double.infinity,
               child: Text(
                 FlutterI18n.translate(context, 'add_token_title'),
-                style: kBigBoldFontOfBlack,
+                style: FontTheme.of(context).big.primary.bold(),
                 textAlign: TextAlign.left,
               ),
             ),
@@ -256,7 +258,7 @@ class _AddTokenDialogWidgetState extends State<AddTokenDialogWidget> {
               if (!homeState.supernodeUsed) return 'Requires Supernode account';
               return 'Available';
             }(),
-            color: Token.mxc.color,
+            color: Token.mxc.ui(context).color,
             onPressed: () {
               // MXC goes by default
             },
@@ -272,7 +274,7 @@ class _AddTokenDialogWidgetState extends State<AddTokenDialogWidget> {
               if (!homeState.supernodeUsed) return 'Requires Supernode account';
               return 'Available';
             }(),
-            color: Token.supernodeDhx.color,
+            color: Token.supernodeDhx.ui(context).color,
             isSelected: homeState.displayTokens.contains(Token.supernodeDhx),
             onPressed: () {
               if (!homeState.supernodeUsed) {
@@ -285,7 +287,7 @@ class _AddTokenDialogWidgetState extends State<AddTokenDialogWidget> {
           tokenItem(
             context,
             key: 'addBTC',
-            image: Image.asset(Token.btc.imagePath, height: s(50)),
+            image: Image(image: Token.btc.ui(context).image, height: s(50)),
             title: 'BTC',
             subtitle: () {
               if (homeState.displayTokens.contains(Token.btc))
@@ -293,7 +295,7 @@ class _AddTokenDialogWidgetState extends State<AddTokenDialogWidget> {
               if (!homeState.supernodeUsed) return 'Requires Supernode account';
               return 'Available';
             }(),
-            color: Token.btc.color,
+            color: Token.btc.ui(context).color,
             isSelected: homeState.displayTokens.contains(Token.btc),
             onPressed: () {
               if (!homeState.supernodeUsed) {
@@ -307,11 +309,11 @@ class _AddTokenDialogWidgetState extends State<AddTokenDialogWidget> {
           tokenItem(
             context,
             key: 'addNFT',
-            image: Image.asset(Token.nft.imagePath, height: s(50)),
-            title: Token.nft.name,
+            image: Image(image: Token.nft.ui(context).image, height: s(50)),
+            title: Token.nft.ui(context).name,
             suffix: '(${FlutterI18n.translate(ctx, 'coming')})',
             subtitle: FlutterI18n.translate(ctx, 'nft_desc'),
-            color: Token.nft.color,
+            color: Token.nft.ui(context).color,
             isSelected: false,
             showTrailingLine: false,
             onPressed: () {},
@@ -327,7 +329,7 @@ class _AddTokenDialogWidgetState extends State<AddTokenDialogWidget> {
               if (!parachainConnected) return 'Requires Datahighway account';
               return 'Available';
             }(),
-            color: Token.parachainDhx.color,
+            color: Token.parachainDhx.ui(context).color,
             isSelected: displayedTokens.contains(Token.parachainDhx),
             onPressed: () {
               Navigator.pop(ctx);
@@ -372,7 +374,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
               children: [
                 CircleButton(
                   icon: Icon(Icons.shopping_basket,
-                      color: Token.supernodeDhx.color),
+                      color: Token.supernodeDhx.ui(context).color),
                 ),
                 SizedBox(
                   width: s(10),
@@ -405,7 +407,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
                 CircleButton(
                   icon: Icon(
                     Icons.lock,
-                    color: Token.supernodeDhx.color,
+                    color: Token.supernodeDhx.ui(context).color,
                   ),
                 ),
                 SizedBox(
@@ -433,9 +435,11 @@ void showBoostMPowerDialog(BuildContext ctx) {
                 builder: (BuildContext context) {
                   return Scaffold(
                     appBar: AppBars.backArrowSkipAppBar(
-                        title: FlutterI18n.translate(context, 'tutorial_title'),
-                        onPress: () => Navigator.pop(context),
-                        action: FlutterI18n.translate(context, "skip")),
+                      context,
+                      title: FlutterI18n.translate(context, 'tutorial_title'),
+                      onPress: () => Navigator.pop(context),
+                      action: FlutterI18n.translate(context, "skip"),
+                    ),
                     body: MiningTutorial(context),
                   );
                 },
@@ -446,7 +450,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
                 CircleButton(
                   icon: Image.asset(
                     AppImages.iconLearn,
-                    color: Token.supernodeDhx.color,
+                    color: Token.supernodeDhx.ui(context).color,
                   ),
                 ),
                 SizedBox(
@@ -481,7 +485,9 @@ void aboutPage(
               padding: EdgeInsets.all(0.0),
               children: <Widget>[
                 ListTile(
-                  title: Center(child: Text(title, style: kBigBoldFontOfBlack)),
+                  title: Center(
+                      child: Text(title,
+                          style: FontTheme.of(context).big.primary.bold())),
                   leading: SizedBox(),
                   trailing: GestureDetector(
                     child: Icon(Icons.close, color: blackColor),
@@ -494,7 +500,8 @@ void aboutPage(
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Text(text,
-                      style: kBigFontOfBlack, textAlign: TextAlign.center),
+                      style: FontTheme.of(context).big(),
+                      textAlign: TextAlign.center),
                 ),
                 SizedBox(height: 70),
                 (bottomButton != null)
@@ -505,7 +512,7 @@ void aboutPage(
               ])));
 }
 
-Widget aboutPageIllustration(String title, Widget image) {
+Widget aboutPageIllustration(BuildContext context, String title, Widget image) {
   return Container(
     height: 150,
     width: 150,
@@ -519,11 +526,14 @@ Widget aboutPageIllustration(String title, Widget image) {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('100%', style: kVeryBigFontOfBlack),
+            Text('100%', style: FontTheme.of(context).veryBig()),
             SizedBox(height: 5),
             image,
             SizedBox(height: 5),
-            Text(title, style: kBigFontOfBlack),
+            Text(
+              title,
+              style: FontTheme.of(context).big(),
+            ),
           ]),
     ),
   );

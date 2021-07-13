@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class ImageWithText extends StatelessWidget {
   final ImageProvider image;
@@ -68,8 +69,8 @@ class CircleButton extends StatelessWidget {
           Text(
             text,
             style: (onPressed == null)
-                ? kSecondaryButtonOfGrey
-                : kSecondaryButtonOfWhite,
+                ? FontTheme.of(context).middle.label()
+                : FontTheme.of(context).middle.secondary(),
           ),
         ],
       ),

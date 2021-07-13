@@ -3,6 +3,7 @@ import 'package:supernodeapp/common/components/widgets/bar_graph.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class DDBarChart extends StatefulWidget {
   final bool hasYAxis;
@@ -59,9 +60,12 @@ class _DDBarChartState extends State<DDBarChart> {
                               child: Container(
                                   padding: EdgeInsets.symmetric(horizontal: 5),
                                   alignment: Alignment.topRight,
-                                  child: Text('$yItem',
-                                      textAlign: TextAlign.end,
-                                      style: kSmallFontOfGrey)),
+                                  child: Text(
+                                    '$yItem',
+                                    textAlign: TextAlign.end,
+                                    style:
+                                        FontTheme.of(context).small.secondary(),
+                                  )),
                             );
                           }).toList()),
                     ],
@@ -76,7 +80,7 @@ class _DDBarChartState extends State<DDBarChart> {
                 child: Text(
                   '0',
                   textAlign: TextAlign.end,
-                  style: kSmallFontOfGrey,
+                  style: FontTheme.of(context).small.secondary(),
                 ))),
         Positioned(
           top: 0,
@@ -102,7 +106,7 @@ class _DDBarChartState extends State<DDBarChart> {
                           index < widget.tooltipData.length
                       ? '${widget?.tooltipData[index] ?? 0}'
                       : '0',
-                  style: kBigFontOfBlack,
+                  style: FontTheme.of(context).big(),
                 ),
               )),
         ),

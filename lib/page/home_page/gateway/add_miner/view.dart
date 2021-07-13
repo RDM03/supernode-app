@@ -141,11 +141,14 @@ class _AddMinerPageState extends State<AddMinerPage> {
                                   children: [
                                 Text(
                                     FlutterI18n.translate(context, 'add_miner'),
-                                    style: kBigBoldFontOfBlack),
+                                    style: FontTheme.of(context)
+                                        .big
+                                        .primary
+                                        .bold()),
                                 Text(
                                   FlutterI18n.translate(
                                       context, 'add_miner_tip'),
-                                  style: kMiddleFontOfBlack,
+                                  style: FontTheme.of(context).middle(),
                                 )
                               ])),
                         ])
@@ -176,7 +179,7 @@ class _AddMinerPageState extends State<AddMinerPage> {
                           child: Text(
                             FlutterI18n.translate(context,
                                 'scan_qrcode'), //'Scan QR to add Miner'),
-                            style: kMiddleFontOfGrey,
+                            style: FontTheme.of(context).middle.secondary(),
                           ))
                     ],
                   )),
@@ -235,11 +238,14 @@ class _AddMinerPageState extends State<AddMinerPage> {
                                                 backgroundColor: lightBlue),
                                             title: Text(
                                               state.name,
-                                              style: kBigFontOfBlack,
+                                              style:
+                                                  FontTheme.of(context).big(),
                                             ),
                                             subtitle: Text(
                                               state.id,
-                                              style: kMiddleFontOfBlue,
+                                              style: FontTheme.of(context)
+                                                  .middle
+                                                  .mxc(),
                                             ),
                                           ),
                                           Divider()
@@ -281,7 +287,7 @@ class _AddMinerPageState extends State<AddMinerPage> {
         builder: (context) => Text(
           FlutterI18n.translate(context, 'register_reseller_success')
               .replaceFirst('{0}', state.serialNumber),
-          style: kBigFontOfBlack,
+          style: FontTheme.of(context).big(),
           textAlign: TextAlign.center,
         ),
       ),

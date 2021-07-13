@@ -28,7 +28,9 @@ class DepositPage extends StatefulWidget {
 class _DepositPageState extends State<DepositPage> {
   @override
   void initState() {
-    context.read<DepositCubit>().loadAddress(widget.tkn.name);
+    context
+        .read<DepositCubit>()
+        .loadAddress(widget.tkn.ui(context, listen: false).name);
     super.initState();
   }
 
@@ -48,16 +50,16 @@ class _DepositPageState extends State<DepositPage> {
             smallColumnSpacer(),
             Text(
                 FlutterI18n.translate(context, 'send_deposit_address')
-                    .replaceFirst('{0}', widget.tkn.name),
-                style: kBigFontOfBlack),
+                    .replaceFirst('{0}', widget.tkn.ui(context).name),
+                style: FontTheme.of(context).big()),
             Text(
                 FlutterI18n.translate(context, 'send_coin_tip')
-                    .replaceFirst('{0}', widget.tkn.name),
-                style: kBigFontOfBlack),
+                    .replaceFirst('{0}', widget.tkn.ui(context).name),
+                style: FontTheme.of(context).big()),
             Text(
                 FlutterI18n.translate(context, 'deposit_confirm_tip')
-                    .replaceFirst('{0}', widget.tkn.name),
-                style: kBigFontOfBlack),
+                    .replaceFirst('{0}', widget.tkn.ui(context).name),
+                style: FontTheme.of(context).big()),
             bigColumnSpacer(),
             Center(
                 child: Container(
@@ -65,8 +67,8 @@ class _DepositPageState extends State<DepositPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   smallColumnSpacer(),
-                  Image.asset(widget.tkn.imagePath),
-                  Text(widget.tkn.name),
+                  Image(image: widget.tkn.ui(context).image),
+                  Text(widget.tkn.ui(context).name),
                   smallColumnSpacer(),
                   Divider(),
                   s.address.loading
@@ -74,7 +76,7 @@ class _DepositPageState extends State<DepositPage> {
                       : QrImage(
                           key: Key('qrCodeTopUp'),
                           data: s.address.value,
-                          foregroundColor: widget.tkn.color,
+                          foregroundColor: widget.tkn.ui(context).color,
                           version: QrVersions.auto,
                           size: 200.0,
                         ),
@@ -86,7 +88,7 @@ class _DepositPageState extends State<DepositPage> {
                           child: Text(
                             s.address.value,
                             textAlign: TextAlign.center,
-                            style: kMiddleFontOfGrey,
+                            style: FontTheme.of(context).middle.secondary(),
                             key: Key('ethAddressTopUp'),
                           ),
                         ),
@@ -99,17 +101,21 @@ class _DepositPageState extends State<DepositPage> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Icon(Icons.copy, color: widget.tkn.color),
+                                  Icon(Icons.copy,
+                                      color: widget.tkn.ui(context).color),
                                   SizedBox(width: 5),
                                   Text(
                                       FlutterI18n.translate(
                                           context, 'copy_address'),
                                       style: MiddleFontOfColor(
-                                          color: widget.tkn.color)),
+                                          color: widget.tkn.ui(context).color)),
                                 ],
                               ),
                               decoration: BoxDecoration(
-                                color: widget.tkn.color.withOpacity(0.2),
+                                color: widget.tkn
+                                    .ui(context)
+                                    .color
+                                    .withOpacity(0.2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),
                               )),
@@ -137,7 +143,7 @@ class _DepositPageState extends State<DepositPage> {
             middleColumnSpacer(),
             PrimaryButton(
                 buttonTitle: FlutterI18n.translate(context, 'done'),
-                bgColor: widget.tkn.color,
+                bgColor: widget.tkn.ui(context).color,
                 onTap: () => Navigator.of(context).pop()),
             smallColumnSpacer(),
           ]);

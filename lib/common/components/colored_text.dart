@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 
 class ColoredText extends StatelessWidget {
   final String text;
@@ -12,7 +11,7 @@ class ColoredText extends StatelessWidget {
   const ColoredText({
     Key key,
     this.text,
-    this.style = kMiddleFontOfGrey,
+    this.style,
     this.textAlign = TextAlign.right,
     this.color,
     this.padding = const EdgeInsets.symmetric(horizontal: 10, vertical: 2),

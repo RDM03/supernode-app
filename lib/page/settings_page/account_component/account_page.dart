@@ -21,7 +21,7 @@ class AccountPage extends StatelessWidget {
           ListTile(
             title: Center(
                 child: Text(FlutterI18n.translate(context, 'manage_account'),
-                    style: kBigBoldFontOfBlack)),
+                    style: FontTheme.of(context).big.primary.bold())),
             trailing: GestureDetector(
                 child: Icon(Icons.close, color: blackColor),
                 onTap: () => Navigator.of(context).pop()),
@@ -30,18 +30,20 @@ class AccountPage extends StatelessWidget {
           listItem(FlutterI18n.translate(context, 'super_node'),
               key: Key('superNodeItem'),
               onTap: () => Navigator.push(context, route((_) => ProfilePage())),
-              leading: Image.asset(Token.mxc.imagePath, height: s(50))),
+              leading:
+                  Image(image: Token.mxc.ui(context).image, height: s(50))),
           Divider(),
           Container(
             color: ColorsTheme.of(context).boxComponents,
             child: ListTile(
               title: Text(
                 FlutterI18n.translate(context, 'datahighway_parachain'),
-                style: kBigFontOfGrey,
+                style: FontTheme.of(context).big.secondary(),
               ),
               onTap: () =>
                   'TODO', //TODO dispatch(SettingsActionCreator.onSettings(SettingsOption.profileDhx)),
-              leading: Image.asset(Token.supernodeDhx.imagePath, height: s(50)),
+              leading: Image(
+                  image: Token.supernodeDhx.ui(context).image, height: s(50)),
               trailing: Icon(
                 Icons.chevron_right,
                 color: ColorsTheme.of(context).textLabel,

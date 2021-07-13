@@ -149,7 +149,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             SizedBox(height: 30.0),
             CheckboxLabelWidget(
               value: isCheckTerms,
-              child: link(FlutterI18n.translate(context, 'agree_conditions'),
+              child: Link(FlutterI18n.translate(context, 'agree_conditions'),
                   onTap: () => Tools.launchURL(Sys.agreePolicy),
                   alignment: Alignment.centerLeft),
               onChanged: (_) => setState(() {
@@ -158,7 +158,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
             CheckboxLabelWidget(
               value: isCheckPrivacy,
-              child: link(FlutterI18n.translate(context, 'read_privacy_policy'),
+              child: Link(FlutterI18n.translate(context, 'read_privacy_policy'),
                   onTap: () => Tools.launchURL(Sys.privacyPolicy),
                   alignment: Alignment.centerLeft),
               onChanged: (_) => setState(() {

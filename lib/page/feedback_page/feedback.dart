@@ -19,6 +19,7 @@ import 'package:supernodeapp/page/feedback_page/feedback_result.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class DatadashFeedbackWidgetForm extends StatefulWidget {
   const DatadashFeedbackWidgetForm(this.translation, this.sendFeedback);
@@ -65,7 +66,7 @@ class _DatadashFeedbackWidgetFormState
                     width: double.infinity,
                     child: Text(
                       widget.translation.feedbackDescriptionText,
-                      style: kMiddleFontOfBlack,
+                      style: FontTheme.of(context).middle(),
                     ),
                   ),
                   SizedBox(height: 20),

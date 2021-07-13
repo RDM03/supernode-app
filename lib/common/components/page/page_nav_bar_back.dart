@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
-Widget pageNavBarBack(String name,
+@deprecated
+Widget pageNavBarBack(BuildContext context, String name,
     {EdgeInsetsGeometry padding, Function onTap}) {
   return Container(
       padding: padding,
@@ -20,7 +21,7 @@ Widget pageNavBarBack(String name,
           Text(
             name,
             textAlign: TextAlign.left,
-            style: kBigFontOfBlack,
+            style: FontTheme.of(context).big(),
           ),
           Spacer(),
           Spacer(),

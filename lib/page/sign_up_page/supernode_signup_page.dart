@@ -19,6 +19,7 @@ import 'package:supernodeapp/page/sign_up_page/verification_code_component/email
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../../route.dart';
 
@@ -243,8 +244,9 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                             Container(
                               alignment: Alignment.center,
                               child: Text(
-                                  FlutterI18n.translate(context, 'super_node'),
-                                  style: kBigBoldFontOfBlack),
+                                FlutterI18n.translate(context, 'super_node'),
+                                style: FontTheme.of(context).big.primary.bold(),
+                              ),
                             ),
                             Positioned(
                               right: s(15),
@@ -262,7 +264,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                           child: Text(
                             FlutterI18n.translate(
                                 context, 'supernode_instructions'),
-                            style: kSecondaryButtonOfBlack,
+                            style: FontTheme.of(context).middle.primary(),
                             textAlign: TextAlign.center,
                           ),
                         ),

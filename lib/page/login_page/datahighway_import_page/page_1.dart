@@ -51,7 +51,7 @@ class _DataHighwayImportPageState extends State<DataHighwayImportPage> {
           hintText: title,
           labelText: title,
           focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Token.parachainDhx.color),
+            borderSide: BorderSide(color: Token.parachainDhx.ui(context).color),
           ),
         ),
         controller: controller,
@@ -71,7 +71,7 @@ class _DataHighwayImportPageState extends State<DataHighwayImportPage> {
       backgroundColor: whiteColor,
       body: Theme(
         data: Theme.of(context).copyWith(
-          primaryColor: Token.parachainDhx.color,
+          primaryColor: Token.parachainDhx.ui(context).color,
         ),
         child: Column(
           children: [
@@ -132,7 +132,7 @@ class _DataHighwayImportPageState extends State<DataHighwayImportPage> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: PrimaryButton(
-                  bgColor: Token.parachainDhx.color,
+                  bgColor: Token.parachainDhx.ui(context).color,
                   buttonTitle: 'Next',
                   onTap: () => Navigator.of(context)
                       .push(route((ctx) => DataHighwayImport2Page())),

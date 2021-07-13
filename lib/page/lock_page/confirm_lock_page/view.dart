@@ -13,6 +13,7 @@ import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -48,7 +49,7 @@ Widget buildView(
           child: Text(
             FlutterI18n.translate(context, 'mining_confirm_tip')
                 .replaceAll('{0}', state.months.toString()),
-            style: kMiddleFontOfGrey,
+            style: FontTheme.of(context).middle.secondary(),
             textAlign: TextAlign.center,
           ),
         ),
@@ -184,7 +185,7 @@ Widget buildView(
           children: [
             Text(
               FlutterI18n.translate(context, 'potential_m_power'),
-              style: kBigFontOfBlack,
+              style: FontTheme.of(context).big(),
             ),
             SizedBox(width: 30),
             Expanded(
@@ -202,7 +203,7 @@ Widget buildView(
                     softWrap: false,
                     overflow: TextOverflow.clip,
                     textAlign: TextAlign.right,
-                    style: kMiddleFontOfBlack,
+                    style: FontTheme.of(context).middle(),
                   ),
                 ),
               ),
@@ -215,7 +216,7 @@ Widget buildView(
             Expanded(
               child: Text(
                 FlutterI18n.translate(context, 'avg_dhx_daily_revenue'),
-                style: kBigFontOfBlack,
+                style: FontTheme.of(context).big(),
               ),
             ),
             SizedBox(width: 30),
@@ -234,7 +235,7 @@ Widget buildView(
                     softWrap: false,
                     overflow: TextOverflow.clip,
                     textAlign: TextAlign.right,
-                    style: kMiddleFontOfBlack,
+                    style: FontTheme.of(context).middle(),
                   ),
                 ),
               ),
@@ -293,7 +294,7 @@ _proceed(Dispatch dispatch, ConfirmLockState state) {
         children: [
           Text(
             FlutterI18n.translate(ctx, 'dhx_mining'),
-            style: kBigFontOfBlue,
+            style: FontTheme.of(ctx).big.mxc(),
           ),
           SizedBox(height: 16),
           Text(
@@ -301,7 +302,7 @@ _proceed(Dispatch dispatch, ConfirmLockState state) {
                 .replaceAll('{0}', state.amount)
                 .replaceAll('{1}', state.months.toString())
                 .replaceAll('{2}', state.council.name),
-            style: kMiddleFontOfBlack,
+            style: FontTheme.of(ctx).middle(),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 10),
@@ -338,7 +339,7 @@ _proceed(Dispatch dispatch, ConfirmLockState state) {
       cancelButton: CupertinoActionSheetAction(
         child: Text(
           FlutterI18n.translate(ctx, 'device_cancel'),
-          style: kBigFontOfGrey,
+          style: FontTheme.of(ctx).big.secondary(),
         ),
         onPressed: () => Navigator.of(ctx).pop(),
       ),

@@ -61,8 +61,9 @@ Widget buildView(
                     FlutterI18n.translate(_ctx, 'dhx_month_lock')
                         .replaceFirst('{0}', state.months.toString()),
                     textAlign: TextAlign.left,
-                    style:
-                        kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
+                    style: FontTheme.of(_ctx)
+                        .big()
+                        .copyWith(fontWeight: FontWeight.w600),
                   ),
                   Text(
                     FlutterI18n.translate(_ctx, 'lock_tip_detailed')
@@ -70,7 +71,7 @@ Widget buildView(
                             '{0}', (state.boostRate * 100).toStringAsFixed(0))
                         .replaceFirst('{1}', state.months.toString()),
                     textAlign: TextAlign.left,
-                    style: kMiddleFontOfGrey,
+                    style: FontTheme.of(_ctx).middle.secondary(),
                   ),
                 ],
               ),
@@ -85,11 +86,11 @@ Widget buildView(
               children: [
                 Text(
                   FlutterI18n.translate(_ctx, 'lock_amount'),
-                  style: kBigFontOfBlack,
+                  style: FontTheme.of(_ctx).big(),
                 ),
                 Text(
                   FlutterI18n.translate(_ctx, 'current_balance'),
-                  style: kSmallFontOfGrey,
+                  style: FontTheme.of(_ctx).small.secondary(),
                 ),
               ],
             ),
@@ -99,7 +100,7 @@ Widget buildView(
                 '${state.balance ?? '??'} MXC',
                 textAlign: TextAlign.right,
                 maxLines: 2,
-                style: kBigFontOfBlack,
+                style: FontTheme.of(_ctx).big(),
               ),
             ),
           ],
@@ -151,21 +152,21 @@ Widget buildView(
                 Expanded(
                   child: Text(
                     '0%',
-                    style: kSmallFontOfGrey,
+                    style: FontTheme.of(_ctx).small.secondary(),
                     textAlign: TextAlign.left,
                   ),
                 ),
                 Expanded(
                   child: Text(
                     '50%',
-                    style: kSmallFontOfGrey,
+                    style: FontTheme.of(_ctx).small.secondary(),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Expanded(
                   child: Text(
                     '100%',
-                    style: kSmallFontOfGrey,
+                    style: FontTheme.of(_ctx).small.secondary(),
                     textAlign: TextAlign.right,
                   ),
                 ),
@@ -194,11 +195,11 @@ Widget buildView(
               children: [
                 Text(
                   FlutterI18n.translate(_ctx, 'number_of_miner'),
-                  style: kBigFontOfBlack,
+                  style: FontTheme.of(_ctx).big(),
                 ),
                 Text(
                   FlutterI18n.translate(_ctx, 'current_m2proto_own'),
-                  style: kSmallFontOfGrey,
+                  style: FontTheme.of(_ctx).small.secondary(),
                 ),
               ],
             ),
@@ -208,7 +209,7 @@ Widget buildView(
                 state.minersOwned?.toString() ?? '??',
                 textAlign: TextAlign.right,
                 maxLines: 2,
-                style: kBigFontOfBlack,
+                style: FontTheme.of(_ctx).big(),
               ),
             ),
           ],
@@ -221,11 +222,11 @@ Widget buildView(
               children: [
                 Text(
                   FlutterI18n.translate(_ctx, 'potential_mining_power'),
-                  style: kBigFontOfBlack,
+                  style: FontTheme.of(_ctx).big(),
                 ),
                 Text(
                   FlutterI18n.translate(_ctx, 'total_mpower'),
-                  style: kSmallFontOfGrey,
+                  style: FontTheme.of(_ctx).small.secondary(),
                 ),
               ],
             ),
@@ -244,7 +245,7 @@ Widget buildView(
                     key: ValueKey('mPowerText'),
                     textAlign: TextAlign.right,
                     maxLines: 2,
-                    style: kBigFontOfBlack,
+                    style: FontTheme.of(_ctx).big(),
                   );
                 },
               ),
@@ -258,7 +259,7 @@ Widget buildView(
             Expanded(
               child: Text(
                 FlutterI18n.translate(_ctx, 'avg_dhx_daily_revenue'),
-                style: kBigFontOfBlack,
+                style: FontTheme.of(_ctx).big(),
               ),
             ),
             SizedBox(width: 30),
@@ -281,7 +282,7 @@ Widget buildView(
                     key: ValueKey('dailyReturnText'),
                     textAlign: TextAlign.right,
                     maxLines: 2,
-                    style: kBigFontOfBlack,
+                    style: FontTheme.of(_ctx).big(),
                   );
                 },
               ),

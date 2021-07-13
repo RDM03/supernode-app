@@ -49,7 +49,7 @@ class MxcActions extends StatelessWidget {
                   CircleButton(
                     icon: Image.asset(
                       AppImages.iconMine,
-                      color: Token.mxc.color,
+                      color: Token.mxc.ui(context).color,
                     ),
                   ),
                   SizedBox(
@@ -79,7 +79,7 @@ class MxcActions extends StatelessWidget {
                   CircleButton(
                     icon: Icon(
                       Icons.arrow_back,
-                      color: Token.mxc.color,
+                      color: Token.mxc.ui(context).color,
                     ),
                   ),
                   SizedBox(
@@ -112,7 +112,7 @@ class MxcActions extends StatelessWidget {
         CircleButton(
           icon: Icon(
             Icons.add,
-            color: Token.mxc.color,
+            color: Token.mxc.ui(context).color,
           ),
           label: FlutterI18n.translate(context, 'deposit'),
           onTap: () => openSupernodeDeposit(context, Token.mxc),
@@ -123,7 +123,7 @@ class MxcActions extends StatelessWidget {
           builder: (ctx, state) => CircleButton(
             icon: Icon(
               Icons.arrow_forward,
-              color: Token.mxc.color,
+              color: Token.mxc.ui(context).color,
             ),
             label: FlutterI18n.translate(context, 'withdraw'),
             onTap: state.balance.loading
@@ -137,7 +137,7 @@ class MxcActions extends StatelessWidget {
           builder: (ctx, state) => CircleButton(
             icon: Image.asset(
               AppImages.iconMine,
-              color: Token.mxc.color,
+              color: Token.mxc.ui(context).color,
             ),
             label: FlutterI18n.translate(context, 'stake'),
             onTap:

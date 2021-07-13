@@ -116,7 +116,9 @@ class _TokenExpandedViewState extends State<TokenExpandedView>
                 ],
               ),
               child: TabIndicators(
-                colors: state.displayTokens.map((c) => c.color).toList(),
+                colors: state.displayTokens
+                    .map((c) => c.ui(context).color)
+                    .toList(),
                 controller: controller,
               ),
             ),

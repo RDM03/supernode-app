@@ -9,6 +9,7 @@ import 'package:supernodeapp/page/view_all_page/view.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../graph_card.dart';
 import '../title.dart';
@@ -44,11 +45,11 @@ class MinerRevenueTab extends StatelessWidget {
             children: [
               Text(
                 '${Tools.priceFormat(sumRevenueLast7days)} MXC',
-                style: kVeryBigFontOfBlack,
+                style: FontTheme.of(context).veryBig(),
               ),
               Text(
                 FlutterI18n.translate(context, 'total_revenue'),
-                style: kSmallFontOfGrey,
+                style: FontTheme.of(context).small.secondary(),
               )
             ],
           ),
@@ -60,7 +61,7 @@ class MinerRevenueTab extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
               child: Text(
                 FlutterI18n.translate(context, 'see_more'),
-                style: kSmallFontOfDarkBlue,
+                style: FontTheme.of(context).small.mxc(),
               ),
             ),
             onTap: () => Navigator.of(context).push(

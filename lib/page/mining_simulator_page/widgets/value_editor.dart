@@ -48,12 +48,12 @@ class ValueEditor extends StatelessWidget {
               children: [
                 Text(
                   FlutterI18n.translate(context, title),
-                  style: kBigFontOfBlack,
+                  style: FontTheme.of(context).big(),
                 ),
                 if (subtitle != null)
                   Text(
                     FlutterI18n.translate(context, subtitle),
-                    style: kSmallFontOfGrey,
+                    style: FontTheme.of(context).small.secondary(),
                   ),
               ],
             ),
@@ -66,7 +66,7 @@ class ValueEditor extends StatelessWidget {
                     text: totalSuffix == null
                         ? '${total ?? '??'}'
                         : '${total ?? '??'} $totalSuffix',
-                    style: kMiddleFontOfBlack,
+                    style: FontTheme.of(context).middle(),
                     color: enabled ? null : hintFont20,
                   ),
                 ),
@@ -121,21 +121,21 @@ class ValueEditor extends StatelessWidget {
                   Expanded(
                     child: Text(
                       '0%',
-                      style: kSmallFontOfGrey,
+                      style: FontTheme.of(context).small.secondary(),
                       textAlign: TextAlign.left,
                     ),
                   ),
                   Expanded(
                     child: Text(
                       '50%',
-                      style: kSmallFontOfGrey,
+                      style: FontTheme.of(context).small.secondary(),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   Expanded(
                     child: Text(
                       '100%',
-                      style: kSmallFontOfGrey,
+                      style: FontTheme.of(context).small.secondary(),
                       textAlign: TextAlign.right,
                     ),
                   ),
@@ -156,7 +156,8 @@ class ValueEditor extends StatelessWidget {
               readOnly: !enabled,
               textColor: hintFont,
               hint: hintText,
-              suffixStyle: enabled ? null : kBigFontOfGrey,
+              suffixStyle:
+                  enabled ? null : FontTheme.of(context).big.secondary(),
               fillColor:
                   enabled ? null : ColorsTheme.of(context).primaryBackground,
             ),
@@ -218,7 +219,8 @@ class ValueEditor2 extends StatelessWidget {
               suffixText: textFieldSuffix,
               readOnly: !enabled,
               hint: hintText,
-              suffixStyle: enabled ? null : kBigFontOfGrey,
+              suffixStyle:
+                  enabled ? null : FontTheme.of(context).big.secondary(),
               fillColor:
                   enabled ? null : ColorsTheme.of(context).primaryBackground,
             ),
@@ -230,7 +232,7 @@ class ValueEditor2 extends StatelessWidget {
             if (subtitle != null)
               Text(
                 FlutterI18n.translate(context, subtitle),
-                style: kSmallFontOfGrey,
+                style: FontTheme.of(context).small.secondary(),
               ),
             SizedBox(width: 30),
             if (showTotal)
@@ -241,7 +243,7 @@ class ValueEditor2 extends StatelessWidget {
                     totalSuffix == null
                         ? '${total ?? '??'}'
                         : '${total ?? '??'} $totalSuffix',
-                    style: kMiddleFontOfBlack,
+                    style: FontTheme.of(context).middle(),
                   ),
                 ),
               ),
@@ -294,21 +296,21 @@ class ValueEditor2 extends StatelessWidget {
                   Expanded(
                     child: Text(
                       '0%',
-                      style: kSmallFontOfGrey,
+                      style: FontTheme.of(context).small.secondary(),
                       textAlign: TextAlign.left,
                     ),
                   ),
                   Expanded(
                     child: Text(
                       '50%',
-                      style: kSmallFontOfGrey,
+                      style: FontTheme.of(context).small.secondary(),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   Expanded(
                     child: Text(
                       '100%',
-                      style: kSmallFontOfGrey,
+                      style: FontTheme.of(context).small.secondary(),
                       textAlign: TextAlign.right,
                     ),
                   ),

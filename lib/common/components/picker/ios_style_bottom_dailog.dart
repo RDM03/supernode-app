@@ -35,13 +35,13 @@ abstract class _IosStyleBottomDialogBase extends StatelessWidget {
 }
 
 class IosButtonStyle {
-  String title;
-  TextStyle style;
+  final String title;
+  final TextStyle style;
 
-  IosButtonStyle({String title, TextStyle style = kBigFontOfBlack}) {
-    this.title = title;
-    this.style = style;
-  }
+  IosButtonStyle({
+    this.title,
+    this.style,
+  });
 }
 
 typedef OnItemClickListener = void Function(int index);
@@ -135,7 +135,7 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
           padding: EdgeInsets.all(25),
           child: Text(
             button?.title ?? '',
-            style: kBigFontOfBlue,
+            style: FontTheme.of(context).big.mxc(),
             textAlign: TextAlign.center,
           ),
         ),
@@ -156,7 +156,7 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
           padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
           child: Text(
             button?.title ?? '',
-            style: button.style,
+            style: button.style ?? FontTheme.of(context).big.primary.bold(),
             textAlign: TextAlign.center,
           ),
         ),
@@ -186,7 +186,7 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
           padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
           child: Text(
             FlutterI18n.translate(context, 'device_cancel'),
-            style: kBigFontOfBlack,
+            style: FontTheme.of(context).big(),
             textAlign: TextAlign.center,
           ),
         ),

@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/device/description_item.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -16,7 +17,8 @@ Widget buildView(
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(top: 30, left: 16, right: 16),
-            child: Text('2020-05-22 09:39:12', style: kMiddleFontOfBlack),
+            child: Text('2020-05-22 09:39:12',
+                style: FontTheme.of(viewService.context).middle()),
           ),
           DescriptionItem(
             title: 'Location',

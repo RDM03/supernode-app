@@ -8,6 +8,7 @@ import 'package:supernodeapp/page/device/device_mapbox_page/action.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
 
@@ -39,7 +40,7 @@ Widget buildView(
             children: <Widget>[
               Text(
                 FlutterI18n.translate(_ctx, 'out_of_border_notification'),
-                style: kMiddleFontOfBlack,
+                style: FontTheme.of(_ctx).middle(),
               ),
               SizedBox(height: 20),
               DateRangePicker(

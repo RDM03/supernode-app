@@ -30,7 +30,7 @@ class AccountWidget extends StatelessWidget {
       );
 
   Widget parachain(BuildContext context) => Container(
-        color: Token.parachainDhx.color,
+        color: Token.parachainDhx.ui(context).color,
       );
 
   @override
@@ -43,9 +43,11 @@ class AccountWidget extends StatelessWidget {
         contentHeight: 75,
         tabs: [
           if (state.supernodeUsed)
-            ColorCodedWidget(supernode(context), Token.supernodeDhx.color),
+            ColorCodedWidget(
+                supernode(context), Token.supernodeDhx.ui(context).color),
           if (state.parachainUsed)
-            ColorCodedWidget(parachain(context), Token.parachainDhx.color),
+            ColorCodedWidget(
+                parachain(context), Token.parachainDhx.ui(context).color),
         ],
       ),
     );

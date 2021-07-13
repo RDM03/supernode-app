@@ -7,6 +7,7 @@ import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -34,11 +35,15 @@ Widget buildView(
             children: {
               0: Text(
                 FlutterI18n.translate(context, 'joined_council'),
-                style: state.tab == 0 ? kMiddleFontOfWhite : kMiddleFontOfGrey,
+                style: state.tab == 0
+                    ? FontTheme.of(context).middle.label()
+                    : FontTheme.of(context).middle.secondary(),
               ),
               1: Text(
                 FlutterI18n.translate(context, 'council_lists'),
-                style: state.tab == 1 ? kMiddleFontOfWhite : kMiddleFontOfGrey,
+                style: state.tab == 1
+                    ? FontTheme.of(context).middle.label()
+                    : FontTheme.of(context).middle.secondary(),
               ),
             },
             key: ValueKey('tabSlider'),

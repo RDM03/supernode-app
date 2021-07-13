@@ -22,7 +22,7 @@ Widget buildView(
           child: Text(
             FlutterI18n.translate(_ctx, 'border') +
                 ": ${state.gatewaySliderValue.toInt()}km",
-            style: kMiddleFontOfGrey,
+            style: FontTheme.of(_ctx).middle.secondary(),
           ),
         ),
         Slider(

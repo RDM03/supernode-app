@@ -26,7 +26,7 @@ class AppSettingsPage extends StatelessWidget {
               title: Center(
                   child: Text(FlutterI18n.translate(context, 'app_settings'),
                       key: Key('appSettingsTitle'),
-                      style: kBigBoldFontOfBlack)),
+                      style: FontTheme.of(context).big.primary.bold())),
               trailing: GestureDetector(
                   child: Icon(Icons.close, color: blackColor),
                   onTap: () => Navigator.of(context).pop()),

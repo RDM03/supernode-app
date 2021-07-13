@@ -41,7 +41,7 @@ class UserTab extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(FlutterI18n.translate(context, "miner"),
-                style: kBigBoldFontOfBlack),
+                style: FontTheme.of(context).big.primary.bold()),
             Spacer(),
             GestureDetector(
               onTap: () async {
@@ -59,7 +59,8 @@ class UserTab extends StatelessWidget {
                       horizontal: 8.0, vertical: 4.0),
                   child: Text(
                     '+ ${FlutterI18n.translate(context, 'add_miner')}',
-                    style: MiddleFontOfColor(color: Token.supernodeDhx.color),
+                    style: MiddleFontOfColor(
+                        color: Token.supernodeDhx.ui(context).color),
                   ),
                 ),
               ),
@@ -119,7 +120,7 @@ class UserTab extends StatelessWidget {
                   ),
                   Text(
                     'Unlock Supernode Account',
-                    style: kSmallFontOfWhite,
+                    style: FontTheme.of(context).small.label(),
                   ),
                 ],
               ),

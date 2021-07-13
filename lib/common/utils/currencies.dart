@@ -1,29 +1,61 @@
 import 'dart:ui';
 
-import 'package:supernodeapp/configs/images.dart';
-import 'package:supernodeapp/theme/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 enum CurrencyType { fiat, crypto }
 enum Token { mxc, supernodeDhx, parachainDhx, btc, nft }
 
+class TokenUiInfo {
+  final String fullName;
+  final String name;
+  final AssetImage image;
+  final Color color;
+
+  TokenUiInfo({
+    @required this.name,
+    String fullName,
+    @required this.image,
+    @required this.color,
+  }) : fullName = fullName ?? name;
+}
+
+class TokenUiBundle {
+  final TokenUiInfo mxc;
+  final TokenUiInfo supernodeDhx;
+  final TokenUiInfo parachainDhx;
+  final TokenUiInfo btc;
+  final TokenUiInfo nft;
+
+  TokenUiBundle({
+    this.mxc,
+    this.supernodeDhx,
+    this.parachainDhx,
+    this.btc,
+    this.nft,
+  });
+}
+
 extension TokenExtension on Token {
-  String get fullName {
+  TokenUiInfo ui(BuildContext context, {bool listen = true}) {
+    final bundle = Provider.of<TokenUiBundle>(context, listen: true);
     switch (this) {
       case Token.supernodeDhx:
-        return 'DHX';
+        return bundle.supernodeDhx;
       case Token.parachainDhx:
-        return 'DataHighway DHX';
+        return bundle.parachainDhx;
       case Token.mxc:
-        return 'MXC';
+        return bundle.mxc;
       case Token.btc:
-        return 'Bitcoin BTC';
+        return bundle.btc;
       case Token.nft:
-        return 'NFT';
+        return bundle.nft;
     }
     throw UnimplementedError('No name found for $this');
   }
 
-  String get name {
+  /// Used for API calls
+  String get serviceName {
     switch (this) {
       case Token.supernodeDhx:
         return 'DHX';
@@ -37,38 +69,6 @@ extension TokenExtension on Token {
         return 'NFT';
     }
     throw UnimplementedError('No name found for $this');
-  }
-
-  String get imagePath {
-    switch (this) {
-      case Token.supernodeDhx:
-        return AppImages.logoDHX;
-      case Token.parachainDhx:
-        return AppImages.logoDHX;
-      case Token.mxc:
-        return AppImages.logoMXC;
-      case Token.btc:
-        return AppImages.logoBTC;
-      case Token.nft:
-        return AppImages.logoNFT;
-    }
-    throw UnimplementedError('No image found for $this');
-  }
-
-  Color get color {
-    switch (this) {
-      case Token.supernodeDhx:
-        return colorSupernodeDhx;
-      case Token.parachainDhx:
-        return colorDhx;
-      case Token.mxc:
-        return mxcBlue;
-      case Token.btc:
-        return colorBtc;
-      case Token.nft:
-        return colorNtf;
-    }
-    throw UnimplementedError('No color found for $this');
   }
 }
 

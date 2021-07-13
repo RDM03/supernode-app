@@ -16,7 +16,7 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return pageFrame(context: viewService.context, children: [
-    pageNavBarBack(FlutterI18n.translate(_ctx, 'set_fa_01'),
+    pageNavBarBack(_ctx, FlutterI18n.translate(_ctx, 'set_fa_01'),
         onTap: () => Navigator.of(viewService.context).pop()),
     Form(
         key: state.formKey,

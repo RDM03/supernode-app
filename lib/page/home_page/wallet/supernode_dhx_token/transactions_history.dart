@@ -17,6 +17,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class TransactionsHistoryContent extends StatefulWidget {
   @override
@@ -168,9 +169,9 @@ class _TransactionsHistoryContentState
                                 key: ValueKey('walletItem_$i'),
                                 entity: list[i],
                                 token: Token.supernodeDhx,
-                                paymentTextStyle: kSmallFontOfDhxColor,
-                                amountColor:
-                                    kSmallFontOfDhxColor.color.withOpacity(.2),
+                                paymentTextStyle:
+                                    FontTheme.of(context).small.dhx(),
+                                amountColor: ColorsTheme.of(context).dhxBlue20,
                               );
                             }
                             if (list[i] is WithdrawHistoryEntity) {
@@ -178,9 +179,9 @@ class _TransactionsHistoryContentState
                                 key: ValueKey('walletItem_$i'),
                                 entity: list[i],
                                 token: Token.supernodeDhx,
-                                paymentTextStyle: kSmallFontOfDhxColor,
-                                amountColor:
-                                    kSmallFontOfDhxColor.color.withOpacity(.2),
+                                paymentTextStyle:
+                                    FontTheme.of(context).small.dhx(),
+                                amountColor: ColorsTheme.of(context).dhxBlue20,
                               );
                             }
                             return Container();

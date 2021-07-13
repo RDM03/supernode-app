@@ -9,7 +9,7 @@ import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'export_mxc_page.dart';
 
@@ -22,17 +22,17 @@ class ExportDataPage extends StatelessWidget {
           title: Center(
               child: Text(
                   FlutterI18n.translate(context, 'export_financial_data'),
-                  style: kBigBoldFontOfBlack)),
+                  style: FontTheme.of(context).big.primary.bold())),
           trailing: GestureDetector(
               child: Icon(Icons.close, color: blackColor),
               onTap: () => Navigator.of(context).pop())),
       Divider(height: 1),
-      listItem(Token.mxc.name,
+      listItem(Token.mxc.ui(context).name,
           contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           key: Key('export_mxc'),
           onTap: () =>
               Navigator.pushReplacement(context, route((_) => ExportMxcPage())),
-          leading: Image.asset(Token.mxc.imagePath, height: s(50))),
+          leading: Image(image: Token.mxc.ui(context).image, height: s(50))),
       Divider(height: 1),
       BlocBuilder<HomeCubit, HomeState>(
           buildWhen: (a, b) => a.displayTokens != b.displayTokens,
@@ -41,17 +41,19 @@ class ExportDataPage extends StatelessWidget {
               ? Column(
                   children: [
                     Container(
-                        color: backgroundColor,
-                        child: ListTile(
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 8),
-                            title: Text(Token.supernodeDhx.name,
-                                style: kBigFontOfGrey),
-                            onTap: () => 'TODO',
-                            leading: Image.asset(Token.supernodeDhx.imagePath,
-                                height: s(50)),
-                            trailing:
-                                Icon(Icons.chevron_right, color: greyColor))),
+                      color: backgroundColor,
+                      child: ListTile(
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        title: Text(Token.supernodeDhx.ui(context).name,
+                            style: FontTheme.of(context).big.secondary()),
+                        onTap: () => 'TODO',
+                        leading: Image(
+                            image: Token.supernodeDhx.ui(context).image,
+                            height: s(50)),
+                        trailing: Icon(Icons.chevron_right, color: greyColor),
+                      ),
+                    ),
                     Divider(height: 1),
                   ],
                 )
@@ -62,12 +64,16 @@ class ExportDataPage extends StatelessWidget {
               ? Container(
                   color: backgroundColor,
                   child: ListTile(
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      title: Text(Token.btc.name, style: kBigFontOfGrey),
-                      onTap: () => 'TODO',
-                      leading: Image.asset(Token.btc.imagePath, height: s(50)),
-                      trailing: Icon(Icons.chevron_right, color: greyColor)))
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    title: Text(Token.btc.ui(context).name,
+                        style: FontTheme.of(context).big.secondary()),
+                    onTap: () => 'TODO',
+                    leading: Image(
+                        image: Token.btc.ui(context).image, height: s(50)),
+                    trailing: Icon(Icons.chevron_right, color: greyColor),
+                  ),
+                )
               : SizedBox()),
     ]);
   }

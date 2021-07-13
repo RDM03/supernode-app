@@ -35,6 +35,7 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBars.backArrowAndActionAppBar(
+        context,
         title: FlutterI18n.translate(context, 'export_financial_data'),
         onPress: () => Navigator.of(context).pop(),
         action: IconButton(

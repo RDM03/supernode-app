@@ -16,7 +16,7 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return pageFrame(context: viewService.context, children: [
-    pageNavBarBack(FlutterI18n.translate(_ctx, 'change_password'),
+    pageNavBarBack(_ctx, FlutterI18n.translate(_ctx, 'change_password'),
         onTap: () => Navigator.of(viewService.context).pop()),
     Form(
         key: state.formKey,

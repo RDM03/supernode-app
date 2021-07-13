@@ -12,6 +12,7 @@ import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/stake_page/details_stake_page/action.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
 
@@ -74,8 +75,9 @@ Widget buildView(
               ? Row(
                   children: [
                     Text(FlutterI18n.translate(_ctx, 'flex_stake'),
-                        style: kBigFontOfBlack.copyWith(
-                            fontWeight: FontWeight.w600)),
+                        style: FontTheme.of(_ctx)
+                            .big()
+                            .copyWith(fontWeight: FontWeight.w600)),
                     GestureDetector(
                       onTap: () => _showInfoDialog(_ctx),
                       child: Padding(
@@ -90,7 +92,9 @@ Widget buildView(
               : Text(
                   FlutterI18n.translate(_ctx, 'x_month_stake')
                       .replaceFirst('{0}', months.toString()),
-                  style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
+                  style: FontTheme.of(_ctx)
+                      .big()
+                      .copyWith(fontWeight: FontWeight.w600),
                 ),
           Spacer(),
           Text('MXC/ETH'),
@@ -105,7 +109,7 @@ Widget buildView(
               Text(FlutterI18n.translate(_ctx, "transaction_id") + ' :'),
               Text(
                 state.stake.id.toString(),
-                style: kBigFontOfBlack,
+                style: FontTheme.of(_ctx).big(),
               ),
             ],
           ),
@@ -116,7 +120,7 @@ Widget buildView(
               Text(FlutterI18n.translate(_ctx, 'stake_date') + ' :'),
               Text(
                 formatDate(state.stake.startTime),
-                style: kBigFontOfBlack,
+                style: FontTheme.of(_ctx).big(),
               ),
             ],
           ),
@@ -129,7 +133,7 @@ Widget buildView(
                 state.stake.lockTill == null
                     ? '-'
                     : formatDate(state.stake.lockTill),
-                style: kBigFontOfBlack,
+                style: FontTheme.of(_ctx).big(),
               ),
             ],
           ),
@@ -142,7 +146,7 @@ Widget buildView(
                 state.stake.endTime == null
                     ? '-'
                     : formatDate(state.stake.endTime),
-                style: kBigFontOfBlack,
+                style: FontTheme.of(_ctx).big(),
               ),
             ],
           ),
@@ -153,7 +157,7 @@ Widget buildView(
               Text(FlutterI18n.translate(_ctx, 'amount') + ' :'),
               Text(
                 state.stake.amount.toString() + ' MXC',
-                style: kBigFontOfBlack,
+                style: FontTheme.of(_ctx).big(),
               ),
             ],
           ),
@@ -164,7 +168,7 @@ Widget buildView(
               Text(FlutterI18n.translate(_ctx, 'revenue') + ' :'),
               Text(
                 state.stake.revenue.toString() + ' MXC',
-                style: kBigFontOfBlack,
+                style: FontTheme.of(_ctx).big(),
               ),
             ],
           ),
@@ -177,7 +181,9 @@ Widget buildView(
               (double.parse(state.stake.amount) + (state.stake.revenue ?? 0))
                       .toStringAsFixed(2) +
                   ' MXC',
-              style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
+              style: FontTheme.of(_ctx)
+                  .big()
+                  .copyWith(fontWeight: FontWeight.w600),
             ),
           ),
           if (state.stake.endTime != null) ...[
@@ -186,7 +192,7 @@ Widget buildView(
               alignment: Alignment.centerRight,
               child: Text(
                 FlutterI18n.translate(_ctx, 'unstaked'),
-                style: kBigFontOfGrey,
+                style: FontTheme.of(_ctx).big.secondary(),
               ),
             ),
           ]

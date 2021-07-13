@@ -15,6 +15,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
 import 'package:supernodeapp/page/mining_simulator_page/widgets/value_editor.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class DhxUnbondingPage extends StatefulWidget {
   @override
@@ -47,14 +48,14 @@ class _DhxUnbondingPageState extends State<DhxUnbondingPage> {
                       list: [
                         IosButtonStyle(
                             title: FlutterI18n.translate(context, 'unbond_dhx'),
-                            style: kBigFontOfDhxColor),
+                            style: FontTheme.of(context).big.dhx()),
                         IosButtonStyle(
                             title: FlutterI18n.translate(
                                     context, 'unbond_dhx_confirm_info')
                                 .replaceFirst('{0}', ctrl.text.trim())),
                         IosButtonStyle(
                             title: FlutterI18n.translate(context, 'proceed'),
-                            style: kBigFontOfDhxColor),
+                            style: FontTheme.of(context).big.dhx()),
                       ],
                       onItemClickListener: (itemIndex) {
                         if (itemIndex == 2)
@@ -94,7 +95,7 @@ class _DhxUnbondingPageState extends State<DhxUnbondingPage> {
             ListTile(
               title: Center(
                   child: Text(FlutterI18n.translate(context, 'unbond_dhx'),
-                      style: kBigFontOfBlack)),
+                      style: FontTheme.of(context).big())),
               trailing: GestureDetector(
                   child: Icon(Icons.close, color: blackColor),
                   onTap: () => Navigator.of(context).pop()),
@@ -120,15 +121,16 @@ class _DhxUnbondingPageState extends State<DhxUnbondingPage> {
                     SizedBox(width: 20),
                     Flexible(
                       child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(FlutterI18n.translate(context, 'unbond_dhx'),
-                                style: kBigBoldFontOfBlack),
-                            Text(
-                                FlutterI18n.translate(
-                                    context, 'unbond_dhx_instruction'),
-                                style: kMiddleFontOfBlack),
-                          ]),
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(FlutterI18n.translate(context, 'unbond_dhx'),
+                              style: FontTheme.of(context).big.primary.bold()),
+                          Text(
+                              FlutterI18n.translate(
+                                  context, 'unbond_dhx_instruction'),
+                              style: FontTheme.of(context).middle()),
+                        ],
+                      ),
                     )
                   ]),
                   bigColumnSpacer(),
@@ -142,9 +144,9 @@ class _DhxUnbondingPageState extends State<DhxUnbondingPage> {
                       title: FlutterI18n.translate(context, 'unbond_amount'),
                       subtitle:
                           FlutterI18n.translate(context, 'total_bonded_amount'),
-                      textFieldSuffix: Token.supernodeDhx.name,
-                      totalSuffix: Token.supernodeDhx.name,
-                      primaryColor: Token.supernodeDhx.color,
+                      textFieldSuffix: Token.supernodeDhx.ui(context).name,
+                      totalSuffix: Token.supernodeDhx.ui(context).name,
+                      primaryColor: Token.supernodeDhx.ui(context).color,
                     ),
                   ),
                   bigColumnSpacer(),
@@ -156,7 +158,7 @@ class _DhxUnbondingPageState extends State<DhxUnbondingPage> {
                           .read<SupernodeDhxCubit>()
                           .confirmBondUnbond(unbond: ctrl.text.trim()),
                       buttonTitle: FlutterI18n.translate(context, 'confirm'),
-                      bgColor: Token.supernodeDhx.color),
+                      bgColor: Token.supernodeDhx.ui(context).color),
                 ],
               ),
             ),

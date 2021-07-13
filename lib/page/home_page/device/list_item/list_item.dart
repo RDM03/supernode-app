@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class DeviceListItem extends StatelessWidget {
   @override
@@ -39,7 +40,7 @@ class DeviceListItem extends StatelessWidget {
                       true
                           ? '(${FlutterI18n.translate(context, 'online')})'
                           : '(${FlutterI18n.translate(context, 'offline')})',
-                      style: kSmallFontOfGrey),
+                      style: FontTheme.of(context).small.secondary()),
                 ],
               ),
               SizedBox(height: 4),
@@ -58,7 +59,7 @@ class DeviceListItem extends StatelessWidget {
                             'LPWAN watch',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: kBigFontOfBlack,
+                            style: FontTheme.of(context).big(),
                           ),
                         ),
                       ],
@@ -67,7 +68,7 @@ class DeviceListItem extends StatelessWidget {
                   SizedBox(width: 15),
                   Text(
                     FlutterI18n.translate(context, 'downlink_fee'),
-                    style: kBigFontOfGrey,
+                    style: FontTheme.of(context).big.secondary(),
                   ),
                 ],
               ),
@@ -79,7 +80,7 @@ class DeviceListItem extends StatelessWidget {
                       '${FlutterI18n.translate(context, 'last_seen')}: 2020-05-19 09:39:12',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: kSmallFontOfGrey,
+                      style: FontTheme.of(context).small.secondary(),
                     ),
                   ),
                   Container(
@@ -91,7 +92,7 @@ class DeviceListItem extends StatelessWidget {
                     ),
                     child: Text(
                       '10 MXC',
-                      style: kBigFontOfBlack,
+                      style: FontTheme.of(context).big(),
                     ),
                   )
                 ],

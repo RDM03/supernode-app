@@ -6,7 +6,7 @@ import 'package:supernodeapp/common/components/settings/list_item.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class FormatListPage extends StatelessWidget {
   @override
@@ -15,8 +15,11 @@ class FormatListPage extends StatelessWidget {
         Widget>[
       ListTile(
         title: Center(
-            child: Text(FlutterI18n.translate(context, 'select_format'),
-                style: kBigBoldFontOfBlack)),
+          child: Text(
+            FlutterI18n.translate(context, 'select_format'),
+            style: FontTheme.of(context).big.primary.bold(),
+          ),
+        ),
         trailing: GestureDetector(
             child: Icon(Icons.close, color: blackColor),
             onTap: () => Navigator.of(context).pop()),

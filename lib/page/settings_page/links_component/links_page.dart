@@ -9,6 +9,15 @@ import 'package:supernodeapp/theme/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LinksPage extends StatelessWidget {
+  Widget _item(BuildContext context,
+      {String name = '', Function onTap, Widget leading}) {
+    return ListTile(
+      title: Text(name, style: FontTheme.of(context).big()),
+      onTap: onTap,
+      leading: leading,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return pageFrame(
@@ -20,6 +29,7 @@ class LinksPage extends StatelessWidget {
             onTap: () => Navigator.of(context).pop()),
         Divider(),
         _item(
+          context,
           name: FlutterI18n.translate(context, 'join_us_telegram'),
           onTap: () => launch('https://t.me/mxcfoundation'),
           leading: FaIcon(
@@ -30,6 +40,7 @@ class LinksPage extends StatelessWidget {
         ),
         Divider(),
         _item(
+          context,
           name: FlutterI18n.translate(context, 'join_us_wechat'),
           onTap: () =>
               launch('https://mp.weixin.qq.com/s/wQI0nGCbzB5089r4_VmzjQ'),
@@ -40,6 +51,7 @@ class LinksPage extends StatelessWidget {
         ),
         Divider(),
         _item(
+          context,
           name: FlutterI18n.translate(context, 'join_us_twitter'),
           onTap: () => launch('https://twitter.com/MXCfoundation'),
           leading: FaIcon(
@@ -50,6 +62,7 @@ class LinksPage extends StatelessWidget {
         ),
         Divider(),
         _item(
+          context,
           name: FlutterI18n.translate(context, 'join_us_discord'),
           onTap: () => launch('https://mxc.news/mxcdiscord'),
           leading: FaIcon(
@@ -61,12 +74,4 @@ class LinksPage extends StatelessWidget {
       ],
     );
   }
-}
-
-Widget _item({String name = '', Function onTap, Widget leading}) {
-  return ListTile(
-    title: Text(name, style: kBigFontOfBlack),
-    onTap: onTap,
-    leading: leading,
-  );
 }

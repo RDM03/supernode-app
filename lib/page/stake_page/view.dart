@@ -42,9 +42,9 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
             children: [
               Expanded(
                 child: Text(FlutterI18n.translate(context, 'stake_earn_mxc'),
-                    style: kBigFontOfBlack),
+                    style: FontTheme.of(context).big()),
               ),
-              link(
+              Link(
                 FlutterI18n.translate(context, 'learn_more'),
                 onTap: () => Tools.launchURL(Sys.stakeMore),
                 alignment: Alignment.centerLeft,
@@ -55,17 +55,17 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
           SizedBox(height: 10),
           Text(
             FlutterI18n.translate(context, 'staking_trade_tip'),
-            style: kMiddleFontOfGrey,
+            style: FontTheme.of(context).middle.secondary(),
           ),
           Text(
             FlutterI18n.translate(context, 'choose_stake_options'),
-            style: kMiddleFontOfGrey,
+            style: FontTheme.of(context).middle.secondary(),
           ),
           SizedBox(height: 20),
           Row(
             children: [
               Text(FlutterI18n.translate(context, 'mxc_vault'),
-                  style: kBigFontOfBlack),
+                  style: FontTheme.of(context).big()),
               GestureDetector(
                 onTap: () => _showInfoDialog(context),
                 child: Padding(
@@ -254,10 +254,10 @@ Widget _stakeCard({
       ),
       subtitle: Text(
         boostText == null ? '...' : boostText,
-        style: kMiddleFontOfBlack.copyWith(
-          color: ColorsTheme.of(context).mxcBlue,
-          fontWeight: FontWeight.w600,
-        ),
+        style: FontTheme.of(context).middle().copyWith(
+              color: ColorsTheme.of(context).mxcBlue,
+              fontWeight: FontWeight.w600,
+            ),
         key: Key('setBoost'),
       ),
     ),

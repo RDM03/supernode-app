@@ -61,7 +61,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
       useSafeArea: true,
       children: [
         PageNavBar(
-          text: widget.type.token.name +
+          text: widget.type.token.ui(context).name +
               ' ' +
               FlutterI18n.translate(context, 'address_book'),
           leadingWidget: AppBarBackButton(),
@@ -117,7 +117,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
           onTap: _onSave,
           minWidth: double.infinity,
           minHeight: 48,
-          bgColor: widget.type.token.color,
+          bgColor: widget.type.token.ui(context).color,
           key: ValueKey('updateButton'),
         ),
         SizedBox(height: 30),

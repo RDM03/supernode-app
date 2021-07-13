@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/action.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
-import 'action.dart';
 import 'state.dart';
 
 Widget buildView(
@@ -33,7 +32,7 @@ Widget buildView(
               padding: EdgeInsets.symmetric(vertical: 20),
               child: Text(
                 FlutterI18n.translate(_ctx, 'set_border_step1'),
-                style: kBigFontOfWhite,
+                style: FontTheme.of(_ctx).big.label(),
               ),
             ),
             Container(
@@ -49,7 +48,7 @@ Widget buildView(
               padding: EdgeInsets.symmetric(vertical: 20),
               child: Text(
                 FlutterI18n.translate(_ctx, 'set_border_step2'),
-                style: kBigFontOfWhite,
+                style: FontTheme.of(_ctx).big.label(),
               ),
             )
           ],

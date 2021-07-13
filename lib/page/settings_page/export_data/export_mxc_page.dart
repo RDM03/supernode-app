@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/components/settings/list_item.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'export_mxc_per_year_page.dart';
 
@@ -19,7 +20,7 @@ class ExportMxcPage extends StatelessWidget {
             title: Center(
                 child: Text(
                     FlutterI18n.translate(context, 'export_financial_data'),
-                    style: kBigBoldFontOfBlack)),
+                    style: FontTheme.of(context).big.primary.bold())),
             trailing: GestureDetector(
                 child: Icon(Icons.close, color: blackColor),
                 onTap: () => Navigator.of(context).pop()),

@@ -152,7 +152,8 @@ class StakeItem extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Text('$amount $currency', style: kBigFontOfBlack),
+                          Text('$amount $currency',
+                              style: FontTheme.of(context).big()),
                           SizedBox(
                             width: 5,
                           ),
@@ -169,17 +170,26 @@ class StakeItem extends StatelessWidget {
                         ],
                       ),
                       (stakedAmount.isNotEmpty)
-                          ? Text('$stakedAmount', style: kSmallFontOfGrey)
+                          ? Text(
+                              '$stakedAmount',
+                              style: FontTheme.of(context).small.secondary(),
+                            )
                           : SizedBox(),
-                      Text('ID: ' + id, style: kSmallFontOfGrey),
+                      Text(
+                        'ID: ' + id,
+                        style: FontTheme.of(context).small.secondary(),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(dateStr, style: kSmallFontOfGrey),
+                          Text(
+                            dateStr,
+                            style: FontTheme.of(context).small.secondary(),
+                          ),
                           Text(
                             FlutterI18n.translate(context, 'duration_days')
                                 .replaceFirst('{0}', durationDays.toString()),
-                            style: kSmallFontOfGrey,
+                            style: FontTheme.of(context).small.secondary(),
                           ),
                         ],
                       ),

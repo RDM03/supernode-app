@@ -11,6 +11,7 @@ import 'package:supernodeapp/page/home_page/home_page.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class DataHighwayCreate3Page extends StatefulWidget {
   @override
@@ -90,7 +91,7 @@ class _DataHighwayCreate3PageState extends State<DataHighwayCreate3Page> {
       backgroundColor: whiteColor,
       body: Theme(
         data: Theme.of(context).copyWith(
-          primaryColor: Token.parachainDhx.color,
+          primaryColor: Token.parachainDhx.ui(context).color,
         ),
         child: Column(
           children: [
@@ -106,7 +107,7 @@ class _DataHighwayCreate3PageState extends State<DataHighwayCreate3Page> {
                         'Backup mnemonic',
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                          color: Token.parachainDhx.color,
+                          color: Token.parachainDhx.ui(context).color,
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                         ),
@@ -119,7 +120,7 @@ class _DataHighwayCreate3PageState extends State<DataHighwayCreate3Page> {
                       width: double.infinity,
                       child: Text(
                         'Please click on the mnemonic in the correct order to confirm that the backup is correct',
-                        style: kBigFontOfBlack,
+                        style: FontTheme.of(context).big(),
                       ),
                     ),
                   ),
@@ -155,7 +156,7 @@ class _DataHighwayCreate3PageState extends State<DataHighwayCreate3Page> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: PrimaryButton(
-                  bgColor: Token.parachainDhx.color,
+                  bgColor: Token.parachainDhx.ui(context).color,
                   buttonTitle: 'Next',
                   onTap: _wordsLeft.isEmpty
                       ? () {
