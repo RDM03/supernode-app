@@ -31,8 +31,8 @@ class DDNav extends StatelessWidget {
               child: Visibility(
                   visible: hasBack,
                   child: GestureDetector(
-                      child:
-                          Icon(Icons.arrow_back_ios_rounded, color: blackColor),
+                      child: Icon(Icons.arrow_back_ios_rounded,
+                          color: ColorsTheme.of(context).textPrimaryAndIcons),
                       onTap: () => Navigator.of(context).pop()))),
           Spacer(),
           Text(FlutterI18n.translate(context, title),
@@ -46,7 +46,9 @@ class DDNav extends StatelessWidget {
                 child: GestureDetector(
                     child: Padding(
                         padding: kInnerRowRight20,
-                        child: Icon(Icons.close, color: blackColor)),
+                        child: Icon(Icons.close,
+                            color:
+                                ColorsTheme.of(context).textPrimaryAndIcons)),
                     onTap: () => Navigator.of(context).pop()),
               ))
         ],

@@ -31,8 +31,8 @@ class DDNavWithSkip extends StatelessWidget {
               child: Visibility(
                   visible: false,
                   child: GestureDetector(
-                      child:
-                          Icon(Icons.arrow_back_ios_rounded, color: blackColor),
+                      child: Icon(Icons.arrow_back_ios_rounded,
+                          color: ColorsTheme.of(context).textPrimaryAndIcons),
                       onTap: () => Navigator.of(context).pop()))),
           Spacer(),
           Text(FlutterI18n.translate(context, title),

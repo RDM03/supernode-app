@@ -12,7 +12,7 @@ Widget pageNavBarBack(BuildContext context, String name,
           GestureDetector(
             child: Icon(
               Icons.chevron_left,
-              color: blackColor,
+              color: ColorsTheme.of(context).textPrimaryAndIcons,
               size: 36,
             ),
             onTap: onTap,

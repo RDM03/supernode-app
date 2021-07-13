@@ -124,7 +124,7 @@ Widget buildView(
                     return Text(
                       (res ?? '??'),
                       key: ValueKey('mPowerText'),
-                      style: kPrimaryBigFontOfBlack,
+                      style: FontTheme.of(ctx).big(),
                     );
                   }),
                 ),

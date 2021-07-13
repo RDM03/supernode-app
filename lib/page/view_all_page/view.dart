@@ -13,6 +13,7 @@ import 'package:supernodeapp/page/view_all_page/component/bar_chart.dart';
 import 'package:supernodeapp/page/view_all_page/component/chart_stats.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'bloc/cubit.dart';
 import 'bloc/state.dart';
@@ -118,7 +119,7 @@ class _ViewAllPageState extends State<_ViewAllPage>
               padding: kRoundRow5,
               height: 40,
               decoration: BoxDecoration(
-                color: dartBlueColor.withAlpha(20),
+                color: ColorsTheme.of(context).mxcBlue20,
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
               child: TabBar(
@@ -126,7 +127,7 @@ class _ViewAllPageState extends State<_ViewAllPage>
                 indicatorWeight: 0,
                 labelStyle: TextStyle(fontWeight: FontWeight.bold),
                 unselectedLabelColor: greyColor,
-                indicator: TabIndicator(),
+                indicator: TabIndicator(ColorsTheme.of(context).mxcBlue),
                 controller: _tabController,
                 tabs: tabs
                     .map((item) =>

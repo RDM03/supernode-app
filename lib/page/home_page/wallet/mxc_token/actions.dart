@@ -10,6 +10,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class MxcActions extends StatelessWidget {
   final bool spaceOut;
@@ -30,7 +31,7 @@ class MxcActions extends StatelessWidget {
               child: Text(
                 FlutterI18n.translate(context, 'staking'),
                 style: TextStyle(
-                  color: blackColor,
+                  color: ColorsTheme.of(context).textPrimaryAndIcons,
                   fontSize: s(16),
                   fontWeight: FontWeight.w500,
                 ),
@@ -58,7 +59,7 @@ class MxcActions extends StatelessWidget {
                   Text(
                     FlutterI18n.translate(context, 'new_stake'),
                     style: TextStyle(
-                      color: blackColor,
+                      color: ColorsTheme.of(context).textPrimaryAndIcons,
                       fontSize: s(16),
                       fontWeight: FontWeight.w500,
                     ),
@@ -88,7 +89,7 @@ class MxcActions extends StatelessWidget {
                   Text(
                     FlutterI18n.translate(context, 'unstake'),
                     style: TextStyle(
-                      color: blackColor,
+                      color: ColorsTheme.of(context).textPrimaryAndIcons,
                       fontSize: s(16),
                       fontWeight: FontWeight.w500,
                     ),

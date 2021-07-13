@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class LoadingList extends StatelessWidget {
   @override
@@ -104,7 +105,8 @@ class LoadingList extends StatelessWidget {
                               height: 8,
                             ),
                             Divider(
-                              color: blackColor,
+                              color:
+                                  ColorsTheme.of(context).textPrimaryAndIcons,
                             ),
                           ],
                         ),

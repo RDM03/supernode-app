@@ -5,6 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
+import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
 import 'package:supernodeapp/common/repositories/storage_repository.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
@@ -55,14 +56,8 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
         context: context,
         padding: EdgeInsets.all(0.0),
         children: <Widget>[
-          ListTile(
-            title: Center(
-                child: Text(
-                    FlutterI18n.translate(context, 'export_financial_data'),
-                    style: FontTheme.of(context).big.primary.bold())),
-            trailing: GestureDetector(
-                child: Icon(Icons.close, color: blackColor),
-                onTap: () => Navigator.of(context).pop()),
+          PageNavBar.settings(
+            text: FlutterI18n.translate(context, 'export_financial_data'),
           ),
           listItem('${widget.year}', trailing: SizedBox()),
           Divider(),
@@ -98,7 +93,10 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
           listItem(FlutterI18n.translate(context, 'decimals'),
               trailing: Row(mainAxisSize: MainAxisSize.min, children: [
                 GestureDetector(
-                    child: Icon(Icons.remove_circle_outline),
+                    child: Icon(
+                      Icons.remove_circle_outline,
+                      color: ColorsTheme.of(context).mxcBlue,
+                    ),
                     onTap: () => context
                         .read<SettingsCubit>()
                         .changeDataExportDecimals(-1)),
@@ -113,7 +111,10 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
                 ),
                 SizedBox(width: 20),
                 GestureDetector(
-                    child: Icon(Icons.add_circle_outline),
+                    child: Icon(
+                      Icons.add_circle_outline,
+                      color: ColorsTheme.of(context).mxcBlue,
+                    ),
                     onTap: () => context
                         .read<SettingsCubit>()
                         .changeDataExportDecimals(1)),

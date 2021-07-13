@@ -131,7 +131,7 @@ Widget listItem({
                         smallRowSpacer(),
                         Container(
                           padding: kRoundRow5,
-                          decoration: kRowShodow,
+                          decoration: rowShadow(context),
                           child: GestureDetector(
                             onTap: () {},
                             child: Text(
@@ -146,7 +146,7 @@ Widget listItem({
                         smallRowSpacer(),
                         Container(
                           padding: kRoundRow5,
-                          decoration: kRowShodow,
+                          decoration: rowShadow(context),
                           child: GestureDetector(
                             onTap: () {},
                             child: Text(
@@ -171,7 +171,7 @@ Widget listItem({
                         smallRowSpacer(),
                         Container(
                           padding: kRoundRow5,
-                          decoration: kRowShodow,
+                          decoration: rowShadow(context),
                           // width: 100,
                           child: GestureDetector(
                             onTap: () {},

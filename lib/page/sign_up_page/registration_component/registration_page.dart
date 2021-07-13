@@ -16,6 +16,7 @@ import 'package:supernodeapp/page/login_page/supernode_login_page/cubit.dart';
 import 'package:supernodeapp/page/login_page/supernode_login_page/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class RegistrationPage extends StatefulWidget {
   @override
@@ -193,7 +194,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               }
             : null,
       ),
-      backgroundColor: secondaryBackgroundColor,
+      backgroundColor: ColorsTheme.of(context).secondaryBackground,
     );
   }
 }

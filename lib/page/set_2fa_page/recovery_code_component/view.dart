@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../action.dart';
 import 'action.dart';
@@ -17,9 +18,10 @@ Widget buildView(
   print(state.isAgreed);
   return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: secondaryBackgroundColor,
+      backgroundColor: ColorsTheme.of(_ctx).secondaryBackground,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: blackColor),
+        iconTheme:
+            IconThemeData(color: ColorsTheme.of(_ctx).textPrimaryAndIcons),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -34,7 +36,7 @@ Widget buildView(
                     Text(
                       FlutterI18n.translate(_ctx, 'recovery_cd_desc_01'),
                       style: TextStyle(
-                          color: blackColor,
+                          color: ColorsTheme.of(_ctx).textPrimaryAndIcons,
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0),
                     ),
@@ -59,7 +61,8 @@ Widget buildView(
                             .map((item) => new Text(
                                   item,
                                   style: TextStyle(
-                                      color: blackColor,
+                                      color: ColorsTheme.of(_ctx)
+                                          .textPrimaryAndIcons,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 24.0),
                                 ))

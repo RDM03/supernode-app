@@ -48,7 +48,7 @@ class SendToWalletConfirmPage extends StatelessWidget {
                   ? FlutterI18n.translate(context, 'send_to_wallet_congrats')
                   : error.toString(),
               key: Key('congratsFuelText'),
-              style: kPrimaryBigFontOfBlack,
+              style: FontTheme.of(context).big(),
               textAlign: TextAlign.center,
             ),
           ),

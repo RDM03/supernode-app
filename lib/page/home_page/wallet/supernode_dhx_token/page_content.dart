@@ -171,7 +171,8 @@ class NumberMinersAndMPower extends StatelessWidget {
           buildWhen: (a, b) => a.gatewaysTotal != b.gatewaysTotal,
           builder: (ctx, state) => Column(
             children: [
-              Text('${state.gatewaysTotal.value}', style: kSuperBigBoldFont),
+              Text('${state.gatewaysTotal.value}',
+                  style: FontTheme.of(ctx).veryBig.primary.bold()),
               SizedBox(height: s(5)),
               Container(
                 decoration: BoxDecoration(
@@ -200,14 +201,14 @@ class NumberMinersAndMPower extends StatelessWidget {
                         Tools.numberRounded(
                           state.currentMiningPower.value,
                         ),
-                        style: kPrimaryBigFontOfBlack,
+                        style: FontTheme.of(ctx).big(),
                       ),
                     )
                   : Text(
                       Tools.numberRounded(
                         state.currentMiningPower.value,
                       ),
-                      style: kSuperBigBoldFont,
+                      style: FontTheme.of(ctx).veryBig.primary.bold(),
                     ),
               SizedBox(height: s(5)),
               Container(

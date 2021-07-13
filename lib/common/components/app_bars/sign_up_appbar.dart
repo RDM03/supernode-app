@@ -18,7 +18,7 @@ class AppBars {
         onPressed: onPress,
         icon: Icon(
           Icons.arrow_back_ios,
-          color: blackColor,
+          color: ColorsTheme.of(context).textPrimaryAndIcons,
         ),
       ),
       centerTitle: true,
@@ -40,7 +40,8 @@ class AppBars {
       title: Center(child: Text(title, style: FontTheme.of(context).big())),
       leading: IconButton(
         onPressed: onPress,
-        icon: Icon(Icons.arrow_back_ios, color: blackColor),
+        icon: Icon(Icons.arrow_back_ios,
+            color: ColorsTheme.of(context).textPrimaryAndIcons),
       ),
       actions: <Widget>[
         FlatButton(
@@ -66,7 +67,8 @@ class AppBars {
       centerTitle: true,
       leading: IconButton(
         onPressed: onPress,
-        icon: Icon(Icons.arrow_back_ios, color: blackColor),
+        icon: Icon(Icons.arrow_back_ios,
+            color: ColorsTheme.of(context).textPrimaryAndIcons),
       ),
       actions: <Widget>[if (action != null) action],
       backgroundColor: Colors.transparent,

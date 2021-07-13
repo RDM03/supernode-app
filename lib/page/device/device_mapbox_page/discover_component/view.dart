@@ -48,7 +48,7 @@ Widget buildView(
         DescriptionItem(
           title: FlutterI18n.translate(_ctx, 'alert_setting'),
           titleTrackWidget: Switch(
-            activeColor: dartBlueColor,
+            activeColor: ColorsTheme.of(_ctx).mxcBlue,
             value: true,
             onChanged: (value) {},
           ),

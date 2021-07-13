@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
+import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
 import 'package:supernodeapp/page/feedback_page/feedback.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
@@ -22,16 +23,16 @@ class AppSettingsPage extends StatelessWidget {
           context: context,
           padding: EdgeInsets.all(0.0),
           children: <Widget>[
-            ListTile(
-              title: Center(
-                  child: Text(FlutterI18n.translate(context, 'app_settings'),
-                      key: Key('appSettingsTitle'),
-                      style: FontTheme.of(context).big.primary.bold())),
-              trailing: GestureDetector(
-                  child: Icon(Icons.close, color: blackColor),
-                  onTap: () => Navigator.of(context).pop()),
+            PageNavBar(
+              text: FlutterI18n.translate(context, 'app_settings'),
+              centerTitle: true,
+              padding: const EdgeInsets.only(
+                top: 22,
+                bottom: 33,
+                left: 20,
+                right: 20,
+              ),
             ),
-            Divider(),
             listItem(FlutterI18n.translate(context, 'language'),
                 key: Key('languageItem'),
                 onTap: () =>

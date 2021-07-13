@@ -198,7 +198,8 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: blackColor),
+        iconTheme:
+            IconThemeData(color: ColorsTheme.of(context).textPrimaryAndIcons),
         backgroundColor: ColorsTheme.of(context).primaryBackground,
         elevation: 0,
         title: Text(

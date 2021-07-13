@@ -9,6 +9,7 @@ import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'address_details_page.dart';
 import 'add_address_page.dart';
@@ -94,7 +95,7 @@ class _AddressBookPageState extends State<AddressBookPage> {
           onTap: _onAdd,
           actionWidget: Icon(
             Icons.add,
-            color: blackColor,
+            color: ColorsTheme.of(context).textPrimaryAndIcons,
             size: 28,
           ),
           leadingWidget: AppBarBackButton(),
@@ -146,7 +147,7 @@ class _AddressBookPageState extends State<AddressBookPage> {
                           widget.selectionMode
                               ? Icons.arrow_forward_ios
                               : Icons.more_vert,
-                          color: blackColor,
+                          color: ColorsTheme.of(context).textPrimaryAndIcons,
                         ),
                         contentPadding: EdgeInsets.only(left: 16, right: 10),
                       ),

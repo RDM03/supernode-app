@@ -245,7 +245,7 @@ void _showInfoDialog(BuildContext context) {
               child: Text(
                 FlutterI18n.translate(context, 'info_flex_stake'),
                 style: TextStyle(
-                  color: blackColor,
+                  color: ColorsTheme.of(context).textPrimaryAndIcons,
                   fontSize: s(16),
                   fontWeight: FontWeight.w500,
                 ),

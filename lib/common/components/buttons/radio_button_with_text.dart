@@ -27,7 +27,7 @@ class RadioButtonWithText extends StatelessWidget {
             value: true,
             onChanged: (value) {},
             activeColor: ColorsTheme.of(context).mxcBlue,
-            activeTrackColor: buttonPrimaryColorAccent,
+            activeTrackColor: ColorsTheme.of(context).mxcBlue20,
           ),
         ),
       ],

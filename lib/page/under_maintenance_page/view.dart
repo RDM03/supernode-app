@@ -45,7 +45,7 @@ class _UnderMaintenancePageView extends StatelessWidget {
                 Spacer(),
                 Text(
                   FlutterI18n.translate(context, 'under_maintenance'),
-                  style: kPrimaryBigFontOfBlack,
+                  style: FontTheme.of(context).big(),
                   textAlign: TextAlign.center,
                 ),
                 Spacer(),

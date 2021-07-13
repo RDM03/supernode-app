@@ -10,6 +10,7 @@ import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/page/forgot_password_page/password_reset_component/action.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../action.dart';
 import 'state.dart';
@@ -20,9 +21,10 @@ Widget buildView(
 
   return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: secondaryBackgroundColor,
+      backgroundColor: ColorsTheme.of(_ctx).secondaryBackground,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: blackColor),
+        iconTheme:
+            IconThemeData(color: ColorsTheme.of(_ctx).textPrimaryAndIcons),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),

@@ -46,7 +46,7 @@ class MiningTutorial extends StatefulWidget {
   Widget _pageView_1(BuildContext ctx) {
     return _pageBase([
       Text(FlutterI18n.translate(ctx, "tutorial_pg2_title"),
-          style: kPrimaryBigFontOfBlack),
+          style: FontTheme.of(ctx).big()),
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pg2_text"),
           style: FontTheme.of(ctx).big()),
@@ -54,7 +54,7 @@ class MiningTutorial extends StatefulWidget {
       Row(children: [
         Spacer(),
         Column(children: [
-          Text('1', style: kSuperBigBoldFont),
+          Text('1', style: FontTheme.of(ctx).veryBig.primary.bold()),
           SizedBox(height: s(10)),
           Container(
               decoration: BoxDecoration(
@@ -68,10 +68,10 @@ class MiningTutorial extends StatefulWidget {
               ))
         ]),
         Spacer(),
-        Text('=', style: kSuperBigBoldFont),
+        Text('=', style: FontTheme.of(ctx).veryBig.primary.bold()),
         Spacer(),
         Column(children: [
-          Text('1', style: kSuperBigBoldFont),
+          Text('1', style: FontTheme.of(ctx).veryBig.primary.bold()),
           SizedBox(height: s(10)),
           Container(
               decoration: BoxDecoration(
@@ -103,7 +103,7 @@ class MiningTutorial extends StatefulWidget {
       Row(children: [
         Spacer(),
         Column(children: [
-          Text('1', style: kSuperBigBoldFont),
+          Text('1', style: FontTheme.of(ctx).veryBig.primary.bold()),
           SizedBox(height: s(10)),
           Container(
               decoration: BoxDecoration(
@@ -119,12 +119,13 @@ class MiningTutorial extends StatefulWidget {
                   ])))
         ]),
         Spacer(),
-        Text('=', style: kSuperBigBoldFont),
+        Text('=', style: FontTheme.of(ctx).veryBig.primary.bold()),
         Spacer(),
         Column(children: [
           RichText(
               text: TextSpan(children: [
-            TextSpan(text: '100% ', style: kSuperBigBoldFont),
+            TextSpan(
+                text: '100% ', style: FontTheme.of(ctx).veryBig.primary.bold()),
             TextSpan(text: 'Boost', style: FontTheme.of(ctx).big())
           ])),
           SizedBox(height: s(10)),
@@ -158,7 +159,7 @@ class MiningTutorial extends StatefulWidget {
       Row(children: [
         Spacer(),
         Column(children: [
-          Text('1', style: kSuperBigBoldFont),
+          Text('1', style: FontTheme.of(ctx).veryBig.primary.bold()),
           SizedBox(height: s(10)),
           Container(
               decoration: BoxDecoration(
@@ -174,7 +175,7 @@ class MiningTutorial extends StatefulWidget {
                   ])))
         ]),
         Spacer(),
-        Text('=', style: kSuperBigBoldFont),
+        Text('=', style: FontTheme.of(ctx).veryBig.primary.bold()),
         Spacer(),
         Column(children: [
           RichText(
@@ -182,7 +183,9 @@ class MiningTutorial extends StatefulWidget {
             TextSpan(
                 text: FlutterI18n.translate(ctx, 'up_to'),
                 style: FontTheme.of(ctx).big()),
-            TextSpan(text: ' 1 mil.', style: kSuperBigBoldFont)
+            TextSpan(
+                text: ' 1 mil.',
+                style: FontTheme.of(ctx).veryBig.primary.bold())
           ])),
           SizedBox(height: s(10)),
           Container(
@@ -240,11 +243,11 @@ class MiningTutorial extends StatefulWidget {
           text: TextSpan(children: [
         TextSpan(
             text: FlutterI18n.translate(ctx, "tutorial_pv2_title_span1"),
-            style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
+            style: FontTheme.of(ctx).big()),
         TextSpan(
-            text: FlutterI18n.translate(ctx, "tutorial_pv2_title_span2"),
-            style: kPrimaryBigFontOfBlack.copyWith(
-                color: Token.supernodeDhx.ui(_ctx).color)),
+          text: FlutterI18n.translate(ctx, "tutorial_pv2_title_span2"),
+          style: FontTheme.of(ctx).big.dhx(),
+        ),
       ])),
       SizedBox(height: 70),
       Row(children: [
@@ -301,7 +304,7 @@ class MiningTutorial extends StatefulWidget {
   Widget _pageView_3(BuildContext ctx) {
     return _pageBase([
       Text(FlutterI18n.translate(ctx, "tutorial_pv3_title"),
-          style: kPrimaryBigFontOfBlack),
+          style: FontTheme.of(ctx).big()),
       smallColumnSpacer(),
       RichText(
           text: TextSpan(children: [
@@ -337,28 +340,32 @@ class MiningTutorial extends StatefulWidget {
       RichText(
           text: TextSpan(children: [
         TextSpan(
-            text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span1"),
-            style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
+          text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span1"),
+          style: FontTheme.of(ctx).big(),
+        ),
         TextSpan(
-            text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span2"),
-            style: kPrimaryBigFontOfBlack.copyWith(
-                color: Token.supernodeDhx.ui(_ctx).color)),
+          text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span2"),
+          style: FontTheme.of(ctx).big.dhx(),
+        ),
         TextSpan(
-            text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span3"),
-            style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
+          text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span3"),
+          style: FontTheme.of(ctx).big(),
+        ),
       ])),
       RichText(
           text: TextSpan(children: [
         TextSpan(
-            text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span4"),
-            style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
+          text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span4"),
+          style: FontTheme.of(ctx).big(),
+        ),
         TextSpan(
-            text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span5"),
-            style: kPrimaryBigFontOfBlack.copyWith(
-                color: Token.supernodeDhx.ui(_ctx).color)),
+          text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span5"),
+          style: FontTheme.of(ctx).big.dhx(),
+        ),
         TextSpan(
-            text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span6"),
-            style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
+          text: FlutterI18n.translate(ctx, "tutorial_pv4_title_span6"),
+          style: FontTheme.of(ctx).big(),
+        ),
       ])),
       SizedBox(height: s(30)),
       Image.asset(AppImages.calendar1),
@@ -370,16 +377,17 @@ class MiningTutorial extends StatefulWidget {
       RichText(
           text: TextSpan(children: [
         TextSpan(
-            text: FlutterI18n.translate(ctx, "tutorial_pv5_title_span1"),
-            style: kPrimaryBigFontOfBlack.copyWith(
-                color: Token.supernodeDhx.ui(_ctx).color)),
+          text: FlutterI18n.translate(ctx, "tutorial_pv5_title_span1"),
+          style: FontTheme.of(ctx).big.dhx(),
+        ),
         TextSpan(
-            text: FlutterI18n.translate(ctx, "tutorial_pv5_title_span2"),
-            style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
+          text: FlutterI18n.translate(ctx, "tutorial_pv5_title_span2"),
+          style: FontTheme.of(ctx).big(),
+        ),
         TextSpan(
-            text: FlutterI18n.translate(ctx, "tutorial_pv5_title_span3"),
-            style: kPrimaryBigFontOfBlack.copyWith(
-                color: Token.supernodeDhx.ui(_ctx).color)),
+          text: FlutterI18n.translate(ctx, "tutorial_pv5_title_span3"),
+          style: FontTheme.of(ctx).big.dhx(),
+        ),
       ])),
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pv5_text"),
@@ -394,19 +402,21 @@ class MiningTutorial extends StatefulWidget {
       RichText(
           text: TextSpan(children: [
         TextSpan(
-            text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span1"),
-            style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
+          text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span1"),
+          style: FontTheme.of(ctx).big(),
+        ),
         TextSpan(
-            text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span2"),
-            style: kPrimaryBigFontOfBlack.copyWith(
-                color: Token.supernodeDhx.ui(_ctx).color)),
+          text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span2"),
+          style: FontTheme.of(ctx).big.dhx(),
+        ),
         TextSpan(
-            text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span3"),
-            style: kPrimaryBigFontOfBlack.copyWith(color: blackColor)),
+          text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span3"),
+          style: FontTheme.of(ctx).big(),
+        ),
         TextSpan(
-            text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span4"),
-            style: kPrimaryBigFontOfBlack.copyWith(
-                color: Token.supernodeDhx.ui(_ctx).color)),
+          text: FlutterI18n.translate(ctx, "tutorial_pv6_title_span4"),
+          style: FontTheme.of(ctx).big.dhx(),
+        ),
       ])),
       SizedBox(height: s(10)),
       Text(FlutterI18n.translate(ctx, "tutorial_pv6_text"),
@@ -574,7 +584,7 @@ class _MiningTutorialState extends State<MiningTutorial> {
     return widget._pageBase([
       smallColumnSpacer(),
       Text(FlutterI18n.translate(ctx, "tutorial_page1_title"),
-          key: Key('tutorialPage1Title'), style: kPrimaryBigFontOfBlack),
+          key: Key('tutorialPage1Title'), style: FontTheme.of(ctx).big()),
       middleColumnSpacer(),
       Image.asset(AppImages.dhxMiningDiagram),
       middleColumnSpacer(),
@@ -589,7 +599,7 @@ class _MiningTutorialState extends State<MiningTutorial> {
   Widget _page_2(BuildContext ctx) {
     return widget._pageBase([
       Text(FlutterI18n.translate(ctx, "tutorial_page2_title"),
-          style: kPrimaryBigFontOfBlack),
+          style: FontTheme.of(ctx).big()),
       bigColumnSpacer(),
       Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
         CircleButton(

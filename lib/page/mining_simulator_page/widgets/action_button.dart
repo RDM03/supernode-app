@@ -26,7 +26,7 @@ class ActionButton extends StatelessWidget {
       ),
       onPressed: onTap,
       color: primary
-          ? colorSupernodeDhx
+          ? ColorsTheme.of(context).dhxBlue
           : ColorsTheme.of(context).primaryBackground,
     );
   }
@@ -51,7 +51,7 @@ class SmallActionButton extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: primary
-            ? colorSupernodeDhx
+            ? ColorsTheme.of(context).dhxBlue
             : ColorsTheme.of(context).primaryBackground,
       ),
       height: 25,

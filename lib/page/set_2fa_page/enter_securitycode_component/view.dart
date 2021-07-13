@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_codes.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../action.dart';
 import 'state.dart';
@@ -14,15 +15,16 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return Scaffold(
-      backgroundColor: secondaryBackgroundColor,
+      backgroundColor: ColorsTheme.of(_ctx).secondaryBackground,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: blackColor),
+        iconTheme:
+            IconThemeData(color: ColorsTheme.of(_ctx).textPrimaryAndIcons),
         title: Text(
             state.isEnabled
                 ? FlutterI18n.translate(_ctx, 'disable_2FA')
                 : FlutterI18n.translate(_ctx, 'enable_2FA'),
             style: TextStyle(
-              color: blackColor,
+              color: ColorsTheme.of(_ctx).textPrimaryAndIcons,
               fontWeight: FontWeight.w400,
               fontSize: 18,
             )),
@@ -43,7 +45,7 @@ Widget buildView(
                         children: <Widget>[
                           Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_01'),
                               style: TextStyle(
-                                color: blackColor,
+                                color: ColorsTheme.of(_ctx).textPrimaryAndIcons,
                                 fontWeight: FontWeight.w400,
                                 fontSize: 24,
                               )),

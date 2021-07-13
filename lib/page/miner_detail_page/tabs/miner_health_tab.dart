@@ -173,7 +173,7 @@ class MinerHealthTab extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text('${(item.health * 100).round()}%',
-                          style: kSuperBigBoldFont),
+                          style: FontTheme.of(context).veryBig.primary.bold()),
                       Text(
                         FlutterI18n.translate(context, 'health_score'),
                         style: FontTheme.of(context).middle.secondary(),
@@ -376,7 +376,7 @@ class StatisticTable extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: colorMxc05,
+        color: ColorsTheme.of(context).boxComponents,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(

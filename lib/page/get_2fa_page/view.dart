@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_codes.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -23,7 +24,7 @@ Widget buildView(
       child: Column(children: <Widget>[
         Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_01'),
             style: TextStyle(
-              color: blackColor,
+              color: ColorsTheme.of(_ctx).textPrimaryAndIcons,
               fontWeight: FontWeight.w400,
               fontSize: 24,
             )),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/buttons/secondary_button.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../row_spacer.dart';
 
-Widget secondaryButtons(
+Widget secondaryButtons(BuildContext context,
     {String buttonLabel1 = '',
     String buttonLabel2 = '',
     String buttonLabel3 = '',
@@ -18,21 +19,24 @@ Widget secondaryButtons(
         SecondaryButton(
           isSelected: selectedIndex == 0,
           buttonTitle: buttonLabel1,
-          color: selectedIndex == 0 ? selectedTabColor : whiteColor,
+          color:
+              selectedIndex == 0 ? ColorsTheme.of(context).mxcBlue : whiteColor,
           onTap: onTap1,
         ),
         smallRowSpacer(),
         SecondaryButton(
           isSelected: selectedIndex == 1,
           buttonTitle: buttonLabel2,
-          color: selectedIndex == 1 ? selectedTabColor : whiteColor,
+          color:
+              selectedIndex == 1 ? ColorsTheme.of(context).mxcBlue : whiteColor,
           onTap: onTap2,
         ),
         smallRowSpacer(),
         SecondaryButton(
           isSelected: selectedIndex == 2,
           buttonTitle: buttonLabel3,
-          color: selectedIndex == 2 ? selectedTabColor : whiteColor,
+          color:
+              selectedIndex == 2 ? ColorsTheme.of(context).mxcBlue : whiteColor,
           icon: Icons.date_range,
           onTap: onTap3,
         )

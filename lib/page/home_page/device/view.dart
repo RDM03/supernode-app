@@ -27,7 +27,7 @@ class _DeviceTabState extends State<DeviceTab> {
       barColor: ColorsTheme.of(context).mxcBlue,
       titleColor: ColorsTheme.of(context).primaryBackground,
       qRCornerColor: ColorsTheme.of(context).mxcBlue,
-      qRScannerColor: buttonPrimaryColorAccent,
+      qRScannerColor: ColorsTheme.of(context).mxcBlue20,
     );
     Navigator.pushNamed(context, 'choose_application_page');
   }
@@ -63,7 +63,7 @@ class _DeviceTabState extends State<DeviceTab> {
         action: IconButton(
           icon: Icon(
             Icons.filter_list,
-            color: blackColor,
+            color: ColorsTheme.of(context).textPrimaryAndIcons,
           ),
           onPressed: () => showFilterDialog(context),
         ),

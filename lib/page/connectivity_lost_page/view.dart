@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/utils/network_util.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class _ConnectivityLostPageView extends StatelessWidget {
   void _refresh(BuildContext context) async {
@@ -44,7 +45,7 @@ class _ConnectivityLostPageView extends StatelessWidget {
                 Spacer(),
                 Text(
                   FlutterI18n.translate(context, 'connectivity_lost'),
-                  style: kPrimaryBigFontOfBlack,
+                  style: FontTheme.of(context).big(),
                   textAlign: TextAlign.center,
                 ),
                 Spacer(),

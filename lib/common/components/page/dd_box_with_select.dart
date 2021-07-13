@@ -36,7 +36,7 @@ class DDBoxWithSelect extends StatelessWidget {
           ),
           trailing: Icon(
             Icons.chevron_right,
-            color: blackColor,
+            color: ColorsTheme.of(context).textPrimaryAndIcons,
           ),
         ),
       ),

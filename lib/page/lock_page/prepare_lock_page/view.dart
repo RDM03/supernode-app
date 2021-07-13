@@ -118,7 +118,9 @@ Widget buildView(
                 child: state.balance == null
                     ? Center(
                         child: LinearProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(colorSupernodeDhx),
+                          valueColor: AlwaysStoppedAnimation(
+                            ColorsTheme.of(_ctx).dhxBlue,
+                          ),
                           backgroundColor: colorSupernodeDhx20,
                         ),
                       )
@@ -134,7 +136,7 @@ Widget buildView(
                           return Slider(
                             key: ValueKey('lockAmountSlider'),
                             value: percent,
-                            activeColor: colorSupernodeDhx,
+                            activeColor: ColorsTheme.of(_ctx).dhxBlue,
                             inactiveColor: colorSupernodeDhx20,
                             onChanged: (v) {
                               final balanceVal =

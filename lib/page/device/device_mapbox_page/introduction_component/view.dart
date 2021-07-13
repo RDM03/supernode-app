@@ -80,7 +80,7 @@ Widget buildView(
     return Row(
       children: <Widget>[
         Radio<String>(
-          activeColor: blackColor,
+          activeColor: ColorsTheme.of(context).textPrimaryAndIcons,
           value: value ?? "",
           groupValue: groupValue,
           onChanged: onChanged,

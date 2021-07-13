@@ -16,7 +16,6 @@ import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
@@ -28,10 +27,10 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return ScaffoldWidget(
-    backgroundColor: secondaryBackgroundColor,
+    backgroundColor: ColorsTheme.of(_ctx).secondaryBackground,
     padding: kRoundRow2002,
     appBar: AppBar(
-      iconTheme: IconThemeData(color: blackColor),
+      iconTheme: IconThemeData(color: ColorsTheme.of(_ctx).textPrimaryAndIcons),
       title: Text(FlutterI18n.translate(_ctx, 'wechat_login_title'),
           style: FontTheme.of(_ctx).big(), textAlign: TextAlign.center),
       backgroundColor: Colors.transparent,
@@ -60,7 +59,7 @@ Widget buildView(
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: backgroundColor,
+                      color: ColorsTheme.of(_ctx).primaryBackground,
                       offset: Offset(0, 2),
                       blurRadius: 20,
                       spreadRadius: 10,
@@ -76,7 +75,7 @@ Widget buildView(
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: backgroundColor,
+                          color: ColorsTheme.of(context).primaryBackground,
                           offset: Offset(0, 2),
                           blurRadius: 20,
                           spreadRadius: 10,

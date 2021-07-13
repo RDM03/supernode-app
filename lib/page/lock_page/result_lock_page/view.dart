@@ -39,7 +39,7 @@ Widget buildView(
             FlutterI18n.translate(context, 'transaction_id') +
                 ': ' +
                 state.transactionId,
-            style: kPrimaryBigFontOfBlack,
+            style: FontTheme.of(context).big(),
             textAlign: TextAlign.center,
           ),
         ),

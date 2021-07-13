@@ -180,27 +180,36 @@ class GatewayTab extends StatelessWidget {
                                 padding: const EdgeInsets.only(top: 20.0),
                                 child: GestureDetector(
                                   onTap: () => aboutPage(
-                                      ctx,
-                                      FlutterI18n.translate(
-                                          context, 'health_score'),
-                                      CircularGraph(
-                                          90, ColorsTheme.of(context).mxcBlue,
-                                          child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text('90 %',
-                                                    style: kSuperBigBoldFont),
-                                                Text(
-                                                    FlutterI18n.translate(
-                                                        context,
-                                                        'health_score'),
-                                                    style: FontTheme.of(context)
-                                                        .middle
-                                                        .secondary()),
-                                              ])),
-                                      FlutterI18n.translate(
-                                          context, 'health_score_info')),
+                                    ctx,
+                                    FlutterI18n.translate(
+                                        context, 'health_score'),
+                                    CircularGraph(
+                                      90,
+                                      ColorsTheme.of(context).mxcBlue,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            '90 %',
+                                            style: FontTheme.of(context)
+                                                .veryBig
+                                                .primary
+                                                .bold(),
+                                          ),
+                                          Text(
+                                            FlutterI18n.translate(
+                                                context, 'health_score'),
+                                            style: FontTheme.of(context)
+                                                .middle
+                                                .secondary(),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    FlutterI18n.translate(
+                                        context, 'health_score_info'),
+                                  ),
                                   child: CircularGraph(
                                       gatewayState.health.loading
                                           ? 0.0
@@ -223,13 +232,22 @@ class GatewayTab extends StatelessWidget {
                                                 child: (gatewayState
                                                             .health.value ==
                                                         null)
-                                                    ? Text('-- %',
-                                                        style:
-                                                            kSuperBigBoldFont)
+                                                    ? Text(
+                                                        '-- %',
+                                                        style: FontTheme.of(
+                                                                context)
+                                                            .veryBig
+                                                            .primary
+                                                            .bold(),
+                                                      )
                                                     : Text(
                                                         '${Tools.priceFormat(gatewayState.health.value * 100)} %',
-                                                        style:
-                                                            kSuperBigBoldFont)),
+                                                        style: FontTheme.of(
+                                                                context)
+                                                            .veryBig
+                                                            .primary
+                                                            .bold(),
+                                                      )),
                                             Text(
                                                 FlutterI18n.translate(
                                                     context, 'health_score'),
@@ -245,10 +263,20 @@ class GatewayTab extends StatelessWidget {
                           loadableWidget(
                               loading: state.gatewaysRevenue.loading,
                               child: (state.gatewaysRevenue.value == null)
-                                  ? Text('-- MXC', style: kSuperBigBoldFont)
+                                  ? Text(
+                                      '-- MXC',
+                                      style: FontTheme.of(context)
+                                          .veryBig
+                                          .primary
+                                          .bold(),
+                                    )
                                   : Text(
                                       '${Tools.priceFormat(state.gatewaysRevenue.value)} MXC',
-                                      style: kSuperBigBoldFont)),
+                                      style: FontTheme.of(context)
+                                          .veryBig
+                                          .primary
+                                          .bold(),
+                                    )),
                           Text(
                               FlutterI18n.translate(
                                   context, 'total_mining_revenue'),

@@ -354,7 +354,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
             child: Text(
               FlutterI18n.translate(context, 'boost_mpower'),
               style: TextStyle(
-                color: blackColor,
+                color: ColorsTheme.of(context).textPrimaryAndIcons,
                 fontSize: s(16),
                 fontWeight: FontWeight.w500,
               ),
@@ -382,7 +382,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
                 Text(
                   FlutterI18n.translate(context, 'shop_m2pro'),
                   style: TextStyle(
-                    color: blackColor,
+                    color: ColorsTheme.of(context).textPrimaryAndIcons,
                     fontSize: s(16),
                     fontWeight: FontWeight.w500,
                   ),
@@ -416,7 +416,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
                 Text(
                   FlutterI18n.translate(context, 'lock_mxc'),
                   style: TextStyle(
-                    color: blackColor,
+                    color: ColorsTheme.of(context).textPrimaryAndIcons,
                     fontSize: s(16),
                     fontWeight: FontWeight.w500,
                   ),
@@ -459,7 +459,7 @@ void showBoostMPowerDialog(BuildContext ctx) {
                 Text(
                   FlutterI18n.translate(context, 'learn_more'),
                   style: TextStyle(
-                    color: blackColor,
+                    color: ColorsTheme.of(context).textPrimaryAndIcons,
                     fontSize: s(16),
                     fontWeight: FontWeight.w500,
                   ),
@@ -490,7 +490,8 @@ void aboutPage(
                           style: FontTheme.of(context).big.primary.bold())),
                   leading: SizedBox(),
                   trailing: GestureDetector(
-                    child: Icon(Icons.close, color: blackColor),
+                    child: Icon(Icons.close,
+                        color: ColorsTheme.of(context).textPrimaryAndIcons),
                     onTap: () => Navigator.of(ctx).pop(),
                   ),
                 ),

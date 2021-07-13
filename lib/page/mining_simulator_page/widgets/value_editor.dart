@@ -83,8 +83,8 @@ class ValueEditor extends StatelessWidget {
                   child: total == null
                       ? Center(
                           child: LinearProgressIndicator(
-                            valueColor:
-                                AlwaysStoppedAnimation(colorSupernodeDhx),
+                            valueColor: AlwaysStoppedAnimation(
+                                ColorsTheme.of(context).dhxBlue),
                             backgroundColor: colorSupernodeDhx20,
                           ),
                         )
@@ -101,7 +101,7 @@ class ValueEditor extends StatelessWidget {
                             return Slider(
                               key: ValueKey('valueSlider'),
                               value: percent,
-                              activeColor: colorSupernodeDhx,
+                              activeColor: ColorsTheme.of(context).dhxBlue,
                               inactiveColor: colorSupernodeDhx20,
                               onChanged: !enabled
                                   ? null
@@ -183,25 +183,27 @@ class ValueEditor2 extends StatelessWidget {
   final String Function(String) validator;
   final Color primaryColor;
 
-  const ValueEditor2(
-      {Key key,
-      this.textFieldSuffix,
-      this.controller,
-      this.total,
-      this.totalSuffix,
-      this.title,
-      this.subtitle,
-      this.showSlider = true,
-      this.showTextField = true,
-      this.showTotal = true,
-      this.enabled = true,
-      this.hintText,
-      this.validator,
-      this.primaryColor = blackColor})
-      : super(key: key);
+  const ValueEditor2({
+    Key key,
+    this.textFieldSuffix,
+    this.controller,
+    this.total,
+    this.totalSuffix,
+    this.title,
+    this.subtitle,
+    this.showSlider = true,
+    this.showTextField = true,
+    this.showTotal = true,
+    this.enabled = true,
+    this.hintText,
+    this.validator,
+    this.primaryColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor =
+        this.primaryColor ?? ColorsTheme.of(context).textPrimaryAndIcons;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

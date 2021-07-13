@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
-Widget pageIconNavBar(
+Widget pageIconNavBar(BuildContext context,
     {Widget title,
     EdgeInsetsGeometry padding,
     Function onTap,
@@ -17,7 +17,7 @@ Widget pageIconNavBar(
           GestureDetector(
             child: Icon(
               Icons.close,
-              color: blackColor,
+              color: ColorsTheme.of(context).textPrimaryAndIcons,
             ),
             onTap: onTap,
           ),

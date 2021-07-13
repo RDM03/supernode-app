@@ -37,7 +37,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: secondaryBackgroundColor,
+        backgroundColor: ColorsTheme.of(context).secondaryBackground,
         appBar: AppBars.backArrowAppBar(
           context,
           color: whiteColor,

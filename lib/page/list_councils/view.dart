@@ -49,13 +49,13 @@ Widget buildView(
             key: ValueKey('tabSlider'),
             onValueChanged: (v) => dispatch(ListCouncilsActionCreator.tab(v)),
             groupValue: state.tab,
-            thumbColor: colorSupernodeDhx,
+            thumbColor: ColorsTheme.of(context).dhxBlue,
             backgroundColor: colorSupernodeDhx20,
           ),
         ),
         SizedBox(height: 30),
         if (state.allCouncils == null || state.joinedCouncils == null)
-          _loadingWidget()
+          _loadingWidget(context)
         else
           for (var i = 0; i < state.selectedCouncils.length; i++) ...[
             CouncilCard(
@@ -69,12 +69,12 @@ Widget buildView(
   );
 }
 
-Widget _loadingWidget() => Padding(
+Widget _loadingWidget(BuildContext context) => Padding(
       padding: const EdgeInsets.all(20),
       child: Center(
         child: CircularProgressIndicator(
           key: ValueKey('circularProgressIndicator'),
-          valueColor: AlwaysStoppedAnimation(colorSupernodeDhx),
+          valueColor: AlwaysStoppedAnimation(ColorsTheme.of(context).dhxBlue),
         ),
       ),
     );

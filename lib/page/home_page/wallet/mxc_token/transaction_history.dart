@@ -16,6 +16,7 @@ import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/mxc/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/mxc/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class TransactionHistoryContent extends StatefulWidget {
   @override
@@ -98,7 +99,7 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
                     buttonTitle:
                         FlutterI18n.translate(context, 'deposit').toUpperCase(),
                     color: filter == TransactionHistoryFilter.deposit
-                        ? selectedTabColor
+                        ? ColorsTheme.of(context).mxcBlue
                         : whiteColor,
                     onTap: () {
                       if (filter == TransactionHistoryFilter.deposit)
@@ -115,7 +116,7 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
                     buttonTitle: FlutterI18n.translate(context, 'withdraw')
                         .toUpperCase(),
                     color: filter == TransactionHistoryFilter.withdraw
-                        ? selectedTabColor
+                        ? ColorsTheme.of(context).mxcBlue
                         : whiteColor,
                     onTap: () {
                       if (filter == TransactionHistoryFilter.withdraw)
@@ -130,7 +131,9 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
                     isSelected: isSetDate,
                     buttonTitle: FlutterI18n.translate(context, 'set_date')
                         .toUpperCase(),
-                    color: isSetDate ? selectedTabColor : whiteColor,
+                    color: isSetDate
+                        ? ColorsTheme.of(context).mxcBlue
+                        : whiteColor,
                     icon: Icons.date_range,
                     onTap: () {
                       setState(() => isSetDate = !isSetDate);

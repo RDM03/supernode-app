@@ -117,7 +117,7 @@ List<Widget> calendar(
       children: [
         Text(
             '  ${TimeUtil.getMYAbb(context, items.first.date, withApostrophe: true)}',
-            style: kPrimaryBigFontOfBlack),
+            style: FontTheme.of(context).big()),
         Expanded(
             child: Text(
           countTotalMonth(items),

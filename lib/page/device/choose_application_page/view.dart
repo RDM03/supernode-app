@@ -42,7 +42,7 @@ Widget buildView(
               trailing: Icon(
                 Icons.keyboard_arrow_down,
                 size: 30,
-                color: blackColor,
+                color: ColorsTheme.of(context).textPrimaryAndIcons,
               ),
               onTap: () {
                 showDialog(

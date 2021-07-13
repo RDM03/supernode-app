@@ -97,7 +97,8 @@ class _DhxUnbondingPageState extends State<DhxUnbondingPage> {
                   child: Text(FlutterI18n.translate(context, 'unbond_dhx'),
                       style: FontTheme.of(context).big())),
               trailing: GestureDetector(
-                  child: Icon(Icons.close, color: blackColor),
+                  child: Icon(Icons.close,
+                      color: ColorsTheme.of(context).textPrimaryAndIcons),
                   onTap: () => Navigator.of(context).pop()),
             ),
             Container(

@@ -48,7 +48,7 @@ class AddFuelConfirmPage extends StatelessWidget {
                   ? FlutterI18n.translate(context, 'add_fuel_congrats')
                   : error.toString(),
               key: Key('congratsFuelText'),
-              style: kPrimaryBigFontOfBlack,
+              style: FontTheme.of(context).big(),
               textAlign: TextAlign.center,
             ),
           ),

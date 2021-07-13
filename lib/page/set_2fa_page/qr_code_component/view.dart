@@ -20,9 +20,10 @@ Widget buildView(
   print(state.secret);
   return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: secondaryBackgroundColor,
+      backgroundColor: ColorsTheme.of(_ctx).secondaryBackground,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: blackColor),
+        iconTheme:
+            IconThemeData(color: ColorsTheme.of(_ctx).textPrimaryAndIcons),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),

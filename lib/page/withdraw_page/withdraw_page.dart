@@ -114,18 +114,19 @@ class _WithdrawPageState extends State<WithdrawPage> {
                         String qrResult = await MajaScan.startScan(
                           title: FlutterI18n.translate(context, 'scan_code'),
                           barColor: ColorsTheme.of(context).mxcBlue,
-                          titleColor: backgroundColor,
+                          titleColor: ColorsTheme.of(context).primaryBackground,
                           qRCornerColor: ColorsTheme.of(context).mxcBlue,
-                          qRScannerColor: buttonPrimaryColorAccent,
+                          qRScannerColor: ColorsTheme.of(context).mxcBlue20,
                         );
                         context.read<WithdrawCubit>().setAddress(qrResult);
                       },
                       child: Icon(Icons.center_focus_weak,
-                          color: blackColor, size: 30),
+                          color: ColorsTheme.of(context).textPrimaryAndIcons,
+                          size: 30),
                     ),
                   ),
                 ),
-                backgroundColor: backgroundColor,
+                backgroundColor: ColorsTheme.of(context).primaryBackground,
                 body: PageBody(children: [
                   smallColumnSpacer(),
                   Text(FlutterI18n.translate(context, '24hours_warning'),
@@ -342,7 +343,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                       context, 'info_current_transaction_fee'),
                   key: ValueKey('helpText'),
                   style: TextStyle(
-                    color: blackColor,
+                    color: ColorsTheme.of(context).textPrimaryAndIcons,
                     fontSize: s(16),
                     fontWeight: FontWeight.w500,
                   ),

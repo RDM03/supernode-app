@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/components/page/paragraph.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../action.dart';
 import 'state.dart';
@@ -16,9 +17,10 @@ Widget buildView(EnterNonOTPSecurityCodeState state, Dispatch dispatch,
 
   return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: secondaryBackgroundColor,
+      backgroundColor: ColorsTheme.of(_ctx).secondaryBackground,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: blackColor),
+        iconTheme:
+            IconThemeData(color: ColorsTheme.of(_ctx).textPrimaryAndIcons),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),

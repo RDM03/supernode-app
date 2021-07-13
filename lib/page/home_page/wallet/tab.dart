@@ -37,7 +37,7 @@ class _WalletTabState extends State<WalletTab> {
                 ),
                 onPressed: () => openSettings(context),
               ),
-        body: state.walletSelectedToken.ui(context) == null
+        body: state.walletSelectedToken == null
             ? BlocBuilder<HomeCubit, HomeState>(
                 builder: (ctx, state) => PageBody(
                   children: [

@@ -15,6 +15,7 @@ import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/wrap.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/mxc/cubit.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class StakeHistoryContent extends StatefulWidget {
   @override
@@ -82,7 +83,7 @@ class _StakeHistoryContentState extends State<StakeHistoryContent> {
                 buttonTitle:
                     FlutterI18n.translate(context, 'stake').toUpperCase(),
                 color: filter == StakeHistoryFilter.stake
-                    ? selectedTabColor
+                    ? ColorsTheme.of(context).mxcBlue
                     : whiteColor,
                 onTap: () {
                   if (filter == StakeHistoryFilter.stake)
@@ -99,7 +100,7 @@ class _StakeHistoryContentState extends State<StakeHistoryContent> {
                 buttonTitle:
                     FlutterI18n.translate(context, 'unstake').toUpperCase(),
                 color: filter == StakeHistoryFilter.unstake
-                    ? selectedTabColor
+                    ? ColorsTheme.of(context).mxcBlue
                     : whiteColor,
                 onTap: () {
                   if (filter == StakeHistoryFilter.unstake)
@@ -114,7 +115,7 @@ class _StakeHistoryContentState extends State<StakeHistoryContent> {
                 isSelected: isSetDate,
                 buttonTitle:
                     FlutterI18n.translate(context, 'set_date').toUpperCase(),
-                color: isSetDate ? selectedTabColor : whiteColor,
+                color: isSetDate ? ColorsTheme.of(context).mxcBlue : whiteColor,
                 icon: Icons.date_range,
                 onTap: () {
                   setState(() => isSetDate = !isSetDate);

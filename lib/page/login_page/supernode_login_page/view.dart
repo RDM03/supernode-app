@@ -141,7 +141,7 @@ class _SupernodeLoginPageContentState
       ],
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: secondaryBackgroundColor,
+        backgroundColor: ColorsTheme.of(context).secondaryBackground,
         body: GestureDetector(
           child: Stack(
             alignment: Alignment.topCenter,
@@ -229,7 +229,8 @@ class _SupernodeLoginPageContentState
                                   style: TextStyle(
                                       fontSize: s(14),
                                       fontWeight: FontWeight.w400,
-                                      color: blackColor),
+                                      color: ColorsTheme.of(context)
+                                          .textPrimaryAndIcons),
                                 ),
                                 GestureDetector(
                                   onTap: () => _showInfoDialog(context),
@@ -441,7 +442,9 @@ class _SupernodeLoginPageContentState
                                       key: Key(key),
                                       title: Text(
                                         FlutterI18n.translate(context, key),
-                                        style: TextStyle(color: blackColor),
+                                        style: TextStyle(
+                                            color: ColorsTheme.of(context)
+                                                .textPrimaryAndIcons),
                                       ),
                                       initiallyExpanded: false,
                                       backgroundColor: ColorsTheme.of(context)
@@ -507,7 +510,7 @@ void _showInfoDialog(BuildContext context) {
               FlutterI18n.translate(context, 'info_supernode'),
               key: ValueKey("helpText"),
               style: TextStyle(
-                color: blackColor,
+                color: ColorsTheme.of(context).textPrimaryAndIcons,
                 fontSize: s(16),
                 fontWeight: FontWeight.w500,
               ),

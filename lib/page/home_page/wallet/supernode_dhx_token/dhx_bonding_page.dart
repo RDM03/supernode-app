@@ -100,7 +100,8 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
                   child: Text(FlutterI18n.translate(context, 'bond_dhx'),
                       style: FontTheme.of(context).big())),
               trailing: GestureDetector(
-                  child: Icon(Icons.close, color: blackColor),
+                  child: Icon(Icons.close,
+                      color: ColorsTheme.of(context).textPrimaryAndIcons),
                   onTap: () => Navigator.of(context).pop()),
             ),
             Container(

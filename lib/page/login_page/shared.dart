@@ -62,7 +62,9 @@ class CircleButton extends StatelessWidget {
             child: Icon(
               icon,
               size: 40,
-              color: (onPressed == null) ? greyColor : blackColor,
+              color: (onPressed == null)
+                  ? greyColor
+                  : ColorsTheme.of(context).textPrimaryAndIcons,
             ),
           ),
           SizedBox(height: 8),

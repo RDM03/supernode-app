@@ -46,7 +46,7 @@ class CouncilCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius:
                       BorderRadius.horizontal(left: Radius.circular(10)),
-                  color: colorSupernodeDhx,
+                  color: ColorsTheme.of(context).dhxBlue,
                 ),
                 child: Center(
                   child: FaIcon(

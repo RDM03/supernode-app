@@ -9,18 +9,16 @@ final appTheme = ThemeData(
   appBarTheme: AppBarTheme(brightness: Brightness.light),
 );
 
-final backgroundColor = colorsMapper.primaryBackground;
-final secondaryBackgroundColor = colorsMapper.secondaryBackground;
-final mxcBlue = colorsMapper.mxcBlue;
-final colorMxc05 = Color(0xFF1C1478).withOpacity(0.05);
-final colorMxc10 = Color(0xFF1C1478).withOpacity(0.1);
-final colorMxc20 = Color(0xFF1C1478).withOpacity(0.2);
-final colorSupernodeDhx = colorsMapper.dhxBlue;
-final colorBtc = colorsMapper.btcYellow;
-final boxComponents = colorsMapper.boxComponents;
+// final ColorsTheme.of(context).primaryBackground = colorsMapper.primaryBackground;
+// final ColorsTheme.of(context).secondaryBackground = colorsMapper.secondaryBackground;
+// final mxcBlue = colorsMapper.mxcBlue;
+// final colorMxc05 = Color(0xFF1C1478).withOpacity(0.05);
+// final ColorsTheme.of(context).dhxBlue = colorsMapper.dhxBlue;
+// final colorBtc = colorsMapper.btcYellow;
+// final boxComponents = colorsMapper.boxComponents;
 
-@deprecated
-const buttonPrimaryColorAccent = Color(0x961C1478);
+// @deprecated
+// const buttonPrimaryColorAccent = Color(0x961C1478);
 
 //home
 @deprecated
@@ -32,13 +30,10 @@ const shodowColor = const Color(0x1A000000);
 const borderColor = const Color(0x46000000);
 @deprecated
 final withdrawColor = Colors.red[200];
+@deprecated
 const depositColor = const Color(0x3310C469);
 
-const unselectedColor = greyColor;
-const selectedColor = Color(0xFF1B1478);
-
 //wallet
-const selectedTabColor = Color(0xFF4D8BE5);
 const colorMxcGradientStart = Color(0xFF02FFD8);
 final colorSupernodeDhx20 = Color(0xFF4665EA).withOpacity(0.2);
 const colorDhx = Color(0xFF6B0B92);
@@ -53,7 +48,6 @@ final Color hintFont20 = Color(0xFF98A6AD).withOpacity(0.2);
 const Color tipFont = Color(0xDE000000);
 
 //device
-final dartBlueColor = colorsMapper.mxcBlue;
 const dbm100 = Color(0xFFFF5B5B);
 const dbm100_105 = Color(0xFFFAA300);
 const dbm105_110 = Color(0xFFF7D700);

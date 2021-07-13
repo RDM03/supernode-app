@@ -35,7 +35,7 @@ class MinerRevenueTab extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: colorMxc05,
+            color: ColorsTheme.of(context).boxComponents,
             borderRadius: BorderRadius.circular(10),
           ),
           width: double.infinity,

@@ -31,7 +31,7 @@ Widget pageNavBar(
             child: actionWidget == null
                 ? Icon(
                     Icons.close,
-                    color: blackColor,
+                    color: ColorsTheme.of(context).textPrimaryAndIcons,
                   )
                 : actionWidget,
             onTap: onTap,
@@ -57,16 +57,36 @@ class PageNavBar extends StatelessWidget {
     this.padding,
     this.onTap,
     this.textStyle,
-    this.actionWidget = const Icon(
-      Icons.close,
-      color: blackColor,
-    ),
+    this.actionWidget = const AppBarCloseButton(),
     this.leadingWidget,
     this.centerTitle = false,
   }) : super(key: key);
 
+  const PageNavBar.settings({
+    Key key,
+    @required this.text,
+    this.padding = const EdgeInsets.only(
+      top: 22,
+      bottom: 33,
+      left: 20,
+      right: 20,
+    ),
+    @deprecated this.onTap,
+    this.textStyle,
+    this.actionWidget,
+    this.leadingWidget = const AppBarBackButton(),
+    this.centerTitle = true,
+  });
+
   @override
   Widget build(BuildContext context) {
+    Widget actionWidget = this.actionWidget;
+    if (onTap != null)
+      actionWidget = GestureDetector(
+        key: ValueKey('navActionButton'),
+        child: actionWidget,
+        onTap: onTap,
+      );
     return Container(
       padding: padding,
       child: Row(
@@ -82,17 +102,31 @@ class PageNavBar extends StatelessWidget {
               style: textStyle ?? FontTheme.of(context).big(),
             ),
           ),
-          SizedBox(
-            width: 24,
-            child: actionWidget == null
-                ? null
-                : GestureDetector(
-                    key: ValueKey('navActionButton'),
-                    child: actionWidget,
-                    onTap: onTap,
-                  ),
-          ),
+          if (actionWidget != null)
+            actionWidget
+          else if (centerTitle)
+            SizedBox(width: 24),
         ],
+      ),
+    );
+  }
+}
+
+class AppBarCloseButton extends StatelessWidget {
+  const AppBarCloseButton({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 24,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        key: ValueKey('navBackButton'),
+        child: Icon(
+          Icons.close,
+          color: ColorsTheme.of(context).textPrimaryAndIcons,
+        ),
+        onTap: () => Navigator.of(context).pop(),
       ),
     );
   }
@@ -110,7 +144,7 @@ class AppBarBackButton extends StatelessWidget {
         key: ValueKey('navBackButton'),
         child: Icon(
           Icons.arrow_back_ios,
-          color: blackColor,
+          color: ColorsTheme.of(context).textPrimaryAndIcons,
         ),
         onTap: () => Navigator.of(context).pop(),
       ),

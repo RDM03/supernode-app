@@ -51,7 +51,7 @@ extension TokenExtension on Token {
       case Token.nft:
         return bundle.nft;
     }
-    throw UnimplementedError('No name found for $this');
+    throw UnimplementedError('No bundle found for $this');
   }
 
   /// Used for API calls

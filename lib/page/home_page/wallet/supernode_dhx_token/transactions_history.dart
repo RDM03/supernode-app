@@ -101,7 +101,7 @@ class _TransactionsHistoryContentState
                     buttonTitle:
                         FlutterI18n.translate(context, 'deposit').toUpperCase(),
                     color: filter == TransactionHistoryFilter.deposit
-                        ? selectedTabColor
+                        ? ColorsTheme.of(context).mxcBlue
                         : whiteColor,
                     onTap: () {
                       if (filter == TransactionHistoryFilter.deposit)
@@ -118,7 +118,7 @@ class _TransactionsHistoryContentState
                     buttonTitle: FlutterI18n.translate(context, 'withdraw')
                         .toUpperCase(),
                     color: filter == TransactionHistoryFilter.withdraw
-                        ? selectedTabColor
+                        ? ColorsTheme.of(context).mxcBlue
                         : whiteColor,
                     onTap: () {
                       if (filter == TransactionHistoryFilter.withdraw)
@@ -133,7 +133,9 @@ class _TransactionsHistoryContentState
                     isSelected: isSetDate,
                     buttonTitle: FlutterI18n.translate(context, 'set_date')
                         .toUpperCase(),
-                    color: isSetDate ? selectedTabColor : whiteColor,
+                    color: isSetDate
+                        ? ColorsTheme.of(context).mxcBlue
+                        : whiteColor,
                     icon: Icons.date_range,
                     onTap: () {
                       setState(() => isSetDate = !isSetDate);

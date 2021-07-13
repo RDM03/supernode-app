@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
+import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
@@ -16,32 +17,27 @@ import 'export_mxc_page.dart';
 class ExportDataPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return pageFrame(context: context, padding: EdgeInsets.all(0.0), children: <
-        Widget>[
-      ListTile(
-          title: Center(
-              child: Text(
-                  FlutterI18n.translate(context, 'export_financial_data'),
-                  style: FontTheme.of(context).big.primary.bold())),
-          trailing: GestureDetector(
-              child: Icon(Icons.close, color: blackColor),
-              onTap: () => Navigator.of(context).pop())),
-      Divider(height: 1),
-      listItem(Token.mxc.ui(context).name,
-          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          key: Key('export_mxc'),
-          onTap: () =>
-              Navigator.pushReplacement(context, route((_) => ExportMxcPage())),
-          leading: Image(image: Token.mxc.ui(context).image, height: s(50))),
-      Divider(height: 1),
-      BlocBuilder<HomeCubit, HomeState>(
+    return pageFrame(
+      context: context,
+      padding: EdgeInsets.all(0.0),
+      children: <Widget>[
+        PageNavBar.settings(
+          text: FlutterI18n.translate(context, 'export_financial_data'),
+        ),
+        listItem(Token.mxc.ui(context).name,
+            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            key: Key('export_mxc'),
+            onTap: () => Navigator.pushReplacement(
+                context, route((_) => ExportMxcPage())),
+            leading: Image(image: Token.mxc.ui(context).image, height: s(50))),
+        BlocBuilder<HomeCubit, HomeState>(
           buildWhen: (a, b) => a.displayTokens != b.displayTokens,
           builder: (ctx, state) => (state.displayTokens
                   .contains(Token.supernodeDhx))
               ? Column(
                   children: [
                     Container(
-                      color: backgroundColor,
+                      color: ColorsTheme.of(context).primaryBackground,
                       child: ListTile(
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -54,15 +50,15 @@ class ExportDataPage extends StatelessWidget {
                         trailing: Icon(Icons.chevron_right, color: greyColor),
                       ),
                     ),
-                    Divider(height: 1),
                   ],
                 )
-              : SizedBox()),
-      BlocBuilder<HomeCubit, HomeState>(
+              : SizedBox(),
+        ),
+        BlocBuilder<HomeCubit, HomeState>(
           buildWhen: (a, b) => a.displayTokens != b.displayTokens,
           builder: (ctx, state) => (state.displayTokens.contains(Token.btc))
               ? Container(
-                  color: backgroundColor,
+                  color: ColorsTheme.of(context).primaryBackground,
                   child: ListTile(
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -74,7 +70,9 @@ class ExportDataPage extends StatelessWidget {
                     trailing: Icon(Icons.chevron_right, color: greyColor),
                   ),
                 )
-              : SizedBox()),
-    ]);
+              : SizedBox(),
+        ),
+      ],
+    );
   }
 }

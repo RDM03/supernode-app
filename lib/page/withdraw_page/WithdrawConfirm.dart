@@ -29,7 +29,7 @@ class WithdrawConfirm extends StatelessWidget {
                 key: ValueKey('navBackButton'),
                 child: Icon(
                   Icons.arrow_back_ios,
-                  color: blackColor,
+                  color: ColorsTheme.of(context).textPrimaryAndIcons,
                 ),
                 onTap: () => context.read<WithdrawCubit>().backToForm())),
         xbigColumnSpacer(),

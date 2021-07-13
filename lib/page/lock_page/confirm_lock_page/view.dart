@@ -39,7 +39,7 @@ Widget buildView(
           width: double.infinity,
           child: Text(
             FlutterI18n.translate(context, 'mining'),
-            style: kPrimaryBigFontOfBlack,
+            style: FontTheme.of(context).big(),
             textAlign: TextAlign.center,
           ),
         ),
@@ -94,7 +94,7 @@ Widget buildView(
         SizedBox(height: 10),
         Text(
           FlutterI18n.translate(context, 'mining_boost'),
-          style: kPrimaryBigFontOfBlack,
+          style: FontTheme.of(context).big(),
         ),
         SizedBox(height: 16),
         Row(
@@ -273,7 +273,7 @@ void _showInfoDialog(BuildContext context) {
             child: Text(
               FlutterI18n.translate(context, 'info_lock_boost'),
               style: TextStyle(
-                color: blackColor,
+                color: ColorsTheme.of(context).textPrimaryAndIcons,
                 fontSize: s(16),
                 fontWeight: FontWeight.w500,
               ),

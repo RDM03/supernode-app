@@ -87,7 +87,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
       ],
       child: Scaffold(
           key: scaffoldKey,
-          backgroundColor: secondaryBackgroundColor,
+          backgroundColor: ColorsTheme.of(context).secondaryBackground,
           body: Stack(alignment: Alignment.topCenter, children: [
             SingleChildScrollView(
                 child: Container(
@@ -112,7 +112,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                       height: s(171),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: backgroundColor,
+                        color: ColorsTheme.of(context).primaryBackground,
                         shape: BoxShape.circle,
                       ),
                       child: BlocBuilder<LoginCubit, LoginState>(
@@ -158,7 +158,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                       style: TextStyle(
                           fontSize: s(14),
                           fontWeight: FontWeight.w400,
-                          color: blackColor),
+                          color: ColorsTheme.of(context).textPrimaryAndIcons),
                     ),
                     GestureDetector(
                       onTap: () => _showInfoDialog(context),
@@ -277,10 +277,13 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                                   ExpansionSuperNodesTile(
                                     title: Text(
                                       FlutterI18n.translate(context, key),
-                                      style: TextStyle(color: blackColor),
+                                      style: TextStyle(
+                                          color: ColorsTheme.of(context)
+                                              .textPrimaryAndIcons),
                                     ),
                                     initiallyExpanded: false,
-                                    backgroundColor: backgroundColor,
+                                    backgroundColor: ColorsTheme.of(context)
+                                        .primaryBackground,
                                     children: <Widget>[
                                       for (Supernode item
                                           in state.supernodes.value[key])
@@ -334,7 +337,7 @@ void _showInfoDialog(BuildContext context) {
               FlutterI18n.translate(context, 'info_supernode'),
               key: ValueKey("helpText"),
               style: TextStyle(
-                color: blackColor,
+                color: ColorsTheme.of(context).textPrimaryAndIcons,
                 fontSize: s(16),
                 fontWeight: FontWeight.w500,
               ),

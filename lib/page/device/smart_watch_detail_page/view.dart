@@ -46,6 +46,7 @@ Widget buildView(
 
 Widget _buildNavBar(BuildContext ctx) {
   return pageIconNavBar(
+    ctx,
     leading: Container(
       margin: EdgeInsets.only(right: 8),
       child: Icon(

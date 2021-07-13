@@ -26,7 +26,7 @@ Widget tabButtons({
                 controller: tabController,
                 indicatorPadding: EdgeInsets.zero,
                 indicatorColor: ColorsTheme.of(context).mxcBlue,
-                labelColor: blackColor,
+                labelColor: ColorsTheme.of(context).textPrimaryAndIcons,
                 unselectedLabelColor: Colors.black38,
                 key: ValueKey('tabBar'),
                 tabs: list.map((item) {
@@ -59,7 +59,7 @@ Widget tabButtons({
             //   minHeight: 120
             // ),
             decoration: BoxDecoration(
-              color: secondaryBackgroundColor,
+              color: ColorsTheme.of(context).secondaryBackground,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(10),
                 bottomRight: Radius.circular(10),

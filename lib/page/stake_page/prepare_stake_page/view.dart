@@ -200,7 +200,7 @@ Widget buildView(
                       key: ValueKey('stakeAmountSlider'),
                       value: percent,
                       activeColor: ColorsTheme.of(_ctx).mxcBlue,
-                      inactiveColor: colorMxc20,
+                      inactiveColor: ColorsTheme.of(_ctx).mxcBlue20,
                       onChanged: (v) {
                         final balanceVal =
                             (state.balance * v * 100).floorToDouble() / 100;

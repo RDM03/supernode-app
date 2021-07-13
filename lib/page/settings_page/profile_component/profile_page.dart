@@ -81,7 +81,8 @@ class _ProfilePageState extends State<ProfilePage> {
             padding:
                 const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
             child: GestureDetector(
-              child: Icon(Icons.close, color: blackColor),
+              child: Icon(Icons.close,
+                  color: ColorsTheme.of(context).textPrimaryAndIcons),
               onTap: () => context
                   .read<SettingsCubit>()
                   .showWechatUnbindConfirmation(false),
@@ -152,7 +153,8 @@ class _ProfilePageState extends State<ProfilePage> {
             padding:
                 const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
             child: GestureDetector(
-              child: Icon(Icons.close, color: blackColor),
+              child: Icon(Icons.close,
+                  color: ColorsTheme.of(context).textPrimaryAndIcons),
               onTap: () => context.read<SettingsCubit>().bindShopifyStep(0),
             ),
           ),
@@ -188,7 +190,8 @@ class _ProfilePageState extends State<ProfilePage> {
             padding:
                 const EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
             child: GestureDetector(
-              child: Icon(Icons.close, color: blackColor),
+              child: Icon(Icons.close,
+                  color: ColorsTheme.of(context).textPrimaryAndIcons),
               onTap: () => context.read<SettingsCubit>().bindShopifyStep(0),
             ),
           ),
@@ -210,17 +213,10 @@ class _ProfilePageState extends State<ProfilePage> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                pageNavBar(
-                  FlutterI18n.translate(context, 'super_node'),
+                PageNavBar(
+                  text: FlutterI18n.translate(context, 'super_node'),
+                  centerTitle: true,
                   onTap: () => Navigator.pop(context),
-                  leadingWidget: GestureDetector(
-                    key: ValueKey('navBackButton'),
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      color: blackColor,
-                    ),
-                    onTap: () => Navigator.of(context).pop(),
-                  ),
                 ),
                 SizedBox(height: 30),
                 Center(
@@ -310,13 +306,14 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           Container(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              color: backgroundColor,
-              width: double.infinity,
-              child: Text(
-                FlutterI18n.translate(context, 'manage'),
-                style: FontTheme.of(context).middle.secondary(),
-              )),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            color: ColorsTheme.of(context).primaryBackground,
+            width: double.infinity,
+            child: Text(
+              FlutterI18n.translate(context, 'manage'),
+              style: FontTheme.of(context).middle.secondary(),
+            ),
+          ),
           BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
               buildWhen: (a, b) => a.weChatUser != b.weChatUser,
               builder: (ctx, s) => (s.weChatUser != null)

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class PickerDialog<T> extends StatelessWidget {
   final List<T> values;
@@ -37,7 +38,9 @@ class PickerDialog<T> extends StatelessWidget {
                 child: Text(
                   stringifier == null ? e.toString() : stringifier(e),
                   style: TextStyle(
-                    color: selectedValue == e ? null : blackColor,
+                    color: selectedValue == e
+                        ? null
+                        : ColorsTheme.of(context).textPrimaryAndIcons,
                   ),
                 ),
               ),

@@ -32,7 +32,7 @@ Widget buildView(
         SizedBox(height: 30),
         Text(
           FlutterI18n.translate(context, 'join_a_council'),
-          style: kPrimaryBigFontOfBlack,
+          style: FontTheme.of(context).big(),
         ),
         SizedBox(height: 4),
         Text(
@@ -54,7 +54,7 @@ Widget buildView(
         if (state.councils?.isNotEmpty ?? true) ...[
           Text(
             FlutterI18n.translate(context, 'council_lists'),
-            style: kPrimaryBigFontOfBlack,
+            style: FontTheme.of(context).big(),
           ),
           SizedBox(height: 20),
         ],
@@ -64,7 +64,8 @@ Widget buildView(
             child: Center(
               child: CircularProgressIndicator(
                 key: ValueKey('circularProgressIndicator'),
-                valueColor: AlwaysStoppedAnimation(colorSupernodeDhx),
+                valueColor:
+                    AlwaysStoppedAnimation(ColorsTheme.of(context).dhxBlue),
               ),
             ),
           )

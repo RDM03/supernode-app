@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'colors.dart';
 
@@ -85,20 +86,14 @@ const kSecondaryButtonOfGrey = TextStyle(
   fontSize: 14,
 );
 
-final kRowShodow = BoxDecoration(
-  color: secondaryBackgroundColor,
-  borderRadius: BorderRadius.all(Radius.circular(12)),
-  boxShadow: [
-    BoxShadow(
-      color: shodowColor,
-      offset: Offset(0, 2),
-      blurRadius: 7,
-    ),
-  ],
-);
-
-const kPrimaryBigFontOfBlack =
-    TextStyle(fontSize: 18, fontWeight: FontWeight.w600);
-
-const kSuperBigBoldFont =
-    TextStyle(color: blackColor, fontSize: 22, fontWeight: FontWeight.w600);
+BoxDecoration rowShadow(BuildContext context) => BoxDecoration(
+      color: ColorsTheme.of(context).secondaryBackground,
+      borderRadius: BorderRadius.all(Radius.circular(12)),
+      boxShadow: [
+        BoxShadow(
+          color: shodowColor,
+          offset: Offset(0, 2),
+          blurRadius: 7,
+        ),
+      ],
+    );
