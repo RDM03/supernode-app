@@ -90,7 +90,7 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
         ),
       ],
       child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          onTap: () => FocusScope.of(context).unfocus(),
           child: pageFrame(
               context: context,
               padding: EdgeInsets.all(0.0),
@@ -144,13 +144,11 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
                                               text: FlutterI18n.translate(
                                                   context, 'click_here'),
                                               style: kMiddleFontOfBlueLink,
-                                              recognizer:
-                                                  new TapGestureRecognizer()
-                                                    ..onTap = () =>
-                                                        openSupernodeDeposit(
-                                                            context,
-                                                            Token
-                                                                .supernodeDhx)),
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = () =>
+                                                    openSupernodeDeposit(
+                                                        context,
+                                                        Token.supernodeDhx))
                                         ],
                                       ),
                                     ),
@@ -166,19 +164,16 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
                                               text: FlutterI18n.translate(
                                                   context, 'click_here'),
                                               style: kMiddleFontOfBlueLink,
-                                              recognizer:
-                                                  new TapGestureRecognizer()
-                                                    ..onTap = () =>
-                                                        Navigator.pushNamed(
-                                                            context,
-                                                            'lock_page',
-                                                            arguments: {
-                                                              'isDemo': context
-                                                                  .read<
-                                                                      AppCubit>()
-                                                                  .state
-                                                                  .isDemo
-                                                            })),
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = () =>
+                                                    Navigator.pushNamed(
+                                                        context, 'lock_page',
+                                                        arguments: {
+                                                          'isDemo': context
+                                                              .read<AppCubit>()
+                                                              .state
+                                                              .isDemo
+                                                        }))
                                         ],
                                       ),
                                     ),

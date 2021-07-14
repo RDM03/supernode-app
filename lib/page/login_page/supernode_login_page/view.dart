@@ -471,7 +471,7 @@ class _SupernodeLoginPageContentState
             ],
           ),
           onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
+            FocusScope.of(context).unfocus();
           },
         ),
       ),

@@ -87,7 +87,7 @@ class _DhxUnbondingPageState extends State<DhxUnbondingPage> {
         ),
       ],
       child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          onTap: () => FocusScope.of(context).unfocus(),
           child: pageFrame(
               context: context,
               padding: EdgeInsets.all(0.0),
