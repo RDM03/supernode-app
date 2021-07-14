@@ -247,11 +247,11 @@ class MinerHealthTab extends StatelessWidget {
           ),
         ),
         GraphCard(
-          online: DateTime.tryParse(item.lastSeenAt)
+          online: item.lastSeenAt != null ? DateTime.tryParse(item.lastSeenAt)
                   .difference(DateTime.now())
                   .abs() <
-              Duration(minutes: 5),
-          lastSeen: DateTime.tryParse(item.lastSeenAt),
+              Duration(minutes: 5) : false,
+          lastSeen: DateTime.tryParse(item.lastSeenAt ?? ''),
           maxValue: 1,
           subtitle: FlutterI18n.translate(context, 'score_weekly_total'),
           title:
