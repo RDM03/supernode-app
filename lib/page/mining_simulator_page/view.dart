@@ -30,7 +30,7 @@ Widget buildView(
   return GestureDetector(
     key: Key('miningSimulatorView'),
     onTap: () =>
-        FocusScope.of(viewService.context).requestFocus(new FocusNode()),
+        FocusScope.of(viewService.context).unfocus(),
     child: Form(
       key: state.formKey,
       child: pageFrame(

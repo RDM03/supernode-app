@@ -37,7 +37,7 @@ class DDBody extends StatelessWidget {
             ],
           ),
           child: GestureDetector(
-              onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+              onTap: () => FocusScope.of(context).unfocus(),
               child: child)),
       floatingActionButton: floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,
