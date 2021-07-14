@@ -7,9 +7,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
+import 'package:supernodeapp/common/components/loading_flash.dart';
+import 'package:supernodeapp/common/components/page/dd_box_spacer.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/summary_row.dart';
+import 'package:supernodeapp/common/components/widgets/circular_graph.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
@@ -25,6 +28,7 @@ import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/spacing.dart';
 
 import '../shared.dart';
 import 'account_widget.dart';
@@ -66,20 +70,104 @@ class UserTab extends StatelessWidget {
           ],
         ),
       ),
-      PanelFrame(
-        rowTop: EdgeInsets.only(top: 10),
-        child: SummaryRow(
-          key: Key('totalGatewaysDashboard'),
-          loading: snState.gatewaysRevenueUsd.loading,
-          image: AppImages.gateways,
-          title: FlutterI18n.translate(context, 'total_gateways'),
-          number: '${gatewayState.gatewaysTotal.value ?? '0'}',
-          subtitle: FlutterI18n.translate(context, 'profit'),
-          price:
-              '${Tools.priceFormat(snState.gatewaysRevenue.value)} MXC (${Tools.priceFormat(snState.gatewaysRevenueUsd.value)} USD)',
-        ),
-      )
+      GestureDetector(
+          onTap: () => context.read<HomeCubit>().changeTab(
+                HomeCubit.MINER_TAB,
+              ),
+          child: PanelFrame(
+              rowTop: EdgeInsets.only(top: 10),
+              child: Column(
+                children: [
+                  DDBoxSpacer(
+                    height: SpacerStyle.small,
+                  ),
+                  Container(
+                    margin: kRoundRow2010,
+                    child: Flex(
+                      direction: Axis.horizontal,
+                      children: [
+                        minerPanel(
+                            name:
+                                FlutterI18n.translate(context, 'health_score'),
+                            percentage: gatewayState.health.value,
+                            loading: gatewayState.health.loading),
+                        DDBoxSpacer(width: SpacerStyle.small),
+                        minerPanel(
+                            name: FlutterI18n.translate(context, 'fuel_tank'),
+                            percentage: gatewayState.miningFuelHealth.value,
+                            loading: gatewayState.miningFuelHealth.loading),
+                        DDBoxSpacer(width: SpacerStyle.small),
+                        minerPanel(
+                            name: FlutterI18n.translate(context, 'miner'),
+                            amount: gatewayState.gatewaysTotal.value,
+                            loading: gatewayState.gatewaysTotal.loading),
+                      ],
+                    ),
+                  ),
+                  BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
+                      buildWhen: (a, b) =>
+                          a.gatewaysRevenue != b.gatewaysRevenue,
+                      builder: (ctx, state) => SummaryRow(
+                            loading: state.gatewaysRevenue.loading,
+                            title: FlutterI18n.translate(
+                                context, 'total_mining_revenue'),
+                            number: (state.gatewaysRevenue.value == null)
+                                ? '-- MXC'
+                                : '${Tools.priceFormat(state.gatewaysRevenue.value)} MXC',
+                            subtitle: FlutterI18n.translate(
+                                context, 'total_fueled_amount'),
+                            price: (gatewayState.miningFuel.value == null)
+                                ? '-- MXC'
+                                : '${Tools.priceFormat(gatewayState.miningFuel.value)} MXC',
+                          )),
+                  DDBoxSpacer(height: SpacerStyle.small)
+                ],
+              ))),
     ]);
+  }
+
+  Widget minerPanel(
+      {String name, double percentage, int amount, bool loading = false}) {
+    Color color;
+    percentage = (percentage ?? 0.0) * 100;
+
+    if (loading || amount != null) {
+      color = Colors.grey;
+    } else if (percentage > 10) {
+      color = minerColor;
+    } else {
+      color = fuelColor;
+    }
+
+    return Expanded(
+        child: Column(
+      children: [
+        CircularGraph(
+          percentage,
+          color,
+          child: Container(
+            alignment: Alignment.center,
+            height: double.infinity,
+            margin: kOuterRowBottom10,
+            child: loadableWidget(
+                loading: loading,
+                child: amount != null
+                    ? Text('$amount', style: kMiddleBoldFontOfBlack)
+                    : ((percentage == null)
+                        ? Text('-- %', style: kMiddleBoldFontOfBlack)
+                        : Text('${Tools.priceFormat(percentage)} %',
+                            style: kMiddleBoldFontOfBlack))),
+          ),
+          size: 100,
+          paddingSize: 6,
+          lineWidth: 8,
+        ),
+        DDBoxSpacer(
+          height: SpacerStyle.small,
+        ),
+        Text(name, style: kSmallFontOfBlack)
+      ],
+    ));
   }
 
   Widget totalGatewaysDemo(BuildContext context) {
@@ -88,7 +176,7 @@ class UserTab extends StatelessWidget {
         context,
         SummaryRow(
           key: Key('totalGatewaysDashboard'),
-          image: AppImages.gateways,
+          image: AssetImage(AppImages.gateways),
           title: FlutterI18n.translate(context, 'total_gateways'),
           number: '3',
           subtitle: FlutterI18n.translate(context, 'profit'),

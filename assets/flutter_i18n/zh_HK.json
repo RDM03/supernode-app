@@ -565,7 +565,7 @@
 	"info_lock_boost": "1個礦機最大可提升1百萬算力",
 	"amount_of_miner": "礦機數量",
 	"amount_of_miner_desc": "您使用的M2 Pro礦機數量",
-	"miner": "閘道器",
+	"miner": "礦機",
 	"mxc_lockdrop_duration": "MXC 鎖倉週期",
 	"months_lockdrop_duration": "{0} 個月 ({1})",
 	"no_boost": "無算力提升",
@@ -651,5 +651,7 @@
 	"adding_miner_failure_detail": "無法正常工作，請再試壹次。",
 	"adding_miner_success_detail": "您的M2 Pro正在開采中",
 	"adding_miner_warning_title": "註意：這個礦機已經註冊了",
-	"adding_miner_warning_detail": "已使用過的礦機功能不同於全新礦機。如果您不想購買二手礦機，請聯系您的賣家。"
+	"adding_miner_warning_detail": "已使用過的礦機功能不同於全新礦機。如果您不想購買二手礦機，請聯系您的賣家。",
+	"fuel_tank": "補給箱",
+	"total_fueled_amount": "總補給量"
 }

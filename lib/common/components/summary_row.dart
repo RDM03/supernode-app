@@ -6,7 +6,7 @@ import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 
 class SummaryRow extends StatelessWidget {
-  final String image;
+  final AssetImage image;
   final String title;
   final String subtitle;
   final String number;
@@ -15,7 +15,7 @@ class SummaryRow extends StatelessWidget {
 
   const SummaryRow({
     Key key,
-    this.image = '',
+    this.image,
     this.title = '',
     this.subtitle = '',
     this.number = '',
@@ -38,23 +38,24 @@ class SummaryRow extends StatelessWidget {
     }
 
     return Row(children: [
-      Padding(
-        padding: const EdgeInsets.only(left: 15.0, top: 15, bottom: 15),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Image.asset(
-              AppImages.blueCircle,
-              fit: BoxFit.none,
-              color: lightBlue,
-            ),
-            Image.asset(
-              image,
-              fit: BoxFit.none,
-            )
-          ],
+      if (image != null && image.assetName.isNotEmpty)
+        Padding(
+          padding: const EdgeInsets.only(left: 15.0, top: 15, bottom: 15),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Image.asset(
+                AppImages.blueCircle,
+                fit: BoxFit.none,
+                color: lightBlue,
+              ),
+              Image(
+                image: image,
+                fit: BoxFit.none,
+              )
+            ],
+          ),
         ),
-      ),
       Expanded(
         child: Column(
           children: [
