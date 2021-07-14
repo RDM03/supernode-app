@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action, Page;
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -159,46 +160,7 @@ Future<void> main() async {
         ],
         child: MultiBlocListener(
           listeners: listeners(),
-          child: MultiProvider(
-            providers: [
-              Provider<ColorsTheme>(
-                create: (ctx) => darkThemeColors,
-              ),
-              ProxyProvider<ColorsTheme, FontTheme>(
-                update: (_, colors, __) => FontTheme(colors),
-              ),
-              ProxyProvider<ColorsTheme, TokenUiBundle>(
-                update: (_, colors, __) => TokenUiBundle(
-                  mxc: TokenUiInfo(
-                    name: 'MXC',
-                    color: colors.mxcBlue,
-                    image: AssetImage(AppImages.logoMXC),
-                  ),
-                  supernodeDhx: TokenUiInfo(
-                    name: 'DHX',
-                    color: colors.dhxBlue,
-                    image: AssetImage(AppImages.logoDHX),
-                  ),
-                  parachainDhx: TokenUiInfo(
-                    fullName: 'DataHighway DHX',
-                    name: 'DHX',
-                    color: colors.dhxBlue,
-                    image: AssetImage(AppImages.logoDHX),
-                  ),
-                  btc: TokenUiInfo(
-                    fullName: 'Bitcoin BTC',
-                    name: 'BTC',
-                    color: colors.btcYellow,
-                    image: AssetImage(AppImages.logoBTC),
-                  ),
-                  nft: TokenUiInfo(
-                    name: 'NFT',
-                    color: colors.textLabel,
-                    image: AssetImage(AppImages.logoNFT),
-                  ),
-                ),
-              ),
-            ],
+          child: ThemeProviders(
             child: OKToast(child: MxcApp()),
           ),
         ),
@@ -220,6 +182,85 @@ Future<void> main() async {
   //   appSecretAndroid: Sys.appSecretAndroid,
   //   appSecretIOS: Sys.appSecretIOS,
   // );
+}
+
+class ThemeProviders extends StatefulWidget {
+  final Widget child;
+  const ThemeProviders({Key key, this.child}) : super(key: key);
+
+  @override
+  _ThemeProvidersState createState() => _ThemeProvidersState();
+}
+
+class _ThemeProvidersState extends State<ThemeProviders> {
+  bool systemDarkMode;
+
+  @override
+  void initState() {
+    super.initState();
+    systemDarkMode =
+        SchedulerBinding.instance.window.platformBrightness == Brightness.dark;
+    WidgetsBinding.instance.window.onPlatformBrightnessChanged = () {
+      setState(() {
+        systemDarkMode = WidgetsBinding.instance.window.platformBrightness ==
+            Brightness.dark;
+      });
+    };
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AppCubit, AppState>(
+      buildWhen: (a, b) => a.theme != b.theme,
+      builder: (ctx, state) => MultiProvider(
+        providers: [
+          if (state.theme == ThemeOption.dark)
+            Provider<ColorsTheme>.value(value: darkThemeColors)
+          else if (state.theme == ThemeOption.light)
+            Provider<ColorsTheme>.value(value: lightThemeColors)
+          else if (state.theme == ThemeOption.system)
+            Provider<ColorsTheme>.value(
+              value: systemDarkMode ? darkThemeColors : lightThemeColors,
+            ),
+          ProxyProvider<ColorsTheme, FontTheme>(
+            update: (_, colors, __) => FontTheme(colors),
+          ),
+          ProxyProvider<ColorsTheme, TokenUiBundle>(
+            update: (_, colors, __) => TokenUiBundle(
+              mxc: TokenUiInfo(
+                name: 'MXC',
+                color: colors.mxcBlue,
+                image: AssetImage(AppImages.logoMXC),
+              ),
+              supernodeDhx: TokenUiInfo(
+                name: 'DHX',
+                color: colors.dhxBlue,
+                image: AssetImage(AppImages.logoDHX),
+              ),
+              parachainDhx: TokenUiInfo(
+                fullName: 'DataHighway DHX',
+                name: 'DHX',
+                color: colors.dhxBlue,
+                image: AssetImage(AppImages.logoDHX),
+              ),
+              btc: TokenUiInfo(
+                fullName: 'Bitcoin BTC',
+                name: 'BTC',
+                color: colors.btcYellow,
+                image: AssetImage(AppImages.logoBTC),
+              ),
+              nft: TokenUiInfo(
+                name: 'NFT',
+                color: colors.textLabel,
+                image: AssetImage(AppImages.logoNFT),
+              ),
+            ),
+          ),
+        ],
+        child: widget.child,
+      ),
+    );
+  }
 }
 
 class MxcApp extends StatelessWidget {

@@ -54,25 +54,27 @@ class ColorsTheme {
   // components
   final boxComponents = Colors.white;
   final mxcBlue = const Color(0xFF1C1478);
-  Color get mxcBlue80 => mxcBlue;
-  Color get mxcBlue60 => mxcBlue;
-  Color get mxcBlue40 => mxcBlue;
-  Color get mxcBlue20 => mxcBlue;
+  final mxcBlue80 = const Color(0xFF1C1478).withOpacity(0.80);
+  final mxcBlue60 = const Color(0xFF1C1478).withOpacity(0.60);
+  final mxcBlue40 = const Color(0xFF1C1478).withOpacity(0.40);
+  final mxcBlue20 = const Color(0xFF1C1478).withOpacity(0.20);
   final dhxBlue = const Color(0xFF4665EA);
-  Color get dhxBlue80 => dhxBlue;
-  Color get dhxBlue60 => dhxBlue;
-  Color get dhxBlue40 => dhxBlue;
-  Color get dhxBlue20 => dhxBlue;
+  final dhxBlue80 = const Color(0xFF4665EA).withOpacity(0.80);
+  final dhxBlue60 = const Color(0xFF4665EA).withOpacity(0.60);
+  final dhxBlue40 = const Color(0xFF4665EA).withOpacity(0.40);
+  final dhxBlue20 = const Color(0xFF4665EA).withOpacity(0.20);
   final dhxPurple = const Color(0xFF7D06AF);
   final minerHealthRed = const Color(0xFFFF5B5B);
-  Color get minerHealthRed80 => minerHealthRed;
-  Color get minerHealthRed20 => minerHealthRed;
+  final minerHealthRed80 = const Color(0xFFFF5B5B).withOpacity(0.80);
+  final minerHealthRed20 = const Color(0xFFFF5B5B).withOpacity(0.20);
   final btcYellow = const Color(0xFFF7931A);
 
   final textPrimaryAndIcons = Colors.black.withOpacity(0.87);
   final textSecondary = const Color(0xFF98A6AD);
   final textLabel = const Color(0xFF98A6AD);
   final textError = const Color(0xFFFF5B5B);
+
+  final blueButtonTextColor = Colors.white;
 }
 
 class ColorsThemeDark implements ColorsTheme {
@@ -104,6 +106,8 @@ class ColorsThemeDark implements ColorsTheme {
   final textSecondary = const Color(0xFFEBEFF2);
   final textLabel = const Color(0xFF98A6AD);
   final textError = const Color(0xFFFF5B5B);
+
+  final blueButtonTextColor = Colors.white;
 }
 
 class FontTheme {

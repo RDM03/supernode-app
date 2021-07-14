@@ -18,7 +18,6 @@ import 'package:supernodeapp/common/repositories/storage_repository.dart';
 import 'package:supernodeapp/page/feedback_page/feedback_result.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
 class DatadashFeedbackWidgetForm extends StatefulWidget {
@@ -214,7 +213,9 @@ class DatadashFeedbackState extends State<DatadashFeedback> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: barrierColor,
+                          color: ColorsTheme.of(context)
+                              .boxComponents
+                              .withOpacity(0.6),
                           borderRadius: BorderRadius.horizontal(
                             left: Radius.circular(8),
                           ),

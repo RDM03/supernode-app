@@ -45,7 +45,7 @@ class PrimaryButton extends StatelessWidget {
             style: style ??
                 TextStyle(
                   color:
-                      textColor ?? ColorsTheme.of(context).textPrimaryAndIcons,
+                      textColor ?? ColorsTheme.of(context).blueButtonTextColor,
                   fontFamily: "Roboto",
                   fontSize: 15,
                   height: 1.5,
