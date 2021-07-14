@@ -166,7 +166,7 @@ class _DataHighwayCreate3PageState extends State<DataHighwayCreate3Page> {
                                 DataHighwaySession(address: 'mock-account'),
                               );
                           navigatorKey.currentState.pushAndRemoveUntil(
-                              routeWidget((c) => HomePage()), (_) => false);
+                              routeWidget(HomePage()), (_) => false);
                         }
                       : null,
                 ),

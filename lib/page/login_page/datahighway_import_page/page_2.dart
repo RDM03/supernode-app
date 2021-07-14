@@ -90,7 +90,7 @@ class _DataHighwayImport2PageState extends State<DataHighwayImport2Page> {
                           DataHighwaySession(address: 'mock-account'),
                         );
                     navigatorKey.currentState.pushAndRemoveUntil(
-                        routeWidget((c) => HomePage()), (_) => false);
+                        routeWidget(HomePage()), (_) => false);
                   },
                 ),
               ),

@@ -111,7 +111,7 @@ class _DataHighwayCreate2PageState extends State<DataHighwayCreate2Page> {
                   buttonTitle: 'Next',
                   onTap: wordsSaved
                       ? () => Navigator.of(context)
-                          .push(routeWidget((ctx) => DataHighwayCreate3Page()))
+                          .push(routeWidget(DataHighwayCreate3Page()))
                       : null,
                 ),
               ),
