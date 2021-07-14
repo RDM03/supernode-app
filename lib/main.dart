@@ -365,7 +365,6 @@ class MxcApp extends StatelessWidget {
           const Locale.fromSubtags(languageCode: 'id'), // Indonesia
           const Locale.fromSubtags(languageCode: 'tl'), // Philippines
         ],
-        theme: appTheme,
         home: ThemeMapper(
           child: Builder(
             builder: (ctx) {

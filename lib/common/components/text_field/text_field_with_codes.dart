@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'text_field_with_title.dart';
 
@@ -27,7 +28,7 @@ Widget textfieldWithCodes(
           FocusScope.of(context).unfocus();
         }
       },
-      borderColor: unknownColor1,
+      borderColor: ColorsTheme.of(context).textLabel,
       validator: (value) =>
           Reg.onValidNumber(context, value, isShowError: false),
       controller: controller,

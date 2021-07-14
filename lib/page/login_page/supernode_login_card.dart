@@ -125,7 +125,7 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
                         child: Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: whiteColor,
+                            color: darkThemeColors.textPrimaryAndIcons,
                           ),
                           child: Image.asset(AppImages.mxc),
                         ),
@@ -147,7 +147,7 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
                           'SUPERNODE',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: whiteColor,
+                            color: darkThemeColors.textPrimaryAndIcons,
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ),
@@ -170,7 +170,7 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
                           child: Text(
                             FlutterI18n.translate(context, 'learn_more'),
                             style: TextStyle(
-                              color: whiteColor,
+                              color: darkThemeColors.textPrimaryAndIcons,
                               fontSize: 16,
                             ),
                           ),
@@ -192,7 +192,7 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
                               .animate(widget.animation),
                           child: Icon(
                             fixed ? Icons.close : Icons.arrow_forward,
-                            color: whiteColor,
+                            color: darkThemeColors.textPrimaryAndIcons,
                             size: Tween<double>(begin: 16, end: 40)
                                 .evaluate(widget.animation),
                           ),
@@ -283,7 +283,7 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
             ),
             Padding(
               padding: const EdgeInsets.all(20),
-              child: whiteBorderButton(
+              child: WhiteBorderButton(
                   FlutterI18n.translate(context, 'demo_login'),
                   key: Key('demo_login'),
                   onPressed: () => loginCubit.demoLogin()),

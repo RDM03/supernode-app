@@ -118,33 +118,35 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                       child: BlocBuilder<LoginCubit, LoginState>(
                         buildWhen: (a, b) =>
                             a.selectedSuperNode != b.selectedSuperNode,
-                        builder: (context, state) =>
-                            state.selectedSuperNode != null
-                                ? Container(
-                                    width: s(134),
-                                    height: s(134),
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        color: whiteColor,
-                                        shape: BoxShape.circle,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: darkBackground2,
-                                            offset: Offset(0, 2),
-                                            blurRadius: 5,
-                                            spreadRadius: 5,
-                                          )
-                                        ]),
-                                    child: CachedNetworkImage(
-                                      imageUrl: state.selectedSuperNode.logo,
-                                      placeholder: (ctx, url) =>
-                                          Icon(Icons.add, size: s(40)),
-                                      width: s(100),
-                                    ))
-                                : Image.asset(
-                                    AppImages.supernode_placeholder,
-                                    width: s(171),
-                                  ),
+                        builder: (context, state) => state.selectedSuperNode !=
+                                null
+                            ? Container(
+                                width: s(134),
+                                height: s(134),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color:
+                                        ColorsTheme.of(context).boxComponents,
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: ColorsTheme.of(context)
+                                            .primaryBackground,
+                                        offset: Offset(0, 2),
+                                        blurRadius: 5,
+                                        spreadRadius: 5,
+                                      )
+                                    ]),
+                                child: CachedNetworkImage(
+                                  imageUrl: state.selectedSuperNode.logo,
+                                  placeholder: (ctx, url) =>
+                                      Icon(Icons.add, size: s(40)),
+                                  width: s(100),
+                                ))
+                            : Image.asset(
+                                AppImages.supernode_placeholder,
+                                width: s(171),
+                              ),
                       ),
                     ),
                   ),
@@ -206,9 +208,6 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                     onTap: () => context
                         .read<LoginCubit>()
                         .setSuperNodeListVisible(false),
-                    child: Container(
-                      color: unknownColor4,
-                    ),
                   );
                 return Container();
               },

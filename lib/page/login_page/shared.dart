@@ -24,7 +24,7 @@ class ImageWithText extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: fontSize,
-                color: whiteColor,
+                color: darkThemeColors.textPrimaryAndIcons,
               ),
             ),
           ),
@@ -54,7 +54,7 @@ class CircleButton extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: ColorsTheme.of(context).boxComponents,
+              color: darkThemeColors.boxComponents,
               shape: BoxShape.circle,
             ),
             height: 50,
@@ -63,16 +63,16 @@ class CircleButton extends StatelessWidget {
               icon,
               size: 40,
               color: (onPressed == null)
-                  ? greyColor
-                  : ColorsTheme.of(context).textPrimaryAndIcons,
+                  ? darkThemeColors.textLabel
+                  : darkThemeColors.textPrimaryAndIcons,
             ),
           ),
           SizedBox(height: 8),
           Text(
             text,
             style: (onPressed == null)
-                ? FontTheme.of(context).middle.label()
-                : FontTheme.of(context).middle.secondary(),
+                ? FontTheme(darkThemeColors).middle.label()
+                : FontTheme(darkThemeColors).middle.secondary(),
           ),
         ],
       ),

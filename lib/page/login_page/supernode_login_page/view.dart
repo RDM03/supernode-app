@@ -112,7 +112,7 @@ class _SupernodeLoginPageContentState
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1
-                    .copyWith(color: whiteColor),
+                    .copyWith(color: darkThemeColors.textPrimaryAndIcons),
               ),
               duration: Duration(seconds: 2),
               backgroundColor: ColorsTheme.of(context).textError,
@@ -182,11 +182,13 @@ class _SupernodeLoginPageContentState
                                           height: s(134),
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
-                                              color: whiteColor,
+                                              color: darkThemeColors
+                                                  .textPrimaryAndIcons,
                                               shape: BoxShape.circle,
                                               boxShadow: [
                                                 BoxShadow(
-                                                  color: darkBackground2,
+                                                  color: ColorsTheme.of(context)
+                                                      .primaryBackground,
                                                   offset: Offset(0, 2),
                                                   blurRadius: 5,
                                                   spreadRadius: 5,
@@ -370,9 +372,6 @@ class _SupernodeLoginPageContentState
                       onTap: () => context
                           .read<LoginCubit>()
                           .setSuperNodeListVisible(false),
-                      child: Container(
-                        color: unknownColor4,
-                      ),
                     );
                   return Container();
                 },

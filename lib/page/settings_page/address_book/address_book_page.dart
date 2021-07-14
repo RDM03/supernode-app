@@ -125,13 +125,9 @@ class _AddressBookPageState extends State<AddressBookPage> {
                           key: ValueKey('address_${i}_details'),
                           child: Text(
                             Tools.hideHalf(addresses[i].address),
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: hintFont,
-                              decoration: widget.selectionMode
-                                  ? TextDecoration.underline
-                                  : null,
-                            ),
+                            style: widget.selectionMode
+                                ? FontTheme.of(context).small.label.underline()
+                                : FontTheme.of(context).small.label(),
                           ),
                           onTap: () => _openDetails(addresses[i]),
                         ),

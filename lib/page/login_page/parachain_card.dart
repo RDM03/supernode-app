@@ -77,7 +77,7 @@ class ParachainLoginCard extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: whiteColor,
+                          color: darkThemeColors.textPrimaryAndIcons,
                         ),
                         child: Image.asset(AppImages.dhx),
                       ),
@@ -99,6 +99,7 @@ class ParachainLoginCard extends StatelessWidget {
                         style: FontTheme.of(context).veryBig().copyWith(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
+                              color: darkThemeColors.textPrimaryAndIcons,
                             ),
                       ),
                     ),
@@ -119,7 +120,7 @@ class ParachainLoginCard extends StatelessWidget {
                         child: Text(
                           FlutterI18n.translate(context, 'learn_more'),
                           style: TextStyle(
-                            color: whiteColor,
+                            color: darkThemeColors.textPrimaryAndIcons,
                             fontSize: 16,
                           ),
                         ),
@@ -141,7 +142,7 @@ class ParachainLoginCard extends StatelessWidget {
                             .animate(animation),
                         child: Icon(
                           fixed ? Icons.close : Icons.arrow_back,
-                          color: whiteColor,
+                          color: darkThemeColors.textPrimaryAndIcons,
                           size: Tween<double>(begin: 16, end: 40)
                               .evaluate(animation),
                         ),
@@ -181,7 +182,7 @@ class ParachainLoginCard extends StatelessWidget {
                               vertical: Tween<double>(begin: 0, end: 10)
                                   .evaluate(animation)),
                           decoration: BoxDecoration(
-                            color: whiteColor,
+                            color: lightThemeColors.textPrimaryAndIcons,
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                           child: Column(
@@ -190,10 +191,7 @@ class ParachainLoginCard extends StatelessWidget {
                                 Icons.home,
                                 size: Tween<double>(begin: 0, end: 24)
                                     .evaluate(animation),
-                                color:
-                                    ColorsTheme.of(context) is ColorsThemeDark
-                                        ? lightThemeColors.textPrimaryAndIcons
-                                        : darkThemeColors.textPrimaryAndIcons,
+                                color: darkThemeColors.textPrimaryAndIcons,
                               ),
                               SizedBox(
                                 height: Tween<double>(begin: 0, end: 5)
@@ -208,10 +206,7 @@ class ParachainLoginCard extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: Tween<double>(begin: 0, end: 16)
                                       .evaluate(animation),
-                                  color:
-                                      ColorsTheme.of(context) is ColorsThemeDark
-                                          ? lightThemeColors.textPrimaryAndIcons
-                                          : darkThemeColors.textPrimaryAndIcons,
+                                  color: darkThemeColors.textPrimaryAndIcons,
                                 ),
                               )
                             ],
@@ -235,16 +230,19 @@ class ParachainLoginCard extends StatelessWidget {
                               vertical: Tween<double>(begin: 0, end: 10)
                                   .evaluate(animation)),
                           decoration: BoxDecoration(
-                            color: ColorsTheme.of(context).textPrimaryAndIcons,
+                            color: lightThemeColors.textPrimaryAndIcons,
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                           child: Column(
                             children: [
-                              Image.asset(AppImages.medium,
-                                  width: Tween<double>(begin: 0, end: 24)
-                                      .evaluate(animation),
-                                  height: Tween<double>(begin: 0, end: 24)
-                                      .evaluate(animation)),
+                              Image.asset(
+                                AppImages.medium,
+                                width: Tween<double>(begin: 0, end: 24)
+                                    .evaluate(animation),
+                                height: Tween<double>(begin: 0, end: 24)
+                                    .evaluate(animation),
+                                color: darkThemeColors.textPrimaryAndIcons,
+                              ),
                               SizedBox(
                                   height: Tween<double>(begin: 0, end: 5)
                                       .evaluate(animation)),
@@ -255,10 +253,7 @@ class ParachainLoginCard extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: Tween<double>(begin: 0, end: 16)
                                       .evaluate(animation),
-                                  color:
-                                      ColorsTheme.of(context) is ColorsThemeDark
-                                          ? lightThemeColors.textPrimaryAndIcons
-                                          : darkThemeColors.textPrimaryAndIcons,
+                                  color: darkThemeColors.textPrimaryAndIcons,
                                 ),
                               )
                             ],
@@ -334,7 +329,7 @@ class ParachainLoginCard extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: ColorsTheme.of(context).textPrimaryAndIcons,
+                    color: darkThemeColors.textPrimaryAndIcons,
                   ),
                 ),
               )
@@ -357,7 +352,7 @@ class ParachainLoginCard extends StatelessWidget {
               ]).animate(animation),
               child: Padding(
                   padding: const EdgeInsets.all(20),
-                  child: whiteBorderButton(
+                  child: WhiteBorderButton(
                       FlutterI18n.translate(context, 'demo_login'))))
         ],
       ),

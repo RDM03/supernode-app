@@ -75,7 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     Widget unbindWeChatConfirmation() {
       return Material(
-        color: whiteColor,
+        color: ColorsTheme.of(context).primaryBackground,
         child: Stack(alignment: Alignment.topRight, children: [
           Padding(
             padding:
@@ -124,7 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     Widget bindShopifyStep1() {
       return Material(
-        color: whiteColor,
+        color: ColorsTheme.of(context).primaryBackground,
         child: Stack(alignment: Alignment.topRight, children: [
           Padding(
             padding:
@@ -164,7 +164,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     Widget bindShopifyStep2() {
       return Material(
-        color: whiteColor,
+        color: ColorsTheme.of(context).primaryBackground,
         child: Stack(alignment: Alignment.topRight, children: [
           Padding(
             padding:

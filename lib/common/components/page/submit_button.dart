@@ -43,40 +43,50 @@ Widget submitButton(
   );
 }
 
-Widget whiteBorderButton(
-  String label, {
-  double top = 34,
-  Function onPressed,
-  Key key,
-}) {
-  final Color color = (onPressed == null) ? greyColor : whiteColor;
-  return Container(
-    height: 45,
-    margin: EdgeInsets.only(top: top),
-    child: FlatButton(
-      key: key,
-      onPressed: onPressed,
-      color: Colors.transparent,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: color,
-          width: 1,
-          style: BorderStyle.solid,
+class WhiteBorderButton extends StatelessWidget {
+  final String label;
+  final double top;
+  final Function onPressed;
+  const WhiteBorderButton(
+    this.label, {
+    Key key,
+    this.top = 34,
+    this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final Color color = (onPressed == null)
+        ? darkThemeColors.textLabel
+        : darkThemeColors.textPrimaryAndIcons;
+    return Container(
+      height: 45,
+      margin: EdgeInsets.only(top: top),
+      child: FlatButton(
+        key: key,
+        onPressed: onPressed,
+        color: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            color: color,
+            width: 1,
+            style: BorderStyle.solid,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(3)),
         ),
-        borderRadius: BorderRadius.all(Radius.circular(3)),
-      ),
-      textColor: color,
-      padding: EdgeInsets.all(0),
-      child: Text(
-        label,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: color,
-          fontFamily: "Roboto",
-          fontWeight: FontWeight.w400,
-          fontSize: 14,
+        textColor: color,
+        padding: EdgeInsets.all(0),
+        child: Text(
+          label,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: color,
+            fontFamily: "Roboto",
+            fontWeight: FontWeight.w400,
+            fontSize: 14,
+          ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }

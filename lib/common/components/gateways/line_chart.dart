@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class SNLineChart extends StatelessWidget {
   const SNLineChart(
@@ -35,8 +35,8 @@ class SNLineChart extends StatelessWidget {
             bottomTitles: SideTitles(
               showTitles: true,
               // reservedSize: 22,
-              textStyle: const TextStyle(
-                color: hintFont,
+              textStyle: TextStyle(
+                color: ColorsTheme.of(context).textLabel,
                 fontSize: 12,
               ),
               // margin: 10,
@@ -45,8 +45,8 @@ class SNLineChart extends StatelessWidget {
             ),
             leftTitles: SideTitles(
               showTitles: true,
-              textStyle: const TextStyle(
-                color: hintFont,
+              textStyle: TextStyle(
+                color: ColorsTheme.of(context).textLabel,
                 fontSize: 12,
               ),
               // margin: 30
@@ -73,9 +73,9 @@ class SNLineChart extends StatelessWidget {
             )),
         borderData: FlBorderData(
             show: true,
-            border: const Border(
+            border: Border(
               bottom: BorderSide(
-                color: hintFont,
+                color: ColorsTheme.of(context).textLabel,
                 width: 1,
               ),
             )),

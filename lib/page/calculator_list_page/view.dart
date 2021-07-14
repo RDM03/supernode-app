@@ -100,7 +100,7 @@ Widget buildView(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(5)),
                                 borderSide: BorderSide(
-                                  color: unknownColor2,
+                                  color: ColorsTheme.of(_ctx).textLabel,
                                 ),
                               ),
                               enabledBorder: OutlineInputBorder(

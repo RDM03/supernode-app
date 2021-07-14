@@ -117,8 +117,8 @@ class GatewayTab extends StatelessWidget {
   }
 
   Widget minerHealthDashboard(BuildContext context) {
-    final disabledColor =
-        hintFont20; //remove once all health info implemented as well as disabled image assets
+    final disabledColor = ColorsTheme.of(context).textLabel.withOpacity(
+        0.2); //remove once all health info implemented as well as disabled image assets
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

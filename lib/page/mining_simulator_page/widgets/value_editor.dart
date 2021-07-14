@@ -67,7 +67,9 @@ class ValueEditor extends StatelessWidget {
                         ? '${total ?? '??'}'
                         : '${total ?? '??'} $totalSuffix',
                     style: FontTheme.of(context).middle(),
-                    color: enabled ? null : hintFont20,
+                    color: enabled
+                        ? null
+                        : ColorsTheme.of(context).textLabel.withOpacity(0.2),
                   ),
                 ),
               ),
@@ -154,7 +156,7 @@ class ValueEditor extends StatelessWidget {
               controller: controller,
               suffixText: textFieldSuffix,
               readOnly: !enabled,
-              textColor: hintFont,
+              textColor: ColorsTheme.of(context).textLabel,
               hint: hintText,
               suffixStyle:
                   enabled ? null : FontTheme.of(context).big.secondary(),
