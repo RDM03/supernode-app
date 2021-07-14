@@ -651,5 +651,7 @@
 	"adding_miner_failure_detail": "Việc này đã thành công rồi, xin hãy thử lại.",
 	"adding_miner_success_detail": "M.2 Pro Miner của các anh hiện đang khai mỏ",
 	"adding_miner_warning_title": "Ghi chú: Cái máy này đã dùng",
-	"adding_miner_warning_detail": "Những người thợ mỏ đã sử dụng hoạt động khác.Nếu bạn không định mua một thợ mỏ đã dùng, hãy liên hệ với người đã bán nó cho bạn."
+	"adding_miner_warning_detail": "Những người thợ mỏ đã sử dụng hoạt động khác.Nếu bạn không định mua một thợ mỏ đã dùng, hãy liên hệ với người đã bán nó cho bạn.",
+	"fuel_tank": "Nhiên liệu",
+	"total_fueled_amount": "Nguồn gốc"
 }

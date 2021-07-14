@@ -52,7 +52,7 @@ class SettingsPage extends StatelessWidget {
                     onTap: s.isDemo
                         ? null
                         : () => Navigator.push(
-                            context, route((context) => AccountPage()))),
+                            context, routeWidget(AccountPage()))),
               ),
               BlocBuilder<AppCubit, AppState>(
                 buildWhen: (a, b) => a.isDemo != b.isDemo,
@@ -65,14 +65,14 @@ class SettingsPage extends StatelessWidget {
                     onTap: s.isDemo
                         ? null
                         : () => Navigator.push(
-                            context, route((context) => AppSettingsPage()))),
+                            context, routeWidget(AppSettingsPage()))),
               ),
               listItem(
                 FlutterI18n.translate(context, 'address_book'),
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                 onTap: () => Navigator.of(context)
-                    .push(route((_) => AddressBookPicker())),
+                    .push(routeWidget(AddressBookPicker())),
                 key: ValueKey('addressBookItem'),
               ),
               listItem(
@@ -81,7 +81,7 @@ class SettingsPage extends StatelessWidget {
                     EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                 onTap: () {
                   context.read<SettingsCubit>().initAboutPage();
-                  Navigator.push(context, route((context) => AboutPage()));
+                  Navigator.push(context, routeWidget(AboutPage()));
                 },
               ),
               listItem(
@@ -90,7 +90,7 @@ class SettingsPage extends StatelessWidget {
                     EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                 onTap: () => Navigator.push(
                   context,
-                  route((context) => LinksPage()),
+                  routeWidget(LinksPage()),
                 ),
               ),
               listItem(
@@ -118,9 +118,7 @@ class SettingsPage extends StatelessWidget {
                       ? 'no action'
                       : Navigator.push(
                           context,
-                          route(
-                            (context) => ExportDataPage(),
-                          ),
+                          routeWidget(ExportDataPage()),
                         ),
                 ),
               ),
@@ -133,7 +131,7 @@ class SettingsPage extends StatelessWidget {
                 onTap: () {
                   context.read<SupernodeCubit>().logout();
                   navigatorKey.currentState.pushAndRemoveUntil(
-                      route((_) => LoginPage()), (route) => false);
+                      routeWidget(LoginPage()), (route) => false);
                 },
               ),
             ],

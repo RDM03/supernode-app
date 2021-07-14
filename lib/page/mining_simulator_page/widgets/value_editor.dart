@@ -217,7 +217,7 @@ class ValueEditor2 extends StatelessWidget {
           Container(
             child: PrimaryTextField(
               key: ValueKey('valueTextField'),
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
               validator: validator,
               controller: controller,
               suffixText: textFieldSuffix,

@@ -18,19 +18,24 @@ class SettingsCubit extends Cubit<SettingsState> {
       {this.appCubit,
       this.supernodeUserCubit,
       this.supernodeCubit,
-      this.supernodeRepository})
+      this.supernodeRepository,
+      this.language})
       : super(SettingsState(
             screenShot: false,
             showWechatUnbindConfirmation: false,
             showBindShopifyStep: 0,
-            showLoading: false));
+            showLoading: false,
+            language: 'auto'));
 
   final AppCubit appCubit;
   final SupernodeUserCubit supernodeUserCubit;
   final SupernodeCubit supernodeCubit;
   final SupernodeRepository supernodeRepository;
+  final String language;
 
-  Future<void> initState() async {}
+  Future<void> initState() async {
+    emit(state.copyWith(language: language));
+  }
 
   ServerInfoDao _buildServerInfoDao() {
     return supernodeRepository.serverInfo;

@@ -22,7 +22,7 @@ class SendToWalletConfirmPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       key: Key('confirmGesture'),
-      onTap: () => FocusScope.of(context).requestFocus(new FocusNode()),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: pageFrame(
         context: context,
         scrollable: false,

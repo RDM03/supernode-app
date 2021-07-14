@@ -4,8 +4,8 @@ import 'package:supernodeapp/common/repositories/supernode/dao/wallet.model.dart
 import 'package:supernodeapp/common/utils/utils.dart';
 
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
-import 'package:supernodeapp/page/view_all_page/bloc/state.dart';
-import 'package:supernodeapp/page/view_all_page/view.dart';
+import 'package:supernodeapp/page/home_page/gateway/view_all_page/bloc/state.dart';
+import 'package:supernodeapp/page/home_page/gateway/view_all_page/view.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
@@ -65,8 +65,8 @@ class MinerRevenueTab extends StatelessWidget {
               ),
             ),
             onTap: () => Navigator.of(context).push(
-              route(
-                (ctx) => ViewAllPage(
+              routeWidget(
+                ViewAllPage(
                   minerId: item.id,
                   type: MinerStatsType.revenue,
                 ),

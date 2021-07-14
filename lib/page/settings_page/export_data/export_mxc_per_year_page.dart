@@ -68,7 +68,7 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
           listItem(FlutterI18n.translate(context, 'format'),
               key: Key('format'),
               onTap: () =>
-                  Navigator.push(context, route((_) => FormatListPage())),
+                  Navigator.push(context, routeWidget(FormatListPage())),
               trailing: BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.format != b.format,
                 builder: (context, state) => Text(state.format.toUpperCase(),
@@ -78,7 +78,7 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
           listItem(FlutterI18n.translate(context, 'currency'),
               key: Key('currency'),
               onTap: () =>
-                  Navigator.push(context, route((_) => FiatListPage())),
+                  Navigator.push(context, routeWidget(FiatListPage())),
               trailing: BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.selectedFiat != b.selectedFiat,
                 builder: (context, state) {

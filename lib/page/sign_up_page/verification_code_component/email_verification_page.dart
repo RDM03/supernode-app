@@ -59,7 +59,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
               listenWhen: (a, b) => a.signupResult != b.signupResult,
               listener: (ctx, state) async {
                 if (state.signupResult == SignupResult.registration)
-                  Navigator.of(context).push(route((ctx) =>
+                  Navigator.of(context).push(routeWidget(
                       BlocProvider<LoginCubit>.value(
                           value: context.read<LoginCubit>(),
                           child: RegistrationPage())));

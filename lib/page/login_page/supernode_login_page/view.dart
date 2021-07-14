@@ -126,7 +126,7 @@ class _SupernodeLoginPageContentState
             switch (state.loginResult) {
               case LoginResult.home:
                 await navigatorKey.currentState
-                    .pushAndRemoveUntil(route((c) => HomePage()), (_) => false);
+                    .pushAndRemoveUntil(routeWidget(HomePage()), (_) => false);
                 break;
               case LoginResult.resetPassword:
                 await Navigator.of(context).pushNamed("forgot_password_page");
@@ -488,7 +488,7 @@ class _SupernodeLoginPageContentState
             ],
           ),
           onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
+            FocusScope.of(context).unfocus();
           },
         ),
       ),

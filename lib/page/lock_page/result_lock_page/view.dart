@@ -19,7 +19,7 @@ Widget buildView(
   return GestureDetector(
     key: Key('lockAmountView'),
     onTap: () =>
-        FocusScope.of(viewService.context).requestFocus(new FocusNode()),
+        FocusScope.of(viewService.context).unfocus(),
     child: pageFrame(
       context: viewService.context,
       scrollable: false,

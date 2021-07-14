@@ -59,7 +59,7 @@ class SupernodeDhxActions extends StatelessWidget {
           ),
           label: FlutterI18n.translate(context, 'mine'),
           onTap: () {
-            Navigator.push(context, route((c) => DhxMiningPage()));
+            Navigator.push(context, routeWidget(DhxMiningPage()));
             Navigator.push(context, MaterialPageRoute<void>(
               builder: (BuildContext context) {
                 return Scaffold(
@@ -136,7 +136,7 @@ class SupernodeDhxMineActions extends StatelessWidget {
             color: Token.supernodeDhx.ui(context).color,
           ),
           label: FlutterI18n.translate(context, 'bond'),
-          onTap: () => Navigator.push(context, route((c) => DhxBondingPage())),
+          onTap: () => Navigator.push(context, routeWidget(DhxBondingPage())),
         ),
         Spacer(),
         CircleButton(
@@ -147,7 +147,7 @@ class SupernodeDhxMineActions extends StatelessWidget {
           ),
           label: FlutterI18n.translate(context, 'unbond'),
           onTap: () =>
-              Navigator.push(context, route((c) => DhxUnbondingPage())),
+              Navigator.push(context, routeWidget(DhxUnbondingPage())),
         ),
         Spacer(),
         CircleButton(

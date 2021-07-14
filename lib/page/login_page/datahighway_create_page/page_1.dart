@@ -84,7 +84,7 @@ class _DataHighwayCreatePageState extends State<DataHighwayCreatePage> {
                   bgColor: Token.parachainDhx.ui(context).color,
                   buttonTitle: 'Next',
                   onTap: () => Navigator.of(context)
-                      .push(route((ctx) => DataHighwayCreate2Page())),
+                      .push(routeWidget((ctx) => DataHighwayCreate2Page())),
                 ),
               ),
             ),

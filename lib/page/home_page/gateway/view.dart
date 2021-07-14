@@ -60,7 +60,7 @@ class GatewayTab extends StatelessWidget {
               behavior: HitTestBehavior.opaque,
               onTap: () async {
                 Navigator.pop(context);
-                await Navigator.of(ctx).push(route((ctx) => AddFuelPage()));
+                await Navigator.of(ctx).push(routeWidget(AddFuelPage()));
                 await context.read<GatewayCubit>().refresh();
               },
               child: Padding(
@@ -87,8 +87,7 @@ class GatewayTab extends StatelessWidget {
               behavior: HitTestBehavior.opaque,
               onTap: () async {
                 Navigator.pop(context);
-                await Navigator.of(ctx)
-                    .push(route((ctx) => SendToWalletPage()));
+                await Navigator.of(ctx).push(routeWidget(SendToWalletPage()));
               },
               child: Padding(
                 padding: const EdgeInsets.only(left: 32),
@@ -313,7 +312,7 @@ class GatewayTab extends StatelessWidget {
                                 child: (gatewayState.miningFuel.value == null)
                                     ? Text('-- / -- MXC')
                                     : Text(
-                                        '${gatewayState.miningFuel.value.round()} / ${gatewayState.miningFuelMax.value.round()} MXC')),
+                                        '${Tools.priceFormat(gatewayState.miningFuel.value)} / ${Tools.priceFormat(gatewayState.miningFuelMax.value)} MXC')),
                             Spacer()
                           ]),
                           middleColumnSpacer(),
@@ -595,7 +594,7 @@ class GatewayTab extends StatelessWidget {
                                     onTap: () async {
                                       Navigator.pop(context);
                                       await Navigator.of(ctx)
-                                          .push(route((ctx) => AddFuelPage()));
+                                          .push(routeWidget(AddFuelPage()));
                                       await context
                                           .read<GatewayCubit>()
                                           .refresh();
@@ -770,9 +769,8 @@ class GatewaysList extends StatelessWidget {
             if (!state.reseller)
               await Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    fullscreenDialog: true,
-                    builder: (ctx) => MinerDetailPage(
+                  routeWidget(
+                    MinerDetailPage(
                       item: state,
                     ),
                   ));

@@ -28,7 +28,7 @@ class ExportDataPage extends StatelessWidget {
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             key: Key('export_mxc'),
             onTap: () => Navigator.pushReplacement(
-                context, route((_) => ExportMxcPage())),
+                context, routeWidget(ExportMxcPage())),
             leading: Image(image: Token.mxc.ui(context).image, height: s(50))),
         BlocBuilder<HomeCubit, HomeState>(
           buildWhen: (a, b) => a.displayTokens != b.displayTokens,

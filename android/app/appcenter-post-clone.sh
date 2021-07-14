@@ -39,6 +39,13 @@ echo "APPCENTER_KEY_ALIAS=${APPCENTER_KEY_ALIAS}" >> assets/.env
 echo "APPCENTER_KEY_PASSWORD=${APPCENTER_KEY_PASSWORD}" >> assets/.env
 export SDK_REGISTRY_TOKEN=${MAP_BOX_SECRET_KEY}
 
+# production Firebase project
+if [ ! -z "$GOOGLE_SERVICES_JSON" ]; then
+  echo $GOOGLE_SERVICES_JSON | base64 --decode > "$APPCENTER_SOURCE_DIRECTORY/android/app/google-services.json"
+fi
+
+head "$APPCENTER_SOURCE_DIRECTORY/android/app/google-services.json"
+
 # build APK
 flutter build apk --flavor prod
 

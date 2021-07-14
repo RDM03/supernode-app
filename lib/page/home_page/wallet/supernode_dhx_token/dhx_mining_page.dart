@@ -201,13 +201,12 @@ class _CalendarElement extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Image.asset(
-              AppImages.iconUnbond,
-              scale: 1.5,
-              color: (model.unbondAmount > 0)
-                  ? ColorsTheme.of(context).textError
-                  : ColorsTheme.of(context).textPrimaryAndIcons,
-            ),
+            if (model.unbondAmount > 0)
+              Image.asset(
+                AppImages.iconUnbond,
+                scale: 1.5,
+                color: ColorsTheme.of(context).textError,
+              ),
             Text(
                 '${model.date != null ? (7 - today.difference(model.date).inDays) : ""}',
                 style: (model.unbondAmount > 0)

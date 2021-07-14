@@ -67,7 +67,7 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
       listener: (ctx, state) async {
         if (state.loginResult == LoginResult.home)
           await navigatorKey.currentState
-              .pushAndRemoveUntil(route((c) => HomePage()), (_) => false);
+              .pushAndRemoveUntil(routeWidget(HomePage()), (_) => false);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -264,17 +264,16 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
                 CircleButton(
                   text: FlutterI18n.translate(context, 'signup'),
                   icon: Icons.add,
-                  onPressed: () => Navigator.of(context).push(
-                    route((ctx) => BlocProvider<LoginCubit>.value(
-                        value: loginCubit, child: SupernodeSignupPage())),
-                  ),
+                  onPressed: () => Navigator.of(context).push(routeWidget(
+                      BlocProvider<LoginCubit>.value(
+                          value: loginCubit, child: SupernodeSignupPage()))),
                 ),
                 SizedBox(width: 23),
                 CircleButton(
                   key: Key('login'),
                   text: FlutterI18n.translate(context, 'login'),
                   icon: Icons.arrow_forward,
-                  onPressed: () => Navigator.of(context).push(route((ctx) =>
+                  onPressed: () => Navigator.of(context).push(routeWidget(
                       BlocProvider<LoginCubit>.value(
                           value: loginCubit, child: SupernodeLoginPage()))),
                 ),

@@ -198,8 +198,8 @@ class _WithdrawPageState extends State<WithdrawPage> {
                                             type = AddressBookType.mxc;
                                           final res =
                                               await Navigator.of(context)
-                                                  .push(route(
-                                            (_) => AddressBookPage(
+                                                  .push(routeWidget(
+                                            AddressBookPage(
                                               selectionMode: true,
                                               type: type,
                                             ),

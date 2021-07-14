@@ -6,8 +6,6 @@ import 'package:supernodeapp/common/components/settings/list_item.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/page/settings_page/profile_component/profile_page.dart';
-import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
 import '../../../route.dart';
@@ -25,7 +23,7 @@ class AccountPage extends StatelessWidget {
         listItem(
           FlutterI18n.translate(context, 'super_node'),
           key: Key('superNodeItem'),
-          onTap: () => Navigator.push(context, route((_) => ProfilePage())),
+          onTap: () => Navigator.push(context, routeWidget(ProfilePage())),
           leading: Image(
             image: Token.mxc.ui(context).image,
             height: s(50),

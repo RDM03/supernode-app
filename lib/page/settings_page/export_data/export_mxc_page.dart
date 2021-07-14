@@ -33,7 +33,7 @@ class ExportMxcPage extends StatelessWidget {
       yearsList.add(listItem('$year',
           key: Key('year_$year'),
           onTap: () => Navigator.pushReplacement(
-              context, route((_) => ExportMxcPreYearPage(year)))));
+              context, routeWidget(ExportMxcPreYearPage(year)))));
       yearsList.add(Divider());
     }
     return yearsList;
