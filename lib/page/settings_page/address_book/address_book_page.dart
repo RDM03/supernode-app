@@ -117,14 +117,6 @@ class _AddressBookPageState extends State<AddressBookPage> {
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (ctx, i) => Container(
-                      decoration: BoxDecoration(
-                        border: Border.symmetric(
-                          horizontal: BorderSide(
-                            color: greyColorShade200,
-                            width: 1,
-                          ),
-                        ),
-                      ),
                       child: ListTile(
                         key: ValueKey('address_$i'),
                         title: Text(addresses[i].name),

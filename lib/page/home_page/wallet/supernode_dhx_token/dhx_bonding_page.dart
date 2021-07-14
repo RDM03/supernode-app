@@ -119,7 +119,7 @@ class _DhxBondingPageState extends State<DhxBondingPage> {
                       ),
                       child: Image.asset(
                         AppImages.iconBond,
-                        color: whiteColor,
+                        color: ColorsTheme.of(context).textPrimaryAndIcons,
                       ),
                     ),
                     SizedBox(width: 20),

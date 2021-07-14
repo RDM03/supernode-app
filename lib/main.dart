@@ -193,7 +193,7 @@ Future<void> main() async {
                   ),
                   nft: TokenUiInfo(
                     name: 'NFT',
-                    color: colors.mxcBlue,
+                    color: colors.textLabel,
                     image: AssetImage(AppImages.logoNFT),
                   ),
                 ),

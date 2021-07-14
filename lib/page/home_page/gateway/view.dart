@@ -70,7 +70,7 @@ class GatewayTab extends StatelessWidget {
                     key: Key('addFuelBottom'),
                     icon: Image.asset(
                       AppImages.fuel,
-                      color: fuelColor,
+                      color: ColorsTheme.of(context).minerHealthRed,
                     ),
                   ),
                   SizedBox(width: 10),
@@ -95,7 +95,10 @@ class GatewayTab extends StatelessWidget {
                 child: Row(mainAxisSize: MainAxisSize.max, children: [
                   CircleButton(
                     key: Key('addFuelBottom'),
-                    icon: Icon(Icons.arrow_forward, color: fuelColor),
+                    icon: Icon(
+                      Icons.arrow_forward,
+                      color: ColorsTheme.of(context).minerHealthRed,
+                    ),
                   ),
                   SizedBox(width: 10),
                   Text(
@@ -331,7 +334,7 @@ class GatewayTab extends StatelessWidget {
                                         context, 'uptime_info')),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: minerColor10,
+                                    color: ColorsTheme.of(context).mxcBlue20,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
                                   ),
@@ -560,46 +563,52 @@ class GatewayTab extends StatelessWidget {
                               flex: 1,
                               child: GestureDetector(
                                 onTap: () => aboutPage(
-                                    ctx,
+                                  ctx,
+                                  FlutterI18n.translate(context, 'fuel'),
+                                  aboutPageIllustration(
+                                    context,
                                     FlutterI18n.translate(context, 'fuel'),
-                                    aboutPageIllustration(
-                                        context,
-                                        FlutterI18n.translate(context, 'fuel'),
-                                        Stack(
-                                            alignment: Alignment.center,
-                                            children: [
-                                              Image.asset(
-                                                AppImages.uptime,
-                                                color: ColorsTheme.of(context)
-                                                    .textPrimaryAndIcons,
-                                                width: s(60),
-                                                fit: BoxFit.contain,
-                                              ),
-                                              Image.asset(
-                                                AppImages.fuel,
-                                                color: fuelColor,
-                                                width: s(20),
-                                                fit: BoxFit.contain,
-                                              ),
-                                            ])),
-                                    FlutterI18n.translate(context, 'fuel_info'),
-                                    bottomButton: PrimaryButton(
-                                        minWidth: double.infinity,
-                                        minHeight: 40,
-                                        onTap: () async {
-                                          Navigator.pop(context);
-                                          await Navigator.of(ctx).push(
-                                              route((ctx) => AddFuelPage()));
-                                          await context
-                                              .read<GatewayCubit>()
-                                              .refresh();
-                                        },
-                                        buttonTitle: FlutterI18n.translate(
-                                            context, 'fuel_miners'),
-                                        bgColor: fuelColor)),
+                                    Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Image.asset(
+                                          AppImages.uptime,
+                                          color: ColorsTheme.of(context)
+                                              .textPrimaryAndIcons,
+                                          width: s(60),
+                                          fit: BoxFit.contain,
+                                        ),
+                                        Image.asset(
+                                          AppImages.fuel,
+                                          color: ColorsTheme.of(context)
+                                              .minerHealthRed,
+                                          width: s(20),
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FlutterI18n.translate(context, 'fuel_info'),
+                                  bottomButton: PrimaryButton(
+                                    minWidth: double.infinity,
+                                    minHeight: 40,
+                                    onTap: () async {
+                                      Navigator.pop(context);
+                                      await Navigator.of(ctx)
+                                          .push(route((ctx) => AddFuelPage()));
+                                      await context
+                                          .read<GatewayCubit>()
+                                          .refresh();
+                                    },
+                                    buttonTitle: FlutterI18n.translate(
+                                        context, 'fuel_miners'),
+                                    bgColor:
+                                        ColorsTheme.of(context).minerHealthRed,
+                                  ),
+                                ),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: minerColor10,
+                                    color: ColorsTheme.of(context).mxcBlue20,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
                                   ),
@@ -639,8 +648,11 @@ class GatewayTab extends StatelessWidget {
                                               color: ColorsTheme.of(context)
                                                   .textPrimaryAndIcons,
                                             ),
-                                            Image.asset(AppImages.fuel,
-                                                color: fuelColor),
+                                            Image.asset(
+                                              AppImages.fuel,
+                                              color: ColorsTheme.of(context)
+                                                  .minerHealthRed,
+                                            ),
                                           ],
                                         ),
                                         Text(
@@ -781,7 +793,7 @@ class GatewaysList extends StatelessWidget {
         return await context.read<GatewayCubit>().loadNextPage(page);
       },
       separatorBuilder: (BuildContext context, int index) =>
-          Divider(height: 1, thickness: 1, color: greyColorShade050),
+          Divider(height: 1, thickness: 1, color: boxShadowColor),
       footer: Container(
         height: 10,
         margin: kOuterRowBottom10,
@@ -790,7 +802,7 @@ class GatewaysList extends StatelessWidget {
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
           boxShadow: [
             BoxShadow(
-              color: shodowColor,
+              color: boxShadowColor,
               offset: Offset(0, 2),
               blurRadius: 7,
             ),
@@ -828,7 +840,7 @@ class GatewayListTile extends StatelessWidget {
             : null,
         boxShadow: [
           BoxShadow(
-            color: shodowColor,
+            color: boxShadowColor,
             offset: Offset(0, 2),
             blurRadius: 7,
           ),
@@ -851,7 +863,7 @@ class GatewayListTile extends StatelessWidget {
                       Icons.lens,
                       color: TimeUtil.isIn5Min(state.lastSeenAt)
                           ? ColorsTheme.of(context).mxcBlue
-                          : greyColor,
+                          : ColorsTheme.of(context).textLabel,
                       size: 10,
                     ),
                   ),

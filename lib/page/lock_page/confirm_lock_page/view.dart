@@ -193,7 +193,7 @@ Widget buildView(
                 alignment: Alignment.centerRight,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: colorSupernodeDhx20,
+                    color: ColorsTheme.of(context).dhxBlue20,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -225,7 +225,7 @@ Widget buildView(
                 alignment: Alignment.centerRight,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: colorSupernodeDhx20,
+                    color: ColorsTheme.of(context).dhxBlue20,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -264,7 +264,7 @@ void _showInfoDialog(BuildContext context) {
           Image.asset(
             AppImages.gateways,
             height: s(40),
-            color: greyColor,
+            color: ColorsTheme.of(context).textLabel,
             fit: BoxFit.contain,
           ),
           Padding(
@@ -294,7 +294,7 @@ _proceed(Dispatch dispatch, ConfirmLockState state) {
         children: [
           Text(
             FlutterI18n.translate(ctx, 'dhx_mining'),
-            style: FontTheme.of(ctx).big.mxc(),
+            style: FontTheme.of(ctx).big.dhx(),
           ),
           SizedBox(height: 16),
           Text(

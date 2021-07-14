@@ -23,7 +23,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
       constraints: BoxConstraints.expand(),
       padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 235, 239, 242),
+        color: ColorsTheme.of(context).primaryBackground,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,14 +41,17 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
           Row(
             children: [
               Expanded(
-                child: Text(FlutterI18n.translate(context, 'stake_earn_mxc'),
-                    style: FontTheme.of(context).big()),
+                child: Text(
+                  FlutterI18n.translate(context, 'stake_earn_mxc'),
+                  style: FontTheme.of(context).big(),
+                ),
               ),
               Link(
                 FlutterI18n.translate(context, 'learn_more'),
                 onTap: () => Tools.launchURL(Sys.stakeMore),
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(vertical: 5),
+                style: FontTheme.of(context).middle.mxc.underline(),
               ),
             ],
           ),
@@ -85,7 +88,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   context: context,
                   dispatch: dispatch,
                   months: 24,
-                  color: stake24Color,
+                  color: ColorsTheme.of(context).mxcBlue,
                   boostText: state.rate24m == null
                       ? null
                       : '+${round(state.rate24m / state.rate12m)}% ' +
@@ -101,7 +104,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   key: ValueKey('stake12'),
                   context: context,
                   months: 12,
-                  color: stake12Color,
+                  color: ColorsTheme.of(context).mxcBlue80,
                   boostText: FlutterI18n.translate(context, 'standard_boost'),
                   state: state,
                   revenueRate: state.rate12m,
@@ -111,7 +114,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   key: ValueKey('stake9'),
                   context: context,
                   months: 9,
-                  color: stake9Color,
+                  color: ColorsTheme.of(context).mxcBlue60,
                   boostText: state.rate9m == null
                       ? null
                       : '${round(state.rate9m / state.rate12m)}% ' +
@@ -126,7 +129,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                   key: ValueKey('stake6'),
                   context: context,
                   months: 6,
-                  color: stake6Color,
+                  color: ColorsTheme.of(context).mxcBlue40,
                   boostText: state.rate6m == null
                       ? null
                       : '${round(state.rate6m / state.rate12m)}% ' +
@@ -140,7 +143,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                 _stakeCard(
                   key: ValueKey('stakeFlex'),
                   context: context,
-                  color: stakeFlexColor,
+                  color: ColorsTheme.of(context).mxcBlue20,
                   boostText: state.rateFlex == null
                       ? null
                       : '${round(state.rateFlex / state.rate12m)}% ' +
@@ -235,11 +238,7 @@ Widget _stakeCard({
         alignment: Alignment.center,
         child: Text(
           months?.toString() ?? '~',
-          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                color: whiteColor,
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-              ),
+          style: FontTheme.of(context).veryBig.label.bold(),
         ),
         padding: EdgeInsets.only(top: 2),
         decoration: BoxDecoration(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
-Widget loading({BuildContext context, bool isSmall = false}) {
+Widget loading(BuildContext context, {bool isSmall = false}) {
   return isSmall
       ? indicatior(context)
       : Scaffold(

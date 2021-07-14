@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
+import 'package:supernodeapp/common/components/buttons/circle_button.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/colored_text.dart';
 import 'package:supernodeapp/common/components/loading.dart';
@@ -121,7 +122,14 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Image.asset(AppImages.fuelCircle),
+            child: CircleButton(
+              key: Key('addFuelBottom'),
+              circleColor: ColorsTheme.of(context).boxComponents,
+              icon: Image.asset(
+                AppImages.fuel,
+                color: ColorsTheme.of(context).minerHealthRed,
+              ),
+            ),
           ),
           Expanded(
             child: Column(
@@ -142,12 +150,6 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
 
   Widget selectAll() => Container(
         padding: EdgeInsets.symmetric(vertical: 10),
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(color: greyColorShade200, width: 0.5),
-            bottom: BorderSide(color: greyColorShade200, width: 0.5),
-          ),
-        ),
         child: Row(
           children: [
             Expanded(
@@ -170,8 +172,8 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                 else
                   defaultAll();
               },
-              inactiveThumbColor: greyColorShade700,
-              activeColor: healthColor,
+              inactiveThumbColor: ColorsTheme.of(context).textLabel,
+              activeColor: ColorsTheme.of(context).minerHealthRed,
             ),
             SizedBox(width: 16),
           ],
@@ -196,8 +198,8 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                         Icons.check,
                         size: 18,
                         color: (gatewaySelection[item.id] ?? 0) > 0
-                            ? healthColor
-                            : greyColor,
+                            ? ColorsTheme.of(context).minerHealthRed
+                            : ColorsTheme.of(context).textLabel,
                       ),
                     ),
                   ),
@@ -223,7 +225,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                   SizedBox(width: 18),
                   Image.asset(
                     AppImages.fuel,
-                    color: fuelColor,
+                    color: ColorsTheme.of(context).minerHealthRed,
                     height: 16,
                   ),
                   SizedBox(width: 6),
@@ -244,8 +246,8 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                     value: gatewaySelection[item.id] ?? 0,
                     onChanged: (v) =>
                         setState(() => gatewaySelection[item.id] = v),
-                    activeColor: healthColor,
-                    inactiveColor: healthColor20,
+                    activeColor: ColorsTheme.of(context).minerHealthRed,
+                    inactiveColor: ColorsTheme.of(context).minerHealthRed20,
                   ),
                 ),
               ),
@@ -264,7 +266,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                 ColoredText(
                   text:
                       '${Tools.priceFormat((item.miningFuelMax.toDouble() - item.miningFuel.toDouble()) * (gatewaySelection[item.id] ?? 0), range: 2)} MXC',
-                  color: healthColor20,
+                  color: ColorsTheme.of(context).minerHealthRed20,
                   style: FontTheme.of(context).middle(),
                   padding: EdgeInsets.symmetric(
                     horizontal: 6,
@@ -409,8 +411,10 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                   SliverFillRemaining(
                     child: Center(
                       child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation(healthColor),
-                        backgroundColor: healthColor20,
+                        valueColor: AlwaysStoppedAnimation(
+                            ColorsTheme.of(context).minerHealthRed),
+                        backgroundColor:
+                            ColorsTheme.of(context).minerHealthRed20,
                       ),
                     ),
                   )
@@ -420,8 +424,10 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                       padding: EdgeInsets.symmetric(vertical: 20),
                       child: Center(
                         child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(healthColor),
-                          backgroundColor: healthColor20,
+                          valueColor: AlwaysStoppedAnimation(
+                              ColorsTheme.of(context).minerHealthRed),
+                          backgroundColor:
+                              ColorsTheme.of(context).minerHealthRed20,
                         ),
                       ),
                     ),
@@ -433,14 +439,12 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
             alignment: Alignment.bottomCenter,
             child: Column(
               children: [
-                Container(height: 0.5, color: greyColorShade200),
                 SizedBox(height: 16),
                 Center(
                   child: Text(
                     '${Tools.priceFormat(spentMxc, range: 2)} MXC',
-                    style: FontTheme.of(context)
-                        .veryBig()
-                        .copyWith(color: healthColor),
+                    style: FontTheme.of(context).veryBig().copyWith(
+                        color: ColorsTheme.of(context).minerHealthRed),
                   ),
                 ),
                 SizedBox(height: 9),
@@ -459,7 +463,7 @@ class _AddFuelPageState extends State<AddFuelPage> with PaginationMixin {
                       onTap: () => onNext(context),
                       minHeight: 46,
                       buttonTitle: FlutterI18n.translate(context, 'next'),
-                      bgColor: healthColor,
+                      bgColor: ColorsTheme.of(context).minerHealthRed,
                       minWidth: 0,
                       style: FontTheme.of(context).big.label(),
                     ),

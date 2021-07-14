@@ -27,7 +27,7 @@ Widget tabButtons({
                 indicatorPadding: EdgeInsets.zero,
                 indicatorColor: ColorsTheme.of(context).mxcBlue,
                 labelColor: ColorsTheme.of(context).textPrimaryAndIcons,
-                unselectedLabelColor: Colors.black38,
+                unselectedLabelColor: ColorsTheme.of(context).textSecondary,
                 key: ValueKey('tabBar'),
                 tabs: list.map((item) {
                   return Tab(
@@ -39,7 +39,9 @@ Widget tabButtons({
               ),
               Container(
                 decoration: BoxDecoration(
-                  border: Border(top: BorderSide(color: greyColor, width: 1)),
+                  border: Border(
+                      top: BorderSide(
+                          color: ColorsTheme.of(context).mxcBlue20, width: 1)),
                 ),
               ),
             ],
@@ -66,7 +68,7 @@ Widget tabButtons({
               ),
               boxShadow: [
                 BoxShadow(
-                  color: shodowColor,
+                  color: boxShadowColor,
                   offset: Offset(0, 2),
                   blurRadius: 7,
                 ),

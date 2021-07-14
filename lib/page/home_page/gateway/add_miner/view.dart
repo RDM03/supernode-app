@@ -234,8 +234,11 @@ class _AddMinerPageState extends State<AddMinerPage> {
                                         children: [
                                           ListTile(
                                             leading: DDIcon(
-                                                imageUrl: AppImages.gateways,
-                                                backgroundColor: lightBlue),
+                                              imageUrl: AppImages.gateways,
+                                              backgroundColor:
+                                                  ColorsTheme.of(context)
+                                                      .dhxBlue,
+                                            ),
                                             title: Text(
                                               state.name,
                                               style:

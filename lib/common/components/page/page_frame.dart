@@ -21,7 +21,7 @@ Widget pageFrame({
       borderRadius: BorderRadius.all(Radius.circular(10.0)),
       boxShadow: [
         BoxShadow(
-          color: shodowColor,
+          color: boxShadowColor,
           offset: Offset(0, 2),
           blurRadius: 7,
         ),

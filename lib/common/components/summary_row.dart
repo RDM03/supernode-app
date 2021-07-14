@@ -47,7 +47,7 @@ class SummaryRow extends StatelessWidget {
             Image.asset(
               AppImages.blueCircle,
               fit: BoxFit.none,
-              color: lightBlue,
+              color: ColorsTheme.of(context).dhxBlue,
             ),
             Image.asset(
               image,

@@ -116,7 +116,7 @@ class _DhxUnbondingPageState extends State<DhxUnbondingPage> {
                       ),
                       child: Image.asset(
                         AppImages.iconUnbond,
-                        color: whiteColor,
+                        color: ColorsTheme.of(context).textPrimaryAndIcons,
                       ),
                     ),
                     SizedBox(width: 20),

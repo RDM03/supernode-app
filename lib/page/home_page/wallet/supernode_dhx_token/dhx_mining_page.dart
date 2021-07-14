@@ -72,7 +72,8 @@ class _DhxMiningPageState extends State<DhxMiningPage> {
               style: FontTheme.of(context).small(),
             ),
             Spacer(),
-            Icon(Icons.circle, color: colorSupernodeDhx20, size: 12),
+            Icon(Icons.circle,
+                color: ColorsTheme.of(context).dhxBlue20, size: 12),
             Text(
               FlutterI18n.translate(context, 'cool_off'),
               style: FontTheme.of(context).small(),
@@ -187,7 +188,7 @@ class _CalendarElement extends StatelessWidget {
             shape: BoxShape.circle);
       if (model.left || model.right || model.middle)
         return BoxDecoration(
-            color: colorSupernodeDhx20,
+            color: ColorsTheme.of(context).dhxBlue20,
             borderRadius: BorderRadius.horizontal(
                 left: (model.left) ? radius : Radius.zero,
                 right: (model.right) ? radius : Radius.zero),
@@ -200,9 +201,13 @@ class _CalendarElement extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Image.asset(AppImages.iconUnbond,
-                scale: 1.5,
-                color: (model.unbondAmount > 0) ? Colors.red : whiteColor),
+            Image.asset(
+              AppImages.iconUnbond,
+              scale: 1.5,
+              color: (model.unbondAmount > 0)
+                  ? ColorsTheme.of(context).textError
+                  : ColorsTheme.of(context).textPrimaryAndIcons,
+            ),
             Text(
                 '${model.date != null ? (7 - today.difference(model.date).inDays) : ""}',
                 style: (model.unbondAmount > 0)

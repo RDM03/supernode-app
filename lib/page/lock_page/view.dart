@@ -32,7 +32,7 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
         constraints: BoxConstraints.expand(),
         padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 235, 239, 242),
+          color: ColorsTheme.of(context).primaryBackground,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +63,7 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
                     text: FlutterI18n.translate(context, 'learn_more'),
                     style: FontTheme.of(context)
                         .middle
-                        .mxc
+                        .dhx
                         .underline()
                         .copyWith(color: Token.supernodeDhx.ui(context).color),
                     recognizer: TapGestureRecognizer()
@@ -98,7 +98,7 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
                     context: context,
                     dispatch: dispatch,
                     months: 24,
-                    color: lock24Color,
+                    color: ColorsTheme.of(context).dhxBlue,
                     boostText: state.boost24m == null
                         ? null
                         : '${percentage(state.boost24m)}% ' +
@@ -111,7 +111,7 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
                     state: state,
                     context: context,
                     months: 12,
-                    color: lock12Color,
+                    color: ColorsTheme.of(context).dhxBlue60,
                     boostText: state.boost12m == null
                         ? null
                         : '${percentage(state.boost12m)}% ' +
@@ -123,7 +123,7 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
                     state: state,
                     context: context,
                     months: 9,
-                    color: lock9Color,
+                    color: ColorsTheme.of(context).dhxBlue40,
                     boostText: state.boost9m == null
                         ? null
                         : '${percentage(state.boost9m)}% ' +
@@ -135,7 +135,7 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
                     state: state,
                     context: context,
                     months: 3,
-                    color: lock3Color,
+                    color: ColorsTheme.of(context).dhxBlue20,
                     boostText:
                         FlutterI18n.translate(context, 'minimum_duration'),
                     boostRate: state.boost3m,
@@ -212,11 +212,7 @@ Widget _lockCard({
         alignment: Alignment.center,
         child: Text(
           months?.toString() ?? '~',
-          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                color: whiteColor,
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-              ),
+          style: FontTheme.of(context).veryBig.label.bold(),
         ),
         padding: EdgeInsets.only(top: 2),
         decoration: BoxDecoration(

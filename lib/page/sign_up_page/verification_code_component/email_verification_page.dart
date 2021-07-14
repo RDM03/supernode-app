@@ -40,7 +40,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
         backgroundColor: ColorsTheme.of(context).secondaryBackground,
         appBar: AppBars.backArrowAppBar(
           context,
-          color: whiteColor,
+          color: ColorsTheme.of(context).secondaryBackground,
           title: FlutterI18n.translate(context, 'create_account'),
           onPress: () => Navigator.of(context).pop(),
         ),

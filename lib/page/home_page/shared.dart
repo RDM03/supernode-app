@@ -126,14 +126,13 @@ Widget tokenItem(
   Color color,
   bool isSelected,
   VoidCallback onPressed,
-  bool showTrailingLine = true,
   String suffix,
 }) =>
     Container(
       height: s(62),
       foregroundDecoration: onPressed == null
           ? BoxDecoration(
-              color: greyColorShade300,
+              color: ColorsTheme.of(context).textLabel,
               backgroundBlendMode: BlendMode.saturation,
             )
           : null,
@@ -186,18 +185,12 @@ Widget tokenItem(
                             ? Checkbox(
                                 value: isSelected,
                                 onChanged: (_) => onPressed(),
-                                activeColor: greyColor,
+                                activeColor: ColorsTheme.of(context).mxcBlue,
                               )
                             : SizedBox(),
                       ],
                     ),
                   ),
-                  if (showTrailingLine)
-                    Container(
-                      width: double.infinity,
-                      color: greyColor30,
-                      height: 1,
-                    ),
                 ],
               ),
             ),
@@ -304,7 +297,6 @@ class _AddTokenDialogWidgetState extends State<AddTokenDialogWidget> {
                 widget.cubit.toggleSupernodeBtc();
               }
             },
-            showTrailingLine: false,
           ),
           tokenItem(
             context,
@@ -315,7 +307,6 @@ class _AddTokenDialogWidgetState extends State<AddTokenDialogWidget> {
             subtitle: FlutterI18n.translate(ctx, 'nft_desc'),
             color: Token.nft.ui(context).color,
             isSelected: false,
-            showTrailingLine: false,
             onPressed: () {},
           ),
 /*TODO uncomment for parachainDhx          ),
@@ -361,7 +352,6 @@ void showBoostMPowerDialog(BuildContext ctx) {
               textAlign: TextAlign.center,
             ),
           ),
-          Divider(color: greyColor),
           GestureDetector(
             key: Key('shopM2proTap'),
             behavior: HitTestBehavior.opaque,
@@ -391,7 +381,6 @@ void showBoostMPowerDialog(BuildContext ctx) {
               ],
             ),
           ),
-          Divider(color: greyColor),
           GestureDetector(
             key: Key('lockPageTap'),
             behavior: HitTestBehavior.opaque,
@@ -425,7 +414,6 @@ void showBoostMPowerDialog(BuildContext ctx) {
               ],
             ),
           ),
-          Divider(color: greyColor),
           GestureDetector(
             key: Key('tutorialTitleTap'),
             behavior: HitTestBehavior.opaque,
@@ -468,7 +456,6 @@ void showBoostMPowerDialog(BuildContext ctx) {
               ],
             ),
           ),
-          Divider(color: greyColor),
         ],
       ),
     ),
@@ -518,7 +505,7 @@ Widget aboutPageIllustration(BuildContext context, String title, Widget image) {
     height: 150,
     width: 150,
     decoration: BoxDecoration(
-      color: minerColor10,
+      color: ColorsTheme.of(context).mxcBlue20,
       borderRadius: BorderRadius.all(Radius.circular(10)),
     ),
     child: Padding(

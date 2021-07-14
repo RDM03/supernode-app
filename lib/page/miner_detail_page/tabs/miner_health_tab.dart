@@ -53,10 +53,10 @@ class MinerHealthTab extends StatelessWidget {
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: enabled ? whiteColor : whiteColor05,
+          border: Border.all(color: ColorsTheme.of(context).textSecondary),
           boxShadow: [
             BoxShadow(
-              color: blackColor20,
+              color: boxShadowColor,
               spreadRadius: 0,
               blurRadius: 1,
               offset: Offset(0, 0),
@@ -73,7 +73,7 @@ class MinerHealthTab extends StatelessWidget {
                   foregroundDecoration: enabled
                       ? null
                       : BoxDecoration(
-                          color: greyColorShade200,
+                          color: ColorsTheme.of(context).textLabel,
                           shape: BoxShape.circle,
                           backgroundBlendMode: BlendMode.saturation,
                         ),
@@ -142,7 +142,7 @@ class MinerHealthTab extends StatelessWidget {
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: blackColor10,
+                          color: boxShadowColor,
                           spreadRadius: 0,
                           blurRadius: 7,
                           offset: Offset(0, 2),
@@ -152,7 +152,7 @@ class MinerHealthTab extends StatelessWidget {
                     child: Image.asset(
                       AppImages.fuel,
                       color: item.health == 1
-                          ? greyColor
+                          ? ColorsTheme.of(context).textLabel
                           : ColorsTheme.of(context).minerHealthRed,
                     ),
                   ),
@@ -199,7 +199,7 @@ class MinerHealthTab extends StatelessWidget {
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: blackColor10,
+                          color: boxShadowColor,
                           spreadRadius: 0,
                           blurRadius: 7,
                           offset: Offset(0, 2),
@@ -211,7 +211,7 @@ class MinerHealthTab extends StatelessWidget {
                         Icons.arrow_forward,
                         color: item.miningFuel > Decimal.zero
                             ? ColorsTheme.of(context).minerHealthRed
-                            : greyColor,
+                            : ColorsTheme.of(context).textLabel,
                         size: 26,
                       ),
                     ),
@@ -231,7 +231,7 @@ class MinerHealthTab extends StatelessWidget {
             children: [
               Image.asset(
                 AppImages.fuel,
-                color: healthColor,
+                color: ColorsTheme.of(context).minerHealthRed,
               ),
               SizedBox(width: 10),
               Text(
@@ -467,18 +467,26 @@ class StatisticTable extends StatelessWidget {
                     context,
                     FlutterI18n.translate(context, 'fuel'),
                     aboutPageIllustration(
-                        context,
-                        FlutterI18n.translate(context, 'fuel'),
-                        Stack(alignment: Alignment.center, children: [
-                          Image.asset(AppImages.uptime,
-                              color: whiteColor,
-                              width: s(60),
-                              fit: BoxFit.contain),
-                          Image.asset(AppImages.fuel,
-                              color: fuelColor,
-                              width: s(20),
-                              fit: BoxFit.contain),
-                        ])),
+                      context,
+                      FlutterI18n.translate(context, 'fuel'),
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Image.asset(
+                            AppImages.uptime,
+                            color: ColorsTheme.of(context).textPrimaryAndIcons,
+                            width: s(60),
+                            fit: BoxFit.contain,
+                          ),
+                          Image.asset(
+                            AppImages.fuel,
+                            color: ColorsTheme.of(context).minerHealthRed,
+                            width: s(20),
+                            fit: BoxFit.contain,
+                          ),
+                        ],
+                      ),
+                    ),
                     FlutterI18n.translate(context, 'fuel_info')),
               ),
             ],

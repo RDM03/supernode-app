@@ -126,7 +126,7 @@ class _ViewAllPageState extends State<_ViewAllPage>
                 isScrollable: false,
                 indicatorWeight: 0,
                 labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                unselectedLabelColor: greyColor,
+                unselectedLabelColor: ColorsTheme.of(context).textLabel,
                 indicator: TabIndicator(ColorsTheme.of(context).mxcBlue),
                 controller: _tabController,
                 tabs: tabs

@@ -42,11 +42,11 @@ class _DatadashFeedbackWidgetFormState
       decoration: BoxDecoration(),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 255, 255, 255),
+          color: ColorsTheme.of(context).primaryBackground,
           borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
           boxShadow: [
             BoxShadow(
-              color: shodowColor,
+              color: boxShadowColor,
               offset: Offset(0, 2),
               blurRadius: 7,
             ),
@@ -214,7 +214,7 @@ class DatadashFeedbackState extends State<DatadashFeedback> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: blackColor70,
+                          color: barrierColor,
                           borderRadius: BorderRadius.horizontal(
                             left: Radius.circular(8),
                           ),
@@ -224,7 +224,7 @@ class DatadashFeedbackState extends State<DatadashFeedback> {
                               EdgeInsets.all(4).copyWith(right: 4, left: 6),
                           child: Icon(
                             Icons.camera_alt,
-                            color: whiteColor,
+                            color: ColorsTheme.of(context).textPrimaryAndIcons,
                           ),
                         ),
                       ),

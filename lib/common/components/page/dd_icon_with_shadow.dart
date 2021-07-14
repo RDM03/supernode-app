@@ -17,7 +17,7 @@ class DDIconWithShadow extends StatelessWidget {
       imageColor: ColorsTheme.of(context).mxcBlue,
       shadowList: [
         BoxShadow(
-          color: shodowColor,
+          color: boxShadowColor,
           offset: Offset(0, 2),
           blurRadius: 7,
         ),

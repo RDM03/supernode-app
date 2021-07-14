@@ -20,7 +20,7 @@ Widget buildView(
       constraints: BoxConstraints.expand(),
       padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 235, 239, 242),
+        color: ColorsTheme.of(context).primaryBackground,
       ),
       child: ListView(
         children: [

@@ -135,7 +135,7 @@ Widget _buildButton(BuildContext context,
         color: whiteColor,
         boxShadow: [
           BoxShadow(
-            color: shodowColor,
+            color: boxShadowColor,
             offset: Offset(0, 2),
             blurRadius: 7,
           ),

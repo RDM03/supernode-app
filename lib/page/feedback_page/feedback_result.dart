@@ -26,7 +26,6 @@ class FeedbackResultPage extends StatefulWidget {
   final DatadashTranslation translation;
   FeedbackResultPage(this.params, this.image, this.translation);
 
-  static const _buttonColor = Color.fromARGB(255, 28, 20, 120);
   static final _screenshotKey = GlobalKey();
 
   @override
@@ -128,7 +127,7 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
       key: Key('FeedbackResultPage'),
       type: MaterialType.transparency,
       child: Container(
-        color: blackColor40,
+        color: barrierColor,
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
@@ -201,7 +200,7 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
                                 widget.translation.translate('feedback'),
                                 Icon(
                                   Icons.send,
-                                  color: FeedbackResultPage._buttonColor,
+                                  color: ColorsTheme.of(context).mxcBlue,
                                   size: 15,
                                 ),
                                 () => _onAction(
@@ -209,13 +208,12 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
                                 key: ValueKey('sendFeedbackButton'),
                               ),
                             ),
-                            _divider(),
                             Expanded(
                               child: _button(
                                 widget.translation.translate('share'),
                                 FaIcon(
                                   FontAwesomeIcons.solidShareSquare,
-                                  color: FeedbackResultPage._buttonColor,
+                                  color: ColorsTheme.of(context).mxcBlue,
                                   size: 14,
                                 ),
                                 () => _onAction(
@@ -223,14 +221,13 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
                                 key: ValueKey('shareButton'),
                               ),
                             ),
-                            _divider(),
                             Expanded(
                               child: _button(
                                 widget.translation
                                     .translate('cancel_normalized'),
                                 Icon(
                                   Icons.close,
-                                  color: FeedbackResultPage._buttonColor,
+                                  color: ColorsTheme.of(context).mxcBlue,
                                   size: 18,
                                 ),
                                 () => _onAction(

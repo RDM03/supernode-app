@@ -91,7 +91,7 @@ BoxDecoration rowShadow(BuildContext context) => BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(12)),
       boxShadow: [
         BoxShadow(
-          color: shodowColor,
+          color: boxShadowColor,
           offset: Offset(0, 2),
           blurRadius: 7,
         ),

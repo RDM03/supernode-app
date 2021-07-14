@@ -16,12 +16,16 @@ class ThemeMapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorsTheme = context.watch<ColorsTheme>();
+    final fontTheme = context.watch<FontTheme>();
     return Theme(
       data: ThemeData(
         brightness:
             colorsTheme is ColorsThemeDark ? Brightness.dark : Brightness.light,
         bottomAppBarColor: colorsTheme.secondaryBackground,
         scaffoldBackgroundColor: colorsTheme.primaryBackground,
+        inputDecorationTheme: InputDecorationTheme(
+          hintStyle: fontTheme.small.secondary(),
+        ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: colorsTheme.secondaryBackground,
           selectedItemColor: colorsTheme.mxcBlue,
@@ -39,8 +43,8 @@ class ThemeMapper extends StatelessWidget {
 class ColorsTheme {
   ColorsTheme._();
 
-  static ColorsTheme of(BuildContext context) {
-    return Provider.of<ColorsTheme>(context);
+  static ColorsTheme of(BuildContext context, {bool listen = true}) {
+    return Provider.of<ColorsTheme>(context, listen: listen);
   }
 
   // background

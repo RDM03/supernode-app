@@ -18,11 +18,6 @@ Widget _dialogTile(
   bool checked = false,
 }) =>
     Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: greyColorShade200, width: 0.5),
-        ),
-      ),
       height: 60,
       alignment: Alignment.center,
       child: ListTile(
@@ -32,7 +27,9 @@ Widget _dialogTile(
         },
         trailing: Icon(
           Icons.check,
-          color: checked ? healthColor : greyColor,
+          color: checked
+              ? ColorsTheme.of(context).minerHealthRed
+              : ColorsTheme.of(context).textLabel,
         ),
       ),
     );

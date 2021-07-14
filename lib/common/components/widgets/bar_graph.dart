@@ -39,10 +39,9 @@ class BarGraph extends StatelessWidget {
   BarGraph(this.graphValues, this.barsOnScreen, this.widgetWidth,
       {this.xAxisLabels,
       this.widgetHeight = 200,
-      Color graphColor,
+      this.graphColor,
       this.notifyGraphBarScroll,
-      this.onTapUp})
-      : graphColor = graphColor ?? minerColor {
+      this.onTapUp}) {
     spaceBetweenLines =
         (widgetWidth - (barsOnScreen * barWidth)) / (barsOnScreen - 1);
     scrollableWidth = barWidth * graphValues.length +
@@ -86,7 +85,7 @@ class BarGraph extends StatelessWidget {
           },
           child: CustomPaint(
               painter: GraphPainter(
-                  lineColor: graphColor,
+                  lineColor: graphColor ?? ColorsTheme.of(context).mxcBlue,
                   completePercents: graphValues,
                   labelStyle: FontTheme.of(context).small.secondary(),
                   labels: xAxisLabels,

@@ -183,7 +183,7 @@ class LanguagePage extends StatelessWidget {
           Icons.done,
           color: (type == 'auto' && (value == null)) || type == value
               ? ColorsTheme.of(context).mxcBlue
-              : greyColor,
+              : ColorsTheme.of(context).textLabel,
           size: 28,
         ),
         onTap: onTap);

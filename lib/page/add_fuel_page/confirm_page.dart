@@ -39,7 +39,10 @@ class AddFuelConfirmPage extends StatelessWidget {
             context,
             error == null ? 'confirmed' : 'error_tip',
           )),
-          done(color: healthColor, success: error == null),
+          done(
+            color: ColorsTheme.of(context).minerHealthRed,
+            success: error == null,
+          ),
           SizedBox(height: 30),
           SizedBox(
             width: double.infinity,
@@ -59,7 +62,7 @@ class AddFuelConfirmPage extends StatelessWidget {
               onTap: () => Navigator.of(context).pop(),
               minHeight: 46,
               buttonTitle: FlutterI18n.translate(context, 'done'),
-              bgColor: healthColor,
+              bgColor: ColorsTheme.of(context).minerHealthRed,
               minWidth: 0,
               style: FontTheme.of(context).big.label(),
             ),

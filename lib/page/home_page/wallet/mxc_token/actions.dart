@@ -38,7 +38,6 @@ class MxcActions extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            Divider(color: greyColor),
             GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {
@@ -68,7 +67,6 @@ class MxcActions extends StatelessWidget {
                 ],
               ),
             ),
-            Divider(color: greyColor),
             GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {
@@ -98,7 +96,6 @@ class MxcActions extends StatelessWidget {
                 ],
               ),
             ),
-            Divider(color: greyColor),
           ],
         ),
       ),

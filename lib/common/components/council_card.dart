@@ -26,7 +26,7 @@ class CouncilCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: blackColor10,
+            color: boxShadowColor,
             spreadRadius: 1,
             blurRadius: 2,
             offset: Offset(0, 0),

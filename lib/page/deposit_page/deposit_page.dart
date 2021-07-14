@@ -28,9 +28,7 @@ class DepositPage extends StatefulWidget {
 class _DepositPageState extends State<DepositPage> {
   @override
   void initState() {
-    context
-        .read<DepositCubit>()
-        .loadAddress(widget.tkn.ui(context, listen: false).name);
+    context.read<DepositCubit>().loadAddress(widget.tkn.serviceName);
     super.initState();
   }
 
@@ -72,7 +70,7 @@ class _DepositPageState extends State<DepositPage> {
                   smallColumnSpacer(),
                   Divider(),
                   s.address.loading
-                      ? loading(isSmall: true)
+                      ? loading(context, isSmall: true)
                       : QrImage(
                           key: Key('qrCodeTopUp'),
                           data: s.address.value,
@@ -129,11 +127,11 @@ class _DepositPageState extends State<DepositPage> {
                 ],
               ),
               decoration: BoxDecoration(
-                color: whiteColor,
+                color: ColorsTheme.of(context).secondaryBackground,
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 boxShadow: [
                   BoxShadow(
-                    color: shodowColor,
+                    color: boxShadowColor,
                     offset: Offset(0, 2),
                     blurRadius: 7,
                   ),

@@ -19,10 +19,10 @@ class CodeTextField extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(3.0)),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: shodowColor),
+            borderSide: BorderSide(color: boxShadowColor),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: shodowColor, width: 2),
+            borderSide: BorderSide(color: boxShadowColor, width: 2),
           )),
       onSubmitted: (_) => textInputAction == TextInputAction.next
           ? FocusScope.of(context).nextFocus()

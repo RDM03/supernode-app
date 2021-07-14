@@ -55,26 +55,26 @@ Widget buildView(
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 5.0),
                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_02'),
-                              style: TextStyle(
-                                color: greyColorShade600,
-                                fontWeight: FontWeight.w400,
-                              )),
-                        ]),
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          FlutterI18n.translate(_ctx, 'wthdr_ent_code_02'),
+                          style: FontTheme.of(_ctx).middle.secondary(),
+                        ),
+                      ],
+                    ),
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 80.0),
                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_03'),
-                              style: TextStyle(
-                                color: greyColorShade600,
-                                fontWeight: FontWeight.w400,
-                              )),
-                        ]),
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          FlutterI18n.translate(_ctx, 'wthdr_ent_code_03'),
+                          style: FontTheme.of(_ctx).middle.secondary(),
+                        ),
+                      ],
+                    ),
                   ),
                   Form(
                     key: state.formKey,

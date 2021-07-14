@@ -96,7 +96,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
               children: <Widget>[
                 AppBars.backArrowAppBar(
                   context,
-                  color: whiteColor,
+                  color: ColorsTheme.of(context).secondaryBackground,
                   title: FlutterI18n.translate(context, 'create_account'),
                   onPress: () => Navigator.of(context).pop(),
                   onTitlePress: () => clickTitle(),
@@ -228,7 +228,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                     height: ScreenUtil.instance.height,
                     width: s(304),
                     decoration: BoxDecoration(
-                      color: whiteColor,
+                      color: ColorsTheme.of(context).secondaryBackground,
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(s(10)),
                         bottomRight: Radius.circular(s(10)),

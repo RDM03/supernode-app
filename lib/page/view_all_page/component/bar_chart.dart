@@ -94,7 +94,7 @@ class _DDBarChartState extends State<DDBarChart> {
                   borderRadius: BorderRadius.all(Radius.circular(4.0)),
                   boxShadow: [
                     BoxShadow(
-                      color: shodowColor,
+                      color: boxShadowColor,
                       offset: Offset(0, 2),
                       blurRadius: 7,
                     ),

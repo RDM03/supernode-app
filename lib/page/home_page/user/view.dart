@@ -52,7 +52,7 @@ class UserTab extends StatelessWidget {
               },
               child: Container(
                 decoration: BoxDecoration(
-                    color: colorSupernodeDhx20,
+                    color: ColorsTheme.of(context).dhxBlue20,
                     borderRadius: BorderRadius.all(Radius.circular(5))),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -109,7 +109,7 @@ class UserTab extends StatelessWidget {
           child,
           Positioned.fill(
             child: Container(
-              color: colorDhx85,
+              color: ColorsTheme.of(context).dhxBlue80,
               alignment: Alignment.center,
               child: Column(
                 mainAxisSize: MainAxisSize.min,

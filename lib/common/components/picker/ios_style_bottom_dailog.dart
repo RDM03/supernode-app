@@ -115,7 +115,7 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
           borderRadius: BorderRadius.all(Radius.circular(10)),
           boxShadow: [
             BoxShadow(
-              color: shodowColor,
+              color: boxShadowColor,
               offset: Offset(0, 2),
               blurRadius: 7,
             ),
@@ -177,7 +177,7 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
               borderRadius: BorderRadius.all(Radius.circular(10)),
               boxShadow: [
                 BoxShadow(
-                  color: shodowColor,
+                  color: boxShadowColor,
                   offset: Offset(0, 2),
                   blurRadius: 7,
                 ),
@@ -268,7 +268,7 @@ class _IosStyleBottomDialog2ContentState
               topLeft: Radius.circular(10), topRight: Radius.circular(10)),
           boxShadow: [
             BoxShadow(
-              color: shodowColor,
+              color: boxShadowColor,
               offset: Offset(0, 2),
               blurRadius: 7,
             ),
@@ -296,7 +296,7 @@ void showInfoDialog(BuildContext context, Widget child) {
       );
     },
     barrierDismissible: true,
-    barrierColor: blackColor40,
+    barrierColor: barrierColor,
     barrierLabel: '',
     transitionDuration: Duration(milliseconds: 200),
   );

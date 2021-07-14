@@ -247,11 +247,11 @@ class _WithdrawPageState extends State<WithdrawPage> {
                       ],
                     ),
                     decoration: BoxDecoration(
-                      color: whiteColor,
+                      color: ColorsTheme.of(context).secondaryBackground,
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       boxShadow: [
                         BoxShadow(
-                          color: shodowColor,
+                          color: boxShadowColor,
                           offset: Offset(0, 2),
                           blurRadius: 7,
                         ),

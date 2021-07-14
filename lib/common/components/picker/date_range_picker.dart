@@ -31,7 +31,7 @@ class DateRangePicker extends StatelessWidget {
     return Container(
       child: Row(mainAxisSize: MainAxisSize.max, children: [
         SecondaryShadowButton(
-          color: whiteColor,
+          color: ColorsTheme.of(context).secondaryBackground,
           buttonTitle: firstTime ?? '',
           icon: Icons.date_range,
           onTap: () {
@@ -52,7 +52,7 @@ class DateRangePicker extends StatelessWidget {
           child: Text('~'),
         ),
         SecondaryShadowButton(
-          color: whiteColor,
+          color: ColorsTheme.of(context).secondaryBackground,
           buttonTitle: secondTime ?? '',
           icon: Icons.date_range,
           onTap: () {

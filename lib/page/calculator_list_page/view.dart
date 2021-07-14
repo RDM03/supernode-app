@@ -47,11 +47,11 @@ Widget buildView(
           constraints:
               BoxConstraints(minHeight: MediaQuery.of(_ctx).size.height - 20),
           decoration: BoxDecoration(
-            color: whiteColor,
+            color: ColorsTheme.of(_ctx).boxComponents,
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             boxShadow: [
               BoxShadow(
-                color: shodowColor,
+                color: boxShadowColor,
                 offset: Offset(0, 2),
                 blurRadius: 7,
               ),

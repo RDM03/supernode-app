@@ -64,7 +64,7 @@ Widget buildView(
               max: (monthsOptions.length - 1).toDouble(),
               divisions: (monthsOptions.length - 1),
               activeColor: Token.supernodeDhx.ui(_ctx).color,
-              inactiveColor: colorSupernodeDhx20,
+              inactiveColor: ColorsTheme.of(_ctx).dhxBlue20,
               onChanged: (v) => dispatch(MiningSimulatorActionCreator.months(
                   monthsOptions[v.toInt()])),
             ),

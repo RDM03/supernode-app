@@ -183,7 +183,6 @@ class SupernodeDhxTokenCardContent extends StatelessWidget {
                     )
                   : SizedBox(),
         ),
-        (miningPageVersion) ? Divider(color: greyColor) : SizedBox(),
         BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
           buildWhen: (a, b) => a.totalRevenue != b.totalRevenue,
           builder: (ctx, state) => TitleDetailRow(

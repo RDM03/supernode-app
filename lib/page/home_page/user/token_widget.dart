@@ -95,7 +95,7 @@ class TokenHomePageWidget extends StatelessWidget {
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                      color: colorSupernodeDhx20,
+                      color: ColorsTheme.of(context).dhxBlue20,
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(

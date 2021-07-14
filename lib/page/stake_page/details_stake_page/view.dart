@@ -25,23 +25,20 @@ Widget buildView(
 
   switch (months) {
     case 24:
-      iconColor = stake24Color;
+      iconColor = ColorsTheme.of(_ctx).mxcBlue;
       break;
     case 12:
-      iconColor = stake12Color;
+      iconColor = ColorsTheme.of(_ctx).mxcBlue80;
       break;
     case 9:
-      iconColor = stake9Color;
+      iconColor = ColorsTheme.of(_ctx).mxcBlue60;
       break;
     case 6:
-      iconColor = stake6Color;
+      iconColor = ColorsTheme.of(_ctx).mxcBlue40;
       break;
     default:
-      iconColor = stakeFlexColor;
+      iconColor = ColorsTheme.of(_ctx).mxcBlue20;
       break;
-  }
-  if (months == 12) {
-    iconColor = stake12Color;
   }
 
   return pageFrame(
@@ -58,11 +55,7 @@ Widget buildView(
             alignment: Alignment.center,
             child: Text(
               months == null ? '~' : months.toString(),
-              style: Theme.of(_ctx).textTheme.bodyText1.copyWith(
-                    color: whiteColor,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: FontTheme.of(_ctx).veryBig.label.bold(),
             ),
             padding: EdgeInsets.only(top: 2),
             decoration: BoxDecoration(
@@ -229,15 +222,11 @@ void _showInfoDialog(BuildContext context) {
             alignment: Alignment.center,
             child: Text(
               '~',
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    color: whiteColor,
-                    fontSize: 40,
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: FontTheme.of(context).veryBig.label.bold(),
             ),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: stakeFlexColor,
+              color: ColorsTheme.of(context).mxcBlue20,
             ),
           ),
           Padding(

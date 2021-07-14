@@ -123,8 +123,11 @@ class _SendToWalletPageState extends State<SendToWalletPage>
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CircleButton(
               key: Key('addFuelBottom'),
-              circleColor: whiteColor,
-              icon: Icon(Icons.arrow_forward, color: fuelColor),
+              circleColor: ColorsTheme.of(context).boxComponents,
+              icon: Icon(
+                Icons.arrow_forward,
+                color: ColorsTheme.of(context).minerHealthRed,
+              ),
             ),
           ),
           Expanded(
@@ -146,12 +149,6 @@ class _SendToWalletPageState extends State<SendToWalletPage>
 
   Widget selectAll() => Container(
         padding: EdgeInsets.symmetric(vertical: 10),
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(color: greyColorShade200, width: 0.5),
-            bottom: BorderSide(color: greyColorShade200, width: 0.5),
-          ),
-        ),
         child: Row(
           children: [
             Expanded(
@@ -174,8 +171,8 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                 else
                   defaultAll();
               },
-              inactiveThumbColor: greyColorShade700,
-              activeColor: healthColor,
+              inactiveThumbColor: ColorsTheme.of(context).textLabel,
+              activeColor: ColorsTheme.of(context).minerHealthRed,
             ),
             SizedBox(width: 16),
           ],
@@ -200,8 +197,8 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                         Icons.check,
                         size: 18,
                         color: (gatewaySelection[item.id] ?? 0) > 0
-                            ? healthColor
-                            : greyColor,
+                            ? ColorsTheme.of(context).minerHealthRed
+                            : ColorsTheme.of(context).textLabel,
                       ),
                     ),
                   ),
@@ -227,7 +224,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                   SizedBox(width: 18),
                   Image.asset(
                     AppImages.fuel,
-                    color: fuelColor,
+                    color: ColorsTheme.of(context).minerHealthRed,
                     height: 16,
                   ),
                   SizedBox(width: 6),
@@ -248,8 +245,8 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                     value: gatewaySelection[item.id] ?? 0,
                     onChanged: (v) =>
                         setState(() => gatewaySelection[item.id] = v),
-                    activeColor: healthColor,
-                    inactiveColor: healthColor20,
+                    activeColor: ColorsTheme.of(context).minerHealthRed,
+                    inactiveColor: ColorsTheme.of(context).minerHealthRed20,
                   ),
                 ),
               ),
@@ -268,7 +265,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                 ColoredText(
                   text:
                       '${Tools.priceFormat(item.miningFuel.toDouble() * (gatewaySelection[item.id] ?? 0), range: 2)} MXC',
-                  color: healthColor20,
+                  color: ColorsTheme.of(context).minerHealthRed20,
                   style: FontTheme.of(context).middle(),
                   padding: EdgeInsets.symmetric(
                     horizontal: 6,
@@ -411,8 +408,10 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                   SliverFillRemaining(
                     child: Center(
                       child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation(healthColor),
-                        backgroundColor: healthColor20,
+                        valueColor: AlwaysStoppedAnimation(
+                            ColorsTheme.of(context).minerHealthRed),
+                        backgroundColor:
+                            ColorsTheme.of(context).minerHealthRed20,
                       ),
                     ),
                   )
@@ -422,8 +421,10 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                       padding: EdgeInsets.symmetric(vertical: 20),
                       child: Center(
                         child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(healthColor),
-                          backgroundColor: healthColor20,
+                          valueColor: AlwaysStoppedAnimation(
+                              ColorsTheme.of(context).minerHealthRed),
+                          backgroundColor:
+                              ColorsTheme.of(context).minerHealthRed20,
                         ),
                       ),
                     ),
@@ -435,14 +436,12 @@ class _SendToWalletPageState extends State<SendToWalletPage>
             alignment: Alignment.bottomCenter,
             child: Column(
               children: [
-                Container(height: 0.5, color: greyColorShade200),
                 SizedBox(height: 16),
                 Center(
                   child: Text(
                     '${Tools.priceFormat(withdrawMxc, range: 2)} MXC',
-                    style: FontTheme.of(context)
-                        .veryBig()
-                        .copyWith(color: healthColor),
+                    style: FontTheme.of(context).veryBig().copyWith(
+                        color: ColorsTheme.of(context).minerHealthRed),
                   ),
                 ),
                 SizedBox(height: 9),
@@ -461,7 +460,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                       onTap: () => onNext(context),
                       minHeight: 46,
                       buttonTitle: FlutterI18n.translate(context, 'next'),
-                      bgColor: healthColor,
+                      bgColor: ColorsTheme.of(context).minerHealthRed,
                       minWidth: 0,
                       style: FontTheme.of(context).big.label(),
                     ),

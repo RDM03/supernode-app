@@ -419,7 +419,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
       decoration: BoxDecoration(
         color: Colors.blueAccent,
         borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [BoxShadow(color: greyColor, blurRadius: 10.0)],
+        boxShadow: [BoxShadow(color: boxShadowColor, blurRadius: 10.0)],
       ),
       child: IconButton(
         onPressed: () async {
@@ -444,7 +444,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
       decoration: BoxDecoration(
         color: Colors.blueAccent,
         borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [BoxShadow(color: greyColor, blurRadius: 10.0)],
+        boxShadow: [BoxShadow(color: boxShadowColor, blurRadius: 10.0)],
       ),
       child: IconButton(
         onPressed: widget.zoomOutCallback,
@@ -467,7 +467,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
       decoration: BoxDecoration(
         color: Colors.blueAccent,
         borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [BoxShadow(color: greyColor, blurRadius: 10.0)],
+        boxShadow: [BoxShadow(color: boxShadowColor, blurRadius: 10.0)],
       ),
       child: IconButton(
         onPressed: () async {
@@ -488,7 +488,7 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
       decoration: BoxDecoration(
         color: Colors.blueAccent,
         borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [BoxShadow(color: greyColor, blurRadius: 10.0)],
+        boxShadow: [BoxShadow(color: boxShadowColor, blurRadius: 10.0)],
       ),
       child: IconButton(
         onPressed: () {

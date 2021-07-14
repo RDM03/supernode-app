@@ -39,11 +39,7 @@ Widget buildView(
               alignment: Alignment.center,
               child: Text(
                 state.months == null ? '~' : state.months.toString(),
-                style: Theme.of(_ctx).textTheme.bodyText1.copyWith(
-                      color: whiteColor,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                    ),
+                style: FontTheme.of(_ctx).veryBig.label.bold(),
               ),
               padding: EdgeInsets.only(top: 2),
               decoration: BoxDecoration(
@@ -96,10 +92,7 @@ Widget buildView(
               SizedBox(height: 2),
               Text(
                 '+${state.estimatedRate}%',
-                style: FontTheme.of(_ctx).big.mxc().copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20,
-                    ),
+                style: FontTheme.of(_ctx).veryBig.mxc.bold(),
               ),
               SizedBox(height: 3),
               Text(
@@ -119,7 +112,7 @@ Widget buildView(
             Expanded(
               child: Container(
                 height: 2,
-                color: ColorsTheme.of(_ctx).primaryBackground,
+                color: ColorsTheme.of(_ctx).textSecondary,
               ),
             ),
             _infoCircle(_ctx, FlutterI18n.translate(_ctx, 'gains_start'),
@@ -127,7 +120,7 @@ Widget buildView(
             Expanded(
               child: Container(
                 height: 2,
-                color: ColorsTheme.of(_ctx).primaryBackground,
+                color: ColorsTheme.of(_ctx).textSecondary,
               ),
             ),
             _infoCircle(
@@ -140,7 +133,7 @@ Widget buildView(
             Expanded(
               child: Container(
                 height: 2,
-                color: ColorsTheme.of(_ctx).primaryBackground,
+                color: ColorsTheme.of(_ctx).textSecondary,
               ),
             ),
             _infoCircle(
@@ -243,6 +236,7 @@ Widget buildView(
         ),
         submitButton(
           submitText(_ctx, state),
+          color: ColorsTheme.of(_ctx).mxcBlue,
           onPressed: () => dispatch(PrepareStakeActionCreator.onConfirm()),
           key: ValueKey('submitButton'),
         )

@@ -34,8 +34,8 @@ class ParachainLoginCard extends StatelessWidget {
         ),
         gradient: LinearGradient(
           colors: [
-            colorDhx,
-            ColorsTheme.of(context).dhxBlue,
+            loginDhxGradientStart,
+            loginDhxGradientEnd,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -96,11 +96,10 @@ class ParachainLoginCard extends StatelessWidget {
                       child: Text(
                         'DATAHIGHWAY',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: whiteColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
+                        style: FontTheme.of(context).veryBig().copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
                       ),
                     ),
                     Positioned(
@@ -175,33 +174,49 @@ class ParachainLoginCard extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () => launch('https://www.datahighway.com/'),
                         child: Container(
-                            width: double.infinity,
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: Tween<double>(begin: 0, end: 10)
-                                    .evaluate(animation)),
-                            decoration: BoxDecoration(
-                              color: whiteColor,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                            child: Column(children: [
-                              Icon(Icons.home,
-                                  size: Tween<double>(begin: 0, end: 24)
-                                      .evaluate(animation)),
+                          width: double.infinity,
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: Tween<double>(begin: 0, end: 10)
+                                  .evaluate(animation)),
+                          decoration: BoxDecoration(
+                            color: whiteColor,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          child: Column(
+                            children: [
+                              Icon(
+                                Icons.home,
+                                size: Tween<double>(begin: 0, end: 24)
+                                    .evaluate(animation),
+                                color:
+                                    ColorsTheme.of(context) is ColorsThemeDark
+                                        ? lightThemeColors.textPrimaryAndIcons
+                                        : darkThemeColors.textPrimaryAndIcons,
+                              ),
                               SizedBox(
-                                  height: Tween<double>(begin: 0, end: 5)
-                                      .evaluate(animation)),
+                                height: Tween<double>(begin: 0, end: 5)
+                                    .evaluate(animation),
+                              ),
                               Text(
-                                  FlutterI18n.translate(
-                                      context, 'next_gen_data_token'),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: Tween<double>(begin: 0, end: 16)
-                                        .evaluate(animation),
-                                  ))
-                            ])),
+                                FlutterI18n.translate(
+                                  context,
+                                  'next_gen_data_token',
+                                ),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: Tween<double>(begin: 0, end: 16)
+                                      .evaluate(animation),
+                                  color:
+                                      ColorsTheme.of(context) is ColorsThemeDark
+                                          ? lightThemeColors.textPrimaryAndIcons
+                                          : darkThemeColors.textPrimaryAndIcons,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -213,18 +228,18 @@ class ParachainLoginCard extends StatelessWidget {
                         onTap: () => launch(
                             'https://datahighway-dhx.medium.com/dhx-staking-mining-and-earning-boosts-c4f88c060014'),
                         child: Container(
-                            width: double.infinity,
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: Tween<double>(begin: 0, end: 10)
-                                    .evaluate(animation)),
-                            decoration: BoxDecoration(
-                              color: whiteColor,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                            child: Column(children: [
+                          width: double.infinity,
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: Tween<double>(begin: 0, end: 10)
+                                  .evaluate(animation)),
+                          decoration: BoxDecoration(
+                            color: ColorsTheme.of(context).textPrimaryAndIcons,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          child: Column(
+                            children: [
                               Image.asset(AppImages.medium,
                                   width: Tween<double>(begin: 0, end: 24)
                                       .evaluate(animation),
@@ -234,14 +249,21 @@ class ParachainLoginCard extends StatelessWidget {
                                   height: Tween<double>(begin: 0, end: 5)
                                       .evaluate(animation)),
                               Text(
-                                  FlutterI18n.translate(
-                                      context, 'dhx_staking_mining_earning'),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: Tween<double>(begin: 0, end: 16)
-                                        .evaluate(animation),
-                                  ))
-                            ])),
+                                FlutterI18n.translate(
+                                    context, 'dhx_staking_mining_earning'),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: Tween<double>(begin: 0, end: 16)
+                                      .evaluate(animation),
+                                  color:
+                                      ColorsTheme.of(context) is ColorsThemeDark
+                                          ? lightThemeColors.textPrimaryAndIcons
+                                          : darkThemeColors.textPrimaryAndIcons,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                     Spacer(),
@@ -297,23 +319,25 @@ class ParachainLoginCard extends StatelessWidget {
                     //onPressed: () => Navigator.of(context).push(route((ctx) => DataHighwayCreatePage())),
                   )),
               FadeTransition(
-                  opacity: TweenSequence<double>([
-                    TweenSequenceItem(
-                      tween: ConstantTween(0),
-                      weight: 50.0,
-                    ),
-                    TweenSequenceItem(
-                      tween: Tween<double>(begin: 0, end: 1),
-                      weight: 50.0,
-                    ),
-                  ]).animate(animation),
-                  child: Text(
-                      FlutterI18n.translate(context, 'coming').toUpperCase(),
-                      style: TextStyle(
-                        color: whiteColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      )))
+                opacity: TweenSequence<double>([
+                  TweenSequenceItem(
+                    tween: ConstantTween(0),
+                    weight: 50.0,
+                  ),
+                  TweenSequenceItem(
+                    tween: Tween<double>(begin: 0, end: 1),
+                    weight: 50.0,
+                  ),
+                ]).animate(animation),
+                child: Text(
+                  FlutterI18n.translate(context, 'coming').toUpperCase(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: ColorsTheme.of(context).textPrimaryAndIcons,
+                  ),
+                ),
+              )
             ],
           ),
           FadeTransition(

@@ -92,7 +92,7 @@ showNoCouncilsDialog(ScaffoldState scaffoldState) {
         children: [
           Text(
             FlutterI18n.translate(ctx, 'sorry'),
-            style: FontTheme.of(ctx).middle.mxc(),
+            style: FontTheme.of(ctx).middle.dhx(),
           ),
           SizedBox(height: 10),
           Text(
@@ -125,7 +125,7 @@ showDoesntMeetRequirmentsDialog(ScaffoldState scaffoldState) {
         children: [
           Text(
             FlutterI18n.translate(ctx, 'sorry'),
-            style: FontTheme.of(ctx).middle.mxc(),
+            style: FontTheme.of(ctx).middle.dhx(),
           ),
           SizedBox(height: 10),
           Text(
@@ -163,7 +163,7 @@ Future<bool> showBecomeCouncilChairDialog(ScaffoldState scaffoldState) async {
         children: [
           Text(
             FlutterI18n.translate(ctx, 'congratulations'),
-            style: FontTheme.of(ctx).middle.mxc(),
+            style: FontTheme.of(ctx).middle.dhx(),
           ),
           SizedBox(height: 10),
           Text(

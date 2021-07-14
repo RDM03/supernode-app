@@ -54,7 +54,7 @@ class CircleButton extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: whiteColor,
+              color: ColorsTheme.of(context).boxComponents,
               shape: BoxShape.circle,
             ),
             height: 50,

@@ -33,7 +33,7 @@ class _ConnectivityLostPageView extends StatelessWidget {
                   flex: 4,
                   child: Image.asset(
                     'assets/images/connectivity/connectivity.png',
-                    color: greyColor,
+                    color: ColorsTheme.of(context).textSecondary,
                   ),
                 ),
                 Expanded(

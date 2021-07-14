@@ -60,28 +60,6 @@ class StakeItem extends StatelessWidget {
         : stake.amount;
 
     final months = stake.months;
-    Color iconColor;
-
-    switch (months) {
-      case 24:
-        iconColor = stake24Color;
-        break;
-      case 12:
-        iconColor = stake12Color;
-        break;
-      case 9:
-        iconColor = stake9Color;
-        break;
-      case 6:
-        iconColor = stake6Color;
-        break;
-      default:
-        iconColor = stakeFlexColor;
-        break;
-    }
-    if (months == 12) {
-      iconColor = stake12Color;
-    }
 
     // If the record is still in lock, so the icon is locked. If you unstake, the icon will be unlock
     var showLockOpenIcon = false;
@@ -107,7 +85,6 @@ class StakeItem extends StatelessWidget {
       months: stake.months,
       id: stake.id,
       isLast: isLast,
-      iconColor: iconColor,
       onTap: onTap,
       showLockOpenIcon: showLockOpenIcon,
       key: key,
@@ -119,6 +96,26 @@ class StakeItem extends StatelessWidget {
     String dateStr = Tools.dateFormat(startDate);
     if (endDate != null) dateStr += '~' + Tools.dateFormat(endDate);
     dateStr = '${startDate.year}-${startDate.month}-${startDate.day}';
+
+    Color iconColor;
+    switch (months) {
+      case 24:
+        iconColor = ColorsTheme.of(context).mxcBlue;
+        break;
+      case 12:
+        iconColor = ColorsTheme.of(context).mxcBlue80;
+        break;
+      case 9:
+        iconColor = ColorsTheme.of(context).mxcBlue60;
+        break;
+      case 6:
+        iconColor = ColorsTheme.of(context).mxcBlue40;
+        break;
+      default:
+        iconColor = ColorsTheme.of(context).mxcBlue20;
+        break;
+    }
+
     return InkWell(
       onTap: onTap,
       child: Column(
@@ -142,7 +139,7 @@ class StakeItem extends StatelessWidget {
                   padding: EdgeInsets.only(top: 2),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: iconColor ?? stake24Color,
+                    color: iconColor,
                   ),
                 ),
                 SizedBox(width: 15),

@@ -6,9 +6,9 @@ import 'package:supernodeapp/theme/theme.dart';
 Future<String> scanQR(BuildContext context) async {
   return await MajaScan.startScan(
     title: FlutterI18n.translate(context, 'scan_code'),
-    barColor: ColorsTheme.of(context).mxcBlue,
-    titleColor: ColorsTheme.of(context).primaryBackground,
-    qRCornerColor: ColorsTheme.of(context).mxcBlue,
-    qRScannerColor: ColorsTheme.of(context).mxcBlue20,
+    barColor: ColorsTheme.of(context, listen: false).mxcBlue,
+    titleColor: ColorsTheme.of(context, listen: false).primaryBackground,
+    qRCornerColor: ColorsTheme.of(context, listen: false).mxcBlue,
+    qRScannerColor: ColorsTheme.of(context, listen: false).mxcBlue20,
   );
 }

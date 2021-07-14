@@ -70,7 +70,7 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
                 ),
           ),
           duration: Duration(seconds: 2),
-          backgroundColor: errorColor,
+          backgroundColor: ColorsTheme.of(ctx.context).textError,
         ));
       }
       // tip('UserDao register: $err');

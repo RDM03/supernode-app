@@ -25,7 +25,7 @@ class DDBoxWithShadow extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(16.0)),
           boxShadow: [
             BoxShadow(
-              color: shodowColor,
+              color: boxShadowColor,
               offset: Offset(0, 2),
               blurRadius: 7,
             ),

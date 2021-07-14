@@ -7,6 +7,7 @@ class Link extends StatelessWidget {
   final Function onTap;
   final AlignmentGeometry alignment;
   final EdgeInsets padding;
+  final TextStyle style;
 
   const Link(
     this.text, {
@@ -14,6 +15,7 @@ class Link extends StatelessWidget {
     this.onTap,
     this.alignment = Alignment.centerRight,
     this.padding,
+    this.style,
   }) : super(key: key);
 
   @override
@@ -31,7 +33,7 @@ class Link extends StatelessWidget {
             child: Text(
               text,
               textAlign: TextAlign.center,
-              style: FontTheme.of(context).middle.mxc.underline(),
+              style: style ?? FontTheme.of(context).middle.mxc.underline(),
             ),
           ),
         ),

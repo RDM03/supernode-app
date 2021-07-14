@@ -336,12 +336,15 @@ class _ProfilePageState extends State<ProfilePage> {
               builder: (ctx, s) => Column(
                     children: [
                       ListTile(
-                          title: Text(
-                              FlutterI18n.translate(
-                                  context, 'bind_shopify_button'),
-                              style: FontTheme.of(context).big.secondary()),
-                          trailing:
-                              Icon(Icons.chevron_right, color: greyColor)),
+                        title: Text(
+                            FlutterI18n.translate(
+                                context, 'bind_shopify_button'),
+                            style: FontTheme.of(context).big.secondary()),
+                        trailing: Icon(
+                          Icons.chevron_right,
+                          color: ColorsTheme.of(context).textLabel,
+                        ),
+                      ),
                       // listItem(
                       //     FlutterI18n.translate(
                       //             context,

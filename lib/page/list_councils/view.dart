@@ -50,7 +50,7 @@ Widget buildView(
             onValueChanged: (v) => dispatch(ListCouncilsActionCreator.tab(v)),
             groupValue: state.tab,
             thumbColor: ColorsTheme.of(context).dhxBlue,
-            backgroundColor: colorSupernodeDhx20,
+            backgroundColor: ColorsTheme.of(context).dhxBlue20,
           ),
         ),
         SizedBox(height: 30),

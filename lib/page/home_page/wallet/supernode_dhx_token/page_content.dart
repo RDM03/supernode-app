@@ -64,14 +64,17 @@ class _SupernodeDhxTokenPageContentState
                     FlutterI18n.translate(context, 'transaction_history'),
                     key: Key('transactionHistory'),
                     style: TextStyle(
-                      color: (selectedTab == 0) ? whiteColor : greyColor,
+                      color: (selectedTab == 0)
+                          ? ColorsTheme.of(context).textPrimaryAndIcons
+                          : ColorsTheme.of(context).textLabel,
                     ),
                   ),
                   1: Text(
                     FlutterI18n.translate(context, 'mining_income'),
                     style: TextStyle(
-                      color: (selectedTab == 1) ? whiteColor : greyColor,
-                    ),
+                        color: (selectedTab == 1)
+                            ? ColorsTheme.of(context).textPrimaryAndIcons
+                            : ColorsTheme.of(context).textLabel),
                   )
                 }),
           ),
@@ -105,7 +108,7 @@ class DhxMiningCard extends StatelessWidget {
                 onTap: () => showBoostMPowerDialog(context),
                 child: Container(
                   decoration: BoxDecoration(
-                      color: colorSupernodeDhx20,
+                      color: ColorsTheme.of(context).dhxBlue20,
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(

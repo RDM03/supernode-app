@@ -14,7 +14,7 @@ class DeviceListItem extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: shodowColor,
+            color: boxShadowColor,
             width: 1,
           ),
         ),

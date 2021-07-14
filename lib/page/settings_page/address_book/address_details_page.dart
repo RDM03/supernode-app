@@ -99,11 +99,7 @@ class _AddressDetailsPageState extends State<AddressDetailsPage> {
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             FlutterI18n.translate(context, 'address_book_control_desc'),
-            style: TextStyle(
-              color: greyColorShade600,
-              fontWeight: FontWeight.w400,
-              fontSize: 12,
-            ),
+            style: FontTheme.of(context).small.secondary(),
           ),
         ),
         SizedBox(height: 40),
@@ -133,14 +129,6 @@ class _AddressDetailsPageState extends State<AddressDetailsPage> {
           child: Container(
             width: double.infinity,
             height: 62,
-            decoration: BoxDecoration(
-              border: Border.symmetric(
-                horizontal: BorderSide(
-                  color: greyColorShade200,
-                  width: 1,
-                ),
-              ),
-            ),
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Text(

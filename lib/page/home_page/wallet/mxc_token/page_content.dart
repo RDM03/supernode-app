@@ -52,7 +52,7 @@ class _MxcTokenPageContentState extends State<MxcTokenPageContent>
                     style: TextStyle(
                       color: (selectedTab == 0)
                           ? ColorsTheme.of(context).textPrimaryAndIcons
-                          : greyColor,
+                          : ColorsTheme.of(context).textLabel,
                     ),
                   ),
                   1: Text(
@@ -60,7 +60,7 @@ class _MxcTokenPageContentState extends State<MxcTokenPageContent>
                     style: TextStyle(
                       color: (selectedTab == 1)
                           ? ColorsTheme.of(context).textPrimaryAndIcons
-                          : greyColor,
+                          : ColorsTheme.of(context).textLabel,
                     ),
                   )
                 }),

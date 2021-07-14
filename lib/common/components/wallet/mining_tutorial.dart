@@ -439,7 +439,7 @@ class MiningTutorial extends StatefulWidget {
               borderRadius: BorderRadius.all(Radius.circular(8))),
           child: Text(
             FlutterI18n.translate(ctx, 'dhx_mining').toUpperCase(),
-            style: FontTheme.of(ctx).big.label(),
+            style: FontTheme.of(ctx).big.primary(),
           ),
         ),
       ),
@@ -711,12 +711,6 @@ class _MiningTutorialState extends State<MiningTutorial> {
             Container(
               width: double.infinity,
               height: 50,
-              decoration: new BoxDecoration(
-                gradient: new LinearGradient(
-                    colors: [transparentWhite, whiteColor],
-                    begin: Alignment.topCenter,
-                    end: Alignment.center),
-              ),
               child: Stack(
                 alignment: AlignmentDirectional.center,
                 children: <Widget>[
@@ -749,8 +743,13 @@ class _MiningTutorialState extends State<MiningTutorial> {
       height: isActive ? 12 : 8,
       width: isActive ? 12 : 8,
       decoration: BoxDecoration(
-          color: isActive ? Token.supernodeDhx.ui(context).color : greyColor,
-          borderRadius: BorderRadius.all(Radius.circular(12))),
+        color: isActive
+            ? Token.supernodeDhx.ui(context).color
+            : ColorsTheme.of(context).boxComponents,
+        borderRadius: BorderRadius.all(
+          Radius.circular(12),
+        ),
+      ),
     );
   }
 }

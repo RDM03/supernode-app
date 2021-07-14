@@ -81,8 +81,8 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
           ),
           gradient: LinearGradient(
             colors: [
-              colorMxcGradientStart,
-              ColorsTheme.of(context).mxcBlue,
+              loginMxcGradientStart,
+              loginMxcGradientEnd,
             ],
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
@@ -264,9 +264,10 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
                 CircleButton(
                   text: FlutterI18n.translate(context, 'signup'),
                   icon: Icons.add,
-                  onPressed: () => Navigator.of(context).push(route((ctx) =>
-                      BlocProvider<LoginCubit>.value(
-                          value: loginCubit, child: SupernodeSignupPage()))),
+                  onPressed: () => Navigator.of(context).push(
+                    route((ctx) => BlocProvider<LoginCubit>.value(
+                        value: loginCubit, child: SupernodeSignupPage())),
+                  ),
                 ),
                 SizedBox(width: 23),
                 CircleButton(

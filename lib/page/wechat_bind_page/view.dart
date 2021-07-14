@@ -43,7 +43,7 @@ Widget buildView(
             height: s(171),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: whiteColor,
+              color: ColorsTheme.of(_ctx).boxComponents,
               shape: BoxShape.circle,
             ),
             child: BlocBuilder<SupernodeCubit, SupernodeState>(
@@ -52,7 +52,7 @@ Widget buildView(
                 height: s(134),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    color: whiteColor,
+                    color: ColorsTheme.of(context).boxComponents,
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(

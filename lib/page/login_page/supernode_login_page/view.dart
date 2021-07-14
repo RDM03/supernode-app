@@ -16,7 +16,6 @@ import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
 import 'package:supernodeapp/page/home_page/home_page.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
@@ -116,7 +115,7 @@ class _SupernodeLoginPageContentState
                     .copyWith(color: whiteColor),
               ),
               duration: Duration(seconds: 2),
-              backgroundColor: errorColor,
+              backgroundColor: ColorsTheme.of(context).textError,
             ));
           },
         ),
@@ -214,7 +213,8 @@ class _SupernodeLoginPageContentState
                             AppBars.backArrowAppBar(
                               context,
                               key: Key('login_title'),
-                              color: whiteColor,
+                              color:
+                                  ColorsTheme.of(context).secondaryBackground,
                               title: FlutterI18n.translate(context, 'login'),
                               onPress: () => Navigator.of(context).pop(),
                               onTitlePress: () => clickTitle(),
@@ -237,8 +237,11 @@ class _SupernodeLoginPageContentState
                                   child: Padding(
                                     key: Key("questionCircle"),
                                     padding: EdgeInsets.all(s(5)),
-                                    child: Image.asset(AppImages.questionCircle,
-                                        height: s(20)),
+                                    child: Image.asset(
+                                      AppImages.questionCircle,
+                                      height: s(20),
+                                      color: ColorsTheme.of(context).mxcBlue,
+                                    ),
                                   ),
                                 )
                               ],
@@ -389,7 +392,7 @@ class _SupernodeLoginPageContentState
                       height: ScreenUtil.instance.height,
                       width: s(304),
                       decoration: BoxDecoration(
-                        color: whiteColor,
+                        color: ColorsTheme.of(context).secondaryBackground,
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(s(10)),
                           bottomRight: Radius.circular(s(10)),

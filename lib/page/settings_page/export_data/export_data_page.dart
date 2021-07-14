@@ -47,7 +47,8 @@ class ExportDataPage extends StatelessWidget {
                         leading: Image(
                             image: Token.supernodeDhx.ui(context).image,
                             height: s(50)),
-                        trailing: Icon(Icons.chevron_right, color: greyColor),
+                        trailing: Icon(Icons.chevron_right,
+                            color: ColorsTheme.of(context).textLabel),
                       ),
                     ),
                   ],
@@ -67,7 +68,8 @@ class ExportDataPage extends StatelessWidget {
                     onTap: () => 'TODO',
                     leading: Image(
                         image: Token.btc.ui(context).image, height: s(50)),
-                    trailing: Icon(Icons.chevron_right, color: greyColor),
+                    trailing: Icon(Icons.chevron_right,
+                        color: ColorsTheme.of(context).textLabel),
                   ),
                 )
               : SizedBox(),

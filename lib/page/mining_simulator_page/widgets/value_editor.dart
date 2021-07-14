@@ -85,7 +85,7 @@ class ValueEditor extends StatelessWidget {
                           child: LinearProgressIndicator(
                             valueColor: AlwaysStoppedAnimation(
                                 ColorsTheme.of(context).dhxBlue),
-                            backgroundColor: colorSupernodeDhx20,
+                            backgroundColor: ColorsTheme.of(context).dhxBlue20,
                           ),
                         )
                       : ValueListenableBuilder<TextEditingValue>(
@@ -102,7 +102,7 @@ class ValueEditor extends StatelessWidget {
                               key: ValueKey('valueSlider'),
                               value: percent,
                               activeColor: ColorsTheme.of(context).dhxBlue,
-                              inactiveColor: colorSupernodeDhx20,
+                              inactiveColor: ColorsTheme.of(context).dhxBlue20,
                               onChanged: !enabled
                                   ? null
                                   : (v) {

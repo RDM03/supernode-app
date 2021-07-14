@@ -40,16 +40,12 @@ Widget buildView(
               alignment: Alignment.center,
               child: Text(
                 state.months == null ? '~' : state.months.toString(),
-                style: Theme.of(_ctx).textTheme.bodyText1.copyWith(
-                      color: whiteColor,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                    ),
+                style: FontTheme.of(_ctx).veryBig.label.bold(),
               ),
               padding: EdgeInsets.only(top: 2),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: state.iconColor ?? ColorsTheme.of(_ctx).mxcBlue,
+                color: state.iconColor ?? ColorsTheme.of(_ctx).dhxBlue,
               ),
             ),
             SizedBox(width: 16),
@@ -121,7 +117,7 @@ Widget buildView(
                           valueColor: AlwaysStoppedAnimation(
                             ColorsTheme.of(_ctx).dhxBlue,
                           ),
-                          backgroundColor: colorSupernodeDhx20,
+                          backgroundColor: ColorsTheme.of(_ctx).dhxBlue20,
                         ),
                       )
                     : ValueListenableBuilder<TextEditingValue>(
@@ -137,7 +133,7 @@ Widget buildView(
                             key: ValueKey('lockAmountSlider'),
                             value: percent,
                             activeColor: ColorsTheme.of(_ctx).dhxBlue,
-                            inactiveColor: colorSupernodeDhx20,
+                            inactiveColor: ColorsTheme.of(_ctx).dhxBlue20,
                             onChanged: (v) {
                               final balanceVal =
                                   (state.balance * v * 100).floorToDouble() /

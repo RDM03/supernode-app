@@ -7,6 +7,7 @@ Widget submitButton(
   double top = 34,
   Function onPressed,
   Key key,
+  Color color,
 }) {
   return Builder(
     builder: (context) => Container(
@@ -16,22 +17,22 @@ Widget submitButton(
       child: FlatButton(
         key: key,
         onPressed: onPressed,
-        color: Colors.transparent,
+        color: color ?? ColorsTheme.of(context).dhxBlue,
         shape: RoundedRectangleBorder(
           side: BorderSide(
-            color: ColorsTheme.of(context).mxcBlue,
+            color: color ?? ColorsTheme.of(context).dhxBlue,
             width: 1,
             style: BorderStyle.solid,
           ),
           borderRadius: BorderRadius.all(Radius.circular(3)),
         ),
-        textColor: ColorsTheme.of(context).mxcBlue,
+        textColor: ColorsTheme.of(context).textPrimaryAndIcons,
         padding: EdgeInsets.all(0),
         child: Text(
           label,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: ColorsTheme.of(context).mxcBlue,
+            color: ColorsTheme.of(context).textPrimaryAndIcons,
             fontFamily: "Roboto",
             fontWeight: FontWeight.w400,
             fontSize: 14,

@@ -43,7 +43,7 @@ Widget buildView(
                       height: s(171),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: whiteColor,
+                        color: ColorsTheme.of(_ctx).boxComponents,
                         shape: BoxShape.circle,
                       ),
                       child: Container(
@@ -51,7 +51,7 @@ Widget buildView(
                         height: s(134),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            color: whiteColor,
+                            color: ColorsTheme.of(_ctx).boxComponents,
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
@@ -67,7 +67,7 @@ Widget buildView(
                             height: s(134),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                                color: whiteColor,
+                                color: ColorsTheme.of(_ctx).boxComponents,
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(

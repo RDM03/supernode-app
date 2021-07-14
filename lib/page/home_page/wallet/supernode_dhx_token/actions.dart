@@ -13,6 +13,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'dhx_bonding_page.dart';
 import 'dhx_unbonding_page.dart';
@@ -82,7 +83,7 @@ class SupernodeDhxActions extends StatelessWidget {
                 color: (state.stakes.loading ||
                         state.stakes.value == null ||
                         state.stakes.value.isEmpty)
-                    ? greyColor
+                    ? ColorsTheme.of(context).textLabel
                     : Token.supernodeDhx.ui(context).color,
               ),
               label: FlutterI18n.translate(context, 'council'),
