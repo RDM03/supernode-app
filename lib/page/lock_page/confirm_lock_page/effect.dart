@@ -1,10 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/components/tip.dart';
-import 'package:supernodeapp/common/repositories/shared/clients/client.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/dhx.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'action.dart';
