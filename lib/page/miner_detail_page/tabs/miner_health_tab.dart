@@ -154,12 +154,12 @@ class MinerHealthTab extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: CircularGraph(
-                  item.health * 100,
-                  item.health <= 0.1 ? healthColor : minerColor,
+                  (item.health ?? 0) * 100,
+                  (item.health ?? 0) <= 0.1 ? healthColor : minerColor,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('${(item.health * 100).round()}%',
+                      Text('${((item.health ?? 0) * 100).round()}%',
                           style: kSuperBigBoldFont),
                       Text(
                         FlutterI18n.translate(context, 'health_score'),
@@ -171,7 +171,7 @@ class MinerHealthTab extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: item.miningFuel > Decimal.zero
+              onTap: item.miningFuel != null && item.miningFuel > Decimal.zero
                   ? () => Navigator.of(context)
                       .push(routeWidget(SendToWalletPage(gatewayItem: item)))
                       .then((value) => onRefresh())
@@ -196,7 +196,7 @@ class MinerHealthTab extends StatelessWidget {
                     child: Container(
                       child: Icon(
                         Icons.arrow_forward,
-                        color: item.miningFuel > Decimal.zero
+                        color: item.miningFuel != null && item.miningFuel > Decimal.zero
                             ? healthColor
                             : Colors.grey,
                         size: 26,
@@ -221,10 +221,11 @@ class MinerHealthTab extends StatelessWidget {
                 color: healthColor,
               ),
               SizedBox(width: 10),
-              Text(
-                '${Tools.priceFormat(item.miningFuel.toDouble())} / ${Tools.priceFormat(item.miningFuelMax.toDouble())} MXC',
-                style: kBigFontOfBlack,
-              )
+              item.miningFuel != null
+                  ? Text(
+                      '${Tools.priceFormat(item.miningFuel.toDouble())} / ${Tools.priceFormat(item.miningFuelMax.toDouble())} MXC',
+                      style: kBigFontOfBlack)
+                  : Text('0.0 / 0.0 MXC', style: kBigFontOfBlack)
             ],
           ),
         ),
