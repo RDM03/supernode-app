@@ -51,8 +51,8 @@ void _onConfirm(Action action, Context<ConfirmLockState> ctx) async {
           arguments: {'isDemo': ctx.state.isDemo, 'stakeId': stakeId});
       Navigator.of(ctx.context).pop(true);
     }
-  } on HttpException catch (e) {
-    tip(FlutterI18n.translate(ctx.context, e.message));
-    print(e);
+  } catch (err) {
+    tip('LockPage: $err');
+    print(err);
   }
 }
