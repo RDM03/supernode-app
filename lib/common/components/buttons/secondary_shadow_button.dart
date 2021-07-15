@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class SecondaryShadowButton extends StatelessWidget {
   SecondaryShadowButton(
@@ -27,7 +28,7 @@ class SecondaryShadowButton extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(3)),
           boxShadow: [
             BoxShadow(
-              color: shodowColor,
+              color: boxShadowColor,
               offset: Offset(0, 2),
               blurRadius: 7,
             ),
@@ -39,8 +40,8 @@ class SecondaryShadowButton extends StatelessWidget {
             buttonTitle,
             textAlign: TextAlign.center,
             style: color != null && !isSelected
-                ? kSecondaryButtonOfBlack
-                : kSecondaryButtonOfPurple,
+                ? FontTheme.of(context).middle.primary()
+                : FontTheme.of(context).middle.mxc(),
           ),
           icon != null
               ? Container(
@@ -49,8 +50,8 @@ class SecondaryShadowButton extends StatelessWidget {
                     icon,
                     size: 20,
                     color: color != null && !isSelected
-                        ? Colors.black
-                        : buttonPrimaryColor,
+                        ? ColorsTheme.of(context).textPrimaryAndIcons
+                        : ColorsTheme.of(context).mxcBlue,
                   ),
                 )
               : Container()

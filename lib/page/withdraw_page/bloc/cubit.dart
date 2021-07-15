@@ -21,7 +21,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
   Future<void> withdrawFee(Token tkn) async {
     try {
       WithdrawFee withdrawFee = await supernodeRepository.withdraw
-          .fee(currency: map2serverCurrency[tkn.name]);
+          .fee(currency: map2serverCurrency[tkn.serviceName]);
 
       emit(state.copyWith(token: tkn, fee: withdrawFee.withdrawFee));
     } catch (err) {
@@ -71,7 +71,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
     Map data = {
       "orgId": orgId,
       "amount": state.amount.toString(),
-      "currency": map2serverCurrency[state.token.name],
+      "currency": map2serverCurrency[state.token.serviceName],
       "ethAddress": state.address,
       "otp_code": otpCode
     };

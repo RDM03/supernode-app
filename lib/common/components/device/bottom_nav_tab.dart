@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class BottomNavTabViewModel {
   String title;
@@ -51,7 +52,7 @@ class _BottomNavTabState extends State<BottomNavTab>
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: whiteColor,
         boxShadow: [
           BoxShadow(
             color: boxShadowColor,
@@ -97,8 +98,8 @@ class _BottomNavTabState extends State<BottomNavTab>
             Text(
               tabInfo.title ?? "",
               style: widget.selectIndex == index
-                  ? kMiddleFontODarkBlue
-                  : kMiddleFontOfGrey,
+                  ? FontTheme.of(context).middle.mxc()
+                  : FontTheme.of(context).middle.secondary(),
             ),
           ],
         ),

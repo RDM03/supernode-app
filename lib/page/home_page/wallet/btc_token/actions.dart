@@ -18,7 +18,7 @@ class BtcActions extends StatelessWidget {
           builder: (ctx, state) => CircleButton(
             icon: Icon(
               Icons.arrow_forward,
-              color: Token.btc.color,
+              color: Token.btc.ui(context).color,
             ),
             label: FlutterI18n.translate(context, 'withdraw'),
             onTap: state.balance.loading

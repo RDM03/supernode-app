@@ -11,6 +11,8 @@ import 'package:supernodeapp/common/utils/address_entity.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/scan_qr.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
+import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'address_book_page.dart';
 
@@ -60,7 +62,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
       useSafeArea: true,
       children: [
         PageNavBar(
-          text: widget.type.token.name +
+          text: widget.type.token.ui(context).name +
               ' ' +
               FlutterI18n.translate(context, 'address_book'),
           leadingWidget: AppBarBackButton(),
@@ -75,11 +77,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
             Container(
               child: Text(
                 FlutterI18n.translate(context, 'address_book_desc'),
-                style: TextStyle(
-                  color: Colors.grey[600],
-                  fontWeight: FontWeight.w400,
-                  fontSize: 12,
-                ),
+                style: FontTheme.of(context).small.secondary(),
               ),
             ),
             SizedBox(height: 40),
@@ -116,7 +114,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
           onTap: _onSave,
           minWidth: double.infinity,
           minHeight: 48,
-          bgColor: widget.type.token.color,
+          bgColor: widget.type.token.ui(context).color,
           key: ValueKey('updateButton'),
         ),
         SizedBox(height: 30),

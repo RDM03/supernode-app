@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/jira_dao.dart';
 import 'package:supernodeapp/page/feedback_page/feedback.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 enum FeedbackResultType { cancel, feedback, share }
 
@@ -24,7 +26,6 @@ class FeedbackResultPage extends StatefulWidget {
   final DatadashTranslation translation;
   FeedbackResultPage(this.params, this.image, this.translation);
 
-  static const _buttonColor = Color.fromARGB(255, 28, 20, 120);
   static final _screenshotKey = GlobalKey();
 
   @override
@@ -41,14 +42,14 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
         return CupertinoActionSheet(
           title: Text(
             widget.translation.translate('feedback'),
-            style: kBigFontOfBlue,
+            style: FontTheme.of(context).big.mxc(),
           ),
           actions: <Widget>[
             CupertinoActionSheetAction(
               key: ValueKey('bugButton'),
               child: Text(
                 widget.translation.translate('this_is_bug'),
-                style: kBigFontOfBlack,
+                style: FontTheme.of(context).big(),
               ),
               onPressed: () => Navigator.of(context).pop(FeedbackType.bug),
             ),
@@ -56,7 +57,7 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
               key: ValueKey('ideaButton'),
               child: Text(
                 widget.translation.translate('this_is_idea'),
-                style: kBigFontOfBlack,
+                style: FontTheme.of(context).big(),
               ),
               onPressed: () => Navigator.of(context).pop(FeedbackType.idea),
             ),
@@ -66,7 +67,7 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
             key: ValueKey('cancelButton'),
             child: Text(
               widget.translation.translate('cancel_normalized'),
-              style: kBigFontOfBlack,
+              style: FontTheme.of(context).big(),
             ),
             onPressed: () => Navigator.of(context).pop<FeedbackType>(),
           ),
@@ -99,7 +100,7 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
             Flexible(
               child: Text(
                 title,
-                style: kSmallFontOfDarkBlue,
+                style: FontTheme.of(context).small.mxc(),
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -126,7 +127,7 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
       key: Key('FeedbackResultPage'),
       type: MaterialType.transparency,
       child: Container(
-        color: Colors.black.withOpacity(0.4),
+        color: barrierColor,
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
@@ -134,14 +135,14 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
               horizontal: 32,
             ),
             child: Container(
-              color: Colors.white,
+              color: ColorsTheme.of(context).primaryBackground,
               child: Stack(
                 children: [
                   Screenshot(
                     containerKey: FeedbackResultPage._screenshotKey,
                     controller: screenshotController,
                     child: Container(
-                      color: Colors.white,
+                      color: ColorsTheme.of(context).primaryBackground,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -159,9 +160,9 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               child: Text(
                                 widget.params.title,
-                                style: kBigFontOfBlack.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                style: FontTheme.of(context).big().copyWith(
+                                      fontWeight: FontWeight.w600,
+                                    ),
                               ),
                             ),
                           ],
@@ -199,7 +200,7 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
                                 widget.translation.translate('feedback'),
                                 Icon(
                                   Icons.send,
-                                  color: FeedbackResultPage._buttonColor,
+                                  color: ColorsTheme.of(context).mxcBlue,
                                   size: 15,
                                 ),
                                 () => _onAction(
@@ -207,13 +208,12 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
                                 key: ValueKey('sendFeedbackButton'),
                               ),
                             ),
-                            _divider(),
                             Expanded(
                               child: _button(
                                 widget.translation.translate('share'),
                                 FaIcon(
                                   FontAwesomeIcons.solidShareSquare,
-                                  color: FeedbackResultPage._buttonColor,
+                                  color: ColorsTheme.of(context).mxcBlue,
                                   size: 14,
                                 ),
                                 () => _onAction(
@@ -221,14 +221,13 @@ class _FeedbackResultPageState extends State<FeedbackResultPage> {
                                 key: ValueKey('shareButton'),
                               ),
                             ),
-                            _divider(),
                             Expanded(
                               child: _button(
                                 widget.translation
                                     .translate('cancel_normalized'),
                                 Icon(
                                   Icons.close,
-                                  color: FeedbackResultPage._buttonColor,
+                                  color: ColorsTheme.of(context).mxcBlue,
                                   size: 18,
                                 ),
                                 () => _onAction(

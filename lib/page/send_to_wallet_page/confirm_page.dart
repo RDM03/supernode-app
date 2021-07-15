@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/title.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class SendToWalletConfirmPage extends StatelessWidget {
   final dynamic error;
@@ -30,7 +31,7 @@ class SendToWalletConfirmPage extends StatelessWidget {
           PageNavBar(
             text: FlutterI18n.translate(context, 'send_to_wallet'),
             centerTitle: true,
-            textStyle: kBigBoldFontOfBlack,
+            textStyle: FontTheme.of(context).big.primary.bold(),
             onTap: () => Navigator.of(context).pop(),
           ),
           SizedBox(height: 10),
@@ -38,7 +39,9 @@ class SendToWalletConfirmPage extends StatelessWidget {
             context,
             error == null ? 'confirmed' : 'error_tip',
           )),
-          done(color: healthColor, success: error == null),
+          done(
+              color: ColorsTheme.of(context).minerHealthRed,
+              success: error == null),
           SizedBox(height: 30),
           SizedBox(
             width: double.infinity,
@@ -47,7 +50,7 @@ class SendToWalletConfirmPage extends StatelessWidget {
                   ? FlutterI18n.translate(context, 'send_to_wallet_congrats')
                   : error.toString(),
               key: Key('congratsFuelText'),
-              style: kPrimaryBigFontOfBlack,
+              style: FontTheme.of(context).big(),
               textAlign: TextAlign.center,
             ),
           ),
@@ -58,9 +61,9 @@ class SendToWalletConfirmPage extends StatelessWidget {
               onTap: () => Navigator.of(context).pop(),
               minHeight: 46,
               buttonTitle: FlutterI18n.translate(context, 'done'),
-              bgColor: healthColor,
+              bgColor: ColorsTheme.of(context).minerHealthRed,
               minWidth: 0,
-              textStyle: kBigFontOfWhite,
+              style: FontTheme.of(context).big.label(),
             ),
           ),
           SizedBox(height: 40),

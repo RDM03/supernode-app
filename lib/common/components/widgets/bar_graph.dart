@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class BarGraph extends StatelessWidget {
   /// List of values [0-1]
@@ -38,7 +39,7 @@ class BarGraph extends StatelessWidget {
   BarGraph(this.graphValues, this.barsOnScreen, this.widgetWidth,
       {this.xAxisLabels,
       this.widgetHeight = 200,
-      this.graphColor = minerColor,
+      this.graphColor,
       this.notifyGraphBarScroll,
       this.onTapUp}) {
     spaceBetweenLines =
@@ -84,8 +85,9 @@ class BarGraph extends StatelessWidget {
           },
           child: CustomPaint(
               painter: GraphPainter(
-                  lineColor: graphColor,
+                  lineColor: graphColor ?? ColorsTheme.of(context).mxcBlue,
                   completePercents: graphValues,
+                  labelStyle: FontTheme.of(context).small.secondary(),
                   labels: xAxisLabels,
                   visibleWidth: widgetWidth,
                   linesOnScreen: barsOnScreen,
@@ -134,6 +136,8 @@ class GraphPainter extends CustomPainter {
   final double spaceBetweenLines;
   final double lineWidth;
   final Function(int, double) xListCallback;
+  final TextStyle labelStyle;
+
   GraphPainter(
       {this.lineColor,
       this.completePercents,
@@ -142,6 +146,7 @@ class GraphPainter extends CustomPainter {
       this.linesOnScreen,
       this.spaceBetweenLines,
       this.lineWidth,
+      this.labelStyle,
       this.xListCallback});
   @override
   void paint(Canvas canvas, Size size) {
@@ -177,7 +182,7 @@ class GraphPainter extends CustomPainter {
       if (labels != null) {
         final textSpan = TextSpan(
           text: labels[labels.length - 1 - i],
-          style: kSmallFontOfGrey,
+          style: labelStyle,
         );
         final textPainter = TextPainter(
           text: textSpan,

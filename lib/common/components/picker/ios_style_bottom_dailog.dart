@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 abstract class _IosStyleBottomDialogBase extends StatelessWidget {
   _IosStyleBottomDialogBase({
@@ -34,13 +35,13 @@ abstract class _IosStyleBottomDialogBase extends StatelessWidget {
 }
 
 class IosButtonStyle {
-  String title;
-  TextStyle style;
+  final String title;
+  final TextStyle style;
 
-  IosButtonStyle({String title, TextStyle style = kBigFontOfBlack}) {
-    this.title = title;
-    this.style = style;
-  }
+  IosButtonStyle({
+    this.title,
+    this.style,
+  });
 }
 
 typedef OnItemClickListener = void Function(int index);
@@ -110,11 +111,11 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
 
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: ColorsTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.all(Radius.circular(10)),
           boxShadow: [
             BoxShadow(
-              color: shodowColor,
+              color: boxShadowColor,
               offset: Offset(0, 2),
               blurRadius: 7,
             ),
@@ -134,7 +135,7 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
           padding: EdgeInsets.all(25),
           child: Text(
             button?.title ?? '',
-            style: kBigFontOfBlue,
+            style: FontTheme.of(context).big.mxc(),
             textAlign: TextAlign.center,
           ),
         ),
@@ -155,7 +156,7 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
           padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
           child: Text(
             button?.title ?? '',
-            style: button.style,
+            style: button.style ?? FontTheme.of(context).big.primary.bold(),
             textAlign: TextAlign.center,
           ),
         ),
@@ -172,11 +173,11 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
         child: Container(
           margin: EdgeInsets.only(top: 20, bottom: 43),
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: ColorsTheme.of(context).secondaryBackground,
               borderRadius: BorderRadius.all(Radius.circular(10)),
               boxShadow: [
                 BoxShadow(
-                  color: shodowColor,
+                  color: boxShadowColor,
                   offset: Offset(0, 2),
                   blurRadius: 7,
                 ),
@@ -185,7 +186,7 @@ class IosStyleBottomDialog extends _IosStyleBottomDialogBase {
           padding: EdgeInsets.symmetric(vertical: 14, horizontal: 25),
           child: Text(
             FlutterI18n.translate(context, 'device_cancel'),
-            style: kBigFontOfBlack,
+            style: FontTheme.of(context).big(),
             textAlign: TextAlign.center,
           ),
         ),
@@ -262,12 +263,12 @@ class _IosStyleBottomDialog2ContentState
       child: Container(
         key: Key("infoDialog"),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: ColorsTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10), topRight: Radius.circular(10)),
           boxShadow: [
             BoxShadow(
-              color: shodowColor,
+              color: boxShadowColor,
               offset: Offset(0, 2),
               blurRadius: 7,
             ),
@@ -295,7 +296,7 @@ void showInfoDialog(BuildContext context, Widget child) {
       );
     },
     barrierDismissible: true,
-    barrierColor: Colors.black.withOpacity(0.4),
+    barrierColor: barrierColor,
     barrierLabel: '',
     transitionDuration: Duration(milliseconds: 200),
   );

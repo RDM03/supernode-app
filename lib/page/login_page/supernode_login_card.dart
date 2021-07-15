@@ -10,6 +10,8 @@ import 'package:supernodeapp/page/login_page/supernode_login_page/state.dart';
 import 'package:supernodeapp/page/login_page/supernode_login_page/view.dart';
 import 'package:supernodeapp/page/sign_up_page/supernode_signup_page.dart';
 import 'package:supernodeapp/route.dart';
+import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../../app_cubit.dart';
 import 'shared.dart';
@@ -79,8 +81,8 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
           ),
           gradient: LinearGradient(
             colors: [
-              Color(0xFF02FFD8),
-              Color(0xFF1C1478),
+              loginMxcGradientStart,
+              loginMxcGradientEnd,
             ],
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
@@ -123,7 +125,7 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
                         child: Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Colors.white,
+                            color: darkThemeColors.textPrimaryAndIcons,
                           ),
                           child: Image.asset(AppImages.mxc),
                         ),
@@ -145,7 +147,7 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
                           'SUPERNODE',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.white,
+                            color: darkThemeColors.textPrimaryAndIcons,
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ),
@@ -168,7 +170,7 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
                           child: Text(
                             FlutterI18n.translate(context, 'learn_more'),
                             style: TextStyle(
-                              color: Colors.white,
+                              color: darkThemeColors.textPrimaryAndIcons,
                               fontSize: 16,
                             ),
                           ),
@@ -190,7 +192,7 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
                               .animate(widget.animation),
                           child: Icon(
                             fixed ? Icons.close : Icons.arrow_forward,
-                            color: Colors.white,
+                            color: darkThemeColors.textPrimaryAndIcons,
                             size: Tween<double>(begin: 16, end: 40)
                                 .evaluate(widget.animation),
                           ),
@@ -280,7 +282,7 @@ class _SupernodeLoginCardContentState extends State<SupernodeLoginCard> {
             ),
             Padding(
               padding: const EdgeInsets.all(20),
-              child: whiteBorderButton(
+              child: WhiteBorderButton(
                   FlutterI18n.translate(context, 'demo_login'),
                   key: Key('demo_login'),
                   onPressed: () => loginCubit.demoLogin()),

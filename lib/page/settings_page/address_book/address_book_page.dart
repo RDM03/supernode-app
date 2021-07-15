@@ -9,6 +9,7 @@ import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'address_details_page.dart';
 import 'add_address_page.dart';
@@ -87,14 +88,14 @@ class _AddressBookPageState extends State<AddressBookPage> {
       children: [
         SizedBox(height: 20),
         PageNavBar(
-          text: widget.type.token.name +
+          text: widget.type.token.ui(context).name +
               ' ' +
               FlutterI18n.translate(context, 'address_book'),
           padding: EdgeInsets.symmetric(horizontal: 20),
           onTap: _onAdd,
           actionWidget: Icon(
             Icons.add,
-            color: Colors.black,
+            color: ColorsTheme.of(context).textPrimaryAndIcons,
             size: 28,
           ),
           leadingWidget: AppBarBackButton(),
@@ -116,14 +117,6 @@ class _AddressBookPageState extends State<AddressBookPage> {
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (ctx, i) => Container(
-                      decoration: BoxDecoration(
-                        border: Border.symmetric(
-                          horizontal: BorderSide(
-                            color: Colors.grey[200],
-                            width: 1,
-                          ),
-                        ),
-                      ),
                       child: ListTile(
                         key: ValueKey('address_$i'),
                         title: Text(addresses[i].name),
@@ -132,13 +125,9 @@ class _AddressBookPageState extends State<AddressBookPage> {
                           key: ValueKey('address_${i}_details'),
                           child: Text(
                             Tools.hideHalf(addresses[i].address),
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: hintFont,
-                              decoration: widget.selectionMode
-                                  ? TextDecoration.underline
-                                  : null,
-                            ),
+                            style: widget.selectionMode
+                                ? FontTheme.of(context).small.label.underline()
+                                : FontTheme.of(context).small.label(),
                           ),
                           onTap: () => _openDetails(addresses[i]),
                         ),
@@ -146,7 +135,7 @@ class _AddressBookPageState extends State<AddressBookPage> {
                           widget.selectionMode
                               ? Icons.arrow_forward_ios
                               : Icons.more_vert,
-                          color: Colors.black,
+                          color: ColorsTheme.of(context).textPrimaryAndIcons,
                         ),
                         contentPadding: EdgeInsets.only(left: 16, right: 10),
                       ),

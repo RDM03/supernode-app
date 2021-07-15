@@ -9,6 +9,7 @@ import 'package:supernodeapp/page/home_page/gateway/view_all_page/view.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../graph_card.dart';
 import '../title.dart';
@@ -34,7 +35,7 @@ class MinerRevenueTab extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: colorMxc.withOpacity(0.05),
+            color: ColorsTheme.of(context).boxComponents,
             borderRadius: BorderRadius.circular(10),
           ),
           width: double.infinity,
@@ -44,11 +45,11 @@ class MinerRevenueTab extends StatelessWidget {
             children: [
               Text(
                 '${Tools.priceFormat(sumRevenueLast7days)} MXC',
-                style: kVeryBigFontOfBlack,
+                style: FontTheme.of(context).veryBig(),
               ),
               Text(
                 FlutterI18n.translate(context, 'total_revenue'),
-                style: kSmallFontOfGrey,
+                style: FontTheme.of(context).small.secondary(),
               )
             ],
           ),
@@ -60,7 +61,7 @@ class MinerRevenueTab extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
               child: Text(
                 FlutterI18n.translate(context, 'see_more'),
-                style: kSmallFontOfDarkBlue,
+                style: FontTheme.of(context).small.mxc(),
               ),
             ),
             onTap: () => Navigator.of(context).push(

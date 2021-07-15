@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class ColorCodedWidget {
   final Widget widget;
@@ -78,7 +79,9 @@ class _TabbedViewState extends State<TabbedView> with TickerProviderStateMixin {
           width: selectedTab == index ? 24 : 22,
           height: 4,
           decoration: BoxDecoration(
-            color: selectedTab == index ? color : unselectedColor,
+            color: selectedTab == index
+                ? color
+                : ColorsTheme.of(context).textLabel,
             borderRadius: BorderRadius.circular(15),
           ),
         ),

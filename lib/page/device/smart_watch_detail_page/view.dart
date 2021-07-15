@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_icon_nav_bar.dart';
 import 'package:supernodeapp/common/components/picker/date_range_picker.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
 
@@ -23,7 +24,7 @@ Widget buildView(
           children: <Widget>[
             Text(
               FlutterI18n.translate(_ctx, 'confirm_tr'),
-              style: kMiddleFontOfBlack,
+              style: FontTheme.of(_ctx).middle(),
             ),
             Container(
               padding: EdgeInsets.symmetric(vertical: 20),
@@ -45,6 +46,7 @@ Widget buildView(
 
 Widget _buildNavBar(BuildContext ctx) {
   return pageIconNavBar(
+    ctx,
     leading: Container(
       margin: EdgeInsets.only(right: 8),
       child: Icon(
@@ -54,7 +56,7 @@ Widget _buildNavBar(BuildContext ctx) {
     ),
     title: Text(
       FlutterI18n.translate(ctx, 'my_sw'),
-      style: kBigFontOfBlack,
+      style: FontTheme.of(ctx).big(),
     ),
     onTap: () {
       Navigator.pop(ctx);
@@ -62,7 +64,7 @@ Widget _buildNavBar(BuildContext ctx) {
   );
 }
 
-Widget _buildSmartDetailItem({String title, String des}) {
+Widget _buildSmartDetailItem(BuildContext context, {String title, String des}) {
   return Container(
     padding: EdgeInsets.only(top: 20),
     child: Column(
@@ -70,12 +72,12 @@ Widget _buildSmartDetailItem({String title, String des}) {
       children: <Widget>[
         Text(
           title ?? "",
-          style: kMiddleFontOfBlack,
+          style: FontTheme.of(context).middle(),
         ),
         SizedBox(height: 8),
         Text(
           des ?? "",
-          style: kMiddleFontOfGrey,
+          style: FontTheme.of(context).middle.secondary(),
         ),
       ],
     ),
@@ -88,19 +90,19 @@ Widget _buildSmartDetail(ctx) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _buildSmartDetailItem(
+        _buildSmartDetailItem(ctx,
             title: FlutterI18n.translate(ctx, 'description'), des: 'Test'),
-        _buildSmartDetailItem(
+        _buildSmartDetailItem(ctx,
             title: FlutterI18n.translate(ctx, 'last_seen'),
             des: '2020-05-22 09:39:12'),
-        _buildSmartDetailItem(
+        _buildSmartDetailItem(ctx,
             title: FlutterI18n.translate(ctx, 'device_ID'),
             des: 'SmartWatch02436'),
         Container(
           margin: EdgeInsets.only(top: 20),
           child: Text(
             FlutterI18n.translate(ctx, 'goto_bluetooth_setting'),
-            style: kMiddleFontOfBlueLink,
+            style: FontTheme.of(ctx).middle.mxc.underline(),
           ),
         ),
       ],

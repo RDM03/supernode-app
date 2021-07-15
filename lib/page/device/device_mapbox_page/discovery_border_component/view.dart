@@ -2,7 +2,9 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/action.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
 
@@ -20,12 +22,12 @@ Widget buildView(
           child: Text(
             FlutterI18n.translate(_ctx, 'border') +
                 ": ${state.gatewaySliderValue.toInt()}km",
-            style: kMiddleFontOfGrey,
+            style: FontTheme.of(_ctx).middle.secondary(),
           ),
         ),
         Slider(
-          activeColor: Color(0xFFFF5B5B),
-          inactiveColor: Color(0xFFEBEFF2),
+          activeColor: dbm100,
+          inactiveColor: ColorsTheme.of(_ctx).primaryBackground,
           value: state.gatewaySliderValue,
           onChanged: (value) {
             dispatch(DeviceMapBoxActionCreator.changeGatewaySliderValue(value));

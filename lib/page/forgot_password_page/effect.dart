@@ -12,6 +12,7 @@ import 'package:supernodeapp/common/utils/log.dart';
 import 'package:supernodeapp/page/login_page/login_generic.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -64,13 +65,12 @@ void _onEmailContinue(Action action, Context<ForgotPasswordState> ctx) async {
         scaffold.showSnackBar(SnackBar(
           content: Text(
             FlutterI18n.translate(ctx.context, 'one_reset_email_month'),
-            style: Theme.of(ctx.context)
-                .textTheme
-                .bodyText1
-                .copyWith(color: Colors.white),
+            style: Theme.of(ctx.context).textTheme.bodyText1.copyWith(
+                  color: ColorsTheme.of(ctx.context).textPrimaryAndIcons,
+                ),
           ),
           duration: Duration(seconds: 2),
-          backgroundColor: errorColor,
+          backgroundColor: ColorsTheme.of(ctx.context).textError,
         ));
       }
       // tip('UserDao register: $err');

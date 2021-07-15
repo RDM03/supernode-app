@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/buttons/secondary_shadow_button.dart';
 import 'package:supernodeapp/common/utils/time.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 typedef DateChangeCallback = String Function(String value);
 
@@ -14,22 +16,22 @@ class DateRangePicker extends StatelessWidget {
   final DateChangeCallback secondTimeOnTap;
   final VoidCallback onSearch;
 
-  const DateRangePicker(
-      {Key key,
-      this.firstTime,
-      this.firstTimeOnTap,
-      this.secondTimeOnTap,
-      this.secondTime,
-      this.thirdText,
-      this.onSearch})
-      : super(key: key);
+  const DateRangePicker({
+    Key key,
+    this.firstTime,
+    this.firstTimeOnTap,
+    this.secondTimeOnTap,
+    this.secondTime,
+    this.thirdText,
+    this.onSearch,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Row(mainAxisSize: MainAxisSize.max, children: [
         SecondaryShadowButton(
-          color: Colors.white,
+          color: ColorsTheme.of(context).secondaryBackground,
           buttonTitle: firstTime ?? '',
           icon: Icons.date_range,
           onTap: () {
@@ -50,7 +52,7 @@ class DateRangePicker extends StatelessWidget {
           child: Text('~'),
         ),
         SecondaryShadowButton(
-          color: Colors.white,
+          color: ColorsTheme.of(context).secondaryBackground,
           buttonTitle: secondTime ?? '',
           icon: Icons.date_range,
           onTap: () {
@@ -70,12 +72,11 @@ class DateRangePicker extends StatelessWidget {
         ),
         Spacer(),
         GestureDetector(
-          child: Text(
-            thirdText ?? '',
-            style: kMiddleFontOfGreyLink,
-          ),
-          onTap: onSearch,
-        )
+            child: Text(
+              thirdText ?? '',
+              style: FontTheme.of(context).middle.secondary.underline(),
+            ),
+            onTap: onSearch)
       ]),
     );
   }

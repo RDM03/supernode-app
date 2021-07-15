@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart' as c;
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class PrimaryTextField extends StatelessWidget {
   PrimaryTextField({
@@ -60,7 +61,7 @@ class PrimaryTextField extends StatelessWidget {
         suffixStyle: suffixStyle,
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: borderColor,
+            color: ColorsTheme.of(context).textPrimaryAndIcons,
           ),
         ),
         border: UnderlineInputBorder(
