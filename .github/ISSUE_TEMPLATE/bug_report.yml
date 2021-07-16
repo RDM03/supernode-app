@@ -57,6 +57,6 @@ body:
   id: additional
   attributes:
     label: Anything else?
-    description: Links? References? Anything that will give us more context about the issue you are encountering.
+    description: Links? References? Anything that will give us more context about the issue you are encountering. Drag and drop any screenshots you have here.
   validations:
     required: false
