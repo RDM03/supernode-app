@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class PrimaryButton extends StatelessWidget {
   PrimaryButton({
@@ -9,19 +10,12 @@ class PrimaryButton extends StatelessWidget {
     @required this.buttonTitle,
     this.minHeight = 36,
     this.minWidth = 0,
-    this.bgColor = buttonPrimaryColor,
-    this.textColor = Colors.white,
+    this.bgColor,
+    this.textColor,
     this.padding = const EdgeInsets.symmetric(vertical: 0),
     this.borderRadius = const BorderRadius.all(Radius.circular(3)),
-    TextStyle textStyle,
-  })  : this.style = textStyle ??
-            TextStyle(
-              color: textColor,
-              fontFamily: "Roboto",
-              fontSize: 15,
-              height: 1.5,
-            ),
-        super(key: key);
+    this.style,
+  }) : super(key: key);
 
   final Color bgColor;
   final Color textColor;
@@ -44,11 +38,18 @@ class PrimaryButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: borderRadius,
           ),
-          color: bgColor,
+          color: bgColor ?? ColorsTheme.of(context).mxcBlue,
           child: Text(
             buttonTitle,
             textAlign: TextAlign.center,
-            style: style,
+            style: style ??
+                TextStyle(
+                  color:
+                      textColor ?? ColorsTheme.of(context).blueButtonTextColor,
+                  fontFamily: "Roboto",
+                  fontSize: 15,
+                  height: 1.5,
+                ),
           ),
         ),
       ),

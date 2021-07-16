@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
-import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class DDIcon extends StatelessWidget {
   final Color iconBackgroundColor;
@@ -14,7 +14,7 @@ class DDIcon extends StatelessWidget {
       this.iconBackgroundColor,
       this.imageUrl,
       this.imageColor,
-      this.backgroundColor = Colors.white,
+      this.backgroundColor,
       this.shadowList})
       : super(key: key);
 
@@ -25,7 +25,7 @@ class DDIcon extends StatelessWidget {
       width: s(50),
       height: s(50),
       decoration: BoxDecoration(
-        color: backgroundColor,
+        color: backgroundColor ?? ColorsTheme.of(context).boxComponents,
         shape: BoxShape.circle,
         boxShadow: shadowList,
       ),

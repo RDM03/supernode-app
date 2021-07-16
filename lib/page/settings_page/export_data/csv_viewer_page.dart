@@ -8,6 +8,8 @@ import 'package:oktoast/oktoast.dart';
 import 'package:share/share.dart';
 import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
+import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class CsvViewerPage extends StatefulWidget {
   final String filePath;
@@ -47,11 +49,12 @@ class _CsvViewerPageState extends State<CsvViewerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBars.backArrowAndActionAppBar(
+        context,
         title: FlutterI18n.translate(context, 'export_financial_data'),
         onPress: () => Navigator.of(context).pop(),
         action: IconButton(
           icon: Icon(Icons.save_alt),
-          color: Colors.black,
+          color: ColorsTheme.of(context).textPrimaryAndIcons,
           onPressed: () async {
             final newPath = await context.read<SettingsCubit>().exportData();
             showToast(

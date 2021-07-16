@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class PanelBody extends StatelessWidget {
   final String titleText;
@@ -47,7 +48,7 @@ class PanelBody extends StatelessWidget {
             padding: EdgeInsets.zero,
             icon: Icon(
               icon,
-              color: buttonPrimaryColor,
+              color: ColorsTheme.of(context).mxcBlue,
               size: 50,
             ),
             onPressed: onPressed,
@@ -56,39 +57,39 @@ class PanelBody extends StatelessWidget {
         titleText,
         key: keyTitle,
         textAlign: TextAlign.left,
-        style: kMiddleFontOfBlack,
+        style: FontTheme.of(context).middle(),
       ),
       subtitle: loading
           ? loadingFlash(
               child: Text(
                 subtitleText,
                 textAlign: TextAlign.left,
-                style: kBigFontOfBlack,
+                style: FontTheme.of(context).big(),
               ),
             )
           : Text(
               subtitleText,
               key: keySubtitle,
               textAlign: TextAlign.left,
-              style: kBigFontOfBlack,
+              style: FontTheme.of(context).big(),
             ),
       trailing: Container(
         margin: EdgeInsets.only(top: 10, right: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(trailTitle, style: kSmallFontOfGrey),
+            Text(trailTitle, style: FontTheme.of(context).small.secondary()),
             (trailLoading ?? loading)
                 ? loadingFlash(
                     child: Text(
                       mxcPrice,
-                      style: kMiddleFontOfBlack,
+                      style: FontTheme.of(context).middle(),
                     ),
                   )
                 : Text(
                     mxcPrice,
                     key: keyTrailSubtitle,
-                    style: kMiddleFontOfBlack,
+                    style: FontTheme.of(context).middle(),
                   )
           ],
         ),

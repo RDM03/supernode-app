@@ -9,6 +9,8 @@ import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
+import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class MxcActions extends StatelessWidget {
   final bool spaceOut;
@@ -29,14 +31,13 @@ class MxcActions extends StatelessWidget {
               child: Text(
                 FlutterI18n.translate(context, 'staking'),
                 style: TextStyle(
-                  color: Colors.black,
+                  color: ColorsTheme.of(context).textPrimaryAndIcons,
                   fontSize: s(16),
                   fontWeight: FontWeight.w500,
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
-            Divider(color: Colors.grey),
             GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {
@@ -48,7 +49,7 @@ class MxcActions extends StatelessWidget {
                   CircleButton(
                     icon: Image.asset(
                       AppImages.iconMine,
-                      color: Token.mxc.color,
+                      color: Token.mxc.ui(context).color,
                     ),
                   ),
                   SizedBox(
@@ -57,7 +58,7 @@ class MxcActions extends StatelessWidget {
                   Text(
                     FlutterI18n.translate(context, 'new_stake'),
                     style: TextStyle(
-                      color: Colors.black,
+                      color: ColorsTheme.of(context).textPrimaryAndIcons,
                       fontSize: s(16),
                       fontWeight: FontWeight.w500,
                     ),
@@ -66,7 +67,6 @@ class MxcActions extends StatelessWidget {
                 ],
               ),
             ),
-            Divider(color: Colors.grey),
             GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {
@@ -78,7 +78,7 @@ class MxcActions extends StatelessWidget {
                   CircleButton(
                     icon: Icon(
                       Icons.arrow_back,
-                      color: Token.mxc.color,
+                      color: Token.mxc.ui(context).color,
                     ),
                   ),
                   SizedBox(
@@ -87,7 +87,7 @@ class MxcActions extends StatelessWidget {
                   Text(
                     FlutterI18n.translate(context, 'unstake'),
                     style: TextStyle(
-                      color: Colors.black,
+                      color: ColorsTheme.of(context).textPrimaryAndIcons,
                       fontSize: s(16),
                       fontWeight: FontWeight.w500,
                     ),
@@ -96,7 +96,6 @@ class MxcActions extends StatelessWidget {
                 ],
               ),
             ),
-            Divider(color: Colors.grey),
           ],
         ),
       ),
@@ -111,7 +110,7 @@ class MxcActions extends StatelessWidget {
         CircleButton(
           icon: Icon(
             Icons.add,
-            color: Token.mxc.color,
+            color: Token.mxc.ui(context).color,
           ),
           label: FlutterI18n.translate(context, 'deposit'),
           onTap: () => openSupernodeDeposit(context, Token.mxc),
@@ -122,7 +121,7 @@ class MxcActions extends StatelessWidget {
           builder: (ctx, state) => CircleButton(
             icon: Icon(
               Icons.arrow_forward,
-              color: Token.mxc.color,
+              color: Token.mxc.ui(context).color,
             ),
             label: FlutterI18n.translate(context, 'withdraw'),
             onTap: state.balance.loading
@@ -136,7 +135,7 @@ class MxcActions extends StatelessWidget {
           builder: (ctx, state) => CircleButton(
             icon: Image.asset(
               AppImages.iconMine,
-              color: Token.mxc.color,
+              color: Token.mxc.ui(context).color,
             ),
             label: FlutterI18n.translate(context, 'stake'),
             onTap:

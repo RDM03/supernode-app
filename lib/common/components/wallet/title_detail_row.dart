@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class TitleDetailRow extends StatelessWidget {
   final String name;
@@ -28,7 +29,7 @@ class TitleDetailRow extends StatelessWidget {
           Text(
             name,
             textAlign: TextAlign.left,
-            style: kSmallFontOfGrey,
+            style: FontTheme.of(context).small.secondary(),
           ),
           Spacer(),
           loading
@@ -36,12 +37,14 @@ class TitleDetailRow extends StatelessWidget {
                   child: Text(
                   '$value $token',
                   textAlign: TextAlign.left,
-                  style: kBigFontOfBlack,
+                  style: FontTheme.of(context).big(),
                 ))
               : Text(
                   '$value${token.isNotEmpty ? ' $token' : ''}',
                   textAlign: TextAlign.left,
-                  style: disabled ? kBigFontOfGrey : kBigFontOfBlack,
+                  style: disabled
+                      ? FontTheme.of(context).big.secondary()
+                      : FontTheme.of(context).big(),
                 )
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 @deprecated
 // Use [PageNavBar] instead
@@ -10,31 +11,33 @@ Widget pageNavBar(
   Widget actionWidget,
   Widget leadingWidget,
 }) {
-  return Container(
-    padding: padding,
-    child: Row(
-      children: <Widget>[
-        if (leadingWidget != null) ...[
-          leadingWidget,
+  return Builder(
+    builder: (context) => Container(
+      padding: padding,
+      child: Row(
+        children: <Widget>[
+          if (leadingWidget != null) ...[
+            leadingWidget,
+            Spacer(),
+          ],
+          Text(
+            name,
+            textAlign: TextAlign.left,
+            style: FontTheme.of(context).big(),
+          ),
           Spacer(),
+          GestureDetector(
+            key: ValueKey('navActionButton'),
+            child: actionWidget == null
+                ? Icon(
+                    Icons.close,
+                    color: ColorsTheme.of(context).textPrimaryAndIcons,
+                  )
+                : actionWidget,
+            onTap: onTap,
+          ),
         ],
-        Text(
-          name,
-          textAlign: TextAlign.left,
-          style: kBigFontOfBlack,
-        ),
-        Spacer(),
-        GestureDetector(
-          key: ValueKey('navActionButton'),
-          child: actionWidget == null
-              ? Icon(
-                  Icons.close,
-                  color: Colors.black,
-                )
-              : actionWidget,
-          onTap: onTap,
-        ),
-      ],
+      ),
     ),
   );
 }
@@ -53,17 +56,37 @@ class PageNavBar extends StatelessWidget {
     @required this.text,
     this.padding,
     this.onTap,
-    this.textStyle = kBigFontOfBlack,
-    this.actionWidget = const Icon(
-      Icons.close,
-      color: Colors.black,
-    ),
+    this.textStyle,
+    this.actionWidget = const AppBarCloseButton(),
     this.leadingWidget,
     this.centerTitle = false,
   }) : super(key: key);
 
+  const PageNavBar.settings({
+    Key key,
+    @required this.text,
+    this.padding = const EdgeInsets.only(
+      top: 22,
+      bottom: 33,
+      left: 20,
+      right: 20,
+    ),
+    @deprecated this.onTap,
+    this.textStyle,
+    this.actionWidget,
+    this.leadingWidget = const AppBarBackButton(),
+    this.centerTitle = true,
+  });
+
   @override
   Widget build(BuildContext context) {
+    Widget actionWidget = this.actionWidget;
+    if (onTap != null)
+      actionWidget = GestureDetector(
+        key: ValueKey('navActionButton'),
+        child: actionWidget,
+        onTap: onTap,
+      );
     return Container(
       padding: padding,
       child: Row(
@@ -76,20 +99,34 @@ class PageNavBar extends StatelessWidget {
             child: Text(
               text,
               textAlign: centerTitle ? TextAlign.center : TextAlign.left,
-              style: textStyle,
+              style: textStyle ?? FontTheme.of(context).big(),
             ),
           ),
-          SizedBox(
-            width: 24,
-            child: actionWidget == null
-                ? null
-                : GestureDetector(
-                    key: ValueKey('navActionButton'),
-                    child: actionWidget,
-                    onTap: onTap,
-                  ),
-          ),
+          if (actionWidget != null)
+            actionWidget
+          else if (centerTitle)
+            SizedBox(width: 24),
         ],
+      ),
+    );
+  }
+}
+
+class AppBarCloseButton extends StatelessWidget {
+  const AppBarCloseButton({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 24,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        key: ValueKey('navBackButton'),
+        child: Icon(
+          Icons.close,
+          color: ColorsTheme.of(context).textPrimaryAndIcons,
+        ),
+        onTap: () => Navigator.of(context).pop(),
       ),
     );
   }
@@ -107,7 +144,7 @@ class AppBarBackButton extends StatelessWidget {
         key: ValueKey('navBackButton'),
         child: Icon(
           Icons.arrow_back_ios,
-          color: Colors.black,
+          color: ColorsTheme.of(context).textPrimaryAndIcons,
         ),
         onTap: () => Navigator.of(context).pop(),
       ),

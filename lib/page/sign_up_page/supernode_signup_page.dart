@@ -19,6 +19,7 @@ import 'package:supernodeapp/page/sign_up_page/verification_code_component/email
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../../route.dart';
 
@@ -86,7 +87,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
       ],
       child: Scaffold(
           key: scaffoldKey,
-          backgroundColor: cardBackgroundColor,
+          backgroundColor: ColorsTheme.of(context).secondaryBackground,
           body: Stack(alignment: Alignment.topCenter, children: [
             SingleChildScrollView(
                 child: Container(
@@ -94,7 +95,8 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 AppBars.backArrowAppBar(
-                  color: Colors.white,
+                  context,
+                  color: ColorsTheme.of(context).secondaryBackground,
                   title: FlutterI18n.translate(context, 'create_account'),
                   onPress: () => Navigator.of(context).pop(),
                   onTitlePress: () => clickTitle(),
@@ -110,39 +112,41 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                       height: s(171),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: darkBackground,
+                        color: ColorsTheme.of(context).primaryBackground,
                         shape: BoxShape.circle,
                       ),
                       child: BlocBuilder<LoginCubit, LoginState>(
                         buildWhen: (a, b) =>
                             a.selectedSuperNode != b.selectedSuperNode,
-                        builder: (context, state) =>
-                            state.selectedSuperNode != null
-                                ? Container(
-                                    width: s(134),
-                                    height: s(134),
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        shape: BoxShape.circle,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: darkBackground2,
-                                            offset: Offset(0, 2),
-                                            blurRadius: 5,
-                                            spreadRadius: 5,
-                                          )
-                                        ]),
-                                    child: CachedNetworkImage(
-                                      imageUrl: state.selectedSuperNode.logo,
-                                      placeholder: (ctx, url) =>
-                                          Icon(Icons.add, size: s(40)),
-                                      width: s(100),
-                                    ))
-                                : Image.asset(
-                                    AppImages.supernode_placeholder,
-                                    width: s(171),
-                                  ),
+                        builder: (context, state) => state.selectedSuperNode !=
+                                null
+                            ? Container(
+                                width: s(134),
+                                height: s(134),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color:
+                                        ColorsTheme.of(context).boxComponents,
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: ColorsTheme.of(context)
+                                            .primaryBackground,
+                                        offset: Offset(0, 2),
+                                        blurRadius: 5,
+                                        spreadRadius: 5,
+                                      )
+                                    ]),
+                                child: CachedNetworkImage(
+                                  imageUrl: state.selectedSuperNode.logo,
+                                  placeholder: (ctx, url) =>
+                                      Icon(Icons.add, size: s(40)),
+                                  width: s(100),
+                                ))
+                            : Image.asset(
+                                AppImages.supernode_placeholder,
+                                width: s(171),
+                              ),
                       ),
                     ),
                   ),
@@ -156,7 +160,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                       style: TextStyle(
                           fontSize: s(14),
                           fontWeight: FontWeight.w400,
-                          color: Colors.black),
+                          color: ColorsTheme.of(context).textPrimaryAndIcons),
                     ),
                     GestureDetector(
                       onTap: () => _showInfoDialog(context),
@@ -204,9 +208,6 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                     onTap: () => context
                         .read<LoginCubit>()
                         .setSuperNodeListVisible(false),
-                    child: Container(
-                      color: Color(0x33000000),
-                    ),
                   );
                 return Container();
               },
@@ -226,7 +227,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                     height: ScreenUtil.instance.height,
                     width: s(304),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: ColorsTheme.of(context).secondaryBackground,
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(s(10)),
                         bottomRight: Radius.circular(s(10)),
@@ -242,8 +243,9 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                             Container(
                               alignment: Alignment.center,
                               child: Text(
-                                  FlutterI18n.translate(context, 'super_node'),
-                                  style: kBigBoldFontOfBlack),
+                                FlutterI18n.translate(context, 'super_node'),
+                                style: FontTheme.of(context).big.primary.bold(),
+                              ),
                             ),
                             Positioned(
                               right: s(15),
@@ -261,7 +263,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                           child: Text(
                             FlutterI18n.translate(
                                 context, 'supernode_instructions'),
-                            style: kSecondaryButtonOfBlack,
+                            style: FontTheme.of(context).middle.primary(),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -274,10 +276,13 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                                   ExpansionSuperNodesTile(
                                     title: Text(
                                       FlutterI18n.translate(context, key),
-                                      style: TextStyle(color: Colors.black),
+                                      style: TextStyle(
+                                          color: ColorsTheme.of(context)
+                                              .textPrimaryAndIcons),
                                     ),
                                     initiallyExpanded: false,
-                                    backgroundColor: darkBackground,
+                                    backgroundColor: ColorsTheme.of(context)
+                                        .primaryBackground,
                                     children: <Widget>[
                                       for (Supernode item
                                           in state.supernodes.value[key])
@@ -331,7 +336,7 @@ void _showInfoDialog(BuildContext context) {
               FlutterI18n.translate(context, 'info_supernode'),
               key: ValueKey("helpText"),
               style: TextStyle(
-                color: Colors.black,
+                color: ColorsTheme.of(context).textPrimaryAndIcons,
                 fontSize: s(16),
                 fontWeight: FontWeight.w500,
               ),

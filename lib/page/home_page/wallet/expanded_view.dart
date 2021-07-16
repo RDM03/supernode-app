@@ -6,6 +6,7 @@ import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
 import 'package:supernodeapp/page/home_page/wallet/btc_token/page_content.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'mxc_token/page_content.dart';
 import 'supernode_dhx_token/page_content.dart';
@@ -105,17 +106,19 @@ class _TokenExpandedViewState extends State<TokenExpandedView>
               width: double.infinity,
               height: 20,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: ColorsTheme.of(context).secondaryBackground,
                 boxShadow: [
                   BoxShadow(
-                    color: shodowColor,
+                    color: boxShadowColor,
                     offset: Offset(0, 2),
                     blurRadius: 7,
                   ),
                 ],
               ),
               child: TabIndicators(
-                colors: state.displayTokens.map((c) => c.color).toList(),
+                colors: state.displayTokens
+                    .map((c) => c.ui(context).color)
+                    .toList(),
                 controller: controller,
               ),
             ),
@@ -165,7 +168,7 @@ class _TabIndicatorsState extends State<TabIndicators> {
       height: 5,
       width: isActive ? 20 : 19,
       decoration: BoxDecoration(
-        color: isActive ? color : Colors.grey,
+        color: isActive ? color : ColorsTheme.of(context).boxComponents,
         borderRadius: BorderRadius.all(
           Radius.circular(2),
         ),

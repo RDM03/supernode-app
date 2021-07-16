@@ -11,7 +11,9 @@ import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -37,7 +39,7 @@ Widget buildView(
           width: double.infinity,
           child: Text(
             FlutterI18n.translate(context, 'mining'),
-            style: kPrimaryBigFontOfBlack,
+            style: FontTheme.of(context).big(),
             textAlign: TextAlign.center,
           ),
         ),
@@ -47,7 +49,7 @@ Widget buildView(
           child: Text(
             FlutterI18n.translate(context, 'mining_confirm_tip')
                 .replaceAll('{0}', state.months.toString()),
-            style: kMiddleFontOfGrey,
+            style: FontTheme.of(context).middle.secondary(),
             textAlign: TextAlign.center,
           ),
         ),
@@ -92,7 +94,7 @@ Widget buildView(
         SizedBox(height: 10),
         Text(
           FlutterI18n.translate(context, 'mining_boost'),
-          style: kPrimaryBigFontOfBlack,
+          style: FontTheme.of(context).big(),
         ),
         SizedBox(height: 16),
         Row(
@@ -183,7 +185,7 @@ Widget buildView(
           children: [
             Text(
               FlutterI18n.translate(context, 'potential_m_power'),
-              style: kBigFontOfBlack,
+              style: FontTheme.of(context).big(),
             ),
             SizedBox(width: 30),
             Expanded(
@@ -191,7 +193,7 @@ Widget buildView(
                 alignment: Alignment.centerRight,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color(0x4665EA).withOpacity(0.2),
+                    color: ColorsTheme.of(context).dhxBlue20,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -201,7 +203,7 @@ Widget buildView(
                     softWrap: false,
                     overflow: TextOverflow.clip,
                     textAlign: TextAlign.right,
-                    style: kMiddleFontOfBlack,
+                    style: FontTheme.of(context).middle(),
                   ),
                 ),
               ),
@@ -214,7 +216,7 @@ Widget buildView(
             Expanded(
               child: Text(
                 FlutterI18n.translate(context, 'avg_dhx_daily_revenue'),
-                style: kBigFontOfBlack,
+                style: FontTheme.of(context).big(),
               ),
             ),
             SizedBox(width: 30),
@@ -223,7 +225,7 @@ Widget buildView(
                 alignment: Alignment.centerRight,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color(0x4665EA).withOpacity(0.2),
+                    color: ColorsTheme.of(context).dhxBlue20,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -233,7 +235,7 @@ Widget buildView(
                     softWrap: false,
                     overflow: TextOverflow.clip,
                     textAlign: TextAlign.right,
-                    style: kMiddleFontOfBlack,
+                    style: FontTheme.of(context).middle(),
                   ),
                 ),
               ),
@@ -262,7 +264,7 @@ void _showInfoDialog(BuildContext context) {
           Image.asset(
             AppImages.gateways,
             height: s(40),
-            color: Colors.grey,
+            color: ColorsTheme.of(context).textLabel,
             fit: BoxFit.contain,
           ),
           Padding(
@@ -271,7 +273,7 @@ void _showInfoDialog(BuildContext context) {
             child: Text(
               FlutterI18n.translate(context, 'info_lock_boost'),
               style: TextStyle(
-                color: Colors.black,
+                color: ColorsTheme.of(context).textPrimaryAndIcons,
                 fontSize: s(16),
                 fontWeight: FontWeight.w500,
               ),
@@ -292,7 +294,7 @@ _proceed(Dispatch dispatch, ConfirmLockState state) {
         children: [
           Text(
             FlutterI18n.translate(ctx, 'dhx_mining'),
-            style: kBigFontOfBlue,
+            style: FontTheme.of(ctx).big.dhx(),
           ),
           SizedBox(height: 16),
           Text(
@@ -300,7 +302,7 @@ _proceed(Dispatch dispatch, ConfirmLockState state) {
                 .replaceAll('{0}', state.amount)
                 .replaceAll('{1}', state.months.toString())
                 .replaceAll('{2}', state.council.name),
-            style: kMiddleFontOfBlack,
+            style: FontTheme.of(ctx).middle(),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 10),
@@ -337,7 +339,7 @@ _proceed(Dispatch dispatch, ConfirmLockState state) {
       cancelButton: CupertinoActionSheetAction(
         child: Text(
           FlutterI18n.translate(ctx, 'device_cancel'),
-          style: kBigFontOfGrey,
+          style: FontTheme.of(ctx).big.secondary(),
         ),
         onPressed: () => Navigator.of(ctx).pop(),
       ),

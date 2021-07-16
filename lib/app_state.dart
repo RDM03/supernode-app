@@ -6,6 +6,8 @@ import 'package:supernodeapp/common/repositories/shared/dao/supernode.model.dart
 import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
 part 'app_state.freezed.dart';
 
+enum ThemeOption { dark, light, system }
+
 @freezed
 abstract class AppState with _$AppState {
   factory AppState({
@@ -13,6 +15,7 @@ abstract class AppState with _$AppState {
     @nullable FiatCurrency selectedFiatForExport,
     @Default(false) bool isDemo,
     @Default(false) bool showLoading,
+    @Default(ThemeOption.system) ThemeOption theme,
     @nullable ErrorInfo error,
     @nullable SuccessInfo success,
   }) = _AppState;

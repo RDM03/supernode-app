@@ -15,6 +15,7 @@ import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/common/wrap.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/mxc/cubit.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class StakeHistoryContent extends StatefulWidget {
   @override
@@ -82,8 +83,8 @@ class _StakeHistoryContentState extends State<StakeHistoryContent> {
                 buttonTitle:
                     FlutterI18n.translate(context, 'stake').toUpperCase(),
                 color: filter == StakeHistoryFilter.stake
-                    ? selectedTabColor
-                    : Colors.white,
+                    ? ColorsTheme.of(context).mxcBlue
+                    : ColorsTheme.of(context).secondaryBackground,
                 onTap: () {
                   if (filter == StakeHistoryFilter.stake)
                     setState(() => filter = null);
@@ -99,8 +100,8 @@ class _StakeHistoryContentState extends State<StakeHistoryContent> {
                 buttonTitle:
                     FlutterI18n.translate(context, 'unstake').toUpperCase(),
                 color: filter == StakeHistoryFilter.unstake
-                    ? selectedTabColor
-                    : Colors.white,
+                    ? ColorsTheme.of(context).mxcBlue
+                    : ColorsTheme.of(context).secondaryBackground,
                 onTap: () {
                   if (filter == StakeHistoryFilter.unstake)
                     setState(() => filter = null);
@@ -114,7 +115,9 @@ class _StakeHistoryContentState extends State<StakeHistoryContent> {
                 isSelected: isSetDate,
                 buttonTitle:
                     FlutterI18n.translate(context, 'set_date').toUpperCase(),
-                color: isSetDate ? selectedTabColor : Colors.white,
+                color: isSetDate
+                    ? ColorsTheme.of(context).mxcBlue
+                    : ColorsTheme.of(context).secondaryBackground,
                 icon: Icons.date_range,
                 onTap: () {
                   setState(() => isSetDate = !isSetDate);

@@ -35,7 +35,7 @@ class AddressBookPicker extends StatelessWidget {
             if (state.displayTokens.contains(Token.mxc)) ...[
               Divider(height: 1),
               listItem(
-                Token.mxc.name,
+                Token.mxc.ui(context).name,
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 key: Key('mxc_button'),
@@ -45,8 +45,8 @@ class AddressBookPicker extends StatelessWidget {
                         type: AddressBookType.mxc,
                       )),
                 ),
-                leading: Image.asset(
-                  Token.mxc.imagePath,
+                leading: Image(
+                  image: Token.mxc.ui(context).image,
                   height: s(50),
                 ),
               ),
@@ -54,7 +54,7 @@ class AddressBookPicker extends StatelessWidget {
             if (state.displayTokens.contains(Token.supernodeDhx)) ...[
               Divider(height: 1),
               listItem(
-                Token.supernodeDhx.name,
+                Token.supernodeDhx.ui(context).name,
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 key: Key('dhx_button'),
@@ -64,8 +64,8 @@ class AddressBookPicker extends StatelessWidget {
                         type: AddressBookType.dhx,
                       )),
                 ),
-                leading: Image.asset(
-                  Token.supernodeDhx.imagePath,
+                leading: Image(
+                  image: Token.supernodeDhx.ui(context).image,
                   height: s(50),
                 ),
               )

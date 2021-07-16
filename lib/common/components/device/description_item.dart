@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class DescriptionItem extends StatelessWidget {
   final String title;
@@ -28,7 +29,7 @@ class DescriptionItem extends StatelessWidget {
               Expanded(
                 child: Text(
                   title ?? "",
-                  style: kMiddleFontOfBlack,
+                  style: FontTheme.of(context).middle(),
                 ),
               ),
               titleTrackWidget == null ? SizedBox() : titleTrackWidget,
@@ -40,7 +41,7 @@ class DescriptionItem extends StatelessWidget {
               Expanded(
                 child: Text(
                   content ?? "",
-                  style: kMiddleFontOfGrey,
+                  style: FontTheme.of(context).middle.secondary(),
                 ),
               ),
               contentTrackWidget == null ? SizedBox() : contentTrackWidget,

@@ -19,6 +19,7 @@ class _$AppStateTearOff {
       @nullable FiatCurrency selectedFiatForExport,
       bool isDemo = false,
       bool showLoading = false,
+      ThemeOption theme = ThemeOption.system,
       @nullable ErrorInfo error,
       @nullable SuccessInfo success}) {
     return _AppState(
@@ -26,6 +27,7 @@ class _$AppStateTearOff {
       selectedFiatForExport: selectedFiatForExport,
       isDemo: isDemo,
       showLoading: showLoading,
+      theme: theme,
       error: error,
       success: success,
     );
@@ -43,6 +45,7 @@ mixin _$AppState {
   FiatCurrency get selectedFiatForExport;
   bool get isDemo;
   bool get showLoading;
+  ThemeOption get theme;
   @nullable
   ErrorInfo get error;
   @nullable
@@ -61,6 +64,7 @@ abstract class $AppStateCopyWith<$Res> {
       @nullable FiatCurrency selectedFiatForExport,
       bool isDemo,
       bool showLoading,
+      ThemeOption theme,
       @nullable ErrorInfo error,
       @nullable SuccessInfo success});
 }
@@ -79,6 +83,7 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
     Object selectedFiatForExport = freezed,
     Object isDemo = freezed,
     Object showLoading = freezed,
+    Object theme = freezed,
     Object error = freezed,
     Object success = freezed,
   }) {
@@ -90,6 +95,7 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
       isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
+      theme: theme == freezed ? _value.theme : theme as ThemeOption,
       error: error == freezed ? _value.error : error as ErrorInfo,
       success: success == freezed ? _value.success : success as SuccessInfo,
     ));
@@ -106,6 +112,7 @@ abstract class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
       @nullable FiatCurrency selectedFiatForExport,
       bool isDemo,
       bool showLoading,
+      ThemeOption theme,
       @nullable ErrorInfo error,
       @nullable SuccessInfo success});
 }
@@ -125,6 +132,7 @@ class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
     Object selectedFiatForExport = freezed,
     Object isDemo = freezed,
     Object showLoading = freezed,
+    Object theme = freezed,
     Object error = freezed,
     Object success = freezed,
   }) {
@@ -136,6 +144,7 @@ class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
       isDemo: isDemo == freezed ? _value.isDemo : isDemo as bool,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
+      theme: theme == freezed ? _value.theme : theme as ThemeOption,
       error: error == freezed ? _value.error : error as ErrorInfo,
       success: success == freezed ? _value.success : success as SuccessInfo,
     ));
@@ -149,10 +158,12 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
       @nullable this.selectedFiatForExport,
       this.isDemo = false,
       this.showLoading = false,
+      this.theme = ThemeOption.system,
       @nullable this.error,
       @nullable this.success})
       : assert(isDemo != null),
-        assert(showLoading != null);
+        assert(showLoading != null),
+        assert(theme != null);
 
   @override
   final Locale locale;
@@ -165,6 +176,9 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
   @JsonKey(defaultValue: false)
   @override
   final bool showLoading;
+  @JsonKey(defaultValue: false)
+  @override
+  final ThemeOption theme;
   @override
   @nullable
   final ErrorInfo error;
@@ -174,7 +188,7 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppState(locale: $locale, selectedFiatForExport: $selectedFiatForExport, isDemo: $isDemo, showLoading: $showLoading, error: $error, success: $success)';
+    return 'AppState(locale: $locale, selectedFiatForExport: $selectedFiatForExport, isDemo: $isDemo, showLoading: $showLoading, theme: $theme, error: $error, success: $success)';
   }
 
   @override
@@ -186,6 +200,7 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
       ..add(DiagnosticsProperty('selectedFiatForExport', selectedFiatForExport))
       ..add(DiagnosticsProperty('isDemo', isDemo))
       ..add(DiagnosticsProperty('showLoading', showLoading))
+      ..add(DiagnosticsProperty('theme', theme))
       ..add(DiagnosticsProperty('error', error))
       ..add(DiagnosticsProperty('success', success));
   }
@@ -204,6 +219,8 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
             (identical(other.showLoading, showLoading) ||
                 const DeepCollectionEquality()
                     .equals(other.showLoading, showLoading)) &&
+            (identical(other.theme, theme) ||
+                const DeepCollectionEquality().equals(other.theme, theme)) &&
             (identical(other.error, error) ||
                 const DeepCollectionEquality().equals(other.error, error)) &&
             (identical(other.success, success) ||
@@ -217,6 +234,7 @@ class _$_AppState with DiagnosticableTreeMixin implements _AppState {
       const DeepCollectionEquality().hash(selectedFiatForExport) ^
       const DeepCollectionEquality().hash(isDemo) ^
       const DeepCollectionEquality().hash(showLoading) ^
+      const DeepCollectionEquality().hash(theme) ^
       const DeepCollectionEquality().hash(error) ^
       const DeepCollectionEquality().hash(success);
 
@@ -232,6 +250,7 @@ abstract class _AppState implements AppState {
       @nullable FiatCurrency selectedFiatForExport,
       bool isDemo,
       bool showLoading,
+      ThemeOption theme,
       @nullable ErrorInfo error,
       @nullable SuccessInfo success}) = _$_AppState;
 
@@ -244,6 +263,8 @@ abstract class _AppState implements AppState {
   bool get isDemo;
   @override
   bool get showLoading;
+  @override
+  ThemeOption get theme;
   @override
   @nullable
   ErrorInfo get error;

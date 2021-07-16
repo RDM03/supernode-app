@@ -16,8 +16,10 @@ import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/mining_simulator_page/widgets/action_button.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -53,7 +55,7 @@ Widget buildView(
           SizedBox(height: 35),
           Text(
             FlutterI18n.translate(_ctx, 'mxc_lockdrop_duration'),
-            style: kBigFontOfBlack,
+            style: FontTheme.of(_ctx).big(),
           ),
           MxcSliderTheme(
             child: Slider(
@@ -61,8 +63,8 @@ Widget buildView(
               value: monthsOptions.indexOf(state.months).toDouble(),
               max: (monthsOptions.length - 1).toDouble(),
               divisions: (monthsOptions.length - 1),
-              activeColor: Token.supernodeDhx.color,
-              inactiveColor: Token.supernodeDhx.color.withOpacity(0.2),
+              activeColor: Token.supernodeDhx.ui(_ctx).color,
+              inactiveColor: ColorsTheme.of(_ctx).dhxBlue20,
               onChanged: (v) => dispatch(MiningSimulatorActionCreator.months(
                   monthsOptions[v.toInt()])),
             ),
@@ -78,7 +80,7 @@ Widget buildView(
                   : FlutterI18n.translate(_ctx, 'x_boost')
                       .replaceAll('{0}', '$boostRatePercents%');
             }()),
-            style: kSmallFontOfGrey,
+            style: FontTheme.of(_ctx).small.secondary(),
           ),
           SizedBox(height: 35),
           ValueEditor(
@@ -98,7 +100,7 @@ Widget buildView(
                 Center(
                     child: Text(
                   FlutterI18n.translate(_ctx, 'simulator_results'),
-                  style: kBigBoldFontOfBlack,
+                  style: FontTheme.of(_ctx).big.primary.bold(),
                 )),
                 bigColumnSpacer(),
                 Center(
@@ -106,7 +108,7 @@ Widget buildView(
                     width: 90,
                     child: Text(
                       FlutterI18n.translate(_ctx, 'estimated_mining_power'),
-                      style: kSmallFontOfGrey,
+                      style: FontTheme.of(_ctx).small.secondary(),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -122,7 +124,7 @@ Widget buildView(
                     return Text(
                       (res ?? '??'),
                       key: ValueKey('mPowerText'),
-                      style: kPrimaryBigFontOfBlack,
+                      style: FontTheme.of(ctx).big(),
                     );
                   }),
                 ),
@@ -170,7 +172,7 @@ Widget buildView(
                         Text(
                           FlutterI18n.translate(_ctx, 'estimated_dhx_daily'),
                           textAlign: TextAlign.left,
-                          style: kSmallFontOfGrey,
+                          style: FontTheme.of(_ctx).small.secondary(),
                         ),
                         Expanded(
                           child: ValueListenableBuilder3(
@@ -187,15 +189,16 @@ Widget buildView(
                             if (dailyReturn == null || dailyReturn.isNaN) {
                               res = null;
                             } else if (state.dailyMiningExpand) {
-                              res = '$dailyReturn ${Token.supernodeDhx.name}';
+                              res =
+                                  '$dailyReturn ${Token.supernodeDhx.ui(_ctx).name}';
                             } else {
                               res =
-                                  '${Tools.priceFormat(dailyReturn, range: 2)} ${Token.supernodeDhx.name}';
+                                  '${Tools.priceFormat(dailyReturn, range: 2)} ${Token.supernodeDhx.ui(_ctx).name}';
                             }
                             return Text(
                               (res ?? '??'),
                               key: ValueKey('dailyText'),
-                              style: kBigFontOfBlack,
+                              style: FontTheme.of(_ctx).big(),
                               textAlign: TextAlign.right,
                             );
                           }),
@@ -218,7 +221,7 @@ Widget buildView(
                             FlutterI18n.translate(
                                 _ctx, 'bond_amount_for_max_mining'),
                             textAlign: TextAlign.left,
-                            style: kSmallFontOfGrey,
+                            style: FontTheme.of(_ctx).small.secondary(),
                           ),
                         ),
                         ValueListenableBuilder3(
@@ -236,15 +239,15 @@ Widget buildView(
                             res = null;
                           } else if (state.bondExpand) {
                             res =
-                                '${70 * dailyReturn} ${Token.supernodeDhx.name}';
+                                '${70 * dailyReturn} ${Token.supernodeDhx.ui(_ctx).name}';
                           } else {
                             res =
-                                '${Tools.priceFormat(70 * dailyReturn, range: 2)} ${Token.supernodeDhx.name}';
+                                '${Tools.priceFormat(70 * dailyReturn, range: 2)} ${Token.supernodeDhx.ui(_ctx).name}';
                           }
                           return Text(
                             (res ?? '??'),
                             key: ValueKey('dailyText'),
-                            style: kBigFontOfBlack,
+                            style: FontTheme.of(_ctx).big(),
                             textAlign: TextAlign.right,
                           );
                         }),
@@ -260,7 +263,7 @@ Widget buildView(
           PrimaryButton(
             key: Key('boostMpowerButton'),
             buttonTitle: FlutterI18n.translate(_ctx, 'boost_mpower'),
-            bgColor: Token.supernodeDhx.color,
+            bgColor: Token.supernodeDhx.ui(_ctx).color,
             minWidth: double.infinity,
             onTap: () => showBoostMPowerDialog(_ctx),
           ),

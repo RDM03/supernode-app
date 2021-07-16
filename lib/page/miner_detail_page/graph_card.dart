@@ -3,7 +3,9 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 
 import 'package:supernodeapp/common/components/widgets/bar_graph.dart';
 import 'package:supernodeapp/common/utils/time.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class GraphEntity {
   final DateTime date;
@@ -66,7 +68,8 @@ class _GraphCardState extends State<GraphCard> {
     );
   }
 
-  String getMD(DateTime date) => '${TimeUtil.months(context)[date.month]} ${date.day}';
+  String getMD(DateTime date) =>
+      '${TimeUtil.months(context)[date.month]} ${date.day}';
 
   @override
   Widget build(BuildContext context) {
@@ -78,10 +81,10 @@ class _GraphCardState extends State<GraphCard> {
       padding: EdgeInsets.all(16),
       height: 240,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorsTheme.of(context).boxComponents,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: boxShadowColor,
             spreadRadius: 0,
             blurRadius: 1,
             offset: Offset(0, 0),
@@ -97,7 +100,7 @@ class _GraphCardState extends State<GraphCard> {
                 child: Text(
                   widget.subtitle ??
                       FlutterI18n.translate(context, 'score_weekly'),
-                  style: kMiddleFontOfGrey,
+                  style: FontTheme.of(context).middle.secondary(),
                 ),
               ),
               if (widget.online == true) ...[
@@ -127,7 +130,7 @@ class _GraphCardState extends State<GraphCard> {
                     height: 10,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: ColorsTheme.of(context).textLabel,
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -140,12 +143,12 @@ class _GraphCardState extends State<GraphCard> {
               Expanded(
                 child: Text(
                   widget.title ?? '0% (0h)',
-                  style: kBigFontOfDarkBlue,
+                  style: FontTheme.of(context).big.mxc(),
                 ),
               ),
               Text(
                 '${getMD(widget.startDate ?? DateTime.now())} - ${getMD(widget.endDate ?? DateTime.now())}',
-                style: kMiddleFontOfGrey,
+                style: FontTheme.of(context).middle.secondary(),
               ),
             ],
           ),
@@ -157,7 +160,7 @@ class _GraphCardState extends State<GraphCard> {
               children: [
                 Text(
                   FlutterI18n.translate(context, 'last_seen'),
-                  style: kMiddleFontOfGrey,
+                  style: FontTheme.of(context).middle.secondary(),
                 ),
                 SizedBox(width: 10),
                 Expanded(

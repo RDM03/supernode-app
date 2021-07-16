@@ -12,6 +12,7 @@ import 'package:supernodeapp/page/device/device_mapbox_page/footprints_component
 import 'package:supernodeapp/page/device/device_mapbox_page/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
 
@@ -26,9 +27,12 @@ Widget buildView(
       title: FlutterI18n.translate(_ctx, 'view_week_footprints')));
   list.add(IosButtonStyle(
       title: FlutterI18n.translate(_ctx, 'view_all_footprints')));
-  list.add(IosButtonStyle(
+  list.add(
+    IosButtonStyle(
       title: FlutterI18n.translate(_ctx, 'delete_all_footprints'),
-      style: kMiddleFontOfRed));
+      style: FontTheme.of(_ctx).middle.alert(),
+    ),
+  );
 
   return MediaQuery.removePadding(
     removeTop: true,
@@ -72,7 +76,7 @@ Widget buildView(
                 children: <Widget>[
                   Text(
                     FlutterI18n.translate(_ctx, 'confirm_tr'),
-                    style: kMiddleFontOfBlack,
+                    style: FontTheme.of(_ctx).middle(),
                   ),
                   InkWell(
                     child: Icon(Icons.more_horiz, size: 25),

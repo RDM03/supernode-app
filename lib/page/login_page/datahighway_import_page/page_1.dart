@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/page/login_page/datahighway_import_page/page_2.dart';
 import 'package:supernodeapp/route.dart';
+import 'package:supernodeapp/theme/colors.dart';
 
 class DataHighwayImportPage extends StatefulWidget {
   @override
@@ -50,7 +51,7 @@ class _DataHighwayImportPageState extends State<DataHighwayImportPage> {
           hintText: title,
           labelText: title,
           focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Token.parachainDhx.color),
+            borderSide: BorderSide(color: Token.parachainDhx.ui(context).color),
           ),
         ),
         controller: controller,
@@ -62,14 +63,15 @@ class _DataHighwayImportPageState extends State<DataHighwayImportPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBars.backArrowAppBar(
-        color: Colors.white,
+        context,
+        color: whiteColor,
         title: 'Import Account',
         onPress: () => Navigator.of(context).pop(),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: whiteColor,
       body: Theme(
         data: Theme.of(context).copyWith(
-          primaryColor: Token.parachainDhx.color,
+          primaryColor: Token.parachainDhx.ui(context).color,
         ),
         child: Column(
           children: [
@@ -130,10 +132,10 @@ class _DataHighwayImportPageState extends State<DataHighwayImportPage> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: PrimaryButton(
-                  bgColor: Token.parachainDhx.color,
+                  bgColor: Token.parachainDhx.ui(context).color,
                   buttonTitle: 'Next',
                   onTap: () => Navigator.of(context)
-                      .push(routeWidget((ctx) => DataHighwayImport2Page())),
+                      .push(routeWidget(DataHighwayImport2Page())),
                 ),
               ),
             ),

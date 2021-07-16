@@ -16,8 +16,8 @@ import 'package:supernodeapp/common/repositories/shared/dao/supernode.dart';
 import 'package:supernodeapp/page/home_page/home_page.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'cubit.dart';
 import 'state.dart';
@@ -112,10 +112,10 @@ class _SupernodeLoginPageContentState
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1
-                    .copyWith(color: Colors.white),
+                    .copyWith(color: darkThemeColors.textPrimaryAndIcons),
               ),
               duration: Duration(seconds: 2),
-              backgroundColor: errorColor,
+              backgroundColor: ColorsTheme.of(context).textError,
             ));
           },
         ),
@@ -140,7 +140,7 @@ class _SupernodeLoginPageContentState
       ],
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: cardBackgroundColor,
+        backgroundColor: ColorsTheme.of(context).secondaryBackground,
         body: GestureDetector(
           child: Stack(
             alignment: Alignment.topCenter,
@@ -166,7 +166,8 @@ class _SupernodeLoginPageContentState
                                 height: s(171),
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: darkBackground,
+                                  color:
+                                      ColorsTheme.of(context).primaryBackground,
                                   shape: BoxShape.circle,
                                 ),
                                 child: BlocBuilder<LoginCubit, LoginState>(
@@ -181,11 +182,13 @@ class _SupernodeLoginPageContentState
                                           height: s(134),
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
-                                              color: Colors.white,
+                                              color: darkThemeColors
+                                                  .textPrimaryAndIcons,
                                               shape: BoxShape.circle,
                                               boxShadow: [
                                                 BoxShadow(
-                                                  color: darkBackground2,
+                                                  color: ColorsTheme.of(context)
+                                                      .primaryBackground,
                                                   offset: Offset(0, 2),
                                                   blurRadius: 5,
                                                   spreadRadius: 5,
@@ -210,8 +213,10 @@ class _SupernodeLoginPageContentState
                         Column(
                           children: <Widget>[
                             AppBars.backArrowAppBar(
+                              context,
                               key: Key('login_title'),
-                              color: Colors.white,
+                              color:
+                                  ColorsTheme.of(context).secondaryBackground,
                               title: FlutterI18n.translate(context, 'login'),
                               onPress: () => Navigator.of(context).pop(),
                               onTitlePress: () => clickTitle(),
@@ -226,15 +231,19 @@ class _SupernodeLoginPageContentState
                                   style: TextStyle(
                                       fontSize: s(14),
                                       fontWeight: FontWeight.w400,
-                                      color: Colors.black),
+                                      color: ColorsTheme.of(context)
+                                          .textPrimaryAndIcons),
                                 ),
                                 GestureDetector(
                                   onTap: () => _showInfoDialog(context),
                                   child: Padding(
                                     key: Key("questionCircle"),
                                     padding: EdgeInsets.all(s(5)),
-                                    child: Image.asset(AppImages.questionCircle,
-                                        height: s(20)),
+                                    child: Image.asset(
+                                      AppImages.questionCircle,
+                                      height: s(20),
+                                      color: ColorsTheme.of(context).mxcBlue,
+                                    ),
                                   ),
                                 )
                               ],
@@ -300,7 +309,8 @@ class _SupernodeLoginPageContentState
                                 onTap: onForgotPassword,
                                 child: Text(
                                   FlutterI18n.translate(context, 'forgot_hint'),
-                                  style: kMiddleFontOfGrey,
+                                  style:
+                                      FontTheme.of(context).middle.secondary(),
                                 ),
                               ),
                             ],
@@ -327,10 +337,14 @@ class _SupernodeLoginPageContentState
                                         Text(
                                           FlutterI18n.translate(
                                               context, 'wechat_login_title'),
-                                          style: kMiddleFontOfGreyLink,
+                                          style: FontTheme.of(context)
+                                              .middle
+                                              .secondary
+                                              .underline(),
                                         )
                                       ],
-                                    ))
+                                    ),
+                                  )
                                 : SizedBox(),
                           ),
                           PrimaryButton(
@@ -358,9 +372,6 @@ class _SupernodeLoginPageContentState
                       onTap: () => context
                           .read<LoginCubit>()
                           .setSuperNodeListVisible(false),
-                      child: Container(
-                        color: Color(0x33000000),
-                      ),
                     );
                   return Container();
                 },
@@ -380,7 +391,7 @@ class _SupernodeLoginPageContentState
                       height: ScreenUtil.instance.height,
                       width: s(304),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: ColorsTheme.of(context).secondaryBackground,
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(s(10)),
                           bottomRight: Radius.circular(s(10)),
@@ -398,7 +409,10 @@ class _SupernodeLoginPageContentState
                                 child: Text(
                                     FlutterI18n.translate(
                                         context, 'super_node'),
-                                    style: kBigBoldFontOfBlack),
+                                    style: FontTheme.of(context)
+                                        .big
+                                        .primary
+                                        .bold()),
                               ),
                               Positioned(
                                 right: s(15),
@@ -416,7 +430,7 @@ class _SupernodeLoginPageContentState
                             child: Text(
                               FlutterI18n.translate(
                                   context, 'supernode_instructions'),
-                              style: kSecondaryButtonOfBlack,
+                              style: FontTheme.of(context).middle.primary(),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -430,10 +444,13 @@ class _SupernodeLoginPageContentState
                                       key: Key(key),
                                       title: Text(
                                         FlutterI18n.translate(context, key),
-                                        style: TextStyle(color: Colors.black),
+                                        style: TextStyle(
+                                            color: ColorsTheme.of(context)
+                                                .textPrimaryAndIcons),
                                       ),
                                       initiallyExpanded: false,
-                                      backgroundColor: darkBackground,
+                                      backgroundColor: ColorsTheme.of(context)
+                                          .primaryBackground,
                                       children: <Widget>[
                                         for (Supernode item
                                             in state.supernodes.value[key])
@@ -495,7 +512,7 @@ void _showInfoDialog(BuildContext context) {
               FlutterI18n.translate(context, 'info_supernode'),
               key: ValueKey("helpText"),
               style: TextStyle(
-                color: Colors.black,
+                color: ColorsTheme.of(context).textPrimaryAndIcons,
                 fontSize: s(16),
                 fontWeight: FontWeight.w500,
               ),

@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/components/page/dd_box_spacer.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class DDResult extends StatelessWidget {
   final String title;
@@ -32,7 +33,7 @@ class DDResult extends StatelessWidget {
                   children: [
                     Text(
                       FlutterI18n.translate(context, title),
-                      style: kVeryBigBoldFontOfBlack,
+                      style: FontTheme.of(context).veryBig.primary.bold(),
                     ),
                     DDBoxSpacer(height: SpacerStyle.medium),
                     Image.asset(
@@ -44,13 +45,12 @@ class DDResult extends StatelessWidget {
                       child: Text(
                         FlutterI18n.translate(context, detail),
                         textAlign: TextAlign.center,
-                        style: kBigFontOfBlack,
+                        style: FontTheme.of(context).big(),
                       ),
                     ),
                     Spacer(),
                   ],
-                ))
-            ),
+                ))),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: PrimaryButton(
           padding: kRoundRow1005,

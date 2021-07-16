@@ -4,7 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:supernodeapp/common/repositories/supernode/dao/dhx.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class CouncilCard extends StatelessWidget {
   final Council council;
@@ -24,7 +26,7 @@ class CouncilCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: boxShadowColor,
             spreadRadius: 1,
             blurRadius: 2,
             offset: Offset(0, 0),
@@ -36,7 +38,7 @@ class CouncilCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
+            color: ColorsTheme.of(context).boxComponents,
           ),
           child: Row(
             children: [
@@ -44,12 +46,12 @@ class CouncilCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius:
                       BorderRadius.horizontal(left: Radius.circular(10)),
-                  color: Color(0xFF4665EA),
+                  color: ColorsTheme.of(context).dhxBlue,
                 ),
                 child: Center(
                   child: FaIcon(
                     FontAwesomeIcons.landmark,
-                    color: Colors.white,
+                    color: ColorsTheme.of(context).textPrimaryAndIcons,
                   ),
                 ),
                 width: 56,
@@ -62,11 +64,11 @@ class CouncilCard extends StatelessWidget {
                   children: [
                     Text(
                       council.name,
-                      style: kBigFontOfBlue,
+                      style: FontTheme.of(context).big.mxc(),
                     ),
                     Text(
                       '${FlutterI18n.translate(context, 'latest_mpower')} : ${Tools.numberRounded(Tools.convertDouble(council.lastMpower))}',
-                      style: kMiddleFontOfBlack,
+                      style: FontTheme.of(context).middle(),
                     ),
                   ],
                 ),

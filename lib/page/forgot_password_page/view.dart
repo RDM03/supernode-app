@@ -10,6 +10,7 @@ import 'package:supernodeapp/page/forgot_password_page/action.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
 
@@ -18,9 +19,9 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return Scaffold(
-    backgroundColor: cardBackgroundColor,
+    backgroundColor: ColorsTheme.of(_ctx).secondaryBackground,
     appBar: AppBar(
-      iconTheme: IconThemeData(color: Colors.black),
+      iconTheme: IconThemeData(color: ColorsTheme.of(_ctx).textPrimaryAndIcons),
       backgroundColor: Colors.transparent,
       elevation: 0,
     ),
@@ -55,7 +56,7 @@ Widget buildView(
                     padding: EdgeInsets.only(left: 2),
                     child: Text(
                       FlutterI18n.translate(_ctx, 'have_code'),
-                      style: kMiddleFontOfGreyLink,
+                      style: FontTheme.of(_ctx).middle.secondary.underline(),
                     ),
                   ),
                 ),

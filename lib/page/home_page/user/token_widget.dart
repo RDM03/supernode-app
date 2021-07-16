@@ -14,7 +14,9 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class TokenHomePageWidget extends StatelessWidget {
   Widget mxc(BuildContext context) =>
@@ -25,8 +27,8 @@ class TokenHomePageWidget extends StatelessWidget {
                 child: TokenSummaryRow(
                   key: Key('mxcDashboard'),
                   loading: state.balance.loading,
-                  image: Token.mxc.imagePath,
-                  name: Token.mxc.name,
+                  image: Token.mxc.ui(context).image,
+                  name: Token.mxc.ui(context).name,
                   balance: Tools.priceFormat(state.balance.value),
                   onTap: () => context.read<HomeCubit>().changeTab(
                       HomeCubit.WALLET_TAB,
@@ -42,8 +44,8 @@ class TokenHomePageWidget extends StatelessWidget {
                 child: TokenSummaryRow(
                   key: Key('dhxDashboard'),
                   loading: state.balance.loading,
-                  image: Token.supernodeDhx.imagePath,
-                  name: Token.supernodeDhx.name,
+                  image: Token.supernodeDhx.ui(context).image,
+                  name: Token.supernodeDhx.ui(context).name,
                   balance: Tools.priceFormat(state.balance.value),
                   onTap: () => context.read<HomeCubit>().changeTab(
                       HomeCubit.WALLET_TAB,
@@ -59,8 +61,8 @@ class TokenHomePageWidget extends StatelessWidget {
                 child: TokenSummaryRow(
                   key: Key('btcDashboard'),
                   loading: state.balance.loading,
-                  image: Token.btc.imagePath,
-                  name: Token.btc.name,
+                  image: Token.btc.ui(context).image,
+                  name: Token.btc.ui(context).name,
                   balance: Tools.priceFormat(state.balance.value, range: 8),
                   onTap: () => context.read<HomeCubit>().changeTab(
                       HomeCubit.WALLET_TAB,
@@ -80,8 +82,10 @@ class TokenHomePageWidget extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(FlutterI18n.translate(context, "wallet"),
-                  style: kBigBoldFontOfBlack),
+              Text(
+                FlutterI18n.translate(context, "wallet"),
+                style: FontTheme.of(context).big.primary.bold(),
+              ),
               Spacer(),
               GestureDetector(
                 key: Key('addTokenTitle'),
@@ -91,14 +95,15 @@ class TokenHomePageWidget extends StatelessWidget {
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Token.supernodeDhx.color.withOpacity(.2),
+                      color: ColorsTheme.of(context).dhxBlue20,
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 8.0, vertical: 4.0),
                     child: Text(
                       '+ ${FlutterI18n.translate(context, 'add_token_title')}',
-                      style: MiddleFontOfColor(color: Token.supernodeDhx.color),
+                      style: MiddleFontOfColor(
+                          color: Token.supernodeDhx.ui(context).color),
                     ),
                   ),
                 ),
