@@ -335,7 +335,7 @@ class GatewayTab extends StatelessWidget {
                                         context, 'uptime_info')),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: ColorsTheme.of(context).mxcBlue20,
+                                    color: ColorsTheme.of(context).mxcBlue05,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
                                   ),
@@ -363,7 +363,7 @@ class GatewayTab extends StatelessWidget {
                                                       style:
                                                           FontTheme.of(context)
                                                               .big
-                                                              .primary
+                                                              .mxc
                                                               .bold())),
                                           Image.asset(AppImages.uptime),
                                           Text(
@@ -371,7 +371,7 @@ class GatewayTab extends StatelessWidget {
                                                 context, 'uptime'),
                                             style: FontTheme.of(context)
                                                 .small
-                                                .primary
+                                                .mxc
                                                 .bold(),
                                           ),
                                         ]),
@@ -609,7 +609,7 @@ class GatewayTab extends StatelessWidget {
                                 ),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: ColorsTheme.of(context).mxcBlue20,
+                                    color: ColorsTheme.of(context).mxcBlue05,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
                                   ),
@@ -631,14 +631,14 @@ class GatewayTab extends StatelessWidget {
                                                     '-- %',
                                                     style: FontTheme.of(context)
                                                         .big
-                                                        .primary
+                                                        .mxc
                                                         .bold(),
                                                   )
                                                 : Text(
                                                     '${Tools.priceFormat(gatewayState.miningFuelHealth.value * 100)} %',
                                                     style: FontTheme.of(context)
                                                         .big
-                                                        .primary
+                                                        .mxc
                                                         .bold(),
                                                   )),
                                         Stack(
@@ -647,7 +647,7 @@ class GatewayTab extends StatelessWidget {
                                             Image.asset(
                                               AppImages.uptime,
                                               color: ColorsTheme.of(context)
-                                                  .textPrimaryAndIcons,
+                                                  .boxComponents,
                                             ),
                                             Image.asset(
                                               AppImages.fuel,
@@ -661,7 +661,7 @@ class GatewayTab extends StatelessWidget {
                                               context, 'fuel'),
                                           style: FontTheme.of(context)
                                               .small
-                                              .primary
+                                              .mxc
                                               .bold(),
                                         ),
                                       ],

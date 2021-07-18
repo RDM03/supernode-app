@@ -59,6 +59,7 @@ class ColorsTheme {
   final mxcBlue60 = const Color(0xFF1C1478).withOpacity(0.60);
   final mxcBlue40 = const Color(0xFF1C1478).withOpacity(0.40);
   final mxcBlue20 = const Color(0xFF1C1478).withOpacity(0.20);
+  final mxcBlue05 = const Color(0xFF1C1478).withOpacity(0.05);
 
   final dhxBlue = const Color(0xFF4665EA);
   final dhxBlue80 = const Color(0xFF4665EA).withOpacity(0.80);
@@ -108,6 +109,7 @@ class ColorsThemeDark implements ColorsTheme {
   final mxcBlue60 = const Color(0xFF30A78B).withOpacity(0.6);
   final mxcBlue40 = const Color(0xFF30A78B).withOpacity(0.4);
   final mxcBlue20 = const Color(0xFF30A78B).withOpacity(0.2);
+  final mxcBlue05 = const Color(0xFF30A78B).withOpacity(0.05);
 
   final dhxBlue = const Color(0xFF7B90E9);
   final dhxBlue80 = const Color(0xFF7B90E9).withOpacity(0.8);
