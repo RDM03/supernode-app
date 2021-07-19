@@ -207,13 +207,14 @@ class _CalendarElement extends StatelessWidget {
                 scale: 1.5,
                 color: ColorsTheme.of(context).textError,
               ),
-            Text(
-                '${model.date != null ? (7 - today.difference(model.date).inDays) : ""}',
-                style: (model.unbondAmount > 0)
-                    ? FontTheme.of(context).middle()
-                    : FontTheme.of(context).middle.label(),
-                softWrap: false,
-                overflow: TextOverflow.fade)
+            if (model.unbondAmount > 0)
+              Text(
+                  '${model.date != null ? (7 - today.difference(model.date).inDays) : ""}',
+                  style: FontTheme.of(context).middle(),
+                  softWrap: false,
+                  overflow: TextOverflow.fade)
+            else
+              Text('', style: FontTheme.of(context).middle())
           ]),
           Container(
               height: 25,

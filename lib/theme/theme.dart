@@ -92,6 +92,8 @@ class ColorsTheme {
   final textError = const Color(0xFFFF5B5B);
 
   final buttonIconTextColor = Colors.white;
+
+  final transparent = Colors.transparent;
 }
 
 class ColorsThemeDark implements ColorsTheme {
@@ -142,6 +144,8 @@ class ColorsThemeDark implements ColorsTheme {
   final textError = const Color(0xFFFF5B5B);
 
   final buttonIconTextColor = Colors.white;
+
+  final transparent = Colors.transparent;
 }
 
 class FontTheme {
@@ -235,6 +239,9 @@ class TextStylePack {
 
   DecoratableTextStyle get health => DecoratableTextStyle(
       _primary.copyWith(color: colorsTheme.minerHealthRed));
+
+  DecoratableTextStyle get transparent => DecoratableTextStyle(
+      _primary.copyWith(color: colorsTheme.transparent));
 }
 
 class DecoratableTextStyle {

@@ -16,7 +16,6 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
 import 'package:supernodeapp/page/home_page/wallet/supernode_dhx_token/actions.dart';
 import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
-import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/theme.dart';
 import 'transactions_history.dart';
 import 'mining_income.dart';
@@ -227,7 +226,7 @@ class NumberMinersAndMPower extends StatelessWidget {
                     children: [
                       Text(
                         FlutterI18n.translate(context, 'm2pro_miner'),
-                        style: FontTheme.of(context).middle.button(),
+                        style: FontTheme.of(context).middle.transparent(),
                       ), // invisible - sets width for Container
                       Text(
                         FlutterI18n.translate(context, 'mpower'),
