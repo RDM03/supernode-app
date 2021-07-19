@@ -222,7 +222,7 @@ class _CalendarElement extends StatelessWidget {
               child: Center(
                   child: Text('${model.date != null ? model.date.day : ''}',
                       style: (model.today)
-                          ? FontTheme.of(context).middle.label()
+                          ? FontTheme.of(context).middle.button()
                           : FontTheme.of(context).middle(),
                       softWrap: false,
                       overflow: TextOverflow.fade))),
