@@ -3,9 +3,6 @@ description: File a bug report
 title: "[Bug]: "
 labels: [bug, triage]
 assignees:
-- festelo
-- zhbh
-- miljan-mxc
 body:
 - type: markdown
   attributes:
