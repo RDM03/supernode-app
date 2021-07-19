@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_codes.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../action.dart';
 import 'state.dart';
@@ -14,15 +15,16 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return Scaffold(
-      backgroundColor: cardBackgroundColor,
+      backgroundColor: ColorsTheme.of(_ctx).secondaryBackground,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme:
+            IconThemeData(color: ColorsTheme.of(_ctx).textPrimaryAndIcons),
         title: Text(
             state.isEnabled
                 ? FlutterI18n.translate(_ctx, 'disable_2FA')
                 : FlutterI18n.translate(_ctx, 'enable_2FA'),
             style: TextStyle(
-              color: Colors.black,
+              color: ColorsTheme.of(_ctx).textPrimaryAndIcons,
               fontWeight: FontWeight.w400,
               fontSize: 18,
             )),
@@ -43,7 +45,7 @@ Widget buildView(
                         children: <Widget>[
                           Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_01'),
                               style: TextStyle(
-                                color: Colors.black,
+                                color: ColorsTheme.of(_ctx).textPrimaryAndIcons,
                                 fontWeight: FontWeight.w400,
                                 fontSize: 24,
                               )),
@@ -52,38 +54,38 @@ Widget buildView(
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 5.0),
                     child: Column(
-                        //crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_02'),
-                              style: TextStyle(
-                                color: Colors.grey[600],
-                                fontWeight: FontWeight.w400,
-                              )),
-                        ]),
+                      //crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          FlutterI18n.translate(_ctx, 'wthdr_ent_code_02'),
+                          style: FontTheme.of(_ctx).middle.secondary(),
+                        ),
+                      ],
+                    ),
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 80.0),
                     child: Column(
-                        //crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_03'),
-                              style: TextStyle(
-                                color: Colors.grey[600],
-                                fontWeight: FontWeight.w400,
-                              )),
-                        ]),
+                      //crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          FlutterI18n.translate(_ctx, 'wthdr_ent_code_03'),
+                          style: FontTheme.of(_ctx).middle.secondary(),
+                        ),
+                      ],
+                    ),
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(20.0, 40.0, 0.0, 00.0),
                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_04'),
-                              style: TextStyle(
-                                color: Colors.grey[600],
-                                fontWeight: FontWeight.w400,
-                              )),
-                        ]),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          FlutterI18n.translate(_ctx, 'wthdr_ent_code_04'),
+                          style: FontTheme.of(_ctx).middle.secondary(),
+                        ),
+                      ],
+                    ),
                   ),
                   Form(
                       key: state.formKey,

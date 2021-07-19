@@ -43,7 +43,7 @@ class StakeDHX {
   final String councilId;
   final String councilName;
   final DateTime created;
-  final String currency;
+  final Token currency;
   final String dhxMined;
   final String lockMonths;
   final String id;
@@ -104,7 +104,7 @@ class StakeDHX {
       councilId: map['councilId'],
       councilName: map['councilName'],
       created: DateTime.tryParse(map['created']),
-      currency: Token.mxc.name,
+      currency: Token.mxc,
       dhxMined: map['dhxMined'],
       lockMonths: map['lockMonths'],
       id: map['id'],

@@ -7,6 +7,7 @@ import 'package:supernodeapp/common/components/page/page_nav_bar_back.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -16,7 +17,7 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return pageFrame(context: viewService.context, children: [
-    pageNavBarBack(FlutterI18n.translate(_ctx, 'change_password'),
+    pageNavBarBack(_ctx, FlutterI18n.translate(_ctx, 'change_password'),
         onTap: () => Navigator.of(viewService.context).pop()),
     Form(
         key: state.formKey,
@@ -62,8 +63,11 @@ Widget buildView(
                     ChangePasswordActionCreator.isObscureConPWDText())),
           ),
         ])),
-    submitButton(FlutterI18n.translate(_ctx, 'confirm'),
-        onPressed: () => dispatch(ChangePasswordActionCreator.onConfirm()))
+    submitButton(
+      FlutterI18n.translate(_ctx, 'confirm'),
+      onPressed: () => dispatch(ChangePasswordActionCreator.onConfirm()),
+      color: ColorsTheme.of(_ctx).mxcBlue,
+    )
   ]);
 }
 

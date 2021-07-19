@@ -646,5 +646,12 @@
 	"add_fuel_confirm": "Você está prestes a abastecer {0} MXC.",
 	"send_to_wallet_confirm": "Você está prestes a enviar {0} MXC para sua carteira. Por favor, note: se você retirar o MXC do tanque de combustível, sua eficiência de mineração diminuirá.",
 	"send_to_wallet_dont_have_miners": "Parece que você não tem combustível para enviar para sua carteira.",
-	"nft_desc": "NFT + COLECIONÁVEIS"
+	"nft_desc": "NFT + COLECIONÁVEIS",
+	"adding_miner_failure_title": "Oops.Algo DEU errado.",
+	"adding_miner_failure_detail": "Isso não funcionou, por favor, tente novamente.",
+	"adding_miner_success_detail": "Seu M2 Pro Miner está Agora minerando",
+	"adding_miner_warning_title": "Nota: Este Mineiro é utilizado um",
+	"adding_miner_warning_detail": "Os mineiros usados funcionam de forma diferente DOS novos mineiros.Se não tencionava comprar um Mineiro usado, por favor contacte a Pessoa que o vendeu.",
+	"fuel_tank": "Tanque de combustível",
+	"total_fueled_amount": "Montante total do combustível"
 }

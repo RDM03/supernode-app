@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/page/title.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
 
@@ -18,7 +19,7 @@ Widget buildView(
   return GestureDetector(
     key: Key('lockAmountView'),
     onTap: () =>
-        FocusScope.of(viewService.context).requestFocus(new FocusNode()),
+        FocusScope.of(viewService.context).unfocus(),
     child: pageFrame(
       context: viewService.context,
       scrollable: false,
@@ -38,7 +39,7 @@ Widget buildView(
             FlutterI18n.translate(context, 'transaction_id') +
                 ': ' +
                 state.transactionId,
-            style: kPrimaryBigFontOfBlack,
+            style: FontTheme.of(context).big(),
             textAlign: TextAlign.center,
           ),
         ),
@@ -48,7 +49,7 @@ Widget buildView(
           child: Text(
             FlutterI18n.translate(context, 'congrats_mining'),
             key: Key('congratsMiningText'),
-            style: kBigFontOfGrey,
+            style: FontTheme.of(context).big.secondary(),
             textAlign: TextAlign.center,
           ),
         ),

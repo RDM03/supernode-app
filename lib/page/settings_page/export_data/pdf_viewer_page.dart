@@ -8,6 +8,8 @@ import 'package:oktoast/oktoast.dart';
 import 'package:share/share.dart';
 import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
+import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class PDFViewerPage extends StatefulWidget {
   final String filePath;
@@ -34,11 +36,12 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBars.backArrowAndActionAppBar(
+        context,
         title: FlutterI18n.translate(context, 'export_financial_data'),
         onPress: () => Navigator.of(context).pop(),
         action: IconButton(
           icon: Icon(Icons.save_alt),
-          color: Colors.black,
+          color: ColorsTheme.of(context).textPrimaryAndIcons,
           onPressed: () async {
             final newPath = await context.read<SettingsCubit>().exportData();
             showToast(
@@ -50,29 +53,30 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
           },
         ),
       ),
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          FutureBuilder<PDFDocument>(
-            future: future,
-            builder: (ctx, snap) => snap.hasData
-                ? PDFViewer(
+      body: FutureBuilder<PDFDocument>(
+        future: future,
+        builder: (ctx, snap) => snap.hasData
+            ? Stack(
+                alignment: Alignment.center,
+                children: [
+                  PDFViewer(
                     document: snap.data,
                     showPicker: false,
-                  )
-                : Center(child: CircularProgressIndicator()),
-          ),
-          Positioned(
-            bottom: 70 + MediaQuery.of(context).viewPadding.bottom,
-            right: 20,
-            child: FloatingActionButton(
-              child: Icon(Icons.share),
-              onPressed: () {
-                Share.shareFiles([widget.filePath]);
-              },
-            ),
-          ),
-        ],
+                  ),
+                  Positioned(
+                    bottom: (snap.data.count == 1 ? 30 : 70) +
+                        MediaQuery.of(context).viewPadding.bottom,
+                    right: 20,
+                    child: FloatingActionButton(
+                      child: Icon(Icons.share),
+                      onPressed: () {
+                        Share.shareFiles([widget.filePath]);
+                      },
+                    ),
+                  ),
+                ],
+              )
+            : Center(child: CircularProgressIndicator()),
       ),
     );
   }

@@ -9,7 +9,9 @@ import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/page/withdraw_page/bloc/cubit.dart';
 import 'package:supernodeapp/page/withdraw_page/bloc/state.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class WithdrawConfirm extends StatelessWidget {
   final String feeCurrency;
@@ -27,7 +29,7 @@ class WithdrawConfirm extends StatelessWidget {
                 key: ValueKey('navBackButton'),
                 child: Icon(
                   Icons.arrow_back_ios,
-                  color: Colors.black,
+                  color: ColorsTheme.of(context).textPrimaryAndIcons,
                 ),
                 onTap: () => context.read<WithdrawCubit>().backToForm())),
         xbigColumnSpacer(),
@@ -45,7 +47,7 @@ class WithdrawConfirm extends StatelessWidget {
             child: Text(
               FlutterI18n.translate(context, 'check_recipient_address'),
               textAlign: TextAlign.center,
-              style: kMiddleFontOfBlack,
+              style: FontTheme.of(context).middle(),
             ),
           ),
         ),
@@ -58,8 +60,9 @@ class WithdrawConfirm extends StatelessWidget {
                 Text(FlutterI18n.translate(context, 'amount')),
                 BlocBuilder<WithdrawCubit, WithdrawState>(
                     buildWhen: (a, b) => a.amount != b.amount,
-                    builder: (ctx, st) => Text('${st.amount} ${st.token.name}',
-                        style: kBigFontOfBlack)),
+                    builder: (ctx, st) => Text(
+                        '${st.amount} ${st.token.ui(context).name}',
+                        style: FontTheme.of(context).big())),
               ],
             ),
             middleColumnSpacer(),
@@ -69,8 +72,8 @@ class WithdrawConfirm extends StatelessWidget {
                 Text(FlutterI18n.translate(context, 'fee')),
                 BlocBuilder<WithdrawCubit, WithdrawState>(
                     buildWhen: (a, b) => a.fee != b.fee,
-                    builder: (ctx, st) =>
-                        Text('${st.fee} $feeCurrency', style: kBigFontOfBlack)),
+                    builder: (ctx, st) => Text('${st.fee} $feeCurrency',
+                        style: FontTheme.of(context).big())),
               ],
             ),
             middleColumnSpacer(),
@@ -82,7 +85,7 @@ class WithdrawConfirm extends StatelessWidget {
                     buildWhen: (a, b) => a.address != b.address,
                     builder: (ctx, st) => Flexible(
                           child: Text(st.address,
-                              style: kBigFontOfBlack,
+                              style: FontTheme.of(context).big(),
                               maxLines: 2,
                               textAlign: TextAlign.end),
                         )),
@@ -107,7 +110,7 @@ class WithdrawConfirm extends StatelessWidget {
                         onTap: () => context
                             .read<WithdrawCubit>()
                             .gotoWithdrawSecurityCode(),
-                        bgColor: st.token.color,
+                        bgColor: st.token.ui(context).color,
                         key: ValueKey('submitButton'),
                       )
                     : PrimaryButton(
@@ -119,7 +122,7 @@ class WithdrawConfirm extends StatelessWidget {
                             arguments: {'isEnabled': null}).then((_) {
                           context.read<WithdrawCubit>().requestTOTPStatus();
                         }),
-                        bgColor: st.token.color,
+                        bgColor: st.token.ui(context).color,
                         key: ValueKey('2faButton'),
                       );
               }
@@ -128,7 +131,7 @@ class WithdrawConfirm extends StatelessWidget {
                 buttonTitle: FlutterI18n.translate(context, 'submit') +
                     ' (${dur.inSeconds})',
                 onTap: () => 'doNothing',
-                bgColor: st.token.color,
+                bgColor: st.token.ui(context).color,
                 key: ValueKey('submitButtonTimeout'),
               );
             },

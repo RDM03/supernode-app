@@ -11,6 +11,7 @@ import 'package:supernodeapp/page/sign_up_page/registration_component/registrati
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../../../route.dart';
 
@@ -36,9 +37,10 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: cardBackgroundColor,
+        backgroundColor: ColorsTheme.of(context).secondaryBackground,
         appBar: AppBars.backArrowAppBar(
-          color: Colors.white,
+          context,
+          color: ColorsTheme.of(context).secondaryBackground,
           title: FlutterI18n.translate(context, 'create_account'),
           onPress: () => Navigator.of(context).pop(),
         ),
@@ -57,7 +59,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
               listenWhen: (a, b) => a.signupResult != b.signupResult,
               listener: (ctx, state) async {
                 if (state.signupResult == SignupResult.registration)
-                  Navigator.of(context).push(route((ctx) =>
+                  Navigator.of(context).push(routeWidget(
                       BlocProvider<LoginCubit>.value(
                           value: context.read<LoginCubit>(),
                           child: RegistrationPage())));
@@ -72,9 +74,9 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                     children: <Widget>[
                       SizedBox(height: 20),
                       Text(FlutterI18n.translate(context, 'enail_confirmation'),
-                          style: kBigFontOfDarkBlue),
+                          style: FontTheme.of(context).big.mxc()),
                       Text(FlutterI18n.translate(context, 'send_email'),
-                          style: kBigFontOfBlack),
+                          style: FontTheme.of(context).big()),
                       SizedBox(height: 30),
                       Form(
                         //TODO key: state.formKey,

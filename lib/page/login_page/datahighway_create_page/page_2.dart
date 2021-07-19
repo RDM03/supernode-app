@@ -6,7 +6,9 @@ import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/page/login_page/datahighway_create_page/page_3.dart';
 import 'package:supernodeapp/page/login_page/datahighway_import_page/page_2.dart';
 import 'package:supernodeapp/route.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class DataHighwayCreate2Page extends StatefulWidget {
   @override
@@ -20,14 +22,15 @@ class _DataHighwayCreate2PageState extends State<DataHighwayCreate2Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBars.backArrowAppBar(
-        color: Colors.white,
+        context,
+        color: whiteColor,
         title: 'Create Account',
         onPress: () => Navigator.of(context).pop(),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: whiteColor,
       body: Theme(
         data: Theme.of(context).copyWith(
-          primaryColor: Token.parachainDhx.color,
+          primaryColor: Token.parachainDhx.ui(context).color,
         ),
         child: Column(
           children: [
@@ -43,7 +46,7 @@ class _DataHighwayCreate2PageState extends State<DataHighwayCreate2Page> {
                         'Backup mnemonic',
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                          color: Token.parachainDhx.color,
+                          color: Token.parachainDhx.ui(context).color,
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                         ),
@@ -56,7 +59,7 @@ class _DataHighwayCreate2PageState extends State<DataHighwayCreate2Page> {
                       width: double.infinity,
                       child: Text(
                         'Use paper and pen to correctly copy mnemonics',
-                        style: kBigFontOfBlack,
+                        style: FontTheme.of(context).big(),
                       ),
                     ),
                   ),
@@ -90,10 +93,10 @@ class _DataHighwayCreate2PageState extends State<DataHighwayCreate2Page> {
                 contentPadding: EdgeInsets.zero,
                 value: wordsSaved,
                 onChanged: (v) => setState(() => wordsSaved = v),
-                activeColor: Token.parachainDhx.color,
+                activeColor: Token.parachainDhx.ui(context).color,
                 title: Text(
                   'I wrote it down and put it in a safe place.',
-                  style: kMiddleFontOfBlack,
+                  style: FontTheme.of(context).middle(),
                 ),
               ),
             ),
@@ -104,11 +107,11 @@ class _DataHighwayCreate2PageState extends State<DataHighwayCreate2Page> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: PrimaryButton(
-                  bgColor: Token.parachainDhx.color,
+                  bgColor: Token.parachainDhx.ui(context).color,
                   buttonTitle: 'Next',
                   onTap: wordsSaved
                       ? () => Navigator.of(context)
-                          .push(route((ctx) => DataHighwayCreate3Page()))
+                          .push(routeWidget(DataHighwayCreate3Page()))
                       : null,
                 ),
               ),

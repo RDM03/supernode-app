@@ -3,11 +3,12 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/gateways.model.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
-import 'package:supernodeapp/page/view_all_page/bloc/state.dart';
-import 'package:supernodeapp/page/view_all_page/view.dart';
+import 'package:supernodeapp/page/home_page/gateway/view_all_page/bloc/state.dart';
+import 'package:supernodeapp/page/home_page/gateway/view_all_page/view.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../graph_card.dart';
 import '../title.dart';
@@ -33,7 +34,7 @@ class MinerDataTab extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: colorMxc.withOpacity(0.05),
+            color: ColorsTheme.of(context).boxComponents,
             borderRadius: BorderRadius.circular(10),
           ),
           width: double.infinity,
@@ -43,11 +44,11 @@ class MinerDataTab extends StatelessWidget {
             children: [
               Text(
                 '${Tools.priceFormat(downlinkPrice)} MXC',
-                style: kVeryBigFontOfBlack,
+                style: FontTheme.of(context).veryBig(),
               ),
               Text(
                 FlutterI18n.translate(context, 'downlink_price'),
-                style: kSmallFontOfGrey,
+                style: FontTheme.of(context).small.secondary(),
               )
             ],
           ),
@@ -60,12 +61,12 @@ class MinerDataTab extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
               child: Text(
                 FlutterI18n.translate(context, 'see_more'),
-                style: kSmallFontOfDarkBlue,
+                style: FontTheme.of(context).small.mxc(),
               ),
             ),
             onTap: () => Navigator.of(context).push(
-              route(
-                (ctx) => ViewAllPage(
+              routeWidget(
+                ViewAllPage(
                   minerId: item.id,
                   type: MinerStatsType.frameReceived,
                 ),
@@ -93,12 +94,12 @@ class MinerDataTab extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
               child: Text(
                 FlutterI18n.translate(context, 'see_more'),
-                style: kSmallFontOfDarkBlue,
+                style: FontTheme.of(context).small.mxc(),
               ),
             ),
             onTap: () => Navigator.of(context).push(
-              route(
-                (ctx) => ViewAllPage(
+              routeWidget(
+                ViewAllPage(
                   minerId: item.id,
                   type: MinerStatsType.frameTransmitted,
                 ),
@@ -126,7 +127,7 @@ class MinerDataTab extends StatelessWidget {
         Center(
           child: Text(
             '${item.id ?? ''} / OS ${item.osversion ?? '???'}',
-            style: kSmallFontOfGrey,
+            style: FontTheme.of(context).small.secondary(),
           ),
         ),
         SizedBox(height: 32),

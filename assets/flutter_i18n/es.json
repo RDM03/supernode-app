@@ -646,5 +646,12 @@
 	"add_fuel_confirm": "Estás a punto de alimentar {0} MXC.",
 	"send_to_wallet_confirm": "Estás a punto de enviar {0} MXC a tu billetera. Tenga en cuenta: si retira MXC del tanque de combustible, su eficiencia minera disminuirá.",
 	"send_to_wallet_dont_have_miners": "Parece que no tienes combustible para enviar a tu billetera",
-	"nft_desc": "NFT + COLECCIONABLES"
+	"nft_desc": "NFT + COLECCIONABLES",
+	"adding_miner_failure_title": "¡Caramba!Algo salió mal.",
+	"adding_miner_failure_detail": "No funciona, por favor inténtalo de nuevo.",
+	"adding_miner_success_detail": "Su minero profesional m2 está trabajando en la minería",
+	"adding_miner_warning_title": "Nota: Esta máquina se utiliza una vez",
+	"adding_miner_warning_detail": "Las funciones de los antiguos mineros son diferentes de las de los nuevos mineros.Si no va a comprar mineros de segunda mano, por favor póngase en contacto con la persona que los vende.",
+	"fuel_tank": "Depósito de combustible",
+	"total_fueled_amount": "Volumen total de combustible"
 }

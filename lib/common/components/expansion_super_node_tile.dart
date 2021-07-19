@@ -4,6 +4,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 const Duration _kExpand = Duration(milliseconds: 200);
 
@@ -159,9 +161,9 @@ class _ExpansionSuperNodesTileState extends State<ExpansionSuperNodesTile>
                 trailing: widget.trailing ??
                     RotationTransition(
                       turns: _iconTurns,
-                      child: const Icon(
+                      child: Icon(
                         Icons.expand_more,
-                        color: Colors.black,
+                        color: ColorsTheme.of(context).textPrimaryAndIcons,
                       ),
                     ),
               ),

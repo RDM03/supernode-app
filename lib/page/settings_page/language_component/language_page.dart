@@ -5,9 +5,11 @@ import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
 import 'package:supernodeapp/configs/sys.dart';
+import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class LanguagePage extends StatelessWidget {
   void _rebuildAllChildren(BuildContext context) {
@@ -29,6 +31,7 @@ class LanguagePage extends StatelessWidget {
     await FlutterI18n.refresh(context, locale);
 
     context.read<SettingsCubit>().updateLanguage(language, locale);
+    context.read<HomeCubit>().updateTab();
 
     _rebuildAllChildren(context);
   }
@@ -51,7 +54,7 @@ class LanguagePage extends StatelessWidget {
             ),
             BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.language != b.language,
-                builder: (ctx, s) => _item(
+                builder: (ctx, s) => _item(context,
                     key: Key('autoDetect'),
                     name: 'Auto Detect',
                     type: AppLanguage.auto,
@@ -60,7 +63,7 @@ class LanguagePage extends StatelessWidget {
             Divider(),
             BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.language != b.language,
-                builder: (ctx, s) => _item(
+                builder: (ctx, s) => _item(context,
                     key: Key('en'),
                     name: 'English',
                     type: AppLanguage.en,
@@ -69,7 +72,7 @@ class LanguagePage extends StatelessWidget {
             Divider(),
             BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.language != b.language,
-                builder: (ctx, s) => _item(
+                builder: (ctx, s) => _item(context,
                     key: Key('zh_Hans'),
                     name: '简体中文',
                     type: AppLanguage.zh_Hans_CN,
@@ -79,7 +82,7 @@ class LanguagePage extends StatelessWidget {
             Divider(),
             BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.language != b.language,
-                builder: (ctx, s) => _item(
+                builder: (ctx, s) => _item(context,
                     name: '繁体中文',
                     type: AppLanguage.zh_Hant_TW,
                     value: s.language,
@@ -88,7 +91,7 @@ class LanguagePage extends StatelessWidget {
             Divider(),
             BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.language != b.language,
-                builder: (ctx, s) => _item(
+                builder: (ctx, s) => _item(context,
                     name: '한국어',
                     type: AppLanguage.ko,
                     value: s.language,
@@ -96,7 +99,7 @@ class LanguagePage extends StatelessWidget {
             Divider(),
             BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.language != b.language,
-                builder: (ctx, s) => _item(
+                builder: (ctx, s) => _item(context,
                     name: 'Türkçe',
                     type: AppLanguage.tr,
                     value: s.language,
@@ -104,7 +107,7 @@ class LanguagePage extends StatelessWidget {
             Divider(),
             BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.language != b.language,
-                builder: (ctx, s) => _item(
+                builder: (ctx, s) => _item(context,
                     name: 'Deutsch',
                     type: AppLanguage.de,
                     value: s.language,
@@ -112,7 +115,7 @@ class LanguagePage extends StatelessWidget {
             Divider(),
             BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.language != b.language,
-                builder: (ctx, s) => _item(
+                builder: (ctx, s) => _item(context,
                     name: '日本語',
                     type: AppLanguage.ja,
                     value: s.language,
@@ -120,7 +123,7 @@ class LanguagePage extends StatelessWidget {
             Divider(),
             BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.language != b.language,
-                builder: (ctx, s) => _item(
+                builder: (ctx, s) => _item(context,
                     name: 'Русский',
                     type: AppLanguage.ru,
                     value: s.language,
@@ -128,7 +131,7 @@ class LanguagePage extends StatelessWidget {
             Divider(),
             BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.language != b.language,
-                builder: (ctx, s) => _item(
+                builder: (ctx, s) => _item(context,
                     name: 'Español',
                     type: AppLanguage.es,
                     value: s.language,
@@ -136,7 +139,7 @@ class LanguagePage extends StatelessWidget {
             Divider(),
             BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.language != b.language,
-                builder: (ctx, s) => _item(
+                builder: (ctx, s) => _item(context,
                     name: 'Portugués',
                     type: AppLanguage.pt,
                     value: s.language,
@@ -144,7 +147,7 @@ class LanguagePage extends StatelessWidget {
             Divider(),
             BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.language != b.language,
-                builder: (ctx, s) => _item(
+                builder: (ctx, s) => _item(context,
                     name: 'Indonesio',
                     type: AppLanguage.id,
                     value: s.language,
@@ -152,34 +155,37 @@ class LanguagePage extends StatelessWidget {
             Divider(),
             BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.language != b.language,
-                builder: (ctx, s) => _item(
+                builder: (ctx, s) => _item(context,
                     name: 'Tagalog',
                     type: AppLanguage.tl,
                     value: s.language,
                     onTap: () => _updateLanguage(AppLanguage.tl, context))),
             Divider(),
             BlocBuilder<SettingsCubit, SettingsState>(
-                buildWhen: (a, b) => a.language != b.language,
-                builder: (ctx, s) => _item(
-                    name: 'Tiếng Việt',
-                    type: AppLanguage.vi,
-                    value: s.language,
-                    onTap: () => _updateLanguage(AppLanguage.vi, context))),
+              buildWhen: (a, b) => a.language != b.language,
+              builder: (ctx, s) => _item(
+                context,
+                name: 'Tiếng Việt',
+                type: AppLanguage.vi,
+                value: s.language,
+                onTap: () => _updateLanguage(AppLanguage.vi, context),
+              ),
+            ),
           ],
         ),
       ],
     );
   }
 
-  Widget _item(
+  Widget _item(BuildContext context,
       {Key key, String name = '', String type, String value, Function onTap}) {
     return listItem(name,
         key: key,
         trailing: Icon(
           Icons.done,
           color: (type == 'auto' && (value == null)) || type == value
-              ? selectedColor
-              : Colors.grey,
+              ? ColorsTheme.of(context).mxcBlue
+              : ColorsTheme.of(context).textLabel,
           size: 28,
         ),
         onTap: onTap);

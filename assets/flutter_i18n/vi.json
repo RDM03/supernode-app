@@ -646,5 +646,12 @@
 	"add_fuel_confirm": "Bạn sắp nạp nhiên liệu cho {0} MXC.",
 	"send_to_wallet_confirm": "Bạn sắp gửi mxc {0} vào ví của mình. Xin lưu ý: nếu bạn rút MXC khỏi bình nhiên liệu, hiệu quả khai thác của bạn sẽ giảm.",
 	"send_to_wallet_dont_have_miners": "Có vẻ như bạn không có bất kỳ nhiên liệu nào để gửi đến ví của mình",
-	"nft_desc": "NFT + ĐỒ SƯU TẦM"
+	"nft_desc": "NFT + ĐỒ SƯU TẦM",
+	"adding_miner_failure_title": "Ối!Có gì đó không ổn",
+	"adding_miner_failure_detail": "Việc này đã thành công rồi, xin hãy thử lại.",
+	"adding_miner_success_detail": "M.2 Pro Miner của các anh hiện đang khai mỏ",
+	"adding_miner_warning_title": "Ghi chú: Cái máy này đã dùng",
+	"adding_miner_warning_detail": "Những người thợ mỏ đã sử dụng hoạt động khác.Nếu bạn không định mua một thợ mỏ đã dùng, hãy liên hệ với người đã bán nó cho bạn.",
+	"fuel_tank": "Nhiên liệu",
+	"total_fueled_amount": "Nguồn gốc"
 }

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_state.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class DeviceListItem extends StatelessWidget {
   @override
@@ -11,7 +13,11 @@ class DeviceListItem extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 2),
       decoration: BoxDecoration(
         border: Border(
-            bottom: BorderSide(color: Color.fromARGB(26, 0, 0, 0), width: 1)),
+          bottom: BorderSide(
+            color: boxShadowColor,
+            width: 1,
+          ),
+        ),
       ),
       child: ListTile(
         onTap: () {
@@ -26,7 +32,7 @@ class DeviceListItem extends StatelessWidget {
                 children: <Widget>[
                   Icon(
                     Icons.lens,
-                    color: true ? Colors.green : Colors.grey,
+                    color: true ? Colors.green : greyColor,
                     size: 10,
                   ),
                   SizedBox(width: 5),
@@ -34,7 +40,7 @@ class DeviceListItem extends StatelessWidget {
                       true
                           ? '(${FlutterI18n.translate(context, 'online')})'
                           : '(${FlutterI18n.translate(context, 'offline')})',
-                      style: kSmallFontOfGrey),
+                      style: FontTheme.of(context).small.secondary()),
                 ],
               ),
               SizedBox(height: 4),
@@ -53,7 +59,7 @@ class DeviceListItem extends StatelessWidget {
                             'LPWAN watch',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: kBigFontOfBlack,
+                            style: FontTheme.of(context).big(),
                           ),
                         ),
                       ],
@@ -62,7 +68,7 @@ class DeviceListItem extends StatelessWidget {
                   SizedBox(width: 15),
                   Text(
                     FlutterI18n.translate(context, 'downlink_fee'),
-                    style: kBigFontOfGrey,
+                    style: FontTheme.of(context).big.secondary(),
                   ),
                 ],
               ),
@@ -74,19 +80,19 @@ class DeviceListItem extends StatelessWidget {
                       '${FlutterI18n.translate(context, 'last_seen')}: 2020-05-19 09:39:12',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: kSmallFontOfGrey,
+                      style: FontTheme.of(context).small.secondary(),
                     ),
                   ),
                   Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(51, 77, 137, 229),
+                      color: dbm115_120,
                       borderRadius: BorderRadius.all(Radius.circular(7)),
                     ),
                     child: Text(
                       '10 MXC',
-                      style: kBigFontOfBlack,
+                      style: FontTheme.of(context).big(),
                     ),
                   )
                 ],

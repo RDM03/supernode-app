@@ -5,6 +5,7 @@ import 'package:supernodeapp/common/components/device/description_item.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/action.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
 
@@ -39,7 +40,7 @@ Widget buildView(
               margin: EdgeInsets.only(left: 16),
               child: Text(
                 FlutterI18n.translate(_ctx, 'set_border'),
-                style: kMiddleFontOfDarkBlueLink,
+                style: FontTheme.of(_ctx).middle.mxc.underline(),
               ),
             ),
           ),
@@ -47,7 +48,7 @@ Widget buildView(
         DescriptionItem(
           title: FlutterI18n.translate(_ctx, 'alert_setting'),
           titleTrackWidget: Switch(
-            activeColor: dartBlueColor,
+            activeColor: ColorsTheme.of(_ctx).mxcBlue,
             value: true,
             onChanged: (value) {},
           ),

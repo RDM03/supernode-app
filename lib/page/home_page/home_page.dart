@@ -17,6 +17,7 @@ import 'package:supernodeapp/page/home_page/wallet/view.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'cubit.dart';
 import 'state.dart';
@@ -73,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               onGenerateInitialRoutes: (state, s) => [
-                route((ctx) => _HomePageContent()),
+                routeWidget(_HomePageContent()),
               ],
             ),
           ),
@@ -99,11 +100,12 @@ class _HomePageState extends State<HomePage> {
             ),
             BlocProvider(
               create: (ctx) => SettingsCubit(
+                language: ctx.read<AppCubit>().getLocale()?.languageCode ?? 'auto',
                 appCubit: ctx.read<AppCubit>(),
                 supernodeUserCubit: ctx.read<SupernodeUserCubit>(),
                 supernodeCubit: ctx.read<SupernodeCubit>(),
                 supernodeRepository: ctx.read<SupernodeRepository>(),
-              ),
+              )..initState(),
             ),
             BlocProvider(
               create: (ctx) => supernode.session == null
@@ -160,9 +162,9 @@ class _HomePageContent extends StatelessWidget {
         icon: Image.asset(
           AppImages.bottomBarMenus[text.toLowerCase()],
           color: () {
-            if (selected) return selectedColor;
-            if (disabled) return Colors.grey.shade200;
-            return unselectedColor;
+            if (selected) return ColorsTheme.of(ctx).mxcBlue;
+            if (disabled) return ColorsTheme.of(ctx).textLabel;
+            return ColorsTheme.of(ctx).textSecondary;
           }(),
           key: ValueKey('bottomNavBar_$text'),
         ),
@@ -177,25 +179,33 @@ class _HomePageContent extends StatelessWidget {
       body: BlocBuilder<HomeCubit, HomeState>(
         buildWhen: (a, b) => a.tabIndex != b.tabIndex,
         builder: (ctx, s) {
+          Widget tab;
           switch (s.tabIndex) {
             case HomeCubit.HOME_TAB:
-              return UserTab();
+              tab = UserTab();
+              break;
             case HomeCubit.WALLET_TAB:
-              return WalletTab();
+              tab = WalletTab();
+              break;
             case HomeCubit.MINER_TAB:
-              return GatewayTab();
+              tab = GatewayTab();
+              break;
             case HomeCubit.DEVICE_TAB:
-              return DeviceTab();
+              tab = DeviceTab();
+              break;
             default:
               throw UnimplementedError('Unknown tab ${s.tabIndex}');
           }
+          routeWidget(tab);
+          return tab;
         },
       ),
       bottomNavigationBar: Theme(
         data: ThemeData(
-          brightness: Brightness.light,
+          brightness: Theme.of(context).brightness,
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
+          bottomNavigationBarTheme: Theme.of(context).bottomNavigationBarTheme,
         ),
         child: BlocBuilder<HomeCubit, HomeState>(
           buildWhen: (a, b) =>
@@ -204,8 +214,6 @@ class _HomePageContent extends StatelessWidget {
               key: ValueKey('bottomNavBar'),
               type: BottomNavigationBarType.fixed,
               currentIndex: s.tabIndex,
-              selectedItemColor: selectedColor,
-              unselectedItemColor: unselectedColor,
               onTap: (i) {
                 if ((i == HomeCubit.MINER_TAB || i == HomeCubit.DEVICE_TAB) &&
                     !context.read<HomeCubit>().state.supernodeUsed) return;

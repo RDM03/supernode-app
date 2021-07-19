@@ -16,6 +16,7 @@ import 'package:supernodeapp/common/utils/time.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/mxc/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/mxc/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class TransactionHistoryContent extends StatefulWidget {
   @override
@@ -64,8 +65,12 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
             ...tempTopups,
           ];
 
-          if(isSetDate && isOnSearch) {
-            list = list.where((item) => DateTime.tryParse(firstTime).isBefore(item.timestamp) && DateTime.tryParse(secondTime).isAfter(item.timestamp)).toList();
+          if (isSetDate && isOnSearch) {
+            list = list
+                .where((item) =>
+                    DateTime.tryParse(firstTime).isBefore(item.timestamp) &&
+                    DateTime.tryParse(secondTime).isAfter(item.timestamp))
+                .toList();
 
             isOnSearch = false;
           }
@@ -94,8 +99,8 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
                     buttonTitle:
                         FlutterI18n.translate(context, 'deposit').toUpperCase(),
                     color: filter == TransactionHistoryFilter.deposit
-                        ? selectedTabColor
-                        : Colors.white,
+                        ? ColorsTheme.of(context).mxcBlue
+                        : ColorsTheme.of(context).secondaryBackground,
                     onTap: () {
                       if (filter == TransactionHistoryFilter.deposit)
                         setState(() => filter = null);
@@ -111,8 +116,8 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
                     buttonTitle: FlutterI18n.translate(context, 'withdraw')
                         .toUpperCase(),
                     color: filter == TransactionHistoryFilter.withdraw
-                        ? selectedTabColor
-                        : Colors.white,
+                        ? ColorsTheme.of(context).mxcBlue
+                        : ColorsTheme.of(context).secondaryBackground,
                     onTap: () {
                       if (filter == TransactionHistoryFilter.withdraw)
                         setState(() => filter = null);
@@ -126,7 +131,9 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
                     isSelected: isSetDate,
                     buttonTitle: FlutterI18n.translate(context, 'set_date')
                         .toUpperCase(),
-                    color: isSetDate ? selectedTabColor : Colors.white,
+                    color: isSetDate
+                        ? ColorsTheme.of(context).mxcBlue
+                        : ColorsTheme.of(context).secondaryBackground,
                     icon: Icons.date_range,
                     onTap: () {
                       setState(() => isSetDate = !isSetDate);
@@ -138,15 +145,16 @@ class _TransactionHistoryContentState extends State<TransactionHistoryContent> {
             if (isSetDate)
               Padding(
                 padding: EdgeInsets.only(top: 5),
-                child: dateButtons(
-                  context,
-                  firstTime: firstTime,
-                  secondTime: secondTime,
-                  thirdText: FlutterI18n.translate(context, 'search'),
-                  firstTimeOnTap: (date) => setState(() => firstTime = date),
-                  secondTimeOnTap: (date) => setState(() => secondTime = date),
-                  onSearch: () => setState(() {isOnSearch = true;})
-                ),
+                child: dateButtons(context,
+                    firstTime: firstTime,
+                    secondTime: secondTime,
+                    thirdText: FlutterI18n.translate(context, 'search'),
+                    firstTimeOnTap: (date) => setState(() => firstTime = date),
+                    secondTimeOnTap: (date) =>
+                        setState(() => secondTime = date),
+                    onSearch: () => setState(() {
+                          isOnSearch = true;
+                        })),
               ),
             SizedBox(height: 12),
             PanelFrame(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class ProfileRow extends StatelessWidget {
   final keyTitle;
@@ -33,24 +34,24 @@ class ProfileRow extends StatelessWidget {
       ),
       title: loading
           ? loadingFlash(
-              child: Text(name, style: kBigFontOfBlack),
+              child: Text(name, style: FontTheme.of(context).big()),
             )
           : Text(
               name,
               key: keyTitle,
-              style: kBigFontOfBlack,
+              style: FontTheme.of(context).big(),
             ),
       subtitle: loading
           ? loadingFlash(
               child: Text(
                 position,
-                style: kMiddleFontOfGrey,
+                style: FontTheme.of(context).middle.secondary(),
               ),
             )
           : Text(
               position,
               key: keySubtitle,
-              style: kMiddleFontOfGrey,
+              style: FontTheme.of(context).middle.secondary(),
             ),
       trailing: trailing,
       onTap: onTap,

@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/components/page/paragraph.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../action.dart';
 import 'state.dart';
@@ -19,9 +20,10 @@ Widget buildView(
   print(state.secret);
   return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: cardBackgroundColor,
+      backgroundColor: ColorsTheme.of(_ctx).secondaryBackground,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme:
+            IconThemeData(color: ColorsTheme.of(_ctx).textPrimaryAndIcons),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -83,7 +85,7 @@ Widget buildView(
                               child: SelectableText(
                             state.secret,
                             textAlign: TextAlign.center,
-                            style: kMiddleFontOfGrey,
+                            style: FontTheme.of(_ctx).middle.secondary(),
                           )),
                         ],
                       ),

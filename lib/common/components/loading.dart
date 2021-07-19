@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class Loading {
   bool _enabled = true;
@@ -24,18 +25,20 @@ class Loading {
 }
 
 Widget loadingView() {
-  return Container(
-    alignment: Alignment.center,
-    child: Container(
-      width: 100,
-      height: 100,
+  return Builder(
+    builder: (context) => Container(
       alignment: Alignment.center,
-      child: SizedBox(
-        width: 50.0,
-        height: 50.0,
-        child: SpinKitPulse(
-          color: buttonPrimaryColor,
-          size: 50.0,
+      child: Container(
+        width: 100,
+        height: 100,
+        alignment: Alignment.center,
+        child: SizedBox(
+          width: 50.0,
+          height: 50.0,
+          child: SpinKitPulse(
+            color: ColorsTheme.of(context).mxcBlue,
+            size: 50.0,
+          ),
         ),
       ),
     ),

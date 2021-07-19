@@ -110,7 +110,7 @@ class FeedbackWidgetState<T> extends State<FeedbackWidget<T>>
       animation: _controller,
       builder: (context, child) {
         return Container(
-          color: widget.backgroundColor ?? Colors.grey,
+          color: widget.backgroundColor,
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[

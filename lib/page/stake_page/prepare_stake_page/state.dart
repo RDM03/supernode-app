@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/theme/colors.dart';
 
 class PrepareStakeState implements Cloneable<PrepareStakeState> {
   GlobalKey<FormState> formKey = GlobalKey();
@@ -48,7 +49,7 @@ PrepareStakeState initState(Map<String, dynamic> args) {
   double balance = args['balance'] ?? 0;
   int months = args['months'];
   double revenueRate = args['revenueRate'];
-  Color iconColor = args['iconColor'] ?? Color(0xFF1C1478);
+  Color iconColor = args['iconColor'];
   String stakeName = args['stakeName'];
   double rateFlex = args['rateFlex'] ?? 0;
   int marketingBoost = args['marketingBoost'] ?? 1;

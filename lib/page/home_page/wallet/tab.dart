@@ -8,7 +8,7 @@ import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
 import 'package:supernodeapp/page/home_page/wallet/expanded_view.dart';
 import 'package:supernodeapp/page/home_page/wallet/token_card.dart';
-import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../shared.dart';
 
@@ -24,14 +24,16 @@ class _WalletTabState extends State<WalletTab> {
       builder: (ctx, state) => Scaffold(
         appBar: state.walletSelectedToken == null
             ? homeBar(
+                context,
                 FlutterI18n.translate(context, 'wallet'),
                 onPressed: () => openSettings(context),
               )
             : homeBar(
+                context,
                 null,
                 title: Text(
-                  state.walletSelectedToken.fullName,
-                  style: kBigFontOfBlack,
+                  state.walletSelectedToken.ui(context).fullName,
+                  style: FontTheme.of(context).big(),
                 ),
                 onPressed: () => openSettings(context),
               ),

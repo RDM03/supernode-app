@@ -16,6 +16,7 @@ import 'package:supernodeapp/page/login_page/supernode_login_page/cubit.dart';
 import 'package:supernodeapp/page/login_page/supernode_login_page/state.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class RegistrationPage extends StatefulWidget {
   @override
@@ -53,7 +54,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget build(BuildContext context) {
     return ScaffoldWidget(
       appBar: AppBars.backArrowAppBar(
-        color: Colors.white,
+        context,
+        color: ColorsTheme.of(context).secondaryBackground,
         title: FlutterI18n.translate(context, 'create_account'),
         onPress: () => Navigator.of(context).pop(),
       ),
@@ -148,7 +150,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             SizedBox(height: 30.0),
             CheckboxLabelWidget(
               value: isCheckTerms,
-              child: link(FlutterI18n.translate(context, 'agree_conditions'),
+              child: Link(FlutterI18n.translate(context, 'agree_conditions'),
                   onTap: () => Tools.launchURL(Sys.agreePolicy),
                   alignment: Alignment.centerLeft),
               onChanged: (_) => setState(() {
@@ -157,7 +159,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
             CheckboxLabelWidget(
               value: isCheckPrivacy,
-              child: link(FlutterI18n.translate(context, 'read_privacy_policy'),
+              child: Link(FlutterI18n.translate(context, 'read_privacy_policy'),
                   onTap: () => Tools.launchURL(Sys.privacyPolicy),
                   alignment: Alignment.centerLeft),
               onChanged: (_) => setState(() {
@@ -192,7 +194,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               }
             : null,
       ),
-      backgroundColor: cardBackgroundColor,
+      backgroundColor: ColorsTheme.of(context).secondaryBackground,
     );
   }
 }
