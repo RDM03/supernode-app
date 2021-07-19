@@ -8,7 +8,7 @@ set -x
 
 echo $APPCENTER_OUTPUT_DIRECTORY
 
-if [ "$APPCENTER_BRANCH" == "master" ] && [ "$AGENT_JOBSTATUS" == "Succeeded" ]; then
+if [ "$APPCENTER_BRANCH" == "release_china" ] && [ "$AGENT_JOBSTATUS" == "Succeeded" ]; then
     FILEPATH=$APPCENTER_OUTPUT_DIRECTORY/${OBJECT_NAME}
     RESOURCE="/${OSS_BUCKET_NAME}/${OBJECT_NAME}"
     CONTENT_MD5=$(openssl dgst -md5 -binary "${FILEPATH}" | openssl enc -base64)
