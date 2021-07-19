@@ -1,6 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/miner.model.dart';
 import 'package:supernodeapp/common/repositories/supernode_repository.dart';
@@ -17,6 +15,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     this.weekLabels,
     this.monthsAbbLabels,
     this.monthsLabels,
+    this.dayLocalized,
   ) : super(MinerStatsState());
 
   final AppCubit appCubit;
@@ -25,6 +24,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
   final Map<int, String> weekLabels;
   final Map<int, String> monthsAbbLabels;
   final Map<int, String> monthsLabels;
+  final String dayLocalized;
 
   String getMD(DateTime date) {
     return '${monthsLabels[date.month]} ${date.day}';
@@ -34,34 +34,65 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     return '${monthsLabels[date.month]} ${date.day} ${date.year}';
   }
 
-  void tabTime(String time) {
-    MinerStatsTime selectedTime = MinerStatsTime.week;
+  void setTabTimePeriod(String time) {
+    MinerStatsTimePeriod selectedTimePeriod = MinerStatsTimePeriod.week;
 
     if (time == 'week') {
-      selectedTime = MinerStatsTime.week;
+      selectedTimePeriod = MinerStatsTimePeriod.week;
     } else if (time == 'month') {
-      selectedTime = MinerStatsTime.month;
+      selectedTimePeriod = MinerStatsTimePeriod.month;
     } else {
-      selectedTime = MinerStatsTime.year;
+      selectedTimePeriod = MinerStatsTimePeriod.year;
     }
 
-    emit(state.copyWith(selectedTime: selectedTime));
-    emit(state.copyWith(scrollFirstIndex: 0));
-    emit(state.copyWith(originList: []));
-    emit(state.copyWith(originMonthlyList: []));
-    emit(state.copyWith(originYearlyList: []));
+    emit(state.copyWith(
+        selectedTimePeriod: selectedTimePeriod,
+        showLoading: true,
+        currentIndex: -1,
+        originMonthlyList: [],
+        originYearlyList: []));
+
+    generateChartData(state.selectedType, selectedTimePeriod, state.originList);//TODO re-do params - no params - all from state
+    emit(state.copyWith(showLoading: false));
   }
 
   void setSelectedType(MinerStatsType type) {
     emit(state.copyWith(selectedType: type));
   }
 
-  int getNumBar() {
-    MinerStatsTime time = state.selectedTime;
+  void setChartStats(int index) {
+    if (index != state.currentIndex) {
+      emit(state.copyWith(
+          currentIndex: index,
+          upperLabel: '${getParsedUpperLabel(
+              index + getNumBar())} - ${getParsedUpperLabel(index)}',
+          statsLabel: getStatsSubtitle(index)));
+    }
+  }
 
-    if (time == MinerStatsTime.week) {
+  String getParsedUpperLabel(int index) {
+    MinerStatsTimePeriod time = state.selectedTimePeriod;
+    List<MinerStatsEntity> newData = getDataByTimePeriod();
+
+    if (index < 0 || index >= newData.length) return '';
+
+    if (newData.isEmpty) return '';
+
+    if (time == MinerStatsTimePeriod.week) {
+      return getMD(newData[index].date);
+    } else if (time == MinerStatsTimePeriod.month) {
+      return getMD(newData[index].date);
+    } else {
+      return getMDY(newData[index].date);
+    }
+  }
+
+  int getNumBar() {
+    MinerStatsTimePeriod time = state.selectedTimePeriod;
+
+    if (time == MinerStatsTimePeriod.week) {
       return 7;
-    } else if (time == MinerStatsTime.month) {
+    } else if (time == MinerStatsTimePeriod.month) {
       return 5;
     } else {
       return 12;
@@ -85,20 +116,6 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     return label;
   }
 
-  List<MinerStatsEntity> getStatsData() {
-    List<MinerStatsEntity> list = getOriginTypeList();
-
-    if (list.isEmpty) return [];
-
-    int lastIndex = state.scrollFirstIndex + getNumBar();
-
-    if (lastIndex < list.length) {
-      return list.sublist(state.scrollFirstIndex, lastIndex);
-    } else {
-      return list.sublist(list.length - 10, list.length);
-    }
-  }
-
   String getStatsTitle() {
     List titles = [];
     MinerStatsType type = state.selectedType;
@@ -111,30 +128,30 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       titles = ['weekly_packet', 'monthly_packet', 'yearly_packet'];
     }
 
-    return titles[state.selectedTime?.index ?? 0];
+    return titles[state.selectedTimePeriod?.index ?? 0];
   }
 
-  String getStatsSubitle(BuildContext context) {
+  String getStatsSubtitle(int index) {
     MinerStatsType type = state.selectedType;
 
     if (type == MinerStatsType.uptime) {
-      return '${getUptimeWeekScore()} h';
+      return '${getUptimeWeekScore(index)} h';
     } else if (type == MinerStatsType.revenue) {
-      return '${countTotal().toStringAsFixed(0)} MXC ${getRevenueWeekScore(context)}';
+      return '${countTotal(index).toStringAsFixed(0)} MXC $dayLocalized';
     } else if (type == MinerStatsType.frameReceived) {
-      return '${countTotal().toStringAsFixed(0)}';
+      return '${countTotal(index).toStringAsFixed(0)}';
     } else {
-      return '${countTotal().toStringAsFixed(0)}';
+      return '${countTotal(index).toStringAsFixed(0)}';
     }
   }
 
-  String getUptimeWeekScore() {
-    MinerStatsTime time = state.selectedTime;
+  String getUptimeWeekScore(int index) {
+    MinerStatsTimePeriod time = state.selectedTimePeriod;
 
-    if (time == MinerStatsTime.week) {
+    if (time == MinerStatsTimePeriod.week) {
       if (state.originList.isEmpty) return '0';
 
-      List<MinerStatsEntity> newData = getStatsData();
+      List<MinerStatsEntity> newData = getDataByTimePeriod().sublist(index, index + getNumBar());
 
       DateTime today = DateTime.now();
       double totalWeekScore = 24.0 * 3600 * newData.length;
@@ -156,27 +173,17 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
           totalWeekScore *
           100;
 
-      return '(${totalScore.toStringAsFixed(0)}%) ${countTotal().toStringAsFixed(0)}';
+      return '(${totalScore.toStringAsFixed(0)}%) ${countTotal(index).toStringAsFixed(0)}';
     }
 
-    return '${countTotal().toStringAsFixed(0)}';
+    return '${countTotal(index).toStringAsFixed(0)}';
   }
 
-  String getRevenueWeekScore(BuildContext context) {
-    MinerStatsTime time = state.selectedTime;
-
-    if (time == MinerStatsTime.week) {
-      return '(${(countTotal() / getStatsData().length).toStringAsFixed(0)}/${FlutterI18n.translate(context, "day")})';
-    }
-
-    return '';
-  }
-
-  double countTotal() {
+  double countTotal(int index) {
     double total = 0;
     MinerStatsType type = state.selectedType;
 
-    List<MinerStatsEntity> newData = getStatsData();
+    List<MinerStatsEntity> newData = getDataByTimePeriod().sublist(index, index + getNumBar());
 
     if (type == MinerStatsType.uptime) {
       total = newData.fold(
@@ -196,106 +203,45 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     return total;
   }
 
-  void setScrollFirstIndex(int index) {
-    emit(state.copyWith(scrollFirstIndex: index));
-  }
-
-  String getStartTimeLabel() {
-    MinerStatsTime time = state.selectedTime;
-    List<MinerStatsEntity> newData = getStatsData();
-
-    if (newData.isEmpty) return '';
-
-    if (time == MinerStatsTime.week) {
-      return getMD(newData.last.date);
-    } else if (time == MinerStatsTime.month) {
-      return getMD(newData.last.date);
-    } else {
-      return getMDY(newData.last.date);
-    }
-  }
-
-  String getEndTimeLabel() {
-    MinerStatsTime time = state.selectedTime;
-    List<MinerStatsEntity> newData = getStatsData();
-
-    if (newData.isEmpty) return '';
-
-    if (time == MinerStatsTime.week) {
-      return getMD(newData.first.date);
-    } else if (time == MinerStatsTime.month) {
-      return getMD(newData.first.date);
-    } else {
-      return getMDY(newData.first.date);
-    }
-  }
-
   Future<void> dispatchData(
       {MinerStatsType type = MinerStatsType.uptime,
-      MinerStatsTime time = MinerStatsTime.week,
+      MinerStatsTimePeriod timePeriod = MinerStatsTimePeriod.week,
       DateTime startTime,
       String minerId}) async {
     switch (type) {
       case MinerStatsType.uptime:
       case MinerStatsType.revenue:
-        getStatsMinerData(type, time, startTime, minerId);
+        getStatsMinerData(type, timePeriod, startTime, minerId);
         break;
       case MinerStatsType.frameReceived:
       case MinerStatsType.frameTransmitted:
-        getStatsFrameData(type, time, startTime, minerId);
+        getStatsFrameData(type, timePeriod, minerId);
         break;
       default:
         break;
     }
   }
 
-  DateTime getStartTime(MinerStatsTime time, DateTime startTime) {
-    if (time == MinerStatsTime.week) {
-      return startTime?.add(Duration(days: -12)) ??
-          DateTime.now().add(Duration(days: -12));
-    } else if (time == MinerStatsTime.month) {
-      return startTime?.add(Duration(days: -60)) ??
-          DateTime.now().add(Duration(days: -60));
-    } else {
-      return startTime?.add(Duration(days: -(365 * 2))) ??
-          DateTime.now().add(Duration(days: -(365 * 2)));
-    }
-  }
-
-  DateTime getEndTime(MinerStatsTime time, DateTime endTime) {
-    if (time == MinerStatsTime.week) {
-      endTime = endTime?.add(Duration(days: -1)) ?? DateTime.now();
-    } else if (time == MinerStatsTime.month) {
-      endTime = endTime?.add(Duration(days: -30)) ?? DateTime.now();
-    } else {
-      endTime = endTime?.add(Duration(days: -365)) ?? DateTime.now();
-    }
-
-    return endTime;
-  }
-
-  Future<void> getStatsMinerData(MinerStatsType type, MinerStatsTime time,
+  Future<void> getStatsMinerData(MinerStatsType type, MinerStatsTimePeriod timePeriod,
       DateTime startTime, String minerId) async {
-    await getSourceMinerData(
+    List<MinerStatsEntity> listRawStats = await getSourceMinerData(
       gatewayMac: minerId,
-      orgId: supernodeCubit.state.orgId,
-      startTime: getStartTime(time, startTime),
-      endTime: getEndTime(time, startTime),
-      successCB: (result) {
-        generateChartData(type, time, result);
-      },
-    );
+      orgId: supernodeCubit.state.orgId);
+
+    listRawStats = appendAndSortOriginList(state.originList, listRawStats);
+    emit(state.copyWith(originList: listRawStats));
+
+    generateChartData(type, timePeriod, listRawStats);
   }
 
-  Future<void> getStatsFrameData(MinerStatsType type, MinerStatsTime time,
-      DateTime startTime, String minerId) async {
+  Future<void> getStatsFrameData(
+      MinerStatsType type,
+      MinerStatsTimePeriod timePeriod,
+      String minerId) async {
     await getSourceFrameData(
       gatewayId: minerId,
-      interval: 'DAY',
-      startTime: getStartTime(time, startTime),
-      endTime: getEndTime(time, startTime),
       successCB: (result) {
-        generateChartData(type, time, result);
+        generateChartData(type, timePeriod, result);
       },
     );
   }
@@ -318,70 +264,61 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     return dates;
   }
 
-  Future<void> getSourceMinerData({
+  Future<List<MinerStatsEntity>> getSourceMinerData({
     String gatewayMac,
     String orgId,
-    DateTime startTime,
-    DateTime endTime,
-    Function successCB,
   }) async {
-    List<MinerStatsEntity> entities = generateMinerEntities(startTime, endTime);
-
     try {
+      final DateTime now = DateTime.now().toUtc();
+      final DateTime today = DateTime.utc(now.year, now.month, now.day);
+      final DateTime before3years = DateTime.utc(now.year - 3, now.month, now.day);
+
+      List<MinerStatsEntity> entities = generateMinerEntities(before3years, today);
+
       var result = await supernodeRepository.wallet.miningIncomeGateway(
         gatewayMac: gatewayMac,
         orgId: orgId,
-        fromDate: DateTime.utc(startTime.year, startTime.month, startTime.day),
-        tillDate: DateTime.utc(endTime.year, endTime.month, endTime.day),
+        fromDate: before3years,
+        tillDate: today,
       );
 
-      if (successCB != null) {
-        if (double.tryParse(result.total) > 0) {
-          entities = entities.map((entity) {
-            result.dailyStats.forEach((item) {
-              var currentEntity = MinerStatsEntity(
-                date: item.date,
-                health: item.health,
-                received: 0,
-                transmitted: 0,
-                revenue: double.tryParse(item.amount ?? '0'),
-                uptime: item.onlineSeconds.toDouble(),
-              );
+      if (double.tryParse(result.total) > 0) {
+        entities = entities.map((entity) {
+          result.dailyStats.forEach((item) {
+            var currentEntity = MinerStatsEntity(
+              date: item.date,
+              health: item.health,
+              received: 0,
+              transmitted: 0,
+              revenue: double.tryParse(item.amount ?? '0'),
+              uptime: item.onlineSeconds.toDouble(),
+            );
 
-              if (currentEntity.date.year == entity.date.year &&
-                  currentEntity.date.month == entity.date.month &&
-                  currentEntity.date.day == entity.date.day) {
-                entity = currentEntity;
-                return;
-              }
-            });
+            if (currentEntity.date.year == entity.date.year &&
+                currentEntity.date.month == entity.date.month &&
+                currentEntity.date.day == entity.date.day) {
+              entity = currentEntity;
+              return;
+            }
+          });
 
-            return entity;
-          }).toList();
-        }
-        successCB(entities);
+          return entity;
+        }).toList();
       }
+      return entities;
     } catch (err) {
       appCubit.setError(err.toString());
     }
   }
 
-  Future<void> getSourceFrameData({
-    DateTime startTime,
-    DateTime endTime,
-    Function successCB,
-    String gatewayId,
-    String interval,
-  }) async {
-    List<MinerStatsEntity> entities = generateMinerEntities(startTime, endTime);
+  Future<void> getSourceFrameData({Function successCB, String gatewayId}) async {
+    final DateTime now = DateTime.now().toUtc();
+    final DateTime today = DateTime.utc(now.year, now.month, now.day);
+    final DateTime before3years = DateTime.utc(now.year - 3, now.month, now.day);
+    List<MinerStatsEntity> entities = generateMinerEntities(before3years, today);
 
     try {
-      var result = await supernodeRepository.gateways.frames(
-        gatewayId,
-        interval: interval,
-        startTimestamp: startTime,
-        endTimestamp: endTime,
-      );
+      var result = await supernodeRepository.gateways.frames(gatewayId);
 
       if (successCB != null) {
         if (result.length > 0) {
@@ -459,11 +396,11 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     return yLabel;
   }
 
-  List<MinerStatsEntity> getOriginTypeList() {
-    MinerStatsTime time = state.selectedTime;
-    if (time == MinerStatsTime.week) {
+  List<MinerStatsEntity> getDataByTimePeriod() {
+    MinerStatsTimePeriod timePeriod = state.selectedTimePeriod;
+    if (timePeriod == MinerStatsTimePeriod.week) {
       return state.originList;
-    } else if (time == MinerStatsTime.month) {
+    } else if (timePeriod == MinerStatsTimePeriod.month) {
       return state.originMonthlyList;
     } else {
       return state.originYearlyList;
@@ -483,17 +420,14 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
   }
 
   void generateChartData(
-      MinerStatsType type, MinerStatsTime time, List<MinerStatsEntity> data) {
+      MinerStatsType type, MinerStatsTimePeriod timePeriod, List<MinerStatsEntity> data) {
     double maxValue = 0;
     List<double> xData = [];
     List<String> xLabel = [];
     List<String> yLabel = [];
     List<MinerStatsEntity> newData = [];
 
-    data = appendAndSortOriginList(state.originList, data);
-    emit(state.copyWith(originList: data));
-
-    if (time == MinerStatsTime.week) {
+    if (timePeriod == MinerStatsTimePeriod.week) {
       maxValue = maxData(type, state.originList);
 
       data.forEach((item) {
@@ -514,7 +448,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
           xLabel.add(weekLabels[item.date.weekday]);
         }
       });
-    } else if (time == MinerStatsTime.month) {
+    } else if (timePeriod == MinerStatsTimePeriod.month) {
       data.forEach((item) {
         bool hasResult = newData.any((hasItem) =>
             hasItem.date.weekday != DateTime.sunday ||
@@ -624,6 +558,8 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     emit(state.copyWith(xDataList: xData));
     emit(state.copyWith(xLabelList: xLabel));
     emit(state.copyWith(yLabelList: getYLabel(maxValue)));
+
+    setChartStats(0);//TODO Check
   }
 
   double maxData(MinerStatsType type, List<MinerStatsEntity> data) {

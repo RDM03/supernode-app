@@ -22,10 +22,12 @@ class _$MinerStatsStateTearOff {
       List<String> xLabelList = const [],
       List<int> yLabelList = const [],
       bool showLoading = false,
-      MinerStatsTime selectedTime = MinerStatsTime.week,
+      MinerStatsTimePeriod selectedTimePeriod = MinerStatsTimePeriod.week,
       MinerStatsType selectedType = MinerStatsType.uptime,
       double uptimeWeekScore = 0,
-      int scrollFirstIndex = 0,
+      int currentIndex = -1,
+      String upperLabel = '',
+      String statsLabel = '',
       String error}) {
     return _MinerStatsState(
       originList: originList,
@@ -35,10 +37,12 @@ class _$MinerStatsStateTearOff {
       xLabelList: xLabelList,
       yLabelList: yLabelList,
       showLoading: showLoading,
-      selectedTime: selectedTime,
+      selectedTimePeriod: selectedTimePeriod,
       selectedType: selectedType,
       uptimeWeekScore: uptimeWeekScore,
-      scrollFirstIndex: scrollFirstIndex,
+      currentIndex: currentIndex,
+      upperLabel: upperLabel,
+      statsLabel: statsLabel,
       error: error,
     );
   }
@@ -57,10 +61,12 @@ mixin _$MinerStatsState {
   List<String> get xLabelList;
   List<int> get yLabelList;
   bool get showLoading;
-  MinerStatsTime get selectedTime;
+  MinerStatsTimePeriod get selectedTimePeriod;
   MinerStatsType get selectedType;
   double get uptimeWeekScore;
-  int get scrollFirstIndex;
+  int get currentIndex;
+  String get upperLabel;
+  String get statsLabel;
   String get error;
 
   @JsonKey(ignore: true)
@@ -80,10 +86,12 @@ abstract class $MinerStatsStateCopyWith<$Res> {
       List<String> xLabelList,
       List<int> yLabelList,
       bool showLoading,
-      MinerStatsTime selectedTime,
+      MinerStatsTimePeriod selectedTimePeriod,
       MinerStatsType selectedType,
       double uptimeWeekScore,
-      int scrollFirstIndex,
+      int currentIndex,
+      String upperLabel,
+      String statsLabel,
       String error});
 }
 
@@ -105,10 +113,12 @@ class _$MinerStatsStateCopyWithImpl<$Res>
     Object xLabelList = freezed,
     Object yLabelList = freezed,
     Object showLoading = freezed,
-    Object selectedTime = freezed,
+    Object selectedTimePeriod = freezed,
     Object selectedType = freezed,
     Object uptimeWeekScore = freezed,
-    Object scrollFirstIndex = freezed,
+    Object currentIndex = freezed,
+    Object upperLabel = freezed,
+    Object statsLabel = freezed,
     Object error = freezed,
   }) {
     return _then(_value.copyWith(
@@ -130,18 +140,21 @@ class _$MinerStatsStateCopyWithImpl<$Res>
           yLabelList == freezed ? _value.yLabelList : yLabelList as List<int>,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
-      selectedTime: selectedTime == freezed
-          ? _value.selectedTime
-          : selectedTime as MinerStatsTime,
+      selectedTimePeriod: selectedTimePeriod == freezed
+          ? _value.selectedTimePeriod
+          : selectedTimePeriod as MinerStatsTimePeriod,
       selectedType: selectedType == freezed
           ? _value.selectedType
           : selectedType as MinerStatsType,
       uptimeWeekScore: uptimeWeekScore == freezed
           ? _value.uptimeWeekScore
           : uptimeWeekScore as double,
-      scrollFirstIndex: scrollFirstIndex == freezed
-          ? _value.scrollFirstIndex
-          : scrollFirstIndex as int,
+      currentIndex:
+          currentIndex == freezed ? _value.currentIndex : currentIndex as int,
+      upperLabel:
+          upperLabel == freezed ? _value.upperLabel : upperLabel as String,
+      statsLabel:
+          statsLabel == freezed ? _value.statsLabel : statsLabel as String,
       error: error == freezed ? _value.error : error as String,
     ));
   }
@@ -162,10 +175,12 @@ abstract class _$MinerStatsStateCopyWith<$Res>
       List<String> xLabelList,
       List<int> yLabelList,
       bool showLoading,
-      MinerStatsTime selectedTime,
+      MinerStatsTimePeriod selectedTimePeriod,
       MinerStatsType selectedType,
       double uptimeWeekScore,
-      int scrollFirstIndex,
+      int currentIndex,
+      String upperLabel,
+      String statsLabel,
       String error});
 }
 
@@ -189,10 +204,12 @@ class __$MinerStatsStateCopyWithImpl<$Res>
     Object xLabelList = freezed,
     Object yLabelList = freezed,
     Object showLoading = freezed,
-    Object selectedTime = freezed,
+    Object selectedTimePeriod = freezed,
     Object selectedType = freezed,
     Object uptimeWeekScore = freezed,
-    Object scrollFirstIndex = freezed,
+    Object currentIndex = freezed,
+    Object upperLabel = freezed,
+    Object statsLabel = freezed,
     Object error = freezed,
   }) {
     return _then(_MinerStatsState(
@@ -214,18 +231,21 @@ class __$MinerStatsStateCopyWithImpl<$Res>
           yLabelList == freezed ? _value.yLabelList : yLabelList as List<int>,
       showLoading:
           showLoading == freezed ? _value.showLoading : showLoading as bool,
-      selectedTime: selectedTime == freezed
-          ? _value.selectedTime
-          : selectedTime as MinerStatsTime,
+      selectedTimePeriod: selectedTimePeriod == freezed
+          ? _value.selectedTimePeriod
+          : selectedTimePeriod as MinerStatsTimePeriod,
       selectedType: selectedType == freezed
           ? _value.selectedType
           : selectedType as MinerStatsType,
       uptimeWeekScore: uptimeWeekScore == freezed
           ? _value.uptimeWeekScore
           : uptimeWeekScore as double,
-      scrollFirstIndex: scrollFirstIndex == freezed
-          ? _value.scrollFirstIndex
-          : scrollFirstIndex as int,
+      currentIndex:
+          currentIndex == freezed ? _value.currentIndex : currentIndex as int,
+      upperLabel:
+          upperLabel == freezed ? _value.upperLabel : upperLabel as String,
+      statsLabel:
+          statsLabel == freezed ? _value.statsLabel : statsLabel as String,
       error: error == freezed ? _value.error : error as String,
     ));
   }
@@ -241,10 +261,12 @@ class _$_MinerStatsState implements _MinerStatsState {
       this.xLabelList = const [],
       this.yLabelList = const [],
       this.showLoading = false,
-      this.selectedTime = MinerStatsTime.week,
+      this.selectedTimePeriod = MinerStatsTimePeriod.week,
       this.selectedType = MinerStatsType.uptime,
       this.uptimeWeekScore = 0,
-      this.scrollFirstIndex = 0,
+      this.currentIndex = -1,
+      this.upperLabel = '',
+      this.statsLabel = '',
       this.error})
       : assert(originList != null),
         assert(originMonthlyList != null),
@@ -253,10 +275,12 @@ class _$_MinerStatsState implements _MinerStatsState {
         assert(xLabelList != null),
         assert(yLabelList != null),
         assert(showLoading != null),
-        assert(selectedTime != null),
+        assert(selectedTimePeriod != null),
         assert(selectedType != null),
         assert(uptimeWeekScore != null),
-        assert(scrollFirstIndex != null);
+        assert(currentIndex != null),
+        assert(upperLabel != null),
+        assert(statsLabel != null);
 
   @JsonKey(defaultValue: const [])
   @override
@@ -279,24 +303,30 @@ class _$_MinerStatsState implements _MinerStatsState {
   @JsonKey(defaultValue: false)
   @override
   final bool showLoading;
-  @JsonKey(defaultValue: MinerStatsTime.week)
+  @JsonKey(defaultValue: MinerStatsTimePeriod.week)
   @override
-  final MinerStatsTime selectedTime;
+  final MinerStatsTimePeriod selectedTimePeriod;
   @JsonKey(defaultValue: MinerStatsType.uptime)
   @override
   final MinerStatsType selectedType;
   @JsonKey(defaultValue: 0)
   @override
   final double uptimeWeekScore;
-  @JsonKey(defaultValue: 0)
+  @JsonKey(defaultValue: -1)
   @override
-  final int scrollFirstIndex;
+  final int currentIndex;
+  @JsonKey(defaultValue: '')
+  @override
+  final String upperLabel;
+  @JsonKey(defaultValue: '')
+  @override
+  final String statsLabel;
   @override
   final String error;
 
   @override
   String toString() {
-    return 'MinerStatsState(originList: $originList, originMonthlyList: $originMonthlyList, originYearlyList: $originYearlyList, xDataList: $xDataList, xLabelList: $xLabelList, yLabelList: $yLabelList, showLoading: $showLoading, selectedTime: $selectedTime, selectedType: $selectedType, uptimeWeekScore: $uptimeWeekScore, scrollFirstIndex: $scrollFirstIndex, error: $error)';
+    return 'MinerStatsState(originList: $originList, originMonthlyList: $originMonthlyList, originYearlyList: $originYearlyList, xDataList: $xDataList, xLabelList: $xLabelList, yLabelList: $yLabelList, showLoading: $showLoading, selectedTimePeriod: $selectedTimePeriod, selectedType: $selectedType, uptimeWeekScore: $uptimeWeekScore, currentIndex: $currentIndex, upperLabel: $upperLabel, statsLabel: $statsLabel, error: $error)';
   }
 
   @override
@@ -324,18 +354,24 @@ class _$_MinerStatsState implements _MinerStatsState {
             (identical(other.showLoading, showLoading) ||
                 const DeepCollectionEquality()
                     .equals(other.showLoading, showLoading)) &&
-            (identical(other.selectedTime, selectedTime) ||
+            (identical(other.selectedTimePeriod, selectedTimePeriod) ||
                 const DeepCollectionEquality()
-                    .equals(other.selectedTime, selectedTime)) &&
+                    .equals(other.selectedTimePeriod, selectedTimePeriod)) &&
             (identical(other.selectedType, selectedType) ||
                 const DeepCollectionEquality()
                     .equals(other.selectedType, selectedType)) &&
             (identical(other.uptimeWeekScore, uptimeWeekScore) ||
                 const DeepCollectionEquality()
                     .equals(other.uptimeWeekScore, uptimeWeekScore)) &&
-            (identical(other.scrollFirstIndex, scrollFirstIndex) ||
+            (identical(other.currentIndex, currentIndex) ||
                 const DeepCollectionEquality()
-                    .equals(other.scrollFirstIndex, scrollFirstIndex)) &&
+                    .equals(other.currentIndex, currentIndex)) &&
+            (identical(other.upperLabel, upperLabel) ||
+                const DeepCollectionEquality()
+                    .equals(other.upperLabel, upperLabel)) &&
+            (identical(other.statsLabel, statsLabel) ||
+                const DeepCollectionEquality()
+                    .equals(other.statsLabel, statsLabel)) &&
             (identical(other.error, error) ||
                 const DeepCollectionEquality().equals(other.error, error)));
   }
@@ -350,10 +386,12 @@ class _$_MinerStatsState implements _MinerStatsState {
       const DeepCollectionEquality().hash(xLabelList) ^
       const DeepCollectionEquality().hash(yLabelList) ^
       const DeepCollectionEquality().hash(showLoading) ^
-      const DeepCollectionEquality().hash(selectedTime) ^
+      const DeepCollectionEquality().hash(selectedTimePeriod) ^
       const DeepCollectionEquality().hash(selectedType) ^
       const DeepCollectionEquality().hash(uptimeWeekScore) ^
-      const DeepCollectionEquality().hash(scrollFirstIndex) ^
+      const DeepCollectionEquality().hash(currentIndex) ^
+      const DeepCollectionEquality().hash(upperLabel) ^
+      const DeepCollectionEquality().hash(statsLabel) ^
       const DeepCollectionEquality().hash(error);
 
   @JsonKey(ignore: true)
@@ -371,10 +409,12 @@ abstract class _MinerStatsState implements MinerStatsState {
       List<String> xLabelList,
       List<int> yLabelList,
       bool showLoading,
-      MinerStatsTime selectedTime,
+      MinerStatsTimePeriod selectedTimePeriod,
       MinerStatsType selectedType,
       double uptimeWeekScore,
-      int scrollFirstIndex,
+      int currentIndex,
+      String upperLabel,
+      String statsLabel,
       String error}) = _$_MinerStatsState;
 
   @override
@@ -392,13 +432,17 @@ abstract class _MinerStatsState implements MinerStatsState {
   @override
   bool get showLoading;
   @override
-  MinerStatsTime get selectedTime;
+  MinerStatsTimePeriod get selectedTimePeriod;
   @override
   MinerStatsType get selectedType;
   @override
   double get uptimeWeekScore;
   @override
-  int get scrollFirstIndex;
+  int get currentIndex;
+  @override
+  String get upperLabel;
+  @override
+  String get statsLabel;
   @override
   String get error;
   @override
