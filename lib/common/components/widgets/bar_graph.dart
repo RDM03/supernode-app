@@ -56,6 +56,8 @@ class _BarGraphState extends State<BarGraph> {
 
     scrollableWidth = barWidth * widget.graphValues.length +
         spaceBetweenLines * (widget.graphValues.length - 1);
+    if (scrollableWidth < 0)
+      scrollableWidth = 0;
 
     if (widget.notifyGraphBarScroll != null) {
       scrollCtrl.addListener(() {

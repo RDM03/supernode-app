@@ -154,15 +154,21 @@ class _ViewAllPageState extends State<_ViewAllPage>
             controller: _tabController,
             children: tabs.map((item) {
               return BlocBuilder<MinerStatsCubit, MinerStatsState>(
-                  // buildWhen: (a, b) =>
-                  // a.selectedTime != b.selectedTime
+                  buildWhen: (a, b) =>
+                  a.selectedTimePeriod != b.selectedTimePeriod
+                      //|| a.originList != b.originList
+                      //|| a.originMonthlyList != b.originMonthlyList
+                      //|| a.originYearlyList != b.originYearlyList
+                      || a.xDataList != b.xDataList
+                      || a.xLabelList != b.xLabelList
+                      || a.yLabelList != b.yLabelList,
                   builder: (ctx, state) {
                     final xLabel = state.xLabelList
                         .map((item) => FlutterI18n.translate(context, item))
                         .toList();
                     final numBar = context.read<MinerStatsCubit>().getNumBar();
-                return state.originList.isEmpty //TODO
-                    ? Center(child: CircularProgressIndicator()) //TODO
+                return state.originList.isEmpty || state.xDataList.isEmpty
+                    ? Center(child: CircularProgressIndicator())
                     : DDBarChart(
                         hasYAxis: true,
                         hasTooltip: true,

@@ -49,10 +49,11 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
         selectedTimePeriod: selectedTimePeriod,
         showLoading: true,
         currentIndex: -1,
+        xDataList: [],
         originMonthlyList: [],
         originYearlyList: []));
 
-    generateChartData(state.selectedType, selectedTimePeriod, state.originList);//TODO re-do params - no params - all from state
+    generateChartData();
     emit(state.copyWith(showLoading: false));
   }
 
@@ -104,12 +105,12 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     MinerStatsType type = state.selectedType;
 
     if (type == MinerStatsType.uptime) {
-      label = '${Tools.priceFormat(item.uptime / 3600, range: 0)} h';
+      label = '${Tools.priceFormat(item.uptime / 3600)} h';
     } else if (type == MinerStatsType.revenue) {
       label = '${Tools.priceFormat(item.revenue)} MXC';
-    } else if (type == MinerStatsType.revenue) {
+    } else if (type == MinerStatsType.frameReceived) {
       label = '${Tools.priceFormat(item.received)}';
-    } else {
+    } else if (type == MinerStatsType.frameTransmitted) {
       label = '${Tools.priceFormat(item.transmitted)}';
     }
 
@@ -227,23 +228,27 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     List<MinerStatsEntity> listRawStats = await getSourceMinerData(
       gatewayMac: minerId,
       orgId: supernodeCubit.state.orgId);
-
     listRawStats = appendAndSortOriginList(state.originList, listRawStats);
-    emit(state.copyWith(originList: listRawStats));
+    emit(state.copyWith(
+        selectedType: type,
+        selectedTimePeriod: timePeriod,
+        originList: listRawStats));
 
-    generateChartData(type, timePeriod, listRawStats);
+    generateChartData();
   }
 
   Future<void> getStatsFrameData(
       MinerStatsType type,
       MinerStatsTimePeriod timePeriod,
       String minerId) async {
-    await getSourceFrameData(
-      gatewayId: minerId,
-      successCB: (result) {
-        generateChartData(type, timePeriod, result);
-      },
-    );
+    List<MinerStatsEntity> listRawStats = await getSourceFrameData(gatewayId: minerId);
+    listRawStats = appendAndSortOriginList(state.originList, listRawStats);
+    emit(state.copyWith(
+        selectedType: type,
+        selectedTimePeriod: timePeriod,
+        originList: listRawStats));
+
+    generateChartData();
   }
 
   List<MinerStatsEntity> generateMinerEntities(
@@ -311,40 +316,43 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     }
   }
 
-  Future<void> getSourceFrameData({Function successCB, String gatewayId}) async {
+  Future<List<MinerStatsEntity>> getSourceFrameData({String gatewayId}) async {
     final DateTime now = DateTime.now().toUtc();
     final DateTime today = DateTime.utc(now.year, now.month, now.day);
     final DateTime before3years = DateTime.utc(now.year - 3, now.month, now.day);
     List<MinerStatsEntity> entities = generateMinerEntities(before3years, today);
 
     try {
-      var result = await supernodeRepository.gateways.frames(gatewayId);
+      var result = await supernodeRepository.gateways.frames(
+        gatewayId,
+        interval: 'DAY',
+        startTimestamp: before3years,
+        endTimestamp: today,
+      );
 
-      if (successCB != null) {
-        if (result.length > 0) {
-          entities = entities.map((entity) {
-            result.forEach((item) {
-              var currentEntity = MinerStatsEntity(
-                date: item.timestamp,
-                health: 0,
-                transmitted: item.txPacketsEmitted.toDouble(),
-                received: item.rxPacketsReceivedOK.toDouble(),
-                revenue: 0,
-                uptime: 0,
-              );
+      if (result.length > 0) {
+        entities = entities.map((entity) {
+          result.forEach((item) {
+            var currentEntity = MinerStatsEntity(
+              date: item.timestamp,
+              health: 0,
+              transmitted: item.txPacketsEmitted.toDouble(),
+              received: item.rxPacketsReceivedOK.toDouble(),
+              revenue: 0,
+              uptime: 0,
+            );
 
-              if (currentEntity.date.year == entity.date.year &&
-                  currentEntity.date.month == entity.date.month &&
-                  currentEntity.date.day == entity.date.day) {
-                entity = currentEntity;
-                return;
-              }
-            });
+            if (currentEntity.date.year == entity.date.year &&
+                currentEntity.date.month == entity.date.month &&
+                currentEntity.date.day == entity.date.day) {
+              entity = currentEntity;
+              return;
+            }
+          });
 
-            return entity;
-          }).toList();
-        }
-        successCB(entities);
+          return entity;
+        }).toList();
+        return entities;
       }
     } catch (err) {
       appCubit.setError(err.toString());
@@ -419,12 +427,13 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
     return data;
   }
 
-  void generateChartData(
-      MinerStatsType type, MinerStatsTimePeriod timePeriod, List<MinerStatsEntity> data) {
+  void generateChartData() {
+    final MinerStatsType type = state.selectedType;
+    final MinerStatsTimePeriod timePeriod = state.selectedTimePeriod;
+    final List<MinerStatsEntity> data = state.originList;
     double maxValue = 0;
     List<double> xData = [];
     List<String> xLabel = [];
-    List<String> yLabel = [];
     List<MinerStatsEntity> newData = [];
 
     if (timePeriod == MinerStatsTimePeriod.week) {
@@ -555,9 +564,10 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
       maxValue = maxValue / 3600;
     }
 
-    emit(state.copyWith(xDataList: xData));
-    emit(state.copyWith(xLabelList: xLabel));
-    emit(state.copyWith(yLabelList: getYLabel(maxValue)));
+    emit(state.copyWith(
+        xDataList: xData,
+        xLabelList: xLabel,
+        yLabelList: getYLabel(maxValue)));
 
     setChartStats(0);//TODO Check
   }
