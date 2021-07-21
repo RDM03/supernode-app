@@ -8,8 +8,6 @@ import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
-import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
@@ -74,7 +72,7 @@ Widget buildView(StakeState state, Dispatch dispatch, ViewService viewService) {
                 child: Padding(
                   key: Key("questionCircle"),
                   padding: EdgeInsets.all(s(5)),
-                  child: Image.asset(AppImages.questionCircle, height: s(20)),
+                  child: Image.asset(AppImages.questionCircle, color: ColorsTheme.of(context).mxcBlue, height: s(20)),
                 ),
               )
             ],
@@ -209,6 +207,7 @@ Widget _stakeCard({
   return PanelFrame(
     rowTop: first ? EdgeInsets.only(top: 10) : null,
     child: ListTile(
+      tileColor: ColorsTheme.of(context).boxComponents,
       key: key,
       onTap: () async {
         if (revenueRate == null) return;
