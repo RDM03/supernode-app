@@ -210,7 +210,7 @@ Widget _lockCard({
         alignment: Alignment.center,
         child: Text(
           months?.toString() ?? '~',
-          style: FontTheme.of(context).veryBig.primary.bold(),
+          style: FontTheme.of(context).veryBig.button.bold(),
         ),
         padding: EdgeInsets.only(top: 2),
         decoration: BoxDecoration(

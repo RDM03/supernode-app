@@ -38,7 +38,7 @@ Widget buildView(
               alignment: Alignment.center,
               child: Text(
                 state.months == null ? '~' : state.months.toString(),
-                style: FontTheme.of(_ctx).veryBig.primary.bold(),
+                style: FontTheme.of(_ctx).veryBig.button.bold(),
               ),
               padding: EdgeInsets.only(top: 2),
               decoration: BoxDecoration(
