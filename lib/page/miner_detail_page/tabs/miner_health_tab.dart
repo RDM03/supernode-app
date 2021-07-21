@@ -14,7 +14,6 @@ import 'package:supernodeapp/page/home_page/gateway/view_all_page/bloc/state.dar
 import 'package:supernodeapp/page/home_page/gateway/view_all_page/view.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
 import '../graph_card.dart';
@@ -157,7 +156,7 @@ class MinerHealthTab extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 7),
-                  Text(FlutterI18n.translate(context, 'add')),
+                  Text(FlutterI18n.translate(context, 'add'), style: FontTheme.of(context).middle()),
                 ],
               ),
             ),
@@ -217,7 +216,7 @@ class MinerHealthTab extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 7),
-                  Text(FlutterI18n.translate(context, 'send')),
+                  Text(FlutterI18n.translate(context, 'send'), style: FontTheme.of(context).middle()),
                 ],
               ),
             ),

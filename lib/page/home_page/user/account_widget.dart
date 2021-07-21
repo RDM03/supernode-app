@@ -1,12 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/components/profile.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
-import 'package:supernodeapp/common/utils/screen_util.dart';
-import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
 import 'package:supernodeapp/page/home_page/user/tabbed_view.dart';

@@ -30,7 +30,6 @@ import 'package:supernodeapp/page/miner_detail_page/miner_detail_page.dart';
 import 'package:supernodeapp/page/send_to_wallet_page/send_to_wallet_page.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 import 'package:supernodeapp/theme/theme.dart';
 

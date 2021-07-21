@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/theme.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CircularGraph extends StatelessWidget {
   static const Widget defaultWidget = SizedBox();
@@ -28,8 +28,8 @@ class CircularGraph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: size,
-        height: size,
+        width: size.w,
+        height: size.w,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
@@ -42,12 +42,12 @@ class CircularGraph extends StatelessWidget {
           ),
         ),
         child: Container(
-          width: size - paddingSize,
-          height: size - paddingSize,
+          width: (size - paddingSize).w,
+          height: (size - paddingSize).w,
           alignment: Alignment.center,
           child: Container(
-              height: size - paddingSize - lineWidth,
-              width: size - paddingSize - lineWidth,
+              height: (size - paddingSize - lineWidth).w,
+              width: (size - paddingSize - lineWidth).w,
               child: new CustomPaint(
                   foregroundPainter: new MyPainter(
                       lineColor: graphColor.withOpacity(0.1),
@@ -55,15 +55,15 @@ class CircularGraph extends StatelessWidget {
                       completePercent: percentage,
                       width: lineWidth),
                   child: Container(
-                      width: size - paddingSize - 2 * lineWidth,
-                      height: size - paddingSize - 2 * lineWidth,
+                      width: (size - paddingSize - 2 * lineWidth).w,
+                      height: (size - paddingSize - 2 * lineWidth).w,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                       ),
                       child: Container(
-                        width: size - 2 * paddingSize - 2 * lineWidth,
-                        height: size - 2 * paddingSize - 2 * lineWidth,
+                        width: (size - 2 * paddingSize - 2 * lineWidth).w,
+                        height: (size - 2 * paddingSize - 2 * lineWidth).w,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: ColorsTheme.of(context).secondaryBackground,
