@@ -45,7 +45,6 @@ import 'package:supernodeapp/page/wechat_bind_new_acc_page/page.dart';
 import 'package:supernodeapp/page/wechat_bind_page/page.dart';
 import 'package:supernodeapp/page/wechat_login_page/page.dart';
 import 'package:supernodeapp/route.dart';
-import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
 import 'app_cubit.dart';
