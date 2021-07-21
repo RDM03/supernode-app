@@ -90,7 +90,7 @@ class _DDBarChartState extends State<DDBarChart> {
               child: Container(
                 padding: EdgeInsets.all(5),
                 decoration: BoxDecoration(
-                  color: whiteColor,
+                  color:  ColorsTheme.of(context).boxComponents,
                   borderRadius: BorderRadius.all(Radius.circular(4.0)),
                   boxShadow: [
                     BoxShadow(
