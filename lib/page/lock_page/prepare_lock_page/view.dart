@@ -9,8 +9,6 @@ import 'package:supernodeapp/common/components/text_field/primary_text_field.dar
 import 'package:supernodeapp/common/utils/dhx.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
-import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
@@ -40,7 +38,7 @@ Widget buildView(
               alignment: Alignment.center,
               child: Text(
                 state.months == null ? '~' : state.months.toString(),
-                style: FontTheme.of(_ctx).veryBig.label.bold(),
+                style: FontTheme.of(_ctx).veryBig.primary.bold(),
               ),
               padding: EdgeInsets.only(top: 2),
               decoration: BoxDecoration(
