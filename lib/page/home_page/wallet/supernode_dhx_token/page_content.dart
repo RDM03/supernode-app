@@ -230,7 +230,7 @@ class NumberMinersAndMPower extends StatelessWidget {
                       ), // invisible - sets width for Container
                       Text(
                         FlutterI18n.translate(context, 'mpower'),
-                        style: FontTheme.of(context).middle.secondary(),
+                        style: FontTheme.of(context).middle.button(),
                       )
                     ],
                   ),
