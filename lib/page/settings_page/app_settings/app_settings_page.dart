@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
+import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
 import 'package:supernodeapp/page/feedback_page/feedback.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
 import 'package:supernodeapp/page/settings_page/language_component/language_page.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../../../route.dart';
 
@@ -20,16 +23,16 @@ class AppSettingsPage extends StatelessWidget {
           context: context,
           padding: EdgeInsets.all(0.0),
           children: <Widget>[
-            ListTile(
-              title: Center(
-                  child: Text(FlutterI18n.translate(context, 'app_settings'),
-                      key: Key('appSettingsTitle'),
-                      style: kBigBoldFontOfBlack)),
-              trailing: GestureDetector(
-                  child: Icon(Icons.close, color: Colors.black),
-                  onTap: () => Navigator.of(context).pop()),
+            PageNavBar(
+              text: FlutterI18n.translate(context, 'app_settings'),
+              centerTitle: true,
+              padding: const EdgeInsets.only(
+                top: 22,
+                bottom: 33,
+                left: 20,
+                right: 20,
+              ),
             ),
-            Divider(),
             listItem(FlutterI18n.translate(context, 'language'),
                 key: Key('languageItem'),
                 onTap: () =>
@@ -38,9 +41,10 @@ class AppSettingsPage extends StatelessWidget {
             listItem(
               FlutterI18n.translate(context, 'use_face_id'),
               trailing: Switch(
-                  activeColor: Color(0xFF1C1478),
-                  value: true,
-                  onChanged: (v) => 'TODO'),
+                activeColor: ColorsTheme.of(context).mxcBlue,
+                value: true,
+                onChanged: (v) => 'TODO',
+              ),
             ),
             Divider(),
             listItem(
@@ -49,7 +53,7 @@ class AppSettingsPage extends StatelessWidget {
                 buildWhen: (a, b) => a.screenShot != b.screenShot,
                 builder: (ctx, s) => Switch(
                   key: Key('screenshotSwitch'),
-                  activeColor: Color(0xFF1C1478),
+                  activeColor: ColorsTheme.of(context).mxcBlue,
                   value: s.screenShot,
                   onChanged: (v) async {
                     await DatadashFeedback.of(context).setShowScreenshot(v);

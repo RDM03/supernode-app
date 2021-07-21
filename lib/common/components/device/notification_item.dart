@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class NotificationItem extends StatelessWidget {
   final VoidCallback onTap;
@@ -18,7 +19,7 @@ class NotificationItem extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: ColorsTheme.of(context).boxComponents,
               borderRadius: BorderRadius.all(Radius.circular(10)),
               boxShadow: [
                 BoxShadow(
@@ -30,7 +31,7 @@ class NotificationItem extends StatelessWidget {
           child: ListTile(
             title: Text(
               '2020-05-20 09:39:12 14km -135dBm',
-              style: kMiddleFontOfGrey,
+              style: FontTheme.of(context).middle.secondary(),
             ),
             trailing: Image.asset(
               'assets/images/device/location_warn.png',

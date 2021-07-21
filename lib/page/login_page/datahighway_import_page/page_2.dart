@@ -7,6 +7,7 @@ import 'package:supernodeapp/common/components/app_bars/sign_up_appbar.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/page/home_page/home_page.dart';
 import 'package:supernodeapp/route.dart';
+import 'package:supernodeapp/theme/colors.dart';
 
 class DataHighwayImport2Page extends StatefulWidget {
   @override
@@ -46,14 +47,15 @@ class _DataHighwayImport2PageState extends State<DataHighwayImport2Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBars.backArrowAppBar(
-        color: Colors.white,
+        context,
+        color: whiteColor,
         title: 'Import Account',
         onPress: () => Navigator.of(context).pop(),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: whiteColor,
       body: Theme(
         data: Theme.of(context).copyWith(
-          primaryColor: Token.parachainDhx.color,
+          primaryColor: Token.parachainDhx.ui(context).color,
         ),
         child: Column(
           children: [
@@ -81,14 +83,14 @@ class _DataHighwayImport2PageState extends State<DataHighwayImport2Page> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: PrimaryButton(
-                  bgColor: Token.parachainDhx.color,
+                  bgColor: Token.parachainDhx.ui(context).color,
                   buttonTitle: 'Next',
                   onTap: () {
                     context.read<DataHighwayCubit>().setDataHighwaySession(
                           DataHighwaySession(address: 'mock-account'),
                         );
                     navigatorKey.currentState.pushAndRemoveUntil(
-                        routeWidget((c) => HomePage()), (_) => false);
+                        routeWidget(HomePage()), (_) => false);
                   },
                 ),
               ),

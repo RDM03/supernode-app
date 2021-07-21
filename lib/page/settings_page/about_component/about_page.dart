@@ -14,6 +14,7 @@ import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class AboutPage extends StatelessWidget {
   @override
@@ -60,7 +61,7 @@ class AboutPage extends StatelessWidget {
                     s.info?.version == null
                         ? FlutterI18n.translate(context, 'loading')
                         : '${s.info.version} (${s.info.buildNumber})',
-                    style: kMiddleFontOfGrey,
+                    style: FontTheme.of(context).middle.secondary(),
                   ),
                 ),
               ),
@@ -76,7 +77,7 @@ class AboutPage extends StatelessWidget {
                     s.mxVersion == null
                         ? FlutterI18n.translate(context, 'loading')
                         : s.mxVersion,
-                    style: kMiddleFontOfGrey,
+                    style: FontTheme.of(context).middle.secondary(),
                   ),
                 ),
               ),
@@ -89,12 +90,18 @@ class AboutPage extends StatelessWidget {
           right: 0,
           bottom: 30,
           child: Center(
-              child: BlocBuilder<SettingsCubit, SettingsState>(
-            buildWhen: (a, b) => a.copyrightYear != b.copyrightYear,
-            builder: (ctx, s) => subtitle(
-              '© ${s.copyrightYear} ${FlutterI18n.translate(context, 'foundation')}. ${FlutterI18n.translate(context, 'all_rights')}',
+            child: BlocBuilder<SettingsCubit, SettingsState>(
+              buildWhen: (a, b) => a.copyrightYear != b.copyrightYear,
+              builder: (ctx, s) => Container(
+                margin: const EdgeInsets.only(top: 30),
+                child: Text(
+                  '© ${s.copyrightYear} ${FlutterI18n.translate(context, 'foundation')}. ${FlutterI18n.translate(context, 'all_rights')}',
+                  textAlign: TextAlign.left,
+                  style: FontTheme.of(context).small.secondary(),
+                ),
+              ),
             ),
-          )),
+          ),
         )
       ],
     );

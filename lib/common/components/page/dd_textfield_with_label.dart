@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class DDTextfieldWithLabel extends StatelessWidget {
   final String label;
@@ -31,7 +32,7 @@ class DDTextfieldWithLabel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(FlutterI18n.translate(context, label),
-              style: kBigBoldFontOfBlack),
+              style: FontTheme.of(context).big.primary.bold()),
           TextFormField(
               readOnly: readOnly,
               initialValue: initialValue,

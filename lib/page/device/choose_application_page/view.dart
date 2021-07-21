@@ -7,6 +7,7 @@ import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -30,17 +31,18 @@ Widget buildView(
             padding: EdgeInsets.only(top: kToolbarHeight, bottom: 10, left: 10),
             child: Text(
               FlutterI18n.translate(_ctx, 'device_choose'),
-              style: kBigFontOfBlack,
+              style: FontTheme.of(context).big(),
             ),
           ),
           PanelFrame(
             child: _buildPanelItem(
+              context,
               icon: Icons.camera_enhance,
               title: list[state.selectCameraIndex].title,
               trailing: Icon(
                 Icons.keyboard_arrow_down,
                 size: 30,
-                color: Colors.black,
+                color: ColorsTheme.of(context).textPrimaryAndIcons,
               ),
               onTap: () {
                 showDialog(
@@ -67,6 +69,7 @@ Widget buildView(
                 ? null
                 : Color.fromRGBO(77, 137, 229, 0.2),
             child: _buildPanelItem(
+              context,
               icon: Icons.watch,
               title: (state.smartWatchName?.isEmpty ?? true)
                   ? FlutterI18n.translate(_ctx, 'smart_watch')
@@ -83,21 +86,24 @@ Widget buildView(
           ),
           PanelFrame(
             child: _buildImagePanelItem(
+              context,
               leading: ImageIcon(
                 AssetImage('assets/images/device/solid-camera.png'),
-                color: Colors.white,
+                color: whiteColor,
               ),
               title: FlutterI18n.translate(_ctx, 'smart_door_lock'),
             ),
           ),
           PanelFrame(
             child: _buildPanelItem(
+              context,
               icon: Icons.directions_car,
               title: FlutterI18n.translate(_ctx, 'smart_parking'),
             ),
           ),
           SizedBox(height: 30),
           _buildButton(
+            context,
             onPressed: () {
               Navigator.pop(_ctx);
             },
@@ -105,6 +111,7 @@ Widget buildView(
           ),
           SizedBox(height: 20),
           _buildButton(
+            context,
             onPressed: () {
               Navigator.pop(_ctx);
             },
@@ -116,7 +123,8 @@ Widget buildView(
   );
 }
 
-Widget _buildButton({VoidCallback onPressed, String title}) {
+Widget _buildButton(BuildContext context,
+    {VoidCallback onPressed, String title}) {
   return InkWell(
     onTap: onPressed,
     child: Container(
@@ -124,10 +132,10 @@ Widget _buildButton({VoidCallback onPressed, String title}) {
       padding: EdgeInsets.symmetric(vertical: 15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(3)),
-        color: Colors.white,
+        color: whiteColor,
         boxShadow: [
           BoxShadow(
-            color: shodowColor,
+            color: boxShadowColor,
             offset: Offset(0, 2),
             blurRadius: 7,
           ),
@@ -135,7 +143,7 @@ Widget _buildButton({VoidCallback onPressed, String title}) {
       ),
       child: Text(
         title ?? "",
-        style: kBigFontOfDarkBlue,
+        style: FontTheme.of(context).big.mxc(),
       ),
     ),
   );
@@ -161,7 +169,7 @@ Widget _buildSmartDialog(BuildContext ctx, Dispatch dispatch) {
             child: Icon(
               Icons.bluetooth,
               size: 24,
-              color: Colors.white,
+              color: whiteColor,
             ),
           ),
         ],
@@ -173,7 +181,7 @@ Widget _buildSmartDialog(BuildContext ctx, Dispatch dispatch) {
         children: <Widget>[
           Text.rich(
             TextSpan(
-              style: kMiddleFontOfGrey,
+              style: FontTheme.of(ctx).middle.secondary(),
               children: [
                 TextSpan(
                   text: FlutterI18n.translate(ctx, 'device_bluetooth_prompt') +
@@ -181,7 +189,7 @@ Widget _buildSmartDialog(BuildContext ctx, Dispatch dispatch) {
                 ),
                 TextSpan(
                     text: FlutterI18n.translate(ctx, 'bluetooth'),
-                    style: kMiddleFontOfBlueLink),
+                    style: FontTheme.of(ctx).middle.mxc.underline()),
                 TextSpan(
                   text: " " + FlutterI18n.translate(ctx, 'is_turned_on'),
                 )
@@ -253,47 +261,49 @@ Widget _buildSmartDialog(BuildContext ctx, Dispatch dispatch) {
 }
 
 Widget _buildSmartCard({VoidCallback onTap}) {
-  return InkWell(
-    onTap: () {
-      onTap?.call();
-    },
-    child: Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.1),
-              offset: Offset(0, 2),
-              blurRadius: 7.0)
-        ],
-      ),
-      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 5),
-      child: Column(
-        children: <Widget>[
-          Icon(
-            Icons.watch,
-            size: 24,
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Text(
-              'ORACLEID_1234567',
-              textAlign: TextAlign.center,
-              style: kSmallFontOfGrey,
+  return Builder(
+    builder: (context) => InkWell(
+      onTap: () {
+        onTap?.call();
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          color: whiteColor,
+          boxShadow: [
+            BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.1),
+                offset: Offset(0, 2),
+                blurRadius: 7.0)
+          ],
+        ),
+        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 5),
+        child: Column(
+          children: <Widget>[
+            Icon(
+              Icons.watch,
+              size: 24,
             ),
-          ),
-          Text(
-            'LoRa Watch',
-            style: kSmallFontOfGrey,
-          ),
-        ],
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Text(
+                'ORACLEID_1234567',
+                textAlign: TextAlign.center,
+                style: FontTheme.of(context).small.secondary(),
+              ),
+            ),
+            Text(
+              'LoRa Watch',
+              style: FontTheme.of(context).small.secondary(),
+            ),
+          ],
+        ),
       ),
     ),
   );
 }
 
-Widget _buildPanelItem(
+Widget _buildPanelItem(BuildContext context,
     {IconData icon, String title, Widget trailing, VoidCallback onTap}) {
   return ListTile(
       onTap: onTap,
@@ -313,19 +323,19 @@ Widget _buildPanelItem(
             child: Icon(
               icon ?? Icons.not_interested,
               size: 24,
-              color: Colors.white,
+              color: whiteColor,
             ),
           ),
         ],
       ),
       title: Text(
         title ?? "",
-        style: kBigFontOfBlack,
+        style: FontTheme.of(context).big(),
       ),
       trailing: trailing);
 }
 
-Widget _buildImagePanelItem(
+Widget _buildImagePanelItem(context,
     {Widget leading, String title, Widget trailing, VoidCallback onTap}) {
   return ListTile(
       onTap: onTap,
@@ -348,7 +358,7 @@ Widget _buildImagePanelItem(
       ),
       title: Text(
         title ?? "",
-        style: kBigFontOfBlack,
+        style: FontTheme.of(context).big(),
       ),
       trailing: trailing);
 }

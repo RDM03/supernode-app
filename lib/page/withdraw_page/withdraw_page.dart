@@ -29,6 +29,7 @@ import 'package:supernodeapp/page/withdraw_page/bloc/state.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'WithdrawConfirm.dart';
 import 'bloc/cubit.dart';
@@ -49,8 +50,9 @@ class _WithdrawPageState extends State<WithdrawPage> {
 
   Loading loading;
 
-  get feeCurrency =>
-      (widget.token == Token.btc) ? Token.mxc.name : widget.token.name;
+  String get feeCurrency => (widget.token == Token.btc)
+      ? Token.mxc.ui(context).name
+      : widget.token.ui(context).name;
 
   @override
   void initState() {
@@ -102,6 +104,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
           if (st.withdrawFlowStep == WithdrawFlow.form)
             return Scaffold(
                 appBar: AppBars.backArrowAndActionAppBar(
+                  context,
                   title: FlutterI18n.translate(context, 'withdraw'),
                   onPress: () => Navigator.pop(context),
                   action: Padding(
@@ -109,31 +112,33 @@ class _WithdrawPageState extends State<WithdrawPage> {
                     child: GestureDetector(
                       onTap: () async {
                         String qrResult = await MajaScan.startScan(
-                            title: FlutterI18n.translate(context, 'scan_code'),
-                            barColor: buttonPrimaryColor,
-                            titleColor: backgroundColor,
-                            qRCornerColor: buttonPrimaryColor,
-                            qRScannerColor: buttonPrimaryColorAccent);
+                          title: FlutterI18n.translate(context, 'scan_code'),
+                          barColor: ColorsTheme.of(context).mxcBlue,
+                          titleColor: ColorsTheme.of(context).primaryBackground,
+                          qRCornerColor: ColorsTheme.of(context).mxcBlue,
+                          qRScannerColor: ColorsTheme.of(context).mxcBlue20,
+                        );
                         context.read<WithdrawCubit>().setAddress(qrResult);
                       },
                       child: Icon(Icons.center_focus_weak,
-                          color: Colors.black, size: 30),
+                          color: ColorsTheme.of(context).textPrimaryAndIcons,
+                          size: 30),
                     ),
                   ),
                 ),
-                backgroundColor: backgroundColor,
+                backgroundColor: ColorsTheme.of(context).primaryBackground,
                 body: PageBody(children: [
                   smallColumnSpacer(),
                   Text(FlutterI18n.translate(context, '24hours_warning'),
-                      style: kBigFontOfBlack),
+                      style: FontTheme.of(context).big()),
                   smallColumnSpacer(),
                   Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         smallColumnSpacer(),
-                        Image.asset(widget.token.imagePath),
-                        Text(widget.token.name),
+                        Image(image: widget.token.ui(context).image),
+                        Text(widget.token.ui(context).name),
                         smallColumnSpacer(),
                         Divider(),
                         Padding(
@@ -146,7 +151,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                                 Text(
                                   FlutterI18n.translate(
                                       context, 'current_balance'),
-                                  style: kMiddleFontOfBlack,
+                                  style: FontTheme.of(context).middle(),
                                 ),
                                 Container(
                                   width: double.infinity,
@@ -182,7 +187,8 @@ class _WithdrawPageState extends State<WithdrawPage> {
                                     controller: addressCtrl,
                                     suffixChild: IconButton(
                                         icon: Icon(Icons.assignment_ind,
-                                            color: widget.token.color),
+                                            color:
+                                                widget.token.ui(context).color),
                                         onPressed: () async {
                                           AddressBookType type;
                                           if (widget.token ==
@@ -213,7 +219,9 @@ class _WithdrawPageState extends State<WithdrawPage> {
                                       FlutterI18n.translate(
                                           context, 'current_transaction_fee'),
                                       textAlign: TextAlign.left,
-                                      style: kSmallFontOfGrey,
+                                      style: FontTheme.of(context)
+                                          .small
+                                          .secondary(),
                                     ),
                                     SizedBox(width: s(5)),
                                     GestureDetector(
@@ -227,7 +235,8 @@ class _WithdrawPageState extends State<WithdrawPage> {
                                         buildWhen: (a, b) => a.fee != b.fee,
                                         builder: (ctx, state) => Text(
                                             '${state.fee ?? '--'} $feeCurrency',
-                                            style: kBigFontOfBlack)),
+                                            style:
+                                                FontTheme.of(context).big())),
                                   ],
                                 ),
                                 smallColumnSpacer(),
@@ -238,11 +247,11 @@ class _WithdrawPageState extends State<WithdrawPage> {
                       ],
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: ColorsTheme.of(context).secondaryBackground,
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       boxShadow: [
                         BoxShadow(
-                          color: shodowColor,
+                          color: boxShadowColor,
                           offset: Offset(0, 2),
                           blurRadius: 7,
                         ),
@@ -254,7 +263,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                       key: Key('requestWithdrawButton'),
                       buttonTitle:
                           FlutterI18n.translate(context, 'request_withdraw'),
-                      bgColor: widget.token.color,
+                      bgColor: widget.token.ui(context).color,
                       onTap: () {
                         if (!formKey.currentState.validate()) return;
                         context.read<WithdrawCubit>().goToConfirmation(
@@ -334,7 +343,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                       context, 'info_current_transaction_fee'),
                   key: ValueKey('helpText'),
                   style: TextStyle(
-                    color: Colors.black,
+                    color: ColorsTheme.of(context).textPrimaryAndIcons,
                     fontSize: s(16),
                     fontWeight: FontWeight.w500,
                   ),
@@ -351,22 +360,22 @@ class _WithdrawPageState extends State<WithdrawPage> {
       return BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
         buildWhen: (a, b) => a.balance != b.balance,
         builder: (ctx, state) => Text(
-            '${Tools.priceFormat(state.balance.value)} ${widget.token.name}',
-            style: kBigFontOfBlack),
+            '${Tools.priceFormat(state.balance.value)} ${widget.token.ui(context).name}',
+            style: FontTheme.of(context).big()),
       );
     if (widget.token == Token.supernodeDhx)
       return BlocBuilder<SupernodeDhxCubit, SupernodeDhxState>(
         buildWhen: (a, b) => a.balance != b.balance,
         builder: (ctx, state) => Text(
-            '${Tools.priceFormat(state.balance.value)} ${widget.token.name}',
-            style: kBigFontOfBlack),
+            '${Tools.priceFormat(state.balance.value)} ${widget.token.ui(context).name}',
+            style: FontTheme.of(context).big()),
       );
     if (widget.token == Token.btc)
       return BlocBuilder<SupernodeBtcCubit, SupernodeBtcState>(
         buildWhen: (a, b) => a.balance != b.balance,
         builder: (ctx, state) => Text(
-            '${Tools.priceFormat(state.balance.value, range: 8)} ${widget.token.name}',
-            style: kBigFontOfBlack),
+            '${Tools.priceFormat(state.balance.value, range: 8)} ${widget.token.ui(context).name}',
+            style: FontTheme.of(context).big()),
       );
 
     return SizedBox();

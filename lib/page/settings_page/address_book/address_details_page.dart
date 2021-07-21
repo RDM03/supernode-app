@@ -8,8 +8,10 @@ import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/utils/address_entity.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/page/settings_page/address_book/address_book_page.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class AddressDetailsPage extends StatefulWidget {
   final AddressEntity entity;
@@ -54,7 +56,7 @@ class _AddressDetailsPageState extends State<AddressDetailsPage> {
         children: [
           Text(
             title,
-            style: kMiddleFontOfBlack,
+            style: FontTheme.of(context).middle(),
           ),
           SizedBox(
             height: 2,
@@ -64,7 +66,7 @@ class _AddressDetailsPageState extends State<AddressDetailsPage> {
               Expanded(
                 child: SelectableText(
                   content,
-                  style: kMiddleFontOfGrey,
+                  style: FontTheme.of(context).middle.secondary(),
                 ),
               ),
               if (trailing != null) trailing,
@@ -84,7 +86,7 @@ class _AddressDetailsPageState extends State<AddressDetailsPage> {
       children: [
         SizedBox(height: 20),
         PageNavBar(
-          text: widget.type.token.name +
+          text: widget.type.token.ui(context).name +
               ' ' +
               FlutterI18n.translate(context, 'address_book'),
           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -97,11 +99,7 @@ class _AddressDetailsPageState extends State<AddressDetailsPage> {
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             FlutterI18n.translate(context, 'address_book_control_desc'),
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontWeight: FontWeight.w400,
-              fontSize: 12,
-            ),
+            style: FontTheme.of(context).small.secondary(),
           ),
         ),
         SizedBox(height: 40),
@@ -131,18 +129,12 @@ class _AddressDetailsPageState extends State<AddressDetailsPage> {
           child: Container(
             width: double.infinity,
             height: 62,
-            decoration: BoxDecoration(
-              border: Border.symmetric(
-                horizontal: BorderSide(
-                  color: Colors.grey[200],
-                  width: 1,
-                ),
-              ),
-            ),
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Text(FlutterI18n.translate(context, 'delete_address'),
-                style: kMiddleFontOfRed),
+            child: Text(
+              FlutterI18n.translate(context, 'delete_address'),
+              style: FontTheme.of(context).middle.alert(),
+            ),
           ),
         )
       ],

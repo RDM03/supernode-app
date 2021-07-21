@@ -16,8 +16,8 @@ import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -27,12 +27,12 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return ScaffoldWidget(
-    backgroundColor: cardBackgroundColor,
+    backgroundColor: ColorsTheme.of(_ctx).secondaryBackground,
     padding: kRoundRow2002,
     appBar: AppBar(
-      iconTheme: IconThemeData(color: Colors.black),
+      iconTheme: IconThemeData(color: ColorsTheme.of(_ctx).textPrimaryAndIcons),
       title: Text(FlutterI18n.translate(_ctx, 'wechat_login_title'),
-          style: kBigFontOfBlack, textAlign: TextAlign.center),
+          style: FontTheme.of(_ctx).big(), textAlign: TextAlign.center),
       backgroundColor: Colors.transparent,
       elevation: 0,
     ),
@@ -47,7 +47,7 @@ Widget buildView(
             height: s(171),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: ColorsTheme.of(_ctx).boxComponents,
               shape: BoxShape.circle,
             ),
             child: Container(
@@ -55,11 +55,11 @@ Widget buildView(
               height: s(134),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: ColorsTheme.of(_ctx).boxComponents,
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: darkBackground,
+                      color: ColorsTheme.of(_ctx).primaryBackground,
                       offset: Offset(0, 2),
                       blurRadius: 20,
                       spreadRadius: 10,
@@ -71,11 +71,11 @@ Widget buildView(
                   height: s(134),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: ColorsTheme.of(context).boxComponents,
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: darkBackground,
+                          color: ColorsTheme.of(context).primaryBackground,
                           offset: Offset(0, 2),
                           blurRadius: 20,
                           spreadRadius: 10,
@@ -97,13 +97,15 @@ Widget buildView(
           ),
         ),
         Text(FlutterI18n.translate(_ctx, 'bind_new_account2wechat_title'),
-            style: kBigFontOfBlack, textAlign: TextAlign.center),
+            style: FontTheme.of(_ctx).big(), textAlign: TextAlign.center),
         Container(
-            margin: EdgeInsets.only(top: 16),
-            child: Text(
-                FlutterI18n.translate(_ctx, 'bind_new_account2wechat_desc'),
-                style: kMiddleFontOfGrey,
-                textAlign: TextAlign.center)),
+          margin: EdgeInsets.only(top: 16),
+          child: Text(
+            FlutterI18n.translate(_ctx, 'bind_new_account2wechat_desc'),
+            style: FontTheme.of(_ctx).middle.secondary(),
+            textAlign: TextAlign.center,
+          ),
+        ),
         Form(
           key: state.formKey,
           autovalidateMode: AutovalidateMode.disabled,
@@ -150,7 +152,7 @@ Widget buildView(
         SizedBox(height: 30.0),
         Container(
           padding: kRoundRow2002,
-          child: link(
+          child: Link(
             FlutterI18n.translate(_ctx, 'privacy_policy'),
             onTap: () => Tools.launchURL(Sys.privacyPolicy),
             alignment: Alignment.centerLeft,
@@ -158,7 +160,7 @@ Widget buildView(
         ),
         CheckboxLabelWidget(
           value: state.isCheckTerms,
-          child: link(FlutterI18n.translate(_ctx, 'agree_conditions'),
+          child: Link(FlutterI18n.translate(_ctx, 'agree_conditions'),
               onTap: () => Tools.launchURL(Sys.agreePolicy),
               alignment: Alignment.centerLeft),
           onChanged: (_) =>

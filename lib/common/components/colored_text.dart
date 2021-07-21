@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class ColoredText extends StatelessWidget {
   final String text;
@@ -11,7 +12,7 @@ class ColoredText extends StatelessWidget {
   const ColoredText({
     Key key,
     this.text,
-    this.style = kMiddleFontOfGrey,
+    this.style,
     this.textAlign = TextAlign.right,
     this.color,
     this.padding = const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
@@ -21,7 +22,7 @@ class ColoredText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: color ?? Color(0x4665EA).withOpacity(0.2),
+        color: color ?? ColorsTheme.of(context).dhxBlue20,
         borderRadius: BorderRadius.circular(10),
       ),
       padding: padding,

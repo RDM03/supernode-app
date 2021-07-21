@@ -12,6 +12,7 @@ import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/stake_page/details_stake_page/action.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
 
@@ -24,23 +25,20 @@ Widget buildView(
 
   switch (months) {
     case 24:
-      iconColor = stake24Color;
+      iconColor = ColorsTheme.of(_ctx).mxcBlue;
       break;
     case 12:
-      iconColor = stake12Color;
+      iconColor = ColorsTheme.of(_ctx).mxcBlue80;
       break;
     case 9:
-      iconColor = stake9Color;
+      iconColor = ColorsTheme.of(_ctx).mxcBlue60;
       break;
     case 6:
-      iconColor = stake6Color;
+      iconColor = ColorsTheme.of(_ctx).mxcBlue40;
       break;
     default:
-      iconColor = stakeFlexColor;
+      iconColor = ColorsTheme.of(_ctx).mxcBlue20;
       break;
-  }
-  if (months == 12) {
-    iconColor = stake12Color;
   }
 
   return pageFrame(
@@ -57,11 +55,7 @@ Widget buildView(
             alignment: Alignment.center,
             child: Text(
               months == null ? '~' : months.toString(),
-              style: Theme.of(_ctx).textTheme.bodyText1.copyWith(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: FontTheme.of(_ctx).veryBig.label.bold(),
             ),
             padding: EdgeInsets.only(top: 2),
             decoration: BoxDecoration(
@@ -74,8 +68,9 @@ Widget buildView(
               ? Row(
                   children: [
                     Text(FlutterI18n.translate(_ctx, 'flex_stake'),
-                        style: kBigFontOfBlack.copyWith(
-                            fontWeight: FontWeight.w600)),
+                        style: FontTheme.of(_ctx)
+                            .big()
+                            .copyWith(fontWeight: FontWeight.w600)),
                     GestureDetector(
                       onTap: () => _showInfoDialog(_ctx),
                       child: Padding(
@@ -90,7 +85,9 @@ Widget buildView(
               : Text(
                   FlutterI18n.translate(_ctx, 'x_month_stake')
                       .replaceFirst('{0}', months.toString()),
-                  style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
+                  style: FontTheme.of(_ctx)
+                      .big()
+                      .copyWith(fontWeight: FontWeight.w600),
                 ),
           Spacer(),
           Text('MXC/ETH'),
@@ -105,7 +102,7 @@ Widget buildView(
               Text(FlutterI18n.translate(_ctx, "transaction_id") + ' :'),
               Text(
                 state.stake.id.toString(),
-                style: kBigFontOfBlack,
+                style: FontTheme.of(_ctx).big(),
               ),
             ],
           ),
@@ -116,7 +113,7 @@ Widget buildView(
               Text(FlutterI18n.translate(_ctx, 'stake_date') + ' :'),
               Text(
                 formatDate(state.stake.startTime),
-                style: kBigFontOfBlack,
+                style: FontTheme.of(_ctx).big(),
               ),
             ],
           ),
@@ -129,7 +126,7 @@ Widget buildView(
                 state.stake.lockTill == null
                     ? '-'
                     : formatDate(state.stake.lockTill),
-                style: kBigFontOfBlack,
+                style: FontTheme.of(_ctx).big(),
               ),
             ],
           ),
@@ -142,7 +139,7 @@ Widget buildView(
                 state.stake.endTime == null
                     ? '-'
                     : formatDate(state.stake.endTime),
-                style: kBigFontOfBlack,
+                style: FontTheme.of(_ctx).big(),
               ),
             ],
           ),
@@ -153,7 +150,7 @@ Widget buildView(
               Text(FlutterI18n.translate(_ctx, 'amount') + ' :'),
               Text(
                 state.stake.amount.toString() + ' MXC',
-                style: kBigFontOfBlack,
+                style: FontTheme.of(_ctx).big(),
               ),
             ],
           ),
@@ -164,7 +161,7 @@ Widget buildView(
               Text(FlutterI18n.translate(_ctx, 'revenue') + ' :'),
               Text(
                 state.stake.revenue.toString() + ' MXC',
-                style: kBigFontOfBlack,
+                style: FontTheme.of(_ctx).big(),
               ),
             ],
           ),
@@ -177,7 +174,9 @@ Widget buildView(
               (double.parse(state.stake.amount) + (state.stake.revenue ?? 0))
                       .toStringAsFixed(2) +
                   ' MXC',
-              style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
+              style: FontTheme.of(_ctx)
+                  .big()
+                  .copyWith(fontWeight: FontWeight.w600),
             ),
           ),
           if (state.stake.endTime != null) ...[
@@ -186,7 +185,7 @@ Widget buildView(
               alignment: Alignment.centerRight,
               child: Text(
                 FlutterI18n.translate(_ctx, 'unstaked'),
-                style: kBigFontOfGrey,
+                style: FontTheme.of(_ctx).big.secondary(),
               ),
             ),
           ]
@@ -223,15 +222,11 @@ void _showInfoDialog(BuildContext context) {
             alignment: Alignment.center,
             child: Text(
               '~',
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    color: Colors.white,
-                    fontSize: 40,
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: FontTheme.of(context).veryBig.label.bold(),
             ),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: stakeFlexColor,
+              color: ColorsTheme.of(context).mxcBlue20,
             ),
           ),
           Padding(
@@ -239,7 +234,7 @@ void _showInfoDialog(BuildContext context) {
               child: Text(
                 FlutterI18n.translate(context, 'info_flex_stake'),
                 style: TextStyle(
-                  color: Colors.black,
+                  color: ColorsTheme.of(context).textPrimaryAndIcons,
                   fontSize: s(16),
                   fontWeight: FontWeight.w500,
                 ),

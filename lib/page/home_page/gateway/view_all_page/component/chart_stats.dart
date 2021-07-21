@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class DDChartStats extends StatelessWidget {
   final String title;
@@ -19,7 +20,7 @@ class DDChartStats extends StatelessWidget {
     return ListTile(
       title: Text(
         FlutterI18n.translate(context, title),
-        style: kMiddleFontOfGrey,
+        style: FontTheme.of(context).middle.secondary(),
       ),
       subtitle: Flex(
         direction: Axis.horizontal,
@@ -28,7 +29,10 @@ class DDChartStats extends StatelessWidget {
             flex: 1,
             child: Text(
               subTitle,
-              style: kBigFontOfDarkBlue.copyWith(fontWeight: FontWeight.bold),
+              style: FontTheme.of(context)
+                  .big
+                  .mxc()
+                  .copyWith(fontWeight: FontWeight.bold),
             ),
           ),
           Expanded(
@@ -36,8 +40,11 @@ class DDChartStats extends StatelessWidget {
             child: Text(
               upperLabel,
               textAlign: TextAlign.right,
-              style: kBigFontOfGrey.copyWith(fontWeight: FontWeight.bold),
-              softWrap: true, 
+              style: FontTheme.of(context)
+                  .big
+                  .secondary()
+                  .copyWith(fontWeight: FontWeight.bold),
+              softWrap: true,
               overflow: TextOverflow.fade,
             ),
           )

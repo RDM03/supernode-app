@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class MinerDetailTitle extends StatelessWidget {
   final String text;
@@ -23,7 +24,7 @@ class MinerDetailTitle extends StatelessWidget {
             Expanded(
               child: Text(
                 text,
-                style: kBigFontOfBlack,
+                style: FontTheme.of(context).big(),
               ),
             ),
             if (action != null) action

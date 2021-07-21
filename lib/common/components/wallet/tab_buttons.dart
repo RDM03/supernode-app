@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 Widget tabButtons({
   BuildContext context,
@@ -24,9 +25,9 @@ Widget tabButtons({
               TabBar(
                 controller: tabController,
                 indicatorPadding: EdgeInsets.zero,
-                indicatorColor: buttonPrimaryColor,
-                labelColor: Colors.black,
-                unselectedLabelColor: Colors.black38,
+                indicatorColor: ColorsTheme.of(context).mxcBlue,
+                labelColor: ColorsTheme.of(context).textPrimaryAndIcons,
+                unselectedLabelColor: ColorsTheme.of(context).textSecondary,
                 key: ValueKey('tabBar'),
                 tabs: list.map((item) {
                   return Tab(
@@ -38,7 +39,9 @@ Widget tabButtons({
               ),
               Container(
                 decoration: BoxDecoration(
-                  border: Border(top: BorderSide(color: Colors.grey, width: 1)),
+                  border: Border(
+                      top: BorderSide(
+                          color: ColorsTheme.of(context).mxcBlue20, width: 1)),
                 ),
               ),
             ],
@@ -58,14 +61,14 @@ Widget tabButtons({
             //   minHeight: 120
             // ),
             decoration: BoxDecoration(
-              color: panelColor,
+              color: ColorsTheme.of(context).secondaryBackground,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(10),
                 bottomRight: Radius.circular(10),
               ),
               boxShadow: [
                 BoxShadow(
-                  color: shodowColor,
+                  color: boxShadowColor,
                   offset: Offset(0, 2),
                   blurRadius: 7,
                 ),

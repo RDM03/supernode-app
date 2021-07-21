@@ -4,7 +4,9 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar_back.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -14,7 +16,7 @@ Widget buildView(
   var _ctx = viewService.context;
 
   return pageFrame(context: viewService.context, children: [
-    pageNavBarBack(FlutterI18n.translate(_ctx, 'set_fa_01'),
+    pageNavBarBack(_ctx, FlutterI18n.translate(_ctx, 'set_fa_01'),
         onTap: () => Navigator.of(viewService.context).pop()),
     Form(
         key: state.formKey,
@@ -44,7 +46,7 @@ Widget buildView(
                                 Set2FAActionCreator.onEnterRecoveryContinue());
                           }
                         },
-                  activeColor: Color(0xFF1C1478),
+                  activeColor: ColorsTheme.of(_ctx).mxcBlue,
                 ),
               ],
             ),

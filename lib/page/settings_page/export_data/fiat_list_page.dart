@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
+import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
-import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class FiatListPage extends StatelessWidget {
   @override
@@ -15,31 +15,31 @@ class FiatListPage extends StatelessWidget {
         context: context,
         padding: EdgeInsets.all(0.0),
         children: <Widget>[
-          ListTile(
-            title: Center(
-                child: Text(FlutterI18n.translate(context, 'select_currency'),
-                    style: kBigBoldFontOfBlack)),
-            trailing: GestureDetector(
-                child: Icon(Icons.close, color: Colors.black),
-                onTap: () => Navigator.of(context).pop()),
+          PageNavBar.settings(
+            text: FlutterI18n.translate(context, 'select_currency'),
           ),
           BlocBuilder<SettingsCubit, SettingsState>(
             buildWhen: (a, b) => a.listFiat != b.listFiat,
             builder: (context, state) {
-              List<Widget> listFiatWidgets = [];
-              state.listFiat?.forEach((e) => {
-                listFiatWidgets.add(Container(
-                  color: (e.id == state.selectedFiat.id) ? dartBlueColor.withOpacity(0.1) : transparentWhite,
-                  child: listItem('${e.id.toUpperCase()} - ${e.description}',
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      onTap: () { context.read<SettingsCubit>().setFiatCurrency(e);
-                      Navigator.of(context).pop();},
-                      trailing: Icon(Icons.check, color: (e.id == state.selectedFiat.id) ? Colors.black : Colors.grey)),
-                )),
-                listFiatWidgets.add(Divider(height: 1))
-              });
               return Column(
-                children: listFiatWidgets,
+                children: [
+                  for (final fiat in state.listFiat)
+                    Container(
+                      child: listItem(
+                        '${fiat.id.toUpperCase()} - ${fiat.description}',
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        onTap: () {
+                          context.read<SettingsCubit>().setFiatCurrency(fiat);
+                          Navigator.of(context).pop();
+                        },
+                        trailing: Icon(Icons.check,
+                            color: (fiat.id == state.selectedFiat.id)
+                                ? ColorsTheme.of(context).mxcBlue
+                                : ColorsTheme.of(context).boxComponents),
+                      ),
+                    ),
+                ],
               );
             },
           ),

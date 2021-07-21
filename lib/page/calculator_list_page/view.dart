@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
+import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -38,18 +40,18 @@ Widget buildView(
         constraints: BoxConstraints.expand(),
         padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 235, 239, 242),
+          color: ColorsTheme.of(_ctx).primaryBackground,
         ),
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 20.0),
           constraints:
               BoxConstraints(minHeight: MediaQuery.of(_ctx).size.height - 20),
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 255, 255, 255),
+            color: ColorsTheme.of(_ctx).boxComponents,
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             boxShadow: [
               BoxShadow(
-                color: const Color.fromARGB(26, 0, 0, 0),
+                color: boxShadowColor,
                 offset: Offset(0, 2),
                 blurRadius: 7,
               ),
@@ -70,7 +72,7 @@ Widget buildView(
                     key: ValueKey('navBackButton'),
                     child: Icon(
                       Icons.arrow_back_ios,
-                      color: Colors.black,
+                      color: ColorsTheme.of(_ctx).textPrimaryAndIcons,
                     ),
                     onTap: () => Navigator.of(_ctx).pop(),
                   ),
@@ -98,7 +100,7 @@ Widget buildView(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(5)),
                                 borderSide: BorderSide(
-                                  color: Color(0x0000001A),
+                                  color: ColorsTheme.of(_ctx).textLabel,
                                 ),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -137,7 +139,7 @@ Widget buildView(
                             ),
                             trailing: Icon(
                               Icons.check,
-                              color: Colors.black,
+                              color: ColorsTheme.of(_ctx).textPrimaryAndIcons,
                             ),
                             onTap: () => dispatch(
                               CalculatorListActionCreator.selectCurrency(
@@ -217,7 +219,7 @@ class _Title extends StatelessWidget {
     return Container(
       height: 32,
       padding: EdgeInsets.only(left: 16),
-      color: Color(0xFFEBEFF2),
+      color: ColorsTheme.of(context).primaryBackground,
       alignment: Alignment.centerLeft,
       child: Text(
         text,

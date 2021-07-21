@@ -4,11 +4,12 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
-import 'package:supernodeapp/common/components/text_field/primary_text_field.dart';
-import 'package:supernodeapp/common/components/text_field/text_field_with_button.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/action.dart';
 import 'package:supernodeapp/page/device/device_mapbox_page/introduction_component/action.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
 
@@ -73,19 +74,19 @@ Widget buildView(
     );
   }
 
-  Widget _buildRadioListTile(
+  Widget _buildRadioListTile(BuildContext context,
       {String value, String groupValue, ValueChanged onChanged}) {
     return Row(
       children: <Widget>[
         Radio<String>(
-          activeColor: Colors.black,
+          activeColor: ColorsTheme.of(context).textPrimaryAndIcons,
           value: value ?? "",
           groupValue: groupValue,
           onChanged: onChanged,
         ),
         Text(
           value ?? "",
-          style: kMiddleFontOfGrey,
+          style: FontTheme.of(context).middle.secondary(),
         ),
       ],
     );
@@ -101,7 +102,7 @@ Widget buildView(
             padding: EdgeInsets.only(top: 16, bottom: 16),
             child: Text(
               FlutterI18n.translate(_ctx, 'congratulation') + "!",
-              style: kVeryBigFontOfBlack,
+              style: FontTheme.of(_ctx).veryBig(),
             ),
           ),
           Container(
@@ -111,7 +112,7 @@ Widget buildView(
                 Text(
                   FlutterI18n.translate(_ctx, 'connected_device_success'),
                   textAlign: TextAlign.center,
-                  style: kBigFontOfGrey,
+                  style: FontTheme.of(_ctx).big.secondary(),
                 ),
               ],
             ),
@@ -130,9 +131,9 @@ Widget buildView(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(FlutterI18n.translate(_ctx, 'strong_signal'),
-                    style: kSmallFontOfGrey),
+                    style: FontTheme.of(_ctx).small.secondary()),
                 Text(FlutterI18n.translate(_ctx, 'weak_signal'),
-                    style: kSmallFontOfGrey),
+                    style: FontTheme.of(_ctx).small.secondary()),
               ],
             ),
           ),
@@ -158,7 +159,7 @@ Widget buildView(
             padding: EdgeInsets.only(top: 16, bottom: 16),
             child: Text(
               FlutterI18n.translate(_ctx, 'set_borders'),
-              style: kVeryBigFontOfBlack,
+              style: FontTheme.of(_ctx).veryBig(),
             ),
           ),
           Container(
@@ -166,7 +167,7 @@ Widget buildView(
             child: Text(
               FlutterI18n.translate(_ctx, 'set_borders_desc'),
               textAlign: TextAlign.center,
-              style: kBigFontOfGrey,
+              style: FontTheme.of(_ctx).big.secondary(),
             ),
           ),
           Container(
@@ -182,7 +183,7 @@ Widget buildView(
     );
   }
 
-  Widget _buildThirdBody() {
+  Widget _buildThirdBody(BuildContext context) {
     return ListView(
       children: <Widget>[
         Container(
@@ -190,7 +191,7 @@ Widget buildView(
           padding: EdgeInsets.only(top: 16, bottom: 16),
           child: Text(
             FlutterI18n.translate(_ctx, 'your_data_matters'),
-            style: kVeryBigFontOfBlack,
+            style: FontTheme.of(context).veryBig(),
           ),
         ),
         Container(
@@ -202,7 +203,7 @@ Widget buildView(
                 child: Text(
                   FlutterI18n.translate(_ctx, 'oracle_desc'),
                   textAlign: TextAlign.center,
-                  style: kBigFontOfGrey,
+                  style: FontTheme.of(context).big.secondary(),
                 ),
               ),
             ],
@@ -216,18 +217,20 @@ Widget buildView(
               padding: EdgeInsets.only(top: 30),
               child: Text(
                 FlutterI18n.translate(_ctx, 'device_who_use'),
-                style: kBigFontOfBlack,
+                style: FontTheme.of(context).big(),
               ),
             ),
             Row(
               children: <Widget>[
                 _buildRadioListTile(
+                  context,
                   value: FlutterI18n.translate(_ctx, 'me'),
                   groupValue: state.userGroupValue,
                   onChanged: (value) =>
                       dispatch(IntroductionActionCreator.onChangeRadio(value)),
                 ),
                 _buildRadioListTile(
+                  context,
                   value: FlutterI18n.translate(_ctx, 'family_member'),
                   groupValue: state.userGroupValue,
                   onChanged: (value) =>
@@ -245,24 +248,27 @@ Widget buildView(
               padding: EdgeInsets.only(top: 10),
               child: Text(
                 FlutterI18n.translate(_ctx, 'user_gender'),
-                style: kBigFontOfBlack,
+                style: FontTheme.of(context).big(),
               ),
             ),
             Row(
               children: <Widget>[
                 _buildRadioListTile(
+                  context,
                   value: FlutterI18n.translate(_ctx, 'male'),
                   groupValue: state.genderGroupValue,
                   onChanged: (value) => dispatch(
                       IntroductionActionCreator.onChangeGenderRadio(value)),
                 ),
                 _buildRadioListTile(
+                  context,
                   value: FlutterI18n.translate(_ctx, 'female'),
                   groupValue: state.genderGroupValue,
                   onChanged: (value) => dispatch(
                       IntroductionActionCreator.onChangeGenderRadio(value)),
                 ),
                 _buildRadioListTile(
+                  context,
                   value: FlutterI18n.translate(_ctx, 'non-binary'),
                   groupValue: state.genderGroupValue,
                   onChanged: (value) => dispatch(
@@ -274,7 +280,8 @@ Widget buildView(
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 16),
-          child: textfieldWithButton(
+          child: _textfieldWithButton(
+              context: _ctx,
               readOnly: true,
               inputLabel: state.userGroupValue ==
                       FlutterI18n.translate(_ctx, 'for_my_pet')
@@ -333,8 +340,10 @@ Widget buildView(
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Text(FlutterI18n.translate(_ctx, 'skip'),
-                                    style: kBigFontOfBlack),
+                                Text(
+                                  FlutterI18n.translate(_ctx, 'skip'),
+                                  style: FontTheme.of(_ctx).big(),
+                                ),
                                 Icon(Icons.arrow_forward_ios, size: 24),
                               ],
                             ),
@@ -374,9 +383,109 @@ Widget buildView(
       ),
       _buildPage(
         showSkip: true,
-        PageBody: _buildThirdBody(),
+        PageBody: _buildThirdBody(_ctx),
         selectIndex: 2,
       ),
     ],
   );
+}
+
+Widget _textfieldWithButton({
+  String inputLabel = '',
+  String hintText = '',
+  String initialValue,
+  TextEditingController controller,
+  Function(String) validator,
+  Function onTap,
+  String buttonLabel,
+  IconData icon,
+  bool readOnly = false,
+  bool autocorrect = true,
+  bool isDivider = true,
+  Widget suffixTitleChild,
+  BuildContext context,
+}) {
+  return Container(
+      padding: kOuterRowTop20,
+      child: Column(children: <Widget>[
+        Container(
+          alignment: Alignment.centerLeft,
+          child: Row(
+            children: <Widget>[
+              Visibility(
+                visible: inputLabel.isNotEmpty,
+                child: Text(
+                  inputLabel,
+                  style: FontTheme.of(context).middle(),
+                ),
+              ),
+              Spacer(),
+              Visibility(
+                visible: suffixTitleChild != null,
+                child: suffixTitleChild ?? Container(),
+              )
+            ],
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(top: 10),
+          decoration: BoxDecoration(
+            // color: whiteColor,
+            borderRadius: BorderRadius.all(Radius.circular(3)),
+            border:
+                Border.all(width: 1, color: ColorsTheme.of(context).textLabel),
+          ),
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                  child: TextFormField(
+                readOnly: readOnly,
+                autocorrect: autocorrect,
+                initialValue: initialValue,
+                decoration: InputDecoration(
+                    contentPadding: kRoundRow1005,
+                    hintText: hintText,
+                    border: InputBorder.none),
+                validator: validator,
+                controller: controller,
+              )),
+              GestureDetector(
+                onTap: onTap,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                  decoration: BoxDecoration(
+                    // color: whiteColor,
+                    border: Border(
+                      left: isDivider
+                          ? BorderSide(
+                              width: 1,
+                              color: ColorsTheme.of(context).textLabel)
+                          : BorderSide.none,
+                    ),
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        child: Icon(
+                          icon,
+                          size: 30,
+                        ),
+                      ),
+                      Visibility(
+                        visible: buttonLabel != null,
+                        child: Text(
+                          buttonLabel ?? '',
+                          textAlign: TextAlign.left,
+                          style: FontTheme.of(context).small.secondary(),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        )
+      ]));
 }

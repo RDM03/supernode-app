@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 enum FuelFilter {
   fuelLowToHigh,
@@ -17,11 +18,6 @@ Widget _dialogTile(
   bool checked = false,
 }) =>
     Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Colors.grey.shade200, width: 0.5),
-        ),
-      ),
       height: 60,
       alignment: Alignment.center,
       child: ListTile(
@@ -31,7 +27,9 @@ Widget _dialogTile(
         },
         trailing: Icon(
           Icons.check,
-          color: checked ? healthColor : Colors.grey,
+          color: checked
+              ? ColorsTheme.of(context).minerHealthRed
+              : ColorsTheme.of(context).textLabel,
         ),
       ),
     );
@@ -47,7 +45,7 @@ IosStyleBottomDialog2 filterDialog() {
         Center(
           child: Text(
             'Sort Miners',
-            style: kBigFontOfBlack,
+            style: FontTheme.of(context).big(),
             textAlign: TextAlign.center,
           ),
         ),

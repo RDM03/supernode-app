@@ -59,7 +59,7 @@ class DemoDhxDao extends DemoDao implements DhxDao {
         councilName: "Council 1",
         created: DateTime(2020, 12, 18, 15, 5),
         lockTill: DateTime(2021, 12, 18, 15, 5),
-        currency: Token.mxc.name,
+        currency: Token.mxc,
         dhxMined: "11111",
         lockMonths: "12",
         id: "demoStake",

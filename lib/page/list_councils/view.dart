@@ -5,7 +5,9 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/council_card.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -33,23 +35,27 @@ Widget buildView(
             children: {
               0: Text(
                 FlutterI18n.translate(context, 'joined_council'),
-                style: state.tab == 0 ? kMiddleFontOfWhite : kMiddleFontOfGrey,
+                style: state.tab == 0
+                    ? FontTheme.of(context).middle.label()
+                    : FontTheme.of(context).middle.secondary(),
               ),
               1: Text(
                 FlutterI18n.translate(context, 'council_lists'),
-                style: state.tab == 1 ? kMiddleFontOfWhite : kMiddleFontOfGrey,
+                style: state.tab == 1
+                    ? FontTheme.of(context).middle.label()
+                    : FontTheme.of(context).middle.secondary(),
               ),
             },
             key: ValueKey('tabSlider'),
             onValueChanged: (v) => dispatch(ListCouncilsActionCreator.tab(v)),
             groupValue: state.tab,
-            thumbColor: Color(0xFF4665EA),
-            backgroundColor: Color(0xFF4665EA).withOpacity(0.2),
+            thumbColor: ColorsTheme.of(context).dhxBlue,
+            backgroundColor: ColorsTheme.of(context).dhxBlue20,
           ),
         ),
         SizedBox(height: 30),
         if (state.allCouncils == null || state.joinedCouncils == null)
-          _loadingWidget()
+          _loadingWidget(context)
         else
           for (var i = 0; i < state.selectedCouncils.length; i++) ...[
             CouncilCard(
@@ -63,12 +69,12 @@ Widget buildView(
   );
 }
 
-Widget _loadingWidget() => Padding(
+Widget _loadingWidget(BuildContext context) => Padding(
       padding: const EdgeInsets.all(20),
       child: Center(
         child: CircularProgressIndicator(
           key: ValueKey('circularProgressIndicator'),
-          valueColor: AlwaysStoppedAnimation(Color(0xFF4665EA)),
+          valueColor: AlwaysStoppedAnimation(ColorsTheme.of(context).dhxBlue),
         ),
       ),
     );

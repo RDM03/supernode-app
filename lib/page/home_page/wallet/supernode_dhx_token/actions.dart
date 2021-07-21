@@ -12,6 +12,8 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/page/home_page/shared.dart';
+import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'dhx_bonding_page.dart';
 import 'dhx_unbonding_page.dart';
@@ -26,7 +28,7 @@ class SupernodeDhxActions extends StatelessWidget {
           key: Key('dhxDeposit'),
           icon: Icon(
             Icons.add,
-            color: Token.supernodeDhx.color,
+            color: Token.supernodeDhx.ui(context).color,
           ),
           label: FlutterI18n.translate(context, 'deposit'),
           onTap: () => openSupernodeDeposit(context, Token.supernodeDhx),
@@ -38,20 +40,22 @@ class SupernodeDhxActions extends StatelessWidget {
                   key: Key('dhxWithdraw'),
                   icon: Icon(
                     Icons.arrow_forward,
-                    color: Token.supernodeDhx.color,
+                    color: Token.supernodeDhx.ui(context).color,
                   ),
                   label: FlutterI18n.translate(context, 'withdraw'),
                   onTap: state.balance.loading
                       ? null
-                      : () =>
-                          openSupernodeWithdraw(context, Token.supernodeDhx),
+                      : () => openSupernodeWithdraw(
+                            context,
+                            Token.supernodeDhx,
+                          ),
                 )),
         Spacer(),
         CircleButton(
           key: Key('dhxMine'),
           icon: Image.asset(
             AppImages.iconMine,
-            color: Token.supernodeDhx.color,
+            color: Token.supernodeDhx.ui(context).color,
           ),
           label: FlutterI18n.translate(context, 'mine'),
           onTap: () {
@@ -60,9 +64,11 @@ class SupernodeDhxActions extends StatelessWidget {
               builder: (BuildContext context) {
                 return Scaffold(
                   appBar: AppBars.backArrowSkipAppBar(
-                      title: FlutterI18n.translate(context, 'tutorial_title'),
-                      onPress: () => Navigator.pop(context),
-                      action: FlutterI18n.translate(context, "skip")),
+                    context,
+                    title: FlutterI18n.translate(context, 'tutorial_title'),
+                    onPress: () => Navigator.pop(context),
+                    action: FlutterI18n.translate(context, "skip"),
+                  ),
                   body: MiningTutorial(context),
                 );
               },
@@ -77,8 +83,8 @@ class SupernodeDhxActions extends StatelessWidget {
                 color: (state.stakes.loading ||
                         state.stakes.value == null ||
                         state.stakes.value.isEmpty)
-                    ? Colors.grey
-                    : Token.supernodeDhx.color,
+                    ? ColorsTheme.of(context).textLabel
+                    : Token.supernodeDhx.ui(context).color,
               ),
               label: FlutterI18n.translate(context, 'council'),
               onTap: () {
@@ -116,7 +122,7 @@ class SupernodeDhxMineActions extends StatelessWidget {
           key: Key('lockMxcButton'),
           icon: Icon(
             Icons.lock,
-            color: Token.supernodeDhx.color,
+            color: Token.supernodeDhx.ui(context).color,
           ),
           label: FlutterI18n.translate(context, 'lock_mxc'),
           onTap: () => Navigator.pushNamed(context, 'lock_page',
@@ -127,7 +133,7 @@ class SupernodeDhxMineActions extends StatelessWidget {
           key: Key('bondButton'),
           icon: Image.asset(
             AppImages.iconBond,
-            color: Token.supernodeDhx.color,
+            color: Token.supernodeDhx.ui(context).color,
           ),
           label: FlutterI18n.translate(context, 'bond'),
           onTap: () => Navigator.push(context, routeWidget(DhxBondingPage())),
@@ -137,7 +143,7 @@ class SupernodeDhxMineActions extends StatelessWidget {
           key: Key('unbondButton'),
           icon: Image.asset(
             AppImages.iconUnbond,
-            color: Token.supernodeDhx.color,
+            color: Token.supernodeDhx.ui(context).color,
           ),
           label: FlutterI18n.translate(context, 'unbond'),
           onTap: () =>
@@ -145,21 +151,20 @@ class SupernodeDhxMineActions extends StatelessWidget {
         ),
         Spacer(),
         CircleButton(
-          icon: Icon(
-            Icons.tune,
-            color: Token.supernodeDhx.color,
-          ),
-          label: FlutterI18n.translate(context, 'simulate_mining'),
-          onTap: () {
-            Navigator.pushNamed(
-                context,
-                'mining_simulator_page',
-                arguments: {
-                  'isDemo': context.read<AppCubit>().state.isDemo,
-                  'mxc_balance': context.read<SupernodeUserCubit>().state.balance.value,
-                  'dhx_balance': context.read<SupernodeDhxCubit>().state.balance.value,
-                });
-          }),
+            icon: Icon(
+              Icons.tune,
+              color: Token.supernodeDhx.ui(context).color,
+            ),
+            label: FlutterI18n.translate(context, 'simulate_mining'),
+            onTap: () {
+              Navigator.pushNamed(context, 'mining_simulator_page', arguments: {
+                'isDemo': context.read<AppCubit>().state.isDemo,
+                'mxc_balance':
+                    context.read<SupernodeUserCubit>().state.balance.value,
+                'dhx_balance':
+                    context.read<SupernodeDhxCubit>().state.balance.value,
+              });
+            }),
       ],
     );
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class DDBoxWithShadow extends StatelessWidget {
   final Widget child;
@@ -19,11 +21,11 @@ class DDBoxWithShadow extends StatelessWidget {
         height: s(height),
         constraints: BoxConstraints(maxHeight: s(maxHeight)),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: ColorsTheme.of(context).boxComponents,
           borderRadius: BorderRadius.all(Radius.circular(16.0)),
           boxShadow: [
             BoxShadow(
-              color: const Color.fromARGB(26, 0, 0, 0),
+              color: boxShadowColor,
               offset: Offset(0, 2),
               blurRadius: 7,
             ),

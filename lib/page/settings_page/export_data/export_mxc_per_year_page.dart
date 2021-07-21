@@ -5,6 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/loading.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
+import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/settings/list_item.dart';
 import 'package:supernodeapp/common/repositories/storage_repository.dart';
 import 'package:supernodeapp/common/repositories/supernode/dao/user.dart';
@@ -13,7 +14,9 @@ import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
 import 'package:supernodeapp/page/settings_page/export_data/csv_viewer_page.dart';
 import 'package:supernodeapp/page/settings_page/export_data/pdf_viewer_page.dart';
 import 'package:supernodeapp/route.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'fiat_list_page.dart';
 import 'format_list_page.dart';
@@ -53,20 +56,14 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
         context: context,
         padding: EdgeInsets.all(0.0),
         children: <Widget>[
-          ListTile(
-            title: Center(
-                child: Text(
-                    FlutterI18n.translate(context, 'export_financial_data'),
-                    style: kBigBoldFontOfBlack)),
-            trailing: GestureDetector(
-                child: Icon(Icons.close, color: Colors.black),
-                onTap: () => Navigator.of(context).pop()),
+          PageNavBar.settings(
+            text: FlutterI18n.translate(context, 'export_financial_data'),
           ),
           listItem('${widget.year}', trailing: SizedBox()),
           Divider(),
           listItem(FlutterI18n.translate(context, 'time_range'),
               trailing: Text('01.01.${widget.year} - 31.12.${widget.year}',
-                  style: kBigFontOfDarkBlue)),
+                  style: FontTheme.of(context).big.mxc())),
           Divider(),
           listItem(FlutterI18n.translate(context, 'format'),
               key: Key('format'),
@@ -74,8 +71,8 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
                   Navigator.push(context, routeWidget(FormatListPage())),
               trailing: BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (a, b) => a.format != b.format,
-                builder: (context, state) =>
-                    Text(state.format.toUpperCase(), style: kBigFontOfDarkBlue),
+                builder: (context, state) => Text(state.format.toUpperCase(),
+                    style: FontTheme.of(context).big.mxc()),
               )),
           Divider(),
           listItem(FlutterI18n.translate(context, 'currency'),
@@ -89,14 +86,17 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
                       (state.selectedFiat == null)
                           ? '--'
                           : state.selectedFiat.id.toUpperCase(),
-                      style: kBigFontOfDarkBlue);
+                      style: FontTheme.of(context).big.mxc());
                 },
               )),
           Divider(),
           listItem(FlutterI18n.translate(context, 'decimals'),
               trailing: Row(mainAxisSize: MainAxisSize.min, children: [
                 GestureDetector(
-                    child: Icon(Icons.remove_circle_outline),
+                    child: Icon(
+                      Icons.remove_circle_outline,
+                      color: ColorsTheme.of(context).mxcBlue,
+                    ),
                     onTap: () => context
                         .read<SettingsCubit>()
                         .changeDataExportDecimals(-1)),
@@ -106,12 +106,15 @@ class _ExportMxcPreYearPageState extends State<ExportMxcPreYearPage> {
                   builder: (context, state) {
                     return Text(
                         '${state.decimals < 10 ? '0' : ''}${state.decimals}',
-                        style: kBigFontOfDarkBlue);
+                        style: FontTheme.of(context).big.mxc());
                   },
                 ),
                 SizedBox(width: 20),
                 GestureDetector(
-                    child: Icon(Icons.add_circle_outline),
+                    child: Icon(
+                      Icons.add_circle_outline,
+                      color: ColorsTheme.of(context).mxcBlue,
+                    ),
                     onTap: () => context
                         .read<SettingsCubit>()
                         .changeDataExportDecimals(1)),

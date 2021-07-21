@@ -12,7 +12,9 @@ import 'package:supernodeapp/common/components/text_field/text_field_with_title.
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/page/withdraw_page/bloc/cubit.dart';
 import 'package:supernodeapp/page/withdraw_page/bloc/state.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class WithdrawSecurityCode extends StatefulWidget {
   @override
@@ -38,7 +40,7 @@ class _WithdrawSecurityCodeState extends State<WithdrawSecurityCode> {
               key: ValueKey('navBackButton'),
               child: Icon(
                 Icons.arrow_back_ios,
-                color: Colors.black,
+                color: ColorsTheme.of(context).textPrimaryAndIcons,
               ),
               onTap: () => context.read<WithdrawCubit>().backToConfirm())),
       xbigColumnSpacer(),
@@ -54,14 +56,14 @@ class _WithdrawSecurityCodeState extends State<WithdrawSecurityCode> {
         child: Text(
           FlutterI18n.translate(context, 'wthdr_ent_code_02'),
           textAlign: TextAlign.center,
-          style: kMiddleFontOfBlack,
+          style: FontTheme.of(context).middle(),
         ),
       ),
       Center(
         child: Text(
           FlutterI18n.translate(context, 'wthdr_ent_code_03'),
           textAlign: TextAlign.center,
-          style: kMiddleFontOfBlack,
+          style: FontTheme.of(context).middle(),
         ),
       ),
       xbigColumnSpacer(),
@@ -86,7 +88,7 @@ class _WithdrawSecurityCodeState extends State<WithdrawSecurityCode> {
                 }),
             buttonTitle: FlutterI18n.translate(context, 'confirm'),
             minWidth: double.infinity,
-            bgColor: st.token.color),
+            bgColor: st.token.ui(context).color),
       ),
     ]);
   }
