@@ -6,15 +6,13 @@ import 'package:supernodeapp/theme/theme.dart';
 class DDChartStats extends StatelessWidget {
   final String title;
   final String subTitle;
-  final String startTime;
-  final String endTime;
+  final String upperLabel;
 
   const DDChartStats(
       {Key key,
       this.title = '',
       this.subTitle = '',
-      this.startTime,
-      this.endTime})
+      this.upperLabel = ''})
       : super(key: key);
 
   @override
@@ -40,7 +38,7 @@ class DDChartStats extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Text(
-              '$startTime - $endTime',
+              upperLabel,
               textAlign: TextAlign.right,
               style: FontTheme.of(context)
                   .big

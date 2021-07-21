@@ -13,8 +13,7 @@ class DDBarChart extends StatefulWidget {
   final List<double> xData;
   final List<String> xLabel;
   final List<int> yLabel;
-  final Function(int, {ScrollController scrollController, int firstIndex})
-      notifyGraphBarScroll;
+  final Function(int) notifyGraphBarScroll;
 
   const DDBarChart(
       {Key key,
@@ -33,7 +32,7 @@ class DDBarChart extends StatefulWidget {
 }
 
 class _DDBarChartState extends State<DDBarChart> {
-  int index = -1;
+  int indexTappedBar = -1;
   Offset position = Offset(0, 0);
 
   @override
@@ -86,7 +85,7 @@ class _DDBarChartState extends State<DDBarChart> {
           top: 0,
           left: position.dx - 20 ?? 0,
           child: Visibility(
-              visible: index != -1 && widget.hasTooltip,
+              visible: indexTappedBar != -1 && widget.hasTooltip,
               child: Container(
                 padding: EdgeInsets.all(5),
                 decoration: BoxDecoration(
@@ -100,11 +99,10 @@ class _DDBarChartState extends State<DDBarChart> {
                     ),
                   ],
                 ),
-                child: Text(
-                  index != -1 &&
+                child: Text(indexTappedBar != -1 &&
                           widget.tooltipData.isNotEmpty &&
-                          index < widget.tooltipData.length
-                      ? '${widget?.tooltipData[index] ?? 0}'
+                          indexTappedBar < widget.tooltipData.length
+                      ? '${widget?.tooltipData[indexTappedBar] ?? 0}'
                       : '0',
                   style: FontTheme.of(context).big(),
                 ),
@@ -120,16 +118,15 @@ class _DDBarChartState extends State<DDBarChart> {
                       MediaQuery.of(context).size.width - 60,
                       xAxisLabels: widget.xLabel,
                       widgetHeight: MediaQuery.of(context).size.height * 0.6,
-                      notifyGraphBarScroll: (indexValue,
-                          {ScrollController scrollController, int firstIndex}) {
-                widget.notifyGraphBarScroll(indexValue,
-                    scrollController: scrollController, firstIndex: firstIndex);
+                      notifyGraphBarScroll: (indexValue) {
+                        widget.notifyGraphBarScroll(indexValue);
+                        setState(() {
+                          indexTappedBar = -1;
+                        });
+                      },
+                      onTapUp: (indexValue, positionValue) {
                 setState(() {
-                  index = -1;
-                });
-              }, onTapUp: (indexValue, positionValue) {
-                setState(() {
-                  index = indexValue;
+                  indexTappedBar = indexValue;
                   position = positionValue;
                 });
               })),
