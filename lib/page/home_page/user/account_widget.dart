@@ -10,6 +10,8 @@ import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
 import 'package:supernodeapp/page/home_page/user/tabbed_view.dart';
+import 'package:supernodeapp/page/settings_page/profile_component/profile_page.dart';
+import 'package:supernodeapp/route.dart';
 
 class AccountWidget extends StatelessWidget {
   Widget supernode(BuildContext context) => Column(
@@ -24,6 +26,7 @@ class AccountWidget extends StatelessWidget {
               trailing: SizedBox(
                 width: 30,
               ),
+              onTap: () => Navigator.push(context, routeWidget(ProfilePage())),
             ),
           ),
         ],
