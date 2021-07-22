@@ -11,8 +11,6 @@ import 'package:supernodeapp/common/components/wallet/mining_tutorial.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/images.dart';
-import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
@@ -212,7 +210,7 @@ Widget _lockCard({
         alignment: Alignment.center,
         child: Text(
           months?.toString() ?? '~',
-          style: FontTheme.of(context).veryBig.label.bold(),
+          style: FontTheme.of(context).veryBig.button.bold(),
         ),
         padding: EdgeInsets.only(top: 2),
         decoration: BoxDecoration(

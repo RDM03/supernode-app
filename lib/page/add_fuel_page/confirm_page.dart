@@ -6,8 +6,6 @@ import 'package:supernodeapp/common/components/page/done.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/page/title.dart';
-import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
 class AddFuelConfirmPage extends StatelessWidget {
@@ -62,9 +60,9 @@ class AddFuelConfirmPage extends StatelessWidget {
               onTap: () => Navigator.of(context).pop(),
               minHeight: 46,
               buttonTitle: FlutterI18n.translate(context, 'done'),
-              bgColor: ColorsTheme.of(context).minerHealthRed,
+              bgColor: ColorsTheme.of(context).minerHealthRed.withOpacity(0.8),
+              textColor: ColorsTheme.of(context).buttonIconTextColor,
               minWidth: 0,
-              style: FontTheme.of(context).big.label(),
             ),
           ),
           SizedBox(height: 40),

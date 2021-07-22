@@ -39,6 +39,7 @@ class ViewAllPage extends StatelessWidget {
         TimeUtil.weekDayShort(context),
         TimeUtil.monthsShort(context),
         TimeUtil.months(context),
+        FlutterI18n.translate(context, "day"),
       ),
       child: _ViewAllPage(
         minerId: minerId,
@@ -79,7 +80,7 @@ class _ViewAllPageState extends State<_ViewAllPage>
       context.read<MinerStatsCubit>().dispatchData(
           type: widget.type,
           minerId: widget.minerId,
-          time: MinerStatsTime.week),
+          timePeriod: MinerStatsTimePeriod.week),
       // context.read<MinerStatsCubit>().dispatchData(
       //     type: widget.type,
       //     minerId: widget.minerId,
@@ -133,35 +134,19 @@ class _ViewAllPageState extends State<_ViewAllPage>
                     .map((item) =>
                         Tab(text: FlutterI18n.translate(context, item)))
                     .toList(),
-                onTap: (index) async {
-                  context.read<MinerStatsCubit>().tabTime(tabs[index]);
-
-                  await context.read<MinerStatsCubit>().dispatchData(
-                        type: widget.type,
-                        time: [
-                          MinerStatsTime.week,
-                          MinerStatsTime.month,
-                          MinerStatsTime.year
-                        ][index],
-                        minerId: widget.minerId,
-                      );
-                },
+                onTap: (index) =>
+                  context.read<MinerStatsCubit>().setTabTimePeriod(tabs[index]),
               )),
           BlocBuilder<MinerStatsCubit, MinerStatsState>(
               buildWhen: (a, b) =>
-                  a.scrollFirstIndex == 0 ||
-                  a.selectedTime != b.selectedTime ||
-                  a.scrollFirstIndex != b.scrollFirstIndex,
+                  a.upperLabel != b.upperLabel
+                  || a.statsLabel != b.statsLabel
+                  || a.selectedTimePeriod != b.selectedTimePeriod,
               builder: (ctx, state) {
                 return DDChartStats(
                   title: context.read<MinerStatsCubit>().getStatsTitle(),
-                  subTitle:
-                      context.read<MinerStatsCubit>().getStatsSubitle(context),
-                  startTime:
-                      context.read<MinerStatsCubit>().getStartTimeLabel() ??
-                          '--',
-                  endTime:
-                      context.read<MinerStatsCubit>().getEndTimeLabel() ?? '--',
+                  subTitle: context.read<MinerStatsCubit>().state.statsLabel,
+                  upperLabel: context.read<MinerStatsCubit>().state.upperLabel,
                 );
               }),
           Expanded(
@@ -170,52 +155,38 @@ class _ViewAllPageState extends State<_ViewAllPage>
             controller: _tabController,
             children: tabs.map((item) {
               return BlocBuilder<MinerStatsCubit, MinerStatsState>(
-                  // buildWhen: (a, b) =>
-                  // a.selectedTime != b.selectedTime
+                  buildWhen: (a, b) =>
+                  a.selectedTimePeriod != b.selectedTimePeriod
+                      //|| a.originList != b.originList
+                      //|| a.originMonthlyList != b.originMonthlyList
+                      //|| a.originYearlyList != b.originYearlyList
+                      || a.xDataList != b.xDataList
+                      || a.xLabelList != b.xLabelList
+                      || a.yLabelList != b.yLabelList,
                   builder: (ctx, state) {
-                return state.originList.isEmpty
+                    final xLabel = state.xLabelList
+                        .map((item) => FlutterI18n.translate(context, item))
+                        .toList();
+                    final numBar = context.read<MinerStatsCubit>().getNumBar();
+                return state.originList.isEmpty || state.xDataList.isEmpty
                     ? Center(child: CircularProgressIndicator())
                     : DDBarChart(
                         hasYAxis: true,
                         hasTooltip: true,
                         tooltipData: context
                             .read<MinerStatsCubit>()
-                            .getOriginTypeList()
+                            .getDataByTimePeriod()
                             .map((item) => context
                                 .read<MinerStatsCubit>()
                                 .getTooltip(item))
                             .toList(),
-                        numBar: context.read<MinerStatsCubit>().getNumBar(),
+                        numBar: numBar,
                         xData: state.xDataList,
-                        xLabel: state.xLabelList
-                            .map((item) => FlutterI18n.translate(context, item))
-                            .toList(),
+                        xLabel: xLabel,
                         yLabel: state.yLabelList,
-                        notifyGraphBarScroll: (way,
-                            {scrollController, firstIndex}) {
-                          context
-                              .read<MinerStatsCubit>()
-                              .setScrollFirstIndex(firstIndex);
-
-                          int barNum =
-                              context.read<MinerStatsCubit>().getNumBar();
-                          if (way >= 1 &&
-                              context
-                                          .read<MinerStatsCubit>()
-                                          .getOriginTypeList()
-                                          .length -
-                                      firstIndex -
-                                      context
-                                          .read<MinerStatsCubit>()
-                                          .getNumBar() <=
-                                  barNum / 2) {
-                            context.read<MinerStatsCubit>().dispatchData(
-                                type: widget.type,
-                                time: state.selectedTime,
-                                minerId: widget.minerId,
-                                startTime: state.originList.last.date);
-                          }
-                        });
+                        notifyGraphBarScroll: (way) =>
+                          context.read<MinerStatsCubit>().setChartStats(way)
+                );
               });
             }).toList(),
           )),

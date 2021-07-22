@@ -171,7 +171,8 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                 else
                   defaultAll();
               },
-              inactiveThumbColor: ColorsTheme.of(context).textLabel,
+              inactiveThumbColor:
+                  ColorsTheme.of(context).textLabel.withOpacity(0.5),
               activeColor: ColorsTheme.of(context).minerHealthRed,
             ),
             SizedBox(width: 16),
@@ -363,6 +364,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
         title: FlutterI18n.translate(context, 'send_to_wallet'),
         onPress: () => Navigator.of(context).pop(),
       ),
+      backgroundColor: ColorsTheme.of(context).secondaryBackground,
       body: Column(
         children: [
           Expanded(
@@ -460,9 +462,9 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                       onTap: () => onNext(context),
                       minHeight: 46,
                       buttonTitle: FlutterI18n.translate(context, 'next'),
-                      bgColor: ColorsTheme.of(context).minerHealthRed,
+                      bgColor: ColorsTheme.of(context).minerHealthRed.withOpacity(0.8),
+                      textColor: ColorsTheme.of(context).buttonIconTextColor,
                       minWidth: 0,
-                      style: FontTheme.of(context).big.label(),
                     ),
                   ),
                 ),
