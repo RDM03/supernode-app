@@ -42,7 +42,7 @@ class _DDBarChartState extends State<DDBarChart> {
       if (_indexTappedBar != -1 &&
           widget.tooltipData.isNotEmpty &&
           _indexTappedBar < widget.tooltipData.length) {
-        if ((_position.dx + widget.tooltipData.length * 2 + 40) <
+        if ((_position.dx + (widget.tooltipData[_indexTappedBar].length * 2) + 40) <
             _screenSize.width) {
           return Text('${widget?.tooltipData[_indexTappedBar] ?? 0}',
               style: FontTheme.of(context).big());

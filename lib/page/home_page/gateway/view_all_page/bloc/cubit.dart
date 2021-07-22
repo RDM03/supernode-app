@@ -62,7 +62,7 @@ class MinerStatsCubit extends Cubit<MinerStatsState> {
   }
 
   void setChartStats(int index) {
-    if (index != state.currentIndex) {
+    if (index >= 0 && index != state.currentIndex) {
       emit(state.copyWith(
           currentIndex: index,
           upperLabel: '${getParsedUpperLabel(
