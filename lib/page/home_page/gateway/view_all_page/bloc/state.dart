@@ -4,7 +4,7 @@ import 'package:supernodeapp/common/repositories/supernode/dao/miner.model.dart'
 part 'state.freezed.dart';
 
 enum MinerStatsType { uptime, revenue, frameReceived, frameTransmitted }
-enum MinerStatsTime { week, month, year }
+enum MinerStatsTimePeriod { week, month, year }
 
 @freezed
 abstract class MinerStatsState with _$MinerStatsState {
@@ -16,9 +16,11 @@ abstract class MinerStatsState with _$MinerStatsState {
       @Default([]) List<String> xLabelList,
       @Default([]) List<int> yLabelList,
       @Default(false) bool showLoading,
-      @Default(MinerStatsTime.week) MinerStatsTime selectedTime,
+      @Default(MinerStatsTimePeriod.week) MinerStatsTimePeriod selectedTimePeriod,
       @Default(MinerStatsType.uptime) MinerStatsType selectedType,
       @Default(0) double uptimeWeekScore,
-      @Default(0) int scrollFirstIndex,
+      @Default(-1) int currentIndex,
+      @Default('') String upperLabel,
+      @Default('') String statsLabel,
       String error}) = _MinerStatsState;
 }

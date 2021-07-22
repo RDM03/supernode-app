@@ -12,8 +12,7 @@ class DDBarChart extends StatefulWidget {
   final List<double> xData;
   final List<String> xLabel;
   final List<int> yLabel;
-  final Function(int, {ScrollController scrollController, int firstIndex})
-      notifyGraphBarScroll;
+  final Function(int) notifyGraphBarScroll;
 
   const DDBarChart(
       {Key key,
@@ -32,7 +31,7 @@ class DDBarChart extends StatefulWidget {
 }
 
 class _DDBarChartState extends State<DDBarChart> {
-  int _index = -1;
+  int _indexTappedBar = -1;
   Offset _position = Offset(0, 0);
 
   @override
@@ -40,16 +39,16 @@ class _DDBarChartState extends State<DDBarChart> {
     Size _screenSize = MediaQuery.of(context).size;
 
     Widget _tooltipShow() {
-      if (_index != -1 &&
+      if (_indexTappedBar != -1 &&
           widget.tooltipData.isNotEmpty &&
-          _index < widget.tooltipData.length) {
+          _indexTappedBar < widget.tooltipData.length) {
         if ((_position.dx + widget.tooltipData.length * 2 + 40) <
             _screenSize.width) {
-          return Text('${widget?.tooltipData[_index] ?? 0}',
+          return Text('${widget?.tooltipData[_indexTappedBar] ?? 0}',
               style: FontTheme.of(context).big());
         } else {
           return Text(
-              '${widget?.tooltipData[_index] ?? 0}'
+              '${widget?.tooltipData[_indexTappedBar] ?? 0}'
                   .replaceFirst(RegExp(r' '), '\n'),
               style: FontTheme.of(context).big());
         }
@@ -105,11 +104,11 @@ class _DDBarChartState extends State<DDBarChart> {
           top: 0,
           left: _position.dx - 20 ?? 0,
           child: Visibility(
-              visible: _index != -1 && widget.hasTooltip,
+              visible: _indexTappedBar != -1 && widget.hasTooltip,
               child: Container(
                   padding: EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                    color: whiteColor,
+                    color: ColorsTheme.of(context).boxComponents,
                     borderRadius: BorderRadius.all(Radius.circular(4.0)),
                     boxShadow: [
                       BoxShadow(
@@ -130,16 +129,15 @@ class _DDBarChartState extends State<DDBarChart> {
                       widget.xData, widget.numBar, _screenSize.width - 60,
                       xAxisLabels: widget.xLabel,
                       widgetHeight: _screenSize.height * 0.6,
-                      notifyGraphBarScroll: (indexValue,
-                          {ScrollController scrollController, int firstIndex}) {
-                widget.notifyGraphBarScroll(indexValue,
-                    scrollController: scrollController, firstIndex: firstIndex);
+                      notifyGraphBarScroll: (indexValue) {
+                        widget.notifyGraphBarScroll(indexValue);
+                        setState(() {
+                          _indexTappedBar = -1;
+                        });
+                      },
+                      onTapUp: (indexValue, positionValue) {
                 setState(() {
-                  _index = -1;
-                });
-              }, onTapUp: (indexValue, positionValue) {
-                setState(() {
-                  _index = indexValue;
+                  _indexTappedBar = indexValue;
                   _position = positionValue;
                 });
               })),
