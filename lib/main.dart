@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart' as screen;
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:supernodeapp/common/components/loading.dart';
@@ -332,110 +333,115 @@ class MxcApp extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return DatadashFeedback(
-      child: MaterialApp(
-        navigatorKey: rootNavigatorKey,
-        localizationsDelegates: [
-          FlutterI18nDelegate(
-            translationLoader: FileTranslationLoader(
-                useCountryCode: true,
-                forcedLocale: context.read<AppCubit>().getLocale()),
-          ),
-          GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        supportedLocales: [
-          const Locale('en'),
-          const Locale.fromSubtags(languageCode: 'zh'),
-          const Locale.fromSubtags(
-              languageCode: 'zh', scriptCode: 'Hans', countryCode: 'CN'),
-          const Locale.fromSubtags(
-              languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
-          const Locale.fromSubtags(
-              languageCode: 'zh', scriptCode: 'Hant', countryCode: 'HK'),
-          const Locale.fromSubtags(languageCode: 'vi'), // Vietnam
-          const Locale.fromSubtags(languageCode: 'ja'), // Japan
-          const Locale.fromSubtags(languageCode: 'ko'), // Korea
-          const Locale.fromSubtags(languageCode: 'de'), // Germany
-          const Locale.fromSubtags(languageCode: 'ru'), // Russia
-          const Locale.fromSubtags(languageCode: 'ko'), // Korea
-          const Locale.fromSubtags(languageCode: 'tr'), // Turkey
-          const Locale.fromSubtags(languageCode: 'es'), // Spain
-          const Locale.fromSubtags(languageCode: 'pt'), // Portugal
-          const Locale.fromSubtags(languageCode: 'id'), // Indonesia
-          const Locale.fromSubtags(languageCode: 'tl'), // Philippines
-        ],
-        home: ThemeMapper(
-          child: Builder(
-            builder: (ctx) {
-              ScreenUtil.instance
-                  .init(Config.BLUE_PRINT_WIDTH, Config.BLUE_PRINT_HEIGHT, ctx);
-              return MultiBlocListener(
-                listeners: [
-                  BlocListener<AppCubit, AppState>(
-                    listenWhen: (a, b) => a.showLoading != b.showLoading,
-                    listener: showLoading,
+      child: screen.ScreenUtilInit(
+          designSize: Size(375, 812), //Design Size
+          builder: () => MaterialApp(
+                navigatorKey: rootNavigatorKey,
+                localizationsDelegates: [
+                  FlutterI18nDelegate(
+                    translationLoader: FileTranslationLoader(
+                        useCountryCode: true,
+                        forcedLocale: context.read<AppCubit>().getLocale()),
                   ),
-                  BlocListener<AppCubit, AppState>(
-                    listenWhen: (a, b) => a.error != b.error,
-                    listener: showError,
-                  ),
-                  BlocListener<AppCubit, AppState>(
-                    listenWhen: (a, b) => a.success != b.success,
-                    listener: showSuccess,
-                  ),
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
                 ],
-                child: WillPopScope(
-                  onWillPop: () async {
-                    if (homeNavigatorKey.currentState?.canPop() ?? false) {
-                      homeNavigatorKey.currentState.maybePop();
-                      return false;
-                    }
-                    if (navigatorKey.currentState.canPop()) {
-                      navigatorKey.currentState.maybePop();
-                      return false;
-                    }
-                    return true;
-                  },
-                  child: Navigator(
-                    key: navigatorKey,
-                    onPopPage: (route, result) => route.didPop(result),
-                    onGenerateRoute: (RouteSettings settings) {
-                      return MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return fishRoutes.buildPage(
-                              settings.name, settings.arguments);
-                        },
-                        settings: settings,
+                supportedLocales: [
+                  const Locale('en'),
+                  const Locale.fromSubtags(languageCode: 'zh'),
+                  const Locale.fromSubtags(
+                      languageCode: 'zh',
+                      scriptCode: 'Hans',
+                      countryCode: 'CN'),
+                  const Locale.fromSubtags(
+                      languageCode: 'zh',
+                      scriptCode: 'Hant',
+                      countryCode: 'TW'),
+                  const Locale.fromSubtags(
+                      languageCode: 'zh',
+                      scriptCode: 'Hant',
+                      countryCode: 'HK'),
+                  const Locale.fromSubtags(languageCode: 'vi'), // Vietnam
+                  const Locale.fromSubtags(languageCode: 'ja'), // Japan
+                  const Locale.fromSubtags(languageCode: 'ko'), // Korea
+                  const Locale.fromSubtags(languageCode: 'de'), // Germany
+                  const Locale.fromSubtags(languageCode: 'ru'), // Russia
+                  const Locale.fromSubtags(languageCode: 'ko'), // Korea
+                  const Locale.fromSubtags(languageCode: 'tr'), // Turkey
+                  const Locale.fromSubtags(languageCode: 'es'), // Spain
+                  const Locale.fromSubtags(languageCode: 'pt'), // Portugal
+                  const Locale.fromSubtags(languageCode: 'id'), // Indonesia
+                  const Locale.fromSubtags(languageCode: 'tl') // Philippines
+                ],
+                home: ThemeMapper(
+                  child: Builder(
+                    builder: (ctx) {
+                      ScreenUtil.instance.init(Config.BLUE_PRINT_WIDTH,
+                          Config.BLUE_PRINT_HEIGHT, ctx);
+                      return MultiBlocListener(
+                        listeners: [
+                          BlocListener<AppCubit, AppState>(
+                              listenWhen: (a, b) =>
+                                  a.showLoading != b.showLoading,
+                              listener: showLoading),
+                          BlocListener<AppCubit, AppState>(
+                              listenWhen: (a, b) => a.error != b.error,
+                              listener: showError),
+                          BlocListener<AppCubit, AppState>(
+                              listenWhen: (a, b) => a.success != b.success,
+                              listener: showSuccess)
+                        ],
+                        child: WillPopScope(
+                          onWillPop: () async {
+                            if (homeNavigatorKey.currentState?.canPop() ??
+                                false) {
+                              homeNavigatorKey.currentState.maybePop();
+                              return false;
+                            }
+                            if (navigatorKey.currentState.canPop()) {
+                              navigatorKey.currentState.maybePop();
+                              return false;
+                            }
+                            return true;
+                          },
+                          child: Navigator(
+                            key: navigatorKey,
+                            onPopPage: (route, result) => route.didPop(result),
+                            onGenerateRoute: (RouteSettings settings) {
+                              return MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return fishRoutes.buildPage(
+                                        settings.name, settings.arguments);
+                                  },
+                                  settings: settings);
+                            },
+                            onGenerateInitialRoutes: (state, s) => [
+                              context.read<SupernodeCubit>().state.session ==
+                                          null ||
+                                      context
+                                              .read<SupernodeCubit>()
+                                              .state
+                                              .session
+                                              .userId ==
+                                          -1 /* demoMode */
+                                  ? routeWidget(LoginPage())
+                                  : routeWidget(HomePage())
+                            ],
+                          ),
+                        ),
                       );
                     },
-                    onGenerateInitialRoutes: (state, s) => [
-                      context.read<SupernodeCubit>().state.session == null ||
-                              context
-                                      .read<SupernodeCubit>()
-                                      .state
-                                      .session
-                                      .userId ==
-                                  -1 /* demoMode */
-                          ? routeWidget(LoginPage())
-                          : routeWidget(HomePage()),
-                    ],
                   ),
                 ),
-              );
-            },
-          ),
-        ),
-        builder: (context, child) {
-          if (Platform.isAndroid) {
-            return ScrollConfiguration(
-              behavior: NoGlowBehavior(),
-              child: child,
-            );
-          }
-          return child;
-        },
-      ),
+                builder: (context, child) {
+                  if (Platform.isAndroid) {
+                    return ScrollConfiguration(
+                        behavior: NoGlowBehavior(), child: child);
+                  }
+                  return child;
+                },
+              )),
     );
   }
 }

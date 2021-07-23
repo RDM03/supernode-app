@@ -7,8 +7,6 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/page/home_page/gateway/view_all_page/bloc/state.dart';
 import 'package:supernodeapp/page/home_page/gateway/view_all_page/view.dart';
 import 'package:supernodeapp/route.dart';
-import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
 import '../graph_card.dart';

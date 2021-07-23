@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/widgets/bar_graph.dart';
-import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
 class DDBarChart extends StatefulWidget {

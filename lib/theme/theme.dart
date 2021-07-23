@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 final colorsMapper = ColorsTheme._(); // todo
 
@@ -163,7 +164,7 @@ class FontTheme {
         TextStyle(
           color: _colorsTheme.textPrimaryAndIcons,
           fontFamily: "Roboto",
-          fontSize: 12,
+          fontSize: 12.sp,
           height: 1.33333,
           decoration: TextDecoration.none,
         ),
@@ -175,7 +176,7 @@ class FontTheme {
         TextStyle(
           color: _colorsTheme.textPrimaryAndIcons,
           fontFamily: "Roboto",
-          fontSize: 14,
+          fontSize: 14.sp,
           height: 1.33333,
           decoration: TextDecoration.none,
         ),
@@ -187,7 +188,7 @@ class FontTheme {
         TextStyle(
           color: _colorsTheme.textPrimaryAndIcons,
           fontFamily: "Roboto",
-          fontSize: 15,
+          fontSize: 15.sp,
           height: 1.33333,
           decoration: TextDecoration.none,
         ),
@@ -199,7 +200,7 @@ class FontTheme {
         TextStyle(
           color: _colorsTheme.textPrimaryAndIcons,
           fontFamily: "Roboto",
-          fontSize: 24,
+          fontSize: 24.sp,
           height: 1.33333,
           decoration: TextDecoration.none,
         ),
