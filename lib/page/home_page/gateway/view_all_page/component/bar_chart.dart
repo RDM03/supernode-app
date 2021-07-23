@@ -44,11 +44,11 @@ class _DDBarChartState extends State<DDBarChart> {
           _indexTappedBar < widget.tooltipData.length) {
         if ((_position.dx + (widget.tooltipData[_indexTappedBar].length * 2) + 40) <
             _screenSize.width) {
-          return Text('${widget?.tooltipData[_indexTappedBar] ?? 0}',
+          return Text('${widget?.tooltipData[_indexTappedBar]}',
               style: FontTheme.of(context).big());
         } else {
           return Text(
-              '${widget?.tooltipData[_indexTappedBar] ?? 0}'
+              '${widget?.tooltipData[_indexTappedBar]}'
                   .replaceFirst(RegExp(r' '), '\n'),
               style: FontTheme.of(context).big());
         }
