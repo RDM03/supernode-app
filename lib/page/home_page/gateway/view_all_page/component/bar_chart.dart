@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/common/components/widgets/bar_graph.dart';
-import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
 class DDBarChart extends StatefulWidget {
@@ -88,7 +88,7 @@ class _DDBarChartState extends State<DDBarChart> {
               child: Container(
                 padding: EdgeInsets.all(5),
                 decoration: BoxDecoration(
-                  color: ColorsTheme.of(context).primaryBackground,
+                  color: ColorsTheme.of(context).boxComponents,
                   borderRadius: BorderRadius.all(Radius.circular(4.0)),
                   boxShadow: [
                     BoxShadow(
