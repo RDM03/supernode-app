@@ -39,21 +39,17 @@ class _DDBarChartState extends State<DDBarChart> {
     Size _screenSize = MediaQuery.of(context).size;
 
     Widget _tooltipShow() {
-      if (_indexTappedBar != -1 &&
-          widget.tooltipData.isNotEmpty &&
-          _indexTappedBar < widget.tooltipData.length) {
-        if ((_position.dx + (widget.tooltipData[_indexTappedBar].length * 2) + 40) <
-            _screenSize.width) {
-          return Text('${widget?.tooltipData[_indexTappedBar]}',
-              style: FontTheme.of(context).big());
-        } else {
-          return Text(
-              '${widget?.tooltipData[_indexTappedBar]}'
-                  .replaceFirst(RegExp(r' '), '\n'),
-              style: FontTheme.of(context).big());
-        }
+      if ((_position.dx + (widget.tooltipData[_indexTappedBar].length * 2) + 40) <
+          _screenSize.width) {
+        return Text('${widget?.tooltipData[_indexTappedBar]}',
+            textAlign: TextAlign.center,
+            style: FontTheme.of(context).big());
       } else {
-        return Text('');
+        return Text(
+            '${widget?.tooltipData[_indexTappedBar]}'
+                .replaceFirst(RegExp(r' '), '\n'),
+            textAlign: TextAlign.center,
+            style: FontTheme.of(context).big());
       }
     }
 
@@ -100,25 +96,28 @@ class _DDBarChartState extends State<DDBarChart> {
                   textAlign: TextAlign.end,
                   style: FontTheme.of(context).small.secondary(),
                 ))),
-        Positioned(
-          top: 0,
-          left: _position.dx - 20 ?? 0,
-          child: Visibility(
-              visible: _indexTappedBar != -1 && widget.hasTooltip,
-              child: Container(
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    color: ColorsTheme.of(context).boxComponents,
-                    borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                    boxShadow: [
-                      BoxShadow(
-                          color: boxShadowColor,
-                          offset: Offset(0, 2),
-                          blurRadius: 7),
-                    ],
-                  ),
-                  child: _tooltipShow())),
-        ),
+        if (_indexTappedBar != -1 &&
+          widget.tooltipData.isNotEmpty &&
+          _indexTappedBar < widget.tooltipData.length)
+            Positioned(
+              top: 0,
+              left: _position.dx - 20 ?? 0,
+              child: Visibility(
+                  visible: _indexTappedBar != -1 && widget.hasTooltip,
+                  child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: ColorsTheme.of(context).boxComponents,
+                        borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                        boxShadow: [
+                          BoxShadow(
+                              color: boxShadowColor,
+                              offset: Offset(0, 2),
+                              blurRadius: 7),
+                        ],
+                      ),
+                      child: _tooltipShow())),
+            ),
         Container(
             padding: kOuterRowTop50,
             margin: kRoundRow1005,
