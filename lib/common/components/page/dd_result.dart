@@ -4,7 +4,6 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/page/dd_box_spacer.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
@@ -28,6 +27,7 @@ class DDResult extends StatelessWidget {
         body: SafeArea(
             child: Container(
                 padding: kOuterRowTop50,
+                alignment: Alignment.center,
                 child: Flex(
                   direction: Axis.vertical,
                   children: [

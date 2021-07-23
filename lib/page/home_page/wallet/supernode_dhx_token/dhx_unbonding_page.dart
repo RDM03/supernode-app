@@ -13,8 +13,6 @@ import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/dhx/state.dart';
 import 'package:supernodeapp/page/mining_simulator_page/widgets/value_editor.dart';
-import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
 class DhxUnbondingPage extends StatefulWidget {
