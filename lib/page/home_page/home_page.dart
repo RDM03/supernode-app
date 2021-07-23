@@ -16,7 +16,6 @@ import 'package:supernodeapp/page/home_page/gateway/view.dart';
 import 'package:supernodeapp/page/home_page/wallet/view.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
 import 'package:supernodeapp/route.dart';
-import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
 import 'cubit.dart';
@@ -168,9 +167,7 @@ class _HomePageContent extends StatelessWidget {
           }(),
           key: ValueKey('bottomNavBar_$text'),
         ),
-        title: Text(
-          FlutterI18n.translate(ctx, text.toLowerCase()),
-        ),
+        label: FlutterI18n.translate(ctx, text.toLowerCase()),
       );
 
   @override

@@ -12,9 +12,9 @@ import 'package:supernodeapp/common/components/page/dd_box_spacer.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/summary_row.dart';
+import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
 import 'package:supernodeapp/common/components/widgets/circular_graph.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
-import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
@@ -26,10 +26,10 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
-import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/theme.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../shared.dart';
 import 'account_widget.dart';
@@ -98,30 +98,39 @@ class UserTab extends StatelessWidget {
                             name: FlutterI18n.translate(context, 'fuel_tank'),
                             percentage: gatewayState.miningFuelHealth.value,
                             loading: gatewayState.miningFuelHealth.loading),
-                        DDBoxSpacer(width: SpacerStyle.small),
-                        minerPanel(context,
-                            name: FlutterI18n.translate(context, 'miner'),
-                            amount: gatewayState.gatewaysTotal.value,
-                            loading: gatewayState.gatewaysTotal.loading),
                       ],
                     ),
                   ),
-                  BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
-                      buildWhen: (a, b) =>
-                          a.gatewaysRevenue != b.gatewaysRevenue,
-                      builder: (ctx, state) => SummaryRow(
-                            loading: state.gatewaysRevenue.loading,
-                            title: FlutterI18n.translate(
-                                context, 'total_mining_revenue'),
-                            number: (state.gatewaysRevenue.value == null)
-                                ? '-- MXC'
-                                : '${Tools.priceFormat(state.gatewaysRevenue.value)} MXC',
-                            subtitle: FlutterI18n.translate(
-                                context, 'total_fueled_amount'),
-                            price: (gatewayState.miningFuel.value == null)
-                                ? '-- MXC'
-                                : '${Tools.priceFormat(gatewayState.miningFuel.value)} MXC',
-                          )),
+                  Column(
+                    children: [
+                      TitleDetailRow(
+                        loading: gatewayState.gatewaysTotal.loading,
+                        name: FlutterI18n.translate(context, 'miner_owner'),
+                        value: (gatewayState.gatewaysTotal.value == null)
+                            ? '--'
+                            : '${gatewayState.gatewaysTotal.value}',
+                        token: '',
+                      ),
+                      BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
+                          buildWhen: (a, b) =>
+                              a.gatewaysRevenue != b.gatewaysRevenue,
+                          builder: (ctx, state) => TitleDetailRow(
+                              loading: state.gatewaysRevenue.loading,
+                              name: FlutterI18n.translate(
+                                  context, 'total_mining_revenue'),
+                              value: (state.gatewaysRevenue.value == null)
+                                  ? '--'
+                                  : '${Tools.priceFormat(state.gatewaysRevenue.value)}')),
+                      TitleDetailRow(
+                        loading: gatewayState.miningFuel.loading,
+                        name: FlutterI18n.translate(
+                            context, 'total_fueled_amount'),
+                        value: (gatewayState.miningFuel.value == null)
+                            ? '--'
+                            : '${Tools.priceFormat(gatewayState.miningFuel.value)}',
+                      )
+                    ],
+                  ),
                   DDBoxSpacer(height: SpacerStyle.small)
                 ],
               ))),
@@ -129,13 +138,11 @@ class UserTab extends StatelessWidget {
   }
 
   Widget minerPanel(BuildContext context,
-      {String name, double percentage, int amount, bool loading = false}) {
+      {String name, double percentage, bool loading = false}) {
     Color color;
     percentage = (percentage ?? 0.0) * 100;
 
-    if (loading || amount != null) {
-      color = ColorsTheme.of(context).textLabel;
-    } else if (percentage > 10) {
+    if (percentage > 10) {
       color = ColorsTheme.of(context).mxcBlue;
     } else {
       color = ColorsTheme.of(context).minerHealthRed;
@@ -153,18 +160,15 @@ class UserTab extends StatelessWidget {
             margin: kOuterRowBottom10,
             child: loadableWidget(
               loading: loading,
-              child: amount != null
-                  ? Text('$amount',
-                      style: FontTheme.of(context).middle.primary.bold())
-                  : ((percentage == null)
-                      ? Text(
-                          '-- %',
-                          style: FontTheme.of(context).middle.primary.bold(),
-                        )
-                      : Text(
-                          '${Tools.priceFormat(percentage)} %',
-                          style: FontTheme.of(context).middle.primary.bold(),
-                        )),
+              child: percentage == null
+                  ? Text(
+                      '-- %',
+                      style: FontTheme.of(context).middle.primary.bold(),
+                    )
+                  : Text(
+                      '${Tools.priceFormat(percentage)} %',
+                      style: FontTheme.of(context).middle.primary.bold(),
+                    ),
             ),
           ),
           size: 100,
@@ -267,7 +271,7 @@ class UserTab extends StatelessWidget {
                       b?.locationPermissionsGranted,
               builder: (ctx, state) => PanelFrame(
                 key: ValueKey('homeMapbox'),
-                height: 263,
+                height: 263.h,
                 child: state.locationPermissionsGranted
                     ? FlutterMapboxNative(
                         mapStyle: Sys.mapTileStyle,
@@ -291,7 +295,7 @@ class UserTab extends StatelessWidget {
           else
             PanelFrame(
               key: ValueKey('homeMapbox'),
-              height: 263,
+              height: 263.h,
               child: unlockDhxLayer(
                 context,
                 FlutterMapboxNative(
@@ -343,9 +347,9 @@ class UserTab extends StatelessWidget {
             imageUrl: state?.session?.node?.logo ?? '',
             placeholder: (a, b) => Image.asset(
               AppImages.placeholder,
-              height: s(40),
+              height: 40.h,
             ),
-            height: s(40),
+            height: 40.h,
           ),
         ),
         centerTitle: true,
