@@ -86,6 +86,7 @@ class LoginCubit extends Cubit<LoginState> {
       s = Supernode(
         name: k,
         logo: nodes[k]["logo"],
+        darkLogo: nodes[k]["darkLogo"],
         region: nodes[k]["region"],
         url: nodes[k]["url"],
         status: nodes[k]['status'],

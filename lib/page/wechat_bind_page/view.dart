@@ -64,7 +64,7 @@ Widget buildView(
                     ]),
                 child: (state.selectedNode != null)
                     ? CachedNetworkImage(
-                        imageUrl: state.selectedNode.logo,
+                        imageUrl: ColorsTheme.of(context).getSupernodeLogo(state.selectedNode),
                         placeholder: (a, b) => Image.asset(
                           AppImages.placeholder,
                           width: s(100),

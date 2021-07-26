@@ -138,7 +138,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                                       )
                                     ]),
                                 child: CachedNetworkImage(
-                                  imageUrl: state.selectedSuperNode.logo,
+                                  imageUrl: ColorsTheme.of(context).getSupernodeLogo(state.selectedSuperNode),
                                   placeholder: (ctx, url) =>
                                       Icon(Icons.add, size: s(40)),
                                   width: s(100),
@@ -293,7 +293,7 @@ class _SupernodeSignupPageState extends State<SupernodeSignupPage> {
                                                 alignment: Alignment.center,
                                                 height: s(65),
                                                 child: CachedNetworkImage(
-                                                  imageUrl: "${item.logo}",
+                                                  imageUrl: ColorsTheme.of(context).getSupernodeLogo(item),
                                                   placeholder: (a, b) =>
                                                       Image.asset(
                                                     AppImages.placeholder,

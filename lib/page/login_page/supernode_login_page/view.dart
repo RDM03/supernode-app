@@ -182,8 +182,7 @@ class _SupernodeLoginPageContentState
                                           height: s(134),
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
-                                              color: darkThemeColors
-                                                  .textPrimaryAndIcons,
+                                              color: ColorsTheme.of(context).boxComponents,
                                               shape: BoxShape.circle,
                                               boxShadow: [
                                                 BoxShadow(
@@ -196,7 +195,7 @@ class _SupernodeLoginPageContentState
                                               ]),
                                           child: CachedNetworkImage(
                                             imageUrl:
-                                                state.selectedSuperNode.logo,
+                                                ColorsTheme.of(context).getSupernodeLogo(state.selectedSuperNode),
                                             placeholder: (ctx, url) =>
                                                 Icon(Icons.add, size: s(40)),
                                             width: s(100),
@@ -461,7 +460,7 @@ class _SupernodeLoginPageContentState
                                                 alignment: Alignment.center,
                                                 height: s(65),
                                                 child: CachedNetworkImage(
-                                                  imageUrl: "${item.logo}",
+                                                  imageUrl: ColorsTheme.of(context).getSupernodeLogo(item),
                                                   placeholder: (a, b) =>
                                                       Image.asset(
                                                     AppImages.placeholder,

@@ -7,6 +7,7 @@ class Supernode {
   final String region;
   final String url;
   final String logo;
+  final String darkLogo;
   final String status;
   final String name;
 
@@ -14,6 +15,7 @@ class Supernode {
     this.region,
     this.url,
     this.logo,
+    this.darkLogo,
     this.status,
     this.name,
   });
@@ -23,6 +25,7 @@ class Supernode {
       'region': region,
       'url': url,
       'logo': logo,
+      'darkLogo': darkLogo,
       'status': status,
       'name': name,
     };
@@ -35,6 +38,7 @@ class Supernode {
       region: map['region'],
       url: map['url'],
       logo: map['logo'],
+      darkLogo: map['darkLogo'] ?? map['logo'],
       status: map['status'],
       name: map['name'],
     );
