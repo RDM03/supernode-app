@@ -647,9 +647,7 @@
 	"send_to_wallet_confirm": "Cüzdanınıza {0} MXC göndermek üzeresiniz. Lütfen dikkat: MXC'yi yakıt deposundan çekerseniz madencilik verimliliğiniz düşer.",
 	"send_to_wallet_dont_have_miners": "Cüzdanınıza gönderecek yakıtınız yok gibi görünüyor.",
 	"nft_desc": "NFT + KOLEKSIYONLAR",
-<<<<<<< HEAD
-	"reg_invalid_organization_name": "Sadece mektuplar, sayılar, altı notlar ve karakterler izin verilir."
-=======
+	"reg_invalid_organization_name": "Sadece mektuplar, sayılar, altı notlar ve karakterler izin verilir.",
 	"adding_miner_failure_title": "Oops!Bir şey yanlış gitti.",
 	"adding_miner_failure_detail": "Bu işe yaramadı, lütfen tekrar deneyin.",
 	"adding_miner_success_detail": "Senin M2 Pro Miner şimdi miniyor.",
@@ -657,5 +655,4 @@
 	"adding_miner_warning_detail": "Kullanılmış madenler yeni madenlerden farklı çalışıyor.If you didn’t intend to purchase a used miner, please contact the person who sold it to you.",
 	"fuel_tank": "Fuel Tank",
 	"total_fueled_amount": "Toplam Taşınmış"
->>>>>>> master
 }

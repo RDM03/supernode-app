@@ -647,9 +647,7 @@
 	"send_to_wallet_confirm": "您即将将{0}MXC发送到您的钱包。请注意：如果您从燃油箱中提取 MXC，您的采矿效率将降低。",
 	"send_to_wallet_dont_have_miners": "好像你没有任何燃料可以送到你的钱包",
 	"nft_desc": "NFT+收藏品",
-<<<<<<< HEAD
-	"reg_invalid_organization_name": "只允许包含字母、数字、下划线和-"
-=======
+	"reg_invalid_organization_name": "只允许包含字母、数字、下划线和-",
 	"adding_miner_failure_title": "哎呀，出错了",
 	"adding_miner_failure_detail": "无法正常工作，请再试一次。",
 	"adding_miner_success_detail": "您的M2 Pro正在开采中",
@@ -657,5 +655,4 @@
 	"adding_miner_warning_detail": "已使用过的矿机功能不同于全新矿机。如果您不想购买二手矿机，请联系您的卖家。",
 	"fuel_tank": "补给箱",
 	"total_fueled_amount": "总补给量"
->>>>>>> master
 }

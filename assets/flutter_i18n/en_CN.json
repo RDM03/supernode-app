@@ -473,7 +473,6 @@
 	"tutorial_pv7_sub1": "I need some DHX to start",
 	"tutorial_pv7_sub2": "I need mPower to start DHX Mining",
 	"tutorial_pv7_sub3": "I have mPower ready, let me start Mining",
-	"latest_mpower": "Latest mPower",
 	"calculator": "Calculator",
 	"invalid_value": "Invalid value",
 	"memo": "Memo",
@@ -586,7 +585,6 @@
 	"mining_end_date": "Mining End Date",
 	"mining_duration": "Mining Duration",
 	"miner_owner": "Miner Owned",
-	"council": "Council",
 	"potential_m_power": "Potential mPower",
 	"lock_confirm_message": "You are about to lock {0} MXC for {1} months, joining {2}’s council for DHX mining",
 	"proceed": "Proceed",
@@ -656,7 +654,6 @@
 	"gps_card_description": "-",
 	"gps_card_comment": "",
 	"health": "Health",
-	"nft_desc": "NFT + COLLECTIBLES",
 	"mon": "Mon",
 	"tue": "Tue",
 	"wed": "Wed",
@@ -689,10 +686,8 @@
 	"november": "November",
 	"december": "December",
 	"day": "day",
-<<<<<<< HEAD
 	"nft_desc": "NFT + COLLECTIBLES",
-	"reg_invalid_organization_name": "Only letters, numbers, underscores and - are allowed"
-=======
+	"reg_invalid_organization_name": "Only letters, numbers, underscores and - are allowed",
 	"adding_miner_failure_title": "Oops! something went wrong",
 	"adding_miner_failure_detail": "That didn’t quite work, please try again.",
 	"adding_miner_success_detail": "Your M2 Pro Miner is now mining",
@@ -700,5 +695,4 @@
 	"adding_miner_warning_detail": "Used miners function differently than new miners. If you didn’t intend to purchase a used miner, please contact the person who sold it to you.",
 	"fuel_tank": "Fuel Tank",
 	"total_fueled_amount": "Total Fueled Amount"
->>>>>>> master
 }

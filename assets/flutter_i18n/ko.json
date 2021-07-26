@@ -647,9 +647,7 @@
 	"send_to_wallet_confirm": "당신은 당신의 지갑에 {0} MXC를 보내려고합니다. 참고: 연료 탱크에서 MXC를 인출하면 채굴 효율이 저하됩니다.",
 	"send_to_wallet_dont_have_miners": "지갑에 보낼 연료가 없는 것 같습니다.",
 	"nft_desc": "NFT + 수집품",
-<<<<<<< HEAD
-	"reg_invalid_organization_name": "알파벳, 숫자, 밑줄 그리고 -"
-=======
+	"reg_invalid_organization_name": "알파벳, 숫자, 밑줄 그리고 -",
 	"adding_miner_failure_title": "아이고!문제 가 좀 생 겼 어 요.",
 	"adding_miner_failure_detail": "그다지 효과 가 없 으 니 다시 한번 시도 해 보 세 요.",
 	"adding_miner_success_detail": "당신 의 M2 직업 광부 가 채광 을 하고 있 습 니 다.",
@@ -657,5 +655,4 @@
 	"adding_miner_warning_detail": "구 광부 의 기능 은 신 광부 와 다르다.중고 광 부 를 살 생각 이 없다 면 판매 하 는 사람 에 게 연락 하 세 요.",
 	"fuel_tank": "연료 탱크",
 	"total_fueled_amount": "총 급유 량"
->>>>>>> master
 }

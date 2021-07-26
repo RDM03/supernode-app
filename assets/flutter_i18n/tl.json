@@ -647,9 +647,7 @@
 	"send_to_wallet_confirm": null,
 	"send_to_wallet_dont_have_miners": "Di ko na kayo bati",
 	"nft_desc": "mga koleksiyon",
-<<<<<<< HEAD
-	"reg_invalid_organization_name": "Lamang ang mga titik, numero, underscores at mga character ay pinapayagan-"
-=======
+	"reg_invalid_organization_name": "Lamang ang mga titik, numero, underscores at mga character ay pinapayagan-",
 	"adding_miner_failure_title": "Oops!may naging mali",
 	"adding_miner_failure_detail": "Hindi naman ito gumana, subukan ulit.",
 	"adding_miner_success_detail": "Miner mo ngayon ang M2 Pro",
@@ -657,5 +655,4 @@
 	"adding_miner_warning_detail": "Iba ang gumagamit ng mga minahan kaysa sa mga bagong minahan.Kung ayaw mong bumili ng minahan, pakiusap na makipag-ugnayan ang taong nagbebenta nito sa iyo.",
 	"fuel_tank": "Tank ng karburante",
 	"total_fueled_amount": "Ang kabuuang Amount ng Fueled"
->>>>>>> master
 }
