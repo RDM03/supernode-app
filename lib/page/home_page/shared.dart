@@ -130,12 +130,6 @@ Widget tokenItem(
 }) =>
     Container(
       height: s(62),
-      foregroundDecoration: onPressed == null
-          ? BoxDecoration(
-              color: ColorsTheme.of(context).textLabel,
-              backgroundBlendMode: BlendMode.saturation,
-            )
-          : null,
       child: GestureDetector(
         key: Key(key),
         onTap: onPressed,
@@ -147,6 +141,7 @@ Widget tokenItem(
               width: 10,
               color: color,
             ),
+            SizedBox(width: 16),
             Expanded(
               child: Column(
                 children: [
@@ -181,13 +176,17 @@ Widget tokenItem(
                           ],
                         ),
                         Spacer(),
-                        (isSelected != null)
-                            ? Checkbox(
-                                value: isSelected,
-                                onChanged: (_) => onPressed(),
-                                activeColor: ColorsTheme.of(context).mxcBlue,
-                              )
-                            : SizedBox(),
+                        Checkbox(
+                          value: isSelected,
+                          onChanged:
+                              onPressed == null ? null : (_) => onPressed(),
+                          activeColor: ColorsTheme.of(context).mxcBlue,
+                          fillColor: MaterialStateProperty.resolveWith(
+                            (s) => s.contains(MaterialState.disabled)
+                                ? ColorsTheme.of(context).textLabel
+                                : ColorsTheme.of(context).mxcBlue,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -252,9 +251,7 @@ class _AddTokenDialogWidgetState extends State<AddTokenDialogWidget> {
               return 'Available';
             }(),
             color: Token.mxc.ui(context).color,
-            onPressed: () {
-              // MXC goes by default
-            },
+            isSelected: true,
           ),
           tokenItem(
             context,
@@ -307,7 +304,6 @@ class _AddTokenDialogWidgetState extends State<AddTokenDialogWidget> {
             subtitle: FlutterI18n.translate(ctx, 'nft_desc'),
             color: Token.nft.ui(context).color,
             isSelected: false,
-            onPressed: () {},
           ),
 /*TODO uncomment for parachainDhx          ),
           tokenItem(
