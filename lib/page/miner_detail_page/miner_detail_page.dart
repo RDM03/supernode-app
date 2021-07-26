@@ -8,6 +8,7 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/gateway/state.dart';
 import 'package:supernodeapp/page/miner_detail_page/tabs/miner_health_tab.dart';
 import 'package:supernodeapp/page/miner_detail_page/tabs/miner_revenue_tab.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'tabs/miner_data_tab.dart';
 
@@ -55,24 +56,30 @@ class _MinerDetailPageState extends State<MinerDetailPage> {
                   groupValue: selectedTab,
                   onValueChanged: (tabIndex) =>
                       setState(() => selectedTab = tabIndex),
-                  thumbColor: colorMxc,
+                  thumbColor: ColorsTheme.of(context).mxcBlue,
                   children: <int, Widget>{
                     0: Text(
                       FlutterI18n.translate(context, 'health'),
                       style: TextStyle(
-                        color: (selectedTab == 0) ? Colors.white : Colors.grey,
+                        color: (selectedTab == 0)
+                            ? ColorsTheme.of(context).buttonIconTextColor
+                            : ColorsTheme.of(context).textLabel,
                       ),
                     ),
                     1: Text(
                       FlutterI18n.translate(context, 'revenue'),
                       style: TextStyle(
-                        color: (selectedTab == 1) ? Colors.white : Colors.grey,
+                        color: (selectedTab == 1)
+                            ? ColorsTheme.of(context).buttonIconTextColor
+                            : ColorsTheme.of(context).textLabel,
                       ),
                     ),
                     2: Text(
                       FlutterI18n.translate(context, 'data'),
                       style: TextStyle(
-                        color: (selectedTab == 2) ? Colors.white : Colors.grey,
+                        color: (selectedTab == 2)
+                            ? ColorsTheme.of(context).buttonIconTextColor
+                            : ColorsTheme.of(context).textLabel,
                       ),
                     ),
                   },

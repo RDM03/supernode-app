@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
-Widget loading({BuildContext context, bool isSmall = false}) {
+Widget loading(BuildContext context, {bool isSmall = false}) {
   return isSmall
       ? indicatior(context)
       : Scaffold(
@@ -19,7 +20,7 @@ Widget indicatior(BuildContext context) {
         width: 50.0,
         height: 50.0,
         child: SpinKitPulse(
-          color: Color.fromARGB(255, 28, 20, 120),
+          color: ColorsTheme.of(context).mxcBlue,
           size: 50.0,
         ),
       ),

@@ -8,7 +8,9 @@ import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/utils/reg.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -19,8 +21,7 @@ Widget buildView(
 
   return GestureDetector(
     key: Key('stakeAmountView'),
-    onTap: () =>
-        FocusScope.of(viewService.context).requestFocus(new FocusNode()),
+    onTap: () => FocusScope.of(viewService.context).unfocus(),
     child: pageFrame(
       context: viewService.context,
       children: [
@@ -37,16 +38,12 @@ Widget buildView(
               alignment: Alignment.center,
               child: Text(
                 state.months == null ? '~' : state.months.toString(),
-                style: Theme.of(_ctx).textTheme.bodyText1.copyWith(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                    ),
+                style: FontTheme.of(_ctx).veryBig.button.bold(),
               ),
               padding: EdgeInsets.only(top: 2),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: state.iconColor,
+                color: state.iconColor ?? ColorsTheme.of(_ctx).mxcBlue,
               ),
             ),
             SizedBox(width: 16),
@@ -59,8 +56,9 @@ Widget buildView(
                         FlutterI18n.translate(_ctx, 'x_month_stake')
                             .replaceFirst('{0}', state.months.toString()),
                     textAlign: TextAlign.left,
-                    style:
-                        kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
+                    style: FontTheme.of(_ctx)
+                        .big()
+                        .copyWith(fontWeight: FontWeight.w600),
                   ),
                   Text(
                     state.months == null
@@ -75,7 +73,7 @@ Widget buildView(
                                 '{0}', state.marketingBoost.toString())
                             .replaceFirst('{1}', state.months.toString())),
                     textAlign: TextAlign.left,
-                    style: kMiddleFontOfGrey,
+                    style: FontTheme.of(_ctx).middle.secondary(),
                   ),
                 ],
               ),
@@ -88,23 +86,18 @@ Widget buildView(
             children: [
               Text(
                 FlutterI18n.translate(_ctx, 'estimated_rate'),
-                style: kSmallFontOfGrey.copyWith(
-                  color: Color(0xFF1C1478),
-                ),
+                style: FontTheme.of(_ctx).small.mxc(),
               ),
               SizedBox(height: 2),
               Text(
                 '+${state.estimatedRate}%',
-                style: kBigFontOfDarkBlue.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
-                ),
+                style: FontTheme.of(_ctx).veryBig.mxc.bold(),
               ),
               SizedBox(height: 3),
               Text(
                 FlutterI18n.translate(_ctx, 'boost_formula')
                     .replaceFirst('{0}', state.boostRate.toString()),
-                style: kSmallFontOfGrey,
+                style: FontTheme.of(_ctx).small.secondary(),
                 textAlign: TextAlign.center,
               )
             ],
@@ -113,23 +106,24 @@ Widget buildView(
         SizedBox(height: 40),
         Row(
           children: [
-            _infoCircle(FlutterI18n.translate(_ctx, 'stake_now'),
+            _infoCircle(_ctx, FlutterI18n.translate(_ctx, 'stake_now'),
                 _dateFmt(DateTime.now())),
             Expanded(
               child: Container(
                 height: 2,
-                color: Color(0xFFEBEFF2),
+                color: ColorsTheme.of(_ctx).textSecondary,
               ),
             ),
-            _infoCircle(FlutterI18n.translate(_ctx, 'gains_start'),
+            _infoCircle(_ctx, FlutterI18n.translate(_ctx, 'gains_start'),
                 _dateFmt(DateTime.now())),
             Expanded(
               child: Container(
                 height: 2,
-                color: Color(0xFFEBEFF2),
+                color: ColorsTheme.of(_ctx).textSecondary,
               ),
             ),
             _infoCircle(
+              _ctx,
               FlutterI18n.translate(_ctx, 'gains_stop'),
               state.months == null
                   ? FlutterI18n.translate(_ctx, 'flex')
@@ -138,10 +132,11 @@ Widget buildView(
             Expanded(
               child: Container(
                 height: 2,
-                color: Color(0xFFEBEFF2),
+                color: ColorsTheme.of(_ctx).textSecondary,
               ),
             ),
             _infoCircle(
+              _ctx,
               FlutterI18n.translate(_ctx, 'liquidate'),
               state.months == null
                   ? FlutterI18n.translate(_ctx, 'flex')
@@ -168,7 +163,7 @@ Widget buildView(
             Expanded(
               child: Text(
                 FlutterI18n.translate(_ctx, 'current_balance'),
-                style: kSmallFontOfGrey,
+                style: FontTheme.of(_ctx).small.secondary(),
               ),
             ),
             Text(Tools.priceFormat(state.balance, range: 2) + ' MXC'),
@@ -196,8 +191,8 @@ Widget buildView(
                     return Slider(
                       key: ValueKey('stakeAmountSlider'),
                       value: percent,
-                      activeColor: Color(0xFF1C1478),
-                      inactiveColor: Color(0xFF1C1478).withOpacity(0.2),
+                      activeColor: ColorsTheme.of(_ctx).mxcBlue,
+                      inactiveColor: ColorsTheme.of(_ctx).mxcBlue20,
                       onChanged: (v) {
                         final balanceVal =
                             (state.balance * v * 100).floorToDouble() / 100;
@@ -213,21 +208,21 @@ Widget buildView(
                 Expanded(
                   child: Text(
                     '0%',
-                    style: kSmallFontOfGrey,
+                    style: FontTheme.of(_ctx).small.secondary(),
                     textAlign: TextAlign.left,
                   ),
                 ),
                 Expanded(
                   child: Text(
                     '50%',
-                    style: kSmallFontOfGrey,
+                    style: FontTheme.of(_ctx).small.secondary(),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Expanded(
                   child: Text(
                     '100%',
-                    style: kSmallFontOfGrey,
+                    style: FontTheme.of(_ctx).small.secondary(),
                     textAlign: TextAlign.right,
                   ),
                 ),
@@ -240,6 +235,7 @@ Widget buildView(
         ),
         submitButton(
           submitText(_ctx, state),
+          color: ColorsTheme.of(_ctx).mxcBlue,
           onPressed: () => dispatch(PrepareStakeActionCreator.onConfirm()),
           key: ValueKey('submitButton'),
         )
@@ -257,14 +253,14 @@ String _dateFmt(DateTime date, [bool withYear = false]) {
   return str;
 }
 
-_infoCircle(String text, String date) {
+_infoCircle(BuildContext context, String text, String date) {
   return Container(
     width: 60,
     child: Column(
       children: [
         Text(
           text,
-          style: kSmallFontOfBlack,
+          style: FontTheme.of(context).small(),
           textAlign: TextAlign.center,
         ),
         SizedBox(height: 14),
@@ -274,7 +270,7 @@ _infoCircle(String text, String date) {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: Color(0xFF1C1478),
+              color: ColorsTheme.of(context).mxcBlue,
               width: 3,
             ),
           ),
@@ -282,7 +278,7 @@ _infoCircle(String text, String date) {
         SizedBox(height: 14),
         Text(
           date,
-          style: kSmallFontOfGrey,
+          style: FontTheme.of(context).small.secondary(),
         ),
       ],
     ),

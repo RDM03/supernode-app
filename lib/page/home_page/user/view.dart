@@ -7,11 +7,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
+import 'package:supernodeapp/common/components/loading_flash.dart';
+import 'package:supernodeapp/common/components/page/dd_box_spacer.dart';
 import 'package:supernodeapp/common/components/page/page_body.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/summary_row.dart';
+import 'package:supernodeapp/common/components/wallet/title_detail_row.dart';
+import 'package:supernodeapp/common/components/widgets/circular_graph.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
-import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/configs/sys.dart';
@@ -23,8 +26,10 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
-import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
+import 'package:supernodeapp/theme/spacing.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../shared.dart';
 import 'account_widget.dart';
@@ -40,7 +45,7 @@ class UserTab extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(FlutterI18n.translate(context, "miner"),
-                style: kBigBoldFontOfBlack),
+                style: FontTheme.of(context).big.primary.bold()),
             Spacer(),
             GestureDetector(
               onTap: () async {
@@ -51,14 +56,15 @@ class UserTab extends StatelessWidget {
               },
               child: Container(
                 decoration: BoxDecoration(
-                    color: Token.supernodeDhx.color.withOpacity(.2),
+                    color: ColorsTheme.of(context).dhxBlue20,
                     borderRadius: BorderRadius.all(Radius.circular(5))),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 8.0, vertical: 4.0),
                   child: Text(
                     '+ ${FlutterI18n.translate(context, 'add_miner')}',
-                    style: MiddleFontOfColor(color: Token.supernodeDhx.color),
+                    style: MiddleFontOfColor(
+                        color: Token.supernodeDhx.ui(context).color),
                   ),
                 ),
               ),
@@ -66,20 +72,115 @@ class UserTab extends StatelessWidget {
           ],
         ),
       ),
-      PanelFrame(
-        rowTop: EdgeInsets.only(top: 10),
-        child: SummaryRow(
-          key: Key('totalGatewaysDashboard'),
-          loading: snState.gatewaysRevenueUsd.loading,
-          image: AppImages.gateways,
-          title: FlutterI18n.translate(context, 'total_gateways'),
-          number: '${gatewayState.gatewaysTotal.value ?? '0'}',
-          subtitle: FlutterI18n.translate(context, 'profit'),
-          price:
-              '${Tools.priceFormat(snState.gatewaysRevenue.value)} MXC (${Tools.priceFormat(snState.gatewaysRevenueUsd.value)} USD)',
-        ),
-      )
+      GestureDetector(
+          onTap: () => context.read<HomeCubit>().changeTab(
+                HomeCubit.MINER_TAB,
+              ),
+          child: PanelFrame(
+              rowTop: EdgeInsets.only(top: 10),
+              child: Column(
+                children: [
+                  DDBoxSpacer(
+                    height: SpacerStyle.small,
+                  ),
+                  Container(
+                    margin: kRoundRow2010,
+                    child: Flex(
+                      direction: Axis.horizontal,
+                      children: [
+                        minerPanel(context,
+                            name:
+                                FlutterI18n.translate(context, 'health_score'),
+                            percentage: gatewayState.health.value,
+                            loading: gatewayState.health.loading),
+                        DDBoxSpacer(width: SpacerStyle.small),
+                        minerPanel(context,
+                            name: FlutterI18n.translate(context, 'fuel_tank'),
+                            percentage: gatewayState.miningFuelHealth.value,
+                            loading: gatewayState.miningFuelHealth.loading),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      TitleDetailRow(
+                        loading: gatewayState.gatewaysTotal.loading,
+                        name: FlutterI18n.translate(context, 'miner_owner'),
+                        value: (gatewayState.gatewaysTotal.value == null)
+                            ? '--'
+                            : '${gatewayState.gatewaysTotal.value}',
+                        token: '',
+                      ),
+                      BlocBuilder<SupernodeUserCubit, SupernodeUserState>(
+                          buildWhen: (a, b) =>
+                              a.gatewaysRevenue != b.gatewaysRevenue,
+                          builder: (ctx, state) => TitleDetailRow(
+                              loading: state.gatewaysRevenue.loading,
+                              name: FlutterI18n.translate(
+                                  context, 'total_mining_revenue'),
+                              value: (state.gatewaysRevenue.value == null)
+                                  ? '--'
+                                  : '${Tools.priceFormat(state.gatewaysRevenue.value)}')),
+                      TitleDetailRow(
+                        loading: gatewayState.miningFuel.loading,
+                        name: FlutterI18n.translate(
+                            context, 'total_fueled_amount'),
+                        value: (gatewayState.miningFuel.value == null)
+                            ? '--'
+                            : '${Tools.priceFormat(gatewayState.miningFuel.value)}',
+                      )
+                    ],
+                  ),
+                  DDBoxSpacer(height: SpacerStyle.small)
+                ],
+              ))),
     ]);
+  }
+
+  Widget minerPanel(BuildContext context,
+      {String name, double percentage, bool loading = false}) {
+    Color color;
+    percentage = (percentage ?? 0.0) * 100;
+
+    if (percentage > 10) {
+      color = ColorsTheme.of(context).mxcBlue;
+    } else {
+      color = ColorsTheme.of(context).minerHealthRed;
+    }
+
+    return Expanded(
+        child: Column(
+      children: [
+        CircularGraph(
+          percentage,
+          color,
+          child: Container(
+            alignment: Alignment.center,
+            height: double.infinity,
+            margin: kOuterRowBottom10,
+            child: loadableWidget(
+              loading: loading,
+              child: percentage == null
+                  ? Text(
+                      '-- %',
+                      style: FontTheme.of(context).middle.primary.bold(),
+                    )
+                  : Text(
+                      '${Tools.priceFormat(percentage)} %',
+                      style: FontTheme.of(context).middle.primary.bold(),
+                    ),
+            ),
+          ),
+          size: 100,
+          paddingSize: 6,
+          lineWidth: 8,
+        ),
+        DDBoxSpacer(
+          height: SpacerStyle.small,
+        ),
+        Text(name, style: FontTheme.of(context).small())
+      ],
+    ));
   }
 
   Widget totalGatewaysDemo(BuildContext context) {
@@ -88,7 +189,7 @@ class UserTab extends StatelessWidget {
         context,
         SummaryRow(
           key: Key('totalGatewaysDashboard'),
-          image: AppImages.gateways,
+          image: AssetImage(AppImages.gateways),
           title: FlutterI18n.translate(context, 'total_gateways'),
           number: '3',
           subtitle: FlutterI18n.translate(context, 'profit'),
@@ -107,18 +208,18 @@ class UserTab extends StatelessWidget {
           child,
           Positioned.fill(
             child: Container(
-              color: colorDhx.withOpacity(0.85),
+              color: ColorsTheme.of(context).dhxBlue80,
               alignment: Alignment.center,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
                     Icons.lock_open,
-                    color: Colors.white,
+                    color: ColorsTheme.of(context).textPrimaryAndIcons,
                   ),
                   Text(
                     'Unlock Supernode Account',
-                    style: kSmallFontOfWhite,
+                    style: FontTheme.of(context).small.label(),
                   ),
                 ],
               ),
@@ -170,7 +271,7 @@ class UserTab extends StatelessWidget {
                       b?.locationPermissionsGranted,
               builder: (ctx, state) => PanelFrame(
                 key: ValueKey('homeMapbox'),
-                height: 263,
+                height: 263.h,
                 child: state.locationPermissionsGranted
                     ? FlutterMapboxNative(
                         mapStyle: Sys.mapTileStyle,
@@ -194,7 +295,7 @@ class UserTab extends StatelessWidget {
           else
             PanelFrame(
               key: ValueKey('homeMapbox'),
-              height: 263,
+              height: 263.h,
               child: unlockDhxLayer(
                 context,
                 FlutterMapboxNative(
@@ -238,7 +339,7 @@ class UserTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: backgroundColor,
+        backgroundColor: ColorsTheme.of(context).primaryBackground,
         elevation: 0,
         title: BlocBuilder<SupernodeCubit, SupernodeState>(
           buildWhen: (a, b) => a?.session?.node != b?.session?.node,
@@ -246,9 +347,9 @@ class UserTab extends StatelessWidget {
             imageUrl: state?.session?.node?.logo ?? '',
             placeholder: (a, b) => Image.asset(
               AppImages.placeholder,
-              height: s(40),
+              height: 40.h,
             ),
-            height: s(40),
+            height: 40.h,
           ),
         ),
         centerTitle: true,
@@ -256,7 +357,7 @@ class UserTab extends StatelessWidget {
           key: Key('calculatorButton'),
           icon: FaIcon(
             FontAwesomeIcons.calculator,
-            color: Colors.black,
+            color: ColorsTheme.of(context).textPrimaryAndIcons,
           ),
           onPressed: () => openCalculator(context),
         ),
@@ -265,13 +366,13 @@ class UserTab extends StatelessWidget {
             key: Key('settingsButton'),
             icon: Icon(
               Icons.settings,
-              color: Colors.black,
+              color: ColorsTheme.of(context).textPrimaryAndIcons,
             ),
             onPressed: () => openSettings(context),
           )
         ],
       ),
-      backgroundColor: Color(0xFFEBEFF2),
+      backgroundColor: ColorsTheme.of(context).primaryBackground,
       body: BlocBuilder<HomeCubit, HomeState>(
         buildWhen: (a, b) =>
             a.parachainUsed != b.parachainUsed ||

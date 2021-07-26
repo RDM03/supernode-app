@@ -17,7 +17,7 @@
 	"Europe": "Europe",
 	"Oceania": "Oceania",
 	"Asia": "Asia",
-	"America": "America",
+	"America": "North America",
 	"Test": "Test",
 	"login": "Login",
 	"reg_required": "This field is required",
@@ -619,7 +619,7 @@
 	"dont_have_miners": "Seems like you do not have any miners or all of your miners has been fueled up to 100%",
 	"add_all": "Add all",
 	"send_to_wallet": "Send To Wallet",
-	"send_to_wallet_desc": "Please note you will lose your mining efficiency once you send to the wallet",
+	"send_to_wallet_desc": "Please note you will reduce your mining efficiency once you send to the wallet",
 	"current_fuel": "Current Fuel: ",
 	"add_fuel_congrats": "Congratulations!\nYour miner has been fueled",
 	"send_to_wallet_congrats": "We’ve sent the fuel to your MXC wallet",
@@ -671,7 +671,7 @@
 	"may_short": "May",
 	"jun": "Jun",
 	"jul": "Jul",
-	"ago": "Aug",
+	"aug": "Aug",
 	"sep": "Sep",
 	"oct": "Oct",
 	"nov": "Nov",
@@ -689,5 +689,15 @@
 	"november": "November",
 	"december": "December",
 	"day": "day",
+<<<<<<< HEAD
 	"reg_invalid_organization_name": "Only letters, numbers, underscores and - are allowed"
+=======
+	"adding_miner_failure_title": "Oops! something went wrong",
+	"adding_miner_failure_detail": "That didn’t quite work, please try again.",
+	"adding_miner_success_detail": "Your M2 Pro Miner is now mining",
+	"adding_miner_warning_title": "Note : This miner is used one",
+	"adding_miner_warning_detail": "Used miners function differently than new miners. If you didn’t intend to purchase a used miner, please contact the person who sold it to you.",
+	"fuel_tank": "Fuel Tank",
+	"total_fueled_amount": "Total Fueled Amount"
+>>>>>>> master
 }

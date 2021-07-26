@@ -1,15 +1,14 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
 import 'package:supernodeapp/app_state.dart';
 import 'package:supernodeapp/common/components/profile.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
-import 'package:supernodeapp/common/utils/screen_util.dart';
-import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/home_page/cubit.dart';
 import 'package:supernodeapp/page/home_page/state.dart';
 import 'package:supernodeapp/page/home_page/user/tabbed_view.dart';
+import 'package:supernodeapp/page/settings_page/profile_component/profile_page.dart';
+import 'package:supernodeapp/route.dart';
 
 class AccountWidget extends StatelessWidget {
   Widget supernode(BuildContext context) => Column(
@@ -24,13 +23,14 @@ class AccountWidget extends StatelessWidget {
               trailing: SizedBox(
                 width: 30,
               ),
+              onTap: () => Navigator.push(context, routeWidget(ProfilePage())),
             ),
           ),
         ],
       );
 
   Widget parachain(BuildContext context) => Container(
-        color: Token.parachainDhx.color,
+        color: Token.parachainDhx.ui(context).color,
       );
 
   @override
@@ -43,9 +43,11 @@ class AccountWidget extends StatelessWidget {
         contentHeight: 75,
         tabs: [
           if (state.supernodeUsed)
-            ColorCodedWidget(supernode(context), Token.supernodeDhx.color),
+            ColorCodedWidget(
+                supernode(context), Token.supernodeDhx.ui(context).color),
           if (state.parachainUsed)
-            ColorCodedWidget(parachain(context), Token.parachainDhx.color),
+            ColorCodedWidget(
+                parachain(context), Token.parachainDhx.ui(context).color),
         ],
       ),
     );

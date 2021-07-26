@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,8 +15,6 @@ import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/common/components/empty.dart';
 import 'package:supernodeapp/common/components/loading_flash.dart';
 import 'package:supernodeapp/common/components/loading_list.dart';
-import 'package:supernodeapp/common/components/page/dd_box_spacer.dart';
-import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/common/components/row_spacer.dart';
@@ -32,71 +32,12 @@ import 'package:supernodeapp/page/miner_detail_page/miner_detail_page.dart';
 import 'package:supernodeapp/page/send_to_wallet_page/send_to_wallet_page.dart';
 import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../shared.dart';
 
 class GatewayTab extends StatelessWidget {
-  void aboutPage(
-      BuildContext context, String title, Widget illustration, String text,
-      {Widget bottomButton}) {
-    Navigator.of(context).push(MaterialPageRoute(
-        fullscreenDialog: true,
-        builder: (ctx) => pageFrame(
-                context: ctx,
-                padding: EdgeInsets.all(0.0),
-                children: <Widget>[
-                  ListTile(
-                    title:
-                        Center(child: Text(title, style: kBigBoldFontOfBlack)),
-                    leading: SizedBox(),
-                    trailing: GestureDetector(
-                      child: Icon(Icons.close, color: Colors.black),
-                      onTap: () => Navigator.of(ctx).pop(),
-                    ),
-                  ),
-                  SizedBox(height: 50),
-                  Center(child: illustration),
-                  SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Text(text,
-                        style: kBigFontOfBlack, textAlign: TextAlign.center),
-                  ),
-                  SizedBox(height: 70),
-                  (bottomButton != null)
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: bottomButton)
-                      : SizedBox(),
-                ])));
-  }
-
-  Widget aboutPageIllustration(String title, Widget image) {
-    return Container(
-      height: 150,
-      width: 150,
-      decoration: BoxDecoration(
-        color: minerColor.withOpacity(.1),
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('100%', style: kVeryBigFontOfBlack),
-              SizedBox(height: 5),
-              image,
-              SizedBox(height: 5),
-              Text(title, style: kBigFontOfBlack),
-            ]),
-      ),
-    );
-  }
-
   void addSendDialog(BuildContext ctx) {
     showInfoDialog(
       ctx,
@@ -110,7 +51,7 @@ class GatewayTab extends StatelessWidget {
                 width: double.infinity,
                 child: Text(
                   FlutterI18n.translate(context, 'add_fuel_or_send_to_wallet'),
-                  style: kBigBoldFontOfBlack,
+                  style: FontTheme.of(context).big.primary.bold(),
                   textAlign: TextAlign.left,
                 ),
               ),
@@ -120,7 +61,7 @@ class GatewayTab extends StatelessWidget {
               behavior: HitTestBehavior.opaque,
               onTap: () async {
                 Navigator.pop(context);
-                await Navigator.of(ctx).push(route((ctx) => AddFuelPage()));
+                await Navigator.of(ctx).push(routeWidget(AddFuelPage()));
                 await context.read<GatewayCubit>().refresh();
               },
               child: Padding(
@@ -128,16 +69,15 @@ class GatewayTab extends StatelessWidget {
                 child: Row(mainAxisSize: MainAxisSize.max, children: [
                   CircleButton(
                     key: Key('addFuelBottom'),
-                    circleColor: Colors.white,
                     icon: Image.asset(
                       AppImages.fuel,
-                      color: fuelColor,
+                      color: ColorsTheme.of(context).minerHealthRed,
                     ),
                   ),
                   SizedBox(width: 10),
                   Text(
                     FlutterI18n.translate(context, 'add_fuel'),
-                    style: kBigFontOfBlack,
+                    style: FontTheme.of(context).big(),
                     textAlign: TextAlign.left,
                   ),
                 ]),
@@ -148,21 +88,22 @@ class GatewayTab extends StatelessWidget {
               behavior: HitTestBehavior.opaque,
               onTap: () async {
                 Navigator.pop(context);
-                await Navigator.of(ctx)
-                    .push(route((ctx) => SendToWalletPage()));
+                await Navigator.of(ctx).push(routeWidget(SendToWalletPage()));
               },
               child: Padding(
                 padding: const EdgeInsets.only(left: 32),
                 child: Row(mainAxisSize: MainAxisSize.max, children: [
                   CircleButton(
                     key: Key('addFuelBottom'),
-                    circleColor: Colors.white,
-                    icon: Icon(Icons.arrow_forward, color: fuelColor),
+                    icon: Icon(
+                      Icons.arrow_forward,
+                      color: ColorsTheme.of(context).minerHealthRed,
+                    ),
                   ),
                   SizedBox(width: 10),
                   Text(
                     FlutterI18n.translate(context, 'send_to_wallet'),
-                    style: kBigFontOfBlack,
+                    style: FontTheme.of(context).big(),
                     textAlign: TextAlign.left,
                   ),
                 ]),
@@ -176,8 +117,8 @@ class GatewayTab extends StatelessWidget {
   }
 
   Widget minerHealthDashboard(BuildContext context) {
-    Color disabledColor = Color.fromARGB(255, 152, 166,
-        173); //remove once all health info implemented as well as disabled image assets
+    final disabledColor = ColorsTheme.of(context).textLabel.withOpacity(
+        0.2); //remove once all health info implemented as well as disabled image assets
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -202,10 +143,11 @@ class GatewayTab extends StatelessWidget {
                                   children: [
                                     CircleButton(
                                       key: Key('addMiner'),
-                                      circleColor: minerColor,
+                                      circleColor:
+                                          ColorsTheme.of(context).boxComponents,
                                       icon: Image.asset(
                                         AppImages.gateways,
-                                        color: Colors.white,
+                                        color: ColorsTheme.of(context).mxcBlue,
                                       ),
                                       label:
                                           FlutterI18n.translate(context, 'add'),
@@ -225,10 +167,12 @@ class GatewayTab extends StatelessWidget {
                                     Spacer(),
                                     CircleButton(
                                       key: Key('addFuel'),
-                                      circleColor: fuelColor,
+                                      circleColor:
+                                          ColorsTheme.of(context).boxComponents,
                                       icon: Image.asset(
                                         AppImages.fuel,
-                                        color: Colors.white,
+                                        color: ColorsTheme.of(context)
+                                            .minerHealthRed,
                                       ),
                                       label: FlutterI18n.translate(
                                           context, 'add_send'),
@@ -239,24 +183,36 @@ class GatewayTab extends StatelessWidget {
                                 padding: const EdgeInsets.only(top: 20.0),
                                 child: GestureDetector(
                                   onTap: () => aboutPage(
-                                      ctx,
-                                      FlutterI18n.translate(
-                                          context, 'health_score'),
-                                      CircularGraph(90, minerColor,
-                                          child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text('90 %',
-                                                    style: kSuperBigBoldFont),
-                                                Text(
-                                                    FlutterI18n.translate(
-                                                        context,
-                                                        'health_score'),
-                                                    style: kMiddleFontOfGrey),
-                                              ])),
-                                      FlutterI18n.translate(
-                                          context, 'health_score_info')),
+                                    ctx,
+                                    FlutterI18n.translate(
+                                        context, 'health_score'),
+                                    CircularGraph(
+                                      90,
+                                      ColorsTheme.of(context).mxcBlue,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            '90 %',
+                                            style: FontTheme.of(context)
+                                                .veryBig
+                                                .primary
+                                                .bold(),
+                                          ),
+                                          Text(
+                                            FlutterI18n.translate(
+                                                context, 'health_score'),
+                                            style: FontTheme.of(context)
+                                                .middle
+                                                .secondary(),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    FlutterI18n.translate(
+                                        context, 'health_score_info'),
+                                  ),
                                   child: CircularGraph(
                                       gatewayState.health.loading
                                           ? 0.0
@@ -266,8 +222,9 @@ class GatewayTab extends StatelessWidget {
                                               (gatewayState.health.value ?? 0) *
                                                       100 >
                                                   10)
-                                          ? minerColor
-                                          : fuelColor,
+                                          ? ColorsTheme.of(context).mxcBlue
+                                          : ColorsTheme.of(context)
+                                              .minerHealthRed,
                                       child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -278,17 +235,28 @@ class GatewayTab extends StatelessWidget {
                                                 child: (gatewayState
                                                             .health.value ==
                                                         null)
-                                                    ? Text('-- %',
-                                                        style:
-                                                            kSuperBigBoldFont)
+                                                    ? Text(
+                                                        '-- %',
+                                                        style: FontTheme.of(
+                                                                context)
+                                                            .veryBig
+                                                            .primary
+                                                            .bold(),
+                                                      )
                                                     : Text(
                                                         '${Tools.priceFormat(gatewayState.health.value * 100)} %',
-                                                        style:
-                                                            kSuperBigBoldFont)),
+                                                        style: FontTheme.of(
+                                                                context)
+                                                            .veryBig
+                                                            .primary
+                                                            .bold(),
+                                                      )),
                                             Text(
                                                 FlutterI18n.translate(
                                                     context, 'health_score'),
-                                                style: kMiddleFontOfGrey),
+                                                style: FontTheme.of(context)
+                                                    .middle
+                                                    .secondary()),
                                           ])),
                                 ),
                               ),
@@ -298,21 +266,31 @@ class GatewayTab extends StatelessWidget {
                           loadableWidget(
                               loading: state.gatewaysRevenue.loading,
                               child: (state.gatewaysRevenue.value == null)
-                                  ? Text('-- MXC', style: kSuperBigBoldFont)
+                                  ? Text(
+                                      '-- MXC',
+                                      style: FontTheme.of(context)
+                                          .veryBig
+                                          .primary
+                                          .bold(),
+                                    )
                                   : Text(
                                       '${Tools.priceFormat(state.gatewaysRevenue.value)} MXC',
-                                      style: kSuperBigBoldFont)),
+                                      style: FontTheme.of(context)
+                                          .veryBig
+                                          .primary
+                                          .bold(),
+                                    )),
                           Text(
                               FlutterI18n.translate(
                                   context, 'total_mining_revenue'),
-                              style: kMiddleFontOfGrey),
+                              style: FontTheme.of(context).middle.secondary()),
                           middleColumnSpacer(),
                           Row(children: [
                             Spacer(),
                             Image.asset(
                               AppImages.gateways,
                               scale: 1.5,
-                              color: minerColor,
+                              color: ColorsTheme.of(context).mxcBlue,
                             ),
                             smallRowSpacer(),
                             loadableWidget(
@@ -327,7 +305,7 @@ class GatewayTab extends StatelessWidget {
                             Image.asset(
                               AppImages.fuel,
                               scale: 1.5,
-                              color: fuelColor,
+                              color: ColorsTheme.of(context).minerHealthRed,
                             ),
                             smallRowSpacer(),
                             loadableWidget(
@@ -335,7 +313,7 @@ class GatewayTab extends StatelessWidget {
                                 child: (gatewayState.miningFuel.value == null)
                                     ? Text('-- / -- MXC')
                                     : Text(
-                                        '${gatewayState.miningFuel.value.round()} / ${gatewayState.miningFuelMax.value.round()} MXC')),
+                                        '${Tools.priceFormat(gatewayState.miningFuel.value)} / ${Tools.priceFormat(gatewayState.miningFuelMax.value)} MXC')),
                             Spacer()
                           ]),
                           middleColumnSpacer(),
@@ -347,6 +325,7 @@ class GatewayTab extends StatelessWidget {
                                     ctx,
                                     FlutterI18n.translate(context, 'uptime'),
                                     aboutPageIllustration(
+                                        context,
                                         FlutterI18n.translate(
                                             context, 'uptime'),
                                         Image.asset(AppImages.uptime,
@@ -355,7 +334,7 @@ class GatewayTab extends StatelessWidget {
                                         context, 'uptime_info')),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: minerColor.withOpacity(.1),
+                                    color: ColorsTheme.of(context).mxcBlue05,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
                                   ),
@@ -374,16 +353,26 @@ class GatewayTab extends StatelessWidget {
                                                       null)
                                                   ? Text('-- %',
                                                       style:
-                                                          kBigBoldFontOfBlack)
+                                                          FontTheme.of(context)
+                                                              .big
+                                                              .primary
+                                                              .bold())
                                                   : Text(
                                                       '${Tools.priceFormat(gatewayState.uptimeHealth.value * 100)} %',
                                                       style:
-                                                          kBigBoldFontOfBlack)),
+                                                          FontTheme.of(context)
+                                                              .big
+                                                              .mxc
+                                                              .bold())),
                                           Image.asset(AppImages.uptime),
                                           Text(
-                                              FlutterI18n.translate(
-                                                  context, 'uptime'),
-                                              style: kSmallBoldFontOfBlack),
+                                            FlutterI18n.translate(
+                                                context, 'uptime'),
+                                            style: FontTheme.of(context)
+                                                .small
+                                                .mxc
+                                                .bold(),
+                                          ),
                                         ]),
                                   ),
                                 ),
@@ -397,13 +386,14 @@ class GatewayTab extends StatelessWidget {
                                     ctx,
                                     FlutterI18n.translate(context, 'gps'),
                                     aboutPageIllustration(
+                                        context,
                                         FlutterI18n.translate(context, 'gps'),
                                         Image.asset(AppImages.gps,
                                             width: s(60), fit: BoxFit.contain)),
                                     FlutterI18n.translate(context, 'gps_info')),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: disabledColor.withOpacity(.2),
+                                    color: disabledColor,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
                                   ),
@@ -414,12 +404,17 @@ class GatewayTab extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          Text('-', style: kBigFontOfGrey),
+                                          Text('-',
+                                              style: FontTheme.of(context)
+                                                  .big
+                                                  .secondary()),
                                           Image.asset(AppImages.gps_disabled),
                                           Text(
                                               FlutterI18n.translate(
                                                   context, 'gps'),
-                                              style: kSmallFontOfGrey),
+                                              style: FontTheme.of(context)
+                                                  .small
+                                                  .secondary()),
                                         ]),
                                   ),
                                 ),
@@ -433,6 +428,7 @@ class GatewayTab extends StatelessWidget {
                                     ctx,
                                     FlutterI18n.translate(context, 'altitude'),
                                     aboutPageIllustration(
+                                        context,
                                         FlutterI18n.translate(
                                             context, 'altitude'),
                                         Image.asset(AppImages.altitude,
@@ -441,7 +437,7 @@ class GatewayTab extends StatelessWidget {
                                         context, 'altitude_info')),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: disabledColor.withOpacity(.2),
+                                    color: disabledColor,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
                                   ),
@@ -452,13 +448,18 @@ class GatewayTab extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          Text('-', style: kBigFontOfGrey),
+                                          Text('-',
+                                              style: FontTheme.of(context)
+                                                  .big
+                                                  .secondary()),
                                           Image.asset(
                                               AppImages.altitude_disabled),
                                           Text(
                                               FlutterI18n.translate(
                                                   context, 'altitude'),
-                                              style: kSmallFontOfGrey),
+                                              style: FontTheme.of(context)
+                                                  .small
+                                                  .secondary()),
                                         ]),
                                   ),
                                 ),
@@ -475,6 +476,7 @@ class GatewayTab extends StatelessWidget {
                                     FlutterI18n.translate(
                                         context, 'orientation'),
                                     aboutPageIllustration(
+                                        context,
                                         FlutterI18n.translate(
                                             context, 'orientation'),
                                         Image.asset(AppImages.orientation,
@@ -483,7 +485,7 @@ class GatewayTab extends StatelessWidget {
                                         context, 'orientation_info')),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: disabledColor.withOpacity(.2),
+                                    color: disabledColor,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
                                   ),
@@ -494,13 +496,18 @@ class GatewayTab extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          Text('-', style: kBigFontOfGrey),
+                                          Text('-',
+                                              style: FontTheme.of(context)
+                                                  .big
+                                                  .secondary()),
                                           Image.asset(
                                               AppImages.orientation_disabled),
                                           Text(
                                               FlutterI18n.translate(
                                                   context, 'orientation'),
-                                              style: kSmallFontOfGrey),
+                                              style: FontTheme.of(context)
+                                                  .small
+                                                  .secondary()),
                                         ]),
                                   ),
                                 ),
@@ -514,6 +521,7 @@ class GatewayTab extends StatelessWidget {
                                     ctx,
                                     FlutterI18n.translate(context, 'proximity'),
                                     aboutPageIllustration(
+                                        context,
                                         FlutterI18n.translate(
                                             context, 'proximity'),
                                         Image.asset(AppImages.proximity,
@@ -522,7 +530,7 @@ class GatewayTab extends StatelessWidget {
                                         context, 'proximity_info')),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: disabledColor.withOpacity(.2),
+                                    color: disabledColor,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
                                   ),
@@ -533,13 +541,18 @@ class GatewayTab extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          Text('-', style: kBigFontOfGrey),
+                                          Text('-',
+                                              style: FontTheme.of(context)
+                                                  .big
+                                                  .secondary()),
                                           Image.asset(
                                               AppImages.proximity_disabled),
                                           Text(
                                               FlutterI18n.translate(
                                                   context, 'proximity'),
-                                              style: kSmallFontOfGrey),
+                                              style: FontTheme.of(context)
+                                                  .small
+                                                  .secondary()),
                                         ]),
                                   ),
                                 ),
@@ -550,37 +563,52 @@ class GatewayTab extends StatelessWidget {
                               flex: 1,
                               child: GestureDetector(
                                 onTap: () => aboutPage(
-                                    ctx,
+                                  ctx,
+                                  FlutterI18n.translate(context, 'fuel'),
+                                  aboutPageIllustration(
+                                    context,
                                     FlutterI18n.translate(context, 'fuel'),
-                                    aboutPageIllustration(
-                                        FlutterI18n.translate(context, 'fuel'),
-                                        Stack(
-                                            alignment: Alignment.center,
-                                            children: [
-                                              Image.asset(AppImages.uptime,
-                                                  color: Colors.white,
-                                                  width: s(60),
-                                                  fit: BoxFit.contain),
-                                              Image.asset(AppImages.fuel,
-                                                  color: fuelColor,
-                                                  width: s(20),
-                                                  fit: BoxFit.contain),
-                                            ])),
-                                    FlutterI18n.translate(context, 'fuel_info'),
-                                    bottomButton: PrimaryButton(
-                                        minWidth: double.infinity,
-                                        minHeight: 40,
-                                        onTap: () async {
-                                          Navigator.pop(context);
-                                          await Navigator.of(ctx).push(
-                                              route((ctx) => AddFuelPage()));
-                                        },
-                                        buttonTitle: FlutterI18n.translate(
-                                            context, 'fuel_miners'),
-                                        bgColor: fuelColor)),
+                                    Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Image.asset(
+                                          AppImages.uptime,
+                                          color: ColorsTheme.of(context)
+                                              .textPrimaryAndIcons,
+                                          width: s(60),
+                                          fit: BoxFit.contain,
+                                        ),
+                                        Image.asset(
+                                          AppImages.fuel,
+                                          color: ColorsTheme.of(context)
+                                              .minerHealthRed,
+                                          width: s(20),
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FlutterI18n.translate(context, 'fuel_info'),
+                                  bottomButton: PrimaryButton(
+                                    minWidth: double.infinity,
+                                    minHeight: 40,
+                                    onTap: () async {
+                                      Navigator.pop(context);
+                                      await Navigator.of(ctx)
+                                          .push(routeWidget(AddFuelPage()));
+                                      await context
+                                          .read<GatewayCubit>()
+                                          .refresh();
+                                    },
+                                    buttonTitle: FlutterI18n.translate(
+                                        context, 'fuel_miners'),
+                                    bgColor:
+                                        ColorsTheme.of(context).minerHealthRed,
+                                  ),
+                                ),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: minerColor.withOpacity(.1),
+                                    color: ColorsTheme.of(context).mxcBlue05,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
                                   ),
@@ -588,36 +616,55 @@ class GatewayTab extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 8.0),
                                     child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          loadableWidget(
-                                              loading: gatewayState
-                                                  .miningFuelHealth.loading,
-                                              child: (gatewayState
-                                                          .miningFuelHealth
-                                                          .value ==
-                                                      null)
-                                                  ? Text('-- %',
-                                                      style:
-                                                          kBigBoldFontOfBlack)
-                                                  : Text(
-                                                      '${Tools.priceFormat(gatewayState.miningFuelHealth.value * 100)} %',
-                                                      style:
-                                                          kBigBoldFontOfBlack)),
-                                          Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Image.asset(AppImages.uptime,
-                                                    color: Colors.white),
-                                                Image.asset(AppImages.fuel,
-                                                    color: fuelColor),
-                                              ]),
-                                          Text(
-                                              FlutterI18n.translate(
-                                                  context, 'fuel'),
-                                              style: kSmallBoldFontOfBlack),
-                                        ]),
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        loadableWidget(
+                                            loading: gatewayState
+                                                .miningFuelHealth.loading,
+                                            child: (gatewayState
+                                                        .miningFuelHealth
+                                                        .value ==
+                                                    null)
+                                                ? Text(
+                                                    '-- %',
+                                                    style: FontTheme.of(context)
+                                                        .big
+                                                        .mxc
+                                                        .bold(),
+                                                  )
+                                                : Text(
+                                                    '${Tools.priceFormat(gatewayState.miningFuelHealth.value * 100)} %',
+                                                    style: FontTheme.of(context)
+                                                        .big
+                                                        .mxc
+                                                        .bold(),
+                                                  )),
+                                        Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Image.asset(
+                                              AppImages.uptime,
+                                              color: ColorsTheme.of(context)
+                                                  .boxComponents,
+                                            ),
+                                            Image.asset(
+                                              AppImages.fuel,
+                                              color: ColorsTheme.of(context)
+                                                  .minerHealthRed,
+                                            ),
+                                          ],
+                                        ),
+                                        Text(
+                                          FlutterI18n.translate(
+                                              context, 'fuel'),
+                                          style: FontTheme.of(context)
+                                              .small
+                                              .mxc
+                                              .bold(),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -628,7 +675,7 @@ class GatewayTab extends StatelessWidget {
                 )),
         SizedBox(height: 30),
         Text(FlutterI18n.translate(context, "list_miners"),
-            style: kBigBoldFontOfBlack),
+            style: FontTheme.of(context).big.primary.bold()),
         SizedBox(height: 10),
       ],
     );
@@ -638,14 +685,14 @@ class GatewayTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: homeBar(
+        context,
         FlutterI18n.translate(context, 'gateway'),
         onPressed: () => openSettings(context),
       ),
-      backgroundColor: backgroundColor,
       body: BlocBuilder<GatewayCubit, GatewayState>(
         buildWhen: (a, b) => a.gateways != b.gateways,
         builder: (ctx, state) => Container(
-          color: backgroundColor,
+          color: ColorsTheme.of(context).primaryBackground,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: state.gateways.loading
@@ -679,14 +726,15 @@ class GatewaysList extends StatelessWidget {
     final list = [
       IosButtonStyle(
         title: FlutterI18n.translate(context, 'confirm_deleting_miner_title'),
-        style: kBigFontOfBlack.copyWith(fontWeight: FontWeight.w600),
+        style:
+            FontTheme.of(context).big().copyWith(fontWeight: FontWeight.w600),
       ),
       IosButtonStyle(
         title: FlutterI18n.translate(context, 'confirm_deleting_miner_message'),
       ),
       IosButtonStyle(
         title: FlutterI18n.translate(context, 'delete_miner'),
-        style: kBigFontOfBlack.copyWith(color: Colors.red),
+        style: FontTheme.of(context).big().copyWith(color: Colors.red),
       ),
     ];
 
@@ -717,13 +765,13 @@ class GatewaysList extends StatelessWidget {
         child: GatewayListTile(
           state: state,
           topOfList: index == 0,
+          endOfList: index == this.state.gateways.value.length - 1,
           onTap: () async {
             if (!state.reseller)
               await Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    fullscreenDialog: true,
-                    builder: (ctx) => MinerDetailPage(
+                  routeWidget(
+                    MinerDetailPage(
                       item: state,
                     ),
                   ));
@@ -743,24 +791,7 @@ class GatewaysList extends StatelessWidget {
         if (page == 0) return state.gateways.value;
         return await context.read<GatewayCubit>().loadNextPage(page);
       },
-      separatorBuilder: (BuildContext context, int index) =>
-          Divider(height: 1, thickness: 1, color: Colors.grey.shade50),
-      footer: Container(
-        height: 10,
-        margin: kOuterRowBottom10,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
-          boxShadow: [
-            BoxShadow(
-              color: shodowColor,
-              offset: Offset(0, 2),
-              blurRadius: 7,
-            ),
-          ],
-        ),
-        child: SizedBox(),
-      ),
+      padding: EdgeInsets.only(bottom: 20),
       onError: (dynamic error) => Center(
         child: Text('Some error occured'),
       ),
@@ -773,11 +804,13 @@ class GatewayListTile extends StatelessWidget {
   final VoidCallback onTap;
   final GatewayItem state;
   final bool topOfList;
+  final bool endOfList;
 
   GatewayListTile({
     @required this.onTap,
     @required this.state,
     @required this.topOfList,
+    this.endOfList = false,
   });
 
   @override
@@ -785,20 +818,23 @@ class GatewayListTile extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(top: (topOfList ? 5 : 0)),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: (topOfList)
-            ? BorderRadius.vertical(top: Radius.circular(10))
-            : null,
-        boxShadow: [
-          BoxShadow(
-            color: shodowColor,
-            offset: Offset(0, 2),
-            blurRadius: 7,
-          ),
-        ],
+        color: ColorsTheme.of(context).boxComponents,
+        borderRadius: BorderRadius.vertical(
+          top: topOfList ? Radius.circular(10) : Radius.zero,
+          bottom: endOfList ? Radius.circular(10) : Radius.zero,
+        ),
+        boxShadow: endOfList
+            ? null
+            : [
+                BoxShadow(
+                  color: boxShadowColor,
+                  offset: Offset(0, 2),
+                  blurRadius: 7,
+                ),
+              ],
       ),
       child: ListTile(
-        tileColor: Colors.white,
+        tileColor: ColorsTheme.of(context).secondaryBackground,
         onTap: onTap,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -813,8 +849,8 @@ class GatewayListTile extends StatelessWidget {
                     child: Icon(
                       Icons.lens,
                       color: TimeUtil.isIn5Min(state.lastSeenAt)
-                          ? Colors.green
-                          : Colors.grey,
+                          ? ColorsTheme.of(context).mxcBlue
+                          : ColorsTheme.of(context).textLabel,
                       size: 10,
                     ),
                   ),
@@ -823,7 +859,7 @@ class GatewayListTile extends StatelessWidget {
                     TimeUtil.isIn5Min(state.lastSeenAt)
                         ? '${FlutterI18n.translate(context, 'online').toUpperCase()}'
                         : '${FlutterI18n.translate(context, 'offline').toUpperCase()}',
-                    style: kMiddleFontOfGrey,
+                    style: FontTheme.of(context).middle.secondary(),
                   ),
                   Spacer(),
                   (state.reseller)
@@ -831,47 +867,48 @@ class GatewayListTile extends StatelessWidget {
                       : Image.asset(
                           AppImages.gateways,
                           scale: 1.5,
-                          color: minerColor,
+                          color: ColorsTheme.of(context).mxcBlue,
                         ),
                   smallRowSpacer(),
                   (state.reseller)
                       ? SizedBox()
                       : Text(
                           '${Tools.priceFormat((state.health ?? 0) * 100)} %',
-                          style: kBigFontOfBlack),
+                          style: FontTheme.of(context).big()),
                   smallRowSpacer(),
                   (state.reseller)
                       ? SizedBox()
                       : Image.asset(
                           AppImages.fuel,
                           scale: 1.5,
-                          color: fuelColor,
+                          color: ColorsTheme.of(context).minerHealthRed,
                         ),
                   smallRowSpacer(),
                   (state.reseller)
                       ? SizedBox()
                       : Text(
                           '${Tools.priceFormat((state.miningFuelHealth ?? 0) * 100)} %',
-                          style: kBigFontOfBlack),
+                          style: FontTheme.of(context).big()),
                 ],
               ),
             ),
             Padding(
                 padding: kOuterRowTop5,
                 child: Text(state.name,
-                    textAlign: TextAlign.left, style: kBigFontOfBlack)),
+                    textAlign: TextAlign.left,
+                    style: FontTheme.of(context).big())),
             Padding(
               padding: kOuterRowTop5,
               child: Row(
                 children: [
                   Text(
                     '${FlutterI18n.translate(context, 'last_seen')}',
-                    style: kSmallFontOfGrey,
+                    style: FontTheme.of(context).small.secondary(),
                   ),
                   Spacer(),
                   Text(
                     '${TimeUtil.getDatetime(state.lastSeenAt)}',
-                    style: kBigFontOfBlack,
+                    style: FontTheme.of(context).big(),
                   ),
                 ],
               ),
@@ -882,12 +919,12 @@ class GatewayListTile extends StatelessWidget {
                 children: [
                   Text(
                     '${FlutterI18n.translate(context, 'revenue')}',
-                    style: kSmallFontOfGrey,
+                    style: FontTheme.of(context).small.secondary(),
                   ),
                   Spacer(),
                   Text(
                     '${Tools.priceFormat(state.totalMined)} MXC',
-                    style: kBigFontOfBlack,
+                    style: FontTheme.of(context).big(),
                   ),
                 ],
               ),

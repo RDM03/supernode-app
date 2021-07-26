@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/components/page/submit_button.dart';
 import 'package:supernodeapp/common/components/security/biometrics.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
 
@@ -24,14 +25,16 @@ Widget buildView(
       Center(
         child: Text(
           FlutterI18n.translate(_ctx, 'stake'),
-          style: kVeryBigFontOfBlack,
+          style: FontTheme.of(_ctx).veryBig(),
         ),
       ),
       SizedBox(height: 20),
       Center(
         child: Text(
           FlutterI18n.translate(_ctx, 'stake_warning'),
-          style: kMiddleFontOfBlack.copyWith(fontWeight: FontWeight.w600),
+          style: FontTheme.of(_ctx).middle().copyWith(
+                fontWeight: FontWeight.w600,
+              ),
           textAlign: TextAlign.center,
         ),
       ),
@@ -80,6 +83,7 @@ Widget buildView(
                 if (!authenticated) return;
                 Navigator.of(_ctx).pop(true);
               },
+              color: ColorsTheme.of(_ctx).mxcBlue,
               key: ValueKey('submitButton'),
             );
           }
@@ -87,6 +91,7 @@ Widget buildView(
             FlutterI18n.translate(_ctx, 'proceed_anyway') +
                 ' (${dur.inSeconds})',
             key: ValueKey('submitButtonTimeout'),
+            color: ColorsTheme.of(_ctx).mxcBlue,
             onPressed: null,
           );
         },
@@ -97,6 +102,7 @@ Widget buildView(
         onPressed: () {
           Navigator.of(_ctx).pop();
         },
+        color: ColorsTheme.of(_ctx).mxcBlue,
         key: ValueKey('goBackButton'),
       ),
     ],

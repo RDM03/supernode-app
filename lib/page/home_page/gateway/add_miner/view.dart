@@ -32,6 +32,7 @@ import 'package:supernodeapp/route.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class AddMinerPage extends StatefulWidget {
   final bool hasSkip;
@@ -86,7 +87,7 @@ class _AddMinerPageState extends State<AddMinerPage> {
               if (state.addMinerFlowStep == AddMinerFlow.setting) {
                 Navigator.push(
                     context,
-                    route((_) => BlocProvider(
+                    routeWidget(BlocProvider(
                         create: (ctx) => MinerCubit(
                             context.read<AppCubit>(),
                             context.read<SupernodeRepository>(),
@@ -94,19 +95,19 @@ class _AddMinerPageState extends State<AddMinerPage> {
                         child: MinerProfileSettingPage(
                             serialNumer: state.serialNumber))));
               } else if (state.addMinerFlowStep == AddMinerFlow.success) {
-                Navigator.push(ctx, route((_) => DDResultSuccss()))
+                Navigator.push(ctx, routeWidget(DDResultSuccss()))
                     .then((_) async {
                   await context.read<GatewayCubit>().refresh();
                 });
               } else if (state.addMinerFlowStep == AddMinerFlow.failure) {
                 Navigator.push(
                   context,
-                  route((_) => DDResultFailure(detail: state.message)),
+                  routeWidget(DDResultFailure(detail: state.message)),
                 );
               } else if (state.addMinerFlowStep == AddMinerFlow.warning) {
                 Navigator.push(
                   context,
-                  route((_) => DDResultWarning(detail: state.message)),
+                  routeWidget(DDResultWarning(detail: state.message)),
                 );
               }
             },
@@ -140,11 +141,14 @@ class _AddMinerPageState extends State<AddMinerPage> {
                                   children: [
                                 Text(
                                     FlutterI18n.translate(context, 'add_miner'),
-                                    style: kBigBoldFontOfBlack),
+                                    style: FontTheme.of(context)
+                                        .big
+                                        .primary
+                                        .bold()),
                                 Text(
                                   FlutterI18n.translate(
                                       context, 'add_miner_tip'),
-                                  style: kMiddleFontOfBlack,
+                                  style: FontTheme.of(context).middle(),
                                 )
                               ])),
                         ])
@@ -160,7 +164,7 @@ class _AddMinerPageState extends State<AddMinerPage> {
                         padding: EdgeInsets.zero,
                         icon: Icon(
                           Icons.add_circle,
-                          color: buttonPrimaryColor,
+                          color: ColorsTheme.of(context).mxcBlue,
                           size: s(50),
                         ),
                         onPressed: () async {
@@ -175,7 +179,7 @@ class _AddMinerPageState extends State<AddMinerPage> {
                           child: Text(
                             FlutterI18n.translate(context,
                                 'scan_qrcode'), //'Scan QR to add Miner'),
-                            style: kMiddleFontOfGrey,
+                            style: FontTheme.of(context).middle.secondary(),
                           ))
                     ],
                   )),
@@ -230,15 +234,21 @@ class _AddMinerPageState extends State<AddMinerPage> {
                                         children: [
                                           ListTile(
                                             leading: DDIcon(
-                                                imageUrl: AppImages.gateways,
-                                                backgroundColor: lightBlue),
+                                              imageUrl: AppImages.gateways,
+                                              backgroundColor:
+                                                  ColorsTheme.of(context)
+                                                      .dhxBlue,
+                                            ),
                                             title: Text(
                                               state.name,
-                                              style: kBigFontOfBlack,
+                                              style:
+                                                  FontTheme.of(context).big(),
                                             ),
                                             subtitle: Text(
                                               state.id,
-                                              style: kMiddleFontOfBlue,
+                                              style: FontTheme.of(context)
+                                                  .middle
+                                                  .mxc(),
                                             ),
                                           ),
                                           Divider()
@@ -280,7 +290,7 @@ class _AddMinerPageState extends State<AddMinerPage> {
         builder: (context) => Text(
           FlutterI18n.translate(context, 'register_reseller_success')
               .replaceFirst('{0}', state.serialNumber),
-          style: kBigFontOfBlack,
+          style: FontTheme.of(context).big(),
           textAlign: TextAlign.center,
         ),
       ),

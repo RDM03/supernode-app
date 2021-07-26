@@ -647,5 +647,15 @@
 	"send_to_wallet_confirm": "Vous êtes sur le point d’envoyer {0} MXC à votre portefeuille. Remarque : si vous retirez mxc du réservoir de carburant, votre efficacité minière diminuera.",
 	"send_to_wallet_dont_have_miners": "On dirait que vous n’avez pas de carburant à envoyer à votre portefeuille",
 	"nft_desc": "NFT + OBJETS DE COLLECTION",
+<<<<<<< HEAD
 	"reg_invalid_organization_name": "Seules les lettres, les chiffres, les soulignements et"
+=======
+	"adding_miner_failure_title": "Oups, une erreur c'est produite",
+	"adding_miner_failure_detail": "Cela n'a pas tout à fait fonctionné, veuillez réessayer.",
+	"adding_miner_success_detail": "Votre M2 Pro est maintenant en train de miner",
+	"adding_miner_warning_title": "Note : Ce mineur est utilisé",
+	"adding_miner_warning_detail": "Les appareils d'occasion fonctionnent différemment des appareils neufs. Si vous n'aviez pas l'intention d'acheter un mineur d'occasion, veuillez contacter la personne qui vous l'a vendu.",
+	"fuel_tank": "Réservoir",
+	"total_fueled_amount": "Montant total d'alimentation"
+>>>>>>> master
 }

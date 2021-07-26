@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
-class BarGraph extends StatelessWidget {
+class BarGraph extends StatefulWidget {
   /// List of values [0-1]
   final List<double> graphValues;
 
@@ -15,62 +16,69 @@ class BarGraph extends StatelessWidget {
   /// Color of BarGraph
   final Color graphColor;
 
-  /// Ẃidth of the widget
+  /// Width of the widget
   final double widgetWidth;
 
   /// Height of the widget
   final double widgetHeight;
 
   /// notifyGraphBarScroll
-  /// firstIndex: The first bar means that there is the first item in the most left of the visibility.
-  final Function(int, {ScrollController scrollController, int firstIndex})
-      notifyGraphBarScroll;
+  final Function(int) notifyGraphBarScroll;
+
+  final Function(int index, Offset position) onTapUp;
+
+  const BarGraph(this.graphValues, this.barsOnScreen, this.widgetWidth,
+      {Key key,
+        this.xAxisLabels,
+        this.graphColor,
+        this.widgetHeight = 200,
+        this.notifyGraphBarScroll,
+        this.onTapUp}) : super(key: key);
+
+  @override
+  _BarGraphState createState() => _BarGraphState();
+}
+
+class _BarGraphState extends State<BarGraph> {
   final double barWidth = 20.0;
+
   final ScrollController scrollCtrl = ScrollController();
+
   double spaceBetweenLines;
   double scrollableWidth;
   int currentBar = 0;
+
   List<double> xList = [];
 
-  //onTapUp event of each bar
-  final Function(int index, Offset position) onTapUp;
-
-  BarGraph(this.graphValues, this.barsOnScreen, this.widgetWidth,
-      {this.xAxisLabels,
-      this.widgetHeight = 200,
-      this.graphColor = minerColor,
-      this.notifyGraphBarScroll,
-      this.onTapUp}) {
+  @override
+  void initState() {
     spaceBetweenLines =
-        (widgetWidth - (barsOnScreen * barWidth)) / (barsOnScreen - 1);
-    scrollableWidth = barWidth * graphValues.length +
-        spaceBetweenLines * (graphValues.length - 1);
-    if (notifyGraphBarScroll != null) {
+        (widget.widgetWidth - (widget.barsOnScreen * barWidth)) / (widget.barsOnScreen - 1);
+
+    scrollableWidth = barWidth * widget.graphValues.length +
+        spaceBetweenLines * (widget.graphValues.length - 1);
+    if (scrollableWidth < 0)
+      scrollableWidth = 0;
+
+    if (widget.notifyGraphBarScroll != null) {
       scrollCtrl.addListener(() {
         double position = scrollCtrl.offset / (spaceBetweenLines + barWidth);
-        int firstIndex = 0;
-
-        if (scrollCtrl.offset <= barWidth) {
-          firstIndex = 0;
-        } else {
-          firstIndex =
-              ((scrollCtrl.offset - barWidth) / (spaceBetweenLines + barWidth))
-                  .ceil();
-        }
-
         if (position.round() > currentBar) {
-          currentBar++;
+          setState(() {
+            currentBar = currentBar + 1;
+          });
+          widget.notifyGraphBarScroll(currentBar);
         }
         if (position.round() < currentBar) {
-          currentBar--;
+          setState(() {
+            currentBar = currentBar - 1;
+          });
+          widget.notifyGraphBarScroll(currentBar);
         }
-
-        notifyGraphBarScroll(currentBar,
-            scrollController: scrollCtrl, firstIndex: firstIndex);
       });
     }
+    super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -84,11 +92,12 @@ class BarGraph extends StatelessWidget {
           },
           child: CustomPaint(
               painter: GraphPainter(
-                  lineColor: graphColor,
-                  completePercents: graphValues,
-                  labels: xAxisLabels,
-                  visibleWidth: widgetWidth,
-                  linesOnScreen: barsOnScreen,
+                  lineColor: widget.graphColor ?? ColorsTheme.of(context).mxcBlue,
+                  completePercents: widget.graphValues,
+                  labelStyle: FontTheme.of(context).small.secondary(),
+                  labels: widget.xAxisLabels,
+                  visibleWidth: widget.widgetWidth,
+                  linesOnScreen: widget.barsOnScreen,
                   spaceBetweenLines: spaceBetweenLines,
                   lineWidth: barWidth,
                   xListCallback: (index, xValue) {
@@ -100,14 +109,14 @@ class BarGraph extends StatelessWidget {
                   }),
               child: Container(
                 width: scrollableWidth,
-                height: widgetHeight,
+                height: widget.widgetHeight,
                 child: SizedBox(),
               )),
         ));
   }
 
   void _onTap(BuildContext context, TapUpDetails detail) {
-    if (onTapUp == null) return;
+    if (widget.onTapUp == null) return;
 
     int index = -1;
     Offset localOffset = detail.localPosition;
@@ -120,7 +129,7 @@ class BarGraph extends StatelessWidget {
     }
 
     if (index != -1) {
-      onTapUp(xList.length - 1 - index, detail.globalPosition);
+      widget.onTapUp(xList.length - 1 - index, detail.globalPosition);
     }
   }
 }
@@ -134,6 +143,8 @@ class GraphPainter extends CustomPainter {
   final double spaceBetweenLines;
   final double lineWidth;
   final Function(int, double) xListCallback;
+  final TextStyle labelStyle;
+
   GraphPainter(
       {this.lineColor,
       this.completePercents,
@@ -142,6 +153,7 @@ class GraphPainter extends CustomPainter {
       this.linesOnScreen,
       this.spaceBetweenLines,
       this.lineWidth,
+      this.labelStyle,
       this.xListCallback});
   @override
   void paint(Canvas canvas, Size size) {
@@ -177,7 +189,7 @@ class GraphPainter extends CustomPainter {
       if (labels != null) {
         final textSpan = TextSpan(
           text: labels[labels.length - 1 - i],
-          style: kSmallFontOfGrey,
+          style: labelStyle,
         );
         final textPainter = TextPainter(
           text: textSpan,

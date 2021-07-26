@@ -25,6 +25,7 @@ import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/common/utils/extensions.dart';
+import 'package:supernodeapp/theme/theme.dart';
 import 'confirm_page.dart';
 import 'filter_dialog.dart';
 import 'proceed_dialog.dart';
@@ -122,8 +123,11 @@ class _SendToWalletPageState extends State<SendToWalletPage>
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CircleButton(
               key: Key('addFuelBottom'),
-              circleColor: Colors.white,
-              icon: Icon(Icons.arrow_forward, color: fuelColor),
+              circleColor: ColorsTheme.of(context).boxComponents,
+              icon: Icon(
+                Icons.arrow_forward,
+                color: ColorsTheme.of(context).minerHealthRed,
+              ),
             ),
           ),
           Expanded(
@@ -132,7 +136,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
               children: [
                 Text(
                   FlutterI18n.translate(context, 'send_to_wallet'),
-                  style: kBigBoldFontOfBlack,
+                  style: FontTheme.of(context).big.primary.bold(),
                 ),
                 Text(
                   FlutterI18n.translate(context, 'send_to_wallet_desc'),
@@ -145,19 +149,13 @@ class _SendToWalletPageState extends State<SendToWalletPage>
 
   Widget selectAll() => Container(
         padding: EdgeInsets.symmetric(vertical: 10),
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(color: Colors.grey.shade200, width: 0.5),
-            bottom: BorderSide(color: Colors.grey.shade200, width: 0.5),
-          ),
-        ),
         child: Row(
           children: [
             Expanded(
               child: Text(
                 FlutterI18n.translate(context, 'add_all'),
                 textAlign: TextAlign.right,
-                style: kBigFontOfBlack,
+                style: FontTheme.of(context).big(),
               ),
             ),
             SizedBox(width: 5),
@@ -173,8 +171,9 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                 else
                   defaultAll();
               },
-              inactiveThumbColor: Colors.grey.shade700,
-              activeColor: healthColor,
+              inactiveThumbColor:
+                  ColorsTheme.of(context).textLabel.withOpacity(0.5),
+              activeColor: ColorsTheme.of(context).minerHealthRed,
             ),
             SizedBox(width: 16),
           ],
@@ -199,37 +198,40 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                         Icons.check,
                         size: 18,
                         color: (gatewaySelection[item.id] ?? 0) > 0
-                            ? healthColor
-                            : Colors.grey,
+                            ? ColorsTheme.of(context).minerHealthRed
+                            : ColorsTheme.of(context).textLabel,
                       ),
                     ),
                   ),
                   Expanded(
                     child: Text(
                       item.name,
-                      style: kBigFontOfBlack,
+                      style: FontTheme.of(context).big(),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
+                  const SizedBox(width: 5),
                   Image.asset(
                     AppImages.gateways,
                     height: 16,
-                    color: colorMxc,
+                    color: ColorsTheme.of(context).mxcBlue,
                   ),
                   SizedBox(width: 6),
                   Text(
                     '${Tools.priceFormat((item.health ?? 0) * 100, range: 0)}%',
-                    style: kBigFontOfBlack,
+                    style: FontTheme.of(context).big(),
                   ),
                   SizedBox(width: 18),
                   Image.asset(
                     AppImages.fuel,
-                    color: fuelColor,
+                    color: ColorsTheme.of(context).minerHealthRed,
                     height: 16,
                   ),
                   SizedBox(width: 6),
                   Text(
                     '${Tools.priceFormat((item.miningFuelHealth ?? 0) * 100, range: 0)}%',
-                    style: kBigFontOfBlack,
+                    style: FontTheme.of(context).big(),
                   ),
                   SizedBox(width: 28),
                 ],
@@ -244,8 +246,8 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                     value: gatewaySelection[item.id] ?? 0,
                     onChanged: (v) =>
                         setState(() => gatewaySelection[item.id] = v),
-                    activeColor: healthColor,
-                    inactiveColor: healthColor.withOpacity(0.2),
+                    activeColor: ColorsTheme.of(context).minerHealthRed,
+                    inactiveColor: ColorsTheme.of(context).minerHealthRed20,
                   ),
                 ),
               ),
@@ -255,17 +257,17 @@ class _SendToWalletPageState extends State<SendToWalletPage>
               children: [
                 SizedBox(width: 32),
                 Text(FlutterI18n.translate(context, 'current_fuel'),
-                    style: kSmallFontOfGrey),
+                    style: FontTheme.of(context).small.secondary()),
                 Text(
                   '${Tools.priceFormat(item.miningFuel.toDouble(), range: 2)} MXC',
-                  style: kSmallFontOfBlack.copyWith(color: healthColor),
+                  style: FontTheme.of(context).small.health(),
                 ),
                 Spacer(),
                 ColoredText(
                   text:
                       '${Tools.priceFormat(item.miningFuel.toDouble() * (gatewaySelection[item.id] ?? 0), range: 2)} MXC',
-                  color: healthColor.withOpacity(0.2),
-                  style: kMiddleFontOfBlack,
+                  color: ColorsTheme.of(context).minerHealthRed20,
+                  style: FontTheme.of(context).middle(),
                   padding: EdgeInsets.symmetric(
                     horizontal: 6,
                     vertical: 4,
@@ -327,12 +329,12 @@ class _SendToWalletPageState extends State<SendToWalletPage>
         await context.read<SupernodeUserCubit>().refreshBalance();
         loading.hide();
         await Navigator.of(context)
-            .push(route((ctx) => SendToWalletConfirmPage()));
+            .push(routeWidget(SendToWalletConfirmPage()));
         Navigator.of(context).pop();
       } catch (e) {
         loading.hide();
         await Navigator.of(context).push(
-          route((ctx) => SendToWalletConfirmPage(error: e)),
+          routeWidget(SendToWalletConfirmPage(error: e)),
         );
       } finally {
         loading.hide();
@@ -351,16 +353,18 @@ class _SendToWalletPageState extends State<SendToWalletPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBars.backArrowAndActionAppBar(
+        context,
         // action: IconButton(
         //   icon: Icon(
         //     Icons.filter_list,
         //   ),
         //   onPressed: onFilter,
-        //   color: Colors.black,
+        //   color: blackColor,
         // ),
         title: FlutterI18n.translate(context, 'send_to_wallet'),
         onPress: () => Navigator.of(context).pop(),
       ),
+      backgroundColor: ColorsTheme.of(context).secondaryBackground,
       body: Column(
         children: [
           Expanded(
@@ -397,7 +401,7 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                           FlutterI18n.translate(
                               context, 'send_to_wallet_dont_have_miners'),
                           textAlign: TextAlign.center,
-                          style: kMiddleFontOfGrey,
+                          style: FontTheme.of(context).middle.secondary(),
                         ),
                       ),
                     ),
@@ -406,8 +410,10 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                   SliverFillRemaining(
                     child: Center(
                       child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation(healthColor),
-                        backgroundColor: healthColor.withOpacity(0.2),
+                        valueColor: AlwaysStoppedAnimation(
+                            ColorsTheme.of(context).minerHealthRed),
+                        backgroundColor:
+                            ColorsTheme.of(context).minerHealthRed20,
                       ),
                     ),
                   )
@@ -417,8 +423,10 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                       padding: EdgeInsets.symmetric(vertical: 20),
                       child: Center(
                         child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(healthColor),
-                          backgroundColor: healthColor.withOpacity(0.2),
+                          valueColor: AlwaysStoppedAnimation(
+                              ColorsTheme.of(context).minerHealthRed),
+                          backgroundColor:
+                              ColorsTheme.of(context).minerHealthRed20,
                         ),
                       ),
                     ),
@@ -430,19 +438,19 @@ class _SendToWalletPageState extends State<SendToWalletPage>
             alignment: Alignment.bottomCenter,
             child: Column(
               children: [
-                Container(height: 0.5, color: Colors.grey.shade200),
                 SizedBox(height: 16),
                 Center(
                   child: Text(
                     '${Tools.priceFormat(withdrawMxc, range: 2)} MXC',
-                    style: kVeryBigFontOfBlack.copyWith(color: healthColor),
+                    style: FontTheme.of(context).veryBig().copyWith(
+                        color: ColorsTheme.of(context).minerHealthRed),
                   ),
                 ),
                 SizedBox(height: 9),
                 Center(
                   child: Text(
                     FlutterI18n.translate(context, 'send_amount'),
-                    style: kMiddleFontOfGrey,
+                    style: FontTheme.of(context).middle.secondary(),
                   ),
                 ),
                 SizedBox(height: 24),
@@ -454,9 +462,9 @@ class _SendToWalletPageState extends State<SendToWalletPage>
                       onTap: () => onNext(context),
                       minHeight: 46,
                       buttonTitle: FlutterI18n.translate(context, 'next'),
-                      bgColor: healthColor,
+                      bgColor: ColorsTheme.of(context).minerHealthRed.withOpacity(0.8),
+                      textColor: ColorsTheme.of(context).buttonIconTextColor,
                       minWidth: 0,
-                      textStyle: kBigFontOfWhite,
                     ),
                   ),
                 ),

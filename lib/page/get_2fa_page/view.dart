@@ -5,6 +5,8 @@ import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_codes.dart';
+import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -22,7 +24,7 @@ Widget buildView(
       child: Column(children: <Widget>[
         Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_01'),
             style: TextStyle(
-              color: Colors.black,
+              color: ColorsTheme.of(_ctx).textPrimaryAndIcons,
               fontWeight: FontWeight.w400,
               fontSize: 24,
             )),
@@ -34,11 +36,10 @@ Widget buildView(
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_02'),
-                style: TextStyle(
-                  color: Colors.grey[600],
-                  fontWeight: FontWeight.w400,
-                )),
+            Text(
+              FlutterI18n.translate(_ctx, 'wthdr_ent_code_02'),
+              style: FontTheme.of(_ctx).middle.secondary(),
+            ),
           ]),
     ),
     Container(
@@ -47,11 +48,10 @@ Widget buildView(
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_03'),
-                style: TextStyle(
-                  color: Colors.grey[600],
-                  fontWeight: FontWeight.w400,
-                )),
+            Text(
+              FlutterI18n.translate(_ctx, 'wthdr_ent_code_03'),
+              style: FontTheme.of(_ctx).middle.secondary(),
+            ),
           ]),
     ),
     Container(
@@ -59,11 +59,10 @@ Widget buildView(
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(FlutterI18n.translate(_ctx, 'wthdr_ent_code_04'),
-                style: TextStyle(
-                  color: Colors.grey[600],
-                  fontWeight: FontWeight.w400,
-                )),
+            Text(
+              FlutterI18n.translate(_ctx, 'wthdr_ent_code_04'),
+              style: FontTheme.of(_ctx).middle.secondary(),
+            ),
           ]),
     ),
     Form(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class MnemonicList extends StatelessWidget {
   final List<String> words;
@@ -31,9 +32,9 @@ class MnemonicList extends StatelessWidget {
                     ),
                     child: Text(
                       w,
-                      style: kBigFontOfBlack.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: FontTheme.of(context).big().copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
                   ),
               ],

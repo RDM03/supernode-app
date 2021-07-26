@@ -6,7 +6,9 @@ import 'package:supernodeapp/common/components/council_card.dart';
 import 'package:supernodeapp/common/components/page/link.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -18,7 +20,7 @@ Widget buildView(
   return GestureDetector(
     key: Key('joinCouncilView'),
     onTap: () =>
-        FocusScope.of(viewService.context).requestFocus(new FocusNode()),
+        FocusScope.of(viewService.context).unfocus(),
     child: pageFrame(
       context: viewService.context,
       scaffoldKey: state.scaffoldKey,
@@ -30,19 +32,19 @@ Widget buildView(
         SizedBox(height: 30),
         Text(
           FlutterI18n.translate(context, 'join_a_council'),
-          style: kPrimaryBigFontOfBlack,
+          style: FontTheme.of(context).big(),
         ),
         SizedBox(height: 4),
         Text(
           FlutterI18n.translate(context, 'join_council_tip_1'),
-          style: kMiddleFontOfGrey,
+          style: FontTheme.of(context).middle.secondary(),
         ),
         SizedBox(height: 4),
         Text(
           FlutterI18n.translate(context, 'join_council_tip_2'),
-          style: kMiddleFontOfGrey,
+          style: FontTheme.of(context).middle.secondary(),
         ),
-        link(
+        Link(
           FlutterI18n.translate(context, 'become_council_chair'),
           alignment: Alignment.centerLeft,
           key: ValueKey('becomeCouncilLink'),
@@ -52,7 +54,7 @@ Widget buildView(
         if (state.councils?.isNotEmpty ?? true) ...[
           Text(
             FlutterI18n.translate(context, 'council_lists'),
-            style: kPrimaryBigFontOfBlack,
+            style: FontTheme.of(context).big(),
           ),
           SizedBox(height: 20),
         ],
@@ -62,7 +64,8 @@ Widget buildView(
             child: Center(
               child: CircularProgressIndicator(
                 key: ValueKey('circularProgressIndicator'),
-                valueColor: AlwaysStoppedAnimation(Color(0xFF4665EA)),
+                valueColor:
+                    AlwaysStoppedAnimation(ColorsTheme.of(context).dhxBlue),
               ),
             ),
           )
@@ -85,30 +88,47 @@ showNoCouncilsDialog(ScaffoldState scaffoldState) {
   showCupertinoModalPopup(
     context: scaffoldState.context,
     builder: (ctx) => CupertinoActionSheet(
-      message: Column(
-        children: [
-          Text(
-            FlutterI18n.translate(ctx, 'sorry'),
-            style: kMiddleFontOfBlue,
+      actions: [
+        Container(
+          color: ColorsTheme.of(scaffoldState.context).boxComponents,
+          child: CupertinoActionSheetAction(
+            child: Text(
+              FlutterI18n.translate(ctx, 'sorry'),
+              style: FontTheme.of(ctx).middle.dhx(),
+            ),
+            onPressed: () => 'no action',
           ),
-          SizedBox(height: 10),
-          Text(
-            FlutterI18n.translate(ctx, 'no_councils_description'),
-            style: kSmallFontOfGrey,
-          ),
-          SizedBox(height: 10),
-          Text(
-            FlutterI18n.translate(ctx, 'council_requirments_list'),
-            style: kMiddleFontOfBlack,
-          ),
-        ],
-      ),
-      cancelButton: CupertinoActionSheetAction(
-        child: Text(
-          FlutterI18n.translate(ctx, 'got_it'),
-          style: kBigFontOfGrey,
         ),
-        onPressed: () => Navigator.of(ctx).pop(),
+        Container(
+          color: ColorsTheme.of(scaffoldState.context).boxComponents,
+          child: CupertinoActionSheetAction(
+            child: Text(
+              FlutterI18n.translate(ctx, 'no_councils_description'),
+              style: FontTheme.of(ctx).small.secondary(),
+            ),
+            onPressed: () => 'no action',
+          ),
+        ),
+        Container(
+          color: ColorsTheme.of(scaffoldState.context).boxComponents,
+          child: CupertinoActionSheetAction(
+            child: Text(
+              FlutterI18n.translate(ctx, 'council_requirments_list'),
+              style: FontTheme.of(ctx).middle(),
+            ),
+            onPressed: () => 'no action',
+          ),
+        )
+      ],
+      cancelButton: Container(
+        color: ColorsTheme.of(scaffoldState.context).boxComponents,
+        child: CupertinoActionSheetAction(
+          child: Text(
+            FlutterI18n.translate(ctx, 'got_it'),
+            style: FontTheme.of(ctx).big.secondary(),
+          ),
+          onPressed: () => Navigator.of(ctx).pop(),
+        ),
       ),
     ),
   );
@@ -118,35 +138,57 @@ showDoesntMeetRequirmentsDialog(ScaffoldState scaffoldState) {
   showCupertinoModalPopup(
     context: scaffoldState.context,
     builder: (ctx) => CupertinoActionSheet(
-      message: Column(
-        children: [
-          Text(
-            FlutterI18n.translate(ctx, 'sorry'),
-            style: kMiddleFontOfBlue,
+      actions: [
+        Container(
+          color: ColorsTheme.of(scaffoldState.context).boxComponents,
+          child: CupertinoActionSheetAction(
+            child: Text(
+              FlutterI18n.translate(ctx, 'sorry'),
+              style: FontTheme.of(ctx).middle.dhx(),
+            ),
+            onPressed: () => 'no action',
           ),
-          SizedBox(height: 10),
-          Text(
-            FlutterI18n.translate(ctx, 'council_requirments_not_meet_1'),
-            style: kSmallFontOfGrey,
-          ),
-          SizedBox(height: 10),
-          Text(
-            FlutterI18n.translate(ctx, 'council_requirments_list'),
-            style: kSmallFontOfBlack,
-          ),
-          SizedBox(height: 10),
-          Text(
-            FlutterI18n.translate(ctx, 'council_requirments_not_meet_2'),
-            style: kSmallFontOfGrey,
-          ),
-        ],
-      ),
-      cancelButton: CupertinoActionSheetAction(
-        child: Text(
-          FlutterI18n.translate(ctx, 'OK'),
-          style: kBigFontOfGrey,
         ),
-        onPressed: () => Navigator.of(ctx).pop(),
+        Container(
+          color: ColorsTheme.of(scaffoldState.context).boxComponents,
+          child: CupertinoActionSheetAction(
+            child: Text(
+              FlutterI18n.translate(ctx, 'council_requirments_not_meet_1'),
+              style: FontTheme.of(ctx).small.secondary(),
+            ),
+            onPressed: () => 'no action',
+          ),
+        ),
+        Container(
+          color: ColorsTheme.of(scaffoldState.context).boxComponents,
+          child: CupertinoActionSheetAction(
+            child: Text(
+              FlutterI18n.translate(ctx, 'council_requirments_list'),
+              style: FontTheme.of(ctx).small(),
+            ),
+            onPressed: () => 'no action',
+          ),
+        ),
+        Container(
+          color: ColorsTheme.of(scaffoldState.context).boxComponents,
+          child: CupertinoActionSheetAction(
+            child: Text(
+              FlutterI18n.translate(ctx, 'council_requirments_not_meet_2'),
+              style: FontTheme.of(ctx).small.secondary(),
+            ),
+            onPressed: () => 'no action',
+          ),
+        ),
+      ],
+      cancelButton: Container(
+        color: ColorsTheme.of(scaffoldState.context).boxComponents,
+        child: CupertinoActionSheetAction(
+          child: Text(
+            FlutterI18n.translate(ctx, 'OK'),
+            style: FontTheme.of(ctx).big.secondary(),
+          ),
+          onPressed: () => Navigator.of(ctx).pop(),
+        ),
       ),
     ),
   );
@@ -156,41 +198,64 @@ Future<bool> showBecomeCouncilChairDialog(ScaffoldState scaffoldState) async {
   final res = await showCupertinoModalPopup(
     context: scaffoldState.context,
     builder: (ctx) => CupertinoActionSheet(
-      message: Column(
-        children: [
-          Text(
-            FlutterI18n.translate(ctx, 'congratulations'),
-            style: kMiddleFontOfBlue,
-          ),
-          SizedBox(height: 10),
-          Text(
-            FlutterI18n.translate(ctx, 'council_requirments_1'),
-            style: kSmallFontOfGrey,
-          ),
-          SizedBox(height: 10),
-          Text(
-            FlutterI18n.translate(ctx, 'council_requirments_list'),
-            style: kSmallFontOfBlack,
-          ),
-          SizedBox(height: 10),
-          Text(
-            FlutterI18n.translate(ctx, 'council_requirments_2'),
-            style: kSmallFontOfGrey,
-          ),
-        ],
-      ),
       actions: [
-        CupertinoActionSheetAction(
-          child: Text(FlutterI18n.translate(ctx, 'become_council_chair')),
-          onPressed: () => Navigator.of(ctx).pop(true),
+        Container(
+          color: ColorsTheme.of(scaffoldState.context).boxComponents,
+          child: CupertinoActionSheetAction(
+            child: Text(
+              FlutterI18n.translate(ctx, 'congratulations'),
+              style: FontTheme.of(ctx).middle.dhx(),
+            ),
+            onPressed: () => 'no action',
+          ),
+        ),
+        Container(
+          color: ColorsTheme.of(scaffoldState.context).boxComponents,
+          child: CupertinoActionSheetAction(
+            child: Text(
+              FlutterI18n.translate(ctx, 'council_requirments_1'),
+              style: FontTheme.of(ctx).small.secondary(),
+            ),
+            onPressed: () => 'no action',
+          ),
+        ),
+        Container(
+          color: ColorsTheme.of(scaffoldState.context).boxComponents,
+          child: CupertinoActionSheetAction(
+            child: Text(
+              FlutterI18n.translate(ctx, 'council_requirments_list'),
+              style: FontTheme.of(ctx).small(),
+            ),
+            onPressed: () => 'no action',
+          ),
+        ),
+        Container(
+          color: ColorsTheme.of(scaffoldState.context).boxComponents,
+          child: CupertinoActionSheetAction(
+            child: Text(
+              FlutterI18n.translate(ctx, 'council_requirments_2'),
+              style: FontTheme.of(ctx).small.secondary(),
+            ),
+            onPressed: () => 'no action',
+          ),
+        ),
+        Container(
+          color: ColorsTheme.of(scaffoldState.context).boxComponents,
+          child: CupertinoActionSheetAction(
+            child: Text(FlutterI18n.translate(ctx, 'become_council_chair')),
+            onPressed: () => Navigator.of(ctx).pop(true),
+          ),
         ),
       ],
-      cancelButton: CupertinoActionSheetAction(
-        child: Text(
-          FlutterI18n.translate(ctx, 'cancel_normalized'),
-          style: kBigFontOfGrey,
+      cancelButton: Container(
+        color: ColorsTheme.of(scaffoldState.context).boxComponents,
+        child: CupertinoActionSheetAction(
+          child: Text(
+            FlutterI18n.translate(ctx, 'cancel_normalized'),
+            style: FontTheme.of(ctx).big.secondary(),
+          ),
+          onPressed: () => Navigator.of(ctx).pop(),
         ),
-        onPressed: () => Navigator.of(ctx).pop(),
       ),
     ),
   );

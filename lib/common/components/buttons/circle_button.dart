@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:supernodeapp/common/utils/screen_util.dart';
-import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CircleButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -9,13 +9,13 @@ class CircleButton extends StatelessWidget {
   final String label;
   final Color circleColor;
 
-  const CircleButton(
-      {Key key,
-      this.onTap,
-      this.icon,
-      this.label = "",
-      this.circleColor = Colors.white})
-      : super(key: key);
+  const CircleButton({
+    Key key,
+    this.onTap,
+    this.icon,
+    this.label = "",
+    this.circleColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +23,14 @@ class CircleButton extends StatelessWidget {
         onTap: onTap,
         child: Column(children: [
           Container(
-            width: s(50),
-            height: s(50),
+            width: 50.w,
+            height: 50.w,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: circleColor,
+              color: circleColor ?? ColorsTheme.of(context).boxComponents,
               boxShadow: [
                 BoxShadow(
-                  color: darkBackground,
+                  color: ColorsTheme.of(context).primaryBackground,
                   offset: Offset(0, 2),
                   blurRadius: 7,
                   spreadRadius: 0.0,
@@ -39,8 +39,10 @@ class CircleButton extends StatelessWidget {
             ),
             child: icon,
           ),
-          (label.isNotEmpty) ? SizedBox(height: s(3)) : SizedBox(),
-          (label.isNotEmpty) ? Text(label) : SizedBox()
+          (label.isNotEmpty) ? SizedBox(height: 3.h) : SizedBox(),
+          (label.isNotEmpty)
+              ? Text(label, style: FontTheme.of(context).middle())
+              : SizedBox()
         ]));
   }
 }

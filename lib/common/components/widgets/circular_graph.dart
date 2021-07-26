@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CircularGraph extends StatelessWidget {
   static const Widget defaultWidget = SizedBox();
@@ -14,31 +15,39 @@ class CircularGraph extends StatelessWidget {
 
   /// Widget displayed at center of CircularGraph
   final Widget child;
-  final Color shadowColor = backgroundColor;
-  final double size = 200.0;
-  final double paddingSize = 17.0;
-  final double lineWidth = 20.0;
+  final double size;
+  final double paddingSize;
+  final double lineWidth;
 
-  CircularGraph(this.percentage, this.graphColor, {this.child = defaultWidget});
+  CircularGraph(this.percentage, this.graphColor,
+      {this.child = defaultWidget,
+      this.size = 200,
+      this.paddingSize = 17.0,
+      this.lineWidth = 20.0});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: size,
-        height: size,
+        width: size.w,
+        height: size.w,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           gradient: RadialGradient(
-              colors: [Colors.white, shadowColor], stops: [0.97, 1.0]),
+            colors: [
+              ColorsTheme.of(context).boxComponents,
+              ColorsTheme.of(context).primaryBackground
+            ],
+            stops: [0.97, 1.0],
+          ),
         ),
         child: Container(
-          width: size - paddingSize,
-          height: size - paddingSize,
+          width: (size - paddingSize).w,
+          height: (size - paddingSize).w,
           alignment: Alignment.center,
           child: Container(
-              height: size - paddingSize - lineWidth,
-              width: size - paddingSize - lineWidth,
+              height: (size - paddingSize - lineWidth).w,
+              width: (size - paddingSize - lineWidth).w,
               child: new CustomPaint(
                   foregroundPainter: new MyPainter(
                       lineColor: graphColor.withOpacity(0.1),
@@ -46,23 +55,23 @@ class CircularGraph extends StatelessWidget {
                       completePercent: percentage,
                       width: lineWidth),
                   child: Container(
-                      width: size - paddingSize - 2 * lineWidth,
-                      height: size - paddingSize - 2 * lineWidth,
+                      width: (size - paddingSize - 2 * lineWidth).w,
+                      height: (size - paddingSize - 2 * lineWidth).w,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                       ),
                       child: Container(
-                        width: size - 2 * paddingSize - 2 * lineWidth,
-                        height: size - 2 * paddingSize - 2 * lineWidth,
+                        width: (size - 2 * paddingSize - 2 * lineWidth).w,
+                        height: (size - 2 * paddingSize - 2 * lineWidth).w,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: ColorsTheme.of(context).secondaryBackground,
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
                               blurRadius: 7,
-                              color: shadowColor,
+                              color: ColorsTheme.of(context).primaryBackground,
                             )
                           ],
                         ),

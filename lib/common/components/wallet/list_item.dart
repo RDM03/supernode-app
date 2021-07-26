@@ -8,6 +8,7 @@ import 'package:supernodeapp/common/utils/tools.dart';
 import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/spacing.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import '../row_spacer.dart';
 
@@ -57,8 +58,10 @@ Widget listItem({
         title: Row(
           children: <Widget>[
             Text(
-              token == Token.supernodeDhx ? 'DHX' : ( token == Token.btc ? 'BTC' : 'MXC/ETH'),
-              style: kBigFontOfBlack,
+              token == Token.supernodeDhx
+                  ? 'DHX'
+                  : (token == Token.btc ? 'BTC' : 'MXC/ETH'),
+              style: FontTheme.of(context).big(),
             ),
             smallRowSpacer(),
             Visibility(
@@ -71,7 +74,7 @@ Widget listItem({
         ),
         subtitle: Text(
           subtitle,
-          style: kSmallFontOfGrey,
+          style: FontTheme.of(context).small.secondary(),
         ),
         trailing: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -84,15 +87,15 @@ Widget listItem({
                 borderRadius: BorderRadius.all(Radius.circular(7)),
               ),
               child: Text(
-                '${Tools.convertDouble(amount)} ${token?.name}',
-                style: kBigFontOfBlack,
+                '${Tools.convertDouble(amount)} ${token?.ui(context)?.name}',
+                style: FontTheme.of(context).big(),
               ),
             ),
             Visibility(
                 visible: amountText != null,
                 child: Text(
                   amountText ?? '',
-                  style: kSmallFontOfGrey,
+                  style: FontTheme.of(context).small.secondary(),
                 ))
           ],
         ),
@@ -109,10 +112,10 @@ Widget listItem({
                 child: Row(
                   children: <Widget>[
                     Text(FlutterI18n.translate(context, 'transaction_fee'),
-                        style: kMiddleFontOfGrey),
+                        style: FontTheme.of(context).middle.secondary()),
                     Spacer(),
                     Text('${Tools.convertDouble(fee)} MXC',
-                        style: kMiddleFontOfGrey)
+                        style: FontTheme.of(context).middle.secondary())
                   ],
                 ),
               ),
@@ -124,31 +127,31 @@ Widget listItem({
                     child: Row(
                       children: <Widget>[
                         Text(FlutterI18n.translate(context, 'from'),
-                            style: kMiddleFontOfGrey),
+                            style: FontTheme.of(context).middle.secondary()),
                         smallRowSpacer(),
                         Container(
                           padding: kRoundRow5,
-                          decoration: kRowShodow,
+                          decoration: rowShadow(context),
                           child: GestureDetector(
                             onTap: () {},
                             child: Text(
                               Tools.hideHalf(fromAddress) ?? '',
-                              style: kSmallFontOfGrey,
+                              style: FontTheme.of(context).small.secondary(),
                             ),
                           ),
                         ),
                         Spacer(),
                         Text(FlutterI18n.translate(context, 'to'),
-                            style: kMiddleFontOfGrey),
+                            style: FontTheme.of(context).middle.secondary()),
                         smallRowSpacer(),
                         Container(
                           padding: kRoundRow5,
-                          decoration: kRowShodow,
+                          decoration: rowShadow(context),
                           child: GestureDetector(
                             onTap: () {},
                             child: Text(
                               Tools.hideHalf(toAddress) ?? '',
-                              style: kSmallFontOfGrey,
+                              style: FontTheme.of(context).small.secondary(),
                             ),
                           ),
                         ),
@@ -164,33 +167,34 @@ Widget listItem({
                     child: Row(
                       children: <Widget>[
                         Text(FlutterI18n.translate(context, 'txhash'),
-                            style: kMiddleFontOfGrey),
+                            style: FontTheme.of(context).middle.secondary()),
                         smallRowSpacer(),
                         Container(
                           padding: kRoundRow5,
-                          decoration: kRowShodow,
+                          decoration: rowShadow(context),
                           // width: 100,
                           child: GestureDetector(
                             onTap: () {},
                             child: Text(
                               Tools.hideHalf(txHashAddress),
-                              style: kSmallFontOfGrey,
+                              style: FontTheme.of(context).small.secondary(),
                             ),
                           ),
                         ),
                         Spacer(),
                         if (token == Token.supernodeDhx)
                           Text(
-                            "${FlutterI18n.translate(context, status.toLowerCase())}",
-                            style: followStyle)
+                              "${FlutterI18n.translate(context, status.toLowerCase())}",
+                              style: followStyle)
                         else
                           Text(
-                              "${FlutterI18n.translate(context, status.toLowerCase())}",
-                              style: status != null &&
-                                      status.toLowerCase().contains(RegExp(
-                                          '${FlutterI18n.translate(context, "success")}|success|completed'))
-                                  ? kMiddleFontOfGreen
-                                  : kMiddleFontOfRed),
+                            "${FlutterI18n.translate(context, status.toLowerCase())}",
+                            style: status != null &&
+                                    status.toLowerCase().contains(RegExp(
+                                        '${FlutterI18n.translate(context, "success")}|success|completed'))
+                                ? kMiddleFontOfGreen
+                                : FontTheme.of(context).middle.error,
+                          ),
                       ],
                     ),
                   )
@@ -209,7 +213,13 @@ class TopupListItem extends StatelessWidget {
   final TextStyle paymentTextStyle;
   final Color amountColor;
 
-  const TopupListItem({Key key, this.entity, this.token = Token.mxc, this.paymentTextStyle, this.amountColor}) : super(key: key);
+  const TopupListItem(
+      {Key key,
+      this.entity,
+      this.token = Token.mxc,
+      this.paymentTextStyle,
+      this.amountColor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -217,11 +227,13 @@ class TopupListItem extends StatelessWidget {
     TextStyle followStyle;
     if (entity.amountDouble > 0) {
       followText = '(' + FlutterI18n.translate(context, 'deposit') + ')';
-      followStyle = paymentTextStyle != null ? paymentTextStyle : kSmallFontOfGreen;
+      followStyle =
+          paymentTextStyle != null ? paymentTextStyle : kSmallFontOfGreen;
     }
     if (entity.amountDouble < 0) {
       followText = '(' + FlutterI18n.translate(context, 'withdraw') + ')';
-      followStyle =  paymentTextStyle != null ? paymentTextStyle : kSmallFontOfRed;
+      followStyle =
+          paymentTextStyle != null ? paymentTextStyle : kSmallFontOfRed;
     }
     return listItem(
       context: context,
@@ -257,12 +269,14 @@ class WithdrawListItem extends StatelessWidget {
     TextStyle followStyle;
     if (entity.amountDouble > 0) {
       followText = '(' + FlutterI18n.translate(context, 'deposit') + ')';
-      followStyle = paymentTextStyle != null ? paymentTextStyle : kSmallFontOfGreen;
+      followStyle =
+          paymentTextStyle != null ? paymentTextStyle : kSmallFontOfGreen;
     }
 
     if (entity.amountDouble < 0) {
       followText = '(' + FlutterI18n.translate(context, 'withdraw') + ')';
-      followStyle =  paymentTextStyle != null ? paymentTextStyle : kSmallFontOfRed;
+      followStyle =
+          paymentTextStyle != null ? paymentTextStyle : kSmallFontOfRed;
     }
 
     return listItem(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 const double minHeight = 110;
 const double middleHeight = 314;
@@ -108,7 +110,7 @@ class DragPageState extends State<DragPage> with TickerProviderStateMixin {
                 _drag(d);
               },
               child: Container(
-                color: Colors.white,
+                color: ColorsTheme.of(context).secondaryBackground,
                 // the color make Gesture sensitive
                 padding:
                     EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 20),

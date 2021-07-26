@@ -76,7 +76,7 @@ class _MinerProfileSettingPageState extends State<MinerProfileSettingPage> {
             listenWhen: (a, b) => a.addMinerFlowStep != b.addMinerFlowStep,
             listener: (ctx, state) async {
               if (state.addMinerFlowStep == AddMinerFlow.success) {
-                Navigator.push(ctx, route((_) => DDResultSuccss()))
+                Navigator.push(ctx, routeWidget(DDResultSuccss()))
                     .then((_) async {
                   await ctx.read<GatewayCubit>().refresh();
                   Navigator.of(ctx).pop();
@@ -84,12 +84,12 @@ class _MinerProfileSettingPageState extends State<MinerProfileSettingPage> {
               } else if (state.addMinerFlowStep == AddMinerFlow.failure) {
                 Navigator.push(
                   ctx,
-                  route((_) => DDResultFailure(detail: state.message)),
+                  routeWidget(DDResultFailure(detail: state.message)),
                 );
               } else if (state.addMinerFlowStep == AddMinerFlow.warning) {
                 Navigator.push(
                   ctx,
-                  route((_) => DDResultWarning(detail: state.message)),
+                  routeWidget(DDResultWarning(detail: state.message)),
                 );
               }
             },

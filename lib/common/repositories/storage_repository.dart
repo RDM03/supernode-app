@@ -60,6 +60,19 @@ class StorageRepository {
     );
   }
 
+  List<AddressEntity> dhxAddressBook() {
+    final addressBook = _sharedPreferences.getStringList('dhx_address_book');
+    if (addressBook == null) return [];
+    return addressBook.map((e) => AddressEntity.fromJson(e)).toList();
+  }
+
+  Future<void> setDhxAddressBook(List<AddressEntity> currencies) async {
+    await _sharedPreferences.setStringList(
+      'dhx_address_book',
+      currencies.map((e) => e.toJson()).toList(),
+    );
+  }
+
   bool showFeedback() {
     final res = _sharedPreferences.getBool('feedback');
     return res ?? false;
@@ -87,7 +100,8 @@ class StorageRepository {
   static const String _supernodeKey = 'supernode';
 
   StorageManagerSupernodeUser supernodeSession() {
-    final expire =  DateTime.tryParse(_sharedPreferences.getString(_expiredKey) ?? '');
+    final expire =
+        DateTime.tryParse(_sharedPreferences.getString(_expiredKey) ?? '');
     final token = _sharedPreferences.getString(_tokenKey);
     final userId = _sharedPreferences.getInt(_userIdKey);
     final username = _sharedPreferences.getString(_userNameKey);
@@ -142,7 +156,9 @@ class StorageRepository {
   }
 
   Locale locale() {
-    return Locale(_sharedPreferences.getString('locale'));
+    final locale = _sharedPreferences.getString('locale');
+
+    return locale != null ? Locale(locale) : null;
   }
 
   Future<void> setLocale(Locale locale) async {
@@ -153,7 +169,8 @@ class StorageRepository {
     return FiatCurrency(_sharedPreferences.getString('fiat_id'), "");
   }
 
-  Future<void> setSelectedFiatForExport(FiatCurrency selectedFiatForExport) async {
+  Future<void> setSelectedFiatForExport(
+      FiatCurrency selectedFiatForExport) async {
     await _sharedPreferences.setString('fiat_id', selectedFiatForExport.id);
   }
 }

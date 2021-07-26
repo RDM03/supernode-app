@@ -13,6 +13,7 @@ import 'package:supernodeapp/common/repositories/supernode_repository.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'reorderable_list_custom.dart';
 import 'state.dart';
@@ -197,8 +198,9 @@ class _CalculatorPageViewState extends State<CalculatorPageView>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: backgroundColor,
+        iconTheme:
+            IconThemeData(color: ColorsTheme.of(context).textPrimaryAndIcons),
+        backgroundColor: ColorsTheme.of(context).primaryBackground,
         elevation: 0,
         title: Text(
           FlutterI18n.translate(context, 'calculator'),

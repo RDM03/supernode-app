@@ -31,6 +31,21 @@ class HomeCubit extends Cubit<HomeState> {
   final CacheRepository cacheRepository;
   final String supernodeUsername;
 
+  // it aims to refresh translations of home page 
+  void updateTab() {
+    int originalTab = state.tabIndex;
+    Token originalToken = state.walletSelectedToken;
+
+    int changeTab = HOME_TAB;
+
+    if(originalTab == HOME_TAB){
+      changeTab = WALLET_TAB;
+    }
+
+    emit(state.copyWith(tabIndex: changeTab));
+    emit(state.copyWith(tabIndex: originalTab, walletSelectedToken: originalToken));
+  }
+
   void changeTab(int tab, {Token walletSelToken}) {
     if (tab == WALLET_TAB)
       emit(state.copyWith(tabIndex: tab, walletSelectedToken: walletSelToken));

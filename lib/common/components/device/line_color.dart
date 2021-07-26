@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class LineColor extends StatelessWidget {
   final String firstText;
@@ -37,7 +38,7 @@ class LineColor extends StatelessWidget {
               child: Text(
                 firstText ?? "",
                 textAlign: TextAlign.center,
-                style: kSmallFontOfWhite,
+                style: FontTheme.of(context).small.label(),
               ),
             ),
           ),
@@ -47,7 +48,7 @@ class LineColor extends StatelessWidget {
               child: Text(
                 secondText ?? "",
                 textAlign: TextAlign.center,
-                style: kSmallFontOfWhite,
+                style: FontTheme.of(context).small.label(),
               ),
             ),
           ),
@@ -62,7 +63,7 @@ class LineColor extends StatelessWidget {
               child: Text(
                 thirdText ?? "",
                 textAlign: TextAlign.center,
-                style: kSmallFontOfWhite,
+                style: FontTheme.of(context).small.label(),
               ),
             ),
           )

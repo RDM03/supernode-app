@@ -4,7 +4,9 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/dialog/full_screen_dialog.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -17,8 +19,9 @@ Widget buildView(
   list.add(
       IosButtonStyle(title: FlutterI18n.translate(_ctx, 'reset_to_default')));
   list.add(IosButtonStyle(
-      title: FlutterI18n.translate(_ctx, 'delete_this_footprint'),
-      style: kMiddleFontOfRed));
+    title: FlutterI18n.translate(_ctx, 'delete_this_footprint'),
+    style: FontTheme.of(_ctx).middle.alert(),
+  ));
 
   return MediaQuery.removePadding(
     removeTop: true,
@@ -30,7 +33,7 @@ Widget buildView(
             ListTile(
               leading: Text(
                 FlutterI18n.translate(_ctx, 'location'),
-                style: kMiddleFontOfBlack,
+                style: FontTheme.of(_ctx).middle(),
               ),
               trailing: InkWell(
                 onTap: () {
@@ -59,14 +62,14 @@ Widget buildView(
             ListTile(
               leading: Text(
                 'Brückenstraße 12 10967 Berlin Germany',
-                style: kMiddleFontOfGrey,
+                style: FontTheme.of(_ctx).middle.secondary(),
               ),
             ),
             Container(
               padding: EdgeInsets.only(left: 16, right: 16),
               child: Text(
                 'Spreading Factor: SF11 \r\nFrequency:490.1MHz \r\nUplink Power: 14dBm \r\nDownlink Power: 14dBm \r\nSensitivity: -135dBm \r\nSNR: -15 dB \r\nRecevied Gateway: M2****1243,M2****FIOS \r\nDistance:14km \r\nType: Join',
-                style: kMiddleFontOfGrey,
+                style: FontTheme.of(_ctx).middle.secondary(),
               ),
             ),
             Container(
@@ -75,7 +78,7 @@ Widget buildView(
                 children: <Widget>[
                   Text(
                     'Altitude:',
-                    style: kMiddleFontOfGrey,
+                    style: FontTheme.of(_ctx).middle.secondary(),
                   ),
                   SizedBox(width: 10),
                   Container(
@@ -92,7 +95,7 @@ Widget buildView(
                   SizedBox(width: 10),
                   Text(
                     'm',
-                    style: kMiddleFontOfGrey,
+                    style: FontTheme.of(_ctx).middle.secondary(),
                   ),
                 ],
               ),
@@ -106,7 +109,7 @@ Widget buildView(
           right: 0,
           child: Container(
             padding: EdgeInsets.only(bottom: 40, left: 16, right: 16),
-            color: Colors.white,
+            color: whiteColor,
             child: PrimaryButton(
               minHeight: 35,
               padding: EdgeInsets.symmetric(vertical: 5),

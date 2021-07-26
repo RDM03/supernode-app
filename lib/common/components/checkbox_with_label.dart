@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'page/introduction.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class CheckboxLabelWidget extends StatelessWidget {
   const CheckboxLabelWidget({
@@ -20,8 +19,15 @@ class CheckboxLabelWidget extends StatelessWidget {
     return Row(
       children: <Widget>[
         Expanded(
-          child:
-              child ?? introduction(text, left: 0, right: 0, top: 0, bottom: 0),
+          child: child ??
+              Container(
+                child: Text(
+                  text,
+                  key: key,
+                  textAlign: TextAlign.left,
+                  style: FontTheme.of(context).middle.secondary(),
+                ),
+              ),
         ),
         Checkbox(
             value: value,

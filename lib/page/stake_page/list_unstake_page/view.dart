@@ -6,6 +6,7 @@ import 'package:supernodeapp/common/components/loading_list.dart';
 import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/stake/stake_item.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
 
@@ -19,7 +20,7 @@ Widget buildView(
       constraints: BoxConstraints.expand(),
       padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 235, 239, 242),
+        color: ColorsTheme.of(context).primaryBackground,
       ),
       child: ListView(
         children: [
@@ -36,13 +37,13 @@ Widget buildView(
           Row(
             children: [
               Text(FlutterI18n.translate(context, 'unstake'),
-                  style: kBigFontOfBlack),
+                  style: FontTheme.of(context).big()),
             ],
           ),
           SizedBox(height: 30),
           Text(
             FlutterI18n.translate(context, 'choose_unstake'),
-            style: kMiddleFontOfGrey,
+            style: FontTheme.of(context).middle.secondary(),
           ),
           SizedBox(height: 20),
           PanelFrame(

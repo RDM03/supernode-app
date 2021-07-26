@@ -17,7 +17,8 @@ import 'package:supernodeapp/common/repositories/shared/dao/jira_dao.dart';
 import 'package:supernodeapp/common/repositories/storage_repository.dart';
 import 'package:supernodeapp/page/feedback_page/feedback_result.dart';
 import 'package:supernodeapp/route.dart';
-import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class DatadashFeedbackWidgetForm extends StatefulWidget {
   const DatadashFeedbackWidgetForm(this.translation, this.sendFeedback);
@@ -40,11 +41,11 @@ class _DatadashFeedbackWidgetFormState
       decoration: BoxDecoration(),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 255, 255, 255),
+          color: ColorsTheme.of(context).primaryBackground,
           borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
           boxShadow: [
             BoxShadow(
-              color: const Color.fromARGB(26, 0, 0, 0),
+              color: boxShadowColor,
               offset: Offset(0, 2),
               blurRadius: 7,
             ),
@@ -64,7 +65,7 @@ class _DatadashFeedbackWidgetFormState
                     width: double.infinity,
                     child: Text(
                       widget.translation.feedbackDescriptionText,
-                      style: kMiddleFontOfBlack,
+                      style: FontTheme.of(context).middle(),
                     ),
                   ),
                   SizedBox(height: 20),
@@ -212,7 +213,9 @@ class DatadashFeedbackState extends State<DatadashFeedback> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.7),
+                          color: ColorsTheme.of(context)
+                              .boxComponents
+                              .withOpacity(0.6),
                           borderRadius: BorderRadius.horizontal(
                             left: Radius.circular(8),
                           ),
@@ -222,7 +225,7 @@ class DatadashFeedbackState extends State<DatadashFeedback> {
                               EdgeInsets.all(4).copyWith(right: 4, left: 6),
                           child: Icon(
                             Icons.camera_alt,
-                            color: Colors.white,
+                            color: ColorsTheme.of(context).textPrimaryAndIcons,
                           ),
                         ),
                       ),

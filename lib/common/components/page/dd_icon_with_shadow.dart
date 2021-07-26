@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'dd_icon.dart';
 
@@ -11,12 +12,12 @@ class DDIconWithShadow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DDIcon(
-      iconBackgroundColor: Colors.white,
+      iconBackgroundColor: ColorsTheme.of(context).textPrimaryAndIcons,
       imageUrl: imageUrl,
-      imageColor: buttonPrimaryColor,
+      imageColor: ColorsTheme.of(context).mxcBlue,
       shadowList: [
         BoxShadow(
-          color: const Color.fromARGB(26, 0, 0, 0),
+          color: boxShadowColor,
           offset: Offset(0, 2),
           blurRadius: 7,
         ),

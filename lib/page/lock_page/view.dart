@@ -11,8 +11,7 @@ import 'package:supernodeapp/common/components/wallet/mining_tutorial.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/screen_util.dart';
 import 'package:supernodeapp/configs/images.dart';
-import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'state.dart';
 
@@ -22,14 +21,16 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
   return Scaffold(
     key: state.scaffoldKey,
     appBar: AppBars.backArrowAppBar(
-        title: FlutterI18n.translate(context, 'lock_mxc'),
-        onPress: () => Navigator.pop(context)),
+      context,
+      title: FlutterI18n.translate(context, 'lock_mxc'),
+      onPress: () => Navigator.pop(context),
+    ),
     body: SafeArea(
       child: Container(
         constraints: BoxConstraints.expand(),
         padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 235, 239, 242),
+          color: ColorsTheme.of(context).primaryBackground,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +38,7 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
             Row(
               children: [
                 Text(FlutterI18n.translate(context, 'lock_mxc'),
-                    style: kBigBoldFontOfBlack),
+                    style: FontTheme.of(context).big.primary.bold()),
                 smallRowSpacer(),
                 GestureDetector(
                   onTap: () => _showInfoDialog(context),
@@ -51,26 +52,31 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
             ),
             smallColumnSpacer(),
             Text(FlutterI18n.translate(context, 'lock_tip'),
-                style: kMiddleFontOfGrey),
+                style: FontTheme.of(context).middle.secondary()),
             smallColumnSpacer(),
             RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
                     text: FlutterI18n.translate(context, 'learn_more'),
-                    style: kMiddleFontOfBlueLink.copyWith(
-                        color: Token.supernodeDhx.color),
+                    style: FontTheme.of(context)
+                        .middle
+                        .dhx
+                        .underline()
+                        .copyWith(color: Token.supernodeDhx.ui(context).color),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () =>
                           Navigator.push(context, MaterialPageRoute<void>(
                             builder: (BuildContext context) {
                               return Scaffold(
                                 appBar: AppBars.backArrowSkipAppBar(
-                                    title: FlutterI18n.translate(
-                                        context, 'tutorial_title'),
-                                    onPress: () => Navigator.pop(context),
-                                    action:
-                                        FlutterI18n.translate(context, "skip")),
+                                  context,
+                                  title: FlutterI18n.translate(
+                                      context, 'tutorial_title'),
+                                  onPress: () => Navigator.pop(context),
+                                  action:
+                                      FlutterI18n.translate(context, "skip"),
+                                ),
                                 body: MiningTutorial(context),
                               );
                             },
@@ -90,7 +96,7 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
                     context: context,
                     dispatch: dispatch,
                     months: 24,
-                    color: lock24Color,
+                    color: ColorsTheme.of(context).dhxBlue,
                     boostText: state.boost24m == null
                         ? null
                         : '${percentage(state.boost24m)}% ' +
@@ -103,7 +109,7 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
                     state: state,
                     context: context,
                     months: 12,
-                    color: lock12Color,
+                    color: ColorsTheme.of(context).dhxBlue60,
                     boostText: state.boost12m == null
                         ? null
                         : '${percentage(state.boost12m)}% ' +
@@ -115,7 +121,7 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
                     state: state,
                     context: context,
                     months: 9,
-                    color: lock9Color,
+                    color: ColorsTheme.of(context).dhxBlue40,
                     boostText: state.boost9m == null
                         ? null
                         : '${percentage(state.boost9m)}% ' +
@@ -127,7 +133,7 @@ Widget buildView(LockState state, Dispatch dispatch, ViewService viewService) {
                     state: state,
                     context: context,
                     months: 3,
-                    color: lock3Color,
+                    color: ColorsTheme.of(context).dhxBlue20,
                     boostText:
                         FlutterI18n.translate(context, 'minimum_duration'),
                     boostRate: state.boost3m,
@@ -155,7 +161,7 @@ void _showInfoDialog(BuildContext context) {
             child: Text(
               FlutterI18n.translate(context, 'info_mxc_lock'),
               style: TextStyle(
-                color: Colors.black,
+                color: ColorsTheme.of(context).textPrimaryAndIcons,
                 fontSize: s(16),
                 fontWeight: FontWeight.w500,
               ),
@@ -204,11 +210,7 @@ Widget _lockCard({
         alignment: Alignment.center,
         child: Text(
           months?.toString() ?? '~',
-          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                color: Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-              ),
+          style: FontTheme.of(context).veryBig.button.bold(),
         ),
         padding: EdgeInsets.only(top: 2),
         decoration: BoxDecoration(
@@ -222,10 +224,10 @@ Widget _lockCard({
       ),
       subtitle: Text(
         boostText == null ? '...' : boostText,
-        style: kMiddleFontOfBlack.copyWith(
-          color: Token.supernodeDhx.color,
-          fontWeight: FontWeight.w600,
-        ),
+        style: FontTheme.of(context).middle().copyWith(
+              color: Token.supernodeDhx.ui(context).color,
+              fontWeight: FontWeight.w600,
+            ),
         key: Key('setBoost'),
       ),
     ),

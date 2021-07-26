@@ -27,7 +27,7 @@ class SupernodeErrorInterceptor extends InterceptorsWrapper {
   void setHeaders(RequestOptions options, {String otp, String token}) {
     if (otp != null) options.headers['Grpc-Metadata-X-OTP'] = otp;
     {
-      if (token != null) options.headers['Grpc-Metadata-Authorization'] = token;
+      if (token != null) options.headers['Grpc-Metadata-Authorization'] = 'Bearer ' + token;
     }
   }
 

@@ -3,7 +3,9 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/colored_text.dart';
 import 'package:supernodeapp/common/components/slider.dart';
 import 'package:supernodeapp/common/components/text_field/primary_text_field.dart';
+import 'package:supernodeapp/theme/colors.dart';
 import 'package:supernodeapp/theme/font.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class ValueEditor extends StatelessWidget {
   final String textFieldSuffix;
@@ -46,12 +48,12 @@ class ValueEditor extends StatelessWidget {
               children: [
                 Text(
                   FlutterI18n.translate(context, title),
-                  style: kBigFontOfBlack,
+                  style: FontTheme.of(context).big(),
                 ),
                 if (subtitle != null)
                   Text(
                     FlutterI18n.translate(context, subtitle),
-                    style: kSmallFontOfGrey,
+                    style: FontTheme.of(context).small.secondary(),
                   ),
               ],
             ),
@@ -64,8 +66,10 @@ class ValueEditor extends StatelessWidget {
                     text: totalSuffix == null
                         ? '${total ?? '??'}'
                         : '${total ?? '??'} $totalSuffix',
-                    style: kMiddleFontOfBlack,
-                    color: enabled ? null : Color(0xFF98A6AD).withOpacity(0.2),
+                    style: FontTheme.of(context).middle(),
+                    color: enabled
+                        ? null
+                        : ColorsTheme.of(context).textLabel.withOpacity(0.2),
                   ),
                 ),
               ),
@@ -81,9 +85,9 @@ class ValueEditor extends StatelessWidget {
                   child: total == null
                       ? Center(
                           child: LinearProgressIndicator(
-                            valueColor:
-                                AlwaysStoppedAnimation(Color(0xFF4665EA)),
-                            backgroundColor: Color(0xFF4665EA).withOpacity(0.2),
+                            valueColor: AlwaysStoppedAnimation(
+                                ColorsTheme.of(context).dhxBlue),
+                            backgroundColor: ColorsTheme.of(context).dhxBlue20,
                           ),
                         )
                       : ValueListenableBuilder<TextEditingValue>(
@@ -99,8 +103,8 @@ class ValueEditor extends StatelessWidget {
                             return Slider(
                               key: ValueKey('valueSlider'),
                               value: percent,
-                              activeColor: Color(0xFF4665EA),
-                              inactiveColor: Color(0xFF4665EA).withOpacity(0.2),
+                              activeColor: ColorsTheme.of(context).dhxBlue,
+                              inactiveColor: ColorsTheme.of(context).dhxBlue20,
                               onChanged: !enabled
                                   ? null
                                   : (v) {
@@ -119,21 +123,21 @@ class ValueEditor extends StatelessWidget {
                   Expanded(
                     child: Text(
                       '0%',
-                      style: kSmallFontOfGrey,
+                      style: FontTheme.of(context).small.secondary(),
                       textAlign: TextAlign.left,
                     ),
                   ),
                   Expanded(
                     child: Text(
                       '50%',
-                      style: kSmallFontOfGrey,
+                      style: FontTheme.of(context).small.secondary(),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   Expanded(
                     child: Text(
                       '100%',
-                      style: kSmallFontOfGrey,
+                      style: FontTheme.of(context).small.secondary(),
                       textAlign: TextAlign.right,
                     ),
                   ),
@@ -152,10 +156,12 @@ class ValueEditor extends StatelessWidget {
               controller: controller,
               suffixText: textFieldSuffix,
               readOnly: !enabled,
-              textColor: Color(0xFF98A6AD),
+              textColor: ColorsTheme.of(context).textLabel,
               hint: hintText,
-              suffixStyle: enabled ? null : kBigFontOfGrey,
-              fillColor: enabled ? null : Color(0xFFEBEFF2),
+              suffixStyle:
+                  enabled ? null : FontTheme.of(context).big.secondary(),
+              fillColor:
+                  enabled ? null : ColorsTheme.of(context).primaryBackground,
             ),
           ),
         ]
@@ -179,25 +185,27 @@ class ValueEditor2 extends StatelessWidget {
   final String Function(String) validator;
   final Color primaryColor;
 
-  const ValueEditor2(
-      {Key key,
-      this.textFieldSuffix,
-      this.controller,
-      this.total,
-      this.totalSuffix,
-      this.title,
-      this.subtitle,
-      this.showSlider = true,
-      this.showTextField = true,
-      this.showTotal = true,
-      this.enabled = true,
-      this.hintText,
-      this.validator,
-      this.primaryColor = Colors.black})
-      : super(key: key);
+  const ValueEditor2({
+    Key key,
+    this.textFieldSuffix,
+    this.controller,
+    this.total,
+    this.totalSuffix,
+    this.title,
+    this.subtitle,
+    this.showSlider = true,
+    this.showTextField = true,
+    this.showTotal = true,
+    this.enabled = true,
+    this.hintText,
+    this.validator,
+    this.primaryColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor =
+        this.primaryColor ?? ColorsTheme.of(context).textPrimaryAndIcons;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -209,14 +217,16 @@ class ValueEditor2 extends StatelessWidget {
           Container(
             child: PrimaryTextField(
               key: ValueKey('valueTextField'),
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
               validator: validator,
               controller: controller,
               suffixText: textFieldSuffix,
               readOnly: !enabled,
               hint: hintText,
-              suffixStyle: enabled ? null : kBigFontOfGrey,
-              fillColor: enabled ? null : Color(0xFFEBEFF2),
+              suffixStyle:
+                  enabled ? null : FontTheme.of(context).big.secondary(),
+              fillColor:
+                  enabled ? null : ColorsTheme.of(context).primaryBackground,
             ),
           ),
         ],
@@ -226,7 +236,7 @@ class ValueEditor2 extends StatelessWidget {
             if (subtitle != null)
               Text(
                 FlutterI18n.translate(context, subtitle),
-                style: kSmallFontOfGrey,
+                style: FontTheme.of(context).small.secondary(),
               ),
             SizedBox(width: 30),
             if (showTotal)
@@ -237,7 +247,7 @@ class ValueEditor2 extends StatelessWidget {
                     totalSuffix == null
                         ? '${total ?? '??'}'
                         : '${total ?? '??'} $totalSuffix',
-                    style: kMiddleFontOfBlack,
+                    style: FontTheme.of(context).middle(),
                   ),
                 ),
               ),
@@ -290,21 +300,21 @@ class ValueEditor2 extends StatelessWidget {
                   Expanded(
                     child: Text(
                       '0%',
-                      style: kSmallFontOfGrey,
+                      style: FontTheme.of(context).small.secondary(),
                       textAlign: TextAlign.left,
                     ),
                   ),
                   Expanded(
                     child: Text(
                       '50%',
-                      style: kSmallFontOfGrey,
+                      style: FontTheme.of(context).small.secondary(),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   Expanded(
                     child: Text(
                       '100%',
-                      style: kSmallFontOfGrey,
+                      style: FontTheme.of(context).small.secondary(),
                       textAlign: TextAlign.right,
                     ),
                   ),

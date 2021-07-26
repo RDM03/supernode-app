@@ -13,6 +13,7 @@ import 'package:supernodeapp/common/components/panel/panel_frame.dart';
 import 'package:supernodeapp/common/components/picker/ios_style_bottom_dailog.dart';
 import 'package:supernodeapp/page/home_page/device/list_item/list_item.dart';
 import 'package:supernodeapp/theme/colors.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 class DeviceTab extends StatefulWidget {
   @override
@@ -23,10 +24,10 @@ class _DeviceTabState extends State<DeviceTab> {
   Future<void> onQrScan() async {
     final qrResult = await MajaScan.startScan(
       title: FlutterI18n.translate(context, 'scan_code'),
-      barColor: buttonPrimaryColor,
-      titleColor: backgroundColor,
-      qRCornerColor: buttonPrimaryColor,
-      qRScannerColor: buttonPrimaryColorAccent,
+      barColor: ColorsTheme.of(context).mxcBlue,
+      titleColor: ColorsTheme.of(context).primaryBackground,
+      qRCornerColor: ColorsTheme.of(context).mxcBlue,
+      qRScannerColor: ColorsTheme.of(context).mxcBlue20,
     );
     Navigator.pushNamed(context, 'choose_application_page');
   }
@@ -57,11 +58,12 @@ class _DeviceTabState extends State<DeviceTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: homeBar(
+        context,
         FlutterI18n.translate(context, 'device'),
         action: IconButton(
           icon: Icon(
             Icons.filter_list,
-            color: Colors.black,
+            color: ColorsTheme.of(context).textPrimaryAndIcons,
           ),
           onPressed: () => showFilterDialog(context),
         ),

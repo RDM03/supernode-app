@@ -27,6 +27,12 @@ echo "APPCENTER_TOKEN_ANDROID=${APPCENTER_TOKEN_ANDROID}" >> assets/.env
 echo "APPCENTER_TOKEN_IOS=${APPCENTER_TOKEN_IOS}" >> assets/.env
 echo "APPCENTER_APPID_IOS=${APPCENTER_APPID_IOS}" >> assets/.env
 
+if [ ! -z "$GOOGLE_SERVICES_PLIST" ]; then
+  echo $GOOGLE_SERVICES_PLIST | base64 --decode > "$APPCENTER_SOURCE_DIRECTORY/ios/Runner/GoogleService-Info.plist"
+fi
+
+head "$APPCENTER_SOURCE_DIRECTORY/ios/Runner/GoogleService-Info.plist"
+
 cat > ~/.netrc <<- EOM
 machine api.mapbox.com
    login mapbox
