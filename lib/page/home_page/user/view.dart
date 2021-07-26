@@ -63,8 +63,8 @@ class UserTab extends StatelessWidget {
                       horizontal: 8.0, vertical: 4.0),
                   child: Text(
                     '+ ${FlutterI18n.translate(context, 'add_miner')}',
-                    style: MiddleFontOfColor(
-                        color: Token.supernodeDhx.ui(context).color),
+                    style:
+                        MiddleFontOfColor(color: Token.mxc.ui(context).color),
                   ),
                 ),
               ),

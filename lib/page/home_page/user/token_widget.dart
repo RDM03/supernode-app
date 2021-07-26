@@ -102,8 +102,8 @@ class TokenHomePageWidget extends StatelessWidget {
                         horizontal: 8.0, vertical: 4.0),
                     child: Text(
                       '+ ${FlutterI18n.translate(context, 'add_token_title')}',
-                      style: MiddleFontOfColor(
-                          color: Token.supernodeDhx.ui(context).color),
+                      style:
+                          MiddleFontOfColor(color: Token.mxc.ui(context).color),
                     ),
                   ),
                 ),
