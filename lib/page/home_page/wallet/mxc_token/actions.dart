@@ -67,6 +67,7 @@ class MxcActions extends StatelessWidget {
                 ],
               ),
             ),
+            SizedBox(height: 16),
             GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {
