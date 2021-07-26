@@ -94,10 +94,13 @@ class UserTab extends StatelessWidget {
                             percentage: gatewayState.health.value,
                             loading: gatewayState.health.loading),
                         DDBoxSpacer(width: SpacerStyle.small),
-                        minerPanel(context,
-                            name: FlutterI18n.translate(context, 'fuel_tank'),
-                            percentage: gatewayState.miningFuelHealth.value,
-                            loading: gatewayState.miningFuelHealth.loading),
+                        minerPanel(
+                          context,
+                          name: FlutterI18n.translate(context, 'fuel_tank'),
+                          percentage: gatewayState.miningFuelHealth.value,
+                          loading: gatewayState.miningFuelHealth.loading,
+                          fixedColor: ColorsTheme.of(context).minerHealthRed,
+                        ),
                       ],
                     ),
                   ),
@@ -137,15 +140,22 @@ class UserTab extends StatelessWidget {
     ]);
   }
 
-  Widget minerPanel(BuildContext context,
-      {String name, double percentage, bool loading = false}) {
-    Color color;
+  Widget minerPanel(
+    BuildContext context, {
+    String name,
+    double percentage,
+    bool loading = false,
+    Color fixedColor,
+  }) {
+    Color color = fixedColor;
     percentage = (percentage ?? 0.0) * 100;
 
-    if (percentage > 10) {
-      color = ColorsTheme.of(context).mxcBlue;
-    } else {
-      color = ColorsTheme.of(context).minerHealthRed;
+    if (color == null) {
+      if (percentage > 10) {
+        color = ColorsTheme.of(context).mxcBlue;
+      } else {
+        color = ColorsTheme.of(context).minerHealthRed;
+      }
     }
 
     return Expanded(
