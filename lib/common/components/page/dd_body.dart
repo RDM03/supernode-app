@@ -24,22 +24,18 @@ class DDBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsTheme.of(context).primaryBackground,
+      resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       body: Container(
           margin: kOuterRowTop70,
           decoration: BoxDecoration(
-            color: ColorsTheme.of(context).secondaryBackground,
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            boxShadow: [
-              BoxShadow(
-                color: boxShadowColor,
-                offset: Offset(0, 2),
-                blurRadius: 7,
-              ),
-            ],
-          ),
+              color: ColorsTheme.of(context).secondaryBackground,
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              boxShadow: [
+                BoxShadow(
+                    color: boxShadowColor, offset: Offset(0, 2), blurRadius: 7)
+              ]),
           child: GestureDetector(
-              onTap: () => FocusScope.of(context).unfocus(),
-              child: child)),
+              onTap: () => FocusScope.of(context).unfocus(), child: child)),
       floatingActionButton: floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,
     );

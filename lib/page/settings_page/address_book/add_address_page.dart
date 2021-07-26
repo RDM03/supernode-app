@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
 import 'package:supernodeapp/common/components/column_spacer.dart';
+import 'package:supernodeapp/common/components/page/dd_body.dart';
+import 'package:supernodeapp/common/components/page/dd_box_spacer.dart';
+import 'package:supernodeapp/common/components/page/dd_nav.dart';
 import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
@@ -11,7 +14,8 @@ import 'package:supernodeapp/common/utils/address_entity.dart';
 import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/scan_qr.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
-import 'package:supernodeapp/theme/colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:supernodeapp/theme/spacing.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
 import 'address_book_page.dart';
@@ -56,69 +60,76 @@ class _AddAddressPageState extends State<AddAddressPage> {
 
   @override
   Widget build(BuildContext context) {
-    return pageFrame(
-      context: context,
-      scrollable: false,
-      useSafeArea: true,
-      children: [
-        PageNavBar(
-          text: widget.type.token.ui(context).name +
-              ' ' +
-              FlutterI18n.translate(context, 'address_book'),
-          leadingWidget: AppBarBackButton(),
-          actionWidget: Icon(Icons.center_focus_weak),
-          onTap: _onQr,
-          centerTitle: true,
-        ),
-        bigColumnSpacer(),
-        Form(
-          key: formKey,
-          child: Column(children: <Widget>[
-            Container(
-              child: Text(
-                FlutterI18n.translate(context, 'address_book_desc'),
-                style: FontTheme.of(context).small.secondary(),
-              ),
-            ),
-            SizedBox(height: 40),
-            TextFieldWithTitle(
-              key: ValueKey('addressTextField'),
-              title: FlutterI18n.translate(context, 'address'),
-              validator: (v) => v != null &&
-                      (widget.type == AddressBookType.dhx ||
-                          isValidEthereumAddress(v))
-                  ? null
-                  : FlutterI18n.translate(context, 'invalid_address'),
-              controller: addressController,
-            ),
-            smallColumnSpacer(),
-            TextFieldWithTitle(
-              key: ValueKey('nameTextField'),
-              title: FlutterI18n.translate(context, 'name'),
-              validator: (v) => v != null && v.isNotEmpty
-                  ? null
-                  : FlutterI18n.translate(context, 'invalid_name'),
-              controller: nameController,
-            ),
-            smallColumnSpacer(),
-            TextFieldWithTitle(
-              key: ValueKey('memoTextField'),
-              title: FlutterI18n.translate(context, 'memo'),
-              controller: memoController,
-            ),
-          ]),
-        ),
-        Spacer(),
-        PrimaryButton(
-          buttonTitle: FlutterI18n.translate(context, 'update'),
-          onTap: _onSave,
-          minWidth: double.infinity,
-          minHeight: 48,
-          bgColor: widget.type.token.ui(context).color,
-          key: ValueKey('updateButton'),
-        ),
-        SizedBox(height: 30),
-      ],
-    );
+    Size _screenSize = MediaQuery.of(context).size;
+
+    return DDBody(
+        resizeToAvoidBottomInset: true,
+        child: SingleChildScrollView(
+            child: Container(
+                height: _screenSize.height - 80.h,
+                padding: const EdgeInsets.all(20),
+                child: Stack(children: [
+                  Column(
+                    children: [
+                      PageNavBar(
+                          text: widget.type.token.ui(context).name +
+                              ' ' +
+                              FlutterI18n.translate(context, 'address_book'),
+                          leadingWidget: AppBarBackButton(),
+                          actionWidget: Icon(Icons.center_focus_weak),
+                          onTap: _onQr,
+                          centerTitle: true),
+                      DDBoxSpacer(height: SpacerStyle.big),
+                      Form(
+                          key: formKey,
+                          child: Column(children: <Widget>[
+                            Container(
+                                child: Text(
+                                    FlutterI18n.translate(
+                                        context, 'address_book_desc'),
+                                    style: FontTheme.of(context)
+                                        .small
+                                        .secondary())),
+                            DDBoxSpacer(height: SpacerStyle.big),
+                            TextFieldWithTitle(
+                                key: ValueKey('addressTextField'),
+                                title:
+                                    FlutterI18n.translate(context, 'address'),
+                                validator: (v) => v != null &&
+                                        (widget.type == AddressBookType.dhx ||
+                                            isValidEthereumAddress(v))
+                                    ? null
+                                    : FlutterI18n.translate(
+                                        context, 'invalid_address'),
+                                controller: addressController),
+                            DDBoxSpacer(height: SpacerStyle.small),
+                            TextFieldWithTitle(
+                                key: ValueKey('nameTextField'),
+                                title: FlutterI18n.translate(context, 'name'),
+                                validator: (v) => v != null && v.isNotEmpty
+                                    ? null
+                                    : FlutterI18n.translate(
+                                        context, 'invalid_name'),
+                                controller: nameController),
+                            DDBoxSpacer(height: SpacerStyle.small),
+                            TextFieldWithTitle(
+                                key: ValueKey('memoTextField'),
+                                title: FlutterI18n.translate(context, 'memo'),
+                                controller: memoController)
+                          ]))
+                    ],
+                  ),
+                  Positioned(
+                      right: 0,
+                      left: 0,
+                      bottom: 10.h,
+                      child: PrimaryButton(
+                          buttonTitle: FlutterI18n.translate(context, 'update'),
+                          onTap: _onSave,
+                          minWidth: _screenSize.width,
+                          minHeight: 48.h,
+                          bgColor: widget.type.token.ui(context).color,
+                          key: ValueKey('updateButton')))
+                ]))));
   }
 }

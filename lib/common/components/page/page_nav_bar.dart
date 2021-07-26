@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/theme/colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
 @deprecated
@@ -32,7 +32,7 @@ Widget pageNavBar(
                 ? Icon(
                     Icons.close,
                     color: ColorsTheme.of(context).textPrimaryAndIcons,
-                  )
+                    size: 24.w)
                 : actionWidget,
             onTap: onTap,
           ),
@@ -94,7 +94,7 @@ class PageNavBar extends StatelessWidget {
           if (leadingWidget != null)
             leadingWidget
           else if (centerTitle)
-            SizedBox(width: 24),
+            SizedBox(width: 24.w),
           Expanded(
             child: Text(
               text,
@@ -105,7 +105,7 @@ class PageNavBar extends StatelessWidget {
           if (actionWidget != null)
             actionWidget
           else if (centerTitle)
-            SizedBox(width: 24),
+            SizedBox(width: 24.w),
         ],
       ),
     );
@@ -118,13 +118,14 @@ class AppBarCloseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 24,
+      width: 24.w,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         key: ValueKey('navBackButton'),
         child: Icon(
           Icons.close,
           color: ColorsTheme.of(context).textPrimaryAndIcons,
+          size: 24.w
         ),
         onTap: () => Navigator.of(context).pop(),
       ),
@@ -138,13 +139,14 @@ class AppBarBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 24,
+      width: 24.w,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         key: ValueKey('navBackButton'),
         child: Icon(
           Icons.arrow_back_ios,
           color: ColorsTheme.of(context).textPrimaryAndIcons,
+          size: 24.w
         ),
         onTap: () => Navigator.of(context).pop(),
       ),
