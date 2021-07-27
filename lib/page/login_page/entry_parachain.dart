@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/theme/theme.dart';
 import 'parachain_card.dart';
 
 class EntryParachainPage extends StatelessWidget {
@@ -10,7 +10,7 @@ class EntryParachainPage extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 60),
-            Center(child: Image.asset(AppImages.datadash)),
+            Center(child: Image.asset(ColorsTheme.of(context).getDatadashImg())),
             SizedBox(height: 35),
             Expanded(
               child: ParachainLoginCard(

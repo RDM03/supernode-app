@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supernodeapp/app_cubit.dart';
-import 'package:supernodeapp/configs/images.dart';
 import 'package:supernodeapp/page/login_page/parachain_card.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'supernode_login_card.dart';
 
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: [
             SizedBox(height: 40),
-            Center(child: Image.asset(AppImages.datadash)),
+            Center(child: Image.asset(ColorsTheme.of(context).getDatadashImg())),
             SizedBox(height: 25),
             Expanded(
               child: LayoutBuilder(
