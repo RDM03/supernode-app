@@ -20,8 +20,6 @@ import 'package:supernodeapp/page/home_page/bloc/supernode/user/cubit.dart';
 import 'package:supernodeapp/page/home_page/bloc/supernode/user/state.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/cubit.dart';
 import 'package:supernodeapp/page/settings_page/bloc/settings/state.dart';
-import 'package:supernodeapp/theme/colors.dart';
-import 'package:supernodeapp/theme/font.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -223,7 +221,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: BlocBuilder<SupernodeCubit, SupernodeState>(
                     buildWhen: (a, b) => a.session?.node != b.session?.node,
                     builder: (ctx, state) => CachedNetworkImage(
-                      imageUrl: state.session?.node?.logo ?? '',
+                      imageUrl: ColorsTheme.of(context).getSupernodeLogo(state.session?.node),
                       placeholder: (a, b) => Image.asset(
                         AppImages.placeholder,
                         height: s(40),
