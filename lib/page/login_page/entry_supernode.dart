@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:supernodeapp/configs/images.dart';
+import 'package:supernodeapp/theme/theme.dart';
 
 import 'supernode_login_card.dart';
 
@@ -11,7 +11,7 @@ class EntrySupernodePage extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 60),
-            Center(child: Image.asset(AppImages.datadash)),
+            Center(child: Image.asset(ColorsTheme.of(context).getDatadashImg())),
             SizedBox(height: 35),
             Expanded(
               child: SupernodeLoginCard(

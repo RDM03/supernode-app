@@ -32,6 +32,7 @@ class AppImages {
   static const String email = 'assets/images/login/email.png';
   static const String wechat = 'assets/images/login/wechat.png';
   static const String datadash = 'assets/images/login/datadash.png';
+  static const String datadash_dark = 'assets/images/login/datadash_dark.png';
   static const String dhx = 'assets/images/login/dhx.png';
   static const String mxc = 'assets/images/login/mxc.png';
   static const String mxcSite1 = 'assets/images/login/mxc_1.png';

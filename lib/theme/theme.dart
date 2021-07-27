@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supernodeapp/common/repositories/shared/dao/supernode.model.dart';
+import 'package:supernodeapp/configs/images.dart';
 
 final colorsMapper = ColorsTheme._(); // todo
 
@@ -99,6 +100,8 @@ class ColorsTheme {
 
   String getSupernodeLogo(Supernode node) => node?.logo ?? '';
 
+  String getDatadashImg() => AppImages.datadash;
+
 }
 
 class ColorsThemeDark implements ColorsTheme {
@@ -153,6 +156,8 @@ class ColorsThemeDark implements ColorsTheme {
   final transparent = Colors.transparent;
 
   String getSupernodeLogo(Supernode node) => node?.darkLogo ?? node?.logo ?? '';
+
+  String getDatadashImg() => AppImages.datadash_dark;
 
 }
 
