@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:supernodeapp/common/components/buttons/primary_button.dart';
-import 'package:supernodeapp/common/components/column_spacer.dart';
 import 'package:supernodeapp/common/components/page/dd_body.dart';
 import 'package:supernodeapp/common/components/page/dd_box_spacer.dart';
-import 'package:supernodeapp/common/components/page/dd_nav.dart';
-import 'package:supernodeapp/common/components/page/page_frame.dart';
 import 'package:supernodeapp/common/components/page/page_nav_bar.dart';
 import 'package:supernodeapp/common/components/text_field/text_field_with_title.dart';
 import 'package:supernodeapp/common/utils/address_entity.dart';
@@ -15,7 +12,6 @@ import 'package:supernodeapp/common/utils/currencies.dart';
 import 'package:supernodeapp/common/utils/scan_qr.dart';
 import 'package:supernodeapp/common/utils/utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:supernodeapp/theme/spacing.dart';
 import 'package:supernodeapp/theme/theme.dart';
 
 import 'address_book_page.dart';
@@ -60,13 +56,12 @@ class _AddAddressPageState extends State<AddAddressPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size _screenSize = MediaQuery.of(context).size;
 
     return DDBody(
         resizeToAvoidBottomInset: true,
         child: SingleChildScrollView(
             child: Container(
-                height: _screenSize.height - 80.h,
+                height: ScreenUtil().screenHeight - 80.h,
                 padding: const EdgeInsets.all(20),
                 child: Stack(children: [
                   Column(
@@ -126,7 +121,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                       child: PrimaryButton(
                           buttonTitle: FlutterI18n.translate(context, 'update'),
                           onTap: _onSave,
-                          minWidth: _screenSize.width,
+                          minWidth: ScreenUtil().screenWidth,
                           minHeight: 48.h,
                           bgColor: widget.type.token.ui(context).color,
                           key: ValueKey('updateButton')))
